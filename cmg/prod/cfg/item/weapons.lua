@@ -1,1 +1,142 @@
-CMGPvPC|qcŠ€}id†‚lhˆtl\Ym“œSp’’gm›–™ˆu}†•¯c{tj_~kyc„Z}gUjtj7f€a=oreV€`„lf‹m‡aT‚t›‘‡y ŠX~¢—\_š…‚¦•e—§[~yh££~lp[„g5Yv^[ywE„tQ‹‚Zjumn–Šsj{uV¡’zY\}wœ}—‚…›œ›nk‡x‚ŠU¯rs`“ŠMn«?=rGm>v9do>y€gRW…u‹„n–Œ‰Šo‘tˆ‘“ˆ{Z˜|l|‚‰¥b¥`š¨YŒw³f¢ªz^©©tmWursXzguH~cTzFvgHgzX…ˆ_‡‘Š„pow\£”l’›™{—¯š`„¯•bŒ°Jx€ih¦5`kp“nf3NƒZM<…yLRG|@d~~„Œ‚m‡‡‡r’rfƒ“†yj¤“”t¤~’›|›°—‰Šoe£kKIW|doSQYu|[N=†zMS[ndsjgc„^Qš€psŒv¢’io¨–j rƒ¦”†dƒƒ¥sei†ii}D;eWG€q5?TuOO‹z„SQdU_gqŒO}pkyrhŸRVm‘jpª–¡‘¡›rˆ¬‡‚©Cš¥Kfrla’zpeX3~r4wAn`:yh_U]pfuzFqQupK–ŠMu^hw™‘|}–~–ƒ}¢ƒˆ§J{vgsMmƒZ~VF3DZHV†w<]{TZiK„j]n‘qOnlnty|’•}z†\©„ij†vg¢Ox~kh§Œk[m6SZqV…w[qzPx‰~{k‚ZM•‡k‰S€rL“vs—‘]œŒi¤š—ƒ~ œƒ¡¦Švvmfh“Fi’u6m¬WXLW†w^c„`T_„ufJgbe€gfn–š€Nc˜tgŠ˜ˆ|g£••{›‡ol¡€¥†C… ‡hi”mkƒv{o1{}tL\‚g_ayaQ>}B]‘‚lN…tkaV‹Othw`^’“xgwš{~šz…š²[g¢p_drb•€}ojpˆs9]ˆn;e‰}f]ƒ€}Q{YRpf‹PT¡yh‚–“nu›€zŸ€|›£Ÿ‰‰E‡£lhOsM¥kRQWW]d9VƒwagŒ~RE†xjkw|n^—ˆLV¡ugn’zs™ŒzŸ—›]aªƒvŠi Ÿ‡0dqvRP{lWW~sIn|l`K‡yy_ˆ^w|cbd†…Kbˆ‹MxgZ‚z{—”]˜šrx¨~¨Ye²q^n2^mYqoH;s}vxnPB][]~c_b~Šz}]exn}—‚NyY‚Sx’“kd¦…[¢š›_€¨ cˆ¢d{twX‹sR€4CVJgwj]NˆwuY†reb”fYY{X^Uqaš‹OYnii¥”n]…}lœ„Š­—‰ˆ¤K}r`‘oOMpUQToVc6>[o=„„teJKj€I’†]‰‹n„ŒQ{¤‡UyŸ—Ÿw^™™aœaŠ¢ ŠzqL}vyiƒ§le–L=p\Ftu9C€`TqtgX’}W“}€`‰ccŸ˜g•xgY¢|o’ „o«š„¯YŒƒ·MzrzQ†meXXtiXH>u_@dvXOga†gcfhgi‹‚upW[xsv‘xwy›¡šš—¢‡D†¡ˆfYmZmoOYnlzuLk{naRŒ{y]Švif˜l^{‹~qbœ‹‰‹’xtigyh˜Š[˜¬u“hŸš¥[lkOesc–B~pmW‚k_VŠ_NAPcRZaxi_Q‡ja‡Ša‰“Œ†rqs”yux”tŠ•¡œvœ¤  Šue¤q1h‘\=VHOs[Tzm[H`yG‘|}ƒf\”|p„ˆ‰MW›sc•’{€ –kk§™˜‡ŸŸb‡¡czsvMroQ‚Q|eYP„YGTx`r>y|>iXKqF“‰‡Lg‰t…WuŠd’”gm™}q|¢šƒˆ®…ŸbªD›¦LHŠ¥ML”NvqJY„sl{\X[v]\djwS‚fdf‡lhk‡“ƒ†fnw† ‹W‚b‹\›œtm¯d«£eh‰rjl‘lm„>€aZU|[J=L_NV]te[Mƒf]ƒ{mRoc€ƒvg¡rŸ‹~{­o\mƒqŸzml]i“yP¤~5l…\RkpWVXy^Za[cmAd€kk’‡ZS™‰Oo•…‘›’V^^–”| ƒt ¡€gW‹nnM~omm|nmBYL\†x_{ŒaTG‹vcYPzl\•†JSŒŠOw…RŸ•“Xs•}‘pª„–pi–‡}´cgk‚gF€l¶|YjIwZMM?^PU}}U{‹wdL‡‡i‚jhj‹ploŠq~^•~q¤x›€|š—ˆm©E¢JIŠmsl«QSQStYU^t}_QW‹|fIb‚Yo“k_LYo]k›ŒQr”io£”~`™rƒ¦”†dƒƒ¤JFˆ¤qa£DL_Ud~sKTEe:_AjbGJugFIFdUvpk‰nŠYRw¢‡U–›kk¡›rˆ¬‡‚¬IwtM€‹{l’XyUITyj[?\WZu\[]~c~XK„yk’ˆˆKpŠ‹c\šccylŸjw•|{}ƒ‰–¦ZŒ}xg§ˆej”VvoWoviXMK^R{{dEfVC‚n]Lmhk†mlnt~RTs}’¢™—‹“„z±Ÿdgªegu4i§‰pV…[…h[Nrs]^†z=b|}UNŒŒ‰{m•€n‡omouqt˜”“~~y|—~}…‹°˜t£†F‡©pi¨uN¥qVi[:xVnz€yT[^vfpDFe|I–”sRUwŒ[¢“k‘š˜z–®™_ƒ®”a‹¯e­hg¥s_jo’meXQyYL;„xKQ}zT†Œ€Bmˆi]h”m_q›qep•xt”“’’œ•p€œ‘š„£c©J|{¥h¥V€m„„€qDRG\WvYo`E\{eŒwR‡iƒ]P‰~p—ƒŒuœ†Tz“X[–™~¢Š…`«Ÿa¤³f}yh¦GzU†N~rZSylZwzb_ƒ}{IˆxU†ƒojŒˆo’vbbyb`”•y y‘{„”¢ y¥le¥‰valX8a2WqrJC…vq‹y>h‘tBfŒh[Yo[[‹rW’gŸ‘Œ’a—Z™šrk­©œ„C„¦tfj‡jj~E<fXHr6@Sv`;ˆkad€ldT^ti~–~KpRztiZyd¡Š{}‰€p©š^h€Ÿk®R‹lvgjŒ8lƒYyqZgwj]NˆwxX†zef†g†lf‹lhq‡reˆ–†ze¡“r¦—d}‹pvjy‰°Eœ§MI‘§qS…[>hZJƒt8Bm>p€sfW‘€~Z„mVmxaL‹e—Š“vuw˜}—‚…›‹^fƒŠ¡†µh‹¡pk€¨zo«\sK>†x\zDqc=„gdˆ‚€N}Z•‹ˆto‘t’—{gg••~ge™š~¨„wˆµd‹Š­Mtb“qmXS7tj7r@n[QHrdT~BK„ylG’†okn‰pouu{‚[¨€wš„_¬‡x…³e€¨_‹x7lo”€e3ty]Nk{naRŒ{yU‹hQhsYP‰KvŒeXœRœa‹}m¦—[ex›…`­†Š¢N£}th9nU·BppYB@tuY€Yq|a]`|„€jjehƒj€q™¡„prqs”yƒWYx\©§”†ehŠŸnvg~¤nlj‚m3W‚h5_ƒxS<zyGr}Cf€yZS•mKjˆˆbhZ…sc‘‘‘•——Z™šrk­©siaz€1M“rl~E9mHn„YKQ…v`By|TvdWƒ†g†lgj…l‚sX”oˆtŠ{£«z™|{}Ÿ}†–¤c{§ng§‹xk©=:nY]@\MZˆybU}s`ŒQf€H”‡ˆ˜‰m]‹OX˜‘eešŠ}†~qq¨€vm—‰y²dgq}O‚sc•Vrhpp<[N_‚wcY{seF€ŒVL‡n_r„f]uo”uqzz¡Œgœ}‚aŸ…¥§  …‡F£µz`m‚xT…`=qqS=t^G‰`TcueO„kF“n_lš‹tg…r]’V{¦‹YšŸƒs™e•†g†Zw­ngi”Gj“v7nnX}Slr~nqQF{?dX~gPN‚ƒg…ˆ_‡‘Š„pox}§Šzl¢–hš›€¢Ÿl¥cx¸gkVbo“zVI^ˆk^Quv`a‰bU{GwhIh{Y†‡pfVŠaT›x\•~u›†€a¬…dg‰ty·PŠxpQŠpQd•x‚hSxYU^€†o<WŠcVVŒ€Eo”†ZYYo_ou|˜U–ˆz{y”•‚œ˜˜ƒ­œ‚¢ytTiwk‘78VHWƒi[Tvt_Z„`R~HugBcyV…kfi…e{p…hkŸ‘{l`~pw§›ƒ|¢•ƒ¨ I€ufkwl~EfjDrr[<‡]Q\ˆaS‹uhcPiWƒ•}q‰q…WxhZ‘g`¥•€^¡‘ƒd¯ ˆgjMw|{S{sU¥8sXUL~ZHU{aMM€}dI„Y‘ƒ~„ˆq]]œ‚tU ‘yX[„|a©™‚|£|”Ÿ„€‰«±[g‚vO‚…ll”><pqUsbYOCx=AE|e_‡||•{mN™ŠrQT}uZ¢’{uœu˜}y‚˜¡ƒv£ Šmme¤kk‚¤qm¥uVRUpWw_\€hc>‰}?‚‘ƒ[k–…„d—rdk›wp–‰wœ”—| š˜f¥•r­£aŒ‡©fŒªpTeW8ƒt\;>_Y~_[^z‚~}hhcf‚Š†…p•k„Š’xxŠ|[™wŸ¨š_|sy±[Œ®ª_drj”¢vqDIGZJP„bJ€‰{@]TZ•‚neO‡K˜~ƒu‹•iy•yh`“q›uh¡–ˆ¯¥ehhn\kWwdph8WF9v`€<AYw‰sAV‹gZg„JjŠqV„vŒ–jz–‚zic‚”†‚œvi¢—‰°g\†{`’X{oHKyip‚|i:_q=zHdTA€lg[•pY‰”‰Mpcc£‘–§€s‰‘‚¦œx‚ P†{yR‹myK¢r}XU;TrqwAu`P…ydƒ…eYv†yl]—†‚\ŒŠNX–x†¤|‹›–\s™œ^‰¡Ÿxk¯U‹tm_±vR„hvfZEspx‡owCzzdH€YY‹„ƒi‘~Lu‘u‹ˆ–†ze¡““y¢~q}©|”Ÿ®‰†lƒ\Œqoi§4dGupJJ†uOCobV‡tfbfaz€„Hk‹ˆ^^W„uk¢UY„Œ}™¡—s}›Šv³‹vh³F©ta¤~8e•Lƒq6:WuthŠcy[ˆtgd–hXEVlZhuˆtkUQ•xlwœ~bz}™h•†|³bfj•^ªsi„m\SI„q]T>v:‡mrdz„}Xhhcll‘‡Ju•‚†`Y†wm¤’W[x–•‰«„š|©•ˆ…·JyfwN{JH^¦‡nqHpzsmvYXat‚rfQ}|Š‚m{‰\a_ree¡Sn_“ny¨–€Š©“„“£ˆœ­fw¦J`yd•luWJm{k_J†xu}Œt|HwD‘‡…Je‡vnQs‹n—U{–~\™rƒ¦”†dƒƒ¥3]~xil7`eWmwpK[wc[K‹xRKHuCguEp}JQj‚”ho•zƒ——Z™šrk­‡f¦b¬okf|k´DB\TCse4<Y]rLBySi_x}d„Fq‰‡`S—~Ny™†SŠZyh[˜—[[ ^‰©–cšjD›§ngˆoj“]qq4YstLE‡ha@€{†I„YY•„][um\Œ|dz’‘”zm~¡_~|~ m—‰y²dgq[`‘§rk…Vr^VF†tsyŠpcVlte‰[egems–‰Mr”„‡g^ˆzj£”Xb}˜˜†ª†›ƒ®—‹‚¶Lzm=P~†Se•~xiWNtwNv€ys|_^gzˆxlW“…ƒ‚ˆs”bgexkV™•n„ ^ƒ¥•alC›¡©f¤PK£¨zXSI[r8T~vv\|yTz€WP–ld††_—Zqe‚’|”“W¤˜o“fš›{ bŸ­Zg¥fF8c€oVH€„u8]ˆ^PA~|A\b`h„‹j^{‹~qbœ‹‰‹œ‡`£”Y}˜‹qœ­“pp„y§dzgkW7S§B8oI_„UnsZz<g}VItDo|I€Po^QQˆ’i`”“Œœ—•¦pŸ‚˜‰nkF§KS27]2W~i[TxwO^xz>d~}g„hZ`”…oQˆ‹cŸ…sc”‰z„ •••a˜‚k­§ ƒbzsk]°ia’4}nxqTq[dxx;`z{SLohG‡‚P‰†pK˜qdWbudk“yl} €^™‘ƒd­ªssJ|Ÿn^‘|yk§pgo;€j\=†wƒM{zee`iK{lMœ|M‚uf T¡‹l‚¥}ll‚u¨m—‰y²dgqMh§•zVª:spZY[oV†zcZ€rAy‡wkV’„•V€rb›ŒPZƒˆzš“n~¦‚]¨œae†˜Ši§F¬xS‘~{m…rviWGOu^?ŠZyyEufG–v_”pkh’‹sc“…rpxhU”˜ x…™^¥¥”a‹°SŒƒ·h”pQ€‚UEk>i\jz]q†~av†GBmƒylG’†‘–œt‡_’q—”l|¢—Y¢›qƒ«Š„¦YˆwwN€so^„wznXVz][s‰x<f‚sQPHi{mPƒmGˆq\iufu¡‡wa–“}X¥mq«†rup€¤n\hz]²K~X·4:[kSs[K8w{ƒ[h|AˆˆwDn“uofšŠqw’scƒ|Œs£”zq£“zª‡~¤–dteptT}6XX1Tp[\|u`Ws`ySM}gA‚wf[Yl`ŒŠ|b[›Œwo•{x–ª–[‘nsm‡a¢LvƒjP€|b‘<qnX3€\HL†aMPK[yIvhC”we˜pƒg™w_mueR‘•u‚–[¢¢‘^ˆ­‰€´e‹‘mN|n}V€ksYELt]MbŒo`D{{dEiVTnYb[h‡‡SƒtU¤„›m¢“lr¬™q—‚™d¡…urK¡†4_§…pm¦GNrZ|l^__tƒ}cwLEj‚{mN—ˆ”“›vˆf£”t“w~y^w—ƒ…›‹…f¯ ª¤¬g}“xjl¯nY·:>\mOq\K>{|…VHgyo•kE„t…t—‰csU˜oŸxn —| ^s©†n¯Mwi´QnPi”rnXUoYo[ƒb\h~p`OOeXŠ†nhJOr…P™qbSh‚e_”“|¡–o…e›¦w©…™€°e„ª]jFzk”vzZD<…^^7Zvab‚{f]yf{]—{Im‡Kuq``vi›—~zp–‡\†“`„’x±d}0i²JzS§I{rZW{j9N„xaIŠgRDkjIjƒojŒˆro‰s‰Œœus“{kX—›£zlœ†`Ÿ se~1j³K{TiJ|s[X|k:O…ybJ‹hSElkJk„pk‰spŠt‰U£}w™‹{jj€s¥¡‡š~jN¬|Dh±ub“UƒUjysYmƒBw;`xqcD~Š‰‘l~\™ŠjŠ’ŒcyR•“||b…~xƒ˜c Œ„tqJo2SŒ|EZmEq^pY~sLbBxƒT†bv]ja‡yGb–‡qS–v`X¡zzSv’}~—‚y•‚–h´Švš¤Zˆ}<O‚®mV§R‚]FF`tsyŠpcU{o{NL€€f–k”Œo„”UP{‘‡zU ”Ÿ¤ª‚•m¬ ¥«¢zŠ°fg°ma¨¨~e–j‚rqxvkZOM`T€~m|‚•yly“†„‘‹xŠs˜f|\’n |w§›„{¡“a|°b‹m°Qzr|U”mQmXYyr]Tp]uw‹zdz‹vB…„lKˆ…_uq‰N|sidy¤–›ª’¦pƒ•ˆ²Zgªh¡BIm”¶zgYZˆZo~x^rˆG|@e}vhI’ƒ–qƒao—‘h~¢”Wš˜–¨œ›„ •„ywK~ªiX¦yom«Uo_Y:ƒt€Qƒ_sZŠ~g^„vD_“„nP“s]UwwPsq‹Y£‡n ˜\‡¦œa¨£˜Š‚gTiui±rxoGW}r4}yu_B|qbŠ€}gBhJ‡sk[Xp†S…gwœxhp¤•ašƒn{¡‡x‡³Z‰sifjxTD~YEHCSk{Šna\C{yG€}id†‚lh^
+local items = {}
+local cfg = CMG.loadModule("cfg/weapons")
+
+local function use_weapon(source,user_id,itemId,useAmount)
+	if not CMG.hasGroup(user_id, "Vigilante") and CMG.isWeaponInVigilanteJob(itemId) then
+		notify(source, "~r~You can not use vigilante weapons.")
+		return
+	end
+
+	if not CMG.isCloseToRestart() then
+		local weaponClass = CMG.getWeaponClass(itemId)
+		local ammoItem = CMG.getAmmoType(itemId)
+		if ammoItem == "modelammo" then
+			if useAmount > 0 and CMG.tryGetInventoryItem(user_id, itemId, useAmount, true) then
+				local weapons = {}
+				weapons[itemId] = {ammo = useAmount}
+				CMG.giveWeapon(source,user_id,weapons,false)
+			end
+		else
+			CMGclient.getWeapons(source, {}, function(clientWeapons)
+				for weaponId in pairs(clientWeapons) do
+					if CMG.getWeaponClass(weaponId) == weaponClass and weaponClass ~= "Melee" then
+						CMGclient.notify(source,{"~r~You may only equip one weapon of class " .. weaponClass .. " at a time."})
+						return
+					end
+
+					if CMG.getWeaponClass(weaponId) == "Shotgun" and weaponClass == "Heavy" then
+						CMGclient.notify(source,{"~r~You may only equip one weapon of class " .. weaponClass .. " at a time."})
+						return
+					end
+
+					if CMG.getWeaponClass(weaponId) == "Heavy" and weaponClass == "Shotgun" then
+						CMGclient.notify(source,{"~r~You may only equip one weapon of class " .. weaponClass .. " at a time."})
+						return
+					end
+				end
+				if ammoItem ~= "modelammo" then
+					if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
+						local weapons = {}
+						weapons[itemId] = {ammo = 0}
+						CMG.giveWeapon(source,user_id,weapons,false)
+					end
+				end
+			end)
+		end
+	else
+		CMGclient.notify(source,{"~r~You are not allowed to do this right before a restart"})
+	end
+end
+
+local function useAmmoInternal(source, user_id, itemId, amount)
+	CMGclient.getWeapons(source, {}, function(uweapons)
+		local weaponAmmoID = CMG.getEquippedWeaponFromAmmoType(uweapons,itemId)
+		if weaponAmmoID then
+			if uweapons[weaponAmmoID] then
+				if CMG.tryGetInventoryItem(user_id, itemId, amount, true) then -- give weapon ammo
+					CMG.setAmmo(source,user_id,weaponAmmoID,uweapons[weaponAmmoID].ammo + amount)
+				end
+			else
+				CMGclient.notify(source,{"~r~You don't have any weapons that fit this ammo type!"})
+			end
+		else
+			CMGclient.notify(source,{"~r~You don't have any weapons that fit this ammo type."})
+		end
+	end)
+end
+
+local function use_ammo(source,user_id,itemId,useAmount)
+	if useAmount then
+		useAmmoInternal(source, user_id, itemId, math.min(useAmount, 250))
+	else
+		local amount = CMG.getInventoryItemAmount(user_id, itemId)
+		CMG.prompt(source, "Amount of ammo to load: (max "..math.min(amount, 250)..")", "", function(_, ramountInput)
+			local ramount = tonumber(ramountInput)
+			if ramount then
+				useAmmoInternal(source, user_id, itemId, ramount)
+			end
+		end)
+	end
+end
+
+local meleeWeight = 2.0
+local pistolWeight = 5.0
+local smgWeight = 7.5
+local shotgunWeight = 7.5
+local assaultrifleWeight = 10.0
+local sniperWeight = 15.0
+
+--?Initialize weapon configs.
+for weaponModel, weaponInfo in pairs(cfg.weapons) do
+	--?Generate class tables
+
+	local weaponWeight = 10.0
+	if weaponInfo.class == "Pistol" then
+		weaponWeight = pistolWeight
+	elseif weaponInfo.class == "AR" then
+		weaponWeight = assaultrifleWeight
+	elseif weaponInfo.class == "Shotgun" then
+		weaponWeight = shotgunWeight
+	elseif weaponInfo.class == "SMG" then
+		weaponWeight = smgWeight
+	elseif weaponInfo.class == "Heavy" then
+		weaponWeight = sniperWeight
+	elseif weaponInfo.class == "Melee" then
+		weaponWeight = meleeWeight
+	end
+
+	-- Mosins historically were shotguns which have a lower mass
+	if weaponInfo.subType == "musket" then
+		weaponWeight = shotgunWeight
+	end
+
+	--?Generate stored ammo type definitions
+	local ammo
+	if weaponInfo.ammo ~= "" then ammo = weaponInfo.ammo end
+	items[weaponModel] = {weaponInfo.name,"",use_weapon,weaponWeight,ammo}
+end
+
+--Police Ammo
+items["p12guage"] = {"Police-Issued 12 Guage","",use_ammo,0.01}
+items["p5.56"] = {"Police-Issued 5.56mm","",use_ammo,0.01}
+items["p7.62"] = {"Police-Issued 7.62mm","",use_ammo,0.01}
+items["p9mm"] = {"Police-Issued 9mm","",use_ammo,0.01}
+items["p.308"] = {"Police-Issued .308","",use_ammo,0.01}
+items["plastic"] = {"Rubber Bullets","",use_ammo,0.01}
+
+--Civ Ammo
+items["7.62"] = {"7.62mm Bullets","",use_ammo,0.01}
+items["5.56"] = {"5.56mm NATO Bullets","",use_ammo,0.01}
+items["12guage"] = {"12 Guage Pellets","",use_ammo,0.01}
+items["9mm"] = {"9mm Bullets","",use_ammo,0.01}
+items[".357"] = {".357 Bullets","",use_ammo,0.01}
+items[".45ACP"] = {".45 ACP Bullets","",use_ammo,0.01}
+items[".308"] = {".308 Sniper Rounds","",use_ammo,0.01}
+items["firework"] = {"Firework Bullets","",use_ammo,0.01}
+items["hominglauncher"] = {"Homing Launcher Bullets","",use_ammo,0.01}
+items["flare"] = {"Flare Ammo","",use_ammo,0.01}
+
+--Placeholder Ammo
+items["modelammo"] = {"Model Ammo","",use_ammo,0.01}
+
+return items

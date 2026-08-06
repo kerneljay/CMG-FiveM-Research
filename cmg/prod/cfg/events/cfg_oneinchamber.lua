@@ -1,1 +1,50 @@
-CMGPSg=~iTgIrcjytFRˆj{R^‰ck˜x™{›Vf¡¡™˜{™­ªˆn{¥J{‹©‘~~sR„z>IP6w]ZPxilTy{zOtd‚}j\p{Wd„‹d{™‚t’˜‹y”ŠŒš¥œ_¢ªŠ¶g cŒ”°’N‹†MªUs[‡<xs]D~cHU€tcL~sul{ri`‡mXTˆsc“›jty“ŒyqrŠ}u “›¯z¥§ž]£c³›^l±l•lodf^Jm_^ym„|„V„tˆYNlZjbtzb‹Œw‚“„˜j|nz`Œ~¨™ŸrzŸ”m‰œeimsœKC¥nmB8dW_]PSƒdp}zybcVgƒ~‘V”|VoŽgo]}ˆs }la—y‰¡˜–œ­—3¥«ZH6<XnVE:pReK~bMSˆO€‚yw~}ŽnhpŠ~qŽdvtR‡x€žvd€œ‰€…²sh†u°F{®I¦Qo–ƒ8zrIQƒiWY~zaHBgaLC€}L”oyhvmdSjnd—qy—«`Ÿ—‚bl«ˆ˜‰±—5p‚a}E<†NNYaXR\ZCAolQ€ha`M`pCMc_Š‹d€M~‘j˜œ—ˆUr[‡Šežš¤ulwƒ§|Iv}¢J¯¢\m:p‡QqwYJ_{agONyS[ˆh‰k‹i€Mƒgw_Qk…f‹hof‰ygn“Šgo’œ^j«‘n¡§e|Š£‡XqL¥GlIPGjZHOtQXOrbUpiPh‰„oŒe‰’v†ZŸnkTw^txoŸ†§¬}€jcP¯©´…J‹pW`MQH|_pvƒVjP<gRX`rXFo€t‘bj†OvˆŽYorhœ€z–¥xzt£ˆ¢©t§x›LyA¥‚JA£TInKWbql:b…ma|hyƒŽ_bLJpkq™gkyOyciYnri™€¡“dwŠd¤ˆ©›±€T…fQ‹V2†KBµYjp}Pd^6b\bˆX\V?jzb‹\d„Kp‚j˜h’vSyšj[rt‚ž¡œ£n¡r•…szŸ|DzN{Ch„Q\ªf4\g{[vbsyFZ‚FBj‹k‘a›[KsmQhlc“z›\s„^Wƒ}ªy£™`Š…k€E{¯S£fwŠ„Pz[ln<RŒd;c^~…V^Xˆl{O“bŒ\Ht”t›knp˜|‹–h›lmt™v}t—‡u|¡~K•¤`mVy uUp\ms?Uf@e…wH\•{BlgqMbf]t•‡UmnXR}gm^t­qY†o…cz~u©M£°ƒH}²WN9Œvl5^W„sThN=dvxŒ]†jŒnŽnOexrOsoœohof‰ygn“pwn‘ov›“©‹œe{vµ…H¤³X€i7LwK7`Iy?VYu;f‡}ˆY`FosQdgOvqoVlpg›~‘¢vŸ•¤‡§ƒj}§‹fQyƒ°Jƒ´W;:PRr7`pXBWv<gw‚‰T‡X{kY`…bi`ƒsahjv‹Y¤Œ €›‡˜žg·k¬Qzc·†[YoZ’a<NRIy`s@W€DAi‰iJ`smIqk‹Ofja•x‰‹œqsiœ¡—§w¡… „s}hCl®Q±Zy‡rF·YTV8RStyWqRwT[RueSZ\cZ}m`{Œt[s”Šz—pš ƒkebx²~¥Š„’jEzhQ{CuˆƒeoZD>;Qeu;cƒ_ˆZ]kDiT[‘a‹}Œt]‰RimcT{›ƒZr›sš~mwdy¢fdŠ…‡³ƒV¯SP{‹MnsQkLqNULo_MTyV]TwgZu†nUmŽ‰„t‘j”Š˜|›_^s†lY…nˆgz´–aŠu|®‚}žiT8{‹uE1\GM…UgM;cNU‹[…{†lg]Kcg]“voeUk•y”xgq^sœ`^„­}y©M‡‰´…G§¬K¤Fk‡OFiYGNsPWNqaTo€hOgˆƒ~n‹dŽ„‘u…YTnpˆUxvauž”^„ov¨|¶˜bP‡qo„I¨oW¦G:M‡i4]HO…Uu€fwcI^—oHoik•esŽrakXm–ZX~y{§w‰s£†ƒ®€¡¦Ež¤I¢S€HmJQHk[NizbIa‚}xh…^ˆzHqiSNfzŠNx˜ŠYn¨xT~ip¢v°’]‡qk°€‚€®P Q·†[gpWIOyoz`qY‡YkY‡jSaK_saˆl[eQh T–ycyžp©“V‚k›cxz› ~˜yž{CyœMzBgƒKB¤UHct\C[|wrbX‚tAi‰M‘`tfŽq’rSi’vPxcjœpªŒW{edz|†aŠt‚°‚EœgQ{Cyˆse³\UO=R‹Kb]u‰[]y‚fU_JašNŽs“cUj“gSzuƒYq„•šx’s˜u|s–†t{ }E{žO]n•=Uvql\yR|n9cƒGG[^v‰l|pLbŒp‹o]Sœk¤xšzŒ€¡s¬’ ƒ”ˆ¥v~x©Œ«ooƒm¦±T´k|ŒOIz]VƒrS}Uƒcu\•U‰lg“egJrn›ngneˆxfm’ovm€nuš’¨Š›dzu´„G£²VµR4ŠvZ6_XR„ThZƒgPZ‡X_EŒnŽv“cŽn”u`~VmpfT}Ž‚Ÿpxr£†¥ih|˜dNž–q…YŠ²V¥}lMaq7]o_†ViW‚fag^‡WŒlh•hah_‚r`gŒipgŠzho”Œ¢„•to®~€¬P¯‡´„p©mX·H6NbH|`ZhRY?†hˆzŽ]ˆXIqZ†QgŠMw˜l™jrl€ŸcavŠˆ\‡¨xh¨ˆ«QŸw¥†qMµW¨Y7OSs5bKaCX]‡fbb[bY|lZa†cja„tbiŽ†œ~—ni¨xz—¦‰©}°~j‰¯R‹B1‰LVrYzp{LS9€b‚xEW‚fAiŠ|’`djHs\ˆ“dlf—z™]\ptjYƒlv©y‹¨•‰šŽ±k‚jR²S3ˆsW·[E[OdR^LSxU\SvfT[€]d[~‰†x‹€p[˜{d‘¢r«k\“‡cy}‡_‹›¡l‚U±žRP6‰Nju[|d:SŒ\:cN~Œ\]ŠwkfdMaŒ†snŠSk~tR}fŽ[qul¡„~ˆ§zŽxd‹†|´‚G„kT´Us‰LshXFMrOVMp`NUzW^VCyjjKxVeIr_mVky–}—¤s­“¢†oy¬|Ž«˜L‡‰oƒn‘®U¥F4‹†V3^~N†Tg„qe`^G[†|DoXbNeh^Lu†z—hpnV}a\už~[†– «~zfL‡´‡€H~¡RGlIPGjZHOtl‚du}TOŽ^`}ŒogPd‰Ov‡wžmVx¥”t‰{_†§ª‘™«Py‹n†ZmY~mNbP7^pvˆWZ`?gxpG_ˆ`EnY`—hz‚‘xˆtYo¨ŽVjˆ_v |œ†o¦zx›LyA¥‚JA£TJ9\fV5u:Y?U[Y@iSeŒ_siHpeQh¡‹OzrŸŽnƒuYk‰¤w¡‰§‰™›¯D›fPzBx‡rd²Zzp‚RdV7b\bBZ\xeTf’`sMHrlnQh¢nSyš~Yqƒ”™w‘r—t{r•…szŸ|DzN€\m”<T´pk[xQ{m9crFCZ]kˆkU[’a›kGq\c•i£‰O|d^[r›w[‚}™«z_‰t{±l¬UP3Š^T2]Fn;QULcsGD[”vˆl|l‘cœ~KtnŽ’ik’‡wel‘nulmt™v}ub˜‰‰j—6„hR~M6Œ_]v^Ga>Sgo<e…aC\^‹xkgiOdg‡Žuo}šluS~g\rvm¡„•›¨{¥}©O‡…µ…H…mUNw‡PR3^}A„U~b„fPf\–|‹oWˆZ^q_f‹hof‰ygn“p|‡–‘_‡ª’¦†¡Nž¤µ„Hq±VS}OQS4`Y[ATXOf‡}E^–JGpYsPfig“xa‰Vlpg›~•¢uy{]‡—­}¡­P¯“°J°W€ryDwHk[IPuRYPscQX}Zfq€{Iq”|p‹wˆŽVn§[j–awzp¥‡¨ˆf}x¨P°gn‡p4³Y’Q:O‰Yae‚S[U†iˆLK_™iEq‘iQh{y–yrŸŽo©yœ‘u`x±`ˆs›®z}®OŠxKƒKB¤UCJoLSJm]KRwo…gx€WR‘ac€s\zPg’ŒRydr¡qt‚ƒ|‚£t{a¨‹t†kkŽ°S|G4Š][r[{_|MUO€c‚FB[]WAk{oa›…Žs‚™ˆklVPzew^q«ƒZƒ“•bz³™§ˆ„±„}E{žO|Di…MDgWELqiarzQL‹[]z‰mV~LaŒ~Ls„tUjn†—{œpnu[¢…n|by¤tª‹vžl‚Wž°V~kv†OIz]|@<Ugs:d_UF\_]‰nf“‚dw‡ŽuomVly›}w_s­™ƒl£šw~u˜Iv}¢Ll¬K¤Fk‡OFiYGNs`F;zygŽX`Ey…‹Œƒ`g^q_f‹hof‰ygo ˆ‹a‘ˆwf‰“ƒbcg†¶‚IŠ±X€[zNwi8^YyBUS?hP‰^aWŠnhRPgy_Lv‡‰ŸnqsW}i{btŸ‘¤†q‹¯‘whO¯µ‡I©®M¦HmJQHk[IPuRYPscUH~vaXMk^yŠrYq’ˆt•n˜tY€yc_vŠ„¤‡¨i~’žhOy0¸‡[UqW¨I:O‰Y9aq]ˆY[U€hyƒ‘^‰eGqeOi{‹”x‰uWm€—Œ|jq–szq”„wh‚{CyœM1K Ypˆom_8ghS{]O_}eNK
+---@type OneInChamberConfig
+local cfg = {} ---@diagnostic disable-line: missing-fields
+
+cfg.minigameName = "One In The Chamber"
+cfg.minigameDescription = "Be given a bullet and kill another player"
+
+cfg.minPlayers = 5
+cfg.winPayout = 500000
+
+cfg.delayBetweenGunMsec = 10000
+cfg.startCountdownMsec = 5000
+cfg.pistolWeaponId = "WEAPON_PYTHONCMG"
+
+cfg.locations = {
+    ["One In The Chamber"] = {
+        spawnpoints = {
+            vector4(2902.3515625, -3800.4790039062, 128.10400390625, 87.874015808105),
+            vector4(2900.9143066406, -3791.0373535156, 128.15454101562, 99.212593078613),
+            vector4(2896.7341308594, -3779.4592285156, 127.73327636719, 116.22047424316),
+            vector4(2889.1779785156, -3768.5407714844, 128.0029296875, 107.71653747559),
+            vector4(2876.1889648438, -3758.28125, 127.68273925781, 121.88976287842),
+            vector4(2857.1472167969, -3752.8747558594, 127.80078125, 150.23622131348),
+            vector4(2838.6330566406, -3750.6198730469, 127.88500976562, 172.91339111328),
+            vector4(2817.8505859375, -3751.1604003906, 128.10400390625, 172.91339111328),
+            vector4(2802.4877929688, -3749.7099609375, 128.23876953125, 172.91339111328),
+            vector4(2789.4196777344, -3750.3823242188, 128.22192382812, 167.24407958984),
+            vector4(2773.2131347656, -3751.8857421875, 127.91870117188, 153.07086181641),
+            vector4(2753.947265625, -3753.5078125, 127.96923828125, 223.93701171875),
+            vector4(2734.5891113281, -3760.4306640625, 127.81762695312, 198.42520141602),
+            vector4(2720.9670410156, -3771.0988769531, 127.71643066406, 232.44094848633),
+            vector4(2712.4350585938, -3789.5737304688, 127.80078125, 252.28346252441),
+            vector4(2709.560546875, -3808.3647460938, 127.90185546875, 255.11810302734),
+            vector4(2715.6923828125, -3825.2043457031, 127.8681640625, 283.4645690918),
+            vector4(2727.982421875, -3838.9714355469, 127.83447265625, 297.63778686523),
+            vector4(2743.1472167969, -3846.263671875, 127.78393554688, 331.65353393555),
+            vector4(2766.6462402344, -3848.6638183594, 127.935546875, 22.677164077759),
+            vector4(2796.8571777344, -3849.560546875, 128.22192382812, 357.16534423828),
+            vector4(2820.0131835938, -3847.8857421875, 128.03662109375, 0.0),
+            vector4(2843.2087402344, -3846.052734375, 127.83447265625, 340.15747070312),
+            vector4(2864.9802246094, -3837.5341796875, 127.58166503906, 8.5039367675781),
+            vector4(2876.7824707031, -3824.0307617188, 127.59851074219, 59.52755355835),
+        },
+        bounds = {
+            min = vector3(3085.6791992188,-4001.7905273438,39.720539093018),
+            max = vector3(2395.5151367188,-3559.0734863281,293.36614990234)
+        }
+    }
+}
+
+return cfg

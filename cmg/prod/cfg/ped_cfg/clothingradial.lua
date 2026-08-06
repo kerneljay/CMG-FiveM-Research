@@ -1,1 +1,702 @@
-CMGPuSN}hgˆttFw‰`\I|ˆOUnb‰Q‘tis kkU”s¡­xw§„|ª‘‹{©]”T4ZYK¤pLTujP_y]T{sYh>e\ŠLa`lŒˆOZ‹hx—†xp¦‰€_Ž€x¤”tt•‹£‘²©N…Yt[UE¬oMH?c]M9nfa…jjeHT—e]]‡‹xŒ…i‹‡‘n|”Œ‚—™uŒœ•y››†}Vr“’‰­i«]{El4tWM|„n^Ny|Qkj^ƒƒjb‰|MQHogŒŽ„Yˆwo‚¤Ž‚z—v~«—‹†ŸŸŽ6¬ƒ‚Ž®k2=ndK[zi[SˆecS|yX„ŒV}E…h]Œ†uNsŽxs‡k{Œxpƒž…„{•€wª•gI;u•”Š l3v8eHHjYQd†n?…qyd\Œmlh~l\d~p`‘‹Ž€Xˆm‘‰‰[ˆ©ttššš|¨˜}ƒ™ZQk •ˆ¢mI`|NNYrkb]}VU@{sDƒI^]ajaX‰e‹Mƒum–‰}\•qŸ§—q˜›e„ ™}Ÿ£e³8M‰‘0¢]ZeqjNppuxiyog]s{f^Mwofƒkb‰QUˆŽœn €j”–nv›ˆ†Š¢ ‘¡—Šz®f‚[x¢CC«m7c„jKpu>ˆi‰S}W_Kx_…ld‰‹„sUhn‘{˜¡^|Œ„£ˆˆƒfrµ€|iœi³uNSnH§m7d<k‚K?]UŠbihŠzeYNƒ}LJ‰mb€‚xh‘†xoeqqž_š€­s†š–‡£ˆŒ|mY”Mx[UDwVNƒFUMMNoeH}sYhvmiaTrKŠh…“hzy‡™vj_”ŽZ\—uŒœ…uf£‰w¤‹§‘«_•€rKG4gs:AGVL{Rl|„tF]wnjbUnrb‹€ri_kk˜Yzjru„‚]˜v‚†vg¤1±}¢¨€iGB9]\Rh_[SFNsxSkg_ŠmgVJh`”j^mˆc~šnY{wfZxl‚¢n“˜sz†¬¯ee˜P‹C0‡}¬ƒKRvjQYnfYMBwZP…U[b…bk[GxlcYea_kˆ•rg{™›}ob—|€o¢„r©‚w†¢”N£Ie…n¡Vk‚THWrMh„\ŠeaPDbVlŒX}‚]dp–šjOO‚yulZqg–mt{Ÿ“z˜‚vk ƒŸ®~E‹oL”¸IlbVMCOKowUr\Qeƒ…hLfjYŒon›map‹fu]~zi]{oy«zpŸv}„¨œƒ¡ ˜L5j‹TR¯NkxUJ^|~bbEz_cR…ig”fZi„_z–ršwsbVthnžj”ov‚¨­|†a”‹‡~³ƒy¨GrfM{L¡UI>sUrQW^^g‹_ˆth_Ua]k‰g„‘ncw•˜zk^“x|kW€n¥~s‚ž‰¯” }jS¦~PDSnˆd€\?a]L@^R~ˆTy~Y`l’—gKK~uqhnušjpwšw€¤x[xnzvx¨‰wo‡|‹§™S¸tjKG4g[[aMrwRYe‹F_YDwnja–hn“cip“pyu˜†zqgsom›y–£€u‰§`‹£1¥ŠŽ}°SAxQFUqc]L_sTP=pdybVe€[v’rOso^Rpdzšf‹kr~¤_y‚]‡ƒzhu¤{C‰nb‰€—QE:oRn}MSZ}Zc‡_=pd[Q]Y}…c€j_s‘JwgZtxgš}|©{o~™t«‹mŒˆwkJ}Hzˆ~­„LSwkSZIgZNCxZb`~\y†cXlŠDnpSˆmq`“wu¢thw’mˆ¤ˆª…pd‚v|¬x¢}Ew3Šo0¢ZVM‚RHwNU\€t\cbpcWLc€_ellu™uM‚vmcoky—u’Ÿ|q…£]ˆŸl¡†ŠyeO|tMQmžYXqoPL9lauŒ^Ra|WrŽrOokZNl`Œ–b‡Œgnz \v~YŒƒv«|ƒ¨x~…¨…Ž²’¬\G=IEG¶XF}VKZvhbw\xYUBuiio[€…`gs™VmR…|xo¤v|¡qw~¡~‡«‹¨”ˆu}{©H¤rODXvp[L?tY]LaO†_Tcqk€ub^K~r‡žpdsŽi„ ˆ_}l`~rˆ¨t™žy€Œso‡kkžV‘I7NDsJQX|pXutl_SH}`|‹[ah‹hq•uM~ri_kg‹“qŽ›xmŸ[ƒuh‚†u¨‹Šx‰}Œ§‚^zl[WF:XLVˆWM|SZa…yaŽ_uh\Q†hpnŒj‡”qfz˜T|Ya–{n¡…ƒ°‚v… {W²e0“~rQEK{GlqLS_…CZc>qhd[`V…\cjŽ‚j—x~qeZqŽmszzƒ§‘]„{q}y‡¥D nK“±mXH;pUYH4]K‚[P_{mgŒ‡}^ZGzoƒšl`oŠe€œ’ }yh\znš¤p•šu|ˆ®m‚ŒgšREzŠ‘w†MTwT]o}j^UKWSU…fT‹dYh„vq_r†gcPƒww}iŽ“nu§f|u`“Š†}²„Š¯FŒpM•zhmcWNDPLJxVs€]Rf„Ai€M‚gkZo]”mbqzh‘plYŒ€•¬~rœw’®¤o‹znM€WwChm‡O[@W_:md`WE\RX_fŠ~gm\zmaV‹nŠ™iov™v£•žŒ€wmyu™¡œ©†{­kR©7lQUD¶ZY†XL[vQlˆ‚ieTHfZd–e[Šaho“‡pvuƒvj_”v~|šx•¢tˆ¦d‹Œ0¤‰|¯T‘QEToJe{@b^MA_Si‰UzZam“ShLLvriVnd“jqxœy”Œsh€v«{ˆlˆ‘µ§m_SJ@LHFtRo|YNb€dT[{\XExlk˜j^mˆc~šnžpzUˆ{r¨wmœsz¥™€ˆvªX‹C9„€Ž¬KhuRG[yz]M`tUQ>qfd‘cWf\w“g—jcNxtkZpf•lszž’yo[„{q}y¥D nK“±²VFemNJ7j^^X„PuzU\hŽ‘bZ{wj^SˆjrhŽl‰–sh|š›~n›•vr_’††Œ¬x¢}EwzŠ‚lŸSG<qS[]wUr\Qeƒ„gg^~_[H{p^›map‹fq¢s}X‹‚~ubzpŸv}„¨œƒ‹}e[ŽF<‡DF´Xm„VJYtOj†Z‹]|Atkg^“dlbˆfƒmbv”•xx‘plYŒ€€z¬{q w~…©„Œ~i\G=IEGµYn…WKZuPk‡[Œ_gBulh_”emc‰g„‘ncw•–ypqmZ{­|r¡x†ªž…ƒ®]H>JFH¶Zo†XL[vQlˆ\Ž^~Cvmi`•fnhŠh…’odx–—z}‘rn[Ž‚‚|¯}s¢y€‡lŸ†Ž„g^‘I?KGIx[€‡YM\wRm‰]`iDwnja–goi‹i†“pey—˜{‘Š’so\ƒƒ}°~t£zˆm ‡…k_SJ@LHJy\ˆZN]xSnŠ^bZExokb—hpjŒj‡”qfz˜™|’“tp]„„~gu¤{C‰nbˆŠ°`TKAMIKz^L‰[O^yTo‹_’akFyplc˜iqokˆ•rg{™š}£|”uq^‘……h€v¥|DŠoc‰‘‹´aULBNJL{_MŠ\P_zUpŒ`“c\Gzqmd™jrpŽl‰–sh|š›~¤‰•vr_’††€iw¦}E‹pdŠ’MmbVMCOKM5^Lƒ\Q`|nggiMnjYMk_iSj`fmt˜Œs{uXŠ~ukwsqŸ}š§„y«¬Pµqg‡D1£XW„VJYtOj†ZC\VAtkg^”cYˆ_fm‘…ltr•ƒwndplz˜v“ }r†¤¥‰x‡Ÿ€|iœR}OCRm‡cS<U::md`WF\RX_fŠ~emkF|pg]ie‰‘oŒ™vkž‚qŒ˜yub•‰‰ƒ¯{ ¥€H“z}OF]¢VJ?tV^TzXu‚_Th†‡kZƒb^K~rrx˜d‰Žip|¢¥wn“‹~rgœ~†x¨‰wo‡|‹§™S’Y;ZVE9WKU†W„ƒSY`ƒ`iYAk]P…jn]ssy™eŠjq}£¦xrŒshv«{ˆlˆ‘µiTl9nSWFy[I€YN]ykddn‘kgVJh\j’^ƒˆcjvœŸqxw…xla–yo¤tz¤Š®zbNŽ2g‹~jTByRGVrd]]gBd`OCaUs‹W|\co•˜jq‚~qeZshmszzƒ§s[‡wjŸ„ˆwªNŒzLŽ©„`|P:T\7ja]T‰Zw†V\c†cl\En`Sˆmq`“we¢thw’mˆ¤xcz„_’‰…|±‚Š€¦E¡oL€”s³XmVnOK8k__YŒZPV]dˆ|ckqŽzne[gce”xf£uix“n‰¥yd|…`“Š†}j‚x§~FŒqe‹TZncWNDPLZxVs€]Rf„…i~`\I|q_œnbqVweœuj}ƒ‘•ƒ{¦‰ƒrf„|°†z‰¤[¶K6XTCvUIS„TJyPW^‚v]evreYNƒe’‘agn‘nw›gR„xoeqmw™w”¡~s‡¥¦‹‹n£ˆŒ{°Q~vODSo ZpQqRN;nbQŽ`Tc~Yth•qm\Pnbl˜d‰Žip|¢¦v–[Ž…x®}s¢y€‡lŸ†¤‰›O‚8mO|{KQX{Xa…U8nbYO[Weƒa~‹h]q‘tuXrveQzhŸxm|˜Šƒ™’š{wd—Œ x‰}Œ§‚^zR:[WF:XLt‚NsxSZfŒbZExokbTg]Œcjq•‰pŽ‘…xla–x€rœz—¤vŠ¨«M~2g‹~±UjSGVqLgƒ_ˆd`OCaU_H`V…\cjŽ‚i—h~qeZqy{•szoƒ¡¤…bjŸ„ˆw©MzrKŽªœV|]mNJ7j^]Š\P_zUpŒhJmiXLj^l”`…Šelxž£s’WŠ}t«yožu|ƒ§›‚°›—K~4i‹w†MTwT]U8j^UKWSe]z‡dYm‹ŽqqT‰nraNvd›tix”†€ov–ws`“ˆ¬³…yˆ£~ZµV{–SBuTHx~JotOVbˆC\|Atkg^“dk`fmmvšr—ƒwndplnžm¤}r‰xŸ€|iœQWwChm‡O[<V_:md`WŒ^d‰Y_f‰fo“kH|pg]iec‘oŒ™vkV‚^f›€„s¦ˆv­†{Š¦˜SoiJF3¥Zo†XL[vQlˆhJieTHfZl\†ahtšVnhS†}yp]ukšqx£—†y“†z0¤‡²‚IsPY}YyfZQGSOe{Yvƒ`Ui‡AkHP…jn]Kr`—pet‚|{‚’so\…‚¯u„Ÿz•±Vo’Ž}qPDNOEtKRY}qY`gm`TI~`h^„bŒi^rJuQYŽswf™}k¨zn}˜sŽªŽk‹‡vjI|G1‡}¬ƒKRvjRYrfYMBwYP…U[b…bko‰xlcYeackˆ•rg{™T}b—|€o£„r©‚w†¢”O£Me…n¡V{‚THWrMh„l‹eaPDbVlŒX}‚]dp–SkdO‚yulZqg–mt{Ÿ“{˜…‚vk ƒŸ®~E‹oL”¸YmbVMCOKkwUr\Qeƒ>hDLfjYIn\“lapŒ~x”ŽokX‹y¥q–›v}‰¯l…h›SŽF{‹ix‡NUxU^‚l|k_VLXTV=gUŒeZi…wq–k‡hdQ„xx‚žj”ov‚¨f|œa”‹‡~²ƒy¨GrfN{P¡UI>sU\QW^^g‹u>th_Ua]c‰g„‘ncw•Qz{^“x|k €n¥~s‚žŠ¯˜ }jS€~PDSnˆd€r@a]L@^RlˆTy~Y`l’Ph`K~uqhWmc’ipw›w¤—‹~rgœ«ªz€‡k‡´¢®^‘I?KGosQn{XMa<ceH}bfUˆkj—i]l‡b}™ŸzveYwku§vl›ry€¤˜w‚”‡{1¥‡«JgtQFZx5]NAv[_NecbVe€[v’ˆPso^Rpdjšf‹kr~¤cy˜]‡ƒz¯u¤{C‰nbŠ€¡QE:oQn}MSZ}Zc‡u>pd[Q]Yc…c€j_s‘NwwZtxgR|j¡zo~šŒ‡…|œ}yf™OŒzLŽ©„`|v]YH<ZNl„PuzU\hŽNb‚GzqmdTi_Žels—‹tzu‡znc˜|¦v|ƒ¦ƒŒ°¢cZE;†‚E³VD{TIXtfa_jvWS@sggeY~ƒ^eq—Wl‹Pƒzvm¢tjŸou|Ÿ|…©›_’†}s{}eO|tMQmžZXuoPL9l`OŒ^Ra|WrŽˆPokZNl`j–b‡Œgnz £tlk‰|peš|™¨x~…¨…Ž²~¬Q’6kPTC·XF}VKZvhaaWhdSGeYo[€…`gs™œmep‚ui^“v|¡qw~¡~‡«w¥Š{n£ˆŒ{hQ~vODSo ZZP>a]L@^RzˆTy~Y`l’•f^u{nbWŒpušjpwšw€¤pžƒ_gœ…t§Š‰wˆ|‹¦]¸M}QI4g^ZQ†WtƒSY`ƒ`iY‡mmP…jn]tbŸqetj…¡u¦wq\†‚y®€†«{ˆlˆ‘µ°TV9nSWF{[I€YN]ykdd^kgVJh\n’^ƒˆcjvœŸpxs…xla–x¥¤tz¤Š®z©N~2g‹~°TByRGVrd]]WAd`OCaU_‹W|\co•˜iqx~qeZqŽmszzƒ§s¢†bjŸ„ˆw¬MzrKŽªœVVP=]YH<ZNd„PuzU\hŽ‘bjƒwj^Sˆkq–fls–s| lœ~pc˜}p]…sªƒx‡£•OŽMz•‘AtSGo}InsNUa‡Š[yZpcWLej_ellu™e•wT\‘vziœ~«}q€›v‘­³„}h›SŽF{‹ix‡NUxU^‚N~abEz_cR…iW”fZi„_z–jœmŒQ„{wn£u{ pv} }†ªv¦‰em¢‡‹z¯P}uNCRnŸYYW@`\K?]Qc‡Sx}X_k‘”e“dzmaV‹mukSxfvkz–ˆƒ®ˆ„sg…yƒµ‡Œ±HŽrOX|H¸[L?tY]Lbx‚ˆTy~Y`l’•f”q{nbWŒnvlTygžwl{—‰‚‚„g‰…th†zE¶ˆ²‚IsPY}Iz\8@uZ^M€cyƒ‰UzZam“–g•„|ocXowmUzhŸxm|˜Šƒƒ…kŠ†ui‡{F¸‡~³ƒJQtQZ~J1\NAv[_NdŠZŠV{€[bn”—i`c}pdYŽpxr˜{i yn}™‹„„Š°‹‡vjI|Gzˆ´„KRuR[K2]:Bw\`O‚e‹[‹W|\co•˜jap~qeZqys™|j¡zo~šŒ……‹iŒˆwkJ}H{‰€µ…LSvS\€L3_vCx]aPƒfŒ`ŒX}‚]dp–™kbƒrf[rzt›}k¢{p›††Œm‰xlK~I|Š‘w†MTwT]M4aaDy^bQ„gaY~ƒ^eq—šlsb€sg\‘s{uœ~l£|q€œŽ‡‡‘²ŽŠymLJ}‹Sx‡NUxU^‚N6`xEz_cR…hŽbŽZ„_fr˜›mtsth]’t|~Ÿm¤}rˆˆ’l‹znM€K5MzyˆOVyV_ƒO7byF{`dS†jik[€…`gs™œnu†‚ui^“u} €n¥~s‚ž‰‰“pŒ{oNL6N{z‰PWzW`„P8ddG|aeT‡kjl\†ahtšoŒeƒvj_”v~€¡o¦tƒŸ‘ŠŠY¶‘|pO‚M8OV{KQX{Xa…Q:c@H}bfUˆle‘]‚‡biu›žpv„wk`•w… ‚p§€u„ ’‹‹Zo’Ž}qPDN9PW|LRY|Yb†R;e|I~cgV‰m‚f’^ƒˆcjvœŸqŽ‰…xla–x€†¡ƒq¨v…¡“MŒ[4“~rQEO:QX}MSZ}Zc‡S<ggJdhWŠnl™k_n‰d›o[qkV‰€|s¨z€¥u{‚¥‚‹¯{eN3hŒ±UCzSHWse^^vŠeaPDbV`ŒX}‚]dp–™k˜mrf[ržnt{ž{„¨t^‡xk …‰x­N{sL€lWWo;^ZI=[Oe…Qv{V]i’d‘rxk_T‰lr—gmt—t}¡mW€\d™~‚q^†t«„yˆ¤–Ph7–SBuTHp~JotOVbˆ‹]Š}qdXM‚fk`fmmvšfQxj]’w{j€¬~rœw’®‚o„ŽiœTG|MjyˆOVyV_ƒO:ayF{`dS†jX•g[j…`{—kXmRR…|xo¤u“•™w”¡~s‡¥¦‹y }jR‘T|MCrˆPW{oV^r8maXNZVX‰ji–h\k†a|˜lYoŽS†}yp¥w~xšx•¢tˆ¦§Œzd¡‚~kžSQEToJeUBYQ<ofbYŽ^TƒZahŒ€goƒM~ri_kgm“qŽ›xmŸ …ƒzš{wd—‹°x‰}Œ§‚^zN<PZ5h_[R?WM|SZa…y`h€ŠwkbXd`rŒj‡”qfz˜™~|“tp]…™°‚v… {W²G5‰‚m XTK;PFuLSZ~rYay;pd[Q]Y…c€j_s‘’wu„ŒmiV‰}}w£o”™t{‡­°ƒ‰š–J}3h‰‘‡­LivSH\z{`^{uVR?rfflŒX}‚]dp–™lr‹rf[rzpX}k¢{p›†œ|°‰xlK~I|Šw†MTwT]Q{_aDy^bQ„gaY~ƒ^eq—›kcj€sg\‘s{}ž~l£|q€œŽ‡}´ŽŠymLJ5‹Sx‡NUxU^‚R|aREz_cR…i~bŽZ„_fr˜œld{th]’t¡ pv} }†ªz¤‰em¢‡‹z¯P}uNCRnŸYoO@`\K?]Qc‡Sx}X‚ff~jŠOg„–—‚Sp†Žhp™Œ€_˜t¢ª’štp–|‹’‘ž^•QuZZU®o8C|m<swn@~ˆZYw{ƒq‰|ƒ’~‡P\‘meeO‘Xg rry——››¨‹…žz€x³’lªO„lu\[NlWK@uc=fvb{r~u€€x‚^Œ”|‰jzŠQ–{UŒ„…Y”šŒ˜~”™›huŠ ‡~6´ž~~²hW>ueKZhsOy{ms|SZf}†ml_}vJZ”urM€wskW‡V]lry‡Œsƒ¢‘†­g—fn•I|2gnr¥KhvtfMTnSp}Zb?vv{~pzvGK~xlcYeepMŠ˜™r~|[s–ˆ¥†nu„„kš‹¬¥|DUp•‹¡jZXpi8ootwhxfe‡~bZmˆoiY~‚q}Žwvi‡‹|‰“mœ’yaŽ…h œ«}§—¯k~E‹pIŸqI¢kpRtg9^4u„V‚WV|sE”Kp^nkbzV‚gj„sk~™‡~]’•¤vbvv\ƒz‚³ŽmdL‚u4¡3R£lKFaOuqv…W{rCuy}[”Ž``k„„sZ‘‚™cŒ{¡—pp{”wx{žg¯†œgojpYYT©onP?ia\u]Uhƒjh~‡e\pŒr†t‚‡Š|™„dd‘|’›Œqw›w”¡~…cj•–|w¬š¦i„oqJIQ´o]@ukw\ny@…sZa?f^ƒ‰rre‡‡‹ŠŒ…i‹‹vm}œŒ——¡™uh”«u©¡hV¥‘°O†t|fVFjg^DunREvpA‚[[fxjb‘{r€‡Šb\qeŠj„nœ¥sr†ž™˜zžŒz†  ¤d¥œ¨’kPGB|]\Rhq:jvoSuyz‰[‡vWA‘cO}N‡‰g~ŽtV^–‰•w—•ž¥ww™b¥SgŸ”‹¥QIdV^\;3YOTƒeezv{z\Zw]X~yqlˆ~Šl†qi|žmmtU‘„špp’›žsi–¢‡§D rK’ª§RJwiYIktwhxqf]{{~€glmdjb—qaŠy˜‰ii’Š‚vv¡‚y‰¨Žl¡\F2ž…l°d6Yq__RzvbI}W`V]hfKzZZ„†^fœfYMŒj}‘”}‹Œ‚z¬“‚r˜œ ukiŸ›g‚=j¢W6§e\W…kOOzmOW{q}bt}kcqk[„ck˜yRw—tks¥pp•›—wfˆ‡f]‡›¬†z‰¥‰e“7{bIm¤msd†lLK<Wt…^SfXyvZSˆ|Jt~‡Š’Œ„hŽ”ŽŽ–€t™Ž€­›‚cˆ£–|”µ„||}f•QeEz¥b8ewk<@r`_†`TcQƒp„s‡Tnc‚zl†‘m—™Œ—€Ž–†„œŠ‰«©Ÿ¯BmšžO¬VvdphshZYunxRbv‡`Uh€@bŽ|s^Ž‰zŽ„‘u‡ˆ”i§sr”—‡‚ –‹†ªŠžq¢’Žl¬JgyKd\Wqtug„Ww[‚qg_Gmjg€‚…w‡u_…†‹w^‘‡k‘—‘‘˜Ÿn“˜ƒƒ{…Œ‹­I~\pžnv²T1rphHHYia\€ee`zzCO’W|‚Tz`tovu‚qyt˜}}x’’[fŸu™ˆš›cs±}ž­™J¤4iž„“£UEL>QIH{^M~\PcUvsWP…yGq{„‡‰e‹‘‹‹’’{“““]|šyqp”‰¬‰€¦K~I6‰AmX|wUI\NolPI~r@jt}€ˆ‚z^„Š„„‹‹tŒŒ–ŒVu“rji†‚z¥ˆ‚yŸƒw£³‚zyfQ´pNUG§eIBwk9cmvy{sW}ƒ}}„„m………OnŒkcb†{sž{r˜|p†c{sr]‰‡¨†z ^;pd2\¥orztlPv|vv}}f~~ˆ~Hg…d\[xtl—ztk‘uiƒ£tlkXƒp¡s†x™–zs¨œj”žhªsmeIo´oovv_wwwA`~]UTxqmesmdŠnb|medQ|yšxlq’sl¡•c— £l¥§­h§ooXppzp:YwVNMqjf^‰lf]ƒg[u—f^]Ksb“qexj‹ˆlešŽ\†™œ¤ž–z ¦  h§¨¨²i3RpOGFjc_W‚e_V|`Tn‘_WVDlkŒj^qc„e^“‡U‰’•—s™Ÿ™™  ‰¡¡«bkKi‡~¢\XP{^XOuYMk‰XPO=ez…cWj\}z^WŒ€Nx‚‹Ž–ˆl’˜’’™™‚šš¤šdƒ¡€xw›UIt–‡­RFd:QIH5_s~\PcUvsWP…yGq{„‡‰e‹‘‹‹’’{“““]|šyqp”‰¬‰€¦K~g|‰AnXFwUI\NolPI~r@jt}€ˆ‚z^„Š„„‹‹tŒŒ–ŒVu“rji†‚z¥ˆ‚yŸƒwŸl‚zygQ´pNUG§eIBwk9cmvy{sW}ƒ}}„„m………OnŒkcb†{sž{r˜|p˜h{sr`Šw¨†z ^;pd2\¥orztlPv|vv}}f~~ˆ~Hg…d\[xtl—ztk‘ui•£tlkZ€¡s†x™–zs¨œj”žhªsmeIo´oovv_wwwA`~]UTxqmesmdŠnb’medTzšxlq’sl¡•c— £l¥§­h§ooXppzp:YwVNMqjf^‰lf]ƒg[e•h^“ssiWmt“j~‚™~˜‚[Œœ~¯“Šz`ŸŽ:³…~†hXW}fmNtXK[]dc…u`y~`hVFk[b—hp^‰j‡•i}kwp‰€•†„„w™ˆ‹§•fi I¤\pžnv²QjoMp7jrPgyXPO‚ees‹]Y[Šn’k_rd…‚f_”ˆV€Š“–ž˜tš šš¡¡Š¢¢¬clLjˆ€£]YQ|_YPvZNX‰\Q†rff`N`g†]rquŒq‹uNq¢†}mS’l¦xqy‚šŠ‰¯˜Ÿ€¦K}NP–•x§SlƒqS[Q~^NUŠ[ya|]zˆ\p^jc|sˆywwjŒƒ{~šˆY\“{—Ž¢‘ai¥ƒœ³¡¢iœe‚ZlŠCB´Xnb~PLN~au€^ReWxuYR‡{Is}†‰‘‹ƒg“””}••Ÿ•_~œ{sr–‹ƒ®‘‹‚¨M€K}Nzy¤YYW@SZyPedhd~hAr‚d•yp`F…t_™kdlu}|¢‹’s™}p€‚‰ˆªš…žµ£…‡­Q€H}N|H®Pm{OcQ]Vof{ljj]vnq{LO†nŠ•„T\˜v¦”r•\—uŒž}ut¨ŒŠc°‚~„lUsQEXJkhLEzn<fpy|„~vZ€†€€‡‡pˆˆ’ˆRqnfe‰‚~v¡„~u›sj†«—‹¡h·…Œ«‚XW[rWq[4euWˆlcS9xgRŒ^W_h€po•~…fŒpcsu|{x‘¨–x–Zƒsz°®Ž¡CŸnB•ƒˆbYn_]]Priad€n?Bya}tˆwGO‹i‚™‡eˆO‚Šh‘phg›}‡£uqw_†š¥ƒwŠ|[~8m n˜¢lowqiMsysszzc{{…{Ed‚aYX|uqi”wqhŽrft]sžŠ~”šdxžu……k ‡£§[‘|n†„Z«m5EƒR7plvNViggZ|sknŠxIMŽe‚dxfrk„{r”‹ƒ†¢ad›ƒŸ–ª™iq­L¤|j‡k[¨m[S~a[Rx\Pf[SR=iWˆfZm_€}aZƒQ{…Ž‘™“‹o•›••œœ…§g†¤ƒ{zžV©\xYXz©Un…sVMuy]QoG[bXmlp‡l†pIzŠlxhN|g¡slt}•…„ª“š{¡…xˆƒ’kžg„\nMEDp[I†tWt`wXuƒWkYe^wnƒtrre‡~vy•ƒTWŽv’‰Œ\d ~—®œz›ŸF°“„ªO‚a7NFE2\J{YM`RspTM‚vDnx„Œ†~bˆŽˆˆxšZy—vnm‘ˆœŽª‹Š¬œ‡ x¥ˆ«PDb<NUtK`_cz_yc<m}_tk[A€oZ”f_gpˆxw†n”xk{v…ƒ^‘™wŽ wvbM{yg‰¦¤©KhvJ^LXQjavgeeXzqilˆvGJi…|OW“qŠ¡m€Ž’€x£†€wu±€xweN|nL’„¥cG@ui7aktwyqU{{{‚‚kƒƒƒMlŠia`„{~}Ÿz“ª˜{˜xž‚vž±€‡¦}S‘Vm‘«Vn`pRƒg^N4sbM‡YRZc{kjy€a‡k^nixvQ„Œj“rjiW”«™|©}œ}š¨|~Šƒ]“iZ—XK¬d\_{i:=t\xoƒrBJ†d}”‚`ƒs…sk–ysjth\skjX• ~r…w˜•yr§›i“g©rldHn³nnuu^vv€v@_}\TSwn‚tqp’‚m†‹n›‰‘ui‘_sz™p…„ˆŸ„žˆa’¢„µ™€ff”@zLEM•n^]ƒlsTz^Qa\kiDw]t†e]\JtqžŒpfdp›oƒq}v†›ŒŠŠ}Ÿ–ŽR­›lo¦Oªbve5=yWp‡uSvftxf^‰lf]ƒg[eRf^]Jtˆ“qexj‹ˆlešŽ\†™œ¤ž–z ¦  h§¨¨²i3RpOGFjaugƒdc…u`y~a~n„h\ˆ—fmŒcxw{’w‘{T…•w¨ŒƒsY˜‡r¬~wˆaPvž¥†¬QDTO^\7jrPgyXPO>ed‘bo‚c€Žbvdpi‚yŽ}}p’‰„ Ž_b™”¨—go«J¢zh…¨˜¦kYQ|_YPvZNzCYQP?gU†dXk]~{_XOyƒŒ—‘‰m“™““ššƒ››¥›e„¢yxœT§Zv–•x§SlƒqU[Iw[OŠY`Vkjn…j„nGxˆj›vfL‹zeŸqjr{“ƒ‚¨‘˜yŸƒv†Žiœe‚ZlŠCB´XHZ~PLN|aO€^ReWxuYR‡{Is}†‰‘‹ƒg“””}••Ÿ•_~œ{sr–¡“¯±¡M¥}kMUCqXHO„UMuvWt‚VjXd]vm‚sqqd†}ux”‚SVu‘ˆœ‹[cŸ}–­›yœŒšžŒ„¯’Œƒ©NL}OUz¥ZZT?T[zQfei€eiBsƒe–zqaG†u`šlemvŽ~}£Œ“tš~q|‹‰d—Ÿ}U¦…}|¯S’kyKGIx]J{YM`RspTM‚vDnx„Œ†~bˆŽˆˆxšZy—vnm‘ˆœŽª‹Š¬œ‡ x¥‡…±SCJPnRqRo}QeS_Xqh}nll_xps}NQˆpŒƒ—†V^šx‘¨–t—‡•™‡ª‡~¤I|Gy‰´ UUS9OVuLa`d{`zd=n~`‘ul\Bp[•g`hq‰yxž‡Žo•yl|w†„_’šx¡€xwªN£\t…ƒ³W{vTH[MnkOH}q?is|‡y]ƒ‰ƒƒŠŠs‹‹•‹Ut’qihŒƒ—‰¥†…§—‚›² ‚Š€hN}EzŠ¸A«MjxL`NZSlcxiggZ|sknŠxILƒk‡~’QY•sŒ£‘o’‚”‚z¥ˆ‚yŸƒw…nƒz¯›P¥l{‰Qp†\[_v[u_8iy[ŒpgW=|kVb[cl„ts™‚‰jtgwrZ•sŠœ{sr¦‰®¤®€|‚hSqOCVH¨fJCxl:dnwz‚|tX~„~~……n†††Poldc‡~’„ €¢’}–­›}›•_ˆxµ†³“¦H¤sG[IUg^sdbbUwnfi…sDG~f‚y|LTn‡žŒj}‹}u ƒ}tš~r€g~uª–Š Yµ„‹ªR‘8mVZJshZRQcbp‚Yv„XlZf_xo„ussfˆwz–„UXw’z–„^y‘‚ryŸ†Šz£˜ŠJ±ƒiSCJ7QGpLR]WzeQBu{Asvyƒ_•}…„‚xo•†n”xk{}„ƒ¥•€™°žxz¤I|Sw†¬ƒTT:oVr\vi`Š|URXrrDgcWj\}z^WŒ€Nx‚‹Ž–ˆl’˜’’™™}št˜›ªƒ«}x€y[4iž„“£UEL9SY~j_NdPu{MsYmhon{jzrm‘vvq‹‹T_˜n‘q‹‹]€šyqp”‹Ÿ‘­Ž¯ŸK£{i‹‚E®SG]QXwN^^DybfVtf^con„e‚dxfrk„{r”‹ƒ†¢ad›ƒž¤¢—O~Fl’WG¯eWV~PLlx\PZD[SS=~‚s‡biˆ_tswŽswP‘s¤ˆoU”ƒn¨zs{v”‹©´€¡°œM§7lbHW¦XHO<U‚maak‡YYd‡€lsŒ[€†X~dxszy†u…}xœ|––_j£yœš–‡¥„|{ŸY”Mx[UL±VJz€RN\aQYEt€i{hgŽgjqm‚y‹}Xwi˜Ž}u]Šdœ€q~Š‰Ÿ¨†Ÿw¤‚¥lŸh…]oNFEx[Z‡uXOY{_Wjvji€a~Œ`tbng€wŒ}{{n‡‚žŒ]`—š ž“‹}™ŠzB§Ž’‚«aSRzLHJ2[KR?X…„p{XcHmg€\bmgŠuaR…‹Qƒ†‘‘‰“o¥•”’Šw§–~¤I{LN”“µ¥QjoQY_uYMcŠXPP:{p„_f…\qpt‹pŠtM~Žp¡…|lR‘€k¥wpxs‘ˆ¦±}ž­™J¤4iž„“£UELS~j_N`„VVa„}ip‰X}ƒU{aupwvƒr‚zu™~~y““\g v™—“šŠ„¢yxœV‘Ju—‘I®SGURJI4_„‹yrWZ=tf‡eYl^|`YŽ‚Pz„˜’Šn”š””››vvœœ…­z‚‚\’}o‡ix£XnV~PLZ_OWCr~gyfeŒehok€w‰{Vug–Œ{s[ˆbš~o|ˆ‡¦„´¢€£jfƒ[mLDCmZX…sVMWy]Uhthg~_|Š^r`le~uŠ{yylŽ…}€œŠ[^•}˜žœ‘‰{—ˆx¥Œ€©_PxJFTqYIP=Vƒ‚nyVaFke~Z`keˆs_Pƒ‰O„‡‘m›£‹“’ˆu}¥”›|¢†yJ‹’‘³£O§mPGosWKaˆVNN8y}n‚]dƒZonr‰nˆrK|ŒnŸƒzjP~i£unvq†¤¯{œ«—‡¢2¦œ‚‘¡SCJ8PW|h]L^‚TT_‚{gn‡V{Sy_snutp€xs—||w‘‘Zežt—•‘˜ˆ‚ wvšTHs•†¬QE_PHG2]‚‰wpUX;rd…cWj\}z^WŒ€Nx‚‹Ž–ˆl’˜’’™™ttš›šƒ«}x€€Z{m…¦µ¡WVX|NJX}]MUAp|ewdcŠcfmi~u‡yTs‹e”ŠyqY†}`˜|m}z†…›¤‚›² ~¡h›dYk‰AlXlƒqTKUw[Sf‹rfe|]zˆ\p^jc|sˆywwjŒƒ{~šˆY\“{–œš‡y•†v}£ŠŽ~§]ŽNv‡DVpWGN;T€lwT_Dic|X^gM`]s…sk–yscf„{™¤j•gs‡‚‰ˆ•„”Œ‡«‹¥fn:sIlj¥m]WuTLKofzlˆihŠze~•ƒel‘}ra‘—iit—|ƒœk–hŽtˆƒŠ‰–…•ˆ¬‘‘Œ¦go;tJmk¦n^XvUMLpg{m‰ji‹{f–„fƒ’~sb’˜jju˜‘}„l‘—iu‰„‹Š—†–ŽJ­’’§hp<uKnlho_YwVNMqh|nŠkjŒ|g€—…h”“tc“™kkv™’~…žm’˜jvŠ…Œ‹˜‡—K®““Ž¨i2=vLomip`ZxWONri}o‹lk}h˜†jo”€ud”šllwš“†Ÿn“™k‘w‹†Œ™ˆYLp””©j3>wMpnjqa[yXPOsj~pŒmlŽ~i‚™‡iq_qe{]phhR“—ˆœw~t‰ˆŒ£ˆ¢ŒeW¦Iz”„jjYD~PIQLjaŠVw†rb}u…wm]†{ml”fbd“uelYtižŠ•r}b‡šv|‡¤{lŸfk^j «l£nJx€hpomeRZ‚qxYcVfapnI|„by‹jba”xf£‘t{u—{s†«’†…œ}š¨|~Šƒ]“iZ—XK¬d\_{i:=t\w}{phZvgW^„i…o‰|sh‰˜„xx‚žplzžowc’ž‡™†…¬…ˆ‹ X©\7VnH¶m\T<i`C{_P`]ih~‡e~•ƒa„t‚†tl—ztk‘uiw¤tlkV–­›”y|_–ˆ©‡{Ž€¡_‚<qe3]¦ps{umQw}ww~~dYY€hb]e^uXƒixˆyip¦v£¢Žƒr€¨zz…¨¡U­|¡§y`…ZU\[hWg_Z~cc^xxAL…[~|xoi‡f^]xŒ~š{zœŒw§•w¥q›s°~vv`¡¥Wª…Œ«‚XW[rWq[4euWˆlcS9xgRŒ^W_Zxo˜d…”€p‹ƒ“…{k”‰{z¢tpz^ƒszg‚‡¬˜d€L1•¨„KVPs^J;nt:lxozzr|X†Žv~}{s`h†gqdto~|WŠ’p‡™xpoZ…t±Ÿ‚y¡¥JUz ”“ªLiwK_MYRkbwhffY{rjm‰wHK‚j…‹‰~vh„uel’w“}—Š«v—¦’‡v„¬~zŒ­N}F2 ¬V§UT{TW^ZofxjEd|V…{jbJwnQ‰m^nkwvŒ•sŒ£‘o’‚”‚z¥ˆ‚yŸƒwk‚zydRŽ|j¢HKmeWxVJ]OpmQJsAku~‰ƒ{_…‹……ŒŒrggŽvžpkslƒf›‘w†–‡w~k†{°œR€qwIIT¶p\c|KpvHnThcjiveumhŒqql††OZ“iŒŠ†}w•tlk†šŒ¨‰ˆªš…žµ£†}¥©NX9MEEnpteyT[zQfei€eiBsƒe–zqaG†u`šlemh†}›¦r“¢Ž~™‘¡“‰y¢—‰I°‚~°RI7O|{grOZ?d^wSYd^lXI|‚Hz†}ˆˆ€Šf”œ„Œ‹‰nvž”u›r‚}ŒŠe˜ ~V§†~}iTy€nQHNtXPcˆocbyZw…Ym[g`yp…vttg‰€x{—…VYx“™—Œ„v’ƒsz …¡‹¥Yzl„¥´ VU[{MI[3\LT@o{dvcb‰belh}t†xSrŠd“‰xpX…|_—{l|y…„š£š±Ÿ} žcIt–‡­RF`>QIH3^sŠxqVY<se†dXk]~{_XOyƒŒ—‘‰m“™““šš€uu›œ›„¬~yz\‘5jŸ…U¤VFM;UZk`_e…WWb…~jqŠY~„V|bvqxw„sƒ{všz””]h¡wš˜”›‹…£‚zyU¨[w—Wy¨Tm„rUrpx\Pj[SS=~‚s‡biˆ_tswŽswP‘s¤ˆoU”ƒn¨zs{v”‹©´€¡°œM§`pbXH°fXWQMm8`PWD_T‰u€]hMrl…agpV˜ifS†Žlƒ“~pc€]¦œ‰c¦š x€“‘‘„¦^•Yuc48¸Pm{OcQ]Vof{ljj]vnq{LO†n‰—zT—‹‘n|–uml‰…}¨‹…|¢†zIr…}|±SsQEXJkhLEzn<fpy|„~vZ€†€€‡‡mˆb‚‡Q~V…œm“wjz|ƒ‚¤”˜¯­y£‡{N·…Œ«‚XW[rWq[4euWˆlcS9xgRŒ^W_\xoo‘uto“p‰ ŽlV‰‘o†˜wonY„™°žx‚¡CŸnB•ƒˆbYn_]]Priad€n?Bya|Š€mGŠ~„ao‰h`_ƒ|xp›~xo•ym‹dxpo\‡„¥ƒwŠ|[~8m n˜¢lowqiMsysszz`{UuzDqIx`†j]movu—‡r‹¢s x–zn–bxžuŠ‰¤‰£fX§J{ž•FkkZEQJROkbb„hgb†c|“_‚I|„by‹jbaPxœ£‘uk”u’ tˆv‚{”‹ ‘‚¤\“Ws 25«To}s`:}qwTb|[SRvokcŽqkbˆl`Xkcb•xhn›j•gs‡‚‰ˆ•„”Œ‡«‹¥fn:sIlr¥e7‚xlQWo`PW}dhXvhga]_qp‹muc—wvvy€|‘ˆšŒg†žx§Œ„l™s«P€QPZYQ°g^a‡Rs‚n^yH}sYhxiY`•f^hŠnblœoeŽjp{u˜ƒo`“™_‘”ŸŸ—¡}l³›£¢ Y«Npc5Z0q€YSNVVof‚[|‹wkkiPf^]s‰‹–eŠbˆn‚}„ƒ‡‚¦‹‹†  i5­ƒ¦¬ `2}sgLRj[KRx_cS|qcbŠ\XZŠnk˜†hpjrq˜qt{wŒƒ•‡b™s¢˜‡g”‹n¦K{LK”“‹«bY\‚Mn}iYtCxnTcsdT[cYg…i]gTjp‰ekvp“~j[Ž”ZŒ˜šš’œx¦®–ž›T¦Iko”jl{T|NIQQja‹}Vw†rff‚MaYX‹p^Ž‘`…‹]ƒi}x~‹zŠ‚}¡††››do¨~¡§›[lxn¡†M¤VFMsZ^Nwl^]…WSUAhV“ckƒEml“lovr‡~‚]|”n“‚zb†i¡…v†…Ž†¦]“W}‡ix£To>siO^n_OV‹^dj€dXbPe‘„`fqkŽyeV‰U‡“Š••—s¡©‘™˜–Ž¡ƒ¥˜jegµOwIDL‹e\†xQrmaaH\TS†ki‰Œ[€†X~dxszy†u…}xœ|––_j£yœ¢–•g²¨œ‡ŸQ€HnUYI±gYX€RNT~bQŽ|^|T‰hgŽgjqm‚y‹}Xwi˜Ž}u]Šdœ€q€Š‰¡—ŽR·‚£²žO©9ndJYiZJQ‡WOU{_Sa`f[alf‰t`Q„ŠP‚Ž…ˆ’nœ¤Œ”“‘‰œ~ “eŠ`¡°J±ƒ~††`WsLm|h\rRAWON‚dT|‡V{Sy_snutp€xs—||w‘‘Zežt—‘b­£—|‚šL{Ci“ƒ¬bTS{MIOz]L‰wYwS‚cb‰belh}t†xSrŠd“‰xpX…|_—{l|{…„|œ’‰Œ²}ž­™J¤4iž„“£UEL‚RZjvZN\‰\QzV\ga„o[L…K}‰€‹‹ƒi—Ÿ‡ŽŒ„—y›Ž`…[œ«„¬~y[‘|n†§w¢WmU?RJI}_…U‚Qv|NtZnipo|k{sn’wwrŒŒU`™o’˜Œ‹]¨ž’w}•†v}£ŠŽ~§]ŽNv‡DJ¶Xm„rTrV^]„]`gcxosNm…_Ž„skS€wZ’vgwv€w—„‡­x™¨”„Ÿn£™ŽžPG}NUG°UIW=U‚uQWb\jVGz€Fx„{††~ˆd’š‚Š‰‡’t–‰[€V—¦§yt||•Œ¶¨¢±R§\7MED·[pT}LqwIoUidkjwfvnirrm‡‡P[”j“‡†X£™rxqxž…‰y¢—‰I°‚~„iS§mOm]zYXX[b^sj|nIh€Z‰nfN{rUqbrq{zr’ˆ‚¨s”£šiž”z‰™ŠzB·ˆ¥‘«PDR9QmpLR]WzeQBu{Asvyƒ_•}…„‚zo‘„V{Q’¡z¢toww‡±£|¬˜M¢[3‡~²VkqxGlrDjPd_feraqidˆmmh‚‚KVeˆŽ‚Sž”ˆms‹|ls™€„t’„ƒ«}yePŒzh‰§¥±TSzSV]YnewiDc{U„ziaIvmPˆl]mlvumƒz}£nžŠz•d™u„”…u|kƒ ˆ¦K~]4‹‘k†MV<~OLbptbZ…hbRa|F]i„^~ƒMzRgez„˜’Šn”š”™}q„v—”xq¦šh’œf¨qk¢Gm²mmttZuOot>kCr‰Z€dWgbqoJ}…czŒkcbNx¤’u|r•v“¡u‰wƒ|•Œ¡’ƒ¥]”Xtb36¬Up~ta;~rxUc}\TSwn‚tqp’‚m†‹nu…‘uiƒ`sz™p…„ˆŸ„žˆa’¢„µ™€ff”@zLEM‰f]]cb]^wŽ|Z}m{mesmdŠnb€žmedQzŸšxlq’sl¡•c— £l¥§­h§ooUpJjo9f>m„U{_Rb]ljEx€^u‡f^]MsbŸqwiqŽœp„r~w‡œ‹‹~ —S®œmp§Pkyo\6ymsP^xWONri}o‹lk}h˜†jpfŒpd”¡nu”k€ƒš™ƒ\°”‹{aa;u†‡„aXXz^]X|Yr‰wUxhvzh`‹nh_…i]Ph`_Ovt•sgzlŠngœ^ˆ’›ž¦ ˜|¢¨c¢jjª„¤j4a9hPvZM]Xge@s{Yp‚aYX‹p^†”fbdOw‹–th{mŽ‹oh‘_‰“œŸ§¡™}£©d£kk«F¥k5b:i€Qw[N^YhfAt|ZqƒbZYŒqoe•gceQwv—ui|nŒpiž’`Š” ¨¢š~¤ªe¤ll‘mG¦l6c;jRx\O_ZigBu}[r„c[Zrp~–hdfRy˜vj}oqjŸ“a‹•ž¡©£›¥«f¥mmSnH§m7d<k‚Sy]P`[jhCv~\s…d\[Žsq—iegS{x™wk~p‘Žrk ”bŒ–Ÿ¢ª¤œ€¦¬g¦nnToI¨n8e=lƒTz^Qa\kiDw]t†e]\rbh˜jfl–zyšxlq’sl¡•c— £l¥§­h§ooUpJjo9f>m„U{_Rb]ljEx€^u‡f^]‘scq™kgm—|z›ym€r“tm¢–dŽ˜¡¤m¦ž‚¨®iippVqKkp:g?n…V|`Sc^mkFy_vˆg_^’tdzšlhn˜}¡œzns”‘un£—e™c¥nhŸƒ©¯jjqqWrLlq;h@o†W}aTd_nlGz‚`w‰h`_“uuk›mioš}|{o‚t•’vo¤˜fšd¦oi „ª°kkrrXsMmr<iAp‡X~bUe`omH{ƒaxŠia`”vv|œnjp›}ž|pƒu–“wp¥™g‘›e§pj¡…l±llssYtNns=jBqˆYcVfapnI|„by‹jba•wokqnŸ}q„v—”xq¦šh’œf¨qk¢Gm²mmttZuOot>kCr‰Z€dWgbqoJ}…czŒkcb–xž˜žplrU€o ~r…w˜•yr§›i“g©rldHn³nnuu[vPpu?lDsŠ[eXhcrpK~†d{ldc—ziwŸqmsV¦¡s†x™–zs¨œj”žhªsmeIo´oovv\wQqv@mEt‹\‚fYidsqL‡e|Žmed˜{zš rntY‚¢€t‡yš—{5©k•Ÿi«tnfJpvppww]xRrwAnFuŒ]ƒgZjetrM€ˆf}nfe™|‘…¡sou[ƒr£uˆz›˜|6ªžl– jmuogKqwqqxx^ySsxBoGv^„h[kfusN‰g~ogfš}¢v¢tpv\„™¤‚v‰{œZ}7lŸm—¡knvphLrxrryy_zTtyCpHwŽ_…i\lgvtO‚Šh‘phg›~£ƒ£uqw]†„¥ƒwŠ|[~8m n˜¢lowqiMsysszz`{UuzDqIx`†j]mhwuPƒ‹i€’qihœ¤Œ¤vrx^‡«¦„x‹}ž\9n¡oZ£mpxrjNtztt{{a|Vv{ErJya‡k^nixvQ„Œj“rji}¥wsya‡¬§…ŽmŸNŒtNŠS2žb{|VJ^[tmdcXWW†ug_Kx_n|‡ckŒgw—tk‡¡Š‘k•s¬š“w™™„{©°‘¥qœhn[kd3n°nHPb``q]UzƒjhFuv\t„z`†‹~–hWytum€›‚|l“˜„kž”xž¤ž£‹±{ ©€\¶QNZY8©oMdva]L@^VŠ|ZUTvfY`g\k‡^†vqŸ…eeR‡yq¢‚\“~u£e}uu_ž}l·‚§±O†Zu\VFzrOZ~lxoozV€~vVVCn˜‘cbf„ogjW†ffr^‹raqª”Šz¥˜zCnœ´~¡aSK8f6[lXPuoStpmWR…mF}pJ™•c…‰‰Œšlk^šxnƒ¥…^‘œ‘†{°•gw«LŸqJ~‘²aYnp]r~nYMBwYaS}aT[bWf‚g`x•ee‚†qhp¢‡W’’’t u{‘’y„ ˜g|›c€XwŸ…ˆ°lEMy_I;NT[ffeY~se\R^\q{„‡‰e‹‘‹xžx“m’\‰a§¦uy£¥—Ÿyf\Fj qN«d5@qg_Z~[Sfzg|ˆxcZvznMkb—gez„˜’Šn”š”™¥wvœ™ƒz¨j~ œf´Gy mV¯TKS~kO_~uy[Cphky}\ˆ‚{Jn||Nk˜hgs“w‹œujy”ov} }r‚”‹‡®‘‹znM„yOCRm‡OVyVKZuPWcdDihGyul–’z†o}tphTƒxŠxfvkz•pw~¡~s‚xŒ„¯’Œ{oNT5MCrˆPWzWL[vQX_‚_ciƒvm—‰b^K~r˜|pdsŽipwšwl{–q›®€tƒžy€‡k‡|‹¦\ppv[5kgp^V€dcYowgi}uFfx€„r†|bU€rŸ†jŒ‘ ršrrœ™v°¢{z ª‡~[´¤~²hGBsf}|hquJBTTqxqgM~w[}}h`c’tt‰…Š‰k’…V{›xpƒž…o“™bj«Œ‹jœIn0„ƒ‹¨bXXzg~HrjrT@mTd?aX`‘nhX|„ql™vtSJŠi•ˆW|Š“–ž¥†¦pš’t{²‚xj}DŠnKŽ©„LSvSX]`juQ{}raQs|p€wƒPCjaQffqƒŠT£nny’‹}uœ›u^’‰…¬‰y©\§]i–•5¦SKZrjt^~[SfhbR‚|€qz^€€‡nf‘wvqƒ„{r[‡j›Œ‚…§q–Ÿv}ˆ’®˜jŠ L5j£yB£NUxUJYtOVa}tcS€ulo•`_k‹ldw’yscc{f[{ ŒˆtŸ“xƒb„|‹§™’œ^”n{bHH²e]`‚kwu{Wt^Sfd~uHoƒhl[†t’žƒSSŽ…Ÿ•tj•pw~¢‰‘xž¨…|ª¶Œ¥_IpbYQnVMHzRR]voaYsiL?wiSh\k†avu\•ƒudXviy¡Šy–Ž…¨‰e…`¢|9ªš‘¥`–YoNDpBpt|‚SREu_Wj…lfV|€nYNtnPcip“pvz]Rˆzqgso ‚p£€u„ŸzS­”Ž~¬i3csLLW6rOfvm>fp{Wƒ\[k…Ks‹g_^Jtsk—†gR’ps›Ž•o’™b‹l|{n¦b€mgžnu mXC9MLTjrrT„n@hvdT[]\hˆzqo‡~ŠWJqhp›†l_Uyqž¦€pZšª|¬–hžM rKŽªmZTpUYH{_^TˆP_zU\c†cg^mŒzru‘PS‚‹T„‰mzq‰¥a—…™ªƒx‡¢}E‹oL€k…MXR}jN^}txZBogjx|[‡p„Qkcv‘xrb“e¡‰ jT“rŠ«ˆ‡}““†~´z f¨K3˜SC¨m[F;a[Kru?^zsWW|kR‰`_R‚}…^šƒxsMŒ{b™pobš|t‡¢‰ƒs¤ž¡v²ƒŸ¨G”6OCY2°Ol~p`\:zWt†~j~uƒn]h„|K`†d|žieR…‘œv¢t}Ž…„dyb•Œˆ€s{ ¥€W…Qme4I§oMdtY]L<aO†_Thewvƒ—‰b^K~ŠOuUzyXŠ†}§£‹—€Ž…ye” ‰›‰yB‹’‘³£O‚8mOF{g`tf‚cb„t_SH}_[Dƒa~‹hlrMŽŠf}rvfW€nœ˜Žnmar‚ª“‹‚ª Žm¨ˆ~…«PEO|d[5h_[RxmcysxW_ƒuZNAƒp‰…u‰‰„RWlœˆƒja…nb€tŽ¯wwvdKg‹~±VUKjVuLv\‰[OcsnXS]FypldW_„‰dzitˆWl‹’p‡—|€o¢…„±ƒw†¢‡ZMt–sRIYv_<Zjb]ffa{{DP“a‡{zL—flŽl‰–sw}X™•qˆ˜}qb‹y§£™yxlK}Nvž–NµlZxtTJQw[PZ‡of@sjf]ƒxn„~ƒbjŽ€eYLŽ{”€””Œ]Šbw˜§“ŽŠulŠymLZ{ŠCCo\VrW[J}a`VŠua€Wg”fZnŒ~uN™ƒw—t]’w{k\v“ }x{•Ÿfƒ¤™ŽœTG~LBq‡O[`tav‚r]QF{iCl|hx„{††~ˆd’š‚o“~W¦¢Œ–€ €n¥~s‡|šžŒ”°‘¦¯N7leJMogY†XL[wMwePEkeTHf^“bzqiGnbWŒjX“‘lg§]u‘—g­~u|¢†{F²š‘kžV‘Io[6Rfpt||db„npWn~tVDˆkZi‘c`MŽŠŒ}rveQ{z§•|s‚¡sh‡}§‹1‰}“l«JguiLpSpq:g‰Tx=pgc[NV{€[q`k‡Nc‚‰g~ŽswfS{i yn‚‘±£|xe˜eiP0”“r¤aX‚~fr[i`\T@o{dvdT\fmlŽ~i]R‡i—oqf„”†|l•Š|siuq{[ž„±ƒw†¢xc<1–sRJNf]U3ZNCxV|Ys{mwkY~ƒLT€Qq‹‚›tœnkm˜’c˜}p”œy§£–iªZl|x¡·I®SH=€jt]kb^U‰ZRRQ~kefjYŒo…e™„pfv£ui}›†˜Šœ¨zƒwl¡›®§~FW|—Xe¤dq…wPL9la…Œ^Ra}btkgŽqkZNld™wƒgg’…ksž‰Z^‘|peš“x{^•‡´¢‹¨^G=IEC°UJhxj`Pyn`WMYUSu‚h•g[j†\†t_TztcWum¢q‰€xV}qf›yž€¡žh«™o¤i„sqJkz¥^]D}k]L@^QaEt€u]‹‰qM]ˆP“U‚z}‹…Xt–ummu—a‘¡zvc–‹ŠE°‚hi§I?KGMx[KRGMrxAbP‡`iŒ^Swnƒ‡rn]Qog›qete‘”vaƒ‚v›‚yo{w‰£žlˆ‚‚¡iG^nSWGkiut„ayS‚xg_GtkN†‚‘Vbts“sa˜qfy{•‘[ƒ›tp]œ`‹§Œg†˜P‹Ci”“r©jVLw^\r|tQ`Qn@Xqil„lG`z‚†–avPh‚c’}}t‘y’©—}„cšš„{q}x€¢c§Uzž¶‡­RG<is\ja]TBZa†rkZq’^ZGznn|˜jfOflz[œh“…z•d™`¢”‘…|r~~ª~E‹pG «FncZV}`ZI=[OY…Qv{VpZbƒx^m{rnfYsRr„Œ~’ˆna™Œ~ukww‚¥žŠ‘­|iœe‚ZjŽSB³WGORa_:muSjz_cR„d\MŽZ„_usV™ƒgv„{wobyo•—ovlxs{¡žzv¯‡§glH~dHH²fLT…bOCpme`UjY`Oe~•ƒipO††pg]idl•}€’Š[_Œ–„|®‘ª{¡…zo²œ¦UH6NUz¥_Ne†RN;ndRXŒwc‚Yƒi–h\pŽ€xem•„‹mƒvj_”Ž¡šqxƒ‰®ŠŠ——–£x©‚~kžS§QETpUg^Zd^MA_VfƒlŒIgwojŽssnˆˆQ] nŽŒˆy¡m’—r‹œŽªŒŠe™˜J¥ŠŽ~hjn_sOEtKR]gƒm?_u`TI~xDgxKr†ko^‚€R¡‡k‘‘••_Œƒ‚’ƒs{y•¡¡¥I|2g„©‹¨bXXz\7?3tOKxUv…qlhSJnhWKi]w˜h``_Œystxg›}ms§’~tž„±ƒš†¥}Zk]oˆ¨”nmJUqhH<ZR†\Pd‚tnDƒ‰x„h|ymdZff’fls—nˆ“mVŠ}¤‡pd‚v€±w¦}EVj–«x§SG<qk~wNU\€frVVtZbxIM€k_T‰‚gjM„v£‘z~n—Œ~ukwsy]‡œ³¡ˆ¤Ž¨\’}o‡D1£Y~^~JotOVakGsX[udXM‚|ˆ_fmmbqT}lw“‹ZoŽ•sŠšƒra‡w…‘{znM€K5LDD’f]usX\K}`PXcihCzeYNƒa„pJˆepŒigx“†l„¥‹[’–—›‡–„©y†©†z¥€H•{JdoIqf]Y€c]L@^RdˆZWzfZO„fnpŠndy‘†edXvjp ro`—…Œœ…t˜Žhmœ§€žXp€|fpZzWu@MrwRYbY}Ud€Ia~‹h]sL‹i†“ptzU–’n…•z~n_ˆv¤ –vui‡zK¨œ‚uhhGu|]7Wqi[Z‚TQS~xgI~cgVzƒ`kTsOo‰vbœ}{‰‰“oa…‚f‘€™°ž‡‹ncZ‹C9„€’±TDLMh]Oi`\SˆYwO~b‰bzh]co•‰qddŒiw‘|xg[yq¥{o~šo›ž€kŒ€¥[ŒD:…­LivS[MMlsQhx]aQBnEmwƒi{ƒa\–wq`Trj}¢‰}|–zod™u„’‰…|k‚‰®šT§Zv–•x§SG<qS[Z=^Lƒ\Qdf€|Fn†_[H{‡Kv’wRqƒzvm“‰”~e‹]m§‘b‚¥žŠŠj—Žq©L¤|jW6¬mWNDPKS{wdgyqBkst‚g‡ppk„l…œŠswZO…wndpl~owx“ˆz”‹‡~³„²z¬juNfTyˆO[uYvPtv?pY}Bulh`S[€…`vepŒ„Sh‡Žlƒ“x|kW€n¥~s‡„–•¢¶¨}jjnU5ZY8©f]‡ƒkw`neaYEt€i{iYakrq“ƒnbWŒneš†“…¡‚£“~rgœ~zc¢€k‡‹‘l­j…]mRVF7`N|xnNMA_Rb€tZM@^Œ“tNnˆ€rq™khj•~`•z~m‘šw‚kŠf† ˜:³”’  kGu9]Z>iXqˆv_cF;qcZP\Xj‰k[cdtf€wsjŸpŽf˜•y y‘¤tz†¬ ‰¡‹«d{Ld„€m mxyRGZX{iavxez†vaUJch]cjŽuuth‚tkamm™mszz`€’šžŒ –|o§[ŒD:……³mY`|NK8ksQhx]aP‚eU]`omH{ƒaxˆmq`’ucšshw“i–r…ª†pd‚z®„x‡¢}K{oL€–t€mpR=_^Rwl^UKWSUƒfV^dpZYMk_e•gerˆfmcoki—{piš†…“Š†}£ˆ df¨JjGW¦d[……Pv9xVs€]RcRt^e‰TZ„_ftU–b‡Œg}{^¡‹o~Œƒwjw—Ÿw~t€{ƒŸfƒ?4aHn²f8`|b\Sy]R\‰qhBulh_…|adK|Px”zw[“†|’”Œp–XŽƒoœyš©•Œwn’Œ{oN\}MEEƒq^XtY]LbxXŒwc‚Yƒi–hkŠb~P“mŽe˜Yq§rn[Žš¥¦ˆ«}†žŽN³œ£…›O‚8mgzsJQ]R‡l>MofbY^TƒZamz†}ˆˆ€ˆz kgT‡‡YŠœv—†™œ¤ž–z ¦ ¥N³¨¨²i3RzFkpKa_B…oSbpgc[NV{€[bmZ”d`M€ŒP{—|Wvˆ{r˜„o™‡±”gƒrckTh©¡kn\n]7L{aPdŠ]PW}aV`ulFyplc‰etJ€Sc|WWŠ“[¥™xppxšd”¤}yf™OHt…‚klkLBNJ`z^RC„PuzU\gT†oXLjb—f~umKrf[n“X“”] ‡…›¥xt¡h¨[mo{–•h§lJ=vjJQw[PZ‡of@sjf]ƒz^^†|q]˜xŒz‚‹j‚ˆ~~TŠ^‚b‡†e—ƒœ³¡ŠŽqf]ŽF<‡DV´WGOPk`Rlc_V‹\zR„eŒeZpI`ftU–b‡t•“‹ks‰|peš”§ w~Š´™kzœTG{LBq‡OZd€j<\r]QF{uˆX_fŠlz‚[OmešixpNui^“q–[Œ_gœ“c¦¨}Œl‘o¡^•QpY4Q¦pqQxl:LpaQYWsƒfZO„bˆ]H‰d`›ƒŽ\“†~}Ÿr“¢Ž‰…pg‹…th†zUµ…}}|j–QmRVE2[KRGVL{RY`„fl€mwnjbUlbˆ‚Šbi_kfn”~¨‹r‚˜™bŠœ‹Š˜œ ¤Os‡¨‚§aW{]\Vj[KSQmyy}`TI~\‚gy€Jw…}Nw†R‘“…kV“nj©ssž‘s‚ª|yf§d¥Wg‹~jUToVM\{YMBwYaWeYJcWf‚Kc€ŽYh^dštp†llœ“[ˆªu™^‘ˆ„|owœ¡|VMwŸ€sRFP|HmrMcaD‡qUdrie]PX}‚]do\–fbO‚ŽR}™~YxŠ}tš†`§¡y£©—£›­eZl ·I®SHRg^8kb^U{rVV~tiUp„q}n^fp€Rzˆsg\‘t{m—{p†c‘˜qeƒwjƒ{zmO|tMQmŒeqfrW[K<eS}sSRFdWg…y_RE„c‘˜ySo”…{{¥p‘ Œ„ƒj£‘ƒrf„w‡k­¡\n?qZjK°UJ?‚lv_md`WE]d‰un]t•a]J}qqw›miRiovšek–_€n¥~‡ª|t•‡¥Œ{oN…zPDSopsH„RN;nbwŽ`TcUmXMsm\PnfšpdsŽiXc”y}m^‡u£Ÿ•uth†yJ±œ€t¡i„A€fJ=sh^EtnSb8_x}cjI€€jaWc^f~Rz•ƒzY’w§•~‚eZ‚yo{w‰¨ŠzCƒž“…ŸWSJ<PHG:[I€YN]yYq}r~cgWHq_‰_^Rpcs›†j^‹’nj©sfœ‘‡n—|‹aI¡ygŒ“r©jTKAMHPkh<dmdC|az‘hlODzlcYeas’tdlmˆ}o‰€|seyqpc{˜¥‚š†¥|gŒzL“±£_4Q9^8nli]TJVV‚V\c‡jxƒPŠj^Sˆk‡–fls—o‡}`S‹}tjvv¢v|ƒ¦ƒ‰hkšRF9…l¥nFMCOJRytcfx[@I…sELŽckY}n^fd€ŒŒsg\‘o”vžŠ]i¢ˆa†Ÿ’eŽkŽ¯¨PFlŠCCŠm7gwPL9la`Z†XUc>~}^T`\^Žp`g\kagnu™{•‚Œƒwjw—Ÿw~t€{ƒªf”XjM2;¶e7>€U]Ko`PXVr~~‚eYNƒa†h|O[”zSx‘„W€]€¡šw|tt|žh˜¨}jS‘LxJGUopoPFRNP€bRYNTy~YƒgŽgm’bhtšŽrm‡†X… ƒ‚|xnzz¦z€‡lŽœ§t®O‚8mP|{KQX|TlbE8pbYO[[‡[ah‹hnMPvrj]tjŠ’jqgsnv˜‡Šœdm©—i1²‡}¡SCKIeqquXLAvTy[ƒoBN‡mFk„wJsPts”ttjoggo‘[‹›tp]…„~ª|y‡bc¡C9„€‚²UELAPFuLSZ~`fzgqhd\Of\‚|„\cYe`hŠy|ŽqV_›‰[b¤yo“„t|z–¢¢¦J}3h…ªŒ´a4@y_8]vi<eBfe†ff\‚aYYaƒM}fbO‚wvpœnkyT”“tjvrt¤†v}rx¢}h‹sL£‘w†pT{Uit^4vc^‡WV^ytŠYW
+local cfg = {}
+
+-- And this is the master table, i put it down here since it has all the glove variations, and thats quite the eyesore.
+-- You probably dont wanna touch anything down here really.
+-- I generated these glove ones with a tool i made, im pretty certain its accurate, there might be native function for this.
+-- If there is i wish i knew of it before i spent hours doing it this way.
+
+cfg.Variations = {
+	Jackets = {Male = {}, Female = {}},
+	Hair = {Male = {}, Female = {}},
+	Bags = {Male = {}, Female = {}},
+	Visor = {Male = {}, Female = {}},
+	Gloves = {
+		Male = {
+			[16] = 4,
+			[17] = 4,
+			[18] = 4,
+			[19] = 0,
+			[20] = 1,
+			[21] = 2,
+			[22] = 4,
+			[23] = 5,
+			[24] = 6,
+			[25] = 8,
+			[26] = 11,
+			[27] = 12,
+			[28] = 14,
+			[29] = 15,
+			[30] = 0,
+			[31] = 1,
+			[32] = 2,
+			[33] = 4,
+			[34] = 5,
+			[35] = 6,
+			[36] = 8,
+			[37] = 11,
+			[38] = 12,
+			[39] = 14,
+			[40] = 15,
+			[41] = 0,
+			[42] = 1,
+			[43] = 2,
+			[44] = 4,
+			[45] = 5,
+			[46] = 6,
+			[47] = 8,
+			[48] = 11,
+			[49] = 12,
+			[50] = 14,
+			[51] = 15,
+			[52] = 0,
+			[53] = 1,
+			[54] = 2,
+			[55] = 4,
+			[56] = 5,
+			[57] = 6,
+			[58] = 8,
+			[59] = 11,
+			[60] = 12,
+			[61] = 14,
+			[62] = 15,
+			[63] = 0,
+			[64] = 1,
+			[65] = 2,
+			[66] = 4,
+			[67] = 5,
+			[68] = 6,
+			[69] = 8,
+			[70] = 11,
+			[71] = 12,
+			[72] = 14,
+			[73] = 15,
+			[74] = 0,
+			[75] = 1,
+			[76] = 2,
+			[77] = 4,
+			[78] = 5,
+			[79] = 6,
+			[80] = 8,
+			[81] = 11,
+			[82] = 12,
+			[83] = 14,
+			[84] = 15,
+			[85] = 0,
+			[86] = 1,
+			[87] = 2,
+			[88] = 4,
+			[89] = 5,
+			[90] = 6,
+			[91] = 8,
+			[92] = 11,
+			[93] = 12,
+			[94] = 14,
+			[95] = 15,
+			[96] = 4,
+			[97] = 4,
+			[98] = 4,
+			[99] = 0,
+			[100] = 1,
+			[101] = 2,
+			[102] = 4,
+			[103] = 5,
+			[104] = 6,
+			[105] = 8,
+			[106] = 11,
+			[107] = 12,
+			[108] = 14,
+			[109] = 15,
+			[110] = 4,
+			[111] = 4,
+			[115] = 112,
+			[116] = 112,
+			[117] = 112,
+			[118] = 112,
+			[119] = 112,
+			[120] = 112,
+			[121] = 112,
+			[122] = 113,
+			[123] = 113,
+			[124] = 113,
+			[125] = 113,
+			[126] = 113,
+			[127] = 113,
+			[128] = 113,
+			[129] = 114,
+			[130] = 114,
+			[131] = 114,
+			[132] = 114,
+			[133] = 114,
+			[134] = 114,
+			[135] = 114,
+			[136] = 15,
+			[137] = 15,
+			[138] = 0,
+			[139] = 1,
+			[140] = 2,
+			[141] = 4,
+			[142] = 5,
+			[143] = 6,
+			[144] = 8,
+			[145] = 11,
+			[146] = 12,
+			[147] = 14,
+			[148] = 112,
+			[149] = 113,
+			[150] = 114,
+			[151] = 0,
+			[152] = 1,
+			[153] = 2,
+			[154] = 4,
+			[155] = 5,
+			[156] = 6,
+			[157] = 8,
+			[158] = 11,
+			[159] = 12,
+			[160] = 14,
+			[161] = 112,
+			[162] = 113,
+			[163] = 114,
+			[165] = 4,
+			[166] = 4,
+			[167] = 4,
+		},
+		Female = {
+			[16] = 11,
+			[17] = 3,
+			[18] = 3,
+			[19] = 3,
+			[20] = 0,
+			[21] = 1,
+			[22] = 2,
+			[23] = 3,
+			[24] = 4,
+			[25] = 5,
+			[26] = 6,
+			[27] = 7,
+			[28] = 9,
+			[29] = 11,
+			[30] = 12,
+			[31] = 14,
+			[32] = 15,
+			[33] = 0,
+			[34] = 1,
+			[35] = 2,
+			[36] = 3,
+			[37] = 4,
+			[38] = 5,
+			[39] = 6,
+			[40] = 7,
+			[41] = 9,
+			[42] = 11,
+			[43] = 12,
+			[44] = 14,
+			[45] = 15,
+			[46] = 0,
+			[47] = 1,
+			[48] = 2,
+			[49] = 3,
+			[50] = 4,
+			[51] = 5,
+			[52] = 6,
+			[53] = 7,
+			[54] = 9,
+			[55] = 11,
+			[56] = 12,
+			[57] = 14,
+			[58] = 15,
+			[59] = 0,
+			[60] = 1,
+			[61] = 2,
+			[62] = 3,
+			[63] = 4,
+			[64] = 5,
+			[65] = 6,
+			[66] = 7,
+			[67] = 9,
+			[68] = 11,
+			[69] = 12,
+			[70] = 14,
+			[71] = 15,
+			[72] = 0,
+			[73] = 1,
+			[74] = 2,
+			[75] = 3,
+			[76] = 4,
+			[77] = 5,
+			[78] = 6,
+			[79] = 7,
+			[80] = 9,
+			[81] = 11,
+			[82] = 12,
+			[83] = 14,
+			[84] = 15,
+			[85] = 0,
+			[86] = 1,
+			[87] = 2,
+			[88] = 3,
+			[89] = 4,
+			[90] = 5,
+			[91] = 6,
+			[92] = 7,
+			[93] = 9,
+			[94] = 11,
+			[95] = 12,
+			[96] = 14,
+			[97] = 15,
+			[98] = 0,
+			[99] = 1,
+			[100] = 2,
+			[101] = 3,
+			[102] = 4,
+			[103] = 5,
+			[104] = 6,
+			[105] = 7,
+			[106] = 9,
+			[107] = 11,
+			[108] = 12,
+			[109] = 14,
+			[110] = 15,
+			[111] = 3,
+			[112] = 3,
+			[113] = 3,
+			[114] = 0,
+			[115] = 1,
+			[116] = 2,
+			[117] = 3,
+			[118] = 4,
+			[119] = 5,
+			[120] = 6,
+			[121] = 7,
+			[122] = 9,
+			[123] = 11,
+			[124] = 12,
+			[125] = 14,
+			[126] = 15,
+			[127] = 3,
+			[128] = 3,
+			[132] = 129,
+			[133] = 129,
+			[134] = 129,
+			[135] = 129,
+			[136] = 129,
+			[137] = 129,
+			[138] = 129,
+			[139] = 130,
+			[140] = 130,
+			[141] = 130,
+			[142] = 130,
+			[143] = 130,
+			[144] = 130,
+			[145] = 130,
+			[146] = 131,
+			[147] = 131,
+			[148] = 131,
+			[149] = 131,
+			[150] = 131,
+			[151] = 131,
+			[152] = 131,
+			[154] = 153,
+			[155] = 153,
+			[156] = 153,
+			[157] = 153,
+			[158] = 153,
+			[159] = 153,
+			[160] = 153,
+			[162] = 161,
+			[163] = 161,
+			[164] = 161,
+			[165] = 161,
+			[166] = 161,
+			[167] = 161,
+			[168] = 161,
+			[169] = 15,
+			[170] = 15,
+			[171] = 0,
+			[172] = 1,
+			[173] = 2,
+			[174] = 3,
+			[175] = 4,
+			[176] = 5,
+			[177] = 6,
+			[178] = 7,
+			[179] = 9,
+			[180] = 11,
+			[181] = 12,
+			[182] = 14,
+			[183] = 129,
+			[184] = 130,
+			[185] = 131,
+			[186] = 153,
+			[187] = 0,
+			[188] = 1,
+			[189] = 2,
+			[190] = 3,
+			[191] = 4,
+			[192] = 5,
+			[193] = 6,
+			[194] = 7,
+			[195] = 9,
+			[196] = 11,
+			[197] = 12,
+			[198] = 14,
+			[199] = 129,
+			[200] = 130,
+			[201] = 131,
+			[202] = 153,
+			[203] = 161,
+			[204] = 161,
+			[206] = 3,
+			[207] = 3,
+			[208] = 3,
+		}
+	}
+}
+
+local function AddNewVariation(which, gender, one, two, single)
+	local Where = cfg.Variations[which][gender]
+	if not single then
+		Where[one] = two
+		Where[two] = one
+	else
+		Where[one] = two
+	end
+end
+
+--[[
+		This is where all the different variations go.
+		For jackets i included extra things that arent just hoodies aswell, things like the christmas sweater with their different lights.
+		So doing the command whilst wearing the christmas sweater you can toggle the light.
+
+		Tip for adding new ones of this is to toggle Config.Debug, and use vMenu Player Appearance to switch around.
+
+		If you are using EUP you might have to change things around!
+		But it should be easy enough to understand and make changes as you want.
+
+		Simply just :
+
+		AddNewVariation(Table, Gender, First, Second)
+
+		And for Hair there is also the "single" var.
+		Its important for haircuts.
+]]--
+
+Citizen.CreateThread(function()
+	-- Male Visor/Hat Variations
+	AddNewVariation("Visor", "Male", 9, 10)
+	AddNewVariation("Visor", "Male", 18, 67)
+	AddNewVariation("Visor", "Male", 82, 67)
+	AddNewVariation("Visor", "Male", 44, 45)
+	AddNewVariation("Visor", "Male", 50, 68)
+	AddNewVariation("Visor", "Male", 51, 69)
+	AddNewVariation("Visor", "Male", 52, 70)
+	AddNewVariation("Visor", "Male", 53, 71)
+	AddNewVariation("Visor", "Male", 62, 72)
+	AddNewVariation("Visor", "Male", 65, 66)
+	AddNewVariation("Visor", "Male", 73, 74)
+	AddNewVariation("Visor", "Male", 76, 77)
+	AddNewVariation("Visor", "Male", 79, 78)
+	AddNewVariation("Visor", "Male", 80, 81)
+	AddNewVariation("Visor", "Male", 91, 92)
+	AddNewVariation("Visor", "Male", 104, 105)
+	AddNewVariation("Visor", "Male", 109, 110)
+	AddNewVariation("Visor", "Male", 116, 117)
+	AddNewVariation("Visor", "Male", 118, 119)
+	AddNewVariation("Visor", "Male", 123, 124)
+	AddNewVariation("Visor", "Male", 125, 126)
+	AddNewVariation("Visor", "Male", 127, 128)
+	AddNewVariation("Visor", "Male", 130, 131)
+	AddNewVariation("Visor", "Male", 297, 298)
+	AddNewVariation("Visor", "Male", 281, 282)
+	AddNewVariation("Visor", "Male", 275, 276)
+	AddNewVariation("Visor", "Male", 295, 296)
+	AddNewVariation("Visor", "Male", 286, 287)
+	-- Female Visor/Hat Variations
+	AddNewVariation("Visor", "Female", 43, 44)
+	AddNewVariation("Visor", "Female", 49, 67)
+	AddNewVariation("Visor", "Female", 64, 65)
+	AddNewVariation("Visor", "Female", 65, 64)
+	AddNewVariation("Visor", "Female", 51, 69)
+	AddNewVariation("Visor", "Female", 50, 68)
+	AddNewVariation("Visor", "Female", 52, 70)
+	AddNewVariation("Visor", "Female", 62, 71)
+	AddNewVariation("Visor", "Female", 72, 73)
+	AddNewVariation("Visor", "Female", 75, 76)
+	AddNewVariation("Visor", "Female", 78, 77)
+	AddNewVariation("Visor", "Female", 79, 80)
+	AddNewVariation("Visor", "Female", 18, 66)
+	AddNewVariation("Visor", "Female", 66, 81)
+	AddNewVariation("Visor", "Female", 81, 66)
+	AddNewVariation("Visor", "Female", 86, 84)
+	AddNewVariation("Visor", "Female", 90, 91)
+	AddNewVariation("Visor", "Female", 103, 104)
+	AddNewVariation("Visor", "Female", 108, 109)
+	AddNewVariation("Visor", "Female", 115, 116)
+	AddNewVariation("Visor", "Female", 117, 118)
+	AddNewVariation("Visor", "Female", 122, 123)
+	AddNewVariation("Visor", "Female", 124, 125)
+	AddNewVariation("Visor", "Female", 126, 127)
+	AddNewVariation("Visor", "Female", 129, 130)
+	AddNewVariation("Visor", "Female", 280, 281)
+	AddNewVariation("Visor", "Female", 278, 279)
+	AddNewVariation("Visor", "Female", 275, 276)
+	AddNewVariation("Visor", "Female", 260, 261)
+	-- Male Bags
+	AddNewVariation("Bags", "Male", 45, 44)
+	AddNewVariation("Bags", "Male", 41, 40)
+	-- Female Bags
+	AddNewVariation("Bags", "Female", 45, 44)
+	AddNewVariation("Bags", "Female", 41, 40)
+	-- Male Hair
+	AddNewVariation("Hair", "Male", 7, 15, true)
+	AddNewVariation("Hair", "Male", 43, 15, true)
+	AddNewVariation("Hair", "Male", 9, 43, true)
+	AddNewVariation("Hair", "Male", 11, 43, true)
+	AddNewVariation("Hair", "Male", 15, 43, true)
+	AddNewVariation("Hair", "Male", 16, 43, true)
+	AddNewVariation("Hair", "Male", 17, 43, true)
+	AddNewVariation("Hair", "Male", 20, 43, true)
+	AddNewVariation("Hair", "Male", 22, 43, true)
+	AddNewVariation("Hair", "Male", 45, 43, true)
+	AddNewVariation("Hair", "Male", 47, 43, true)
+	AddNewVariation("Hair", "Male", 49, 43, true)
+	AddNewVariation("Hair", "Male", 51, 43, true)
+	AddNewVariation("Hair", "Male", 52, 43, true)
+	AddNewVariation("Hair", "Male", 53, 43, true)
+	AddNewVariation("Hair", "Male", 56, 43, true)
+	AddNewVariation("Hair", "Male", 58, 43, true)
+	-- Female Hair
+	AddNewVariation("Hair", "Female", 1, 49, true)
+	AddNewVariation("Hair", "Female", 2, 49, true)
+	AddNewVariation("Hair", "Female", 7, 49, true)
+	AddNewVariation("Hair", "Female", 9, 49, true)
+	AddNewVariation("Hair", "Female", 10, 49, true)
+	AddNewVariation("Hair", "Female", 11, 48, true)
+	AddNewVariation("Hair", "Female", 14, 53, true)
+	AddNewVariation("Hair", "Female", 15, 42, true)
+	AddNewVariation("Hair", "Female", 21, 42, true)
+	AddNewVariation("Hair", "Female", 23, 42, true)
+	AddNewVariation("Hair", "Female", 31, 53, true)
+	AddNewVariation("Hair", "Female", 39, 49, true)
+	AddNewVariation("Hair", "Female", 40, 49, true)
+	AddNewVariation("Hair", "Female", 42, 53, true)
+	AddNewVariation("Hair", "Female", 45, 49, true)
+	AddNewVariation("Hair", "Female", 48, 49, true)
+	AddNewVariation("Hair", "Female", 49, 48, true)
+	AddNewVariation("Hair", "Female", 52, 53, true)
+	AddNewVariation("Hair", "Female", 53, 42, true)
+	AddNewVariation("Hair", "Female", 54, 55, true)
+	AddNewVariation("Hair", "Female", 59, 42, true)
+	AddNewVariation("Hair", "Female", 59, 54, true)
+	AddNewVariation("Hair", "Female", 68, 53, true)
+	AddNewVariation("Hair", "Female", 76, 48, true)
+	-- Male Top/Jacket Variations
+	AddNewVariation("Jackets", "Male", 29, 30)
+	AddNewVariation("Jackets", "Male", 31, 32)
+	AddNewVariation("Jackets", "Male", 42, 43)
+	AddNewVariation("Jackets", "Male", 68, 69)
+	AddNewVariation("Jackets", "Male", 74, 75)
+	AddNewVariation("Jackets", "Male", 87, 88)
+	AddNewVariation("Jackets", "Male", 99, 100)
+	AddNewVariation("Jackets", "Male", 101, 102)
+	AddNewVariation("Jackets", "Male", 103, 104)
+	AddNewVariation("Jackets", "Male", 126, 127)
+	AddNewVariation("Jackets", "Male", 129, 130)
+	AddNewVariation("Jackets", "Male", 184, 185)
+	AddNewVariation("Jackets", "Male", 188, 189)
+	AddNewVariation("Jackets", "Male", 194, 195)
+	AddNewVariation("Jackets", "Male", 196, 197)
+	AddNewVariation("Jackets", "Male", 198, 199)
+	AddNewVariation("Jackets", "Male", 200, 203)
+	AddNewVariation("Jackets", "Male", 202, 205)
+	AddNewVariation("Jackets", "Male", 206, 207)
+	AddNewVariation("Jackets", "Male", 210, 211)
+	AddNewVariation("Jackets", "Male", 217, 218)
+	AddNewVariation("Jackets", "Male", 229, 230)
+	AddNewVariation("Jackets", "Male", 232, 233)
+	AddNewVariation("Jackets", "Male", 251, 253)
+	AddNewVariation("Jackets", "Male", 256, 261)
+	AddNewVariation("Jackets", "Male", 262, 263)
+	AddNewVariation("Jackets", "Male", 265, 266)
+	AddNewVariation("Jackets", "Male", 267, 268)
+	AddNewVariation("Jackets", "Male", 279, 280)
+	AddNewVariation("Jackets", "Male", 664, 665)
+	-- Female Top/Jacket Variations
+	AddNewVariation("Jackets", "Female", 53, 52)
+	AddNewVariation("Jackets", "Female", 57, 58)
+	AddNewVariation("Jackets", "Female", 62, 63)
+	AddNewVariation("Jackets", "Female", 90, 91)
+	AddNewVariation("Jackets", "Female", 92, 93)
+	AddNewVariation("Jackets", "Female", 94, 95)
+	AddNewVariation("Jackets", "Female", 187, 186)
+	AddNewVariation("Jackets", "Female", 190, 191)
+	AddNewVariation("Jackets", "Female", 196, 197)
+	AddNewVariation("Jackets", "Female", 198, 199)
+	AddNewVariation("Jackets", "Female", 200, 201)
+	AddNewVariation("Jackets", "Female", 202, 205)
+	AddNewVariation("Jackets", "Female", 204, 207)
+	AddNewVariation("Jackets", "Female", 210, 211)
+	AddNewVariation("Jackets", "Female", 214, 215)
+	AddNewVariation("Jackets", "Female", 227, 228)
+	AddNewVariation("Jackets", "Female", 239, 240)
+	AddNewVariation("Jackets", "Female", 242, 243)
+	AddNewVariation("Jackets", "Female", 259, 261)
+	AddNewVariation("Jackets", "Female", 265, 270)
+	AddNewVariation("Jackets", "Female", 271, 272)
+	AddNewVariation("Jackets", "Female", 274, 275)
+	AddNewVariation("Jackets", "Female", 276, 277)
+	AddNewVariation("Jackets", "Female", 292, 293)
+end)
+
+--[[
+
+	These are the tables for all the info we will need when dealing with the functions.
+
+	["Handle"] = {      			First we name it, this is the string that will be put in the command to be used with ToggleClothing, or ToggleProps.
+		Drawable = 11,  			Then we assign its drawable/prop id.
+		Table = Variations.Jackets,	Then we assign its table found in Variations, if it has one, alternatively we can do.
+									Table = {
+										Standalone = true,
+										Male = 34,
+										Female = 35
+									},
+									Which makes it standalone, this example is for shoes, now when the player does the command it checks if they are currently wearing id 34.
+									If they are not it takes the drawable off and saves the one they had equipped.
+
+		Emote = {  							Hey lets do the Emote, Pretty self explanatory.
+			Dict = "missmic4",				This is the dict of the emote.
+			Anim = "michael_tux_fidget",	Anim of the emote.
+			Move = 51,						The move type of the emote, 51 is upper body only so you can move, 0 does not allow you to move.
+			Dur = 1500						Duration of the emote.
+											Alternatively for the props theres a seperate emote for taking off/putting on the prop.
+		}
+	},
+
+]]--
+
+cfg.Drawables = {
+	["Vest"] = {
+		Drawable = 9,
+		Table = {Standalone = true, Male = 0, Female = 0},
+		Emote = {Dict = "missmic4", Anim = "michael_tux_fidget", Move = 51, Dur = 1500}
+	},
+	["Top"] = {
+		Drawable = 11,
+		Table = cfg.Variations.Jackets,
+		Emote = {Dict = "missmic4", Anim = "michael_tux_fidget", Move = 51, Dur = 1500}
+	},
+	["Gloves"] = {
+		Drawable = 3,
+		Table = cfg.Variations.Gloves,
+		Remember = true,
+		Emote = {Dict = "nmt_3_rcm-10", Anim = "cs_nigel_dual-10", Move = 51, Dur = 1200}
+	},
+	["Shoes"] = {
+		Drawable = 6,
+		Table = {Standalone = true, Male = 34, Female = 35},
+		Emote = {Dict = "random@domestic", Anim = "pickup_low", Move = 0, Dur = 1200}
+	},
+	["Neck"] = {
+		Drawable = 7,
+		Table = {Standalone = true, Male = 0, Female = 0 },
+		Emote = {Dict = "clothingtie", Anim = "try_tie_positive_a", Move = 51, Dur = 2100}
+	},
+	["Bag"] = {
+		Drawable = 5,
+		Table = cfg.Variations.Bags,
+		Emote = {Dict = "anim@heists@ornate_bank@grab_cash", Anim = "intro", Move = 51, Dur = 1600}
+	},
+	["Mask"] = {
+		Drawable = 1,
+		Table = {Standalone = true, Male = 0, Female = 0 },
+		Emote = {Dict = "mp_masks@standard_car@ds@", Anim = "put_on_mask", Move = 51, Dur = 800}
+	},
+	["Hair"] = {
+		Drawable = 2,
+		Table = cfg.Variations.Hair,
+		Remember = true,
+		Emote = {Dict = "clothingtie", Anim = "check_out_a", Move = 51, Dur = 2000}
+	},
+}
+
+cfg.Extras = {
+	["Shirt"] = {
+		Drawable = 11,
+		Table = {
+			Standalone = true, Male = 252, Female = 74,
+			Extra = {
+						{Drawable = 8, Id = 15, Tex = 0, Name = "Extra Undershirt"},
+			 			{Drawable = 3, Id = 15, Tex = 0, Name = "Extra Gloves"},
+			  		}
+			},
+		Emote = {Dict = "clothingtie", Anim = "try_tie_negative_a", Move = 51, Dur = 1200}
+	},
+	["Pants"] = {
+		Drawable = 4,
+		Table = {Standalone = true, Male = 61, Female = 14},
+		Emote = {Dict = "re@construction", Anim = "out_of_breath", Move = 51, Dur = 1300}
+	},
+	["Bagoff"] = {
+		Drawable = 5,
+		Table = {Standalone = true, Male = 0, Female = 0},
+		Emote = {Dict = "clothingtie", Anim = "try_tie_negative_a", Move = 51, Dur = 1200}
+	},
+	["Vest"] = {
+		Drawable = 9,
+		Table = {
+			Standalone = true, Male = 0, Female = 0,
+			Extra = {
+			 			{Drawable = 10, Id = 0, Tex = 0, Name = "Extra Decals"},
+			  		}
+			},
+		Emote = {Dict = "clothingtie", Anim = "try_tie_negative_a", Move = 51, Dur = 1200}
+	},
+}
+
+cfg.Props = {
+	["Visor"] = {
+		Prop = 0,
+		Variants = cfg.Variations.Visor,
+		Emote = {
+			On = {Dict = "mp_masks@standard_car@ds@", Anim = "put_on_mask", Move = 51, Dur = 600},
+			Off = {Dict = "missheist_agency2ahelmet", Anim = "take_off_helmet_stand", Move = 51, Dur = 1200}
+		}
+	},
+	["Hat"] = {
+		Prop = 0,
+		Emote = {
+			On = {Dict = "mp_masks@standard_car@ds@", Anim = "put_on_mask", Move = 51, Dur = 600},
+			Off = {Dict = "missheist_agency2ahelmet", Anim = "take_off_helmet_stand", Move = 51, Dur = 1200}
+		}
+	},
+	["Glasses"] = {
+		Prop = 1,
+		Emote = {
+			On = {Dict = "clothingspecs", Anim = "take_off", Move = 51, Dur = 1400},
+			Off = {Dict = "clothingspecs", Anim = "take_off", Move = 51, Dur = 1400}
+		}
+	},
+	["Ear"] = {
+		Prop = 2,
+		Emote = {
+			On = {Dict = "mp_cp_stolen_tut", Anim = "b_think", Move = 51, Dur = 900},
+			Off = {Dict = "mp_cp_stolen_tut", Anim = "b_think", Move = 51, Dur = 900}
+		}
+	},
+	["Watch"] = {
+		Prop = 6,
+		Emote = {
+			On = {Dict = "nmt_3_rcm-10", Anim = "cs_nigel_dual-10", Move = 51, Dur = 1200},
+			Off = {Dict = "nmt_3_rcm-10", Anim = "cs_nigel_dual-10", Move = 51, Dur = 1200}
+		}
+	},
+	["Bracelet"] = {
+		Prop = 7,
+		Emote = {
+			On = {Dict = "nmt_3_rcm-10", Anim = "cs_nigel_dual-10", Move = 51, Dur = 1200},
+			Off = {Dict = "nmt_3_rcm-10", Anim = "cs_nigel_dual-10", Move = 51, Dur = 1200}
+		}
+	},
+}
+
+return cfg

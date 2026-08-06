@@ -1,1 +1,450 @@
-CMGPuVB|fowlIJoŒ†lcI‰‚[Xkn’o ‡Š˜¨^b†Š`ij´‰Hm²hCz<†Q|LO^uthiSrngP}o_R‡€…h”xhgN‡™d‡gmYˆ‘Ÿ‘ui‰¥‡[Ÿ€«{stEL‡ZGsG˜aPha_<UaiXum‹L‹\]c…faU„zsut\€q€Š‡llŸpyx•xŸ†}{k†}t±…Vz¡_YpZb]]^^E‚VV‹spY^jaŠLk]HPdfe”ˆUn†io[Š{~q_t…d‚s›s“¯¨—‘e©‹KJµhF}?JOVRdQ>QckZrkiF_ksbw•V•fwmpk_„š}‹~f—Š{Š”‘vv©zƒ‚ŸZ‚‹©HFuQGm~NwRxYSLzd\kxoh>^‡nˆyshŠt|w~xx_œp¦¤Œ“™__vfxsl€q¬g­K}Wrtkr„|]cvnt?nw[iWwmkQ~d‹t~yMH†nm|†ƒkWŸprw}pi§„€^‚y_Ÿ|«¦¢[”ˆj‡JI¦dMRu^UvnbaI…YZK‡fYRnfqƒ|dƒZh{h”xy˜‘~v“Œt—jyzkb†yr²–3R˜L‚hi‰‚U0WqWCQQRVg}‡foI|n^W”vcaQlbcprnac…~gy†iw†w¤…²y§ˆzz­~IC gnŠj\Jj`ujw_hbr`SL{h`k}v^y‚ftbqcN›jlk‰†ot—€wœbs^fz€œ–ˆ¦l2°Qkw‡RTxqOrsWeS;b‹n‰\bJ…`€~f|TW‚‡xqmx‚x‘vmS“pc{au ˆs€•ih¨5w SF|}It‚jqQJ†lVTD_UVdqbq{x]]aji†€irwnl\wne¢u¬ª’‰~ Š’d´„nQ®`Zq[c^e__FƒW}‹sz€FFh…]Mh_f–fgX–v”qd}˜[‘˜k¢ƒ‰œ”še”}T‘w¤Šr[¤`4nmSzSoq=>†WYVvdWPkugEi`F†c“w“‹’lz_w‰^™˜vxw•’{€£Œƒ¤œQwt‡I:oUH€p]U`rkSrIWjWƒgX‡€mep‚{c†YhiZ˜uha¡…a€‡zqW—x°wc…Ÿqq­€E•«v”^8ª]MFƒeRP@[QR_a]PRtmVhuX[ƒen›€m_–wja’prq‹†rau{g–ƒ¤‚¯—nN­L§¯i•_Zke^ScNT@o`R=‹Y[Zxu^c†of‹QosZ—k{ ˆ…ns–vŸa€r]ey{z©jƒ›~E1ŸQzœ3‰sW:XIqUIi…~mg;a`_‹}[ST_dkgyfSfx€o‡€~[o‡x‡£˜vbª{}~šˆ{t²ZLiNEjk‡x\xpwQ‚P{‰qnh]iqlkf]CƒdeV”qd]Œyq|‡oetuf£xqŸ‰”£c³ƒmT­OJ…{dQzj^]E=WW\€cZ<ˆS‚†]ƒLI…zzydzj”io[Šw•U~€c}—ˆeƒˆl‰c le£…HE²Pl³mdSR}sNFGRW^<yFWs•e‡hb[‰skz‡~f^_jpm™|¤œ•‚‹†—‘Š}©M´­¦“LW¨bJ¬@OPA}\OHˆlHgnaX>~`a„Fl†pXff”gk|’œ{„^‘ƒsl©‹xvfwx…‡ƒvx[“|f\?‘mLw|[ˆO}^`PƒT^Xv|ƒ`cq_…dP™~X^‡uha}u€’‹s—{‰w¥…Ÿˆ«|…„¡\„l’[7µVpM|]farleZr\kX„gi‡€wŒXGy‡YZekxSxyT[Š‚¦ru”h¤}£”‹˜¡—2gS‘yk^Jf\tWr]@AnhzO‹onP‡h[Vƒacb€}fkwn‡{zb¡qšy›|vo‡›’‹a®‚D5iPGn—P_lcr2‚R{^|]XT‰r_ˆxlkS”ctU‘Šs‘naz•X•hŸ€†™‘—b‘š~Œzšt¡‡oX¡]1kj“uP{o_;ƒTVSsaTM|ial~w_zƒguc‘q‹d—hqp‡py—~†b‚t_e{€—€‰§m3±RlˆxISUyrPstXfT„ce@vn’^ak€Tzi€w„ƒ]’Š~}e–|‰u‘‡Ÿ‚ˆkl™’z¶šZ<²TG}oMONliRWzcZ{sgfNŠ^_PEk^W†skvˆiˆ_no`W{rk™ƒ{Š—]­}¦§Iƒ´Kt£XW~{Oa^|\vjHVV„W[l‚ŒktNsc\™{hfVqghuwsfhŠƒl•~‹nzš{„¥Š·~¬NsƒML¨cL”sZQO?ZP7‡W€kb\UƒmetxqG”hiZ—ule“}u„‘ˆ—W¤xyjb…xq±•q—Kgh‡[\¶VpdBPP~QUf|†enH{m]V“ub`Pkaboqm`b„}fx…hj‹…v£„±x¦‡yy¬}GF¢]…m“KI9TJ1Qzs{\VO}g_n{rkAbcTHof_wo~‹‚‘Q¡qš…›–œbb„¡yi„zakƒT5jjS°N€Zu8nuH`fyqwBqz^lZzpnTgw|PK‰o[‘[t‘sur }™¡š‡‹œ–„”F2 RDn4ŠMLjgPUxaX}CbT?E[a`}w`i‡nŒR‘q‹l—‚—cR„’depvw£„„_e•±}€ŠŸs™pI®`W£mc=rj^]Ev\iUqgb}hKLyoL|‰{Vusf]i”¢Š‡v˜‚Š…„v\œ}~ocŠ}v¥’KV§aI§?NO@5[RKyc[jwn}=]†m‡‚ˆNNpeUpgbŸp`U•~œyl… c™ sª‹‘¤œcmœ¥‰XF¥\ZmSzcmh<7u]\kurZF_a^~l_X‡tlw‰‚j…r€nœ|–w¢s|{˜’{„¢‰‘m¬M¦‹s“]X¨c\iSbO{_P‰mIhobY?`rgKm‡mYgg•hl}“|…_’„tmªŒywg‚xy†ˆ„wy\”}g]@‡d]Ft\‰P~_aQ„U^]zt]f„kb`PkaH˜h‘l’smf”~v…’‰‚X¨x¡ˆ¢“‚¤WR˜S’ywŠgnt::\yQA\SNG[kL‡jˆasPcfp…Y•n”…|‰’ˆb—ƒ‚j›z–Œ¤‡¢12WGk—OAxYLKtRTSqnW\h_€xlkScdU‘pc\‹xp{†ndr…r‚ƒ¢›ˆ€‹–~¡tƒE6lQD|} =\cVM3sTŒ_:a{aM[][†ij‚fZz–~xLrqpœldepu|xŠwdw‰‘€˜‘l‰™JY¨^|||MNTvWQJxbZivmUMNY^KŠj„aaji†€irw[—{mX¥tzy–y‚ ‡¥k§‹}hp„LN±kI«mQ_M~\…NƒV\D`V=ŠTƒ‡^„MJ†{{ze€{k•jp\‹x–Vd~˜‰f„‰m†§Z’™¤†IF³Qm´n[d_pjcXhSYEtdhOŒ``”|yshŠt|wwxwNn—r˜‰ƒxš„Œ‡ˆ‡^®~§ ¨d©o0‘oGvRI‡;RQB}w`~wWiFYbXP\a_}j`YW}“l’ƒz‡†`•€h™Œx”Š¢… ‹noœW¨}z]?µWJArPRQolUZ}f]~vjiQ`‰pŠke^Œvn}ŠzPqrcW~unœ†~š‘ `°€jQªL†‚x Nwg[ZB:RdQ}`B9…V[H„^~|dzRU€…vokv€vtkQ‘n›ay‹_s†q~“g™¦XSQDzz†r€he_Tv`hcb]T:z[\MAh[Tƒphs…~f…\kl]Rxoh–€x‡”‹šZªz£Š¤Ÿ¥kkkCrNE}]>3s\zWJc~Aw~Qˆio‚z€Kzƒgucƒyw]Šp—€Š…YT’{wx£—‡c«|~{›‰|u¤‘JU¦`H¢lP^Lw[M8>TVUspY^ja†Lk]HPdji†€irw•[šz”u q{}¡šx›œ€|§‹…´„nhtSD«PDd€yhb6z\[Z†xVNOZ_fbtaNas{j‚{yVsr„v˜‡¥f¥v‡}Ÿ€zs¡‹ƒ’ŸW~vw‚H5³Tn’zKTSpjS\zaiE„d~qŠkto€zsh€jyf’vg•…šfU‡•ghsxe¥†xo¬€pm¨D£¡JŸ8;¥k\”Q\f\uZQ7wTG_qEY„ltWdyMLŒtXš„vi`Ÿl—¥Š„y›…ˆ‡‚y_Ÿ’«O®h”^Y©d]RcTcP|`Q€yf^i{t\RabSJnaZš~Zy€sjPqƒšX~˜jjxx¦y}¤®W1£V…~|KI9TJKXZVIKmfOxanQ_un_Œmšaprb•fon‹…nw•|sqa|rY©y¢}£„~w¥HW£[TiwŠL=2XOHv`Xgtkz:ŠZƒ|„e`\‘zg€ts[k£z–z€Rišr}skšw|z˜¡jg£˜YX‚^Yˆs‡N:iVt4]_B\vngDbgKdT€†D‚dfc’nŠ’‹x|‡€u…pvb‘‚t_d{}|š—€…¨‘InsRV|zNNƒkhQVybY‚DcU@E\^]Œ€Mf~agS‚tfaœl•y\zk“”qvt’umœyƒ¯¨—‘e©‹KJµhF}?JOVRdQ>QckZrkiFjucUˆw•V•fgmpjc‘{s‚†nfgrxu¡…v¤Š“ŸZ’‡˜‰YF±VWµo\T_qjRuHWXI=d\XvcŒ|poW—g’v|Nše”˜o•^[—ŒŒ‹v‘Œ|¦{mœJ§gQ’6P©b[wV[?\6s?8vXZW†b~†lup{tiydjV…vhSXoqp‹tyœ…|¡g†xci…„¡\„l’q7µVpQ|g|H7iwIJU[\ˆiiDJzpbevH”_–jm|“’†‡q–†v¡¤©gi¯˜mV°e…~7ŸRdTK1qj‡RVg}‡foI|n^W”vcaQlbcprnac~¤}`a‡œœip§ˆ{r£DC ^G‹o—Oph\[C‚R{^|]WP~h`o|slB’b‹jŒ}wlx€{‚||c t„©¢–c|”w}i˜‰Œwp‚lTrQB©Nb~wf`4xZYX„vTLMX]d`r_L_{y”}QLŠs—€ŒZ[£tvw“tmœ‰Œ—š£‡VD±RlˆxIRQnhQZx_gCcU@\ba~xajˆoS’rŒ˜ƒ˜dS…“efqwˆ]‚œ˜n||ª}’¨²‘[5§ZJ‚€bOM=XNO\^ZMO{jyiLMzsˆkˆzU\“tgfmonŒ‰rwšƒz›“‡†n­}¦}§I‚{©“L[§_Xm~NwZxicXzdlgnhhOŒ`†•‚Oh€ciU„uxwWn—•^|m•ym©¢‘‹_£…„ƒ¯bw9ƒIP‹^KwKgez€i=8v_ƒlxzFG`bkm`YˆumxŠƒk†soš~p[ªwyx–“|¤„©oN‘xvˆp¦dMRu^U~@_Q<CX_a…~\€dr`‹pri–iW’m‹s‰ad”…~z……ƒz` }k1ˆ[n‚3`Vf_]:W_gj8dgS†e’Y‡hZZ^gfƒ}fotkiYtkbŸr©§Œ†{‡ŠŠ‹‹r¯‚jy ^G‹o—Ox:YK6‚RY[xVyz^lZ‰ilgdyQŒg‡…mƒ[^‰xt‰˜}tZšw¤j‚”h|l—ZPŸYWsQ˜ad2^aM€_ŒSbdT‡Xa`}w`i‡necSndK›k”•vpi—yˆ•Œ…[«{¤¥–…§‘ZU›VV|zMNƒ|p=VnQWCrbfeI\…mLj[ƒg[{—yM‘srqmefqv}y‹xex”’§­–je£qp©hKHdy=j\OF…R}‹spj_ksnmh_E…fgX–sf_{s~‰qguˆu¡…¬¥‹ƒ Z¤w†H9mTL‡}fS|l`_G‡XI@~g…bUn‰L‚‰\“tz…‹V…r€n„‚h•{£‹›eg…Šn‡¥[n0‹^P±aPaWyZTM{e]lypXPQ\b_‹n–‡t}x‰ƒ|q‚s‚o›~¦Ÿ˜…}ˆš“{q€r­N…wŸMv¥ZYARSd|`V8„O~‚YHEvvu`{vfekW†s‘Qz|_yX“†v—€pƒ}i­WN¦[¸yy‰KQsTNGu_WfsjRJKV\Y…iˆnwrƒ}vk|m|i•yj™’w‚”u˜kz{lª‡{°™GpŸTSz{Š]lvY;2~Ix|SyB?{ppoZup`Š_eQ€m‹KtvYsR€p‘z‡jm•w€­’q¨‰|s¤‚ED¡_HŒp˜Pqi]\DƒS|u}^XQiap}tmC“cŒs~xmy|ƒ}}d¡t«ª£—d}•x~j™ŠxoƒmQsRCªOCcxga5y[ZY…wUMNY^eas`M`|z•~RM‹q]“‘]v“uwt£›£œ‰’˜‘†–H4¢TFp9MONliRWzcZEdVAF]cbybk‰pT“sj™„™eT†”fgrxy¤…¬a°—³CŒ¡u›rK°bY¥oe?tl`_Gx^kWsi‚d‡uNVcxL`‡sW™ƒuh_k–¤Œ‰ƒxš„Œ‡†x^~‘~ªOµ­g“]X¨c\bSa>}]wTƒdmhyslaycr_‹n–™}YxriOo‚ƒ }—iww¥x|£­Œ•o¢U„}{œJHwSIJWYUHJvet‹dGqukHx…wRq}obY˜e†ƒ}r”~†€{rX˜yzk`†yr¡GR£]„£;‰K<zWNGu_Wfsjy9‰Y‚mƒ~„JJl‰aQlc^›kk\U‘z˜uhœ_•œo¦‡ ˜i˜¡…TB¡XV{iw_qo9;R^A_xnhXCf“Zˆik[_hg„~gpuljZulc tª¨‡|ˆ‹‹ŒŒs°„Ez¡_HŒp˜Py;ZL7†SZ\€yWz{_m[Šjmv‘dURhˆ†n„\_Š€yu€Š€™~u[›x¥kƒ•i}m˜[Q XntIaRa}rP<„UW\tbUN}jbmx`{„hvd’rŒ˜irqˆqz˜‡c¢‚œ}¨‰’˜‘†ˆXE°T|´c?^eXO5uVhY?c}[O]]‹^bs‰“r{Uˆzjc ‚om]xno|~zmo›Š™°‰l–šUn‡´›[=³UH~pNPOmjSX{d[|thgO^‡€ˆic\Štl{ˆxNn—~˜‰ƒxš„Œ‡ˆˆo¬¦µ®coˆaƒJ6¤VYƒ;Ox\?]NvZNnŠƒrl@„fed‚`XYdipl~kXk‡…š ‰]–€iˆ¤›‹g¯€‚ƒŸN€yi•NYªdLgpTbP~^xk„U^]zt]f„ksOnˆi”u~yŠ„}rŠtƒpœ— ªj‰ƒz` TEjO¨†;ˆIwJN_u^gAtfVOŒn[YIdZ[hjfY[‡v…œuX‚†€Zs ‡†hŸ€sr›y{z˜•~ƒ¦GhŸTSzz‰sltUOHv`Xgtkd:ŠZƒj„uod†pxsztt[˜k’¡š[tŒoua„ofz£‡jˆy¡…yZv®^Xkp‘QP|nLDEPU\XjWDWsq†ŒuIm‚hh„†RS›lnk‹yle”y„–w’›{¦Š|glƒFE¢`IqZQv<Z^E‚UŒ‹spY^jaŠLk]H–dkm‘Šh‹Œp~lœ}~¢w{cy™—•mp› ‘Š†‘\RªPGlmJw=Ug;O?jlbriFYjsj†w•V•fwmpjc‘{s‚†nfgrwd£ƒ~©zƒ‚ŸZ‚‹©Y5°UGqNTSpjS\zaE„d~WŠuŠVEw…WXcinRwwR[ˆ€¤ps}’fŒ¢{¡’‰–Ÿ•o¤œQwi\H£Zs”xf?GMi=<|dHŠtfYP\‡•}zti‹u}xwriOpqb }pi˜…}ˆš“{šq’«P€¯i•NYªdLoBQRC9^VR‡p]†vjiQ“cchŒqfH”_’iXU‘††…p‹†v u{g–ƒ¡aŠŒ0Jhd–†htAOe^O|]ŠQ`bR…V_^{u^g…lcaQlbI™i’u“tng•w†“ŠƒY©y¢…£”ƒ¥XS™TTzx‹‚zn;TlOUApazOCZƒcJhYeYy•}wKqpo›kcdot{w‰vcv’¥«”hŒ¡‹mH²gWr{‹NKkYLEtaYdvoWr{_m[‰iƒh`ih…hqv~Z™y“dŸ€‰„•ˆ}•{§Š|«µ™6U›OFklNO`6ZtZFTT‚UYj€ŠirLqaZ—yfdToefsuqdf’§€c‘Šwr®’‘sª‹~u¦„GF£aJr[Rsk_^F…U~]`ZSkcrvoE•eu€zo‘{ƒ~…f£vw¬¥™f—z€l›N˜·…oGuTE¬QEezic7{]\[‡yWOP[`gcubOb~|‘—€Txvr¥‘Š]^¦wyv–„wpŸŒ„¡[‚gŠYG±VHr‚OQPnkTY|e\GeiP`rc‰zti‹u}xyxOŸo˜‘™”š``‚Ÿwg‚y|²€§r­h®L~XsulsF}^dwou@ox\jXxnlReu‡…OQhtXql„}„qsp{—Ÿ˜…‰š”‚’}D0O’ywŠKgd^Su_gbbcb9‰Y‚]ƒtnc…owrysrI™i’‹“”ZZ|™qa|sre|{l§¡ˆ …xY1«Gg¨M”‚SuoOj{iY_9nhTypLs}…Šƒ{yn‚|s[\gqœloybˆw…’›‘k ˜Œ‹s¤ˆm3ŸXH¦{–:;hcPI<_ŒSbTT‡Xa`}w`i‡necSndK›k”•vpi—yˆ•Œ…[¨|}nb‰€y§‘JY¥]lk|Lu`vqw==_|TD_U<F^nOE„m‹h[tRˆb™z€“‹‘\‹”x†t”ˆ]›ƒ‚§ª–je£KJk_}}}N_UwXRKyc[jwnVNOZ_L‹k…f‘bkj‡js‘x€\˜|nYau{z—‘zƒ¡ˆ¦l«L¥~±œr>l_m~@KP=5__:BphŒX[ezNtŠc‰zq~‡}WŒ„xw_t˜^‹ƒs’¦‚ef“{tgŠ·~¬N¥sƒML¨cL”sZQO?ZQH…YYurlaƒmuppqqX•iy†ƒlq”}t_~p[`w~€¤{Ÿƒ‘®O§¢v‰_7±MmkSiADote^Zeoe~cZ@€]ŠyezN€‘m`m‚Wr‘ˆugrušxzy—”}‚¥FgS‘yv‰K<4WJCr_WbtmUtKZ[Lˆg^W…ogvƒz‰I™i’i“”ZZ|™qa|rYez‹le¡Š¨…xRmofmw—^qio:irVdRrf{;ya`…ˆtHClhgI|š[šllr”uoh–€x‡”‹sklw}z¦Š{©¢YT¤_XŒ^^KwZr{taYdvoWzM\]N‰ia]’{h‘ut\˜l~‘›y“}ess¡tx‰Ÿ©ˆ‘k€y¶˜FDsOE…LTaDLobFs\iL`oj^{]_\Dgƒ‹„qzu†€yn~io[Šz~e¢u†ª’‰~ Š’u²…}|£aJr[R{=\N9@U\^‚{Y|}ao]ˆlo|—e~UsdŒpd„ ™ˆ‚Vš|{z¦˜vnoz†{T‘n‡š]G¢\Zv\[e_k]PGAS~Œtqk`‚ltoni`F†ghYNtg`|t‘Šr‘hv‰v¢…­¦ŸŒ„¡[‚¥9‡I:¶UMˆ~gT}ma`HŠZYJCh†cVoŠMƒŠ]”u{†ŒW†soƒ˜X–~}¢¥‘e`‰…„fZ·xx‰€P±SMFt^VeriQIJUZG†f€UŒ]fe‚|enŒs{W–v‡œ}†’Œ…z’|Šg¦† y¬—m9gZ§y;…LM1Yp5=kc‡SV`uIo…^„uly‚xR‡srZ‹o“Y†~n¡}`a‰vob…²y§Šzz­~HG£^Gn”LJ:ULC€TTˆpmg\~hpkklkB’b‹vŒ}wlx€{‚||c t„©¢–c|”w}i˜ŠŒw°…J2¬Hh¥N£<?jo`YU`j`y^U;{X…t`uI{Œzh[h}RmŒƒpb™zm•sut’x} ‰€¡™Œt°„F7mRE}mZR]ohPoFTgT€dU„}jbmx`ƒVdwdtu”‚^}„wnT”t‡|¥‚œ‚n||ª}’¨²‘[5§ZJ‚€bOM=XNOU]jMUxkO|erUixsg„fhi“pŒ”zƒ~‰‚w‡rxd“„vag}~œZ‚‡ª“KpuTX~|PP…mjSX{d[„FdhOŒ_p•‚Oh€ciU„uœqu]˜s“‘ygj•š‹„€‹•‹¤J€fgƒq`‹a5¦xfTGTi>Yxo\N…fiT_a`~{diŒul…yx`œpqb }pi˜…}ˆš“{šq’«O¦¯i•NYªdLoBQRC8^VR‡p]†vjiQ’cs`ŒpQH”_’iXU‘††…p‹†v u{g–ƒ¡Š‡Œ0h§f„qP”9ZhoM9RdYq_RKzg_j|u]xesaŒpbMœikjˆ…ns–v›aƒj§z¡°˜•~ƒ¦GpqQCm4‰QSwpNqrVdR‚cdKˆ\LI„_}e{SV†wplwwulR’oœ‹wŒ`’£‘r”i„£šH:°RU‡mŠMLjgPUxaXyqedL‹[„s…f`Y‡qix…|uK›k”w•†€u—‰„‹……l©}²«Ÿl…€G3¡SV„}Luo<ZKsWKk‡€oi=cba]UVafmbzxUnƒm‰‚€]‚‹…‘ƒvqey¤²š—‘†¨’[V”PGlmNO@5[NGvc[fxqYxO^_PŒkb[‰skz‡~Mm–q—’˜^^€ue€wr¯~pgf¬‰|Vqsjqƒ{\bums>mvZhVvj?}ed‰ŒxLG…plkM€_Ÿp€v˜yslš„|‹˜wop{~ªNµ­g“]X¨c\bSbO{^†xe]hzs[~Q`aRFmea–l•…yx` p‚›~uW£n¡xgd ••”[•…p„K7¥SqZW\?wwuTA_dHiw~\Hasx€naZ‰vny‹„l‡t‚p~˜u¤u~}š”}†¤‹T0®O¨…u•_Zke^SkUdQ}`R‹oKjqd[AbteHo‰[[ii—jn•Ÿ~‡a”†vo¬{yi„z{‰W:eX{i‘_BVe`TqSUV<]yzgpk|vodt_eQ€pt[˜k’ ˆ…t–€ˆƒƒ„ƒk§{|mbˆx¦IX¤\kjk‹M>zYQM‚kXqedLˆ\„}‡laCZ‰dŠSPŒ€k†q›pvb‘~œ…‚‡j¢¢ lŠ4U¢jHs|M_rlZMFubZewpXs|`n\‡k]HMdfeƒ€in‘zq–\z~e¢uœ«“y~¡Šªl‹}hµ„LN±kI«mQ_M}]OhƒW‚DZzx`vNQ|rkgr|r‹pgMj—†r‡[Œzmzd•‚t«M §…HG¤bKs\Stl`_GƒWXI@dWPldozbXfyf’vw–|t‘Šr•hv‰v¢†­¦°”p–J€fg‡pqoUo€AOO}PTe{…dmGzl\U’ta_Oj`ago|_gŠ}aw„g{Š…y–xz¥‚¦ŸŒ•¡\”‰Z„K7¥VZA~RR†nkeZ|fniiji@`‰pŠ{ujŒv~y€zzaq‚§ ”az’u{g–‡ ›k€jBpO§L`|ud^2vXWV‚tRJKV[bWomJcvxb~wuRwv€z†xkj¢n™§Œ†{‡Š‰„{a¡‚D5²PC{k—P[mfNmDReR~ay‚{h`k}v^TcdUJphd™‚o˜ˆ|{c^tte£šƒ¡~qŠ¥h¥x¯Wj¡h3¡k]Kk_t4rZY~mA<zea`Bu“T•d‹knhayq€„ldepvsŸƒ„¢›ˆ‘Œ—…–‡V3±RlŒxYb]nhaVnXgT€ce„rNmtg^D„ftsUL˜c’–m“\Y•ŠŠ‰tŠz¤ykš‡¥‹4l«jIuTY=^lsQ=…V~aucVO~kcn€ya|…iwe“sn™jsr‰r{™€ˆd „vag}ƒ‚ŸZ‚‹©o5°UGqNUW{tRuvZhV†fWBLxp”`cm‚V|’k‘‚y†…_”Œ€g˜| f“‹{š®Šmn›Wƒ|0’€G¶WH‡{LUTqkT]{bYWGbX?_ˆk‰jd]‹um|‰€yOœpqb }tm›…}Œ™Ÿ_¯¨“©eªp1’pHwSI0:QˆC8xa\OhƒF|ƒVnt‡…Pˆlzhˆ|‘Qwv›Š^Y—‚~}_’°q²‚SIªL…~m–O^kbJBCNS@_y^…V_^{u^g…ltPŒpbMRion‹…nw•|š`Ÿ™~¥¥q`’ rs~D1iQym4£\€LOYnBh~W}ner{qK€xlkS„hŒRwg†švYZ‡‚oh[~«r¢‚™s¦w€œ–ˆ¦ECrNDj{ŠtmuVPIwaYhule;‹[„……vpe‡qyt{uu\™m}¢›\upvb‘…p­}}nd£Œª‡zToqhoyZ`skq<ktXfTth}={cb‡ŠvJEƒnjiK~œ]n¤t–wqj˜‚z‰–umny~kªŠ¤°KJ¦aJ’qX`<x\N9>U[ZwqZch†L‹k…^‘|‘]L~Œ^_jo\}or£w|dŸzš˜€–nqœb’‹‡’]S«QHmnKxgSh<nm[N[pE`vcUŒm†}ˆfhg…‚kp“|s”Œ€g£wˆi¥„wpŸŒ„¡[‚¡9‡I:¶UL„s]Udqhw7‡W€_|‚HHj‡_Oj`GPh k“v}O›f•™p–_\˜Œw’}§|‚nK¨‘O“7o®mL9W\@aovT@ˆY‚xfYRnfqƒ|dˆlzh–viœmvu’Œu~œƒ‹g¦† …¬WR¢]•ŠcŒ\IuXJyƒgCbi\S9yYla‡hZE’{s—cfp…Y•n”…|‰’ˆb—ƒ‚j›£i–~±12ZG3•ƒJ{YKK~OXWtnW`~e\ZJe[B’b‹„Œmg`xpŒƒ|RŸsteZ€wpˆ€œ“¢b²‚lO¬hns4•sK;VL3>T‹F;{d‚_Rk†I†YqwŠ‚ˆS‚‹o}k‹”T’zy¡a\š…€b•³t¶„VL­OIpZRaneMEFQVC‚b|oˆYba~xajˆowSsePVlrqˆqz˜c¢‚œy¨“¨tc•£uvG4mT|p7g_ƒOR\qEkZ€qhu~tNƒ{onV‡kU‚zj‰y\]Š…rk^®u¦„œv©zƒ‚ŸZ‚‹©HFuQGm~NwpxYSLzd\kxoh>‹_`QFlc\Štl{ˆNn—z˜“™__vfw^i¶qfg­K}Wrtkr„|]cvnt?nw[iWwk€@~feŠyMH†qmlNŸ`¢p§w™ztm›…}Œ™xpq|‚«P¦®h”^Y©d]RcTcP|_‡€yf^i{t\RabSGnfb—€m–†zya¡qƒˆœ€œX¤o¢yŸhe¡–WV€\–†q…L8gTr[X]@xxvUB`eIjx]I‘bšqob[ŠwozŒ…mˆ‘uƒqœ€r]ªy{z˜•~ƒ¦GlqQCm6‰POlfOXv]{A€`zK†q†RAsST_efNqsNT„| loybˆw…’›‘k ˜Œ‹s¤ˆm3ŸXH¦{–:;hcPI<_ŒS„cdT‡Xa`}w`i‡necSne\™l}¡‰†€u—‰„„……l©}³²š—€…¨‘IrsSEo|LSUyrPstXfTƒdVaŠ^‰K†ag}UXƒˆyrnyƒy’wnT”qyb”¥“t–k†¥œJ<²T}•oMONliRWzcZ{sgfN]†m‡hb[‰skz‡~wMšno`X{rk™ƒ{Š—]­}¦§c¨nnnFuQHŠ:P`A~v_}ZMfDzT‹lr…}ƒN}†jxf†zOut™œˆ\W•€|{]®o±€¶†¨Jƒ|k”M\¨`HALQ>}]w\ƒT]\ys\eƒjrNm‡‚“t}x‰ƒ|q‰s‚o›pŸ©iˆ‚y_Ÿ’“®N§›:‡HvˆM^t~]f@seUN‹mZXHcYZ`huX`ƒvZ‡p}`tƒ~rqs|[{—Ÿ˜…‰š”‚’}D0Pl2ˆKJheNSv_V{A_cJ‡\[xu^c†ofQosZ—k‘ ™Zs‹nt`sj©y¢~i‡x „xYu­]WjoPO{mKCDOT[PhfC\oq[wpnKpoysqdgXg’ ˆ…t–€ˆƒ‚}tZš{|m©ˆ{t£IT¥_G¥=‹]>{YPIwaYhul{;‹[„_…€†LLn‹cSnepœl}^W“|šwjƒa—q¨‰¢š kš£‡VD£XmlkSRwzf:5s^ZY;nŒME]^d†gaZˆrjy†}e]^in[šz”} qzy–y‚ ‡k§‹}hµ„KJ¦aJ’qXv<x\N9AU\^‚{Y|}ao]l_x“flTjŠˆp†^aŒ‘‚{w‚Œ‚›€w]z§–‚Xk®œK>Š`5ofSE|^PKxVXWur[`ƒlc„|poW“ghYNtg`|t‘Šr‘hwxi¥„{t¢Œ„“ X¦fw†pO°lrw8ZwO?ZQPAZYJBh†cVoŠMƒŠ]”u{†ŒW†soƒ˜X–~}¢¥‘e`‰…„fZ·x1ˆpP±SMFt^VeriQIJUZG†f€eŒ]fe‚|enŒs{W“wiTZpvu’Œu~œƒ¡g£‡ydl€HJ­g„§iŒ[ItXqVRX@{Vvt\rJMx}ngcnxn‡lcI‰f“‚nƒW‰šˆviv‹`{š‘~p§‰{~£DC ^G‹o—Oph\[CSTEƒ`SL{h`k}v^}TcdUIpg`xpŒƒ’R¢r›‚œ}xt©’¨˜Œ‹s¯ƒVOjQkŒ=ŠKyLPaw`iCvhXQp][Kf\]ckx[c†y]Šs€cw†u’tvƒZ~š¢›ˆ‘Œ—…•€G3¡SEo~LNMkhQVybY~DbfMŠ^n“{xaf‰ri’TsePUlsu™’p“”x†t£ƒ«`g–²~‹ tšqJ¯aX¤nd>sk_^Fw[ErjZyiLMzub[NqeLuvf™jsr‰r{™€wue€wn«~¥³›Y’‡©“\W–XWm~NwtxicXzdlgnhhOŒ_–•‚Oh€ciU„uxkœp›]˜s“‘ygj•š‹„€‹•‹¤J€fgƒq`‹a5¦xfTGTi>Yxo\N…gYh_a`~{diŒul…yx`œpqbW}pi˜…}ˆš“{šq’«O¶¯i•NYªdLoBQRC8^VR‡p]†vjiQb‰dŒoŒH”_’iXU‘††…p‹†v u{g–ƒ¡Š‡Œ0h§f„qP”9ZhoM9STsq_RKzg_j|u]xesao‰j•fon‹…nw•|„`Ÿ™r¥†Š›•ƒ›…UB­RS±|Ÿ<[bUL2rSeR9`zdLZZˆ[_p†oxR…wg`ljZuklrz‡jr•ˆl™‚r†•„¡ƒFSmNj±k—a\mg`UePVBqaeL‰\m‘yvpe‡qyttuu\™m“¢Š‡pu˜x¡c…l©|²«Ÿl…€G3¡SV¢}LuQ<QqpFTT‚VYy{_g”e‡a^yUy”~TUWzƒu–‡‚§qŸc’†…nls¢¦}£li¥š[Z„`[ŠuJP<kXv6_aDE]oCW†rNrwLg†}j\“tg_Œuu—xrk™ƒ{Š—vnoz€}©N~¬¥’\W§b[aRaNz^_~wd\gyrZ}P_`QEld`•~k”„xw_Ÿo—˜š~„V¢mœ wfcŸ””“~Z”„oƒJ6¤RpoY[>?Wi=Q€lHl‡qFa€wdVna]†oyo‘rle“}u„‘ˆphitzw£‡x¦ŸŒ•¡\”‰[‹[H³XYxq^VaslTwJYZK?f^Zxe~rqY™i‘’”x~Pœg–šq—`]™x“~¨}D0L©iS”89Qc7KzfBfk@[zq^P‡h[[€isi‹lf_wo~‹‚jbcntq¨ ™†Š›•ƒ”…UB­RS±k—P[mfNqDReR~bc‚ŒpLkre\B‚cujNpŠp\jj˜ko€– ˆb•‡wp­|zj…{|‰‹H;‡ZGsGŸa~npu<a`jdpbULgJJ{i\U„qit†g‚‹o}k™y“tŸpyx•xŸ†j©‰£ˆ¯ZU¥`YfP_Lx\M|†jFel_V<|]odHj„jVdfdrs‹ocƒŸ˜‡U™{zy¥—umny~…“€m‹J=~hZ°rdxEYhcWtVXU<oC=]_^|ybgŠsj‹ƒwv^m–—xrk™ƒ{Š—‡]­}¦‘§Y’‡©“\WXWm~Nwbxsy??a~VFaXSapQF†o†chU‘k‹‰q‡_b’ƒ|xƒƒœx^{¨n†YlgQ’6P­j7”[?`nuS?‡XZltmhX‹\ed{dm‹rigWri`qq¥Š„y›…ˆˆ‰‰p­‘¶\„‰m•MvwWI49PWY}vTwx\jX‡g€{bwOŠkaH•_’iXU‘††…p‹†v u{g–ƒ¡aŠŒ01ˆ[n‚r:^yc8SriVH`Scxakaƒd^W…ogvƒzbZ[fkX—w‘„nwv“v„Œh¤ˆze´HG£^Gn”s9xXrO~i~J9kyKLW\IBi‘FM|t˜€mcJ—a”k‘ZW“ˆˆ‡rˆx¢w}i˜…£cŒ23Š]1„tŸ<`{e:UtkXJbUozcmc…f`Y‡qix…|d\]hnk—{lš“€‰„•ˆ}j©‰£„¯ZU¥`YfP_Lx\M{tk€L;m{MNY_l‹k]H—~vš‚ruLpc|—Z—j¡‚ˆ›“™d“œ€|œ’v£ŒZF¡Xp¨x[dVjeRK>aUƒfYFdZ…“{xrg‰s{vupgMm€m™}¤œ•‚‹†—‘Šl«L¥‚±’\W§b[hRaNz]…~ˆlHgnaX>~^qrl†pXfhf‘tuqe…¡š‰ƒW›}|{§™wop{€‡ƒV‚oNL?€j\²tfzG[jeYvXZWCqE?_a`~{diŒul…yx`œpqb}pi˜…}ˆš“{šq€rfN„}l•N]©ap0€Pyrz[VR‡p]†vjiQ‘cstŒofH”ejW“m‹s‰ad”…~z……ƒz` }k1ˆ[niS”8Rpl9Wƒ]AbpwUA‰ZlZvojZ^gfƒ}fotkiYtkbŸss§Œ†{‡ŠŠ‹‹r¯ƒTy ^G‹o—Ox:YK6;RY[xVyz^lZ‰i‚}dyQŒmcJ—a”k‘ZW“ˆˆ‡rˆx¢w}i˜…£cŒ23Š]1„tŸ<`{e:UtkXJbeQzcmc…f`Y‡qix…|d\]hmZ™y“†Ÿpyx•xŸ†j¦Š|g¶ƒJI¥`I‘pWu;zZtQ€k€L;m{MNY^KDk“HO~vš‚ruLpc|—Z—j¡‚ˆ›“™d“œ€|œ’v£ŒZF¡Xp¨x[dVjeRK>aU„dFdZ…“{xrg‰s{vupgMno`{ng–ƒ{†˜‘y˜o~phL‚{©“L[§_nm~NwVxYTP…n[„thgO‹_qˆl†`Xfhf‘tuqe…¡š‰ƒW›}|{§™wop{€‡ƒV‚oNL?€j\²tfzG[jeYvXZ[ˆqE?_a`~{diŒul…yx`Ÿo˜‡™ztm›…}Œ™‰_¯¨‹©[”‰l•^YŸZZA~Rb‡€tAZrU[GvgjY‘`‰ƒPnaY•hx–im~”}†`“…un«zxhƒyz‡‰F9…X„qE_|lns:_^hbn`SNBeHHygZS‚ogr„}e€‰m{i—w‘nnwv“v„Œh¤ˆzemHG£^Gn”s9xXrW~i~J9kyKLW]^Dh‚vTbdbpq‰ma–…S—yxw£•sklw|ƒ‘~k‰‹H;|fX®p¡vCWfaUrTVW;mA;}[]\zw`eˆqh‰ut\˜lm^œyle”y„–w–m{{§ŠŒ«¤‘JU¦`Hª>L_Lx\ƒ|†jFel_V<|]•hŒj„VVdfdrs‹ocƒŸ˜‡U™{zy¥—umny~…“€m‹J=~hZ°rdxEYhcWtVXY>oC=]_^|ybgŠsj‹ƒwv^šno`U{ng–ƒ{†˜‘y˜o~pgL‚{©“L[§_nm~Nw^xYTP…n[„thgO‹_qnŒl†zXfhf‘tuqe…¡š‰ƒW›}|{§™wop{€‡ƒV‚oNL?€j\²tfzG[jeYvXZ[AqE?_a`~{diŒul…yx`œpqbY}pi˜…}ˆš“{šq’«O¶¯i•NYªdLoBQRC^VR‡p]†vjiQbslŒpŒH”ejW“m‹s‰ad”…~z……ƒz` }k1ˆ[niS”8Rpl9Wƒ]AbpwUA‰Zl€vojZ^gfƒ}fotkiYtkbŸss§Œ†{‡ŠŠ‹‹r¯ƒTy ^G‹o—Ox:YK6;RY[xVyz^lZ‰i‚}dyQŒmcJ—a”k‘ZW“ˆˆ‡rˆx¢w}i˜…£cŒ23Š]1„tŸ<`{e:UtkXJbewzcmc…f`Y‡qix…|d\]hnk—{lš“€‰„•ˆ}{§‹Œ«¤‘JU¦`Hª>MN?3ZRNƒlY‚rfeM]…†ˆlrDafSi‰‡o…]`‹zv‹šv\œy¦l„–je4N«h5’Y=^lsQ=…V~VrkfV‰Zcbybk‰pgeUpfMm–—xrk™ƒ{Š—‡]­}¦Ÿ§Y’‡©“\WXX~|PP„lsy??a~VFaW>`a^ŠnOF’chU‘k‹‰q‡_b’ƒ|xƒƒœx^{¨n†YlgQ’6P­j7”[?`nuS?‡X€\tmhX‹\ed{dm‹rigWrhOŸo˜‘™ztm›…}Œ™‰_¬€r°N„}l•N]©ap0€Py\zu{AAc€XHcY@Ja˜SIˆqˆejW“m‹s‰ad”…~z……ƒz` }k1ˆ[niS”8Rpl9Wƒ]AbpwUA‰Z‚bvojZ^gfƒ}fotkiYtjQ¡qš›|vo‡›’‹a®‚D5°PGn—P_lcr2STE<`XT‰r_ˆxlkS”d›ˆqhJ–glY•ou‹cf‘–‡€|‡‘‡ …|b¢m3Š]1kU–:Trn;Y…_CdryWC‹\„hxql\`ih…hqvmk[vmd¡uu©‘ˆ}Ÿ‰‘ŒŒt±…V{¢`IqZQz<[M8=T[]zX{|`n\‹k„’f{SoeL™c’–m“\Y•ŠŠ‰tŠz¤ykš‡¥e45Œ_3†vb>b}g<WvmZLƒd}_|eoe‡hb[‰skz‡~f^_jo\›{•z¡r{z—‘zƒ¡ˆl«L¥˜±’\W§b[hRaNz^O}vm‚N=o}OP[`Mn`W”hXUqgN›e”˜o•^[—ŒŒ‹v‘Œ|¦{mœJ§gQ’67a5ˆxd@di>Yxo\N…fe~gqg‰jd]‹um|‰€h`alq^}—|£t}|™“|…£Š’n­N§št”^Y©d]RjTcP|`Qxo„P?qQR]bOpbY–jZW’siPg–šq—`]™x“~¨}D0L©iS”89Qc7KzfBfk@[zq^P‡hk€isi‹lf_wo~‹‚jbcntqr ™†Š›•ƒ”…UB­RS±k—P[mfNqDSTE9`XT‰r_ˆxlkS“c‹ŒrxJ–glY•ou‹cf‘–‡€|‡‘‡ …|b¢m3Š]1kU–:Trn;Y…_CdryWC‹\„~xql\`ih…hqvmk[vlS£sœ‡~xqŸ‰”c°„F7³RIpZRanet4UVG?bUNrNmtg^D„dwx“rŒ€^lnl—z{“wk‹§ ‰]¡ƒ‚­Ÿ}uvGN‰\IuTVREGpbyzl€Mapk_|^`eHwKE‡egf„jo’{r“‹~f¥u—Ÿ€zs¡‹ƒ’ŸWeµ…oZ¯a[r\d_f`_6†Vj€{GGi†^Ni`[˜ixYNw•n€]ps}’fŒ¢{¡’‰–Ÿ•o¤œQwi\H£][€nT{zxkeQva]\>qP‘btWdj†‡t}x‰ƒ|qlr^~p[`wyx–“|¤„©oO€k2‡NM©dMVt[y?~^xY„o„P?qQR]cdqqLR‚z†vyPtg€›^”›n¥†ŒŸ—h— „SA W”zh^Jf\tm|_hZniVOBe’YŠh]Jh^‰—|vkwzytkQ‘q„q¨ ™†Š›•ƒ”…T1¯Pjv–`[lf_TlVeR~a‰‚ŒpLkre\B‚buz“pŠp\jlj•xy‘ui‰¥‡[Ÿ€«{stEL‡ZGsR“PCEn`wxj~K_ni]z\^gŠuIC…ced‚hmyp‘‰}|d£sœƒ~xqŸ‰”c³ƒmX­_YpZb]d^^E‚VV‹„xE^vY_Kzkn]RdyTre]™l|šmq‚˜¢Šd—‰yr¯‘~|l‡}~‹J=‰\IuIbc€prw>cblfrdWZiLL}k^W†skvˆi„qm›{•v¡r{z—‘zƒ¡ˆl«L¥Š±’\W§b[hRaNz^O~ˆlHgnaX>~_qfJl†lXfhf‘tuqe…¡š‰ƒW›}|{§™wop{€‡ƒV‚oNL?€j\²tfzG[jeYvXZcˆqE?_a`~{diŒul…yx`Ÿo˜™ztm›…}Œ™‰_¬€rfN„}l•N]©ap0€Py`z[VR‡p]†vjiQIas`ŒoQH”ejW“m‹s‰ad”…~z……ƒz` }k1ˆ[niS”8Rpl9Wƒ]AbpwUA‰Z’jvojZ^gfƒ}fotkiYtkbŸss§Œ†{‡ŠŠ‹‹r¯ƒTy ^G‹o—Ox:YK6;RY[xVyz^lZ‰i‚}dyQŒmcJ—a”k‘ZW“ˆˆ‡rˆx¢w}i˜…£cŒ23Š]1„tŸ<`{e:UtkXJb‹azcmc…f`Y‡qix…|d\]hmZ™y“xŸpyx•xŸ†j©‰£–¯ZU¥`YfP_Lx\M{tk€L;m{MNY^K‹l^U’fVSoeL™c’–m“\Y•ŠŠ‰tŠz¤ykš‡¥e45Œ_3†vb>b}g<WvmZLƒdg|eoe‡hb[‰skz‡~f^_jo\›{•r¡r{z—‘zƒ¡ˆl¨M~i¶…LK§bK“rYw=y]O:BV]_ƒ|Z}~bp^m–_”gmUqgN›e”˜o•^[—ŒŒ‹v‘Œ|¦{mœJ§gQ’67a5ˆxd@di>Yxo\N…fs~gqg‰jd]‹um|‰€h`alro›¦—„ˆ™“Œ’ƒ’«P¯i•NYªdLoBPcP|`a€ŠnJipcZ@€ashLnˆnZhjh“vwsg‡£œ‹…Y~}©›yqr}CJ…X„qP‘NACl^uvh|I]lg[xZ\eDsGAƒacb€}fkwn‡{zbrsd rkš‡Šœ•}œs‚D5kPGn—P_lcr2‚R{t|]XT‰r_ˆxlkSLc›„qhJ–glY•ou‹cf‘–‡€|‡‘‡ …|b¢m3Š]1kU–:Trn;Y…_CdryWC‹\”†xql\`ih…hqvmk[vmd¡uu©‘ˆ}Ÿ‰‘ŒŒt±…V{¢`IqZQz<[M8=T[]zX{|`n\‹k„’f{Soe]™l|šmq‚˜¢Šd—‰yr¯‘~|l‡}~‹J=‰\IuIbc€prw>cblfrdW^iLL}k^W†skvˆi„qm›{•ˆ¡r{z—‘zƒ¡ˆl«L¥Š±’\W§b[hR`=|\v[‚m‚N=o}OP[abooJP€xœ„twNre~™\’™l£„Š•›f•‚~U’xf\H£Zrªz]fXlgTM@cW>fkHf\‡•}zti‹u}xwriOpqbV}pi˜…}ˆš“{šq€rgN„}l•N]©ap0€Py`zu{AAc€XHcZU’crSHˆqˆhzWjmwŒ`†œu›Œƒ™i–Š‰q¢ˆVBW”zhutre_Kp[WV8k‰JBZ„Q^d€ˆnwrƒ}vk{flX‡xjUZqsrv{‡~£i‡‹r¯ƒDy ^G‹o—Ox:YK6ƒRTS‚vC\tW]Ixj\[“b‹cRpc[—jz˜ko€– ˆb•‡wp­|zj…{|‰‹H;‡ZGsGŸa~npu<a`jdpbU\gJJ{i\U„qit†g‚‹o}k–zlW]sut’x} ‰€¥k‰t±„|{¢`IqZQz<[M8‡TVU„xE^vY_KzjniMduTre]™l|šmq‚˜¢Šd—‰yr¯‘~|l‡}~‹J=‰\IuIbc€prw>cblfrdW^FiLL}k^W†skvˆi„qm›{•ˆ¡r{z—‘zƒ¡ˆl«L¥Š±’\W§b[hR`=|\v[‚m‚N=o}OP[abooJP€xœ„twNre~™\’™l£„Š•›f•‚~U’xf\H£Zrªz]fXlgTM@cW>gkHf\‡•}zti‹u}xwriOo‚o›€—„ˆ™“Œ’ƒ’«P¶¯i•NYªdLoBQRC7^QJŠnJipcZ@€`sdGoaLT‚z†vyPtg€›^”›n¥†ŒŸ—h— „SA W”zh^Jf\tm|_hZniVOBe’Y@iƒJh^‰—|vkwzytkQ‘rsdXrkš‡Šœ•}œsUB­RC±k—P[mfNqDSTE9`SLŒpLkre\B‚defpŠh\jlj•xy‘ui‰¥‡[Ÿ€«{stEL‡ZGsR“PCEn`wxj~K_ni]z\^kEuIC…ced‚hmyp‘‰}|d£sœ~xqŸ‰”c°„F7mRIpZRanet4„T}h~yEEg„\Lg^YPd‡Tre]™l|šmq‚˜¢Šd—‰yr¯‘~|l‡}~‹J=‰\IuIbc€prw>cblfrdW^JiLL}k^W†skvˆi„qm›{•ˆ¡r{z—‘zƒ¡ˆl«L¥Š±’\W§b[hR`=|\v[‚m‚N=o}OP[abooJP€xœ„twNre€nŒyohfŒ¢{¡’‰–Ÿ•o¤œQwi\H£][€nT{zxkeQva]\>qPHbtWdj†‡t}x‰ƒ|qlr^~p[`wyx–“|¤„©oN‘xv‰J¦dMRu^U~@_Q<AXZYˆ|Ibz]cO~pb]˜h‘uXviap€qu†œ¦…h›}v³•CApL‚P‘NAN`M:Mfg„tv{Bgfpjvh[f‘mPPob[ŠwozŒ…mˆ‘uƒqŸ™z¥v~›•~‡¥ŒU1¯Pjv–`[lf_TlVeR~bS‚ŒpLkre\B‚cujNpŠp\jlj•xy‘ui‰¥‡[Ÿ€«{stEL‡ZGsR“PCEn`wxj~K_ni]z\^oŠuIC…ced‚hmyp‘‰}|d£sœ{~xqŸ‰”c°„F7kRIpZRanet4„T}v~_ZV‹taŠznmU—ftsUL˜in[—q‘weh“˜‰‚~‰“‰¢‡~d¤o5Œ_3mWY<Vtp=[‡aEft{YE_pfzsn^‘bkj‡js‘xom]xof£ww«“Š¡‹“Pv³‡X}¤bKs\S|>]O:?V]_ƒ|Z}~bp^m†”h}UqgN›e”˜o•^[—ŒŒ‹v‘Œ|¦{mœJ§gQ’67a5ˆxd@di>Yxo\N…gi]~gqg‰jd]‹um|‰€h`alro›~¦—„ˆ™“Œ’ƒ’«Q€¯i•NYªdLoBQRC€^QJŠnJipcZ@€`sdLo‡Lš‚z†vyPtg€›^”›n¥†ŒŸ—h— „SA W”zh^Jf\tm|_hZniVOBe’YAi]Jh^‰—|vkwzytkQ‘rsd¢rkš‡Šœ•}œsUB­Ry±k—P[mfNqDSTE:`XT‰r_ˆxlkS“dšULŠs‘Šj|Yloybˆw…’›‘k ˜Œ‹s¤ŠXDŸYW|jwvtgaMr]YX:m‹LE]pS`f‚Šƒpyt…xm}hnZ‰y}d¡u…©‘ˆ}Ÿ‰‘ŒŒt±…|{¢`IqZQz<[M8=TVU„xE^vY_KzjnYMefWNŒu“Œl~[nq{dŠ yŸ‡”“m¢šu¦ŒZF¡[Y~lRyxvicOt_[Z<oNG_ˆUbh„Œ…r{v‡zojp\‹|nYauwv”‘z¢‹‚§mM~io…LK§bK“rYw=y]O:@V]_ƒ|Z}~bp^m†”h}UqgN›e”˜o•^[—ŒŒ‹v‘Œ|¦{mœJ§gQ’67a5ˆxd@di>Yxo\N…gis~gqg‰jd]‹um|‰€h`alro›¦—„ˆ™“Œ’ƒ’«P¯i•NYªdLoBPcP|`a€ŠnJipcZ@€ashLnˆnZhjh“vwsg‡£œ‹…Y~}©›yqr}CJ…X„qP‘NACl^uvh|I]lg[xZ\mDsGAƒacb€}fkwn‡{zb¡qš›|vo‡›’‹a±kV«]W‹n—`[b\\C€TT‰‚vC\tW]Ixil[Pb‹wRpc[—jz˜ko€– ˆb•‡wp­|zj…{|‰‹H;‡ZGsGŸa~npu<a`jdpbU`IgJJ{i\U„qit†g‚‹o}k™y“tŸpyx•xŸ†j©‰£ˆ¯ZU¥`YfP_Lx\M|†jFel_V<|]odHj„jVdfdrs‹ocƒŸ˜‡U™{zy¥—umny~…“€m‹J=~hZ°rdxEYhcWtVXmƒoC=]_^|ybgŠsj‹ƒwv^m–}—xrk™ƒ{Š—‡]­}¦‘§Y’‡©“\WXX~|PP…~r?XpSYEtehWL^‡sNi_F“]Œ‘Vtere”‡y™W¦ƒŒ¡¦›¡t¡Œ•‹›cols~¥n]‹q[aO?ZUz[Ng‚E{‚UŒms†~„O~‡kyg‡}{at…šŸ”šmš…„”|uh—…w¬Z·xxˆM@ŒSowp]farleZjU[GvgYDI`ba|ejvm’XwiTZpvu’Œu~œƒ¡g¦† ¬—m9gZ§y;…LMyZZ5;kc‡SV`uIo…^„uly‚xR‡srZ‹q~j†|~£ˆv’‡w˜ƒ~`Ÿ~j°{B¯QVrQ†r€he_Tv`hcb]T:zZmZ†j‘‰‚oxs„~wl}n|Y˜x’oˆƒ”‡|”~z¦‰±ª´˜5TšNEjkŠ^_|Ys]ESSTXi‰hqK~p`Y–xecSndertpcdm¥€‰€–˜bd‰ˆ’ŒbŸkl¢„GD³^2knLNMkhQVybYzrfeM‰]^OFj]V…rju‡€h‡^ll˜{£œ•‚z…—x›n}~o­Š‚~³œJs¢WV}zO`Yy]y5L{V|EB~ssr]xscbhTƒpNwy\r”’™o–‚fŠ¦d•„ªblmµ†IS¢\W†zKTSpjS\zaXVFaW>^‡rˆic\Štl{ˆxNn—˜‰ƒxš„Œ‡ˆˆo¬€€´œd©o0‘oGvRHn€QRO{_@7ƒN}X~GD€uut_zuedjV…rPy{^t–”›q˜„hŒ¨‘f —†¬dnoxˆKY¤^YI|MVUrlU^|cZXHcY@`‰‚Ške^Œvn}ŠzPqrc¡~unœ†~š‘ `°€jMªf«q2“qI9TJ1;R‰D:yb€]Pi„G}„Wouˆ€†Q€‰m{i‰}cv‡œ¡–œoœ‡†–‘~wj™H:®\zzz‹_BOUqyr_hctng\lW]IxhlSdš˜€}wlx€{{|{R¢r›~œ‡|ˆ‹’ŒŒs°ƒ{z²g4Œe‡N:iY]X†S|lCaRz^Rr‡vpDˆjih”†d\]hmtp‚o\nˆŠ|£ˆy ’ks‡–‘…l™5< SF|7X;;lZMFubZewpXs|`n\Šj„eaji†€irw[šz”y Š…–‰~–€|¨Œ}¬¶š7VœPGlmN`U9[u[GUUƒVZk‹jsM€rb[˜zgeUpfgtvrefƒo§‚‹‚˜šdf‹Š”dbmn¤†IFo`4mpNPOmjSX{d[|thgO‹_`QHl_X‡tlw‰‚j‰`nnš}¥—„|‡™’zp€q¯M„€vLu¤YX|Qb[{_{7ƒN}‚GeV~cj—hŠ„de~“’˜lP†¨xŒ“`œ£®–|¡‹‘oK…ªL~XsulsF}^dwou@ox\jXxnlRkfP…˜b‡p}`tƒ~rqsp{—Ÿ˜…‰š”‚’}D0Pl|ˆKJheNSv_V{A`R=FY_^{u^g…lŠPo‰b•fpr–m‘uƒqœ€ƒ”«y¢‚i‡zr®Rp‚GX­x–`:m_OH…gTRB]STac_Rj~oX•cZg|Ql‹‚oa˜ylg”rts‘w|Ÿˆ ˜Œ‹s¯ƒE6³QD|l˜Q\ngOnESfSbdƒ|ial~w_‚Ucvcsš“]|ƒvmS“t¬£›mm{}{¦‰Š¢†z[w¯_YlqSRQ}oMEFQV]YkXEnrrak†MkpTuƒŠhTœmou‰‚}m qzy–y‚ ‡~|l‡~u²†G{¢`Zq[c^^__FƒWgŒtqZ_‚kb‹Ml^INeln’‹iŒqmœ|•£wŒdŸ€v]ªt£§~emj¦›\[…a\‹vKQ=lYw7`bF}ql[jMN{vc\OrŸf”ugšktsŠs|šxvfxo¬¶´œZ“ˆk”]X—YXnOxqyjdY{emhoiiPaq–ƒPidjV…vy‚qa^™zpW¤w‡¥x|£­Œ•o¢U„}{œJHwSIJWYUH`teN‹YƒP]rGbxeWobiŠhji‡„mr•~u–‚i¨x¡„¢ƒ}v¤GV¢Z’hv‰K<3WNGu_Wfsjy9‰Y‚mƒ~„JJl‰aQlc^Ui’ŒYwjbqŸrv‡§†iœ~w´–DBqMCƒQ’OBZn_H…S}JWlA\{r_Qˆi\g„bdc~glxoˆ|{cŸste\€sl›ˆ€‹–~t‚VC®Rz²l˜Q\ngOrETUF„aYUŠs`‰ymlTevosK—hmZ–pvŒdg’—ˆ}ˆ’ˆ¡†}c£€n4‹^3£yYcX|f:5s^ZY;nŒMŒ^„d†gaZˆrjy†}e]^in[šz”‡ qzy–y‚ ‡k§‹}h·„KJ¦aJ’qXv<{[uRlM<n|NOZ_LEl”IPw›ƒsvMqd}˜[‘˜k¢ƒ‰œ”še”}T‘w¤L6¤k~‡mVcFZidXuWYV@a}…~kto€zshxciU„tx_œo€¤Œ‰ƒxš„Œ‡‡ˆˆo¬€€µ[ƒˆl”LuvVHr;OQPs@YqTZFufizI_ˆ`Om`X”gw•hl}“|…_’„tmªŒywg‚xy†ˆ„wd”}{ˆs@Œb7RqhUG~_RozXZYwt]b…ne†~rqY˜h‘x’smf”~v…’‰‚X¥yzk_†}v¤GV¢Z¨hyˆrMsTOK€iVocbJBZ‚]…h_A^cPŒf†„l‚Z]ˆ~ws~ˆ~—|sY™v£i“h™®YN±\0ji“PO1d‚C‚UdZ|]WP~h`o|s[ST_ebrc‘Šw€{Œ†t…v…r‚ƒ¢›ˆ€‹–~¡tƒE6iQI„z¢Pyi]\D„T|}ci;‡X]J†`€~f|TW‚‡xqmx‚x‘vmS“pc{b“¨ˆ’‡«•id¢JIj^||}MNTvWQJxbZivmUMNY_\ˆk“‹„qzu†€ynpl˜}mœ•‚z…—x›n}~o¬Š}v¶š7VœPGlmM`Q9\t9‡og‹scf=aTmˆKˆ[’syŒ„ŠU„qmƒg”€{e”š­wœ…’u‰Y“‡¤†IJ´Qm´n[d_pjcXhSYEtdhOŒ`–”|yshŠt|wwxwNn—z˜‰ƒxš„Œ‡ˆˆo¬¶µ®coˆaƒJ6¤UY“‚Oxh?]PH„Wg…X\mƒluO‚td]š|igWrhivxtg“„mªx¢o|‘f —„v­O‘€j‡JI¦dMRu^UvnbaI…YZK@fYRnfqƒ|dƒZij[Rvmf”~v…’‰˜X¨x¡ˆ¢ƒ~z¯˜FoS‘yv‰\YwWqeCQSQ|_`x\PpŒ…tnB†hgf’„bZ[fkrn€mZƒ‡‡v¢€›b€…iŠ˜Ÿ}i±‚UN¡PC{k—P[mfNirVdR€`z[†W`_|v_h†muQqcNSjpoŒ†ox–}›a €šo¦wƒ§ ~¡¢†UCiRky‹R:uVL3€Jy}TzC@|qqp[vqa‹`fRnŒLuw[’–†p¥bc‹xqd‡´{ª‹||¯€JI¥`I‘pWNL<WM4„T}d~_YR€jbq~unD‘efW“ribzr…”T¡uvg^‚zv«”ªšu¶†~k°TKlyJO<xRrpXnFItyjc_jtjƒh_E…bUmT…šz„y‡[V”{z\­n®…§I‚{©“L[§_G~@KP=|\vi‚S\[xr[d‚iqM‰m_J™flkˆ‚kt’y—]œ|–s¢¢n]op{€mfNµj2 Y}¤UXnSF_z=szM„ek~v|Gvcq_usY†rmW†ŒŸiw„g{Š…y–xz{`‚¦ŸŒ•¡\”‰Z„K7¥WI49PRQolUZ}f]‚HgYDJ`fe‚|enŒs‘W–vqœ‡œhW‰—iju{|¨‰‰djšSwO‘hMYt7mtG~_expvApy]kYyomS€lgQ€†™cˆq~au„srtu[|˜ ™†Š›•ƒ“~E1ŸQCm3‰LKifOTw`W|BaS>DZ`_|v_h†m‹QpŠk––bQƒ‘cdouv¢ƒƒ^d”Œ°˜ˆ‹b†ySnpgn€x˜_rjp;jsWeSsigMzfaKz€“]‚kx[o~ymŠlnoVv’š“€‰„•ˆ}x~j™Š|glƒFE¢`IqZQv<[M8>TZYvpYb€g…KŠj„e{\K}‹]^iopœ}}X^†ª’‚…\€sŒ§j §z±’Yl£j5£mQ_MmcaGt`[EtzW|erUixsg„fhiQpŒ”zƒ~‰‚w‡rxd“„vaf}~œZ‚‡ª“KpuUGq8NTSpjS\zaE„d~_ŠuŠVEw…WXcij–wwRXˆ€¤Œ|Vzm†¡dš¡t«Œ’¥dngŠYG¦][€nZU?nt‡Qv_lOcrma~`bgj†‡t}x‰ƒ|qlr^~p[ªwyx–“|¤„©oO€k5‡NM©dMVt[y?~^xQ„U_a…~\€dr`‹orƒšh‘qXviap€qu†œ¦…h›}v³•CApL‚P‘NAYm^G„R|IVk@[zq^P‡hVƒacb€}fkwn‡{zb¡qš}›|vo‡›’‹a±kh«]W‹n—`[b\\C€Szˆpw}CCe‚ZJe[B“eujqJ–glY•ou‹cf‘–‡€|‡‘‡ …|b¢m3Š]2¢x—bW{e94r]YX:m‹L\ƒc…f`Y‡qix…|d\]hnk—{lš“€‰„•ˆ}j©‰£„¯ZU¥`YfP_Lx[]{tk€L;m{MNY_lŒkmH”~všfisˆ\‚˜q—ˆŒ•‹eš’†…m„‘}™•e¥›~N¡[Yu[Zd^j\ONˆR}‹spj_ksnmh_E…fgXLsf_{s~‰qguˆu¡…v¥‹ƒ Z¤w†H9´TG€d@_fYP6vXY^…d~PP^^Œ_ctŠ”s|V‰{kd¡ƒpn^yop}{n†š‹t±©vƒYmˆhL>´VoqOQPnkTY|e\}uihP_ˆg‰jd]‹um|‰€yOœpqbW}tm›…}Œ™Ÿ_¯¨¡©K…wŸMv¥ZYAƒR‰`|_A8„O~‚YHEvvu`{vfekW†s‘Qz|`—›‹†uª„gh•}viŒzA°Q‘u…ONkeNWu\SQA\SJ‡Zwtnc…owrrsrI™i’}“„~s•‡‚‰ƒƒj§{±¯—¤jjŒjBqMD†6‹L={r[yVIb}@v}P‡hnyJy‚ftb‚xv\‰upZ‰¢l‘z‡j~ˆ|™{}‚c…¡©¢YT¤_XŒ]‡N:iZL7<SUTroX]€i`…KimT‘euš‚hmyp™[y}d¡t«©‘˜dd†£{k†}„µ„V7±lU²PC\w:pwJbh{syDs|`n\|rpVƒojTƒ‰œf‹tdx‡‚v“uw|^›£œ‰’˜‘†–H4¢TFp6MONliRWzcZEcgN‹_o”|ybgŠsj“Usw^›n¥£‹’˜^^€ue€w~¯~p«f¬‰|Vqsjqƒ{\bums>mvZhVvljP}idN}ƒ–`…n{^r|poqvYy•–ƒŒ‡˜’‹€{mœNj0†IH¥cLt]Ty?^P;AW]\ys\eƒjˆNm‡h“~“_N€`alrsŸ€€[a‘‰­y|†›o•«„ª\’Ÿi9n¥ZYArXeQmiU9yo‘aunlInmwq}obaVe†ƒ}r”~†€{rX˜x‹x¤‡‰§ WR¢]•Š\Œ\IuY€yr_WbtmUxKZ[LCgZS“wSrylcI‰k|uSw‘cch—œap˜}pŸ§{’°{®˜Heifnƒ4Ÿv>qnufqhDkuw}‚{sqfztkST_i”dgq†Z€–o•†}Š“‰c˜„ƒkœ‚{—kˆ°™pX®gn¦y˜;CWfaU<iDKpbUL‹gJJ{i\U„qit†g‚‹o}k–zlW_sut’x} ‰€¥k‰t±…F{¢`IqZQz<[M8>T[]zX{|`n\‡lni’f‘SoeL™c’–m“\Y•ŠŠ‰tŠz¤ykš‡¥e4hliq†7cyAtqxit_[Z<{ZFŒi–]‹lqNlb›ƒ€zo‘{ƒ~}xoU•uˆu¡…v¤Š“ŸZ’‡˜‰X5³Tn z[d_pjcXpZiV‚e}†tPovi`F†fyvRt‚`npn™|}•ym©¢‘‹_£…„ƒ¯bw9ƒIP‹^KwPgeCud<…lmK|qFa€wfpŒƒNO—hjp„}xh›lut‘‹t}›‚ywg‚yp­µ[”‰l•^Y˜ZY0€PydzkeZ|fnipji@`‰lŠkfb—€m–†zyaYq™tœvX¤uzg£}›ƒ™25Ÿe•K•`VoTK1qN{AYk?mCo†bA}„FŠw„~yf_Roa–ƒ¡b¡raiv|˜ ™†Š›•ƒ“~E1ŸQCm|‰LKifOTw`W|B`dKˆ\l‘yv_d‡pgRqcNVjlkš[tŒouaªcz£‡jˆ{s¯‚SqƒHY®y—a;n`PI†hUSC^TUbd`SZpH•{yW†xP’w[|Š‘qu¢‰cj¡‚u}šƒƒ¥†€y§‘JY¥]E|>IOLx[ƒ{tajevpi^o`o\ˆm]Œ…rju‡€h‹^mn_œzmf¦Šf…Œv\œ|€h‹£h¶W{¢SVlQD]x;qxK‚ci|tzEt}ao]}sqW„kWz‘Š‘s›ƒ™˜™‰\^ƒ‚Œ†\™efœ~€}eXke§…HG¤bKs\Stl`_GƒWXI=dWPldozbXfyf’uw–|t‘Šr•hv‰v¢†­¦°”p–J€fg‡piqUo€AOQOz]^vZNnŠƒrl@„fed‚`XYdipl~kXp‡…cŸ•„\¥Œkœ‘f —†¬dnoxˆKa¤^YI|MVUrlU^|cZXHcY@`‰pŠke^Œvn}ŠzPqrcŸ~unœ†~š‘ `­C4jO†‚x Nwg[ZBƒSŠw}`W9…V[H„^~|dzRU€…vokv€vtkQ‘n›ay‹_c¦‚a¤fª—neZG3¡PBwd‚C‚TBJW]yzgpk|vodt_eQ€qcNVjlk‰†ot—€wœbs^dz€œ–ˆ¦l2­RDn5ŠRTxqOrsWeS‚b{v‰]rJ…f\CZ‰dŠSPŒ€k†q›pvb‘~œ\…‡jcŸ§}m™p8ªhoŸkVRQ3rQ=ƒ`T‚eXEcY„’zwqfˆrzutofLŒll˜|}›”Š…–‰~€|¨Œ³¬¥’KV§aI«?NO@4[NG‡kGfm`W=}]paDl^IQw›ƒsvMjp—or|‘e‹¡z ‘ˆ•”n£›Pv§[G¢Z7“|e{czryr„dFNbql`GtOV{m`WTrUU†tg`|t‘Šr–zˆv¡…wbj~€[ƒˆl”LqvUY}P‡†nkTY|e\…GfXC’_fhŒ…c†‡kyg’wylqœ^™zpW¤tz{¥|œš‚˜psd”J”_U­SJ0pMz@Xj>lBn…a@|ƒE‰vŒƒ}xe^Q€n`•‚ a¡quhu{—Ÿ˜…‰š”‚’}D0Pl2ˆKJheNSv_V{A`R=CY_^{u^g…lŠPo‰j•€•aP‚bcntu¡‚‚]c“‹¯—‡Ša¡‚UFƒGQ¥:ŸvOuf]jsiCxpdcK|bo[wnKhyw††˜xZbv…€t[ˆcjto«†iišˆ{t£IT¥_G¡k]KyYsfPYXuoXafnJ‰iƒhpyt…xm…o}Z™y“xŸŠŸkZŒšlmx~«ŒŒgmVz¡RUklM_TNQ[pDj€Ypgt}sM‚znmU†lyexUršƒ™˜—¢‚dl€Š~e’mt™‹~y¶44¤SF~n[S^piQluYgUƒc}^‰Zcbybk‰pxT“sr™zƒ~‰‚wyˆu¡…v¥¯“o•Ie¥†YNqTn“@NPNy\_GvVhEdg>‹[abcƒiWZ…Š{tp{…{”ypV–s f~d’h”«‡fc©kpœsj£_L„8gUG|i‡HˆXGO\b~†lup{tiydjV…uy`q§¥Š„y›…ˆˆ‰ˆ_¯¨‹©[”‰l•^YŸZZA~Qˆ‡€tAZrU[Gvfje“`‰yPnaY•hzh—xgsg‡£œ‹…Y~}©›yqr}CJ…X„qJ _=yo^6fgEvk@[zq`j†}HI‘btr~wrb•fon‹…nw•|sqa|rY©y¢›£„~w¥HW£[TiwŠL={XOHv`Xgtkz:ŠZƒf„…KKmŠbRmcJTk¢]S’{™’r„a¡‚™}q‘­¦•c§‰IH³fD{=‡MTPbO<TkiGƒyh@‰pqO€uJe„{jt‡RS›l~€ˆ|lŸpyx•xŸ†}{k†|c³ƒmX­OIpZRane^4„T}v~oi^€jrmtnnU’ffš‚‰UUw”l\wmT¥vwt „e\¨y~k§‡~yo{ko…l5qnccbMhcS}RXDs`~>giL€E‰_O{‘YŒ‰ŒwsrT“r^¤®u¤…Ÿf„z¥³›Y’‡©“\W•QHmnNaNz^_}vclgxrk`qbq^Šn•‡tlw‰‚j`opaU|oh¨Œh‡x^~‘‚eNj3 Y}¤UXnoPbqQT^sGmƒ\‚sjw€vP…}qpX‰o|h„{Xu†œ„›“š“¥…goƒ’h•pwœO|4“77§VIBq^VaslTox\jX†f€aŒ]fe‚|enŒs{W–vuœ}†’Œ…z’|‹x¤ˆy¨²–3R˜L‚hi‰\Q5WqWCQSQ|_bJŠ\Y‡Z^o…nwQ„vf_œ~kiYtjkxzvip—†^«‘m¥œf¨2S hH‹yŸ:AxY\jqZdZ|]WP~h`o|s[ST_dQpŠ}–gpoŒ†ox–}…as^­z€œ–ˆ¦l2°Qk‡w¡wC2drDEPUB;bŠ?Fum‘yilCƒdvehr‡[—p–‡~‹”Šd™‘…„lƒ|˜l‰±šqY¯ho§zZ<DXgbV=jELqcVQJhKK|j]V…rju‡€hƒŒp~l—{mX`tvu“y~¡Š¦lŠu²…}|£aJr[R{=\N9ˆU\^‚{Y|}ao]ˆmob“g’TpfMšjpu›r’xfi”™ŠƒŠ”Š£Ie¥‚p6`4¡8d{W6ry;l‚ysn[TGvdV‹x–W˜gk^kq•{„Šƒxˆsye”…wbg~€[ƒˆl”LqvVHr9OUTqkT]{b€F…e`‹v‹WFx†XYdjk—xxSY‰¥zpW¤tz¦|œš‚˜psd”J”_U­SJ0pMz@Xj>lBn…a@|ƒE‰vŒƒ}xe^Q€n`•‚ a¢q…hu{—Ÿ˜…‰š”‚’}D0Pl2ˆKJheNSv_V{A_cJ‡[[xu^c†ofQpbMRikj™Zs‹nt`sn©y¢†i‡zr¡T1±Qg¨M€a}ve_3wYXWƒuSKLW\c_q^KczxV’ˆwO˜€^„Yt“ŠyƒŸ–abª{£ƒ—‹{®IH¤_Ho•MK;VL3ƒS|u}^XQiap}tmCdeV”qhayq€„“S£sœ˜dd†£{k†|cm„|7llU²lL^;j[tQXKdBxR‰jpƒ{L{„hvd„zx^‹r^˜‘˜z¢Š Ÿ ceŠ‰“c lm£…HMµ_3loMOMkhbWyckfe`W=}]p]‰l”Œ…r{v‡zo€q\›{•j¡‚‹†—‘Š—l«L¥˜±œr>l_m~@KQZ]u:†phŒtdg>~_‡n`cm‚V|’k‘‚y†…_”Œ€g˜~‹w“Šg„¬•«“ªc©¢u”7?’b]8e@Gl^QP@cFFweXQ€mep‚{c~‡kyg•up›lut‘‹t}›‚Šf¢†xch…„¡\„l’q7µVpE|MWY}vTwx\jX?g€UagOŠkaY•hzh˜xwsg‡£œ‹…Y~}©›yqr}CJ…X„qJ _=yo^6fgEvk@[zq`j†}HI‘bŠv~wrb•fon‹…nw•|sqa|sj§z±¯—”ƒ¥XS’TTzxŒLifOTw`W€BaS>ŒZ\[Š~Kd|_eQ€pt_Xk’]š’{™’r„ašƒ~qŠ¥h¥x¯Wj¡h3¡k]Kka_ErYEhxa‰q‡†‡wJLqpztJ‡STŠlnsT…YS•sut’x} ‰€¡™Œt°„F7jRE}mZR]ohPoFTgT€ce„}jbmx`ƒVdwdt›”‚^}„wnT”u–_‚œnn|~|šŠd¤…ng†JT¨=cyRxi`mvlF{sgfNer^zqNk“|’z‘‰‰›{]eyˆƒw^‹fm’„wvi‰llL~w¦“LW¨bJ¤nR`Ny]O:@VXWur[`ƒlcˆNm_JRflkˆ‚kt’y—]œ|–w¢s}£œz‚~©N‡w†pjvUHoOa>m^wn[Ng‚E{‚UŒms†~„O~‡kyg‡}{aua„›”›}¥£¢£“fhŒ–fdopgˆKPrb60rPRQolUZ}f]~vjiQ`‰pŠke^Œvn}ŠzP p™„š‹…zœ†‰ŠŠq®‚Cx°eqŠc…L8gX[J?QzfA_Px\PpŒ…tnB†hgf’„bZ[fkrn€mZr‰‡e¡—†^§m“hƒ¢™IS®f1qzŠsug`[K~OXWtnW`~e\ZJe\Sdd˜€}wlx€{{||c t„©‘w|Ÿˆ¨j‰{fk‚JL¯iG©k]KzZsnUjB}Xxv^tLOzpiepzp‰neK‹h•[s…Y‡]‰ |[—`¤‘§˜“€yl›J<°^||MQDQWs{tajevpi^nY_Kzk]HPdfeƒ€in‘zq–\{mX^tzy–y‚ ‡¥k§‹}hn„LN±kI«mQ_M|\upƒWlDWZk=‰Tƒ‹_b‡ˆ‡{|fŒ‰{_œ„š~”sg¤Œ¢†’™f‡¢”©´œe“‚§‘XFuQL°RE^y<ryLƒdj}u{Fu~bp^~trX…n{gƒ{{O„`wU‚„¦Œh]e€Ÿ–ƒu¬N€xfYO°RL„s]UdqhPHITYF…er‹\ed{dm‹rzV’vhSXout‘‹t}›‚ f¥…Ÿ„«–«wfY¦x:„J7oXY4;jb†RU_tHn„]ƒtkxwQ†~rqYŠp}i…~|bw†`”ara~Ÿ¦œiziŒ1RŸg„py‰LNf_ZJ}NWVsmV_}d[YIdZA‘aŠq‹lf_wo~‹‚{Qrsd[vo‡›’¡a±kJ«gmr3”rJ:UK2;UdE<zc^Qj…H~…Xpv‰‡RŠn|jŠ€~d‘z‡s‡‡[ªlƒaš²˜5Li]2Œl¢PByZMMr[e[}^XQiap}t\TU`eR‘q‹~—hqp‡py—~†b‚t_®{€—€‰§m3±RlˆxcxD3esEFQVC<c‹@Gvn’zjmD„eš’eizšy‚\qj§‰vtduvƒ…t“€m‡š\F±jqLfTNzryWt_[Z<oN^MUbh„Œ…r{v‡zojp\‹|nY^uwv”‘z¢‹‚§mLv³ˆH}¤bKs\S|>]O:ˆVXW†zG`x[aM|n`[–fsVtg_›n€nUs“‘ygj•š‹„€‹•‹¤J€fgƒq7a5oY[>zztT@‰o[lB|\H‘wdWkzui†hjgNUO‘oqp‹tyœ…|•‰ˆp¬€rgN€yi•NYªdLkBQRC:^UN|f^mzq€@`‰hŠkfb—€m–†zyaqƒ€~˜Œjxzx£†‰qjwgkhpmj_^Id_OyNT@o\z:ceHIasG}xgY‘‡doV€oa™mZ~ˆ‚€sjc…hh™‡zs¢HS¤^F j\JxXrS~OXWtnW`~emI…i[FPbhg„~gpu“Y˜x’koy{Ÿ˜v™š~Œza‰Œs°ƒ52¬ND{xŠ]K4PpnVlDGrwha]hrhf]Cƒ`Sk}QLuwZ––p\¥‹wˆ^˜xd­“€s‡–‘…¢„GDl^2knLNMkhQVybYzrfeMŒ\…l†gaZˆrjy†}vL™mn_Xzqj˜‚z‰–œ\¬|¥„¦‡‚~³œJs¢WV}6N`My\>5RWU€cfNITƒ‡^„MJ†{{ze€{k•jp\‹x–Vde}c™ª”ƒu­d€‹rœL>µlJv\[e_k]PGBbEEvdWPldozb}†jxf”tošktsŠs|š‰e¡…wbl~„ƒ [ƒŒk‘p6´Uo‡{LVX|uSvw[iW>fiP`QN‰j`X”gygRlŒŠrˆ`c“„}y„„‚y_Ÿ|©o‡ZmhR“7s²mM9‚hTe;uUAŠp]Pdsnbac`KzNHŠhji‡„mr•~u–‚i¥yzk`†yr¡GR£]„£;‰K<3WNGu_Wfsjy9‰Y‚aƒd_[yfsrZ–j|y—w‘…cqqŸrv‡§†iœ~w´–DBqMCƒQ’OBOaN;UhiSw~\Ysa[‡†dlhgI|š[šmbou‘™’ˆƒ”‡|Œw}i˜ˆŒs°„{y ^XŒo˜a\\]\3ƒS|_}nh]iqlsmmT‘d›š“‡Tm…hnZ‰y}x¦sœŒcrš~r’®§–d¨ŠJI´gE|>INUQcP=[]YLUxjN‹s‰mYƒbV“{‘u|ibUx¥l›{p]{qœª’‰~ Š’Œ‡~d¤„XE°U|³mZc^oibWhYgDƒc}Z‰jsnyrgixe‘tœ•Ÿƒ_~…xoU•uˆ‰¦ƒ‡o}}«~C“©³’\6¨[KƒcPN>YOP]_[N[mZGatu_‹ƒŠhemg“‹’pxtsUˆ¦g§w‹n{¥‹” [“ˆYƒJ6¤UY}Q‡…mjdY{emhhih?_ˆk‰zti‹u}xyy`p§¦Ÿ“`y‘tzf•…‰„²¨˜oE¤£:‡Hv‰MrsrfgQztAlŠmni{}€ZvRyƒ…‹‰tˆ‚yabmw¢ru”h¤}£”‹˜¡—2gS‘yk^Jf_MKp[WV8k‰J‰Z^Q^d€ˆnwrƒ}vk{flX‡w{bŸs©§Œ†{‡ŠŠ‹Ša±kR«]W‹n—`[b\\C€Td‰‚vC\tW]IxhlgLb‹{Rpc[—j|j™ou‹cf‘–‡€|‡‘‡ …|b¢m3Š]1²W–;\jqO;ƒTV`pidT‡Xa`}w`i‡necSne\™mm¡‰†€u—‰„„……l©}²š—€…¨‘IrsSEo5LSUyrPstXfTƒc|wŠ^sK†g]D‘agtfisˆ\‚˜q—ˆŒ•‹eš’†…m„‘}™’€~£KJk_}}}OxERXt|ubkfwqj_oZ`L{koV“gw›ƒ€zo‘{ƒ~~f£w­¬”‘z¢‹‚«mM~i·…HGµj7hKQ=l\`K?WXI@~g…~^pM|n“…i]}™’{O“utsŸ‘oghsx{zg„‡©vŠZ”ˆf‡JGqa5nqOQPnkTY|e\}uihPŒ`aRIm`YˆumxŠƒkŠao‚o›~¦Ÿ˜…}ˆš“{q€r°N…wŸMv¥ZYA}Rc\|`|8„UZGƒcZ{dWp‹N„‹^•v|‡X‡t‚p†„j—€}•}viŒzA¯P”qP…qgd^Su_gba\S9yZ[L@gZS‚ogr„}e„[i|i•yj™’w‚”u˜kz{l¨‡zs³—4S™MDij‹MRyXrDDRTR}`cK‹[€ˆ[_p†oxR…wg`ljZukly{wjv‰œcˆ‡‘‹—‰|w´22¢QD|l˜Q\ngOjsWeSa{\‡Xa`}w`i‡nvR‘q‹p—x|‡€uw†sŸƒt£­‘mŒ“†}c£„WLoRl‘>LNLjZ]4tUg`VYcxLrˆa‡xo|…{UŠ‚vu]tm‰‚pn“~zy[¬m­~§t‡£«¤‘[V¦aZ_JP<k\N9>UWVtqZ_‚kb‡Ml^IOekj‡js‘x–\›{•v¡Œ¡m\œnoz€­OioŸX|£TWmnOapPS]rFl‚[rivuO„|poWˆn{gƒ|jhxtsUˆ¦g§y{n{¥‹” [“ˆYƒJ6¤UY}Qa…mjdY{emhhiiPa—–~{diŒul•WvhS¡oqpŸ“`y‘tzf•…‰th€rih®h‡Z7¥WZkTG`{>t{N…flw}Hw€dr`€vtZ‡pmq…€mfY|©pŸ„au ®–“‚¤WRL‚hi‰K<0WJCr_WbtmUtKZ[LAg^W…ogvƒz‰I™i’y“”ZZ|™qa|sn«|‹la¡Š¨¡T1ŸQjzN€Zu8nuH`fyqwBqz^lZzpnTjgkzg`Sv£jšy”[yoš¨‡|ˆ‹Š…|b¢‚VC®ST±k—a\mg`UfWfScŠƒ|ial~w_‚UdeV“qd]]|ƒvmS“s†wZ‚t_g•±™‰Œc£„mP…IS§<bxQwh_lukEzrfeM~dq]yr`^ƒnjiK~œ]Ÿmqdqw“›”Š…–‰~ykšŠu²†G{¢`Zq[c^^_^5…U~Ypj_ksnuonE•e‡ŠVVx•m]xonaxwh£†¤}l›Mµz‰|Vqsjqƒ{\bums>mvZhVvljP}fcg{vc\OrŸf—uzWuk–¤Œ‰ƒxš„Œ‡†x^~‘~ªOµ­g“]X¨c\bSa>}]w\ƒdmhyslaycr_‹n–™}YxriOo‚‡ }—}iwyw¢…ˆp²€¥­€E•«v”^8ª]MFƒeRP@[QR_a]P\o‚Inmwq}obeštWWˆvib‘~v“Œt˜|Šx£‡ydl€CBŸ]…Šn–Ns9W[BScˆpmV[~g^‡IhZE”ahj‡eˆ‰m{i”y‘nŸsˆ`›|rY¦v|…ª~œ„š36 fWL–aWpUL2rO|BZl@‚ffJky€^J’c›wxsc–gpoŒ†ox–}trb}tk¨||°˜•„¦YT“UTj{Štuuf`UwaidkeeL‰\ƒ‘y€†LLn‹cSnelœlm^œ“|d s…s¤ƒ˜š~•±}€ °ƒVE~gI‘dNMkhQVybYzrfeMŒ\…l†gaZˆrjy†}vLœl•€–‡v˜‚Š…Œ††mª~~³¬ m†H4¢TW…;MvawRrp‚UgVyz€F‹u_^‡NyŠ|fLˆj‰”‚ty‹ˆ‚w™ƒ‹†…€w]~pgL~w¦“LW¨bJ¨@OPA6\SLzd\kxo~>‹_`QFld`•~k”„xw_Ÿo—˜š~zmˆe¡yxŸ‹o°œUƒŒmIHŠc\¡oWUG9kePwT]\ys\eƒja_Oj`G—gs‘rle“}u„‘ˆW¤xyj¦…|u£…”¡Y§guˆJ;qVNJhU~nbaI‹Y‘`„gWc`rO~s‹^‹} ir‹}„˜ˆrqtŒ…‹˜€~pb”y }GF¢]…m“KI9TJ1Qza{\VO}g_n{rkAbcTof_wo~‹‚‘Qrsd[ws¨‘~§—‹Šr³ƒ{h­QA¨M‰\9h]uX~hY|pmg\~hpkje\B‚cdUIpc\‹xp{†ndsteZ€wpˆ€œ“¢b²‚lS¬hns4•sK;VMH…VeF;Xxvˆ[m\e~pw‹{ed\ˆK‹x|‡€u…pvb‘‚t_d{}|š—€…¨‘InsRV|zNNƒkhQVybY‚DcU@E\^]Œ€Mf~agS‚tfaœl•xŠwme”|d|’umœy~}›˜†©’Jk¢WV}}MvYwXRKyc[jwng=Š^_PGkb[‰skz‡~Mm–—’˜^^€ue€wri}¦ŸCe²‚KO¬b6¥7KRS~r_H\lHyy{}Pldozb}†jxf”tošktsŠs|š‰e¡…wbg~„ƒ [ƒŒk‘p6´Uoƒ{LVX|uSvw[iW>fT`_`mpG‡om|‹haj†›^‚š}ŸŒk™‚|u£…”¡Y€x:„J7µVpc|MVUrlU^|ckG†f€UŒmvq‚|uj‚l{h”wi˜¢†bˆ{rX˜x‹c† „wS0«Lƒ°n–vYg\_K~NVfvV_‹V_^{u^g…lcaQlbI™i’}“tng•w†“ŠƒY©y¢›£”ƒ¥XS™TTzx‹L€hou;;]zRB]S:‹\]Z†jebtQ€xgp‚lkc•R’zxj\ˆsš‡‹œ–„”F2 RDn~ŠMLjgPUxaX}CbT?H[a`}w`i‡nŒR‘q‹d—hrt˜‘o’“w…s‚…–­{¤ƒ}€Œc°€HM¢_4®lVcMzhbMtajevpi^nY_KzjnU’fœš‚ynz‚}}~}T¤t€‰~ Š’”u²…}|´i6gJP<k[_ZˆU~mWZf=ŠZaQ€xMˆ…n‘Šˆknzƒ~‰‚w‡rxd“„va¯}~œZ‚‡ª“KpuTX~|P`…mjSX{d[„FeWBJ^`_‚Oh€ciU„uWn—zpsV£szj™‘f¡†„“¢exh”MX©cK¥oSaOz^P;ˆWYXvs\a„md‰On`KSgml‰ƒlu“z˜^}—Š£t~€¤{Ÿƒ‘gO·švˆHvˆVY0pWVU|lQJdmn{~~YRnfqƒ|dˆlzh–vqœmvu’Œu~œƒ‹g£‡ydj€GF¢]…m“r8tXJ5„QSRuB[sV\Hwi[Z’aŠacfrI–fmˆ”r‘yw†•—rkš‡Šœ•}˜¡…TB¯Pj†v†POlfOXv]eA€`zq†gpk|vod|fubq‰‘Š–bQƒ‘cdota¡ƒ„s¨{ ¨|‹b¯HL©_3¢4‡PXug`Y>aeTroX]€i`ymlT“cŒsnhayq€„}S tuf_xqŸ‰”£c³ƒmL­OJ…{dQzj^]E=UgT€c‰{_\nKzrajŠ|fe•ˆir‘„˜€Š‡v˜‚Š…„v\œ||¨Œ«¤‘[V¦aZ`Q`My]„}vc[fxqY|O^_Pk^W—{Wv}pgMm€qT|nYal›¤€ ^­“ƒugc¨¡©“]O¢j7—sez…mudSxbhVFa\~^pNŠzslŠcmw“qkl–|„{—ytx„ˆw¤šg|±“•¥cnkz}mq‡n7speedOjeUTZFub€@ikN–iyNiˆl^•vieww™ztm›…}Œ™xpq|‚«P€®h”^Y©d]RcTcP|`a€yf^i{t\RabSGnfb—€m–†zya¡q™šœ€†X¤uzg£ƒzu„wQlne«~v–]phn9hqUcQqgeKxa^bvq^WJmšap‹Rpf‘Ÿ‡„~s•‡‚|sY™z{l`‡zs¢HS¤^F¤<ŠL=2XOHv`Xgtkz:ŠZƒj„…KKmŠbRmd_œm|]R’{™’r„a—™}q‘­¦•c§‰IH³fD{=‡MTPbO<Y\~K_ni]z\^[BuIC…ced‚hmyp‘‰}|d£sœƒ~xqŸ‰”c°„F7jRIpZRanet4„T}X~_ZV‹taŠznmUMehsjL˜in[—wnuxk„Ÿb˜Ÿr©Š£›¡l›¤ˆWE¤[Y~lURVjeRK>aUƒeiFdZ…“{xrg‰s{vupgMm€m™}~œ•‚‹†—‘Š}©N´­¦“LW¨bJ¬@OPA~\OHˆlHgnaX>~^qbEm_JR€xœ„twNp~œos„š¤ƒŒf™‹{t±“€~nJ€NL?Š^qw]\f`l^QHCcFFweXQ€mep‚{c~‡kyg’vhS¢oqp‹tyœ…|¡g…‰p­€‘¶\„‰m•MvwVZA~Rˆ‡€tAZrU[Gvg]’`‰aPnaY•hzhRm‹s‰ad”…~z……ƒz` }k1ˆ[n°U”9ZhoM9RT|ngbR…V_^{u^g…lcaQlbI™i’‹“tng•w†“ŠƒY¦z{lª‡~w¥HW£[jiz‰sVtou;;]zRB]S:D[’MC‚k‰‚btQ€sq‰ma–…S—yxw£•sklw|ƒ‘~kˆ‹n;^YŒj‹NOye93uSUTroX]€i`ymlTdeVMqd]Œyq|‡oes†sŸ‚ª£œ‰Œ—¢u„F7´RJ…{dQzj^]EVg`€d€<ˆY^K‡g^Y”[Še‹TQ‚‚l‡‚rœqwc’]†ˆk³†–k†¥œJ<²TWŠlU_UwXRKyc[jwnVNOZ`]‰m^Œ…r{v‡zo€q€m™}~–ƒ{†˜‘yœo~pdLƒ´Kt£XW~Owxz^d6‚SXEaXS‘U„ˆ_…NK‡||{f|l–kq]Œy—W€‚e­€e€Ÿ–ƒu¬NˆfYO°RL„s]UdqhPHITYF…er‹\ed{dm‹rzV’vhS¢out‘‹t}›‚ f¥…Ÿ|«–«wfY¦x:„J7oW4;jb†n^a8xYkhZ]g|PvŒe‹|s€‰Y†zya’x…q†tr—‚~}_’°q±‚V9…L§¯i•_Zke^ScNT@o`R=BY[Zxu^c†of‹QosZ—l{ ˆ…ns–vŸa€r]«y{z©jƒ›~E1ŸRD~z‰sW:XKCRdRbay]Qq†uoC‡ihg“…c[\glson[x{j~ˆ|™{}~d”hb¤‚ED¡_HŒp˜Pqi]\D€TUF:aTM|ial~w_~Ucvcrt“Œyq|‡o’es†sŸƒª£­‘mŒ“†}c£„mfnRl}>LNLwZ]E…VŠ‚UYj€ŠirLqaZ—yfdToefsuqdpƒ–]‚‹…‘ƒvu¬ˆkkœŠ}v¥’KV§aI£mQ_M{[uhR[ZwqZchpL‹k…j‘r{v‡zo‡q\›{•z¡Œ¡m\œnoz€­OioŸX|£TWmnOwNPS]rFl‚[rivuO„|poWˆn{gƒ|jhxtsUˆ¦g¨w‹n{¥‹” [“ˆYƒJ6¤UY}Q‡…mjdY{emhhih?_ˆk‰zti‹u}xyy`p§¦Ÿ“`y‘tzf•…‰„²¨˜oN€xu‡ZH·WWoSGgƒ|ke9}_^]‰{YQR]biewdQnq“`tƒ~rqsx¡Š^Xšxzy—”}‚¥FgS‘yv‰K<0WJCr_WbtmUtKYlY…hj‰‚ogr„}eˆ[i|i•y ™£‡c‚‰|sY™z¢›d‡¡ssDB¬PSz|Š€xKO`v€_hBugWPo\ZJe[\ikgZfyŒSxw{‡ylk]~aa’€sl›ˆ€‹–~™¢†UC°Qk‹w‡QPmgPYw^fBa{`‡hql}wpe}gvcsd“]|ƒvmS“t†{_›m{}{¦‰Œtµ…jr„IZ¯zYb<oaQJ‡iVTD_UVceaT`s†Mrq{usfeXx[[Œzmf•‚z…—x“œ€|§‹}hn„GF£aJr[Rw=\N9AU[ZwqZch†L‹k…^‘bln’‹iŒqm˜|v¥u˜eƒvnª}}­N²¤ˆ|]y±a[nsUTSqOGHSX_[mZGdg‰Vjyth…gir—€TNnpoŠsx›„{œ”ˆ‡o«€qfMxh”MX©cK©APQB9]TM{e]lyp?_ˆg‰jea–l•…yx`œp‚}—‹ityf¢‚y|²v¥ªoN~§c„t<ªn79h|e€tUNFoascZ@€y–~kaYˆejh†sn”}†`“…un«zxhƒyz³–GV£g«h‰LMiWJCr_WbtmUpy]kY‡gb^gfƒ}fot|X—w‘v~‡‚“†{“}Œy¥‰z©³—4S™MDijŠ]R6XrXDRR€p]SKzW\Zxe`†oxR…wg`ljZuklšˆ©–—b¢Ÿˆ‘“”²s´ky ^XŒo˜a\[VM3sTUF:aTM|ial~w_~Ucvcsd“Œyq|‡o’etuf¢tm­‘mŒ“†}c£…GL²Rl}>LLzjWMEtQVTr_Z€ŠirLqaZ—yfdToef”y‚£‘\œ™‚‹—¬m¯y¤²š—‘†¨’[V”PGlmM`My]^|ubkfwqj_pap]‰m”†skvˆiŒ_no`{ng§‹g†€w]}dM~iqŸX|‡KU©>dzSyjanwmG|thgO€sdcˆzŠd’t|{O‚zVppv˜yslš„|‹˜wop{~ªO­g“]X¨c\bSbO{_`xe]hzs[~Q`aRFmea–l•…yx` p˜™›…W£n¡xgd ••”[•…p„K7¥StN|^fe9ld@ˆZj`‚c]V„nfu‚yaYZekh”xi—}†’Œ…z‹|‹x¤ˆ‰¨¡GR£]„§;‰K<0WOK€iVocbJŠZ‚ƒ…ioAX‡‹bˆQNŠ~i„o™nt`|œ¡‡k†¢Ÿ©­{BkMi°j–`[lf_TdOUApaS>FZ\[yv_d‡pgŒRqcNTjpoŒ†ox–}›as^dzƒ§ ~¡¢†UC±Rk¥yŒb:uPpnVlDGrwha]hrhf]Cƒ`š†Ti–ƒ¢•…£d`p›©‘ˆ}Ÿ‰‘Œ‹†}c£„F7mRE}mZR]ohPoFUVG<bYR€jbq~u„D‘efWLrjf›„qšŠ~}e¥u „Š\¨s¢¦}£li¥š[Z„`[ŠuJP<kXy[…l[j…xZS‰kŠj‡yrkPsz\“vvf™jsr‰r{™€wue€wn«³›Y’‡©“\W–XWm~NwtxicXzdlgnhhOŒ_†”|ƒ‰OOqfVqhoŸopaŸ–zm†¡dš¡t«Œ’¥dngŠYG¦k\”<de\ns{Uƒeml@skG`ag‰jd]‹um|‰€h`alro›p—„ˆ™“Œ’ƒ‘n­N§t”^Y©d]RjTcP|_wxo„P?qQR]cpoaL›‚zjmwŒ`†œu›Œƒ™i–Š‰q¢W5­g… nŸvVse^W<_fH€`bR…V_^{u^g…lcaQlcZ—kkŸ‡„~s•‡‚‚ƒ‚Y©y¢££”ƒ¥XS™TTzxŠr€hou;;]zRB]T[‹[\M‹‚k‰fYrP†`—x~‘‰Z‰’v„r’˜ˆlªˆ‘ƒ •ª¨™4z¥_Y”p–„O{Vrzs`iduoh]mX^JyimT‘eu™~xmy||}}d¡u«ª’x} ‰€©kŠ|gµƒFE³h5fIO;jZ^I=UVG>|eƒ`Sl‡J€‡Z‘rx‹ƒ‰TƒŒp~lŒj¦‰Š«`˜Ÿ]«’©…©˜’‚°’[ZmaYubcpssQ=†V]`ZSkcrv^VWbhe‘uf”zƒ~‰‚wˆy‡d£ƒ”©Š“ŸZ’‡Ÿ‰YF±Um´nezF5guGHSYf…eWB‘xp”`cm‚V|’k‘‚y†…_”Œ€g˜Œ¢{]™Œˆ£Œo©®c„„s”]\oc[v€QQWyZTM{e]lypXPQ\b_‹o`‡t}x‰ƒ|q‚s^}—£„ˆ™“Œ™ƒ’«O¦®ht@naoABMS`_Q<‹rjZ]g|PvŒe‹|s€‰Y†zya’~œu‘Œ†z™…•‡Š…¢€CBŸ]…Šn–Nog[ZBQze{\VO}g_n{rkA‘aŠq‹|vkwz{{bŸs©§–œbb„¡yi„{v´ƒj5hjS°N€Zu8nuH`fyqwBqz^lZzv…X…pysˆhh‰k}‚Šxkd“€xƒ•v‘š~Œz¨ˆ¢‡®IH¤_Ho•^:yYsT`iduoh]u_n[‡k’Šƒz[J|Š\]hnoœ{’W\…©ux‚—k‘§€¦—›¤š5j¡VU|nZxQmhbVul[aqcfo~\^]{xaf‰riŠ‚vu]œl•€–wqj˜‚z‰–†\¬|¥Œ¦—‘†¨’[VœWW}{O…ƒkrx>>`}UE`WR_…PD…nŒi\uS‰cš{”Œ’]Œ•y‡u•š s«‹ƒu¨cm­ª“]_¨`~‚;Kv„licXzdlgfaX>~_`QEl_X‡tlw‰‚j‰`nnšo—„|‡™’zp€q®Mxyœ9XRInoQRS}]wUIWW…X\mƒluO‚td]š|igWrhi¡|…c‘“_XŸ„®›œg§¤–˜¢Z·|6„p~¥c]Rt^fa`[R8xYZK?fYRnfqƒ|dƒZh{h”yi˜‘~v“Œt—jyzk¨†yr²–3R˜L‚hiŠLMwWqOCQQRVg}‡foI|n^W”vcaQlbc‘v Y™–ˆŠ”‹©r©v¡¯—”ƒ¥XS‘MDij‰]JvZ[yr_hctng\m^mZ†j‘Šƒphs…~f‰\kl]šxkd¤ˆdƒŠ}tZšz~a‰{fnœUy„HR¦; wPvg^ktjDyqedL}pa`…w‡aqyxLwSl}s•vpi—yˆ•Œtlmx}j©‰£ˆ¯€JI¥`I‘pW_;zZtg€ajevpi^v`o\ˆkƒ‹„{\K}‹]^in[›|ne¢vfcy™—•mp› ‘Š†‘\RªPGlmJzZwib[@cjL…d|V‰Zcbybk‰pgeUpg^›oo£‹ˆ‚w™ƒ‹††‡†]­}¦£§Y’‡©“\WXX~|Ov„lsy??a~VFaX__`Q†oj]v‘TŠ‘d›|‚•“^–zˆv–›gp§Œ„“®c“|u“8n©l8nPx[o]PIxe]hzs[vcq_m‡h“dml‰ƒlu“z‚^}—|£„ˆ™“Œ™ƒ’«P€¯z:YŸSJ0pQcX<^x^JXX†Y]n„mvPƒue^›}jhXsij˜}†§”•` †‘›’°yi}iw\•Šm–_ZYTK1qQdQ}ab€yfoj{unctetaq˜‘ŠwozŒ…mcrsd¡rk«kŠ‘„{a¡UFhQCm6£\€LOYnBh~W}ner{qK€xlkS„whgŒ~h’xwQ„¢k\oš¨‡|ˆ‹Š…|b¢ƒE6iQD|l˜Q\ngOnETUF;aXQiap}tƒC“cŒsˆTTv“k[vmh¥v…f[›„¢r‹¦iŸ¦y°‘Xk¢i4¢lP^Llq<luk€‡;oj^ErMTyk„m†dfeƒ€in‘zq’Š~}e¤t„yr Š‚‘•d´„nY®`Zq[c^e__FƒWWŒ…yF_wZ`L{lo^SezUsdŒpd„ ™ˆ‚Vš|{z¦˜vnoz†¨Y“ƒ°œ7}¨b\—sKv„licXzdlgfaX>~_`QEl_X‡tlw‰‚j‰`nnšo—„|‡™’zp€q®Mxyœ9XRInoQRS}]wUIWW…X\mƒluO‚td]š|igWrhi[}…šŸ‹uu£…Œ`“ˆx«|…„¡\„l’JHwSI0€Pydz[UN|f^mzqj@`‰‚Š{ujŒv~y€zzaq˜¦•›aaƒ xhƒy`±‚DA¬QqhuosJp96rggfQlgWV\Hwd„B†zgŒ‚|vNœo~Œ”v“qsrv{‡~Ÿ—‹Šr±kR«MGn—P_lc\2‚R{f|mg\~hpkrllSdd™’†Sl„gmYˆy|k`r›‡b€q™}q‘­¦•c§‰IH³fD{=‡MTlnPY†kZv€wXepMp…\\`ih…hqvmk[vmd¡uu©‘ˆ}Ÿ‰‘ŒŒt±…V{¢`IqZQz<[M8=T[]zX{|`n\‹k„’f{Si‰‡o…]`‹zv‹šv\œy©‰¦˜‘Šo’WM®PJ‚q[SbofNFGRXUeV„}jsnyrgxiwT“s„™zƒ~‰‚wyˆu¡„œ¤”©udW¤vw‚IV´UGqh`„PS]rFl‚[rivuO„|poWˆ~l^”V†“…`~|oh—„|‡™’z•‚~¬M¦‡sƒML¨cL”sZb>}]w\ƒdmhyslaycr_‹o`™}YxriOp‚w[}—}iww¥x‚xpŸ|†²«[”hmNM¸kIABMRY€tAV}n„my{YŒ]fe‚|enŒsjhXsjarr¦‹…zœ†‰‰ŠŠq®‚SxŸ]…Šn–Nw9XJ5:QXZ~wUxy]kYˆh|cxP‹f†„l‚Z]ˆ~ws~ˆ~—|sY™v¥‚˜”i¥®–X6¨gy‚v†POlfOXv]TRB]TKˆ\\xuod†pxsstt[˜l|¡‰†ot—€w bs^czƒ§ ~¡¢†UC­RUƒ9Št`;YJrVJj†nh<€ba`Œ~\TU`el‚ˆLTx‚|R[[•sut’x} ‰€¡™Œt³ƒmT­OIpZRane^4UVG?bYR€jbq~u„D”dlojf›„qšŠ~}e]u‡t ƒe\¨s¢¦}£li¥š[Z„`[ŠuJP<kXxS}clb<pk}FksjDxsgN{V\…sf_{s~‰qŒ•y‡u£ƒ~©zƒ‚ŸZ‚‹©Y5³Tn’z[d_pjcXpZiV‚fW†tPovi`F†gynRtt`nnœos„š¤ƒŒf™‹{t±“€~nJ€hs7¦c\„Lw…mjdY{emhgbY?`aRFm`YˆumxŠƒkŠao‚o›€pŸ˜…}ˆš“{q€r¯N€yz:YŸSJ0pRST~^xVJXX†Y]n„mvPƒue^›}jhXsij‘†œ}—Œ…]a¤™›¯y¬}GF¢]…m“KI9TKBSS‡olf[}gojjkkRcs˜€}fkwn—YxjUZqxz—u˜™}‹y¨ˆ¡œ¯ƒY1«Gg¤M¢;>in_XT_i_x]T:zW†g€vp`Kxx…xgŒjlk‰†ot—€w˜„ƒkªz£Š¤…x¦IX¤\Uj{Št_uf`UwaidkeeL‰]]’‹Le}`fRrudYk”€[yj’vjŠ¦Ÿˆ\ ‚€¬|tu€FM¤gI‘dSYzoa9ybi~xZ^}t^d†gaZˆrjy†}e]^iol˜|m›”Š…–‰~€|¨Œ¬¥’KV§aI«?NO@4[SO„mZƒsgfN^†‡‰msE‘\‹fŒURƒƒ‚mˆƒsrxd“€ ‡©“o  c¨¦›rV¥TGo\T_qjRmvZhV„d~_Š[dc€zclŠqyU‘ugR[ntsŠs|šŸe¤„oª{…‡«e‚¥gŠYGmVY}PA>yTtrZpHKv{lealvl…jaG‡d“€”mƒ¡|†o}pi˜…}ˆš“{–Ÿƒ‘­N§ˆt„NM©dMVt[c?{_Q<EX^]zt]f„k‰OnˆY”eoq•lt‚pW‚i¦yjg¢}›ƒ™25Ÿe•K•`VoTK1qN}xpu|[~ron@tocJwRXob[ŠwozŒ…mˆ‘uƒqœ€r]cy{z˜•~ƒ¦GlqQCm6‰POlfOXv]{A€`zK†Wac‡€^‚ftbqtkšj“Zxi‘ui‰¥‡[Ÿ€«{stEL¨^Xoo¢QP2qP<‚P{‰qnh]iqlkf]CƒdeVJqd]Œyq|‡oes†sŸ„t£œ‰Œ—¢u„F7±RE}~b>]dWN4tVWX‚b|ZN\\Š]arˆ’qzT‡yibŸnl\wmn‹uš‰¤¢“m³Ÿ˜’©m{¢`Zq[c^]XO5uVWH<cVO~kcn€ya€Wexe‘vf•{s~‰q”gvwh¥ƒvo¯“o•Ie¥‡IJ³Tn‹@NN|OSdz„clFyk[T‘s`^Ni_`s}g—Škt“†š‚y•–ƒŒ‡˜’‹€{mœNj0†IH¥cLt]Ty?^P;AW]\ys\eƒjˆNm‡h“~“_N€`alrsŸ€€[a‘‰­y|†›o•«„ª\’Ÿi9n¥ZYAre|U~u@€}foq{gYŒ]fe‚|enŒsjhXsjarr¦‹…zœ†‰‰ŠŠq®‚SxŸ]…Šn–Nw9XJ5:QXZ~wUxy]kYˆh|cxP‹f†„l‚Z]ˆ~ws~ˆ~—|sY™v¥¨˜‡±˜HW±g2±o—acmUqyr_hctng\lW]Ixi[FKbdc~glxo”Zx|c ut©‘w|Ÿˆ¨j‰{f´‚ED²g4Œe‡N:i[MHƒS|`CaRz^Rr‡vpDˆjih”†d\]hmt“†e]Šzt–˜Ÿy§‰‘d—|¥ƒFE¢`IqZQrj^]EUVG<bUN}jbmx`VefWNribzr…”T¤t|zv«”ªšu±…XU²Sm ?MM{NRcyƒbkExjZSr_]Mh^_‘r|vŒ‰‘k™{ƒ‚V‰~n¡r{z—‘zƒ¡ˆ}mIv³‡H|£a[r\d__`_6†V|€qk`‚ltovppW”gœ„‹‘WWy–n^ypw§wxi§‡¥‚u©lc©|t”[n¥l7¥oSaOosT]~mm‚ƒzma€wfpŒƒPd‰gih†ƒlq”}t•€h§w ™¡‚|u£…”¡Y‘gx‡q\±c]Rt^fahba8ˆXl‚}ƒIIkˆ`Pkb]škz[Py—tg€›^”›n¥†ŒŸ—h— „SA f«¤pPZtl^6zh‰Y{\VO}g_n{rZRS^daqb‰vz‹…~s„uƒ`Ÿ™¥†Š›•ƒ›…UB­Qi°j vB1cqCDOUbaS>tjˆxe[S‚|t˜dgŒŒ‚qk‰…Z–‘ˆd‹•—¢›“‘†š”‹stJu„HR¦; wPvg^ktjDyqedL}r‡†€~ae–zišŠ‰dd—hqp‡py—~usc~ul©}}±™–…§‘ZU”VV|zN^ƒkhQVybY‚DcU@E\ce‰‚`ƒ„hvd“sŒ‡šnƒ[–q‘weh“˜‰‚~‰“‰¢‡~d¤rVª`Z´sd>„pic_zVg]`ZSkcrv^VWbhe‘uf”zƒ~‰‚wˆyˆu¡…†¥‹ƒ Z¤w†H9lTL‡}fS|l`_G‡W€‚fl>ŠU„ˆ_…NK‡||{f|l–kq]ŒyšpŸ„g]™{g°•ªv®J¥­g“]X¨c\aLR>m^P;@WYXvs\a„md‰On`KQgml‰ƒlu“z˜^}—x££o^pq|‚ƒ¯Qk2¡Z~‰MWl@f|U{lcpyoI~vjiQ‚nQu‡…P€‰izp’smf”~v…’‰qiju{x¤ˆy§ WR¢]•Š\Œ\IuYZyr_WbtmUxKZ[L@g_[yfsrZšj’“•yQh—›r˜a^šy”©~E1ŸMnƒs—;q1e:H„jXJv~u|Z\[yv_d‡pgˆ€ts[šj“z”uoh–€x‡”‹„Zªz£¤•„¦YTšUU{yŒM‚{o<UmPVBqbeTI[„pKiZ‚fZz–~xLrqpœldepu|ˆ…d’m|¥‘„¥ƒFE¢`IqZQrj^]EUVG<bUN}jbmx`VefWNribzr…”T¤t|zv«”ªšu±…XU²Sm ?MM{NRcyƒbkExjZSr_]Mh^_—{Wrˆˆjc™{šz—‰‚{`ƒ‡}Ÿ€zs¡‹ƒ’ŸW~vw‚H5³Tn’zKTSpjS\zaiE„d~qŠkto€zsh€jyf’u•…šfU‡•ghsxe¥†xo¬€pm¨D£¡JŸ8;¥k\”Q\f\uZQ7wTƒzsƒa‡uQhƒP`‰gih†ƒlq”}t•€h¤xyj_…xq …¢\ƒ¢:ˆJ;qVMFt^Verix8ˆX`‚c^Zxe~rqY•i{x–v„bppqu†œ¦…h›}v³•CApL‚u–_b0lN:ƒh}I`bR…V_^{u^g…lcaQlbI™i’}“tng•w†“ŠƒY©y¢›£”ƒ¥XS™TTzxŠr€hou;;]zRB]S:‹\]Z†jKBYˆŒc‰RO‹€€j…€pšoua}Ÿ‘‡ •Œ{¤‚ED¡_HŒp˜Pqi]\D€TUF;aTM|ial~w_~UdeVMqhayq€„“S£sœ{~yuª“€©™Œt°„WT±RlŸ>LLzMQbx‚ajDwiYRq^\Lg]^†qzq‰U^˜ƒ|Œzmf•‚z…—x“œ€|§‹}hp„GF£aJr[Rw=[_FƒVŒtqZ_‚kb‹Ml^I˜eln’‹iŒqm˜}r£w¢dŸzš˜€–nqœb’‹‡’]S«QHmnKz[tjdT?mHW€yl_€^`_}zch‹tkŒ„xw_n—~˜yslš„|‹˜ˆ^®~§’¨Z“ˆk”]XYY}QQ†s@YqTZFufiXM_ˆtOm^†j^~š“‚|P”vut ’phity€œ›|h¡•Œ¥\•…1„p~¥c]Rt^fa`[R8xYZK?fYRnfqƒ|dƒZij[Pvmf”~v…’‰˜X¨x¡ˆ¢£ii‹iApL‚}{‹[<1qZxUHa|?u|O†gm€x~Ixesa„f_—wov…oZn™§Œ†{‡Š‰„{a¡‚D5hPC{k—P[mfNmDSTE:`WP~h`o|s‚B’b‹rŒ‡SSu’jZulg¤u„eZšƒ¡~qŠ¥h¥x¯Wj¡h3¡k]KknPYtaY`yoiYDXƒ‘yvpe‡qytsneK‹lm^Ryle”y„–w–m|}nc‰€y§‘JY¥]lk|Lu\vqw==_|TD_VQ_nOD„m‹h[tRˆb™z€“‹‘\‹”x†t”—da¥Š¨‘ŸŠ·œGM®PJ‚q[SbofNFGRXUeV„}jsnyrgxixe‘uv•{s~‰q”gvwh\ƒ{w¬•‚«›Pv¶†op±V\mzEtxOu>;wllkVql\†[aM|i‰tWM‚|h‘ƒtƒŸ”oo¢s|{˜’{„¢‰€~nJ€wuˆI}¤b\s]e``aaH…Yivs\a„mdOn`KPgnp”kso~—’¥yf¡|œš‚˜psd”J”_U­SJ0pM|@}t@={m^m‰~YYŒ]fe‚|enŒsjhXsjarr¦‹…zœ†‰‰ŠŠq®‚SxŸ]…Šn–Nw9XJ5:QXZ~wUxy]kYˆh|cxP‹f†„l‚Z]ˆ~ws~ˆ~—|sY™v¦‚˜Ÿ~©YOhMi°j–`[lf_TdOUApaS>CZ\[yv_d‡pgŒRqcNTjpoŒ†ox–}›a €š{¦‘¦ra“¡stFG²TTn5¤]MPZoCiX~ofs|rLymlT…z…xi“y‚xRv’š“€‰„•ˆ}x~j™Š|glƒFE¢`IqZQv<[M8>TZYvpYb€g…KŠj„e{\K}‹]^iopœ}}X^†ªvyƒ˜l’¨§˜œ¥›6k¢WV}od>€lsR[wkFZ…qZ[…ktjDh„Œ…r{v‡zojp\‹|nY^uwv”‘z¢‹‚§mM~io…LK§bK“rYw=|\vW‚m‚N=o}OP[abooJP€xœhkuŠ^„šs™Š—gœ”ˆ‡o •o±¡cƒ„o”^TmRnµo\e`qkdYiTZFufXCH_a`~{diŒul‘WvhSYout‘‹t}›‚ f¥…Ÿ€«–«wfY¦x:„KL·YY4:jb†RU_tHn„]ƒtkxwQ†~rqYŠY\‡‹Xv“…v…¡–qq¤u~}š”}†¤‹CApL‚ywŠKgd^Su_gbbccJ‡[kxu^c†ofQpbMRipr–m‘uƒq €™”§{h£~œ„š36 fWL–aWpUL2rO_€mg\gK}Kc„bdc~glxoˆ|{c¢r›‚œ}wpˆ€œ“Œb²‚lW¬^XŒo˜a\c]]DUUŠƒwD]uX^Jyjm\QcŒxSqbŠnb‚—†€T˜zyx¤–tlmx}„b—¨šqQ³iI³udNTvWQJxbZivmUMNY_\ˆl]‹„qzu†€ynpl˜|}œ•‚z…—x›n}~ocŠ‚~³œJs¢WV}~Nvwy]c5L{V|EB~ssr]xscbhTƒp‘œƒs†r{¨w}Ÿ€zs¡‹ƒ’ŸW~vw‚IF±VG´n[d_pjcXiZiV‚fg†ldozb…XghYMtlh†sœŒ€g§wŸ ¢†Œ^ªu¤¨fnkhœ]\†b]ŒwLR>mZzU‰mIzƒrGw„vQom`YˆumxŠƒk†so}—x£t}|™“|…£Š’n­N§Œt”^Y©d]RjTcP|`Q€ŠnJipcZ@€ashLnˆnZhh–im~”}†`“…un«zxhƒyz£W5¢e…lO^zoJJ}NWVsmV_}d[YId[Rcc—|vkwzz{{bŸsƒ¨v{‡~§iˆzejIK®hF¨j\JyYrm€TiA|Wwu]sKNy~ohdoyoˆmdJŠg–oš•[^c™•—c{œz|{™–„§Hi UT{{Št[uVPIwaYhule;‹[„o…vpe‡qyt{uu\™mm¢›\upvb‘‚…ti{¤k‰z¢†z[w¯_YlqSRQ}oMEFQV]yoiAƒsNm„{PaŒš‚ynz‚}|wnT”uvg[‚unŠ‚Ÿ˜€Ÿv…G8lSJ‚q[Sbofu5…U~ez€FFh…]Mh_Z—hwXMv”qd}˜[‘˜k¢ƒ‰œ”še”}Ym®’7K±a[‹v\e[5Yu}vclgxrk`p[aM|m_JOfhg…‚kp“|s˜^}oZ`v|{˜’{„¢‰§m¬M¦‡ss?m`nALRS``;AqiY\f{Ou‹dŠ{rˆ~X…yx`‘|`––Š_m¥„€–’g¢¡€\„‰m•Mn¥ZYA}QRC:^QJyf^i{t\{R`s`Œo—‰vny‹„lbqrc¡~vr§}¦–Š‰q­‚TM¬Q¬huosJp96rggfQlgWV\Hwd„k“wRUH†Q…w –Yw£‡w†•—rr¥v~›•~‡¥ŒDBqMDzx‹‚€he_Tv`hccddKˆ\l‘yv_d‡pgRpt[˜l|¡š[tŒoua„shz£jˆy¡…yZv®^Xkp‘QP|nLDEPU\wx~D‰sbh‚w`iyU††ˆe”y\’Rv’š“€‰„•ˆ}x~j™Š|goƒFE¢`IqZQv<[M8>TZYvpYb€g…K‡k]HNdkm‘Šh‹Œp~l›{”¢v‹cy™—•mp› ‘Š†‘\RªPGlmJyVlh=yˆjkfxyZFIktf‡yroNb›ƒ€zo‘{ƒ~}xoU•uˆu¡„¬¤Š“ŸZ’‡˜‰X5³Tn‚z[d_pjcXpZhE„d~qŠuŠVEw…WXcir—uRˆ€¤ps}’fŒ¢{¡’‰–Ÿ•o¤œQwi“sL§j8Œx]Udys@k|n„`~sGwH\‡•}zti‹u}xwriOo‚o›p—„ˆ™“Œ’ƒ‘n­N§|t”^Y©d]RjTb?~^xk„o„P?qQR]chJqaL˜‚zjmwŒ`†œu›Œƒ™i–Š‰q¢—ml¥d†Šv_=pn€J}NWVsmV_}d[YId[Rcc—|vkwzz{zQ¡qš—›Œ†{‡Š‘‹‹r¯‚jxŸgmr3”rJ:ULSƒSTEƒzayzW\Zx‚k‰f|rduRS˜x–•x–t“ŠyƒŸ–cx‡€r¨Ÿ±stJu„HY”p—=\xpsP{Tf_ƒbz?F]^o…f\C”eŒw’q‹†Wm“¡‰{}l¡tœ•[€„¢r’”–l…²šmP©RV€}N_Xx\tg?TVTcf]^nOEm]‹„ffWPtvm•llšm’—z—Œzl¤ƒ«“¯}¥„¨‹r„GE³VG}{OPe7[NF†VXaegtI\o“_bsoŠrWv’Šj•m€yœ}¥f£vx—¤ƒvn®~€ŸeL¥voˆX|£Un~|QQV:[_}ZMmoyqG`u‡j„mp}QgYOukškqzX~p¤x¯‚a„wo±¶q¬N¶p†Gu‡mr”rgUG^†n„X€ˆer`—•}o‡`—hyZ•wh–p¨s›qcv‰­y|‰¤Œq¬e§„p‡[LµXZQ~Q‰\z[Q8ŠZ‘h‰f€YJ`b`paLSiz’’mŒ[~†}W”aq«wzga‰Šu®ƒTYlQ¸4Š\ayYZx~RdU;ax=C\lˆi[bKbše‘oc^™i’“˜zkrZst‰¢€©zf{{££„za®‰H:²hEjG€w9LOvLwjYg‚vyLWpKN~}ouf
+local Config = {}
+
+Config.tattoosList = {
+	["mpbeach_overlays"] = {
+		{nameHash = "MP_Bea_M_Head_000", part = "head", addedX = 0.5, addedY=0.4,addedZ=0.7, rotZ = 136.4},
+		{nameHash = "MP_Bea_M_Head_001", part = "head", addedX = -0.1, addedY=0.4,addedZ=0.7, rotZ = 195.0},
+		{nameHash = "MP_Bea_M_Head_002", part = "head", addedX = -0.1, addedY=-0.5,addedZ=0.7, rotZ = 334.5},
+		{nameHash = "MP_Bea_M_Neck_000", part = "Nhead", addedX = -0.1, addedY=0.7,addedZ=0.7, rotZ = 537.0},
+		{nameHash = "MP_Bea_M_Neck_001", part = "Nhead", addedX = 0.3, addedY=-0.3,addedZ=0.6, rotZ = 410.3},
+		{nameHash = "MP_Bea_M_Back_000", part = "torso_back", addedX = -0.6, addedY=-0.4,addedZ=0.3, rotZ = 309.0},
+		{nameHash = "MP_Bea_M_Chest_000", part = "torso", addedX = 0.2, addedY=-0.5,addedZ=0.7, rotZ = 374.3},
+		{nameHash = "MP_Bea_M_Chest_001", part = "torso", addedX = 0.3, addedY=0.2,addedZ=0.4, rotZ = 482.0},
+		{nameHash = "MP_Bea_M_Stom_000", part = "torso", addedX = 0.3, addedY=0.3,addedZ=0.1, rotZ = 485.6},
+		{nameHash = "MP_Bea_M_Stom_001", part = "torso", addedX = 0.6, addedY=0.3,addedZ=0.1, rotZ = 485.6},
+		{nameHash = "MP_Bea_M_RArm_001", addedX = 0.2, addedY=-0.5,addedZ=0.3, rotZ = 21.1},
+		{nameHash = "MP_Bea_M_RArm_000", addedX = 0.2, addedY=-0.5,addedZ=0.3, rotZ = 21.1},
+		{nameHash = "MP_Bea_M_LArm_000", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7},
+		{nameHash = "MP_Bea_M_Lleg_000", addedX = -0.5, addedY=-0.2,addedZ=-0.8, rotZ = -51.7},
+		{nameHash = "MP_Bea_M_Back_000", addedX = -0.7, addedY=-0.4,addedZ=0.5,rotZ = -55.6},
+		{nameHash = "MP_Bea_M_Chest_000", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Bea_M_Chest_001", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Bea_M_Head_000", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Bea_M_Head_001", addedX = -0.1, addedY=0.4,addedZ=0.7, rotZ = 195.0}, --
+		{nameHash = "MP_Bea_M_Head_002", addedX = -0.1, addedY=-0.5,addedZ=0.7, rotZ = 334.5}, --
+		{nameHash = "MP_Bea_M_Lleg_000", addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0}, --
+		{nameHash = "MP_Bea_M_Rleg_000", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, --
+        {nameHash = "MP_Bea_M_RArm_000", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3}, --
+		{nameHash = "MP_Bea_M_Head_000", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Bea_M_LArm_000", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7},
+		{nameHash = "MP_Bea_M_LArm_001", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7},
+		{nameHash = "MP_Bea_M_Neck_000", addedX = -0.1, addedY=0.4,addedZ=0.7, rotZ = 195.0},
+		{nameHash = "MP_Bea_M_Neck_001", addedX = -0.1, addedY=-0.5,addedZ=0.7, rotZ = 334.5},
+        {nameHash = "MP_Bea_M_RArm_001", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3},
+        {nameHash = "MP_Bea_M_Stom_000", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Bea_M_Stom_001", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}
+
+	},
+
+
+	["mpbusiness_overlays"] = {
+		{nameHash = "MP_Buis_M_Neck_000", addedX = 0.3, addedY=0.2,addedZ=0.5,rotZ = 119.4},
+		{nameHash = "MP_Buis_M_Neck_001", addedX = 0.3, addedY=-0.2,addedZ=0.7,rotZ = 56.9},
+		{nameHash = "MP_Buis_M_Neck_002", addedX = 0.0, addedY=0.3,addedZ=0.6,rotZ = 164.8},
+		{nameHash = "MP_Buis_M_Neck_003", addedX = -0.3, addedY=-0.2,addedZ=0.6,rotZ = -54.1},
+		{nameHash = "MP_Buis_M_LeftArm_000", addedX = 0.3, addedY=0.2,addedZ=0.0,rotZ = 115.5},
+		{nameHash = "MP_Buis_M_LeftArm_001", addedX = -0.7, addedY=0.1,addedZ=0.0,rotZ = -68.4},
+		{nameHash = "MP_Buis_M_RightArm_000", addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7},
+		{nameHash = "MP_Buis_M_RightArm_001", addedX = 0.3, addedY=0.3,addedZ=0.0,rotZ = 145.4},
+		{nameHash = "MP_Buis_M_Stomach_000", addedX = 0.7, addedY=0.4,addedZ=0.3,rotZ = 117.3},
+		{nameHash = "MP_Buis_M_Chest_000", addedX = 0.7, addedY=0.4,addedZ=0.3,rotZ = 117.3},
+		{nameHash = "MP_Buis_M_Chest_001", addedX = 0.7, addedY=0.4,addedZ=0.3,rotZ = 117.3},
+		{nameHash = "MP_Buis_M_Back_000", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_Buis_F_Chest_000", addedX = 0.5, addedY=0.3,addedZ=0.5,rotZ = 124.9},
+		{nameHash = "MP_Buis_F_Chest_001", addedX = 0.7, addedY=0.4,addedZ=0.3,rotZ = 117.3},
+		{nameHash = "MP_Buis_F_Chest_002", addedX = 0.7, addedY=0.4,addedZ=0.3,rotZ = 117.3},
+		{nameHash = "MP_Buis_F_Stom_000", addedX = 0.7, addedY=0.4,addedZ=0.2,rotZ = 117.3},
+		{nameHash = "MP_Buis_F_Stom_001", addedX = 0.7, addedY=0.4,addedZ=0.2,rotZ = 117.3},
+		{nameHash = "MP_Buis_F_Stom_002", addedX = 0.7, addedY=0.4,addedZ=0.2,rotZ = 117.3},
+		{nameHash = "MP_Buis_F_Back_000", addedX = -0.4, addedY=-0.3,addedZ=0.2,rotZ = 299.8},
+		{nameHash = "MP_Buis_F_Back_001", addedX = -0.4, addedY=-0.3,addedZ=0.2,rotZ = 299.8},
+		{nameHash = "MP_Buis_F_Neck_000", addedX = 0.3, addedY=-0.4,addedZ=0.6,rotZ = 382.8},
+		{nameHash = "MP_Buis_F_Neck_001", addedX = -0.3, addedY=0.3,addedZ=0.7,rotZ = 214.2},
+		{nameHash = "MP_Buis_F_RArm_000", addedX = 0.5, addedY=0.0,addedZ=0.0,rotZ = 457.5},
+		{nameHash = "MP_Buis_F_LArm_000", addedX = 0.2, addedY=0.4,addedZ=0.0,rotZ = 472.0},
+		{nameHash = "MP_Buis_F_LLeg_000", addedX = -0.3, addedY=-0.11,addedZ=-0.7,rotZ = 332.0},
+		{nameHash = "MP_Buis_F_RLeg_000", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}
+
+	},
+
+	["mphipster_overlays"] = {
+		{nameHash = "FM_Hip_M_Tat_000", addedX = -0.7, addedY=-0.4,addedZ=0.5,rotZ = -55.6},
+		{nameHash = "FM_Hip_M_Tat_001", addedX = -0.4, addedY=-0.7,addedZ=0.2,rotZ = -49.7},
+		{nameHash = "FM_Hip_M_Tat_002", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "FM_Hip_M_Tat_003", addedX = -0.8, addedY=0.1,addedZ=0.0,rotZ = -71.9},
+		{nameHash = "FM_Hip_M_Tat_004", addedX = 0.4, addedY=0.2,addedZ=0.0,rotZ = -182.6},
+		{nameHash = "FM_Hip_M_Tat_005", addedX = -0.1, addedY=0.3,addedZ=0.6,rotZ = -182.6},
+		{nameHash = "FM_Hip_M_Tat_006", addedX = 0.5, addedY=-0.3,addedZ=0.2,rotZ = 38.9},
+		{nameHash = "FM_Hip_M_Tat_007", addedX = -0.1, addedY=0.8,addedZ=-0.2,rotZ = 156.7},
+		{nameHash = "FM_Hip_M_Tat_008", addedX = 0.4, addedY=-0.5,addedZ=0.5,rotZ = 51.8},
+		{nameHash = "FM_Hip_M_Tat_009", addedX = -0.7, addedY=-0.4,addedZ=-0.5,rotZ = -23.5},
+		{nameHash = "FM_Hip_M_Tat_010", addedX = 0.5, addedY=-0.4,addedZ=-0.1,rotZ = 37.8},
+		{nameHash = "FM_Hip_M_Tat_011", addedX = -0.3, addedY=-0.2,addedZ=0.5,rotZ = 290.7},
+		{nameHash = "FM_Hip_M_Tat_012", addedX = -0.3, addedY=-0.2,addedZ=0.5,rotZ = 290.7},
+		{nameHash = "FM_Hip_M_Tat_013", addedX = 0.6, addedY=0.3,addedZ=0.5,rotZ = 121.7},
+		{nameHash = "FM_Hip_M_Tat_014", addedX = 0.5, addedY=0.1,addedZ=0.1,rotZ = 121.7},
+		{nameHash = "FM_Hip_M_Tat_015", addedX = 0.3, addedY=0.3,addedZ=0.4,rotZ = 114.0},
+		{nameHash = "FM_Hip_M_Tat_016", addedX = 0.3, addedY=0.3,addedZ=0.0,rotZ = 114.0},
+		{nameHash = "FM_Hip_M_Tat_017", addedX = -0.2, addedY= -0.5,addedZ= 0.1,rotZ = -27.8},
+		{nameHash = "FM_Hip_M_Tat_018", addedX = -0.4, addedY=-0.2,addedZ=0.1,rotZ = 247.6},
+		{nameHash = "FM_Hip_M_Tat_019", addedX = -0.7, addedY=-0.5,addedZ=-0.7,rotZ = 296.0},
+		{nameHash = "FM_Hip_M_Tat_020", addedX = -0.4, addedY=-0.4,addedZ=0.1,rotZ = 296.0},
+		{nameHash = "FM_Hip_M_Tat_021", addedX = 0.3, addedY=-0.2,addedZ=0.5,rotZ = 74.3},
+		{nameHash = "FM_Hip_M_Tat_022", addedX = 0.5, addedY=-0.4,addedZ=0.1,rotZ = 74.3},
+		{nameHash = "FM_Hip_M_Tat_023", addedX = 0.4, addedY=-0.5,addedZ=-0.1,rotZ = 24.9},
+		{nameHash = "FM_Hip_M_Tat_024", addedX = -0.3, addedY=-0.3,addedZ=0.5,rotZ = -53.5},
+		{nameHash = "FM_Hip_M_Tat_025", addedX = -0.5, addedY=-0.4,addedZ=0.5,rotZ = -53.5},
+		{nameHash = "FM_Hip_M_Tat_026", addedX = -0.7, addedY=0.9,addedZ=0.5,rotZ = -124.6},
+		{nameHash = "FM_Hip_M_Tat_027", addedX = -0.3, addedY=-0.4,addedZ=0.2,rotZ = -343.4},
+		{nameHash = "FM_Hip_M_Tat_028", addedX = -1.1, addedY=0.2,addedZ=0.2,rotZ = -431.1},
+		{nameHash = "FM_Hip_M_Tat_029", addedX = 0.2, addedY=0.5,addedZ=0.0,rotZ = -200.1},
+		{nameHash = "FM_Hip_M_Tat_030", addedX = -0.7, addedY=-0.5,addedZ=0.3,rotZ = -63.5},
+		{nameHash = "FM_Hip_M_Tat_031", addedX = -0.7, addedY=-0.5,addedZ=0.3,rotZ = -63.5},
+		{nameHash = "FM_Hip_M_Tat_032", addedX = -0.7, addedY=-0.5,addedZ=0.3,rotZ = -63.5},
+		{nameHash = "FM_Hip_M_Tat_033", addedX = 0.6, addedY=0.3,addedZ=0.4,rotZ = 116.6},
+		{nameHash = "FM_Hip_M_Tat_034", addedX = -0.1, addedY=0.7,addedZ=0.0,rotZ = 191.5},
+		{nameHash = "FM_Hip_M_Tat_035", addedX = 0.1, addedY=0.7,addedZ=0.0,rotZ = 145.6},
+		{nameHash = "FM_Hip_M_Tat_036", addedX = 0.4, addedY=-0.8,addedZ=0.4,rotZ = 375.2},
+		{nameHash = "FM_Hip_M_Tat_037", addedX = -0.5, addedY=0.9,addedZ=0.4,rotZ = 551.7},
+		{nameHash = "FM_Hip_M_Tat_038", addedX = 0.4, addedY=-0.8,addedZ=-0.6,rotZ = 400.1},
+		{nameHash = "FM_Hip_M_Tat_039", addedX = 0.1, addedY=1.2,addedZ=0.1,rotZ = 511.9},
+		{nameHash = "FM_Hip_M_Tat_040", addedX = -0.6, addedY=-0.1,addedZ=-0.7,rotZ = 307.0},
+		{nameHash = "FM_Hip_M_Tat_041", addedX = -0.5, addedY=0.1,addedZ=0.2,rotZ = 258.8},
+		{nameHash = "FM_Hip_M_Tat_042", addedX = -0.5, addedY=-0.5,addedZ=-0.7,rotZ = -25.0},
+		{nameHash = "FM_Hip_M_Tat_043", addedX = -0.3, addedY=0.4,addedZ=0.4, rotZ = -135.4},
+		{nameHash = "FM_Hip_M_Tat_044", addedX = 0.2, addedY=-0.5,addedZ=0.4,rotZ = 13.6},
+		{nameHash = "FM_Hip_M_Tat_045", addedX = 0.2, addedY=-0.8,addedZ=0.3,rotZ = 13.6},
+		{nameHash = "FM_Hip_M_Tat_046", addedX = -0.5, addedY=-0.3,addedZ=0.5,rotZ = -61.2},
+		{nameHash = "FM_Hip_M_Tat_047", addedX = 0.4, addedY=0.2,addedZ=0.5,rotZ = 104.6},
+		{nameHash = "FM_Hip_M_Tat_048", addedX = -0.1, addedY=0.6,addedZ=-0.1,rotZ = 181.1}
+	},
+
+
+
+	["mpbiker_overlays"] = {
+		{nameHash = "MP_MP_Biker_Tat_000_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_MP_Biker_Tat_001_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_MP_Biker_Tat_002_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},
+		{nameHash = "MP_MP_Biker_Tat_003_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_004_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},  --
+		{nameHash = "MP_MP_Biker_Tat_005_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_006_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},  --
+		{nameHash = "MP_MP_Biker_Tat_007_M", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3}, --
+		{nameHash = "MP_MP_Biker_Tat_008_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_MP_Biker_Tat_009_M", addedX = -0.1, addedY=0.4,addedZ=0.7, rotZ = 195.0}, --
+		{nameHash = "MP_MP_Biker_Tat_010_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_011_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_MP_Biker_Tat_012_M", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_MP_Biker_Tat_013_M", addedX = 0.6, addedY=0.3,addedZ=0.5,rotZ = 121.7}, --
+		{nameHash = "MP_MP_Biker_Tat_014_M", addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7}, --
+		{nameHash = "MP_MP_Biker_Tat_015_M", addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0}, --
+		{nameHash = "MP_MP_Biker_Tat_016_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_017_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_MP_Biker_Tat_018_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_019_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_020_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_021_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},  --
+		{nameHash = "MP_MP_Biker_Tat_022_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, --
+		{nameHash = "MP_MP_Biker_Tat_023_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_024_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_025_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_026_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_027_M", addedX = -0.5, addedY=-0.2,addedZ=-0.8, rotZ = -51.7}, --
+		{nameHash = "MP_MP_Biker_Tat_028_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_029_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_030_M", addedX = -0.7, addedY=-0.5,addedZ=0.3,rotZ = -63.5}, --
+		{nameHash = "MP_MP_Biker_Tat_031_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_032_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_033_M", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3}, --
+		{nameHash = "MP_MP_Biker_Tat_034_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_035_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_036_M", addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0}, --
+		{nameHash = "MP_MP_Biker_Tat_037_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_038_M", addedX = -0.1, addedY=0.7,addedZ=0.7, rotZ = 537.0}, --
+		{nameHash = "MP_MP_Biker_Tat_039_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},  --
+		{nameHash = "MP_MP_Biker_Tat_040_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_041_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_042_M", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0}, --
+		{nameHash = "MP_MP_Biker_Tat_043_M", addedX = -0.5, addedY=-0.3,addedZ=0.3, rotZ = -54.4}, --
+		{nameHash = "MP_MP_Biker_Tat_044_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_045_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_046_M", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3}, --
+		{nameHash = "MP_MP_Biker_Tat_047_M", addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7}, --
+		{nameHash = "MP_MP_Biker_Tat_048_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+	    {nameHash = "MP_MP_Biker_Tat_049_M", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3}, --
+		{nameHash = "MP_MP_Biker_Tat_050_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_051_M", addedX = 0.2, addedY=-0.5,addedZ=0.7, rotZ = 374.3}, --
+		{nameHash = "MP_MP_Biker_Tat_052_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_053_M", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_MP_Biker_Tat_054_M", addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7}, --
+		{nameHash = "MP_MP_Biker_Tat_055_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_MP_Biker_Tat_056_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_057_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_058_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_059_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_MP_Biker_Tat_060_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5} --
+	},
+
+
+
+["mpairraces_overlays"] = {
+		{nameHash = "MP_Airraces_Tattoo_000_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Airraces_Tattoo_001_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_Airraces_Tattoo_002_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_Airraces_Tattoo_003_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7},
+		{nameHash = "MP_Airraces_Tattoo_004_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_Airraces_Tattoo_005_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_Airraces_Tattoo_006_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Airraces_Tattoo_007_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+	},
+
+["mpchristmas2_overlays"] = {
+		{nameHash = "MP_Xmas2_M_Tat_000", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_Xmas2_M_Tat_001", addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0}, --
+		{nameHash = "MP_Xmas2_M_Tat_002_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_Xmas2_M_Tat_003", addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7}, ---
+		{nameHash = "MP_Xmas2_M_Tat_004", addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7}, --
+		{nameHash = "MP_Xmas2_M_Tat_005", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_Xmas2_M_Tat_006", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_Xmas2_M_Tat_007", addedX = -0.1, addedY=0.4,addedZ=0.7, rotZ = 195.0}, --
+		{nameHash = "MP_Xmas2_M_Tat_008", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0}, --
+		{nameHash = "MP_Xmas2_M_Tat_009", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_Xmas2_M_Tat_010", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_Xmas2_M_Tat_011", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_Xmas2_M_Tat_012", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --
+		{nameHash = "MP_Xmas2_M_Tat_013", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0}, --
+		{nameHash = "MP_Xmas2_M_Tat_014", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, --
+		{nameHash = "MP_Xmas2_M_Tat_015", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --
+		{nameHash = "MP_Xmas2_M_Tat_016", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_Xmas2_M_Tat_017", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_Xmas2_M_Tat_018", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_Xmas2_M_Tat_019", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --
+		{nameHash = "MP_Xmas2_M_Tat_020", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_Xmas2_M_Tat_021", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_Xmas2_M_Tat_022", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0},
+		{nameHash = "MP_Xmas2_M_Tat_023", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0},
+		{nameHash = "MP_Xmas2_M_Tat_024", addedX = 0.2, addedY=-0.5,addedZ=0.7, rotZ = 374.3},
+		{nameHash = "MP_Xmas2_M_Tat_025", addedX = 0.2, addedY=-0.5,addedZ=0.7, rotZ = 374.3},
+		{nameHash = "MP_Xmas2_M_Tat_026", addedX = 0.4, addedY=-0.5,addedZ=-0.3, rotZ = 421.0},
+		{nameHash = "MP_Xmas2_M_Tat_027", addedX = 0.4, addedY=-0.5,addedZ=-0.3, rotZ = 421.0},
+		{nameHash = "MP_Xmas2_M_Tat_028", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Xmas2_M_Tat_029", addedX = -0.1, addedY=0.7,addedZ=0.7, rotZ = 537.0}
+	},
+
+
+
+
+["mpgunrunning_overlays"] = {
+		{nameHash = "MP_Gunrunning_Tattoo_000_M", addedX = -0.7, addedY=-0.4,addedZ=0.5,rotZ = -55.6}, --
+		{nameHash = "MP_Gunrunning_Tattoo_001_M", addedX = -0.4, addedY=-0.7,addedZ=0.2,rotZ = -49.7}, --
+		{nameHash = "MP_Gunrunning_Tattoo_002_M", addedX = 0.4, addedY=-0.5,addedZ=-0.3, rotZ = 421.0}, --
+		{nameHash = "MP_Gunrunning_Tattoo_003_M", addedX = 0.2, addedY=-0.5,addedZ=0.7, rotZ = 374.3}, --
+		{nameHash = "MP_Gunrunning_Tattoo_004_M", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, --
+		{nameHash = "MP_Gunrunning_Tattoo_005_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, --
+		{nameHash = "MP_Gunrunning_Tattoo_006_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, --
+		{nameHash = "MP_Gunrunning_Tattoo_007_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, --
+		{nameHash = "MP_Gunrunning_Tattoo_008_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, --  9
+		{nameHash = "MP_Gunrunning_Tattoo_009_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 10
+		{nameHash = "MP_Gunrunning_Tattoo_010_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 11
+		{nameHash = "MP_Gunrunning_Tattoo_011_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, -- 12
+		{nameHash = "MP_Gunrunning_Tattoo_012_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, --  ------ 13
+		{nameHash = "MP_Gunrunning_Tattoo_013_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 14
+		{nameHash = "MP_Gunrunning_Tattoo_014_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, --15
+		{nameHash = "MP_Gunrunning_Tattoo_015_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, -- 16
+		{nameHash = "MP_Gunrunning_Tattoo_016_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7}, -- 17
+		{nameHash = "MP_Gunrunning_Tattoo_017_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 18
+		{nameHash = "MP_Gunrunning_Tattoo_018_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 19
+		{nameHash = "MP_Gunrunning_Tattoo_019_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 20
+		{nameHash = "MP_Gunrunning_Tattoo_020_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},  -- 21
+		{nameHash = "MP_Gunrunning_Tattoo_021_M", addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3},  --22
+		{nameHash = "MP_Gunrunning_Tattoo_022_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 23
+		{nameHash = "MP_Gunrunning_Tattoo_023_M",  addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0}, -- 24
+		{nameHash = "MP_Gunrunning_Tattoo_024_M", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0},  -- 25
+		{nameHash = "MP_Gunrunning_Tattoo_025_M", addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2}, -- 26
+		{nameHash = "MP_Gunrunning_Tattoo_026_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0},  -- 27
+		{nameHash = "MP_Gunrunning_Tattoo_027_M", addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7},  -- 28
+		{nameHash = "MP_Gunrunning_Tattoo_028_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Gunrunning_Tattoo_029_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "MP_Gunrunning_Tattoo_030_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}
+	},
+
+
+
+["mpimportexport_overlays"] = {
+		{nameHash = "MP_MP_ImportExport_Tat_000_M", addedX = -0.7, addedY=-0.4,addedZ=0.5,rotZ = -55.6},
+		{nameHash = "MP_MP_ImportExport_Tat_001_M", addedX = -0.4, addedY=-0.7,addedZ=0.2,rotZ = -49.7},
+		{nameHash = "MP_MP_ImportExport_Tat_002_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 3
+		{nameHash = "MP_MP_ImportExport_Tat_003_M", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3}, -- 4
+		{nameHash = "MP_MP_ImportExport_Tat_004_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7}, -- 5
+		{nameHash = "MP_MP_ImportExport_Tat_005_M", addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3},  -- 6
+		{nameHash = "MP_MP_ImportExport_Tat_006_M", addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3},  -- 7
+		{nameHash = "MP_MP_ImportExport_Tat_007_M", addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3},  -- 8
+		{nameHash = "MP_MP_ImportExport_Tat_008_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "MP_MP_ImportExport_Tat_009_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_MP_ImportExport_Tat_010_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "MP_MP_ImportExport_Tat_011_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}
+	},
+
+
+["mplowrider2_overlays"] = {
+		{nameHash = "MP_LR_Tat_000_M", addedX = -0.7, addedY=-0.4,addedZ=0.5,rotZ = -55.6}, -- 1
+		{nameHash = "MP_LR_Tat_003_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 4
+		{nameHash = "MP_LR_Tat_006_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7}, -- 7
+		{nameHash = "MP_LR_Tat_008_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 9
+		{nameHash = "MP_LR_Tat_011_M", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0}, -- 12
+		{nameHash = "MP_LR_Tat_012_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},  -- 13
+		{nameHash = "MP_LR_Tat_016_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 17
+		{nameHash = "MP_LR_Tat_018_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7}, -- 19
+		{nameHash = "MP_LR_Tat_019_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 20
+		{nameHash = "MP_LR_Tat_022_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7}, -- 23
+		{nameHash = "MP_LR_Tat_030_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, -- 31
+		{nameHash = "MP_LR_Tat_031_M", addedX = -0.7, addedY=-0.5,addedZ=0.3,rotZ = -63.5}, -- 32
+		{nameHash = "MP_LR_Tat_032_M", addedX = -0.7, addedY=-0.5,addedZ=0.3,rotZ = -63.5}, -- 33
+		{nameHash = "MP_LR_Tat_035_M", addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3} -- 36
+	},
+
+	-- Chest addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5,
+	-- front lower thighs addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5,
+	-- Back Left Leg Lower  addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0
+	-- Back Right Leg Lower  addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0
+	-- Belly addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5
+	-- Right Arm addedX = 0.4, addedY=-0.4,addedZ=0.4, rotZ = 410.3    OR      addedX = 0.3, addedY=-0.7,addedZ=0.5,rotZ = 17.7
+	-- Right Arm Lower addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0
+	-- Left Arm Behind addedX = -0.7, addedY=0.1,addedZ=0.0,rotZ = -68.4
+	-- Left Arm Upper addedX = -0.5, addedY=0.7,addedZ=0.4, rotZ = -140.7
+	-- Left Arm Lower addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2
+	-- Back Upper addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6
+	-- Neck Right addedX = 0.2, addedY=-0.5,addedZ=0.7, rotZ = 374.3
+	-- Neck Left addedX = -0.1, addedY=0.7,addedZ=0.7, rotZ = 537.0
+	-- Hand Right addedX = 0.4, addedY=-0.5,addedZ=-0.3, rotZ = 421.0
+	-- Hand Left addedX = 0.3, addedY=0.8,addedZ=0.2, rotZ = -192.2
+
+	-- Right Sleeve addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3
+	-- Left sleeve addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7
+
+["mplowrider_overlays"] = { --need to check the possitions
+		{nameHash = "MP_LR_Tat_001_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 1
+		{nameHash = "MP_LR_Tat_002_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 2
+		{nameHash = "MP_LR_Tat_004_M", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0}, -- 4
+		{nameHash = "MP_LR_Tat_005_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7}, -- 5
+		{nameHash = "MP_LR_Tat_007_M", addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0}, -- 7
+		{nameHash = "MP_LR_Tat_009_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 9
+		{nameHash = "MP_LR_Tat_010_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 10
+		{nameHash = "MP_LR_Tat_013_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 13
+		{nameHash = "MP_LR_Tat_014_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 14
+		{nameHash = "MP_LR_Tat_015_M", addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3}, -- 15
+		{nameHash = "MP_LR_Tat_017_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, -- 17
+		{nameHash = "MP_LR_Tat_020_M", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5}, -- 20
+		{nameHash = "MP_LR_Tat_021_M", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6}, -- 21
+		{nameHash = "MP_LR_Tat_023_M", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0}, -- 23
+		{nameHash = "MP_LR_Tat_026_M", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5}, -- 26
+		{nameHash = "MP_LR_Tat_027_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7}, -- 27
+		{nameHash = "MP_LR_Tat_033_M", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7} -- 33
+	},
+["new_overlays"] = {
+        {nameHash = "sleeve_01", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+        {nameHash = "halfsleeve_02", addedX = 0.4, addedY=-0.4,addedZ=0.1, rotZ = 421.0},
+        {nameHash = "halfsleeve_03", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "halfsleeve_04", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "sleeve_05", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "legskull_07", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},
+		{nameHash = "legskull_08", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},
+		{nameHash = "upperhalfsleeve_09", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "mexicansleeve_10", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "anothersleeve_11", addedX = 0.4, addedY=-0.9,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "upperhalfsleeve_12", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "marilynmonroesleeve_right_13", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "nativegirlsleeve_14", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "facetats_15", addedX = 0.5, addedY=0.4,addedZ=0.7, rotZ = 136.4},
+		{nameHash = "facetats_16", addedX = 0.5, addedY=0.4,addedZ=0.7, rotZ = 136.4},
+		{nameHash = "facetats_17", addedX = 0.5, addedY=0.4,addedZ=0.7, rotZ = 136.4},
+		{nameHash = "randomsleeve_18", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "randomhalfsleeve_19", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "halfsleeve_20", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "halfsleeve_21", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "sleeve_22", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "spidermanchest_23", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "halfsleeve_24", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "halfchest_25", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "sharktattoo_26", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "masksleeve", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "weirdsleeve", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "mexicansleeve", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "chestwolfskull", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "sleeve", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "topchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+	    {nameHash = "roseneck", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "backminis", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = -129.5},
+		{nameHash = "armtattoo", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "chestaztectattoo", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "armbear", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "ancientneck", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "chestminis", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "chestspinefulltat", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "flowerhand", addedX = 0.4, addedY=-0.8,addedZ=0.0, rotZ = 410.3},
+		{nameHash = "foxwrap", addedX = 0.4, addedY=-0.8,addedZ=0.0, rotZ = 410.3},
+		{nameHash = "handeyetattoo", addedX = -0.5, addedY=0.7,addedZ=0.0, rotZ = -140.7},
+		{nameHash = "handtattoo", addedX = 0.4, addedY=-0.8,addedZ=0.0, rotZ = 410.3},
+		{nameHash = "japhalfsleeve", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "japsleeve2", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "japsleeve3", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "japuppersleeve", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "japuppersleeve2", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "latinsleeve", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3},
+		{nameHash = "legminitattoos", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},
+		{nameHash = "rightminis", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3}
+    },
+
+["tpack_overlays"] = {
+		{nameHash = "rightsplit", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "thalfsleeve1", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "righthorror", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "geisha1", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "rightcartoony", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "leftsplit", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "rosehalfsleeve", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "lefthorror", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "lefthorror1", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "geisha2", addedX = -0.5, addedY=0.7,addedZ=0.2, rotZ = -140.7},
+		{nameHash = "backsplit", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "chestsplit", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "globechest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "handchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "headchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "knifechest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "lighterchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "moonchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "ratchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "ridechest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "skateboardchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "skelchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "snakechest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "spadechest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "tigersrplit", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "wolfchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "crownchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "candlechest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "arrowchest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "gangster87", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "chicanachest", addedX = 0.4, addedY=0.5,addedZ=0.4,rotZ = 129.5},
+		{nameHash = "chicanaback", addedX = -0.7, addedY=-0.3,addedZ=0.3,rotZ = -53.6},
+		{nameHash = "frontsidelowerleft", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},
+		{nameHash = "frontsidelowerright", addedX = 0.7, addedY=0.5,addedZ=-0.5,rotZ = 129.5},
+		{nameHash = "backsidelowerleft", addedX = -0.3, addedY=-0.1,addedZ=-0.7,rotZ = 332.0},
+		{nameHash = "backsidelowerright", addedX = -0.4, addedY=-0.1,addedZ=-0.7,rotZ = 278.0},
+		{nameHash = "rightminis", addedX = 0.4, addedY=-0.8,addedZ=0.2, rotZ = 410.3}
+    },
+}
+
+Config.tattoosShops = {
+	vector3(1322.645, -1651.976, 52.275),
+	vector3(-1153.676, -1425.68, 4.954),
+	vector3(322.139, 180.467, 103.587),
+	vector3(-3170.071, 1075.059, 20.829),
+	vector3(1863.633, 3746.738, 33.032),
+	vector3(-293.713, 6201.04, 31.487),
+	vector3(-1054.33, -2743.25, 14.61),
+	vector3(-691.9697265625,-1176.5981445312,10.918444633484), --LostMC
+}
+
+return Config
