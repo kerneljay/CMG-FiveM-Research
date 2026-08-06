@@ -1,1 +1,136 @@
-CMGPXh9‡Z[fLwdf‚cbUn’…‘zkv—†š…oƒ]aœŒŒ~‹zm¡”¨¢Šm–n…Jik75oQa2€SS_€fmn‰lGcHvu_ƒlc‰šv}d—twV›†…W˜q•o¤x®‹‹j¦•Œ¬Œ“µl ~©P“7`wR|4}eyP„gownƒc€frTNVŠlx P}tYˆaT„}„–¡‡i£¡|¢­Ud·”‹i[|~‰ZHTQtx^{r‡rKN~pHLkzMNnumR€U›rm“…U¨~…|™‹m®yzx±„B¤¨«cxcv’ŸNN>j}GˆgBbiL_‡oIMpyxF‹iwny¢^`fk}¢uufz~aŠ¡|¦s±i¤©šn‡lW2Ybant‘`Wxb‹GIOTf‹^^OcgJsŠep“{u™tSX•bŠ‰Wœzˆ Š³oqw|³†GwLynPr\„s| ;XunZs‡i_|bnQPR‚[„cfYƒ`Œt›|]y™y[’]‹Š\Ÿpbœ‚qpr¢{¤ƒGxi€EDm\>VdQa‡`[AŒije†uND`m]Pu{fRzUl noP¢nnt£y®m©vv„k€¦un~´±‡Y›7‡V8<SQF=Nus?YilHWŒ‹‘bqR^omOj„XfgYr—ˆ›ml›–uxjšrvu}„°’“p•]±W’[WxifOsR_Nˆ[_‹V~V‹X‡Sƒ[_^‡fi[‹|{k\zuš”‡ƒƒ©¯kmsxz¯‚©‡{~h†J{lƒHHƒiVI@eyP‡qIwEllOy˜TV\e’ZjhŠŒdhgord”lt|§~£¡„hˆ¡m«©ˆp€j¢:p€„J7ql‡suMQPyX[M}UYX`cVPnumR[e gj€\sšqbr˜–e~|—hz°€n…T«²‚¸E{Ls…;Š]…V{^ˆRcQH\]RG\jLPeeVRdcƒn}jXj“kšf–nrqšy|nvzy¢Jl3SzdtŠw‰\R=WU:CTTfD_nWL]\ZPg‹”dš„m”‰ l¢”£w¬‰¨tt˜d}~™²z¢z´†Gxƒ{K~Ou—:Œru€M|HxPTS|[^P€X\[„ckqpTt›…•l˜k}{¤yv[dv…™®€–²~´‡m®v„V\~Q_4=NtTBXhkŒWV\J_`UN^ƒOQhhišefhWq–i[k}¢ytwi™qut|q¡y}|¥ŸrmœJ=€Q†h„NOs„[Y^‹WWwcqbN^…’hy^Vguœq—b£n§{yŒduwyj¦ep1‹J†8‡nN‚PayWKONwVYK{SWV^aSƒv‰sŠmSgŒ[r˜¡p–¨{z{gx®Š²„’w¯~‚{‹q‡z‡m=Tyf…RQqBZ[TY~JNc™\P`‡kVm{†œh‘œi˜d”lpo˜wzlœtxw H©Œpx¡rˆuŠJL<SzU?RbvE\laJY€X”ccDNcbx—l¢ƒjx[uªy¦s‚„¥|²ugx šl…kŸsƒ‚I8M]}€‡ZVQTFvNRQzY\N~VZY‚|k‰yfYœm¢„Ÿkj\\v…v_rƒ“e}n¯{¡Ÿ®…lv4jl{NN†=Œ\J?V|OCRTb‹^]BH[l^PhvkSdtfYo}‰›a‘j“rug—osr›z}oŸw€“¨’6ˆw™kOtN_¡=\>†XgXDU{SH`_X‘^l‘—gvKQeukWp•Š¡mmw_x­Š¤t«wh~¥€m}£pˆXŒ|…|H~N_wUIMLuTWIyQUT}\_Qt‡qˆkQ›e›Ššp€eZmm_¦zxugv†k¦qo|}koˆI}x…mM9R‡F<NOsB[Yt†V}L`‡^”^…‡™jŸZ›fw‡ o€˜vjnm–uxjšrvu}€r¢•¨’j Mr}†}l|Tbi?NvbA[ZKŒX~Zb˜[P^_M˜j [YfZs‚c`p¦”ezzƒ§w®vl¨‹µ€¨yŠK“5ˆI[ƒQbzXLPOxWZL|TXW€_bT„wŠt‹‚nTh¡sƒx¢qoc{{thxŸ±„jš°‘©7Œ[o~‰ZX:TdkCRRdŒ\kƒHZKJddi•b˜t™m¢iŸjjpšsq“•mqp™x{muyx¡€Dvp•N3b<…‡KU?Ud9DRS{C^m^‘[[mNddEQb™e˜n}jWk‘i]w…r©sƒ›¦n¬{‹}²†lzyƒDh7O„¨‚ˆ[€WRUGwOSR{Z]OW[Zƒ}lŠzgZn£…\l’z¡v†gcs„vf¤™m{¢‚¯†W{y‚kO9OOƒ=‹MW>YWnFSUWH`^CK]m…OggpVd›oVq~Šœb’k”svh˜ptsœ{~p x”©“7‰xšlPuQvU:Ltd…XXoŒUVTIb`U“\]K–ixqSdŒpXqp‡\onp`yxm¥vœš«€¦y³}¤¶ŠI£|…GowPNprJNMvUXJzRVU~]`SMkrjO~XbdfTŸrqˆ noubzŸj­v‡…l‚v®}£0‹Im5†Hh:Rxm†Q`^AZYhfc˜[–a`bQlz_Wixˆ˜qo‘“kon—vyk›swvŸ~tnŒ“‹1Ÿ:ƒ…H6Sx7†RQ_E\PFYgKc™l_qškjOWhyo¢tsp_qw«|z¢¯yy™®…Dn€·¥3Œ‚ŒˆZrzSQsuMQPyX[M}UYX`cVPnumR[e gjt[tsX`r¨€¬}|…ky „n„z«n‚4}Nƒ‰<Šqa„Ueh†SSU†]mZIYOfujSdsuXo}vŸhzŸvqtf–nrqšy|nvzy¢œo‹j™G:}Nƒ¤|Š‚V=U|i‰Sd|^”u‘]\^•eeF˜et„m”kŸm|¤wvwasªv§€~•­}Œ‚mˆG2ƒUeO…yŠJytSVHxPTS|[^P€X\\OtzeQyTkŸmnO]m“s¢wwtevuwiµ„n|³¡°†XŒz„U76PvkƒMtvAXaŒU‹Š``Q_^lQi]Vevd ppmšlkš•twi™qut|q¡y}}p•\†3š6MOQF@O„@CZipEXW{‘bqbK`n““kyZUeqXqqr]n¥“az¯nhuw—i€§†p¥4‰€œ7‡nl9SamEuNwVYK{SWV{oƒ[_^‡ƒy‘ocgfnqR kr ™‚hp©„| ¡‘su{„°L†J{lƒH6}ORDtLPP{hn@Eem`jxRawdŠ—€\^dm€•bu£†—{ {‹€jyˆjkƒTŒo‚‘©{‹\¢:‡JT<TdIƒQxPF]\wHYZ‚”fc‹˜br`—l’eViŠ¤uš‹¦r˜€¢{y›uyx¡ƒTd¥}AjIP¨|_Z{ah}b^fbƒtqZ~]jY”eeV–a‰a–c’^fjiŸt„f–nrqš’sk‚~°£Y‹y˜yB=JN‚ŠK€WRUGwOSAˆZ]OW[[–|i\SxŒcš„\ŠXb¡Œ«giox¥mt£oŸw{z°…Vx:yo2PExŒv˜‚?=djM…jŠSN[c‚dX\[„ckŠl`dcŒkn`hll¢ƒŠXpubœ{§y¥‰|ƒ°}mxi€EDmLOAqYwƒ~nYVˆjYLGv…QSY^`‘^Y‰aedloa‘„—Œ‹v¥‚‡¬•ƒik“£|w„I6„DsnMPBrJNMvU][{cCbvdJLt„]Xeir–\Œempb’jnm–¢¦‚‹†§–ofµ’‚¨wsx“WFANQLQV<qW`kn]`YggOKodqn‰ig‰‹cgfnqc“ktwœ}pd‹‹n­˜pš¬•¥i 9¡lŠXHpXT<UUxzYa]]__€zkŠibl`•lgj\ŒdmVœi˜d”lpphq lœtxw Ct¤•ª„v˜[|?„IQMiXZzMw†]X[M}UYX`cV‡ve‹™pZU™~Y}£ptT•q§¦}x{muyx¡€Dvp•hsY;´s9A~jD[ˆNS@z^ƒ^ŠP€Y‚adV†^baŠ„pc•nYaŠd{¨ns`šŒ¤‚vzy¢Evg~CC}[aµp¡Ou‚k€TghScjq?„W\IƒbhphP{nsZ†}q}^tbp}|…†}{Ÿw{z£‚FwhILqdR„9Ÿ`C‚mEojVz}uMv€_l\„lhPiiŒmuqqss”“{Ÿ‡yˆs¨u¤p x||v}rgMzk3zLQVc=a‡egJ†ijatsˆ†Yaa“ugZ|yW„sf¤q¨t{n«‚…u°”‚k“}}«8j’ZJqePC=[bteGUz„nŠtjMbOv|}™|“‡¦bdjsŸzuxjšry§ ˆ”j¦‹“†u…KtœrG{^e7xe…WtVZ:{o‹„^aSƒ[_^‡fl}‘k˜†œw•znivyt{vˆzj‚t‹“©r¡Zƒx}nGpORDtLPOxeUo]`‰wQiŠuPh‹xze‰diVošl¡ps˜ƒj}®ŒŒª¥ml¶Œo“kŠIªm„IHqmatGGu|i…o‹nm]Nkj’he‹Ty€ilyh¢tq”˜~›’§“¥‚¥…­‘W˜ª–BybwŠT_V;QU5vjˆZ[tpB‘VZq‚mN‰vQvSƒ¢fšfjrsŒˆZ©n˜§šy¥w­†i¬§œJ‚i›QpOZ<—v‰um=k}nxiBy€t“OQW`ŒgbeW‡_gc{s†roX¡rcŠvw†s„…¦gŒ„~ƒ†Œ3ŒHŠ2LITawM^?\^C<xSR|[^P€h_tcmhƒekfx‹x[uktnc|‚dqsz†¢‹Šk}{ƒ¤op…iƒCs?FsptZwnƒmktŒkD‰mqx‚sLƒŠ~Y[aj–qloa‘iqm…}‰|yb«|‹m”€}qqWINQW=WRU<VS^kBa\ibkgr‰aj^“jehZŠbjf~v‚‰ur[¤u„fyz‰v‡ˆ©j‡†J6K5OLWd;OSbWc^knZcWŒc^aSƒ[c_wo{‚nkTn}_†rs‚o€¢c‡{‰¡ƒ‹”kŠ…’‹U\²K7G|I}3XFz\~h@€elpzv‹MhŠt”wm•}W[£‡v¤wšt¥ˆŠlntx€~Š0—„†’¢K”M§U7@OYe^PZc‡gX|€fƒzqgj‹mvu•ƒnf’~mmZˆ‡]£‡`—¢’}”h¡‡Tv¥†ƒ9KRt¨OMZU\|iuWTfZaocdc^Yf[cŒo˜UV€Rœ~~]™}xkd‡b†cy}]{‹y²…Fvwxgqn[w }–:BkY\zjWW}sadkhpg“rzz•lg˜{}_agln]vvg§i¡‹³c¬‡¡€›5®tXP5[bˆ|˜aWtZfH‰TR`lˆH’X_Rcj—pShUƒ‚Xqpp]ƒ†i¡‰št¬‹’›²’²¢§”qšw™I<p\dRzb<@ˆVgJ}j‰‚}\_QraTˆt{‰yiy}sŒŸzZ—£{~«ŒŸy©|€`¡}´”µ‡oyj„|Fzf?OseRx…n€[{mZYŒvtWOfb”‡|oœ|š“mpb’{˜e¨u|w©Šig}a¢~³gMrn’\Wxg@7Q[d_xYƒ;|oZW‹nv~ˆuŠj‡wmRocgfnqc“koo£hxœŒww§•x§““roNs~GBOVQƒgdCAWZz|l\lpf’mMŠ–‚nq’lœi˜d”lpo˜wzlœ|o£Wª¤•„”w˜;u„J7qiW=x]fa‚qJA[eni‚c€“uvq’x”yu}yš‹ˆq•o—p©{¢—goŸx¡€Du¥}AjbPuq•^rahqˆ^BZ{j‡_`gn^†yxJ^cPŠpswn” ‚aw›b}š€¢n¯|{y°…Ewh—mRkbQ“p—OucBX|`C^{]mO]\Z‘feX–y‰c“{d“^š{y|‰©r¦z~sl{{m³|lwhDClKNp PCwcj~xl|K‚l‰]…s\[Vcf‹yTxš†n`•hmwsv–˜u…sª| x|{¤ƒGxi€I{|\>F}IQszdkZ‚jv}coRirmg’bŠre‹•}ƒf•`œ}{~ ‹«|q¡y}|¥„Hzvš5RofPC;ZcV}fm[dkFb‡xd}‘s„]XemsrVv‡—ršƒre™…{£‹ei|•ƒ£}¨Šlt‹pœpG~h@n<ccF…Y„q{UW‹ouGŠvc„‡h\˜s|w—qœpœ„••Ÿ‡pŸ‹‹j¦€‘©£”ƒvk–_Œuœ7;N_gUuOz\}p…]nXyQMttW–j•†Œfhœ€†X›‡t•˜y m©„ˆ¨‚m³–¶¦q˜_qœ]<xRc{ufUH|hp^†nHL_pxf†`‹m–n’’i Šb^……h§{¦›w¯yp‹3«—pV3LL}ŠqI€UTFƒNVVƒs†[fnrKkhk‡ofŒ˜z¢ˆrfji’qtf–nrrc‰wª‡Šm«špƒl˜nRscQvr–`[|kD;U_hc|]ˆ\gp}‘niOšwxs”ƒ\S¢jkk\‚Šp€ˆƒ…“m|¨’¥²›l¡LDClKR”~˜Jzyl€X\J~`‚l”Dƒhql‰tUPš|vW„‚u£hmZ”fW|k®{‚}¡“€«œ77‹oIz]_BzbsM…dkt‹k‹{€m‰siLaNu{|˜{’†¥‹‘zqcytwi™qz…Œ©¨¦|§§³7|œFlq^zd€Z=R?flm‰l€fmtB‡t”“†uW_Sszˆ‡›zz‚]›w†™Ÿ‹ …‚˜„w¤“‚‘uŸ8r}Gmr_{e[>S@gmnŠm‚gnuCˆu•ˆk`“h‘tZ’~†t˜|^f©’Œ„ ‹{¡¢—…ˆ‹‹“nm €{>ƒMzBI|]ƒfvP{go]eGO’{tH…uts”gnil|—ˆbmbyš„ y¨…ƒ —Wg¤–„„r¡vˆu”8axS}RvhUe€qKV†fndŠ`gf”W‡`‰hk^™~Xu’‰sf`~…—¢ˆj¤¢€£}®‘Y¥„‘B:fZ«n…JIrb~>ˆNUH†Yagƒn^„…zhknnvQip‰œfoj“‰‰o©pv~›”€ƒ¥j‚po‹o–WOw[bŠx†O[‚L{GwOSR{Z]Or__…{ik•wwV{‚hXipƒ˜Šy’šˆw‡ƒŠ‘_¤‘±°£pŒp—XPx\`sq `_}M|HxPTTtˆ`dX\[„cki‰pš‘n™mŸ‚—{œ } ˆˆ€¨Œd¡‘·…U¦i€EDm\>ZxLwYvo[^€jE]Ki‰f‰qqi‘uyMŠzyy z^n’„qœgrg|Ÿyª’`¡€}p•\ s‘5|sXzG[cYZfl>~Lz„nŠts‰r“rlo‹{{rt……o[jo\–‘hY~ƒ m°}„±•’q0…Jik†W|oN@Py\…B@gmPˆmWƒw•ƒ[_^‡m`|kz†…W¦|„w`x}x¡„­j­™•c‘Œ“ƒu 7²u8W|OWUƒf@`Šon@ƒV\dzvHM^p‰lx~P^Œ–“€œ†¢…›„¥‚~—g…„†—Xm|ni£;kQ•s@ƒPWR„heDBX\<}YipRnŒ`‹PŠ„mQW~{Ÿš‹z¨mu¨r¡muyyjX~±‘5sbwŠsŸuYzaC_}Q|EDrn…‡q„n•lh™yb—Š„pV¡or›Šˆ~aid’§~§xˆ¨§šo†KxnKpeR“ŸqKvciM
+---@type DogFightingConfig
+local cfg = {} ---@diagnostic disable-line: missing-fields
+
+cfg.minPlayers = 5
+cfg.customVehicleTimeMsec = 15000
+cfg.spawnProtectionTimeMsec = 10000
+cfg.respawnProtectionTimeMsec = 5000
+cfg.assignTeamTimeMsec = 5000
+cfg.flyInIntroTimeMsec = 5000
+
+cfg.locations = {
+    ["Dogfighting"] = {
+        centerPosition = vector3(-142.71044921875,-789.98162841797,350.14469909668),
+        initialRadius = 1750.0,
+        maxPlayers = 100,
+        spawnPositions = {},
+        collectableSpawns = {
+            vector3(66.386878967285,-711.28753662109,149.90078735352),
+            vector3(-254.74545288086,-772.91790771484,93.010803222656),
+            vector3(-408.79824829102,-1615.7628173828,186.7041015625),
+            vector3(208.85147094727,-1774.201171875,172.9515838623),
+            vector3(729.67144775391,-1363.388671875,226.93272399902),
+            vector3(816.45587158203,-486.38064575195,325.76699829102),
+            vector3(14.554417610168,208.90029907227,400.41189575195),
+            vector3(-789.25476074219,31.452669143677,317.48617553711),
+            vector3(-1140.1839599609,-501.22671508789,299.32293701172),
+            vector3(-987.55401611328,-1309.9650878906,308.62091064453),
+            vector3(115.50602722168,-995.15441894531,67.405075073242),
+            vector3(381.9094543457,-631.53460693359,90.510612487793),
+            vector3(864.10711669922,111.38018035889,174.65960693359),
+            vector3(654.60083007812,-1565.3648681641,68.22225189209),
+            vector3(-148.02760314941,-848.50762939453,294.72381591797),
+            vector3(-12.284861564636,-720.61224365234,347.89538574219),
+            vector3(350.67434692383,44.373966217041,136.88558959961),
+            vector3(-335.72192382812,-1973.3098144531,88.92586517334),
+            vector3(-862.03881835938,-511.42922973633,100.84761810303),
+            vector3(197.85868835449,-906.35046386719,76.596183776855),
+        }
+    },
+    -- ["Sandy"] = {
+    --     centerPosition = vector3(1595.6166992188,3611.2084960938,350.22427368164),
+    --     initialRadius = 2000.0,
+    --     maxPlayers = 100,
+    --     spawnPositions = {}
+    -- }
+}
+
+cfg.teams = {
+    {
+        name = "Red",
+        blipColour = 1,
+        vehicleColour = 27,
+        tagColour = 6,
+        relationshipName = "DOGFIGHTING_RED",
+        relationshipHash = `DOGFIGHTING_RED`,
+    },
+    {
+        name = "Blue",
+        blipColour = 3,
+        vehicleColour = 64,
+        tagColour = 9,
+        relationshipName = "DOGFIGHTING_BLUE",
+        relationshipHash = `DOGFIGHTING_BLUE`,
+    }
+}
+
+-- Ensure missile and gun hashes are setup for each vehicle.
+cfg.categories = {
+    ["Modern Airplanes"] = {
+        ["raiju"] = "F-160 Raiju",
+        ["strikeforce"] = "B-11 Strikeforce",
+    }
+}
+
+cfg.maxNumLives = 10
+cfg.vehicleWeaponsList = {"Guns & Rockets", "Guns", "Rockets"}
+
+cfg.gunHashes = {
+    `VEHICLE_WEAPON_STRIKEFORCE_CANNON`,
+    `VEHICLE_WEAPON_RAIJU_CANNONS`,
+}
+
+cfg.missileHashes = {
+    `VEHICLE_WEAPON_STRIKEFORCE_MISSILE`,
+    `VEHICLE_WEAPON_STRIKEFORCE_BARRAGE`,
+    `VEHICLE_WEAPON_RAIJU_MISSILES`,
+}
+
+cfg.defaultRelationshipName = "DOGFIGHTING_DEFAULT"
+cfg.defaultRelationshipHash = `DOGFIGHTING_DEFAULT`
+
+cfg.winningPayout = 500000
+
+cfg.collectableRespawnTime = 15000
+cfg.maxCollectables = 10
+
+for _, locationData in pairs(cfg.locations) do
+    local headingInterval = 360.0 / locationData.maxPlayers
+    for count = 1, locationData.maxPlayers do
+        local headingDegs = count * headingInterval
+        local length = locationData.initialRadius * 0.95
+        local aircraftHeading = headingDegs > 180.0 and headingDegs - 180.0 or headingDegs + 180.0
+        local zOffset = (count % 3) * 50.0
+        local heading = math.rad(headingDegs)
+        local targetPosition = vector4(locationData.centerPosition.x + length * math.sin(heading), locationData.centerPosition.y + length * math.cos(heading), locationData.centerPosition.z + zOffset, 360.0 - aircraftHeading)
+        table.insert(locationData.spawnPositions, targetPosition)
+    end
+end
+
+cfg.categoryNames = {}
+for categoryName in pairs(cfg.categories) do
+    table.insert(cfg.categoryNames, categoryName)
+end
+table.sort(cfg.categoryNames)
+
+cfg.categoryVehicleNames = {}
+for categoryName, categoryVehicles in pairs(cfg.categories) do
+    local vehicleNames = {}
+    for _, vehicleName in pairs(categoryVehicles) do
+        table.insert(vehicleNames, vehicleName)
+    end
+    table.sort(vehicleNames)
+    cfg.categoryVehicleNames[categoryName] = vehicleNames
+end
+
+cfg.numTeamsList = {}
+for count = 1, #cfg.teams do
+    table.insert(cfg.numTeamsList, tostring(count))
+end
+
+cfg.numLivesList = {}
+for count = 1, cfg.maxNumLives do
+    table.insert(cfg.numLivesList, tostring(count))
+end
+
+return cfg

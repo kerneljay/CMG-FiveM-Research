@@ -1,1 +1,25 @@
-CMGPmSG~bbtuk\“tŒ`Ndd‘ob^h„lj™•r›“tt|¦~y]”{¢±‹¬J™„€nl²w¤MHHtKGQmUUY‹c>Œˆx\]–fkfeaOŒc‰Nˆmi§qhœuy«„om˜–|pnŒw6¯oNxo[¦hslve\gY{^Œm`R@oHe”mHskuQ–~Pw‡X\¤pŸ” {—hk€›¡ƒ}œ†‡¯C®’oe‡“nWi[c„Ut`;Z‰S}YTS}y€NwH[gˆ˜reak‡ojj–mitœ†ƒ¢ut˜iry~PŸSD:–•Y1i;SŠPK\<\‰F\c`ˆe‚kPckp‘l™™ jsx–vlªs‘„Z|ª{h{©€¤…²ƒ{¡glM{D<ŠTU6W]LCQ[‹UYTT€WS]ya\]ŠooYzylnsm‹‹p£™ZŠ™’c«¤ˆˆ…ª¢²M{F¡JEEq‡DOwbbtciP[@kj^”XUMz~“eš`‚œ‚jŒm“kdnŒv£u¥pl~[z›«¡x›’œ…}}l…¢O®KFN>Ik…kSut|TMWuaf^YUgŒg^f–a]o”ovniewœw”v¦qm¤¬~®yu‡¬ˆ~†w}P´QWOJFX}YuW‡RN`…a_ZVhj_g—b^p•rwoŸjfxxoxmul¦”|ww£zvAœ„ƒomR³h\<xe}Q?UU‚~W…a]X`M[}—}e‡tf_i‡rp kgyYu–¦œs–Ÿ—šˆ®ˆ{wB…€AmƒK¨^^RˆLIAnr‡Zd?_ˆnma‡_Xb€‚Œi jajˆqii—…|jœa‚¢–ƒhw§¥|xC†Bn„…\l_^:‰MJBosˆZUw‘w_bˆzi™cgbbeak‡ojk™}}c”‘œwŒ›€¥™i¥0•<­2;~Ÿ«]{PL:wj~‚pXSSVR\x`[[‡^ZeP‚gšvQ•_`vYlŸ’„²vsk˜›¥k™~=²MzjƒŠzUwVƒP‹TLa?_ed‘\Ta…f]\–clmNnuh\kt™wmfrl—^tg²|ªª…¢z„¢V±Oko}‡IOyjaABXafraeVLihkC{Meœb]nNo›X¡le‚Uw¤…«u“ \~««²|…†¨†‰7„WlPGV=N|uwX…bCTtk„aWx•^ŒIg…ˆVcrVeŒf’ieo‹snnšqmw“{{©²’y„”’npš¨Y€e6?…[K\l[_PFcbe=uG_–\WdJhoRVg_hNrxw\pgxUx•¥exnk_ˆ{q‡ge‰¦“6‡µa°RnBNni}Z‡THX†{ˆbYdQ]g—}dX•|Šz`ˆhhfklŠ’…`«–…Ÿšp~B­Š‘Y9ˆ¦RpTZ]ˆOIVZwDX‡€‡cZmNaYzJla—Yiqz”szmbqŸ~Z{¨›¯zœŸ›‰¯‰|xC†Bn„€L9IpJvMITAZP€~UQ[wmcsmmWƒƒrc~‹‰~zjhmn¥swrruq{—z{y–hQª¡3TpŸ©<ijKKINJ]xsXdp‰Š‡cK\™wItxRšv|–Š•cš†ZYˆˆ|¦††lš±ok—i4¯dXgs‰2p2a]a…g`b„qhLZŠiEeƒt—{…j‰qy‡|t˜X~}tfr|~˜‚‰v‰g’²sy²G bZUŸo[yksU…JrVrZUUXT^zr‡b—y†{”jfT‘ho–‚zˆpn‹yŠ³|š†¦|£}j€|G¢KFFrbYT8_R…{mal…uŒVTYZ‘}gnf–a]o•kŒœ’iŒ{vnnœvmŸ{v~ly›µ›ƒ¥–m„}H¥Q}OJFX9Tz>‡LtXt\WWƒZV`|tNd|”hVll™•„jušsfunx–Œ¢Œ¯“zR« ©”~‚¤¤Mr8ƒdr^6feX~p_Y]XX„[Wa}e`aUtsn’‡hfkl£ypx¨so§}£g°uB…€B?†}x¥NIIu\\‰zaeVn†ZH^^‹‡d‚…ffn˜€pkO†m”£}zšvqzŠ„„nšš‰z´•¢W £‘xR¡yKit_?h^\}WVBoVgM
+local maps = {
+    ["Big sky thing"] = {
+        rockstarMap = "https://prod.cloud.rockstargames.com/ugc/gta5mission/3726/9Rxg4gGO00SWs-WVq6nBsw/0_0_fr.json",
+        middleCoords = vector3(273.09106445313,113.85364532471,723.77307128906),
+        banner = "placeholder1",
+        maxPlayers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"},
+        maxRounds = {"3", "4", "5", "6", "7", "8"},
+        cars = {"scarab", "zr380", "monster"},
+        teams = {"0", "2"},
+        cameraTransitionCoords = {
+            {placementCoords = vector3(332.71343994141,40.128517150879,788.27111816406), pointAt = vector3(277.00567626953,112.13814544678,754.51873779297)},
+            {placementCoords = vector3(191.64059448242,58.651958465576,789.60717773438), pointAt = vector3(277.00567626953,112.13814544678,754.51873779297)},
+        }
+    },
+    ["Sandy one"] = {
+        rockstarMap = "https://prod.cloud.rockstargames.com/ugc/gta5mission/3726/zahAwRVizU29-2gEsSHS9g/0_0_it.json",
+        banner = "placeholder2",
+        maxPlayers = {"1", "2", "3", "4", "5", "6", "7", "8"},
+        cars = {"panto", "bulldozer", "monster"},
+        teams = {"0", "2"},
+    },
+    allMaps = {"Big sky thing", "Sandy one"},
+}
+
+return maps

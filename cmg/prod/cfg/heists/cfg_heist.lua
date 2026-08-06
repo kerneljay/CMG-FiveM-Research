@@ -1,1 +1,254 @@
-CMGPpPElc‘}oCn‹dXR…ƒLLpf‰x“€šY§kx›ˆ”~«•_„°ud¤ «r¥‡|}mi³znPEFuUHTvXROŒw?‡GxiN“eYS†ƒ‡sˆdd t›Œ§z¤|”†hƒq€h„†œoŠ‰YsM¤‚€Q§]<UGSB[€YE^…WJaR‡Kd}[—kmUn_kŸrr¡uœ‘¢pu—yno~q}ŸšŠok—|hQk‚R=Wn\ˆ`\ZF]M~_R^€bWX‡g_w{tiœ‡w•~k`ª‡¡“^cŸ†‚k“‹…1 jO|M€I;VSBWoMC^\}…[QY‘d‰R“gašl‚w•ka‹\sŠw_wi}ª|k¡¥u–q €s¡ƒxyidoofª2zlHeTe]O}q`L\RAe‹lOg€rWo]€šrbn_we€[wg˜™ylxš|qr¡yRª•ƒwb‘ZpY…H„mI|vnN_za]ZFnf`K{Ei–g[cUpm\›q‰g]xv—Ÿuks«ml­©{´†œR¯…{¥7N¤R:RDX…WF|XVKL{[SIˆXyTƒcVcT`\‹k^jŒncd“jj§€}¤”]mœ…ƒun”ŠPmŸk„NS9Sj8†XX}†\MeH`vGcz‹–h~c“l“eŸrp s‹u`xh•¡}}ª€€iƒ›Ÿmˆ®H¶Œ…€O‚RPEFuUHTvXMOŠv?mƒyUVWeYeSln„Xrqqmxv¡ot–xmn}p|›yªŸ¢5pd“XgpZxlJr…ooUIYShƒnAn{}cj€‡˜l…wsr“Ÿvf–z}§|•{gƒ¨§°†œ­gŒŠhvN¥¡T¨xTW~[WJVxZOP_R_Iz[m™€n‘Q{q‡”v™‹‘Š—~zv©–t­„©¨m‡®¢4Œ¡G5P€I|JiOqSHIxXKWyvTx…z}OŠ~\nrxppRƒtnœsocsm‚ˆ[ˆ¨•—}¨„š¡²†Ÿ‘yNŒnzQ€xqUkXƒWpVB^ƒ‚‹awˆge‚h€|™nƒ’›no‘qdp’‘w™ks–… §f´œxF¨•¡‹yclRYe…X„kY|<f\;‰kQn‡]SB‚rYˆˆ}mSUyL”—~w|‘‚¤’†Ypc‹€q¨–aªk“‰6£ªn\§lzimI=lKcRo:DeR_v‰TUc[{‰vKmš……v”rŠl`vraz|l®Š®„t–´†wK¶Œ‹o|R_:SUY=Xn}@]\ƒJa…Ncew•jX…Oij‹p|N„”rœ£„V¦šˆn~«•_„°ud¤ «r¥‡|}mi³znPEFuUHTvXROŒw?‡GxiN“eYS†ƒ‡sˆdd t›Œ§zi„¤|nz¯—¢j…† qŠŸ]sM¤‚:Q§M<UW[‡ZpeA]_SJaR‡Kd}[RjZmTm_oXsˆXuœ‘¢pu—yno~q}ŸšŠok—|hQk‚R=Wn\ˆ`\ZF]M~_R^€gkgZfˆjd’sobnrgh—wjw¨“_}¨šv©¯›x:‡`n[oRjj[yWoYF[rC`aeNez‰“g›k\oœo–T\tŠ•¢yy}©~|wb¦§n…©r²ˆ¯}zMŒPzQ§B;VEr{WGxyYLXz\QRaXP‘u]o•i]WŠpfˆ¢weˆ\x{t|®~|qr¡y0®~ŸzjJ|J;G§CrREQsUJKztQQugd‹{DTƒlj\U{qvT†Rk¥tfy^zz^e~~g™{m‡†ZµŠŠ±}O¤^zRDf?WmRB[Ln`urˆddv‘ggzOjlhWp…”Vršh¥uv¨xvkl›{nzœ~su°œeT©Ÿ{|>LL:SUk?YXXT_]wˆVu[}_TVVgU‘…g\]Œˆ“™ode”tgs•wqn«–^¦f—ˆm²„x3¥¢¦’phƒD€T{l‡Yo~„\tpJb‡`JdVf–iYl’l„fYp‡|[tœn¨yiˆd|n”¯€q¦jƒœzq‹‰k0M~~;S·s=UVq‚PoUwYNO~^Q]zjOŠwm›‡pn_ŠbuZvw|r~zœr|l~q}Ÿ†­K†yFhJƒ±SONpRGHwWJWˆs?]ˆzV‰{}XYg_zOq‰‰z˜vpbz‘za€p–¯ƒ© ±†x¢1Š{O{Q4;TDuWYaF]ryE`†‡Ne‰R’iYa˜m\wWqai^ts™mi˜xkw™{pq ™‡w¥”Œ¯iP‹HzhJ<VUeN\ZqT\J†z\QR~bT^}‰Œz†Š˜†Pg—‚v¡Yr™€|ye…jšdIµ†z‚}O|<9Sy„VlwYKc†`^{‰b‰[‹\n‰vOzq‚vf[¡Œa¢†n€¦znh›w™µˆ†Vn‹‹8O¡yo_mfm5Wzg]]Št>cXyheL|EU„mk]V|rwU‡Sl¦ugz§{‘_i€†¬‚ª€lˆwe¶‹±²~PµO{TUY…YH_A[ƒoHb`g‰eew’hhgQkmZr`t‹e^vu¡y‡[†£šˆŠ’•ŒM²ŸqnfL@PJxYUHTvXROŒw?‡GxiN“eYS†ƒ‡sˆdd ueŒ§yŸŒ¤|¤zf§„®ƒuv·‰¯IuN´¤;S·U;TFGD[HA]_WIcRe‹aWoTi€mUn…‰Ÿr˜qXv‘bzŸŸ£s”o~q~¬šeˆlŸyF:J‚€:^p[lrIvgt‰wt>e‚yVcsk‡jX•Zdƒ’€Œ‚{Ÿ˜‘”f«zp_Ÿ›¦¬ ‚wxh¢¤\lfƒ9‚TyuƒXYY†]‚cC_QsKfd_Jgšl’‘—pae uŠƒ_xŸ“¨|l‡¥u°ƒš‡³‡‰6M¢r4Rl>ST†VTIJyYQqlAc{{lŠh€jRlƒh›p˜n¤v‹t_xz‚b|m€ª‚ek…uApˆzz|O£o5R‘yƒVVQYqSG_^]Eby[Lde—geZ[Šjb‚}Rt¡ŒŒ}›y‘{ª}”is™³‡¬Jn‰{4N~R}Sy7@XmZ=ZrdG`_|IbcŠ”gWˆ’j‚‚œp•ŒWsdl`wzyiš›{nzœ™‰¦z;¶Š±¢~RO{T{U„Xnk>]Mwa`‰c{Y–g~{NmmaŸrp{teq xxs`z“yh€p“­„……oŠxfo‰Œ³QMLnPJ_ze8e…rtZ…aw~c|f–ilQnn^Vq‡–Zsfn¦zg§|nn®„l„†ŠµŠx{xM†|R‘o‚UWiD[p]B^Og‡aO‹aVW†ƒzŠ„bW r—“¡vw¤{…§ook‚‚}i†w™sŠ F2M¥‚T‚N;WnjC[qfC]PTdˆQ’hX`™lkˆ˜p``Ÿub˜œlh—wjwc‹ƒ}h˜b†³„x€3z:zOU=UD_=WoaB]q‹_asezw“gYe›l\šoauœtto^vq«~l¡b€q°…ª‹³…ˆ¯MI{HjL…[va4anpV]shC_xxLfex•hj^™m“|œobj£vtc_zzzg~£„f‚‚n‡tw³ˆz’xN£o}Q’G@W|eƒ[[qƒ]K‡{]RS‚}v†€^Sœn“r™k xvq£{{khn®ƒs®†œNmˆ¡5O´J|TTD†W}Z€Z\T^u€cdlMiWvOllhTmn pncd“sk‹™†[}ª••†¤‚š€o†W¶‹¢¦}Q¥_}S{o…WH[‡]L@Iav}FdUmQjhNkl“Zq•^su‡¤xx`|}y¯€•¥©yšu¤„wEp˜Š6foTRFN?YXGˆ\„NKba~dŒZ—jhš˜l„j›sqt\tŒj^zi–b}~~©ƒ¬„†zµ‰yE4M¤Š<S·]:SV}ZVIUwYShƒnAn{}cj€}Ql…kXrb—¡uw©zj›b|ow¯„qpj†5‹°^6N¥¥;S‘„>W};‡\q|B^vr‘cybKhW‚k„h”lzNy–r•Œ‘X ”{¤„su¢—¨~r‚|ªL‡zGiK„djm`„SI8xt…y[PQ€`S_cXbdpm[ntbYy|‰wmi˜xkw™{pq €›¶Š‹e¬JQYIL¦xUQDPrTIJyYLX|iSgmlf‹jlk‹lZ–Šlab‘qdp’tisz…”y‡™¥€„I†„yzjJ8OjqVb4jzXu\Œs<‡ufh•bVPƒ‰Šj]i‹‰–‘’req“ujkšzqiªvˆ®‚v1£‰¡“9QV5STHAVD€tVKL{[NZ|^XU’}EM~oT™k_YŒ‰y–jj¦z¡’­• ª„tŒq‡‡WnŒ|¢QµuySkM?WnWB]]wFavsHdeUMgXQjƒaq–kuu}^x§y|£€|o{tu¤„wE­—qqX“DraY|u\XUvpQc†l@]yEW„}\y‚MoŒ}Oq¡ˆh^¥|«›ˆm¤}p|€uv¥…xFoZ‘ƒrf”AvQG6vZIH‡\L}~^Q]aVW†f]Yˆ‚rsuqm‘Ul©i}£s”o~q}ŸvwgWmcAOWrb[<‚oNkt?a’nAk|F~‰a€fˆj_aar`œrgh—“¤˜zopŸr~ ‚{hw˜~\uK€0pTjg?YYUA]\[G^N€`S_cXYˆh`h˜…OŒYˆwgŸsiX˜“•Œœ–ti²„©¥³ˆ‰wNŒH7Q§l=VUP@Y€l…]sdG_xj“gU†“iZrWn“pVobŒ]t‹t£y j«~£€g€˜”²†„k®~ŸzjJ|IkMCrjIVfL;‰kQn‡]SB‚rYˆˆ}mSš„‡a›|QŠ—Šz~\„Yx›”\ š—v®“‰B¯ {kK}JlNCDskJgugOw‰l„ZN^TT‘gV˜hf[\‹k^jŒnce¡ƒzb™vl[›{˜‡˜bš¥†tq¤†{|lL~KmOHp=e[Bu^\M~ly`‹wC|‰|lpNJU|tx•oˆ“”tgs•”|£€|o{y§ˆ„wD¥‡|}mMM{i4WznHTHXNVHca†‘eVj–khšjh]^m`lpeg¥XŸ“q™¬––|p€zª•hVvc¤ŠvR§U9Tmi‡ZJwŠ__S‘cbHdW_˜kX˜m…g tby]u{`{y«e~¤b¯‚‚•m†wƒz‹Šp{Oµ“xR|pRGHwWJVxZSw€x|og{FiŒ€ZfZjca—€v™Œlq¦‘mn ‹ƒ›²šuv£’Œ…p–jHrdƒVpSA}qSHIxXKWy[Tx…pgpŠ|‚{ˆokgšpqatc¥ushi˜xkw™{pr®‡o¦ƒyhiI¥UkfohsTB~rTIJyYLXz\U}JrhO‚kiZ‹y†m˜„P‰–‰y}[Wbœ‰…¢|• ¡tA¢¡‰°NJ|IkM†uVREQsUJKzZMZˆvAd‡{UaUe[cšn^‹Tqso`xf‰Ÿokšzmy›}rs¢œy:¶Œtdl=lUSE>dZ_=o;T]ObFbSG“igzOj\hqovVssš¥wŠ¢z||fo~­‚ªˆµˆ‡S°ŒŒzPK;UEY>Yng†]MaF^_‘a_TU„dWc…g\^”|s_‘zx]˜…{©•~|nœŒ^¢œ™y~³z<¬ k´q\nUojn=…Y\Yv[K|}]P\~`UV…e\‹‹xqo–†Šwuf¦zyt¤|m¤}p|€uv¥…xFuY‘nsN<oQpj…oMey\L}~^Q]aVW†f]PzrNuqm‘l¤Xœœ‘ƒ|g˜_u¦še®k†thJ~ol‘„TRGHwWOˆ\ZOP_R^€bWY”€Iwƒ_`aoc”]vxlª{kœª€o¦ƒr~ ‚wxh‡zHydoNykGz€lnIJXPp~k@bzzk‰gišk‚sVoayYut‘[wy“b{lª€d²„t‹o‡y…zOŒn|Q€x?VzCƒXZlŠ_]l‹`x|”get‹gWˆ‰i\hŠlab‘qh—““{€’[‰Ÿ•qrsxB¥œ|rzd¦A{\q\smYˆ<d9\ƒsa^Šv|d„{Eˆ‚i[`‹z]Ÿombc’req“ujl¢‹~Ÿ•†g©‚v1£‰zn{N{xlNCDsSFRtVO@|tbn|ecT…tZ…oT™|cvqa’“sfr”vkl›{r¥e‡c£Š†C¦–¥zdmrrgYR=n5Kyo`R‰u>OyŠ]hdWc…gaL˜f…kodfdns•wlmœ|o{˜ˆm¨•‹z¥Œ}:S€PT|FBYoz‚RsN}]P\~`UV…\\™€ro–†O_wug`†|_‘]v°q„g„…iqŠŸo2M´¤~S§Q9Ul}ˆZZe…^Ou‘dRqJe}W—jj‡“ooœrb—Ÿwgw©zu§~••g€³ƒvwg†yFhJ~€w_•Bt][@{h^Œxa_QoA…|\a–]^Sztu›Šef”Š{X˜YjœŠ™hl©~±’‹xt GiKApPCOqkL^yiO‚‡l†QR`TcKgXL˜kY•‰k`apco‘sl]™‘‹™‚€q¢‘wª¢œŒqwZ€TlO~pqQDPrTIJyYPƒCmeAhd`„tƒ_—K„voZ‹Rh–Œ}o¦’[l–§z…tA¢„~ivD¢IkMDBLkQsUJKzZMY{vfK†si—ƒlj[œn^iWrcg¥xv—^xh™šzmy›}rs¢‚zC²Ÿi¦4c‘BzND3snpgwqOD_„€czv‘gvOk\`Tp•”UttlŸwz]y’l¬€¥‚i„t|³‰wCµ‰|¦8O¥O~T{E…ZXk?[ƒY^_‘a_TU„dWc…g\^”|s_‘zx]˜…{©•~|nœŒ^¢œ™y~³z<¬ k´q\nUojn=…Y\Yv[K|}]P\~`UV…e\‹‹xqo–†Šwuf¦zyt¤|m¤}p|€uv¥…xFuY‘nsN<oQpj…oMey\L}~^Q]aVW†f]PzrNuqm‘l¤Xœœ‘ƒ|g˜_u¦še®k†thJ~ol}BLkwzhtx†k>U’pgj€igYWa€fˆj_a_iˆnrgh—wjv˜”sh²—‡©›fkhŠH4\“N9i3W„UIQA\qJE`aUMeTw”gieQn[›oqmud•ZxŸy©|’{©¬†„¡¯‡‰}4O|n|P·J:UkT@VY€]YLXz\QRaTa•tH_•zlh\lbfŸwb’tij™–|®~|qr¡ys†„yzjJ|IkMD‚k5^|pNv‰ssYM]Wl‡rEr’g’n„}œp‰s£wf“£y¡we€~}d€s{µ‡«5oŠ¡ƒ~Pt7RTn„XFˆB[?Œ__ZczT“gWŒPk‚t”n\˜Œncd“sfr”vpy‹‚±¡~tc£‡†6q€¡|lL~L?RBstTGSus€{|\O[}_TU„d\d”KˆU„sc›oeT”‘ˆ˜’pe®€¥¡¯ƒ«u²‰®fp‹}Ÿ9Q¦n~UVJYo`†[txIbQtKefnPkYPk^ˆYp‡pŸtŒz¦yiŒc|~rg–¦ªz›v¥…xEgI}~nhoZpjJ[v]YU‰\ucb^Q]a[F’`e‡i^`^h‡mqfg–viu—“rg±–†¨šejg‰G3[’Œ8hqVƒTHP@\JIˆ^`\cS^IhX~™mZœšn†xt™‚]vŠ§{‘«–’«…ƒ ®†ˆx6Œ¡myOc:Uzu‚UX\XKWy[PQ€`S`”sG^”ykg[kaiuq‘shi˜•{­}{pq €x±…ƒxyiI{HjL€Cj4]{oMuˆrrXL\Vk†qDq‘~€f‘mƒ|oˆn_v›š£zjŒ©}}|frz³…ª4²‰Š7N}M~S’G=UF{?XqKE_„YFay_NgŒ‹–gj‘nj]i‹mbc’rer¦…Yp¦‹}ym}s{°‡ƒp£…z{kh€PNCDsSK„XVKL{[NZ|^SU“|Fo_‡š„„j^nh}˜ƒVƒ£’x£•’­šµˆwW·Š||~RWySkIBWn}…\sUF_P…Ib{U—io•k]aœrp‘Xsš ns•wlmœ|o{™c‚¥{X¥Œ}P¦`RPEFuUMC‚RsN}]P]NZ{V…eXd†h]^‡dd¡ˆzwWg–}oh„‰g™e~¸‡yM3Nq8R‘Y:V}KC[€iƒ]uSGax‡eWoPlj‡Um__Wqb—Zt©{zŸ`~s°„‚‰m††¡s€ŸFhJ~oONpl6UxpNjxa_PHby^dbWX‡g_Ul‡msQ‡—u’y ~‹†“\“ ™¨~r‚xx‹{GyE£psamqm7^As`Xildx‰pB–†}YZh`™mk`aph¡ushi˜xkw™{pr­™b¦œxy;II3\”m}b3U;e^SŒsvX†VwRaT`‚dYZ‰ƒ``„vsšŠSc’{ykdŠ€…c•az´ƒucµˆŸm8PŒkP’m?VUD†ZJz^te‰cS_‹eSƒeZ[Šj]i‹mfŠ—‚y‚œ”š}y­‚©°††F‡…z{kK‚9xHiDsSFSDPqL{[NZ|^STƒ|jZˆwo’‹rnkŒˆSu¥ƒf¨xvkl›{nzœ~su³œfP­¡§{e¤K?OI^yd7d„qsY„a†gb{eMgWc’mmƒWo†Xrde¦ygf§{’—¨v•{tu¤„wD¥Ÿ€’n^ƒw|a{FGUI\B]MAc^Š~`UV…‚hšjh]^merpef•uht–xmoª–_£™uvw…|Fzd‚‡:^”poTDuvVIUwYNO~^V^{E‚O~m]•i_N‰‹‚’Œj_¨zŸ›c}•w¬‚˜«vf5ŒzhvN¥‡{O‚VƒUnX€ZH„xZOP_R^€b[Œwnw‘ƒ‰‚vrn¢wl¥|¡˜|zopŸwm¬|xh‡zH9E¥ApPCOqSHIxq_O}ld‡€gc`}ƒi›l\g™†Šf¢ˆx|‘vf—˜xkw™{pq €x€°g¤2a@xL1qlneuoMB‹]‚~F`bVeetdYIWo]˜p˜jqex¥wzd{|®~|qr¡tA¢„y{r[Noe•7yRF@sYqmŠ]tiFWxS‚bUbUhX‰Šj]i‹‰–‘’req“ujkšzqiªvˆ®‚v1£•~Œ}c‘c5_nL†XpR€PqL{[NZ|^STƒ}ZZ—~pm”„M]Œuse^„z][t®}oœ­‚sgqˆvy¤‰Œ¦7R~>Tz{tXn_ƒ\Me…_M‰}_TU„dWc…g`„‘|s|–ˆ‡”{ws§|£mªp“tu¤„|3±¢}mMM>JkFuUHTvXMN}vdT‚qiŒ…lhe†ybg–~‹} yV_Wt¢r“n}p|€uv¥Ÿ|=za’wgo@oXVHAg]b@r>W‘`ReŒJPj›‡lo‰[s—`¢uœ–z¥~o‘§o«Ÿvwg†yFhJ‚¦t_•_ykqjw^ZVŠ_†dc‰jdbWX‡g_Ul‡msQ‡—u’uœn­~“^} šv©¯›x:‡`n[oRjj[yXYMB[roG^PQddw’hLQl‘‰o‡‹tŠ•šmŒ˜›‰•™§•_†¬™w„£œ|Ld]wf¶BCQI‚VTIJyYOŠ|e@JrTal|m‘i…WŠsqb“u ŒX‘‘…c–_j¨šcx¦„Ÿ°NJ|IkM„ut[I|tn^CˆkMZeufŠ‡b~Pƒlj[Œz‡n™…QŠ—Šz~\Xc’~¨–ag¦œ«J‡¢ˆ©O[lcsQnEtoZJ>qPX{b^[LXyTƒcVcf…eŒ„ˆ”w¦k“†Zq®“nƒ™~tc£‡‡S¶Œ|8O|ymODEtb}\wg`A‡tSp†yDf—sF†”€`m{ok_oemayx•¦|l£€|o{w§¦”¡I³Ÿk¤re”Y7j3>ym\Yƒq<Bw†e{`VE…jid—m^fZg‹[rjs›†h©‰‚g—uˆ‡…wuEgI}>H¦MoQFGvVIUwtRzGwUqhfWˆrHzP„s_yPa”wŒhx†}‚¢yp|{‹t•¡„t¥g†yFhJ~oO…_ul6U‰o_WArcH_SM€b€YŒ€„{Q„‰eX€roYŠk|—‘Y‹›•„y¨šw¨ ›fh¢~nnKƒJqimqnL@xi:\‚tvRpBl†}Heˆƒ_^‰ƒtUYxxŸƒ|Ÿ˜ˆZo¦•u†i‘ˆ‡¡h¤|d]wf¶6mjla{esc‚i<m†wV|PaVuƒ~I„‹lZ–Šlab‘qdp’tnk¨“[£c”…j¯u0¢Ÿ£me€A}Q·iƒW|iZ_†ZN]HaxFPgU—ƒikkXm„iWor™vreq“ujkšzmz£†x¦š‰6ª…{jkO´JQjP?VD€tVKL{[NZ|^X]’~ZgM~oT™k_YŒ‰y–jj¦z¡’¨•œª„„x¯ƒwC²Š|xL~:8SD8=ZW}QrM|\O[}_TU„tF[˜‚\]^l`see¤xg©ywlmœ|o{tv·•ŒM®˜‘‰mTLpXoKƒm~UXiayxPdb`UV…e]S’bƒ^m`m^j‹f•uht–xmn˜t§g™yŠ¥ŒˆEiUl“7i•Mo^Kj…\oVTr=CIwA‡kjKOwnnŠzs`W†ueqŒzviu—yno~q~£’‹„j £qxe‚ª~h§NBRGQZpug}ty]„yWn€rgYŠ€IZSƒOŠ€wŸ‹wiy’~f™“•q…†‡³‚{…w ¥Xjc“5yimqqnLp}ruG‚vTe€qWtL{lf‚‘[…„ˆr™ˆšƒX~¤“p¡h{r˜¡š£†v§iI{HjL€BqQIQn8uBq`Pˆ\RA|~u…]R›m’qˆŒ¤t‹–£wij¬mŒf˜Šo„tAmŠymzO|swG§CrREQsUJKzrQn|nV~s‹aUe[_œn]\r˜™vreq“ujkšzmz­–b„£ym² {=K‚cq^3U‚mm^|Y\`‰`u€ˆ^TT‘gV˜„jlh›n…Zpsšwsfr”vkl›{n{Ÿ—clƒw2¤ŠŒ||PK}SD{XTGSuWLM|\O\pi^ulo…nl]t‰p›‡šfv…{¨’lu€|o{yd°~D¥‡|~=G¥LnPEFuUHTvsQyFvTp~geV‡qGyOƒr^xO`“v‹gr…}}‘£o‰„§¢€›¬‰…xEgI}~nN€Nsb[Typs€‡tRzww]QaV`rvm‹ibc~Pr¡‚U^–Xœ “np­›•Ÿœzl†~imdno_pFql7XwrNMxt?a„of”€|\a–_o‘{tq‰˜k}šnj§“sh¦›‚rœ›Ÿ‰q˜¤`r[oV|kHy@SJ=‡ruGztPYŒZy_cXYˆh[g‰…dY£ˆx€šŒW\˜{xdŒ„~i™c‡´…xh|OŒLxP‘d‚UUr…XJtC^‚z_bb’e{pjZ|Sl\hœq‡UZv‹p\xj¬~md‚˜ª„ro¢„yzjJ|IkM…jwbYb|ntmza]Ya‰gf|‡_€[Šj]i‹mbc’Œi\…|£“\l›„‚tm“‰Oljƒ~M}9}Sy7>WFˆtZK?‹^NZ‰bdv”f}ˆPhk’ok^jŒncd“sfs—[yd{oiœƒªˆ³‡wC´‰yªlL~KmODEtTL`zqvxv…[O_T^`tkWg_f›|‰t’‰–ns•wlnnvšjy‚ª•­8¦¡¦m|h”UKi5S>UICv\^NaQ\Zc‹vX“€qR–†u›|i^¡|›ƒ\b©•„p£€ve¥‰‰EKC§‹t_¶ApjJLˆo[f€s=T€wUrizFc†mifRzrlW‡Qu¢sgo`|iha}”¥‚˜Ÿi„‡z‰yFyN“}T¨VyLkwzhtx†tS‡€{fs’k[m“wo‘d{tq[€vƒ|k} ‘Z‡«zp_Ÿƒ™’n†xx‡z6vK€MpaGT?m~JqqXŒld^y}p”]|ˆšypxS…ŠT€Rˆ˜
+local cfg = {}
+
+cfg.staffDoors = {
+    {
+        position = vector3(269.26681518555,212.48037719727,97.117294311523),
+        model = 0x18651EA9,
+        thermitePosition = vector3(269.021698, 213.232224, 97.290520),
+        thermiteHeading = 338.69860839844,
+        thermiteParticle = vector3(269.021698, 214.232224, 97.290520)
+    },
+    {
+        position = vector3(272.21914672852,220.72395324707,97.117294311523),
+        model = 0x18651EA9,
+        thermitePosition = vector3(271.605804, 220.347916, 97.270691),
+        thermiteHeading = 161.79879760742,
+        thermiteParticle = vector3(271.605804, 221.347916, 97.270691)
+    }
+}
+cfg.staffDoorThermiteModel = `hei_v_ilev_bk_gate_molten`
+
+cfg.vaultDoorHack = vector3(228.08103942871,229.08581542969,97.1171875)
+
+cfg.lockedDoors = {
+    {
+        position = vector3(244.03228759766,217.08151245117,97.170280456543),
+        model = 0x18651EA9,
+    },
+    {
+        position = vector3(249.95559692383,233.72819519043,97.171112060547),
+        model = 0x18651EA9,
+    },
+    {
+        position = vector3(265.61572265625,225.07720947266,97.166137695312),
+        model = 0x18651EA9,
+    },
+    {
+        position = vector3(229.27871704102,227.48323059082,97.179840087891),
+        model = 0x2655BA8A,
+    },
+    {
+        position = vector3(226.14880371094,228.60801696777,97.18204498291),
+        model = 0x2655BA8A,
+    }
+}
+
+cfg.safeDoor = vector3(234.98,228.06,97.72)
+cfg.safeDoorModel = 0x39569782
+cfg.safeDoorButton = vector3(236.95303344727,231.55143737793,97.117179870605)
+
+cfg.safeTerminal = {
+    position = vector4(236.334320, 231.788727, 97.512642, 69.296913146973),
+    model = `v_corp_bk_secpanel`,
+}
+
+cfg.alarms = {
+    vector3(254.7350769043,239.41065979004,110.22128295898),
+    vector3(244.01333618164,209.50090026855,110.228515625),
+    vector3(240.29081726074,217.86242675781,108.28177642822),
+    vector3(281.74026489258,212.6491394043,106.37060546875),
+    vector3(272.41326904297,216.10011291504,112.17317962646),
+    vector3(264.64080810547,205.43406677246,107.28225708008),
+    vector3(268.11584472656,217.66203308105,108.23894500732),
+    vector3(244.86563110352,225.89497375488,106.28211975098),
+    vector3(272.90090942383,235.5530090332,123.81565856934),
+    vector3(237.52691650391,228.86744689941,97.11701965332),
+    vector3(251.23095703125,223.92921447754,97.110008239746),
+    vector3(265.35092163086,218.66697692871,97.06852722168)
+}
+
+cfg.terminalHack = {
+    words = {
+        "BANKDOOR",
+        "LOCKGATE",
+        "TERMINAL",
+        "GREENKEY"
+    }
+}
+
+cfg.trollies = {
+    {
+        model = 269934519,
+        position = vector3(228.86915588379,226.18995666504,97.11701965332),
+        handModel = `hei_prop_heist_cash_pile`,
+        heading = 0.0,
+        name = "cash",
+        item = "bankheists_cash"
+    },
+    {
+        model = 269934519,
+        position = vector3(252.50869750977,238.62881469727,97.117027282715),
+        handModel = `hei_prop_heist_cash_pile`,
+        heading = 0.0,
+        name = "cash",
+        item = "bankheists_cash"
+    },
+    {
+        model = 269934519,
+        position = vector3(225.71073913574,227.12228393555,97.116943359375),
+        handModel = `hei_prop_heist_cash_pile`,
+        heading = 150.0,
+        name = "cash",
+        item = "bankheists_cash"
+    },
+    {
+        model = 2007413986,
+        position = vector3(250.09660339355,236.14601135254,97.109855651855),
+        handModel = `ch_prop_gold_bar_01a`,
+        heading = 150.0,
+        name = "gold",
+        item = "bankheists_gold"
+    },
+    {
+        model = 881130828,
+        position = vector3(242.38064575195,211.20390319824,97.117195129395),
+        handModel = `ch_prop_vault_dimaondbox_01a`,
+        heading = 0.0,
+        name = "diamonds",
+        item = "bankheists_diamonds"
+    },
+    {
+        model = 881130828,
+        position = vector3(241.76963806152,214.48385620117,97.090843200684),
+        handModel = `ch_prop_vault_dimaondbox_01a`,
+        heading = 150.0,
+        name = "diamonds",
+        item = "bankheists_diamonds"
+    },
+    {
+        model = 2007413986,
+        position = vector3(267.35641479492,224.01728820801,97.11701965332),
+        handModel = `ch_prop_gold_bar_01a`,
+        heading = 150.0,
+        name = "gold",
+        item = "bankheists_gold"
+    }
+}
+
+cfg.gases = {
+    {
+        position = vector3(242.75184631348,213.48474121094,97.116882324219),
+        scale = 1.8
+    },
+    {
+        position = vector3(251.41470336914,237.76235961914,97.110260009766),
+        scale = 1.8
+    },
+    {
+        position = vector3(230.77607727051,230.97468566895,97.112510681152),
+        scale = 2.5
+    },
+    {
+        position = vector3(244.01300048828,226.75827026367,97.109680175781),
+        scale = 2.5
+    },
+    {
+        position = vector3(253.39791870117,223.0558013916,97.06706237793),
+        scale = 2.5
+    },
+    {
+        position = vector3(261.9245300293,219.90625,97.037300109863),
+        scale = 2.5
+    },
+    {
+        position = vector3(275.513671875,214.91065979004,96.835945129395),
+        scale = 4.0
+    }
+}
+
+cfg.timeToGas = 60000
+
+cfg.setupVehicles = {
+    {
+        model = `tailgatersr`,
+        position = vector3(732.99, -981.34, 23.83),
+        heading = 273.11
+    },
+    {
+        model = `str`,
+        position = vector3(732.44, -986.76, 24.22),
+        heading = 274.39
+    },
+    {
+        model = `strwag`,
+        position = vector3(722.24, -987.22, 23.4),
+        heading = 271.77
+    },
+    {
+        model = `rt3000varis`,
+        position = vector3(711.15, -988.32, 23.46),
+        heading = 270.46
+    },
+    {
+        model = `driftfr36`,
+        position = vector3(710.94, -968.27, 23.46),
+        heading = 270.46
+    },
+    {
+        model = `driftremus`,
+        position = vector3(703.52, -987.33, 23.47),
+        heading = 275.33
+    }
+}
+
+cfg.sellLocation = vector3(515.69, -1617.43, 29.28)
+
+cfg.sellableItems = {
+    ["Gold Pile"] = "bankheists_gold",
+    ["Diamond Pile"] = "bankheists_diamonds"
+}
+
+cfg.payouts = {
+    ["bankheists_cash"] = 142857,
+    ["bankheists_gold"] = 285714,
+    ["bankheists_diamonds"] = 501428
+}
+
+cfg.setups = {
+    {
+        title = "Setup One: Hack CCTV",
+        description = "Penetrate the security of the bank to gain access to internal computer systems.\nDifficulty: Easy",
+        position = vector3(176.75, 182.94, 149.07),
+        heading = 303.37,
+        rotation = vector3(-27.91, 0.05, -60.49),
+        cost = 500000,
+        series = "Bank Heist"
+    },
+    {
+        title = "Setup Two: Convoy Interception",
+        description = "Intercept a convoy from Human Labs containing thermite devices.\nDifficulty: Hard",
+        position = vector3(3693.81, 3857.69, 68.04),
+        heading = 120.37,
+        rotation = vector3(-5.68, 0.0, 130.89),
+        cost = 1000000,
+        series = "Bank Heist"
+    },
+    {
+        title = "Setup One: Cargo Raid",
+        description = "Raid a cargo ship off the west coast to steal proprietary technology.\nDifficulty: Normal",
+        position = vector3(-391.1711730957, -4124.875, 26.460508346558),
+        heading = 235.28,
+        rotation = vector3(-17.60, 0.0, -171.87),
+        cost = 750000,
+        series = "Bank Robbery"
+    }
+}
+
+cfg.armourCost = 100000
+cfg.minimumPoliceOnline = 10
+
+cfg.alarmDisablePos = vector3(258.52, 275.43, 105.62)
+
+cfg.playerDelayBetweenHeists = 259200 -- 3 days in seconds
+
+return cfg

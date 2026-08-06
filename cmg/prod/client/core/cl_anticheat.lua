@@ -1,4240 +1,1547 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    cl_anticheat.lua — readable reconstruction
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1
-SHX0_1 = nil
-SHX1_1 = false
-SHX2_1 = DecorRegister
-SHX3_1 = "4538025922"
-SHX4_1 = 3
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = {}
-SHX3_1 = -162568007
-SHX4_1 = -626868057
-SHX5_1 = -1295441017
-SHX6_1 = 2048634396
-SHX7_1 = 1179345070
-SHX8_1 = 184307568
-SHX9_1 = 1281745250
-SHX10_1 = -2048287007
-SHX11_1 = 1645180079
-SHX12_1 = 1199077562
-SHX13_1 = 1200087339
-SHX14_1 = 541935057
-SHX15_1 = 224399950
-SHX16_1 = -1637862878
-SHX2_1[1] = SHX3_1
-SHX2_1[2] = SHX4_1
-SHX2_1[3] = SHX5_1
-SHX2_1[4] = SHX6_1
-SHX2_1[5] = SHX7_1
-SHX2_1[6] = SHX8_1
-SHX2_1[7] = SHX9_1
-SHX2_1[8] = SHX10_1
-SHX2_1[9] = SHX11_1
-SHX2_1[10] = SHX12_1
-SHX2_1[11] = SHX13_1
-SHX2_1[12] = SHX14_1
-SHX2_1[13] = SHX15_1
-SHX2_1[14] = SHX16_1
-SHX3_1 = Citizen
-SHX3_1 = SHX3_1.CreateThread
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.isPlayerInBankHeistSetup
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.inEvent
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.getPlayerBucket
-        SHX0_2 = SHX0_2()
-        if 333 ~= SHX0_2 then
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.isInCayoPerico
-          SHX0_2 = SHX0_2()
-          SHX1_2 = pairs
-          SHX2_2 = CMG
-          SHX2_2 = SHX2_2.getAllVehicles
-          SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX2_2()
-          SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-          for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-            SHX7_2 = NetworkGetEntityIsNetworked
-            SHX8_2 = SHX6_2
-            SHX7_2 = SHX7_2(SHX8_2)
-            if not SHX7_2 then
-              SHX7_2 = DecorGetInt
-              SHX8_2 = SHX6_2
-              SHX9_2 = "4538025922"
-              SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-              SHX8_2 = SHX6_2 % 1926
-              if SHX7_2 ~= SHX8_2 then
-                SHX7_2 = GetEntityModel
-                SHX8_2 = SHX6_2
-                SHX7_2 = SHX7_2(SHX8_2)
-                SHX8_2 = IsThisModelATrain
-                SHX9_2 = SHX7_2
-                SHX8_2 = SHX8_2(SHX9_2)
-                if not SHX8_2 then
-                  SHX8_2 = CMG
-                  SHX8_2 = SHX8_2.isDevMode
-                  SHX8_2 = SHX8_2()
-                  if SHX8_2 then
-                    SHX8_2 = print
-                    SHX9_2 = string
-                    SHX9_2 = SHX9_2.format
-                    SHX10_2 = "[Debug] Deleting vehicle %s not spawned by script"
-                    SHX11_2 = SHX6_2
-                    SHX9_2, SHX10_2, SHX11_2 = SHX9_2(SHX10_2, SHX11_2)
-                    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-                  end
-                  SHX8_2 = DeleteEntity
-                  SHX9_2 = SHX6_2
-                  SHX8_2(SHX9_2)
-                end
-              end
-            elseif not SHX0_2 then
-              SHX7_2 = NetworkHasControlOfEntity
-              SHX8_2 = SHX6_2
-              SHX7_2 = SHX7_2(SHX8_2)
-              if SHX7_2 then
-                SHX7_2 = GetEntityCoords
-                SHX8_2 = SHX6_2
-                SHX9_2 = true
-                SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-                SHX8_2 = SHX7_2.z
-                if SHX8_2 < -50.0 then
-                  SHX8_2 = SHX7_2.y
-                  SHX9_2 = 7700.0
-                  if not (SHX8_2 > SHX9_2) then
-                    SHX8_2 = SHX7_2.y
-                    SHX9_2 = -4000.0
-                    if not (SHX8_2 < SHX9_2) then
-                      SHX8_2 = SHX7_2.x
-                      SHX9_2 = 4400.0
-                      if not (SHX8_2 > SHX9_2) then
-                        SHX8_2 = SHX7_2.x
-                        SHX9_2 = -3600.0
-                        if not (SHX8_2 < SHX9_2) then
-                          goto SHX_LABEL_108
-                        end
-                      end
-                    end
-                  end
-                  SHX8_2 = GetEntityModel
-                  SHX9_2 = SHX6_2
-                  SHX8_2 = SHX8_2(SHX9_2)
-                  SHX9_2 = IsThisModelABoat
-                  SHX10_2 = SHX8_2
-                  SHX9_2 = SHX9_2(SHX10_2)
-                  if not SHX9_2 then
-                    SHX9_2 = IsThisModelAJetski
-                    SHX10_2 = SHX8_2
-                    SHX9_2 = SHX9_2(SHX10_2)
-                    if not SHX9_2 then
-                      SHX9_2 = DeleteEntity
-                      SHX10_2 = SHX6_2
-                      SHX9_2(SHX10_2)
-                    end
-                  end
-                end
-              end
-            end
-            -- [FIX IF ERROR] Move ::SHX_LABEL_108:: outside nested blocks until all 'goto SHX_LABEL_108' can see it
-            ::SHX_LABEL_108::
-          end
-        end
-      end
-    end
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 500
-    SHX0_2(SHX1_2)
-  end
-end
-SHX3_1(SHX4_1)
-SHX3_1 = CMG
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = DecorSetInt
-  SHX2_2 = SHX0_2
-  SHX3_2 = "4538025922"
-  SHX4_2 = SHX0_2 % 1926
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-end
-SHX3_1.initLocalVehicle = SHX4_1
-SHX3_1 = false
-SHX4_1 = SetWeaponDamageModifier
-SHX5_1 = -1553120962
-SHX6_1 = 0.0
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = SetWeaponDamageModifier
-SHX5_1 = 133987706
-SHX6_1 = 0.0
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = SetWeaponDamageModifier
-SHX5_1 = -1323279794
-SHX6_1 = 0.0
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = SetWeaponDamageModifier
-SHX5_1 = -1569615261
-SHX6_1 = 0.5
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = SetWeaponDamageModifier
-SHX5_1 = 126349499
-SHX6_1 = 0.0
-SHX4_1(SHX5_1, SHX6_1)
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerVehicle
-  SHX2_2 = SHX2_2()
-  if 0 == SHX2_2 then
-    SHX3_2 = GetSelectedPedWeapon
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.hasNewPlayerProtection
-    SHX4_2 = SHX4_2()
-    if SHX4_2 then
-      SHX4_2 = SetPlayerMeleeWeaponDamageModifier
-      SHX5_2 = SHX1_2
-      SHX6_2 = 0.0
-      SHX4_2(SHX5_2, SHX6_2)
-      SHX4_2 = SetPlayerWeaponDamageModifier
-      SHX5_2 = SHX1_2
-      SHX6_2 = 0.0
-      SHX4_2(SHX5_2, SHX6_2)
-    elseif 126349499 == SHX3_2 then
-      SHX4_2 = SetPlayerWeaponDamageModifier
-      SHX5_2 = SHX1_2
-      SHX6_2 = 0.0
-      SHX4_2(SHX5_2, SHX6_2)
-    else
-      SHX4_2 = SetPlayerWeaponDamageModifier
-      SHX5_2 = SHX1_2
-      SHX6_2 = 1.0
-      SHX4_2(SHX5_2, SHX6_2)
-      SHX4_2 = SetWeaponDamageModifier
-      SHX5_2 = SHX3_2
-      SHX6_2 = 1.0
-      SHX4_2(SHX5_2, SHX6_2)
-    end
-    SHX4_2 = SHX3_1
-    if not SHX4_2 then
-      SHX4_2 = GetUsingseethrough
-      SHX4_2 = SHX4_2()
-      if SHX4_2 then
-        SHX4_2 = CMG
-        SHX4_2 = SHX4_2.isPlayerInPoliceHeli
-        SHX4_2 = SHX4_2()
-        if not SHX4_2 then
-          SHX4_2 = CMG
-          SHX4_2 = SHX4_2.isPlayerInDrone
-          SHX4_2 = SHX4_2()
-          if not SHX4_2 then
-            SHX4_2 = CMG
-            SHX4_2 = SHX4_2.isPlayerUsingRobot
-            SHX4_2 = SHX4_2()
-            if not SHX4_2 then
-              SHX4_2 = CMG
-              SHX4_2 = SHX4_2.isUsingPoliceRobot
-              SHX4_2 = SHX4_2()
-              if not SHX4_2 then
-                SHX4_2 = TriggerServerEvent
-                SHX5_2 = "58d77596cf"
-                SHX4_2(SHX5_2)
-                SHX4_2 = true
-                SHX3_1 = SHX4_2
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.inArena
-  SHX3_2 = SHX3_2()
-  if not SHX3_2 then
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.inArenaWarmup
-    SHX3_2 = SHX3_2()
-    if not SHX3_2 then
-      SHX3_2 = SetPedInfiniteAmmoClip
-      SHX4_2 = SHX0_2
-      SHX5_2 = false
-      SHX3_2(SHX4_2, SHX5_2)
-      SHX3_2 = pairs
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.getCachedWeaponStore
-      SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX4_2()
-      SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-        SHX9_2 = SetPedInfiniteAmmo
-        SHX10_2 = SHX0_2
-        SHX11_2 = false
-        SHX12_2 = SHX8_2.weaponHash
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-      end
-    end
-  end
-  SHX3_2 = SetEntityInvincible
-  SHX4_2 = SHX2_2
-  SHX5_2 = false
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = ToggleUsePickupsForPlayer
-  SHX4_2 = SHX1_2
-  SHX5_2 = 483577702
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = ToggleUsePickupsForPlayer
-  SHX4_2 = SHX1_2
-  SHX5_2 = -1888453608
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = ToggleUsePickupsForPlayer
-  SHX4_2 = SHX1_2
-  SHX5_2 = -105925489
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = ToggleUsePickupsForPlayer
-  SHX4_2 = SHX1_2
-  SHX5_2 = 1426343849
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.InvokeNative
-  SHX4_2 = -2380603657403713716
-  SHX5_2 = 2047
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetLocalPlayerCanCollectPortablePickups
-  SHX4_2 = false
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetPlayerHealthRechargeMultiplier
-  SHX4_2 = SHX1_2
-  SHX5_2 = 0.0
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX5_1 = CMG
-SHX5_1 = SHX5_1.createThreadOnTick
-SHX6_1 = SHX4_1
-SHX7_1 = "AntiCheat Defaults Tick"
-SHX5_1(SHX6_1, SHX7_1)
-SHX5_1 = {}
-SHX5_1.chat = true
-SHX5_1.spawnmanager = true
-SHX5_1.sql = true
-SHX5_1.prometheus = true
-SHX5_1.cmg = true
-SHX5_1.surgery = true
-SHX5_1.CMGMLOs = true
-SHX5_1.CMGVeh = true
-SHX5_1.CMGVehiclesEscrow = true
-SHX5_1.CMGTexture = true
-SHX5_1.CMGMap = true
-SHX5_1.CMGSounds = true
-SHX5_1.CMGFirearms = true
-SHX5_1.cmg_clothing_pack1 = true
-SHX5_1.cmg_clothing_pack2 = true
-SHX5_1.cmg_clothing_pack3 = true
-SHX5_1.cmg_clothing_pack4 = true
-SHX5_1.cmgpack = true
-SHX5_1.misc_clothing = true
-SHX5_1.cmgui = true
-SHX5_1.cmgload = true
-SHX5_1.CMGPrison = true
-SHX5_1["pma-voice"] = true
-SHX5_1.cmgescr1 = true
-SHX5_1.cmgescr2 = true
-SHX5_1.cmgescr3 = true
-SHX5_1["cfx-gabz-mapdata"] = true
-SHX5_1["cfx-gabz-records"] = true
-SHX5_1["cfx-gabz-carmeet"] = true
-SHX5_1["cfx-gabz-arcade"] = true
-SHX5_1["cfx-gabz-import"] = true
-SHX5_1["cfx-gabz-studio"] = true
-SHX5_1["cfx-gabz-hayes"] = true
-SHX5_1["cfx-gabz-catcafe"] = true
-SHX5_1["cfx-gabz-diner"] = true
-SHX5_1["cfx-gabz-vagos"] = true
-SHX5_1["cfx-gabz-weedcamp"] = true
-SHX5_1.loaf_lib = true
-SHX5_1["lb-phone_prop"] = true
-SHX5_1["lb-phone"] = true
-SHX5_1["lb-tablet-prop"] = true
-SHX5_1["lb-tablet"] = true
-SHX5_1["lb-picchat"] = true
-SHX5_1["lb-racing"] = true
-SHX5_1["lb-games"] = true
-SHX5_1.cmgbank = true
-SHX5_1.offshore = true
-SHX5_1.vigilante = true
-SHX5_1.trapping = true
-SHX5_1.hacking = true
-SHX5_1.gulag = true
-SHX5_1["cfx-nteam-milehigh"] = true
-SHX5_1["cfx-gabz-247"] = true
-SHX5_1["cfx-gabz-fleeca"] = true
-SHX5_1["cfx-gabz-pacificbank"] = true
-SHX5_1["map4all-parkranger"] = true
-SHX5_1["cfx-gabz-parkranger"] = true
-SHX5_1.ykn_gravestone_garage = true
-SHX5_1["imperial-manor"] = true
-SHX5_1.tstudio_jurassic_jackpot = true
-SHX5_1.Grapeseed_MC_Clubhouse = true
-SHX5_1["k4mb1-casino"] = true
-SHX5_1["k4mb1-casinopenthouse"] = true
-SHX5_1.tstudio_audioocclusion = true
-SHX5_1.tstudio_doortuning = true
-SHX5_1.tstudio_zmapdata = true
-SHX5_1.tstudio_redstuner = true
-SHX5_1.rcore_lunapark_assets = true
-SHX5_1.rcore_lunapark = true
-SHX5_1.tstudio_aldentes = true
-SHX5_1.holdem_props = true
-SHX5_1.tcp = true
-SHX5_1.blackjack = true
-SHX5_1.roulette = true
-SHX5_1.texasholdem = true
-SHX5_1.casinoutils = true
-SHX5_1.rcore_pool = true
-SHX5_1.rcore_minigolf_assets = true
-SHX5_1.rcore_minigolf = true
-SHX5_1.fiv3devs_mapdata = true
-SHX5_1.fiv3devs_pillbox = true
-SHX5_1.pvpmaps = true
-SHX5_1.pvpmaps2 = true
-SHX5_1.asylum = true
-SHX5_1.boxing = true
-SHX5_1.clubhouse_harmony = true
-SHX5_1.skelly = true
-SHX5_1.christmas2025 = true
-SHX5_1.halloween2025 = true
-SHX5_1.a19 = true
-SHX5_1.gdc = true
-SHX5_1.blackbunker = true
-SHX5_1.markers = true
-SHX5_1.exclusiveshells = true
-SHX5_1.garageshells = true
-SHX5_1.illegalshells = true
-SHX5_1.miscshells = true
-SHX5_1.startershells = true
-SHX5_1.drug_props = true
-SHX5_1.bzzz_weedpack_v2 = true
-SHX5_1.foodpack1 = true
-SHX5_1.garden = true
-SHX5_1.watering = true
-SHX5_1.lucianos = true
-SHX5_1.plastercasts = true
-SHX5_1.medicprops = true
-SHX5_1.emergency_pack = true
-SHX5_1.drugspack = true
-SHX5_1.vending = true
-SHX5_1.prison = true
-SHX5_1.prison_church = true
-SHX5_1.prison_escape = true
-SHX5_1.prison_tower = true
-SHX5_1.prison_study = true
-SHX5_1.prison_escape_anims = true
-SHX5_1.lsrecycle = true
-SHX5_1.fireworks_emotes = true
-SHX5_1.roleplay_emotes = true
-SHX5_1.carry_emotes = true
-SHX5_1.trash_emotes = true
-SHX5_1.vehicle_emotes = true
-SHX5_1.punish_emotes = true
-SHX6_1 = AddEventHandler
-SHX7_1 = "onClientResourceStart"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = #SHX0_2
-  if SHX1_2 >= 30 then
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "d750e699a1"
-    SHX3_2 = SHX0_2
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-  SHX1_2 = SHX5_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "e744d8fa9f"
-    SHX3_2 = SHX0_2
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = false
-SHX7_1 = false
-SHX8_1 = AddEventHandler
-SHX9_1 = "esx:getSharedObject"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX6_1
-  if true == SHX1_2 then
-    SHX1_2 = CancelEvent
-    SHX1_2()
-    SHX1_2 = SHX0_2
-    SHX2_2 = nil
-    SHX1_2(SHX2_2)
-    return
-  end
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "28293849cf"
-  SHX3_2 = "esx:getSharedObject"
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = true
-  SHX6_1 = SHX1_2
-  SHX1_2 = SHX0_2
-  SHX2_2 = nil
-  SHX1_2(SHX2_2)
-end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = {}
-SHX9_1 = "ambulancier:selfRespawn"
-SHX10_1 = "bank:transfer"
-SHX11_1 = "esx_ambulancejob:revive"
-SHX12_1 = "esx-qalle-jail:openJailMenu"
-SHX13_1 = "esx_jailer:wysylandoo"
-SHX14_1 = "esx_society:openBossMenu"
-SHX15_1 = "esx:spawnVehicle"
-SHX16_1 = "esx_status:set"
-SHX17_1 = "HCheat:TempDisableDetection"
-SHX18_1 = "UnJP"
-SHX19_1 = "bank:transfer"
-SHX20_1 = "esx_skin:openSaveableMenu"
-SHX21_1 = "esx_society:openBossMenu"
-SHX22_1 = "esx_status:set"
-SHX23_1 = "esx_ambulancejob:revive"
-SHX24_1 = "ambulancier:selfRespawn"
-SHX25_1 = "esx-qalle-jail:openJailMenu"
-SHX26_1 = "UnJP"
-SHX27_1 = "esx_inventoryhud:openPlayerInventory"
-SHX28_1 = "HCheat:TempDisableDetection"
-SHX29_1 = "esx_policejob:handcuff"
-SHX30_1 = "esx:getSharedObject"
-SHX31_1 = "esx:teleport"
-SHX32_1 = "esx_spectate:spectate"
-SHX33_1 = "helpcode"
-SHX34_1 = "helpCode"
-SHX35_1 = "32d3e79c27"
-SHX36_1 = "7c02964cf5"
-SHX8_1[1] = SHX9_1
-SHX8_1[2] = SHX10_1
-SHX8_1[3] = SHX11_1
-SHX8_1[4] = SHX12_1
-SHX8_1[5] = SHX13_1
-SHX8_1[6] = SHX14_1
-SHX8_1[7] = SHX15_1
-SHX8_1[8] = SHX16_1
-SHX8_1[9] = SHX17_1
-SHX8_1[10] = SHX18_1
-SHX8_1[11] = SHX19_1
-SHX8_1[12] = SHX20_1
-SHX8_1[13] = SHX21_1
-SHX8_1[14] = SHX22_1
-SHX8_1[15] = SHX23_1
-SHX8_1[16] = SHX24_1
-SHX8_1[17] = SHX25_1
-SHX8_1[18] = SHX26_1
-SHX8_1[19] = SHX27_1
-SHX8_1[20] = SHX28_1
-SHX8_1[21] = SHX29_1
-SHX8_1[22] = SHX30_1
-SHX8_1[23] = SHX31_1
-SHX8_1[24] = SHX32_1
-SHX8_1[25] = SHX33_1
-SHX8_1[26] = SHX34_1
-SHX8_1[27] = SHX35_1
-SHX8_1[28] = SHX36_1
-SHX9_1 = ipairs
-SHX10_1 = SHX8_1
-SHX9_1, SHX10_1, SHX11_1, SHX12_1 = SHX9_1(SHX10_1)
-for SHX13_1, SHX14_1 in SHX9_1, SHX10_1, SHX11_1, SHX12_1 do
-  SHX15_1 = AddEventHandler
-  SHX16_1 = SHX14_1
-  function SHX17_1()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_2, SHX1_2, SHX2_2
-    SHX0_2 = SHX7_1
-    if true == SHX0_2 then
-      SHX0_2 = CancelEvent
-      SHX0_2()
-      return
-    end
-    SHX0_2 = TriggerServerEvent
-    SHX1_2 = "28293849cf"
-    SHX2_2 = SHX14_1
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = true
-    SHX7_1 = SHX0_2
-  end
-  SHX15_1(SHX16_1, SHX17_1)
-end
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX1_1
-  if not SHX2_2 then
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "c9c6eee377"
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = true
-    SHX1_1 = SHX2_2
-  end
-end
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = SHX0_1
-  if not SHX0_2 then
-    return
-  end
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.getCustomization
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX0_1.modelHash
-  SHX2_2 = SHX0_2.modelHash
-  if SHX1_2 ~= SHX2_2 then
-    SHX1_2 = SHX9_1
-    SHX2_2 = SHX0_1
-    SHX3_2 = SHX0_2
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-  SHX1_2 = 0
-  SHX2_2 = 11
-  SHX3_2 = 1
-  for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-    if 5 ~= SHX4_2 then
-      SHX5_2 = SHX0_1.components
-      SHX5_2 = SHX5_2[SHX4_2]
-      SHX6_2 = SHX0_2.components
-      SHX6_2 = SHX6_2[SHX4_2]
-      if SHX5_2 and SHX6_2 then
-        SHX7_2 = SHX5_2.collectionName
-        SHX8_2 = SHX6_2.collectionName
-        if SHX7_2 == SHX8_2 then
-          SHX7_2 = SHX5_2.collectionIndex
-          SHX8_2 = SHX6_2.collectionIndex
-          if SHX7_2 == SHX8_2 then
-            goto SHX_LABEL_42
-          end
-        end
-        SHX7_2 = SHX9_1
-        SHX8_2 = SHX0_1
-        SHX9_2 = SHX0_2
-        SHX7_2(SHX8_2, SHX9_2)
-      end
-    end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_42:: outside nested blocks until all 'goto SHX_LABEL_42' can see it
-    ::SHX_LABEL_42::
-  end
-end
-SHX11_1 = Citizen
-SHX11_1 = SHX11_1.CreateThread
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-    SHX0_2 = PlayerId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = GetPlayerWeaponDamageModifier
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX3_2 = GetPlayerWeaponDefenseModifier
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = GetPlayerWeaponDefenseModifier_2
-    SHX5_2 = SHX0_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = GetPlayerVehicleDamageModifier
-    SHX6_2 = SHX0_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = GetPlayerVehicleDefenseModifier
-    SHX7_2 = SHX0_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX7_2 = GetCurrentPedWeapon
-    SHX8_2 = SHX1_2
-    SHX9_2 = 0
-    SHX10_2 = true
-    SHX7_2, SHX8_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    SHX9_2 = GetWeaponDamageModifier
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX10_2 = GetPlayerMeleeWeaponDamageModifier
-    SHX11_2 = PlayerId
-    SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2()
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    if SHX2_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "PlayerWeaponDamageModifier"
-      SHX14_2 = SHX2_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    if SHX3_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "PlayerWeaponDefenseModifier"
-      SHX14_2 = SHX3_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    if SHX4_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "PlayerWeaponDefenseModifier_2"
-      SHX14_2 = SHX4_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    if SHX5_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "PlayerVehicleDamageModifier"
-      SHX14_2 = SHX5_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    if SHX6_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "PlayerVehicleDefenseModifier"
-      SHX14_2 = SHX6_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    if SHX9_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "GetWeaponDamageModifier"
-      SHX14_2 = SHX9_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    if SHX10_2 > 1.0 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "c103fac35f"
-      SHX13_2 = "GetPlayerMeleeWeaponDamageModifier"
-      SHX14_2 = SHX10_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX11_2 = RemoveAllPickupsOfType
-    SHX12_2 = 483577702
-    SHX11_2(SHX12_2)
-    SHX11_2 = RemoveAllPickupsOfType
-    SHX12_2 = -1888453608
-    SHX11_2(SHX12_2)
-    SHX11_2 = SHX10_1
-    SHX11_2()
-  end
-end
-SHX11_1(SHX12_1)
-SHX11_1 = CMG
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCoords
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetGroundZFor_3dCoord
-  SHX2_2 = SHX0_2.x
-  SHX3_2 = SHX0_2.y
-  SHX4_2 = SHX0_2.z
-  SHX5_2 = 0.0
-  SHX6_2 = false
-  SHX1_2, SHX2_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SHX1_2
-  SHX4_2 = SHX2_2
-  return SHX3_2, SHX4_2
-end
-SHX11_1.isPlayerAboveGround = SHX12_1
-SHX11_1 = 0
-SHX12_1 = 0
-SHX13_1 = 0
-SHX14_1 = 0
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = GetVehicleNumberOfWheels
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = 0.0
-  SHX3_2 = 0
-  SHX4_2 = SHX1_2 - 1
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = GetVehicleWheelSpeed
-    SHX8_2 = SHX0_2
-    SHX9_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX2_2 < SHX7_2 then
-      SHX2_2 = SHX7_2
-    end
-  end
-  return SHX2_2
-end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = pairs
-  SHX2_2 = GetGamePool
-  SHX3_2 = "CObject"
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX2_2(SHX3_2)
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = GetEntityAttachedTo
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 == SHX0_2 then
-      SHX7_2 = DeleteEntity
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
-    end
-  end
-end
-SHX17_1 = GetEntityCoords
-SHX18_1 = PlayerPedId
-SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1 = SHX18_1()
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1)
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX17_1
-  SHX2_2 = SHX2_2 - SHX1_2
-  SHX2_2 = #SHX2_2
-  SHX17_1 = SHX1_2
-  SHX3_2 = 0.4
-  if SHX2_2 > SHX3_2 then
-    SHX3_2 = IsPedFalling
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if not SHX3_2 then
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.hasClientPermission
-      SHX4_2 = "admin.tickets"
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = IsPedInParachuteFreeFall
-        SHX4_2 = SHX0_2
-        SHX3_2 = SHX3_2(SHX4_2)
-        if not SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.isCarrying
-          SHX3_2 = SHX3_2()
-          if not SHX3_2 then
-            SHX3_2 = CMG
-            SHX3_2 = SHX3_2.isPiggyBackActive
-            SHX3_2 = SHX3_2()
-            if not SHX3_2 then
-              SHX3_2 = CMG
-              SHX3_2 = SHX3_2.takeHostageInProgress
-              SHX3_2 = SHX3_2()
-              if not SHX3_2 then
-                SHX3_2 = GetPedParachuteState
-                SHX4_2 = SHX0_2
-                SHX3_2 = SHX3_2(SHX4_2)
-                if SHX3_2 <= 0 then
-                  SHX3_2 = IsPedRagdoll
-                  SHX4_2 = SHX0_2
-                  SHX3_2 = SHX3_2(SHX4_2)
-                  if not SHX3_2 then
-                    SHX3_2 = IsPedRunning
-                    SHX4_2 = SHX0_2
-                    SHX3_2 = SHX3_2(SHX4_2)
-                    if not SHX3_2 then
-                      SHX3_2 = CMG
-                      SHX3_2 = SHX3_2.isPlayerRappeling
-                      SHX3_2 = SHX3_2()
-                      if not SHX3_2 then
-                        SHX3_2 = CMG
-                        SHX3_2 = SHX3_2.isPlayerAboveGround
-                        SHX3_2 = SHX3_2()
-                        if not SHX3_2 then
-                          SHX3_2 = CMG
-                          SHX3_2 = SHX3_2.isPlayerHidingInBoot
-                          SHX3_2 = SHX3_2()
-                          if not SHX3_2 then
-                            SHX3_2 = CMG
-                            SHX3_2 = SHX3_2.isSpectatingEvent
-                            SHX3_2 = SHX3_2()
-                            if not SHX3_2 then
-                              SHX3_2 = CMG
-                              SHX3_2 = SHX3_2.isInBattleGroundsPlaneIntro
-                              SHX3_2 = SHX3_2()
-                              if not SHX3_2 then
-                                SHX3_2 = CMG
-                                SHX3_2 = SHX3_2.isCurrentEmoteAttachingPed
-                                SHX3_2 = SHX3_2()
-                                if not SHX3_2 then
-                                  SHX3_2 = IsPedInAnyVehicle
-                                  SHX4_2 = SHX0_2
-                                  SHX5_2 = true
-                                  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-                                  if not SHX3_2 then
-                                    SHX3_2 = SHX11_1
-                                    SHX3_2 = SHX3_2 + 1
-                                    SHX11_1 = SHX3_2
-                                    SHX3_2 = SHX11_1
-                                    if SHX3_2 > 100 then
-                                      SHX3_2 = TriggerServerEvent
-                                      SHX4_2 = "14c26e54a6"
-                                      SHX5_2 = false
-                                      SHX3_2(SHX4_2, SHX5_2)
-                                      SHX3_2 = 0
-                                      SHX11_1 = SHX3_2
-                                    end
-                                  end
-                                end
-                              end
+    This is a hand-cleaned version of the decompiled `cl_anticheat.lua`. The
+    control flow, ordering, magic numbers and (obfuscated) event names are
+    preserved exactly; only names, expression folding and formatting changed.
+
+    Server events are referenced by their obfuscated hashes. Where the purpose
+    of an event is clear from its use site it is noted in a comment.
+
+    Quirks that were kept because they are in the original are marked with
+    "NOTE:".
+]]
+
+--=============================================================================
+-- Constants
+--=============================================================================
+
+-- Decor key stamped onto every vehicle spawned by the script. The value is
+-- derived from the entity handle so it cannot simply be copied between
+-- entities: DecorGetInt(veh, AC_DECOR) must equal veh % AC_DECOR_MODULO.
+local AC_DECOR = "4538025922"
+local AC_DECOR_MODULO = 1926
+
+DecorRegister(AC_DECOR, 3)
+
+-- Vehicle models that are legitimately allowed to carry a parachute.
+local PARACHUTE_ALLOWED_VEHICLES = {
+    -162568007,
+    -626868057,
+    -1295441017,
+    2048634396,
+    1179345070,
+    184307568,
+    1281745250,
+    -2048287007,
+    1645180079,
+    1199077562,
+    1200087339,
+    541935057,
+    224399950,
+    -1637862878,
+}
+
+--=============================================================================
+-- Rogue vehicle cleanup
+--
+-- Every 500ms: delete locally-created vehicles that were not spawned through
+-- the script, and delete networked vehicles that have fallen out of the world.
+--=============================================================================
+
+Citizen.CreateThread(function()
+    while true do
+        if not CMG.isPlayerInBankHeistSetup()
+            and not CMG.inEvent()
+            and CMG.getPlayerBucket() ~= 333
+        then
+            local inCayoPerico = CMG.isInCayoPerico()
+
+            for _, vehicle in pairs(CMG.getAllVehicles()) do
+                if not NetworkGetEntityIsNetworked(vehicle) then
+                    -- Local vehicle: must carry the anti-cheat decor stamp.
+                    if DecorGetInt(vehicle, AC_DECOR) ~= vehicle % AC_DECOR_MODULO then
+                        local model = GetEntityModel(vehicle)
+
+                        if not IsThisModelATrain(model) then
+                            if CMG.isDevMode() then
+                                print(string.format("[Debug] Deleting vehicle %s not spawned by script", vehicle))
                             end
-                          end
+
+                            DeleteEntity(vehicle)
                         end
-                      end
                     end
-                  end
+                elseif not inCayoPerico then
+                    -- Networked vehicle we own: delete it if it has sunk below
+                    -- the world *and* is outside the normal map bounds.
+                    if NetworkHasControlOfEntity(vehicle) then
+                        local coords = GetEntityCoords(vehicle, true)
+
+                        if coords.z < -50.0 then
+                            local outOfBounds =
+                                coords.y > 7700.0
+                                or coords.y < -4000.0
+                                or coords.x > 4400.0
+                                or coords.x < -3600.0
+
+                            if outOfBounds then
+                                local model = GetEntityModel(vehicle)
+
+                                if not IsThisModelABoat(model) and not IsThisModelAJetski(model) then
+                                    DeleteEntity(vehicle)
+                                end
+                            end
+                        end
+                    end
                 end
-              end
             end
-          end
         end
-      end
+
+        Citizen.Wait(500)
     end
-  end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerVehicle
-  SHX3_2, SHX4_2 = SHX3_2()
-  SHX5_2 = DoesEntityExist
-  SHX6_2 = SHX3_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if SHX5_2 and SHX4_2 then
-    SHX5_2 = 0.2
-    if SHX2_2 > SHX5_2 then
-      SHX5_2 = CMG
-      SHX5_2 = SHX5_2.hasClientPermission
-      SHX6_2 = "admin.tickets"
-      SHX5_2 = SHX5_2(SHX6_2)
-      if not SHX5_2 then
-        SHX5_2 = CMG
-        SHX5_2 = SHX5_2.isInBattleGroundsPlaneIntro
-        SHX5_2 = SHX5_2()
-        if not SHX5_2 then
-          SHX5_2 = CMG
-          SHX5_2 = SHX5_2.inEvent
-          SHX5_2 = SHX5_2()
-          if not SHX5_2 then
-            SHX5_2 = SHX13_1
-            if SHX5_2 ~= SHX3_2 then
-              SHX5_2 = 0
-              SHX12_1 = SHX5_2
-              SHX13_1 = SHX3_2
-            end
-            SHX5_2 = SHX15_1
-            SHX6_2 = SHX3_2
-            SHX5_2 = SHX5_2(SHX6_2)
-            SHX6_2 = GetEntitySpeed
-            SHX7_2 = SHX3_2
-            SHX6_2 = SHX6_2(SHX7_2)
-            if SHX5_2 < 5.0 then
-              SHX7_2 = 2.5
-              if SHX6_2 < SHX7_2 then
-                SHX7_2 = SHX12_1
-                SHX7_2 = SHX7_2 + 1
-                SHX12_1 = SHX7_2
-                SHX7_2 = SHX16_1
-                SHX7_2()
-                SHX7_2 = SHX12_1
-                if SHX7_2 > 100 then
-                  SHX7_2 = GetGameTimer
-                  SHX7_2 = SHX7_2()
-                  SHX8_2 = SHX14_1
-                  SHX7_2 = SHX7_2 - SHX8_2
-                  SHX8_2 = 4000
-                  if SHX7_2 > SHX8_2 then
-                    SHX7_2 = TriggerServerEvent
-                    SHX8_2 = "14c26e54a6"
-                    SHX9_2 = true
-                    SHX7_2(SHX8_2, SHX9_2)
-                    SHX7_2 = 0
-                    SHX12_1 = SHX7_2
-                    SHX7_2 = GetGameTimer
-                    SHX7_2 = SHX7_2()
-                    SHX14_1 = SHX7_2
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    end
-  end
+end)
+
+--- Stamps the anti-cheat decor onto a locally spawned vehicle so the cleanup
+--- thread above leaves it alone.
+function CMG.initLocalVehicle(entity)
+    DecorSetInt(entity, AC_DECOR, entity % AC_DECOR_MODULO)
 end
-SHX19_1 = CMG
-SHX19_1 = SHX19_1.createThreadOnTick
-SHX20_1 = SHX18_1
-SHX21_1 = "AntiCheat Speed Check Tick"
-SHX19_1(SHX20_1, SHX21_1)
-SHX19_1 = {}
-SHX20_1 = "notification_buffer"
-SHX21_1 = "text_buffer"
-SHX22_1 = "preview_text_buffer"
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-SHX19_1[3] = SHX22_1
-SHX20_1 = {}
-SHX20_1.businessDriveSpeedBoost = 2
-SHX20_1.CMGVehAC = 3
-SHX20_1.lastSpeed = 1
-SHX20_1.hasHeadbag = 2
-SHX20_1.lootbucket = 3
-SHX20_1.towedByAA = 2
-SHX20_1.HosePitch = 1
-SHX20_1.cinematicMode = 2
-SHX20_1.subwoofer = 2
-SHX20_1.has_stretcher_inside = 2
-SHX20_1.inside_ambulance_netid = 3
-SHX20_1.isFlagged = 2
-SHX20_1.InitedELS = 2
-SHX20_1.vRP_owner = 3
-SHX20_1.cmg_uuid = 3
-SHX20_1.lootid = 3
-SHX20_1.lsAudioId = 3
-SHX20_1.biometricLock = 2
-SHX20_1.smokeType = 3
-SHX20_1.smokeActive = 2
-SHX21_1 = {}
-SHX22_1 = {}
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = SHX21_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    return
-  end
-  SHX1_2 = pairs
-  SHX2_2 = SHX20_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = DecorExistOn
-    SHX7_2 = SHX0_2
-    SHX8_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    if SHX6_2 then
-      SHX6_2 = table
-      SHX6_2 = SHX6_2.insert
-      SHX7_2 = SHX22_1
-      SHX8_2 = SHX5_2
-      SHX6_2(SHX7_2, SHX8_2)
-    end
-  end
-  SHX1_2 = SHX22_1
-  SHX1_2 = #SHX1_2
-  if SHX1_2 > 0 then
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "778408e37d"
-    SHX3_2 = SHX0_2
-    SHX4_2 = SHX22_1
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX21_1
-    SHX1_2[SHX0_2] = true
-    SHX1_2 = table
-    SHX1_2 = SHX1_2.clear
-    SHX2_2 = SHX22_1
-    SHX1_2(SHX2_2)
-  end
-end
-SHX24_1 = Citizen
-SHX24_1 = SHX24_1.CreateThread
-function SHX25_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX20_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = DecorRegister
-    SHX7_2 = SHX4_2
-    SHX8_2 = SHX5_2
-    SHX6_2(SHX7_2, SHX8_2)
-  end
-  while true do
-    SHX0_2 = pairs
-    SHX1_2 = SHX19_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = GetLabelText
-      SHX7_2 = SHX5_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      if "NULL" ~= SHX6_2 then
-        SHX6_2 = TriggerServerEvent
-        SHX7_2 = "931db808c1"
-        SHX8_2 = SHX5_2
-        SHX6_2(SHX7_2, SHX8_2)
-      end
-    end
-    SHX0_2 = SHX23_1
-    SHX1_2 = PlayerPedId
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX1_2()
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerVehicle
-    SHX0_2, SHX1_2 = SHX0_2()
-    if 0 ~= SHX0_2 and SHX1_2 then
-      SHX2_2 = SHX23_1
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-    SHX2_2 = Wait
-    SHX3_2 = 10000
-    SHX2_2(SHX3_2)
-  end
-end
-SHX24_1(SHX25_1)
-SHX24_1 = Citizen
-SHX24_1 = SHX24_1.CreateThread
-function SHX25_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  while true do
-    SHX0_2 = HasPedGotWeapon
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = -2093086099
-    SHX3_2 = false
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    if SHX0_2 then
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "3f71c3e3da"
-      SHX0_2(SHX1_2)
-      return
-    end
-    SHX0_2 = Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-  end
-end
-SHX24_1(SHX25_1)
-SHX24_1 = 200
-SHX25_1 = 0
-SHX26_1 = CMG
-SHX26_1 = SHX26_1.patchFunction
-SHX27_1 = "SetPlayerModel"
-SHX28_1 = SetPlayerModel
-function SHX29_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = PlayerId
-  SHX3_2 = SHX3_2()
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = 200
-    SHX24_1 = SHX3_2
-  end
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX26_1(SHX27_1, SHX28_1, SHX29_1)
-SHX26_1 = CMG
-SHX26_1 = SHX26_1.patchFunction
-SHX27_1 = "SetEntityHealth"
-SHX28_1 = SetEntityHealth
-function SHX29_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.min
-    SHX4_2 = math
-    SHX4_2 = SHX4_2.max
-    SHX5_2 = SHX2_2
-    SHX6_2 = 0
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    SHX5_2 = 200
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX24_1 = SHX3_2
-  end
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX26_1(SHX27_1, SHX28_1, SHX29_1)
-SHX26_1 = CMG
-SHX26_1 = SHX26_1.patchFunction
-SHX27_1 = "NetworkResurrectLocalPlayer"
-SHX28_1 = NetworkResurrectLocalPlayer
-function SHX29_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX7_2 = 200
-  SHX24_1 = SHX7_2
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX1_2
-  SHX9_2 = SHX2_2
-  SHX10_2 = SHX3_2
-  SHX11_2 = SHX4_2
-  SHX12_2 = SHX5_2
-  SHX13_2 = SHX6_2
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-SHX26_1(SHX27_1, SHX28_1, SHX29_1)
-SHX26_1 = CMG
-SHX26_1 = SHX26_1.patchFunction
-SHX27_1 = "ResurrectPed"
-SHX28_1 = ResurrectPed
-function SHX29_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  if SHX1_2 == SHX2_2 then
-    SHX2_2 = 200
-    SHX24_1 = SHX2_2
-  end
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX26_1(SHX27_1, SHX28_1, SHX29_1)
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = IsEntityDead
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isQuittingGame
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
-      SHX1_2 = GetEntityHealth
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX2_2 = SHX24_1
-      SHX2_2 = SHX1_2 - SHX2_2
-      if SHX2_2 > 2 then
-        SHX2_2 = GetGameTimer
-        SHX2_2 = SHX2_2()
-        SHX3_2 = SHX25_1
-        SHX2_2 = SHX2_2 - SHX3_2
-        SHX3_2 = 30000
-        if SHX2_2 > SHX3_2 then
-          SHX2_2 = TriggerServerEvent
-          SHX3_2 = "f4ad66ccb9"
-          SHX4_2 = SHX1_2
-          SHX5_2 = SHX24_1
-          SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-          SHX2_2 = GetGameTimer
-          SHX2_2 = SHX2_2()
-          SHX25_1 = SHX2_2
-        end
-      end
-      SHX24_1 = SHX1_2
-    end
-  end
-end
-SHX27_1 = {}
-SHX28_1 = -1
-SHX29_1 = 0
-SHX30_1 = CMG
-SHX30_1 = SHX30_1.patchFunction
-SHX31_1 = "CreateCam"
-SHX32_1 = CreateCam
-function SHX33_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = GetFrameCount
-  SHX4_2 = SHX4_2()
-  SHX29_1 = SHX4_2
-  SHX4_2 = SHX27_1
-  SHX4_2[SHX3_2] = true
-  return SHX3_2
-end
-SHX30_1(SHX31_1, SHX32_1, SHX33_1)
-SHX30_1 = CMG
-SHX30_1 = SHX30_1.patchFunction
-SHX31_1 = "CreateCamWithParams"
-SHX32_1 = CreateCamWithParams
-function SHX33_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX11_2 = SHX0_2
-  SHX12_2 = SHX1_2
-  SHX13_2 = SHX2_2
-  SHX14_2 = SHX3_2
-  SHX15_2 = SHX4_2
-  SHX16_2 = SHX5_2
-  SHX17_2 = SHX6_2
-  SHX18_2 = SHX7_2
-  SHX19_2 = SHX8_2
-  SHX20_2 = SHX9_2
-  SHX21_2 = SHX10_2
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-  SHX12_2 = GetFrameCount
-  SHX12_2 = SHX12_2()
-  SHX29_1 = SHX12_2
-  SHX12_2 = SHX27_1
-  SHX12_2[SHX11_2] = true
-  return SHX11_2
-end
-SHX30_1(SHX31_1, SHX32_1, SHX33_1)
-SHX30_1 = CMG
-SHX30_1 = SHX30_1.patchFunction
-SHX31_1 = "CreateCamera"
-SHX32_1 = CreateCamera
-function SHX33_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = GetFrameCount
-  SHX4_2 = SHX4_2()
-  SHX29_1 = SHX4_2
-  SHX4_2 = SHX27_1
-  SHX4_2[SHX3_2] = true
-  return SHX3_2
-end
-SHX30_1(SHX31_1, SHX32_1, SHX33_1)
-SHX30_1 = CMG
-SHX30_1 = SHX30_1.patchFunction
-SHX31_1 = "CreateCameraWithParams"
-SHX32_1 = CreateCameraWithParams
-function SHX33_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX11_2 = SHX0_2
-  SHX12_2 = SHX1_2
-  SHX13_2 = SHX2_2
-  SHX14_2 = SHX3_2
-  SHX15_2 = SHX4_2
-  SHX16_2 = SHX5_2
-  SHX17_2 = SHX6_2
-  SHX18_2 = SHX7_2
-  SHX19_2 = SHX8_2
-  SHX20_2 = SHX9_2
-  SHX21_2 = SHX10_2
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-  SHX12_2 = GetFrameCount
-  SHX12_2 = SHX12_2()
-  SHX29_1 = SHX12_2
-  SHX12_2 = SHX27_1
-  SHX12_2[SHX11_2] = true
-  return SHX11_2
-end
-SHX30_1(SHX31_1, SHX32_1, SHX33_1)
-SHX30_1 = CMG
-SHX30_1 = SHX30_1.patchFunction
-SHX31_1 = "SetCamParams"
-SHX32_1 = SetCamParams
-function SHX33_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2
-  SHX13_2 = SHX0_2
-  SHX14_2 = SHX1_2
-  SHX15_2 = SHX2_2
-  SHX16_2 = SHX3_2
-  SHX17_2 = SHX4_2
-  SHX18_2 = SHX5_2
-  SHX19_2 = SHX6_2
-  SHX20_2 = SHX7_2
-  SHX21_2 = SHX8_2
-  SHX22_2 = SHX9_2
-  SHX23_2 = SHX10_2
-  SHX24_2 = SHX11_2
-  SHX25_2 = SHX12_2
-  SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-  SHX13_2 = GetFrameCount
-  SHX13_2 = SHX13_2()
-  SHX29_1 = SHX13_2
-  SHX13_2 = Citizen
-  SHX13_2 = SHX13_2.CreateThread
-  function SHX14_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = Citizen
-    SHX0_3 = SHX0_3.Wait
-    SHX1_3 = 0
-    SHX0_3(SHX1_3)
-    SHX0_3 = GetRenderingCam
-    SHX0_3 = SHX0_3()
-    if -1 ~= SHX0_3 then
-      SHX1_3 = SHX27_1
-      SHX1_3[SHX0_3] = true
-    end
-  end
-  SHX13_2(SHX14_2)
-end
-SHX30_1(SHX31_1, SHX32_1, SHX33_1)
-SHX30_1 = AddEventHandler
-SHX31_1 = "CMG:hookA"
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetFrameCount
-  SHX1_2 = SHX1_2()
-  SHX29_1 = SHX1_2
-  SHX1_2 = SHX27_1
-  SHX1_2[SHX0_2] = true
-end
-SHX30_1(SHX31_1, SHX32_1)
-SHX30_1 = AddEventHandler
-SHX31_1 = "CMG:hookB"
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = GetFrameCount
-  SHX0_2 = SHX0_2()
-  SHX29_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = Citizen
-    SHX0_3 = SHX0_3.Wait
-    SHX1_3 = 0
-    SHX0_3(SHX1_3)
-    SHX0_3 = GetRenderingCam
-    SHX0_3 = SHX0_3()
-    if -1 ~= SHX0_3 then
-      SHX1_3 = SHX27_1
-      SHX1_3[SHX0_3] = true
-    end
-  end
-  SHX0_2(SHX1_2)
-end
-SHX30_1(SHX31_1, SHX32_1)
-function SHX30_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isInsideDiamondCasino
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    return
-  end
-  SHX0_2 = GetRenderingCam
-  SHX0_2 = SHX0_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.isPhoneOpen
-  SHX1_2 = SHX1_2()
-  if SHX1_2 and -1 ~= SHX0_2 then
-    SHX1_2 = SHX27_1
-    SHX1_2[SHX0_2] = true
-    SHX1_2 = GetFrameCount
-    SHX1_2 = SHX1_2()
-    SHX29_1 = SHX1_2
-  end
-  if -1 ~= SHX0_2 then
-    SHX1_2 = SHX27_1
-    SHX1_2 = SHX1_2[SHX0_2]
-    if not SHX1_2 then
-      SHX1_2 = GetFrameCount
-      SHX1_2 = SHX1_2()
-      SHX2_2 = SHX29_1
-      SHX1_2 = SHX1_2 - SHX2_2
-      if SHX1_2 > 3 then
-        SHX1_2 = SHX28_1
-        if SHX1_2 ~= SHX0_2 then
-          SHX1_2 = TriggerServerEvent
-          SHX2_2 = "8950382fbc"
-          SHX3_2 = SHX0_2
-          SHX1_2(SHX2_2, SHX3_2)
-          SHX28_1 = SHX0_2
-        end
-      end
-    end
-  end
-end
-SHX31_1 = {}
-SHX31_1.WEAPON_HARRYPOTTERWAND = true
-SHX32_1 = 763451856
-SHX31_1[SHX32_1] = true
-SHX31_1.WEAPON_L104A1 = true
-SHX31_1.WEAPON_PAINTBALL = true
-SHX31_1.WEAPON_PLASMAP = true
-SHX32_1 = CMG
-SHX32_1 = SHX32_1.createCircularBuffer
-SHX33_1 = 100
-SHX34_1 = 0
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1)
-SHX33_1 = CMG
-SHX33_1 = SHX33_1.createCircularBuffer
-SHX34_1 = 500
-SHX35_1 = 0
-SHX33_1 = SHX33_1(SHX34_1, SHX35_1)
-SHX34_1 = false
-SHX35_1 = 0
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = IsPedShooting
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = SHX32_1.put
-    SHX2_2 = GetNetworkTime
-    SHX2_2, SHX3_2, SHX4_2 = SHX2_2()
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  end
-  SHX1_2 = IsControlPressed
-  SHX2_2 = 0
-  SHX3_2 = 24
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 then
-    SHX1_2 = IsPedArmed
-    SHX2_2 = SHX0_2
-    SHX3_2 = 6
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX1_2 = GetGameTimer
-      SHX1_2 = SHX1_2()
-      SHX35_1 = SHX1_2
-    end
-    SHX1_2 = SHX33_1.put
-    SHX2_2 = GetNetworkTime
-    SHX2_2, SHX3_2, SHX4_2 = SHX2_2()
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = true
-    SHX34_1 = SHX1_2
-  else
-    SHX1_2 = SHX34_1
-    if SHX1_2 then
-      SHX1_2 = SHX33_1.put
-      SHX2_2 = GetNetworkTime
-      SHX2_2, SHX3_2, SHX4_2 = SHX2_2()
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = false
-      SHX34_1 = SHX1_2
-    else
-      SHX1_2 = GetGameTimer
-      SHX1_2 = SHX1_2()
-      SHX2_2 = SHX35_1
-      SHX1_2 = SHX1_2 - SHX2_2
-      SHX2_2 = 500
-      if SHX1_2 < SHX2_2 then
-        SHX1_2 = GetPedConfigFlag
-        SHX2_2 = SHX0_2
-        SHX3_2 = 78
-        SHX4_2 = false
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-        if SHX1_2 then
-          SHX1_2 = SHX33_1.put
-          SHX2_2 = GetNetworkTime
-          SHX2_2, SHX3_2, SHX4_2 = SHX2_2()
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+
+--=============================================================================
+-- Weapon / player defaults enforced every tick
+--=============================================================================
+
+local seeThroughReported = false
+
+-- Globally neutered weapons.
+SetWeaponDamageModifier(-1553120962, 0.0)
+SetWeaponDamageModifier(133987706, 0.0)
+SetWeaponDamageModifier(-1323279794, 0.0)
+SetWeaponDamageModifier(-1569615261, 0.5)
+SetWeaponDamageModifier(126349499, 0.0)
+
+local function antiCheatDefaultsTick()
+    local ped = CMG.getPlayerPed()
+    local playerId = CMG.getPlayerId()
+    local vehicle = CMG.getPlayerVehicle()
+
+    if vehicle == 0 then
+        local weapon = GetSelectedPedWeapon(ped)
+
+        if CMG.hasNewPlayerProtection() then
+            SetPlayerMeleeWeaponDamageModifier(playerId, 0.0)
+            SetPlayerWeaponDamageModifier(playerId, 0.0)
+        elseif weapon == 126349499 then
+            SetPlayerWeaponDamageModifier(playerId, 0.0)
         else
-          SHX1_2 = 0
-          SHX35_1 = SHX1_2
+            SetPlayerWeaponDamageModifier(playerId, 1.0)
+            SetWeaponDamageModifier(weapon, 1.0)
         end
-      end
+
+        -- Report see-through / wallhack usage once per session, unless the
+        -- player is in something that legitimately enables it.
+        if not seeThroughReported and GetUsingseethrough() then
+            if not CMG.isPlayerInPoliceHeli()
+                and not CMG.isPlayerInDrone()
+                and not CMG.isPlayerUsingRobot()
+                and not CMG.isUsingPoliceRobot()
+            then
+                TriggerServerEvent("58d77596cf")
+                seeThroughReported = true
+            end
+        end
     end
-  end
+
+    if not CMG.inArena() and not CMG.inArenaWarmup() then
+        SetPedInfiniteAmmoClip(ped, false)
+
+        for _, storedWeapon in pairs(CMG.getCachedWeaponStore()) do
+            SetPedInfiniteAmmo(ped, false, storedWeapon.weaponHash)
+        end
+    end
+
+    SetEntityInvincible(vehicle, false)
+
+    -- Block pickups (armour / health / ammo crates etc.).
+    ToggleUsePickupsForPlayer(playerId, 483577702, false)
+    ToggleUsePickupsForPlayer(playerId, -1888453608, false)
+    ToggleUsePickupsForPlayer(playerId, -105925489, false)
+    ToggleUsePickupsForPlayer(playerId, 1426343849, false)
+    Citizen.InvokeNative(-2380603657403713716, 2047, false)
+    SetLocalPlayerCanCollectPortablePickups(false)
+
+    SetPlayerHealthRechargeMultiplier(playerId, 0.0)
 end
-SHX37_1 = RegisterNetEvent
-SHX38_1 = "8abfbe8340"
-function SHX39_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX4_2 = GetNetworkTime
-  SHX4_2 = SHX4_2()
-  SHX4_2 = SHX4_2 - SHX1_2
-  SHX5_2 = 5000
-  if not (SHX4_2 > SHX5_2) then
-    SHX4_2 = SHX31_1
-    SHX4_2 = SHX4_2[SHX2_2]
-    if not SHX4_2 then
-      goto SHX_LABEL_13
+
+CMG.createThreadOnTick(antiCheatDefaultsTick, "AntiCheat Defaults Tick")
+
+--=============================================================================
+-- Resource whitelist
+--=============================================================================
+
+local ALLOWED_RESOURCES = {
+    chat = true,
+    spawnmanager = true,
+    sql = true,
+    prometheus = true,
+    cmg = true,
+    surgery = true,
+    CMGMLOs = true,
+    CMGVeh = true,
+    CMGVehiclesEscrow = true,
+    CMGTexture = true,
+    CMGMap = true,
+    CMGSounds = true,
+    CMGFirearms = true,
+    cmg_clothing_pack1 = true,
+    cmg_clothing_pack2 = true,
+    cmg_clothing_pack3 = true,
+    cmg_clothing_pack4 = true,
+    cmgpack = true,
+    misc_clothing = true,
+    cmgui = true,
+    cmgload = true,
+    CMGPrison = true,
+    ["pma-voice"] = true,
+    cmgescr1 = true,
+    cmgescr2 = true,
+    cmgescr3 = true,
+    ["cfx-gabz-mapdata"] = true,
+    ["cfx-gabz-records"] = true,
+    ["cfx-gabz-carmeet"] = true,
+    ["cfx-gabz-arcade"] = true,
+    ["cfx-gabz-import"] = true,
+    ["cfx-gabz-studio"] = true,
+    ["cfx-gabz-hayes"] = true,
+    ["cfx-gabz-catcafe"] = true,
+    ["cfx-gabz-diner"] = true,
+    ["cfx-gabz-vagos"] = true,
+    ["cfx-gabz-weedcamp"] = true,
+    loaf_lib = true,
+    ["lb-phone_prop"] = true,
+    ["lb-phone"] = true,
+    ["lb-tablet-prop"] = true,
+    ["lb-tablet"] = true,
+    ["lb-picchat"] = true,
+    ["lb-racing"] = true,
+    ["lb-games"] = true,
+    cmgbank = true,
+    offshore = true,
+    vigilante = true,
+    trapping = true,
+    hacking = true,
+    gulag = true,
+    ["cfx-nteam-milehigh"] = true,
+    ["cfx-gabz-247"] = true,
+    ["cfx-gabz-fleeca"] = true,
+    ["cfx-gabz-pacificbank"] = true,
+    ["map4all-parkranger"] = true,
+    ["cfx-gabz-parkranger"] = true,
+    ykn_gravestone_garage = true,
+    ["imperial-manor"] = true,
+    tstudio_jurassic_jackpot = true,
+    Grapeseed_MC_Clubhouse = true,
+    ["k4mb1-casino"] = true,
+    ["k4mb1-casinopenthouse"] = true,
+    tstudio_audioocclusion = true,
+    tstudio_doortuning = true,
+    tstudio_zmapdata = true,
+    tstudio_redstuner = true,
+    rcore_lunapark_assets = true,
+    rcore_lunapark = true,
+    tstudio_aldentes = true,
+    holdem_props = true,
+    tcp = true,
+    blackjack = true,
+    roulette = true,
+    texasholdem = true,
+    casinoutils = true,
+    rcore_pool = true,
+    rcore_minigolf_assets = true,
+    rcore_minigolf = true,
+    fiv3devs_mapdata = true,
+    fiv3devs_pillbox = true,
+    pvpmaps = true,
+    pvpmaps2 = true,
+    asylum = true,
+    boxing = true,
+    clubhouse_harmony = true,
+    skelly = true,
+    christmas2025 = true,
+    halloween2025 = true,
+    a19 = true,
+    gdc = true,
+    blackbunker = true,
+    markers = true,
+    exclusiveshells = true,
+    garageshells = true,
+    illegalshells = true,
+    miscshells = true,
+    startershells = true,
+    drug_props = true,
+    bzzz_weedpack_v2 = true,
+    foodpack1 = true,
+    garden = true,
+    watering = true,
+    lucianos = true,
+    plastercasts = true,
+    medicprops = true,
+    emergency_pack = true,
+    drugspack = true,
+    vending = true,
+    prison = true,
+    prison_church = true,
+    prison_escape = true,
+    prison_tower = true,
+    prison_study = true,
+    prison_escape_anims = true,
+    lsrecycle = true,
+    fireworks_emotes = true,
+    roleplay_emotes = true,
+    carry_emotes = true,
+    trash_emotes = true,
+    vehicle_emotes = true,
+    punish_emotes = true,
+}
+
+AddEventHandler("onClientResourceStart", function(resourceName)
+    -- Injected resources tend to have long random names.
+    if #resourceName >= 30 then
+        TriggerServerEvent("d750e699a1", resourceName)
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_13:: outside nested blocks until all 'goto SHX_LABEL_13' can see it
-  ::SHX_LABEL_13::
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.floor
-  SHX5_2 = GetFrameTime
-  SHX5_2 = SHX5_2()
-  SHX5_2 = SHX5_2 * 1000.0
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_2 * 2
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.floor
-  SHX6_2 = SHX3_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX5_2 = SHX4_2 + SHX5_2
-  SHX5_2 = SHX5_2 + 50
-  SHX6_2 = false
-  SHX7_2 = SHX32_1.iterator
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2()
-  for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-    SHX13_2 = math
-    SHX13_2 = SHX13_2.abs
-    SHX14_2 = SHX12_2 - SHX0_2
-    SHX13_2 = SHX13_2(SHX14_2)
-    if SHX5_2 >= SHX13_2 then
-      SHX6_2 = true
-      break
+
+    if not ALLOWED_RESOURCES[resourceName] then
+        TriggerServerEvent("e744d8fa9f", resourceName)
     end
-  end
-  if not SHX6_2 then
-    SHX7_2 = SHX32_1.get
-    SHX7_2 = SHX7_2()
-    SHX8_2 = TriggerServerEvent
-    SHX9_2 = "fee5e0be83"
-    SHX10_2 = SHX2_2
-    SHX11_2 = SHX0_2
-    SHX12_2 = SHX7_2
-    SHX13_2 = "Native"
-    SHX14_2 = SHX3_2
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    return
-  end
-  SHX7_2 = false
-  SHX8_2 = SHX33_1.iterator
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2()
-  for SHX12_2, SHX13_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-    SHX14_2 = math
-    SHX14_2 = SHX14_2.abs
-    SHX15_2 = SHX13_2 - SHX0_2
-    SHX14_2 = SHX14_2(SHX15_2)
-    if SHX5_2 >= SHX14_2 then
-      SHX7_2 = true
-      break
+end)
+
+--=============================================================================
+-- Known cheat-menu event traps
+--
+-- These events are not used by the server. Anything that fires them is either
+-- a menu or a framework the server does not run, so the first hit is reported
+-- and every subsequent one is cancelled.
+--=============================================================================
+
+local esxSharedObjectReported = false
+local suspiciousEventReported = false
+
+AddEventHandler("esx:getSharedObject", function(callback)
+    if esxSharedObjectReported == true then
+        CancelEvent()
+        callback(nil)
+        return
     end
-  end
-  if not SHX7_2 then
-    SHX8_2 = SHX33_1.get
-    SHX8_2 = SHX8_2()
-    SHX9_2 = TriggerServerEvent
-    SHX10_2 = "fee5e0be83"
-    SHX11_2 = SHX2_2
-    SHX12_2 = SHX0_2
-    SHX13_2 = SHX8_2
-    SHX14_2 = "Control"
-    SHX15_2 = SHX3_2
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    return
-  end
+
+    TriggerServerEvent("28293849cf", "esx:getSharedObject")
+    esxSharedObjectReported = true
+    callback(nil)
+end)
+
+local SUSPICIOUS_EVENTS = {
+    "ambulancier:selfRespawn",
+    "bank:transfer",
+    "esx_ambulancejob:revive",
+    "esx-qalle-jail:openJailMenu",
+    "esx_jailer:wysylandoo",
+    "esx_society:openBossMenu",
+    "esx:spawnVehicle",
+    "esx_status:set",
+    "HCheat:TempDisableDetection",
+    "UnJP",
+    "bank:transfer",
+    "esx_skin:openSaveableMenu",
+    "esx_society:openBossMenu",
+    "esx_status:set",
+    "esx_ambulancejob:revive",
+    "ambulancier:selfRespawn",
+    "esx-qalle-jail:openJailMenu",
+    "UnJP",
+    "esx_inventoryhud:openPlayerInventory",
+    "HCheat:TempDisableDetection",
+    "esx_policejob:handcuff",
+    "esx:getSharedObject",
+    "esx:teleport",
+    "esx_spectate:spectate",
+    "helpcode",
+    "helpCode",
+    "32d3e79c27",
+    "7c02964cf5",
+}
+
+for _, eventName in ipairs(SUSPICIOUS_EVENTS) do
+    AddEventHandler(eventName, function()
+        if suspiciousEventReported == true then
+            CancelEvent()
+            return
+        end
+
+        TriggerServerEvent("28293849cf", eventName)
+        suspiciousEventReported = true
+    end)
 end
-SHX37_1(SHX38_1, SHX39_1)
-function SHX37_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX26_1
-  SHX0_2()
-  SHX0_2 = false
-  if SHX0_2 then
-    SHX0_2 = SHX30_1
-    SHX0_2()
-  end
-  SHX0_2 = SHX36_1
-  SHX0_2()
-end
-SHX38_1 = CMG
-SHX38_1 = SHX38_1.createThreadOnTick
-SHX39_1 = SHX37_1
-SHX40_1 = "AntiCheat Health Check Tick"
-SHX38_1(SHX39_1, SHX40_1)
-SHX38_1 = Citizen
-SHX38_1 = SHX38_1.CreateThread
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = Wait
-  SHX1_2 = 10000
-  SHX0_2(SHX1_2)
-  SHX0_2 = 0
-  while true do
-    if SHX0_2 >= 100 then
-      SHX1_2 = tCMG
-      SHX1_2 = SHX1_2.isInComa
-      SHX1_2 = SHX1_2()
-      if not SHX1_2 then
-        SHX1_2 = TriggerServerEvent
-        SHX2_2 = "825a34ce28"
-        SHX1_2(SHX2_2)
-        SHX1_2 = Citizen
-        SHX1_2 = SHX1_2.Wait
-        SHX2_2 = 5000
-        SHX1_2(SHX2_2)
-      end
+
+--=============================================================================
+-- Clothing / model tampering
+--=============================================================================
+
+-- Snapshot of the customization the server last handed us. Refreshed by the
+-- SetPlayerModel patch further down.
+local cachedCustomization = nil
+local customizationReported = false
+
+local function reportCustomizationChange(expected, actual)
+    if not customizationReported then
+        TriggerServerEvent("c9c6eee377", expected, actual)
+        customizationReported = true
     end
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isStaffedOnClient
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.hasSpawnProtection
-      SHX1_2 = SHX1_2()
-      if not SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.hasNewPlayerProtection
-        SHX1_2 = SHX1_2()
-        if not SHX1_2 then
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.getTunableValue
-          SHX2_2 = "detect_god_mode"
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 then
-            SHX1_2 = PlayerPedId
-            SHX1_2 = SHX1_2()
-            SHX2_2 = GetEntityHealth
-            SHX3_2 = SHX1_2
-            SHX2_2 = SHX2_2(SHX3_2)
-            if 0 ~= SHX1_2 then
-              SHX3_2 = IsEntityDead
-              SHX4_2 = SHX1_2
-              SHX3_2 = SHX3_2(SHX4_2)
-              if not SHX3_2 then
-                SHX3_2 = SHX26_1
-                SHX3_2()
-                SHX3_2 = SetEntityHealth
-                SHX4_2 = SHX1_2
-                SHX5_2 = SHX2_2 - 2
-                SHX3_2(SHX4_2, SHX5_2)
-                SHX3_2 = Citizen
-                SHX3_2 = SHX3_2.Wait
-                SHX4_2 = 50
-                SHX3_2(SHX4_2)
-                SHX3_2 = DoesEntityExist
-                SHX4_2 = SHX1_2
-                SHX3_2 = SHX3_2(SHX4_2)
-                if SHX3_2 then
-                  SHX3_2 = GetEntityHealth
-                  SHX4_2 = SHX1_2
-                  SHX3_2 = SHX3_2(SHX4_2)
-                  SHX4_2 = SHX2_2 - 2
-                  if SHX3_2 > SHX4_2 then
-                    SHX0_2 = SHX0_2 + 1
-                  elseif SHX0_2 > 0 then
-                    SHX0_2 = SHX0_2 - 1
-                  end
-                  SHX3_2 = SHX26_1
-                  SHX3_2()
-                  SHX3_2 = SetEntityHealth
-                  SHX4_2 = SHX1_2
-                  SHX5_2 = GetEntityHealth
-                  SHX6_2 = SHX1_2
-                  SHX5_2 = SHX5_2(SHX6_2)
-                  SHX5_2 = SHX5_2 + 2
-                  SHX3_2(SHX4_2, SHX5_2)
+end
+
+local function checkCustomization()
+    if not cachedCustomization then
+        return
+    end
+
+    local current = tCMG.getCustomization()
+
+    if cachedCustomization.modelHash ~= current.modelHash then
+        reportCustomizationChange(cachedCustomization, current)
+    end
+
+    for componentId = 0, 11 do
+        -- Component 5 (bags/parachutes) legitimately changes at runtime.
+        if componentId ~= 5 then
+            local expected = cachedCustomization.components[componentId]
+            local actual = current.components[componentId]
+
+            if expected and actual then
+                if expected.collectionName ~= actual.collectionName
+                    or expected.collectionIndex ~= actual.collectionIndex
+                then
+                    reportCustomizationChange(cachedCustomization, current)
                 end
             end
-            else
-              SHX3_2 = Citizen
-              SHX3_2 = SHX3_2.Wait
-              SHX4_2 = 0
-              SHX3_2(SHX4_2)
+        end
+    end
+end
+
+--=============================================================================
+-- Damage / defense modifier polling (1s)
+--=============================================================================
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(1000)
+
+        local playerId = PlayerId()
+        local ped = PlayerPedId()
+
+        local weaponDamage = GetPlayerWeaponDamageModifier(playerId)
+        local weaponDefense = GetPlayerWeaponDefenseModifier(playerId)
+        local weaponDefense2 = GetPlayerWeaponDefenseModifier_2(playerId)
+        local vehicleDamage = GetPlayerVehicleDamageModifier(playerId)
+        local vehicleDefense = GetPlayerVehicleDefenseModifier(playerId)
+
+        local _, currentWeapon = GetCurrentPedWeapon(ped, 0, true)
+        local currentWeaponDamage = GetWeaponDamageModifier(currentWeapon)
+        local meleeDamage = GetPlayerMeleeWeaponDamageModifier(PlayerId())
+
+        if weaponDamage > 1.0 then
+            TriggerServerEvent("c103fac35f", "PlayerWeaponDamageModifier", weaponDamage)
+        end
+
+        if weaponDefense > 1.0 then
+            TriggerServerEvent("c103fac35f", "PlayerWeaponDefenseModifier", weaponDefense)
+        end
+
+        if weaponDefense2 > 1.0 then
+            TriggerServerEvent("c103fac35f", "PlayerWeaponDefenseModifier_2", weaponDefense2)
+        end
+
+        if vehicleDamage > 1.0 then
+            TriggerServerEvent("c103fac35f", "PlayerVehicleDamageModifier", vehicleDamage)
+        end
+
+        if vehicleDefense > 1.0 then
+            TriggerServerEvent("c103fac35f", "PlayerVehicleDefenseModifier", vehicleDefense)
+        end
+
+        if currentWeaponDamage > 1.0 then
+            TriggerServerEvent("c103fac35f", "GetWeaponDamageModifier", currentWeaponDamage)
+        end
+
+        if meleeDamage > 1.0 then
+            TriggerServerEvent("c103fac35f", "GetPlayerMeleeWeaponDamageModifier", meleeDamage)
+        end
+
+        RemoveAllPickupsOfType(483577702)
+        RemoveAllPickupsOfType(-1888453608)
+
+        checkCustomization()
+    end
+end)
+
+--=============================================================================
+-- Movement / speed checks
+--=============================================================================
+
+--- Returns GetGroundZFor_3dCoord for the player's position.
+--- NOTE: despite the name this returns (found, groundZ), not a boolean height
+--- comparison — callers below use it purely for truthiness of `found`.
+function CMG.isPlayerAboveGround()
+    local coords = CMG.getPlayerCoords()
+    local found, groundZ = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z, 0.0, false)
+
+    return found, groundZ
+end
+
+local footSpeedViolations = 0
+local vehicleStuckTicks = 0
+local lastCheckedVehicle = 0
+local lastVehicleSpeedReport = 0
+
+local function getMaxWheelSpeed(vehicle)
+    local wheelCount = GetVehicleNumberOfWheels(vehicle)
+    local maxSpeed = 0.0
+
+    for wheel = 0, wheelCount - 1 do
+        local speed = GetVehicleWheelSpeed(vehicle, wheel)
+
+        if maxSpeed < speed then
+            maxSpeed = speed
+        end
+    end
+
+    return maxSpeed
+end
+
+--- Deletes every CObject attached to the local ped (props used to drag the
+--- player around).
+local function deleteObjectsAttachedToPlayer()
+    local ped = PlayerPedId()
+
+    for _, object in pairs(GetGamePool("CObject")) do
+        if GetEntityAttachedTo(object) == ped then
+            DeleteEntity(object)
+        end
+    end
+end
+
+local lastPlayerCoords = GetEntityCoords(PlayerPedId())
+
+local function speedCheckTick()
+    local ped = PlayerPedId()
+    local coords = GetEntityCoords(ped)
+    local distanceMoved = #(lastPlayerCoords - coords)
+
+    lastPlayerCoords = coords
+
+    -- On foot: moving far in a single tick with no legitimate explanation.
+    if distanceMoved > 0.4 then
+        if not IsPedFalling(ped)
+            and not CMG.hasClientPermission("admin.tickets")
+            and not IsPedInParachuteFreeFall(ped)
+            and not CMG.isCarrying()
+            and not CMG.isPiggyBackActive()
+            and not CMG.takeHostageInProgress()
+            and GetPedParachuteState(ped) <= 0
+            and not IsPedRagdoll(ped)
+            and not IsPedRunning(ped)
+            and not CMG.isPlayerRappeling()
+            and not CMG.isPlayerAboveGround()
+            and not CMG.isPlayerHidingInBoot()
+            and not CMG.isSpectatingEvent()
+            and not CMG.isInBattleGroundsPlaneIntro()
+            and not CMG.isCurrentEmoteAttachingPed()
+            and not IsPedInAnyVehicle(ped, true)
+        then
+            footSpeedViolations = footSpeedViolations + 1
+
+            if footSpeedViolations > 100 then
+                TriggerServerEvent("14c26e54a6", false)
+                footSpeedViolations = 0
             end
         end
-      end
     end
-    else
-      SHX1_2 = Citizen
-      SHX1_2 = SHX1_2.Wait
-      SHX2_2 = 1000
-      SHX1_2(SHX2_2)
-    end
-  end
-end
-SHX38_1(SHX39_1)
-SHX38_1 = {}
-SHX39_1 = -1569615261
-SHX38_1[SHX39_1] = true
-SHX39_1 = 883325847
-SHX38_1[SHX39_1] = true
-SHX39_1 = 126349499
-SHX38_1[SHX39_1] = true
-SHX39_1 = 0
-SHX40_1 = true
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isAimTraining
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.inArena
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.inArenaWarmup
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        goto SHX_LABEL_17
-      end
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_17:: outside nested blocks until all 'goto SHX_LABEL_17' can see it
-  ::SHX_LABEL_17::
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetSelectedPedWeapon
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX40_1
-  if SHX2_2 then
-    SHX2_2 = IsPedShooting
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      SHX2_2 = SHX38_1
-      SHX2_2 = SHX2_2[SHX1_2]
-      if not SHX2_2 then
-        SHX2_2 = GetCurrentPedVehicleWeapon
-        SHX3_2 = SHX0_2
-        SHX2_2 = SHX2_2(SHX3_2)
-        if not SHX2_2 then
-          SHX2_2 = GetAmmoInClip
-          SHX3_2 = SHX0_2
-          SHX4_2 = SHX1_2
-          SHX5_2 = 0
-          SHX2_2, SHX3_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-          SHX4_2 = GetMaxAmmoInClip
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = false
-          SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 == SHX4_2 then
-            SHX4_2 = SHX39_1
-            if SHX4_2 == SHX1_2 then
-              SHX4_2 = GetFollowPedCamViewMode
-              SHX4_2 = SHX4_2()
-              if 4 ~= SHX4_2 then
-                SHX4_2 = TriggerServerEvent
-                SHX5_2 = "0604fef3b6"
-                SHX4_2(SHX5_2)
-                SHX4_2 = false
-                SHX40_1 = SHX4_2
-                SHX4_2 = SetTimeout
-                SHX5_2 = 60000
-                function SHX6_2()
-                  -- [AI CLEANUP] Decompiled Lua - Fix these:
-                  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                  -- 3. Replace goto/label with while/repeat-until where possible
-                  -- 4. Remove decompiler comments, add meaningful ones
-                  -- 5. Fix indentation and formatting
-                  
-                  local SHX0_3, SHX1_3
-                  SHX0_3 = true
-                  SHX40_1 = SHX0_3
+
+    -- In a vehicle: covering ground while the wheels are barely turning.
+    local vehicle, isDriver = CMG.getPlayerVehicle()
+
+    if DoesEntityExist(vehicle) and isDriver then
+        if distanceMoved > 0.2
+            and not CMG.hasClientPermission("admin.tickets")
+            and not CMG.isInBattleGroundsPlaneIntro()
+            and not CMG.inEvent()
+        then
+            if lastCheckedVehicle ~= vehicle then
+                vehicleStuckTicks = 0
+                lastCheckedVehicle = vehicle
+            end
+
+            local wheelSpeed = getMaxWheelSpeed(vehicle)
+            local entitySpeed = GetEntitySpeed(vehicle)
+
+            if wheelSpeed < 5.0 and entitySpeed < 2.5 then
+                vehicleStuckTicks = vehicleStuckTicks + 1
+                deleteObjectsAttachedToPlayer()
+
+                if vehicleStuckTicks > 100 and GetGameTimer() - lastVehicleSpeedReport > 4000 then
+                    TriggerServerEvent("14c26e54a6", true)
+                    vehicleStuckTicks = 0
+                    lastVehicleSpeedReport = GetGameTimer()
                 end
-                SHX4_2(SHX5_2, SHX6_2)
-              end
             end
-          end
         end
-      end
     end
-  end
-  SHX39_1 = SHX1_2
 end
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.createThreadOnTick
-SHX43_1 = SHX41_1
-SHX44_1 = "AntiCheat Infinite Ammo Tick"
-SHX42_1(SHX43_1, SHX44_1)
-SHX42_1 = vector3
-SHX43_1 = 0.0
-SHX44_1 = 0.0
-SHX45_1 = 0.0
-SHX42_1 = SHX42_1(SHX43_1, SHX44_1, SHX45_1)
-SHX43_1 = 0
-SHX44_1 = nil
-SHX45_1 = 0
-SHX46_1 = 0
-SHX47_1 = vector3
-SHX48_1 = 0.0
-SHX49_1 = 0.0
-SHX50_1 = 0.0
-SHX47_1 = SHX47_1(SHX48_1, SHX49_1, SHX50_1)
-SHX48_1 = 0
-SHX49_1 = 0
-function SHX50_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = type
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if "vector3" == SHX3_2 then
-    SHX47_1 = SHX0_2
-  else
-    SHX3_2 = vector3
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    SHX6_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX47_1 = SHX3_2
-  end
-  SHX3_2 = GetGameTimer
-  SHX3_2 = SHX3_2()
-  SHX48_1 = SHX3_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  SHX4_2 = SHX47_1
-  SHX3_2 = SHX3_2 - SHX4_2
-  SHX3_2 = #SHX3_2
-  SHX3_2 = SHX3_2 > 50.0
-  return SHX3_2
-end
-SHX51_1 = CMG
-SHX51_1 = SHX51_1.patchFunction
-SHX52_1 = "SetEntityCoords"
-SHX53_1 = SetEntityCoords
-function SHX54_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX9_2 = false
-  SHX10_2 = SHX43_1
-  if SHX1_2 ~= SHX10_2 then
-    SHX10_2 = SHX45_1
-    if SHX1_2 ~= SHX10_2 then
-      goto SHX_LABEL_14
+
+CMG.createThreadOnTick(speedCheckTick, "AntiCheat Speed Check Tick")
+
+--=============================================================================
+-- Label + decor scanning
+--
+-- Cheat menus register their own GTA text labels and decorators; both are
+-- easy to fingerprint.
+--=============================================================================
+
+local LABELS_TO_CHECK = {
+    "notification_buffer",
+    "text_buffer",
+    "preview_text_buffer",
+}
+
+-- Decorator name -> decor type, all belonging to other (non-CMG) frameworks.
+local TRACKED_DECORS = {
+    businessDriveSpeedBoost = 2,
+    CMGVehAC = 3,
+    lastSpeed = 1,
+    hasHeadbag = 2,
+    lootbucket = 3,
+    towedByAA = 2,
+    HosePitch = 1,
+    cinematicMode = 2,
+    subwoofer = 2,
+    has_stretcher_inside = 2,
+    inside_ambulance_netid = 3,
+    isFlagged = 2,
+    InitedELS = 2,
+    vRP_owner = 3,
+    cmg_uuid = 3,
+    lootid = 3,
+    lsAudioId = 3,
+    biometricLock = 2,
+    smokeType = 3,
+    smokeActive = 2,
+}
+
+local decorReportedEntities = {}
+local foundDecors = {}
+
+local function checkEntityDecors(entity)
+    if decorReportedEntities[entity] then
+        return
     end
-  end
-  SHX10_2 = SHX50_1
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = SHX4_2
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX9_2 = SHX10_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_14:: outside nested blocks until all 'goto SHX_LABEL_14' can see it
-  ::SHX_LABEL_14::
-  SHX10_2 = SHX0_2
-  SHX11_2 = SHX1_2
-  SHX12_2 = SHX2_2
-  SHX13_2 = SHX3_2
-  SHX14_2 = SHX4_2
-  SHX15_2 = SHX5_2
-  SHX16_2 = SHX6_2
-  SHX17_2 = SHX7_2
-  SHX18_2 = SHX8_2
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  if SHX9_2 then
-    SHX10_2 = CMG
-    SHX10_2 = SHX10_2.forceNearbyAreasReload
-    SHX10_2()
-  end
-end
-SHX51_1(SHX52_1, SHX53_1, SHX54_1)
-SHX51_1 = CMG
-SHX51_1 = SHX51_1.patchFunction
-SHX52_1 = "SetEntityCoordsNoOffset"
-SHX53_1 = SetEntityCoordsNoOffset
-function SHX54_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX8_2 = false
-  SHX9_2 = SHX43_1
-  if SHX1_2 ~= SHX9_2 then
-    SHX9_2 = SHX45_1
-    if SHX1_2 ~= SHX9_2 then
-      goto SHX_LABEL_14
-    end
-  end
-  SHX9_2 = SHX50_1
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2
-  SHX12_2 = SHX4_2
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX8_2 = SHX9_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_14:: outside nested blocks until all 'goto SHX_LABEL_14' can see it
-  ::SHX_LABEL_14::
-  SHX9_2 = SHX0_2
-  SHX10_2 = SHX1_2
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = SHX4_2
-  SHX14_2 = SHX5_2
-  SHX15_2 = SHX6_2
-  SHX16_2 = SHX7_2
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  if SHX8_2 then
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.forceNearbyAreasReload
-    SHX9_2()
-  end
-end
-SHX51_1(SHX52_1, SHX53_1, SHX54_1)
-SHX51_1 = CMG
-SHX51_1 = SHX51_1.patchFunction
-SHX52_1 = "NetworkResurrectLocalPlayer"
-SHX53_1 = NetworkResurrectLocalPlayer
-function SHX54_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX7_2 = SHX50_1
-  SHX8_2 = SHX1_2
-  SHX9_2 = SHX2_2
-  SHX10_2 = SHX3_2
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX1_2
-  SHX9_2 = SHX2_2
-  SHX10_2 = SHX3_2
-  SHX11_2 = SHX4_2
-  SHX12_2 = SHX5_2
-  SHX13_2 = SHX6_2
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-SHX51_1(SHX52_1, SHX53_1, SHX54_1)
-SHX51_1 = CMG
-SHX51_1 = SHX51_1.patchFunction
-SHX52_1 = "StartPlayerTeleport"
-SHX53_1 = StartPlayerTeleport
-function SHX54_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX9_2 = SHX50_1
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2
-  SHX12_2 = SHX4_2
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = SHX0_2
-  SHX10_2 = SHX1_2
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = SHX4_2
-  SHX14_2 = SHX5_2
-  SHX15_2 = SHX6_2
-  SHX16_2 = SHX7_2
-  SHX17_2 = SHX8_2
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-end
-SHX51_1(SHX52_1, SHX53_1, SHX54_1)
-function SHX51_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.abs
-  SHX3_2 = SHX0_2.x
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not (SHX1_2 < SHX2_2) then
-    SHX2_2 = math
-    SHX2_2 = SHX2_2.abs
-    SHX3_2 = SHX0_2.y
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not (SHX1_2 < SHX2_2) then
-      SHX2_2 = math
-      SHX2_2 = SHX2_2.abs
-      SHX3_2 = SHX0_2.z
-      SHX2_2 = SHX2_2(SHX3_2)
-      if not (SHX1_2 < SHX2_2) then
-        goto SHX_LABEL_22
-      end
-    end
-  end
-  SHX2_2 = true
-  return SHX2_2
-  goto SHX_LABEL_24
-  -- [FIX IF ERROR] Move ::SHX_LABEL_22:: outside nested blocks until all 'goto SHX_LABEL_22' can see it
-  ::SHX_LABEL_22::
-  SHX2_2 = false
-  return SHX2_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_24:: outside nested blocks until all 'goto SHX_LABEL_24' can see it
-  ::SHX_LABEL_24::
-end
-function SHX52_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  if nil == SHX0_2 or 0 == SHX0_2 then
-    return
-  end
-  SHX43_1 = SHX0_2
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetVehiclePedIsUsing
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX45_1
-  if SHX3_2 ~= SHX2_2 then
-    SHX46_1 = SHX1_2
-  end
-  SHX45_1 = SHX2_2
-  SHX3_2 = false
-  if 0 ~= SHX2_2 then
-    SHX4_2 = GetPedInVehicleSeat
-    SHX5_2 = SHX2_2
-    SHX6_2 = -1
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    SHX3_2 = SHX4_2 ~= SHX0_2
-  end
-  SHX4_2 = SHX44_1
-  SHX5_2 = GetEntityCoords
-  SHX6_2 = SHX0_2
-  SHX7_2 = true
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX44_1 = SHX5_2
-  if not SHX4_2 then
-    return
-  end
-  SHX5_2 = SHX44_1
-  SHX5_2 = SHX4_2 - SHX5_2
-  SHX5_2 = #SHX5_2
-  if not (SHX5_2 < 50.0) and not SHX3_2 then
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.isCarrying
-    SHX6_2 = SHX6_2()
-    if not SHX6_2 then
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.isPiggyBackActive
-      SHX6_2 = SHX6_2()
-      if not SHX6_2 then
-        SHX6_2 = CMG
-        SHX6_2 = SHX6_2.isPlayerHidingInBoot
-        SHX6_2 = SHX6_2()
-        if not SHX6_2 then
-          SHX6_2 = GetEntityAttachedTo
-          SHX7_2 = SHX0_2
-          SHX6_2 = SHX6_2(SHX7_2)
-          if 0 == SHX6_2 then
-            goto SHX_LABEL_68
-          end
+
+    for decorName in pairs(TRACKED_DECORS) do
+        if DecorExistOn(entity, decorName) then
+            table.insert(foundDecors, decorName)
         end
-      end
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_68:: outside nested blocks until all 'goto SHX_LABEL_68' can see it
-  ::SHX_LABEL_68::
-  SHX6_2 = SHX46_1
-  SHX6_2 = SHX1_2 - SHX6_2
-  SHX7_2 = 2000
-  if not (SHX6_2 < SHX7_2) then
-    SHX6_2 = SHX48_1
-    SHX6_2 = SHX1_2 - SHX6_2
-    SHX7_2 = 5000
-    if not (SHX6_2 < SHX7_2) then
-      goto SHX_LABEL_81
+
+    if #foundDecors > 0 then
+        TriggerServerEvent("778408e37d", entity, foundDecors)
+        decorReportedEntities[entity] = true
+        table.clear(foundDecors)
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_81:: outside nested blocks until all 'goto SHX_LABEL_81' can see it
-  ::SHX_LABEL_81::
-  SHX6_2 = SHX44_1
-  SHX7_2 = SHX47_1
-  SHX6_2 = SHX6_2 - SHX7_2
-  SHX6_2 = #SHX6_2
-  if not (SHX6_2 < 15.0) then
-    SHX6_2 = SHX44_1
-    SHX7_2 = SHX42_1
-    SHX6_2 = SHX6_2 - SHX7_2
-    SHX6_2 = #SHX6_2
-    if not (SHX6_2 < 50.0) then
-      SHX6_2 = SHX42_1
-      SHX6_2 = SHX4_2 - SHX6_2
-      SHX6_2 = #SHX6_2
-      if not (SHX6_2 < 50.0) then
-        goto SHX_LABEL_102
-      end
+end
+
+Citizen.CreateThread(function()
+    for decorName, decorType in pairs(TRACKED_DECORS) do
+        DecorRegister(decorName, decorType)
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_102:: outside nested blocks until all 'goto SHX_LABEL_102' can see it
-  ::SHX_LABEL_102::
-  SHX6_2 = SHX4_2.xy
-  SHX7_2 = SHX44_1.xy
-  SHX6_2 = SHX6_2 - SHX7_2
-  SHX6_2 = #SHX6_2
-  SHX7_2 = SHX4_2.z
-  SHX8_2 = -180.0
-  if SHX7_2 < SHX8_2 then
-    SHX7_2 = 2500.0
-    if SHX6_2 < SHX7_2 then
-      return
-    end
-  end
-  SHX7_2 = SHX44_1.z
-  if SHX7_2 >= -52.0 then
-    SHX7_2 = SHX44_1.z
-    if SHX7_2 <= -48.0 and SHX6_2 < 10.0 then
-      return
-    end
-  end
-  SHX7_2 = GetEntityVelocity
-  SHX8_2 = SHX0_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = SHX44_1
-  SHX8_2 = SHX8_2 - SHX4_2
-  SHX9_2 = GetFrameTime
-  SHX9_2 = SHX9_2()
-  SHX8_2 = SHX8_2 / SHX9_2
-  SHX9_2 = SHX7_2 - SHX8_2
-  SHX10_2 = SHX51_1
-  SHX11_2 = SHX9_2
-  SHX12_2 = 100.0
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-  if SHX10_2 then
-    SHX10_2 = SHX49_1
-    SHX10_2 = SHX1_2 - SHX10_2
-    SHX11_2 = 5000
-    if SHX10_2 > SHX11_2 then
-      SHX10_2 = TriggerServerEvent
-      SHX11_2 = "5b43d997e4"
-      SHX12_2 = SHX4_2
-      SHX13_2 = SHX44_1
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-      SHX49_1 = SHX1_2
-    end
-  end
-end
-SHX53_1 = RegisterNetEvent
-SHX54_1 = "3409ae98a5"
-function SHX55_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX48_1 = SHX0_2
-end
-SHX53_1(SHX54_1, SHX55_1)
-SHX53_1 = 0
-SHX54_1 = 0
-SHX55_1 = 0
-SHX56_1 = 0
-SHX57_1 = 0
-SHX58_1 = 0
-SHX59_1 = 0
-SHX60_1 = CMG
-SHX60_1 = SHX60_1.patchFunction
-SHX61_1 = "SetVehicleFixed"
-SHX62_1 = SetVehicleFixed
-function SHX63_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX58_1
-  if SHX1_2 == SHX2_2 then
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX57_1 = SHX2_2
-  end
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX60_1(SHX61_1, SHX62_1, SHX63_1)
-SHX60_1 = RegisterNetEvent
-SHX61_1 = "49e649276d"
-function SHX62_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX0_2 = SHX0_2 + 5000
-  SHX57_1 = SHX0_2
-end
-SHX60_1(SHX61_1, SHX62_1)
-SHX60_1 = CMG
-SHX60_1 = SHX60_1.patchFunction
-SHX61_1 = "SetVehicleBodyHealth"
-SHX62_1 = SetVehicleBodyHealth
-function SHX63_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX58_1
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.floor
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX53_1 = SHX3_2
-  end
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX60_1(SHX61_1, SHX62_1, SHX63_1)
-SHX60_1 = CMG
-SHX60_1 = SHX60_1.patchFunction
-SHX61_1 = "SetVehicleEngineHealth"
-SHX62_1 = SetVehicleEngineHealth
-function SHX63_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX58_1
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.floor
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX54_1 = SHX3_2
-  end
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX60_1(SHX61_1, SHX62_1, SHX63_1)
-SHX60_1 = CMG
-SHX60_1 = SHX60_1.patchFunction
-SHX61_1 = "SetVehiclePetrolTankHealth"
-SHX62_1 = SetVehiclePetrolTankHealth
-function SHX63_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX58_1
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.floor
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX55_1 = SHX3_2
-  end
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX60_1(SHX61_1, SHX62_1, SHX63_1)
-SHX60_1 = CMG
-SHX60_1 = SHX60_1.patchFunction
-SHX61_1 = "SetEntityHealth"
-SHX62_1 = SetEntityHealth
-function SHX63_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX58_1
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.floor
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX54_1 = SHX3_2
-  end
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX60_1(SHX61_1, SHX62_1, SHX63_1)
-function SHX60_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX1_2 = {}
-  SHX2_2 = GetEntityModel
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetVehicleModelNumberOfSeats
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_2 = SHX3_2 - 1
-  SHX4_2 = 0
-  SHX5_2 = SHX3_2
-  SHX6_2 = 1
-  for SHX7_2 = SHX4_2, SHX5_2, SHX6_2 do
-    SHX8_2 = GetPedInVehicleSeat
-    SHX9_2 = SHX0_2
-    SHX10_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if 0 ~= SHX8_2 then
-      SHX9_2 = IsPedAPlayer
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if SHX9_2 then
-        SHX9_2 = NetworkGetPlayerIndexFromPed
-        SHX10_2 = SHX8_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        if -1 ~= SHX9_2 then
-          SHX10_2 = GetPlayerServerId
-          SHX11_2 = SHX9_2
-          SHX10_2 = SHX10_2(SHX11_2)
-          SHX11_2 = table
-          SHX11_2 = SHX11_2.insert
-          SHX12_2 = SHX1_2
-          SHX13_2 = {}
-          SHX14_2 = SHX7_2
-          SHX15_2 = SHX10_2
-          SHX13_2[1] = SHX14_2
-          SHX13_2[2] = SHX15_2
-          SHX11_2(SHX12_2, SHX13_2)
-        end
-      end
-    end
-  end
-  return SHX1_2
-end
-function SHX61_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  if 0 == SHX0_2 or SHX0_2 < 0 and SHX1_2 < 0 then
-    SHX2_2 = false
-    return SHX2_2
-  end
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.abs
-  SHX3_2 = SHX1_2 - SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 <= 4 then
-    SHX3_2 = false
-    return SHX3_2
-  end
-  if SHX2_2 <= 50 and 1000 ~= SHX0_2 then
-    SHX3_2 = false
-    return SHX3_2
-  end
-  SHX3_2 = SHX1_2 < SHX0_2
-  return SHX3_2
-end
-function SHX62_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2, SHX1_2 = SHX0_2()
-  if 0 ~= SHX0_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 and SHX1_2 then
-      SHX2_2 = NetworkGetEntityIsNetworked
-      SHX3_2 = SHX0_2
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 then
-        SHX2_2 = GetIsTaskActive
-        SHX3_2 = PlayerPedId
-        SHX3_2 = SHX3_2()
-        SHX4_2 = 165
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        if not SHX2_2 then
-          SHX2_2 = GetEntityType
-          SHX3_2 = GetEntityAttachedTo
-          SHX4_2 = SHX0_2
-          SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX3_2(SHX4_2)
-          SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-          if 2 ~= SHX2_2 then
-            SHX2_2 = CMG
-            SHX2_2 = SHX2_2.inEvent
-            SHX2_2 = SHX2_2()
-            if not SHX2_2 then
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.isLbRacingActive
-              SHX2_2 = SHX2_2()
-              if not SHX2_2 then
-                goto SHX_LABEL_53
-              end
+
+    while true do
+        for _, label in pairs(LABELS_TO_CHECK) do
+            if GetLabelText(label) ~= "NULL" then
+                TriggerServerEvent("931db808c1", label)
             end
-          end
         end
-      end
-    end
-  end
-  SHX2_2 = 0
-  SHX58_1 = SHX2_2
-  SHX2_2 = 1000
-  SHX53_1 = SHX2_2
-  SHX2_2 = 1000
-  SHX54_1 = SHX2_2
-  SHX2_2 = 1000
-  SHX55_1 = SHX2_2
-  SHX2_2 = 1000
-  SHX56_1 = SHX2_2
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_53:: outside nested blocks until all 'goto SHX_LABEL_53' can see it
-  ::SHX_LABEL_53::
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.floor
-  SHX3_2 = GetVehicleBodyHealth
-  SHX4_2 = SHX0_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX3_2(SHX4_2)
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = GetVehicleEngineHealth
-  SHX5_2 = SHX0_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX4_2(SHX5_2)
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.floor
-  SHX5_2 = GetVehiclePetrolTankHealth
-  SHX6_2 = SHX0_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX5_2(SHX6_2)
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.floor
-  SHX6_2 = GetEntityHealth
-  SHX7_2 = SHX0_2
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX6_2(SHX7_2)
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  SHX6_2 = SHX61_1
-  SHX7_2 = SHX2_2
-  SHX8_2 = SHX53_1
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if not SHX6_2 then
-    SHX6_2 = SHX61_1
-    SHX7_2 = SHX3_2
-    SHX8_2 = SHX54_1
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    if not SHX6_2 then
-      SHX6_2 = SHX61_1
-      SHX7_2 = SHX4_2
-      SHX8_2 = SHX55_1
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-      if not SHX6_2 then
-        SHX6_2 = SHX61_1
-        SHX7_2 = SHX5_2
-        SHX8_2 = SHX56_1
-        SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-        if not SHX6_2 then
-          goto SHX_LABEL_160
+
+        checkEntityDecors(PlayerPedId())
+
+        local vehicle, isDriver = CMG.getPlayerVehicle()
+
+        if vehicle ~= 0 and isDriver then
+            checkEntityDecors(vehicle)
         end
-      end
+
+        Wait(10000)
     end
-  end
-  SHX6_2 = GetGameTimer
-  SHX6_2 = SHX6_2()
-  SHX7_2 = GetGameTimer
-  SHX7_2 = SHX7_2()
-  SHX8_2 = SHX57_1
-  SHX7_2 = SHX7_2 - SHX8_2
-  SHX8_2 = 1000
-  if SHX7_2 > SHX8_2 then
-    SHX7_2 = SHX58_1
-    if SHX0_2 == SHX7_2 then
-      SHX7_2 = SHX59_1
-      SHX7_2 = SHX6_2 - SHX7_2
-      SHX8_2 = 5000
-      if SHX7_2 > SHX8_2 then
-        SHX7_2 = GetEntityHealth
-        SHX8_2 = PlayerPedId
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX8_2()
-        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        if SHX7_2 > 102 then
-          SHX7_2 = CMG
-          SHX7_2 = SHX7_2.getLastSpawnedGarageVehicleTime
-          SHX7_2 = SHX7_2()
-          SHX7_2 = SHX6_2 - SHX7_2
-          SHX8_2 = 5000
-          if SHX7_2 > SHX8_2 then
-            SHX7_2 = SHX60_1
-            SHX8_2 = SHX0_2
-            SHX7_2 = SHX7_2(SHX8_2)
-            SHX8_2 = CMG
-            SHX8_2 = SHX8_2.getVehicleIdFromModel
-            SHX9_2 = GetEntityModel
-            SHX10_2 = SHX0_2
-            SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX9_2(SHX10_2)
-            SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-            if not SHX8_2 then
-              SHX8_2 = "N/A"
+end)
+
+--=============================================================================
+-- Blacklisted weapon possession
+--=============================================================================
+
+Citizen.CreateThread(function()
+    while true do
+        if HasPedGotWeapon(PlayerPedId(), -2093086099, false) then
+            TriggerServerEvent("3f71c3e3da")
+            return
+        end
+
+        Wait(1000)
+    end
+end)
+
+--=============================================================================
+-- Health tracking / god mode
+--
+-- `lastKnownHealth` mirrors what the script *believes* health should be. Every
+-- legitimate way of changing it is patched to update the mirror, so any
+-- unexplained increase is a health hack.
+--=============================================================================
+
+local lastKnownHealth = 200
+local lastHealthReport = 0
+
+CMG.patchFunction("SetPlayerModel", SetPlayerModel, function(original, playerId, model)
+    if playerId == PlayerId() then
+        lastKnownHealth = 200
+    end
+
+    original(playerId, model)
+end)
+
+CMG.patchFunction("SetEntityHealth", SetEntityHealth, function(original, entity, health)
+    if entity == PlayerPedId() then
+        lastKnownHealth = math.min(math.max(health, 0), 200)
+    end
+
+    original(entity, health)
+end)
+
+CMG.patchFunction("NetworkResurrectLocalPlayer", NetworkResurrectLocalPlayer,
+    function(original, x, y, z, heading, unk, changeTime)
+        lastKnownHealth = 200
+        original(x, y, z, heading, unk, changeTime)
+    end)
+
+CMG.patchFunction("ResurrectPed", ResurrectPed, function(original, ped)
+    if ped == PlayerPedId() then
+        lastKnownHealth = 200
+    end
+
+    original(ped)
+end)
+
+local function syncHealthBaseline()
+    local ped = PlayerPedId()
+
+    if not IsEntityDead(ped) and not CMG.isQuittingGame() then
+        local health = GetEntityHealth(ped)
+
+        if health - lastKnownHealth > 2 then
+            if GetGameTimer() - lastHealthReport > 30000 then
+                TriggerServerEvent("f4ad66ccb9", health, lastKnownHealth)
+                lastHealthReport = GetGameTimer()
             end
-            SHX9_2 = TriggerServerEvent
-            SHX10_2 = "c1490664ed"
-            SHX11_2 = SHX2_2
-            SHX12_2 = SHX53_1
-            SHX13_2 = SHX3_2
-            SHX14_2 = SHX54_1
-            SHX15_2 = SHX4_2
-            SHX16_2 = SHX55_1
-            SHX17_2 = SHX5_2
-            SHX18_2 = SHX56_1
-            SHX19_2 = SHX7_2
-            SHX20_2 = SHX8_2
-            SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-            SHX59_1 = SHX6_2
-          end
         end
-      end
+
+        lastKnownHealth = health
     end
-  end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_160:: outside nested blocks until all 'goto SHX_LABEL_160' can see it
-  ::SHX_LABEL_160::
-  SHX53_1 = SHX2_2
-  SHX54_1 = SHX3_2
-  SHX55_1 = SHX4_2
-  SHX56_1 = SHX5_2
-  SHX58_1 = SHX0_2
 end
-function SHX63_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX52_1
-  SHX0_2()
-  SHX0_2 = SHX62_1
-  SHX0_2()
-end
-SHX64_1 = AddEventHandler
-SHX65_1 = "CMG:onClientSpawn"
-function SHX66_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  if SHX1_2 then
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = 60000
-    SHX2_2(SHX3_2)
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.createThreadOnTick
-    SHX3_2 = SHX63_1
-    SHX4_2 = "AntiCheat Teleport Tick"
-    SHX2_2(SHX3_2, SHX4_2)
-  end
-end
-SHX64_1(SHX65_1, SHX66_1)
-SHX64_1 = _ENV
-SHX65_1 = "Citizen"
-SHX64_1 = SHX64_1[SHX65_1]
-SHX64_1 = SHX64_1.CreateThread
-function SHX65_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerVehicle
-    SHX0_2 = SHX0_2()
-    SHX1_2 = GetVehicleHasParachute
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = GetEntityModel
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX2_2 = table
-      SHX2_2 = SHX2_2.has
-      SHX3_2 = SHX2_1
-      SHX4_2 = SHX1_2
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if not SHX2_2 then
-        SHX2_2 = TriggerServerEvent
-        SHX3_2 = "8ca67c4052"
-        SHX4_2 = CMG
-        SHX4_2 = SHX4_2.getVehicleIdFromModel
-        SHX5_2 = SHX1_2
-        SHX4_2, SHX5_2 = SHX4_2(SHX5_2)
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      end
-    end
-    SHX1_2 = Wait
-    SHX2_2 = 1000
-    SHX1_2(SHX2_2)
-  end
-end
-SHX64_1(SHX65_1)
-SHX64_1 = 0
-SHX65_1 = {}
-SHX66_1 = _ENV
-SHX67_1 = "CMG"
-SHX66_1 = SHX66_1[SHX67_1]
-SHX67_1 = "requestEntitySpawn"
-function SHX68_1(SHX0_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX64_1
-  SHX2_2 = SHX64_1
-  SHX2_2 = SHX2_2 + 1
-  SHX64_1 = SHX2_2
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "0624c04072"
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX0_2
-  SHX6_2 = ...
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  while true do
-    SHX3_2 = SHX65_1
-    SHX3_2 = SHX3_2[SHX1_2]
-    if SHX3_2 then
-      break
-    end
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2 - SHX2_2
-    SHX4_2 = 2500
-    if SHX3_2 > SHX4_2 then
-      SHX3_2 = error
-      SHX4_2 = "Failed to spawn entity."
-      SHX3_2(SHX4_2)
-    end
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
-  end
-  SHX3_2 = SHX65_1
-  SHX3_2[SHX1_2] = nil
-end
-SHX66_1[SHX67_1] = SHX68_1
-SHX66_1 = RegisterNetEvent
-SHX67_1 = "0624c04072"
-function SHX68_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX65_1
-  SHX1_2[SHX0_2] = true
-end
-SHX66_1(SHX67_1, SHX68_1)
-SHX66_1 = _ENV
-SHX67_1 = "Wait"
-SHX66_1 = SHX66_1[SHX67_1]
-SHX67_1 = 0
-SHX66_1(SHX67_1)
-SHX66_1 = _ENV
-SHX67_1 = "CMG"
-SHX66_1 = SHX66_1[SHX67_1]
-SHX66_1 = SHX66_1.createCircularBuffer
-SHX67_1 = 100
-SHX68_1 = {}
-SHX69_1 = ""
-SHX70_1 = 0
-SHX71_1 = 0
-SHX68_1[1] = SHX69_1
-SHX68_1[2] = SHX70_1
-SHX68_1[3] = SHX71_1
-SHX66_1 = SHX66_1(SHX67_1, SHX68_1)
-SHX67_1 = 0
-SHX68_1 = 0
-SHX69_1 = 0
-SHX70_1 = 0
-SHX71_1 = 5000
-SHX72_1 = {}
-SHX73_1 = _ENV
-SHX74_1 = "CMG"
-SHX73_1 = SHX73_1[SHX74_1]
-SHX74_1 = "uiRegisterCallback"
-SHX73_1 = SHX73_1[SHX74_1]
-SHX74_1 = "sendRecentPresses"
-function SHX75_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX67_1
-  if 0 == SHX1_2 then
-    return
-  end
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.recentPresses
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2[2]
-    SHX8_2 = SHX67_1
-    SHX7_2 = SHX7_2 + SHX8_2
-    SHX8_2 = SHX66_1.put
-    SHX9_2 = SHX6_2[1]
-    SHX10_2 = SHX7_2
-    SHX11_2 = SHX6_2[3]
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = SHX70_1
-    if 0 ~= SHX8_2 then
-      SHX8_2 = math
-      SHX8_2 = SHX8_2.abs
-      SHX9_2 = SHX70_1
-      SHX9_2 = SHX7_2 - SHX9_2
-      SHX8_2 = SHX8_2(SHX9_2)
-      SHX9_2 = SHX71_1
-      if SHX8_2 < SHX9_2 then
-        SHX8_2 = table
-        SHX8_2 = SHX8_2.insert
-        SHX9_2 = SHX72_1
-        SHX10_2 = {}
-        SHX11_2 = SHX6_2[1]
-        SHX12_2 = SHX7_2
-        SHX13_2 = SHX6_2[3]
-        SHX10_2[1] = SHX11_2
-        SHX10_2[2] = SHX12_2
-        SHX10_2[3] = SHX13_2
-        SHX8_2(SHX9_2, SHX10_2)
-      end
-    end
-  end
-  SHX1_2 = SHX69_1
-  SHX1_2 = SHX1_2 + 1
-  SHX69_1 = SHX1_2
-end
-SHX73_1(SHX74_1, SHX75_1)
-SHX73_1 = {}
-SHX74_1 = "LCONTROL"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "RCONTROL"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "LSHIFT"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "RSHIFT"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "W"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "A"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "S"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "D"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "SPACE"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "B0"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "B1"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "B2"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "N"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "C"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "R"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "Q"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "Z"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "X"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "TAB"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "F"
-SHX75_1 = true
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = _ENV
-SHX75_1 = "CMG"
-SHX74_1 = SHX74_1[SHX75_1]
-SHX75_1 = "isKeyboardKeyCaptured"
-function SHX76_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX73_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2 = not SHX1_2
-  return SHX1_2
-end
-SHX74_1[SHX75_1] = SHX76_1
-SHX74_1 = RegisterNetEvent
-SHX75_1 = "8abfbe8340"
-function SHX76_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getTunableValue
-  SHX4_2 = "triggerbot_clicks_max_delay"
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getTunableValue
-  SHX5_2 = "triggerbot_clicks_min_required"
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.getTunableValue
-  SHX6_2 = "triggerbot_clicks_history_msec"
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = {}
-  SHX7_2 = GetGameTimer
-  SHX7_2 = SHX7_2()
-  SHX8_2 = SHX68_1
-  SHX8_2 = SHX7_2 - SHX8_2
-  SHX9_2 = 20000
-  if SHX8_2 < SHX9_2 then
-    return
-  end
-  SHX8_2 = SHX69_1
-  while true do
-    SHX9_2 = SHX69_1
-    if SHX9_2 ~= SHX8_2 then
-      break
-    end
-    SHX9_2 = Wait
-    SHX10_2 = 0
-    SHX9_2(SHX10_2)
-  end
-  SHX9_2 = GetGameTimer
-  SHX9_2 = SHX9_2()
-  SHX10_2 = {}
-  SHX11_2 = SHX66_1.iterator
-  SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2()
-  for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-    SHX17_2 = SHX16_2[1]
-    if "B0" == SHX17_2 then
-      SHX18_2 = SHX16_2[2]
-      SHX18_2 = SHX7_2 - SHX18_2
-      if SHX5_2 > SHX18_2 then
-        SHX18_2 = SHX16_2[3]
-        if SHX3_2 > SHX18_2 then
-          SHX18_2 = SHX16_2[3]
-          if SHX18_2 >= 5 then
-            SHX18_2 = table
-            SHX18_2 = SHX18_2.insert
-            SHX19_2 = SHX6_2
-            SHX20_2 = SHX16_2[3]
-            SHX18_2(SHX19_2, SHX20_2)
-          end
+
+--=============================================================================
+-- Camera creation tracking (free-cam / spectate detection)
+--
+-- Every camera the script itself creates is recorded. If a camera we do not
+-- know about has been rendering for more than a few frames, it was created by
+-- something else.
+--=============================================================================
+
+local knownCameras = {}
+local lastReportedCamera = -1
+local lastCameraFrame = 0
+
+CMG.patchFunction("CreateCam", CreateCam, function(original, camName, active)
+    local cam = original(camName, active)
+
+    lastCameraFrame = GetFrameCount()
+    knownCameras[cam] = true
+
+    return cam
+end)
+
+CMG.patchFunction("CreateCamWithParams", CreateCamWithParams,
+    function(original, camName, posX, posY, posZ, rotX, rotY, rotZ, fov, active, rotationOrder)
+        local cam = original(camName, posX, posY, posZ, rotX, rotY, rotZ, fov, active, rotationOrder)
+
+        lastCameraFrame = GetFrameCount()
+        knownCameras[cam] = true
+
+        return cam
+    end)
+
+CMG.patchFunction("CreateCamera", CreateCamera, function(original, camHash, active)
+    local cam = original(camHash, active)
+
+    lastCameraFrame = GetFrameCount()
+    knownCameras[cam] = true
+
+    return cam
+end)
+
+CMG.patchFunction("CreateCameraWithParams", CreateCameraWithParams,
+    function(original, camHash, posX, posY, posZ, rotX, rotY, rotZ, fov, active, rotationOrder)
+        local cam = original(camHash, posX, posY, posZ, rotX, rotY, rotZ, fov, active, rotationOrder)
+
+        lastCameraFrame = GetFrameCount()
+        knownCameras[cam] = true
+
+        return cam
+    end)
+
+CMG.patchFunction("SetCamParams", SetCamParams,
+    function(original, cam, posX, posY, posZ, rotX, rotY, rotZ, fov, p8, p9, p10, rotationOrder)
+        original(cam, posX, posY, posZ, rotX, rotY, rotZ, fov, p8, p9, p10, rotationOrder)
+
+        lastCameraFrame = GetFrameCount()
+
+        -- Whatever ends up rendering next frame was set up by us.
+        Citizen.CreateThread(function()
+            Citizen.Wait(0)
+
+            local rendering = GetRenderingCam()
+
+            if rendering ~= -1 then
+                knownCameras[rendering] = true
+            end
+        end)
+    end)
+
+-- Escape hatches for other scripts that create cameras through their own means.
+AddEventHandler("CMG:hookA", function(cam)
+    lastCameraFrame = GetFrameCount()
+    knownCameras[cam] = true
+end)
+
+AddEventHandler("CMG:hookB", function()
+    lastCameraFrame = GetFrameCount()
+
+    Citizen.CreateThread(function()
+        Citizen.Wait(0)
+
+        local rendering = GetRenderingCam()
+
+        if rendering ~= -1 then
+            knownCameras[rendering] = true
         end
-      end
+    end)
+end)
+
+local function checkRenderingCamera()
+    if CMG.isInsideDiamondCasino() then
+        return
     end
-    SHX18_2 = CMG
-    SHX18_2 = SHX18_2.hasClientGroup
-    SHX19_2 = "keylog"
-    SHX18_2 = SHX18_2(SHX19_2)
-    if SHX18_2 then
-      SHX18_2 = SHX16_2[2]
-      SHX18_2 = SHX9_2 - SHX18_2
-      SHX19_2 = SHX73_1
-      SHX19_2 = SHX19_2[SHX17_2]
-      if not SHX19_2 and SHX18_2 >= 0 then
-        SHX19_2 = 2000
-        if SHX18_2 <= SHX19_2 then
-          SHX19_2 = table
-          SHX19_2 = SHX19_2.insert
-          SHX20_2 = SHX10_2
-          SHX21_2 = SHX17_2
-          SHX19_2(SHX20_2, SHX21_2)
+
+    local cam = GetRenderingCam()
+
+    -- The phone creates cameras outside of the patched natives.
+    if CMG.isPhoneOpen() and cam ~= -1 then
+        knownCameras[cam] = true
+        lastCameraFrame = GetFrameCount()
+    end
+
+    if cam ~= -1 and not knownCameras[cam] then
+        if GetFrameCount() - lastCameraFrame > 3 and lastReportedCamera ~= cam then
+            TriggerServerEvent("8950382fbc", cam)
+            lastReportedCamera = cam
         end
-      end
     end
-  end
-  SHX11_2 = #SHX6_2
-  if SHX4_2 <= SHX11_2 then
-    SHX11_2 = TriggerServerEvent
-    SHX12_2 = "6db9ca48ea"
-    SHX13_2 = SHX6_2
-    SHX11_2(SHX12_2, SHX13_2)
-    SHX68_1 = SHX7_2
-  end
-  SHX11_2 = #SHX10_2
-  if SHX11_2 > 0 then
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.getTunableValue
-    SHX12_2 = "log_unwanted_buttons"
-    SHX11_2 = SHX11_2(SHX12_2)
-    if SHX11_2 then
-      SHX11_2 = TriggerServerEvent
-      SHX12_2 = "7011667ffc"
-      SHX13_2 = SHX10_2
-      SHX14_2 = SHX2_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
+end
+
+--=============================================================================
+-- Shot timing / triggerbot input recording
+--
+-- Two circular buffers record when the player actually shot and when the
+-- attack control was actually pressed. The server replays shots back to us
+-- (event "8abfbe8340") and we confirm the input existed locally.
+--=============================================================================
+
+local SHOT_TIMING_IGNORED_WEAPONS = {
+    WEAPON_HARRYPOTTERWAND = true,
+    [763451856] = true,
+    WEAPON_L104A1 = true,
+    WEAPON_PAINTBALL = true,
+    WEAPON_PLASMAP = true,
+}
+
+local shotTimestamps = CMG.createCircularBuffer(100, 0)
+local attackInputTimestamps = CMG.createCircularBuffer(500, 0)
+local attackWasPressed = false
+local lastArmedAttackTime = 0
+
+local function recordShootingInput()
+    local ped = PlayerPedId()
+
+    if IsPedShooting(ped) then
+        shotTimestamps.put(GetNetworkTime())
     end
-  end
-end
-SHX74_1(SHX75_1, SHX76_1)
-SHX74_1 = _ENV
-SHX75_1 = "Citizen"
-SHX74_1 = SHX74_1[SHX75_1]
-SHX74_1 = SHX74_1.CreateThread
-function SHX75_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.action = "fetchPerformanceCounter"
-    SHX2_2 = {}
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX2_2.gameTime = SHX3_2
-    SHX1_2.data = SHX2_2
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX72_1
-    SHX0_2 = #SHX0_2
-    if SHX0_2 > 0 then
-      SHX0_2 = table
-      SHX0_2 = SHX0_2.sort
-      SHX1_2 = SHX72_1
-      function SHX2_2(SHX0_3, SHX1_3)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX2_3, SHX3_3
-        SHX2_3 = SHX0_3[2]
-        SHX3_3 = SHX1_3[2]
-        SHX2_3 = SHX2_3 < SHX3_3
-        return SHX2_3
-      end
-      SHX0_2(SHX1_2, SHX2_2)
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "8877db5ad1"
-      SHX2_2 = SHX72_1
-      SHX0_2(SHX1_2, SHX2_2)
-      SHX0_2 = {}
-      SHX72_1 = SHX0_2
-    end
-    SHX0_2 = Wait
-    SHX1_2 = 10000
-    SHX0_2(SHX1_2)
-  end
-end
-SHX74_1(SHX75_1)
-SHX74_1 = _ENV
-SHX75_1 = "CMG"
-SHX74_1 = SHX74_1[SHX75_1]
-SHX75_1 = "uiRegisterCallback"
-SHX74_1 = SHX74_1[SHX75_1]
-SHX75_1 = "sendPerformanceCounter"
-function SHX76_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.performenceCounter
-  if SHX1_2 then
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "3ec6910688"
-    SHX1_2(SHX2_2)
-    return
-  end
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX0_2.gameTime
-  SHX1_2 = SHX1_2 - SHX2_2
-  SHX1_2 = SHX1_2 / 2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.floor
-  SHX3_2 = SHX0_2.gameTime
-  SHX4_2 = SHX0_2.performanceCounter
-  SHX3_2 = SHX3_2 - SHX4_2
-  SHX3_2 = SHX3_2 + SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX67_1 = SHX2_2
-end
-SHX74_1(SHX75_1, SHX76_1)
-SHX74_1 = 0
-SHX75_1 = 0
-SHX76_1 = _ENV
-SHX77_1 = "Citizen"
-SHX76_1 = SHX76_1[SHX77_1]
-SHX76_1 = SHX76_1.CreateThread
-function SHX77_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.spawnVehicle
-  SHX1_2 = "adder"
-  SHX2_2 = 500.0
-  SHX3_2 = 500.0
-  SHX4_2 = 0.0
-  SHX5_2 = 0.0
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX75_1 = SHX0_2
-  SHX0_2 = FreezeEntityPosition
-  SHX1_2 = SHX75_1
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetEntityVisible
-  SHX1_2 = SHX75_1
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = SetEntityCollision
-  SHX1_2 = SHX75_1
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = SetVehicleDoorsLocked
-  SHX1_2 = SHX75_1
-  SHX2_2 = 2
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetVehicleDoorsLockedForAllPlayers
-  SHX1_2 = SHX75_1
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  while true do
-    SHX0_2 = SHX75_1
-    if 0 ~= SHX0_2 then
-      SHX0_2 = GetVehicleDoorLockStatus
-      SHX1_2 = SHX75_1
-      SHX0_2 = SHX0_2(SHX1_2)
-      if 2 ~= SHX0_2 then
-        SHX1_2 = DoesEntityExist
-        SHX2_2 = SHX75_1
-        SHX1_2 = SHX1_2(SHX2_2)
-        SHX2_2 = GetGameTimer
-        SHX2_2 = SHX2_2()
-        SHX3_2 = SHX74_1
-        SHX3_2 = SHX2_2 - SHX3_2
-        SHX4_2 = 20000
-        if SHX3_2 > SHX4_2 then
-          SHX3_2 = TriggerServerEvent
-          SHX4_2 = "eaa4e1837c"
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-          SHX3_2 = GetGameTimer
-          SHX3_2 = SHX3_2()
-          SHX74_1 = SHX3_2
+
+    if IsControlPressed(0, 24) then
+        if IsPedArmed(ped, 6) then
+            lastArmedAttackTime = GetGameTimer()
         end
-        if SHX1_2 then
-          SHX3_2 = SetVehicleDoorsLocked
-          SHX4_2 = SHX75_1
-          SHX5_2 = 2
-          SHX3_2(SHX4_2, SHX5_2)
+
+        attackInputTimestamps.put(GetNetworkTime())
+        attackWasPressed = true
+    elseif attackWasPressed then
+        -- Record the release edge as well.
+        attackInputTimestamps.put(GetNetworkTime())
+        attackWasPressed = false
+    elseif GetGameTimer() - lastArmedAttackTime < 500 then
+        -- Ped config flag 78 = still in the firing animation.
+        if GetPedConfigFlag(ped, 78, false) then
+            attackInputTimestamps.put(GetNetworkTime())
         else
-          SHX3_2 = 0
-          SHX75_1 = SHX3_2
+            lastArmedAttackTime = 0
         end
-      end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-  end
 end
-SHX76_1(SHX77_1)
-function SHX76_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.format
-  SHX2_2 = "AC Token: %s"
-  SHX3_2 = DecorGetInt
-  SHX4_2 = SHX0_2
-  SHX5_2 = "4538025922"
-  SHX3_2, SHX4_2, SHX5_2 = SHX3_2(SHX4_2, SHX5_2)
-  return SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-end
-SHX77_1 = _ENV
-SHX78_1 = "CMG"
-SHX77_1 = SHX77_1[SHX78_1]
-SHX78_1 = "registerDevMenuEntityEditor"
-SHX77_1 = SHX77_1[SHX78_1]
-SHX78_1 = "AntiCheat"
-SHX79_1 = "vehicle"
-SHX80_1 = SHX76_1
-function SHX81_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-end
-SHX77_1(SHX78_1, SHX79_1, SHX80_1, SHX81_1)
-SHX77_1 = {}
-SHX78_1 = "LBUTTON"
-SHX77_1[1] = SHX78_1
-SHX78_1 = "RBUTTON"
-SHX77_1[2] = SHX78_1
-SHX78_1 = "CANCEL"
-SHX77_1[3] = SHX78_1
-SHX78_1 = "MBUTTON"
-SHX77_1[4] = SHX78_1
-SHX78_1 = "XBUTTON1"
-SHX77_1[5] = SHX78_1
-SHX78_1 = "XBUTTON2"
-SHX77_1[6] = SHX78_1
-SHX78_1 = "BACK"
-SHX77_1[8] = SHX78_1
-SHX78_1 = "TAB"
-SHX77_1[9] = SHX78_1
-SHX78_1 = "CLEAR"
-SHX77_1[12] = SHX78_1
-SHX78_1 = "RETURN"
-SHX77_1[13] = SHX78_1
-SHX78_1 = "SHIFT"
-SHX77_1[16] = SHX78_1
-SHX78_1 = "CONTROL"
-SHX77_1[17] = SHX78_1
-SHX78_1 = "MENU"
-SHX77_1[18] = SHX78_1
-SHX78_1 = "PAUSE"
-SHX77_1[19] = SHX78_1
-SHX78_1 = "CAPITAL"
-SHX77_1[20] = SHX78_1
-SHX78_1 = "KANA"
-SHX77_1[21] = SHX78_1
-SHX78_1 = "IME_ON"
-SHX77_1[22] = SHX78_1
-SHX78_1 = "JUNJA"
-SHX77_1[23] = SHX78_1
-SHX78_1 = "FINAL"
-SHX77_1[24] = SHX78_1
-SHX78_1 = "HANJA"
-SHX77_1[25] = SHX78_1
-SHX78_1 = "IME_OFF"
-SHX77_1[26] = SHX78_1
-SHX78_1 = "ESCAPE"
-SHX77_1[27] = SHX78_1
-SHX78_1 = "CONVERT"
-SHX77_1[28] = SHX78_1
-SHX78_1 = "NONCONVERT"
-SHX77_1[29] = SHX78_1
-SHX78_1 = "ACCEPT"
-SHX77_1[30] = SHX78_1
-SHX78_1 = "MODECHANGE"
-SHX77_1[31] = SHX78_1
-SHX78_1 = "SPACE"
-SHX77_1[32] = SHX78_1
-SHX78_1 = "PRIOR"
-SHX77_1[33] = SHX78_1
-SHX78_1 = "NEXT"
-SHX77_1[34] = SHX78_1
-SHX78_1 = "END"
-SHX77_1[35] = SHX78_1
-SHX78_1 = "HOME"
-SHX77_1[36] = SHX78_1
-SHX78_1 = "LEFT"
-SHX77_1[37] = SHX78_1
-SHX78_1 = "UP"
-SHX77_1[38] = SHX78_1
-SHX78_1 = "RIGHT"
-SHX77_1[39] = SHX78_1
-SHX78_1 = "DOWN"
-SHX77_1[40] = SHX78_1
-SHX78_1 = "SELECT"
-SHX77_1[41] = SHX78_1
-SHX78_1 = "PRINT"
-SHX77_1[42] = SHX78_1
-SHX78_1 = "EXECUTE"
-SHX77_1[43] = SHX78_1
-SHX78_1 = "SNAPSHOT"
-SHX77_1[44] = SHX78_1
-SHX78_1 = "INSERT"
-SHX77_1[45] = SHX78_1
-SHX78_1 = "DELETE"
-SHX77_1[46] = SHX78_1
-SHX78_1 = "HELP"
-SHX77_1[47] = SHX78_1
-SHX78_1 = "0"
-SHX77_1[48] = SHX78_1
-SHX78_1 = "1"
-SHX77_1[49] = SHX78_1
-SHX78_1 = "2"
-SHX77_1[50] = SHX78_1
-SHX78_1 = "3"
-SHX77_1[51] = SHX78_1
-SHX78_1 = "4"
-SHX77_1[52] = SHX78_1
-SHX78_1 = "5"
-SHX77_1[53] = SHX78_1
-SHX78_1 = "6"
-SHX77_1[54] = SHX78_1
-SHX78_1 = "7"
-SHX77_1[55] = SHX78_1
-SHX78_1 = "8"
-SHX77_1[56] = SHX78_1
-SHX78_1 = "9"
-SHX77_1[57] = SHX78_1
-SHX78_1 = "A"
-SHX77_1[65] = SHX78_1
-SHX78_1 = "B"
-SHX77_1[66] = SHX78_1
-SHX78_1 = "C"
-SHX77_1[67] = SHX78_1
-SHX78_1 = "D"
-SHX77_1[68] = SHX78_1
-SHX78_1 = "E"
-SHX77_1[69] = SHX78_1
-SHX78_1 = "F"
-SHX77_1[70] = SHX78_1
-SHX78_1 = "G"
-SHX77_1[71] = SHX78_1
-SHX78_1 = "H"
-SHX77_1[72] = SHX78_1
-SHX78_1 = "I"
-SHX77_1[73] = SHX78_1
-SHX78_1 = "J"
-SHX77_1[74] = SHX78_1
-SHX78_1 = "K"
-SHX77_1[75] = SHX78_1
-SHX78_1 = "L"
-SHX77_1[76] = SHX78_1
-SHX78_1 = "M"
-SHX77_1[77] = SHX78_1
-SHX78_1 = "N"
-SHX77_1[78] = SHX78_1
-SHX78_1 = "O"
-SHX77_1[79] = SHX78_1
-SHX78_1 = "P"
-SHX77_1[80] = SHX78_1
-SHX78_1 = "Q"
-SHX77_1[81] = SHX78_1
-SHX78_1 = "R"
-SHX77_1[82] = SHX78_1
-SHX78_1 = "S"
-SHX77_1[83] = SHX78_1
-SHX78_1 = "T"
-SHX77_1[84] = SHX78_1
-SHX78_1 = "U"
-SHX77_1[85] = SHX78_1
-SHX78_1 = "V"
-SHX77_1[86] = SHX78_1
-SHX78_1 = "W"
-SHX77_1[87] = SHX78_1
-SHX78_1 = "X"
-SHX77_1[88] = SHX78_1
-SHX78_1 = "Y"
-SHX77_1[89] = SHX78_1
-SHX78_1 = "Z"
-SHX77_1[90] = SHX78_1
-SHX78_1 = "LWIN"
-SHX77_1[91] = SHX78_1
-SHX78_1 = "RWIN"
-SHX77_1[92] = SHX78_1
-SHX78_1 = "APPS"
-SHX77_1[93] = SHX78_1
-SHX78_1 = "SLEEP"
-SHX77_1[95] = SHX78_1
-SHX78_1 = "NUMPAD0"
-SHX77_1[96] = SHX78_1
-SHX78_1 = "NUMPAD1"
-SHX77_1[97] = SHX78_1
-SHX78_1 = "NUMPAD2"
-SHX77_1[98] = SHX78_1
-SHX78_1 = "NUMPAD3"
-SHX77_1[99] = SHX78_1
-SHX78_1 = "NUMPAD4"
-SHX77_1[100] = SHX78_1
-SHX78_1 = "NUMPAD5"
-SHX77_1[101] = SHX78_1
-SHX78_1 = "NUMPAD6"
-SHX77_1[102] = SHX78_1
-SHX78_1 = "NUMPAD7"
-SHX77_1[103] = SHX78_1
-SHX78_1 = "NUMPAD8"
-SHX77_1[104] = SHX78_1
-SHX78_1 = "NUMPAD9"
-SHX77_1[105] = SHX78_1
-SHX78_1 = "MULTIPLY"
-SHX77_1[106] = SHX78_1
-SHX78_1 = "ADD"
-SHX77_1[107] = SHX78_1
-SHX78_1 = "SEPARATOR"
-SHX77_1[108] = SHX78_1
-SHX78_1 = "SUBTRACT"
-SHX77_1[109] = SHX78_1
-SHX78_1 = "DECIMAL"
-SHX77_1[110] = SHX78_1
-SHX78_1 = "DIVIDE"
-SHX77_1[111] = SHX78_1
-SHX78_1 = "F1"
-SHX77_1[112] = SHX78_1
-SHX78_1 = "F2"
-SHX77_1[113] = SHX78_1
-SHX78_1 = "F3"
-SHX77_1[114] = SHX78_1
-SHX78_1 = "F4"
-SHX77_1[115] = SHX78_1
-SHX78_1 = "F5"
-SHX77_1[116] = SHX78_1
-SHX78_1 = "F6"
-SHX77_1[117] = SHX78_1
-SHX78_1 = "F7"
-SHX77_1[118] = SHX78_1
-SHX78_1 = "F8"
-SHX77_1[119] = SHX78_1
-SHX78_1 = "F9"
-SHX77_1[120] = SHX78_1
-SHX78_1 = "F10"
-SHX77_1[121] = SHX78_1
-SHX78_1 = "F11"
-SHX77_1[122] = SHX78_1
-SHX78_1 = "F12"
-SHX77_1[123] = SHX78_1
-SHX78_1 = "F13"
-SHX77_1[124] = SHX78_1
-SHX78_1 = "F14"
-SHX77_1[125] = SHX78_1
-SHX78_1 = "F15"
-SHX77_1[126] = SHX78_1
-SHX78_1 = "F16"
-SHX77_1[127] = SHX78_1
-SHX78_1 = "F17"
-SHX77_1[128] = SHX78_1
-SHX78_1 = "F18"
-SHX77_1[129] = SHX78_1
-SHX78_1 = "F19"
-SHX77_1[130] = SHX78_1
-SHX78_1 = "F20"
-SHX77_1[131] = SHX78_1
-SHX78_1 = "F21"
-SHX77_1[132] = SHX78_1
-SHX78_1 = "F22"
-SHX77_1[133] = SHX78_1
-SHX78_1 = "F23"
-SHX77_1[134] = SHX78_1
-SHX78_1 = "F24"
-SHX77_1[135] = SHX78_1
-SHX78_1 = "NUMLOCK"
-SHX77_1[144] = SHX78_1
-SHX78_1 = "SCROLL"
-SHX77_1[145] = SHX78_1
-SHX78_1 = "LSHIFT"
-SHX77_1[160] = SHX78_1
-SHX78_1 = "RSHIFT"
-SHX77_1[161] = SHX78_1
-SHX78_1 = "LCONTROL"
-SHX77_1[162] = SHX78_1
-SHX78_1 = "RCONTROL"
-SHX77_1[163] = SHX78_1
-SHX78_1 = "LMENU"
-SHX77_1[164] = SHX78_1
-SHX78_1 = "RMENU"
-SHX77_1[165] = SHX78_1
-SHX78_1 = "BROWSER_BACK"
-SHX77_1[166] = SHX78_1
-SHX78_1 = "BROWSER_FORWARD"
-SHX77_1[167] = SHX78_1
-SHX78_1 = "BROWSER_REFRESH"
-SHX77_1[168] = SHX78_1
-SHX78_1 = "BROWSER_STOP"
-SHX77_1[169] = SHX78_1
-SHX78_1 = "BROWSER_SEARCH"
-SHX77_1[170] = SHX78_1
-SHX78_1 = "BROWSER_FAVORITES"
-SHX77_1[171] = SHX78_1
-SHX78_1 = "BROWSER_HOME"
-SHX77_1[172] = SHX78_1
-SHX78_1 = "VOLUME_MUTE"
-SHX77_1[173] = SHX78_1
-SHX78_1 = "VOLUME_DOWN"
-SHX77_1[174] = SHX78_1
-SHX78_1 = "VOLUME_UP"
-SHX77_1[175] = SHX78_1
-SHX78_1 = "MEDIA_NEXT_TRACK"
-SHX77_1[176] = SHX78_1
-SHX78_1 = "MEDIA_PREV_TRACK"
-SHX77_1[177] = SHX78_1
-SHX78_1 = "MEDIA_STOP"
-SHX77_1[178] = SHX78_1
-SHX78_1 = "MEDIA_PLAY_PAUSE"
-SHX77_1[179] = SHX78_1
-SHX78_1 = "LAUNCH_MAIL"
-SHX77_1[180] = SHX78_1
-SHX78_1 = "LAUNCH_MEDIA_SELECT"
-SHX77_1[181] = SHX78_1
-SHX78_1 = "LAUNCH_APP1"
-SHX77_1[182] = SHX78_1
-SHX78_1 = "LAUNCH_APP2"
-SHX77_1[183] = SHX78_1
-SHX78_1 = "OEM_1"
-SHX77_1[186] = SHX78_1
-SHX78_1 = "OEM_PLUS"
-SHX77_1[187] = SHX78_1
-SHX78_1 = "OEM_COMMA"
-SHX77_1[188] = SHX78_1
-SHX78_1 = "OEM_MINUS"
-SHX77_1[189] = SHX78_1
-SHX78_1 = "OEM_PERIOD"
-SHX77_1[190] = SHX78_1
-SHX78_1 = "OEM_2"
-SHX77_1[191] = SHX78_1
-SHX78_1 = "OEM_3"
-SHX77_1[192] = SHX78_1
-SHX78_1 = "OEM_4"
-SHX77_1[219] = SHX78_1
-SHX78_1 = "OEM_5"
-SHX77_1[220] = SHX78_1
-SHX78_1 = "OEM_6"
-SHX77_1[221] = SHX78_1
-SHX78_1 = "OEM_7"
-SHX77_1[222] = SHX78_1
-SHX78_1 = "OEM_8"
-SHX77_1[223] = SHX78_1
-SHX78_1 = "OEM_102"
-SHX77_1[226] = SHX78_1
-SHX78_1 = "PROCESSKEY"
-SHX77_1[229] = SHX78_1
-SHX78_1 = "PACKET"
-SHX77_1[231] = SHX78_1
-SHX78_1 = "ATTN"
-SHX77_1[246] = SHX78_1
-SHX78_1 = "CRSEL"
-SHX77_1[247] = SHX78_1
-SHX78_1 = "EXSEL"
-SHX77_1[248] = SHX78_1
-SHX78_1 = "EREOF"
-SHX77_1[249] = SHX78_1
-SHX78_1 = "PLAY"
-SHX77_1[250] = SHX78_1
-SHX78_1 = "ZOOM"
-SHX77_1[251] = SHX78_1
-SHX78_1 = "NONAME"
-SHX77_1[252] = SHX78_1
-SHX78_1 = "PA1"
-SHX77_1[253] = SHX78_1
-SHX78_1 = "OEM_CLEAR"
-SHX77_1[254] = SHX78_1
-SHX78_1 = {}
-SHX79_1 = 0
-SHX80_1 = 255
-SHX81_1 = 1
-for SHX82_1 = SHX79_1, SHX80_1, SHX81_1 do
-  SHX83_1 = _ENV
-  SHX84_1 = "table"
-  SHX83_1 = SHX83_1[SHX84_1]
-  SHX84_1 = "insert"
-  SHX83_1 = SHX83_1[SHX84_1]
-  SHX84_1 = SHX78_1
-  SHX85_1 = 0
-  SHX83_1(SHX84_1, SHX85_1)
-end
-SHX79_1 = {}
-SHX80_1 = 0
-SHX81_1 = false
-function SHX82_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientGroup
-  SHX1_2 = "keylog"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = SHX81_1
-    if not SHX0_2 then
-      return
+
+RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash, latency)
+    if GetNetworkTime() - serverTime > 5000 or SHOT_TIMING_IGNORED_WEAPONS[weaponHash] then
+        return
     end
-  end
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = 7
-  SHX2_2 = 255
-  SHX3_2 = 1
-  for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-    SHX5_2 = IsRawKeyDown
-    SHX6_2 = SHX4_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if SHX5_2 then
-      SHX5_2 = SHX78_1
-      SHX5_2 = SHX5_2[SHX4_2]
-      if 0 == SHX5_2 then
-        SHX5_2 = SHX78_1
-        SHX5_2[SHX4_2] = SHX0_2
-      end
+
+    -- Two frames of jitter, plus the reported latency, plus 50ms slack.
+    local tolerance = math.floor(GetFrameTime() * 1000.0) * 2 + math.floor(latency) + 50
+
+    local matchedShot = false
+
+    for _, timestamp in shotTimestamps.iterator() do
+        if tolerance >= math.abs(timestamp - shotTime) then
+            matchedShot = true
+            break
+        end
+    end
+
+    if not matchedShot then
+        TriggerServerEvent("fee5e0be83", weaponHash, shotTime, shotTimestamps.get(), "Native", latency)
+        return
+    end
+
+    local matchedInput = false
+
+    for _, timestamp in attackInputTimestamps.iterator() do
+        if tolerance >= math.abs(timestamp - shotTime) then
+            matchedInput = true
+            break
+        end
+    end
+
+    if not matchedInput then
+        TriggerServerEvent("fee5e0be83", weaponHash, shotTime, attackInputTimestamps.get(), "Control", latency)
+        return
+    end
+end)
+
+local function healthCheckTick()
+    syncHealthBaseline()
+
+    -- NOTE: camera detection is disabled in the original (constant false).
+    local cameraDetectionEnabled = false
+
+    if cameraDetectionEnabled then
+        checkRenderingCamera()
+    end
+
+    recordShootingInput()
+end
+
+CMG.createThreadOnTick(healthCheckTick, "AntiCheat Health Check Tick")
+
+--=============================================================================
+-- Active god-mode probe
+--
+-- Repeatedly shaves 2 HP off the player and checks whether it stuck. 100
+-- consecutive failures means health is being forced.
+--=============================================================================
+
+Citizen.CreateThread(function()
+    Wait(10000)
+
+    local strikes = 0
+
+    while true do
+        if strikes >= 100 then
+            if not tCMG.isInComa() then
+                TriggerServerEvent("825a34ce28")
+                Citizen.Wait(5000)
+            end
+        end
+
+        if not CMG.isStaffedOnClient() then
+            -- NOTE: the original only waits in the `isStaffedOnClient` branch
+            -- and in the `ped == 0` branch, so this path can spin hot while
+            -- spawn/new-player protection is active.
+            if not CMG.hasSpawnProtection() then
+                if not CMG.hasNewPlayerProtection() then
+                    if CMG.getTunableValue("detect_god_mode") then
+                        local ped = PlayerPedId()
+                        local health = GetEntityHealth(ped)
+
+                        if ped ~= 0 then
+                            if not IsEntityDead(ped) then
+                                syncHealthBaseline()
+                                SetEntityHealth(ped, health - 2)
+                                Citizen.Wait(50)
+
+                                if DoesEntityExist(ped) then
+                                    if GetEntityHealth(ped) > health - 2 then
+                                        strikes = strikes + 1
+                                    elseif strikes > 0 then
+                                        strikes = strikes - 1
+                                    end
+
+                                    -- Give the 2 HP back.
+                                    syncHealthBaseline()
+                                    SetEntityHealth(ped, GetEntityHealth(ped) + 2)
+                                end
+                            end
+                        else
+                            Citizen.Wait(0)
+                        end
+                    end
+                end
+            end
+        else
+            Citizen.Wait(1000)
+        end
+    end
+end)
+
+--=============================================================================
+-- Infinite ammo detection
+--
+-- If the clip is still full immediately after firing the same weapon twice in
+-- a row, ammo is not being consumed.
+--=============================================================================
+
+local INFINITE_AMMO_IGNORED_WEAPONS = {
+    [-1569615261] = true,
+    [883325847] = true,
+    [126349499] = true,
+}
+
+local lastAmmoWeapon = 0
+local ammoCheckEnabled = true
+
+local function infiniteAmmoTick()
+    if CMG.isAimTraining() or CMG.inArena() or CMG.inArenaWarmup() then
+        return
+    end
+
+    local ped = CMG.getPlayerPed()
+    local weapon = GetSelectedPedWeapon(ped)
+
+    if ammoCheckEnabled and IsPedShooting(ped) then
+        if not INFINITE_AMMO_IGNORED_WEAPONS[weapon] and not GetCurrentPedVehicleWeapon(ped) then
+            local _, ammoInClip = GetAmmoInClip(ped, weapon, 0)
+            local maxAmmoInClip = GetMaxAmmoInClip(ped, weapon, false)
+
+            if ammoInClip == maxAmmoInClip and lastAmmoWeapon == weapon then
+                -- Cam view mode 4 = first person; excluded to avoid false hits.
+                if GetFollowPedCamViewMode() ~= 4 then
+                    TriggerServerEvent("0604fef3b6")
+
+                    ammoCheckEnabled = false
+                    SetTimeout(60000, function()
+                        ammoCheckEnabled = true
+                    end)
+                end
+            end
+        end
+    end
+
+    lastAmmoWeapon = weapon
+end
+
+CMG.createThreadOnTick(infiniteAmmoTick, "AntiCheat Infinite Ammo Tick")
+
+--=============================================================================
+-- Teleport detection
+--
+-- Every legitimate way of moving the player is patched to register the
+-- destination. A large position delta with no matching registration, and with
+-- a velocity that does not explain it, is a teleport.
+--=============================================================================
+
+local ORIGIN = vector3(0.0, 0.0, 0.0)
+
+local trackedPed = 0
+local lastPedCoords = nil
+local trackedVehicle = 0
+local lastVehicleChangeTime = 0
+
+local lastTeleportCoords = vector3(0.0, 0.0, 0.0)
+local lastTeleportTime = 0
+local lastTeleportReport = 0
+
+--- Records an authorised teleport. Returns true if it was a long-distance
+--- jump (the caller then forces a streaming reload).
+local function registerTeleport(x, y, z)
+    if type(x) == "vector3" then
+        lastTeleportCoords = x
     else
-      SHX5_2 = SHX78_1
-      SHX5_2 = SHX5_2[SHX4_2]
-      if 0 ~= SHX5_2 then
-        SHX5_2 = SHX78_1
-        SHX5_2 = SHX5_2[SHX4_2]
-        SHX6_2 = SHX0_2 - SHX5_2
-        SHX7_2 = SHX77_1
-        SHX7_2 = SHX7_2[SHX4_2]
-        if not SHX7_2 then
-          SHX7_2 = string
-          SHX7_2 = SHX7_2.format
-          SHX8_2 = "VK_%s"
-          SHX9_2 = SHX4_2
-          SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
+        lastTeleportCoords = vector3(x, y, z)
+    end
+
+    lastTeleportTime = GetGameTimer()
+
+    return #(CMG.getPlayerCoords() - lastTeleportCoords) > 50.0
+end
+
+CMG.patchFunction("SetEntityCoords", SetEntityCoords,
+    function(original, entity, x, y, z, xAxis, yAxis, zAxis, clearArea)
+        local longJump = false
+
+        if entity == trackedPed or entity == trackedVehicle then
+            longJump = registerTeleport(x, y, z)
         end
-        SHX8_2 = SHX66_1.put
-        SHX9_2 = SHX7_2
-        SHX10_2 = SHX5_2
-        SHX11_2 = SHX6_2
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-        SHX8_2 = table
-        SHX8_2 = SHX8_2.insert
-        SHX9_2 = SHX79_1
-        SHX10_2 = {}
-        SHX11_2 = SHX7_2
-        SHX12_2 = SHX6_2
-        SHX10_2[1] = SHX11_2
-        SHX10_2[2] = SHX12_2
-        SHX8_2(SHX9_2, SHX10_2)
-        SHX8_2 = SHX78_1
-        SHX8_2[SHX4_2] = 0
-      end
+
+        original(entity, x, y, z, xAxis, yAxis, zAxis, clearArea)
+
+        if longJump then
+            CMG.forceNearbyAreasReload()
+        end
+    end)
+
+CMG.patchFunction("SetEntityCoordsNoOffset", SetEntityCoordsNoOffset,
+    function(original, entity, x, y, z, xAxis, yAxis, zAxis)
+        local longJump = false
+
+        if entity == trackedPed or entity == trackedVehicle then
+            longJump = registerTeleport(x, y, z)
+        end
+
+        original(entity, x, y, z, xAxis, yAxis, zAxis)
+
+        if longJump then
+            CMG.forceNearbyAreasReload()
+        end
+    end)
+
+CMG.patchFunction("NetworkResurrectLocalPlayer", NetworkResurrectLocalPlayer,
+    function(original, x, y, z, heading, unk, changeTime)
+        registerTeleport(x, y, z)
+        original(x, y, z, heading, unk, changeTime)
+    end)
+
+CMG.patchFunction("StartPlayerTeleport", StartPlayerTeleport,
+    function(original, playerId, x, y, z, heading, p5, findCollisionLand, p7)
+        registerTeleport(x, y, z)
+        original(playerId, x, y, z, heading, p5, findCollisionLand, p7)
+    end)
+
+--- True if any component of `vec` exceeds `limit` in magnitude.
+local function exceedsAxisLimit(vec, limit)
+    if limit < math.abs(vec.x) or limit < math.abs(vec.y) or limit < math.abs(vec.z) then
+        return true
     end
-  end
-  SHX1_2 = SHX81_1
-  if SHX1_2 then
-    SHX1_2 = SHX80_1
-    SHX1_2 = SHX0_2 - SHX1_2
-    SHX2_2 = 1000
-    if SHX1_2 > SHX2_2 then
-      SHX1_2 = TriggerServerEvent
-      SHX2_2 = "b64d75268d"
-      SHX3_2 = SHX79_1
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = table
-      SHX1_2 = SHX1_2.clear
-      SHX2_2 = SHX79_1
-      SHX1_2(SHX2_2)
-      SHX80_1 = SHX0_2
+
+    return false
+end
+
+local function teleportCheck()
+    local ped = PlayerPedId()
+
+    if ped == nil or ped == 0 then
+        return
     end
-  end
-end
-SHX83_1 = _ENV
-SHX84_1 = "CMG"
-SHX83_1 = SHX83_1[SHX84_1]
-SHX84_1 = "createThreadOnTick"
-SHX83_1 = SHX83_1[SHX84_1]
-SHX84_1 = SHX82_1
-SHX85_1 = "AntiCheat Key Checks"
-SHX83_1(SHX84_1, SHX85_1)
-SHX83_1 = RegisterNetEvent
-SHX84_1 = "5bb4fd310c"
-function SHX85_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX81_1 = SHX0_2
-  if not SHX0_2 then
-    SHX1_2 = table
-    SHX1_2 = SHX1_2.clear
-    SHX2_2 = SHX79_1
-    SHX1_2(SHX2_2)
-  end
-end
-SHX83_1(SHX84_1, SHX85_1)
-SHX83_1 = _ENV
-SHX84_1 = "CMG"
-SHX83_1 = SHX83_1[SHX84_1]
-SHX83_1 = SHX83_1.patchFunction
-SHX84_1 = "SetPlayerModel"
-SHX85_1 = SetPlayerModel
-function SHX86_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.forcePlayerInfoCacheRefresh
-  SHX3_2()
-  SHX3_2 = PlayerId
-  SHX3_2 = SHX3_2()
-  if SHX1_2 == SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.getCustomization
-    SHX3_2 = SHX3_2()
-    SHX0_1 = SHX3_2
-  end
-end
-SHX83_1(SHX84_1, SHX85_1, SHX86_1)
-SHX83_1 = _ENV
-SHX84_1 = "CMG"
-SHX83_1 = SHX83_1[SHX84_1]
-SHX83_1 = SHX83_1.patchFunction
-SHX84_1 = "SetPedComponentVariation"
-SHX85_1 = _ENV
-SHX86_1 = "SetPedComponentVariation"
-SHX85_1 = SHX85_1[SHX86_1]
-function SHX86_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX2_2
-  SHX9_2 = SHX3_2
-  SHX10_2 = SHX4_2
-  SHX11_2 = SHX5_2
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX6_2 = PlayerPedId
-  SHX6_2 = SHX6_2()
-  if SHX1_2 == SHX6_2 then
-    SHX6_2 = SHX0_1
-    if SHX6_2 then
-      SHX6_2 = SHX0_1.components
-      SHX7_2 = {}
-      SHX8_2 = GetPedDrawableVariationCollectionName
-      SHX9_2 = SHX1_2
-      SHX10_2 = SHX2_2
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX7_2.collectionName = SHX8_2
-      SHX8_2 = _ENV
-      SHX9_2 = "GetPedDrawableVariationCollectionLocalIndex"
-      SHX8_2 = SHX8_2[SHX9_2]
-      SHX9_2 = SHX1_2
-      SHX10_2 = SHX2_2
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX7_2.collectionIndex = SHX8_2
-      SHX6_2[SHX2_2] = SHX7_2
+
+    trackedPed = ped
+
+    local now = GetGameTimer()
+    local vehicle = GetVehiclePedIsUsing(ped)
+
+    if trackedVehicle ~= vehicle then
+        lastVehicleChangeTime = now
     end
-  end
-end
-SHX83_1(SHX84_1, SHX85_1, SHX86_1)
-SHX83_1 = _ENV
-SHX84_1 = "CMG"
-SHX83_1 = SHX83_1[SHX84_1]
-SHX83_1 = SHX83_1.patchFunction
-SHX84_1 = "SetPedCollectionComponentVariation"
-SHX85_1 = _ENV
-SHX86_1 = "SetPedCollectionComponentVariation"
-SHX85_1 = SHX85_1[SHX86_1]
-function SHX86_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX7_2 = PlayerPedId
-  SHX7_2 = SHX7_2()
-  if SHX1_2 == SHX7_2 then
-    SHX7_2 = SHX0_1
-    if SHX7_2 then
-      SHX7_2 = SHX0_1.components
-      SHX8_2 = {}
-      SHX8_2.collectionName = SHX3_2
-      SHX8_2.collectionIndex = SHX4_2
-      SHX7_2[SHX2_2] = SHX8_2
+
+    trackedVehicle = vehicle
+
+    local isPassenger = false
+
+    if vehicle ~= 0 then
+        isPassenger = GetPedInVehicleSeat(vehicle, -1) ~= ped
     end
-  end
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX1_2
-  SHX9_2 = SHX2_2
-  SHX10_2 = SHX3_2
-  SHX11_2 = SHX4_2
-  SHX12_2 = SHX5_2
-  SHX13_2 = SHX6_2
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-SHX83_1(SHX84_1, SHX85_1, SHX86_1)
-SHX83_1 = false
-SHX84_1 = RegisterNetEvent
-SHX85_1 = "080ad343ae"
-function SHX86_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX83_1 = SHX0_2
-  if SHX0_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.hideAllDisplays
-    SHX2_2 = "anticheat_echo"
-    SHX1_2(SHX2_2)
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.showWarningMessageAdvanced
-    SHX2_2 = "Suspected of Cheating"
-    SHX3_2 = [[
-You have been suspected of cheating and have been placed in the shadow lobby
-You must not disconnect from the server
-Please check discord DMs for more information on how to proceed]]
-    SHX4_2 = 1
-    function SHX5_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = IsDisabledControlJustPressed
-      SHX1_3 = 2
-      SHX2_3 = 215
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.showAllDisplays
-        SHX1_3 = "anticheat_echo"
-        SHX0_3(SHX1_3)
-        SHX0_3 = true
-        return SHX0_3
-      end
-      SHX0_3 = false
-      return SHX0_3
+
+    local previousCoords = lastPedCoords
+    lastPedCoords = GetEntityCoords(ped, true)
+
+    if not previousCoords then
+        return
     end
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  end
-end
-SHX84_1(SHX85_1, SHX86_1)
-SHX84_1 = CreateThread
-function SHX85_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  while true do
-    SHX0_2 = SHX83_1
-    if SHX0_2 then
-      SHX0_2 = DisablePlayerFiring
-      SHX1_2 = PlayerId
-      SHX1_2 = SHX1_2()
-      SHX2_2 = true
-      SHX0_2(SHX1_2, SHX2_2)
+
+    local moved = #(previousCoords - lastPedCoords)
+
+    -- Anything short, or any state where the player is being moved by
+    -- something else, is fine.
+    if moved < 50.0
+        or isPassenger
+        or CMG.isCarrying()
+        or CMG.isPiggyBackActive()
+        or CMG.isPlayerHidingInBoot()
+        or GetEntityAttachedTo(ped) ~= 0
+    then
+        return
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
+
+    -- Recently entered/left a vehicle, or recently authorised a teleport.
+    if now - lastVehicleChangeTime < 2000 or now - lastTeleportTime < 5000 then
+        return
+    end
+
+    -- Close to the last authorised teleport target, or near the world origin
+    -- (where entities get parked while loading).
+    if #(lastPedCoords - lastTeleportCoords) < 15.0
+        or #(lastPedCoords - ORIGIN) < 50.0
+        or #(previousCoords - ORIGIN) < 50.0
+    then
+        return
+    end
+
+    local horizontalMoved = #(previousCoords.xy - lastPedCoords.xy)
+
+    -- Coming back up from deep underground (interior placement).
+    if previousCoords.z < -180.0 and horizontalMoved < 2500.0 then
+        return
+    end
+
+    -- The -50z "limbo" plane used by several interiors.
+    if lastPedCoords.z >= -52.0 and lastPedCoords.z <= -48.0 and horizontalMoved < 10.0 then
+        return
+    end
+
+    -- Compare reported velocity against the velocity the movement implies.
+    local velocity = GetEntityVelocity(ped)
+    local impliedVelocity = (lastPedCoords - previousCoords) / GetFrameTime()
+
+    if exceedsAxisLimit(velocity - impliedVelocity, 100.0) then
+        if now - lastTeleportReport > 5000 then
+            TriggerServerEvent("5b43d997e4", previousCoords, lastPedCoords)
+            lastTeleportReport = now
+        end
+    end
 end
-SHX84_1(SHX85_1)
+
+-- Server-authorised teleport: suppress the check for the next 5 seconds.
+RegisterNetEvent("3409ae98a5", function()
+    lastTeleportTime = GetGameTimer()
+end)
+
+--=============================================================================
+-- Vehicle health tampering
+--=============================================================================
+
+local lastBodyHealth = 0
+local lastEngineHealth = 0
+local lastPetrolTankHealth = 0
+local lastVehicleEntityHealth = 0
+local lastVehicleFixTime = 0
+local lastHealthCheckVehicle = 0
+local lastVehicleHealthReport = 0
+
+CMG.patchFunction("SetVehicleFixed", SetVehicleFixed, function(original, vehicle)
+    if vehicle == lastHealthCheckVehicle then
+        lastVehicleFixTime = GetGameTimer()
+    end
+
+    original(vehicle)
+end)
+
+-- Server grants a repair window.
+RegisterNetEvent("49e649276d", function()
+    lastVehicleFixTime = GetGameTimer() + 5000
+end)
+
+CMG.patchFunction("SetVehicleBodyHealth", SetVehicleBodyHealth, function(original, vehicle, health)
+    if vehicle == lastHealthCheckVehicle then
+        lastBodyHealth = math.floor(health)
+    end
+
+    original(vehicle, health)
+end)
+
+CMG.patchFunction("SetVehicleEngineHealth", SetVehicleEngineHealth, function(original, vehicle, health)
+    if vehicle == lastHealthCheckVehicle then
+        lastEngineHealth = math.floor(health)
+    end
+
+    original(vehicle, health)
+end)
+
+CMG.patchFunction("SetVehiclePetrolTankHealth", SetVehiclePetrolTankHealth, function(original, vehicle, health)
+    if vehicle == lastHealthCheckVehicle then
+        lastPetrolTankHealth = math.floor(health)
+    end
+
+    original(vehicle, health)
+end)
+
+CMG.patchFunction("SetEntityHealth", SetEntityHealth, function(original, entity, health)
+    if entity == lastHealthCheckVehicle then
+        -- NOTE: the original writes the engine-health mirror here, not the
+        -- entity-health one.
+        lastEngineHealth = math.floor(health)
+    end
+
+    original(entity, health)
+end)
+
+--- Returns { {seatIndex, serverId}, ... } for every player in the vehicle.
+local function getVehiclePlayerOccupants(vehicle)
+    local occupants = {}
+    local model = GetEntityModel(vehicle)
+    local lastSeat = GetVehicleModelNumberOfSeats(model) - 1
+
+    for seat = 0, lastSeat do
+        local ped = GetPedInVehicleSeat(vehicle, seat)
+
+        if ped ~= 0 and IsPedAPlayer(ped) then
+            local playerIndex = NetworkGetPlayerIndexFromPed(ped)
+
+            if playerIndex ~= -1 then
+                table.insert(occupants, { seat, GetPlayerServerId(playerIndex) })
+            end
+        end
+    end
+
+    return occupants
+end
+
+--- True when a health value went *up* by an amount that cannot be explained
+--- by normal gameplay (i.e. an unauthorised repair).
+local function isSuspiciousHealthChange(current, previous)
+    if current == 0 or (current < 0 and previous < 0) then
+        return false
+    end
+
+    local delta = math.abs(previous - current)
+
+    if delta <= 4 then
+        return false
+    end
+
+    -- Small changes are only interesting when jumping to a full 1000.
+    if delta <= 50 and current ~= 1000 then
+        return false
+    end
+
+    return previous < current
+end
+
+local function vehicleHealthCheck()
+    local vehicle, isDriver = CMG.getPlayerVehicle()
+
+    local tracking =
+        vehicle ~= 0
+        and DoesEntityExist(vehicle)
+        and isDriver
+        and NetworkGetEntityIsNetworked(vehicle)
+        -- Task 165 = entering/exiting the vehicle.
+        and not GetIsTaskActive(PlayerPedId(), 165)
+        -- Attached to another vehicle (towed / on a trailer).
+        and GetEntityType(GetEntityAttachedTo(vehicle)) ~= 2
+        and not CMG.inEvent()
+        and not CMG.isLbRacingActive()
+
+    if not tracking then
+        lastHealthCheckVehicle = 0
+        lastBodyHealth = 1000
+        lastEngineHealth = 1000
+        lastPetrolTankHealth = 1000
+        lastVehicleEntityHealth = 1000
+        return
+    end
+
+    local bodyHealth = math.floor(GetVehicleBodyHealth(vehicle))
+    local engineHealth = math.floor(GetVehicleEngineHealth(vehicle))
+    local petrolTankHealth = math.floor(GetVehiclePetrolTankHealth(vehicle))
+    local entityHealth = math.floor(GetEntityHealth(vehicle))
+
+    if isSuspiciousHealthChange(bodyHealth, lastBodyHealth)
+        or isSuspiciousHealthChange(engineHealth, lastEngineHealth)
+        or isSuspiciousHealthChange(petrolTankHealth, lastPetrolTankHealth)
+        or isSuspiciousHealthChange(entityHealth, lastVehicleEntityHealth)
+    then
+        local now = GetGameTimer()
+
+        if now - lastVehicleFixTime > 1000
+            and vehicle == lastHealthCheckVehicle
+            and now - lastVehicleHealthReport > 5000
+        then
+            -- Ignore while the player is in the "just revived" health band.
+            if GetEntityHealth(PlayerPedId()) > 102 then
+                if now - CMG.getLastSpawnedGarageVehicleTime() > 5000 then
+                    local occupants = getVehiclePlayerOccupants(vehicle)
+                    local vehicleId = CMG.getVehicleIdFromModel(GetEntityModel(vehicle)) or "N/A"
+
+                    TriggerServerEvent("c1490664ed",
+                        bodyHealth, lastBodyHealth,
+                        engineHealth, lastEngineHealth,
+                        petrolTankHealth, lastPetrolTankHealth,
+                        entityHealth, lastVehicleEntityHealth,
+                        occupants, vehicleId)
+
+                    lastVehicleHealthReport = now
+                end
+            end
+        end
+    end
+
+    lastBodyHealth = bodyHealth
+    lastEngineHealth = engineHealth
+    lastPetrolTankHealth = petrolTankHealth
+    lastVehicleEntityHealth = entityHealth
+    lastHealthCheckVehicle = vehicle
+end
+
+local function teleportAndVehicleTick()
+    teleportCheck()
+    vehicleHealthCheck()
+end
+
+-- Only start once the player has fully spawned, plus a minute of grace.
+AddEventHandler("CMG:onClientSpawn", function(_, isFirstSpawn)
+    if isFirstSpawn then
+        Citizen.Wait(60000)
+        CMG.createThreadOnTick(teleportAndVehicleTick, "AntiCheat Teleport Tick")
+    end
+end)
+
+--=============================================================================
+-- Unauthorised vehicle parachutes
+--=============================================================================
+
+Citizen.CreateThread(function()
+    while true do
+        local vehicle = CMG.getPlayerVehicle()
+
+        if GetVehicleHasParachute(vehicle) then
+            local model = GetEntityModel(vehicle)
+
+            if not table.has(PARACHUTE_ALLOWED_VEHICLES, model) then
+                TriggerServerEvent("8ca67c4052", CMG.getVehicleIdFromModel(model))
+            end
+        end
+
+        Wait(1000)
+    end
+end)
+
+--=============================================================================
+-- Server-mediated entity spawning
+--=============================================================================
+
+local entitySpawnRequestId = 0
+local entitySpawnResponses = {}
+
+function CMG.requestEntitySpawn(spawnType, ...)
+    local requestId = entitySpawnRequestId
+    entitySpawnRequestId = entitySpawnRequestId + 1
+
+    TriggerServerEvent("0624c04072", requestId, spawnType, ...)
+
+    local startedAt = GetGameTimer()
+
+    while not entitySpawnResponses[requestId] do
+        if GetGameTimer() - startedAt > 2500 then
+            error("Failed to spawn entity.")
+        end
+
+        Citizen.Wait(0)
+    end
+
+    entitySpawnResponses[requestId] = nil
+end
+
+RegisterNetEvent("0624c04072", function(requestId)
+    entitySpawnResponses[requestId] = true
+end)
+
+Wait(0)
+
+--=============================================================================
+-- Keypress capture / triggerbot detection
+--
+-- The NUI layer reports raw key presses with high-resolution timestamps.
+-- `performanceCounterOffset` converts those into game-timer space.
+--=============================================================================
+
+-- Entries are { keyName, timestamp, holdDurationMs }.
+local keyPressBuffer = CMG.createCircularBuffer(100, { "", 0, 0 })
+
+local performanceCounterOffset = 0
+local lastTriggerbotReport = 0
+local recentPressesVersion = 0
+
+-- NOTE: never assigned anywhere else, so the flagged-press collection below is
+-- effectively dead in the original.
+local flaggedPressAnchor = 0
+local FLAGGED_PRESS_WINDOW = 5000
+local flaggedPresses = {}
+
+CMG.uiRegisterCallback("sendRecentPresses", function(data)
+    if performanceCounterOffset == 0 then
+        return
+    end
+
+    for _, press in pairs(data.recentPresses) do
+        local keyName, rawTimestamp, holdDuration = press[1], press[2], press[3]
+        local timestamp = rawTimestamp + performanceCounterOffset
+
+        keyPressBuffer.put(keyName, timestamp, holdDuration)
+
+        if flaggedPressAnchor ~= 0 and math.abs(timestamp - flaggedPressAnchor) < FLAGGED_PRESS_WINDOW then
+            table.insert(flaggedPresses, { keyName, timestamp, holdDuration })
+        end
+    end
+
+    recentPressesVersion = recentPressesVersion + 1
+end)
+
+-- Keys the game itself consumes; anything else pressed during gameplay is
+-- worth logging.
+local CAPTURED_KEYS = {
+    LCONTROL = true,
+    RCONTROL = true,
+    LSHIFT = true,
+    RSHIFT = true,
+    W = true,
+    A = true,
+    S = true,
+    D = true,
+    SPACE = true,
+    B0 = true,
+    B1 = true,
+    B2 = true,
+    N = true,
+    C = true,
+    R = true,
+    Q = true,
+    Z = true,
+    X = true,
+    TAB = true,
+    F = true,
+}
+
+function CMG.isKeyboardKeyCaptured(key)
+    return not CAPTURED_KEYS[key]
+end
+
+-- Second handler for the shot-replay event: looks for machine-like click
+-- cadence (triggerbot) and for keys the game never uses.
+RegisterNetEvent("8abfbe8340", ... (2 KB left)
