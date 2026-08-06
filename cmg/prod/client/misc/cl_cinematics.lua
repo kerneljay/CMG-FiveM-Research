@@ -1,0 +1,6247 @@
+-- [AI CLEANUP] Decompiled Lua - Fix these:
+-- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+-- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+-- 3. Replace goto/label with while/repeat-until where possible
+-- 4. Remove decompiler comments, add meaningful ones
+-- 5. Fix indentation and formatting
+
+local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "mainmenu"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateMenu
+SHX4_1 = ""
+SHX5_1 = ""
+SHX6_1 = CMG
+SHX6_1 = SHX6_1.getRageUIMenuWidth
+SHX6_1 = SHX6_1()
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuHeight
+SHX7_1 = SHX7_1()
+SHX8_1 = "new_editor"
+SHX9_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "mainmenu"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~CMG Cinematic Editor"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "load_scene"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "mainmenu"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "load_scene"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Load Scene"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "scene_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "load_scene"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "scene_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Scene Manager"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "camera_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "scene_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "camera_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Camera Manager"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "screeneffect_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "camera_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "screeneffect_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Screen Effect Manager"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "timecycle_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "camera_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "timecycle_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Timecycle Effect Manager"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "shake_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "camera_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "shake_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Shake Effect Manager"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "add_camera"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "scene_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "add_camera"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Add Camera"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "camera_focus_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "camera_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "camera_focus_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Camera Focus"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "weather_time_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "mainmenu"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "weather_time_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Time/Weather Manager"
+SHX0_1(SHX1_1, SHX2_1)
+SHX0_1 = RMenu
+SHX0_1 = SHX0_1.Add
+SHX1_1 = "dof_manager"
+SHX2_1 = "cinematic"
+SHX3_1 = RageUI
+SHX3_1 = SHX3_1.CreateSubMenu
+SHX4_1 = RMenu
+SHX5_1 = SHX4_1
+SHX4_1 = SHX4_1.Get
+SHX6_1 = "camera_manager"
+SHX7_1 = "cinematic"
+SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
+SHX5_1 = ""
+SHX6_1 = ""
+SHX7_1 = CMG
+SHX7_1 = SHX7_1.getRageUIMenuWidth
+SHX7_1 = SHX7_1()
+SHX8_1 = CMG
+SHX8_1 = SHX8_1.getRageUIMenuHeight
+SHX8_1 = SHX8_1()
+SHX9_1 = "new_editor"
+SHX10_1 = "r_editor_header"
+SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
+SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1)
+SHX0_1 = RMenu
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.Get
+SHX2_1 = "dof_manager"
+SHX3_1 = "cinematic"
+SHX0_1 = SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+SHX1_1 = SHX0_1
+SHX0_1 = SHX0_1.SetSubtitle
+SHX2_1 = "~b~Depth of Field Manager"
+SHX0_1(SHX1_1, SHX2_1)
+function SHX0_1(SHX0_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
+  SHX1_2 = RageUI
+  SHX1_2 = SHX1_2.CloseAll
+  SHX1_2()
+  SHX1_2 = RageUI
+  SHX1_2 = SHX1_2.Visible
+  SHX2_2 = RMenu
+  SHX3_2 = SHX2_2
+  SHX2_2 = SHX2_2.Get
+  SHX4_2 = "mainmenu"
+  SHX5_2 = "cinematic"
+  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  SHX3_2 = SHX0_2
+  SHX1_2(SHX2_2, SHX3_2)
+end
+SHX1_1 = {}
+SHX2_1 = "Default"
+SHX3_1 = "DeadlineNeon"
+SHX4_1 = "PPPurple"
+SHX5_1 = "PPOrange"
+SHX6_1 = "PPGreen"
+SHX7_1 = "InchPickup"
+SHX8_1 = "InchOrange"
+SHX9_1 = "MP_Bull_tost"
+SHX10_1 = "CrossLine"
+SHX11_1 = "ArenaWheelPurple"
+SHX12_1 = "SwitchHUDOut"
+SHX13_1 = "FocusIn"
+SHX14_1 = "FocusOut"
+SHX15_1 = "MinigameEndNeutral"
+SHX16_1 = "MinigameEndTrevor"
+SHX17_1 = "MinigameEndFranklin"
+SHX18_1 = "MinigameEndMichael"
+SHX19_1 = "MinigameTransitionOut"
+SHX20_1 = "MinigameTransitionIn"
+SHX21_1 = "SwitchShortNeutralIn"
+SHX22_1 = "SwitchShortFranklinIn"
+SHX23_1 = "SwitchShortTrevorIn"
+SHX24_1 = "SwitchShortMichaelIn"
+SHX25_1 = "SwitchOpenMichaelIn"
+SHX26_1 = "SwitchOpenFranklinIn"
+SHX27_1 = "SwitchOpenTrevorIn"
+SHX28_1 = "SwitchHUDMichaelOut"
+SHX29_1 = "SwitchHUDFranklinOut"
+SHX30_1 = "SwitchHUDTrevorOut"
+SHX31_1 = "SwitchShortFranklinMid"
+SHX32_1 = "SwitchShortMichaelMid"
+SHX33_1 = "SwitchShortTrevorMid"
+SHX34_1 = "DeathFailOut"
+SHX35_1 = "CamPushInNeutral"
+SHX36_1 = "CamPushInFranklin"
+SHX37_1 = "CamPushInMichael"
+SHX38_1 = "CamPushInTrevor"
+SHX39_1 = "SwitchOpenMichaelIn"
+SHX40_1 = "SwitchSceneFranklin"
+SHX41_1 = "SwitchSceneTrevor"
+SHX42_1 = "SwitchSceneMichael"
+SHX43_1 = "SwitchSceneNeutral"
+SHX44_1 = "MP_Celeb_Win"
+SHX45_1 = "MP_Celeb_Win_Out"
+SHX46_1 = "MP_Celeb_Lose"
+SHX47_1 = "MP_Celeb_Lose_Out"
+SHX48_1 = "DeathFailNeutralIn"
+SHX49_1 = "DeathFailMPDark"
+SHX50_1 = "DeathFailMPIn"
+SHX51_1 = "MP_Celeb_Preload_Fade"
+SHX1_1[1] = SHX2_1
+SHX1_1[2] = SHX3_1
+SHX1_1[3] = SHX4_1
+SHX1_1[4] = SHX5_1
+SHX1_1[5] = SHX6_1
+SHX1_1[6] = SHX7_1
+SHX1_1[7] = SHX8_1
+SHX1_1[8] = SHX9_1
+SHX1_1[9] = SHX10_1
+SHX1_1[10] = SHX11_1
+SHX1_1[11] = SHX12_1
+SHX1_1[12] = SHX13_1
+SHX1_1[13] = SHX14_1
+SHX1_1[14] = SHX15_1
+SHX1_1[15] = SHX16_1
+SHX1_1[16] = SHX17_1
+SHX1_1[17] = SHX18_1
+SHX1_1[18] = SHX19_1
+SHX1_1[19] = SHX20_1
+SHX1_1[20] = SHX21_1
+SHX1_1[21] = SHX22_1
+SHX1_1[22] = SHX23_1
+SHX1_1[23] = SHX24_1
+SHX1_1[24] = SHX25_1
+SHX1_1[25] = SHX26_1
+SHX1_1[26] = SHX27_1
+SHX1_1[27] = SHX28_1
+SHX1_1[28] = SHX29_1
+SHX1_1[29] = SHX30_1
+SHX1_1[30] = SHX31_1
+SHX1_1[31] = SHX32_1
+SHX1_1[32] = SHX33_1
+SHX1_1[33] = SHX34_1
+SHX1_1[34] = SHX35_1
+SHX1_1[35] = SHX36_1
+SHX1_1[36] = SHX37_1
+SHX1_1[37] = SHX38_1
+SHX1_1[38] = SHX39_1
+SHX1_1[39] = SHX40_1
+SHX1_1[40] = SHX41_1
+SHX1_1[41] = SHX42_1
+SHX1_1[42] = SHX43_1
+SHX1_1[43] = SHX44_1
+SHX1_1[44] = SHX45_1
+SHX1_1[45] = SHX46_1
+SHX1_1[46] = SHX47_1
+SHX1_1[47] = SHX48_1
+SHX1_1[48] = SHX49_1
+SHX1_1[49] = SHX50_1
+SHX1_1[50] = SHX51_1
+SHX2_1 = "PeyoteEndOut"
+SHX3_1 = "PeyoteEndIn"
+SHX4_1 = "PeyoteIn"
+SHX5_1 = "PeyoteOut"
+SHX6_1 = "MP_race_crash"
+SHX7_1 = "SuccessFranklin"
+SHX8_1 = "SuccessTrevor"
+SHX9_1 = "SuccessMichael"
+SHX10_1 = "DrugsMichaelAliensFightIn"
+SHX11_1 = "DrugsMichaelAliensFight"
+SHX12_1 = "DrugsMichaelAliensFightOut"
+SHX13_1 = "DrugsTrevorClownsFightIn"
+SHX14_1 = "DrugsTrevorClownsFight"
+SHX15_1 = "DrugsTrevorClownsFightOut"
+SHX16_1 = "HeistCelebPass"
+SHX17_1 = "HeistCelebPassBW"
+SHX18_1 = "HeistCelebEnd"
+SHX19_1 = "HeistCelebToast"
+SHX20_1 = "MenuMGHeistIn"
+SHX21_1 = "MenuMGTournamentIn"
+SHX22_1 = "MenuMGSelectionIn"
+SHX23_1 = "ChopVision"
+SHX24_1 = "DMT_flight_intro"
+SHX25_1 = "DMT_flight"
+SHX26_1 = "DrugsDrivingIn"
+SHX27_1 = "DrugsDrivingOut"
+SHX28_1 = "SwitchOpenNeutralFIB5"
+SHX29_1 = "HeistLocate"
+SHX30_1 = "MP_job_load"
+SHX31_1 = "RaceTurbo"
+SHX32_1 = "MP_intro_logo"
+SHX33_1 = "HeistTripSkipFade"
+SHX34_1 = "MenuMGHeistOut"
+SHX35_1 = "MP_corona_switch"
+SHX36_1 = "MenuMGSelectionTint"
+SHX37_1 = "SuccessNeutral"
+SHX38_1 = "ExplosionJosh3"
+SHX39_1 = "SniperOverlay"
+SHX40_1 = "RampageOut"
+SHX41_1 = "Rampage"
+SHX42_1 = "Dont_tazeme_bro"
+SHX43_1 = "DeathFailOut"
+SHX1_1[51] = SHX2_1
+SHX1_1[52] = SHX3_1
+SHX1_1[53] = SHX4_1
+SHX1_1[54] = SHX5_1
+SHX1_1[55] = SHX6_1
+SHX1_1[56] = SHX7_1
+SHX1_1[57] = SHX8_1
+SHX1_1[58] = SHX9_1
+SHX1_1[59] = SHX10_1
+SHX1_1[60] = SHX11_1
+SHX1_1[61] = SHX12_1
+SHX1_1[62] = SHX13_1
+SHX1_1[63] = SHX14_1
+SHX1_1[64] = SHX15_1
+SHX1_1[65] = SHX16_1
+SHX1_1[66] = SHX17_1
+SHX1_1[67] = SHX18_1
+SHX1_1[68] = SHX19_1
+SHX1_1[69] = SHX20_1
+SHX1_1[70] = SHX21_1
+SHX1_1[71] = SHX22_1
+SHX1_1[72] = SHX23_1
+SHX1_1[73] = SHX24_1
+SHX1_1[74] = SHX25_1
+SHX1_1[75] = SHX26_1
+SHX1_1[76] = SHX27_1
+SHX1_1[77] = SHX28_1
+SHX1_1[78] = SHX29_1
+SHX1_1[79] = SHX30_1
+SHX1_1[80] = SHX31_1
+SHX1_1[81] = SHX32_1
+SHX1_1[82] = SHX33_1
+SHX1_1[83] = SHX34_1
+SHX1_1[84] = SHX35_1
+SHX1_1[85] = SHX36_1
+SHX1_1[86] = SHX37_1
+SHX1_1[87] = SHX38_1
+SHX1_1[88] = SHX39_1
+SHX1_1[89] = SHX40_1
+SHX1_1[90] = SHX41_1
+SHX1_1[91] = SHX42_1
+SHX1_1[92] = SHX43_1
+SHX2_1 = {}
+SHX3_1 = "None"
+SHX4_1 = "AP1_01_B_IntRefRange"
+SHX5_1 = "AP1_01_C_NoFog"
+SHX6_1 = "AirRaceBoost01"
+SHX7_1 = "AirRaceBoost02"
+SHX8_1 = "AmbientPUSH"
+SHX9_1 = "ArenaEMP"
+SHX10_1 = "ArenaEMP_Blend"
+SHX11_1 = "ArenaWheelPurple01"
+SHX12_1 = "ArenaWheelPurple02"
+SHX13_1 = "Bank_HLWD"
+SHX14_1 = "Barry1_Stoned"
+SHX15_1 = "BarryFadeOut"
+SHX16_1 = "BeastIntro01"
+SHX17_1 = "BeastIntro02"
+SHX18_1 = "BeastLaunch01"
+SHX19_1 = "BeastLaunch02"
+SHX20_1 = "BikerFilter"
+SHX21_1 = "BikerForm01"
+SHX22_1 = "BikerFormFlash"
+SHX23_1 = "Bikers"
+SHX24_1 = "BikersSPLASH"
+SHX25_1 = "BlackOut"
+SHX26_1 = "BleepYellow01"
+SHX27_1 = "BleepYellow02"
+SHX28_1 = "Bloom"
+SHX29_1 = "BloomLight"
+SHX30_1 = "BloomMid"
+SHX31_1 = "BombCam01"
+SHX32_1 = "BombCamFlash"
+SHX33_1 = "Broken_camera_fuzz"
+SHX34_1 = "BulletTimeDark"
+SHX35_1 = "BulletTimeLight"
+SHX36_1 = "CAMERA_BW"
+SHX37_1 = "CAMERA_secuirity"
+SHX38_1 = "CAMERA_secuirity_FUZZ"
+SHX39_1 = "CH3_06_water"
+SHX40_1 = "CHOP"
+SHX41_1 = "CS1_railwayB_tunnel"
+SHX42_1 = "CS3_rail_tunnel"
+SHX43_1 = "CUSTOM_streetlight"
+SHX44_1 = "Carpark_MP_exit"
+SHX45_1 = "CopsSPLASH"
+SHX46_1 = "CrossLine01"
+SHX47_1 = "CrossLine02"
+SHX48_1 = "DONT_overide_sunpos"
+SHX49_1 = "DRUG_2_drive"
+SHX50_1 = "DRUG_gas_huffin"
+SHX51_1 = "DeadlineNeon01"
+SHX52_1 = "DefaultColorCode"
+SHX2_1[1] = SHX3_1
+SHX2_1[2] = SHX4_1
+SHX2_1[3] = SHX5_1
+SHX2_1[4] = SHX6_1
+SHX2_1[5] = SHX7_1
+SHX2_1[6] = SHX8_1
+SHX2_1[7] = SHX9_1
+SHX2_1[8] = SHX10_1
+SHX2_1[9] = SHX11_1
+SHX2_1[10] = SHX12_1
+SHX2_1[11] = SHX13_1
+SHX2_1[12] = SHX14_1
+SHX2_1[13] = SHX15_1
+SHX2_1[14] = SHX16_1
+SHX2_1[15] = SHX17_1
+SHX2_1[16] = SHX18_1
+SHX2_1[17] = SHX19_1
+SHX2_1[18] = SHX20_1
+SHX2_1[19] = SHX21_1
+SHX2_1[20] = SHX22_1
+SHX2_1[21] = SHX23_1
+SHX2_1[22] = SHX24_1
+SHX2_1[23] = SHX25_1
+SHX2_1[24] = SHX26_1
+SHX2_1[25] = SHX27_1
+SHX2_1[26] = SHX28_1
+SHX2_1[27] = SHX29_1
+SHX2_1[28] = SHX30_1
+SHX2_1[29] = SHX31_1
+SHX2_1[30] = SHX32_1
+SHX2_1[31] = SHX33_1
+SHX2_1[32] = SHX34_1
+SHX2_1[33] = SHX35_1
+SHX2_1[34] = SHX36_1
+SHX2_1[35] = SHX37_1
+SHX2_1[36] = SHX38_1
+SHX2_1[37] = SHX39_1
+SHX2_1[38] = SHX40_1
+SHX2_1[39] = SHX41_1
+SHX2_1[40] = SHX42_1
+SHX2_1[41] = SHX43_1
+SHX2_1[42] = SHX44_1
+SHX2_1[43] = SHX45_1
+SHX2_1[44] = SHX46_1
+SHX2_1[45] = SHX47_1
+SHX2_1[46] = SHX48_1
+SHX2_1[47] = SHX49_1
+SHX2_1[48] = SHX50_1
+SHX2_1[49] = SHX51_1
+SHX2_1[50] = SHX52_1
+SHX3_1 = "Dont_tazeme_bro"
+SHX4_1 = "DrivingFocusDark"
+SHX5_1 = "DrivingFocusLight"
+SHX6_1 = "Drone_FishEye_Lens"
+SHX7_1 = "Drug_deadman"
+SHX8_1 = "Drug_deadman_blend"
+SHX9_1 = "Drunk"
+SHX10_1 = "EXTRA_bouncelight"
+SHX11_1 = "EXT_FULLAmbientmult_art"
+SHX12_1 = "ExplosionJosh"
+SHX13_1 = "FIB_5"
+SHX14_1 = "FIB_6"
+SHX15_1 = "FIB_A"
+SHX16_1 = "FIB_B"
+SHX17_1 = "FIB_interview"
+SHX18_1 = "FIB_interview_optimise"
+SHX19_1 = "FORdoron_delete"
+SHX20_1 = "FRANKLIN"
+SHX21_1 = "Facebook_NEW"
+SHX22_1 = "FinaleBank"
+SHX23_1 = "FinaleBankMid"
+SHX24_1 = "FinaleBankexit"
+SHX25_1 = "Forest"
+SHX26_1 = "FrankilinsHOUSEhills"
+SHX27_1 = "FranklinColorCode"
+SHX28_1 = "FranklinColorCodeBasic"
+SHX29_1 = "FranklinColorCodeBright"
+SHX30_1 = "FullAmbientmult_interior"
+SHX31_1 = "Glasses_BlackOut"
+SHX32_1 = "Hanger_INTmods"
+SHX33_1 = "Hicksbar"
+SHX34_1 = "HicksbarNEW"
+SHX35_1 = "Hint_cam"
+SHX36_1 = "IMpExt_Interior_02"
+SHX37_1 = "IMpExt_Interior_02_stair_cage"
+SHX38_1 = "INT_FULLAmbientmult_art"
+SHX39_1 = "INT_FULLAmbientmult_both"
+SHX40_1 = "INT_FullAmbientmult"
+SHX41_1 = "INT_NO_fogALPHA"
+SHX42_1 = "INT_NOdirectLight"
+SHX43_1 = "INT_NoAmbientmult"
+SHX44_1 = "INT_NoAmbientmult_art"
+SHX45_1 = "INT_NoAmbientmult_both"
+SHX46_1 = "INT_garage"
+SHX47_1 = "INT_mall"
+SHX48_1 = "INT_nowaterREF"
+SHX49_1 = "INT_posh_hairdresser"
+SHX50_1 = "INT_smshop"
+SHX51_1 = "INT_smshop_inMOD"
+SHX52_1 = "INT_smshop_indoor_bloom"
+SHX2_1[51] = SHX3_1
+SHX2_1[52] = SHX4_1
+SHX2_1[53] = SHX5_1
+SHX2_1[54] = SHX6_1
+SHX2_1[55] = SHX7_1
+SHX2_1[56] = SHX8_1
+SHX2_1[57] = SHX9_1
+SHX2_1[58] = SHX10_1
+SHX2_1[59] = SHX11_1
+SHX2_1[60] = SHX12_1
+SHX2_1[61] = SHX13_1
+SHX2_1[62] = SHX14_1
+SHX2_1[63] = SHX15_1
+SHX2_1[64] = SHX16_1
+SHX2_1[65] = SHX17_1
+SHX2_1[66] = SHX18_1
+SHX2_1[67] = SHX19_1
+SHX2_1[68] = SHX20_1
+SHX2_1[69] = SHX21_1
+SHX2_1[70] = SHX22_1
+SHX2_1[71] = SHX23_1
+SHX2_1[72] = SHX24_1
+SHX2_1[73] = SHX25_1
+SHX2_1[74] = SHX26_1
+SHX2_1[75] = SHX27_1
+SHX2_1[76] = SHX28_1
+SHX2_1[77] = SHX29_1
+SHX2_1[78] = SHX30_1
+SHX2_1[79] = SHX31_1
+SHX2_1[80] = SHX32_1
+SHX2_1[81] = SHX33_1
+SHX2_1[82] = SHX34_1
+SHX2_1[83] = SHX35_1
+SHX2_1[84] = SHX36_1
+SHX2_1[85] = SHX37_1
+SHX2_1[86] = SHX38_1
+SHX2_1[87] = SHX39_1
+SHX2_1[88] = SHX40_1
+SHX2_1[89] = SHX41_1
+SHX2_1[90] = SHX42_1
+SHX2_1[91] = SHX43_1
+SHX2_1[92] = SHX44_1
+SHX2_1[93] = SHX45_1
+SHX2_1[94] = SHX46_1
+SHX2_1[95] = SHX47_1
+SHX2_1[96] = SHX48_1
+SHX2_1[97] = SHX49_1
+SHX2_1[98] = SHX50_1
+SHX2_1[99] = SHX51_1
+SHX2_1[100] = SHX52_1
+SHX3_1 = "INT_smshop_outdoor_bloom"
+SHX4_1 = "INT_streetlighting"
+SHX5_1 = "INT_trailer_cinema"
+SHX6_1 = "ImpExp_Interior_01"
+SHX7_1 = "InchOrange01"
+SHX8_1 = "InchOrange02"
+SHX9_1 = "InchPickup01"
+SHX10_1 = "InchPickup02"
+SHX11_1 = "InchPurple01"
+SHX12_1 = "InchPurple02"
+SHX13_1 = "KT_underpass"
+SHX14_1 = "Kifflom"
+SHX15_1 = "LIGHTSreduceFALLOFF"
+SHX16_1 = "LODmult_HD_orphan_LOD_reduce"
+SHX17_1 = "LODmult_HD_orphan_reduce"
+SHX18_1 = "LODmult_LOD_reduce"
+SHX19_1 = "LODmult_SLOD1_reduce"
+SHX20_1 = "LODmult_SLOD2_reduce"
+SHX21_1 = "LODmult_SLOD3_reduce"
+SHX22_1 = "LODmult_global_reduce"
+SHX23_1 = "LODmult_global_reduce_NOHD"
+SHX24_1 = "LectroDark"
+SHX25_1 = "LectroLight"
+SHX26_1 = "LifeInvaderLOD"
+SHX27_1 = "LightPollutionHills"
+SHX28_1 = "LostTimeDark"
+SHX29_1 = "LostTimeFlash"
+SHX30_1 = "LostTimeLight"
+SHX31_1 = "METRO_Tunnels"
+SHX32_1 = "METRO_Tunnels_entrance"
+SHX33_1 = "METRO_platform"
+SHX34_1 = "MPApartHigh"
+SHX35_1 = "MPApartHigh_palnning"
+SHX36_1 = "MPApart_H_01"
+SHX37_1 = "MPApart_H_01_gym"
+SHX38_1 = "MP_Arena_VIP"
+SHX39_1 = "MP_Arena_theme_atlantis"
+SHX40_1 = "MP_Arena_theme_evening"
+SHX41_1 = "MP_Arena_theme_hell"
+SHX42_1 = "MP_Arena_theme_midday"
+SHX43_1 = "MP_Arena_theme_morning"
+SHX44_1 = "MP_Arena_theme_night"
+SHX45_1 = "MP_Arena_theme_saccharine"
+SHX46_1 = "MP_Arena_theme_sandstorm"
+SHX47_1 = "MP_Arena_theme_scifi_night"
+SHX48_1 = "MP_Arena_theme_storm"
+SHX49_1 = "MP_Arena_theme_toxic"
+SHX50_1 = "MP_Bull_tost"
+SHX51_1 = "MP_Bull_tost_blend"
+SHX52_1 = "MP_Garage_L"
+SHX2_1[101] = SHX3_1
+SHX2_1[102] = SHX4_1
+SHX2_1[103] = SHX5_1
+SHX2_1[104] = SHX6_1
+SHX2_1[105] = SHX7_1
+SHX2_1[106] = SHX8_1
+SHX2_1[107] = SHX9_1
+SHX2_1[108] = SHX10_1
+SHX2_1[109] = SHX11_1
+SHX2_1[110] = SHX12_1
+SHX2_1[111] = SHX13_1
+SHX2_1[112] = SHX14_1
+SHX2_1[113] = SHX15_1
+SHX2_1[114] = SHX16_1
+SHX2_1[115] = SHX17_1
+SHX2_1[116] = SHX18_1
+SHX2_1[117] = SHX19_1
+SHX2_1[118] = SHX20_1
+SHX2_1[119] = SHX21_1
+SHX2_1[120] = SHX22_1
+SHX2_1[121] = SHX23_1
+SHX2_1[122] = SHX24_1
+SHX2_1[123] = SHX25_1
+SHX2_1[124] = SHX26_1
+SHX2_1[125] = SHX27_1
+SHX2_1[126] = SHX28_1
+SHX2_1[127] = SHX29_1
+SHX2_1[128] = SHX30_1
+SHX2_1[129] = SHX31_1
+SHX2_1[130] = SHX32_1
+SHX2_1[131] = SHX33_1
+SHX2_1[132] = SHX34_1
+SHX2_1[133] = SHX35_1
+SHX2_1[134] = SHX36_1
+SHX2_1[135] = SHX37_1
+SHX2_1[136] = SHX38_1
+SHX2_1[137] = SHX39_1
+SHX2_1[138] = SHX40_1
+SHX2_1[139] = SHX41_1
+SHX2_1[140] = SHX42_1
+SHX2_1[141] = SHX43_1
+SHX2_1[142] = SHX44_1
+SHX2_1[143] = SHX45_1
+SHX2_1[144] = SHX46_1
+SHX2_1[145] = SHX47_1
+SHX2_1[146] = SHX48_1
+SHX2_1[147] = SHX49_1
+SHX2_1[148] = SHX50_1
+SHX2_1[149] = SHX51_1
+SHX2_1[150] = SHX52_1
+SHX3_1 = "MP_H_01_Bathroom"
+SHX4_1 = "MP_H_01_Bedroom"
+SHX5_1 = "MP_H_01_New"
+SHX6_1 = "MP_H_01_New_Bathroom"
+SHX7_1 = "MP_H_01_New_Bedroom"
+SHX8_1 = "MP_H_01_New_Study"
+SHX9_1 = "MP_H_01_Study"
+SHX10_1 = "MP_H_02"
+SHX11_1 = "MP_H_04"
+SHX12_1 = "MP_H_06"
+SHX13_1 = "MP_Killstreak"
+SHX14_1 = "MP_Killstreak_blend"
+SHX15_1 = "MP_Loser"
+SHX16_1 = "MP_Loser_blend"
+SHX17_1 = "MP_MedGarage"
+SHX18_1 = "MP_Powerplay"
+SHX19_1 = "MP_Powerplay_blend"
+SHX20_1 = "MP_Studio_Lo"
+SHX21_1 = "MP_corona_heist"
+SHX22_1 = "MP_corona_heist_BW"
+SHX23_1 = "MP_corona_heist_BW_night"
+SHX24_1 = "MP_corona_heist_DOF"
+SHX25_1 = "MP_corona_heist_blend"
+SHX26_1 = "MP_corona_heist_night"
+SHX27_1 = "MP_corona_heist_night_blend"
+SHX28_1 = "MP_corona_selection"
+SHX29_1 = "MP_corona_switch"
+SHX30_1 = "MP_corona_tournament"
+SHX31_1 = "MP_corona_tournament_DOF"
+SHX32_1 = "MP_death_grade"
+SHX33_1 = "MP_death_grade_blend01"
+SHX34_1 = "MP_death_grade_blend02"
+SHX35_1 = "MP_deathfail_night"
+SHX36_1 = "MP_heli_cam"
+SHX37_1 = "MP_intro_logo"
+SHX38_1 = "MP_job_end_night"
+SHX39_1 = "MP_job_load"
+SHX40_1 = "MP_job_load_01"
+SHX41_1 = "MP_job_load_02"
+SHX42_1 = "MP_job_lose"
+SHX43_1 = "MP_job_preload"
+SHX44_1 = "MP_job_preload_blend"
+SHX45_1 = "MP_job_preload_night"
+SHX46_1 = "MP_job_win"
+SHX47_1 = "MP_lowgarage"
+SHX48_1 = "MP_race_finish"
+SHX49_1 = "MP_select"
+SHX50_1 = "MichaelColorCode"
+SHX51_1 = "MichaelColorCodeBasic"
+SHX52_1 = "MichaelColorCodeBright"
+SHX2_1[151] = SHX3_1
+SHX2_1[152] = SHX4_1
+SHX2_1[153] = SHX5_1
+SHX2_1[154] = SHX6_1
+SHX2_1[155] = SHX7_1
+SHX2_1[156] = SHX8_1
+SHX2_1[157] = SHX9_1
+SHX2_1[158] = SHX10_1
+SHX2_1[159] = SHX11_1
+SHX2_1[160] = SHX12_1
+SHX2_1[161] = SHX13_1
+SHX2_1[162] = SHX14_1
+SHX2_1[163] = SHX15_1
+SHX2_1[164] = SHX16_1
+SHX2_1[165] = SHX17_1
+SHX2_1[166] = SHX18_1
+SHX2_1[167] = SHX19_1
+SHX2_1[168] = SHX20_1
+SHX2_1[169] = SHX21_1
+SHX2_1[170] = SHX22_1
+SHX2_1[171] = SHX23_1
+SHX2_1[172] = SHX24_1
+SHX2_1[173] = SHX25_1
+SHX2_1[174] = SHX26_1
+SHX2_1[175] = SHX27_1
+SHX2_1[176] = SHX28_1
+SHX2_1[177] = SHX29_1
+SHX2_1[178] = SHX30_1
+SHX2_1[179] = SHX31_1
+SHX2_1[180] = SHX32_1
+SHX2_1[181] = SHX33_1
+SHX2_1[182] = SHX34_1
+SHX2_1[183] = SHX35_1
+SHX2_1[184] = SHX36_1
+SHX2_1[185] = SHX37_1
+SHX2_1[186] = SHX38_1
+SHX2_1[187] = SHX39_1
+SHX2_1[188] = SHX40_1
+SHX2_1[189] = SHX41_1
+SHX2_1[190] = SHX42_1
+SHX2_1[191] = SHX43_1
+SHX2_1[192] = SHX44_1
+SHX2_1[193] = SHX45_1
+SHX2_1[194] = SHX46_1
+SHX2_1[195] = SHX47_1
+SHX2_1[196] = SHX48_1
+SHX2_1[197] = SHX49_1
+SHX2_1[198] = SHX50_1
+SHX2_1[199] = SHX51_1
+SHX2_1[200] = SHX52_1
+SHX3_1 = "MichaelsDarkroom"
+SHX4_1 = "MichaelsDirectional"
+SHX5_1 = "MichaelsNODirectional"
+SHX6_1 = "Mp_Stilts"
+SHX7_1 = "Mp_Stilts2"
+SHX8_1 = "Mp_Stilts2_bath"
+SHX9_1 = "Mp_Stilts_gym"
+SHX10_1 = "Mp_Stilts_gym2"
+SHX11_1 = "Mp_apart_mid"
+SHX12_1 = "Multipayer_spectatorCam"
+SHX13_1 = "NEW_abattoir"
+SHX14_1 = "NEW_jewel"
+SHX15_1 = "NEW_jewel_EXIT"
+SHX16_1 = "NEW_lesters"
+SHX17_1 = "NEW_ornate_bank"
+SHX18_1 = "NEW_ornate_bank_entrance"
+SHX19_1 = "NEW_ornate_bank_office"
+SHX20_1 = "NEW_ornate_bank_safe"
+SHX21_1 = "NEW_shrinksOffice"
+SHX22_1 = "NEW_station_unfinished"
+SHX23_1 = "NEW_trevorstrailer"
+SHX24_1 = "NEW_tunnels"
+SHX25_1 = "NEW_tunnels_ditch"
+SHX26_1 = "NEW_tunnels_hole"
+SHX27_1 = "NEW_yellowtunnels"
+SHX28_1 = "NG_blackout"
+SHX29_1 = "NG_deathfail_BW_base"
+SHX30_1 = "NG_deathfail_BW_blend01"
+SHX31_1 = "NG_deathfail_BW_blend02"
+SHX32_1 = "NG_filmic01"
+SHX33_1 = "NG_filmic02"
+SHX34_1 = "NG_filmic03"
+SHX35_1 = "NG_filmic04"
+SHX36_1 = "NG_filmic05"
+SHX37_1 = "NG_filmic06"
+SHX38_1 = "NG_filmic07"
+SHX39_1 = "NG_filmic08"
+SHX40_1 = "NG_filmic09"
+SHX41_1 = "NG_filmic10"
+SHX42_1 = "NG_filmic11"
+SHX43_1 = "NG_filmic12"
+SHX44_1 = "NG_filmic13"
+SHX45_1 = "NG_filmic14"
+SHX46_1 = "NG_filmic15"
+SHX47_1 = "NG_filmic16"
+SHX48_1 = "NG_filmic17"
+SHX49_1 = "NG_filmic18"
+SHX50_1 = "NG_filmic19"
+SHX51_1 = "NG_filmic20"
+SHX52_1 = "NG_filmic21"
+SHX2_1[201] = SHX3_1
+SHX2_1[202] = SHX4_1
+SHX2_1[203] = SHX5_1
+SHX2_1[204] = SHX6_1
+SHX2_1[205] = SHX7_1
+SHX2_1[206] = SHX8_1
+SHX2_1[207] = SHX9_1
+SHX2_1[208] = SHX10_1
+SHX2_1[209] = SHX11_1
+SHX2_1[210] = SHX12_1
+SHX2_1[211] = SHX13_1
+SHX2_1[212] = SHX14_1
+SHX2_1[213] = SHX15_1
+SHX2_1[214] = SHX16_1
+SHX2_1[215] = SHX17_1
+SHX2_1[216] = SHX18_1
+SHX2_1[217] = SHX19_1
+SHX2_1[218] = SHX20_1
+SHX2_1[219] = SHX21_1
+SHX2_1[220] = SHX22_1
+SHX2_1[221] = SHX23_1
+SHX2_1[222] = SHX24_1
+SHX2_1[223] = SHX25_1
+SHX2_1[224] = SHX26_1
+SHX2_1[225] = SHX27_1
+SHX2_1[226] = SHX28_1
+SHX2_1[227] = SHX29_1
+SHX2_1[228] = SHX30_1
+SHX2_1[229] = SHX31_1
+SHX2_1[230] = SHX32_1
+SHX2_1[231] = SHX33_1
+SHX2_1[232] = SHX34_1
+SHX2_1[233] = SHX35_1
+SHX2_1[234] = SHX36_1
+SHX2_1[235] = SHX37_1
+SHX2_1[236] = SHX38_1
+SHX2_1[237] = SHX39_1
+SHX2_1[238] = SHX40_1
+SHX2_1[239] = SHX41_1
+SHX2_1[240] = SHX42_1
+SHX2_1[241] = SHX43_1
+SHX2_1[242] = SHX44_1
+SHX2_1[243] = SHX45_1
+SHX2_1[244] = SHX46_1
+SHX2_1[245] = SHX47_1
+SHX2_1[246] = SHX48_1
+SHX2_1[247] = SHX49_1
+SHX2_1[248] = SHX50_1
+SHX2_1[249] = SHX51_1
+SHX2_1[250] = SHX52_1
+SHX3_1 = "NG_filmic22"
+SHX4_1 = "NG_filmic23"
+SHX5_1 = "NG_filmic24"
+SHX6_1 = "NG_filmic25"
+SHX7_1 = "NG_filmnoir_BW01"
+SHX8_1 = "NG_filmnoir_BW02"
+SHX9_1 = "NG_first"
+SHX10_1 = "NO_coronas"
+SHX11_1 = "NO_fog_alpha"
+SHX12_1 = "NO_streetAmbient"
+SHX13_1 = "NO_weather"
+SHX14_1 = "NOdirectLight"
+SHX15_1 = "NOrain"
+SHX16_1 = "NeutralColorCode"
+SHX17_1 = "NeutralColorCodeBasic"
+SHX18_1 = "NeutralColorCodeBright"
+SHX19_1 = "NeutralColorCodeLight"
+SHX20_1 = "NewMicheal"
+SHX21_1 = "NewMicheal_night"
+SHX22_1 = "NewMicheal_upstairs"
+SHX23_1 = "NewMichealgirly"
+SHX24_1 = "NewMichealstoilet"
+SHX25_1 = "NewMichealupstairs"
+SHX26_1 = "New_sewers"
+SHX27_1 = "NoAmbientmult"
+SHX28_1 = "NoAmbientmult_interior"
+SHX29_1 = "NoPedLight"
+SHX30_1 = "OrbitalCannon"
+SHX31_1 = "PERSHING_water_reflect"
+SHX32_1 = "PORT_heist_underwater"
+SHX33_1 = "PPFilter"
+SHX34_1 = "PPGreen01"
+SHX35_1 = "PPGreen02"
+SHX36_1 = "PPOrange01"
+SHX37_1 = "PPOrange02"
+SHX38_1 = "PPPink01"
+SHX39_1 = "PPPink02"
+SHX40_1 = "PPPurple01"
+SHX41_1 = "PPPurple02"
+SHX42_1 = "Paleto"
+SHX43_1 = "PennedInDark"
+SHX44_1 = "PennedInLight"
+SHX45_1 = "PlayerSwitchNeutralFlash"
+SHX46_1 = "PlayerSwitchPulse"
+SHX47_1 = "PoliceStation"
+SHX48_1 = "PoliceStationDark"
+SHX49_1 = "Prologue_shootout_opt"
+SHX50_1 = "REDMIST"
+SHX51_1 = "REDMIST_blend"
+SHX52_1 = "RaceTurboDark"
+SHX2_1[251] = SHX3_1
+SHX2_1[252] = SHX4_1
+SHX2_1[253] = SHX5_1
+SHX2_1[254] = SHX6_1
+SHX2_1[255] = SHX7_1
+SHX2_1[256] = SHX8_1
+SHX2_1[257] = SHX9_1
+SHX2_1[258] = SHX10_1
+SHX2_1[259] = SHX11_1
+SHX2_1[260] = SHX12_1
+SHX2_1[261] = SHX13_1
+SHX2_1[262] = SHX14_1
+SHX2_1[263] = SHX15_1
+SHX2_1[264] = SHX16_1
+SHX2_1[265] = SHX17_1
+SHX2_1[266] = SHX18_1
+SHX2_1[267] = SHX19_1
+SHX2_1[268] = SHX20_1
+SHX2_1[269] = SHX21_1
+SHX2_1[270] = SHX22_1
+SHX2_1[271] = SHX23_1
+SHX2_1[272] = SHX24_1
+SHX2_1[273] = SHX25_1
+SHX2_1[274] = SHX26_1
+SHX2_1[275] = SHX27_1
+SHX2_1[276] = SHX28_1
+SHX2_1[277] = SHX29_1
+SHX2_1[278] = SHX30_1
+SHX2_1[279] = SHX31_1
+SHX2_1[280] = SHX32_1
+SHX2_1[281] = SHX33_1
+SHX2_1[282] = SHX34_1
+SHX2_1[283] = SHX35_1
+SHX2_1[284] = SHX36_1
+SHX2_1[285] = SHX37_1
+SHX2_1[286] = SHX38_1
+SHX2_1[287] = SHX39_1
+SHX2_1[288] = SHX40_1
+SHX2_1[289] = SHX41_1
+SHX2_1[290] = SHX42_1
+SHX2_1[291] = SHX43_1
+SHX2_1[292] = SHX44_1
+SHX2_1[293] = SHX45_1
+SHX2_1[294] = SHX46_1
+SHX2_1[295] = SHX47_1
+SHX2_1[296] = SHX48_1
+SHX2_1[297] = SHX49_1
+SHX2_1[298] = SHX50_1
+SHX2_1[299] = SHX51_1
+SHX2_1[300] = SHX52_1
+SHX3_1 = "RaceTurboFlash"
+SHX4_1 = "RaceTurboLight"
+SHX5_1 = "ReduceDrawDistance"
+SHX6_1 = "ReduceDrawDistanceMAP"
+SHX7_1 = "ReduceDrawDistanceMission"
+SHX8_1 = "ReduceSSAO"
+SHX9_1 = "RemixDrone"
+SHX10_1 = "RemoteSniper"
+SHX11_1 = "SALTONSEA"
+SHX12_1 = "SAWMILL"
+SHX13_1 = "SP1_03_drawDistance"
+SHX14_1 = "STRIP_changing"
+SHX15_1 = "STRIP_nofog"
+SHX16_1 = "STRIP_office"
+SHX17_1 = "STRIP_stage"
+SHX18_1 = "SheriffStation"
+SHX19_1 = "Shop247"
+SHX20_1 = "Shop247_none"
+SHX21_1 = "SmugglerCheckpoint01"
+SHX22_1 = "SmugglerCheckpoint02"
+SHX23_1 = "SmugglerFlash"
+SHX24_1 = "Sniper"
+SHX25_1 = "StadLobby"
+SHX26_1 = "StreetLighting"
+SHX27_1 = "StreetLightingJunction"
+SHX28_1 = "StreetLightingtraffic"
+SHX29_1 = "StuntFastDark"
+SHX30_1 = "StuntFastLight"
+SHX31_1 = "StuntSlowDark"
+SHX32_1 = "StuntSlowLight"
+SHX33_1 = "TREVOR"
+SHX34_1 = "TUNNEL_green"
+SHX35_1 = "TUNNEL_green_ext"
+SHX36_1 = "TUNNEL_orange"
+SHX37_1 = "TUNNEL_orange_exterior"
+SHX38_1 = "TUNNEL_white"
+SHX39_1 = "TUNNEL_yellow"
+SHX40_1 = "TUNNEL_yellow_ext"
+SHX41_1 = "TinyGreen01"
+SHX42_1 = "TinyGreen02"
+SHX43_1 = "TinyPink01"
+SHX44_1 = "TinyPink02"
+SHX45_1 = "TinyRacerMoBlur"
+SHX46_1 = "TransformFlash"
+SHX47_1 = "TransformRaceFlash"
+SHX48_1 = "TrevorColorCode"
+SHX49_1 = "TrevorColorCodeBasic"
+SHX50_1 = "TrevorColorCodeBright"
+SHX51_1 = "Trevors_room"
+SHX52_1 = "Tunnel"
+SHX2_1[301] = SHX3_1
+SHX2_1[302] = SHX4_1
+SHX2_1[303] = SHX5_1
+SHX2_1[304] = SHX6_1
+SHX2_1[305] = SHX7_1
+SHX2_1[306] = SHX8_1
+SHX2_1[307] = SHX9_1
+SHX2_1[308] = SHX10_1
+SHX2_1[309] = SHX11_1
+SHX2_1[310] = SHX12_1
+SHX2_1[311] = SHX13_1
+SHX2_1[312] = SHX14_1
+SHX2_1[313] = SHX15_1
+SHX2_1[314] = SHX16_1
+SHX2_1[315] = SHX17_1
+SHX2_1[316] = SHX18_1
+SHX2_1[317] = SHX19_1
+SHX2_1[318] = SHX20_1
+SHX2_1[319] = SHX21_1
+SHX2_1[320] = SHX22_1
+SHX2_1[321] = SHX23_1
+SHX2_1[322] = SHX24_1
+SHX2_1[323] = SHX25_1
+SHX2_1[324] = SHX26_1
+SHX2_1[325] = SHX27_1
+SHX2_1[326] = SHX28_1
+SHX2_1[327] = SHX29_1
+SHX2_1[328] = SHX30_1
+SHX2_1[329] = SHX31_1
+SHX2_1[330] = SHX32_1
+SHX2_1[331] = SHX33_1
+SHX2_1[332] = SHX34_1
+SHX2_1[333] = SHX35_1
+SHX2_1[334] = SHX36_1
+SHX2_1[335] = SHX37_1
+SHX2_1[336] = SHX38_1
+SHX2_1[337] = SHX39_1
+SHX2_1[338] = SHX40_1
+SHX2_1[339] = SHX41_1
+SHX2_1[340] = SHX42_1
+SHX2_1[341] = SHX43_1
+SHX2_1[342] = SHX44_1
+SHX2_1[343] = SHX45_1
+SHX2_1[344] = SHX46_1
+SHX2_1[345] = SHX47_1
+SHX2_1[346] = SHX48_1
+SHX2_1[347] = SHX49_1
+SHX2_1[348] = SHX50_1
+SHX2_1[349] = SHX51_1
+SHX2_1[350] = SHX52_1
+SHX3_1 = "Tunnel_green1"
+SHX4_1 = "VAGOS_new_garage"
+SHX5_1 = "VAGOS_new_hangout"
+SHX6_1 = "VC_tunnel_entrance"
+SHX7_1 = "V_Abattoir_Cold"
+SHX8_1 = "V_CIA_Facility"
+SHX9_1 = "V_FIB_IT3"
+SHX10_1 = "V_FIB_IT3_alt"
+SHX11_1 = "V_FIB_IT3_alt5"
+SHX12_1 = "V_FIB_stairs"
+SHX13_1 = "V_Metro2"
+SHX14_1 = "V_Metro_station"
+SHX15_1 = "V_Office_smoke"
+SHX16_1 = "V_Office_smoke_Fire"
+SHX17_1 = "V_Office_smoke_ext"
+SHX18_1 = "V_Solomons"
+SHX19_1 = "V_recycle_dark"
+SHX20_1 = "V_recycle_light"
+SHX21_1 = "V_recycle_mainroom"
+SHX22_1 = "V_strip_nofog"
+SHX23_1 = "V_strip_office"
+SHX24_1 = "Vagos"
+SHX25_1 = "VagosSPLASH"
+SHX26_1 = "VolticBlur"
+SHX27_1 = "VolticFlash"
+SHX28_1 = "VolticGold"
+SHX29_1 = "WATER_lab_cooling"
+SHX30_1 = "WATER_CH2_06_01_03"
+SHX31_1 = "WATER_CH2_06_02"
+SHX32_1 = "WATER_CH2_06_04"
+SHX33_1 = "WATER_ID2_21"
+SHX34_1 = "WATER_REF_malibu"
+SHX35_1 = "WATER_RichmanStuntJump"
+SHX36_1 = "WATER_cove"
+SHX37_1 = "WATER_hills"
+SHX38_1 = "WATER_lab"
+SHX39_1 = "WATER_militaryPOOP"
+SHX40_1 = "WATER_muddy"
+SHX41_1 = "WATER_port"
+SHX42_1 = "WATER_refmap_high"
+SHX43_1 = "WATER_refmap_hollywoodlake"
+SHX44_1 = "WATER_refmap_low"
+SHX45_1 = "WATER_refmap_med"
+SHX46_1 = "WATER_refmap_off"
+SHX47_1 = "WATER_refmap_poolside"
+SHX48_1 = "WATER_refmap_silverlake"
+SHX49_1 = "WATER_refmap_venice"
+SHX50_1 = "WATER_refmap_verylow"
+SHX51_1 = "WATER_resevoir"
+SHX52_1 = "WATER_river"
+SHX2_1[351] = SHX3_1
+SHX2_1[352] = SHX4_1
+SHX2_1[353] = SHX5_1
+SHX2_1[354] = SHX6_1
+SHX2_1[355] = SHX7_1
+SHX2_1[356] = SHX8_1
+SHX2_1[357] = SHX9_1
+SHX2_1[358] = SHX10_1
+SHX2_1[359] = SHX11_1
+SHX2_1[360] = SHX12_1
+SHX2_1[361] = SHX13_1
+SHX2_1[362] = SHX14_1
+SHX2_1[363] = SHX15_1
+SHX2_1[364] = SHX16_1
+SHX2_1[365] = SHX17_1
+SHX2_1[366] = SHX18_1
+SHX2_1[367] = SHX19_1
+SHX2_1[368] = SHX20_1
+SHX2_1[369] = SHX21_1
+SHX2_1[370] = SHX22_1
+SHX2_1[371] = SHX23_1
+SHX2_1[372] = SHX24_1
+SHX2_1[373] = SHX25_1
+SHX2_1[374] = SHX26_1
+SHX2_1[375] = SHX27_1
+SHX2_1[376] = SHX28_1
+SHX2_1[377] = SHX29_1
+SHX2_1[378] = SHX30_1
+SHX2_1[379] = SHX31_1
+SHX2_1[380] = SHX32_1
+SHX2_1[381] = SHX33_1
+SHX2_1[382] = SHX34_1
+SHX2_1[383] = SHX35_1
+SHX2_1[384] = SHX36_1
+SHX2_1[385] = SHX37_1
+SHX2_1[386] = SHX38_1
+SHX2_1[387] = SHX39_1
+SHX2_1[388] = SHX40_1
+SHX2_1[389] = SHX41_1
+SHX2_1[390] = SHX42_1
+SHX2_1[391] = SHX43_1
+SHX2_1[392] = SHX44_1
+SHX2_1[393] = SHX45_1
+SHX2_1[394] = SHX46_1
+SHX2_1[395] = SHX47_1
+SHX2_1[396] = SHX48_1
+SHX2_1[397] = SHX49_1
+SHX2_1[398] = SHX50_1
+SHX2_1[399] = SHX51_1
+SHX2_1[400] = SHX52_1
+SHX3_1 = "WATER_salton"
+SHX4_1 = "WATER_salton_bottom"
+SHX5_1 = "WATER_shore"
+SHX6_1 = "WATER_silty"
+SHX7_1 = "WATER_silverlake"
+SHX8_1 = "WarpCheckpoint"
+SHX9_1 = "WeaponUpgrade"
+SHX10_1 = "WhiteOut"
+SHX11_1 = "baseTONEMAPPING"
+SHX12_1 = "blackNwhite"
+SHX13_1 = "buggy_shack"
+SHX14_1 = "buildingTOP"
+SHX15_1 = "cBank_back"
+SHX16_1 = "cBank_front"
+SHX17_1 = "canyon_mission"
+SHX18_1 = "carMOD_underpass"
+SHX19_1 = "carpark"
+SHX20_1 = "carpark_dt1_02"
+SHX21_1 = "carpark_dt1_03"
+SHX22_1 = "cashdepot"
+SHX23_1 = "cashdepotEMERGENCY"
+SHX24_1 = "ch2_tunnel_whitelight"
+SHX25_1 = "cinema"
+SHX26_1 = "cinema_001"
+SHX27_1 = "cops"
+SHX28_1 = "crane_cam"
+SHX29_1 = "crane_cam_cinematic"
+SHX30_1 = "damage"
+SHX31_1 = "default"
+SHX32_1 = "dont_tazeme_bro_b"
+SHX33_1 = "downtown_FIB_cascades_opt"
+SHX34_1 = "drug_drive_blend01"
+SHX35_1 = "drug_drive_blend02"
+SHX36_1 = "drug_flying_01"
+SHX37_1 = "drug_flying_02"
+SHX38_1 = "drug_flying_base"
+SHX39_1 = "drug_wobbly"
+SHX40_1 = "dying"
+SHX41_1 = "eatra_bouncelight_beach"
+SHX42_1 = "epsilion"
+SHX43_1 = "exile1_exit"
+SHX44_1 = "exile1_plane"
+SHX45_1 = "ext_int_extlight_large"
+SHX46_1 = "eyeINtheSKY"
+SHX47_1 = "facebook_serveroom"
+SHX48_1 = "fireDEPT"
+SHX49_1 = "fp_vig_black"
+SHX50_1 = "fp_vig_blue"
+SHX51_1 = "fp_vig_brown"
+SHX52_1 = "fp_vig_gray"
+SHX2_1[401] = SHX3_1
+SHX2_1[402] = SHX4_1
+SHX2_1[403] = SHX5_1
+SHX2_1[404] = SHX6_1
+SHX2_1[405] = SHX7_1
+SHX2_1[406] = SHX8_1
+SHX2_1[407] = SHX9_1
+SHX2_1[408] = SHX10_1
+SHX2_1[409] = SHX11_1
+SHX2_1[410] = SHX12_1
+SHX2_1[411] = SHX13_1
+SHX2_1[412] = SHX14_1
+SHX2_1[413] = SHX15_1
+SHX2_1[414] = SHX16_1
+SHX2_1[415] = SHX17_1
+SHX2_1[416] = SHX18_1
+SHX2_1[417] = SHX19_1
+SHX2_1[418] = SHX20_1
+SHX2_1[419] = SHX21_1
+SHX2_1[420] = SHX22_1
+SHX2_1[421] = SHX23_1
+SHX2_1[422] = SHX24_1
+SHX2_1[423] = SHX25_1
+SHX2_1[424] = SHX26_1
+SHX2_1[425] = SHX27_1
+SHX2_1[426] = SHX28_1
+SHX2_1[427] = SHX29_1
+SHX2_1[428] = SHX30_1
+SHX2_1[429] = SHX31_1
+SHX2_1[430] = SHX32_1
+SHX2_1[431] = SHX33_1
+SHX2_1[432] = SHX34_1
+SHX2_1[433] = SHX35_1
+SHX2_1[434] = SHX36_1
+SHX2_1[435] = SHX37_1
+SHX2_1[436] = SHX38_1
+SHX2_1[437] = SHX39_1
+SHX2_1[438] = SHX40_1
+SHX2_1[439] = SHX41_1
+SHX2_1[440] = SHX42_1
+SHX2_1[441] = SHX43_1
+SHX2_1[442] = SHX44_1
+SHX2_1[443] = SHX45_1
+SHX2_1[444] = SHX46_1
+SHX2_1[445] = SHX47_1
+SHX2_1[446] = SHX48_1
+SHX2_1[447] = SHX49_1
+SHX2_1[448] = SHX50_1
+SHX2_1[449] = SHX51_1
+SHX2_1[450] = SHX52_1
+SHX3_1 = "fp_vig_green"
+SHX4_1 = "fp_vig_red"
+SHX5_1 = "frankilnsAUNTS_SUNdir"
+SHX6_1 = "frankilnsAUNTS_new"
+SHX7_1 = "gallery_refmod"
+SHX8_1 = "garage"
+SHX9_1 = "gen_bank"
+SHX10_1 = "glasses_Darkblue"
+SHX11_1 = "glasses_Scuba"
+SHX12_1 = "glasses_VISOR"
+SHX13_1 = "glasses_black"
+SHX14_1 = "glasses_blue"
+SHX15_1 = "glasses_brown"
+SHX16_1 = "glasses_green"
+SHX17_1 = "glasses_orange"
+SHX18_1 = "glasses_pink"
+SHX19_1 = "glasses_purple"
+SHX20_1 = "glasses_red"
+SHX21_1 = "glasses_yellow"
+SHX22_1 = "gorge_reflection_gpu"
+SHX23_1 = "gorge_reflectionoffset"
+SHX24_1 = "gorge_reflectionoffset2"
+SHX25_1 = "graveyard_shootout"
+SHX26_1 = "grdlc_int_02"
+SHX27_1 = "grdlc_int_02_trailer_cave"
+SHX28_1 = "gunclub"
+SHX29_1 = "gunclubrange"
+SHX30_1 = "gunshop"
+SHX31_1 = "gunstore"
+SHX32_1 = "half_direct"
+SHX33_1 = "hangar_lightsmod"
+SHX34_1 = "heathaze"
+SHX35_1 = "heist_boat"
+SHX36_1 = "heist_boat_engineRoom"
+SHX37_1 = "heist_boat_norain"
+SHX38_1 = "heliGunCam"
+SHX39_1 = "helicamfirst"
+SHX40_1 = "hillstunnel"
+SHX41_1 = "hitped"
+SHX42_1 = "hud_def_Franklin"
+SHX43_1 = "hud_def_Michael"
+SHX44_1 = "hud_def_Trevor"
+SHX45_1 = "hud_def_blur"
+SHX46_1 = "hud_def_blur_switch"
+SHX47_1 = "hud_def_colorgrade"
+SHX48_1 = "hud_def_desat_Franklin"
+SHX49_1 = "hud_def_desat_Michael"
+SHX50_1 = "hud_def_desat_Neutral"
+SHX51_1 = "hud_def_desat_Trevor"
+SHX52_1 = "hud_def_desat_cold"
+SHX2_1[451] = SHX3_1
+SHX2_1[452] = SHX4_1
+SHX2_1[453] = SHX5_1
+SHX2_1[454] = SHX6_1
+SHX2_1[455] = SHX7_1
+SHX2_1[456] = SHX8_1
+SHX2_1[457] = SHX9_1
+SHX2_1[458] = SHX10_1
+SHX2_1[459] = SHX11_1
+SHX2_1[460] = SHX12_1
+SHX2_1[461] = SHX13_1
+SHX2_1[462] = SHX14_1
+SHX2_1[463] = SHX15_1
+SHX2_1[464] = SHX16_1
+SHX2_1[465] = SHX17_1
+SHX2_1[466] = SHX18_1
+SHX2_1[467] = SHX19_1
+SHX2_1[468] = SHX20_1
+SHX2_1[469] = SHX21_1
+SHX2_1[470] = SHX22_1
+SHX2_1[471] = SHX23_1
+SHX2_1[472] = SHX24_1
+SHX2_1[473] = SHX25_1
+SHX2_1[474] = SHX26_1
+SHX2_1[475] = SHX27_1
+SHX2_1[476] = SHX28_1
+SHX2_1[477] = SHX29_1
+SHX2_1[478] = SHX30_1
+SHX2_1[479] = SHX31_1
+SHX2_1[480] = SHX32_1
+SHX2_1[481] = SHX33_1
+SHX2_1[482] = SHX34_1
+SHX2_1[483] = SHX35_1
+SHX2_1[484] = SHX36_1
+SHX2_1[485] = SHX37_1
+SHX2_1[486] = SHX38_1
+SHX2_1[487] = SHX39_1
+SHX2_1[488] = SHX40_1
+SHX2_1[489] = SHX41_1
+SHX2_1[490] = SHX42_1
+SHX2_1[491] = SHX43_1
+SHX2_1[492] = SHX44_1
+SHX2_1[493] = SHX45_1
+SHX2_1[494] = SHX46_1
+SHX2_1[495] = SHX47_1
+SHX2_1[496] = SHX48_1
+SHX2_1[497] = SHX49_1
+SHX2_1[498] = SHX50_1
+SHX2_1[499] = SHX51_1
+SHX2_1[500] = SHX52_1
+SHX3_1 = "hud_def_desat_cold_kill"
+SHX4_1 = "hud_def_desat_switch"
+SHX5_1 = "hud_def_desatcrunch"
+SHX6_1 = "hud_def_flash"
+SHX7_1 = "hud_def_focus"
+SHX8_1 = "hud_def_lensdistortion"
+SHX9_1 = "hud_def_lensdistortion_subtle"
+SHX10_1 = "id1_11_tunnel"
+SHX11_1 = "impexp_interior_01_lift"
+SHX12_1 = "int_Barber1"
+SHX13_1 = "int_ClothesHi"
+SHX14_1 = "int_ControlTower_none"
+SHX15_1 = "int_ControlTower_small"
+SHX16_1 = "int_Farmhouse_none"
+SHX17_1 = "int_Farmhouse_small"
+SHX18_1 = "int_FranklinAunt_small"
+SHX19_1 = "int_GasStation"
+SHX20_1 = "int_Hospital2_DM"
+SHX21_1 = "int_Hospital_Blue"
+SHX22_1 = "int_Hospital_BlueB"
+SHX23_1 = "int_Hospital_DM"
+SHX24_1 = "int_Lost_none"
+SHX25_1 = "int_Lost_small"
+SHX26_1 = "int_amb_mult_large"
+SHX27_1 = "int_arena_01"
+SHX28_1 = "int_arena_Mod"
+SHX29_1 = "int_arena_Mod_garage"
+SHX30_1 = "int_arena_VIP"
+SHX31_1 = "int_carmod_small"
+SHX32_1 = "int_carrier_control"
+SHX33_1 = "int_carrier_control_2"
+SHX34_1 = "int_carrier_hanger"
+SHX35_1 = "int_carrier_rear"
+SHX36_1 = "int_carrier_stair"
+SHX37_1 = "int_carshowroom"
+SHX38_1 = "int_chopshop"
+SHX39_1 = "int_clean_extlight_large"
+SHX40_1 = "int_clean_extlight_none"
+SHX41_1 = "int_clean_extlight_small"
+SHX42_1 = "int_clotheslow_large"
+SHX43_1 = "int_cluckinfactory_none"
+SHX44_1 = "int_cluckinfactory_small"
+SHX45_1 = "int_dockcontrol_small"
+SHX46_1 = "int_extlght_sm_cntrst"
+SHX47_1 = "int_extlight_large"
+SHX48_1 = "int_extlight_large_fog"
+SHX49_1 = "int_extlight_none"
+SHX50_1 = "int_extlight_none_dark"
+SHX51_1 = "int_extlight_none_dark_fog"
+SHX52_1 = "int_extlight_none_fog"
+SHX2_1[501] = SHX3_1
+SHX2_1[502] = SHX4_1
+SHX2_1[503] = SHX5_1
+SHX2_1[504] = SHX6_1
+SHX2_1[505] = SHX7_1
+SHX2_1[506] = SHX8_1
+SHX2_1[507] = SHX9_1
+SHX2_1[508] = SHX10_1
+SHX2_1[509] = SHX11_1
+SHX2_1[510] = SHX12_1
+SHX2_1[511] = SHX13_1
+SHX2_1[512] = SHX14_1
+SHX2_1[513] = SHX15_1
+SHX2_1[514] = SHX16_1
+SHX2_1[515] = SHX17_1
+SHX2_1[516] = SHX18_1
+SHX2_1[517] = SHX19_1
+SHX2_1[518] = SHX20_1
+SHX2_1[519] = SHX21_1
+SHX2_1[520] = SHX22_1
+SHX2_1[521] = SHX23_1
+SHX2_1[522] = SHX24_1
+SHX2_1[523] = SHX25_1
+SHX2_1[524] = SHX26_1
+SHX2_1[525] = SHX27_1
+SHX2_1[526] = SHX28_1
+SHX2_1[527] = SHX29_1
+SHX2_1[528] = SHX30_1
+SHX2_1[529] = SHX31_1
+SHX2_1[530] = SHX32_1
+SHX2_1[531] = SHX33_1
+SHX2_1[532] = SHX34_1
+SHX2_1[533] = SHX35_1
+SHX2_1[534] = SHX36_1
+SHX2_1[535] = SHX37_1
+SHX2_1[536] = SHX38_1
+SHX2_1[537] = SHX39_1
+SHX2_1[538] = SHX40_1
+SHX2_1[539] = SHX41_1
+SHX2_1[540] = SHX42_1
+SHX2_1[541] = SHX43_1
+SHX2_1[542] = SHX44_1
+SHX2_1[543] = SHX45_1
+SHX2_1[544] = SHX46_1
+SHX2_1[545] = SHX47_1
+SHX2_1[546] = SHX48_1
+SHX2_1[547] = SHX49_1
+SHX2_1[548] = SHX50_1
+SHX2_1[549] = SHX51_1
+SHX2_1[550] = SHX52_1
+SHX3_1 = "int_extlight_small"
+SHX4_1 = "int_extlight_small_clipped"
+SHX5_1 = "int_extlight_small_fog"
+SHX6_1 = "int_hanger_none"
+SHX7_1 = "int_hanger_small"
+SHX8_1 = "int_hospital_dark"
+SHX9_1 = "int_hospital_small"
+SHX10_1 = "int_lesters"
+SHX11_1 = "int_methlab_small"
+SHX12_1 = "int_motelroom"
+SHX13_1 = "int_office_Lobby"
+SHX14_1 = "int_office_LobbyHall"
+SHX15_1 = "int_tattoo"
+SHX16_1 = "int_tattoo_B"
+SHX17_1 = "int_tunnel_none_dark"
+SHX18_1 = "interior_WATER_lighting"
+SHX19_1 = "introblue"
+SHX20_1 = "jewel_gas"
+SHX21_1 = "jewel_optim"
+SHX22_1 = "jewelry_entrance"
+SHX23_1 = "jewelry_entrance_INT"
+SHX24_1 = "jewelry_entrance_INT_fog"
+SHX25_1 = "lab_none"
+SHX26_1 = "lab_none_dark"
+SHX27_1 = "lab_none_dark_OVR"
+SHX28_1 = "lab_none_dark_fog"
+SHX29_1 = "lab_none_exit"
+SHX30_1 = "lab_none_exit_OVR"
+SHX31_1 = "li"
+SHX32_1 = "lightning"
+SHX33_1 = "lightning_cloud"
+SHX34_1 = "lightning_strong"
+SHX35_1 = "lightning_weak"
+SHX36_1 = "lightpolution"
+SHX37_1 = "lodscaler"
+SHX38_1 = "maxlodscaler"
+SHX39_1 = "metro"
+SHX40_1 = "micheal"
+SHX41_1 = "micheals_lightsOFF"
+SHX42_1 = "michealspliff"
+SHX43_1 = "michealspliff_blend"
+SHX44_1 = "michealspliff_blend02"
+SHX45_1 = "militarybase_nightlight"
+SHX46_1 = "mineshaft"
+SHX47_1 = "morebloom"
+SHX48_1 = "morgue_dark"
+SHX49_1 = "morgue_dark_ovr"
+SHX50_1 = "mp_battle_int01"
+SHX51_1 = "mp_battle_int01_dancefloor"
+SHX52_1 = "mp_battle_int01_dancefloor_OFF"
+SHX2_1[551] = SHX3_1
+SHX2_1[552] = SHX4_1
+SHX2_1[553] = SHX5_1
+SHX2_1[554] = SHX6_1
+SHX2_1[555] = SHX7_1
+SHX2_1[556] = SHX8_1
+SHX2_1[557] = SHX9_1
+SHX2_1[558] = SHX10_1
+SHX2_1[559] = SHX11_1
+SHX2_1[560] = SHX12_1
+SHX2_1[561] = SHX13_1
+SHX2_1[562] = SHX14_1
+SHX2_1[563] = SHX15_1
+SHX2_1[564] = SHX16_1
+SHX2_1[565] = SHX17_1
+SHX2_1[566] = SHX18_1
+SHX2_1[567] = SHX19_1
+SHX2_1[568] = SHX20_1
+SHX2_1[569] = SHX21_1
+SHX2_1[570] = SHX22_1
+SHX2_1[571] = SHX23_1
+SHX2_1[572] = SHX24_1
+SHX2_1[573] = SHX25_1
+SHX2_1[574] = SHX26_1
+SHX2_1[575] = SHX27_1
+SHX2_1[576] = SHX28_1
+SHX2_1[577] = SHX29_1
+SHX2_1[578] = SHX30_1
+SHX2_1[579] = SHX31_1
+SHX2_1[580] = SHX32_1
+SHX2_1[581] = SHX33_1
+SHX2_1[582] = SHX34_1
+SHX2_1[583] = SHX35_1
+SHX2_1[584] = SHX36_1
+SHX2_1[585] = SHX37_1
+SHX2_1[586] = SHX38_1
+SHX2_1[587] = SHX39_1
+SHX2_1[588] = SHX40_1
+SHX2_1[589] = SHX41_1
+SHX2_1[590] = SHX42_1
+SHX2_1[591] = SHX43_1
+SHX2_1[592] = SHX44_1
+SHX2_1[593] = SHX45_1
+SHX2_1[594] = SHX46_1
+SHX2_1[595] = SHX47_1
+SHX2_1[596] = SHX48_1
+SHX2_1[597] = SHX49_1
+SHX2_1[598] = SHX50_1
+SHX2_1[599] = SHX51_1
+SHX2_1[600] = SHX52_1
+SHX3_1 = "mp_battle_int01_entry"
+SHX4_1 = "mp_battle_int01_garage"
+SHX5_1 = "mp_battle_int01_office"
+SHX6_1 = "mp_battle_int02"
+SHX7_1 = "mp_battle_int03"
+SHX8_1 = "mp_battle_int03_tint1"
+SHX9_1 = "mp_battle_int03_tint2"
+SHX10_1 = "mp_battle_int03_tint3"
+SHX11_1 = "mp_battle_int03_tint4"
+SHX12_1 = "mp_battle_int03_tint5"
+SHX13_1 = "mp_battle_int03_tint6"
+SHX14_1 = "mp_battle_int03_tint7"
+SHX15_1 = "mp_battle_int03_tint8"
+SHX16_1 = "mp_battle_int03_tint9"
+SHX17_1 = "mp_bkr_int01_garage"
+SHX18_1 = "mp_bkr_int01_small_rooms"
+SHX19_1 = "mp_bkr_int01_transition"
+SHX20_1 = "mp_bkr_int02_garage"
+SHX21_1 = "mp_bkr_int02_hangout"
+SHX22_1 = "mp_bkr_int02_small_rooms"
+SHX23_1 = "mp_bkr_ware01"
+SHX24_1 = "mp_bkr_ware02_dry"
+SHX25_1 = "mp_bkr_ware02_standard"
+SHX26_1 = "mp_bkr_ware02_upgrade"
+SHX27_1 = "mp_bkr_ware03_basic"
+SHX28_1 = "mp_bkr_ware03_upgrade"
+SHX29_1 = "mp_bkr_ware04"
+SHX30_1 = "mp_bkr_ware05"
+SHX31_1 = "mp_exec_office_01"
+SHX32_1 = "mp_exec_office_02"
+SHX33_1 = "mp_exec_office_03"
+SHX34_1 = "mp_exec_office_03C"
+SHX35_1 = "mp_exec_office_03_blue"
+SHX36_1 = "mp_exec_office_04"
+SHX37_1 = "mp_exec_office_05"
+SHX38_1 = "mp_exec_office_06"
+SHX39_1 = "mp_exec_warehouse_01"
+SHX40_1 = "mp_gr_int01_black"
+SHX41_1 = "mp_gr_int01_grey"
+SHX42_1 = "mp_gr_int01_white"
+SHX43_1 = "mp_h_05"
+SHX44_1 = "mp_h_07"
+SHX45_1 = "mp_h_08"
+SHX46_1 = "mp_imx_intwaremed"
+SHX47_1 = "mp_imx_intwaremed_office"
+SHX48_1 = "mp_imx_mod_int_01"
+SHX49_1 = "mp_lad_day"
+SHX50_1 = "mp_lad_judgment"
+SHX51_1 = "mp_lad_night"
+SHX52_1 = "mp_nightshark_shield_fp"
+SHX2_1[601] = SHX3_1
+SHX2_1[602] = SHX4_1
+SHX2_1[603] = SHX5_1
+SHX2_1[604] = SHX6_1
+SHX2_1[605] = SHX7_1
+SHX2_1[606] = SHX8_1
+SHX2_1[607] = SHX9_1
+SHX2_1[608] = SHX10_1
+SHX2_1[609] = SHX11_1
+SHX2_1[610] = SHX12_1
+SHX2_1[611] = SHX13_1
+SHX2_1[612] = SHX14_1
+SHX2_1[613] = SHX15_1
+SHX2_1[614] = SHX16_1
+SHX2_1[615] = SHX17_1
+SHX2_1[616] = SHX18_1
+SHX2_1[617] = SHX19_1
+SHX2_1[618] = SHX20_1
+SHX2_1[619] = SHX21_1
+SHX2_1[620] = SHX22_1
+SHX2_1[621] = SHX23_1
+SHX2_1[622] = SHX24_1
+SHX2_1[623] = SHX25_1
+SHX2_1[624] = SHX26_1
+SHX2_1[625] = SHX27_1
+SHX2_1[626] = SHX28_1
+SHX2_1[627] = SHX29_1
+SHX2_1[628] = SHX30_1
+SHX2_1[629] = SHX31_1
+SHX2_1[630] = SHX32_1
+SHX2_1[631] = SHX33_1
+SHX2_1[632] = SHX34_1
+SHX2_1[633] = SHX35_1
+SHX2_1[634] = SHX36_1
+SHX2_1[635] = SHX37_1
+SHX2_1[636] = SHX38_1
+SHX2_1[637] = SHX39_1
+SHX2_1[638] = SHX40_1
+SHX2_1[639] = SHX41_1
+SHX2_1[640] = SHX42_1
+SHX2_1[641] = SHX43_1
+SHX2_1[642] = SHX44_1
+SHX2_1[643] = SHX45_1
+SHX2_1[644] = SHX46_1
+SHX2_1[645] = SHX47_1
+SHX2_1[646] = SHX48_1
+SHX2_1[647] = SHX49_1
+SHX2_1[648] = SHX50_1
+SHX2_1[649] = SHX51_1
+SHX2_1[650] = SHX52_1
+SHX3_1 = "mp_smg_int01_han"
+SHX4_1 = "mp_smg_int01_han_blue"
+SHX5_1 = "mp_smg_int01_han_red"
+SHX6_1 = "mp_smg_int01_han_yellow"
+SHX7_1 = "mp_x17dlc_base"
+SHX8_1 = "mp_x17dlc_base_dark"
+SHX9_1 = "mp_x17dlc_base_darkest"
+SHX10_1 = "mp_x17dlc_facility"
+SHX11_1 = "mp_x17dlc_facility2"
+SHX12_1 = "mp_x17dlc_facility_conference"
+SHX13_1 = "mp_x17dlc_in_sub"
+SHX14_1 = "mp_x17dlc_in_sub_no_reflection"
+SHX15_1 = "mp_x17dlc_int_01"
+SHX16_1 = "mp_x17dlc_int_01_tint1"
+SHX17_1 = "mp_x17dlc_int_01_tint2"
+SHX18_1 = "mp_x17dlc_int_01_tint3"
+SHX19_1 = "mp_x17dlc_int_01_tint4"
+SHX20_1 = "mp_x17dlc_int_01_tint5"
+SHX21_1 = "mp_x17dlc_int_01_tint6"
+SHX22_1 = "mp_x17dlc_int_01_tint7"
+SHX23_1 = "mp_x17dlc_int_01_tint8"
+SHX24_1 = "mp_x17dlc_int_01_tint9"
+SHX25_1 = "mp_x17dlc_int_02"
+SHX26_1 = "mp_x17dlc_int_02_hangar"
+SHX27_1 = "mp_x17dlc_int_02_outdoor_intro_camera"
+SHX28_1 = "mp_x17dlc_int_02_tint1"
+SHX29_1 = "mp_x17dlc_int_02_tint2"
+SHX30_1 = "mp_x17dlc_int_02_tint3"
+SHX31_1 = "mp_x17dlc_int_02_tint4"
+SHX32_1 = "mp_x17dlc_int_02_tint5"
+SHX33_1 = "mp_x17dlc_int_02_tint6"
+SHX34_1 = "mp_x17dlc_int_02_tint7"
+SHX35_1 = "mp_x17dlc_int_02_tint8"
+SHX36_1 = "mp_x17dlc_int_02_tint9"
+SHX37_1 = "mp_x17dlc_int_02_vehicle_avenger_camera"
+SHX38_1 = "mp_x17dlc_int_02_vehicle_workshop_camera"
+SHX39_1 = "mp_x17dlc_int_02_weapon_avenger_camera"
+SHX40_1 = "mp_x17dlc_int_silo"
+SHX41_1 = "mp_x17dlc_int_silo_escape"
+SHX42_1 = "mp_x17dlc_lab"
+SHX43_1 = "mp_x17dlc_lab_loading_bay"
+SHX44_1 = "mugShot"
+SHX45_1 = "mugShot_lineup"
+SHX46_1 = "multiplayer_ped_fight"
+SHX47_1 = "nervousRON_fog"
+SHX48_1 = "new_MP_Garage_L"
+SHX49_1 = "new_bank"
+SHX50_1 = "new_stripper_changing"
+SHX51_1 = "new_tunnels_entrance"
+SHX52_1 = "nextgen"
+SHX2_1[651] = SHX3_1
+SHX2_1[652] = SHX4_1
+SHX2_1[653] = SHX5_1
+SHX2_1[654] = SHX6_1
+SHX2_1[655] = SHX7_1
+SHX2_1[656] = SHX8_1
+SHX2_1[657] = SHX9_1
+SHX2_1[658] = SHX10_1
+SHX2_1[659] = SHX11_1
+SHX2_1[660] = SHX12_1
+SHX2_1[661] = SHX13_1
+SHX2_1[662] = SHX14_1
+SHX2_1[663] = SHX15_1
+SHX2_1[664] = SHX16_1
+SHX2_1[665] = SHX17_1
+SHX2_1[666] = SHX18_1
+SHX2_1[667] = SHX19_1
+SHX2_1[668] = SHX20_1
+SHX2_1[669] = SHX21_1
+SHX2_1[670] = SHX22_1
+SHX2_1[671] = SHX23_1
+SHX2_1[672] = SHX24_1
+SHX2_1[673] = SHX25_1
+SHX2_1[674] = SHX26_1
+SHX2_1[675] = SHX27_1
+SHX2_1[676] = SHX28_1
+SHX2_1[677] = SHX29_1
+SHX2_1[678] = SHX30_1
+SHX2_1[679] = SHX31_1
+SHX2_1[680] = SHX32_1
+SHX2_1[681] = SHX33_1
+SHX2_1[682] = SHX34_1
+SHX2_1[683] = SHX35_1
+SHX2_1[684] = SHX36_1
+SHX2_1[685] = SHX37_1
+SHX2_1[686] = SHX38_1
+SHX2_1[687] = SHX39_1
+SHX2_1[688] = SHX40_1
+SHX2_1[689] = SHX41_1
+SHX2_1[690] = SHX42_1
+SHX2_1[691] = SHX43_1
+SHX2_1[692] = SHX44_1
+SHX2_1[693] = SHX45_1
+SHX2_1[694] = SHX46_1
+SHX2_1[695] = SHX47_1
+SHX2_1[696] = SHX48_1
+SHX2_1[697] = SHX49_1
+SHX2_1[698] = SHX50_1
+SHX2_1[699] = SHX51_1
+SHX2_1[700] = SHX52_1
+SHX3_1 = "nightvision"
+SHX4_1 = "overwater"
+SHX5_1 = "paleto_nightlight"
+SHX6_1 = "paleto_opt"
+SHX7_1 = "phone_cam"
+SHX8_1 = "phone_cam1"
+SHX9_1 = "phone_cam10"
+SHX10_1 = "phone_cam11"
+SHX11_1 = "phone_cam12"
+SHX12_1 = "phone_cam13"
+SHX13_1 = "phone_cam2"
+SHX14_1 = "phone_cam3"
+SHX15_1 = "phone_cam3_REMOVED"
+SHX16_1 = "phone_cam4"
+SHX17_1 = "phone_cam5"
+SHX18_1 = "phone_cam6"
+SHX19_1 = "phone_cam7"
+SHX20_1 = "phone_cam8"
+SHX21_1 = "phone_cam8_REMOVED"
+SHX22_1 = "phone_cam9"
+SHX23_1 = "plane_inside_mode"
+SHX24_1 = "player_transition"
+SHX25_1 = "player_transition_no_scanlines"
+SHX26_1 = "player_transition_scanlines"
+SHX27_1 = "plaza_carpark"
+SHX28_1 = "polluted"
+SHX29_1 = "poolsidewaterreflection2"
+SHX30_1 = "powerplant_nightlight"
+SHX31_1 = "powerstation"
+SHX32_1 = "prison_nightlight"
+SHX33_1 = "projector"
+SHX34_1 = "prologue"
+SHX35_1 = "prologue_ending_fog"
+SHX36_1 = "prologue_ext_art_amb"
+SHX37_1 = "prologue_reflection_opt"
+SHX38_1 = "prologue_shootout"
+SHX39_1 = "pulse"
+SHX40_1 = "ranch"
+SHX41_1 = "reducelightingcost"
+SHX42_1 = "reducewaterREF"
+SHX43_1 = "refit"
+SHX44_1 = "reflection_correct_ambient"
+SHX45_1 = "resvoire_reflection"
+SHX46_1 = "rply_brightness"
+SHX47_1 = "rply_brightness_neg"
+SHX48_1 = "rply_contrast"
+SHX49_1 = "rply_contrast_neg"
+SHX50_1 = "rply_motionblur"
+SHX51_1 = "rply_saturation"
+SHX52_1 = "rply_saturation_neg"
+SHX2_1[701] = SHX3_1
+SHX2_1[702] = SHX4_1
+SHX2_1[703] = SHX5_1
+SHX2_1[704] = SHX6_1
+SHX2_1[705] = SHX7_1
+SHX2_1[706] = SHX8_1
+SHX2_1[707] = SHX9_1
+SHX2_1[708] = SHX10_1
+SHX2_1[709] = SHX11_1
+SHX2_1[710] = SHX12_1
+SHX2_1[711] = SHX13_1
+SHX2_1[712] = SHX14_1
+SHX2_1[713] = SHX15_1
+SHX2_1[714] = SHX16_1
+SHX2_1[715] = SHX17_1
+SHX2_1[716] = SHX18_1
+SHX2_1[717] = SHX19_1
+SHX2_1[718] = SHX20_1
+SHX2_1[719] = SHX21_1
+SHX2_1[720] = SHX22_1
+SHX2_1[721] = SHX23_1
+SHX2_1[722] = SHX24_1
+SHX2_1[723] = SHX25_1
+SHX2_1[724] = SHX26_1
+SHX2_1[725] = SHX27_1
+SHX2_1[726] = SHX28_1
+SHX2_1[727] = SHX29_1
+SHX2_1[728] = SHX30_1
+SHX2_1[729] = SHX31_1
+SHX2_1[730] = SHX32_1
+SHX2_1[731] = SHX33_1
+SHX2_1[732] = SHX34_1
+SHX2_1[733] = SHX35_1
+SHX2_1[734] = SHX36_1
+SHX2_1[735] = SHX37_1
+SHX2_1[736] = SHX38_1
+SHX2_1[737] = SHX39_1
+SHX2_1[738] = SHX40_1
+SHX2_1[739] = SHX41_1
+SHX2_1[740] = SHX42_1
+SHX2_1[741] = SHX43_1
+SHX2_1[742] = SHX44_1
+SHX2_1[743] = SHX45_1
+SHX2_1[744] = SHX46_1
+SHX2_1[745] = SHX47_1
+SHX2_1[746] = SHX48_1
+SHX2_1[747] = SHX49_1
+SHX2_1[748] = SHX50_1
+SHX2_1[749] = SHX51_1
+SHX2_1[750] = SHX52_1
+SHX3_1 = "rply_vignette"
+SHX4_1 = "rply_vignette_neg"
+SHX5_1 = "sandyshore_nightlight"
+SHX6_1 = "scanline_cam"
+SHX7_1 = "scanline_cam_cheap"
+SHX8_1 = "scope_zoom_in"
+SHX9_1 = "scope_zoom_out"
+SHX10_1 = "secret_camera"
+SHX11_1 = "services_nightlight"
+SHX12_1 = "shades_pink"
+SHX13_1 = "shades_yellow"
+SHX14_1 = "ship_explosion_underwater"
+SHX15_1 = "ship_lighting"
+SHX16_1 = "sleeping"
+SHX17_1 = "spectator1"
+SHX18_1 = "spectator10"
+SHX19_1 = "spectator2"
+SHX20_1 = "spectator3"
+SHX21_1 = "spectator4"
+SHX22_1 = "spectator5"
+SHX23_1 = "spectator6"
+SHX24_1 = "spectator7"
+SHX25_1 = "spectator8"
+SHX26_1 = "spectator9"
+SHX27_1 = "stc_coroners"
+SHX28_1 = "stc_deviant_bedroom"
+SHX29_1 = "stc_deviant_lounge"
+SHX30_1 = "stc_franklinsHouse"
+SHX31_1 = "stc_trevors"
+SHX32_1 = "stoned"
+SHX33_1 = "stoned_aliens"
+SHX34_1 = "stoned_cutscene"
+SHX35_1 = "stoned_monkeys"
+SHX36_1 = "subBASE_water_ref"
+SHX37_1 = "sunglasses"
+SHX38_1 = "superDARK"
+SHX39_1 = "switch_cam_1"
+SHX40_1 = "switch_cam_2"
+SHX41_1 = "telescope"
+SHX42_1 = "torpedo"
+SHX43_1 = "traffic_skycam"
+SHX44_1 = "trailer_explosion_optimise"
+SHX45_1 = "trevorspliff"
+SHX46_1 = "trevorspliff_blend"
+SHX47_1 = "trevorspliff_blend02"
+SHX48_1 = "tunnel_entrance"
+SHX49_1 = "tunnel_entrance_INT"
+SHX50_1 = "tunnel_id1_11"
+SHX51_1 = "ufo"
+SHX52_1 = "ufo_deathray"
+SHX2_1[751] = SHX3_1
+SHX2_1[752] = SHX4_1
+SHX2_1[753] = SHX5_1
+SHX2_1[754] = SHX6_1
+SHX2_1[755] = SHX7_1
+SHX2_1[756] = SHX8_1
+SHX2_1[757] = SHX9_1
+SHX2_1[758] = SHX10_1
+SHX2_1[759] = SHX11_1
+SHX2_1[760] = SHX12_1
+SHX2_1[761] = SHX13_1
+SHX2_1[762] = SHX14_1
+SHX2_1[763] = SHX15_1
+SHX2_1[764] = SHX16_1
+SHX2_1[765] = SHX17_1
+SHX2_1[766] = SHX18_1
+SHX2_1[767] = SHX19_1
+SHX2_1[768] = SHX20_1
+SHX2_1[769] = SHX21_1
+SHX2_1[770] = SHX22_1
+SHX2_1[771] = SHX23_1
+SHX2_1[772] = SHX24_1
+SHX2_1[773] = SHX25_1
+SHX2_1[774] = SHX26_1
+SHX2_1[775] = SHX27_1
+SHX2_1[776] = SHX28_1
+SHX2_1[777] = SHX29_1
+SHX2_1[778] = SHX30_1
+SHX2_1[779] = SHX31_1
+SHX2_1[780] = SHX32_1
+SHX2_1[781] = SHX33_1
+SHX2_1[782] = SHX34_1
+SHX2_1[783] = SHX35_1
+SHX2_1[784] = SHX36_1
+SHX2_1[785] = SHX37_1
+SHX2_1[786] = SHX38_1
+SHX2_1[787] = SHX39_1
+SHX2_1[788] = SHX40_1
+SHX2_1[789] = SHX41_1
+SHX2_1[790] = SHX42_1
+SHX2_1[791] = SHX43_1
+SHX2_1[792] = SHX44_1
+SHX2_1[793] = SHX45_1
+SHX2_1[794] = SHX46_1
+SHX2_1[795] = SHX47_1
+SHX2_1[796] = SHX48_1
+SHX2_1[797] = SHX49_1
+SHX2_1[798] = SHX50_1
+SHX2_1[799] = SHX51_1
+SHX2_1[800] = SHX52_1
+SHX3_1 = "underwater"
+SHX4_1 = "underwater_deep"
+SHX5_1 = "underwater_deep_clear"
+SHX6_1 = "v_abattoir"
+SHX7_1 = "v_bahama"
+SHX8_1 = "v_cashdepot"
+SHX9_1 = "v_dark"
+SHX10_1 = "v_foundry"
+SHX11_1 = "v_janitor"
+SHX12_1 = "v_jewel2"
+SHX13_1 = "v_metro"
+SHX14_1 = "v_michael"
+SHX15_1 = "v_michael_lounge"
+SHX16_1 = "v_recycle"
+SHX17_1 = "v_rockclub"
+SHX18_1 = "v_strip3"
+SHX19_1 = "v_strpchangerm"
+SHX20_1 = "v_sweat"
+SHX21_1 = "v_sweat_NoDirLight"
+SHX22_1 = "v_sweat_entrance"
+SHX23_1 = "v_torture"
+SHX24_1 = "vagos_extlight_small"
+SHX25_1 = "vehicle_subint"
+SHX26_1 = "venice_canal_tunnel"
+SHX27_1 = "vespucci_garage"
+SHX28_1 = "warehouse"
+SHX29_1 = "whitenightlighting"
+SHX30_1 = "winning_room"
+SHX31_1 = "yacht_DLC"
+SHX32_1 = "yell_tunnel_nodirect"
+SHX2_1[801] = SHX3_1
+SHX2_1[802] = SHX4_1
+SHX2_1[803] = SHX5_1
+SHX2_1[804] = SHX6_1
+SHX2_1[805] = SHX7_1
+SHX2_1[806] = SHX8_1
+SHX2_1[807] = SHX9_1
+SHX2_1[808] = SHX10_1
+SHX2_1[809] = SHX11_1
+SHX2_1[810] = SHX12_1
+SHX2_1[811] = SHX13_1
+SHX2_1[812] = SHX14_1
+SHX2_1[813] = SHX15_1
+SHX2_1[814] = SHX16_1
+SHX2_1[815] = SHX17_1
+SHX2_1[816] = SHX18_1
+SHX2_1[817] = SHX19_1
+SHX2_1[818] = SHX20_1
+SHX2_1[819] = SHX21_1
+SHX2_1[820] = SHX22_1
+SHX2_1[821] = SHX23_1
+SHX2_1[822] = SHX24_1
+SHX2_1[823] = SHX25_1
+SHX2_1[824] = SHX26_1
+SHX2_1[825] = SHX27_1
+SHX2_1[826] = SHX28_1
+SHX2_1[827] = SHX29_1
+SHX2_1[828] = SHX30_1
+SHX2_1[829] = SHX31_1
+SHX2_1[830] = SHX32_1
+SHX3_1 = 1
+SHX4_1 = {}
+SHX5_1 = 0.1
+SHX6_1 = 2.0
+SHX7_1 = 0.1
+for SHX8_1 = SHX5_1, SHX6_1, SHX7_1 do
+  SHX9_1 = _ENV
+  SHX10_1 = "table"
+  SHX9_1 = SHX9_1[SHX10_1]
+  SHX10_1 = "insert"
+  SHX9_1 = SHX9_1[SHX10_1]
+  SHX10_1 = SHX4_1
+  SHX11_1 = SHX8_1
+  SHX9_1(SHX10_1, SHX11_1)
+end
+SHX5_1 = {}
+SHX6_1 = "DEATH_FAIL_IN_EFFECT_SHAKE"
+SHX7_1 = "DRUNK_SHAKE"
+SHX8_1 = "FAMILY5_DRUG_TRIP_SHAKE"
+SHX9_1 = "HAND_SHAKE"
+SHX10_1 = "JOLT_SHAKE"
+SHX11_1 = "LARGE_EXPLOSION_SHAKE"
+SHX12_1 = "MEDIUM_EXPLOSION_SHAKE"
+SHX13_1 = "SMALL_EXPLOSION_SHAKE"
+SHX14_1 = "ROAD_VIBRATION_SHAKE"
+SHX15_1 = "SKY_DIVING_SHAKE"
+SHX16_1 = "VIBRATE_SHAKE"
+SHX17_1 = "KILL_SHOT_SHAKE"
+SHX5_1[1] = SHX6_1
+SHX5_1[2] = SHX7_1
+SHX5_1[3] = SHX8_1
+SHX5_1[4] = SHX9_1
+SHX5_1[5] = SHX10_1
+SHX5_1[6] = SHX11_1
+SHX5_1[7] = SHX12_1
+SHX5_1[8] = SHX13_1
+SHX5_1[9] = SHX14_1
+SHX5_1[10] = SHX15_1
+SHX5_1[11] = SHX16_1
+SHX5_1[12] = SHX17_1
+SHX6_1 = {}
+SHX7_1 = 1
+SHX8_1 = 135
+SHX9_1 = 1
+for SHX10_1 = SHX7_1, SHX8_1, SHX9_1 do
+  SHX11_1 = _ENV
+  SHX12_1 = "table"
+  SHX11_1 = SHX11_1[SHX12_1]
+  SHX12_1 = "insert"
+  SHX11_1 = SHX11_1[SHX12_1]
+  SHX12_1 = SHX6_1
+  SHX13_1 = SHX10_1
+  SHX11_1(SHX12_1, SHX13_1)
+end
+SHX7_1 = {}
+SHX8_1 = "Static Camera"
+SHX9_1 = "Interpolation Camera"
+SHX7_1[1] = SHX8_1
+SHX7_1[2] = SHX9_1
+SHX8_1 = {}
+SHX9_1 = "Curved"
+SHX10_1 = "Smooth"
+SHX8_1[1] = SHX9_1
+SHX8_1[2] = SHX10_1
+SHX9_1 = {}
+SHX10_1 = "Smooth"
+SHX11_1 = 0
+SHX9_1[SHX10_1] = SHX11_1
+SHX10_1 = "Curved"
+SHX11_1 = 5
+SHX9_1[SHX10_1] = SHX11_1
+SHX10_1 = {}
+SHX11_1 = ""
+SHX12_1 = false
+SHX13_1 = 0
+SHX14_1 = 1
+SHX15_1 = nil
+SHX16_1 = nil
+SHX17_1 = nil
+SHX18_1 = ""
+SHX19_1 = 1
+SHX20_1 = 1
+SHX21_1 = ""
+SHX22_1 = nil
+SHX23_1 = 1
+SHX24_1 = false
+SHX25_1 = {}
+SHX26_1 = 0
+SHX27_1 = 0
+SHX28_1 = 23
+SHX29_1 = 1
+for SHX30_1 = SHX27_1, SHX28_1, SHX29_1 do
+  SHX25_1[SHX30_1] = SHX30_1
+end
+SHX27_1 = {}
+SHX28_1 = 0
+SHX29_1 = 59
+SHX30_1 = 1
+for SHX31_1 = SHX28_1, SHX29_1, SHX30_1 do
+  SHX27_1[SHX31_1] = SHX31_1
+end
+SHX28_1 = 0
+SHX29_1 = {}
+SHX30_1 = 0
+SHX31_1 = 59
+SHX32_1 = 1
+for SHX33_1 = SHX30_1, SHX31_1, SHX32_1 do
+  SHX29_1[SHX33_1] = SHX33_1
+end
+SHX30_1 = 0
+SHX31_1 = {}
+SHX32_1 = 1
+SHX33_1 = 300
+SHX34_1 = 1
+for SHX35_1 = SHX32_1, SHX33_1, SHX34_1 do
+  SHX36_1 = SHX35_1 - 1
+  SHX37_1 = 10
+  SHX36_1 = SHX36_1 * SHX37_1
+  SHX37_1 = 0.001
+  SHX36_1 = SHX36_1 + SHX37_1
+  SHX31_1[SHX35_1] = SHX36_1
+end
+SHX32_1 = 1
+SHX33_1 = 1
+SHX34_1 = 1
+SHX35_1 = 1
+SHX36_1 = {}
+SHX37_1 = "EXTRASUNNY"
+SHX38_1 = "CLEAR"
+SHX39_1 = "NEUTRAL"
+SHX40_1 = "SMOG"
+SHX41_1 = "FOGGY"
+SHX42_1 = "OVERCAST"
+SHX43_1 = "CLOUDS"
+SHX44_1 = "CLEARING"
+SHX45_1 = "RAIN"
+SHX46_1 = "THUNDER"
+SHX47_1 = "SNOW"
+SHX48_1 = "BLIZZARD"
+SHX49_1 = "SNOWLIGHT"
+SHX50_1 = "XMAS"
+SHX51_1 = "HALLOWEEN"
+SHX36_1[1] = SHX37_1
+SHX36_1[2] = SHX38_1
+SHX36_1[3] = SHX39_1
+SHX36_1[4] = SHX40_1
+SHX36_1[5] = SHX41_1
+SHX36_1[6] = SHX42_1
+SHX36_1[7] = SHX43_1
+SHX36_1[8] = SHX44_1
+SHX36_1[9] = SHX45_1
+SHX36_1[10] = SHX46_1
+SHX36_1[11] = SHX47_1
+SHX36_1[12] = SHX48_1
+SHX36_1[13] = SHX49_1
+SHX36_1[14] = SHX50_1
+SHX36_1[15] = SHX51_1
+SHX37_1 = 1
+SHX38_1 = nil
+SHX39_1 = _ENV
+SHX40_1 = "Citizen"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "CreateThread"
+SHX39_1 = SHX39_1[SHX40_1]
+function SHX40_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2, SHX2_2
+  SHX0_2 = json
+  SHX0_2 = SHX0_2.decode
+  SHX1_2 = GetResourceKvpString
+  SHX2_2 = "cmg_scenedata"
+  SHX1_2 = SHX1_2(SHX2_2)
+  if not SHX1_2 then
+    SHX1_2 = "{}"
+  end
+  SHX0_2 = SHX0_2(SHX1_2)
+  if not SHX0_2 then
+    SHX0_2 = {}
+  end
+  SHX10_1 = SHX0_2
+end
+SHX39_1(SHX40_1)
+SHX39_1 = _ENV
+SHX40_1 = "RegisterNetEvent"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "7d4716cb33"
+function SHX41_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2
+  SHX0_2 = CMG
+  SHX0_2 = SHX0_2.getPlayerCombatTimer
+  SHX0_2 = SHX0_2()
+  if 0 == SHX0_2 then
+    SHX0_2 = SHX0_1
+    SHX1_2 = true
+    SHX0_2(SHX1_2)
+  end
+end
+SHX39_1(SHX40_1, SHX41_1)
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "createCinematicScene"
+function SHX41_1(SHX0_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
+  SHX1_2 = SHX10_1
+  SHX2_2 = {}
+  SHX1_2[SHX0_2] = SHX2_2
+  SHX1_2 = SetResourceKvp
+  SHX2_2 = "cmg_scenedata"
+  SHX3_2 = json
+  SHX3_2 = SHX3_2.encode
+  SHX4_2 = SHX10_1
+  SHX3_2, SHX4_2 = SHX3_2(SHX4_2)
+  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX1_2 = tCMG
+  SHX1_2 = SHX1_2.notify
+  SHX2_2 = "~g~Scene created & saved."
+  SHX1_2(SHX2_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "deleteCinematicScene"
+function SHX41_1(SHX0_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
+  SHX1_2 = SHX10_1
+  SHX1_2[SHX0_2] = nil
+  SHX1_2 = SetResourceKvp
+  SHX2_2 = "cmg_scenedata"
+  SHX3_2 = json
+  SHX3_2 = SHX3_2.encode
+  SHX4_2 = SHX10_1
+  SHX3_2, SHX4_2 = SHX3_2(SHX4_2)
+  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX1_2 = tCMG
+  SHX1_2 = SHX1_2.notify
+  SHX2_2 = "~g~Scene deleted & saved."
+  SHX1_2(SHX2_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "createCamera"
+function SHX41_1(SHX0_2, SHX1_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
+  SHX2_2 = SHX10_1
+  SHX2_2 = SHX2_2[SHX0_2]
+  SHX2_2 = #SHX2_2
+  if 0 == SHX2_2 then
+    SHX1_2.transition = 100
+  end
+  SHX2_2 = table
+  SHX2_2 = SHX2_2.insert
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX4_2 = SHX1_2
+  SHX2_2(SHX3_2, SHX4_2)
+  SHX2_2 = SHX10_1
+  SHX2_2 = SHX2_2[SHX0_2]
+  SHX2_2 = #SHX2_2
+  SHX14_1 = SHX2_2
+  SHX3_2 = SHX11_1
+  SHX2_2 = SHX10_1
+  SHX2_2 = SHX2_2[SHX3_2]
+  SHX3_2 = SHX14_1
+  SHX2_2 = SHX2_2[SHX3_2]
+  SHX2_2 = SHX2_2.type
+  if "Static Camera" == SHX2_2 then
+    SHX2_2 = 1
+    SHX19_1 = SHX2_2
+  else
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX3_2 = SHX14_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2.type
+    if "Interpolation Camera" == SHX2_2 then
+      SHX2_2 = 2
+      SHX19_1 = SHX2_2
+    end
+  end
+  SHX3_2 = SHX11_1
+  SHX2_2 = SHX10_1
+  SHX2_2 = SHX2_2[SHX3_2]
+  SHX3_2 = SHX14_1
+  SHX2_2 = SHX2_2[SHX3_2]
+  SHX2_2 = SHX2_2.blending
+  if 0 == SHX2_2 then
+    SHX2_2 = 2
+    SHX20_1 = SHX2_2
+  else
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX3_2 = SHX14_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2.blending
+    if 5 == SHX2_2 then
+      SHX2_2 = 1
+      SHX20_1 = SHX2_2
+    end
+  end
+  SHX2_2 = SetResourceKvp
+  SHX3_2 = "cmg_scenedata"
+  SHX4_2 = json
+  SHX4_2 = SHX4_2.encode
+  SHX5_2 = SHX10_1
+  SHX4_2, SHX5_2 = SHX4_2(SHX5_2)
+  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  SHX2_2 = tCMG
+  SHX2_2 = SHX2_2.notify
+  SHX3_2 = "~g~Camera created & saved."
+  SHX2_2(SHX3_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyCamera"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2[SHX2_2] = SHX1_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Camera modified & saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "deleteCamera"
+function SHX41_1(SHX0_2, SHX1_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
+  SHX2_2 = table
+  SHX2_2 = SHX2_2.remove
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX4_2 = SHX1_2
+  SHX2_2(SHX3_2, SHX4_2)
+  SHX2_2 = SetResourceKvp
+  SHX3_2 = "cmg_scenedata"
+  SHX4_2 = json
+  SHX4_2 = SHX4_2.encode
+  SHX5_2 = SHX10_1
+  SHX4_2, SHX5_2 = SHX4_2(SHX5_2)
+  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  SHX2_2 = tCMG
+  SHX2_2 = SHX2_2.notify
+  SHX3_2 = "~g~Camera deleted & saved."
+  SHX2_2(SHX3_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyTransition"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX4_2 = tonumber
+  SHX5_2 = SHX2_2
+  SHX4_2 = SHX4_2(SHX5_2)
+  SHX3_2.transition = SHX4_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Transition change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyCameraBlending"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX4_2 = SHX9_1
+  SHX4_2 = SHX4_2[SHX2_2]
+  SHX3_2.blending = SHX4_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Camera Blending change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyScreeneffect"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX3_2.screeneffect = SHX2_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Screeneffect change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyTimecycleEffect"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX3_2.timecycleEffect = SHX2_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Timecycle Effect change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "setTimecycleIntensity"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX3_2.timecycleIntensity = SHX2_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Timecycle intensity change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyShakeEffect"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX3_2.shake = SHX2_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Shake change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "modifyCameraType"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX3_2 = SHX10_1
+  SHX3_2 = SHX3_2[SHX0_2]
+  SHX3_2 = SHX3_2[SHX1_2]
+  SHX3_2.type = SHX2_2
+  SHX3_2 = SetResourceKvp
+  SHX4_2 = "cmg_scenedata"
+  SHX5_2 = json
+  SHX5_2 = SHX5_2.encode
+  SHX6_2 = SHX10_1
+  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
+  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  SHX3_2 = tCMG
+  SHX3_2 = SHX3_2.notify
+  SHX4_2 = "~g~Camera type change saved."
+  SHX3_2(SHX4_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "addCameraFocus"
+function SHX41_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX4_2, SHX5_2, SHX6_2, SHX7_2
+  SHX4_2 = SHX10_1
+  SHX4_2 = SHX4_2[SHX0_2]
+  SHX4_2 = SHX4_2[SHX1_2]
+  SHX4_2.focusType = SHX2_2
+  SHX4_2 = SHX10_1
+  SHX4_2 = SHX4_2[SHX0_2]
+  SHX4_2 = SHX4_2[SHX1_2]
+  SHX4_2.focusData = SHX3_2
+  SHX4_2 = SetResourceKvp
+  SHX5_2 = "cmg_scenedata"
+  SHX6_2 = json
+  SHX6_2 = SHX6_2.encode
+  SHX7_2 = SHX10_1
+  SHX6_2, SHX7_2 = SHX6_2(SHX7_2)
+  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
+  SHX4_2 = tCMG
+  SHX4_2 = SHX4_2.notify
+  SHX5_2 = "~g~Follow player change saved."
+  SHX4_2(SHX5_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+SHX39_1 = _ENV
+SHX40_1 = "CMG"
+SHX39_1 = SHX39_1[SHX40_1]
+SHX40_1 = "setCameraFov"
+function SHX41_1(SHX0_2, SHX1_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
+  SHX2_2 = SHX10_1
+  SHX2_2 = SHX2_2[SHX0_2]
+  SHX2_2 = SHX2_2[SHX1_2]
+  SHX4_2 = SHX23_1
+  SHX3_2 = SHX6_1
+  SHX3_2 = SHX3_2[SHX4_2]
+  SHX2_2.fov = SHX3_2
+  SHX2_2 = SetResourceKvp
+  SHX3_2 = "cmg_scenedata"
+  SHX4_2 = json
+  SHX4_2 = SHX4_2.encode
+  SHX5_2 = SHX10_1
+  SHX4_2, SHX5_2 = SHX4_2(SHX5_2)
+  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  SHX2_2 = tCMG
+  SHX2_2 = SHX2_2.notify
+  SHX3_2 = "~g~FOV change saved."
+  SHX2_2(SHX3_2)
+end
+SHX39_1[SHX40_1] = SHX41_1
+function SHX39_1(SHX0_2, SHX1_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX2_2, SHX3_2, SHX4_2
+  SHX2_2 = SHX1_2.position
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX3_2 = GetEntityCoords
+    SHX4_2 = PlayerPedId
+    SHX4_2 = SHX4_2()
+    SHX3_2 = SHX3_2(SHX4_2)
+    SHX2_2.position = SHX3_2
+  end
+  SHX2_2 = SHX1_2.rotation
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX3_2 = GetGameplayCamRot
+    SHX4_2 = 0
+    SHX3_2 = SHX3_2(SHX4_2)
+    SHX2_2.rotation = SHX3_2
+  end
+  SHX2_2 = SHX1_2.transition
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.transition = 5000
+  end
+  SHX2_2 = SHX1_2.type
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX3_2 = SHX18_1
+    SHX2_2.type = SHX3_2
+  end
+  SHX2_2 = SHX1_2.screeneffect
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.screeneffect = ""
+  end
+  SHX2_2 = SHX1_2.timecycleEffect
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.timecycleEffect = ""
+  end
+  SHX2_2 = SHX1_2.timecycleIntensity
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.timecycleIntensity = 1.0
+  end
+  SHX2_2 = SHX1_2.focusType
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.focusType = ""
+  end
+  SHX2_2 = SHX1_2.focusData
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.focusData = 0
+  end
+  SHX2_2 = SHX1_2.shake
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.shake = ""
+  end
+  SHX2_2 = SHX1_2.fov
+  if nil == SHX2_2 then
+    SHX3_2 = SHX11_1
+    SHX2_2 = SHX10_1
+    SHX2_2 = SHX2_2[SHX3_2]
+    SHX2_2 = SHX2_2[SHX0_2]
+    SHX2_2.fov = 65.0
+  end
+end
+function SHX40_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
+  SHX0_2 = SHX15_1
+  if SHX0_2 then
+    SHX0_2 = DestroyCam
+    SHX1_2 = SHX15_1
+    SHX2_2 = false
+    SHX0_2(SHX1_2, SHX2_2)
+    SHX0_2 = RenderScriptCams
+    SHX1_2 = false
+    SHX2_2 = false
+    SHX3_2 = 1
+    SHX4_2 = true
+    SHX5_2 = true
+    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  end
+  SHX0_2 = ClearFocus
+  SHX0_2()
+end
+function SHX41_1(SHX0_2)
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX1_2, SHX2_2
+  SHX1_2 = Citizen
+  SHX1_2 = SHX1_2.CreateThread
+  function SHX2_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3
+    SHX0_3 = clearNativeText
+    SHX0_3()
+    SHX0_3 = SHX16_1
+    if SHX0_3 then
+      SHX0_3 = DestroyCam
+      SHX1_3 = SHX16_1
+      SHX2_3 = false
+      SHX0_3(SHX1_3, SHX2_3)
+      SHX0_3 = RenderScriptCams
+      SHX1_3 = false
+      SHX2_3 = false
+      SHX3_3 = 1
+      SHX4_3 = true
+      SHX5_3 = true
+      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+    end
+    SHX0_3 = DoesCamExist
+    SHX1_3 = SHX16_1
+    SHX0_3 = SHX0_3(SHX1_3)
+    if not SHX0_3 then
+      SHX0_3 = CreateCam
+      SHX1_3 = "DEFAULT_SCRIPTED_CAMERA"
+      SHX2_3 = true
+      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
+      SHX16_1 = SHX0_3
+      SHX0_3 = SetCamActive
+      SHX1_3 = SHX16_1
+      SHX2_3 = true
+      SHX0_3(SHX1_3, SHX2_3)
+      SHX0_3 = RenderScriptCams
+      SHX1_3 = true
+      SHX2_3 = true
+      SHX3_3 = 0
+      SHX4_3 = true
+      SHX5_3 = false
+      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+    end
+    SHX0_3 = print
+    SHX1_3 = "initiating render"
+    SHX0_3(SHX1_3)
+    SHX0_3 = nil
+    SHX1_3 = pairs
+    SHX3_3 = SHX0_2
+    SHX2_3 = SHX10_1
+    SHX2_3 = SHX2_3[SHX3_3]
+    SHX1_3, SHX2_3, SHX3_3, SHX4_3 = SHX1_3(SHX2_3)
+    for SHX5_3, SHX6_3 in SHX1_3, SHX2_3, SHX3_3, SHX4_3 do
+      SHX7_3 = CreateCameraWithParams
+      SHX8_3 = "DEFAULT_SCRIPTED_CAMERA"
+      SHX9_3 = SHX6_3.position
+      SHX9_3 = SHX9_3.x
+      SHX10_3 = SHX6_3.position
+      SHX10_3 = SHX10_3.y
+      SHX11_3 = SHX6_3.position
+      SHX11_3 = SHX11_3.z
+      SHX12_3 = SHX6_3.rotation
+      SHX12_3 = SHX12_3.x
+      SHX13_3 = SHX6_3.rotation
+      SHX13_3 = SHX13_3.y
+      SHX14_3 = SHX6_3.rotation
+      SHX14_3 = SHX14_3.z
+      SHX15_3 = SHX6_3.fov
+      if not SHX15_3 then
+        SHX15_3 = 65.0
+      end
+      SHX15_3 = SHX15_3 + 0.001
+      SHX16_3 = false
+      SHX17_3 = 2
+      SHX7_3 = SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3)
+      SHX22_1 = SHX7_3
+      SHX7_3 = SHX6_3.type
+      if "Static Camera" == SHX7_3 then
+        SHX7_3 = SetCamActive
+        SHX8_3 = SHX22_1
+        SHX9_3 = true
+        SHX7_3(SHX8_3, SHX9_3)
+      else
+        SHX7_3 = SHX6_3.type
+        if "Interpolation Camera" == SHX7_3 then
+          SHX7_3 = SetCamActiveWithInterp
+          SHX8_3 = SHX22_1
+          SHX9_3 = SHX0_3
+          SHX10_3 = SHX6_3.transition
+          SHX11_3 = SHX6_3.blending
+          if not SHX11_3 then
+            SHX11_3 = 5
+          end
+          SHX12_3 = SHX6_3.blending
+          if not SHX12_3 then
+            SHX12_3 = 5
+          end
+          SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+        end
+      end
+      SHX7_3 = SHX6_3.focusType
+      if "" ~= SHX7_3 then
+        SHX7_3 = SHX6_3.focusType
+        if "player" == SHX7_3 then
+          SHX7_3 = GetPlayerPed
+          SHX8_3 = SHX6_3.focusData
+          SHX7_3 = SHX7_3(SHX8_3)
+          if SHX7_3 then
+            SHX8_3 = PointCamAtEntity
+            SHX9_3 = SHX22_1
+            SHX10_3 = SHX7_3
+            SHX11_3 = 1
+            SHX12_3 = 1
+            SHX13_3 = 1
+            SHX14_3 = true
+            SHX8_3(SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3)
+          else
+            SHX8_3 = print
+            SHX9_3 = "[CMG Cinematic] Failed to point cam at player, could not get entity."
+            SHX8_3(SHX9_3)
+          end
+        else
+          SHX7_3 = SHX6_3.focusType
+          if "coord" == SHX7_3 then
+            SHX7_3 = PointCamAtCoord
+            SHX8_3 = SHX22_1
+            SHX9_3 = SHX6_3.focusData
+            SHX9_3 = SHX9_3.x
+            SHX10_3 = SHX6_3.focusData
+            SHX10_3 = SHX10_3.y
+            SHX11_3 = SHX6_3.focusData
+            SHX11_3 = SHX11_3.z
+            SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3)
+          end
+        end
+      end
+      SHX7_3 = SHX6_3.shake
+      if "" ~= SHX7_3 then
+        SHX7_3 = ShakeCam
+        SHX8_3 = SHX22_1
+        SHX9_3 = SHX6_3.shake
+        SHX10_3 = 1.0
+        SHX7_3(SHX8_3, SHX9_3, SHX10_3)
+      end
+      SHX7_3 = SHX6_3.screeneffect
+      if "Default" ~= SHX7_3 then
+        SHX7_3 = SHX6_3.screeneffect
+        if "" ~= SHX7_3 then
+          SHX7_3 = AnimpostfxPlay
+          SHX8_3 = SHX6_3.screeneffect
+          SHX9_3 = SHX6_3.transition
+          SHX10_3 = false
+          SHX7_3(SHX8_3, SHX9_3, SHX10_3)
+        end
+      end
+      SHX7_3 = SHX6_3.timecycleEffect
+      if "Default" ~= SHX7_3 then
+        SHX7_3 = SHX6_3.timecycleEffect
+        if "" ~= SHX7_3 then
+          SHX7_3 = SetTimecycleModifier
+          SHX8_3 = SHX6_3.timecycleEffect
+          SHX7_3(SHX8_3)
+          SHX7_3 = SetTimecycleModifierStrength
+          SHX8_3 = SHX6_3.timecycleIntensity
+          SHX7_3(SHX8_3)
+        end
+      end
+      SHX0_3 = SHX22_1
+      SHX7_3 = Wait
+      SHX8_3 = SHX6_3.transition
+      SHX7_3(SHX8_3)
+      SHX7_3 = AnimpostfxStopAll
+      SHX7_3()
+      SHX7_3 = ClearTimecycleModifier
+      SHX7_3()
+    end
+    SHX1_3 = DestroyCam
+    SHX2_3 = SHX22_1
+    SHX3_3 = false
+    SHX1_3(SHX2_3, SHX3_3)
+    SHX1_3 = RenderScriptCams
+    SHX2_3 = false
+    SHX3_3 = false
+    SHX4_3 = 1
+    SHX5_3 = true
+    SHX6_3 = true
+    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
+    SHX1_3 = nil
+    SHX22_1 = SHX1_3
+    SHX1_3 = DestroyCam
+    SHX2_3 = SHX0_3
+    SHX3_3 = false
+    SHX1_3(SHX2_3, SHX3_3)
+    SHX1_3 = RenderScriptCams
+    SHX2_3 = false
+    SHX3_3 = false
+    SHX4_3 = 1
+    SHX5_3 = true
+    SHX6_3 = true
+    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
+    SHX1_3 = ClearFocus
+    SHX1_3()
+  end
+  SHX1_2(SHX2_2)
+end
+SHX42_1 = _ENV
+SHX43_1 = "RageUI"
+SHX42_1 = SHX42_1[SHX43_1]
+SHX43_1 = "CreateWhile"
+SHX42_1 = SHX42_1[SHX43_1]
+SHX43_1 = 1.0
+SHX44_1 = _ENV
+SHX45_1 = "RMenu"
+SHX44_1 = SHX44_1[SHX45_1]
+SHX46_1 = "Get"
+SHX45_1 = SHX44_1
+SHX44_1 = SHX44_1[SHX46_1]
+SHX46_1 = "mainmenu"
+SHX47_1 = "cinematic"
+SHX44_1 = SHX44_1(SHX45_1, SHX46_1, SHX47_1)
+SHX45_1 = nil
+function SHX46_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "mainmenu"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
+    SHX0_3 = CMG
+    SHX0_3 = SHX0_3.getPlayerCombatTimer
+    SHX0_3 = SHX0_3()
+    if SHX0_3 > 0 then
+      SHX0_3 = RageUI
+      SHX0_3 = SHX0_3.CloseAll
+      SHX0_3()
+    end
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Create Scene"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4, SHX5_4
+      if SHX2_4 then
+        SHX3_4 = CMG
+        SHX3_4 = SHX3_4.GetRageInputText
+        SHX4_4 = "Scene Name"
+        SHX3_4 = SHX3_4(SHX4_4)
+        if "" ~= SHX3_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.createCinematicScene
+          SHX5_4 = SHX3_4
+          SHX4_4(SHX5_4)
+        end
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "mainmenu"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Load Scene"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "load_scene"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Weather/Time Editor"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "weather_time_manager"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Delete Scene"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4, SHX5_4
+      if SHX2_4 then
+        SHX3_4 = CMG
+        SHX3_4 = SHX3_4.GetRageInputText
+        SHX4_4 = "Scene Name"
+        SHX3_4 = SHX3_4(SHX4_4)
+        if "" ~= SHX3_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.deleteCinematicScene
+          SHX5_4 = SHX3_4
+          SHX4_4(SHX5_4)
+        end
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "mainmenu"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "UI Visiblity"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "settingsmenu"
+    SHX9_3 = "uivisibility"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = CMG
+    SHX0_3 = SHX0_3.getPlayerBucket
+    SHX0_3 = SHX0_3()
+    if 420 == SHX0_3 then
+      SHX1_3 = "Leave"
+      if SHX1_3 then
+        goto SHX_LABEL_93
+      end
+    end
+    SHX1_3 = "Enter"
+    -- [FIX IF ERROR] Move ::SHX_LABEL_93:: outside nested blocks until all 'goto SHX_LABEL_93' can see it
+    ::SHX_LABEL_93::
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.ButtonWithStyle
+    SHX3_3 = SHX1_3
+    SHX4_3 = " Cinematic World"
+    SHX3_3 = SHX3_3 .. SHX4_3
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX5_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4
+      if SHX2_4 then
+        SHX3_4 = tCMG
+        SHX3_4 = SHX3_4.canAnim
+        SHX3_4 = SHX3_4()
+        if SHX3_4 then
+          SHX3_4 = CMG
+          SHX3_4 = SHX3_4.getPlayerCombatTimer
+          SHX3_4 = SHX3_4()
+          if 0 == SHX3_4 then
+            SHX3_4 = CMG
+            SHX3_4 = SHX3_4.getPlayerVehicle
+            SHX3_4 = SHX3_4()
+            if 0 == SHX3_4 then
+              SHX3_4 = CMG
+              SHX3_4 = SHX3_4.isPlayerInRedZone
+              SHX3_4 = SHX3_4()
+              if not SHX3_4 then
+                SHX3_4 = SHX0_3
+                if 0 ~= SHX3_4 then
+                  SHX3_4 = SHX0_3
+                  if 420 ~= SHX3_4 then
+                    goto SHX_LABEL_33
+                  end
+                end
+                SHX3_4 = TriggerServerEvent
+                SHX4_4 = "076f7eba26"
+                SHX3_4(SHX4_4)
+            end
+          end
+        end
+        else
+          -- [FIX IF ERROR] Move ::SHX_LABEL_33:: outside nested blocks until all 'goto SHX_LABEL_33' can see it
+          ::SHX_LABEL_33::
+          SHX3_4 = notify
+          SHX4_4 = "~r~You can not do this right now."
+          SHX3_4(SHX4_4)
+        end
+      end
+    end
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.ButtonWithStyle
+    SHX3_3 = CMG
+    SHX3_3 = SHX3_3.isTimelapseRunning
+    SHX3_3 = SHX3_3()
+    if SHX3_3 then
+      SHX3_3 = "Stop Timelapse"
+      if SHX3_3 then
+        goto SHX_LABEL_116
+      end
+    end
+    SHX3_3 = "Start Timelapse"
+    -- [FIX IF ERROR] Move ::SHX_LABEL_116:: outside nested blocks until all 'goto SHX_LABEL_116' can see it
+    ::SHX_LABEL_116::
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX5_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4, SHX5_4
+      if SHX2_4 then
+        SHX3_4 = tCMG
+        SHX3_4 = SHX3_4.canAnim
+        SHX3_4 = SHX3_4()
+        if SHX3_4 then
+          SHX3_4 = CMG
+          SHX3_4 = SHX3_4.getPlayerCombatTimer
+          SHX3_4 = SHX3_4()
+          if 0 == SHX3_4 then
+            SHX3_4 = CMG
+            SHX3_4 = SHX3_4.getPlayerVehicle
+            SHX3_4 = SHX3_4()
+            if 0 == SHX3_4 then
+              SHX3_4 = CMG
+              SHX3_4 = SHX3_4.isPlayerInRedZone
+              SHX3_4 = SHX3_4()
+              if not SHX3_4 then
+                SHX3_4 = SHX0_3
+                if 0 ~= SHX3_4 then
+                  SHX3_4 = SHX0_3
+                  if 420 ~= SHX3_4 then
+                    goto SHX_LABEL_44
+                  end
+                end
+                SHX3_4 = CMG
+                SHX3_4 = SHX3_4.isTimelapseRunning
+                SHX3_4 = SHX3_4()
+                if SHX3_4 then
+                  SHX3_4 = CMG
+                  SHX3_4 = SHX3_4.stopTimelapse
+                  SHX3_4()
+                else
+                  SHX3_4 = CMG
+                  SHX3_4 = SHX3_4.startTimelapse
+                  SHX4_4 = 7200
+                  SHX5_4 = 200
+                  SHX3_4(SHX4_4, SHX5_4)
+                end
+            end
+          end
+        end
+        else
+          -- [FIX IF ERROR] Move ::SHX_LABEL_44:: outside nested blocks until all 'goto SHX_LABEL_44' can see it
+          ::SHX_LABEL_44::
+          SHX3_4 = notify
+          SHX4_4 = "~r~You can not do this right now."
+          SHX3_4(SHX4_4)
+        end
+      end
+    end
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.ButtonWithStyle
+    SHX3_3 = CMG
+    SHX3_3 = SHX3_3.isTimelapseRunning
+    SHX3_3 = SHX3_3()
+    if SHX3_3 then
+      SHX3_3 = "Stop Timelapse x4"
+      if SHX3_3 then
+        goto SHX_LABEL_134
+      end
+    end
+    SHX3_3 = "Start Timelapse x4"
+    -- [FIX IF ERROR] Move ::SHX_LABEL_134:: outside nested blocks until all 'goto SHX_LABEL_134' can see it
+    ::SHX_LABEL_134::
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX5_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4, SHX5_4
+      if SHX2_4 then
+        SHX3_4 = tCMG
+        SHX3_4 = SHX3_4.canAnim
+        SHX3_4 = SHX3_4()
+        if SHX3_4 then
+          SHX3_4 = CMG
+          SHX3_4 = SHX3_4.getPlayerCombatTimer
+          SHX3_4 = SHX3_4()
+          if 0 == SHX3_4 then
+            SHX3_4 = CMG
+            SHX3_4 = SHX3_4.getPlayerVehicle
+            SHX3_4 = SHX3_4()
+            if 0 == SHX3_4 then
+              SHX3_4 = CMG
+              SHX3_4 = SHX3_4.isPlayerInRedZone
+              SHX3_4 = SHX3_4()
+              if not SHX3_4 then
+                SHX3_4 = SHX0_3
+                if 0 ~= SHX3_4 then
+                  SHX3_4 = SHX0_3
+                  if 420 ~= SHX3_4 then
+                    goto SHX_LABEL_44
+                  end
+                end
+                SHX3_4 = CMG
+                SHX3_4 = SHX3_4.isTimelapseRunning
+                SHX3_4 = SHX3_4()
+                if SHX3_4 then
+                  SHX3_4 = CMG
+                  SHX3_4 = SHX3_4.stopTimelapse
+                  SHX3_4()
+                else
+                  SHX3_4 = CMG
+                  SHX3_4 = SHX3_4.startTimelapse
+                  SHX4_4 = 7200
+                  SHX5_4 = 50
+                  SHX3_4(SHX4_4, SHX5_4)
+                end
+            end
+          end
+        end
+        else
+          -- [FIX IF ERROR] Move ::SHX_LABEL_44:: outside nested blocks until all 'goto SHX_LABEL_44' can see it
+          ::SHX_LABEL_44::
+          SHX3_4 = notify
+          SHX4_4 = "~r~You can not do this right now."
+          SHX3_4(SHX4_4)
+        end
+      end
+    end
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "load_scene"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3
+    SHX0_3 = pairs
+    SHX1_3 = SHX10_1
+    SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
+    for SHX4_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
+      SHX5_3 = RageUI
+      SHX5_3 = SHX5_3.ButtonWithStyle
+      SHX6_3 = SHX4_3
+      SHX7_3 = ""
+      SHX8_3 = {}
+      SHX8_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      SHX9_3 = true
+      function SHX10_3(SHX0_4, SHX1_4, SHX2_4)
+        -- [AI CLEANUP] Decompiled Lua - Fix these:
+        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+        -- 3. Replace goto/label with while/repeat-until where possible
+        -- 4. Remove decompiler comments, add meaningful ones
+        -- 5. Fix indentation and formatting
+        
+        local SHX3_4
+        if SHX2_4 then
+          SHX3_4 = SHX4_3
+          SHX11_1 = SHX3_4
+        end
+      end
+      SHX11_3 = RMenu
+      SHX12_3 = SHX11_3
+      SHX11_3 = SHX11_3.Get
+      SHX13_3 = "scene_manager"
+      SHX14_3 = "cinematic"
+      SHX11_3, SHX12_3, SHX13_3, SHX14_3 = SHX11_3(SHX12_3, SHX13_3, SHX14_3)
+      SHX5_3(SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3)
+    end
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "scene_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+      SHX0_4 = nil
+      SHX38_1 = SHX0_4
+      SHX0_4 = SHX40_1
+      SHX0_4()
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Play Scene"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4
+      if SHX1_4 then
+        SHX3_4 = nil
+        SHX38_1 = SHX3_4
+        SHX3_4 = SHX40_1
+        SHX3_4()
+      end
+      if SHX2_4 then
+        SHX3_4 = SHX0_1
+        SHX4_4 = false
+        SHX3_4(SHX4_4)
+        SHX3_4 = SHX41_1
+        SHX4_4 = SHX11_1
+        SHX3_4(SHX4_4)
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "scene_manager"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "[Add Camera]"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4
+      if SHX1_4 then
+        SHX3_4 = nil
+        SHX38_1 = SHX3_4
+        SHX3_4 = SHX40_1
+        SHX3_4()
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "add_camera"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
+    SHX0_3 = type
+    SHX2_3 = SHX11_1
+    SHX1_3 = SHX10_1
+    SHX1_3 = SHX1_3[SHX2_3]
+    SHX0_3 = SHX0_3(SHX1_3)
+    if "table" == SHX0_3 then
+      SHX0_3 = pairs
+      SHX2_3 = SHX11_1
+      SHX1_3 = SHX10_1
+      SHX1_3 = SHX1_3[SHX2_3]
+      SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
+      for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
+        SHX6_3 = SHX39_1
+        SHX7_3 = SHX4_3
+        SHX8_3 = SHX5_3
+        SHX6_3(SHX7_3, SHX8_3)
+        SHX6_3 = RageUI
+        SHX6_3 = SHX6_3.ButtonWithStyle
+        SHX7_3 = "Camera "
+        SHX8_3 = SHX4_3
+        SHX7_3 = SHX7_3 .. SHX8_3
+        SHX8_3 = ""
+        SHX9_3 = {}
+        SHX9_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX10_3 = true
+        function SHX11_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+          if SHX1_4 then
+            SHX3_4 = SHX4_3
+            SHX38_1 = SHX3_4
+            SHX3_4 = DoesCamExist
+            SHX4_4 = SHX15_1
+            SHX3_4 = SHX3_4(SHX4_4)
+            if not SHX3_4 then
+              SHX3_4 = print
+              SHX4_4 = "Creating cam because it doesn't exist"
+              SHX3_4(SHX4_4)
+              SHX3_4 = CreateCam
+              SHX4_4 = "DEFAULT_SCRIPTED_CAMERA"
+              SHX5_4 = true
+              SHX3_4 = SHX3_4(SHX4_4, SHX5_4)
+              SHX15_1 = SHX3_4
+              SHX3_4 = SetCamActive
+              SHX4_4 = SHX15_1
+              SHX5_4 = true
+              SHX3_4(SHX4_4, SHX5_4)
+              SHX3_4 = RenderScriptCams
+              SHX4_4 = true
+              SHX5_4 = true
+              SHX6_4 = 500
+              SHX7_4 = true
+              SHX8_4 = false
+              SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4)
+            end
+          end
+          if SHX2_4 then
+            SHX3_4 = SHX4_3
+            SHX14_1 = SHX3_4
+            SHX4_4 = SHX11_1
+            SHX3_4 = SHX10_1
+            SHX3_4 = SHX3_4[SHX4_4]
+            SHX4_4 = SHX14_1
+            SHX3_4 = SHX3_4[SHX4_4]
+            SHX3_4 = SHX3_4.type
+            if "Static Camera" == SHX3_4 then
+              SHX3_4 = 1
+              SHX19_1 = SHX3_4
+            else
+              SHX4_4 = SHX11_1
+              SHX3_4 = SHX10_1
+              SHX3_4 = SHX3_4[SHX4_4]
+              SHX4_4 = SHX14_1
+              SHX3_4 = SHX3_4[SHX4_4]
+              SHX3_4 = SHX3_4.type
+              if "Interpolation Camera" == SHX3_4 then
+                SHX3_4 = 2
+                SHX19_1 = SHX3_4
+              end
+            end
+            SHX4_4 = SHX11_1
+            SHX3_4 = SHX10_1
+            SHX3_4 = SHX3_4[SHX4_4]
+            SHX4_4 = SHX14_1
+            SHX3_4 = SHX3_4[SHX4_4]
+            SHX3_4 = SHX3_4.blending
+            if 0 == SHX3_4 then
+              SHX3_4 = 2
+              SHX20_1 = SHX3_4
+            else
+              SHX4_4 = SHX11_1
+              SHX3_4 = SHX10_1
+              SHX3_4 = SHX3_4[SHX4_4]
+              SHX4_4 = SHX14_1
+              SHX3_4 = SHX3_4[SHX4_4]
+              SHX3_4 = SHX3_4.blending
+              if 5 == SHX3_4 then
+                SHX3_4 = 1
+                SHX20_1 = SHX3_4
+              end
+            end
+          end
+        end
+        SHX12_3 = RMenu
+        SHX13_3 = SHX12_3
+        SHX12_3 = SHX12_3.Get
+        SHX14_3 = "camera_manager"
+        SHX15_3 = "cinematic"
+        SHX12_3, SHX13_3, SHX14_3, SHX15_3 = SHX12_3(SHX13_3, SHX14_3, SHX15_3)
+        SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
+      end
+    else
+      SHX0_3 = print
+      SHX1_3 = "failed, loaded scene was not a table?"
+      SHX0_3(SHX1_3)
+    end
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "camera_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+      SHX0_4 = nil
+      SHX38_1 = SHX0_4
+      SHX0_4 = SHX40_1
+      SHX0_4()
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = SHX14_1
+    if SHX0_3 then
+      SHX1_3 = SHX11_1
+      SHX0_3 = SHX10_1
+      SHX0_3 = SHX0_3[SHX1_3]
+      SHX1_3 = SHX14_1
+      SHX0_3 = SHX0_3[SHX1_3]
+      if SHX0_3 then
+        SHX0_3 = RMenu
+        SHX1_3 = SHX0_3
+        SHX0_3 = SHX0_3.Get
+        SHX2_3 = "camera_manager"
+        SHX3_3 = "cinematic"
+        SHX0_3 = SHX0_3(SHX1_3, SHX2_3, SHX3_3)
+        SHX1_3 = SHX0_3
+        SHX0_3 = SHX0_3.SetSubtitle
+        SHX2_3 = "~b~"
+        SHX4_3 = SHX11_1
+        SHX3_3 = SHX10_1
+        SHX3_3 = SHX3_3[SHX4_3]
+        SHX4_3 = SHX14_1
+        SHX3_3 = SHX3_3[SHX4_3]
+        SHX3_3 = SHX3_3.type
+        SHX2_3 = SHX2_3 .. SHX3_3
+        SHX0_3(SHX1_3, SHX2_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "~b~Transition: "
+        SHX3_3 = SHX11_1
+        SHX2_3 = SHX10_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX3_3 = SHX14_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX2_3 = SHX2_3.transition
+        SHX3_3 = "ms"
+        SHX1_3 = SHX1_3 .. SHX2_3 .. SHX3_3
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
+          if SHX2_4 then
+            SHX3_4 = CMG
+            SHX3_4 = SHX3_4.GetRageInputText
+            SHX4_4 = "Transition(in ms):"
+            SHX3_4 = SHX3_4(SHX4_4)
+            if SHX3_4 then
+              SHX4_4 = tonumber
+              SHX5_4 = SHX3_4
+              SHX4_4 = SHX4_4(SHX5_4)
+              if SHX4_4 then
+                SHX4_4 = CMG
+                SHX4_4 = SHX4_4.modifyTransition
+                SHX5_4 = SHX11_1
+                SHX6_4 = SHX14_1
+                SHX7_4 = SHX3_4
+                SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+            end
+            else
+              SHX4_4 = tCMG
+              SHX4_4 = SHX4_4.notify
+              SHX5_4 = "~r~Failed to change transition time."
+              SHX4_4(SHX5_4)
+            end
+          end
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "camera_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "Move Camera"
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX3_4, SHX4_4
+          if SHX2_4 then
+            SHX3_4 = SHX12_1
+            if not SHX3_4 then
+              SHX3_4 = SHX13_1
+              if 0 == SHX3_4 then
+                SHX3_4 = nil
+                SHX38_1 = SHX3_4
+                SHX3_4 = GetEntityCoords
+                SHX4_4 = PlayerPedId
+                SHX4_4 = SHX4_4()
+                SHX3_4 = SHX3_4(SHX4_4)
+                SHX17_1 = SHX3_4
+                SHX3_4 = SHX40_1
+                SHX3_4()
+                SHX3_4 = tCMG
+                SHX3_4 = SHX3_4.toggleNoclip
+                SHX3_4()
+                SHX3_4 = SHX14_1
+                SHX13_1 = SHX3_4
+              end
+            end
+          end
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "camera_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.List
+        SHX1_3 = "Camera Type:"
+        SHX2_3 = SHX7_1
+        SHX3_3 = SHX19_1
+        SHX4_3 = ""
+        SHX5_3 = {}
+        SHX6_3 = true
+        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+          SHX4_4 = SHX19_1
+          if SHX3_4 ~= SHX4_4 then
+            SHX19_1 = SHX3_4
+            SHX4_4 = CMG
+            SHX4_4 = SHX4_4.modifyCameraType
+            SHX5_4 = SHX11_1
+            SHX6_4 = SHX14_1
+            SHX8_4 = SHX19_1
+            SHX7_4 = SHX7_1
+            SHX7_4 = SHX7_4[SHX8_4]
+            SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+          end
+        end
+        function SHX8_3()
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX0_4, SHX1_4
+        end
+        SHX9_3 = nil
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.List
+        SHX1_3 = "Camera Blending:"
+        SHX2_3 = SHX8_1
+        SHX3_3 = SHX20_1
+        SHX4_3 = ""
+        SHX5_3 = {}
+        SHX6_3 = true
+        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+          SHX4_4 = SHX20_1
+          if SHX3_4 ~= SHX4_4 then
+            SHX20_1 = SHX3_4
+            SHX4_4 = CMG
+            SHX4_4 = SHX4_4.modifyCameraBlending
+            SHX5_4 = SHX11_1
+            SHX6_4 = SHX14_1
+            SHX8_4 = SHX20_1
+            SHX7_4 = SHX8_1
+            SHX7_4 = SHX7_4[SHX8_4]
+            SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+          end
+        end
+        function SHX8_3()
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX0_4, SHX1_4
+        end
+        SHX9_3 = nil
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "Select Camera Focus"
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "camera_focus_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "Screen Effect: "
+        SHX3_3 = SHX11_1
+        SHX2_3 = SHX10_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX3_3 = SHX14_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX2_3 = SHX2_3.screeneffect
+        if not SHX2_3 then
+          SHX2_3 = "N/A"
+        end
+        SHX1_3 = SHX1_3 .. SHX2_3
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "screeneffect_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.List
+        SHX1_3 = "Timecycle Intensity"
+        SHX2_3 = SHX4_1
+        SHX3_3 = SHX3_1
+        SHX4_3 = ""
+        SHX5_3 = {}
+        SHX6_3 = true
+        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+          SHX4_4 = RageUI
+          SHX4_4 = SHX4_4.BackspaceMenuCallback
+          function SHX5_4()
+            -- [AI CLEANUP] Decompiled Lua - Fix these:
+            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+            -- 3. Replace goto/label with while/repeat-until where possible
+            -- 4. Remove decompiler comments, add meaningful ones
+            -- 5. Fix indentation and formatting
+            
+            local SHX0_5, SHX1_5
+            SHX0_5 = ClearTimecycleModifier
+            SHX0_5()
+          end
+          SHX4_4(SHX5_4)
+          SHX4_4 = SHX3_1
+          if SHX3_4 ~= SHX4_4 then
+            SHX3_1 = SHX3_4
+            SHX5_4 = SHX11_1
+            SHX4_4 = SHX10_1
+            SHX4_4 = SHX4_4[SHX5_4]
+            SHX5_4 = SHX14_1
+            SHX4_4 = SHX4_4[SHX5_4]
+            SHX4_4 = SHX4_4.timecycleEffect
+            if "" ~= SHX4_4 then
+              SHX4_4 = SetTimecycleModifier
+              SHX6_4 = SHX11_1
+              SHX5_4 = SHX10_1
+              SHX5_4 = SHX5_4[SHX6_4]
+              SHX6_4 = SHX14_1
+              SHX5_4 = SHX5_4[SHX6_4]
+              SHX5_4 = SHX5_4.timecycleEffect
+              SHX4_4(SHX5_4)
+              SHX4_4 = SetTimecycleModifierStrength
+              SHX6_4 = SHX11_1
+              SHX5_4 = SHX10_1
+              SHX5_4 = SHX5_4[SHX6_4]
+              SHX6_4 = SHX14_1
+              SHX5_4 = SHX5_4[SHX6_4]
+              SHX5_4 = SHX5_4.timecycleIntensity
+              SHX4_4(SHX5_4)
+              SHX4_4 = CMG
+              SHX4_4 = SHX4_4.setTimecycleIntensity
+              SHX5_4 = SHX11_1
+              SHX6_4 = SHX14_1
+              SHX8_4 = SHX3_1
+              SHX7_4 = SHX4_1
+              SHX7_4 = SHX7_4[SHX8_4]
+              SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+            end
+          end
+        end
+        function SHX8_3()
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX0_4, SHX1_4
+        end
+        SHX9_3 = nil
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "Timecycle Effect: "
+        SHX3_3 = SHX11_1
+        SHX2_3 = SHX10_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX3_3 = SHX14_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX2_3 = SHX2_3.timecycleEffect
+        if not SHX2_3 then
+          SHX2_3 = "N/A"
+        end
+        SHX1_3 = SHX1_3 .. SHX2_3
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "timecycle_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "Shake Effect: "
+        SHX3_3 = SHX11_1
+        SHX2_3 = SHX10_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX3_3 = SHX14_1
+        SHX2_3 = SHX2_3[SHX3_3]
+        SHX2_3 = SHX2_3.shake
+        if not SHX2_3 then
+          SHX2_3 = "N/A"
+        end
+        SHX1_3 = SHX1_3 .. SHX2_3
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "shake_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.List
+        SHX1_3 = "Field of View (FOV)"
+        SHX2_3 = SHX6_1
+        SHX3_3 = SHX23_1
+        SHX4_3 = ""
+        SHX5_3 = {}
+        SHX6_3 = true
+        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX4_4, SHX5_4, SHX6_4
+          SHX4_4 = SHX23_1
+          if SHX3_4 ~= SHX4_4 then
+            SHX23_1 = SHX3_4
+            SHX4_4 = CMG
+            SHX4_4 = SHX4_4.setCameraFov
+            SHX5_4 = SHX11_1
+            SHX6_4 = SHX14_1
+            SHX4_4(SHX5_4, SHX6_4)
+          end
+        end
+        function SHX8_3()
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX0_4, SHX1_4
+        end
+        SHX9_3 = nil
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3 = RageUI
+        SHX0_3 = SHX0_3.ButtonWithStyle
+        SHX1_3 = "Remove Camera"
+        SHX2_3 = ""
+        SHX3_3 = {}
+        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        SHX4_3 = true
+        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX3_4, SHX4_4, SHX5_4
+          if SHX2_4 then
+            SHX3_4 = CMG
+            SHX3_4 = SHX3_4.deleteCamera
+            SHX4_4 = SHX11_1
+            SHX5_4 = SHX14_1
+            SHX3_4(SHX4_4, SHX5_4)
+            SHX3_4 = nil
+            SHX38_1 = SHX3_4
+            SHX3_4 = SHX40_1
+            SHX3_4()
+            SHX3_4 = 1
+            SHX14_1 = SHX3_4
+          end
+        end
+        SHX6_3 = RMenu
+        SHX7_3 = SHX6_3
+        SHX6_3 = SHX6_3.Get
+        SHX8_3 = "camera_manager"
+        SHX9_3 = "cinematic"
+        SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    end
+    else
+      SHX0_3 = RageUI
+      SHX0_3 = SHX0_3.Separator
+      SHX1_3 = "~r~No Camera ID selected."
+      SHX0_3(SHX1_3)
+    end
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "add_camera"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Add Static Camera"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4
+      if SHX2_4 then
+        SHX3_4 = SHX12_1
+        if SHX3_4 then
+          SHX3_4 = notify
+          SHX4_4 = "~r~Can not add a camera whilst you are adding a camera."
+          SHX3_4(SHX4_4)
+          return
+        end
+        SHX3_4 = nil
+        SHX38_1 = SHX3_4
+        SHX3_4 = GetEntityCoords
+        SHX4_4 = PlayerPedId
+        SHX4_4 = SHX4_4()
+        SHX3_4 = SHX3_4(SHX4_4)
+        SHX17_1 = SHX3_4
+        SHX3_4 = SHX40_1
+        SHX3_4()
+        SHX3_4 = tCMG
+        SHX3_4 = SHX3_4.toggleNoclip
+        SHX3_4()
+        SHX3_4 = true
+        SHX12_1 = SHX3_4
+        SHX3_4 = "Static Camera"
+        SHX18_1 = SHX3_4
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "camera_manager"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Add Interpolation Camera"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4
+      if SHX2_4 then
+        SHX3_4 = SHX12_1
+        if SHX3_4 then
+          SHX3_4 = notify
+          SHX4_4 = "~r~Can not add a camera whilst you are adding a camera."
+          SHX3_4(SHX4_4)
+          return
+        end
+        SHX3_4 = nil
+        SHX38_1 = SHX3_4
+        SHX3_4 = GetEntityCoords
+        SHX4_4 = PlayerPedId
+        SHX4_4 = SHX4_4()
+        SHX3_4 = SHX3_4(SHX4_4)
+        SHX17_1 = SHX3_4
+        SHX3_4 = SHX40_1
+        SHX3_4()
+        SHX3_4 = tCMG
+        SHX3_4 = SHX3_4.toggleNoclip
+        SHX3_4()
+        SHX3_4 = true
+        SHX12_1 = SHX3_4
+        SHX3_4 = "Interpolation Camera"
+        SHX18_1 = SHX3_4
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "camera_manager"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "screeneffect_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+      SHX0_4 = AnimpostfxStopAll
+      SHX0_4()
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = 1
+    SHX1_3 = SHX1_1
+    SHX1_3 = #SHX1_3
+    SHX2_3 = 1
+    for SHX3_3 = SHX0_3, SHX1_3, SHX2_3 do
+      SHX4_3 = RageUI
+      SHX4_3 = SHX4_3.ButtonWithStyle
+      SHX5_3 = SHX1_1
+      SHX5_3 = SHX5_3[SHX3_3]
+      SHX6_3 = ""
+      SHX7_3 = {}
+      SHX7_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      SHX8_3 = true
+      function SHX9_3(SHX0_4, SHX1_4, SHX2_4)
+        -- [AI CLEANUP] Decompiled Lua - Fix these:
+        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+        -- 3. Replace goto/label with while/repeat-until where possible
+        -- 4. Remove decompiler comments, add meaningful ones
+        -- 5. Fix indentation and formatting
+        
+        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
+        if SHX1_4 then
+          SHX3_4 = AnimpostfxStopAll
+          SHX3_4()
+          SHX4_4 = SHX3_3
+          SHX3_4 = SHX1_1
+          SHX3_4 = SHX3_4[SHX4_4]
+          if "Default" ~= SHX3_4 then
+            SHX3_4 = AnimpostfxPlay
+            SHX5_4 = SHX3_3
+            SHX4_4 = SHX1_1
+            SHX4_4 = SHX4_4[SHX5_4]
+            SHX5_4 = 5000
+            SHX6_4 = false
+            SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+          end
+        end
+        if SHX2_4 then
+          SHX3_4 = CMG
+          SHX3_4 = SHX3_4.modifyScreeneffect
+          SHX4_4 = SHX11_1
+          SHX5_4 = SHX14_1
+          SHX7_4 = SHX3_3
+          SHX6_4 = SHX1_1
+          SHX6_4 = SHX6_4[SHX7_4]
+          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+        end
+      end
+      SHX10_3 = RMenu
+      SHX11_3 = SHX10_3
+      SHX10_3 = SHX10_3.Get
+      SHX12_3 = "camera_manager"
+      SHX13_3 = "cinematic"
+      SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX10_3(SHX11_3, SHX12_3, SHX13_3)
+      SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
+    end
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "timecycle_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+      SHX0_4 = ClearTimecycleModifier
+      SHX0_4()
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = 1
+    SHX1_3 = SHX2_1
+    SHX1_3 = #SHX1_3
+    SHX2_3 = 1
+    for SHX3_3 = SHX0_3, SHX1_3, SHX2_3 do
+      SHX4_3 = RageUI
+      SHX4_3 = SHX4_3.ButtonWithStyle
+      SHX5_3 = SHX2_1
+      SHX5_3 = SHX5_3[SHX3_3]
+      SHX6_3 = ""
+      SHX7_3 = {}
+      SHX7_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      SHX8_3 = true
+      function SHX9_3(SHX0_4, SHX1_4, SHX2_4)
+        -- [AI CLEANUP] Decompiled Lua - Fix these:
+        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+        -- 3. Replace goto/label with while/repeat-until where possible
+        -- 4. Remove decompiler comments, add meaningful ones
+        -- 5. Fix indentation and formatting
+        
+        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
+        if SHX1_4 then
+          SHX3_4 = ClearTimecycleModifier
+          SHX3_4()
+          SHX4_4 = SHX3_3
+          SHX3_4 = SHX2_1
+          SHX3_4 = SHX3_4[SHX4_4]
+          if "Default" ~= SHX3_4 then
+            SHX3_4 = SetTimecycleModifier
+            SHX5_4 = SHX3_3
+            SHX4_4 = SHX2_1
+            SHX4_4 = SHX4_4[SHX5_4]
+            SHX3_4(SHX4_4)
+          end
+        end
+        if SHX2_4 then
+          SHX3_4 = CMG
+          SHX3_4 = SHX3_4.modifyTimecycleEffect
+          SHX4_4 = SHX11_1
+          SHX5_4 = SHX14_1
+          SHX7_4 = SHX3_3
+          SHX6_4 = SHX2_1
+          SHX6_4 = SHX6_4[SHX7_4]
+          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+        end
+      end
+      SHX10_3 = RMenu
+      SHX11_3 = SHX10_3
+      SHX10_3 = SHX10_3.Get
+      SHX12_3 = "camera_manager"
+      SHX13_3 = "cinematic"
+      SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX10_3(SHX11_3, SHX12_3, SHX13_3)
+      SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
+    end
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "shake_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+      SHX0_4 = AnimpostfxStopAll
+      SHX0_4()
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = 1
+    SHX1_3 = SHX5_1
+    SHX1_3 = #SHX1_3
+    SHX2_3 = 1
+    for SHX3_3 = SHX0_3, SHX1_3, SHX2_3 do
+      SHX4_3 = RageUI
+      SHX4_3 = SHX4_3.ButtonWithStyle
+      SHX5_3 = SHX5_1
+      SHX5_3 = SHX5_3[SHX3_3]
+      SHX6_3 = ""
+      SHX7_3 = {}
+      SHX7_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      SHX8_3 = true
+      function SHX9_3(SHX0_4, SHX1_4, SHX2_4)
+        -- [AI CLEANUP] Decompiled Lua - Fix these:
+        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+        -- 3. Replace goto/label with while/repeat-until where possible
+        -- 4. Remove decompiler comments, add meaningful ones
+        -- 5. Fix indentation and formatting
+        
+        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
+        if SHX1_4 then
+          SHX3_4 = SHX21_1
+          if "" ~= SHX3_4 then
+            SHX3_4 = SHX21_1
+            SHX5_4 = SHX3_3
+            SHX4_4 = SHX5_1
+            SHX4_4 = SHX4_4[SHX5_4]
+            if SHX3_4 == SHX4_4 then
+              goto SHX_LABEL_28
+            end
+          end
+          SHX4_4 = SHX3_3
+          SHX3_4 = SHX5_1
+          SHX3_4 = SHX3_4[SHX4_4]
+          SHX21_1 = SHX3_4
+          SHX3_4 = SetTimeout
+          SHX4_4 = 25000
+          function SHX5_4()
+            -- [AI CLEANUP] Decompiled Lua - Fix these:
+            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+            -- 3. Replace goto/label with while/repeat-until where possible
+            -- 4. Remove decompiler comments, add meaningful ones
+            -- 5. Fix indentation and formatting
+            
+            local SHX0_5, SHX1_5
+            SHX0_5 = ""
+            SHX21_1 = SHX0_5
+          end
+          SHX3_4(SHX4_4, SHX5_4)
+          SHX3_4 = ShakeCam
+          SHX4_4 = GetRenderingCam
+          SHX4_4 = SHX4_4()
+          SHX6_4 = SHX3_3
+          SHX5_4 = SHX5_1
+          SHX5_4 = SHX5_4[SHX6_4]
+          SHX6_4 = 1.0
+          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+        end
+        -- [FIX IF ERROR] Move ::SHX_LABEL_28:: outside nested blocks until all 'goto SHX_LABEL_28' can see it
+        ::SHX_LABEL_28::
+        if SHX2_4 then
+          SHX3_4 = CMG
+          SHX3_4 = SHX3_4.modifyShakeEffect
+          SHX4_4 = SHX11_1
+          SHX5_4 = SHX14_1
+          SHX7_4 = SHX3_3
+          SHX6_4 = SHX5_1
+          SHX6_4 = SHX6_4[SHX7_4]
+          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+        end
+      end
+      SHX10_3 = RMenu
+      SHX11_3 = SHX10_3
+      SHX10_3 = SHX10_3.Get
+      SHX12_3 = "camera_manager"
+      SHX13_3 = "cinematic"
+      SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX10_3(SHX11_3, SHX12_3, SHX13_3)
+      SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
+    end
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "camera_focus_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+      SHX0_4 = AnimpostfxStopAll
+      SHX0_4()
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.Separator
+    SHX1_3 = "~b~Currently pointed at: "
+    SHX3_3 = SHX11_1
+    SHX2_3 = SHX10_1
+    SHX2_3 = SHX2_3[SHX3_3]
+    SHX3_3 = SHX14_1
+    SHX2_3 = SHX2_3[SHX3_3]
+    SHX2_3 = SHX2_3.focusType
+    SHX3_3 = " : "
+    SHX5_3 = SHX11_1
+    SHX4_3 = SHX10_1
+    SHX4_3 = SHX4_3[SHX5_3]
+    SHX5_3 = SHX14_1
+    SHX4_3 = SHX4_3[SHX5_3]
+    SHX4_3 = SHX4_3.focusData
+    SHX1_3 = SHX1_3 .. SHX2_3 .. SHX3_3 .. SHX4_3
+    SHX0_3(SHX1_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Player"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+      if SHX2_4 then
+        SHX3_4 = CMG
+        SHX3_4 = SHX3_4.GetRageInputText
+        SHX4_4 = "Temp ID:"
+        SHX3_4 = SHX3_4(SHX4_4)
+        if "" ~= SHX3_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.addCameraFocus
+          SHX5_4 = SHX11_1
+          SHX6_4 = SHX14_1
+          SHX7_4 = "player"
+          SHX8_4 = SHX3_4
+          SHX4_4(SHX5_4, SHX6_4, SHX7_4, SHX8_4)
+        end
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "camera_manager"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.ButtonWithStyle
+    SHX1_3 = "Coordinates"
+    SHX2_3 = ""
+    SHX3_3 = {}
+    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    SHX4_3 = true
+    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX3_4, SHX4_4, SHX5_4, SHX6_4
+      if SHX2_4 then
+        SHX3_4 = CMG
+        SHX3_4 = SHX3_4.clientPrompt
+        SHX4_4 = "Enter coordinates:"
+        SHX5_4 = ""
+        function SHX6_4(SHX0_5)
+          -- [AI CLEANUP] Decompiled Lua - Fix these:
+          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+          -- 3. Replace goto/label with while/repeat-until where possible
+          -- 4. Remove decompiler comments, add meaningful ones
+          -- 5. Fix indentation and formatting
+          
+          local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5, SHX12_5
+          SHX1_5 = {}
+          SHX2_5 = string
+          SHX2_5 = SHX2_5.gmatch
+          SHX4_5 = SHX0_5
+          SHX3_5 = SHX0_5.gsub
+          SHX5_5 = "\" y=\""
+          SHX6_5 = ","
+          SHX3_5 = SHX3_5(SHX4_5, SHX5_5, SHX6_5)
+          SHX4_5 = SHX3_5
+          SHX3_5 = SHX3_5.gsub
+          SHX5_5 = "\" z=\""
+          SHX6_5 = ","
+          SHX3_5 = SHX3_5(SHX4_5, SHX5_5, SHX6_5)
+          if not SHX3_5 then
+            SHX3_5 = "0,0,0"
+          end
+          SHX4_5 = "[^,]+"
+          SHX2_5, SHX3_5, SHX4_5, SHX5_5 = SHX2_5(SHX3_5, SHX4_5)
+          for SHX6_5 in SHX2_5, SHX3_5, SHX4_5, SHX5_5 do
+            SHX7_5 = table
+            SHX7_5 = SHX7_5.insert
+            SHX8_5 = SHX1_5
+            SHX9_5 = tonumber
+            SHX10_5 = SHX6_5
+            SHX9_5, SHX10_5, SHX11_5, SHX12_5 = SHX9_5(SHX10_5)
+            SHX7_5(SHX8_5, SHX9_5, SHX10_5, SHX11_5, SHX12_5)
+          end
+          if "" == SHX0_5 then
+            return
+          end
+          SHX2_5 = 0
+          SHX3_5 = 0
+          SHX4_5 = 0
+          SHX5_5 = SHX1_5[1]
+          if nil ~= SHX5_5 then
+            SHX2_5 = SHX1_5[1]
+          end
+          SHX5_5 = SHX1_5[2]
+          if nil ~= SHX5_5 then
+            SHX3_5 = SHX1_5[2]
+          end
+          SHX5_5 = SHX1_5[3]
+          if nil ~= SHX5_5 then
+            SHX4_5 = SHX1_5[3]
+          end
+          SHX5_5 = CMG
+          SHX5_5 = SHX5_5.addCameraFocus
+          SHX6_5 = SHX11_1
+          SHX7_5 = SHX14_1
+          SHX8_5 = "coord"
+          SHX9_5 = vector3
+          SHX10_5 = SHX2_5
+          SHX11_5 = SHX3_5
+          SHX12_5 = SHX4_5
+          SHX9_5, SHX10_5, SHX11_5, SHX12_5 = SHX9_5(SHX10_5, SHX11_5, SHX12_5)
+          SHX5_5(SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5, SHX12_5)
+        end
+        SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+      end
+    end
+    SHX6_3 = RMenu
+    SHX7_3 = SHX6_3
+    SHX6_3 = SHX6_3.Get
+    SHX8_3 = "camera_manager"
+    SHX9_3 = "cinematic"
+    SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "dof_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX0_3(SHX1_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.Separator
+    SHX1_3 = "~g~These settings require some fiddling to get the desired result."
+    SHX0_3(SHX1_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.List
+    SHX1_3 = "Near Plane Out"
+    SHX2_3 = SHX31_1
+    SHX3_3 = SHX32_1
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4
+      SHX4_4 = SHX32_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX32_1 = SHX3_4
+        SHX4_4 = SetHidofOverride
+        SHX5_4 = true
+        SHX6_4 = true
+        SHX8_4 = SHX32_1
+        SHX7_4 = SHX31_1
+        SHX7_4 = SHX7_4[SHX8_4]
+        SHX9_4 = SHX33_1
+        SHX8_4 = SHX31_1
+        SHX8_4 = SHX8_4[SHX9_4]
+        SHX10_4 = SHX34_1
+        SHX9_4 = SHX31_1
+        SHX9_4 = SHX9_4[SHX10_4]
+        SHX11_4 = SHX35_1
+        SHX10_4 = SHX31_1
+        SHX10_4 = SHX10_4[SHX11_4]
+        SHX4_4(SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4)
+      end
+    end
+    function SHX8_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX9_3 = nil
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.List
+    SHX1_3 = "Near Plane In"
+    SHX2_3 = SHX31_1
+    SHX3_3 = SHX33_1
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4
+      SHX4_4 = SHX33_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX33_1 = SHX3_4
+        SHX4_4 = SetHidofOverride
+        SHX5_4 = true
+        SHX6_4 = true
+        SHX8_4 = SHX32_1
+        SHX7_4 = SHX31_1
+        SHX7_4 = SHX7_4[SHX8_4]
+        SHX9_4 = SHX33_1
+        SHX8_4 = SHX31_1
+        SHX8_4 = SHX8_4[SHX9_4]
+        SHX10_4 = SHX34_1
+        SHX9_4 = SHX31_1
+        SHX9_4 = SHX9_4[SHX10_4]
+        SHX11_4 = SHX35_1
+        SHX10_4 = SHX31_1
+        SHX10_4 = SHX10_4[SHX11_4]
+        SHX4_4(SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4)
+      end
+    end
+    function SHX8_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX9_3 = nil
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.List
+    SHX1_3 = "Far Plane Out"
+    SHX2_3 = SHX31_1
+    SHX3_3 = SHX34_1
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4
+      SHX4_4 = SHX34_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX34_1 = SHX3_4
+        SHX4_4 = SetHidofOverride
+        SHX5_4 = true
+        SHX6_4 = true
+        SHX8_4 = SHX32_1
+        SHX7_4 = SHX31_1
+        SHX7_4 = SHX7_4[SHX8_4]
+        SHX9_4 = SHX33_1
+        SHX8_4 = SHX31_1
+        SHX8_4 = SHX8_4[SHX9_4]
+        SHX10_4 = SHX34_1
+        SHX9_4 = SHX31_1
+        SHX9_4 = SHX9_4[SHX10_4]
+        SHX11_4 = SHX35_1
+        SHX10_4 = SHX31_1
+        SHX10_4 = SHX10_4[SHX11_4]
+        SHX4_4(SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4)
+      end
+    end
+    function SHX8_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX9_3 = nil
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.List
+    SHX1_3 = "Far Plane In"
+    SHX2_3 = SHX31_1
+    SHX3_3 = SHX35_1
+    SHX4_3 = ""
+    SHX5_3 = {}
+    SHX6_3 = true
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4
+      SHX4_4 = SHX35_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX35_1 = SHX3_4
+        SHX4_4 = SetHidofOverride
+        SHX5_4 = true
+        SHX6_4 = true
+        SHX8_4 = SHX32_1
+        SHX7_4 = SHX31_1
+        SHX7_4 = SHX7_4[SHX8_4]
+        SHX9_4 = SHX33_1
+        SHX8_4 = SHX31_1
+        SHX8_4 = SHX8_4[SHX9_4]
+        SHX10_4 = SHX34_1
+        SHX9_4 = SHX31_1
+        SHX9_4 = SHX9_4[SHX10_4]
+        SHX11_4 = SHX35_1
+        SHX10_4 = SHX31_1
+        SHX10_4 = SHX10_4[SHX11_4]
+        SHX4_4(SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4)
+      end
+    end
+    function SHX8_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX9_3 = nil
+    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  SHX0_2 = RageUI
+  SHX0_2 = SHX0_2.IsVisible
+  SHX1_2 = RMenu
+  SHX2_2 = SHX1_2
+  SHX1_2 = SHX1_2.Get
+  SHX3_2 = "weather_time_manager"
+  SHX4_2 = "cinematic"
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  SHX2_2 = true
+  SHX3_2 = true
+  SHX4_2 = true
+  function SHX5_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3
+    SHX0_3 = RageUI
+    SHX0_3 = SHX0_3.BackspaceMenuCallback
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX0_3(SHX1_3)
+    function SHX0_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4, SHX2_4, SHX3_4, SHX4_4
+      SHX0_4 = true
+      SHX24_1 = SHX0_4
+      SHX0_4 = CMG
+      SHX0_4 = SHX0_4.overrideTime
+      SHX2_4 = SHX26_1
+      SHX1_4 = SHX25_1
+      SHX1_4 = SHX1_4[SHX2_4]
+      SHX3_4 = SHX28_1
+      SHX2_4 = SHX27_1
+      SHX2_4 = SHX2_4[SHX3_4]
+      SHX4_4 = SHX30_1
+      SHX3_4 = SHX29_1
+      SHX3_4 = SHX3_4[SHX4_4]
+      SHX0_4(SHX1_4, SHX2_4, SHX3_4)
+    end
+    function SHX1_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4, SHX2_4, SHX3_4
+      SHX0_4 = false
+      SHX24_1 = SHX0_4
+      SHX0_4 = DecorSetBool
+      SHX1_4 = PlayerPedId
+      SHX1_4 = SHX1_4()
+      SHX2_4 = "a99d39faff"
+      SHX3_4 = false
+      SHX0_4(SHX1_4, SHX2_4, SHX3_4)
+      SHX0_4 = CMG
+      SHX0_4 = SHX0_4.cancelOverrideTimeWeather
+      SHX0_4()
+    end
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.Checkbox
+    SHX3_3 = "Override Weather/Time"
+    SHX4_3 = ""
+    SHX5_3 = SHX24_1
+    SHX6_3 = {}
+    SHX7_3 = RageUI
+    SHX7_3 = SHX7_3.CheckboxStyle
+    SHX7_3 = SHX7_3.Car
+    SHX6_3.Style = SHX7_3
+    function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      SHX24_1 = SHX3_4
+    end
+    SHX8_3 = SHX0_3
+    SHX9_3 = SHX1_3
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.List
+    SHX3_3 = "Hours"
+    SHX4_3 = SHX25_1
+    SHX5_3 = SHX26_1
+    SHX6_3 = ""
+    SHX7_3 = {}
+    SHX8_3 = true
+    function SHX9_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+      SHX4_4 = SHX26_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX26_1 = SHX3_4
+        SHX4_4 = SHX24_1
+        if SHX4_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.overrideTime
+          SHX6_4 = SHX26_1
+          SHX5_4 = SHX25_1
+          SHX5_4 = SHX5_4[SHX6_4]
+          SHX7_4 = SHX28_1
+          SHX6_4 = SHX27_1
+          SHX6_4 = SHX6_4[SHX7_4]
+          SHX8_4 = SHX30_1
+          SHX7_4 = SHX29_1
+          SHX7_4 = SHX7_4[SHX8_4]
+          SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+        end
+      end
+    end
+    function SHX10_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX11_3 = nil
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.List
+    SHX3_3 = "Minutes"
+    SHX4_3 = SHX27_1
+    SHX5_3 = SHX28_1
+    SHX6_3 = ""
+    SHX7_3 = {}
+    SHX8_3 = true
+    function SHX9_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+      SHX4_4 = SHX28_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX28_1 = SHX3_4
+        SHX4_4 = SHX24_1
+        if SHX4_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.overrideTime
+          SHX6_4 = SHX26_1
+          SHX5_4 = SHX25_1
+          SHX5_4 = SHX5_4[SHX6_4]
+          SHX7_4 = SHX28_1
+          SHX6_4 = SHX27_1
+          SHX6_4 = SHX6_4[SHX7_4]
+          SHX8_4 = SHX30_1
+          SHX7_4 = SHX29_1
+          SHX7_4 = SHX7_4[SHX8_4]
+          SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+        end
+      end
+    end
+    function SHX10_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX11_3 = nil
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.List
+    SHX3_3 = "Seconds"
+    SHX4_3 = SHX29_1
+    SHX5_3 = SHX30_1
+    SHX6_3 = ""
+    SHX7_3 = {}
+    SHX8_3 = true
+    function SHX9_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
+      SHX4_4 = SHX30_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX30_1 = SHX3_4
+        SHX4_4 = SHX24_1
+        if SHX4_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.overrideTime
+          SHX6_4 = SHX26_1
+          SHX5_4 = SHX25_1
+          SHX5_4 = SHX5_4[SHX6_4]
+          SHX7_4 = SHX28_1
+          SHX6_4 = SHX27_1
+          SHX6_4 = SHX6_4[SHX7_4]
+          SHX8_4 = SHX30_1
+          SHX7_4 = SHX29_1
+          SHX7_4 = SHX7_4[SHX8_4]
+          SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+        end
+      end
+    end
+    function SHX10_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX11_3 = nil
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
+    SHX2_3 = RageUI
+    SHX2_3 = SHX2_3.List
+    SHX3_3 = "Weather"
+    SHX4_3 = SHX36_1
+    SHX5_3 = SHX37_1
+    SHX6_3 = ""
+    SHX7_3 = {}
+    SHX8_3 = true
+    function SHX9_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX4_4, SHX5_4, SHX6_4
+      SHX4_4 = SHX37_1
+      if SHX3_4 ~= SHX4_4 then
+        SHX37_1 = SHX3_4
+        SHX4_4 = SHX24_1
+        if SHX4_4 then
+          SHX4_4 = CMG
+          SHX4_4 = SHX4_4.setWeather
+          SHX6_4 = SHX37_1
+          SHX5_4 = SHX36_1
+          SHX5_4 = SHX5_4[SHX6_4]
+          SHX4_4(SHX5_4)
+        end
+      end
+    end
+    function SHX10_3()
+      -- [AI CLEANUP] Decompiled Lua - Fix these:
+      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+      -- 3. Replace goto/label with while/repeat-until where possible
+      -- 4. Remove decompiler comments, add meaningful ones
+      -- 5. Fix indentation and formatting
+      
+      local SHX0_4, SHX1_4
+    end
+    SHX11_3 = nil
+    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
+  end
+  function SHX6_2()
+    -- [AI CLEANUP] Decompiled Lua - Fix these:
+    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+    -- 3. Replace goto/label with while/repeat-until where possible
+    -- 4. Remove decompiler comments, add meaningful ones
+    -- 5. Fix indentation and formatting
+    
+    local SHX0_3, SHX1_3
+  end
+  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+end
+SHX42_1(SHX43_1, SHX44_1, SHX45_1, SHX46_1)
+function SHX42_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
+  SHX0_2 = PlayerPedId
+  SHX0_2 = SHX0_2()
+  SHX1_2 = SHX24_1
+  if SHX1_2 then
+    SHX1_2 = SHX22_1
+    if nil == SHX1_2 then
+      SHX1_2 = CMG
+      SHX1_2 = SHX1_2.isDisplayVisible
+      SHX2_2 = "radar"
+      SHX1_2 = SHX1_2(SHX2_2)
+      if not SHX1_2 then
+        SHX1_2 = drawNativeText
+        SHX2_2 = "~r~CINEMATIC MODE ENABLED"
+        SHX1_2(SHX2_2)
+      end
+    end
+    SHX1_2 = DecorExistOn
+    SHX2_2 = SHX0_2
+    SHX3_2 = "a99d39faff"
+    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+    if not SHX1_2 then
+      SHX1_2 = DecorSetBool
+      SHX2_2 = SHX0_2
+      SHX3_2 = "a99d39faff"
+      SHX4_2 = true
+      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    end
+  end
+  SHX1_2 = SHX12_1
+  if not SHX1_2 then
+    SHX1_2 = SHX13_1
+    if 0 == SHX1_2 then
+      goto SHX_LABEL_52
+    end
+  end
+  SHX1_2 = CMG
+  SHX1_2 = SHX1_2.isNoClipActive
+  SHX1_2 = SHX1_2()
+  if SHX1_2 then
+    SHX1_2 = CMG
+    SHX1_2 = SHX1_2.getPlayerVehicle
+    SHX1_2 = SHX1_2()
+    if 0 ~= SHX1_2 then
+      SHX1_2 = tCMG
+      SHX1_2 = SHX1_2.notify
+      SHX2_2 = "~r~You may not noclip when in a vehicle."
+      SHX1_2(SHX2_2)
+      SHX1_2 = tCMG
+      SHX1_2 = SHX1_2.toggleNoclip
+      SHX1_2()
+    end
+  end
+  -- [FIX IF ERROR] Move ::SHX_LABEL_52:: outside nested blocks until all 'goto SHX_LABEL_52' can see it
+  ::SHX_LABEL_52::
+  SHX1_2 = SHX12_1
+  if SHX1_2 then
+    SHX1_2 = CMG
+    SHX1_2 = SHX1_2.isNoClipActive
+    SHX1_2 = SHX1_2()
+    if SHX1_2 then
+      SHX1_2 = drawNativeText
+      SHX2_2 = "~g~Press [SPACEBAR] to confirm camera placement."
+      SHX1_2(SHX2_2)
+      SHX1_2 = IsControlJustPressed
+      SHX2_2 = 0
+      SHX3_2 = 22
+      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      if SHX1_2 then
+        SHX1_2 = {}
+        SHX2_2 = GetEntityCoords
+        SHX3_2 = SHX0_2
+        SHX2_2 = SHX2_2(SHX3_2)
+        SHX1_2.position = SHX2_2
+        SHX2_2 = GetGameplayCamRot
+        SHX3_2 = 0
+        SHX2_2 = SHX2_2(SHX3_2)
+        SHX1_2.rotation = SHX2_2
+        SHX1_2.transition = 5000
+        SHX2_2 = SHX18_1
+        SHX1_2.type = SHX2_2
+        SHX1_2.screeneffect = ""
+        SHX1_2.timecycleEffect = ""
+        SHX1_2.timecycleIntensity = 1.0
+        SHX1_2.focusType = ""
+        SHX1_2.focusData = 0
+        SHX1_2.shake = ""
+        SHX1_2.fov = 65.0
+        SHX2_2 = CMG
+        SHX2_2 = SHX2_2.createCamera
+        SHX3_2 = SHX11_1
+        SHX4_2 = SHX1_2
+        SHX2_2(SHX3_2, SHX4_2)
+        SHX2_2 = tCMG
+        SHX2_2 = SHX2_2.toggleNoclip
+        SHX2_2()
+        SHX2_2 = false
+        SHX12_1 = SHX2_2
+        SHX2_2 = SetEntityCoords
+        SHX3_2 = PlayerPedId
+        SHX3_2 = SHX3_2()
+        SHX4_2 = SHX17_1.x
+        SHX5_2 = SHX17_1.y
+        SHX6_2 = SHX17_1.z
+        SHX7_2 = true
+        SHX8_2 = false
+        SHX9_2 = false
+        SHX10_2 = false
+        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+      end
+    end
+  end
+  SHX1_2 = SHX13_1
+  if 0 ~= SHX1_2 then
+    SHX1_2 = CMG
+    SHX1_2 = SHX1_2.isNoClipActive
+    SHX1_2 = SHX1_2()
+    if SHX1_2 then
+      SHX1_2 = drawNativeText
+      SHX2_2 = "~g~Press [SPACEBAR] to confirm camera placement."
+      SHX1_2(SHX2_2)
+      SHX1_2 = IsControlJustPressed
+      SHX2_2 = 0
+      SHX3_2 = 22
+      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      if SHX1_2 then
+        SHX1_2 = {}
+        SHX2_2 = GetEntityCoords
+        SHX3_2 = SHX0_2
+        SHX2_2 = SHX2_2(SHX3_2)
+        SHX1_2.position = SHX2_2
+        SHX2_2 = GetGameplayCamRot
+        SHX3_2 = 0
+        SHX2_2 = SHX2_2(SHX3_2)
+        SHX1_2.rotation = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.transition
+        SHX1_2.transition = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.type
+        SHX1_2.type = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.screeneffect
+        SHX1_2.screeneffect = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.timecycleEffect
+        SHX1_2.timecycleEffect = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.timecycleIntensity
+        SHX1_2.timecycleIntensity = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.focusType
+        SHX1_2.focusType = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.focusData
+        SHX1_2.focusData = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.shake
+        SHX1_2.shake = SHX2_2
+        SHX3_2 = SHX11_1
+        SHX2_2 = SHX10_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX3_2 = SHX13_1
+        SHX2_2 = SHX2_2[SHX3_2]
+        SHX2_2 = SHX2_2.fov
+        if not SHX2_2 then
+          SHX2_2 = 65.0
+        end
+        SHX1_2.fov = SHX2_2
+        SHX2_2 = CMG
+        SHX2_2 = SHX2_2.modifyCamera
+        SHX3_2 = SHX11_1
+        SHX4_2 = SHX1_2
+        SHX5_2 = SHX13_1
+        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+        SHX2_2 = tCMG
+        SHX2_2 = SHX2_2.toggleNoclip
+        SHX2_2()
+        SHX2_2 = 0
+        SHX13_1 = SHX2_2
+        SHX2_2 = SetEntityCoords
+        SHX3_2 = PlayerPedId
+        SHX3_2 = SHX3_2()
+        SHX4_2 = SHX17_1.x
+        SHX5_2 = SHX17_1.y
+        SHX6_2 = SHX17_1.z
+        SHX7_2 = false
+        SHX8_2 = false
+        SHX9_2 = false
+        SHX10_2 = false
+        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+      end
+    end
+  end
+  SHX1_2 = SHX38_1
+  if nil ~= SHX1_2 then
+    SHX2_2 = SHX11_1
+    SHX1_2 = SHX10_1
+    SHX1_2 = SHX1_2[SHX2_2]
+    SHX2_2 = SHX38_1
+    SHX1_2 = SHX1_2[SHX2_2]
+    SHX2_2 = SetFocusPosAndVel
+    SHX3_2 = SHX1_2.position
+    SHX3_2 = SHX3_2.x
+    SHX4_2 = SHX1_2.position
+    SHX4_2 = SHX4_2.y
+    SHX5_2 = SHX1_2.position
+    SHX5_2 = SHX5_2.z
+    SHX6_2 = 0.0
+    SHX7_2 = 0.0
+    SHX8_2 = 0.0
+    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+    SHX2_2 = SetCamCoord
+    SHX3_2 = SHX15_1
+    SHX4_2 = SHX1_2.position
+    SHX4_2 = SHX4_2.x
+    SHX5_2 = SHX1_2.position
+    SHX5_2 = SHX5_2.y
+    SHX6_2 = SHX1_2.position
+    SHX6_2 = SHX6_2.z
+    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+    SHX2_2 = SetCamRot
+    SHX3_2 = SHX15_1
+    SHX4_2 = SHX1_2.rotation
+    SHX4_2 = SHX4_2.x
+    SHX5_2 = SHX1_2.rotation
+    SHX5_2 = SHX5_2.y
+    SHX6_2 = SHX1_2.rotation
+    SHX6_2 = SHX6_2.z
+    SHX7_2 = 2
+    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
+    SHX2_2 = SetCamFov
+    SHX3_2 = SHX15_1
+    SHX4_2 = SHX1_2.fov
+    if not SHX4_2 then
+      SHX4_2 = 65.0
+    end
+    SHX4_2 = SHX4_2 + 0.001
+    SHX2_2(SHX3_2, SHX4_2)
+  end
+  SHX1_2 = SHX22_1
+  if nil ~= SHX1_2 then
+    SHX1_2 = GetCamCoord
+    SHX2_2 = SHX22_1
+    SHX1_2 = SHX1_2(SHX2_2)
+    SHX2_2 = SetFocusPosAndVel
+    SHX3_2 = SHX1_2.x
+    SHX4_2 = SHX1_2.y
+    SHX5_2 = SHX1_2.z
+    SHX6_2 = 0.0
+    SHX7_2 = 0.0
+    SHX8_2 = 0.0
+    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  end
+end
+SHX43_1 = _ENV
+SHX44_1 = "DecorRegister"
+SHX43_1 = SHX43_1[SHX44_1]
+SHX44_1 = "a99d39faff"
+SHX45_1 = 2
+SHX43_1(SHX44_1, SHX45_1)
+SHX43_1 = _ENV
+SHX44_1 = "CMG"
+SHX43_1 = SHX43_1[SHX44_1]
+SHX44_1 = "createThreadOnTick"
+SHX43_1 = SHX43_1[SHX44_1]
+SHX44_1 = SHX42_1
+SHX45_1 = "Cinematic Mode"
+SHX43_1(SHX44_1, SHX45_1)
+SHX43_1 = -1
+SHX44_1 = _ENV
+SHX45_1 = "RegisterCommand"
+SHX44_1 = SHX44_1[SHX45_1]
+SHX45_1 = "setlastvehicleon"
+function SHX46_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
+  SHX0_2 = PlayerPedId
+  SHX0_2 = SHX0_2()
+  SHX1_2 = IsPedInAnyVehicle
+  SHX2_2 = SHX0_2
+  SHX3_2 = true
+  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+  if not SHX1_2 then
+    SHX1_2 = IsControlPressed
+    SHX2_2 = 0
+    SHX3_2 = 23
+    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+    if not SHX1_2 then
+      SHX1_2 = GetVehiclePedIsIn
+      SHX2_2 = SHX0_2
+      SHX3_2 = true
+      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      if 0 ~= SHX1_2 then
+        SHX2_2 = SetVehicleEngineOn
+        SHX3_2 = SHX1_2
+        SHX4_2 = true
+        SHX5_2 = true
+        SHX6_2 = false
+        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+        SHX43_1 = SHX1_2
+      end
+    end
+  end
+end
+SHX47_1 = false
+SHX44_1(SHX45_1, SHX46_1, SHX47_1)
+SHX44_1 = _ENV
+SHX45_1 = "Citizen"
+SHX44_1 = SHX44_1[SHX45_1]
+SHX45_1 = "CreateThread"
+SHX44_1 = SHX44_1[SHX45_1]
+function SHX45_1()
+  -- [AI CLEANUP] Decompiled Lua - Fix these:
+  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
+  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
+  -- 3. Replace goto/label with while/repeat-until where possible
+  -- 4. Remove decompiler comments, add meaningful ones
+  -- 5. Fix indentation and formatting
+  
+  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
+  while true do
+    SHX0_2 = CMG
+    SHX0_2 = SHX0_2.getPlayerVehicle
+    SHX0_2, SHX1_2 = SHX0_2()
+    if 0 ~= SHX0_2 then
+      SHX2_2 = SHX43_1
+      if SHX0_2 == SHX2_2 and SHX1_2 then
+        SHX2_2 = SetVehicleEngineOn
+        SHX3_2 = SHX0_2
+        SHX4_2 = false
+        SHX5_2 = true
+        SHX6_2 = true
+        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+        SHX2_2 = -1
+        SHX43_1 = SHX2_2
+      end
+    end
+    SHX2_2 = GetEntityAttachedTo
+    SHX3_2 = PlayerPedId
+    SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX3_2()
+    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+    if 0 ~= SHX2_2 then
+      SHX3_2 = IsEntityAPed
+      SHX4_2 = SHX2_2
+      SHX3_2 = SHX3_2(SHX4_2)
+      if SHX3_2 then
+        SHX3_2 = IsPedAPlayer
+        SHX4_2 = SHX2_2
+        SHX3_2 = SHX3_2(SHX4_2)
+        if SHX3_2 then
+          SHX3_2 = IsEntityVisible
+          SHX4_2 = SHX2_2
+          SHX3_2 = SHX3_2(SHX4_2)
+          if not SHX3_2 then
+            SHX3_2 = NetworkGetPlayerIndexFromPed
+            SHX4_2 = SHX2_2
+            SHX3_2 = SHX3_2(SHX4_2)
+            if -1 ~= SHX3_2 then
+              SHX4_2 = GetPlayerServerId
+              SHX5_2 = SHX3_2
+              SHX4_2 = SHX4_2(SHX5_2)
+              if SHX4_2 > 0 then
+                SHX5_2 = CMG
+                SHX5_2 = SHX5_2.clientGetPlayerIsStaff
+                SHX6_2 = SHX4_2
+                SHX5_2 = SHX5_2(SHX6_2)
+                if not SHX5_2 then
+                  SHX5_2 = SetEntityVisible
+                  SHX6_2 = PlayerPedId
+                  SHX6_2 = SHX6_2()
+                  SHX7_2 = true
+                  SHX8_2 = true
+                  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+                  SHX5_2 = DetachEntity
+                  SHX6_2 = PlayerPedId
+                  SHX6_2 = SHX6_2()
+                  SHX7_2 = true
+                  SHX8_2 = true
+                  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    SHX3_2 = Citizen
+    SHX3_2 = SHX3_2.Wait
+    SHX4_2 = 1000
+    SHX3_2(SHX4_2)
+  end
+end
+SHX44_1(SHX45_1)

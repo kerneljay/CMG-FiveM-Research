@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xxd -l 256 cfg_fishing.lua)",
+      "Bash(xxd cfg_wheelchair.lua)",
+      "Bash(xxd cfg_identity.lua)",
+      "Bash(python3 *)"
+    ]
+  }
+}

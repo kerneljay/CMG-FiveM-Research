@@ -1,0 +1,12 @@
+.chess-root {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    padding-top: 0%;
+}
+
+#chess-board {
+    transform: translate(0%, -50%);
+}
