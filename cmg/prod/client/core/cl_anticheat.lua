@@ -1544,4 +1544,459 @@ end
 
 -- Second handler for the shot-replay event: looks for machine-like click
 -- cadence (triggerbot) and for keys the game never uses.
-RegisterNetEvent("8abfbe8340", ... (2 KB left)
+RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash)
+    local maxClickDelay = CMG.getTunableValue("triggerbot_clicks_max_delay")
+    local minClicksRequired = CMG.getTunableValue("triggerbot_clicks_min_required")
+    local clickHistoryMs = CMG.getTunableValue("triggerbot_clicks_history_msec")
+
+    local fastClicks = {}
+    local now = GetGameTimer()
+
+    if now - lastTriggerbotReport < 20000 then
+        return
+    end
+
+    -- Wait for the NUI layer to flush its next batch of presses.
+    local version = recentPressesVersion
+
+    while recentPressesVersion == version do
+        Wait(0)
+    end
+
+    local afterFlush = GetGameTimer()
+    local unwantedKeys = {}
+
+    for _, press in keyPressBuffer.iterator() do
+        local keyName, timestamp, holdDuration = press[1], press[2], press[3]
+
+        -- "B0" is the left mouse button.
+        if keyName == "B0" then
+            if clickHistoryMs > now - timestamp
+                and maxClickDelay > holdDuration
+                and holdDuration >= 5
+            then
+                table.insert(fastClicks, holdDuration)
+            end
+        end
+
+        if CMG.hasClientGroup("keylog") then
+            local age = afterFlush - timestamp
+
+            if not CAPTURED_KEYS[keyName] and age >= 0 and age <= 2000 then
+                table.insert(unwantedKeys, keyName)
+            end
+        end
+    end
+
+    if minClicksRequired <= #fastClicks then
+        TriggerServerEvent("6db9ca48ea", fastClicks)
+        lastTriggerbotReport = now
+    end
+
+    if #unwantedKeys > 0 and CMG.getTunableValue("log_unwanted_buttons") then
+        TriggerServerEvent("7011667ffc", unwantedKeys, weaponHash)
+    end
+end)
+
+-- Ask the NUI layer for its performance counter every 10s so we can keep the
+-- two clocks aligned, and flush any flagged presses.
+Citizen.CreateThread(function()
+    while true do
+        CMG.uiSendMessage({
+            action = "fetchPerformanceCounter",
+            data = { gameTime = GetGameTimer() },
+        })
+
+        if #flaggedPresses > 0 then
+            table.sort(flaggedPresses, function(a, b)
+                return a[2] < b[2]
+            end)
+
+            TriggerServerEvent("8877db5ad1", flaggedPresses)
+            flaggedPresses = {}
+        end
+
+        Wait(10000)
+    end
+end)
+
+CMG.uiRegisterCallback("sendPerformanceCounter", function(data)
+    -- NOTE: misspelled field in the original — present means the NUI could not
+    -- read a counter, so it is reported and the offset is left alone.
+    if data.performenceCounter then
+        TriggerServerEvent("3ec6910688")
+        return
+    end
+
+    local halfRoundTrip = (GetGameTimer() - data.gameTime) / 2
+
+    performanceCounterOffset = math.floor(data.gameTime - data.performanceCounter + halfRoundTrip)
+end)
+
+--=============================================================================
+-- Decoy vehicle
+--
+-- An invisible, collision-less, locked vehicle. Menus that unlock every
+-- vehicle in the world will unlock this one too.
+--=============================================================================
+
+local lastDecoyVehicleReport = 0
+local decoyVehicle = 0
+
+Citizen.CreateThread(function()
+    decoyVehicle = CMG.spawnVehicle("adder", 500.0, 500.0, 0.0, 0.0, false, false, false)
+
+    FreezeEntityPosition(decoyVehicle, true)
+    SetEntityVisible(decoyVehicle, false, false)
+    SetEntityCollision(decoyVehicle, false, false)
+    SetVehicleDoorsLocked(decoyVehicle, 2)
+    SetVehicleDoorsLockedForAllPlayers(decoyVehicle, true)
+
+    while true do
+        if decoyVehicle ~= 0 then
+            local lockStatus = GetVehicleDoorLockStatus(decoyVehicle)
+
+            if lockStatus ~= 2 then
+                local exists = DoesEntityExist(decoyVehicle)
+
+                if GetGameTimer() - lastDecoyVehicleReport > 20000 then
+                    TriggerServerEvent("eaa4e1837c", lockStatus, exists)
+                    lastDecoyVehicleReport = GetGameTimer()
+                end
+
+                if exists then
+                    SetVehicleDoorsLocked(decoyVehicle, 2)
+                else
+                    decoyVehicle = 0
+                end
+            end
+        end
+
+        Wait(1000)
+    end
+end)
+
+--=============================================================================
+-- Dev menu integration
+--=============================================================================
+
+local function describeAntiCheatDecor(entity)
+    return string.format("AC Token: %s", DecorGetInt(entity, AC_DECOR))
+end
+
+CMG.registerDevMenuEntityEditor("AntiCheat", "vehicle", describeAntiCheatDecor, function() end)
+
+--=============================================================================
+-- Raw key logging
+--=============================================================================
+
+local VIRTUAL_KEY_NAMES = {
+    [1] = "LBUTTON",
+    [2] = "RBUTTON",
+    [3] = "CANCEL",
+    [4] = "MBUTTON",
+    [5] = "XBUTTON1",
+    [6] = "XBUTTON2",
+    [8] = "BACK",
+    [9] = "TAB",
+    [12] = "CLEAR",
+    [13] = "RETURN",
+    [16] = "SHIFT",
+    [17] = "CONTROL",
+    [18] = "MENU",
+    [19] = "PAUSE",
+    [20] = "CAPITAL",
+    [21] = "KANA",
+    [22] = "IME_ON",
+    [23] = "JUNJA",
+    [24] = "FINAL",
+    [25] = "HANJA",
+    [26] = "IME_OFF",
+    [27] = "ESCAPE",
+    [28] = "CONVERT",
+    [29] = "NONCONVERT",
+    [30] = "ACCEPT",
+    [31] = "MODECHANGE",
+    [32] = "SPACE",
+    [33] = "PRIOR",
+    [34] = "NEXT",
+    [35] = "END",
+    [36] = "HOME",
+    [37] = "LEFT",
+    [38] = "UP",
+    [39] = "RIGHT",
+    [40] = "DOWN",
+    [41] = "SELECT",
+    [42] = "PRINT",
+    [43] = "EXECUTE",
+    [44] = "SNAPSHOT",
+    [45] = "INSERT",
+    [46] = "DELETE",
+    [47] = "HELP",
+    [48] = "0",
+    [49] = "1",
+    [50] = "2",
+    [51] = "3",
+    [52] = "4",
+    [53] = "5",
+    [54] = "6",
+    [55] = "7",
+    [56] = "8",
+    [57] = "9",
+    [65] = "A",
+    [66] = "B",
+    [67] = "C",
+    [68] = "D",
+    [69] = "E",
+    [70] = "F",
+    [71] = "G",
+    [72] = "H",
+    [73] = "I",
+    [74] = "J",
+    [75] = "K",
+    [76] = "L",
+    [77] = "M",
+    [78] = "N",
+    [79] = "O",
+    [80] = "P",
+    [81] = "Q",
+    [82] = "R",
+    [83] = "S",
+    [84] = "T",
+    [85] = "U",
+    [86] = "V",
+    [87] = "W",
+    [88] = "X",
+    [89] = "Y",
+    [90] = "Z",
+    [91] = "LWIN",
+    [92] = "RWIN",
+    [93] = "APPS",
+    [95] = "SLEEP",
+    [96] = "NUMPAD0",
+    [97] = "NUMPAD1",
+    [98] = "NUMPAD2",
+    [99] = "NUMPAD3",
+    [100] = "NUMPAD4",
+    [101] = "NUMPAD5",
+    [102] = "NUMPAD6",
+    [103] = "NUMPAD7",
+    [104] = "NUMPAD8",
+    [105] = "NUMPAD9",
+    [106] = "MULTIPLY",
+    [107] = "ADD",
+    [108] = "SEPARATOR",
+    [109] = "SUBTRACT",
+    [110] = "DECIMAL",
+    [111] = "DIVIDE",
+    [112] = "F1",
+    [113] = "F2",
+    [114] = "F3",
+    [115] = "F4",
+    [116] = "F5",
+    [117] = "F6",
+    [118] = "F7",
+    [119] = "F8",
+    [120] = "F9",
+    [121] = "F10",
+    [122] = "F11",
+    [123] = "F12",
+    [124] = "F13",
+    [125] = "F14",
+    [126] = "F15",
+    [127] = "F16",
+    [128] = "F17",
+    [129] = "F18",
+    [130] = "F19",
+    [131] = "F20",
+    [132] = "F21",
+    [133] = "F22",
+    [134] = "F23",
+    [135] = "F24",
+    [144] = "NUMLOCK",
+    [145] = "SCROLL",
+    [160] = "LSHIFT",
+    [161] = "RSHIFT",
+    [162] = "LCONTROL",
+    [163] = "RCONTROL",
+    [164] = "LMENU",
+    [165] = "RMENU",
+    [166] = "BROWSER_BACK",
+    [167] = "BROWSER_FORWARD",
+    [168] = "BROWSER_REFRESH",
+    [169] = "BROWSER_STOP",
+    [170] = "BROWSER_SEARCH",
+    [171] = "BROWSER_FAVORITES",
+    [172] = "BROWSER_HOME",
+    [173] = "VOLUME_MUTE",
+    [174] = "VOLUME_DOWN",
+    [175] = "VOLUME_UP",
+    [176] = "MEDIA_NEXT_TRACK",
+    [177] = "MEDIA_PREV_TRACK",
+    [178] = "MEDIA_STOP",
+    [179] = "MEDIA_PLAY_PAUSE",
+    [180] = "LAUNCH_MAIL",
+    [181] = "LAUNCH_MEDIA_SELECT",
+    [182] = "LAUNCH_APP1",
+    [183] = "LAUNCH_APP2",
+    [186] = "OEM_1",
+    [187] = "OEM_PLUS",
+    [188] = "OEM_COMMA",
+    [189] = "OEM_MINUS",
+    [190] = "OEM_PERIOD",
+    [191] = "OEM_2",
+    [192] = "OEM_3",
+    [219] = "OEM_4",
+    [220] = "OEM_5",
+    [221] = "OEM_6",
+    [222] = "OEM_7",
+    [223] = "OEM_8",
+    [226] = "OEM_102",
+    [229] = "PROCESSKEY",
+    [231] = "PACKET",
+    [246] = "ATTN",
+    [247] = "CRSEL",
+    [248] = "EXSEL",
+    [249] = "EREOF",
+    [250] = "PLAY",
+    [251] = "ZOOM",
+    [252] = "NONAME",
+    [253] = "PA1",
+    [254] = "OEM_CLEAR",
+}
+
+-- keyDownSince[vk] = game time the key went down, or 0 while it is up.
+local keyDownSince = {}
+
+for _ = 0, 255 do
+    table.insert(keyDownSince, 0)
+end
+
+local keyLogBuffer = {}
+local lastKeyLogSend = 0
+local keyLoggingEnabled = false
+
+local function keyCheckTick()
+    if not CMG.hasClientGroup("keylog") and not keyLoggingEnabled then
+        return
+    end
+
+    local now = GetGameTimer()
+
+    for vk = 7, 255 do
+        if IsRawKeyDown(vk) then
+            if keyDownSince[vk] == 0 then
+                keyDownSince[vk] = now
+            end
+        elseif keyDownSince[vk] ~= 0 then
+            local pressedAt = keyDownSince[vk]
+            local heldFor = now - pressedAt
+            local keyName = VIRTUAL_KEY_NAMES[vk] or string.format("VK_%s", vk)
+
+            keyPressBuffer.put(keyName, pressedAt, heldFor)
+            table.insert(keyLogBuffer, { keyName, heldFor })
+
+            keyDownSince[vk] = 0
+        end
+    end
+
+    if keyLoggingEnabled and now - lastKeyLogSend > 1000 then
+        TriggerServerEvent("b64d75268d", keyLogBuffer)
+        table.clear(keyLogBuffer)
+        lastKeyLogSend = now
+    end
+end
+
+CMG.createThreadOnTick(keyCheckTick, "AntiCheat Key Checks")
+
+-- Staff toggling key logging for this client.
+RegisterNetEvent("5bb4fd310c", function(enabled)
+    keyLoggingEnabled = enabled
+
+    if not enabled then
+        table.clear(keyLogBuffer)
+    end
+end)
+
+--=============================================================================
+-- Customization snapshot maintenance
+--
+-- These patches keep `cachedCustomization` in step with everything the script
+-- legitimately applies, so checkCustomization() only fires on outside changes.
+--=============================================================================
+
+CMG.patchFunction("SetPlayerModel", SetPlayerModel, function(original, playerId, model)
+    original(playerId, model)
+
+    CMG.forcePlayerInfoCacheRefresh()
+
+    if playerId == PlayerId() then
+        cachedCustomization = tCMG.getCustomization()
+    end
+end)
+
+CMG.patchFunction("SetPedComponentVariation", SetPedComponentVariation,
+    function(original, ped, componentId, drawableId, textureId, paletteId)
+        original(ped, componentId, drawableId, textureId, paletteId)
+
+        if ped == PlayerPedId() and cachedCustomization then
+            cachedCustomization.components[componentId] = {
+                collectionName = GetPedDrawableVariationCollectionName(ped, componentId),
+                collectionIndex = GetPedDrawableVariationCollectionLocalIndex(ped, componentId),
+            }
+        end
+    end)
+
+CMG.patchFunction("SetPedCollectionComponentVariation", SetPedCollectionComponentVariation,
+    function(original, ped, componentId, collection, drawableId, textureId, paletteId)
+        if ped == PlayerPedId() and cachedCustomization then
+            cachedCustomization.components[componentId] = {
+                collectionName = collection,
+                collectionIndex = drawableId,
+            }
+        end
+
+        original(ped, componentId, collection, drawableId, textureId, paletteId)
+    end)
+
+--=============================================================================
+-- Shadow lobby
+--
+-- Suspected cheaters are moved to an isolated bucket and have firing disabled.
+--=============================================================================
+
+local shadowLobbyActive = false
+
+RegisterNetEvent("080ad343ae", function(active)
+    shadowLobbyActive = active
+
+    if active then
+        CMG.hideAllDisplays("anticheat_echo")
+
+        CMG.showWarningMessageAdvanced(
+            "Suspected of Cheating",
+            [[
+You have been suspected of cheating and have been placed in the shadow lobby
+You must not disconnect from the server
+Please check discord DMs for more information on how to proceed]],
+            1,
+            function()
+                if IsDisabledControlJustPressed(2, 215) then
+                    CMG.showAllDisplays("anticheat_echo")
+                    return true
+                end
+
+                return false
+            end)
+    end
+end)
+
+CreateThread(function()
+    while true do
+        if shadowLobbyActive then
+            DisablePlayerFiring(PlayerId(), true)
+        end
+
+        Wait(0)
+    end
+end)
