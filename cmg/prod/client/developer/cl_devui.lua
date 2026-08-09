@@ -1,537 +1,798 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    CMG SCREEN UI DEBUG
+    Beginner-Friendly Rewrite
+    =================================================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.registerDevMenuState
-SHX1_1 = "Screen UI"
-SHX2_1 = {}
-SHX2_1.enabled = false
-SHX0_1 = SHX0_1(SHX1_1, SHX2_1)
-SHX1_1 = CMG
-SHX1_1 = SHX1_1.registerDevMenuItems
-SHX2_1 = "Displays"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Checkbox
-  SHX1_2 = "Screen Debug"
-  SHX2_2 = "Whether to draw basic debug information at the bottom of the screen."
-  SHX3_2 = SHX0_1.enabled
-  SHX4_2 = {}
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    SHX0_1.enabled = SHX3_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-end
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = 0
-SHX2_1 = 0
-SHX3_1 = 0
-SHX4_1 = 0
-SHX5_1 = 0
-SHX6_1 = 0
-SHX7_1 = 0.25
-SHX8_1 = false
-SHX9_1 = CMG
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX0_1.enabled
-  if SHX0_2 then
-    SHX0_2 = true
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getTextHeight
-    SHX2_2 = SHX7_1
-    SHX3_2 = 1
-    SHX1_2, SHX2_2, SHX3_2 = SHX1_2(SHX2_2, SHX3_2)
-    return SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  end
-  SHX0_2 = false
-  SHX1_2 = 0.0
-  return SHX0_2, SHX1_2
-end
-SHX9_1.isDrawingDebugUI = SHX10_1
-SHX9_1 = RegisterNUICallback
-SHX10_1 = "moneyUILoaded"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SendNUIMessage
-  SHX1_2 = {}
-  SHX1_2.toggleDebugUI = true
-  SHX2_2 = SHX0_1.enabled
-  SHX1_2.debugEnabled = SHX2_2
-  SHX0_2(SHX1_2)
-end
-SHX9_1(SHX10_1, SHX11_1)
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = SHX0_1.enabled
-  if SHX0_2 == SHX1_2 then
-    return
-  end
-  SHX0_2 = SHX0_1.enabled
-  SHX8_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getTextHeight
-    SHX1_3 = SHX7_1
-    SHX2_3 = 1
-    SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-    SHX1_3 = SHX0_1.enabled
-    if not SHX1_3 then
-      SHX0_3 = 0.0
+    WHAT THIS FILE DOES
+    -------------------
+    This is a developer-only screen/debug utility.
+
+    When "Screen Debug" is enabled in the developer menu it:
+
+      1. Moves the minimap slightly upward.
+      2. Draws a black debug strip at the bottom of the screen.
+      3. Shows:
+           - player coordinates
+           - camera coordinates
+           - camera FOV
+           - FPS
+           - frame time in milliseconds
+           - game timer
+           - frame count
+           - streaming request count
+           - player speed
+           - object count
+           - vehicle count
+           - ped count
+           - active player count
+      4. Tells the NUI whether debug mode is enabled.
+      5. Patches DrawScaleformMovieFullscreen so fullscreen scaleforms are
+         resized/moved upward while the debug strip is visible.
+
+    There are NO server events in this file.
+
+    The original decompile used names such as SHX0_1, SHX6_2 and SHX13_2.
+    Those were temporary decompiler register names, not meaningful names from
+    the original developer.
+]]
+
+---------------------------------------------------------------------
+-- 1. DEBUG MENU STATE
+---------------------------------------------------------------------
+
+-- CMG.registerDevMenuState() returns a state table managed by the framework.
+local ScreenDebug =
+    CMG.registerDevMenuState(
+        "Screen UI",
+        {
+            enabled = false,
+        }
+    )
+
+---------------------------------------------------------------------
+-- 2. DEVELOPER MENU CHECKBOX
+---------------------------------------------------------------------
+
+CMG.registerDevMenuItems(
+    "Displays",
+    function()
+        RageUI.Checkbox(
+            "Screen Debug",
+
+            "Whether to draw basic debug information at the bottom of the screen.",
+
+            ScreenDebug.enabled,
+
+            {},
+
+            function(
+                _hovered,
+                _active,
+                _selected,
+                checked
+            )
+                ScreenDebug.enabled =
+                    checked == true
+            end
+        )
     end
-    SHX1_3 = SetMinimapComponentPosition
-    SHX2_3 = "minimap"
-    SHX3_3 = "L"
-    SHX4_3 = "B"
-    SHX5_3 = -0.0045
-    SHX6_3 = 0.002
-    SHX6_3 = SHX6_3 - SHX0_3
-    SHX7_3 = 0.15
-    SHX8_3 = 0.188888
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-    SHX1_3 = SetMinimapComponentPosition
-    SHX2_3 = "minimap_mask"
-    SHX3_3 = "L"
-    SHX4_3 = "B"
-    SHX5_3 = 0.02
-    SHX6_3 = 0.032
-    SHX6_3 = SHX6_3 - SHX0_3
-    SHX7_3 = 0.111
-    SHX8_3 = 0.159
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-    SHX1_3 = SetMinimapComponentPosition
-    SHX2_3 = "minimap_blur"
-    SHX3_3 = "L"
-    SHX4_3 = "B"
-    SHX5_3 = -0.03
-    SHX6_3 = 0.022
-    SHX6_3 = SHX6_3 - SHX0_3
-    SHX7_3 = 0.266
-    SHX8_3 = 0.237
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-    SHX1_3 = SetRadarBigmapEnabled
-    SHX2_3 = true
-    SHX3_3 = false
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = Wait
-    SHX2_3 = 0
-    SHX1_3(SHX2_3)
-    SHX1_3 = SetRadarBigmapEnabled
-    SHX2_3 = false
-    SHX3_3 = false
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = Wait
-    SHX2_3 = 0
-    SHX1_3(SHX2_3)
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.refreshCachedMinimapAnchor
-    SHX1_3()
-    SHX1_3 = SendNUIMessage
-    SHX2_3 = {}
-    SHX2_3.toggleDebugUI = true
-    SHX3_3 = SHX0_1.enabled
-    SHX2_3.debugEnabled = SHX3_3
-    SHX1_3(SHX2_3)
-  end
-  SHX0_2(SHX1_2)
+)
+
+---------------------------------------------------------------------
+-- 3. CACHED DEBUG STATISTICS
+---------------------------------------------------------------------
+--
+-- Some values are expensive enough that the original only refreshes them
+-- every 250 ms instead of calculating them every frame.
+---------------------------------------------------------------------
+
+local DebugStats = {
+    frameTimeMs = 0.0,
+
+    pedCount = 0,
+    vehicleCount = 0,
+    objectCount = 0,
+    playerCount = 0,
+
+    lastUpdateAt = 0,
+}
+
+-- Text scale used for every line in the debug overlay.
+local DEBUG_TEXT_SCALE = 0.25
+
+-- Used to detect when the checkbox changes.
+local lastDebugEnabledState = false
+
+---------------------------------------------------------------------
+-- 4. TELL OTHER CODE WHETHER DEBUG UI IS BEING DRAWN
+---------------------------------------------------------------------
+--
+-- Other CMG code can call:
+--
+--     local drawing, height = CMG.isDrawingDebugUI()
+--
+-- This helps other HUD elements avoid overlapping the debug strip.
+---------------------------------------------------------------------
+
+function CMG.isDrawingDebugUI()
+    if ScreenDebug.enabled then
+        -- CMG.getTextHeight() can return more than one value.
+        -- Preserve all of those return values like the source did.
+        local height, extraA, extraB =
+            CMG.getTextHeight(
+                DEBUG_TEXT_SCALE,
+                1
+            )
+
+        return
+            true,
+            height,
+            extraA,
+            extraB
+    end
+
+    return false, 0.0
 end
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = SHX9_1
-  SHX0_2()
-  SHX0_2 = SHX0_1.enabled
-  if not SHX0_2 then
+
+---------------------------------------------------------------------
+-- 5. NUI LOADED CALLBACK
+---------------------------------------------------------------------
+--
+-- When the money/HUD NUI announces that it has loaded, immediately tell it
+-- whether debug mode is currently enabled.
+---------------------------------------------------------------------
+
+RegisterNUICallback(
+    "moneyUILoaded",
+    function()
+        SendNUIMessage({
+            toggleDebugUI = true,
+            debugEnabled =
+                ScreenDebug.enabled,
+        })
+    end
+)
+
+---------------------------------------------------------------------
+-- 6. MOVE THE MINIMAP WHEN DEBUG MODE CHANGES
+---------------------------------------------------------------------
+
+local function applyDebugLayoutIfChanged()
+    -------------------------------------------------------------
+    -- Nothing to do if the checkbox has not changed.
+    -------------------------------------------------------------
+
+    if lastDebugEnabledState
+        == ScreenDebug.enabled
+    then
+        return
+    end
+
+    lastDebugEnabledState =
+        ScreenDebug.enabled
+
+    -------------------------------------------------------------
+    -- Run the minimap refresh asynchronously just like the source.
+    -------------------------------------------------------------
+
+    Citizen.CreateThread(
+        function()
+            local debugHeight =
+                CMG.getTextHeight(
+                    DEBUG_TEXT_SCALE,
+                    1
+                )
+
+            if not ScreenDebug.enabled then
+                debugHeight = 0.0
+            end
+
+            -----------------------------------------------------
+            -- MAIN MINIMAP
+            -----------------------------------------------------
+
+            SetMinimapComponentPosition(
+                "minimap",
+                "L",
+                "B",
+
+                -0.0045,
+                0.002 - debugHeight,
+
+                0.15,
+                0.188888
+            )
+
+            -----------------------------------------------------
+            -- MINIMAP MASK
+            -----------------------------------------------------
+
+            SetMinimapComponentPosition(
+                "minimap_mask",
+                "L",
+                "B",
+
+                0.02,
+                0.032 - debugHeight,
+
+                0.111,
+                0.159
+            )
+
+            -----------------------------------------------------
+            -- MINIMAP BLUR / BACKGROUND
+            -----------------------------------------------------
+
+            SetMinimapComponentPosition(
+                "minimap_blur",
+                "L",
+                "B",
+
+                -0.03,
+                0.022 - debugHeight,
+
+                0.266,
+                0.237
+            )
+
+            -----------------------------------------------------
+            -- GTA often needs the big map toggled once for minimap
+            -- component-position changes to visibly refresh.
+            -----------------------------------------------------
+
+            SetRadarBigmapEnabled(
+                true,
+                false
+            )
+
+            Wait(0)
+
+            SetRadarBigmapEnabled(
+                false,
+                false
+            )
+
+            Wait(0)
+
+            -----------------------------------------------------
+            -- Tell the rest of the CMG HUD that the minimap anchor moved.
+            -----------------------------------------------------
+
+            CMG.refreshCachedMinimapAnchor()
+
+            -----------------------------------------------------
+            -- Update NUI.
+            -----------------------------------------------------
+
+            SendNUIMessage({
+                toggleDebugUI = true,
+                debugEnabled =
+                    ScreenDebug.enabled,
+            })
+        end
+    )
+end
+
+---------------------------------------------------------------------
+-- 7. REFRESH EXPENSIVE DEBUG STATISTICS
+---------------------------------------------------------------------
+
+local function updateCachedDebugStats()
+    local now =
+        GetGameTimer()
+
+    -------------------------------------------------------------
+    -- Only update these every 250 milliseconds.
+    -------------------------------------------------------------
+
+    if now - DebugStats.lastUpdateAt
+        <= 250
+    then
+        return
+    end
+
+    -------------------------------------------------------------
+    -- GetFrameTime() is seconds per frame.
+    --
+    -- Example:
+    --     0.0167 seconds ~= 16.7 ms ~= 60 FPS
+    -------------------------------------------------------------
+
+    DebugStats.frameTimeMs =
+        GetFrameTime()
+        * 1000.0
+
+    DebugStats.pedCount =
+        #GetGamePool("CPed")
+
+    DebugStats.vehicleCount =
+        #CMG.getAllVehicles()
+
+    DebugStats.objectCount =
+        #GetGamePool("CObject")
+
+    DebugStats.playerCount =
+        #GetActivePlayers()
+
+    DebugStats.lastUpdateAt =
+        now
+end
+
+---------------------------------------------------------------------
+-- 8. SAFE FPS CALCULATION
+---------------------------------------------------------------------
+
+local function getCurrentFps()
+    if DebugStats.frameTimeMs
+        <= 0.0
+    then
+        return 0.0
+    end
+
     return
-  end
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX6_1
-  SHX1_2 = SHX0_2 - SHX1_2
-  SHX2_2 = 250
-  if SHX1_2 > SHX2_2 then
-    SHX1_2 = GetFrameTime
-    SHX1_2 = SHX1_2()
-    SHX1_2 = SHX1_2 * 1000.0
-    SHX1_1 = SHX1_2
-    SHX1_2 = GetGamePool
-    SHX2_2 = "CPed"
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = #SHX1_2
-    SHX2_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getAllVehicles
-    SHX1_2 = SHX1_2()
-    SHX1_2 = #SHX1_2
-    SHX3_1 = SHX1_2
-    SHX1_2 = GetGamePool
-    SHX2_2 = "CObject"
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = #SHX1_2
-    SHX4_1 = SHX1_2
-    SHX1_2 = GetActivePlayers
-    SHX1_2 = SHX1_2()
-    SHX1_2 = #SHX1_2
-    SHX5_1 = SHX1_2
-    SHX6_1 = SHX0_2
-  end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getTextHeight
-  SHX2_2 = SHX7_1
-  SHX3_2 = 1
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerCoords
-  SHX2_2 = SHX2_2()
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.DrawText
-  SHX4_2 = 0.0
-  SHX5_2 = 1.0
-  SHX5_2 = SHX5_2 - SHX1_2
-  SHX6_2 = string
-  SHX6_2 = SHX6_2.format
-  SHX7_2 = "P:(%s, %s, %s)"
-  SHX8_2 = math
-  SHX8_2 = SHX8_2.round
-  SHX9_2 = SHX2_2.x
-  SHX10_2 = 1
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = math
-  SHX9_2 = SHX9_2.round
-  SHX10_2 = SHX2_2.y
-  SHX11_2 = 1
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX10_2 = math
-  SHX10_2 = SHX10_2.round
-  SHX11_2 = SHX2_2.z
-  SHX12_2 = 1
-  SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2, SHX12_2)
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX7_2 = SHX7_1
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = GetFinalRenderedCamCoord
-  SHX3_2 = SHX3_2()
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.09
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "C:(%s, %s, %s)"
-  SHX9_2 = math
-  SHX9_2 = SHX9_2.round
-  SHX10_2 = SHX3_2.x
-  SHX11_2 = 1
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX10_2 = math
-  SHX10_2 = SHX10_2.round
-  SHX11_2 = SHX3_2.y
-  SHX12_2 = 1
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-  SHX11_2 = math
-  SHX11_2 = SHX11_2.round
-  SHX12_2 = SHX3_2.z
-  SHX13_2 = 1
-  SHX11_2, SHX12_2, SHX13_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.18
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "FOV: %s"
-  SHX9_2 = math
-  SHX9_2 = SHX9_2.round
-  SHX10_2 = GetFinalRenderedCamFov
-  SHX10_2 = SHX10_2()
-  SHX11_2 = 1
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.22
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "FPS: %s"
-  SHX9_2 = math
-  SHX9_2 = SHX9_2.round
-  SHX10_2 = SHX1_1
-  SHX11_2 = 1000
-  SHX10_2 = SHX11_2 / SHX10_2
-  SHX11_2 = 1
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.26
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "(%sms)"
-  SHX9_2 = math
-  SHX9_2 = SHX9_2.round
-  SHX10_2 = SHX1_1
-  SHX11_2 = 1
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.295
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "T:%s"
-  SHX9_2 = SHX0_2
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.34
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "F:%s"
-  SHX9_2 = GetFrameCount
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX9_2()
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText
-  SHX5_2 = 0.385
-  SHX6_2 = 1.0
-  SHX6_2 = SHX6_2 - SHX1_2
-  SHX7_2 = string
-  SHX7_2 = SHX7_2.format
-  SHX8_2 = "REQ: %s"
-  SHX9_2 = GetNumberOfStreamingRequests
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX9_2()
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX8_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = GetEntitySpeed
-  SHX5_2 = PlayerPedId
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX5_2()
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.DrawText
-  SHX6_2 = 0.425
-  SHX7_2 = 1.0
-  SHX7_2 = SHX7_2 - SHX1_2
-  SHX8_2 = string
-  SHX8_2 = SHX8_2.format
-  SHX9_2 = "PS: %smph"
-  SHX10_2 = math
-  SHX10_2 = SHX10_2.round
-  SHX11_2 = SHX4_2 * 2.236
-  SHX12_2 = 1
-  SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2, SHX12_2)
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX9_2 = SHX7_1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.DrawText
-  SHX6_2 = 0.96
-  SHX7_2 = 1.0
-  SHX7_2 = SHX7_2 - SHX1_2
-  SHX8_2 = string
-  SHX8_2 = SHX8_2.format
-  SHX9_2 = "OBJ: %s"
-  SHX10_2 = SHX4_1
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = SHX7_1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.DrawText
-  SHX6_2 = 0.925
-  SHX7_2 = 1.0
-  SHX7_2 = SHX7_2 - SHX1_2
-  SHX8_2 = string
-  SHX8_2 = SHX8_2.format
-  SHX9_2 = "VEH: %s"
-  SHX10_2 = SHX3_1
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = SHX7_1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.DrawText
-  SHX6_2 = 0.89
-  SHX7_2 = 1.0
-  SHX7_2 = SHX7_2 - SHX1_2
-  SHX8_2 = string
-  SHX8_2 = SHX8_2.format
-  SHX9_2 = "PED: %s"
-  SHX10_2 = SHX2_1
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = SHX7_1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.DrawText
-  SHX6_2 = 0.855
-  SHX7_2 = 1.0
-  SHX7_2 = SHX7_2 - SHX1_2
-  SHX8_2 = string
-  SHX8_2 = SHX8_2.format
-  SHX9_2 = "PLR: %s"
-  SHX10_2 = SHX5_1
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = SHX7_1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = DrawRect
-  SHX6_2 = 0.5
-  SHX7_2 = SHX1_2 / 2.0
-  SHX8_2 = 1.0
-  SHX7_2 = SHX8_2 - SHX7_2
-  SHX8_2 = 1.0
-  SHX9_2 = SHX1_2
-  SHX10_2 = 0
-  SHX11_2 = 0
-  SHX12_2 = 0
-  SHX13_2 = 255
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+        1000.0
+        / DebugStats.frameTimeMs
 end
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.registerDevMenuThread
-SHX12_1 = "Screen UI"
-SHX13_1 = SHX10_1
-SHX11_1(SHX12_1, SHX13_1)
-function SHX11_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getTextHeight
-  SHX7_2 = SHX7_1
-  SHX8_2 = 1
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX7_2 = DrawScaleformMovie
-  SHX8_2 = SHX0_2
-  SHX9_2 = 0.5
-  SHX10_2 = SHX6_2 / 2.0
-  SHX11_2 = 0.5
-  SHX10_2 = SHX11_2 - SHX10_2
-  SHX11_2 = 1.0
-  SHX12_2 = 1.0
-  SHX12_2 = SHX12_2 - SHX6_2
-  SHX13_2 = SHX1_2
-  SHX14_2 = SHX2_2
-  SHX15_2 = SHX3_2
-  SHX16_2 = SHX4_2
-  SHX17_2 = SHX5_2
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
+
+---------------------------------------------------------------------
+-- 9. DRAW ONE DEBUG TEXT ITEM
+---------------------------------------------------------------------
+
+local function drawDebugText(
+    x,
+    y,
+    text
+)
+    CMG.DrawText(
+        x,
+        y,
+        text,
+        DEBUG_TEXT_SCALE
+    )
 end
-SHX12_1 = CMG
-SHX12_1 = SHX12_1.patchFunction
-SHX13_1 = "origDrawScaleformMovieFullscreen"
-SHX14_1 = DrawScaleformMovieFullscreen
-function SHX15_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX7_2 = SHX0_1.enabled
-  if SHX7_2 then
-    SHX7_2 = SHX11_1
-    SHX8_2 = SHX1_2
-    SHX9_2 = SHX2_2
-    SHX10_2 = SHX3_2
-    SHX11_2 = SHX4_2
-    SHX12_2 = SHX5_2
-    SHX13_2 = SHX6_2
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  else
-    SHX7_2 = SHX0_2
-    SHX8_2 = SHX1_2
-    SHX9_2 = SHX2_2
-    SHX10_2 = SHX3_2
-    SHX11_2 = SHX4_2
-    SHX12_2 = SHX5_2
-    SHX13_2 = SHX6_2
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  end
+
+---------------------------------------------------------------------
+-- 10. MAIN DEBUG OVERLAY
+---------------------------------------------------------------------
+
+local function drawScreenDebug()
+    -------------------------------------------------------------
+    -- Apply minimap/NUI changes if the checkbox was toggled.
+    -------------------------------------------------------------
+
+    applyDebugLayoutIfChanged()
+
+    if not ScreenDebug.enabled then
+        return
+    end
+
+    -------------------------------------------------------------
+    -- Refresh cached counts.
+    -------------------------------------------------------------
+
+    updateCachedDebugStats()
+
+    -------------------------------------------------------------
+    -- Work out how tall the black strip is.
+    -------------------------------------------------------------
+
+    local debugHeight =
+        CMG.getTextHeight(
+            DEBUG_TEXT_SCALE,
+            1
+        )
+
+    -------------------------------------------------------------
+    -- PLAYER COORDINATES
+    -------------------------------------------------------------
+
+    local playerCoords =
+        CMG.getPlayerCoords()
+
+    drawDebugText(
+        0.0,
+        1.0 - debugHeight,
+
+        string.format(
+            "P:(%s, %s, %s)",
+
+            math.round(
+                playerCoords.x,
+                1
+            ),
+
+            math.round(
+                playerCoords.y,
+                1
+            ),
+
+            math.round(
+                playerCoords.z,
+                1
+            )
+        )
+    )
+
+    -------------------------------------------------------------
+    -- CAMERA COORDINATES
+    -------------------------------------------------------------
+
+    local cameraCoords =
+        GetFinalRenderedCamCoord()
+
+    drawDebugText(
+        0.09,
+        1.0 - debugHeight,
+
+        string.format(
+            "C:(%s, %s, %s)",
+
+            math.round(
+                cameraCoords.x,
+                1
+            ),
+
+            math.round(
+                cameraCoords.y,
+                1
+            ),
+
+            math.round(
+                cameraCoords.z,
+                1
+            )
+        )
+    )
+
+    -------------------------------------------------------------
+    -- CAMERA FIELD OF VIEW
+    -------------------------------------------------------------
+
+    drawDebugText(
+        0.18,
+        1.0 - debugHeight,
+
+        string.format(
+            "FOV: %s",
+
+            math.round(
+                GetFinalRenderedCamFov(),
+                1
+            )
+        )
+    )
+
+    -------------------------------------------------------------
+    -- FPS
+    -------------------------------------------------------------
+
+    drawDebugText(
+        0.22,
+        1.0 - debugHeight,
+
+        string.format(
+            "FPS: %s",
+
+            math.round(
+                getCurrentFps(),
+                1
+            )
+        )
+    )
+
+    -------------------------------------------------------------
+    -- FRAME TIME
+    -------------------------------------------------------------
+
+    drawDebugText(
+        0.26,
+        1.0 - debugHeight,
+
+        string.format(
+            "(%sms)",
+
+            math.round(
+                DebugStats.frameTimeMs,
+                1
+            )
+        )
+    )
+
+    -------------------------------------------------------------
+    -- GAME TIMER
+    -------------------------------------------------------------
+
+    local currentGameTimer =
+        GetGameTimer()
+
+    drawDebugText(
+        0.295,
+        1.0 - debugHeight,
+
+        string.format(
+            "T:%s",
+            currentGameTimer
+        )
+    )
+
+    -------------------------------------------------------------
+    -- FRAME NUMBER
+    -------------------------------------------------------------
+
+    drawDebugText(
+        0.34,
+        1.0 - debugHeight,
+
+        string.format(
+            "F:%s",
+            GetFrameCount()
+        )
+    )
+
+    -------------------------------------------------------------
+    -- ACTIVE STREAMING REQUESTS
+    -------------------------------------------------------------
+
+    drawDebugText(
+        0.385,
+        1.0 - debugHeight,
+
+        string.format(
+            "REQ: %s",
+            GetNumberOfStreamingRequests()
+        )
+    )
+
+    -------------------------------------------------------------
+    -- PLAYER SPEED IN MPH
+    -------------------------------------------------------------
+
+    local playerSpeedMetresPerSecond =
+        GetEntitySpeed(
+            PlayerPedId()
+        )
+
+    local playerSpeedMph =
+        playerSpeedMetresPerSecond
+        * 2.236
+
+    drawDebugText(
+        0.425,
+        1.0 - debugHeight,
+
+        string.format(
+            "PS: %smph",
+
+            math.round(
+                playerSpeedMph,
+                1
+            )
+        )
+    )
+
+    -------------------------------------------------------------
+    -- ENTITY COUNTS ON THE RIGHT SIDE
+    -------------------------------------------------------------
+
+    drawDebugText(
+        0.96,
+        1.0 - debugHeight,
+
+        string.format(
+            "OBJ: %s",
+            DebugStats.objectCount
+        )
+    )
+
+    drawDebugText(
+        0.925,
+        1.0 - debugHeight,
+
+        string.format(
+            "VEH: %s",
+            DebugStats.vehicleCount
+        )
+    )
+
+    drawDebugText(
+        0.89,
+        1.0 - debugHeight,
+
+        string.format(
+            "PED: %s",
+            DebugStats.pedCount
+        )
+    )
+
+    drawDebugText(
+        0.855,
+        1.0 - debugHeight,
+
+        string.format(
+            "PLR: %s",
+            DebugStats.playerCount
+        )
+    )
+
+    -------------------------------------------------------------
+    -- BLACK BACKGROUND STRIP
+    --
+    -- These exact values are preserved from the source.
+    -------------------------------------------------------------
+
+    DrawRect(
+        0.5,
+
+        1.0
+            - (
+                debugHeight / 2.0
+            ),
+
+        1.0,
+        debugHeight,
+
+        0,
+        0,
+        0,
+        255
+    )
 end
-SHX12_1(SHX13_1, SHX14_1, SHX15_1)
+
+---------------------------------------------------------------------
+-- 11. REGISTER THE PER-FRAME DEV THREAD
+---------------------------------------------------------------------
+
+CMG.registerDevMenuThread(
+    "Screen UI",
+    drawScreenDebug
+)
+
+---------------------------------------------------------------------
+-- 12. DRAW A "FULLSCREEN" SCALEFORM ABOVE THE DEBUG STRIP
+---------------------------------------------------------------------
+--
+-- Normally:
+--
+--     DrawScaleformMovieFullscreen(...)
+--
+-- fills the entire screen.
+--
+-- When the debug bar exists at the bottom, the source instead calls
+-- DrawScaleformMovie() and gives the scaleform slightly less height.
+---------------------------------------------------------------------
+
+local function drawScaleformAboveDebugBar(
+    scaleformHandle,
+    red,
+    green,
+    blue,
+    alpha,
+    unknown
+)
+    local debugHeight =
+        CMG.getTextHeight(
+            DEBUG_TEXT_SCALE,
+            1
+        )
+
+    DrawScaleformMovie(
+        scaleformHandle,
+
+        -- Centre X stays unchanged.
+        0.5,
+
+        -- Move centre upward by half of the missing height.
+        0.5
+            - (
+                debugHeight / 2.0
+            ),
+
+        -- Full width.
+        1.0,
+
+        -- Remove the debug-strip height from the scaleform.
+        1.0 - debugHeight,
+
+        red,
+        green,
+        blue,
+        alpha,
+        unknown
+    )
+end
+
+---------------------------------------------------------------------
+-- 13. PATCH DrawScaleformMovieFullscreen
+---------------------------------------------------------------------
+--
+-- CMG.patchFunction appears to call our wrapper like this:
+--
+--     wrapper(
+--         originalFunction,
+--         originalArgument1,
+--         originalArgument2,
+--         ...
+--     )
+--
+-- So:
+--
+--     originalDrawFullscreen
+--
+-- below is the original GTA native.
+---------------------------------------------------------------------
+
+CMG.patchFunction(
+    "origDrawScaleformMovieFullscreen",
+
+    DrawScaleformMovieFullscreen,
+
+    function(
+        originalDrawFullscreen,
+        scaleformHandle,
+        red,
+        green,
+        blue,
+        alpha,
+        unknown
+    )
+        ---------------------------------------------------------
+        -- DEBUG ENABLED:
+        -- draw a resized scaleform that stops above the debug bar.
+        ---------------------------------------------------------
+
+        if ScreenDebug.enabled then
+            drawScaleformAboveDebugBar(
+                scaleformHandle,
+                red,
+                green,
+                blue,
+                alpha,
+                unknown
+            )
+
+            return
+        end
+
+        ---------------------------------------------------------
+        -- DEBUG DISABLED:
+        -- behave exactly like the original fullscreen native.
+        ---------------------------------------------------------
+
+        originalDrawFullscreen(
+            scaleformHandle,
+            red,
+            green,
+            blue,
+            alpha,
+            unknown
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- 14. BEGINNER WALKTHROUGH
+---------------------------------------------------------------------
+--
+-- If you are learning the script, read it in this order:
+--
+--   1. ScreenDebug
+--      Stores whether the debug overlay is enabled.
+--
+--   2. Developer checkbox
+--      Lets a developer turn it on/off.
+--
+--   3. applyDebugLayoutIfChanged()
+--      Moves the minimap and tells NUI about the new state.
+--
+--   4. updateCachedDebugStats()
+--      Counts peds, vehicles, objects and players every 250 ms.
+--
+--   5. drawScreenDebug()
+--      Draws all the text along the bottom of the screen.
+--
+--   6. CMG.patchFunction(...)
+--      Changes fullscreen scaleforms while debug mode is enabled so they
+--      leave room for the debug strip.
+--
+-- That's the entire system.
+---------------------------------------------------------------------
