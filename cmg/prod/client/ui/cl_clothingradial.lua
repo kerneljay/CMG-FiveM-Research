@@ -1,3778 +1,1975 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Clothing Radial Menu - beginner-friendly rewrite
+    ------------------------------------------------
+    This file is a readable rewrite of the supplied decompiled Lua.
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/ped_cfg/clothingradial"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = {}
-SHX2_1[","] = 82
-SHX2_1["-"] = 84
-SHX2_1["."] = 81
-SHX2_1["1"] = 157
-SHX2_1["2"] = 158
-SHX2_1["3"] = 160
-SHX2_1["4"] = 164
-SHX2_1["5"] = 165
-SHX2_1["6"] = 159
-SHX2_1["7"] = 161
-SHX2_1["8"] = 162
-SHX2_1["9"] = 163
-SHX2_1["="] = 83
-SHX2_1["["] = 39
-SHX2_1["]"] = 40
-SHX2_1.A = 34
-SHX2_1.B = 29
-SHX2_1.BACKSPACE = 177
-SHX2_1.C = 26
-SHX2_1.CAPS = 137
-SHX2_1.D = 9
-SHX2_1.DELETE = 178
-SHX2_1.UP = 172
-SHX2_1.DOWN = 173
-SHX2_1.E = 38
-SHX2_1.ENTER = 18
-SHX2_1.ESC = 322
-SHX2_1.F = 23
-SHX2_1.F1 = 288
-SHX2_1.F10 = 57
-SHX2_1.F2 = 289
-SHX2_1.F3 = 170
-SHX2_1.F5 = 166
-SHX2_1.F6 = 167
-SHX2_1.F7 = 168
-SHX2_1.F8 = 169
-SHX2_1.F9 = 56
-SHX2_1.G = 47
-SHX2_1.H = 74
-SHX2_1.HOME = 213
-SHX2_1.K = 311
-SHX2_1.L = 182
-SHX2_1.LEFT = 174
-SHX2_1.LEFTALT = 19
-SHX2_1.LEFTCTRL = 36
-SHX2_1.LEFTSHIFT = 21
-SHX2_1.M = 244
-SHX2_1.N = 249
-SHX2_1["N+"] = 96
-SHX2_1["N-"] = 97
-SHX2_1.N4 = 108
-SHX2_1.N5 = 60
-SHX2_1.N6 = 107
-SHX2_1.N7 = 117
-SHX2_1.N8 = 61
-SHX2_1.N9 = 118
-SHX2_1.NENTER = 201
-SHX2_1.P = 199
-SHX2_1.PAGEDOWN = 11
-SHX2_1.PAGEUP = 10
-SHX2_1.Q = 44
-SHX2_1.R = 45
-SHX2_1.RIGHT = 175
-SHX2_1.RIGHTCTRL = 70
-SHX2_1.S = 8
-SHX2_1.SPACE = 22
-SHX2_1.T = 245
-SHX2_1.TAB = 37
-SHX2_1.TOP = 27
-SHX2_1.U = 303
-SHX2_1.V = 0
-SHX2_1.W = 32
-SHX2_1.X = 73
-SHX2_1.Y = 246
-SHX2_1.Z = 20
-SHX2_1["~"] = 243
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = {}
-SHX6_1 = {}
-SHX7_1 = nil
-SHX8_1 = nil
-SHX9_1 = nil
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  if nil == SHX0_2 then
-    SHX1_2 = print
-    SHX2_2 = "nil"
-    SHX1_2(SHX2_2)
-    return
-  end
-  SHX1_2 = SHX6_1.Debug
-  if not SHX1_2 then
-    return
-  end
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "table" == SHX1_2 then
-    SHX1_2 = print
-    SHX2_2 = json
-    SHX2_2 = SHX2_2.encode
-    SHX3_2 = SHX0_2
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  else
-    SHX1_2 = type
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if "boolean" == SHX1_2 then
-      SHX1_2 = print
-      SHX2_2 = SHX0_2
-      SHX1_2(SHX2_2)
-    else
-      SHX1_2 = print
-      SHX2_2 = SHX0_2
-      SHX3_2 = " | "
-      SHX4_2 = type
-      SHX5_2 = SHX0_2
-      SHX4_2 = SHX4_2(SHX5_2)
-      SHX2_2 = SHX2_2 .. SHX3_2 .. SHX4_2
-      SHX1_2(SHX2_2)
+    What this script does:
+      1. Loads the clothing configuration.
+      2. Lets the player remove/restore clothing and props.
+      3. Saves the original item so it can be put back on.
+      4. Plays clothing animations while items change.
+      5. Registers chat/console commands such as /hat, /gloves, etc.
+      6. Draws and controls the radial clothing menu.
+      7. Contains optional debug helpers for testing clothing variants.
+
+    Important:
+      - Existing FiveM/CMG event names have been preserved.
+      - The external config is still loaded from:
+            cfg/ped_cfg/clothingradial
+      - "Drawable" = normal ped clothing component.
+      - "Prop"     = hats, glasses, watches, etc.
+]]
+
+---------------------------------------------------------------------
+-- CONFIG / CONSTANTS
+---------------------------------------------------------------------
+
+local ClothingData = CMG.loadModule("cfg/ped_cfg/clothingradial")
+
+-- FiveM input IDs. The menu mainly uses Y, but the original script
+-- contained this lookup table, so it has been kept in readable form.
+local INPUT_KEYS = {
+    [","] = 82,
+    ["-"] = 84,
+    ["."] = 81,
+    ["1"] = 157,
+    ["2"] = 158,
+    ["3"] = 160,
+    ["4"] = 164,
+    ["5"] = 165,
+    ["6"] = 159,
+    ["7"] = 161,
+    ["8"] = 162,
+    ["9"] = 163,
+    ["="] = 83,
+    ["["] = 39,
+    ["]"] = 40,
+
+    A = 34,
+    B = 29,
+    BACKSPACE = 177,
+    C = 26,
+    CAPS = 137,
+    D = 9,
+    DELETE = 178,
+    UP = 172,
+    DOWN = 173,
+    E = 38,
+    ENTER = 18,
+    ESC = 322,
+    F = 23,
+    F1 = 288,
+    F2 = 289,
+    F3 = 170,
+    F5 = 166,
+    F6 = 167,
+    F7 = 168,
+    F8 = 169,
+    F9 = 56,
+    F10 = 57,
+    G = 47,
+    H = 74,
+    HOME = 213,
+    K = 311,
+    L = 182,
+    LEFT = 174,
+    LEFTALT = 19,
+    LEFTCTRL = 36,
+    LEFTSHIFT = 21,
+    M = 244,
+    N = 249,
+    ["N+"] = 96,
+    ["N-"] = 97,
+    N4 = 108,
+    N5 = 60,
+    N6 = 107,
+    N7 = 117,
+    N8 = 61,
+    N9 = 118,
+    NENTER = 201,
+    P = 199,
+    PAGEDOWN = 11,
+    PAGEUP = 10,
+    Q = 44,
+    R = 45,
+    RIGHT = 175,
+    RIGHTCTRL = 70,
+    S = 8,
+    SPACE = 22,
+    T = 245,
+    TAB = 37,
+    TOP = 27,
+    U = 303,
+    V = 0,
+    W = 32,
+    X = 73,
+    Y = 246,
+    Z = 20,
+    ["~"] = 243,
+}
+
+local menuOpen = false
+local actionBusy = false
+
+-- Stores clothing we have temporarily removed.
+-- Example:
+-- savedOutfit.Hat = { Id = 0, Prop = 12, Texture = 0 }
+local savedOutfit = {}
+
+-- Used only by the debug variant tester.
+local testingVariants = false
+
+---------------------------------------------------------------------
+-- LANGUAGE / GUI SETTINGS
+---------------------------------------------------------------------
+
+local Languages = {
+    en = {
+        AlreadyWearing = "You are already wearing that.",
+        Bag = "Bag",
+        Bag2 = "Opens or closes your bag.",
+        Bracelet = "Bracelet",
+        Ear = "Ear",
+        Ear2 = "ear accessory",
+        Glasses = "Glasses",
+        Gloves = "Gloves",
+        Hair = "Hair",
+        Hair2 = "Put your hair up/down/in a bun/ponytail.",
+        Hat = "Hat",
+        Info = "Info",
+        Information = "If the button is blue, you have a saved item.",
+        Mask = "Mask",
+        Neck = "Neck",
+        Neck2 = "neck accessory",
+        NotAllowedPed = "This ped model does not allow for this option.",
+        NothingToRemove = "You dont appear to have anything to remove.",
+        NoVariants = "There dont seem to be any variants for this.",
+        Pants = "Pants",
+        PleaseWait = "Please wait...",
+        Shirt = "Shirt",
+        Shoes = "Shoes",
+        TakeOffOn = "Take your %s off/on.",
+        Top = "Top",
+        Top2 = "Toggle shirt variation.",
+        Vest = "Vest",
+        Visor = "Visor",
+        Visor2 = "Toggle hat variation.",
+        Watch = "Watch",
+        NoShirtOn = "You cannot do this without your shirt on.",
+        Reset = "Revert",
+        Reset2 = "Revert everything back to normal.",
+        Exit = "Close",
+
+        -- Command names.
+        BAG = "bag",
+        BRACELET = "bracelet",
+        EAR = "ear",
+        GLASSES = "glasses",
+        GLOVES = "gloves",
+        HAIR = "hair",
+        HAT = "hat",
+        MASK = "mask",
+        NECK = "neck",
+        SHOES = "shoes",
+        TOP = "top",
+        VEST = "vest",
+        VISOR = "visor",
+        WATCH = "watch",
+        PANTS = "pants",
+        SHIRT = "shirt",
+        RESET = "revertclothing",
+        BAGOFF = "bagoff",
+    }
+}
+
+local Config = {
+    Language = "en",
+    ExtrasEnabled = true,
+    Debug = false,
+
+    GUI = {
+        Position = {
+            x = 0.65,
+            y = 0.5,
+        },
+
+        AllowInCars = false,
+        AllowWhenRagdolled = false,
+        Enabled = true,
+        Key = INPUT_KEYS.Y,
+        Sound = true,
+
+        TextColor = { 255, 255, 255 },
+        TextOutline = true,
+        TextFont = 0,
+        TextSize = 0.21,
+
+        -- false = the +clothingmenu / -clothingmenu keybind style is used.
+        Toggle = false,
+    },
+
+    Commands = {},
+    ExtraCommands = {},
+}
+
+---------------------------------------------------------------------
+-- SMALL GENERAL HELPERS
+---------------------------------------------------------------------
+
+local function debugPrint(value)
+    if value == nil then
+        print("nil")
+        return
     end
-  end
-end
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.upper
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX2_1
-  SHX1_2 = SHX2_2[SHX1_2]
-  if SHX1_2 then
-    return SHX1_2
-  else
-    SHX2_2 = false
-    return SHX2_2
-  end
-end
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = true
-    SHX4_1 = SHX0_3
-    SHX0_3 = Wait
-    SHX1_3 = SHX0_2
-    SHX0_3(SHX1_3)
-    SHX0_3 = false
-    SHX4_1 = SHX0_3
-  end
-  SHX1_2(SHX2_2)
-end
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = {}
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.insert
-    SHX9_2 = SHX2_2
-    SHX10_2 = SHX7_2
-    SHX8_2(SHX9_2, SHX10_2)
-  end
-  SHX3_2 = table
-  SHX3_2 = SHX3_2.sort
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = 0
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = SHX3_2
-    SHX0_3 = SHX0_3 + 1
-    SHX3_2 = SHX0_3
-    SHX1_3 = SHX3_2
-    SHX0_3 = SHX2_2
-    SHX0_3 = SHX0_3[SHX1_3]
-    if nil == SHX0_3 then
-      SHX0_3 = nil
-      return SHX0_3
-    else
-      SHX1_3 = SHX3_2
-      SHX0_3 = SHX2_2
-      SHX0_3 = SHX0_3[SHX1_3]
-      SHX2_3 = SHX3_2
-      SHX1_3 = SHX2_2
-      SHX2_3 = SHX1_3[SHX2_3]
-      SHX1_3 = SHX0_2
-      SHX1_3 = SHX1_3[SHX2_3]
-      return SHX0_3, SHX1_3
+
+    if not Config.Debug then
+        return
     end
-  end
-  return SHX4_2
+
+    if type(value) == "table" then
+        print(json.encode(value))
+    elseif type(value) == "boolean" then
+        print(value)
+    else
+        print(tostring(value) .. " | " .. type(value))
+    end
 end
-function SHX14_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  if not SHX5_2 then
-    SHX5_2 = 0
-  end
-  if not SHX4_2 then
-    SHX8_2 = SHX6_1.GUI
-    SHX4_2 = SHX8_2.TextColor
-  end
-  SHX8_2 = SetTextFont
-  SHX9_2 = SHX6_1.GUI
-  SHX9_2 = SHX9_2.TextFont
-  SHX8_2(SHX9_2)
-  SHX8_2 = SetTextJustification
-  SHX9_2 = SHX5_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = SetTextScale
-  SHX9_2 = SHX2_2
-  SHX10_2 = SHX2_2
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SetTextColour
-  SHX9_2 = SHX4_2[1]
-  SHX10_2 = SHX4_2[2]
-  SHX11_2 = SHX4_2[3]
-  SHX12_2 = 255
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX8_2 = SHX6_1.GUI
-  SHX8_2 = SHX8_2.TextOutline
-  if SHX8_2 then
-    SHX8_2 = SetTextOutline
-    SHX8_2()
-  end
-  if SHX7_2 then
-    SHX8_2 = SetTextWrap
-    SHX9_2 = SHX7_2.x
-    SHX10_2 = SHX7_2.y
-    SHX8_2(SHX9_2, SHX10_2)
-  end
-  SHX8_2 = BeginTextCommandDisplayText
-  SHX9_2 = "STRING"
-  SHX8_2(SHX9_2)
-  SHX8_2 = AddTextComponentSubstringPlayerName
-  SHX9_2 = SHX3_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = EndTextCommandDisplayText
-  SHX9_2 = SHX0_2
-  SHX10_2 = SHX1_2
-  SHX8_2(SHX9_2, SHX10_2)
+
+local function getInputKey(keyName)
+    return INPUT_KEYS[string.upper(keyName)] or false
 end
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX0_2.gsub
-  SHX3_2 = "^%l"
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.upper
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  return SHX1_2
+
+-- Blocks clothing actions for a short time while an animation is running.
+local function markActionBusy(milliseconds)
+    Citizen.CreateThread(function()
+        actionBusy = true
+        Wait(milliseconds)
+        actionBusy = false
+    end)
 end
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX2_2 = SHX6_1.Language
-  SHX1_2 = SHX1_1
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = SHX1_2[SHX0_2]
-  if not SHX2_2 then
-    SHX2_2 = SHX1_1.en
-    SHX2_2 = SHX2_2[SHX0_2]
-    return SHX2_2
-  end
-  SHX2_2 = SHX1_2[SHX0_2]
-  return SHX2_2
-end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = notify
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-end
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = GetHashKey
-  SHX2_2 = "mp_m_freemode_01"
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetHashKey
-  SHX3_2 = "mp_f_freemode_01"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetEntityModel
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 == SHX1_2 then
-    SHX4_2 = "Male"
-    return SHX4_2
-  elseif SHX3_2 == SHX2_2 then
-    SHX4_2 = "Female"
-    return SHX4_2
-  else
-    SHX4_2 = false
-    return SHX4_2
-  end
-end
-SHX19_1 = RegisterNetEvent
-SHX20_1 = "dpc:EquipLast"
-SHX19_1(SHX20_1)
-SHX19_1 = AddEventHandler
-SHX20_1 = "dpc:EquipLast"
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = pairs
-  SHX2_2 = SHX5_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    if SHX6_2 then
-      SHX7_2 = SHX6_2.Drawable
-      if SHX7_2 then
-        SHX7_2 = SetPedComponentVariation
-        SHX8_2 = SHX0_2
-        SHX9_2 = SHX6_2.ID
-        SHX10_2 = SHX6_2.Drawable
-        SHX11_2 = SHX6_2.Texture
-        SHX12_2 = 0
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      else
-        SHX7_2 = SHX6_2.Prop
-        if SHX7_2 then
-          SHX7_2 = ClearPedProp
-          SHX8_2 = SHX0_2
-          SHX9_2 = SHX6_2.ID
-          SHX7_2(SHX8_2, SHX9_2)
-          SHX7_2 = SetPedPropIndex
-          SHX8_2 = SHX0_2
-          SHX9_2 = SHX6_2.ID
-          SHX10_2 = SHX6_2.Prop
-          SHX11_2 = SHX6_2.Texture
-          SHX12_2 = true
-          SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+
+-- pairs() does not guarantee order.
+-- This helper gives us an iterator over sorted keys.
+local function sortedPairs(tbl, sorter)
+    local keys = {}
+
+    for key in pairs(tbl) do
+        table.insert(keys, key)
+    end
+
+    table.sort(keys, sorter)
+
+    local index = 0
+
+    return function()
+        index = index + 1
+
+        local key = keys[index]
+        if key == nil then
+            return nil
         end
-      end
+
+        return key, tbl[key]
     end
-  end
-  SHX1_2 = {}
-  SHX5_1 = SHX1_2
 end
-SHX19_1(SHX20_1, SHX21_1)
-SHX19_1 = RegisterNetEvent
-SHX20_1 = "dpc:ResetClothing"
-SHX19_1(SHX20_1)
-SHX19_1 = AddEventHandler
-SHX20_1 = "dpc:ResetClothing"
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX5_1 = SHX0_2
-end
-SHX19_1(SHX20_1, SHX21_1)
-SHX19_1 = {}
-SHX20_1 = {}
-SHX21_1 = "TOGGLE_ON"
-SHX22_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX19_1.Close = SHX20_1
-SHX20_1 = {}
-SHX21_1 = "NAV_LEFT_RIGHT"
-SHX22_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX19_1.Open = SHX20_1
-SHX20_1 = {}
-SHX21_1 = "SELECT"
-SHX22_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX19_1.Select = SHX20_1
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX6_1.GUI
-  SHX1_2 = SHX1_2.Sound
-  if not SHX1_2 then
-    return
-  end
-  SHX1_2 = SHX19_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX2_2 = PlaySoundFrontend
-  SHX3_2 = -1
-  SHX4_2 = SHX1_2[1]
-  SHX5_2 = SHX1_2[2]
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-end
-SHX21_1 = RegisterNetEvent
-SHX22_1 = "dpc:ToggleMenu"
-SHX21_1(SHX22_1)
-SHX21_1 = AddEventHandler
-SHX22_1 = "dpc:ToggleMenu"
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX3_1
-  SHX0_2 = not SHX0_2
-  SHX3_1 = SHX0_2
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = SHX20_1
-    SHX1_2 = "Open"
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetCursorLocation
-    SHX1_2 = SHX6_1.GUI
-    SHX1_2 = SHX1_2.Position
-    SHX1_2 = SHX1_2.x
-    SHX2_2 = SHX6_1.GUI
-    SHX2_2 = SHX2_2.Position
-    SHX2_2 = SHX2_2.y
-    SHX0_2(SHX1_2, SHX2_2)
-  else
-    SHX0_2 = SHX20_1
-    SHX1_2 = "Close"
-    SHX0_2(SHX1_2)
-  end
-end
-SHX21_1(SHX22_1, SHX23_1)
-SHX21_1 = RegisterNetEvent
-SHX22_1 = "dpc:Menu"
-SHX21_1(SHX22_1)
-SHX21_1 = AddEventHandler
-SHX22_1 = "dpc:Menu"
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX3_1 = SHX0_2
-  SHX1_2 = SHX3_1
-  if SHX1_2 then
-    SHX1_2 = SHX20_1
-    SHX2_2 = "Open"
-    SHX1_2(SHX2_2)
-  else
-    SHX1_2 = SHX20_1
-    SHX2_2 = "Close"
-    SHX1_2(SHX2_2)
-  end
-end
-SHX21_1(SHX22_1, SHX23_1)
-SHX21_1 = {}
-SHX21_1.AlreadyWearing = "You are already wearing that."
-SHX21_1.Bag = "Bag"
-SHX21_1.Bag2 = "Opens or closes your bag."
-SHX21_1.Bracelet = "Bracelet"
-SHX21_1.Ear = "Ear"
-SHX21_1.Ear2 = "ear accessory"
-SHX21_1.Glasses = "Glasses"
-SHX21_1.Gloves = "Gloves"
-SHX21_1.Hair = "Hair"
-SHX21_1.Hair2 = "Put your hair up/down/in a bun/ponytail."
-SHX21_1.Hat = "Hat"
-SHX21_1.Info = "Info"
-SHX21_1.Information = "If the button is blue, you have a saved item."
-SHX21_1.Mask = "Mask"
-SHX21_1.Neck = "Neck"
-SHX21_1.Neck2 = "neck accessory"
-SHX21_1.NotAllowedPed = "This ped model does not allow for this option."
-SHX21_1.NothingToRemove = "You dont appear to have anything to remove."
-SHX21_1.NoVariants = "There dont seem to be any variants for this."
-SHX21_1.Pants = "Pants"
-SHX21_1.PleaseWait = "Please wait..."
-SHX21_1.Shirt = "Shirt"
-SHX21_1.Shoes = "Shoes"
-SHX21_1.TakeOffOn = "Take your %s off/on."
-SHX21_1.Top = "Top"
-SHX21_1.Top2 = "Toggle shirt variation."
-SHX21_1.Vest = "Vest"
-SHX21_1.Visor = "Visor"
-SHX21_1.Visor2 = "Toggle hat variation."
-SHX21_1.Watch = "Watch"
-SHX21_1.NoShirtOn = "You cannot do this without your shirt on."
-SHX21_1.Reset = "Revert"
-SHX21_1.Reset2 = "Revert everything back to normal."
-SHX21_1.Exit = "Close"
-SHX21_1.BAG = "bag"
-SHX21_1.BRACELET = "bracelet"
-SHX21_1.EAR = "ear"
-SHX21_1.GLASSES = "glasses"
-SHX21_1.GLOVES = "gloves"
-SHX21_1.HAIR = "hair"
-SHX21_1.HAT = "hat"
-SHX21_1.MASK = "mask"
-SHX21_1.NECK = "neck"
-SHX21_1.SHOES = "shoes"
-SHX21_1.TOP = "top"
-SHX21_1.VEST = "vest"
-SHX21_1.VISOR = "visor"
-SHX21_1.WATCH = "watch"
-SHX21_1.PANTS = "pants"
-SHX21_1.SHIRT = "shirt"
-SHX21_1.RESET = "revertclothing"
-SHX21_1.BAGOFF = "bagoff"
-SHX1_1.en = SHX21_1
-SHX21_1 = {}
-SHX21_1.Language = "en"
-SHX22_1 = "ExtrasEnabled"
-SHX23_1 = true
-SHX21_1[SHX22_1] = SHX23_1
-SHX22_1 = "Debug"
-SHX23_1 = false
-SHX21_1[SHX22_1] = SHX23_1
-SHX22_1 = "GUI"
-SHX23_1 = {}
-SHX24_1 = "Position"
-SHX25_1 = {}
-SHX26_1 = "x"
-SHX27_1 = 0.65
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "y"
-SHX27_1 = 0.5
-SHX25_1[SHX26_1] = SHX27_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "AllowInCars"
-SHX25_1 = false
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "AllowWhenRagdolled"
-SHX25_1 = false
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "Enabled"
-SHX25_1 = true
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "Key"
-SHX25_1 = SHX11_1
-SHX26_1 = "Y"
-SHX25_1 = SHX25_1(SHX26_1)
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "Sound"
-SHX25_1 = true
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "TextColor"
-SHX25_1 = {}
-SHX26_1 = 255
-SHX27_1 = 255
-SHX28_1 = 255
-SHX25_1[1] = SHX26_1
-SHX25_1[2] = SHX27_1
-SHX25_1[3] = SHX28_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "TextOutline"
-SHX25_1 = true
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "TextFont"
-SHX23_1[SHX24_1] = 0
-SHX24_1 = "TextSize"
-SHX25_1 = 0.21
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "Toggle"
-SHX25_1 = false
-SHX23_1[SHX24_1] = SHX25_1
-SHX21_1[SHX22_1] = SHX23_1
-SHX6_1 = SHX21_1
-SHX21_1 = "Commands"
-SHX22_1 = {}
-SHX23_1 = SHX16_1
-SHX24_1 = "TOP"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Top"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "top"
-SHX25_1 = "Desc"
-SHX26_1 = SHX16_1
-SHX27_1 = "Top2"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 1
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Top"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "GLOVES"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Gloves"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "gloves"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Gloves"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 2
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Gloves"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "VISOR"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Visor"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "visor"
-SHX25_1 = "Desc"
-SHX26_1 = SHX16_1
-SHX27_1 = "Visor2"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 3
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Visor"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "BAG"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Bag"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "bag"
-SHX25_1 = "Desc"
-SHX26_1 = SHX16_1
-SHX27_1 = "Bag2"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX24_1[SHX25_1] = 8
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Bag"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "SHOES"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Shoes"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "shoes"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Shoes"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 5
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Shoes"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "VEST"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Vest"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "vest"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Vest"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 14
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Vest"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "HAIR"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Hair"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "hair"
-SHX25_1 = "Desc"
-SHX26_1 = SHX16_1
-SHX27_1 = "Hair2"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 7
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Hair"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "HAT"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Hat"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "hat"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Hat"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 4
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Hat"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "GLASSES"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Glasses"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "glasses"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Glasses"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX24_1[SHX25_1] = 9
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Glasses"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "EAR"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Ear"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "ear"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Ear2"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX24_1[SHX25_1] = 10
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Ear"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "NECK"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Neck"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "neck"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Neck2"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX24_1[SHX25_1] = 11
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Neck"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "WATCH"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Watch"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "watch"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Watch"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 12
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Watch"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Rotation"
-SHX26_1 = 5.0
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "BRACELET"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Bracelet"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "bracelet"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Bracelet"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 13
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Bracelet"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX23_1 = SHX16_1
-SHX24_1 = "MASK"
-SHX23_1 = SHX23_1(SHX24_1)
-SHX24_1 = {}
-SHX25_1 = "Func"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Mask"
-  SHX0_2(SHX1_2)
-end
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Sprite"
-SHX24_1[SHX25_1] = "mask"
-SHX25_1 = "Desc"
-SHX26_1 = _ENV
-SHX27_1 = "string"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "format"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = SHX16_1
-SHX28_1 = "TakeOffOn"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX28_1 = _ENV
-SHX29_1 = "string"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = "lower"
-SHX28_1 = SHX28_1[SHX29_1]
-SHX29_1 = SHX16_1
-SHX30_1 = "Mask"
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1)
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX26_1 = SHX26_1(SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Button"
-SHX26_1 = 6
-SHX24_1[SHX25_1] = SHX26_1
-SHX25_1 = "Name"
-SHX26_1 = SHX16_1
-SHX27_1 = "Mask"
-SHX26_1 = SHX26_1(SHX27_1)
-SHX24_1[SHX25_1] = SHX26_1
-SHX22_1[SHX23_1] = SHX24_1
-SHX6_1[SHX21_1] = SHX22_1
-SHX21_1 = {}
-SHX22_1 = true
-SHX21_1[40] = SHX22_1
-SHX22_1 = true
-SHX21_1[41] = SHX22_1
-SHX22_1 = true
-SHX21_1[44] = SHX22_1
-SHX22_1 = true
-SHX21_1[45] = SHX22_1
-SHX22_1 = "ExtraCommands"
-SHX23_1 = {}
-SHX24_1 = SHX16_1
-SHX25_1 = "PANTS"
-SHX24_1 = SHX24_1(SHX25_1)
-SHX25_1 = {}
-SHX26_1 = "Func"
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Pants"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Sprite"
-SHX25_1[SHX26_1] = "pants"
-SHX26_1 = "Desc"
-SHX27_1 = _ENV
-SHX28_1 = "string"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX28_1 = "format"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX28_1 = SHX16_1
-SHX29_1 = "TakeOffOn"
-SHX28_1 = SHX28_1(SHX29_1)
-SHX29_1 = _ENV
-SHX30_1 = "string"
-SHX29_1 = SHX29_1[SHX30_1]
-SHX30_1 = "lower"
-SHX29_1 = SHX29_1[SHX30_1]
-SHX30_1 = SHX16_1
-SHX31_1 = "Pants"
-SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX30_1(SHX31_1)
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX27_1 = SHX27_1(SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Name"
-SHX27_1 = SHX16_1
-SHX28_1 = "Pants"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetX"
-SHX27_1 = -0.04
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetY"
-SHX27_1 = 0.0
-SHX25_1[SHX26_1] = SHX27_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = SHX16_1
-SHX25_1 = "SHIRT"
-SHX24_1 = SHX24_1(SHX25_1)
-SHX25_1 = {}
-SHX26_1 = "Func"
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Shirt"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Sprite"
-SHX25_1[SHX26_1] = "shirt"
-SHX26_1 = "Desc"
-SHX27_1 = _ENV
-SHX28_1 = "string"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX28_1 = "format"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX28_1 = SHX16_1
-SHX29_1 = "TakeOffOn"
-SHX28_1 = SHX28_1(SHX29_1)
-SHX29_1 = _ENV
-SHX30_1 = "string"
-SHX29_1 = SHX29_1[SHX30_1]
-SHX30_1 = "lower"
-SHX29_1 = SHX29_1[SHX30_1]
-SHX30_1 = SHX16_1
-SHX31_1 = "Shirt"
-SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX30_1(SHX31_1)
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX27_1 = SHX27_1(SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Name"
-SHX27_1 = SHX16_1
-SHX28_1 = "Shirt"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetX"
-SHX27_1 = 0.04
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetY"
-SHX27_1 = 0.0
-SHX25_1[SHX26_1] = SHX27_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = SHX16_1
-SHX25_1 = "RESET"
-SHX24_1 = SHX24_1(SHX25_1)
-SHX25_1 = {}
-SHX26_1 = "Func"
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX9_1
-  SHX1_2 = true
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = SHX17_1
-    SHX1_2 = SHX16_1
-    SHX2_2 = "AlreadyWearing"
-    SHX1_2, SHX2_2 = SHX1_2(SHX2_2)
-    SHX0_2(SHX1_2, SHX2_2)
-  end
-end
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Sprite"
-SHX27_1 = "reset"
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Desc"
-SHX27_1 = SHX16_1
-SHX28_1 = "Reset2"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Name"
-SHX27_1 = SHX16_1
-SHX28_1 = "Reset"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetX"
-SHX27_1 = 0.12
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetY"
-SHX27_1 = 0.2
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Rotate"
-SHX27_1 = true
-SHX25_1[SHX26_1] = SHX27_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = "clothingexit"
-SHX25_1 = {}
-SHX26_1 = "Func"
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX3_1 = SHX0_2
-end
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Sprite"
-SHX27_1 = "exit"
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Desc"
-SHX27_1 = ""
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Name"
-SHX27_1 = SHX16_1
-SHX28_1 = "Exit"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetX"
-SHX27_1 = 0.12
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetY"
-SHX27_1 = -0.2
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Enabled"
-SHX27_1 = "GUI"
-SHX27_1 = SHX6_1[SHX27_1]
-SHX28_1 = "Toggle"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX25_1[SHX26_1] = SHX27_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX24_1 = SHX16_1
-SHX25_1 = "BAGOFF"
-SHX24_1 = SHX24_1(SHX25_1)
-SHX25_1 = {}
-SHX26_1 = "Func"
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX7_1
-  SHX1_2 = "Bagoff"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Sprite"
-SHX25_1[SHX26_1] = "bagoff"
-SHX26_1 = "SpriteFunc"
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = GetPedDrawableVariation
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = 5
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX1_2 = SHX5_1.Bagoff
-  SHX2_2 = SHX5_1.Bagoff
-  if SHX2_2 then
-    SHX3_2 = SHX1_2.Drawable
-    SHX2_2 = SHX21_1
-    SHX2_2 = SHX2_2[SHX3_2]
-    if SHX2_2 then
-      SHX2_2 = "bagoff"
-      return SHX2_2
-    else
-      SHX2_2 = "paraoff"
-      return SHX2_2
+
+local function drawText(x, y, size, text, color, justification, outline, wrap)
+    justification = justification or 0
+    color = color or Config.GUI.TextColor
+
+    SetTextFont(Config.GUI.TextFont)
+    SetTextJustification(justification)
+    SetTextScale(size, size)
+    SetTextColour(color[1], color[2], color[3], 255)
+
+    if Config.GUI.TextOutline then
+        SetTextOutline()
     end
-  end
-  if 0 ~= SHX0_2 then
-    SHX2_2 = SHX21_1
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = "bagoff"
-      return SHX2_2
-    else
-      SHX2_2 = "paraoff"
-      return SHX2_2
+
+    if wrap then
+        SetTextWrap(wrap.x, wrap.y)
     end
-  else
-    SHX2_2 = false
-    return SHX2_2
-  end
+
+    BeginTextCommandDisplayText("STRING")
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandDisplayText(x, y)
 end
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Desc"
-SHX27_1 = _ENV
-SHX28_1 = "string"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX28_1 = "format"
-SHX27_1 = SHX27_1[SHX28_1]
-SHX28_1 = SHX16_1
-SHX29_1 = "TakeOffOn"
-SHX28_1 = SHX28_1(SHX29_1)
-SHX29_1 = _ENV
-SHX30_1 = "string"
-SHX29_1 = SHX29_1[SHX30_1]
-SHX30_1 = "lower"
-SHX29_1 = SHX29_1[SHX30_1]
-SHX30_1 = SHX16_1
-SHX31_1 = "Bag"
-SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX30_1(SHX31_1)
-SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX27_1 = SHX27_1(SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "Name"
-SHX27_1 = SHX16_1
-SHX28_1 = "Bag"
-SHX27_1 = SHX27_1(SHX28_1)
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetX"
-SHX27_1 = -0.12
-SHX25_1[SHX26_1] = SHX27_1
-SHX26_1 = "OffsetY"
-SHX27_1 = 0.2
-SHX25_1[SHX26_1] = SHX27_1
-SHX23_1[SHX24_1] = SHX25_1
-SHX6_1[SHX22_1] = SHX23_1
-function SHX22_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  while true do
-    SHX3_2 = HasAnimDictLoaded
-    SHX4_2 = SHX0_2.Dict
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      break
+
+local function capitalizeFirst(text)
+    return text:gsub("^%l", string.upper)
+end
+
+local function translate(key)
+    local selectedLanguage = Languages[Config.Language]
+    local translated = selectedLanguage and selectedLanguage[key]
+
+    if translated == nil then
+        translated = Languages.en[key]
     end
-    SHX3_2 = RequestAnimDict
-    SHX4_2 = SHX0_2.Dict
-    SHX3_2(SHX4_2)
-    SHX3_2 = Wait
-    SHX4_2 = 100
-    SHX3_2(SHX4_2)
-  end
-  SHX3_2 = IsPedInAnyVehicle
-  SHX4_2 = SHX2_2
-  SHX5_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if SHX3_2 then
-    SHX0_2.Move = 51
-  end
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX0_2.Dict
-  SHX6_2 = SHX0_2.Anim
-  SHX7_2 = 3.0
-  SHX8_2 = 3.0
-  SHX9_2 = SHX0_2.Dur
-  SHX10_2 = SHX0_2.Move
-  SHX11_2 = 0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveAnimDict
-  SHX4_2 = SHX0_2.Dict
-  SHX3_2(SHX4_2)
-  SHX3_2 = SHX0_2.Dur
-  SHX3_2 = SHX3_2 - 500
-  SHX4_2 = 500
-  if SHX3_2 < SHX4_2 then
-    SHX3_2 = 500
-  end
-  SHX4_2 = SHX12_1
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = Wait
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = SHX1_2
-  SHX4_2()
+
+    return translated
 end
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX0_1.Drawables
-  SHX2_2 = SHX2_2.Top
-  SHX2_2 = SHX2_2.Emote
-  if SHX0_2 then
-    SHX3_2 = TaskPlayAnim
-    SHX4_2 = SHX1_2
-    SHX5_2 = SHX2_2.Dict
-    SHX6_2 = SHX2_2.Anim
-    SHX7_2 = 3.0
-    SHX8_2 = 3.0
-    SHX9_2 = 3000
-    SHX10_2 = SHX2_2.Move
-    SHX11_2 = 0
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX14_2 = false
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  end
-  SHX3_2 = pairs
-  SHX4_2 = SHX5_1
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    if SHX8_2 then
-      SHX9_2 = SHX8_2.Drawable
-      if SHX9_2 then
-        SHX9_2 = SetPedComponentVariation
-        SHX10_2 = SHX1_2
-        SHX11_2 = SHX8_2.Id
-        SHX12_2 = SHX8_2.Drawable
-        SHX13_2 = SHX8_2.Texture
-        SHX14_2 = 0
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-      else
-        SHX9_2 = SHX8_2.Prop
-        if SHX9_2 then
-          SHX9_2 = ClearPedProp
-          SHX10_2 = SHX1_2
-          SHX11_2 = SHX8_2.Id
-          SHX9_2(SHX10_2, SHX11_2)
-          SHX9_2 = SetPedPropIndex
-          SHX10_2 = SHX1_2
-          SHX11_2 = SHX8_2.Id
-          SHX12_2 = SHX8_2.Prop
-          SHX13_2 = SHX8_2.Texture
-          SHX14_2 = true
-          SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        end
-      end
+
+local function showNotification(message)
+    notify(message)
+end
+
+-- Only the normal GTA Online freemode male/female peds support all
+-- the variation tables used by this clothing script.
+local function getFreemodeGender(ped)
+    local maleModel = GetHashKey("mp_m_freemode_01")
+    local femaleModel = GetHashKey("mp_f_freemode_01")
+    local pedModel = GetEntityModel(ped)
+
+    if pedModel == maleModel then
+        return "Male"
+    elseif pedModel == femaleModel then
+        return "Female"
     end
-  end
-  SHX3_2 = {}
-  SHX5_1 = SHX3_2
+
+    return false
 end
-SHX9_1 = SHX23_1
-function SHX23_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX2_2 = SHX4_1
-  if SHX2_2 then
-    return
-  end
-  SHX2_2 = SHX0_1.Drawables
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX1_2 then
-    SHX3_2 = SHX0_1.Extras
-    SHX2_2 = SHX3_2[SHX0_2]
-  end
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  SHX4_2 = {}
-  SHX5_2 = GetPedDrawableVariation
-  SHX6_2 = SHX3_2
-  SHX7_2 = SHX2_2.Drawable
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX4_2.Drawable = SHX5_2
-  SHX5_2 = SHX2_2.Drawable
-  SHX4_2.Id = SHX5_2
-  SHX4_2.Ped = SHX3_2
-  SHX5_2 = GetPedTextureVariation
-  SHX6_2 = SHX3_2
-  SHX7_2 = SHX2_2.Drawable
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX4_2.Texture = SHX5_2
-  SHX5_2 = SHX18_1
-  SHX6_2 = SHX3_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if "Mask" ~= SHX0_2 and not SHX5_2 then
-    SHX6_2 = SHX17_1
-    SHX7_2 = SHX16_1
-    SHX8_2 = "NotAllowedPed"
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2 = SHX7_2(SHX8_2)
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX6_2 = false
-    return SHX6_2
-  end
-  SHX6_2 = SHX2_2.Table
-  SHX6_2 = SHX6_2[SHX5_2]
-  SHX7_2 = SHX2_2.Table
-  SHX7_2 = SHX7_2.Standalone
-  if not SHX7_2 then
-    SHX7_2 = pairs
-    SHX8_2 = SHX6_2
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-    for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-      SHX13_2 = SHX2_2.Remember
-      if not SHX13_2 then
-        SHX13_2 = SHX4_2.Drawable
-        if SHX11_2 == SHX13_2 then
-          SHX13_2 = SHX22_1
-          SHX14_2 = SHX2_2.Emote
-          function SHX15_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-            SHX0_3 = SetPedComponentVariation
-            SHX1_3 = SHX3_2
-            SHX2_3 = SHX2_2.Drawable
-            SHX3_3 = SHX12_2
-            SHX4_3 = SHX4_2.Texture
-            SHX5_3 = 0
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-          end
-          SHX13_2(SHX14_2, SHX15_2)
-          SHX13_2 = true
-          return SHX13_2
-        end
-      else
-        SHX13_2 = SHX5_1
-        SHX13_2 = SHX13_2[SHX0_2]
-        if not SHX13_2 then
-          SHX13_2 = SHX4_2.Drawable
-          if SHX11_2 == SHX13_2 then
-            SHX13_2 = SHX22_1
-            SHX14_2 = SHX2_2.Emote
-            function SHX15_2()
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-              SHX1_3 = SHX0_2
-              SHX0_3 = SHX5_1
-              SHX2_3 = SHX4_2
-              SHX0_3[SHX1_3] = SHX2_3
-              SHX0_3 = SetPedComponentVariation
-              SHX1_3 = SHX3_2
-              SHX2_3 = SHX2_2.Drawable
-              SHX3_3 = SHX12_2
-              SHX4_3 = SHX4_2.Texture
-              SHX5_3 = 0
-              SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+
+---------------------------------------------------------------------
+-- SAVING / RESTORING CLOTHING
+---------------------------------------------------------------------
+
+local function equipSavedOutfit()
+    local ped = PlayerPedId()
+
+    for _, savedItem in pairs(savedOutfit) do
+        if savedItem then
+            -- The decompiled source inconsistently used both "ID" and
+            -- "Id". Accept either form so older saved data still works.
+            local componentId = savedItem.Id or savedItem.ID
+
+            if savedItem.Drawable ~= nil then
+                SetPedComponentVariation(
+                    ped,
+                    componentId,
+                    savedItem.Drawable,
+                    savedItem.Texture,
+                    0
+                )
+            elseif savedItem.Prop ~= nil then
+                ClearPedProp(ped, componentId)
+
+                SetPedPropIndex(
+                    ped,
+                    componentId,
+                    savedItem.Prop,
+                    savedItem.Texture,
+                    true
+                )
             end
-            SHX13_2(SHX14_2, SHX15_2)
-            SHX13_2 = true
-            return SHX13_2
-          end
-        else
-          SHX13_2 = SHX5_1
-          SHX13_2 = SHX13_2[SHX0_2]
-          SHX14_2 = SHX22_1
-          SHX15_2 = SHX2_2.Emote
-          function SHX16_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-            SHX0_3 = SetPedComponentVariation
-            SHX1_3 = SHX3_2
-            SHX2_3 = SHX2_2.Drawable
-            SHX3_3 = SHX13_2.Drawable
-            SHX4_3 = SHX13_2.Texture
-            SHX5_3 = 0
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-            SHX1_3 = SHX0_2
-            SHX0_3 = SHX5_1
-            SHX0_3[SHX1_3] = false
-          end
-          SHX14_2(SHX15_2, SHX16_2)
-          SHX14_2 = true
-          return SHX14_2
         end
-      end
     end
-    SHX7_2 = SHX17_1
-    SHX8_2 = SHX16_1
-    SHX9_2 = "NoVariants"
-    SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2 = SHX8_2(SHX9_2)
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+
+    savedOutfit = {}
+end
+
+RegisterNetEvent("dpc:EquipLast")
+AddEventHandler("dpc:EquipLast", equipSavedOutfit)
+
+RegisterNetEvent("dpc:ResetClothing")
+AddEventHandler("dpc:ResetClothing", function()
+    -- This event forgets the stored "before" clothing.
+    -- It does not change what the player currently has equipped.
+    savedOutfit = {}
+end)
+
+---------------------------------------------------------------------
+-- MENU SOUNDS / OPEN-CLOSE EVENTS
+---------------------------------------------------------------------
+
+local MENU_SOUNDS = {
+    Close = { "TOGGLE_ON", "HUD_FRONTEND_DEFAULT_SOUNDSET" },
+    Open = { "NAV_LEFT_RIGHT", "HUD_FRONTEND_DEFAULT_SOUNDSET" },
+    Select = { "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET" },
+}
+
+local function playMenuSound(soundName)
+    if not Config.GUI.Sound then
+        return
+    end
+
+    local sound = MENU_SOUNDS[soundName]
+    if not sound then
+        return
+    end
+
+    PlaySoundFrontend(-1, sound[1], sound[2], false)
+end
+
+RegisterNetEvent("dpc:ToggleMenu")
+AddEventHandler("dpc:ToggleMenu", function()
+    menuOpen = not menuOpen
+
+    if menuOpen then
+        playMenuSound("Open")
+        SetCursorLocation(Config.GUI.Position.x, Config.GUI.Position.y)
+    else
+        playMenuSound("Close")
+    end
+end)
+
+RegisterNetEvent("dpc:Menu")
+AddEventHandler("dpc:Menu", function(shouldOpen)
+    menuOpen = shouldOpen
+
+    if menuOpen then
+        playMenuSound("Open")
+    else
+        playMenuSound("Close")
+    end
+end)
+
+---------------------------------------------------------------------
+-- CLOTHING ANIMATION
+---------------------------------------------------------------------
+
+-- Plays the animation first, then runs callback() when the item
+-- should actually be changed.
+local function playClothingAnimation(animation, callback)
+    local ped = PlayerPedId()
+
+    while not HasAnimDictLoaded(animation.Dict) do
+        RequestAnimDict(animation.Dict)
+        Wait(100)
+    end
+
+    -- The original script changes the movement flag while inside a vehicle.
+    if IsPedInAnyVehicle(ped, true) then
+        animation.Move = 51
+    end
+
+    TaskPlayAnim(
+        ped,
+        animation.Dict,
+        animation.Anim,
+        3.0,
+        3.0,
+        animation.Dur,
+        animation.Move,
+        0,
+        false,
+        false,
+        false
+    )
+
+    RemoveAnimDict(animation.Dict)
+
+    -- Do not let the player spam clothing changes during the animation.
+    local waitTime = animation.Dur - 500
+
+    if waitTime < 500 then
+        waitTime = 500
+    end
+
+    markActionBusy(waitTime)
+    Wait(waitTime)
+
+    callback()
+end
+
+---------------------------------------------------------------------
+-- RESTORE EVERYTHING THE PLAYER TOGGLED
+---------------------------------------------------------------------
+
+local function restoreSavedClothing(playAnimation)
+    local ped = PlayerPedId()
+
+    if playAnimation then
+        local topAnimation = ClothingData.Drawables.Top.Emote
+
+        TaskPlayAnim(
+            ped,
+            topAnimation.Dict,
+            topAnimation.Anim,
+            3.0,
+            3.0,
+            3000,
+            topAnimation.Move,
+            0,
+            false,
+            false,
+            false
+        )
+    end
+
+    for _, savedItem in pairs(savedOutfit) do
+        if savedItem then
+            if savedItem.Drawable ~= nil then
+                SetPedComponentVariation(
+                    ped,
+                    savedItem.Id,
+                    savedItem.Drawable,
+                    savedItem.Texture,
+                    0
+                )
+            elseif savedItem.Prop ~= nil then
+                ClearPedProp(ped, savedItem.Id)
+
+                SetPedPropIndex(
+                    ped,
+                    savedItem.Id,
+                    savedItem.Prop,
+                    savedItem.Texture,
+                    true
+                )
+            end
+        end
+    end
+
+    savedOutfit = {}
+end
+
+---------------------------------------------------------------------
+-- NORMAL CLOTHING COMPONENTS
+---------------------------------------------------------------------
+
+-- Examples of "drawables":
+--   Top, Gloves, Bag, Shoes, Vest, Hair, Neck, Mask, Pants, Shirt
+--
+-- isExtra tells the function to read ClothingData.Extras instead of
+-- ClothingData.Drawables.
+local function toggleDrawable(itemName, isExtra)
+    if actionBusy then
+        return
+    end
+
+    local item = ClothingData.Drawables[itemName]
+
+    if isExtra then
+        item = ClothingData.Extras[itemName]
+    end
+
+    if not item then
+        debugPrint("Missing drawable config for " .. tostring(itemName))
+        return false
+    end
+
+    local ped = PlayerPedId()
+
+    local current = {
+        Drawable = GetPedDrawableVariation(ped, item.Drawable),
+        Id = item.Drawable,
+        Ped = ped,
+        Texture = GetPedTextureVariation(ped, item.Drawable),
+    }
+
+    local gender = getFreemodeGender(ped)
+
+    -- The original code makes an exception for masks.
+    if itemName ~= "Mask" and not gender then
+        showNotification(translate("NotAllowedPed"))
+        return false
+    end
+
+    local variants = item.Table[gender]
+
+    -----------------------------------------------------------------
+    -- TABLE-BASED VARIANTS
+    -----------------------------------------------------------------
+    if not item.Table.Standalone then
+        for wornDrawable, replacementDrawable in sortedPairs(variants) do
+
+            ---------------------------------------------------------
+            -- Do not remember the previous item.
+            ---------------------------------------------------------
+            if not item.Remember then
+                if wornDrawable == current.Drawable then
+                    playClothingAnimation(item.Emote, function()
+                        SetPedComponentVariation(
+                            ped,
+                            item.Drawable,
+                            replacementDrawable,
+                            current.Texture,
+                            0
+                        )
+                    end)
+
+                    return true
+                end
+
+            ---------------------------------------------------------
+            -- Remember what the player was wearing so it can
+            -- be restored next time the same button is pressed.
+            ---------------------------------------------------------
+            elseif not savedOutfit[itemName] then
+                if wornDrawable == current.Drawable then
+                    savedOutfit[itemName] = current
+
+                    playClothingAnimation(item.Emote, function()
+                        SetPedComponentVariation(
+                            ped,
+                            item.Drawable,
+                            replacementDrawable,
+                            current.Texture,
+                            0
+                        )
+                    end)
+
+                    return true
+                end
+
+            ---------------------------------------------------------
+            -- This clothing item was already toggled.
+            -- Put the original item back on.
+            ---------------------------------------------------------
+            else
+                local saved = savedOutfit[itemName]
+
+                playClothingAnimation(item.Emote, function()
+                    SetPedComponentVariation(
+                        ped,
+                        item.Drawable,
+                        saved.Drawable,
+                        saved.Texture,
+                        0
+                    )
+
+                    savedOutfit[itemName] = false
+                end)
+
+                return true
+            end
+        end
+
+        showNotification(translate("NoVariants"))
+        return false
+    end
+
+    -----------------------------------------------------------------
+    -- STANDALONE VARIANT
+    --
+    -- A standalone entry has one replacement drawable rather than a
+    -- mapping of currentDrawable -> replacementDrawable.
+    -----------------------------------------------------------------
+
+    if not savedOutfit[itemName] then
+        if current.Drawable ~= variants then
+            playClothingAnimation(item.Emote, function()
+                savedOutfit[itemName] = current
+
+                SetPedComponentVariation(
+                    ped,
+                    item.Drawable,
+                    variants,
+                    0,
+                    0
+                )
+
+                -- Some clothing changes require changing additional
+                -- components at the same time.
+                if item.Table.Extra then
+                    for _, extra in pairs(item.Table.Extra) do
+                        local savedExtra = {
+                            Drawable = GetPedDrawableVariation(ped, extra.Drawable),
+                            Texture = GetPedTextureVariation(ped, extra.Drawable),
+                            Id = extra.Drawable,
+                        }
+
+                        SetPedComponentVariation(
+                            ped,
+                            extra.Drawable,
+                            extra.Id,
+                            extra.Tex,
+                            0
+                        )
+
+                        savedOutfit[extra.Name] = savedExtra
+                    end
+                end
+            end)
+
+            return true
+        end
+    else
+        local saved = savedOutfit[itemName]
+
+        playClothingAnimation(item.Emote, function()
+            SetPedComponentVariation(
+                ped,
+                item.Drawable,
+                saved.Drawable,
+                saved.Texture,
+                0
+            )
+
+            savedOutfit[itemName] = false
+
+            -- Restore any extra components that were changed together.
+            if item.Table.Extra then
+                for _, extra in pairs(item.Table.Extra) do
+                    local savedExtra = savedOutfit[extra.Name]
+
+                    if savedExtra then
+                        SetPedComponentVariation(
+                            ped,
+                            savedExtra.Id,
+                            savedExtra.Drawable,
+                            savedExtra.Texture,
+                            0
+                        )
+
+                        savedOutfit[extra.Name] = false
+                    end
+                end
+            end
+        end)
+
+        return true
+    end
+
+    showNotification(translate("AlreadyWearing"))
+    return false
+end
+
+---------------------------------------------------------------------
+-- PROPS
+---------------------------------------------------------------------
+
+-- Props are separate from normal clothing components.
+-- Examples: Hat, Glasses, Ear, Watch, Bracelet, Visor.
+local function toggleProp(itemName)
+    if actionBusy then
+        return
+    end
+
+    local item = ClothingData.Props[itemName]
+
+    if not item then
+        debugPrint("Missing prop config for " .. tostring(itemName))
+        return false
+    end
+
+    local ped = PlayerPedId()
+
+    local current = {
+        Id = item.Prop,
+        Ped = ped,
+        Prop = GetPedPropIndex(ped, item.Prop),
+        Texture = GetPedPropTextureIndex(ped, item.Prop),
+    }
+
+    -----------------------------------------------------------------
+    -- SIMPLE ON/OFF PROP
+    -----------------------------------------------------------------
+    if not item.Variants then
+        -- Player currently has a prop on: save it and remove it.
+        if current.Prop ~= -1 then
+            playClothingAnimation(item.Emote.Off, function()
+                savedOutfit[itemName] = current
+                ClearPedProp(ped, item.Prop)
+            end)
+
+            return true
+        end
+
+        -- Player has previously removed this prop: restore it.
+        local saved = savedOutfit[itemName]
+
+        if saved then
+            playClothingAnimation(item.Emote.On, function()
+                SetPedPropIndex(
+                    ped,
+                    item.Prop,
+                    saved.Prop,
+                    saved.Texture,
+                    true
+                )
+            end)
+
+            savedOutfit[itemName] = false
+            return true
+        end
+
+        showNotification(translate("NothingToRemove"))
+        return false
+    end
+
+    -----------------------------------------------------------------
+    -- PROP WITH VARIANTS
+    -----------------------------------------------------------------
+
+    local gender = getFreemodeGender(ped)
+
+    if not gender then
+        showNotification(translate("NotAllowedPed"))
+        return false
+    end
+
+    local variants = item.Variants[gender]
+
+    for currentProp, replacementProp in pairs(variants) do
+        if current.Prop == currentProp then
+            playClothingAnimation(item.Emote.On, function()
+                SetPedPropIndex(
+                    ped,
+                    item.Prop,
+                    replacementProp,
+                    current.Texture,
+                    true
+                )
+            end)
+
+            return true
+        end
+    end
+
+    showNotification(translate("NoVariants"))
+    return false
+end
+
+---------------------------------------------------------------------
+-- DEBUG HELPERS
+---------------------------------------------------------------------
+
+-- Draws the player's current clothing IDs on-screen.
+local function drawDebugClothingState()
+    local entries = {}
+
+    for name, item in sortedPairs(ClothingData.Drawables) do
+        table.insert(entries, {
+            Name = name,
+            Drawable = item.Drawable,
+        })
+    end
+
+    for name, item in sortedPairs(ClothingData.Extras) do
+        table.insert(entries, {
+            Name = name,
+            Drawable = item.Drawable,
+        })
+    end
+
+    for name, item in sortedPairs(ClothingData.Props) do
+        table.insert(entries, {
+            Name = name,
+            Prop = item.Prop,
+        })
+    end
+
+    for index, entry in pairs(entries) do
+        local ped = PlayerPedId()
+        local current
+
+        if entry.Drawable then
+            current = {
+                Id = GetPedDrawableVariation(ped, entry.Drawable),
+                Texture = GetPedTextureVariation(ped, entry.Drawable),
+            }
+        elseif entry.Prop then
+            current = {
+                Id = GetPedPropIndex(ped, entry.Prop),
+                Texture = GetPedPropTextureIndex(ped, entry.Prop),
+            }
+        end
+
+        drawText(
+            0.2,
+            (0.8 * index) / 18,
+            0.3,
+            ("~o~%s~w~ = \n     (%s , %s)"):format(
+                entry.Name,
+                current.Id,
+                current.Texture
+            ),
+            false,
+            1
+        )
+
+        DrawRect(
+            0.23,
+            ((0.8 * index) / 18) + 0.025,
+            0.07,
+            0.045,
+            0,
+            0,
+            0,
+            150
+        )
+    end
+end
+
+-- Cycles through configured variants to make development/testing easier.
+local function testVariants(itemName)
+    if testingVariants then
+        showNotification("Already testing variants.")
+        return
+    end
+
+    Citizen.CreateThread(function()
+        testingVariants = true
+
+        local ped = PlayerPedId()
+        local drawableItem = ClothingData.Drawables[itemName]
+        local propItem = ClothingData.Props[itemName]
+        local gender = getFreemodeGender(ped)
+
+        if drawableItem and drawableItem.Table then
+            local genderTable = drawableItem.Table[gender]
+
+            if type(genderTable) == "table" then
+                for fromDrawable, toDrawable in sortedPairs(genderTable) do
+                    showNotification(itemName .. " : ~o~" .. tostring(fromDrawable))
+                    playMenuSound("Open")
+
+                    SetPedComponentVariation(
+                        ped,
+                        drawableItem.Drawable,
+                        fromDrawable,
+                        0,
+                        0
+                    )
+
+                    Wait(300)
+
+                    showNotification(itemName .. " : ~b~" .. tostring(toDrawable))
+                    playMenuSound("Close")
+
+                    SetPedComponentVariation(
+                        ped,
+                        drawableItem.Drawable,
+                        toDrawable,
+                        0,
+                        0
+                    )
+
+                    Wait(300)
+                end
+            end
+
+        elseif propItem and propItem.Variants then
+            local genderVariants = propItem.Variants[gender]
+
+            for fromProp, toProp in sortedPairs(genderVariants) do
+                showNotification(itemName .. " : ~o~" .. tostring(fromProp))
+                playMenuSound("Open")
+
+                SetPedPropIndex(
+                    ped,
+                    propItem.Prop,
+                    fromProp,
+                    0,
+                    true
+                )
+
+                Wait(300)
+
+                showNotification(itemName .. " : ~b~" .. tostring(toProp))
+                playMenuSound("Close")
+
+                SetPedPropIndex(
+                    ped,
+                    propItem.Prop,
+                    toProp,
+                    0,
+                    true
+                )
+
+                Wait(300)
+
+                ClearPedProp(ped, propItem.Prop)
+                Wait(200)
+            end
+        end
+
+        testingVariants = false
+    end)
+end
+
+---------------------------------------------------------------------
+-- COMMAND DEFINITIONS
+---------------------------------------------------------------------
+
+local function takeOffDescription(name)
+    return string.format(translate("TakeOffOn"), string.lower(name))
+end
+
+Config.Commands[translate("TOP")] = {
+    Func = function()
+        toggleDrawable("Top")
+    end,
+    Sprite = "top",
+    Desc = translate("Top2"),
+    Button = 1,
+    Name = translate("Top"),
+}
+
+Config.Commands[translate("GLOVES")] = {
+    Func = function()
+        toggleDrawable("Gloves")
+    end,
+    Sprite = "gloves",
+    Desc = takeOffDescription(translate("Gloves")),
+    Button = 2,
+    Name = translate("Gloves"),
+}
+
+Config.Commands[translate("VISOR")] = {
+    Func = function()
+        toggleProp("Visor")
+    end,
+    Sprite = "visor",
+    Desc = translate("Visor2"),
+    Button = 3,
+    Name = translate("Visor"),
+}
+
+Config.Commands[translate("HAT")] = {
+    Func = function()
+        toggleProp("Hat")
+    end,
+    Sprite = "hat",
+    Desc = takeOffDescription(translate("Hat")),
+    Button = 4,
+    Name = translate("Hat"),
+}
+
+Config.Commands[translate("SHOES")] = {
+    Func = function()
+        toggleDrawable("Shoes")
+    end,
+    Sprite = "shoes",
+    Desc = takeOffDescription(translate("Shoes")),
+    Button = 5,
+    Name = translate("Shoes"),
+}
+
+Config.Commands[translate("MASK")] = {
+    Func = function()
+        toggleDrawable("Mask")
+    end,
+    Sprite = "mask",
+    Desc = takeOffDescription(translate("Mask")),
+    Button = 6,
+    Name = translate("Mask"),
+}
+
+Config.Commands[translate("HAIR")] = {
+    Func = function()
+        toggleDrawable("Hair")
+    end,
+    Sprite = "hair",
+    Desc = translate("Hair2"),
+    Button = 7,
+    Name = translate("Hair"),
+}
+
+Config.Commands[translate("BAG")] = {
+    Func = function()
+        toggleDrawable("Bag")
+    end,
+    Sprite = "bag",
+    Desc = translate("Bag2"),
+    Button = 8,
+    Name = translate("Bag"),
+}
+
+Config.Commands[translate("GLASSES")] = {
+    Func = function()
+        toggleProp("Glasses")
+    end,
+    Sprite = "glasses",
+    Desc = takeOffDescription(translate("Glasses")),
+    Button = 9,
+    Name = translate("Glasses"),
+}
+
+Config.Commands[translate("EAR")] = {
+    Func = function()
+        toggleProp("Ear")
+    end,
+    Sprite = "ear",
+    Desc = string.format(translate("TakeOffOn"), string.lower(translate("Ear2"))),
+    Button = 10,
+    Name = translate("Ear"),
+}
+
+Config.Commands[translate("NECK")] = {
+    Func = function()
+        toggleDrawable("Neck")
+    end,
+    Sprite = "neck",
+    Desc = string.format(translate("TakeOffOn"), string.lower(translate("Neck2"))),
+    Button = 11,
+    Name = translate("Neck"),
+}
+
+Config.Commands[translate("WATCH")] = {
+    Func = function()
+        toggleProp("Watch")
+    end,
+    Sprite = "watch",
+    Desc = takeOffDescription(translate("Watch")),
+    Button = 12,
+    Name = translate("Watch"),
+    Rotation = 5.0,
+}
+
+Config.Commands[translate("BRACELET")] = {
+    Func = function()
+        toggleProp("Bracelet")
+    end,
+    Sprite = "bracelet",
+    Desc = takeOffDescription(translate("Bracelet")),
+    Button = 13,
+    Name = translate("Bracelet"),
+}
+
+Config.Commands[translate("VEST")] = {
+    Func = function()
+        toggleDrawable("Vest", true)
+    end,
+    Sprite = "vest",
+    Desc = takeOffDescription(translate("Vest")),
+    Button = 14,
+    Name = translate("Vest"),
+}
+
+---------------------------------------------------------------------
+-- EXTRA BUTTONS AROUND THE RADIAL
+---------------------------------------------------------------------
+
+local PARACHUTE_BAGS = {
+    [40] = true,
+    [41] = true,
+    [44] = true,
+    [45] = true,
+}
+
+Config.ExtraCommands[translate("PANTS")] = {
+    Func = function()
+        toggleDrawable("Pants", true)
+    end,
+    Sprite = "pants",
+    Desc = takeOffDescription(translate("Pants")),
+    Name = translate("Pants"),
+    OffsetX = -0.04,
+    OffsetY = 0.0,
+}
+
+Config.ExtraCommands[translate("SHIRT")] = {
+    Func = function()
+        toggleDrawable("Shirt", true)
+    end,
+    Sprite = "shirt",
+    Desc = takeOffDescription(translate("Shirt")),
+    Name = translate("Shirt"),
+    OffsetX = 0.04,
+    OffsetY = 0.0,
+}
+
+Config.ExtraCommands[translate("RESET")] = {
+    Func = function()
+        if not restoreSavedClothing(true) then
+            -- The original restore function returns nil, so this condition
+            -- results in the "AlreadyWearing" notification after restore.
+            showNotification(translate("AlreadyWearing"))
+        end
+    end,
+    Sprite = "reset",
+    Desc = translate("Reset2"),
+    Name = translate("Reset"),
+    OffsetX = 0.12,
+    OffsetY = 0.2,
+    Rotate = true,
+}
+
+Config.ExtraCommands["clothingexit"] = {
+    Func = function()
+        menuOpen = false
+    end,
+    Sprite = "exit",
+    Desc = "",
+    Name = translate("Exit"),
+    OffsetX = 0.12,
+    OffsetY = -0.2,
+    Enabled = Config.GUI.Toggle,
+}
+
+Config.ExtraCommands[translate("BAGOFF")] = {
+    Func = function()
+        toggleDrawable("Bagoff", true)
+    end,
+
+    Sprite = "bagoff",
+
+    -- The icon changes depending on whether the saved/current bag looks
+    -- like a normal bag or a parachute-style drawable.
+    SpriteFunc = function()
+        local currentBagDrawable = GetPedDrawableVariation(PlayerPedId(), 5)
+        local savedBag = savedOutfit.Bagoff
+
+        if savedBag then
+            if PARACHUTE_BAGS[savedBag.Drawable] then
+                return "bagoff"
+            end
+
+            return "paraoff"
+        end
+
+        if currentBagDrawable ~= 0 then
+            if PARACHUTE_BAGS[currentBagDrawable] then
+                return "bagoff"
+            end
+
+            return "paraoff"
+        end
+
+        return false
+    end,
+
+    Desc = takeOffDescription(translate("Bag")),
+    Name = translate("Bag"),
+    OffsetX = -0.12,
+    OffsetY = 0.2,
+}
+
+---------------------------------------------------------------------
+-- REGISTER THE TEXT COMMANDS
+---------------------------------------------------------------------
+
+local function canRunClothingCommand()
+    if IsPlayerFreeAiming(PlayerId()) then
+        return false
+    end
+
+    if IsPedReloading(PlayerPedId()) then
+        return false
+    end
+
+    return tCMG.canAnim()
+end
+
+for commandName, command in pairs(Config.Commands) do
+    RegisterCommand(commandName, function()
+        if canRunClothingCommand() then
+            command.Func()
+        end
+    end, false)
+
+    TriggerEvent(
+        "chat:addSuggestion",
+        "/" .. commandName,
+        command.Desc
+    )
+end
+
+if Config.ExtrasEnabled then
+    for commandName, command in pairs(Config.ExtraCommands) do
+        RegisterCommand(commandName, function()
+            if canRunClothingCommand() then
+                command.Func()
+            end
+        end, false)
+
+        TriggerEvent(
+            "chat:addSuggestion",
+            "/" .. commandName,
+            command.Desc
+        )
+    end
+end
+
+-- If the resource is stopped/restarted while somebody has clothing
+-- temporarily removed, restore it.
+AddEventHandler("onResourceStop", function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        restoreSavedClothing()
+    end
+end)
+
+---------------------------------------------------------------------
+-- THE REST OF THE FILE IS THE RADIAL-MENU GUI
+---------------------------------------------------------------------
+
+if not Config.GUI.Enabled then
     return
-  else
-    SHX7_2 = SHX5_1
-    SHX7_2 = SHX7_2[SHX0_2]
-    if not SHX7_2 then
-      SHX7_2 = SHX4_2.Drawable
-      if SHX7_2 ~= SHX6_2 then
-        SHX7_2 = SHX22_1
-        SHX8_2 = SHX2_2.Emote
-        function SHX9_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-          SHX1_3 = SHX0_2
-          SHX0_3 = SHX5_1
-          SHX2_3 = SHX4_2
-          SHX0_3[SHX1_3] = SHX2_3
-          SHX0_3 = SetPedComponentVariation
-          SHX1_3 = SHX3_2
-          SHX2_3 = SHX2_2.Drawable
-          SHX3_3 = SHX6_2
-          SHX4_3 = 0
-          SHX5_3 = 0
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-          SHX0_3 = SHX2_2.Table
-          SHX0_3 = SHX0_3.Extra
-          if SHX0_3 then
-            SHX0_3 = pairs
-            SHX1_3 = SHX2_2.Table
-            SHX1_3 = SHX1_3.Extra
-            SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-            for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-              SHX6_3 = {}
-              SHX7_3 = GetPedDrawableVariation
-              SHX8_3 = SHX3_2
-              SHX9_3 = SHX5_3.Drawable
-              SHX7_3 = SHX7_3(SHX8_3, SHX9_3)
-              SHX6_3.Drawable = SHX7_3
-              SHX7_3 = GetPedTextureVariation
-              SHX8_3 = SHX3_2
-              SHX9_3 = SHX5_3.Drawable
-              SHX7_3 = SHX7_3(SHX8_3, SHX9_3)
-              SHX6_3.Texture = SHX7_3
-              SHX7_3 = SHX5_3.Drawable
-              SHX6_3.Id = SHX7_3
-              SHX7_3 = SetPedComponentVariation
-              SHX8_3 = SHX3_2
-              SHX9_3 = SHX5_3.Drawable
-              SHX10_3 = SHX5_3.Id
-              SHX11_3 = SHX5_3.Tex
-              SHX12_3 = 0
-              SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-              SHX8_3 = SHX5_3.Name
-              SHX7_3 = SHX5_1
-              SHX7_3[SHX8_3] = SHX6_3
+end
+
+local function distance2D(x1, y1, x2, y2)
+    local x = x1 - x2
+    local y = y1 - y2
+
+    return math.sqrt((x * x) + (y * y))
+end
+
+local function disableMenuControls()
+    local controls = {
+        1, 2, 18, 68, 69, 70, 91, 92,
+        24, 25, 14, 15, 16, 17,
+    }
+
+    for _, control in ipairs(controls) do
+        DisableControlAction(1, control, true)
+    end
+
+    DisablePlayerFiring(PlayerId(), true)
+    SetMouseCursorActiveThisFrame()
+end
+
+-- FiveM returns the cursor in pixels. The menu is drawn using normalised
+-- 0.0 -> 1.0 screen coordinates, so convert the cursor here.
+local function getNormalisedCursorPosition()
+    local screenWidth, screenHeight = GetActiveScreenResolution()
+    local cursorX, cursorY = GetNuiCursorPosition()
+
+    local normalisedX = (cursorX / screenWidth) + 0.008
+    local normalisedY = (cursorY / screenHeight) + 0.027
+
+    return normalisedX, normalisedY
+end
+
+-- Draws one clickable radial-menu icon.
+-- Returns true when the player left-clicks the icon.
+local function drawRadialButton(button)
+    local circleRotation = button.Rotate or 0.0
+
+    if button.Shadow then
+        DrawSprite(
+            "dp_clothing",
+            "circle",
+            button.x,
+            button.y,
+            button.Size.Circle.x / 0.8,
+            button.Size.Circle.y / 0.8,
+            circleRotation,
+            button.Colour.r,
+            button.Colour.g,
+            button.Colour.b,
+            button.Alpha
+        )
+    end
+
+    DrawSprite(
+        "dp_clothing",
+        button.Sprite,
+        button.x,
+        button.y,
+        button.Size.Sprite.x / 0.68,
+        button.Size.Sprite.y / 0.68,
+        button.Rotation,
+        255,
+        255,
+        255,
+        button.Alpha
+    )
+
+    -----------------------------------------------------------------
+    -- LEFT CLICK
+    -----------------------------------------------------------------
+    if IsDisabledControlJustPressed(1, 24) then
+        local mouseX, mouseY = getNormalisedCursorPosition()
+
+        local distance = distance2D(
+            button.x + 0.005,
+            button.y + 0.025,
+            mouseX,
+            mouseY
+        )
+
+        if distance < 0.025 then
+            return true
+        end
+
+    -----------------------------------------------------------------
+    -- RIGHT CLICK (DEBUG MODE)
+    -----------------------------------------------------------------
+    elseif IsDisabledControlJustPressed(1, 25) and Config.Debug then
+        local mouseX, mouseY = getNormalisedCursorPosition()
+
+        local distance = distance2D(
+            button.x + 0.005,
+            button.y + 0.025,
+            mouseX,
+            mouseY
+        )
+
+        if distance < 0.025 then
+            testVariants(capitalizeFirst(button.Sprite))
+        end
+    end
+
+    return false
+end
+
+-- Checks whether the radial menu is allowed to open right now.
+local function canOpenMenu(ped)
+    if IsPedInAnyVehicle(ped, true) and not Config.GUI.AllowInCars then
+        return false
+    end
+
+    if IsPedSwimmingUnderWater(ped) then
+        return false
+    end
+
+    if IsPedRagdoll(ped) and not Config.GUI.AllowWhenRagdolled then
+        return false
+    end
+
+    if IsHudComponentActive(19) then
+        return false
+    end
+
+    local spellingBeeData = CMG.getClientEventData("SpellingBeeClientData")
+
+    if spellingBeeData and spellingBeeData.minigameName == "Spelling Bee" then
+        return false
+    end
+
+    if CMG.hasClientPermission("paramedic.permission") then
+        return false
+    end
+
+    return true
+end
+
+---------------------------------------------------------------------
+-- BUILD THE RADIAL BUTTON POSITIONS
+---------------------------------------------------------------------
+
+local ICON_SIZE = {
+    x = 0.0254,
+    y = 0.0445,
+}
+
+local CIRCLE_SIZE = {
+    x = 0.028750000000000005,
+    y = 0.05,
+}
+
+local mainButtons = {}
+local extraButtons = {}
+
+local infoRotation = 0.0
+
+local function buildRadialButtons()
+    local centerX = Config.GUI.Position.x
+    local centerY = Config.GUI.Position.y
+
+    local radiusX = 0.1
+    local radiusY = 0.175
+
+    -------------------------------------------------------------
+    -- 14 main buttons arranged in a circle.
+    -------------------------------------------------------------
+    for commandName, command in pairs(Config.Commands) do
+        local buttonNumber = command.Button
+        local angle = (buttonNumber * math.pi) / 7
+
+        local x = centerX + (radiusX * math.cos(angle))
+        local y = centerY + (radiusY * math.sin(angle))
+
+        mainButtons[buttonNumber] = {
+            Command = commandName,
+            Desc = command.Desc or "",
+            Rotation = command.Rotation or 0.0,
+            Size = {
+                Sprite = ICON_SIZE,
+            },
+            Sprite = command.Sprite,
+            Text = command.Name,
+            x = x,
+            y = y,
+        }
+    end
+
+    -------------------------------------------------------------
+    -- Extra buttons use manually configured offsets.
+    -------------------------------------------------------------
+    if Config.ExtrasEnabled then
+        for commandName, command in pairs(Config.ExtraCommands) do
+            local enabled = command.Enabled
+
+            if enabled == nil then
+                enabled = true
             end
-          end
+
+            extraButtons[commandName] = {
+                Command = commandName,
+                Desc = command.Desc or "",
+                OffsetX = command.OffsetX,
+                OffsetY = command.OffsetY,
+
+                Size = {
+                    Circle = {
+                        x = CIRCLE_SIZE.x,
+                        y = CIRCLE_SIZE.y,
+                    },
+                    Sprite = {
+                        x = ICON_SIZE.x / 1.35,
+                        y = ICON_SIZE.y / 1.35,
+                    },
+                },
+
+                Sprite = command.Sprite,
+                SpriteFunc = command.SpriteFunc,
+                Text = command.Name,
+                Enabled = enabled,
+                Rotate = command.Rotate,
+                Rotation = 0.0,
+            }
         end
-        SHX7_2(SHX8_2, SHX9_2)
-        SHX7_2 = true
-        return SHX7_2
-      end
-    else
-      SHX7_2 = SHX5_1
-      SHX7_2 = SHX7_2[SHX0_2]
-      SHX8_2 = SHX22_1
-      SHX9_2 = SHX2_2.Emote
-      function SHX10_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3
-        SHX0_3 = SetPedComponentVariation
-        SHX1_3 = SHX3_2
-        SHX2_3 = SHX2_2.Drawable
-        SHX3_3 = SHX7_2.Drawable
-        SHX4_3 = SHX7_2.Texture
-        SHX5_3 = 0
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-        SHX1_3 = SHX0_2
-        SHX0_3 = SHX5_1
-        SHX0_3[SHX1_3] = false
-        SHX0_3 = SHX2_2.Table
-        SHX0_3 = SHX0_3.Extra
-        if SHX0_3 then
-          SHX0_3 = pairs
-          SHX1_3 = SHX2_2.Table
-          SHX1_3 = SHX1_3.Extra
-          SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-          for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-            SHX7_3 = SHX5_3.Name
-            SHX6_3 = SHX5_1
-            SHX6_3 = SHX6_3[SHX7_3]
-            if SHX6_3 then
-              SHX7_3 = SHX5_3.Name
-              SHX6_3 = SHX5_1
-              SHX6_3 = SHX6_3[SHX7_3]
-              SHX7_2 = SHX6_3
-              SHX6_3 = SetPedComponentVariation
-              SHX7_3 = SHX3_2
-              SHX8_3 = SHX7_2.Id
-              SHX9_3 = SHX7_2.Drawable
-              SHX10_3 = SHX7_2.Texture
-              SHX11_3 = 0
-              SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-              SHX7_3 = SHX5_3.Name
-              SHX6_3 = SHX5_1
-              SHX6_3[SHX7_3] = false
+    end
+end
+
+---------------------------------------------------------------------
+-- LITTLE BUTTON CLICK ANIMATION
+---------------------------------------------------------------------
+
+local function animateButton(commandKey, isExtraButton, rotate, isInfoButton)
+    Citizen.CreateThread(function()
+        playMenuSound("Select")
+
+        local button
+
+        if isExtraButton then
+            button = extraButtons[commandKey]
+        elseif isInfoButton then
+            button = {}
+        else
+            button = mainButtons[commandKey]
+        end
+
+        -------------------------------------------------------------
+        -- Spin the selected icon.
+        -------------------------------------------------------------
+        if rotate then
+            for step = 1, 18 do
+                local rotation = (-step * 20) + 0.0
+
+                if not isInfoButton then
+                    button.Rotation = rotation
+                else
+                    infoRotation = rotation
+                end
+
+                Wait(1)
             end
-          end
+
+            return
         end
-      end
-      SHX8_2(SHX9_2, SHX10_2)
-      SHX8_2 = true
-      return SHX8_2
-    end
-  end
-  SHX7_2 = SHX17_1
-  SHX8_2 = SHX16_1
-  SHX9_2 = "AlreadyWearing"
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2 = SHX8_2(SHX9_2)
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX7_2 = false
-  return SHX7_2
-end
-SHX7_1 = SHX23_1
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = SHX4_1
-  if SHX1_2 then
-    return
-  end
-  SHX1_2 = SHX0_1.Props
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = {}
-  SHX4_2 = SHX1_2.Prop
-  SHX3_2.Id = SHX4_2
-  SHX3_2.Ped = SHX2_2
-  SHX4_2 = GetPedPropIndex
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX1_2.Prop
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX3_2.Prop = SHX4_2
-  SHX4_2 = GetPedPropTextureIndex
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX1_2.Prop
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX3_2.Texture = SHX4_2
-  SHX4_2 = SHX1_2.Variants
-  if not SHX4_2 then
-    SHX4_2 = SHX3_2.Prop
-    if -1 ~= SHX4_2 then
-      SHX4_2 = SHX22_1
-      SHX5_2 = SHX1_2.Emote
-      SHX5_2 = SHX5_2.Off
-      function SHX6_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3, SHX2_3
-        SHX1_3 = SHX0_2
-        SHX0_3 = SHX5_1
-        SHX2_3 = SHX3_2
-        SHX0_3[SHX1_3] = SHX2_3
-        SHX0_3 = ClearPedProp
-        SHX1_3 = SHX2_2
-        SHX2_3 = SHX1_2.Prop
-        SHX0_3(SHX1_3, SHX2_3)
-      end
-      SHX4_2(SHX5_2, SHX6_2)
-      SHX4_2 = true
-      return SHX4_2
-    else
-      SHX4_2 = SHX5_1
-      SHX4_2 = SHX4_2[SHX0_2]
-      if SHX4_2 then
-        SHX5_2 = SHX22_1
-        SHX6_2 = SHX1_2.Emote
-        SHX6_2 = SHX6_2.On
-        function SHX7_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-          SHX0_3 = SetPedPropIndex
-          SHX1_3 = SHX2_2
-          SHX2_3 = SHX1_2.Prop
-          SHX3_3 = SHX4_2.Prop
-          SHX4_3 = SHX4_2.Texture
-          SHX5_3 = true
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+
+        -------------------------------------------------------------
+        -- Brief "press" animation by shrinking the icon.
+        -------------------------------------------------------------
+        if not isExtraButton then
+            button.Size = {
+                Sprite = {
+                    x = ICON_SIZE.x / 1.1,
+                    y = ICON_SIZE.y / 1.1,
+                }
+            }
+
+            Wait(100)
+
+            button.Size = {
+                Sprite = {
+                    x = ICON_SIZE.x,
+                    y = ICON_SIZE.y,
+                }
+            }
+        else
+            button.Size = {
+                Circle = {
+                    x = CIRCLE_SIZE.x,
+                    y = CIRCLE_SIZE.y,
+                },
+                Sprite = {
+                    x = (ICON_SIZE.x / 1.3) / 1.1,
+                    y = (ICON_SIZE.y / 1.3) / 1.1,
+                },
+            }
+
+            Wait(100)
+
+            button.Size = {
+                Circle = {
+                    x = CIRCLE_SIZE.x,
+                    y = CIRCLE_SIZE.y,
+                },
+                Sprite = {
+                    x = ICON_SIZE.x / 1.35,
+                    y = ICON_SIZE.y / 1.35,
+                },
+            }
         end
-        SHX5_2(SHX6_2, SHX7_2)
-        SHX5_2 = SHX5_1
-        SHX5_2[SHX0_2] = false
-        SHX5_2 = true
-        return SHX5_2
-      end
-    end
-    SHX4_2 = SHX17_1
-    SHX5_2 = SHX16_1
-    SHX6_2 = "NothingToRemove"
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX4_2 = false
-    return SHX4_2
-  else
-    SHX4_2 = SHX18_1
-    SHX5_2 = SHX2_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    if not SHX4_2 then
-      SHX5_2 = SHX17_1
-      SHX6_2 = SHX16_1
-      SHX7_2 = "NotAllowedPed"
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX6_2(SHX7_2)
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-      SHX5_2 = false
-      return SHX5_2
-    end
-    SHX5_2 = SHX1_2.Variants
-    SHX5_2 = SHX5_2[SHX4_2]
-    SHX6_2 = pairs
-    SHX7_2 = SHX5_2
-    SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-    for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-      SHX12_2 = SHX3_2.Prop
-      if SHX12_2 == SHX10_2 then
-        SHX12_2 = SHX22_1
-        SHX13_2 = SHX1_2.Emote
-        SHX13_2 = SHX13_2.On
-        function SHX14_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-          SHX0_3 = SetPedPropIndex
-          SHX1_3 = SHX2_2
-          SHX2_3 = SHX1_2.Prop
-          SHX3_3 = SHX11_2
-          SHX4_3 = SHX3_2.Texture
-          SHX5_3 = true
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+    end)
+end
+
+---------------------------------------------------------------------
+-- HOVER TEXT
+---------------------------------------------------------------------
+
+local function drawHoverInformation()
+    local mouseX, mouseY = getNormalisedCursorPosition()
+
+    for _, button in pairs(mainButtons) do
+        local distance = distance2D(
+            button.x + 0.005,
+            button.y + 0.025,
+            mouseX,
+            mouseY
+        )
+
+        if distance < 0.025 then
+            drawText(
+                Config.GUI.Position.x,
+                Config.GUI.Position.y - 0.1,
+                0.3,
+                button.Text,
+                false,
+                false,
+                true
+            )
+
+            drawText(
+                Config.GUI.Position.x,
+                Config.GUI.Position.y - 0.08,
+                0.22,
+                button.Desc,
+                { 210, 210, 210 },
+                false,
+                true,
+                { x = 0.1, y = 0.2 }
+            )
         end
-        SHX12_2(SHX13_2, SHX14_2)
-        SHX12_2 = true
-        return SHX12_2
-      end
     end
-    SHX6_2 = SHX17_1
-    SHX7_2 = SHX16_1
-    SHX8_2 = "NoVariants"
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX7_2(SHX8_2)
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX6_2 = false
-    return SHX6_2
-  end
-end
-SHX8_1 = SHX23_1
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = {}
-  SHX1_2 = SHX13_1
-  SHX2_2 = SHX0_1.Drawables
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.insert
-    SHX8_2 = SHX0_2
-    SHX9_2 = {}
-    SHX9_2.Name = SHX5_2
-    SHX10_2 = SHX6_2.Drawable
-    SHX9_2.Drawable = SHX10_2
-    SHX7_2(SHX8_2, SHX9_2)
-  end
-  SHX1_2 = SHX13_1
-  SHX2_2 = SHX0_1.Extras
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.insert
-    SHX8_2 = SHX0_2
-    SHX9_2 = {}
-    SHX9_2.Name = SHX5_2
-    SHX10_2 = SHX6_2.Drawable
-    SHX9_2.Drawable = SHX10_2
-    SHX7_2(SHX8_2, SHX9_2)
-  end
-  SHX1_2 = SHX13_1
-  SHX2_2 = SHX0_1.Props
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.insert
-    SHX8_2 = SHX0_2
-    SHX9_2 = {}
-    SHX9_2.Name = SHX5_2
-    SHX10_2 = SHX6_2.Prop
-    SHX9_2.Prop = SHX10_2
-    SHX7_2(SHX8_2, SHX9_2)
-  end
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = PlayerPedId
-    SHX7_2 = SHX7_2()
-    SHX8_2 = nil
-    SHX9_2 = SHX6_2.Drawable
-    if SHX9_2 then
-      SHX9_2 = {}
-      SHX10_2 = GetPedDrawableVariation
-      SHX11_2 = SHX7_2
-      SHX12_2 = SHX6_2.Drawable
-      SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-      SHX9_2.Id = SHX10_2
-      SHX10_2 = GetPedTextureVariation
-      SHX11_2 = SHX7_2
-      SHX12_2 = SHX6_2.Drawable
-      SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-      SHX9_2.Texture = SHX10_2
-      SHX8_2 = SHX9_2
-    else
-      SHX9_2 = SHX6_2.Prop
-      if SHX9_2 then
-        SHX9_2 = {}
-        SHX10_2 = GetPedPropIndex
-        SHX11_2 = SHX7_2
-        SHX12_2 = SHX6_2.Prop
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-        SHX9_2.Id = SHX10_2
-        SHX10_2 = GetPedPropTextureIndex
-        SHX11_2 = SHX7_2
-        SHX12_2 = SHX6_2.Prop
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-        SHX9_2.Texture = SHX10_2
-        SHX8_2 = SHX9_2
-      end
-    end
-    SHX9_2 = SHX14_1
-    SHX10_2 = 0.2
-    SHX11_2 = 0.8 * SHX5_2
-    SHX11_2 = SHX11_2 / 18
-    SHX12_2 = 0.3
-    SHX13_2 = "~o~"
-    SHX14_2 = SHX6_2.Name
-    SHX15_2 = [[
-~w~ = 
-     (]]
-    SHX16_2 = SHX8_2.Id
-    SHX17_2 = " , "
-    SHX18_2 = SHX8_2.Texture
-    SHX19_2 = ")"
-    SHX13_2 = SHX13_2 .. SHX14_2 .. SHX15_2 .. SHX16_2 .. SHX17_2 .. SHX18_2 .. SHX19_2
-    SHX14_2 = false
-    SHX15_2 = 1
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    SHX9_2 = DrawRect
-    SHX10_2 = 0.23
-    SHX11_2 = 0.8 * SHX5_2
-    SHX11_2 = SHX11_2 / 18
-    SHX11_2 = SHX11_2 + 0.025
-    SHX12_2 = 0.07
-    SHX13_2 = 0.045
-    SHX14_2 = 0
-    SHX15_2 = 0
-    SHX16_2 = 0
-    SHX17_2 = 150
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  end
-end
-SHX24_1 = nil
-function SHX25_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX24_1
-  if not SHX1_2 then
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.CreateThread
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3
-      SHX0_3 = true
-      SHX24_1 = SHX0_3
-      SHX0_3 = PlayerPedId
-      SHX0_3 = SHX0_3()
-      SHX1_3 = SHX0_1.Drawables
-      SHX2_3 = SHX0_2
-      SHX1_3 = SHX1_3[SHX2_3]
-      SHX2_3 = SHX0_1.Props
-      SHX3_3 = SHX0_2
-      SHX2_3 = SHX2_3[SHX3_3]
-      SHX3_3 = SHX18_1
-      SHX4_3 = SHX0_3
-      SHX3_3 = SHX3_3(SHX4_3)
-      if SHX1_3 then
-        SHX4_3 = SHX1_3.Table
-        if SHX4_3 then
-          SHX4_3 = type
-          SHX5_3 = SHX1_3.Table
-          SHX5_3 = SHX5_3[SHX3_3]
-          SHX4_3 = SHX4_3(SHX5_3)
-          if "table" == SHX4_3 then
-            SHX4_3 = SHX13_1
-            SHX5_3 = SHX1_3.Table
-            SHX5_3 = SHX5_3[SHX3_3]
-            SHX4_3, SHX5_3, SHX6_3, SHX7_3 = SHX4_3(SHX5_3)
-            for SHX8_3, SHX9_3 in SHX4_3, SHX5_3, SHX6_3, SHX7_3 do
-              SHX10_3 = SHX17_1
-              SHX11_3 = SHX0_2
-              SHX12_3 = " : ~o~"
-              SHX13_3 = SHX8_3
-              SHX11_3 = SHX11_3 .. SHX12_3 .. SHX13_3
-              SHX10_3(SHX11_3)
-              SHX10_3 = SHX20_1
-              SHX11_3 = "Open"
-              SHX10_3(SHX11_3)
-              SHX10_3 = SetPedComponentVariation
-              SHX11_3 = SHX0_3
-              SHX12_3 = SHX1_3.Drawable
-              SHX13_3 = SHX8_3
-              SHX14_3 = 0
-              SHX15_3 = 0
-              SHX10_3(SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
-              SHX10_3 = Wait
-              SHX11_3 = 300
-              SHX10_3(SHX11_3)
-              SHX10_3 = SHX17_1
-              SHX11_3 = SHX0_2
-              SHX12_3 = " : ~b~"
-              SHX13_3 = SHX9_3
-              SHX11_3 = SHX11_3 .. SHX12_3 .. SHX13_3
-              SHX10_3(SHX11_3)
-              SHX10_3 = SHX20_1
-              SHX11_3 = "Close"
-              SHX10_3(SHX11_3)
-              SHX10_3 = SetPedComponentVariation
-              SHX11_3 = SHX0_3
-              SHX12_3 = SHX1_3.Drawable
-              SHX13_3 = SHX9_3
-              SHX14_3 = 0
-              SHX15_3 = 0
-              SHX10_3(SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
-              SHX10_3 = Wait
-              SHX11_3 = 300
-              SHX10_3(SHX11_3)
+
+    for _, button in pairs(extraButtons) do
+        if button.Enabled then
+            local distance = distance2D(
+                Config.GUI.Position.x + button.OffsetX + 0.005,
+                Config.GUI.Position.y + button.OffsetY + 0.025,
+                mouseX,
+                mouseY
+            )
+
+            local spriteVisible = true
+
+            if button.SpriteFunc then
+                spriteVisible = button.SpriteFunc() and true or false
             end
-          end
-        end
-      elseif SHX2_3 then
-        SHX4_3 = SHX2_3.Variants
-        if SHX4_3 then
-          SHX4_3 = SHX13_1
-          SHX5_3 = SHX2_3.Variants
-          SHX5_3 = SHX5_3[SHX3_3]
-          SHX4_3, SHX5_3, SHX6_3, SHX7_3 = SHX4_3(SHX5_3)
-          for SHX8_3, SHX9_3 in SHX4_3, SHX5_3, SHX6_3, SHX7_3 do
-            SHX10_3 = SHX17_1
-            SHX11_3 = SHX0_2
-            SHX12_3 = " : ~o~"
-            SHX13_3 = SHX8_3
-            SHX11_3 = SHX11_3 .. SHX12_3 .. SHX13_3
-            SHX10_3(SHX11_3)
-            SHX10_3 = SHX20_1
-            SHX11_3 = "Open"
-            SHX10_3(SHX11_3)
-            SHX10_3 = SetPedPropIndex
-            SHX11_3 = SHX0_3
-            SHX12_3 = SHX2_3.Prop
-            SHX13_3 = SHX8_3
-            SHX14_3 = 0
-            SHX15_3 = true
-            SHX10_3(SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
-            SHX10_3 = Wait
-            SHX11_3 = 300
-            SHX10_3(SHX11_3)
-            SHX10_3 = SHX17_1
-            SHX11_3 = SHX0_2
-            SHX12_3 = " : ~b~"
-            SHX13_3 = SHX9_3
-            SHX11_3 = SHX11_3 .. SHX12_3 .. SHX13_3
-            SHX10_3(SHX11_3)
-            SHX10_3 = SHX20_1
-            SHX11_3 = "Close"
-            SHX10_3(SHX11_3)
-            SHX10_3 = SetPedPropIndex
-            SHX11_3 = SHX0_3
-            SHX12_3 = SHX2_3.Prop
-            SHX13_3 = SHX9_3
-            SHX14_3 = 0
-            SHX15_3 = true
-            SHX10_3(SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
-            SHX10_3 = Wait
-            SHX11_3 = 300
-            SHX10_3(SHX11_3)
-            SHX10_3 = ClearPedProp
-            SHX11_3 = SHX0_3
-            SHX12_3 = SHX2_3.Prop
-            SHX10_3(SHX11_3, SHX12_3)
-            SHX10_3 = Wait
-            SHX11_3 = 200
-            SHX10_3(SHX11_3)
-          end
-        end
-      end
-      SHX4_3 = false
-      SHX24_1 = SHX4_3
-    end
-    SHX1_2(SHX2_2)
-  else
-    SHX1_2 = SHX17_1
-    SHX2_2 = "Already testing variants."
-    SHX1_2(SHX2_2)
-  end
-end
-SHX26_1 = _ENV
-SHX27_1 = "pairs"
-SHX26_1 = SHX26_1[SHX27_1]
-SHX27_1 = "Commands"
-SHX27_1 = SHX6_1[SHX27_1]
-SHX26_1, SHX27_1, SHX28_1, SHX29_1 = SHX26_1(SHX27_1)
-for SHX30_1, SHX31_1 in SHX26_1, SHX27_1, SHX28_1, SHX29_1 do
-  SHX32_1 = _ENV
-  SHX33_1 = "RegisterCommand"
-  SHX32_1 = SHX32_1[SHX33_1]
-  SHX33_1 = SHX30_1
-  function SHX34_1()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_2, SHX1_2
-    SHX0_2 = IsPlayerFreeAiming
-    SHX1_2 = PlayerId
-    SHX1_2 = SHX1_2()
-    SHX0_2 = SHX0_2(SHX1_2)
-    if not SHX0_2 then
-      SHX0_2 = IsPedReloading
-      SHX1_2 = PlayerPedId
-      SHX1_2 = SHX1_2()
-      SHX0_2 = SHX0_2(SHX1_2)
-      if not SHX0_2 then
-        SHX0_2 = tCMG
-        SHX0_2 = SHX0_2.canAnim
-        SHX0_2 = SHX0_2()
-        if SHX0_2 then
-          SHX0_2 = SHX31_1.Func
-          SHX0_2()
-        end
-      end
-    end
-  end
-  SHX35_1 = false
-  SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-  SHX32_1 = _ENV
-  SHX33_1 = "TriggerEvent"
-  SHX32_1 = SHX32_1[SHX33_1]
-  SHX33_1 = "chat:addSuggestion"
-  SHX34_1 = "/"
-  SHX35_1 = SHX30_1
-  SHX34_1 = SHX34_1 .. SHX35_1
-  SHX35_1 = "Desc"
-  SHX35_1 = SHX31_1[SHX35_1]
-  SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-end
-SHX26_1 = "ExtrasEnabled"
-SHX26_1 = SHX6_1[SHX26_1]
-if SHX26_1 then
-  SHX26_1 = _ENV
-  SHX27_1 = "pairs"
-  SHX26_1 = SHX26_1[SHX27_1]
-  SHX27_1 = "ExtraCommands"
-  SHX27_1 = SHX6_1[SHX27_1]
-  SHX26_1, SHX27_1, SHX28_1, SHX29_1 = SHX26_1(SHX27_1)
-  for SHX30_1, SHX31_1 in SHX26_1, SHX27_1, SHX28_1, SHX29_1 do
-    SHX32_1 = _ENV
-    SHX33_1 = "RegisterCommand"
-    SHX32_1 = SHX32_1[SHX33_1]
-    SHX33_1 = SHX30_1
-    function SHX34_1()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_2, SHX1_2
-      SHX0_2 = IsPlayerFreeAiming
-      SHX1_2 = PlayerId
-      SHX1_2 = SHX1_2()
-      SHX0_2 = SHX0_2(SHX1_2)
-      if not SHX0_2 then
-        SHX0_2 = IsPedReloading
-        SHX1_2 = PlayerPedId
-        SHX1_2 = SHX1_2()
-        SHX0_2 = SHX0_2(SHX1_2)
-        if not SHX0_2 then
-          SHX0_2 = tCMG
-          SHX0_2 = SHX0_2.canAnim
-          SHX0_2 = SHX0_2()
-          if SHX0_2 then
-            SHX0_2 = SHX31_1.Func
-            SHX0_2()
-          end
-        end
-      end
-    end
-    SHX35_1 = false
-    SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-    SHX32_1 = _ENV
-    SHX33_1 = "TriggerEvent"
-    SHX32_1 = SHX32_1[SHX33_1]
-    SHX33_1 = "chat:addSuggestion"
-    SHX34_1 = "/"
-    SHX35_1 = SHX30_1
-    SHX34_1 = SHX34_1 .. SHX35_1
-    SHX35_1 = "Desc"
-    SHX35_1 = SHX31_1[SHX35_1]
-    SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-  end
-end
-SHX26_1 = AddEventHandler
-SHX27_1 = "onResourceStop"
-function SHX28_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX0_2 == SHX1_2 then
-    SHX1_2 = SHX9_1
-    SHX1_2()
-  end
-end
-SHX26_1(SHX27_1, SHX28_1)
-SHX26_1 = "GUI"
-SHX26_1 = SHX6_1[SHX26_1]
-SHX27_1 = "Enabled"
-SHX26_1 = SHX26_1[SHX27_1]
-if not SHX26_1 then
-  return
-end
-function SHX26_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX4_2 = SHX0_2 - SHX2_2
-  SHX5_2 = SHX1_2 - SHX3_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.sqrt
-  SHX7_2 = SHX4_2 * SHX4_2
-  SHX8_2 = SHX5_2 * SHX5_2
-  SHX7_2 = SHX7_2 + SHX8_2
-  return SHX6_2(SHX7_2)
-end
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 1
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 2
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 18
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 68
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 69
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 70
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 91
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 92
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 24
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 25
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 14
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 15
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 16
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 1
-  SHX2_2 = 17
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisablePlayerFiring
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetMouseCursorActiveThisFrame
-  SHX0_2()
-end
-function SHX28_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = GetActiveScreenResolution
-  SHX0_2, SHX1_2 = SHX0_2()
-  SHX2_2 = GetNuiCursorPosition
-  SHX2_2, SHX3_2 = SHX2_2()
-  SHX4_2 = SHX2_2 / SHX0_2
-  SHX4_2 = SHX4_2 + 0.008
-  SHX5_2 = SHX3_2 / SHX1_2
-  SHX3_2 = SHX5_2 + 0.027
-  SHX2_2 = SHX4_2
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX3_2
-  return SHX4_2, SHX5_2
-end
-function SHX29_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX0_2.Rotate
-  if not SHX1_2 then
-    SHX1_2 = 0.0
-  end
-  SHX2_2 = SHX0_2.Shadow
-  if SHX2_2 then
-    SHX2_2 = DrawSprite
-    SHX3_2 = "dp_clothing"
-    SHX4_2 = "circle"
-    SHX5_2 = SHX0_2.x
-    SHX6_2 = SHX0_2.y
-    SHX7_2 = SHX0_2.Size
-    SHX7_2 = SHX7_2.Circle
-    SHX7_2 = SHX7_2.x
-    SHX7_2 = SHX7_2 / 0.8
-    SHX8_2 = SHX0_2.Size
-    SHX8_2 = SHX8_2.Circle
-    SHX8_2 = SHX8_2.y
-    SHX8_2 = SHX8_2 / 0.8
-    SHX9_2 = SHX1_2
-    SHX10_2 = SHX0_2.Colour
-    SHX10_2 = SHX10_2.r
-    SHX11_2 = SHX0_2.Colour
-    SHX11_2 = SHX11_2.g
-    SHX12_2 = SHX0_2.Colour
-    SHX12_2 = SHX12_2.b
-    SHX13_2 = SHX0_2.Alpha
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  end
-  SHX2_2 = DrawSprite
-  SHX3_2 = "dp_clothing"
-  SHX4_2 = SHX0_2.Sprite
-  SHX5_2 = SHX0_2.x
-  SHX6_2 = SHX0_2.y
-  SHX7_2 = SHX0_2.Size
-  SHX7_2 = SHX7_2.Sprite
-  SHX7_2 = SHX7_2.x
-  SHX7_2 = SHX7_2 / 0.68
-  SHX8_2 = SHX0_2.Size
-  SHX8_2 = SHX8_2.Sprite
-  SHX8_2 = SHX8_2.y
-  SHX8_2 = SHX8_2 / 0.68
-  SHX9_2 = SHX0_2.Rotation
-  SHX10_2 = 255
-  SHX11_2 = 255
-  SHX12_2 = 255
-  SHX13_2 = SHX0_2.Alpha
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX2_2 = IsDisabledControlJustPressed
-  SHX3_2 = 1
-  SHX4_2 = 24
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
-    SHX2_2 = SHX28_1
-    SHX2_2, SHX3_2 = SHX2_2()
-    SHX4_2 = SHX26_1
-    SHX5_2 = SHX0_2.x
-    SHX5_2 = SHX5_2 + 0.005
-    SHX6_2 = SHX0_2.y
-    SHX6_2 = SHX6_2 + 0.025
-    SHX7_2 = SHX2_2
-    SHX8_2 = SHX3_2
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX5_2 = 0.025
-    if SHX4_2 < SHX5_2 then
-      SHX5_2 = true
-      return SHX5_2
-    end
-  else
-    SHX2_2 = IsDisabledControlJustPressed
-    SHX3_2 = 1
-    SHX4_2 = 25
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      SHX2_2 = SHX6_1.Debug
-      if SHX2_2 then
-        SHX2_2 = SHX28_1
-        SHX2_2, SHX3_2 = SHX2_2()
-        SHX4_2 = SHX26_1
-        SHX5_2 = SHX0_2.x
-        SHX5_2 = SHX5_2 + 0.005
-        SHX6_2 = SHX0_2.y
-        SHX6_2 = SHX6_2 + 0.025
-        SHX7_2 = SHX2_2
-        SHX8_2 = SHX3_2
-        SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX5_2 = 0.025
-        if SHX4_2 < SHX5_2 then
-          SHX5_2 = SHX25_1
-          SHX6_2 = SHX15_1
-          SHX7_2 = SHX0_2.Sprite
-          SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX6_2(SHX7_2)
-          SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        end
-      end
-    end
-  end
-  SHX2_2 = false
-  return SHX2_2
-end
-function SHX30_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = IsPedInAnyVehicle
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 then
-    SHX1_2 = SHX6_1.GUI
-    SHX1_2 = SHX1_2.AllowInCars
-    if not SHX1_2 then
-      SHX1_2 = false
-      return SHX1_2
-  end
-  else
-    SHX1_2 = IsPedSwimmingUnderWater
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = false
-      return SHX1_2
-    else
-      SHX1_2 = IsPedRagdoll
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if SHX1_2 then
-        SHX1_2 = SHX6_1.GUI
-        SHX1_2 = SHX1_2.AllowWhenRagdolled
-        if not SHX1_2 then
-          SHX1_2 = false
-          return SHX1_2
-      end
-      else
-        SHX1_2 = IsHudComponentActive
-        SHX2_2 = 19
-        SHX1_2 = SHX1_2(SHX2_2)
-        if SHX1_2 then
-          SHX1_2 = false
-          return SHX1_2
-        else
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.getClientEventData
-          SHX2_2 = "SpellingBeeClientData"
-          SHX1_2 = SHX1_2(SHX2_2)
-          SHX1_2 = SHX1_2.minigameName
-          if "Spelling Bee" == SHX1_2 then
-            SHX1_2 = false
-            return SHX1_2
-          else
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.hasClientPermission
-            SHX2_2 = "paramedic.permission"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = false
-              return SHX1_2
+
+            if spriteVisible and distance < 0.025 then
+                drawText(
+                    Config.GUI.Position.x,
+                    Config.GUI.Position.y - 0.1,
+                    0.3,
+                    button.Text,
+                    false,
+                    false,
+                    true
+                )
+
+                drawText(
+                    Config.GUI.Position.x,
+                    Config.GUI.Position.y - 0.08,
+                    0.22,
+                    button.Desc,
+                    { 210, 210, 210 },
+                    false,
+                    true,
+                    { x = 0.1, y = 0.2 }
+                )
             end
-          end
         end
-      end
     end
-  end
-  SHX1_2 = true
-  return SHX1_2
+
+    local infoDistance = distance2D(
+        Config.GUI.Position.x + 0.005,
+        Config.GUI.Position.y + 0.025,
+        mouseX,
+        mouseY
+    )
+
+    if infoDistance < 0.015 then
+        drawText(
+            Config.GUI.Position.x,
+            Config.GUI.Position.y - 0.09,
+            0.3,
+            translate("Info"),
+            false,
+            false,
+            true
+        )
+    end
 end
-SHX31_1 = {}
-SHX32_1 = "x"
-SHX33_1 = 0.0254
-SHX31_1[SHX32_1] = SHX33_1
-SHX32_1 = "y"
-SHX33_1 = 0.0445
-SHX31_1[SHX32_1] = SHX33_1
-SHX32_1 = {}
-SHX33_1 = "x"
-SHX34_1 = 0.028750000000000005
-SHX32_1[SHX33_1] = SHX34_1
-SHX33_1 = "y"
-SHX34_1 = 0.05
-SHX32_1[SHX33_1] = SHX34_1
-SHX33_1 = {}
-SHX34_1 = {}
-SHX35_1 = 0.0
-SHX3_1 = false
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX0_2 = SHX6_1.GUI
-  SHX0_2 = SHX0_2.Position
-  SHX0_2 = SHX0_2.x
-  SHX1_2 = SHX6_1.GUI
-  SHX1_2 = SHX1_2.Position
-  SHX1_2 = SHX1_2.y
-  SHX2_2 = 0.1
-  SHX3_2 = 0.175
-  SHX4_2 = pairs
-  SHX5_2 = SHX6_1.Commands
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = SHX9_2.Button
-    SHX11_2 = math
-    SHX11_2 = SHX11_2.pi
-    SHX11_2 = SHX10_2 * SHX11_2
-    SHX11_2 = SHX11_2 / 7
-    SHX12_2 = math
-    SHX12_2 = SHX12_2.cos
-    SHX13_2 = SHX11_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    SHX12_2 = SHX2_2 * SHX12_2
-    SHX12_2 = SHX0_2 + SHX12_2
-    SHX13_2 = math
-    SHX13_2 = SHX13_2.sin
-    SHX14_2 = SHX11_2
-    SHX13_2 = SHX13_2(SHX14_2)
-    SHX13_2 = SHX3_2 * SHX13_2
-    SHX13_2 = SHX1_2 + SHX13_2
-    SHX14_2 = SHX33_1
-    SHX15_2 = {}
-    SHX15_2.Command = SHX8_2
-    SHX16_2 = SHX9_2.Desc
-    if not SHX16_2 then
-      SHX16_2 = ""
-    end
-    SHX15_2.Desc = SHX16_2
-    SHX16_2 = SHX9_2.Rotation
-    if not SHX16_2 then
-      SHX16_2 = 0.0
-    end
-    SHX15_2.Rotation = SHX16_2
-    SHX16_2 = {}
-    SHX17_2 = SHX31_1
-    SHX16_2.Sprite = SHX17_2
-    SHX15_2.Size = SHX16_2
-    SHX16_2 = SHX9_2.Sprite
-    SHX15_2.Sprite = SHX16_2
-    SHX16_2 = SHX9_2.Name
-    SHX15_2.Text = SHX16_2
-    SHX15_2.x = SHX12_2
-    SHX15_2.y = SHX13_2
-    SHX14_2[SHX10_2] = SHX15_2
-  end
-  SHX4_2 = SHX6_1.ExtrasEnabled
-  if SHX4_2 then
-    SHX4_2 = pairs
-    SHX5_2 = SHX6_1.ExtraCommands
-    SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-    for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-      SHX10_2 = SHX9_2.Enabled
-      if nil == SHX10_2 then
-        SHX10_2 = true
-      end
-      SHX11_2 = SHX34_1
-      SHX12_2 = {}
-      SHX12_2.Command = SHX8_2
-      SHX13_2 = SHX9_2.Desc
-      if not SHX13_2 then
-        SHX13_2 = ""
-      end
-      SHX12_2.Desc = SHX13_2
-      SHX13_2 = SHX9_2.OffsetX
-      SHX12_2.OffsetX = SHX13_2
-      SHX13_2 = SHX9_2.OffsetY
-      SHX12_2.OffsetY = SHX13_2
-      SHX13_2 = {}
-      SHX14_2 = {}
-      SHX15_2 = SHX32_1.x
-      SHX14_2.x = SHX15_2
-      SHX15_2 = SHX32_1.y
-      SHX14_2.y = SHX15_2
-      SHX13_2.Circle = SHX14_2
-      SHX14_2 = {}
-      SHX15_2 = SHX31_1.x
-      SHX15_2 = SHX15_2 / 1.35
-      SHX14_2.x = SHX15_2
-      SHX15_2 = SHX31_1.y
-      SHX15_2 = SHX15_2 / 1.35
-      SHX14_2.y = SHX15_2
-      SHX13_2.Sprite = SHX14_2
-      SHX12_2.Size = SHX13_2
-      SHX13_2 = SHX9_2.Sprite
-      SHX12_2.Sprite = SHX13_2
-      SHX13_2 = SHX9_2.SpriteFunc
-      SHX12_2.SpriteFunc = SHX13_2
-      SHX13_2 = SHX9_2.Name
-      SHX12_2.Text = SHX13_2
-      SHX12_2.Enabled = SHX10_2
-      SHX13_2 = SHX9_2.Rotate
-      SHX12_2.Rotate = SHX13_2
-      SHX12_2.Rotation = 0.0
-      SHX11_2[SHX8_2] = SHX12_2
-    end
-  end
-end
-function SHX37_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.CreateThread
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    SHX0_3 = SHX20_1
-    SHX1_3 = "Select"
-    SHX0_3(SHX1_3)
-    SHX0_3 = nil
-    SHX1_3 = SHX1_2
-    if SHX1_3 then
-      SHX2_3 = SHX0_2
-      SHX1_3 = SHX34_1
-      SHX0_3 = SHX1_3[SHX2_3]
-    else
-      SHX1_3 = SHX3_2
-      if SHX1_3 then
-        SHX1_3 = {}
-        SHX0_3 = SHX1_3
-      else
-        SHX2_3 = SHX0_2
-        SHX1_3 = SHX33_1
-        SHX0_3 = SHX1_3[SHX2_3]
-      end
-    end
-    SHX1_3 = SHX2_2
-    if SHX1_3 then
-      SHX1_3 = 1
-      SHX2_3 = 18
-      SHX3_3 = 1
-      for SHX4_3 = SHX1_3, SHX2_3, SHX3_3 do
-        SHX5_3 = SHX3_2
-        if not SHX5_3 then
-          SHX5_3 = -SHX4_3
-          SHX5_3 = SHX5_3 * 20
-          SHX5_3 = SHX5_3 + 0.0
-          SHX0_3.Rotation = SHX5_3
-          SHX5_3 = Wait
-          SHX6_3 = 1
-          SHX5_3(SHX6_3)
+
+---------------------------------------------------------------------
+-- DRAW THE WHOLE MENU
+---------------------------------------------------------------------
+
+local function drawClothingMenu()
+    disableMenuControls()
+    drawHoverInformation()
+
+    local centerX = Config.GUI.Position.x
+    local centerY = Config.GUI.Position.y
+
+    -------------------------------------------------------------
+    -- MAIN CIRCLE BUTTONS
+    -------------------------------------------------------------
+    for buttonNumber, button in pairs(mainButtons) do
+        local savedKey = capitalizeFirst(button.Sprite)
+        local hasSavedItem = savedOutfit[savedKey] ~= nil
+            and savedOutfit[savedKey] ~= false
+
+        local alpha
+        local colour
+
+        if hasSavedItem then
+            alpha = 180
+            colour = {
+                r = 0,
+                g = 100,
+                b = 210,
+                a = 220,
+            }
         else
-          SHX5_3 = -SHX4_3
-          SHX5_3 = SHX5_3 * 20
-          SHX5_3 = SHX5_3 + 0.0
-          SHX35_1 = SHX5_3
-          SHX5_3 = Wait
-          SHX6_3 = 1
-          SHX5_3(SHX6_3)
+            alpha = 255
+            colour = {
+                r = 0,
+                g = 0,
+                b = 0,
+                a = 255,
+            }
         end
-      end
-      return
-    end
-    SHX1_3 = SHX1_2
-    if not SHX1_3 then
-      SHX1_3 = {}
-      SHX2_3 = {}
-      SHX3_3 = SHX31_1.x
-      SHX3_3 = SHX3_3 / 1.1
-      SHX2_3.x = SHX3_3
-      SHX3_3 = SHX31_1.y
-      SHX3_3 = SHX3_3 / 1.1
-      SHX2_3.y = SHX3_3
-      SHX1_3.Sprite = SHX2_3
-      SHX0_3.Size = SHX1_3
-      SHX1_3 = Wait
-      SHX2_3 = 100
-      SHX1_3(SHX2_3)
-      SHX1_3 = {}
-      SHX2_3 = {}
-      SHX3_3 = SHX31_1.x
-      SHX2_3.x = SHX3_3
-      SHX3_3 = SHX31_1.y
-      SHX2_3.y = SHX3_3
-      SHX1_3.Sprite = SHX2_3
-      SHX0_3.Size = SHX1_3
-    else
-      SHX1_3 = {}
-      SHX2_3 = {}
-      SHX3_3 = SHX32_1.x
-      SHX2_3.x = SHX3_3
-      SHX3_3 = SHX32_1.y
-      SHX2_3.y = SHX3_3
-      SHX1_3.Circle = SHX2_3
-      SHX2_3 = {}
-      SHX3_3 = SHX31_1.x
-      SHX3_3 = SHX3_3 / 1.3
-      SHX3_3 = SHX3_3 / 1.1
-      SHX2_3.x = SHX3_3
-      SHX3_3 = SHX31_1.y
-      SHX3_3 = SHX3_3 / 1.3
-      SHX3_3 = SHX3_3 / 1.1
-      SHX2_3.y = SHX3_3
-      SHX1_3.Sprite = SHX2_3
-      SHX0_3.Size = SHX1_3
-      SHX1_3 = Wait
-      SHX2_3 = 100
-      SHX1_3(SHX2_3)
-      SHX1_3 = {}
-      SHX2_3 = {}
-      SHX3_3 = SHX32_1.x
-      SHX2_3.x = SHX3_3
-      SHX3_3 = SHX32_1.y
-      SHX2_3.y = SHX3_3
-      SHX1_3.Circle = SHX2_3
-      SHX2_3 = {}
-      SHX3_3 = SHX31_1.x
-      SHX3_3 = SHX3_3 / 1.35
-      SHX2_3.x = SHX3_3
-      SHX3_3 = SHX31_1.y
-      SHX3_3 = SHX3_3 / 1.35
-      SHX2_3.y = SHX3_3
-      SHX1_3.Sprite = SHX2_3
-      SHX0_3.Size = SHX1_3
-    end
-  end
-  SHX4_2(SHX5_2)
-end
-function SHX38_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX0_2 = SHX28_1
-  SHX0_2, SHX1_2 = SHX0_2()
-  SHX2_2 = pairs
-  SHX3_2 = SHX33_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX26_1
-    SHX9_2 = SHX7_2.x
-    SHX9_2 = SHX9_2 + 0.005
-    SHX10_2 = SHX7_2.y
-    SHX10_2 = SHX10_2 + 0.025
-    SHX11_2 = SHX0_2
-    SHX12_2 = SHX1_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX9_2 = 0.025
-    if SHX8_2 < SHX9_2 then
-      SHX9_2 = SHX14_1
-      SHX10_2 = SHX6_1.GUI
-      SHX10_2 = SHX10_2.Position
-      SHX10_2 = SHX10_2.x
-      SHX11_2 = SHX6_1.GUI
-      SHX11_2 = SHX11_2.Position
-      SHX11_2 = SHX11_2.y
-      SHX11_2 = SHX11_2 - 0.1
-      SHX12_2 = 0.3
-      SHX13_2 = SHX7_2.Text
-      SHX14_2 = false
-      SHX15_2 = false
-      SHX16_2 = true
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-      SHX9_2 = SHX14_1
-      SHX10_2 = SHX6_1.GUI
-      SHX10_2 = SHX10_2.Position
-      SHX10_2 = SHX10_2.x
-      SHX11_2 = SHX6_1.GUI
-      SHX11_2 = SHX11_2.Position
-      SHX11_2 = SHX11_2.y
-      SHX11_2 = SHX11_2 - 0.08
-      SHX12_2 = 0.22
-      SHX13_2 = SHX7_2.Desc
-      SHX14_2 = {}
-      SHX15_2 = 210
-      SHX16_2 = 210
-      SHX17_2 = 210
-      SHX14_2[1] = SHX15_2
-      SHX14_2[2] = SHX16_2
-      SHX14_2[3] = SHX17_2
-      SHX15_2 = false
-      SHX16_2 = true
-      SHX17_2 = {}
-      SHX17_2.x = 0.1
-      SHX17_2.y = 0.2
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    end
-  end
-  SHX2_2 = pairs
-  SHX3_2 = SHX34_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX7_2.Enabled
-    if SHX8_2 then
-      SHX8_2 = SHX26_1
-      SHX9_2 = SHX6_1.GUI
-      SHX9_2 = SHX9_2.Position
-      SHX9_2 = SHX9_2.x
-      SHX10_2 = SHX7_2.OffsetX
-      SHX9_2 = SHX9_2 + SHX10_2
-      SHX9_2 = SHX9_2 + 0.005
-      SHX10_2 = SHX6_1.GUI
-      SHX10_2 = SHX10_2.Position
-      SHX10_2 = SHX10_2.y
-      SHX11_2 = SHX7_2.OffsetY
-      SHX10_2 = SHX10_2 + SHX11_2
-      SHX10_2 = SHX10_2 + 0.025
-      SHX11_2 = SHX0_2
-      SHX12_2 = SHX1_2
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX9_2 = true
-      SHX10_2 = SHX7_2.SpriteFunc
-      if SHX10_2 then
-        SHX10_2 = SHX7_2.SpriteFunc
-        SHX10_2 = SHX10_2()
-        if SHX10_2 then
-          SHX9_2 = true
-        else
-          SHX9_2 = false
+
+        -- Background wedge for this radial segment.
+        DrawSprite(
+            "dp_wheel",
+            tostring(buttonNumber),
+            centerX,
+            centerY,
+            0.4285,
+            0.7714,
+            0.0,
+            colour.r,
+            colour.g,
+            colour.b,
+            colour.a
+        )
+
+        local clicked = drawRadialButton({
+            Alpha = alpha,
+            Colour = colour,
+            Size = button.Size,
+            Sprite = button.Sprite,
+            Text = button.Text,
+            x = button.x,
+            y = button.y,
+            Rotation = button.Rotation,
+        })
+
+        if clicked and not actionBusy then
+            ---------------------------------------------------------
+            -- Gloves have one extra rule in the original script:
+            -- they cannot be toggled while the shirt is removed.
+            ---------------------------------------------------------
+            if button.Sprite == "gloves" then
+                if not savedOutfit.Shirt then
+                    animateButton(buttonNumber)
+                    ExecuteCommand(button.Command)
+                else
+                    showNotification(translate("NoShirtOn"))
+                end
+            else
+                animateButton(buttonNumber)
+                ExecuteCommand(button.Command)
+            end
         end
-      end
-      if SHX9_2 then
-        SHX10_2 = 0.025
-        if SHX8_2 < SHX10_2 then
-          SHX10_2 = SHX14_1
-          SHX11_2 = SHX6_1.GUI
-          SHX11_2 = SHX11_2.Position
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX6_1.GUI
-          SHX12_2 = SHX12_2.Position
-          SHX12_2 = SHX12_2.y
-          SHX12_2 = SHX12_2 - 0.1
-          SHX13_2 = 0.3
-          SHX14_2 = SHX7_2.Text
-          SHX15_2 = false
-          SHX16_2 = false
-          SHX17_2 = true
-          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-          SHX10_2 = SHX14_1
-          SHX11_2 = SHX6_1.GUI
-          SHX11_2 = SHX11_2.Position
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX6_1.GUI
-          SHX12_2 = SHX12_2.Position
-          SHX12_2 = SHX12_2.y
-          SHX12_2 = SHX12_2 - 0.08
-          SHX13_2 = 0.22
-          SHX14_2 = SHX7_2.Desc
-          SHX15_2 = {}
-          SHX16_2 = 210
-          SHX17_2 = 210
-          SHX18_2 = 210
-          SHX15_2[1] = SHX16_2
-          SHX15_2[2] = SHX17_2
-          SHX15_2[3] = SHX18_2
-          SHX16_2 = false
-          SHX17_2 = true
-          SHX18_2 = {}
-          SHX18_2.x = 0.1
-          SHX18_2.y = 0.2
-          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+    end
+
+    -------------------------------------------------------------
+    -- EXTRA BUTTONS
+    -------------------------------------------------------------
+    for commandName, button in pairs(extraButtons) do
+        if button.Enabled then
+            local savedKey = capitalizeFirst(button.Sprite)
+            local hasSavedItem = savedOutfit[savedKey] ~= nil
+                and savedOutfit[savedKey] ~= false
+
+            local alpha
+            local colour
+
+            if hasSavedItem then
+                alpha = 180
+                colour = {
+                    r = 0,
+                    g = 100,
+                    b = 210,
+                    a = 220,
+                }
+            else
+                alpha = 255
+                colour = {
+                    r = 0,
+                    g = 0,
+                    b = 0,
+                    a = 255,
+                }
+            end
+
+            local sprite = button.Sprite
+
+            if button.SpriteFunc then
+                sprite = button.SpriteFunc()
+            end
+
+            if sprite then
+                local clicked = drawRadialButton({
+                    Alpha = alpha,
+                    Colour = colour,
+                    Shadow = true,
+                    Size = button.Size,
+                    Sprite = sprite,
+                    Text = button.Text,
+                    x = centerX + button.OffsetX,
+                    y = centerY + button.OffsetY,
+                    Rotation = button.Rotation,
+                    Rotate = button.Rotate,
+                })
+
+                if clicked and not actionBusy then
+                    animateButton(
+                        commandName,
+                        true,
+                        button.Rotate
+                    )
+
+                    ExecuteCommand(button.Command)
+                end
+            end
         end
-      end
     end
-  end
-  SHX2_2 = SHX26_1
-  SHX3_2 = SHX6_1.GUI
-  SHX3_2 = SHX3_2.Position
-  SHX3_2 = SHX3_2.x
-  SHX3_2 = SHX3_2 + 0.005
-  SHX4_2 = SHX6_1.GUI
-  SHX4_2 = SHX4_2.Position
-  SHX4_2 = SHX4_2.y
-  SHX4_2 = SHX4_2 + 0.025
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = 0.015
-  if SHX2_2 < SHX3_2 then
-    SHX3_2 = SHX14_1
-    SHX4_2 = SHX6_1.GUI
-    SHX4_2 = SHX4_2.Position
-    SHX4_2 = SHX4_2.x
-    SHX5_2 = SHX6_1.GUI
-    SHX5_2 = SHX5_2.Position
-    SHX5_2 = SHX5_2.y
-    SHX5_2 = SHX5_2 - 0.09
-    SHX6_2 = 0.3
-    SHX7_2 = SHX16_1
-    SHX8_2 = "Info"
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = false
-    SHX9_2 = false
-    SHX10_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  end
-end
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX0_2 = SHX27_1
-  SHX0_2()
-  SHX0_2 = SHX38_1
-  SHX0_2()
-  SHX0_2 = SHX6_1.GUI
-  SHX0_2 = SHX0_2.Position
-  SHX0_2 = SHX0_2.x
-  SHX1_2 = SHX6_1.GUI
-  SHX1_2 = SHX1_2.Position
-  SHX1_2 = SHX1_2.y
-  SHX2_2 = pairs
-  SHX3_2 = SHX33_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = nil
-    SHX9_2 = nil
-    SHX10_2 = SHX15_1
-    SHX11_2 = SHX7_2.Sprite
-    SHX10_2 = SHX10_2(SHX11_2)
-    SHX11_2 = SHX5_1
-    SHX10_2 = SHX11_2[SHX10_2]
-    if SHX10_2 then
-      SHX9_2 = 180
-      SHX10_2 = {}
-      SHX10_2.r = 0
-      SHX10_2.g = 100
-      SHX10_2.b = 210
-      SHX10_2.a = 220
-      SHX8_2 = SHX10_2
-    else
-      SHX9_2 = 255
-      SHX10_2 = {}
-      SHX10_2.r = 0
-      SHX10_2.g = 0
-      SHX10_2.b = 0
-      SHX10_2.a = 255
-      SHX8_2 = SHX10_2
+
+    -------------------------------------------------------------
+    -- "PLEASE WAIT" TEXT WHILE AN ITEM IS ANIMATING
+    -------------------------------------------------------------
+    if actionBusy then
+        drawText(
+            centerX,
+            centerY + 0.05,
+            0.28,
+            translate("PleaseWait"),
+            false,
+            false,
+            true
+        )
     end
-    SHX10_2 = DrawSprite
-    SHX11_2 = "dp_wheel"
-    SHX12_2 = SHX6_2
-    SHX13_2 = ""
-    SHX12_2 = SHX12_2 .. SHX13_2
-    SHX13_2 = SHX0_2
-    SHX14_2 = SHX1_2
-    SHX15_2 = 0.4285
-    SHX16_2 = 0.7714
-    SHX17_2 = 0.0
-    SHX18_2 = SHX8_2.r
-    SHX19_2 = SHX8_2.g
-    SHX20_2 = SHX8_2.b
-    SHX21_2 = SHX8_2.a
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX10_2 = SHX29_1
-    SHX11_2 = {}
-    SHX11_2.Alpha = SHX9_2
-    SHX11_2.Colour = SHX8_2
-    SHX12_2 = SHX7_2.Size
-    SHX11_2.Size = SHX12_2
-    SHX12_2 = SHX7_2.Sprite
-    SHX11_2.Sprite = SHX12_2
-    SHX12_2 = SHX7_2.Text
-    SHX11_2.Text = SHX12_2
-    SHX12_2 = SHX7_2.x
-    SHX11_2.x = SHX12_2
-    SHX12_2 = SHX7_2.y
-    SHX11_2.y = SHX12_2
-    SHX12_2 = SHX7_2.Rotation
-    SHX11_2.Rotation = SHX12_2
-    SHX10_2 = SHX10_2(SHX11_2)
-    if SHX10_2 then
-      SHX11_2 = SHX4_1
-      if not SHX11_2 then
-        SHX11_2 = SHX7_2.Sprite
-        if "gloves" == SHX11_2 then
-          SHX11_2 = SHX5_1.Shirt
-          if not SHX11_2 then
-            SHX11_2 = SHX37_1
-            SHX12_2 = SHX6_2
-            SHX11_2(SHX12_2)
-            SHX11_2 = ExecuteCommand
-            SHX12_2 = SHX7_2.Command
-            SHX11_2(SHX12_2)
-          else
-            SHX11_2 = SHX17_1
-            SHX12_2 = SHX16_1
-            SHX13_2 = "NoShirtOn"
-            SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2 = SHX12_2(SHX13_2)
-            SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-          end
-        else
-          SHX11_2 = SHX37_1
-          SHX12_2 = SHX6_2
-          SHX11_2(SHX12_2)
-          SHX11_2 = ExecuteCommand
-          SHX12_2 = SHX7_2.Command
-          SHX11_2(SHX12_2)
+
+    -------------------------------------------------------------
+    -- CENTER INFO BUTTON
+    -------------------------------------------------------------
+    local infoClicked = drawRadialButton({
+        Alpha = 255,
+        Colour = {
+            r = 0,
+            g = 0,
+            b = 0,
+        },
+        Shadow = true,
+        Size = {
+            Circle = {
+                x = 0.0345,
+                y = 0.06,
+            },
+            Sprite = {
+                x = 0.0234,
+                y = 0.0425,
+            },
+        },
+        Sprite = "info",
+        Text = translate("Info"),
+        x = centerX,
+        y = centerY,
+        Rotation = infoRotation,
+    })
+
+    if infoClicked then
+        animateButton(nil, true, true, true)
+
+        showNotification(translate("Information"))
+
+        for key, value in pairs(savedOutfit) do
+            debugPrint(key .. " : " .. json.encode(value))
         end
-      end
     end
-  end
-  SHX2_2 = pairs
-  SHX3_2 = SHX34_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX7_2.Enabled
-    if SHX8_2 then
-      SHX8_2 = nil
-      SHX9_2 = nil
-      SHX10_2 = SHX15_1
-      SHX11_2 = SHX7_2.Sprite
-      SHX10_2 = SHX10_2(SHX11_2)
-      SHX11_2 = SHX5_1
-      SHX10_2 = SHX11_2[SHX10_2]
-      if SHX10_2 then
-        SHX9_2 = 180
-        SHX10_2 = {}
-        SHX10_2.r = 0
-        SHX10_2.g = 100
-        SHX10_2.b = 210
-        SHX10_2.a = 220
-        SHX8_2 = SHX10_2
-      else
-        SHX9_2 = 255
-        SHX10_2 = {}
-        SHX10_2.r = 0
-        SHX10_2.g = 0
-        SHX10_2.b = 0
-        SHX10_2.a = 255
-        SHX8_2 = SHX10_2
-      end
-      SHX10_2 = SHX7_2.Sprite
-      SHX11_2 = SHX7_2.SpriteFunc
-      if SHX11_2 then
-        SHX11_2 = SHX7_2.SpriteFunc
-        SHX11_2 = SHX11_2()
-        if SHX11_2 then
-          SHX10_2 = SHX11_2
-        else
-          SHX10_2 = false
+end
+
+---------------------------------------------------------------------
+-- MENU COMMAND / KEYBIND
+---------------------------------------------------------------------
+
+CMG.registerCommand("+clothingmenu", function()
+    local ped = PlayerPedId()
+
+    if canOpenMenu(ped) then
+        playMenuSound("Open")
+        SetCursorLocation(Config.GUI.Position.x, Config.GUI.Position.y)
+        menuOpen = true
+    end
+end, false)
+
+CMG.registerCommand("-clothingmenu", function()
+    menuOpen = false
+end, false)
+
+RegisterKeyMapping(
+    "+clothingmenu",
+    "Clothing Menu",
+    "KEYBOARD",
+    "Y"
+)
+
+---------------------------------------------------------------------
+-- LOAD TEXTURE DICTIONARIES AND START THE TICK
+---------------------------------------------------------------------
+
+local TEXTURE_DICTIONARIES = {
+    "dp_clothing",
+    "dp_wheel",
+}
+
+local function clothingMenuTick()
+    -- This branch is only used when Config.GUI.Toggle is enabled.
+    if Config.GUI.Toggle then
+        if IsControlJustPressed(0, Config.GUI.Key) then
+            local ped = PlayerPedId()
+
+            if canOpenMenu(ped) then
+                playMenuSound("Open")
+                SetCursorLocation(Config.GUI.Position.x, Config.GUI.Position.y)
+                menuOpen = not menuOpen
+            end
         end
-      end
-      if SHX10_2 then
-        SHX11_2 = SHX29_1
-        SHX12_2 = {}
-        SHX12_2.Alpha = SHX9_2
-        SHX12_2.Colour = SHX8_2
-        SHX12_2.Shadow = true
-        SHX13_2 = SHX7_2.Size
-        SHX12_2.Size = SHX13_2
-        SHX12_2.Sprite = SHX10_2
-        SHX13_2 = SHX7_2.Text
-        SHX12_2.Text = SHX13_2
-        SHX13_2 = SHX7_2.OffsetX
-        SHX13_2 = SHX0_2 + SHX13_2
-        SHX12_2.x = SHX13_2
-        SHX13_2 = SHX7_2.OffsetY
-        SHX13_2 = SHX1_2 + SHX13_2
-        SHX12_2.y = SHX13_2
-        SHX13_2 = SHX7_2.Rotation
-        SHX12_2.Rotation = SHX13_2
-        SHX11_2 = SHX11_2(SHX12_2)
-        if SHX11_2 then
-          SHX12_2 = SHX4_1
-          if not SHX12_2 then
-            SHX12_2 = SHX37_1
-            SHX13_2 = SHX6_2
-            SHX14_2 = true
-            SHX15_2 = SHX7_2.Rotate
-            SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-            SHX12_2 = ExecuteCommand
-            SHX13_2 = SHX7_2.Command
-            SHX12_2(SHX13_2)
-          end
+    end
+
+    if menuOpen then
+        drawClothingMenu()
+    end
+
+    if Config.Debug then
+        drawDebugClothingState()
+    end
+end
+
+Citizen.CreateThread(function()
+    for _, textureDictionary in pairs(TEXTURE_DICTIONARIES) do
+        while not HasStreamedTextureDictLoaded(textureDictionary) do
+            Wait(100)
+            RequestStreamedTextureDict(textureDictionary, true)
         end
-      end
     end
-  end
-  SHX2_2 = SHX4_1
-  if SHX2_2 then
-    SHX2_2 = SHX14_1
-    SHX3_2 = SHX0_2
-    SHX4_2 = SHX1_2 + 0.05
-    SHX5_2 = 0.28
-    SHX6_2 = SHX16_1
-    SHX7_2 = "PleaseWait"
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX7_2 = false
-    SHX8_2 = false
-    SHX9_2 = true
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  end
-  SHX2_2 = SHX29_1
-  SHX3_2 = {}
-  SHX3_2.Alpha = 255
-  SHX4_2 = {}
-  SHX4_2.r = 0
-  SHX4_2.g = 0
-  SHX4_2.b = 0
-  SHX3_2.Colour = SHX4_2
-  SHX3_2.Shadow = true
-  SHX4_2 = {}
-  SHX5_2 = {}
-  SHX5_2.x = 0.0345
-  SHX5_2.y = 0.06
-  SHX4_2.Circle = SHX5_2
-  SHX5_2 = {}
-  SHX5_2.x = 0.0234
-  SHX5_2.y = 0.0425
-  SHX4_2.Sprite = SHX5_2
-  SHX3_2.Size = SHX4_2
-  SHX3_2.Sprite = "info"
-  SHX4_2 = SHX16_1
-  SHX5_2 = "Info"
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX3_2.Text = SHX4_2
-  SHX3_2.x = SHX0_2
-  SHX3_2.y = SHX1_2
-  SHX4_2 = SHX35_1
-  SHX3_2.Rotation = SHX4_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX3_2 = SHX37_1
-    SHX4_2 = nil
-    SHX5_2 = true
-    SHX6_2 = true
-    SHX7_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX3_2 = SHX17_1
-    SHX4_2 = SHX16_1
-    SHX5_2 = "Information"
-    SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2 = SHX4_2(SHX5_2)
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX3_2 = pairs
-    SHX4_2 = SHX5_1
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = SHX10_1
-      SHX10_2 = SHX7_2
-      SHX11_2 = " : "
-      SHX12_2 = json
-      SHX12_2 = SHX12_2.encode
-      SHX13_2 = SHX8_2
-      SHX12_2 = SHX12_2(SHX13_2)
-      SHX10_2 = SHX10_2 .. SHX11_2 .. SHX12_2
-      SHX9_2(SHX10_2)
-    end
-  end
-end
-SHX40_1 = _ENV
-SHX41_1 = "CMG"
-SHX40_1 = SHX40_1[SHX41_1]
-SHX41_1 = "registerCommand"
-SHX40_1 = SHX40_1[SHX41_1]
-SHX41_1 = "+clothingmenu"
-function SHX42_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX30_1
-  SHX1_2 = PlayerPedId
-  SHX1_2, SHX2_2 = SHX1_2()
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = SHX20_1
-    SHX1_2 = "Open"
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetCursorLocation
-    SHX1_2 = SHX6_1.GUI
-    SHX1_2 = SHX1_2.Position
-    SHX1_2 = SHX1_2.x
-    SHX2_2 = SHX6_1.GUI
-    SHX2_2 = SHX2_2.Position
-    SHX2_2 = SHX2_2.y
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = true
-    SHX3_1 = SHX0_2
-  end
-end
-SHX43_1 = false
-SHX40_1(SHX41_1, SHX42_1, SHX43_1)
-SHX40_1 = _ENV
-SHX41_1 = "CMG"
-SHX40_1 = SHX40_1[SHX41_1]
-SHX41_1 = "registerCommand"
-SHX40_1 = SHX40_1[SHX41_1]
-SHX41_1 = "-clothingmenu"
-function SHX42_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX3_1 = SHX0_2
-end
-SHX43_1 = false
-SHX40_1(SHX41_1, SHX42_1, SHX43_1)
-SHX40_1 = _ENV
-SHX41_1 = "RegisterKeyMapping"
-SHX40_1 = SHX40_1[SHX41_1]
-SHX41_1 = "+clothingmenu"
-SHX42_1 = "Clothing Menu"
-SHX43_1 = "KEYBOARD"
-SHX44_1 = "Y"
-SHX40_1(SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX40_1 = {}
-SHX41_1 = "dp_clothing"
-SHX42_1 = "dp_wheel"
-SHX40_1[1] = SHX41_1
-SHX40_1[2] = SHX42_1
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX6_1.GUI
-  SHX0_2 = SHX0_2.Toggle
-  if SHX0_2 then
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 0
-    SHX2_2 = SHX6_1.GUI
-    SHX2_2 = SHX2_2.Key
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = PlayerPedId
-      SHX0_2 = SHX0_2()
-      SHX1_2 = SHX30_1
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if SHX1_2 then
-        SHX1_2 = SHX20_1
-        SHX2_2 = "Open"
-        SHX1_2(SHX2_2)
-        SHX1_2 = SetCursorLocation
-        SHX2_2 = SHX6_1.GUI
-        SHX2_2 = SHX2_2.Position
-        SHX2_2 = SHX2_2.x
-        SHX3_2 = SHX6_1.GUI
-        SHX3_2 = SHX3_2.Position
-        SHX3_2 = SHX3_2.y
-        SHX1_2(SHX2_2, SHX3_2)
-        SHX1_2 = SHX3_1
-        SHX1_2 = not SHX1_2
-        SHX3_1 = SHX1_2
-      end
-    end
-  end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = SHX39_1
-    SHX0_2()
-  end
-  SHX0_2 = SHX6_1.Debug
-  if SHX0_2 then
-    SHX0_2 = SHX23_1
-    SHX0_2()
-  end
-end
-SHX42_1 = _ENV
-SHX43_1 = "Citizen"
-SHX42_1 = SHX42_1[SHX43_1]
-SHX43_1 = "CreateThread"
-SHX42_1 = SHX42_1[SHX43_1]
-function SHX43_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX40_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    while true do
-      SHX6_2 = HasStreamedTextureDictLoaded
-      SHX7_2 = SHX5_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      if SHX6_2 then
-        break
-      end
-      SHX6_2 = Wait
-      SHX7_2 = 100
-      SHX6_2(SHX7_2)
-      SHX6_2 = RequestStreamedTextureDict
-      SHX7_2 = SHX5_2
-      SHX8_2 = true
-      SHX6_2(SHX7_2, SHX8_2)
-    end
-  end
-  SHX0_2 = SHX36_1
-  SHX0_2()
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.createThreadOnTick
-  SHX1_2 = SHX41_1
-  SHX2_2 = "Clothing Radial Controls"
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX42_1(SHX43_1)
+
+    buildRadialButtons()
+
+    CMG.createThreadOnTick(
+        clothingMenuTick,
+        "Clothing Radial Controls"
+    )
+end)
