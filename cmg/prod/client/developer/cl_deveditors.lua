@@ -1,2402 +1,1173 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    READABLE VERSION OF THE DECOMPILED DEVELOPER EDITOR SCRIPT
+    ----------------------------------------------------------
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1
-SHX0_1 = nil
-SHX1_1 = {}
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX1_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = RemoveBlip
-    SHX7_2 = SHX5_2
-    SHX6_2(SHX7_2)
-  end
-  SHX0_2 = table
-  SHX0_2 = SHX0_2.clear
-  SHX1_2 = SHX1_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX0_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX0_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = AddBlipForCoord
-      SHX7_2 = SHX5_2.x
-      SHX8_2 = SHX5_2.y
-      SHX9_2 = SHX5_2.z
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-      SHX7_2 = table
-      SHX7_2 = SHX7_2.insert
-      SHX8_2 = SHX1_1
-      SHX9_2 = SHX6_2
-      SHX7_2(SHX8_2, SHX9_2)
+    This is a FiveM client-side developer utility.
+
+    Main features:
+      1. Edit lists of vector3 / vector4 coordinates.
+      2. Place a grid of vehicles between three points.
+      3. Edit a 3D bounding box with a free camera.
+      4. Spawn and manually position a debug object.
+      5. Preview props attached to the player.
+
+    Beginner notes:
+      - "vector3(x, y, z)" is a 3D position.
+      - "vector4(x, y, z, heading)" is a position plus direction.
+      - A "blip" is a marker on the GTA map.
+      - A "ped" is a player/NPC character.
+      - A "native" is a built-in GTA/FiveM function.
+      - RageUI is the menu library used by the developer menu.
+
+    The strange SHX0_1 / SHX1_2 decompiler variable names have been removed.
+    The CMG function names and server event hash used by the original script
+    are intentionally kept so this can still fit into the same resource.
+]]
+
+-- ============================================================================
+-- COORDINATE LIST EDITOR
+-- ============================================================================
+
+-- The coordinate list currently being edited.
+-- It will contain either vector3 values or vector4 values.
+local editedCoords = nil
+
+-- Map blips created for editedCoords.
+local coordBlips = {}
+
+---Remove old coordinate blips, then recreate them for the current list.
+local function refreshCoordinateBlips()
+    for _, blip in pairs(coordBlips) do
+        RemoveBlip(blip)
     end
-  end
-end
-function SHX3_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX2_2 = string
-  SHX2_2 = SHX2_2.gsub
-  SHX3_2 = SHX0_2
-  SHX4_2 = "vector4%("
-  SHX5_2 = ""
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.gsub
-  SHX4_2 = SHX2_2
-  SHX5_2 = "vector3%("
-  SHX6_2 = ""
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.gsub
-  SHX4_2 = SHX2_2
-  SHX5_2 = "%)"
-  SHX6_2 = ""
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.gsub
-  SHX4_2 = SHX2_2
-  SHX5_2 = " "
-  SHX6_2 = ""
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  SHX3_2 = {}
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.gmatch
-  SHX5_2 = SHX2_2
-  SHX6_2 = [[
-([^
-]*)
-?]]
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2)
-  for SHX8_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX9_2 = stringsplit
-    SHX10_2 = SHX8_2
-    SHX11_2 = ","
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    if 3 == SHX1_2 then
-      SHX10_2 = table
-      SHX10_2 = SHX10_2.insert
-      SHX11_2 = SHX3_2
-      SHX12_2 = vector3
-      SHX13_2 = tonumber
-      SHX14_2 = SHX9_2[1]
-      SHX13_2 = SHX13_2(SHX14_2)
-      if not SHX13_2 then
-        SHX13_2 = 0.0
-      end
-      SHX14_2 = tonumber
-      SHX15_2 = SHX9_2[2]
-      SHX14_2 = SHX14_2(SHX15_2)
-      if not SHX14_2 then
-        SHX14_2 = 0.0
-      end
-      SHX15_2 = tonumber
-      SHX16_2 = SHX9_2[3]
-      SHX15_2 = SHX15_2(SHX16_2)
-      if not SHX15_2 then
-        SHX15_2 = 0.0
-      end
-      SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    elseif 4 == SHX1_2 then
-      SHX10_2 = table
-      SHX10_2 = SHX10_2.insert
-      SHX11_2 = SHX3_2
-      SHX12_2 = vector4
-      SHX13_2 = tonumber
-      SHX14_2 = SHX9_2[1]
-      SHX13_2 = SHX13_2(SHX14_2)
-      if not SHX13_2 then
-        SHX13_2 = 0.0
-      end
-      SHX14_2 = tonumber
-      SHX15_2 = SHX9_2[2]
-      SHX14_2 = SHX14_2(SHX15_2)
-      if not SHX14_2 then
-        SHX14_2 = 0.0
-      end
-      SHX15_2 = tonumber
-      SHX16_2 = SHX9_2[3]
-      SHX15_2 = SHX15_2(SHX16_2)
-      if not SHX15_2 then
-        SHX15_2 = 0.0
-      end
-      SHX16_2 = tonumber
-      SHX17_2 = SHX9_2[4]
-      SHX16_2 = SHX16_2(SHX17_2)
-      if not SHX16_2 then
-        SHX16_2 = 0.0
-      end
-      SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
+
+    table.clear(coordBlips)
+
+    if not editedCoords then
+        return
     end
-  end
-  SHX4_2 = #SHX3_2
-  if SHX4_2 > 0 then
-    SHX0_1 = SHX3_2
-  else
-    SHX4_2 = nil
-    SHX0_1 = SHX4_2
-  end
-  SHX4_2 = SHX2_1
-  SHX4_2()
-end
-SHX4_1 = CMG
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.notify
-  SHX4_2 = "pick 1st coord, press Y when done"
-  SHX3_2(SHX4_2)
-  while true do
-    SHX3_2 = IsControlJustPressed
-    SHX4_2 = 0
-    SHX5_2 = 246
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if SHX3_2 then
-      break
+
+    for _, coords in pairs(editedCoords) do
+        local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+        table.insert(coordBlips, blip)
     end
-    SHX3_2 = Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
-  end
-  SHX3_2 = GetEntityCoords
-  SHX4_2 = PlayerPedId
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX4_2()
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-  SHX4_2 = GetEntityHeading
-  SHX5_2 = PlayerPedId
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX5_2()
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-  SHX5_2 = Wait
-  SHX6_2 = 250
-  SHX5_2(SHX6_2)
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.notify
-  SHX6_2 = "pick 2nd coord, press Y when done"
-  SHX5_2(SHX6_2)
-  while true do
-    SHX5_2 = IsControlJustPressed
-    SHX6_2 = 0
-    SHX7_2 = 246
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    if SHX5_2 then
-      break
-    end
-    SHX5_2 = Wait
-    SHX6_2 = 0
-    SHX5_2(SHX6_2)
-  end
-  SHX5_2 = GetEntityCoords
-  SHX6_2 = PlayerPedId
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX6_2()
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-  SHX6_2 = Wait
-  SHX7_2 = 250
-  SHX6_2(SHX7_2)
-  SHX6_2 = tCMG
-  SHX6_2 = SHX6_2.notify
-  SHX7_2 = "pick 3rd coord, press Y when done"
-  SHX6_2(SHX7_2)
-  while true do
-    SHX6_2 = IsControlJustPressed
-    SHX7_2 = 0
-    SHX8_2 = 246
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    if SHX6_2 then
-      break
-    end
-    SHX6_2 = Wait
-    SHX7_2 = 0
-    SHX6_2(SHX7_2)
-  end
-  SHX6_2 = GetEntityCoords
-  SHX7_2 = PlayerPedId
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX7_2()
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-  SHX7_2 = {}
-  SHX8_2 = 0
-  SHX9_2 = SHX2_2 - 1
-  SHX10_2 = 1
-  for SHX11_2 = SHX8_2, SHX9_2, SHX10_2 do
-    SHX12_2 = 0
-    SHX13_2 = SHX1_2 - 1
-    SHX14_2 = 1
-    for SHX15_2 = SHX12_2, SHX13_2, SHX14_2 do
-      SHX16_2 = SHX5_2 - SHX3_2
-      SHX17_2 = SHX6_2 - SHX3_2
-      SHX18_2 = vector3
-      SHX19_2 = SHX17_2.x
-      SHX19_2 = SHX19_2 / SHX1_2
-      SHX19_2 = SHX19_2 * SHX15_2
-      SHX20_2 = SHX17_2.y
-      SHX20_2 = SHX20_2 / SHX1_2
-      SHX20_2 = SHX20_2 * SHX15_2
-      SHX21_2 = SHX17_2.z
-      SHX21_2 = SHX21_2 / SHX1_2
-      SHX21_2 = SHX21_2 * SHX15_2
-      SHX18_2 = SHX18_2(SHX19_2, SHX20_2, SHX21_2)
-      SHX18_2 = SHX3_2 + SHX18_2
-      SHX19_2 = vector3
-      SHX20_2 = SHX16_2.x
-      SHX20_2 = SHX20_2 / SHX2_2
-      SHX20_2 = SHX20_2 * SHX11_2
-      SHX21_2 = SHX16_2.y
-      SHX21_2 = SHX21_2 / SHX2_2
-      SHX21_2 = SHX21_2 * SHX11_2
-      SHX22_2 = SHX16_2.z
-      SHX22_2 = SHX22_2 / SHX2_2
-      SHX22_2 = SHX22_2 * SHX11_2
-      SHX19_2 = SHX19_2(SHX20_2, SHX21_2, SHX22_2)
-      SHX18_2 = SHX18_2 + SHX19_2
-      SHX19_2 = CMG
-      SHX19_2 = SHX19_2.loadModel
-      SHX20_2 = 1641152947
-      SHX19_2(SHX20_2)
-      SHX19_2 = CMG
-      SHX19_2 = SHX19_2.spawnVehicle
-      SHX20_2 = SHX0_2
-      SHX21_2 = SHX18_2.x
-      SHX22_2 = SHX18_2.y
-      SHX23_2 = SHX18_2.z
-      SHX24_2 = SHX4_2
-      SHX25_2 = false
-      SHX26_2 = false
-      SHX27_2 = false
-      SHX19_2 = SHX19_2(SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-      SHX20_2 = CreatePedInsideVehicle
-      SHX21_2 = SHX19_2
-      SHX22_2 = 0
-      SHX23_2 = 1641152947
-      SHX24_2 = -1
-      SHX25_2 = false
-      SHX26_2 = false
-      SHX20_2(SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-      SHX20_2 = SetModelAsNoLongerNeeded
-      SHX21_2 = 1641152947
-      SHX20_2(SHX21_2)
-      SHX20_2 = table
-      SHX20_2 = SHX20_2.insert
-      SHX21_2 = SHX7_2
-      SHX22_2 = SHX18_2
-      SHX20_2(SHX21_2, SHX22_2)
-    end
-  end
-  SHX8_2 = 1
-  SHX9_2 = #SHX7_2
-  SHX10_2 = 1
-  for SHX11_2 = SHX8_2, SHX9_2, SHX10_2 do
-    SHX12_2 = print
-    SHX13_2 = "vector4("
-    SHX14_2 = SHX7_2[SHX11_2]
-    SHX14_2 = SHX14_2.x
-    SHX15_2 = ","
-    SHX16_2 = SHX7_2[SHX11_2]
-    SHX16_2 = SHX16_2.y
-    SHX17_2 = ","
-    SHX18_2 = SHX7_2[SHX11_2]
-    SHX18_2 = SHX18_2.z
-    SHX19_2 = ","
-    SHX20_2 = SHX4_2
-    SHX21_2 = "),"
-    SHX13_2 = SHX13_2 .. SHX14_2 .. SHX15_2 .. SHX16_2 .. SHX17_2 .. SHX18_2 .. SHX19_2 .. SHX20_2 .. SHX21_2
-    SHX12_2(SHX13_2)
-  end
 end
-SHX4_1.gridPositionSaver = SHX5_1
-SHX4_1 = {}
-SHX4_1.moveSpeed = 50.0
-SHX4_1.mouseSpeed = 500.0
-SHX4_1.camera = nil
-SHX4_1.min = nil
-SHX4_1.max = nil
-SHX4_1.selectedType = "NONE"
-SHX4_1.selectedDistance = 0.0
-SHX4_1.onClose = nil
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX2_2 = 0.001
-  SHX3_2 = {}
-  SHX4_2 = vector3
-  SHX5_2 = SHX0_2.x
-  SHX5_2 = SHX5_2 - SHX2_2
-  SHX6_2 = SHX0_2.y
-  SHX6_2 = SHX6_2 - SHX2_2
-  SHX7_2 = SHX0_2.z
-  SHX7_2 = SHX7_2 - SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX5_2 = vector3
-  SHX6_2 = SHX1_2.x
-  SHX6_2 = SHX6_2 + SHX2_2
-  SHX7_2 = SHX0_2.y
-  SHX7_2 = SHX7_2 - SHX2_2
-  SHX8_2 = SHX0_2.z
-  SHX8_2 = SHX8_2 - SHX2_2
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX6_2 = vector3
-  SHX7_2 = SHX1_2.x
-  SHX7_2 = SHX7_2 + SHX2_2
-  SHX8_2 = SHX1_2.y
-  SHX8_2 = SHX8_2 + SHX2_2
-  SHX9_2 = SHX0_2.z
-  SHX9_2 = SHX9_2 - SHX2_2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX7_2 = vector3
-  SHX8_2 = SHX0_2.x
-  SHX8_2 = SHX8_2 - SHX2_2
-  SHX9_2 = SHX1_2.y
-  SHX9_2 = SHX9_2 + SHX2_2
-  SHX10_2 = SHX0_2.z
-  SHX10_2 = SHX10_2 - SHX2_2
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX8_2 = vector3
-  SHX9_2 = SHX0_2.x
-  SHX9_2 = SHX9_2 - SHX2_2
-  SHX10_2 = SHX0_2.y
-  SHX10_2 = SHX10_2 - SHX2_2
-  SHX11_2 = SHX1_2.z
-  SHX11_2 = SHX11_2 + SHX2_2
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX9_2 = vector3
-  SHX10_2 = SHX1_2.x
-  SHX10_2 = SHX10_2 + SHX2_2
-  SHX11_2 = SHX0_2.y
-  SHX11_2 = SHX11_2 - SHX2_2
-  SHX12_2 = SHX1_2.z
-  SHX12_2 = SHX12_2 + SHX2_2
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX10_2 = vector3
-  SHX11_2 = SHX1_2.x
-  SHX11_2 = SHX11_2 + SHX2_2
-  SHX12_2 = SHX1_2.y
-  SHX12_2 = SHX12_2 + SHX2_2
-  SHX13_2 = SHX1_2.z
-  SHX13_2 = SHX13_2 + SHX2_2
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX11_2 = vector3
-  SHX12_2 = SHX0_2.x
-  SHX12_2 = SHX12_2 - SHX2_2
-  SHX13_2 = SHX1_2.y
-  SHX13_2 = SHX13_2 + SHX2_2
-  SHX14_2 = SHX1_2.z
-  SHX14_2 = SHX14_2 + SHX2_2
-  SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2[1] = SHX4_2
-  SHX3_2[2] = SHX5_2
-  SHX3_2[3] = SHX6_2
-  SHX3_2[4] = SHX7_2
-  SHX3_2[5] = SHX8_2
-  SHX3_2[6] = SHX9_2
-  SHX3_2[7] = SHX10_2
-  SHX3_2[8] = SHX11_2
-  SHX3_2[9] = SHX12_2
-  SHX3_2[10] = SHX13_2
-  SHX3_2[11] = SHX14_2
-  return SHX3_2
-end
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX1_2 = {}
-  SHX2_2 = {}
-  SHX3_2 = SHX0_2[3]
-  SHX4_2 = SHX0_2[2]
-  SHX5_2 = SHX0_2[1]
-  SHX2_2[1] = SHX3_2
-  SHX2_2[2] = SHX4_2
-  SHX2_2[3] = SHX5_2
-  SHX3_2 = {}
-  SHX4_2 = SHX0_2[4]
-  SHX5_2 = SHX0_2[3]
-  SHX6_2 = SHX0_2[1]
-  SHX3_2[1] = SHX4_2
-  SHX3_2[2] = SHX5_2
-  SHX3_2[3] = SHX6_2
-  SHX4_2 = {}
-  SHX5_2 = SHX0_2[5]
-  SHX6_2 = SHX0_2[6]
-  SHX7_2 = SHX0_2[7]
-  SHX4_2[1] = SHX5_2
-  SHX4_2[2] = SHX6_2
-  SHX4_2[3] = SHX7_2
-  SHX5_2 = {}
-  SHX6_2 = SHX0_2[5]
-  SHX7_2 = SHX0_2[7]
-  SHX8_2 = SHX0_2[8]
-  SHX5_2[1] = SHX6_2
-  SHX5_2[2] = SHX7_2
-  SHX5_2[3] = SHX8_2
-  SHX6_2 = {}
-  SHX7_2 = SHX0_2[3]
-  SHX8_2 = SHX0_2[4]
-  SHX9_2 = SHX0_2[7]
-  SHX6_2[1] = SHX7_2
-  SHX6_2[2] = SHX8_2
-  SHX6_2[3] = SHX9_2
-  SHX7_2 = {}
-  SHX8_2 = SHX0_2[8]
-  SHX9_2 = SHX0_2[7]
-  SHX10_2 = SHX0_2[4]
-  SHX7_2[1] = SHX8_2
-  SHX7_2[2] = SHX9_2
-  SHX7_2[3] = SHX10_2
-  SHX8_2 = {}
-  SHX9_2 = SHX0_2[1]
-  SHX10_2 = SHX0_2[2]
-  SHX11_2 = SHX0_2[5]
-  SHX8_2[1] = SHX9_2
-  SHX8_2[2] = SHX10_2
-  SHX8_2[3] = SHX11_2
-  SHX9_2 = {}
-  SHX10_2 = SHX0_2[6]
-  SHX11_2 = SHX0_2[5]
-  SHX12_2 = SHX0_2[2]
-  SHX9_2[1] = SHX10_2
-  SHX9_2[2] = SHX11_2
-  SHX9_2[3] = SHX12_2
-  SHX10_2 = {}
-  SHX11_2 = SHX0_2[2]
-  SHX12_2 = SHX0_2[3]
-  SHX13_2 = SHX0_2[6]
-  SHX10_2[1] = SHX11_2
-  SHX10_2[2] = SHX12_2
-  SHX10_2[3] = SHX13_2
-  SHX11_2 = {}
-  SHX12_2 = SHX0_2[3]
-  SHX13_2 = SHX0_2[7]
-  SHX14_2 = SHX0_2[6]
-  SHX11_2[1] = SHX12_2
-  SHX11_2[2] = SHX13_2
-  SHX11_2[3] = SHX14_2
-  SHX12_2 = {}
-  SHX13_2 = SHX0_2[5]
-  SHX14_2 = SHX0_2[8]
-  SHX15_2 = SHX0_2[4]
-  SHX12_2[1] = SHX13_2
-  SHX12_2[2] = SHX14_2
-  SHX12_2[3] = SHX15_2
-  SHX13_2 = {}
-  SHX14_2 = SHX0_2[5]
-  SHX15_2 = SHX0_2[4]
-  SHX16_2 = SHX0_2[1]
-  SHX13_2[1] = SHX14_2
-  SHX13_2[2] = SHX15_2
-  SHX13_2[3] = SHX16_2
-  SHX1_2[1] = SHX2_2
-  SHX1_2[2] = SHX3_2
-  SHX1_2[3] = SHX4_2
-  SHX1_2[4] = SHX5_2
-  SHX1_2[5] = SHX6_2
-  SHX1_2[6] = SHX7_2
-  SHX1_2[7] = SHX8_2
-  SHX1_2[8] = SHX9_2
-  SHX1_2[9] = SHX10_2
-  SHX1_2[10] = SHX11_2
-  SHX1_2[11] = SHX12_2
-  SHX1_2[12] = SHX13_2
-  return SHX1_2
-end
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2
-  SHX1_2 = ipairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2[1]
-    SHX7_2 = SHX7_2.x
-    SHX8_2 = SHX6_2[1]
-    SHX8_2 = SHX8_2.y
-    SHX9_2 = SHX6_2[1]
-    SHX9_2 = SHX9_2.z
-    SHX10_2 = SHX6_2[2]
-    SHX10_2 = SHX10_2.x
-    SHX11_2 = SHX6_2[2]
-    SHX11_2 = SHX11_2.y
-    SHX12_2 = SHX6_2[2]
-    SHX12_2 = SHX12_2.z
-    SHX13_2 = SHX6_2[3]
-    SHX13_2 = SHX13_2.x
-    SHX14_2 = SHX6_2[3]
-    SHX14_2 = SHX14_2.y
-    SHX15_2 = SHX6_2[3]
-    SHX15_2 = SHX15_2.z
-    SHX16_2 = DrawPoly
-    SHX17_2 = SHX7_2
-    SHX18_2 = SHX8_2
-    SHX19_2 = SHX9_2
-    SHX20_2 = SHX10_2
-    SHX21_2 = SHX11_2
-    SHX22_2 = SHX12_2
-    SHX23_2 = SHX13_2
-    SHX24_2 = SHX14_2
-    SHX25_2 = SHX15_2
-    SHX26_2 = SHX5_2 * 19
-    SHX27_2 = SHX5_2 * 19
-    SHX28_2 = 255
-    SHX27_2 = SHX28_2 - SHX27_2
-    SHX28_2 = 0
-    SHX29_2 = 200
-    SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2)
-  end
-end
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX5_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = SHX6_1
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX7_1
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-end
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = GetFrameTime
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetCamMatrix
-  SHX2_2 = SHX4_1.camera
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  SHX5_2 = GetCamRot
-  SHX6_2 = SHX4_1.camera
-  SHX7_2 = 2
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 32
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = IsDisabledControlPressed
-  SHX7_2 = 0
-  SHX8_2 = 32
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if SHX6_2 then
-    SHX6_2 = SHX4_1.moveSpeed
-    SHX6_2 = SHX2_2 * SHX6_2
-    SHX6_2 = SHX6_2 * SHX0_2
-    SHX4_2 = SHX4_2 + SHX6_2
-  end
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 34
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = IsDisabledControlPressed
-  SHX7_2 = 0
-  SHX8_2 = 34
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if SHX6_2 then
-    SHX6_2 = SHX4_1.moveSpeed
-    SHX6_2 = SHX1_2 * SHX6_2
-    SHX6_2 = SHX6_2 * SHX0_2
-    SHX4_2 = SHX4_2 - SHX6_2
-  end
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 33
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = IsDisabledControlPressed
-  SHX7_2 = 0
-  SHX8_2 = 33
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if SHX6_2 then
-    SHX6_2 = SHX4_1.moveSpeed
-    SHX6_2 = SHX2_2 * SHX6_2
-    SHX6_2 = SHX6_2 * SHX0_2
-    SHX4_2 = SHX4_2 - SHX6_2
-  end
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 35
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = IsDisabledControlPressed
-  SHX7_2 = 0
-  SHX8_2 = 35
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if SHX6_2 then
-    SHX6_2 = SHX4_1.moveSpeed
-    SHX6_2 = SHX1_2 * SHX6_2
-    SHX6_2 = SHX6_2 * SHX0_2
-    SHX4_2 = SHX4_2 + SHX6_2
-  end
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 22
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = IsDisabledControlPressed
-  SHX7_2 = 0
-  SHX8_2 = 22
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if SHX6_2 then
-    SHX6_2 = SHX4_1.moveSpeed
-    SHX6_2 = SHX3_2 * SHX6_2
-    SHX6_2 = SHX6_2 * SHX0_2
-    SHX4_2 = SHX4_2 + SHX6_2
-  end
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 21
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = IsDisabledControlPressed
-  SHX7_2 = 0
-  SHX8_2 = 21
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  if SHX6_2 then
-    SHX6_2 = SHX4_1.moveSpeed
-    SHX6_2 = SHX3_2 * SHX6_2
-    SHX6_2 = SHX6_2 * SHX0_2
-    SHX4_2 = SHX4_2 - SHX6_2
-  end
-  SHX6_2 = DisableControlAction
-  SHX7_2 = 0
-  SHX8_2 = 1
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = GetDisabledControlNormal
-  SHX7_2 = 0
-  SHX8_2 = 1
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = -SHX6_2
-  SHX7_2 = SHX4_1.mouseSpeed
-  SHX6_2 = SHX6_2 * SHX7_2
-  SHX6_2 = SHX6_2 * SHX0_2
-  SHX7_2 = vector3
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = SHX6_2
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX5_2 = SHX5_2 + SHX7_2
-  SHX7_2 = DisableControlAction
-  SHX8_2 = 0
-  SHX9_2 = 2
-  SHX10_2 = true
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = GetDisabledControlNormal
-  SHX8_2 = 0
-  SHX9_2 = 2
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = -SHX7_2
-  SHX8_2 = SHX4_1.mouseSpeed
-  SHX7_2 = SHX7_2 * SHX8_2
-  SHX7_2 = SHX7_2 * SHX0_2
-  SHX8_2 = math
-  SHX8_2 = SHX8_2.abs
-  SHX9_2 = SHX5_2.x
-  SHX9_2 = SHX9_2 + SHX7_2
-  SHX8_2 = SHX8_2(SHX9_2)
-  if SHX8_2 < 70.0 then
-    SHX8_2 = vector3
-    SHX9_2 = SHX7_2
-    SHX10_2 = 0.0
-    SHX11_2 = 0.0
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX5_2 = SHX5_2 + SHX8_2
-  end
-  SHX8_2 = SetCamCoord
-  SHX9_2 = SHX4_1.camera
-  SHX10_2 = SHX4_2.x
-  SHX11_2 = SHX4_2.y
-  SHX12_2 = SHX4_2.z
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX8_2 = SetCamRot
-  SHX9_2 = SHX4_1.camera
-  SHX10_2 = SHX5_2.x
-  SHX11_2 = SHX5_2.y
-  SHX12_2 = SHX5_2.z
-  SHX13_2 = 2
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 24
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = IsDisabledControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 24
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = SHX4_1.selectedType
-    if "NONE" == SHX0_2 then
-      SHX0_2 = GetScreenCoordFromWorldCoord
-      SHX1_2 = SHX4_1.min
-      SHX1_2 = SHX1_2.x
-      SHX2_2 = SHX4_1.min
-      SHX2_2 = SHX2_2.y
-      SHX3_2 = SHX4_1.min
-      SHX3_2 = SHX3_2.z
-      SHX0_2, SHX1_2, SHX2_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      if SHX0_2 then
-        SHX3_2 = math
-        SHX3_2 = SHX3_2.abs
-        SHX4_2 = SHX1_2 - 0.5
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX4_2 = 0.02
-        if SHX3_2 < SHX4_2 then
-          SHX3_2 = math
-          SHX3_2 = SHX3_2.abs
-          SHX4_2 = SHX2_2 - 0.5
-          SHX3_2 = SHX3_2(SHX4_2)
-          SHX4_2 = 0.05
-          if SHX3_2 < SHX4_2 then
-            SHX4_1.selectedType = "MIN"
-            SHX3_2 = GetCamCoord
-            SHX4_2 = SHX4_1.camera
-            SHX3_2 = SHX3_2(SHX4_2)
-            SHX4_2 = SHX4_1.min
-            SHX3_2 = SHX3_2 - SHX4_2
-            SHX3_2 = #SHX3_2
-            SHX4_1.selectedDistance = SHX3_2
-            return
-          end
+
+---Turn pasted vector3/vector4 text into actual FiveM vectors.
+---@param text string
+---@param vectorSize number 3 for vector3, 4 for vector4
+local function loadCoordinateList(text, vectorSize)
+    -- Accept text such as:
+    -- vector3(100.0, 200.0, 30.0)
+    -- vector4(100.0, 200.0, 30.0, 90.0)
+    local cleanedText = tostring(text or "")
+        :gsub("vector4%(", "")
+        :gsub("vector3%(", "")
+        :gsub("%)", "")
+        :gsub(" ", "")
+
+    local newCoords = {}
+
+    -- Read one line at a time.
+    for line in cleanedText:gmatch("[^\r\n]+") do
+        local parts = stringsplit(line, ",")
+
+        if vectorSize == 3 then
+            table.insert(newCoords, vector3(
+                tonumber(parts[1]) or 0.0,
+                tonumber(parts[2]) or 0.0,
+                tonumber(parts[3]) or 0.0
+            ))
+        elseif vectorSize == 4 then
+            table.insert(newCoords, vector4(
+                tonumber(parts[1]) or 0.0,
+                tonumber(parts[2]) or 0.0,
+                tonumber(parts[3]) or 0.0,
+                tonumber(parts[4]) or 0.0
+            ))
         end
-      end
-      SHX3_2 = GetScreenCoordFromWorldCoord
-      SHX4_2 = SHX4_1.max
-      SHX4_2 = SHX4_2.x
-      SHX5_2 = SHX4_1.max
-      SHX5_2 = SHX5_2.y
-      SHX6_2 = SHX4_1.max
-      SHX6_2 = SHX6_2.z
-      SHX3_2, SHX4_2, SHX5_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX2_2 = SHX5_2
-      SHX1_2 = SHX4_2
-      SHX0_2 = SHX3_2
-      if SHX0_2 then
-        SHX3_2 = math
-        SHX3_2 = SHX3_2.abs
-        SHX4_2 = SHX1_2 - 0.5
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX4_2 = 0.02
-        if SHX3_2 < SHX4_2 then
-          SHX3_2 = math
-          SHX3_2 = SHX3_2.abs
-          SHX4_2 = SHX2_2 - 0.5
-          SHX3_2 = SHX3_2(SHX4_2)
-          SHX4_2 = 0.05
-          if SHX3_2 < SHX4_2 then
-            SHX4_1.selectedType = "MAX"
-            SHX3_2 = GetCamCoord
-            SHX4_2 = SHX4_1.camera
-            SHX3_2 = SHX3_2(SHX4_2)
-            SHX4_2 = SHX4_1.max
-            SHX3_2 = SHX3_2 - SHX4_2
-            SHX3_2 = #SHX3_2
-            SHX4_1.selectedDistance = SHX3_2
-            return
-          end
-        end
-      end
+    end
+
+    if #newCoords > 0 then
+        editedCoords = newCoords
     else
-      SHX0_2 = GetCamMatrix
-      SHX1_2 = SHX4_1.camera
-      SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-      SHX4_2 = SHX4_1.selectedType
-      if "MIN" == SHX4_2 then
-        SHX4_2 = SHX4_1.selectedDistance
-        SHX4_2 = SHX1_2 * SHX4_2
-        SHX4_2 = SHX3_2 + SHX4_2
-        SHX4_1.min = SHX4_2
-      else
-        SHX4_2 = SHX4_1.selectedDistance
-        SHX4_2 = SHX1_2 * SHX4_2
-        SHX4_2 = SHX3_2 + SHX4_2
-        SHX4_1.max = SHX4_2
-      end
+        editedCoords = nil
     end
-  else
-    SHX4_1.selectedType = "NONE"
-  end
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 177
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = IsDisabledControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 177
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.toggleBoundsEditor
-    SHX0_2()
-  end
+
+    refreshCoordinateBlips()
 end
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_2 = DrawMarker
-  SHX1_2 = 28
-  SHX2_2 = SHX4_1.min
-  SHX2_2 = SHX2_2.x
-  SHX3_2 = SHX4_1.min
-  SHX3_2 = SHX3_2.y
-  SHX4_2 = SHX4_1.min
-  SHX4_2 = SHX4_2.z
-  SHX5_2 = 0.0
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 3.0
-  SHX12_2 = 3.0
-  SHX13_2 = 3.0
-  SHX14_2 = 0
-  SHX15_2 = 0
-  SHX16_2 = 255
-  SHX17_2 = 255
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX20_2 = 2
-  SHX21_2 = false
-  SHX22_2 = nil
-  SHX23_2 = nil
-  SHX24_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-  SHX0_2 = DrawMarker
-  SHX1_2 = 28
-  SHX2_2 = SHX4_1.max
-  SHX2_2 = SHX2_2.x
-  SHX3_2 = SHX4_1.max
-  SHX3_2 = SHX3_2.y
-  SHX4_2 = SHX4_1.max
-  SHX4_2 = SHX4_2.z
-  SHX5_2 = 0.0
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 3.0
-  SHX12_2 = 3.0
-  SHX13_2 = 3.0
-  SHX14_2 = 0
-  SHX15_2 = 0
-  SHX16_2 = 255
-  SHX17_2 = 255
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX20_2 = 2
-  SHX21_2 = false
-  SHX22_2 = nil
-  SHX23_2 = nil
-  SHX24_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = SHX4_1.min
-  SHX2_2 = SHX4_1.max
-  SHX0_2(SHX1_2, SHX2_2)
-end
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX9_1
-  SHX0_2()
-  SHX0_2 = SHX10_1
-  SHX0_2()
-  SHX0_2 = SHX11_1
-  SHX0_2()
-end
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = SetPlayerControl
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = true
-  SHX3_2 = 0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = RenderScriptCams
-  SHX1_2 = false
-  SHX2_2 = false
-  SHX3_2 = 0
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = SetCamActive
-  SHX1_2 = SHX4_1.camera
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = DestroyCam
-  SHX1_2 = SHX4_1.camera
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX4_1.camera = nil
-  SHX0_2 = SHX4_1.min
-  SHX1_2 = SHX4_1.max
-  SHX2_2 = SHX4_1.onClose
-  SHX4_1.onClose = nil
-  SHX4_1.selectedType = "NONE"
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    SHX3_2(SHX4_2, SHX5_2)
-  else
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.clientPrompt
-    SHX4_2 = "Bounds"
-    SHX5_2 = tostring
-    SHX6_2 = SHX0_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = ", "
-    SHX7_2 = tostring
-    SHX8_2 = SHX1_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX5_2 = SHX5_2 .. SHX6_2 .. SHX7_2
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+
+
+-- ============================================================================
+-- VEHICLE GRID POSITION SAVER
+-- ============================================================================
+
+-- NPC model placed in the driver's seat of each test vehicle.
+local GRID_DRIVER_MODEL = 1641152947
+
+---Wait until the user presses Y (control 246).
+local function waitForGridPoint(message)
+    tCMG.notify(message)
+
+    while not IsControlJustPressed(0, 246) do
+        Wait(0)
     end
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  end
-  SHX3_2 = RageUI
-  SHX3_2 = SHX3_2.Visible
-  SHX4_2 = RMenu
-  SHX5_2 = SHX4_2
-  SHX4_2 = SHX4_2.Get
-  SHX6_2 = "devmenu"
-  SHX7_2 = "main"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX5_2 = false
-  SHX3_2(SHX4_2, SHX5_2)
 end
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  if not SHX0_2 then
-    SHX1_2 = {}
-    SHX0_2 = SHX1_2
-  end
-  SHX1_2 = SetPlayerControl
-  SHX2_2 = PlayerId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = false
-  SHX4_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = CreateCamWithParams
-  SHX4_2 = "DEFAULT_SCRIPTED_CAMERA"
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 70.0
-  SHX12_2 = false
-  SHX13_2 = 0
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX4_1.camera = SHX3_2
-  SHX3_2 = SetCamActive
-  SHX4_2 = SHX4_1.camera
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = RenderScriptCams
-  SHX4_2 = true
-  SHX5_2 = false
-  SHX6_2 = 0
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2 = SHX0_2.min
-  if SHX3_2 then
-    SHX3_2 = SHX0_2.max
-    if SHX3_2 then
-      SHX3_2 = SHX0_2.min
-      SHX4_1.min = SHX3_2
-      SHX3_2 = SHX0_2.max
-      SHX4_1.max = SHX3_2
-  end
-  else
-    SHX3_2 = GetOffsetFromEntityInWorldCoords
-    SHX4_2 = SHX1_2
-    SHX5_2 = -10.0
-    SHX6_2 = -10.0
-    SHX7_2 = 0.0
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX4_1.min = SHX3_2
-    SHX3_2 = GetOffsetFromEntityInWorldCoords
-    SHX4_2 = SHX1_2
-    SHX5_2 = 10.0
-    SHX6_2 = 10.0
-    SHX7_2 = 20.0
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX4_1.max = SHX3_2
-  end
-  SHX4_1.selectedType = "NONE"
-  SHX3_2 = SHX0_2.onClose
-  SHX4_1.onClose = SHX3_2
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.CreateThread
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    while true do
-      SHX0_3 = SHX4_1.camera
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = SHX12_1
-      SHX0_3()
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
+
+---Build a rectangular grid of vehicles from three points picked by the player.
+---
+---Point 1 = grid origin.
+---Point 2 = one direction/edge of the grid.
+---Point 3 = the other direction/edge of the grid.
+---
+---The resulting positions are printed as vector4 values in the client console.
+---@param vehicleModel string|number
+---@param rowCount number|string
+---@param columnCount number|string
+function CMG.gridPositionSaver(vehicleModel, rowCount, columnCount)
+    rowCount = tonumber(rowCount) or 1
+    columnCount = tonumber(columnCount) or 1
+
+    if rowCount <= 0 or columnCount <= 0 then
+        tCMG.notify("~r~Rows and columns must be greater than 0.")
+        return
     end
-  end
-  SHX3_2(SHX4_2)
-  SHX3_2 = RageUI
-  SHX3_2 = SHX3_2.Visible
-  SHX4_2 = RMenu
-  SHX5_2 = SHX4_2
-  SHX4_2 = SHX4_2.Get
-  SHX6_2 = "devmenu"
-  SHX7_2 = "main"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX5_2 = false
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX15_1 = CMG
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1.camera
-  SHX0_2 = nil ~= SHX0_2
-  return SHX0_2
-end
-SHX15_1.isBoundsEditorActive = SHX16_1
-SHX15_1 = CMG
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX4_1.camera
-  if not SHX0_2 then
-    return
-  end
-  SHX0_2 = SetPlayerControl
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = true
-  SHX3_2 = 0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = RenderScriptCams
-  SHX1_2 = false
-  SHX2_2 = false
-  SHX3_2 = 0
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = SetCamActive
-  SHX1_2 = SHX4_1.camera
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = DestroyCam
-  SHX1_2 = SHX4_1.camera
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX4_1.camera = nil
-  SHX4_1.selectedType = "NONE"
-  SHX0_2 = SHX4_1.onClose
-  SHX4_1.onClose = nil
-  if SHX0_2 then
-    SHX1_2 = SHX0_2
-    SHX2_2 = nil
-    SHX3_2 = nil
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-end
-SHX15_1.cancelBoundsEditor = SHX16_1
-SHX15_1 = CMG
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX2_2 = SHX4_1.camera
-  if SHX2_2 then
-    SHX2_2 = nil
-    SHX3_2 = nil
-    return SHX2_2, SHX3_2
-  end
-  SHX2_2 = false
-  SHX3_2 = nil
-  SHX4_2 = nil
-  SHX5_2 = SHX14_1
-  SHX6_2 = {}
-  SHX6_2.min = SHX0_2
-  SHX6_2.max = SHX1_2
-  function SHX7_2(SHX0_3, SHX1_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX2_3
-    SHX3_2 = SHX0_3
-    SHX4_2 = SHX1_3
-    SHX2_3 = true
-    SHX2_2 = SHX2_3
-  end
-  SHX6_2.onClose = SHX7_2
-  SHX5_2(SHX6_2)
-  while true do
-    SHX5_2 = SHX4_1.camera
-    if not SHX5_2 then
-      break
-    end
-    SHX5_2 = Wait
-    SHX6_2 = 0
-    SHX5_2(SHX6_2)
-  end
-  if not SHX2_2 then
-    SHX5_2 = nil
-    SHX6_2 = nil
-    return SHX5_2, SHX6_2
-  end
-  SHX5_2 = SHX3_2
-  SHX6_2 = SHX4_2
-  return SHX5_2, SHX6_2
-end
-SHX15_1.runBoundsEditor = SHX16_1
-SHX15_1 = CMG
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1.camera
-  if SHX0_2 then
-    SHX0_2 = SHX13_1
-    SHX0_2()
-  else
-    SHX0_2 = SHX14_1
-    SHX0_2()
-  end
-end
-SHX15_1.toggleBoundsEditor = SHX16_1
-SHX15_1 = CMG
-SHX15_1 = SHX15_1.registerDevMenuItems
-SHX16_1 = "Editors"
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Vector3 Coords Editor"
-  SHX2_2 = nil
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    if SHX2_3 then
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.clientPrompt
-      SHX4_3 = "Enter Vector3 List"
-      SHX5_3 = ""
-      function SHX6_3(SHX0_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX1_4, SHX2_4, SHX3_4
-        SHX1_4 = SHX3_1
-        SHX2_4 = SHX0_4
-        SHX3_4 = 3
-        SHX1_4(SHX2_4, SHX3_4)
-      end
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-    end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Vector4 Coords Editor"
-  SHX2_2 = nil
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    if SHX2_3 then
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.clientPrompt
-      SHX4_3 = "Enter Vector4 List"
-      SHX5_3 = ""
-      function SHX6_3(SHX0_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX1_4, SHX2_4, SHX3_4
-        SHX1_4 = SHX3_1
-        SHX2_4 = SHX0_4
-        SHX3_4 = 4
-        SHX1_4(SHX2_4, SHX3_4)
-      end
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-    end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Grid Position Saver"
-  SHX2_2 = nil
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    if SHX2_3 then
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.clientPrompt
-      SHX4_3 = "Vehicle Name"
-      SHX5_3 = ""
-      function SHX6_3(SHX0_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX1_4, SHX2_4, SHX3_4, SHX4_4
-        SHX1_4 = Wait
-        SHX2_4 = 100
-        SHX1_4(SHX2_4)
-        SHX1_4 = CMG
-        SHX1_4 = SHX1_4.clientPrompt
-        SHX2_4 = "Number of Rows"
-        SHX3_4 = ""
-        function SHX4_4(SHX0_5)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX1_5, SHX2_5, SHX3_5, SHX4_5
-          SHX1_5 = Wait
-          SHX2_5 = 100
-          SHX1_5(SHX2_5)
-          SHX1_5 = CMG
-          SHX1_5 = SHX1_5.clientPrompt
-          SHX2_5 = "Number of Columns"
-          SHX3_5 = ""
-          function SHX4_5(SHX0_6)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX1_6, SHX2_6, SHX3_6, SHX4_6
-            SHX1_6 = Wait
-            SHX2_6 = 100
-            SHX1_6(SHX2_6)
-            SHX1_6 = CMG
-            SHX1_6 = SHX1_6.gridPositionSaver
-            SHX2_6 = SHX0_4
-            SHX3_6 = SHX0_5
-            SHX4_6 = SHX0_6
-            SHX1_6(SHX2_6, SHX3_6, SHX4_6)
-          end
-          SHX1_5(SHX2_5, SHX3_5, SHX4_5)
+
+    waitForGridPoint("pick 1st coord, press Y when done")
+    local firstPoint = GetEntityCoords(PlayerPedId())
+    local gridHeading = GetEntityHeading(PlayerPedId())
+
+    Wait(250)
+
+    waitForGridPoint("pick 2nd coord, press Y when done")
+    local secondPoint = GetEntityCoords(PlayerPedId())
+
+    Wait(250)
+
+    waitForGridPoint("pick 3rd coord, press Y when done")
+    local thirdPoint = GetEntityCoords(PlayerPedId())
+
+    local generatedPositions = {}
+
+    -- These vectors describe the two directions of the grid.
+    local towardSecondPoint = secondPoint - firstPoint
+    local towardThirdPoint = thirdPoint - firstPoint
+
+    CMG.loadModel(GRID_DRIVER_MODEL)
+
+    -- The original decompiled code loops over columns first, then rows.
+    for column = 0, columnCount - 1 do
+        for row = 0, rowCount - 1 do
+            local rowOffset = vector3(
+                (towardThirdPoint.x / rowCount) * row,
+                (towardThirdPoint.y / rowCount) * row,
+                (towardThirdPoint.z / rowCount) * row
+            )
+
+            local columnOffset = vector3(
+                (towardSecondPoint.x / columnCount) * column,
+                (towardSecondPoint.y / columnCount) * column,
+                (towardSecondPoint.z / columnCount) * column
+            )
+
+            local position = firstPoint + rowOffset + columnOffset
+
+            -- Spawn a local test vehicle.
+            local vehicle = CMG.spawnVehicle(
+                vehicleModel,
+                position.x,
+                position.y,
+                position.z,
+                gridHeading,
+                false, -- do not warp player into vehicle
+                false,
+                false
+            )
+
+            if vehicle and vehicle ~= 0 then
+                -- Put a local NPC in the driver seat, just like the original.
+                CreatePedInsideVehicle(
+                    vehicle,
+                    0,
+                    GRID_DRIVER_MODEL,
+                    -1,
+                    false,
+                    false
+                )
+            end
+
+            table.insert(generatedPositions, position)
         end
-        SHX1_4(SHX2_4, SHX3_4, SHX4_4)
-      end
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
     end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Bounds Editor"
-  SHX2_2 = nil
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3
-    if SHX2_3 then
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.toggleBoundsEditor
-      SHX3_3()
+
+    SetModelAsNoLongerNeeded(GRID_DRIVER_MODEL)
+
+    -- Print positions so a developer can copy them into config/code.
+    for _, position in ipairs(generatedPositions) do
+        print(
+            "vector4(" ..
+            position.x .. "," ..
+            position.y .. "," ..
+            position.z .. "," ..
+            gridHeading .. "),"
+        )
     end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Object Placement"
-  SHX2_2 = nil
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    if SHX2_3 then
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.clientPrompt
-      SHX4_3 = "Prop Name"
-      SHX5_3 = ""
-      function SHX6_3(SHX0_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX1_4, SHX2_4
-        SHX1_4 = CMG
-        SHX1_4 = SHX1_4.createDebugObject
-        SHX2_4 = SHX0_4
-        SHX1_4(SHX2_4)
-      end
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-    end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
 end
-SHX15_1(SHX16_1, SHX17_1)
-SHX15_1 = CMG
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    return
-  end
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = PlayerPedId
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX3_2()
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = CreateObject
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 1
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX10_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX4_2 = SetEntityInvincible
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityAlpha
-  SHX5_2 = SHX3_2
-  SHX6_2 = 100
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SetModelAsNoLongerNeeded
-  SHX5_2 = SHX1_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = true
-  while SHX4_2 do
-    SHX5_2 = GetEntityCoords
-    SHX6_2 = SHX3_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = GetEntityHeading
-    SHX7_2 = SHX3_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 121
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityCoordsNoOffset
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX5_2.x
-      SHX10_2 = SHX5_2.y
-      SHX11_2 = SHX5_2.z
-      SHX11_2 = SHX11_2 + 0.01
-      SHX12_2 = true
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 178
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityCoordsNoOffset
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX5_2.x
-      SHX10_2 = SHX5_2.y
-      SHX11_2 = SHX5_2.z
-      SHX11_2 = SHX11_2 - 0.01
-      SHX12_2 = true
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 111
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityCoordsNoOffset
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX5_2.x
-      SHX10_2 = SHX5_2.y
-      SHX10_2 = SHX10_2 + 0.01
-      SHX11_2 = SHX5_2.z
-      SHX12_2 = true
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 110
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityCoordsNoOffset
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX5_2.x
-      SHX10_2 = SHX5_2.y
-      SHX10_2 = SHX10_2 - 0.01
-      SHX11_2 = SHX5_2.z
-      SHX12_2 = true
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 108
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityCoordsNoOffset
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX5_2.x
-      SHX9_2 = SHX9_2 - 0.01
-      SHX10_2 = SHX5_2.y
-      SHX11_2 = SHX5_2.z
-      SHX12_2 = true
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 107
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityCoordsNoOffset
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX5_2.x
-      SHX9_2 = SHX9_2 + 0.01
-      SHX10_2 = SHX5_2.y
-      SHX11_2 = SHX5_2.z
-      SHX12_2 = true
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 117
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityHeading
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX6_2 + 0.1
-      SHX7_2(SHX8_2, SHX9_2)
-    end
-    SHX7_2 = IsControlPressed
-    SHX8_2 = 0
-    SHX9_2 = 118
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityHeading
-      SHX8_2 = SHX3_2
-      SHX9_2 = SHX6_2 - 0.1
-      SHX7_2(SHX8_2, SHX9_2)
-    end
-    SHX7_2 = IsControlJustPressed
-    SHX8_2 = 0
-    SHX9_2 = 177
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if SHX7_2 then
-      SHX7_2 = print
-      SHX8_2 = SHX5_2
-      SHX9_2 = SHX6_2
-      SHX7_2(SHX8_2, SHX9_2)
-      SHX7_2 = SetEntityAlpha
-      SHX8_2 = SHX3_2
-      SHX9_2 = 255
-      SHX10_2 = false
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX4_2 = false
-    end
-    SHX7_2 = Wait
-    SHX8_2 = 0
-    SHX7_2(SHX8_2)
-  end
+
+
+-- ============================================================================
+-- 3D BOUNDS EDITOR
+-- ============================================================================
+
+-- All temporary state belonging to the bounds editor.
+local boundsEditor = {
+    moveSpeed = 50.0,
+    mouseSpeed = 500.0,
+
+    camera = nil,
+
+    -- Two opposite corners of the box.
+    min = nil,
+    max = nil,
+
+    -- "NONE", "MIN", or "MAX".
+    selectedType = "NONE",
+
+    -- How far the selected point is from the camera.
+    selectedDistance = 0.0,
+
+    -- Optional callback called when the editor closes.
+    onClose = nil
+}
+
+---Create the eight corners of a rectangular box.
+---@param min vector3
+---@param max vector3
+---@return table
+local function getBoundsCorners(min, max)
+    -- Tiny offset stops faces occupying the exact same plane.
+    local epsilon = 0.001
+
+    return {
+        vector3(min.x - epsilon, min.y - epsilon, min.z - epsilon),
+        vector3(max.x + epsilon, min.y - epsilon, min.z - epsilon),
+        vector3(max.x + epsilon, max.y + epsilon, min.z - epsilon),
+        vector3(min.x - epsilon, max.y + epsilon, min.z - epsilon),
+
+        vector3(min.x - epsilon, min.y - epsilon, max.z + epsilon),
+        vector3(max.x + epsilon, min.y - epsilon, max.z + epsilon),
+        vector3(max.x + epsilon, max.y + epsilon, max.z + epsilon),
+        vector3(min.x - epsilon, max.y + epsilon, max.z + epsilon)
+    }
 end
-SHX15_1.createDebugObject = SHX16_1
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.sort
-  SHX3_2 = SHX0_2
-  function SHX4_2(SHX0_3, SHX1_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX2_3, SHX3_3, SHX4_3
-    SHX2_3 = SHX1_2
-    SHX3_3 = SHX0_3.xyz
-    SHX2_3 = SHX2_3 - SHX3_3
-    SHX2_3 = #SHX2_3
-    SHX3_3 = SHX1_2
-    SHX4_3 = SHX1_3.xyz
-    SHX3_3 = SHX3_3 - SHX4_3
-    SHX3_3 = #SHX3_3
-    SHX2_3 = SHX2_3 < SHX3_3
-    return SHX2_3
-  end
-  SHX2_2(SHX3_2, SHX4_2)
-  return SHX0_2
+
+---Turn the 8 box corners into 12 triangles.
+---A rectangular box has 6 sides, and each side is drawn with 2 triangles.
+---@param corners table
+---@return table
+local function getBoundsTriangles(corners)
+    return {
+        { corners[3], corners[2], corners[1] },
+        { corners[4], corners[3], corners[1] },
+
+        { corners[5], corners[6], corners[7] },
+        { corners[5], corners[7], corners[8] },
+
+        { corners[3], corners[4], corners[7] },
+        { corners[8], corners[7], corners[4] },
+
+        { corners[1], corners[2], corners[5] },
+        { corners[6], corners[5], corners[2] },
+
+        { corners[2], corners[3], corners[6] },
+        { corners[3], corners[7], corners[6] },
+
+        { corners[5], corners[8], corners[4] },
+        { corners[5], corners[4], corners[1] }
+    }
 end
-SHX16_1 = CMG
-SHX16_1 = SHX16_1.registerDevMenuThread
-SHX17_1 = "Coords Editor"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2
-  SHX0_2 = SHX0_1
-  if not SHX0_2 then
-    return
-  end
-  SHX0_2 = pairs
-  SHX1_2 = SHX15_1
-  SHX2_2 = SHX0_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2 = SHX1_2(SHX2_2)
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    if SHX4_2 <= 50 then
-      SHX6_2 = DrawMarker
-      SHX7_2 = 28
-      SHX8_2 = SHX5_2.x
-      SHX9_2 = SHX5_2.y
-      SHX10_2 = SHX5_2.z
-      SHX11_2 = 0.0
-      SHX12_2 = 0.0
-      SHX13_2 = 0.0
-      SHX14_2 = 0.0
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = 0.5
-      SHX18_2 = 0.5
-      SHX19_2 = 0.5
-      SHX20_2 = 255
-      SHX21_2 = 0
-      SHX22_2 = 0
-      SHX23_2 = 100
-      SHX24_2 = false
-      SHX25_2 = false
-      SHX26_2 = 2
-      SHX27_2 = false
-      SHX28_2 = nil
-      SHX29_2 = nil
-      SHX30_2 = false
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
+
+---Draw the triangles that visually show the bounds box.
+---@param triangles table
+local function drawBoundsTriangles(triangles)
+    for index, triangle in ipairs(triangles) do
+        local a = triangle[1]
+        local b = triangle[2]
+        local c = triangle[3]
+
+        -- The original changes the colour slightly for every triangle.
+        local red = index * 19
+        local green = 255 - (index * 19)
+
+        DrawPoly(
+            a.x, a.y, a.z,
+            b.x, b.y, b.z,
+            c.x, c.y, c.z,
+            red, green, 0, 200
+        )
     end
-  end
-  SHX0_2 = drawNativeText
-  SHX1_2 = "Num Vectors: "
-  SHX2_2 = tostring
-  SHX3_2 = SHX0_1
-  SHX3_2 = #SHX3_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX1_2 = SHX1_2 .. SHX2_2
-  SHX0_2(SHX1_2)
-  SHX0_2 = drawNativeNotification
-  SHX1_2 = [[
+end
+
+---Draw the complete bounds box.
+local function drawBoundsBox(min, max)
+    local corners = getBoundsCorners(min, max)
+    local triangles = getBoundsTriangles(corners)
+    drawBoundsTriangles(triangles)
+end
+
+---Move and rotate the free camera.
+local function updateBoundsCamera()
+    local frameTime = GetFrameTime()
+
+    -- GetCamMatrix returns:
+    -- right direction, forward direction, up direction, camera position.
+    local right, forward, up, cameraPosition = GetCamMatrix(boundsEditor.camera)
+    local cameraRotation = GetCamRot(boundsEditor.camera, 2)
+
+    -- W = move forward.
+    DisableControlAction(0, 32, true)
+    if IsDisabledControlPressed(0, 32) then
+        cameraPosition = cameraPosition + (forward * boundsEditor.moveSpeed * frameTime)
+    end
+
+    -- A = move left.
+    DisableControlAction(0, 34, true)
+    if IsDisabledControlPressed(0, 34) then
+        cameraPosition = cameraPosition - (right * boundsEditor.moveSpeed * frameTime)
+    end
+
+    -- S = move backwards.
+    DisableControlAction(0, 33, true)
+    if IsDisabledControlPressed(0, 33) then
+        cameraPosition = cameraPosition - (forward * boundsEditor.moveSpeed * frameTime)
+    end
+
+    -- D = move right.
+    DisableControlAction(0, 35, true)
+    if IsDisabledControlPressed(0, 35) then
+        cameraPosition = cameraPosition + (right * boundsEditor.moveSpeed * frameTime)
+    end
+
+    -- Space = move up.
+    DisableControlAction(0, 22, true)
+    if IsDisabledControlPressed(0, 22) then
+        cameraPosition = cameraPosition + (up * boundsEditor.moveSpeed * frameTime)
+    end
+
+    -- Shift = move down in this editor.
+    DisableControlAction(0, 21, true)
+    if IsDisabledControlPressed(0, 21) then
+        cameraPosition = cameraPosition - (up * boundsEditor.moveSpeed * frameTime)
+    end
+
+    -- Mouse X rotates camera left/right.
+    DisableControlAction(0, 1, true)
+    local mouseX = -GetDisabledControlNormal(0, 1)
+    local yawChange = mouseX * boundsEditor.mouseSpeed * frameTime
+    cameraRotation = cameraRotation + vector3(0.0, 0.0, yawChange)
+
+    -- Mouse Y rotates camera up/down.
+    DisableControlAction(0, 2, true)
+    local mouseY = -GetDisabledControlNormal(0, 2)
+    local pitchChange = mouseY * boundsEditor.mouseSpeed * frameTime
+
+    -- Stop the camera from flipping upside down.
+    if math.abs(cameraRotation.x + pitchChange) < 70.0 then
+        cameraRotation = cameraRotation + vector3(pitchChange, 0.0, 0.0)
+    end
+
+    SetCamCoord(
+        boundsEditor.camera,
+        cameraPosition.x,
+        cameraPosition.y,
+        cameraPosition.z
+    )
+
+    SetCamRot(
+        boundsEditor.camera,
+        cameraRotation.x,
+        cameraRotation.y,
+        cameraRotation.z,
+        2
+    )
+end
+
+---Return true if a world-space point is roughly underneath the screen centre.
+---@param point vector3
+local function pointIsNearScreenCentre(point)
+    local visible, screenX, screenY =
+        GetScreenCoordFromWorldCoord(point.x, point.y, point.z)
+
+    if not visible then
+        return false
+    end
+
+    return math.abs(screenX - 0.5) < 0.02
+       and math.abs(screenY - 0.5) < 0.05
+end
+
+---Allow the user to grab either the MIN or MAX corner with the mouse.
+local function updateBoundsSelection()
+    -- Left mouse / attack.
+    DisableControlAction(0, 24, true)
+
+    if IsDisabledControlPressed(0, 24) then
+        if boundsEditor.selectedType == "NONE" then
+            -- First try selecting the minimum corner.
+            if pointIsNearScreenCentre(boundsEditor.min) then
+                boundsEditor.selectedType = "MIN"
+                boundsEditor.selectedDistance =
+                    #(GetCamCoord(boundsEditor.camera) - boundsEditor.min)
+                return
+            end
+
+            -- Then try selecting the maximum corner.
+            if pointIsNearScreenCentre(boundsEditor.max) then
+                boundsEditor.selectedType = "MAX"
+                boundsEditor.selectedDistance =
+                    #(GetCamCoord(boundsEditor.camera) - boundsEditor.max)
+                return
+            end
+        else
+            -- While held, put the selected point directly in front of camera.
+            local _, forward, _, cameraPosition = GetCamMatrix(boundsEditor.camera)
+            local newPosition =
+                cameraPosition + (forward * boundsEditor.selectedDistance)
+
+            if boundsEditor.selectedType == "MIN" then
+                boundsEditor.min = newPosition
+            else
+                boundsEditor.max = newPosition
+            end
+        end
+    else
+        -- Mouse released = stop dragging.
+        boundsEditor.selectedType = "NONE"
+    end
+
+    -- Backspace closes the bounds editor.
+    DisableControlAction(0, 177, true)
+
+    if IsDisabledControlPressed(0, 177) then
+        CMG.toggleBoundsEditor()
+    end
+end
+
+---Draw the two draggable corner markers and the box itself.
+local function drawBoundsEditor()
+    local function drawCornerMarker(position)
+        DrawMarker(
+            28,
+            position.x, position.y, position.z,
+            0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0,
+            3.0, 3.0, 3.0,
+            0, 0, 255, 255,
+            false, false, 2, false,
+            nil, nil, false
+        )
+    end
+
+    drawCornerMarker(boundsEditor.min)
+    drawCornerMarker(boundsEditor.max)
+    drawBoundsBox(boundsEditor.min, boundsEditor.max)
+end
+
+---Called every frame while the bounds editor is open.
+local function updateBoundsEditor()
+    updateBoundsCamera()
+    updateBoundsSelection()
+    drawBoundsEditor()
+end
+
+---Clean up the camera and restore normal player controls.
+local function destroyBoundsCamera()
+    if not boundsEditor.camera then
+        return
+    end
+
+    SetPlayerControl(PlayerId(), true, 0)
+    RenderScriptCams(false, false, 0, false, false)
+
+    SetCamActive(boundsEditor.camera, false)
+    DestroyCam(boundsEditor.camera, false)
+
+    boundsEditor.camera = nil
+    boundsEditor.selectedType = "NONE"
+end
+
+---Finish the editor and keep the current min/max values.
+local function finishBoundsEditor()
+    if not boundsEditor.camera then
+        return
+    end
+
+    local min = boundsEditor.min
+    local max = boundsEditor.max
+    local onClose = boundsEditor.onClose
+
+    boundsEditor.onClose = nil
+
+    destroyBoundsCamera()
+
+    if onClose then
+        onClose(min, max)
+    else
+        -- If no callback was provided, simply show the result.
+        CMG.clientPrompt(
+            "Bounds",
+            tostring(min) .. ", " .. tostring(max),
+            function()
+            end
+        )
+    end
+
+    -- The original script hides the developer menu after closing.
+    RageUI.Visible(RMenu:Get("devmenu", "main"), false)
+end
+
+---Open the bounds editor.
+---
+---options may contain:
+---  options.min     = starting minimum vector
+---  options.max     = starting maximum vector
+---  options.onClose = function(min, max)
+---@param options table|nil
+local function startBoundsEditor(options)
+    options = options or {}
+
+    SetPlayerControl(PlayerId(), false, 0)
+
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed, true)
+
+    boundsEditor.camera = CreateCamWithParams(
+        "DEFAULT_SCRIPTED_CAMERA",
+        playerCoords.x,
+        playerCoords.y,
+        playerCoords.z,
+        0.0,
+        0.0,
+        0.0,
+        70.0,
+        false,
+        0
+    )
+
+    SetCamActive(boundsEditor.camera, true)
+    RenderScriptCams(true, false, 0, false, false)
+
+    if options.min and options.max then
+        boundsEditor.min = options.min
+        boundsEditor.max = options.max
+    else
+        -- Default to a box around/in front of the player.
+        boundsEditor.min =
+            GetOffsetFromEntityInWorldCoords(playerPed, -10.0, -10.0, 0.0)
+
+        boundsEditor.max =
+            GetOffsetFromEntityInWorldCoords(playerPed, 10.0, 10.0, 20.0)
+    end
+
+    boundsEditor.selectedType = "NONE"
+    boundsEditor.onClose = options.onClose
+
+    Citizen.CreateThread(function()
+        while boundsEditor.camera do
+            updateBoundsEditor()
+            Citizen.Wait(0)
+        end
+    end)
+
+    RageUI.Visible(RMenu:Get("devmenu", "main"), false)
+end
+
+---True when the bounds editor is currently running.
+function CMG.isBoundsEditorActive()
+    return boundsEditor.camera ~= nil
+end
+
+---Close the editor without saving.
+function CMG.cancelBoundsEditor()
+    if not boundsEditor.camera then
+        return
+    end
+
+    local onClose = boundsEditor.onClose
+    boundsEditor.onClose = nil
+
+    destroyBoundsCamera()
+
+    if onClose then
+        onClose(nil, nil)
+    end
+end
+
+---Open the editor and wait until the user closes it.
+---
+---This helper is useful from code that wants:
+---    local min, max = CMG.runBoundsEditor(oldMin, oldMax)
+---@return vector3|nil, vector3|nil
+function CMG.runBoundsEditor(min, max)
+    if boundsEditor.camera then
+        return nil, nil
+    end
+
+    local finished = false
+    local resultMin = nil
+    local resultMax = nil
+
+    startBoundsEditor({
+        min = min,
+        max = max,
+
+        onClose = function(newMin, newMax)
+            resultMin = newMin
+            resultMax = newMax
+            finished = true
+        end
+    })
+
+    -- The original function waits here until the editor camera disappears.
+    while boundsEditor.camera do
+        Wait(0)
+    end
+
+    if not finished then
+        return nil, nil
+    end
+
+    return resultMin, resultMax
+end
+
+---Open the editor if closed; finish/save it if already open.
+function CMG.toggleBoundsEditor()
+    if boundsEditor.camera then
+        finishBoundsEditor()
+    else
+        startBoundsEditor()
+    end
+end
+
+
+-- ============================================================================
+-- DEVELOPER MENU: EDITOR BUTTONS
+-- ============================================================================
+
+CMG.registerDevMenuItems("Editors", function()
+    RageUI.Button("Vector3 Coords Editor", nil, true, function(_, _, selected)
+        if selected then
+            CMG.clientPrompt("Enter Vector3 List", "", function(text)
+                loadCoordinateList(text, 3)
+            end)
+        end
+    end)
+
+    RageUI.Button("Vector4 Coords Editor", nil, true, function(_, _, selected)
+        if selected then
+            CMG.clientPrompt("Enter Vector4 List", "", function(text)
+                loadCoordinateList(text, 4)
+            end)
+        end
+    end)
+
+    RageUI.Button("Grid Position Saver", nil, true, function(_, _, selected)
+        if not selected then
+            return
+        end
+
+        CMG.clientPrompt("Vehicle Name", "", function(vehicleName)
+            Wait(100)
+
+            CMG.clientPrompt("Number of Rows", "", function(rows)
+                Wait(100)
+
+                CMG.clientPrompt("Number of Columns", "", function(columns)
+                    Wait(100)
+                    CMG.gridPositionSaver(vehicleName, rows, columns)
+                end)
+            end)
+        end)
+    end)
+
+    RageUI.Button("Bounds Editor", nil, true, function(_, _, selected)
+        if selected then
+            CMG.toggleBoundsEditor()
+        end
+    end)
+
+    RageUI.Button("Object Placement", nil, true, function(_, _, selected)
+        if selected then
+            CMG.clientPrompt("Prop Name", "", function(propName)
+                CMG.createDebugObject(propName)
+            end)
+        end
+    end)
+end)
+
+
+-- ============================================================================
+-- DEBUG OBJECT PLACEMENT
+-- ============================================================================
+
+---Spawn a transparent local prop and let the developer move it precisely.
+---
+---Controls are the same numeric controls used by the original script.
+---@param model string|number
+function CMG.createDebugObject(model)
+    local modelHash = CMG.loadModel(model)
+
+    if not modelHash then
+        return
+    end
+
+    local playerCoords = GetEntityCoords(PlayerPedId())
+
+    local object = CreateObject(
+        modelHash,
+        playerCoords.x,
+        playerCoords.y,
+        playerCoords.z - 1.0,
+        false,
+        false,
+        true
+    )
+
+    SetEntityInvincible(object, true)
+    FreezeEntityPosition(object, true)
+    SetEntityAlpha(object, 100, false)
+
+    SetModelAsNoLongerNeeded(modelHash)
+
+    local editing = true
+
+    while editing do
+        local coords = GetEntityCoords(object)
+        local heading = GetEntityHeading(object)
+
+        -- Move Z up.
+        if IsControlPressed(0, 121) then
+            SetEntityCoordsNoOffset(
+                object,
+                coords.x,
+                coords.y,
+                coords.z + 0.01,
+                true,
+                false,
+                false
+            )
+        end
+
+        -- Move Z down.
+        if IsControlPressed(0, 178) then
+            SetEntityCoordsNoOffset(
+                object,
+                coords.x,
+                coords.y,
+                coords.z - 0.01,
+                true,
+                false,
+                false
+            )
+        end
+
+        -- Move Y positive.
+        if IsControlPressed(0, 111) then
+            SetEntityCoordsNoOffset(
+                object,
+                coords.x,
+                coords.y + 0.01,
+                coords.z,
+                true,
+                false,
+                false
+            )
+        end
+
+        -- Move Y negative.
+        if IsControlPressed(0, 110) then
+            SetEntityCoordsNoOffset(
+                object,
+                coords.x,
+                coords.y - 0.01,
+                coords.z,
+                true,
+                false,
+                false
+            )
+        end
+
+        -- Move X negative.
+        if IsControlPressed(0, 108) then
+            SetEntityCoordsNoOffset(
+                object,
+                coords.x - 0.01,
+                coords.y,
+                coords.z,
+                true,
+                false,
+                false
+            )
+        end
+
+        -- Move X positive.
+        if IsControlPressed(0, 107) then
+            SetEntityCoordsNoOffset(
+                object,
+                coords.x + 0.01,
+                coords.y,
+                coords.z,
+                true,
+                false,
+                false
+            )
+        end
+
+        -- Rotate one direction.
+        if IsControlPressed(0, 117) then
+            SetEntityHeading(object, heading + 0.1)
+        end
+
+        -- Rotate the other direction.
+        if IsControlPressed(0, 118) then
+            SetEntityHeading(object, heading - 0.1)
+        end
+
+        -- Backspace = finish editing and leave the object in place.
+        if IsControlJustPressed(0, 177) then
+            local finalCoords = GetEntityCoords(object)
+            local finalHeading = GetEntityHeading(object)
+
+            print(finalCoords, finalHeading)
+
+            SetEntityAlpha(object, 255, false)
+            editing = false
+        end
+
+        Wait(0)
+    end
+end
+
+
+-- ============================================================================
+-- COORDINATE EDITOR TICK
+-- ============================================================================
+
+---Sort coordinates so the nearest points to the player come first.
+---@param coords table
+---@return table
+local function sortCoordinatesByDistance(coords)
+    local playerCoords = CMG.getPlayerCoords()
+
+    table.sort(coords, function(a, b)
+        local aPosition = a.xyz or a
+        local bPosition = b.xyz or b
+
+        return #(playerCoords - aPosition) < #(playerCoords - bPosition)
+    end)
+
+    return coords
+end
+
+---Runs every developer-menu tick while a coordinate list is loaded.
+local function coordinateEditorTick()
+    if not editedCoords then
+        return
+    end
+
+    -- Sorting means the first 50 points are the 50 closest points.
+    sortCoordinatesByDistance(editedCoords)
+
+    for index, coords in pairs(editedCoords) do
+        if index <= 50 then
+            DrawMarker(
+                28,
+                coords.x, coords.y, coords.z,
+                0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0,
+                0.5, 0.5, 0.5,
+                255, 0, 0, 100,
+                false, false, 2, false,
+                nil, nil, false
+            )
+        end
+    end
+
+    drawNativeText("Num Vectors: " .. tostring(#editedCoords))
+
+    drawNativeNotification([[
 Press ~INPUT_CONTEXT~ to place
 Press ~INPUT_RELOAD~ to delete
-Press ~INPUT_DETONATE~ to save file]]
-  SHX0_2(SHX1_2)
-  SHX0_2 = IsControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 51
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerCoords
-    SHX0_2 = SHX0_2()
-    SHX1_2 = type
-    SHX2_2 = SHX0_1
-    SHX2_2 = SHX2_2[1]
-    SHX1_2 = SHX1_2(SHX2_2)
-    if "vector3" == SHX1_2 then
-      SHX1_2 = table
-      SHX1_2 = SHX1_2.insert
-      SHX2_2 = SHX0_1
-      SHX3_2 = SHX0_2
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = SHX2_1
-      SHX1_2()
-    else
-      SHX1_2 = table
-      SHX1_2 = SHX1_2.insert
-      SHX2_2 = SHX0_1
-      SHX3_2 = vector4
-      SHX4_2 = SHX0_2.x
-      SHX5_2 = SHX0_2.y
-      SHX6_2 = SHX0_2.z
-      SHX7_2 = GetEntityHeading
-      SHX8_2 = PlayerPedId
-      SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2 = SHX8_2()
-      SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-      SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-      SHX1_2 = SHX2_1
-      SHX1_2()
+Press ~INPUT_DETONATE~ to save file]])
+
+    -- E / INPUT_CONTEXT: add the player's current coordinates.
+    if IsControlJustPressed(0, 51) then
+        local playerCoords = CMG.getPlayerCoords()
+
+        -- Keep the same vector type as the existing list.
+        if type(editedCoords[1]) == "vector3" then
+            table.insert(editedCoords, playerCoords)
+        else
+            table.insert(editedCoords, vector4(
+                playerCoords.x,
+                playerCoords.y,
+                playerCoords.z,
+                GetEntityHeading(PlayerPedId())
+            ))
+        end
+
+        refreshCoordinateBlips()
     end
-  end
-  SHX0_2 = IsControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 45
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = table
-    SHX0_2 = SHX0_2.remove
-    SHX1_2 = SHX0_1
-    SHX2_2 = SHX0_1
-    SHX2_2 = #SHX2_2
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = SHX2_1
-    SHX0_2()
-  end
-  SHX0_2 = IsControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 47
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = TriggerServerEvent
-    SHX1_2 = "2b9c7299fb"
-    SHX2_2 = SHX0_1
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = nil
-    SHX0_1 = SHX0_2
-  end
+
+    -- R / INPUT_RELOAD: remove the final coordinate.
+    if IsControlJustPressed(0, 45) then
+        table.remove(editedCoords, #editedCoords)
+        refreshCoordinateBlips()
+    end
+
+    -- G / INPUT_DETONATE: send the list to the server to be saved.
+    if IsControlJustPressed(0, 47) then
+        TriggerServerEvent("2b9c7299fb", editedCoords)
+
+        -- This matches the original behaviour.
+        -- It stops the editor after sending the list.
+        editedCoords = nil
+    end
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = {}
-SHX17_1 = -5
-SHX18_1 = 5
-SHX19_1 = 0.01
-for SHX20_1 = SHX17_1, SHX18_1, SHX19_1 do
-  SHX21_1 = table
-  SHX21_1 = SHX21_1.insert
-  SHX22_1 = SHX16_1
-  SHX23_1 = math
-  SHX23_1 = SHX23_1.floor
-  SHX24_1 = SHX20_1 * 1000
-  SHX23_1 = SHX23_1(SHX24_1)
-  SHX23_1 = SHX23_1 / 1000
-  SHX21_1(SHX22_1, SHX23_1)
+
+CMG.registerDevMenuThread("Coords Editor", coordinateEditorTick)
+
+
+-- ============================================================================
+-- PROP ATTACHMENT / PROP PLACEMENT EDITOR
+-- ============================================================================
+
+-- Position choices: -5.00 through +5.00 in 0.01 steps.
+local positionValues = {}
+
+for value = -500, 500 do
+    table.insert(positionValues, value / 100.0)
 end
-SHX17_1 = {}
-SHX18_1 = -360
-SHX19_1 = 360
-SHX20_1 = 1.0000001
-for SHX21_1 = SHX18_1, SHX19_1, SHX20_1 do
-  SHX22_1 = table
-  SHX22_1 = SHX22_1.insert
-  SHX23_1 = SHX17_1
-  SHX24_1 = math
-  SHX24_1 = SHX24_1.floor
-  SHX25_1 = SHX21_1 * 1000
-  SHX24_1 = SHX24_1(SHX25_1)
-  SHX24_1 = SHX24_1 / 1000
-  SHX22_1(SHX23_1, SHX24_1)
+
+-- Rotation choices: -360 through +360 degrees.
+local rotationValues = {}
+
+for value = -360, 360 do
+    table.insert(rotationValues, value)
 end
-SHX18_1 = ""
-SHX19_1 = 0
-SHX20_1 = 500
-SHX21_1 = 500
-SHX22_1 = 500
-SHX23_1 = 360
-SHX24_1 = 360
-SHX25_1 = 360
-function SHX26_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = table
-  SHX9_2 = SHX9_2.unpack
-  SHX10_2 = GetEntityCoords
-  SHX11_2 = SHX8_2
-  SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX10_2(SHX11_2)
-  SHX9_2, SHX10_2, SHX11_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.loadModel
-  SHX13_2 = SHX0_2
-  SHX12_2(SHX13_2)
-  SHX12_2 = CreateObject
-  SHX13_2 = GetHashKey
-  SHX14_2 = SHX0_2
-  SHX13_2 = SHX13_2(SHX14_2)
-  SHX14_2 = SHX9_2
-  SHX15_2 = SHX10_2
-  SHX16_2 = SHX11_2 + 0.2
-  SHX17_2 = false
-  SHX18_2 = true
-  SHX19_2 = true
-  SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  SHX13_2 = AttachEntityToEntity
-  SHX14_2 = SHX12_2
-  SHX15_2 = SHX8_2
-  SHX16_2 = GetPedBoneIndex
-  SHX17_2 = SHX8_2
-  SHX18_2 = SHX1_2
-  SHX16_2 = SHX16_2(SHX17_2, SHX18_2)
-  SHX17_2 = SHX2_2
-  SHX18_2 = SHX3_2
-  SHX19_2 = SHX4_2
-  SHX20_2 = SHX5_2
-  SHX21_2 = SHX6_2
-  SHX22_2 = SHX7_2
-  SHX23_2 = true
-  SHX24_2 = true
-  SHX25_2 = false
-  SHX26_2 = true
-  SHX27_2 = 1
-  SHX28_2 = true
-  SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-  SHX13_2 = SetModelAsNoLongerNeeded
-  SHX14_2 = SHX0_2
-  SHX13_2(SHX14_2)
-  return SHX12_2
+
+-- Current prop-placement settings.
+local propName = ""
+local previewProp = 0
+
+-- These are LIST INDICES, not actual position/rotation numbers.
+-- The unusual defaults are preserved from the decompiled script.
+local posXIndex = 500
+local posYIndex = 500
+local posZIndex = 500
+
+local rotXIndex = 360
+local rotYIndex = 360
+local rotZIndex = 360
+
+---Spawn a prop and attach it to a bone on the player's ped.
+---@param modelName string
+---@param boneId number
+---@param posX number
+---@param posY number
+---@param posZ number
+---@param rotX number
+---@param rotY number
+---@param rotZ number
+---@return number
+local function createAttachedProp(
+    modelName,
+    boneId,
+    posX,
+    posY,
+    posZ,
+    rotX,
+    rotY,
+    rotZ
+)
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+
+    local loadedModel = CMG.loadModel(modelName)
+
+    if not loadedModel then
+        return 0
+    end
+
+    -- CMG.loadModel normally returns the model hash.
+    local modelHash = loadedModel
+
+    local object = CreateObject(
+        modelHash,
+        playerCoords.x,
+        playerCoords.y,
+        playerCoords.z + 0.2,
+        false,
+        true,
+        true
+    )
+
+    AttachEntityToEntity(
+        object,
+        playerPed,
+        GetPedBoneIndex(playerPed, boneId),
+        posX,
+        posY,
+        posZ,
+        rotX,
+        rotY,
+        rotZ,
+        true,
+        true,
+        false,
+        true,
+        1,
+        true
+    )
+
+    SetModelAsNoLongerNeeded(modelHash)
+
+    return object
 end
-SHX27_1 = CMG
-SHX27_1 = SHX27_1.registerDevMenuItems
-SHX28_1 = "Editors/Prop Placement"
-function SHX29_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.ButtonWithStyle
-  SHX1_2 = "Prop Name: "
-  SHX2_2 = SHX18_1
-  SHX1_2 = SHX1_2 .. SHX2_2
-  SHX2_2 = ""
-  SHX3_2 = {}
-  SHX4_2 = true
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    if SHX2_3 then
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.clientPrompt
-      SHX4_3 = "Prop Name: "
-      SHX5_3 = ""
-      function SHX6_3(SHX0_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX1_4
-        SHX18_1 = SHX0_4
-      end
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
+
+---Delete the old preview and create a new one using the menu values.
+local function refreshAttachedPropPreview()
+    if previewProp and previewProp ~= 0 then
+        DeleteEntity(previewProp)
+        previewProp = 0
     end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Pos X"
-  SHX2_2 = SHX16_1
-  SHX3_2 = SHX20_1
-  SHX4_2 = nil
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX20_1 = SHX3_3
-    if SHX1_3 then
-      SHX4_3 = DeleteEntity
-      SHX5_3 = SHX19_1
-      SHX4_3(SHX5_3)
-      SHX4_3 = SHX26_1
-      SHX5_3 = SHX18_1
-      SHX6_3 = 60309
-      SHX8_3 = SHX20_1
-      SHX7_3 = SHX16_1
-      SHX7_3 = SHX7_3[SHX8_3]
-      SHX9_3 = SHX21_1
-      SHX8_3 = SHX16_1
-      SHX8_3 = SHX8_3[SHX9_3]
-      SHX10_3 = SHX22_1
-      SHX9_3 = SHX16_1
-      SHX9_3 = SHX9_3[SHX10_3]
-      SHX11_3 = SHX23_1
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX11_3]
-      SHX12_3 = SHX24_1
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX12_3]
-      SHX13_3 = SHX25_1
-      SHX12_3 = SHX17_1
-      SHX12_3 = SHX12_3[SHX13_3]
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX19_1 = SHX4_3
+
+    if not propName or propName == "" then
+        return
     end
-  end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Pos Y"
-  SHX2_2 = SHX16_1
-  SHX3_2 = SHX21_1
-  SHX4_2 = nil
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX21_1 = SHX3_3
-    if SHX1_3 then
-      SHX4_3 = DeleteEntity
-      SHX5_3 = SHX19_1
-      SHX4_3(SHX5_3)
-      SHX4_3 = SHX26_1
-      SHX5_3 = SHX18_1
-      SHX6_3 = 60309
-      SHX8_3 = SHX20_1
-      SHX7_3 = SHX16_1
-      SHX7_3 = SHX7_3[SHX8_3]
-      SHX9_3 = SHX21_1
-      SHX8_3 = SHX16_1
-      SHX8_3 = SHX8_3[SHX9_3]
-      SHX10_3 = SHX22_1
-      SHX9_3 = SHX16_1
-      SHX9_3 = SHX9_3[SHX10_3]
-      SHX11_3 = SHX23_1
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX11_3]
-      SHX12_3 = SHX24_1
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX12_3]
-      SHX13_3 = SHX25_1
-      SHX12_3 = SHX17_1
-      SHX12_3 = SHX12_3[SHX13_3]
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX19_1 = SHX4_3
-    end
-  end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Pos Z"
-  SHX2_2 = SHX16_1
-  SHX3_2 = SHX22_1
-  SHX4_2 = nil
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX22_1 = SHX3_3
-    if SHX1_3 then
-      SHX4_3 = DeleteEntity
-      SHX5_3 = SHX19_1
-      SHX4_3(SHX5_3)
-      SHX4_3 = SHX26_1
-      SHX5_3 = SHX18_1
-      SHX6_3 = 60309
-      SHX8_3 = SHX20_1
-      SHX7_3 = SHX16_1
-      SHX7_3 = SHX7_3[SHX8_3]
-      SHX9_3 = SHX21_1
-      SHX8_3 = SHX16_1
-      SHX8_3 = SHX8_3[SHX9_3]
-      SHX10_3 = SHX22_1
-      SHX9_3 = SHX16_1
-      SHX9_3 = SHX9_3[SHX10_3]
-      SHX11_3 = SHX23_1
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX11_3]
-      SHX12_3 = SHX24_1
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX12_3]
-      SHX13_3 = SHX25_1
-      SHX12_3 = SHX17_1
-      SHX12_3 = SHX12_3[SHX13_3]
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX19_1 = SHX4_3
-    end
-  end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Rot X"
-  SHX2_2 = SHX17_1
-  SHX3_2 = SHX23_1
-  SHX4_2 = nil
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX23_1 = SHX3_3
-    if SHX1_3 then
-      SHX4_3 = DeleteEntity
-      SHX5_3 = SHX19_1
-      SHX4_3(SHX5_3)
-      SHX4_3 = SHX26_1
-      SHX5_3 = SHX18_1
-      SHX6_3 = 60309
-      SHX8_3 = SHX20_1
-      SHX7_3 = SHX16_1
-      SHX7_3 = SHX7_3[SHX8_3]
-      SHX9_3 = SHX21_1
-      SHX8_3 = SHX16_1
-      SHX8_3 = SHX8_3[SHX9_3]
-      SHX10_3 = SHX22_1
-      SHX9_3 = SHX16_1
-      SHX9_3 = SHX9_3[SHX10_3]
-      SHX11_3 = SHX23_1
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX11_3]
-      SHX12_3 = SHX24_1
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX12_3]
-      SHX13_3 = SHX25_1
-      SHX12_3 = SHX17_1
-      SHX12_3 = SHX12_3[SHX13_3]
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX19_1 = SHX4_3
-    end
-  end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Rot Y"
-  SHX2_2 = SHX17_1
-  SHX3_2 = SHX24_1
-  SHX4_2 = nil
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX24_1 = SHX3_3
-    if SHX1_3 then
-      SHX4_3 = DeleteEntity
-      SHX5_3 = SHX19_1
-      SHX4_3(SHX5_3)
-      SHX4_3 = SHX26_1
-      SHX5_3 = SHX18_1
-      SHX6_3 = 60309
-      SHX8_3 = SHX20_1
-      SHX7_3 = SHX16_1
-      SHX7_3 = SHX7_3[SHX8_3]
-      SHX9_3 = SHX21_1
-      SHX8_3 = SHX16_1
-      SHX8_3 = SHX8_3[SHX9_3]
-      SHX10_3 = SHX22_1
-      SHX9_3 = SHX16_1
-      SHX9_3 = SHX9_3[SHX10_3]
-      SHX11_3 = SHX23_1
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX11_3]
-      SHX12_3 = SHX24_1
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX12_3]
-      SHX13_3 = SHX25_1
-      SHX12_3 = SHX17_1
-      SHX12_3 = SHX12_3[SHX13_3]
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX19_1 = SHX4_3
-    end
-  end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Rot Z"
-  SHX2_2 = SHX17_1
-  SHX3_2 = SHX25_1
-  SHX4_2 = nil
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX25_1 = SHX3_3
-    if SHX1_3 then
-      SHX4_3 = DeleteEntity
-      SHX5_3 = SHX19_1
-      SHX4_3(SHX5_3)
-      SHX4_3 = SHX26_1
-      SHX5_3 = SHX18_1
-      SHX6_3 = 60309
-      SHX8_3 = SHX20_1
-      SHX7_3 = SHX16_1
-      SHX7_3 = SHX7_3[SHX8_3]
-      SHX9_3 = SHX21_1
-      SHX8_3 = SHX16_1
-      SHX8_3 = SHX8_3[SHX9_3]
-      SHX10_3 = SHX22_1
-      SHX9_3 = SHX16_1
-      SHX9_3 = SHX9_3[SHX10_3]
-      SHX11_3 = SHX23_1
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX11_3]
-      SHX12_3 = SHX24_1
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX12_3]
-      SHX13_3 = SHX25_1
-      SHX12_3 = SHX17_1
-      SHX12_3 = SHX12_3[SHX13_3]
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX19_1 = SHX4_3
-    end
-  end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+
+    previewProp = createAttachedProp(
+        propName,
+        60309,
+        positionValues[posXIndex],
+        positionValues[posYIndex],
+        positionValues[posZIndex],
+        rotationValues[rotXIndex],
+        rotationValues[rotYIndex],
+        rotationValues[rotZIndex]
+    )
 end
-SHX27_1(SHX28_1, SHX29_1)
+
+---Small helper so the six RageUI.List callbacks do not contain the same
+---30 lines of duplicated decompiled code.
+local function handlePlacementListChange(isActive)
+    if isActive then
+        refreshAttachedPropPreview()
+    end
+end
+
+CMG.registerDevMenuItems("Editors/Prop Placement", function()
+    RageUI.ButtonWithStyle(
+        "Prop Name: " .. propName,
+        "",
+        {},
+        true,
+        function(_, _, selected)
+            if selected then
+                CMG.clientPrompt("Prop Name: ", "", function(value)
+                    propName = value or ""
+                end)
+            end
+        end
+    )
+
+    RageUI.List(
+        "Pos X",
+        positionValues,
+        posXIndex,
+        nil,
+        {},
+        true,
+        function(_, active, _, index)
+            posXIndex = index
+            handlePlacementListChange(active)
+        end,
+        function()
+        end
+    )
+
+    RageUI.List(
+        "Pos Y",
+        positionValues,
+        posYIndex,
+        nil,
+        {},
+        true,
+        function(_, active, _, index)
+            posYIndex = index
+            handlePlacementListChange(active)
+        end,
+        function()
+        end
+    )
+
+    RageUI.List(
+        "Pos Z",
+        positionValues,
+        posZIndex,
+        nil,
+        {},
+        true,
+        function(_, active, _, index)
+            posZIndex = index
+            handlePlacementListChange(active)
+        end,
+        function()
+        end
+    )
+
+    RageUI.List(
+        "Rot X",
+        rotationValues,
+        rotXIndex,
+        nil,
+        {},
+        true,
+        function(_, active, _, index)
+            rotXIndex = index
+            handlePlacementListChange(active)
+        end,
+        function()
+        end
+    )
+
+    RageUI.List(
+        "Rot Y",
+        rotationValues,
+        rotYIndex,
+        nil,
+        {},
+        true,
+        function(_, active, _, index)
+            rotYIndex = index
+            handlePlacementListChange(active)
+        end,
+        function()
+        end
+    )
+
+    RageUI.List(
+        "Rot Z",
+        rotationValues,
+        rotZIndex,
+        nil,
+        {},
+        true,
+        function(_, active, _, index)
+            rotZIndex = index
+            handlePlacementListChange(active)
+        end,
+        function()
+        end
+    )
+end)
