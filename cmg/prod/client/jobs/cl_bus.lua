@@ -1,445 +1,708 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    CMG BUS DRIVER JOB
+    Beginner-Friendly Rewrite
+    ================================================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = {}
-SHX0_1.onJob = false
-SHX1_1 = vector3
-SHX2_1 = 423.28366088867
-SHX3_1 = -611.52502441406
-SHX4_1 = 28.499677658081
-SHX1_1 = SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX0_1.spawnVehicleVector = SHX1_1
-SHX1_1 = vector3
-SHX2_1 = 429.52169799804
-SHX3_1 = -587.45068359375
-SHX4_1 = 29.499813079834
-SHX1_1 = SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX0_1.startVector = SHX1_1
-SHX0_1.tempMarker = 0
-SHX0_1.tempVehicle = 0
-SHX0_1.tempObject = 0
-SHX0_1.cashEarned = 0
-SHX0_1.stopNumber = 0
-SHX1_1 = 15
-SHX2_1 = CMG
-SHX2_1 = SHX2_1.registerHudTimerBarProvider
-SHX3_1 = "busJob"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SHX0_1.onJob
-  if not SHX1_2 then
-    return
-  end
-  SHX1_2 = SHX0_2.push
-  SHX2_2 = "~g~EARNED:"
-  SHX3_2 = "\194\163"
-  SHX4_2 = getMoneyStringFormatted
-  SHX5_2 = SHX0_1.cashEarned
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX3_2 = SHX3_2 .. SHX4_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_2.push
-  SHX2_2 = "PACKAGES:"
-  SHX3_2 = SHX0_1.stopNumber
-  SHX4_2 = "/"
-  SHX5_2 = SHX1_1
-  SHX3_2 = SHX3_2 .. SHX4_2 .. SHX5_2
-  SHX1_2(SHX2_2, SHX3_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "7332a52cba"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.requestEntitySpawn
-  SHX1_2 = "busjob"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.spawnVehicle
-  SHX1_2 = "bus"
-  SHX2_2 = SHX0_1.spawnVehicleVector
-  SHX2_2 = SHX2_2.x
-  SHX3_2 = SHX0_1.spawnVehicleVector
-  SHX3_2 = SHX3_2.y
-  SHX4_2 = SHX0_1.spawnVehicleVector
-  SHX4_2 = SHX4_2.z
-  SHX5_2 = 343
-  SHX6_2 = true
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_1.tempVehicle = SHX0_2
-  SHX0_1.onJob = true
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setHudTimerBarProviderActive
-  SHX1_2 = "busJob"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.notify
-  SHX1_2 = "~g~Bus Job started, exit the bus station and head to the first bus stop."
-  SHX0_2(SHX1_2)
-  while true do
-    SHX0_2 = SHX0_1.onJob
-    if not SHX0_2 then
-      break
-    end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setHudTimerBarProviderActive
-  SHX1_2 = "busJob"
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "3ecacefd77"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.notify
-  SHX1_2 = "~g~Shift complete"
-  SHX0_2(SHX1_2)
-  SHX0_2 = DeleteVehicle
-  SHX1_2 = GetVehiclePedIsIn
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = false
-  SHX1_2, SHX2_2, SHX3_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DeleteVehicle
-  SHX1_2 = SHX0_1.tempVehicle
-  SHX0_2(SHX1_2)
-  SHX0_1.onJob = false
-  SHX0_1.tempMarker = 0
-  SHX0_1.tempBlip = nil
-  SHX0_1.tempVehicle = 0
-  SHX0_1.tempObject = 0
-  SHX0_1.cashEarned = 0
-  SHX0_1.stopNumber = 0
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "76c99145ae"
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX2_2 = nil
-  SHX2_2 = SHX0_1.tempVehicle
-  SHX3_2 = SHX0_1.stopNumber
-  SHX3_2 = SHX3_2 + 1
-  SHX0_1.stopNumber = SHX3_2
-  if SHX1_2 then
-    SHX3_2 = SHX0_1.cashEarned
-    SHX3_2 = SHX3_2 + SHX1_2
-    SHX0_1.cashEarned = SHX3_2
-  end
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.CreateThread
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    while true do
-      SHX0_3 = SHX2_2
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = SetVehicleEngineOn
-      SHX1_3 = SHX2_2
-      SHX2_3 = false
-      SHX3_3 = true
-      SHX4_3 = false
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-      SHX0_3 = Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
-    end
-  end
-  SHX3_2(SHX4_2)
-  SHX3_2 = SHX0_1.tempMarker
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.removeMarker
-    SHX4_2 = SHX0_1.tempMarker
-    SHX3_2(SHX4_2)
-  end
-  SHX3_2 = SetVehicleDoorOpen
-  SHX4_2 = SHX2_2
-  SHX5_2 = 0
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetVehicleDoorOpen
-  SHX4_2 = SHX2_2
-  SHX5_2 = 1
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetVehicleDoorOpen
-  SHX4_2 = SHX2_2
-  SHX5_2 = 2
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetVehicleDoorOpen
-  SHX4_2 = SHX2_2
-  SHX5_2 = 3
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetVehicleDoorOpen
-  SHX4_2 = SHX2_2
-  SHX5_2 = 4
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetVehicleDoorOpen
-  SHX4_2 = SHX2_2
-  SHX5_2 = 5
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.removeBlip
-  SHX4_2 = SHX0_1.tempBlip
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetTimeout
-  SHX4_2 = 2500
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = SetVehicleDoorShut
-    SHX1_3 = SHX2_2
-    SHX2_3 = 0
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetVehicleDoorShut
-    SHX1_3 = SHX2_2
-    SHX2_3 = 1
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetVehicleDoorShut
-    SHX1_3 = SHX2_2
-    SHX2_3 = 2
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetVehicleDoorShut
-    SHX1_3 = SHX2_2
-    SHX2_3 = 3
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetVehicleDoorShut
-    SHX1_3 = SHX2_2
-    SHX2_3 = 4
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetVehicleDoorShut
-    SHX1_3 = SHX2_2
-    SHX2_3 = 5
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = nil
-    SHX2_2 = SHX0_3
-  end
-  SHX3_2(SHX4_2, SHX5_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "ea390002ee"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.addBlip
-  SHX2_2 = SHX0_2.x
-  SHX3_2 = SHX0_2.y
-  SHX4_2 = SHX0_2.z
-  SHX5_2 = 1
-  SHX6_2 = 5
-  SHX7_2 = nil
-  SHX8_2 = 1.0
-  SHX9_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX0_1.tempBlip = SHX1_2
-  SHX1_2 = SetBlipRoute
-  SHX2_2 = SHX0_1.tempBlip
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.addMarker
-  SHX2_2 = SHX0_2.x
-  SHX3_2 = SHX0_2.y
-  SHX4_2 = SHX0_2.z
-  SHX4_2 = SHX4_2 - 1
-  SHX5_2 = 2.0
-  SHX6_2 = 2.0
-  SHX7_2 = 1.0
-  SHX8_2 = 200
-  SHX9_2 = 20
-  SHX10_2 = 0
-  SHX11_2 = 50
-  SHX12_2 = 50
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX0_1.tempMarker = SHX1_2
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "CMG:onClientSpawn"
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  if SHX1_2 then
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_PICKUP~ to start your bus shift"
-      SHX0_3(SHX1_3)
-    end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-    end
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = IsControlJustReleased
-      SHX1_3 = 1
-      SHX2_3 = 38
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = SHX0_1.onJob
-        if not SHX0_3 then
-          SHX0_3 = TriggerServerEvent
-          SHX1_3 = "f94f6be633"
-          SHX0_3(SHX1_3)
+    WHAT THIS SCRIPT DOES
+    ---------------------
+    This is a small client-side bus driver job.
+
+    The flow is:
+
+        1. Player goes to the bus station.
+        2. Player presses E to request a shift.
+        3. Server tells this client to start the shift.
+        4. Client spawns a bus.
+        5. Server sends each next bus-stop location.
+        6. When a stop is completed:
+             - stop counter increases,
+             - earnings increase,
+             - bus engine is temporarily forced off,
+             - all six bus doors open,
+             - doors close again after 2.5 seconds.
+        7. Server tells the client when the shift is complete.
+        8. Bus is deleted and all local job state is reset.
+
+    IMPORTANT
+    ---------
+    The event hashes below are kept EXACTLY the same as the supplied script.
+    The server-side resource must listen for those same hashes.
+]]
+
+---------------------------------------------------------------------
+-- 1. CONSTANTS
+---------------------------------------------------------------------
+
+-- Total number of stops shown on the HUD.
+local TOTAL_STOPS = 15
+
+-- Bus vehicle model.
+local BUS_MODEL = "bus"
+
+-- Where the job bus is spawned.
+local BUS_SPAWN_COORDS =
+    vector3(
+        423.28366088867,
+        -611.52502441406,
+        28.499677658081
+    )
+
+-- Where players start the bus job.
+local BUS_JOB_START_COORDS =
+    vector3(
+        429.52169799804,
+        -587.45068359375,
+        29.499813079834
+    )
+
+-- Heading used when spawning the bus.
+local BUS_SPAWN_HEADING = 343
+
+---------------------------------------------------------------------
+-- 2. NETWORK EVENTS
+---------------------------------------------------------------------
+
+local EVENTS = {
+    -- Server -> client: create the bus and start the shift.
+    START_SHIFT = "7332a52cba",
+
+    -- Server -> client: finish/reset the shift.
+    COMPLETE_SHIFT = "3ecacefd77",
+
+    -- Server -> client:
+    -- a stop has been completed and an optional payment was earned.
+    COMPLETE_STOP = "76c99145ae",
+
+    -- Server -> client:
+    -- create the marker/blip for the next bus stop.
+    SET_NEXT_STOP = "ea390002ee",
+
+    -- Client -> server:
+    -- player pressed E at the bus station and wants to start.
+    REQUEST_START_SHIFT = "f94f6be633",
+}
+
+---------------------------------------------------------------------
+-- 3. JOB STATE
+---------------------------------------------------------------------
+--
+-- Instead of SHX0_1.tempVehicle / SHX0_1.cashEarned etc,
+-- keep everything in one clearly named table.
+---------------------------------------------------------------------
+
+local BusJob = {
+    onJob = false,
+
+    -- Current bus-stop marker.
+    stopMarker = 0,
+
+    -- Current route blip.
+    stopBlip = nil,
+
+    -- Bus spawned for this shift.
+    busVehicle = 0,
+
+    -- Present in the decompiled source even though this snippet never
+    -- actually creates an object with it.
+    temporaryObject = 0,
+
+    cashEarned = 0,
+    completedStops = 0,
+}
+
+---------------------------------------------------------------------
+-- 4. HUD
+---------------------------------------------------------------------
+
+CMG.registerHudTimerBarProvider(
+    "busJob",
+    function(timerBar)
+        if not BusJob.onJob then
+            return
         end
-      end
+
+        ---------------------------------------------------------
+        -- MONEY EARNED
+        ---------------------------------------------------------
+
+        timerBar.push(
+            "~g~EARNED:",
+            "£"
+                .. getMoneyStringFormatted(
+                    BusJob.cashEarned
+                )
+        )
+
+        ---------------------------------------------------------
+        -- STOP PROGRESS
+        --
+        -- The original script calls this "PACKAGES" even though
+        -- this is a bus-driver job. We preserve the display text.
+        ---------------------------------------------------------
+
+        timerBar.push(
+            "PACKAGES:",
+            tostring(
+                BusJob.completedStops
+            )
+                .. "/"
+                .. tostring(
+                    TOTAL_STOPS
+                )
+        )
     end
-    SHX5_2 = tCMG
-    SHX5_2 = SHX5_2.addBlip
-    SHX6_2 = SHX0_1.startVector
-    SHX6_2 = SHX6_2.x
-    SHX7_2 = SHX0_1.startVector
-    SHX7_2 = SHX7_2.y
-    SHX8_2 = SHX0_1.startVector
-    SHX8_2 = SHX8_2.z
-    SHX9_2 = 106
-    SHX10_2 = 1
-    SHX11_2 = "Bus Driver Job"
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX5_2 = tCMG
-    SHX5_2 = SHX5_2.addMarker
-    SHX6_2 = SHX0_1.startVector
-    SHX6_2 = SHX6_2.x
-    SHX7_2 = SHX0_1.startVector
-    SHX7_2 = SHX7_2.y
-    SHX8_2 = SHX0_1.startVector
-    SHX8_2 = SHX8_2.z
-    SHX8_2 = SHX8_2 - 1
-    SHX9_2 = 1.0
-    SHX10_2 = 1.0
-    SHX11_2 = 1.0
-    SHX12_2 = 255
-    SHX13_2 = 0
-    SHX14_2 = 0
-    SHX15_2 = 70
-    SHX16_2 = 50
-    SHX17_2 = 39
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX20_2 = true
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.createArea
-    SHX6_2 = "bus"
-    SHX7_2 = SHX0_1.startVector
-    SHX8_2 = 1.5
-    SHX9_2 = 6
-    SHX10_2 = SHX2_2
-    SHX11_2 = SHX3_2
-    SHX12_2 = SHX4_2
-    SHX13_2 = {}
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  end
+)
+
+---------------------------------------------------------------------
+-- 5. SMALL CLEANUP HELPERS
+---------------------------------------------------------------------
+
+local function removeCurrentStopMarker()
+    if BusJob.stopMarker
+        and BusJob.stopMarker ~= 0
+    then
+        tCMG.removeMarker(
+            BusJob.stopMarker
+        )
+
+        BusJob.stopMarker = 0
+    end
 end
-SHX2_1(SHX3_1, SHX4_1)
+
+local function removeCurrentStopBlip()
+    if BusJob.stopBlip then
+        tCMG.removeBlip(
+            BusJob.stopBlip
+        )
+
+        BusJob.stopBlip = nil
+    end
+end
+
+local function deleteBusVehicle()
+    -------------------------------------------------------------
+    -- The original script deletes BOTH:
+    --   1. whatever vehicle the player is currently inside
+    --   2. the stored job bus
+    --
+    -- Those can be the same vehicle, so check existence first.
+    -------------------------------------------------------------
+
+    local playerPed =
+        CMG.getPlayerPed()
+
+    local currentVehicle =
+        GetVehiclePedIsIn(
+            playerPed,
+            false
+        )
+
+    if currentVehicle
+        and currentVehicle ~= 0
+        and DoesEntityExist(currentVehicle)
+    then
+        DeleteVehicle(
+            currentVehicle
+        )
+    end
+
+    if BusJob.busVehicle
+        and BusJob.busVehicle ~= 0
+        and DoesEntityExist(
+            BusJob.busVehicle
+        )
+    then
+        DeleteVehicle(
+            BusJob.busVehicle
+        )
+    end
+
+    BusJob.busVehicle = 0
+end
+
+local function resetBusJobState()
+    removeCurrentStopMarker()
+    removeCurrentStopBlip()
+
+    BusJob.onJob = false
+
+    BusJob.busVehicle = 0
+    BusJob.temporaryObject = 0
+
+    BusJob.cashEarned = 0
+    BusJob.completedStops = 0
+end
+
+---------------------------------------------------------------------
+-- 6. START SHIFT
+---------------------------------------------------------------------
+
+RegisterNetEvent(
+    EVENTS.START_SHIFT
+)
+
+AddEventHandler(
+    EVENTS.START_SHIFT,
+    function()
+        ---------------------------------------------------------
+        -- Tell the framework we are about to create a job vehicle.
+        ---------------------------------------------------------
+
+        CMG.requestEntitySpawn(
+            "busjob"
+        )
+
+        ---------------------------------------------------------
+        -- CREATE THE BUS
+        ---------------------------------------------------------
+
+        local bus =
+            CMG.spawnVehicle(
+                BUS_MODEL,
+
+                BUS_SPAWN_COORDS.x,
+                BUS_SPAWN_COORDS.y,
+                BUS_SPAWN_COORDS.z,
+
+                BUS_SPAWN_HEADING,
+
+                true,
+                true,
+                true
+            )
+
+        BusJob.busVehicle =
+            bus
+
+        BusJob.onJob =
+            true
+
+        ---------------------------------------------------------
+        -- TURN HUD ON
+        ---------------------------------------------------------
+
+        CMG.setHudTimerBarProviderActive(
+            "busJob",
+            true
+        )
+
+        tCMG.notify(
+            "~g~Bus Job started, exit the bus station and head to the first bus stop."
+        )
+
+        ---------------------------------------------------------
+        -- The original event waits until the shift ends, then
+        -- disables the HUD.
+        ---------------------------------------------------------
+
+        while BusJob.onJob do
+            Wait(0)
+        end
+
+        CMG.setHudTimerBarProviderActive(
+            "busJob",
+            false
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- 7. COMPLETE SHIFT
+---------------------------------------------------------------------
+
+RegisterNetEvent(
+    EVENTS.COMPLETE_SHIFT
+)
+
+AddEventHandler(
+    EVENTS.COMPLETE_SHIFT,
+    function()
+        tCMG.notify(
+            "~g~Shift complete"
+        )
+
+        deleteBusVehicle()
+
+        resetBusJobState()
+    end
+)
+
+---------------------------------------------------------------------
+-- 8. OPEN / CLOSE ALL BUS DOORS
+---------------------------------------------------------------------
+
+local function openAllBusDoors(
+    vehicle
+)
+    if not vehicle
+        or vehicle == 0
+        or not DoesEntityExist(vehicle)
+    then
+        return
+    end
+
+    -- GTA vehicle door indices used by the source: 0 through 5.
+    for doorIndex = 0, 5 do
+        SetVehicleDoorOpen(
+            vehicle,
+            doorIndex,
+            false,
+            false
+        )
+    end
+end
+
+local function closeAllBusDoors(
+    vehicle
+)
+    if not vehicle
+        or vehicle == 0
+        or not DoesEntityExist(vehicle)
+    then
+        return
+    end
+
+    for doorIndex = 0, 5 do
+        SetVehicleDoorShut(
+            vehicle,
+            doorIndex,
+            false
+        )
+    end
+end
+
+---------------------------------------------------------------------
+-- 9. COMPLETE A BUS STOP
+---------------------------------------------------------------------
+--
+-- Original event:
+--
+--     "76c99145ae"
+--
+-- Arguments:
+--
+--     firstArgument
+--         Present in the event handler but NEVER used by this client code.
+--
+--     payment
+--         If present, gets added to cashEarned.
+---------------------------------------------------------------------
+
+RegisterNetEvent(
+    EVENTS.COMPLETE_STOP
+)
+
+AddEventHandler(
+    EVENTS.COMPLETE_STOP,
+    function(_unusedValue, payment)
+        local bus =
+            BusJob.busVehicle
+
+        ---------------------------------------------------------
+        -- UPDATE HUD COUNTERS
+        ---------------------------------------------------------
+
+        BusJob.completedStops =
+            BusJob.completedStops
+            + 1
+
+        if payment then
+            BusJob.cashEarned =
+                BusJob.cashEarned
+                + payment
+        end
+
+        ---------------------------------------------------------
+        -- KEEP BUS ENGINE OFF WHILE PASSENGERS ARE GETTING
+        -- ON/OFF.
+        --
+        -- The decompiled source keeps doing this every frame until
+        -- a local variable is set to nil 2.5 seconds later.
+        ---------------------------------------------------------
+
+        local keepEngineOff =
+            true
+
+        Citizen.CreateThread(
+            function()
+                while keepEngineOff do
+                    if bus
+                        and bus ~= 0
+                        and DoesEntityExist(bus)
+                    then
+                        SetVehicleEngineOn(
+                            bus,
+                            false,
+                            true,
+                            false
+                        )
+                    end
+
+                    Wait(0)
+                end
+            end
+        )
+
+        ---------------------------------------------------------
+        -- REMOVE THE OLD STOP MARKER
+        ---------------------------------------------------------
+
+        removeCurrentStopMarker()
+
+        ---------------------------------------------------------
+        -- OPEN BUS DOORS
+        ---------------------------------------------------------
+
+        openAllBusDoors(
+            bus
+        )
+
+        ---------------------------------------------------------
+        -- REMOVE OLD ROUTE BLIP
+        ---------------------------------------------------------
+
+        removeCurrentStopBlip()
+
+        ---------------------------------------------------------
+        -- 2.5 SECONDS LATER:
+        -- close the doors and allow the engine to run normally.
+        ---------------------------------------------------------
+
+        SetTimeout(
+            2500,
+            function()
+                closeAllBusDoors(
+                    bus
+                )
+
+                keepEngineOff =
+                    false
+            end
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- 10. SET THE NEXT BUS STOP
+---------------------------------------------------------------------
+
+RegisterNetEvent(
+    EVENTS.SET_NEXT_STOP
+)
+
+AddEventHandler(
+    EVENTS.SET_NEXT_STOP,
+    function(stopCoords)
+        if not stopCoords then
+            return
+        end
+
+        ---------------------------------------------------------
+        -- CLEAN OLD GUIDANCE FIRST
+        ---------------------------------------------------------
+
+        removeCurrentStopBlip()
+        removeCurrentStopMarker()
+
+        ---------------------------------------------------------
+        -- MAP BLIP
+        ---------------------------------------------------------
+
+        BusJob.stopBlip =
+            tCMG.addBlip(
+                stopCoords.x,
+                stopCoords.y,
+                stopCoords.z,
+
+                1,      -- blip sprite
+                5,      -- colour
+                nil,    -- no custom name
+                1.0,
+                false
+            )
+
+        SetBlipRoute(
+            BusJob.stopBlip,
+            true
+        )
+
+        ---------------------------------------------------------
+        -- WORLD MARKER
+        ---------------------------------------------------------
+
+        BusJob.stopMarker =
+            tCMG.addMarker(
+                stopCoords.x,
+                stopCoords.y,
+                stopCoords.z - 1.0,
+
+                2.0,
+                2.0,
+                1.0,
+
+                200,
+                20,
+                0,
+                50,
+
+                50
+            )
+    end
+)
+
+---------------------------------------------------------------------
+-- 11. BUS-STATION START AREA
+---------------------------------------------------------------------
+
+local function showBusStartPrompt()
+    drawNativeNotification(
+        "Press ~INPUT_PICKUP~ to start your bus shift"
+    )
+end
+
+local function onLeaveBusStartArea()
+    -- Original callback was empty.
+end
+
+local function busStartAreaTick()
+    -------------------------------------------------------------
+    -- Control 38 = INPUT_CONTEXT / E.
+    -------------------------------------------------------------
+
+    if IsControlJustReleased(
+        1,
+        38
+    ) then
+        if not BusJob.onJob then
+            TriggerServerEvent(
+                EVENTS.REQUEST_START_SHIFT
+            )
+        end
+    end
+end
+
+---------------------------------------------------------------------
+-- 12. CREATE BUS JOB MAP MARKERS ON CLIENT SPAWN
+---------------------------------------------------------------------
+
+AddEventHandler(
+    "CMG:onClientSpawn",
+    function(_userId, firstSpawn)
+        ---------------------------------------------------------
+        -- Original script only creates these on the first spawn.
+        ---------------------------------------------------------
+
+        if not firstSpawn then
+            return
+        end
+
+        ---------------------------------------------------------
+        -- PERMANENT MAP BLIP
+        ---------------------------------------------------------
+
+        tCMG.addBlip(
+            BUS_JOB_START_COORDS.x,
+            BUS_JOB_START_COORDS.y,
+            BUS_JOB_START_COORDS.z,
+
+            106,
+            1,
+            "Bus Driver Job"
+        )
+
+        ---------------------------------------------------------
+        -- PERMANENT WORLD MARKER
+        ---------------------------------------------------------
+
+        tCMG.addMarker(
+            BUS_JOB_START_COORDS.x,
+            BUS_JOB_START_COORDS.y,
+            BUS_JOB_START_COORDS.z - 1.0,
+
+            1.0,
+            1.0,
+            1.0,
+
+            255,
+            0,
+            0,
+            70,
+
+            50,
+            39,
+            false,
+            false,
+            true
+        )
+
+        ---------------------------------------------------------
+        -- INTERACTION AREA
+        ---------------------------------------------------------
+
+        CMG.createArea(
+            "bus",
+
+            BUS_JOB_START_COORDS,
+
+            1.5,
+            6,
+
+            showBusStartPrompt,
+            onLeaveBusStartArea,
+            busStartAreaTick,
+
+            {}
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- 13. BEGINNER WALKTHROUGH
+---------------------------------------------------------------------
+--
+-- Start reading the script HERE if you are learning FiveM Lua.
+--
+--   1. Player walks into the "bus" area.
+--
+--   2. showBusStartPrompt()
+--      Displays:
+--
+--          Press E to start your bus shift
+--
+--   3. busStartAreaTick()
+--      When E is released:
+--
+--          TriggerServerEvent(EVENTS.REQUEST_START_SHIFT)
+--
+--   4. Server decides whether the shift can start.
+--
+--   5. Server sends:
+--
+--          EVENTS.START_SHIFT
+--
+--   6. Client spawns a bus and enables the HUD.
+--
+--   7. Server sends:
+--
+--          EVENTS.SET_NEXT_STOP
+--
+--      which creates a GPS route and red marker.
+--
+--   8. When that stop is completed the server sends:
+--
+--          EVENTS.COMPLETE_STOP
+--
+--      which:
+--          * adds one completed stop,
+--          * adds the payment,
+--          * opens all bus doors,
+--          * turns the engine off,
+--          * waits 2.5 seconds,
+--          * closes all doors.
+--
+--   9. When all work is finished the server sends:
+--
+--          EVENTS.COMPLETE_SHIFT
+--
+--      which deletes the bus and resets everything.
+---------------------------------------------------------------------
