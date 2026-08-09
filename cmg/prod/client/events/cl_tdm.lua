@@ -1,1538 +1,680 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
-
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/events/cfg_tdm"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = AddRelationshipGroup
-SHX3_1 = "TDM_BLUE"
-SHX2_1, SHX3_1 = SHX2_1(SHX3_1)
-SHX4_1 = AddRelationshipGroup
-SHX5_1 = "TDM_RED"
-SHX4_1, SHX5_1 = SHX4_1(SHX5_1)
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.createTimerBars
-SHX6_1 = SHX6_1()
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.random
-  SHX1_2 = 1
-  SHX2_2 = 5
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.char
-  SHX2_2 = 96 + SHX0_2
-  return SHX1_2(SHX2_2)
+--[[
+    Team Deathmatch (TDM) minigame - client script
+    Cleaned up from a decompiled build.
+ 
+    HOW TO READ THIS FILE (if you're new to Lua/FiveM):
+    - "TDM" is one big table that holds everything about the CURRENT match
+      (which team you're on, spawn points, current pickups, timers, etc).
+      Any time you see TDM.something, that's match data being read or set.
+    - RegisterNetEvent("name") + AddEventHandler("name", function ... end)
+      is how the server tells the client "something happened" (e.g. match
+      started, kill streak earned, etc). The weird strings like "04c52f29ff"
+      are just event names - this framework hashes them instead of using
+      readable names like "tdm:matchStarted".
+    - CMG.xxx(...) calls are helper functions from the custom Onyx/CMG
+      framework, not built-in FiveM natives.
+]]
+ 
+local cfg = CMG.loadModule("cfg/events/cfg_tdm")
+ 
+-- All state for the match currently in progress lives in this one table.
+local TDM = {}
+ 
+-- Relationship groups control who is "hostile" to who (used for friendly fire,
+-- blips, targeting, etc). Each team gets its own group.
+local _, blueGroupHash = AddRelationshipGroup("TDM_BLUE")
+local _, redGroupHash  = AddRelationshipGroup("TDM_RED")
+ 
+local timerBars = CMG.createTimerBars()
+ 
+--------------------------------------------------------------------------
+-- Small helpers
+--------------------------------------------------------------------------
+ 
+-- Picks a random letter a-e. Used to select one of several idle animation
+-- clips (e.g. "idle_a", "idle_b" ...) so players don't all look identical
+-- while waiting for the match to start.
+local function getRandomIdleAnimLetter()
+    local n = math.random(1, 5)
+    return string.char(96 + n) -- 96 + 1 = 97 = 'a', 96 + 5 = 101 = 'e'
 end
-SHX8_1 = nil
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX8_1 = SHX0_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.TriggerServerCallback
-  SHX2_2 = "2b8f1234ea"
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
+ 
+-- Remembers the last weapon the player bought from the radial menu, so it
+-- can be automatically re-purchased after they respawn.
+local lastBoughtWeapon = nil
+ 
+-- Called whenever the player picks a weapon from the "buyWeaponsTDM" radial
+-- menu. Tells the server to actually give the player that weapon.
+local function onWeaponPurchased(weaponName)
+    lastBoughtWeapon = weaponName
+    CMG.TriggerServerCallback("2b8f1234ea", weaponName)
 end
-SHX10_1 = Citizen
-SHX10_1 = SHX10_1.CreateThread
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.addRadialMenuHandler
-  SHX1_2 = "buyWeaponsTDM"
-  SHX2_2 = SHX9_1
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX10_1(SHX11_1)
-SHX10_1 = Citizen
-SHX10_1 = SHX10_1.CreateThread
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = "TDM"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.registerMinigameCleanupHandler
-  SHX2_2 = SHX0_2
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX1_1.state = "ended"
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setFriendlyFire
-    SHX1_3 = true
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.enableDriveBy
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setSwitchGunEnabled
-    SHX1_3 = true
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.cleanupRockstarMaps
-    SHX0_3()
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.enableMinigamePlayerBlips
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.clearAllPickups
-    SHX0_3()
-    SHX0_3 = SetRelationshipBetweenGroups
-    SHX1_3 = 0
-    SHX2_3 = SHX5_1
-    SHX3_3 = SHX3_1
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetRelationshipBetweenGroups
-    SHX1_3 = 0
-    SHX2_3 = SHX3_1
-    SHX3_3 = SHX5_1
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetPedRelationshipGroupHash
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = 1862763509
-    SHX0_3(SHX1_3, SHX2_3)
-    SHX0_3 = SetLocalPlayerAsGhost
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = ResetGhostedEntityAlpha
-    SHX0_3()
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setEventRespawnPosition
-    SHX0_3()
-    SHX0_3 = BusyspinnerOff
-    SHX0_3()
-    SHX0_3 = SetPlayerControl
-    SHX1_3 = PlayerId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = true
-    SHX3_3 = 0
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-  end
-  SHX1_2(SHX2_2, SHX3_2)
-end
-SHX10_1(SHX11_1)
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = #SHX0_2
-  if SHX1_2 > 0 then
-    SHX1_2 = CreateThread
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-      while true do
-        SHX0_3 = SHX1_1.state
-        if "ended" == SHX0_3 then
-          break
-        end
-        SHX0_3 = pairs
-        SHX1_3 = SHX1_1.pickups
-        SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-        for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-          SHX6_3 = CMG
-          SHX6_3 = SHX6_3.deletePickup
-          SHX7_3 = SHX5_3
-          SHX6_3(SHX7_3)
-        end
-        SHX0_3 = {}
-        SHX1_1.pickups = SHX0_3
-        SHX0_3 = pairs
-        SHX1_3 = SHX0_2
-        SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-        for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-          SHX6_3 = table
-          SHX6_3 = SHX6_3.insert
-          SHX7_3 = SHX1_1.pickups
-          SHX8_3 = CMG
-          SHX8_3 = SHX8_3.createPickup
-          SHX9_3 = SHX5_3.hash
-          SHX10_3 = SHX5_3.position
-          SHX8_3, SHX9_3, SHX10_3 = SHX8_3(SHX9_3, SHX10_3)
-          SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3)
-        end
-        SHX0_3 = Wait
-        SHX1_3 = 60000
-        SHX0_3(SHX1_3)
-      end
-    end
-    SHX1_2(SHX2_2)
-  end
-end
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "04c52f29ff"
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX1_1.mapname = SHX0_2
-  SHX1_1.state = "loading"
-  SHX1_1.team = SHX4_2
-  SHX1_1.spawn = SHX2_2
-  SHX1_1.spawnpoints = SHX3_2
-  if SHX1_2 then
-    SHX10_2 = CMG
-    SHX10_2 = SHX10_2.loadClientRockstarMap
-    SHX11_2 = SHX1_2
-    SHX12_2 = false
-    SHX10_2(SHX11_2, SHX12_2)
-  end
-  SHX10_2 = PlayerPedId
-  SHX10_2 = SHX10_2()
-  SHX11_2 = CMG
-  SHX11_2 = SHX11_2.setEventRespawnPosition
-  SHX12_2 = SHX2_2
-  SHX11_2(SHX12_2)
-  SHX11_2 = SetEntityCoordsNoOffset
-  SHX12_2 = SHX10_2
-  SHX13_2 = SHX2_2.x
-  SHX14_2 = SHX2_2.y
-  SHX15_2 = SHX2_2.z
-  SHX16_2 = true
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX11_2 = SetEntityHeading
-  SHX12_2 = SHX10_2
-  SHX13_2 = SHX2_2.w
-  SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = FreezeEntityPosition
-  SHX12_2 = SHX10_2
-  SHX13_2 = true
-  SHX11_2(SHX12_2, SHX13_2)
-  if SHX6_2 then
-    SHX11_2 = pairs
-    SHX12_2 = SHX6_2
-    SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-    for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-      SHX17_2 = table
-      SHX17_2 = SHX17_2.insert
-      SHX18_2 = SHX5_2
-      SHX19_2 = SHX16_2
-      SHX17_2(SHX18_2, SHX19_2)
-    end
-    SHX1_1.bounds = SHX5_2
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.setMinigameBounds
-    SHX12_2 = SHX5_2
-    SHX11_2(SHX12_2)
-  else
-    SHX1_1.bounds = SHX5_2
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.setMinigameBounds
-    SHX12_2 = SHX5_2
-    SHX11_2(SHX12_2)
-  end
-  SHX11_2 = {}
-  SHX1_1.pickups = SHX11_2
-  SHX11_2 = SHX10_1
-  SHX12_2 = SHX7_2
-  SHX11_2(SHX12_2)
-  if SHX8_2 then
-    SHX11_2 = TriggerEvent
-    SHX12_2 = "105e886dcc"
-    SHX13_2 = SHX9_2
-    SHX11_2(SHX12_2, SHX13_2)
-    return
-  end
-end
-SHX11_1(SHX12_1, SHX13_1)
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1.team
-  if "blue" == SHX0_2 then
-    SHX0_2 = "red"
-    return SHX0_2
-  end
-  SHX0_2 = "blue"
-  return SHX0_2
-end
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX1_1.blueteam
-  if SHX1_2 then
-    SHX1_2 = SHX1_1.redteam
-    if SHX1_2 then
-      goto SHX_LABEL_8
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX1_2 = ipairs
-  SHX2_2 = SHX11_1
-  SHX2_2 = SHX2_2()
-  SHX3_2 = "team"
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX3_2[SHX2_2]
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.source
-    if SHX7_2 == SHX0_2 then
-      SHX7_2 = 1
-      return SHX7_2
-    end
-  end
-  SHX1_2 = ipairs
-  SHX2_2 = SHX1_1.team
-  SHX3_2 = "team"
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX3_2[SHX2_2]
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.source
-    if SHX7_2 == SHX0_2 then
-      SHX7_2 = 2
-      return SHX7_2
-    end
-  end
-end
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX1_1.blueteam
-  if SHX1_2 then
-    SHX1_2 = SHX1_1.redteam
-    if SHX1_2 then
-      goto SHX_LABEL_8
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX1_2 = ipairs
-  SHX2_2 = SHX1_1.team
-  SHX3_2 = "team"
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX3_2[SHX2_2]
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.source
-    if SHX7_2 == SHX0_2 then
-      SHX7_2 = true
-      return SHX7_2
-    end
-  end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasPlayerShotInEvent
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = true
-    return SHX1_2
-  end
-  SHX1_2 = false
-  return SHX1_2
-end
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX1_1.blueteam
-  if SHX1_2 then
-    SHX1_2 = SHX1_1.redteam
-    if SHX1_2 then
-      goto SHX_LABEL_8
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX1_2 = ipairs
-  SHX2_2 = SHX11_1
-  SHX2_2 = SHX2_2()
-  SHX3_2 = "team"
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX3_2[SHX2_2]
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.source
-    if SHX7_2 == SHX0_2 then
-      SHX7_2 = 6
-      return SHX7_2
-    end
-  end
-  SHX1_2 = ipairs
-  SHX2_2 = SHX1_1.team
-  SHX3_2 = "team"
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX3_2[SHX2_2]
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.source
-    if SHX7_2 == SHX0_2 then
-      SHX7_2 = 18
-      return SHX7_2
-    end
-  end
-end
-SHX15_1 = RegisterNetEvent
-SHX16_1 = "ece517541d"
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.announceMpBigMsg
-    SHX1_3 = "~g~RC-XD deployed."
-    SHX2_3 = ""
-    SHX3_3 = 1000
-    SHX4_3 = true
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-  end
-  SHX1_2(SHX2_2)
-  SHX1_2 = NetToVeh
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SetEntityVisible
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  SHX1_1.rcxdTimer = SHX2_2
-  while true do
-    SHX2_2 = GetEntityHealth
-    SHX3_2 = PlayerPedId
-    SHX3_2, SHX4_2, SHX5_2 = SHX3_2()
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    if not (SHX2_2 > 100) then
-      break
-    end
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX3_2 = SHX1_1.rcxdTimer
-    SHX2_2 = SHX2_2 - SHX3_2
-    SHX3_2 = 20000
-    if not (SHX2_2 < SHX3_2) then
-      break
-    end
-    SHX2_2 = IsControlJustPressed
-    SHX3_2 = 0
-    SHX4_2 = 18
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      break
-    end
-    SHX2_2 = drawNativeText
-    SHX3_2 = "Press ~g~SPACE~w~ to explode RC-XD"
-    SHX2_2(SHX3_2)
-    SHX2_2 = Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
-  end
-  SHX1_1.rcxdTimer = nil
-  SHX2_2 = DeleteVehicle
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetEntityHealth
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  SHX4_2 = 0
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "2f33bbb12c"
-  SHX2_2(SHX3_2)
-end
-SHX15_1(SHX16_1, SHX17_1)
-SHX15_1 = RegisterNetEvent
-SHX16_1 = "996718a935"
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX1_2 = 1
-  SHX2_2 = 15
-  SHX3_2 = 1
-  for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-    SHX5_2 = SHX0_2.x
-    SHX6_2 = math
-    SHX6_2 = SHX6_2.random
-    SHX6_2 = SHX6_2()
-    SHX6_2 = SHX6_2 - 0.5
-    SHX6_2 = SHX6_2 * 4.0
-    SHX5_2 = SHX5_2 + SHX6_2
-    SHX6_2 = SHX0_2.y
-    SHX7_2 = math
-    SHX7_2 = SHX7_2.random
-    SHX7_2 = SHX7_2()
-    SHX7_2 = SHX7_2 - 0.5
-    SHX7_2 = SHX7_2 * 4.0
-    SHX6_2 = SHX6_2 + SHX7_2
-    SHX7_2 = SHX0_2.z
-    SHX8_2 = math
-    SHX8_2 = SHX8_2.random
-    SHX8_2 = SHX8_2()
-    SHX8_2 = SHX8_2 - 0.5
-    SHX8_2 = SHX8_2 * 2.0
-    SHX7_2 = SHX7_2 + SHX8_2
-    SHX8_2 = AddOwnedExplosion
-    SHX9_2 = PlayerPedId
-    SHX9_2 = SHX9_2()
-    SHX10_2 = SHX5_2
-    SHX11_2 = SHX6_2
-    SHX12_2 = SHX7_2
-    SHX13_2 = 2
-    SHX14_2 = 1.0
-    SHX15_2 = true
-    SHX16_2 = false
-    SHX17_2 = 5.0
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  end
-end
-SHX15_1(SHX16_1, SHX17_1)
-SHX15_1 = RegisterNetEvent
-SHX16_1 = "f03e895b72"
-function SHX17_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  SHX1_1.chopperVehNetId = SHX0_2
-  SHX1_1.chopperPedNetId = SHX1_2
-end
-SHX15_1(SHX16_1, SHX17_1)
-SHX15_1 = RegisterNetEvent
-SHX16_1 = "86e97f39ba"
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCoords
-  SHX0_2 = SHX0_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.clearMinigameBounds
-  SHX1_2()
-  SHX1_2 = CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.announceMpBigMsg
-    SHX1_3 = "~g~Chopper Gun deployed."
-    SHX2_3 = ""
-    SHX3_3 = 1000
-    SHX4_3 = true
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-  end
-  SHX1_2(SHX2_2)
-  SHX1_1.isChopperShooter = true
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  SHX1_1.chopperTimer = SHX1_2
-  while true do
-    SHX1_2 = GetEntityHealth
-    SHX2_2 = PlayerPedId
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX2_2()
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    if not (SHX1_2 > 100) then
-      break
-    end
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX2_2 = SHX1_1.chopperTimer
-    SHX1_2 = SHX1_2 - SHX2_2
-    SHX2_2 = 60000
-    if not (SHX1_2 < SHX2_2) then
-      break
-    end
-    SHX1_2 = Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
-  end
-  SHX1_1.chopperTimer = nil
-  SHX1_1.isChopperShooter = false
-  SHX1_2 = ClearPedTasksImmediately
-  SHX2_2 = PlayerPedId
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX2_2()
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX1_2 = SetEntityCoords
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2.x
-  SHX4_2 = SHX0_2.y
-  SHX5_2 = SHX0_2.z
-  SHX6_2 = true
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setMinigameBounds
-  SHX2_2 = SHX1_1.bounds
-  SHX1_2(SHX2_2)
-end
-SHX15_1(SHX16_1, SHX17_1)
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  if 0 == SHX0_2 then
-    SHX1_2 = SHX0_1.locations
-    SHX2_2 = SHX1_1.mapname
-    SHX1_2 = SHX1_2[SHX2_2]
-    SHX1_2 = SHX1_2.chopper
-    SHX1_2 = SHX1_2.pos1
-    return SHX1_2
-  elseif 1 == SHX0_2 then
-    SHX1_2 = SHX0_1.locations
-    SHX2_2 = SHX1_1.mapname
-    SHX1_2 = SHX1_2[SHX2_2]
-    SHX1_2 = SHX1_2.chopper
-    SHX1_2 = SHX1_2.pos2
-    return SHX1_2
-  elseif 2 == SHX0_2 then
-    SHX1_2 = SHX0_1.locations
-    SHX2_2 = SHX1_1.mapname
-    SHX1_2 = SHX1_2[SHX2_2]
-    SHX1_2 = SHX1_2.chopper
-    SHX1_2 = SHX1_2.pos3
-    return SHX1_2
-  elseif 3 == SHX0_2 then
-    SHX1_2 = SHX0_1.locations
-    SHX2_2 = SHX1_1.mapname
-    SHX1_2 = SHX1_2[SHX2_2]
-    SHX1_2 = SHX1_2.chopper
-    SHX1_2 = SHX1_2.pos4
-    return SHX1_2
-  end
-end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX0_2 = NetworkDoesEntityExistWithNetworkId
-  SHX1_2 = SHX1_1.chopperVehNetId
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = NetworkDoesEntityExistWithNetworkId
-    SHX1_2 = SHX1_1.chopperPedNetId
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      goto SHX_LABEL_12
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX0_2 = NetworkGetEntityFromNetworkId
-  SHX1_2 = SHX1_1.chopperVehNetId
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = NetworkGetEntityFromNetworkId
-  SHX2_2 = SHX1_1.chopperPedNetId
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 == SHX0_2 or 0 == SHX1_2 then
-    return
-  end
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX1_1.isChopperShooter
-  if SHX3_2 then
-    SHX3_2 = GetPedInVehicleSeat
-    SHX4_2 = SHX0_2
-    SHX5_2 = 1
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if SHX3_2 ~= SHX2_2 then
-      SHX3_2 = SetPedIntoVehicle
-      SHX4_2 = SHX2_2
-      SHX5_2 = SHX0_2
-      SHX6_2 = 1
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    end
-  end
-  SHX3_2 = NetworkHasControlOfEntity
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
-    return
-  end
-  SHX3_2 = SetEntityInvincible
-  SHX4_2 = SHX1_2
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetBlockingOfNonTemporaryEvents
-  SHX4_2 = SHX1_2
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetPedKeepTask
-  SHX4_2 = SHX1_2
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = GetPedInVehicleSeat
-  SHX4_2 = SHX0_2
-  SHX5_2 = -1
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if SHX3_2 ~= SHX1_2 then
-    SHX3_2 = SetPedIntoVehicle
-    SHX4_2 = SHX1_2
-    SHX5_2 = SHX0_2
-    SHX6_2 = -1
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  end
-  SHX3_2 = SetVehicleEngineOn
-  SHX4_2 = SHX0_2
-  SHX5_2 = true
-  SHX6_2 = true
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetHeliBladesFullSpeed
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = Entity
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_2 = SHX3_2.state
-  SHX3_2 = SHX3_2.stage
-  SHX4_2 = Entity
-  SHX5_2 = SHX1_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_2.state
-  SHX4_2 = SHX4_2.lastChanged
-  if 0 == SHX3_2 then
-    SHX5_2 = SHX15_1
-    SHX6_2 = 0
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = SetEntityCoordsNoOffset
-    SHX7_2 = SHX0_2
-    SHX8_2 = SHX5_2.x
-    SHX9_2 = SHX5_2.y
-    SHX10_2 = SHX5_2.z
-    SHX11_2 = true
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  end
-  SHX5_2 = false
-  SHX6_2 = GetNetworkTime
-  SHX6_2 = SHX6_2()
-  SHX7_2 = SHX4_2 or SHX7_2
-  if not SHX4_2 then
-    SHX7_2 = GetNetworkTime
-    SHX7_2 = SHX7_2()
-  end
-  SHX6_2 = SHX6_2 - SHX7_2
-  SHX7_2 = 15000
-  if SHX6_2 > SHX7_2 then
-    SHX3_2 = SHX3_2 + 1
-    SHX6_2 = Entity
-    SHX7_2 = SHX1_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX6_2 = SHX6_2.state
-    SHX7_2 = SHX6_2
-    SHX6_2 = SHX6_2.set
-    SHX8_2 = "stage"
-    SHX9_2 = SHX3_2
-    SHX10_2 = true
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX6_2 = Entity
-    SHX7_2 = SHX1_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX6_2 = SHX6_2.state
-    SHX7_2 = SHX6_2
-    SHX6_2 = SHX6_2.set
-    SHX8_2 = "lastChanged"
-    SHX9_2 = GetNetworkTime
-    SHX9_2 = SHX9_2()
-    SHX10_2 = true
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX5_2 = true
-  end
-  if not SHX5_2 then
-    SHX6_2 = GetScriptTaskStatus
-    SHX7_2 = SHX1_2
-    SHX8_2 = 2477085294
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    if 7 ~= SHX6_2 then
-      goto SHX_LABEL_161
-    end
-  end
-  SHX6_2 = SHX15_1
-  SHX7_2 = SHX3_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  if SHX6_2 then
-    SHX7_2 = TaskVehicleDriveToCoord
-    SHX8_2 = SHX1_2
-    SHX9_2 = SHX0_2
-    SHX10_2 = SHX6_2.x
-    SHX11_2 = SHX6_2.y
-    SHX12_2 = SHX6_2.z
-    SHX13_2 = 20.0
-    SHX14_2 = 0
-    SHX15_2 = 1543134283
-    SHX16_2 = 262144
-    SHX17_2 = 1.0
-    SHX18_2 = -1.0
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_161:: outside nested blocks until all 'goto SHX_LABEL_161' can see it
-  ::SHX_LABEL_161::
-end
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "1985159cca"
-function SHX19_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  SHX1_1.redteam = SHX0_2
-  SHX1_1.blueteam = SHX1_2
-end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "105e886dcc"
-function SHX19_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.enableDriveBy
-  SHX2_2 = true
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setSwitchGunEnabled
-  SHX2_2 = false
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.stopEventSequence
-  SHX1_2()
-  SHX1_2 = currentEvent
-  SHX1_2.drawPlayersTimeBar = false
-  SHX1_1.state = "choosingcharacter"
-  SHX1_2 = BusyspinnerOff
-  SHX1_2()
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityMatrix
-  SHX3_2 = SHX1_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  SHX6_2 = SHX2_2 * 2.0
-  SHX7_2 = SHX3_2 * 0.0
-  SHX6_2 = SHX6_2 + SHX7_2
-  SHX7_2 = SHX4_2 * 0.5
-  SHX6_2 = SHX6_2 + SHX7_2
-  SHX6_2 = SHX6_2 + SHX5_2
-  SHX7_2 = CreateCamWithParams
-  SHX8_2 = "DEFAULT_SCRIPTED_CAMERA"
-  SHX9_2 = SHX6_2.x
-  SHX10_2 = SHX6_2.y
-  SHX11_2 = SHX6_2.z
-  SHX12_2 = 0.0
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 70.0
-  SHX16_2 = false
-  SHX17_2 = 2
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX1_1.camera = SHX7_2
-  SHX7_2 = SetCamActive
-  SHX8_2 = SHX1_1.camera
-  SHX9_2 = true
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = PointCamAtCoord
-  SHX8_2 = SHX1_1.camera
-  SHX9_2 = SHX1_1.spawn
-  SHX9_2 = SHX9_2.x
-  SHX10_2 = SHX1_1.spawn
-  SHX10_2 = SHX10_2.y
-  SHX11_2 = SHX1_1.spawn
-  SHX11_2 = SHX11_2.z
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX7_2 = RenderScriptCams
-  SHX8_2 = true
-  SHX9_2 = false
-  SHX10_2 = 0
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.loadAnimDict
-  SHX8_2 = "mini@triathlon"
-  SHX7_2(SHX8_2)
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = "mini@triathlon"
-  SHX10_2 = "idle_"
-  SHX11_2 = SHX7_1
-  SHX11_2 = SHX11_2()
-  SHX10_2 = SHX10_2 .. SHX11_2
-  SHX11_2 = 8.0
-  SHX12_2 = 8.0
-  SHX13_2 = -1
-  SHX14_2 = 1
-  SHX15_2 = 0.2
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX1_1.currentMinigameId = SHX0_2
-  SHX7_2 = PlaySoundFrontend
-  SHX8_2 = -1
-  SHX9_2 = "5s"
-  SHX10_2 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-  SHX11_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX7_2 = TriggerEvent
-  SHX8_2 = "b3cbc4aca5"
-  SHX9_2 = 3
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = Wait
-  SHX8_2 = 4000
-  SHX7_2(SHX8_2)
-  SHX7_2 = SHX1_1.state
-  if "choosingcharacter" ~= SHX7_2 then
-    return
-  end
-  SHX1_1.state = "started"
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.setPlayerCanOpenLeaderboard
-  SHX8_2 = true
-  SHX7_2(SHX8_2)
-  SHX7_2 = ClearPedTasks
-  SHX8_2 = PlayerPedId
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX8_2()
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = SetCamActive
-  SHX8_2 = SHX1_1.camera
-  SHX9_2 = false
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = RenderScriptCams
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX10_2 = 0
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = DestroyCam
-  SHX8_2 = SHX1_1.camera
-  SHX9_2 = false
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = DestroyCam
-  SHX8_2 = SHX1_1.camera2
-  SHX9_2 = false
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.enableMinigamePlayerBlips
-  SHX8_2 = true
-  SHX9_2 = SHX12_1
-  SHX10_2 = SHX13_1
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.enableMinigamePlayerTags
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX10_2 = SHX14_1
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = SetRelationshipBetweenGroups
-  SHX8_2 = 5
-  SHX9_2 = SHX3_1
-  SHX10_2 = SHX5_1
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = SetRelationshipBetweenGroups
-  SHX8_2 = 5
-  SHX9_2 = SHX5_1
-  SHX10_2 = SHX3_1
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = SHX1_1.team
-  if "blue" == SHX7_2 then
-    SHX7_2 = SetPedRelationshipGroupHash
-    SHX8_2 = PlayerPedId
-    SHX8_2 = SHX8_2()
-    SHX9_2 = SHX3_1
-    SHX7_2(SHX8_2, SHX9_2)
-  else
-    SHX7_2 = SetPedRelationshipGroupHash
-    SHX8_2 = PlayerPedId
-    SHX8_2 = SHX8_2()
-    SHX9_2 = SHX5_1
-    SHX7_2(SHX8_2, SHX9_2)
-  end
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.setFriendlyFire
-  SHX8_2 = false
-  SHX7_2(SHX8_2)
-  SHX7_2 = FreezeEntityPosition
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = false
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = CreateThread
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = IsUsingKeyboard
-    SHX1_3 = 0
-    SHX0_3 = SHX0_3(SHX1_3)
-    if SHX0_3 then
-      SHX0_3 = CMG
-      SHX0_3 = SHX0_3.announceMpBigMsg
-      SHX1_3 = "PRESS B TO OPEN BUY MENU"
-      SHX2_3 = ""
-      SHX3_3 = 5000
-      SHX4_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-    else
-      SHX0_3 = CMG
-      SHX0_3 = SHX0_3.announceMpBigMsg
-      SHX1_3 = "PRESS R1 TO OPEN BUY MENU"
-      SHX2_3 = ""
-      SHX3_3 = 5000
-      SHX4_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-    end
-  end
-  SHX7_2(SHX8_2)
-  while true do
-    SHX7_2 = SHX1_1.state
-    if "started" ~= SHX7_2 then
-      break
-    end
-    SHX7_2 = IsUsingKeyboard
-    SHX8_2 = 0
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 then
-      SHX7_2 = 29
-      if SHX7_2 then
-        goto SHX_LABEL_195
-      end
-    end
-    SHX7_2 = 44
-    -- [FIX IF ERROR] Move ::SHX_LABEL_195:: outside nested blocks until all 'goto SHX_LABEL_195' can see it
-    ::SHX_LABEL_195::
-    SHX8_2 = IsControlJustPressed
-    SHX9_2 = 0
-    SHX10_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if SHX8_2 then
-      SHX8_2 = CMG
-      SHX8_2 = SHX8_2.openRadialMenu
-      SHX9_2 = "buyWeaponsTDM"
-      SHX8_2(SHX9_2)
-    else
-      SHX8_2 = IsControlJustPressed
-      SHX9_2 = 0
-      SHX10_2 = 188
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      if SHX8_2 then
-        SHX8_2 = SHX1_1.hasRCXD
-        if SHX8_2 then
-          SHX1_1.hasRCXD = false
-          SHX8_2 = TriggerServerEvent
-          SHX9_2 = "7640517054"
-          SHX8_2(SHX9_2)
-        else
-          SHX8_2 = SHX1_1.hasChopper
-          if SHX8_2 then
-            SHX8_2 = SHX1_1.chopperVehNetId
-            if SHX8_2 then
-              SHX8_2 = notify
-              SHX9_2 = "~r~The airspace is full."
-              SHX8_2(SHX9_2)
-            else
-              SHX1_1.hasChopper = false
-              SHX8_2 = TriggerServerEvent
-              SHX9_2 = "00ef526aa7"
-              SHX8_2(SHX9_2)
+ 
+CreateThread(function()
+    CMG.addRadialMenuHandler("buyWeaponsTDM", onWeaponPurchased)
+end)
+ 
+--------------------------------------------------------------------------
+-- Cleanup - runs whenever the TDM minigame ends, to reset the player back
+-- to their normal state (friendly fire on, no drive-by restriction, etc).
+--------------------------------------------------------------------------
+ 
+CreateThread(function()
+    CMG.registerMinigameCleanupHandler("TDM", function()
+        TDM.state = "ended"
+ 
+        CMG.setFriendlyFire(true)
+        CMG.enableDriveBy(false)
+        CMG.setSwitchGunEnabled(true)
+        CMG.cleanupRockstarMaps()
+        CMG.enableMinigamePlayerBlips(false)
+        CMG.clearAllPickups()
+ 
+        -- Reset the two teams back to neutral toward each other.
+        SetRelationshipBetweenGroups(0, redGroupHash, blueGroupHash)
+        SetRelationshipBetweenGroups(0, blueGroupHash, redGroupHash)
+ 
+        -- Put the player back into their default (non-TDM) relationship group.
+        SetPedRelationshipGroupHash(PlayerPedId(), 1862763509)
+ 
+        SetLocalPlayerAsGhost(false)
+        ResetGhostedEntityAlpha()
+        CMG.setEventRespawnPosition()
+        BusyspinnerOff()
+        SetPlayerControl(PlayerId(), true, 0)
+    end)
+end)
+ 
+--------------------------------------------------------------------------
+-- Pickups - weapon/ammo pickups scattered around the map. They get wiped
+-- and respawned every 60 seconds while the match is running.
+--------------------------------------------------------------------------
+ 
+local function spawnPickupLoop(pickupList)
+    if #pickupList == 0 then return end
+ 
+    CreateThread(function()
+        while TDM.state ~= "ended" do
+            -- Remove whatever pickups currently exist.
+            for _, pickupHandle in pairs(TDM.pickups) do
+                CMG.deletePickup(pickupHandle)
             end
-          end
+            TDM.pickups = {}
+ 
+            -- Spawn a fresh set from the pickup list the server sent us.
+            for _, pickupData in pairs(pickupList) do
+                local handle = CMG.createPickup(pickupData.hash, pickupData.position)
+                table.insert(TDM.pickups, handle)
+            end
+ 
+            Wait(60000)
         end
-      end
+    end)
+end
+ 
+--------------------------------------------------------------------------
+-- Event: "04c52f29ff" - server tells us the match is loading and gives us
+-- the map info (spawn point, bounds, pickups, etc).
+--------------------------------------------------------------------------
+ 
+RegisterNetEvent("04c52f29ff")
+AddEventHandler("04c52f29ff", function(
+    mapName,            -- name of the map being used
+    rockstarMapName,    -- optional built-in Rockstar map to load
+    spawnPos,           -- vec4 (x, y, z, heading) where the player spawns
+    spawnPoints,         -- list of possible respawn points
+    team,                -- "blue" or "red"
+    bounds,               -- table describing the play area
+    extraBoundPoints,     -- optional extra points to add to the bounds
+    pickupList,           -- list of pickups to spawn on the map
+    startCharacterSelect, -- if true, immediately kick off the char-select/start sequence
+    minigameId             -- unique id for this match instance
+)
+    TDM.mapname      = mapName
+    TDM.state        = "loading"
+    TDM.team         = team
+    TDM.spawn        = spawnPos
+    TDM.spawnpoints  = spawnPoints
+ 
+    if rockstarMapName then
+        CMG.loadClientRockstarMap(rockstarMapName, false)
     end
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.disableMeleeControls
-    SHX8_2()
-    SHX8_2 = DisableFirstPersonCamThisFrame
-    SHX8_2()
-    SHX8_2 = DisableControlAction
-    SHX9_2 = 0
-    SHX10_2 = 23
-    SHX11_2 = false
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = DisableControlAction
-    SHX9_2 = 0
-    SHX10_2 = 75
-    SHX11_2 = false
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = SHX16_1
-    SHX8_2()
-    SHX8_2 = Citizen
-    SHX8_2 = SHX8_2.Wait
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
-  end
-end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = {}
-SHX18_1 = RegisterNetEvent
-SHX19_1 = "14c5e345a1"
-function SHX20_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = PlaySoundFrontend
-  SHX3_2 = -1
-  SHX4_2 = "Weapon_Upgrade"
-  SHX5_2 = "DLC_GR_Weapon_Upgrade_Soundset"
-  SHX6_2 = true
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.insert
-  SHX3_2 = SHX17_1
-  SHX4_2 = {}
-  SHX4_2.name = SHX0_2
-  SHX4_2.source = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetTimeout
-  SHX3_2 = 2000
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-    SHX0_3 = pairs
-    SHX1_3 = SHX17_1
-    SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-    for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-      SHX6_3 = SHX1_2
-      SHX7_3 = SHX5_3.source
-      if SHX6_3 == SHX7_3 then
-        SHX6_3 = table
-        SHX6_3 = SHX6_3.remove
-        SHX7_3 = SHX17_1
-        SHX8_3 = SHX4_3
-        SHX6_3(SHX7_3, SHX8_3)
-      end
+ 
+    local ped = PlayerPedId()
+    CMG.setEventRespawnPosition(spawnPos)
+    SetEntityCoordsNoOffset(ped, spawnPos.x, spawnPos.y, spawnPos.z, true, false, false)
+    SetEntityHeading(ped, spawnPos.w)
+    FreezeEntityPosition(ped, true)
+ 
+    -- If extra bound points were provided, merge them into the bounds list.
+    if extraBoundPoints then
+        for _, point in pairs(extraBoundPoints) do
+            table.insert(bounds, point)
+        end
     end
-  end
-  SHX2_2(SHX3_2, SHX4_2)
-end
-SHX18_1(SHX19_1, SHX20_1)
-SHX18_1 = CreateThread
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  while true do
-    SHX0_2 = SHX1_1.state
-    if "started" == SHX0_2 then
-      SHX0_2 = SHX6_1.reset
-      SHX0_2()
-      SHX0_2 = SHX6_1.push
-      SHX1_2 = "~b~BLUE TEAM~w~"
-      SHX2_2 = GlobalState
-      SHX3_2 = SHX1_1.currentMinigameId
-      SHX4_2 = "_bluepoints"
-      SHX3_2 = SHX3_2 .. SHX4_2
-      SHX2_2 = SHX2_2[SHX3_2]
-      SHX3_2 = "/50"
-      SHX2_2 = SHX2_2 .. SHX3_2
-      SHX0_2(SHX1_2, SHX2_2)
-      SHX0_2 = SHX6_1.push
-      SHX1_2 = "~r~RED TEAM~w~"
-      SHX2_2 = GlobalState
-      SHX3_2 = SHX1_1.currentMinigameId
-      SHX4_2 = "_redpoints"
-      SHX3_2 = SHX3_2 .. SHX4_2
-      SHX2_2 = SHX2_2[SHX3_2]
-      SHX3_2 = "/50"
-      SHX2_2 = SHX2_2 .. SHX3_2
-      SHX0_2(SHX1_2, SHX2_2)
-      SHX0_2 = SHX1_1.rcxdTimer
-      if SHX0_2 then
-        SHX0_2 = SHX6_1.push
-        SHX1_2 = "~b~EXPLODES IN~y~"
-        SHX2_2 = tostring
-        SHX3_2 = math
-        SHX3_2 = SHX3_2.floor
-        SHX4_2 = GetGameTimer
-        SHX4_2 = SHX4_2()
-        SHX5_2 = SHX1_1.rcxdTimer
-        SHX4_2 = SHX4_2 - SHX5_2
-        SHX4_2 = SHX4_2 / 1000
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX4_2 = 20
-        SHX3_2 = SHX4_2 - SHX3_2
-        SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX2_2(SHX3_2)
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      end
-      SHX0_2 = SHX1_1.chopperTimer
-      if SHX0_2 then
-        SHX0_2 = SHX6_1.push
-        SHX1_2 = "~b~RETURN IN~y~"
-        SHX2_2 = tostring
-        SHX3_2 = math
-        SHX3_2 = SHX3_2.floor
-        SHX4_2 = GetGameTimer
-        SHX4_2 = SHX4_2()
-        SHX5_2 = SHX1_1.chopperTimer
-        SHX4_2 = SHX4_2 - SHX5_2
-        SHX4_2 = SHX4_2 / 1000
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX4_2 = 60
-        SHX3_2 = SHX4_2 - SHX3_2
-        SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX2_2(SHX3_2)
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      end
-      SHX0_2 = SHX1_1.hasRCXD
-      if SHX0_2 then
-        SHX0_2 = SHX6_1.push
-        SHX1_2 = "~b~KILLSTREAK~w~"
-        SHX2_2 = "RCXD"
-        SHX3_2 = 0.3
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      end
-      SHX0_2 = SHX1_1.hasChopper
-      if SHX0_2 then
-        SHX0_2 = SHX6_1.push
-        SHX1_2 = "~b~KILLSTREAK~w~"
-        SHX2_2 = "Chopper"
-        SHX3_2 = 0.3
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      end
-      SHX0_2 = SHX6_1.draw
-      SHX0_2()
+    TDM.bounds = bounds
+    CMG.setMinigameBounds(bounds)
+ 
+    TDM.pickups = {}
+    spawnPickupLoop(pickupList)
+ 
+    if startCharacterSelect then
+        TriggerEvent("105e886dcc", minigameId)
     end
-    SHX0_2 = pairs
-    SHX1_2 = SHX17_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DrawAdvancedTextNoOutline
-      SHX7_2 = 0.6
-      SHX8_2 = 0.025 * SHX4_2
-      SHX8_2 = 0.5 + SHX8_2
-      SHX9_2 = 0.005
-      SHX10_2 = 0.0028
-      SHX11_2 = 0.45
-      SHX12_2 = "Killed "
-      SHX13_2 = CMG
-      SHX13_2 = SHX13_2.getPlayerColour
-      SHX14_2 = SHX5_2.source
-      SHX13_2 = SHX13_2(SHX14_2)
-      SHX14_2 = SHX5_2.name
-      SHX12_2 = SHX12_2 .. SHX13_2 .. SHX14_2
-      SHX13_2 = 255
-      SHX14_2 = 255
-      SHX15_2 = 255
-      SHX16_2 = 255
-      SHX17_2 = CMG
-      SHX17_2 = SHX17_2.getFontId
-      SHX18_2 = "Akrobat-Regular"
-      SHX17_2 = SHX17_2(SHX18_2)
-      SHX18_2 = 1
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+end)
+ 
+--------------------------------------------------------------------------
+-- Team helpers
+--------------------------------------------------------------------------
+ 
+-- Returns the name of the opposing team.
+local function getEnemyTeamName()
+    if TDM.team == "blue" then
+        return "red"
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
+    return "blue"
 end
-SHX18_1(SHX19_1)
-SHX18_1 = false
-SHX19_1 = CMG
-function SHX20_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = true
-  SHX18_1 = SHX0_2
-  SHX0_2 = SetSpecialAbility
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = 2
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SpecialAbilityActivate
-  SHX1_2 = PlayerId
-  SHX1_2, SHX2_2 = SHX1_2()
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = Wait
-  SHX1_2 = 1000
-  SHX0_2(SHX1_2)
-  SHX0_2 = false
-  SHX18_1 = SHX0_2
-  SHX0_2 = SpecialAbilityDeplete
-  SHX1_2 = PlayerId
-  SHX1_2, SHX2_2 = SHX1_2()
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.InvokeNative
-  SHX1_2 = -4466441394195262849
-  SHX2_2 = PlayerId
-  SHX2_2 = SHX2_2()
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX19_1.activateSlowMo = SHX20_1
-SHX19_1 = CMG
-function SHX20_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX18_1
-  return SHX0_2
-end
-SHX19_1.isInSlowMo = SHX20_1
-SHX19_1 = RegisterNetEvent
-SHX20_1 = "f8de0cdabc"
-function SHX21_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  if 5 == SHX0_2 then
-    SHX1_2 = SetTimecycleModifier
-    SHX2_2 = "MP_Killstreak"
-    SHX1_2(SHX2_2)
-    SHX1_2 = SetTimecycleModifierStrength
-    SHX2_2 = 0.5
-    SHX1_2(SHX2_2)
-    SHX1_1.hasRCXD = true
-    SHX1_2 = notify
-    SHX2_2 = "~g~RX-CD kill streak awarded, use up arrow for deploy."
-    SHX1_2(SHX2_2)
-  elseif 10 == SHX0_2 then
-    SHX1_2 = SetTimecycleModifier
-    SHX2_2 = "BeastIntro01"
-    SHX1_2(SHX2_2)
-    SHX1_2 = SetTimecycleModifierStrength
-    SHX2_2 = 0.5
-    SHX1_2(SHX2_2)
-    SHX1_1.hasChopper = true
-    SHX1_2 = notify
-    SHX2_2 = "~g~Chopper kill streak awarded, use up arrow for deploy."
-    SHX1_2(SHX2_2)
-  end
-end
-SHX19_1(SHX20_1, SHX21_1)
-SHX19_1 = AddEventHandler
-SHX20_1 = "5dac3d7c66"
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX1_1.state
-  if "started" == SHX0_2 then
-    SHX0_2 = ClearTimecycleModifier
-    SHX0_2()
-    SHX0_2 = notify
-    SHX1_2 = "~b~Press [B] to open the buy menu"
-    SHX0_2(SHX1_2)
-    SHX0_2 = Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX8_1
-    if SHX0_2 then
-      SHX0_2 = SHX9_1
-      SHX1_2 = SHX8_1
-      SHX0_2(SHX1_2)
+ 
+-- Returns 1 if `source` is a player on the ENEMY team, 2 if they're on
+-- YOUR team, or nil if they're not found in either list.
+-- (Used to decide how to color/label a player's blip.)
+local function getPlayerBlipTeamCode(source)
+    if not (TDM.blueteam and TDM.redteam) then return end
+ 
+    local enemyTeamList = TDM[getEnemyTeamName() .. "team"]
+    for _, entry in pairs(enemyTeamList) do
+        if entry.source == source then
+            return 1
+        end
     end
-    SHX0_2 = SetLocalPlayerAsGhost
-    SHX1_2 = true
-    SHX0_2(SHX1_2)
-    SHX0_2 = Wait
-    SHX1_2 = 5000
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetLocalPlayerAsGhost
-    SHX1_2 = false
-    SHX0_2(SHX1_2)
-    SHX0_2 = ResetGhostedEntityAlpha
-    SHX0_2()
-    SHX0_2 = SHX1_1.spawnpoints
-    SHX1_2 = math
-    SHX1_2 = SHX1_2.random
-    SHX2_2 = 1
-    SHX3_2 = SHX1_1.spawnpoints
-    SHX3_2 = #SHX3_2
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.setEventRespawnPosition
-    SHX2_2 = SHX0_2
-    SHX1_2(SHX2_2)
-  end
+ 
+    local ownTeamList = TDM[TDM.team .. "team"]
+    for _, entry in pairs(ownTeamList) do
+        if entry.source == source then
+            return 2
+        end
+    end
 end
-SHX19_1(SHX20_1, SHX21_1)
+ 
+-- Returns true if `source` should be treated as "relevant" for blips/tags:
+-- either they're on your own team, or they've shot at you during the event.
+local function isPlayerRelevantToShow(source)
+    if not (TDM.blueteam and TDM.redteam) then return end
+ 
+    local ownTeamList = TDM[TDM.team .. "team"]
+    for _, entry in pairs(ownTeamList) do
+        if entry.source == source then
+            return true
+        end
+    end
+ 
+    if CMG.hasPlayerShotInEvent(source) then
+        return true
+    end
+ 
+    return false
+end
+ 
+-- Same idea as getPlayerBlipTeamCode, but returns HUD color codes
+-- (6 = enemy color, 18 = friendly color) instead of a 1/2 team code.
+-- Used for nametag coloring.
+local function getPlayerTagColor(source)
+    if not (TDM.blueteam and TDM.redteam) then return end
+ 
+    local enemyTeamList = TDM[getEnemyTeamName() .. "team"]
+    for _, entry in pairs(enemyTeamList) do
+        if entry.source == source then
+            return 6
+        end
+    end
+ 
+    local ownTeamList = TDM[TDM.team .. "team"]
+    for _, entry in pairs(ownTeamList) do
+        if entry.source == source then
+            return 18
+        end
+    end
+end
+ 
+--------------------------------------------------------------------------
+-- Kill streak: RC-XD (remote control explosive car)
+--------------------------------------------------------------------------
+ 
+-- Event: "ece517541d" - server spawned an RC-XD vehicle for us to control.
+RegisterNetEvent("ece517541d")
+AddEventHandler("ece517541d", function(vehicleNetId)
+    CreateThread(function()
+        CMG.announceMpBigMsg("~g~RC-XD deployed.", "", 1000, true)
+    end)
+ 
+    local vehicle = NetToVeh(vehicleNetId)
+    SetEntityVisible(PlayerPedId(), false, false) -- hide the player while "piloting" the car
+ 
+    TDM.rcxdTimer = GetGameTimer()
+ 
+    -- Keep control until: the player takes damage, 20 seconds pass,
+    -- or they press the detonate button (control 18 = space/jump).
+    while true do
+        if GetEntityHealth(PlayerPedId()) <= 100 then break end
+        if (GetGameTimer() - TDM.rcxdTimer) >= 20000 then break end
+        if IsControlJustPressed(0, 18) then break end
+ 
+        drawNativeText("Press ~g~SPACE~w~ to explode RC-XD")
+        Wait(0)
+    end
+ 
+    TDM.rcxdTimer = nil
+    DeleteVehicle(vehicle)
+    SetEntityHealth(PlayerPedId(), 0) -- "give control back" by killing the player's real ped state
+    TriggerServerEvent("2f33bbb12c")  -- tell the server the RC-XD sequence ended
+end)
+ 
+-- Event: "996718a935" - trigger the RC-XD explosion effect at a position.
+RegisterNetEvent("996718a935")
+AddEventHandler("996718a935", function(explosionCenter)
+    for i = 1, 15 do
+        local x = explosionCenter.x + (math.random() - 0.5) * 4.0
+        local y = explosionCenter.y + (math.random() - 0.5) * 4.0
+        local z = explosionCenter.z + (math.random() - 0.5) * 2.0
+ 
+        AddOwnedExplosion(PlayerPedId(), x, y, z, 2, 1.0, true, false, 5.0)
+    end
+end)
+ 
+--------------------------------------------------------------------------
+-- Kill streak: attack chopper
+--------------------------------------------------------------------------
+ 
+-- Event: "f03e895b72" - server gives us the network IDs of the chopper
+-- vehicle and its pilot ped so we can sync them.
+RegisterNetEvent("f03e895b72")
+AddEventHandler("f03e895b72", function(vehicleNetId, pedNetId)
+    TDM.chopperVehNetId = vehicleNetId
+    TDM.chopperPedNetId = pedNetId
+end)
+ 
+-- Event: "86e97f39ba" - server put us in gunner seat of the attack chopper.
+RegisterNetEvent("86e97f39ba")
+AddEventHandler("86e97f39ba", function()
+    local returnCoords = CMG.getPlayerCoords()
+    CMG.clearMinigameBounds()
+ 
+    CreateThread(function()
+        CMG.announceMpBigMsg("~g~Chopper Gun deployed.", "", 1000, true)
+    end)
+ 
+    TDM.isChopperShooter = true
+    TDM.chopperTimer = GetGameTimer()
+ 
+    -- Stay in the chopper until the player takes damage or 60 seconds pass.
+    while true do
+        if GetEntityHealth(PlayerPedId()) <= 100 then break end
+        if (GetGameTimer() - TDM.chopperTimer) >= 60000 then break end
+        Wait(0)
+    end
+ 
+    TDM.chopperTimer = nil
+    TDM.isChopperShooter = false
+ 
+    ClearPedTasksImmediately(PlayerPedId())
+    SetEntityCoords(PlayerPedId(), returnCoords.x, returnCoords.y, returnCoords.z, true, false, false, false)
+    CMG.setMinigameBounds(TDM.bounds)
+end)
+ 
+-- Returns one of 4 pre-defined chopper waypoints for the current map.
+local function getChopperWaypoint(index)
+    local chopperPositions = cfg.locations[TDM.mapname].chopper
+    if index == 0 then return chopperPositions.pos1
+    elseif index == 1 then return chopperPositions.pos2
+    elseif index == 2 then return chopperPositions.pos3
+    elseif index == 3 then return chopperPositions.pos4
+    end
+end
+ 
+-- Runs every frame (called from the main match loop below) to drive the
+-- AI-controlled attack chopper between waypoints, and to seat the shooter
+-- and pilot peds correctly.
+local function updateChopperAI()
+    if not NetworkDoesEntityExistWithNetworkId(TDM.chopperVehNetId) then return end
+    if not NetworkDoesEntityExistWithNetworkId(TDM.chopperPedNetId) then return end
+ 
+    local vehicle = NetworkGetEntityFromNetworkId(TDM.chopperVehNetId)
+    local pilotPed = NetworkGetEntityFromNetworkId(TDM.chopperPedNetId)
+    if vehicle == 0 or pilotPed == 0 then return end
+ 
+    local playerPed = PlayerPedId()
+ 
+    -- If we're the gunner, make sure we're seated in seat 1 (side gunner seat).
+    if TDM.isChopperShooter then
+        if GetPedInVehicleSeat(vehicle, 1) ~= playerPed then
+            SetPedIntoVehicle(playerPed, vehicle, 1)
+        end
+    end
+ 
+    -- Only the client with network control of the pilot ped should drive the AI.
+    if not NetworkHasControlOfEntity(pilotPed) then return end
+ 
+    SetEntityInvincible(pilotPed, true)
+    SetBlockingOfNonTemporaryEvents(pilotPed, true)
+    SetPedKeepTask(pilotPed, true)
+ 
+    -- Make sure the pilot is actually in the driver's seat.
+    if GetPedInVehicleSeat(vehicle, -1) ~= pilotPed then
+        SetPedIntoVehicle(pilotPed, vehicle, -1)
+    end
+ 
+    SetVehicleEngineOn(vehicle, true, true, false)
+    SetHeliBladesFullSpeed(vehicle)
+ 
+    -- We track which waypoint "stage" the chopper is on using entity state
+    -- bags, so all clients agree on where it should be flying.
+    local stage = Entity(pilotPed).state.stage
+    local lastChanged = Entity(pilotPed).state.lastChanged
+ 
+    if stage == 0 then
+        -- First time through: snap the chopper to its starting waypoint.
+        local startPos = getChopperWaypoint(0)
+        SetEntityCoordsNoOffset(vehicle, startPos.x, startPos.y, startPos.z, true, false, false)
+    end
+ 
+    local advancedStage = false
+    local elapsedSinceChange = GetNetworkTime() - (lastChanged or GetNetworkTime())
+ 
+    -- Move to the next waypoint every 15 seconds.
+    if elapsedSinceChange > 15000 then
+        stage = stage + 1
+        Entity(pilotPed).state:set("stage", stage, true)
+        Entity(pilotPed).state:set("lastChanged", GetNetworkTime(), true)
+        advancedStage = true
+    end
+ 
+    -- Only re-issue the drive task if we just changed waypoint, or the
+    -- previous drive task actually finished.
+    if not advancedStage then
+        local taskStatus = GetScriptTaskStatus(pilotPed, 2477085294) -- TASK_VEHICLE_DRIVE_TO_COORD hash
+        if taskStatus ~= 7 then
+            return -- task is still running, nothing to do
+        end
+    end
+ 
+    local nextWaypoint = getChopperWaypoint(stage)
+    if nextWaypoint then
+        TaskVehicleDriveToCoord(
+            pilotPed, vehicle,
+            nextWaypoint.x, nextWaypoint.y, nextWaypoint.z,
+            20.0,             -- speed
+            0,                -- unused "stop" flag
+            1543134283,       -- vehicle model hash driving style relates to (heli)
+            262144,           -- driving style flags
+            1.0, -1.0
+        )
+    end
+end
+ 
+--------------------------------------------------------------------------
+-- Team assignment + match start / character select sequence
+--------------------------------------------------------------------------
+ 
+-- Event: "1985159cca" - server sends us the current red/blue team rosters.
+RegisterNetEvent("1985159cca")
+AddEventHandler("1985159cca", function(redTeam, blueTeam)
+    TDM.redteam  = redTeam
+    TDM.blueteam = blueTeam
+end)
+ 
+-- Event: "105e886dcc" - kicks off the character-select camera and, after a
+-- short countdown, actually starts the match.
+RegisterNetEvent("105e886dcc")
+AddEventHandler("105e886dcc", function(minigameId)
+    CMG.enableDriveBy(true)
+    CMG.setSwitchGunEnabled(false)
+    CMG.stopEventSequence()
+    currentEvent.drawPlayersTimeBar = false
+    TDM.state = "choosingcharacter"
+    BusyspinnerOff()
+ 
+    -- Set up a cinematic camera looking at the player's spawn point.
+    local ped = PlayerPedId()
+    local rightVec, forwardVec, upVec, pedPos = GetEntityMatrix(ped)
+    local camPos = (rightVec * 2.0) + (forwardVec * 0.0) + (upVec * 0.5) + pedPos
+ 
+    TDM.camera = CreateCamWithParams(
+        "DEFAULT_SCRIPTED_CAMERA",
+        camPos.x, camPos.y, camPos.z,
+        0.0, 0.0, 0.0,
+        70.0, false, 2
+    )
+    SetCamActive(TDM.camera, true)
+    PointCamAtCoord(TDM.camera, TDM.spawn.x, TDM.spawn.y, TDM.spawn.z)
+    RenderScriptCams(true, false, 0, false, false)
+ 
+    -- Play a random idle animation on the player while they wait.
+    CMG.loadAnimDict("mini@triathlon")
+    TaskPlayAnim(
+        CMG.getPlayerPed(), "mini@triathlon", "idle_" .. getRandomIdleAnimLetter(),
+        8.0, 8.0, -1, 1, 0.2, false, false, false
+    )
+ 
+    TDM.currentMinigameId = minigameId
+ 
+    -- Countdown sound + UI (assumed to show "3, 2, 1")
+    PlaySoundFrontend(-1, "5s", "MP_MISSION_COUNTDOWN_SOUNDSET", false)
+    TriggerEvent("b3cbc4aca5", 3)
+    Wait(4000)
+ 
+    -- If the state changed while we were waiting (e.g. match was cancelled), bail out.
+    if TDM.state ~= "choosingcharacter" then return end
+ 
+    TDM.state = "started"
+    CMG.setPlayerCanOpenLeaderboard(true)
+ 
+    ClearPedTasks(PlayerPedId())
+    SetCamActive(TDM.camera, false)
+    RenderScriptCams(false, false, 0, false, false)
+    DestroyCam(TDM.camera, false)
+    DestroyCam(TDM.camera2, false) -- (kept for parity - camera2 doesn't seem to be set anywhere)
+ 
+    CMG.enableMinigamePlayerBlips(true, getPlayerBlipTeamCode, isPlayerRelevantToShow)
+    CMG.enableMinigamePlayerTags(true, true, getPlayerTagColor)
+ 
+    -- Teams are hostile toward each other (relationship type 5 = "hate").
+    SetRelationshipBetweenGroups(5, blueGroupHash, redGroupHash)
+    SetRelationshipBetweenGroups(5, redGroupHash, blueGroupHash)
+ 
+    if TDM.team == "blue" then
+        SetPedRelationshipGroupHash(PlayerPedId(), blueGroupHash)
+    else
+        SetPedRelationshipGroupHash(PlayerPedId(), redGroupHash)
+    end
+ 
+    CMG.setFriendlyFire(false)
+    FreezeEntityPosition(PlayerPedId(), false)
+ 
+    -- Show a one-time hint about how to open the buy menu.
+    CreateThread(function()
+        if IsUsingKeyboard(0) then
+            CMG.announceMpBigMsg("PRESS B TO OPEN BUY MENU", "", 5000, true)
+        else
+            CMG.announceMpBigMsg("PRESS R1 TO OPEN BUY MENU", "", 5000, true)
+        end
+    end)
+ 
+    -- Main per-frame match loop while the match is active.
+    while TDM.state == "started" do
+        -- B on keyboard, R1 (control 44... originally computed) on controller.
+        local buyMenuControl = IsUsingKeyboard(0) and 29 or 44
+ 
+        if IsControlJustPressed(0, buyMenuControl) then
+            CMG.openRadialMenu("buyWeaponsTDM")
+        elseif IsControlJustPressed(0, 188) then
+            -- Up-arrow: use whichever kill streak the player currently has.
+            if TDM.hasRCXD then
+                TDM.hasRCXD = false
+                TriggerServerEvent("7640517054")
+            elseif TDM.hasChopper then
+                if TDM.chopperVehNetId then
+                    notify("~r~The airspace is full.")
+                else
+                    TDM.hasChopper = false
+                    TriggerServerEvent("00ef526aa7")
+                end
+            end
+        end
+ 
+        CMG.disableMeleeControls()
+        DisableFirstPersonCamThisFrame()
+        DisableControlAction(0, 23, false) -- disable "enter vehicle"
+        DisableControlAction(0, 75, false) -- disable "exit vehicle"
+ 
+        updateChopperAI()
+ 
+        Wait(0)
+    end
+end)
+ 
+--------------------------------------------------------------------------
+-- Kill feed
+--------------------------------------------------------------------------
+ 
+local killFeed = {}
+ 
+-- Event: "14c5e345a1" - someone got a kill; add it to the on-screen kill feed.
+RegisterNetEvent("14c5e345a1")
+AddEventHandler("14c5e345a1", function(killerName, killerSource)
+    PlaySoundFrontend(-1, "Weapon_Upgrade", "DLC_GR_Weapon_Upgrade_Soundset", true)
+ 
+    table.insert(killFeed, { name = killerName, source = killerSource })
+ 
+    -- Remove this entry again after 2 seconds so the feed doesn't grow forever.
+    SetTimeout(2000, function()
+        for i, entry in pairs(killFeed) do
+            if entry.source == killerSource then
+                table.remove(killFeed, i)
+            end
+        end
+    end)
+end)
+ 
+--------------------------------------------------------------------------
+-- HUD: score bars, killstreak timers, and kill feed text
+--------------------------------------------------------------------------
+ 
+CreateThread(function()
+    while true do
+        if TDM.state == "started" then
+            timerBars.reset()
+ 
+            timerBars.push("~b~BLUE TEAM~w~", GlobalState[TDM.currentMinigameId .. "_bluepoints"] .. "/50")
+            timerBars.push("~r~RED TEAM~w~",  GlobalState[TDM.currentMinigameId .. "_redpoints"]  .. "/50")
+ 
+            if TDM.rcxdTimer then
+                local secondsLeft = 20 - math.floor((GetGameTimer() - TDM.rcxdTimer) / 1000)
+                timerBars.push("~b~EXPLODES IN~y~", tostring(secondsLeft))
+            end
+ 
+            if TDM.chopperTimer then
+                local secondsLeft = 60 - math.floor((GetGameTimer() - TDM.chopperTimer) / 1000)
+                timerBars.push("~b~RETURN IN~y~", tostring(secondsLeft))
+            end
+ 
+            if TDM.hasRCXD then
+                timerBars.push("~b~KILLSTREAK~w~", "RCXD", 0.3)
+            end
+ 
+            if TDM.hasChopper then
+                timerBars.push("~b~KILLSTREAK~w~", "Chopper", 0.3)
+            end
+ 
+            timerBars.draw()
+        end
+ 
+        -- Draw the kill feed lines, stacked vertically.
+        for i, entry in pairs(killFeed) do
+            local yPos = 0.5 + (0.025 * i)
+            local killerColorTag = CMG.getPlayerColour(entry.source)
+            local text = "Killed " .. killerColorTag .. entry.name
+ 
+            DrawAdvancedTextNoOutline(
+                0.6, yPos, 0.005, 0.0028, 0.45,
+                text,
+                255, 255, 255, 255,
+                CMG.getFontId("Akrobat-Regular"), 1
+            )
+        end
+ 
+        Wait(0)
+    end
+end)
+ 
+--------------------------------------------------------------------------
+-- Slow-mo special ability helpers (exposed on CMG so other scripts can call them)
+--------------------------------------------------------------------------
+ 
+local isInSlowMo = false
+ 
+function CMG.activateSlowMo()
+    isInSlowMo = true
+ 
+    SetSpecialAbility(PlayerId(), 2)
+    SpecialAbilityActivate(PlayerId())
+    Wait(1000)
+ 
+    isInSlowMo = false
+    SpecialAbilityDeplete(PlayerId())
+ 
+    -- Native call to fully reset the special ability meter/state.
+    Citizen.InvokeNative(-4466441394195262849, PlayerId())
+end
+ 
+function CMG.isInSlowMo()
+    return isInSlowMo
+end
+ 
+--------------------------------------------------------------------------
+-- Kill streak rewards
+--------------------------------------------------------------------------
+ 
+-- Event: "f8de0cdabc" - server tells us how many kills we're on, so we can
+-- award kill-streak rewards at certain thresholds.
+RegisterNetEvent("f8de0cdabc")
+AddEventHandler("f8de0cdabc", function(killCount)
+    if killCount == 5 then
+        SetTimecycleModifier("MP_Killstreak")
+        SetTimecycleModifierStrength(0.5)
+        TDM.hasRCXD = true
+        notify("~g~RX-CD kill streak awarded, use up arrow for deploy.")
+    elseif killCount == 10 then
+        SetTimecycleModifier("BeastIntro01")
+        SetTimecycleModifierStrength(0.5)
+        TDM.hasChopper = true
+        notify("~g~Chopper kill streak awarded, use up arrow for deploy.")
+    end
+end)
+ 
+--------------------------------------------------------------------------
+-- Respawn handling
+--------------------------------------------------------------------------
+ 
+-- Event: "5dac3d7c66" - fired when the local player respawns during the match.
+AddEventHandler("5dac3d7c66", function()
+    if TDM.state ~= "started" then return end
+ 
+    ClearTimecycleModifier()
+    notify("~b~Press [B] to open the buy menu")
+    Wait(1000)
+ 
+    -- Re-buy whatever weapon the player had selected before dying.
+    if lastBoughtWeapon then
+        onWeaponPurchased(lastBoughtWeapon)
+    end
+ 
+    -- Brief spawn protection.
+    SetLocalPlayerAsGhost(true)
+    Wait(5000)
+    SetLocalPlayerAsGhost(false)
+    ResetGhostedEntityAlpha()
+ 
+    -- Move to a random spawn point.
+    local randomSpawn = TDM.spawnpoints[math.random(1, #TDM.spawnpoints)]
+    CMG.setEventRespawnPosition(randomSpawn)
+end)
