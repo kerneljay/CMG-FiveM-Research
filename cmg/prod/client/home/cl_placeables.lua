@@ -1,487 +1,503 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Home Placeable Objects - Readable Client Script
+    ===============================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_homecustomisation"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = 0
-SHX3_1 = false
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX4_2 = SHX1_1
-  if not SHX4_2 then
-    SHX4_2 = {}
-    SHX1_1 = SHX4_2
-  end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadModel
-  SHX5_2 = SHX0_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = CreateObjectNoOffset
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX1_2.x
-  SHX7_2 = SHX1_2.y
-  SHX8_2 = SHX1_2.z
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX5_2 = SetModelAsNoLongerNeeded
-  SHX6_2 = SHX0_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = FreezeEntityPosition
-  SHX6_2 = SHX4_2
-  SHX7_2 = true
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SetEntityRotation
-  SHX6_2 = SHX4_2
-  SHX7_2 = SHX2_2.x
-  SHX8_2 = SHX2_2.y
-  SHX9_2 = SHX2_2.z
-  SHX10_2 = 2
-  SHX11_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX5_2 = table
-  SHX5_2 = SHX5_2.insert
-  SHX6_2 = SHX1_1
-  SHX7_2 = {}
-  SHX8_2 = SHX0_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX4_2
-  SHX12_2 = SHX3_2
-  SHX7_2[1] = SHX8_2
-  SHX7_2[2] = SHX9_2
-  SHX7_2[3] = SHX10_2
-  SHX7_2[4] = SHX11_2
-  SHX7_2[5] = SHX12_2
-  SHX5_2(SHX6_2, SHX7_2)
-end
-SHX5_1 = RegisterNetEvent
-SHX6_1 = "41269ceaa6"
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX2_2 = SHX1_1
-  if SHX2_2 then
-    SHX2_2 = pairs
-    SHX3_2 = SHX1_1
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-    for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-      SHX8_2 = DeleteEntity
-      SHX9_2 = SHX7_2[4]
-      SHX8_2(SHX9_2)
+    Reconstructed from decompiled Lua.
+
+    Beginner glossary:
+      prop / object    = a piece of furniture or another GTA map object
+      entity           = the actual spawned object inside the game world
+      modelHash        = GTA's identifier for the object model
+      position         = X/Y/Z world coordinates
+      rotation         = X/Y/Z rotation of the object
+      preview          = temporary placement/deletion mode before confirming
+      server event     = a message sent between this client and the FiveM server
+
+    IMPORTANT:
+      Hashed event names such as "41269ceaa6" and "cd012390a5" are
+      intentionally unchanged. The server probably expects those exact names.
+
+    Stored placeable format:
+      placedObjects[index] = {
+          modelHash,
+          position,
+          rotation,
+          entity,
+          stateFlag
+      }
+
+    The exact purpose of stateFlag cannot be proven from this client file alone,
+    so it is deliberately given a neutral name.
+]]
+
+
+-- ============================================================
+-- CONFIGURATION / STATE
+-- ============================================================
+
+local homeCustomisationConfig =
+    CMG.loadModule("cfg/cfg_homecustomisation")
+
+-- Every home prop currently spawned on this client.
+local placedObjects = {}
+
+-- Used by the menu so opening/hovering the same placeable repeatedly
+-- does not constantly restart placement preview mode.
+local selectedPlaceableIndex = 0
+
+-- Supplied by the server when it sends the current list of props.
+-- Its exact meaning is not defined in this client script.
+local placeableStateFlag = false
+
+
+-- ============================================================
+-- SPAWN ONE PLACEABLE OBJECT
+-- ============================================================
+
+local function spawnPlaceableObject(
+    modelHash,
+    position,
+    rotation,
+    stateFlag
+)
+    -- Some events can clear the table completely, so recreate it if needed.
+    if not placedObjects then
+        placedObjects = {}
     end
-    SHX2_2 = nil
-    SHX1_1 = SHX2_2
-  end
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX4_1
-    SHX9_2 = SHX7_2[1]
-    SHX10_2 = SHX7_2[2]
-    SHX11_2 = SHX7_2[3]
-    SHX12_2 = SHX7_2[4]
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  end
-  SHX3_1 = SHX1_2
+
+    -- Make sure the GTA object model is loaded into memory.
+    CMG.loadModel(modelHash)
+
+    -- Spawn a LOCAL object.
+    --
+    -- The three false values are preserved from the original code.
+    local entity = CreateObjectNoOffset(
+        modelHash,
+        position.x,
+        position.y,
+        position.z,
+        false,
+        false,
+        false
+    )
+
+    -- GTA no longer needs us to keep the model explicitly loaded.
+    SetModelAsNoLongerNeeded(modelHash)
+
+    -- Furniture should stay exactly where it was placed.
+    FreezeEntityPosition(entity, true)
+
+    SetEntityRotation(
+        entity,
+        rotation.x,
+        rotation.y,
+        rotation.z,
+        2,
+        false
+    )
+
+    -- Keep all information about this prop together.
+    table.insert(
+        placedObjects,
+        {
+            modelHash, -- [1]
+            position,  -- [2]
+            rotation,  -- [3]
+            entity,    -- [4]
+            stateFlag  -- [5]
+        }
+    )
 end
-SHX5_1(SHX6_1, SHX7_1)
-SHX5_1 = RegisterNetEvent
-SHX6_1 = "891add160c"
-SHX7_1 = SHX4_1
-SHX5_1(SHX6_1, SHX7_1)
-SHX5_1 = RegisterNetEvent
-SHX6_1 = "04d1477f6f"
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX1_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DeleteEntity
-      SHX7_2 = SHX5_2[4]
-      SHX6_2(SHX7_2)
+
+
+-- ============================================================
+-- DELETE LOCAL PLACEABLES
+-- ============================================================
+
+local function deleteAllLocalPlaceables()
+    if not placedObjects then
+        return
     end
-  end
-  SHX0_2 = nil
-  SHX1_1 = SHX0_2
-end
-SHX5_1(SHX6_1, SHX7_1)
-SHX5_1 = RegisterNetEvent
-SHX6_1 = "5823396a12"
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = DeleteEntity
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX2_2 = SHX2_2[4]
-  SHX1_2(SHX2_2)
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.remove
-  SHX2_2 = SHX1_1
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
-end
-SHX5_1(SHX6_1, SHX7_1)
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = {}
-  SHX1_2 = pairs
-  SHX2_2 = SHX1_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.insert
-    SHX8_2 = SHX0_2
-    SHX9_2 = SHX6_2[4]
-    SHX7_2(SHX8_2, SHX9_2)
-  end
-  SHX1_2 = 0
-  SHX2_2 = 5.0
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  SHX4_2 = pairs
-  SHX5_2 = SHX0_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = GetEntityCoords
-    SHX11_2 = SHX9_2
-    SHX12_2 = true
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SHX3_2 - SHX10_2
-    SHX10_2 = #SHX10_2
-    if SHX2_2 > SHX10_2 then
-      SHX2_2 = SHX10_2
-      SHX1_2 = SHX9_2
-    end
-  end
-  if 0 ~= SHX1_2 then
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.getHomePlaceableIndex
-    SHX5_2 = SHX1_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    if SHX4_2 > 0 then
-      SHX5_2 = TriggerServerEvent
-      SHX6_2 = "5823396a12"
-      SHX7_2 = SHX4_2
-      SHX8_2 = GetEntityCoords
-      SHX9_2 = SHX1_2
-      SHX10_2 = true
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX9_2 = SHX3_1
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    end
-  end
-end
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.registerHomeCustomisationButtons
-SHX7_1 = "Placeable Objects"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.ButtonWithStyle
-  SHX1_2 = "~r~Enter Delete Mode"
-  SHX2_2 = ""
-  SHX3_2 = {}
-  SHX3_2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-  SHX4_2 = true
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-    if SHX2_3 then
-      SHX3_3 = {}
-      SHX4_3 = pairs
-      SHX5_3 = SHX1_1
-      SHX4_3, SHX5_3, SHX6_3, SHX7_3 = SHX4_3(SHX5_3)
-      for SHX8_3, SHX9_3 in SHX4_3, SHX5_3, SHX6_3, SHX7_3 do
-        SHX10_3 = table
-        SHX10_3 = SHX10_3.insert
-        SHX11_3 = SHX3_3
-        SHX12_3 = SHX9_3[4]
-        SHX10_3(SHX11_3, SHX12_3)
-      end
-      SHX4_3 = CMG
-      SHX4_3 = SHX4_3.enterHomeDeletionPreview
-      SHX5_3 = SHX3_3
-      function SHX6_3(SHX0_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX1_4, SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-        SHX1_4 = CMG
-        SHX1_4 = SHX1_4.getHomePlaceableIndex
-        SHX2_4 = SHX0_4
-        SHX1_4 = SHX1_4(SHX2_4)
-        if SHX1_4 > 0 then
-          SHX2_4 = TriggerServerEvent
-          SHX3_4 = "5823396a12"
-          SHX4_4 = SHX1_4
-          SHX5_4 = GetEntityCoords
-          SHX6_4 = SHX0_4
-          SHX7_4 = true
-          SHX5_4 = SHX5_4(SHX6_4, SHX7_4)
-          SHX6_4 = SHX3_1
-          SHX2_4(SHX3_4, SHX4_4, SHX5_4, SHX6_4)
+
+    for _, objectData in pairs(placedObjects) do
+        local entity = objectData[4]
+
+        if entity then
+            DeleteEntity(entity)
         end
-      end
-      SHX4_3(SHX5_3, SHX6_3)
     end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.inHomeDeletionPreview
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.ButtonWithStyle
-    SHX1_2 = "~r~Delete Closest Prop"
-    SHX2_2 = "For those props that refuse to be selected (no confirmation). Use the mouse buttons to select and delete instead."
-    SHX3_2 = {}
-    SHX3_2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_2 = true
-    function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_3
-      if SHX2_3 then
-        SHX3_3 = SHX5_1
-        SHX3_3()
-      end
+end
+
+
+-- ============================================================
+-- SERVER: REPLACE THE COMPLETE PLACEABLE LIST
+-- ============================================================
+
+-- Parameters:
+--   serverObjects = table of saved placeables
+--   stateFlag     = server-owned context/state value
+RegisterNetEvent(
+    "41269ceaa6",
+    function(serverObjects, stateFlag)
+        -- Remove the old locally-created furniture first.
+        deleteAllLocalPlaceables()
+        placedObjects = nil
+
+        -- Recreate everything from the server's saved list.
+        for _, objectData in pairs(serverObjects) do
+            spawnPlaceableObject(
+                objectData[1], -- model
+                objectData[2], -- position
+                objectData[3], -- rotation
+                objectData[4]  -- saved state
+            )
+        end
+
+        placeableStateFlag = stateFlag
     end
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  end
-  SHX0_2 = SHX3_1
-  if not SHX0_2 then
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.ButtonWithStyle
-    SHX1_2 = "~r~Restore Placeable Props"
-    SHX2_2 = "Used to restore broken props after a robbery or raid."
-    SHX3_2 = {}
-    SHX3_2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_2 = true
-    function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_3, SHX4_3
-      if SHX2_3 then
-        SHX3_3 = TriggerServerEvent
-        SHX4_3 = "aa0e6fb69e"
-        SHX3_3(SHX4_3)
-      end
+)
+
+
+-- ============================================================
+-- SERVER: SPAWN ONE NEW PLACEABLE
+-- ============================================================
+
+-- This event is intentionally connected directly to the same spawn helper.
+RegisterNetEvent(
+    "891add160c",
+    spawnPlaceableObject
+)
+
+
+-- ============================================================
+-- SERVER: CLEAR ALL PLACEABLES
+-- ============================================================
+
+RegisterNetEvent("04d1477f6f", function()
+    deleteAllLocalPlaceables()
+    placedObjects = nil
+end)
+
+
+-- ============================================================
+-- SERVER: REMOVE ONE PLACEABLE BY INDEX
+-- ============================================================
+
+RegisterNetEvent("5823396a12", function(index)
+    if not placedObjects or not placedObjects[index] then
+        return
     end
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = pairs
-    SHX1_2 = SHX0_1.placeables
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = RageUI
-      SHX6_2 = SHX6_2.ButtonWithStyle
-      SHX7_2 = SHX5_2[1]
-      SHX8_2 = ""
-      SHX9_2 = {}
-      SHX10_2 = "\194\163"
-      SHX11_2 = getMoneyStringFormatted
-      SHX12_2 = SHX5_2[3]
-      SHX11_2 = SHX11_2(SHX12_2)
-      SHX10_2 = SHX10_2 .. SHX11_2
-      SHX9_2.RightLabel = SHX10_2
-      SHX10_2 = true
-      function SHX11_2(SHX0_3, SHX1_3, SHX2_3)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_3, SHX4_3, SHX5_3
-        if SHX1_3 then
-          SHX3_3 = SHX4_2
-          SHX4_3 = SHX2_1
-          if SHX3_3 ~= SHX4_3 then
-            SHX3_3 = SHX4_2
-            SHX2_1 = SHX3_3
-            SHX3_3 = CMG
-            SHX3_3 = SHX3_3.enterHomePlacementPreview
-            SHX4_3 = SHX5_2
-            SHX4_3 = SHX4_3[2]
-            function SHX5_3(SHX0_4, SHX1_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4
-              SHX2_4 = TriggerServerEvent
-              SHX3_4 = "cd012390a5"
-              SHX4_4 = SHX4_2
-              SHX5_4 = SHX0_4
-              SHX6_4 = SHX1_4
-              SHX2_4(SHX3_4, SHX4_4, SHX5_4, SHX6_4)
+
+    local entity = placedObjects[index][4]
+
+    if entity then
+        DeleteEntity(entity)
+    end
+
+    table.remove(placedObjects, index)
+end)
+
+
+-- ============================================================
+-- FIND THE INDEX OF A SPAWNED ENTITY
+-- ============================================================
+
+function CMG.getHomePlaceableIndex(wantedEntity)
+    if not placedObjects then
+        return -1
+    end
+
+    for index, objectData in pairs(placedObjects) do
+        if objectData[4] == wantedEntity then
+            return index
+        end
+    end
+
+    return -1
+end
+
+
+-- ============================================================
+-- RETURN ALL CURRENT PLACEABLE OBJECT DATA
+-- ============================================================
+
+function CMG.getHomePlaceableObjects()
+    return placedObjects
+end
+
+
+-- ============================================================
+-- REQUEST DELETION OF A SPECIFIC ENTITY
+-- ============================================================
+
+local function requestPlaceableDeletion(entity)
+    local index = CMG.getHomePlaceableIndex(entity)
+
+    if index <= 0 then
+        return
+    end
+
+    TriggerServerEvent(
+        "5823396a12",
+        index,
+        GetEntityCoords(entity, true),
+        placeableStateFlag
+    )
+end
+
+
+-- ============================================================
+-- DELETE THE CLOSEST PROP
+-- ============================================================
+
+local function deleteClosestPlaceable()
+    if not placedObjects then
+        return
+    end
+
+    local playerCoords = CMG.getPlayerCoords()
+
+    local closestEntity = 0
+    local closestDistance = 5.0
+
+    -- Search through every spawned home prop.
+    for _, objectData in pairs(placedObjects) do
+        local entity = objectData[4]
+
+        if entity then
+            local objectCoords =
+                GetEntityCoords(entity, true)
+
+            local distance =
+                #(playerCoords - objectCoords)
+
+            if distance < closestDistance then
+                closestDistance = distance
+                closestEntity = entity
             end
-            SHX3_3(SHX4_3, SHX5_3)
-          end
         end
-      end
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
     end
-  end
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "onResourceStop"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = SHX1_1
-    if SHX1_2 then
-      SHX1_2 = pairs
-      SHX2_2 = SHX1_1
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = DeleteEntity
-        SHX8_2 = SHX6_2[4]
-        SHX7_2(SHX8_2)
-      end
+
+    if closestEntity ~= 0 then
+        requestPlaceableDeletion(closestEntity)
     end
-  end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = CMG
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  return SHX0_2
-end
-SHX6_1.getHomePlaceableObjects = SHX7_1
-SHX6_1 = CMG
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX1_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2[4]
-    if SHX0_2 == SHX7_2 then
-      return SHX5_2
+
+
+-- ============================================================
+-- ENTER DELETE-PREVIEW MODE
+-- ============================================================
+
+local function enterDeletionPreview()
+    local entities = {}
+
+    if placedObjects then
+        for _, objectData in pairs(placedObjects) do
+            table.insert(
+                entities,
+                objectData[4]
+            )
+        end
     end
-  end
-  SHX1_2 = -1
-  return SHX1_2
+
+    -- CMG's preview helper handles mouse selection.
+    -- When the user chooses an entity, request its deletion.
+    CMG.enterHomeDeletionPreview(
+        entities,
+        function(selectedEntity)
+            requestPlaceableDeletion(
+                selectedEntity
+            )
+        end
+    )
 end
-SHX6_1.getHomePlaceableIndex = SHX7_1
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "bb2ff71d8f"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX2_2[5] = SHX1_2
+
+
+-- ============================================================
+-- START PLACING A NEW PROP
+-- ============================================================
+
+local function startPlaceablePreview(
+    placeableIndex,
+    placeableConfig
+)
+    -- Config layout used by the original script:
+    --   [1] = display name
+    --   [2] = model
+    --   [3] = price
+
+    local model = placeableConfig[2]
+
+    CMG.enterHomePlacementPreview(
+        model,
+
+        function(position, rotation)
+            -- Ask the server to buy/save/place this object.
+            TriggerServerEvent(
+                "cd012390a5",
+                placeableIndex,
+                position,
+                rotation
+            )
+        end
+    )
 end
-SHX6_1(SHX7_1, SHX8_1)
+
+
+-- ============================================================
+-- HOME CUSTOMISATION MENU
+-- ============================================================
+
+CMG.registerHomeCustomisationButtons(
+    "Placeable Objects",
+
+    function()
+        -- ----------------------------------------------------
+        -- ENTER DELETE MODE
+        -- ----------------------------------------------------
+
+        RageUI.ButtonWithStyle(
+            "~r~Enter Delete Mode",
+            "",
+            {
+                RightLabel = "→→→"
+            },
+            true,
+
+            function(_, _, selected)
+                if selected then
+                    enterDeletionPreview()
+                end
+            end
+        )
+
+
+        -- ----------------------------------------------------
+        -- DELETE CLOSEST PROP
+        --
+        -- Only shown while deletion preview is active.
+        -- ----------------------------------------------------
+
+        if CMG.inHomeDeletionPreview() then
+            RageUI.ButtonWithStyle(
+                "~r~Delete Closest Prop",
+                "For those props that refuse to be selected (no confirmation). Use the mouse buttons to select and delete instead.",
+                {
+                    RightLabel = "→→→"
+                },
+                true,
+
+                function(_, _, selected)
+                    if selected then
+                        deleteClosestPlaceable()
+                    end
+                end
+            )
+        end
+
+
+        -- ----------------------------------------------------
+        -- RESTORE BROKEN PLACEABLE PROPS
+        -- ----------------------------------------------------
+
+        if not placeableStateFlag then
+            RageUI.ButtonWithStyle(
+                "~r~Restore Placeable Props",
+                "Used to restore broken props after a robbery or raid.",
+                {
+                    RightLabel = "→→→"
+                },
+                true,
+
+                function(_, _, selected)
+                    if selected then
+                        TriggerServerEvent(
+                            "aa0e6fb69e"
+                        )
+                    end
+                end
+            )
+
+
+            -- ------------------------------------------------
+            -- AVAILABLE PLACEABLE OBJECTS
+            -- ------------------------------------------------
+
+            for index, placeableConfig in pairs(
+                homeCustomisationConfig.placeables
+            ) do
+                local displayName =
+                    placeableConfig[1]
+
+                local price =
+                    placeableConfig[3]
+
+                RageUI.ButtonWithStyle(
+                    displayName,
+                    "",
+                    {
+                        RightLabel =
+                            "£" ..
+                            getMoneyStringFormatted(price)
+                    },
+                    true,
+
+                    function(_, active, _)
+                        -- RageUI calls this while the button is active/hovered.
+                        --
+                        -- Only restart the preview when moving to a
+                        -- DIFFERENT placeable in the list.
+                        if active
+                            and selectedPlaceableIndex ~= index then
+
+                            selectedPlaceableIndex = index
+
+                            startPlaceablePreview(
+                                index,
+                                placeableConfig
+                            )
+                        end
+                    end
+                )
+            end
+        end
+    end
+)
+
+
+-- ============================================================
+-- RESOURCE CLEANUP
+-- ============================================================
+
+-- If this resource stops/restarts, delete all locally-created props.
+-- Otherwise they could remain floating around until the client reloads.
+AddEventHandler(
+    "onResourceStop",
+
+    function(resourceName)
+        if GetCurrentResourceName() ~= resourceName then
+            return
+        end
+
+        deleteAllLocalPlaceables()
+    end
+)
+
+
+-- ============================================================
+-- SERVER: UPDATE ONE PROP'S STATE FLAG
+-- ============================================================
+
+RegisterNetEvent(
+    "bb2ff71d8f",
+
+    function(index, newStateFlag)
+        if not placedObjects
+            or not placedObjects[index] then
+            return
+        end
+
+        placedObjects[index][5] =
+            newStateFlag
+    end
+)
