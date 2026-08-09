@@ -1,120 +1,150 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Stream File Client Helper
+    =========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = {}
-SHX3_1 = 10000
-SHX4_1 = 0
-SHX5_1 = CMG
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX0_1
-  SHX1_2[SHX0_2] = true
+    This script manages streamed files/mods that need to be loaded by the server.
+
+    It keeps track of:
+      - Files that are already activated
+      - Files that have already been requested
+      - Functions that should run when a streamed file finishes loading
+]]
+
+------------------------------------------------------------
+-- STATE
+------------------------------------------------------------
+
+-- Files that are already active/loaded.
+--
+-- Example:
+-- preActivatedFiles["some_file"] = true
+local preActivatedFiles = {}
+
+-- Files that we have already requested from the server.
+--
+-- This prevents the same file being requested multiple times.
+local requestedFiles = {}
+
+-- Functions that want to be notified when a stream file loads.
+local streamFileLoadedCallbacks = {}
+
+-- Only show the "restart required" notification once every 10 seconds.
+local NOTIFICATION_COOLDOWN = 10000
+
+-- Stores when we last showed the notification.
+local lastNotificationTime = 0
+
+
+------------------------------------------------------------
+-- MARK A FILE AS ALREADY ACTIVATED
+------------------------------------------------------------
+
+function CMG.setStreamFilePreActivatedClient(fileName)
+    preActivatedFiles[fileName] = true
 end
-SHX5_1.setStreamFilePreActivatedClient = SHX6_1
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = SHX1_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    return
-  end
-  SHX1_2 = SHX1_1
-  SHX1_2[SHX0_2] = true
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetVehiclePedIsIn
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if 0 ~= SHX2_2 then
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getVehicleIdFromModel
-    SHX4_2 = GetEntityModel
-    SHX5_2 = SHX2_2
-    SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX4_2(SHX5_2)
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    if SHX3_2 then
-      SHX4_2 = TriggerServerEvent
-      SHX5_2 = "02b1617ec9"
-      SHX6_2 = SHX3_2
-      SHX7_2 = {}
-      SHX8_2 = SHX0_2
-      SHX7_2[1] = SHX8_2
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2)
+
+
+------------------------------------------------------------
+-- REQUEST A STREAM FILE
+------------------------------------------------------------
+
+local function requestStreamFile(fileName)
+
+    -- Don't request the same file more than once.
+    if requestedFiles[fileName] then
+        return
     end
-  end
-  SHX3_2 = GetGameTimer
-  SHX3_2 = SHX3_2()
-  SHX4_2 = SHX4_1
-  SHX4_2 = SHX3_2 - SHX4_2
-  SHX5_2 = SHX3_1
-  if SHX4_2 < SHX5_2 then
-    return
-  end
-  SHX4_1 = SHX3_2
-  SHX4_2 = tCMG
-  SHX4_2 = SHX4_2.notify
-  SHX5_2 = "~y~This mod will be available from the next server restart."
-  SHX4_2(SHX5_2)
+
+    -- Remember that we've requested it.
+    requestedFiles[fileName] = true
+
+
+    --------------------------------------------------------
+    -- CHECK IF THE PLAYER IS CURRENTLY IN A VEHICLE
+    --------------------------------------------------------
+
+    local playerPed = PlayerPedId()
+
+    local vehicle = GetVehiclePedIsIn(
+        playerPed,
+        false
+    )
+
+    if vehicle ~= 0 then
+
+        -- Convert the GTA vehicle model hash into the server's vehicle ID.
+        local vehicleId = CMG.getVehicleIdFromModel(
+            GetEntityModel(vehicle)
+        )
+
+        if vehicleId then
+
+            -- Tell the server that this vehicle needs the streamed file.
+            --
+            -- The event hash has been left unchanged because the matching
+            -- server-side event will also use this exact name.
+            TriggerServerEvent(
+                "02b1617ec9",
+                vehicleId,
+                {
+                    fileName
+                }
+            )
+        end
+    end
+
+
+    --------------------------------------------------------
+    -- SHOW RESTART MESSAGE
+    --------------------------------------------------------
+
+    local currentTime = GetGameTimer()
+
+    local timeSinceLastNotification =
+        currentTime - lastNotificationTime
+
+    if timeSinceLastNotification < NOTIFICATION_COOLDOWN then
+        return
+    end
+
+    lastNotificationTime = currentTime
+
+    tCMG.notify(
+        "~y~This mod will be available from the next server restart."
+    )
 end
-SHX6_1 = CMG
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  if not SHX0_2 then
-    return
-  end
-  SHX1_2 = SHX0_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    return
-  end
-  SHX1_2 = SHX5_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+
+
+------------------------------------------------------------
+-- PUBLIC FUNCTION: REQUEST A STREAM FILE
+------------------------------------------------------------
+
+function CMG.requestStreamFileClient(fileName)
+
+    -- Ignore invalid requests.
+    if not fileName then
+        return
+    end
+
+    -- If the file is already active, there is nothing to request.
+    if preActivatedFiles[fileName] then
+        return
+    end
+
+    requestStreamFile(fileName)
 end
-SHX6_1.requestStreamFileClient = SHX7_1
-SHX6_1 = CMG
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.insert
-  SHX2_2 = SHX2_1
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
+
+
+------------------------------------------------------------
+-- REGISTER A "FILE LOADED" CALLBACK
+------------------------------------------------------------
+
+function CMG.registerStreamFileLoadedCallback(callback)
+
+    -- Save the function so another part of the streaming system
+    -- can call it when a stream file finishes loading.
+    table.insert(
+        streamFileLoadedCallbacks,
+        callback
+    )
 end
-SHX6_1.registerStreamFileLoadedCallback = SHX7_1
