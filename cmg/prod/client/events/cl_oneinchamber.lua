@@ -1,708 +1,516 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    One In The Chamber - Readable Client Script
+    --------------------------------------------
+    Cleaned from decompiled Lua.
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/events/cfg_oneinchamber"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = nil
-SHX2_1 = "xs_arena_interior"
-SHX3_1 = vector3
-SHX4_1 = 2800.0
-SHX5_1 = -3800.0
-SHX6_1 = 100.0
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX4_1 = 30000
-SHX5_1 = 10000
-SHX6_1 = 200
-SHX7_1 = 103
-SHX8_1 = false
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX8_1
-  if SHX0_2 then
-    SHX0_2 = true
-    return SHX0_2
-  end
-  SHX0_2 = RequestIpl
-  SHX1_2 = SHX2_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  while true do
-    SHX1_2 = IsIplActive
-    SHX2_2 = SHX2_1
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      break
+    Beginner notes:
+    - "ped" = the player's character/entity.
+    - "src" = a player's server ID/source.
+    - "vector3" = X, Y, Z position.
+    - "vector4" = X, Y, Z position + W/heading.
+    - "IPL" = a GTA map/interior package that can be loaded.
+    - "timer bars" = the small information bars drawn on screen.
+    - The strange event names are intentionally unchanged because the
+      server-side resource probably uses those exact event names.
+]]
+
+-- ============================================================
+-- CONFIGURATION / STATE
+-- ============================================================
+
+local config = CMG.loadModule("cfg/events/cfg_oneinchamber")
+
+-- Runtime state for the current One In The Chamber match.
+-- nil means the client is not currently set up for the match.
+local matchState = nil
+
+-- GTA arena interior used by this event.
+local ARENA_IPL = "xs_arena_interior"
+local ARENA_INTERIOR_COORDS = vector3(2800.0, -3800.0, 100.0)
+
+-- Maximum time we wait for things to stream/load.
+local IPL_LOAD_TIMEOUT_MS = 30000
+local STREAM_LOAD_TIMEOUT_MS = 10000
+
+-- Health values used by the original script.
+local PRE_ROUND_HEALTH = 200
+local ACTIVE_ROUND_HEALTH = 103
+
+local arenaInteriorLoaded = false
+
+
+-- ============================================================
+-- ARENA / STREAMING HELPERS
+-- ============================================================
+
+-- Loads the GTA arena interior and enables the props this minigame needs.
+--
+-- Returns:
+--   true  = arena loaded successfully
+--   false = loading failed/timed out
+local function loadArenaInterior()
+    -- If we already loaded it once, there is nothing else to do.
+    if arenaInteriorLoaded then
+        return true
     end
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX1_2 = SHX1_2 - SHX0_2
-    SHX2_2 = SHX4_1
-    if SHX1_2 >= SHX2_2 then
-      SHX1_2 = false
-      return SHX1_2
+
+    RequestIpl(ARENA_IPL)
+
+    local startedAt = GetGameTimer()
+
+    -- Wait for GTA to report that the arena IPL is active.
+    while not IsIplActive(ARENA_IPL) do
+        if GetGameTimer() - startedAt >= IPL_LOAD_TIMEOUT_MS then
+            return false
+        end
+
+        Wait(100)
     end
-    SHX1_2 = Wait
-    SHX2_2 = 100
-    SHX1_2(SHX2_2)
-  end
-  SHX1_2 = GetInteriorAtCoords
-  SHX2_2 = SHX3_1.x
-  SHX3_2 = SHX3_1.y
-  SHX4_2 = SHX3_1.z
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  if 0 == SHX1_2 then
-    SHX2_2 = false
-    return SHX2_2
-  end
-  SHX2_2 = PinInteriorInMemory
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = EnableInteriorProp
-  SHX3_2 = SHX1_2
-  SHX4_2 = "Set_Crowd_A"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EnableInteriorProp
-  SHX3_2 = SHX1_2
-  SHX4_2 = "Set_Crowd_B"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EnableInteriorProp
-  SHX3_2 = SHX1_2
-  SHX4_2 = "Set_Crowd_C"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EnableInteriorProp
-  SHX3_2 = SHX1_2
-  SHX4_2 = "Set_Crowd_D"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EnableInteriorProp
-  SHX3_2 = SHX1_2
-  SHX4_2 = "Set_Dystopian_Scene"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EnableInteriorProp
-  SHX3_2 = SHX1_2
-  SHX4_2 = "Set_Dystopian_12"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = RefreshInterior
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = true
-  SHX8_1 = SHX2_2
-  SHX2_2 = true
-  return SHX2_2
+
+    local interiorId = GetInteriorAtCoords(
+        ARENA_INTERIOR_COORDS.x,
+        ARENA_INTERIOR_COORDS.y,
+        ARENA_INTERIOR_COORDS.z
+    )
+
+    if interiorId == 0 then
+        return false
+    end
+
+    -- Keep the interior loaded in memory.
+    PinInteriorInMemory(interiorId)
+
+    -- Enable the arena decorations/crowds used by the original script.
+    EnableInteriorProp(interiorId, "Set_Crowd_A")
+    EnableInteriorProp(interiorId, "Set_Crowd_B")
+    EnableInteriorProp(interiorId, "Set_Crowd_C")
+    EnableInteriorProp(interiorId, "Set_Crowd_D")
+    EnableInteriorProp(interiorId, "Set_Dystopian_Scene")
+    EnableInteriorProp(interiorId, "Set_Dystopian_12")
+
+    RefreshInterior(interiorId)
+
+    arenaInteriorLoaded = true
+    return true
 end
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = RequestCollisionAtCoord
-  SHX2_2 = SHX0_2.x
-  SHX3_2 = SHX0_2.y
-  SHX4_2 = SHX0_2.z
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = NewLoadSceneStartSphere
-  SHX2_2 = SHX0_2.x
-  SHX3_2 = SHX0_2.y
-  SHX4_2 = SHX0_2.z
-  SHX5_2 = 100.0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  while true do
-    SHX2_2 = IsNewLoadSceneLoaded
-    SHX2_2 = SHX2_2()
-    if SHX2_2 then
-      break
+
+
+-- Forces GTA to stream the world/collision around a position.
+-- This is useful before teleporting the player so they do not fall
+-- through an unloaded floor.
+local function preloadArea(position)
+    RequestCollisionAtCoord(position.x, position.y, position.z)
+    NewLoadSceneStartSphere(position.x, position.y, position.z, 100.0, 0)
+
+    -- First wait for the new scene itself.
+    local startedAt = GetGameTimer()
+
+    while not IsNewLoadSceneLoaded() do
+        if GetGameTimer() - startedAt >= STREAM_LOAD_TIMEOUT_MS then
+            break
+        end
+
+        Wait(0)
     end
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX2_2 = SHX2_2 - SHX1_2
-    SHX3_2 = SHX5_1
-    if SHX2_2 >= SHX3_2 then
-      break
+
+    -- Then give outstanding streaming requests time to finish.
+    startedAt = GetGameTimer()
+
+    while true do
+        local playerPed = PlayerPedId()
+
+        if HaveAllStreamingRequestsCompleted(playerPed)
+            and GetNumberOfStreamingRequests() <= 0 then
+            break
+        end
+
+        if GetGameTimer() - startedAt >= STREAM_LOAD_TIMEOUT_MS then
+            break
+        end
+
+        Wait(0)
     end
-    SHX2_2 = Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
-  end
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  while true do
-    SHX3_2 = HaveAllStreamingRequestsCompleted
-    SHX4_2 = PlayerPedId
-    SHX4_2, SHX5_2, SHX6_2 = SHX4_2()
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    if SHX3_2 then
-      SHX3_2 = GetNumberOfStreamingRequests
-      SHX3_2 = SHX3_2()
-      if not (SHX3_2 > 0) then
-        break
-      end
-    end
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2 - SHX2_2
-    SHX4_2 = SHX5_1
-    if SHX3_2 >= SHX4_2 then
-      break
-    end
-    SHX3_2 = Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
-  end
-  SHX3_2 = NewLoadSceneStop
-  SHX3_2()
+
+    NewLoadSceneStop()
 end
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCoords
-  SHX0_2 = SHX0_2()
-  SHX1_2 = pairs
-  SHX2_2 = GetGamePool
-  SHX3_2 = "CObject"
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX2_2(SHX3_2)
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = GetEntityCoords
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = SHX0_2 - SHX7_2
-    SHX8_2 = #SHX8_2
-    if SHX8_2 < 5.0 then
-      SHX8_2 = FreezeEntityPosition
-      SHX9_2 = SHX6_2
-      SHX10_2 = true
-      SHX8_2(SHX9_2, SHX10_2)
+
+
+-- Freezes nearby map objects.
+--
+-- The original code does this while drawing the One In The Chamber HUD.
+-- It appears intended to stop nearby arena objects moving around.
+local function freezeNearbyObjects()
+    local playerCoords = CMG.getPlayerCoords()
+
+    for _, object in pairs(GetGamePool("CObject")) do
+        local objectCoords = GetEntityCoords(object)
+        local distance = #(playerCoords - objectCoords)
+
+        if distance < 5.0 then
+            FreezeEntityPosition(object, true)
+        end
     end
-  end
 end
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = SHX0_2.timers
-  SHX1_2 = SHX1_2.push
-  SHX2_2 = "~y~PLAYERS"
-  SHX3_2 = tostring
-  SHX4_2 = currentEvent
-  SHX4_2 = SHX4_2.players
-  SHX4_2 = #SHX4_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX3_2(SHX4_2)
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX1_2 = SHX11_1
-  SHX1_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getLocalPlayerSrc
-  SHX1_2 = SHX1_2()
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "OneInChamberClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.source
-    if SHX9_2 == SHX1_2 then
-      SHX9_2 = SHX0_2.timers
-      SHX9_2 = SHX9_2.push
-      SHX10_2 = "~r~ATTEMPTS"
-      SHX11_2 = tostring
-      SHX12_2 = SHX8_2.data
-      SHX12_2 = SHX12_2.numAttempts
-      SHX11_2, SHX12_2 = SHX11_2(SHX12_2)
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-      SHX9_2 = SHX0_2.timers
-      SHX9_2 = SHX9_2.push
-      SHX10_2 = "~r~KILLS"
-      SHX11_2 = tostring
-      SHX12_2 = SHX8_2.data
-      SHX12_2 = SHX12_2.numKills
-      SHX11_2, SHX12_2 = SHX11_2(SHX12_2)
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2)
+
+
+-- ============================================================
+-- PLAYER DATA HELPERS
+-- ============================================================
+
+local function getOneInChamberClientData()
+    return CMG.getClientEventData("OneInChamberClientData")
+end
+
+
+-- Finds the event-data entry belonging to a specific server ID.
+local function findEventPlayerBySource(serverId)
+    local eventData = getOneInChamberClientData()
+
+    if not eventData or not eventData.players then
+        return nil
     end
-  end
-  SHX3_2 = SHX0_2.killerPlayerSrc
-  if not SHX3_2 then
-    SHX3_2 = drawNativeText
-    SHX4_2 = "Waiting to select the first player."
-    SHX3_2(SHX4_2)
-    return
-  end
-  SHX3_2 = SHX0_2.killerPlayerSrc
-  if SHX3_2 == SHX1_2 then
-    SHX3_2 = drawNativeText
-    SHX4_2 = "~y~You~w~ have the gun! Attempt to kill a ~r~target~w~."
-    SHX3_2(SHX4_2)
-  else
-    SHX3_2 = GetPlayerFromServerId
-    SHX4_2 = SHX0_2.killerPlayerSrc
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 >= 0 then
-      SHX4_2 = drawNativeText
-      SHX5_2 = string
-      SHX5_2 = SHX5_2.format
-      SHX6_2 = "~y~%s~w~ has the gun!"
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.getPlayerName
-      SHX8_2 = SHX3_2
-      SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX7_2(SHX8_2)
-      SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+
+    for _, playerData in pairs(eventData.players) do
+        if playerData.source == serverId then
+            return playerData
+        end
     end
-  end
-  SHX3_2 = GetNetworkTime
-  SHX3_2 = SHX3_2()
-  SHX4_2 = SHX0_2.lastUpdatedKiller
-  SHX3_2 = SHX3_2 - SHX4_2
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.max
-  SHX5_2 = SHX0_1.delayBetweenGunMsec
-  SHX5_2 = SHX5_2 - SHX3_2
-  SHX6_2 = 0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = SHX0_2.timers
-  SHX5_2 = SHX5_2.push
-  SHX6_2 = "NEXT ROUND"
-  SHX7_2 = tostring
-  SHX8_2 = math
-  SHX8_2 = SHX8_2.rounddp
-  SHX9_2 = SHX4_2 / 1000.0
-  SHX10_2 = 1
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+
+    return nil
 end
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1.timers
-    SHX0_2 = SHX0_2.reset
-    SHX0_2()
-    SHX0_2 = SHX12_1
-    SHX1_2 = SHX1_1
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX1_1.timers
-    SHX0_2 = SHX0_2.draw
-    SHX0_2()
-    return
-  end
-end
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "26fd108ba4"
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.stopEventSequence
-  SHX0_2()
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setPlayerCanOpenLeaderboard
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientEventData
-  SHX1_2 = "OneInChamberClientData"
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.players
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.data
-    SHX7_2.numKills = 0
-    SHX7_2 = SHX6_2.data
-    SHX7_2.numAttempts = 0
-  end
-  SHX1_2 = SHX9_1
-  SHX1_2()
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = SHX10_1
-  SHX4_2 = vector4
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX8_2 = 0.0
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2 = SetEntityHealth
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX6_1
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = FreezeEntityPosition
-  SHX4_2 = SHX1_2
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetLocalPlayerAsGhost
-  SHX4_2 = true
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetEntityAlpha
-  SHX4_2 = SHX1_2
-  SHX5_2 = 155
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = PlaySoundFrontend
-  SHX4_2 = -1
-  SHX5_2 = "5s"
-  SHX6_2 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-  SHX7_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = TriggerEvent
-  SHX4_2 = "b3cbc4aca5"
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.floor
-  SHX6_2 = SHX0_1.startCountdownMsec
-  SHX6_2 = SHX6_2 / 1000
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2 = GetGameTimer
-  SHX3_2 = SHX3_2()
-  while true do
-    SHX4_2 = GetGameTimer
-    SHX4_2 = SHX4_2()
-    SHX4_2 = SHX4_2 - SHX3_2
-    SHX5_2 = SHX0_1.startCountdownMsec
-    if not (SHX4_2 < SHX5_2) then
-      break
+
+
+-- ============================================================
+-- HUD / TIMER BARS
+-- ============================================================
+
+-- Draws all One In The Chamber information for one frame.
+local function drawOneInChamberHud(state)
+    -- Show how many players are currently in the event.
+    state.timers.push("~y~PLAYERS", tostring(#currentEvent.players))
+
+    freezeNearbyObjects()
+
+    local localServerId = CMG.getLocalPlayerSrc()
+    local localPlayerData = findEventPlayerBySource(localServerId)
+
+    -- Show this player's personal statistics.
+    if localPlayerData and localPlayerData.data then
+        state.timers.push(
+            "~r~ATTEMPTS",
+            tostring(localPlayerData.data.numAttempts)
+        )
+
+        state.timers.push(
+            "~r~KILLS",
+            tostring(localPlayerData.data.numKills)
+        )
     end
-    SHX4_2 = SHX1_1
-    if not SHX4_2 then
-      return
+
+    -- killerPlayerSrc is the player who currently owns/has the gun.
+    if not state.killerPlayerSrc then
+        drawNativeText("Waiting to select the first player.")
+        return
     end
-    SHX4_2 = Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
-  end
-  SHX4_2 = SetEntityHealth
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX7_1
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX1_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetLocalPlayerAsGhost
-  SHX5_2 = false
-  SHX4_2(SHX5_2)
-  SHX4_2 = ResetEntityAlpha
-  SHX5_2 = SHX1_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.createThreadOnTick
-  SHX5_2 = SHX13_1
-  SHX6_2 = "One In The Chamber"
-  SHX4_2(SHX5_2, SHX6_2)
-end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "0fc9717b90"
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = CreateThread
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = SHX0_1.locations
-    SHX1_3 = SHX0_2
-    SHX0_3 = SHX0_3[SHX1_3]
-    if not SHX0_3 then
-      return
+
+    if state.killerPlayerSrc == localServerId then
+        drawNativeText(
+            "~y~You~w~ have the gun! Attempt to kill a ~r~target~w~."
+        )
+    else
+        local playerIndex = GetPlayerFromServerId(state.killerPlayerSrc)
+
+        if playerIndex >= 0 then
+            local playerName = CMG.getPlayerName(playerIndex)
+
+            drawNativeText(
+                string.format("~y~%s~w~ has the gun!", playerName)
+            )
+        end
     end
-    SHX1_3 = SHX0_3.spawnpoints
-    SHX2_3 = SHX1_2
-    SHX1_3 = SHX1_3[SHX2_3]
-    if not SHX1_3 then
-      return
+
+    -- Work out how long is left before the next gun/round update.
+    local timeSinceLastChange =
+        GetNetworkTime() - state.lastUpdatedKiller
+
+    local timeRemainingMs = math.max(
+        config.delayBetweenGunMsec - timeSinceLastChange,
+        0
+    )
+
+    state.timers.push(
+        "NEXT ROUND",
+        tostring(math.rounddp(timeRemainingMs / 1000.0, 1))
+    )
+end
+
+
+-- This function runs every frame while the match is active.
+local function oneInChamberTick()
+    if not matchState then
+        return
     end
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.enableMinigamePlayerBlips
-    SHX2_3 = true
-    SHX1_3(SHX2_3)
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.enableMinigamePlayerTags
-    SHX2_3 = true
-    SHX3_3 = false
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.setMinigameBounds
-    SHX2_3 = {}
-    SHX3_3 = {}
-    SHX4_3 = SHX0_3.bounds
-    SHX4_3 = SHX4_3.min
-    SHX5_3 = SHX0_3.bounds
-    SHX5_3 = SHX5_3.max
-    SHX3_3[1] = SHX4_3
-    SHX3_3[2] = SHX5_3
-    SHX2_3[1] = SHX3_3
-    SHX1_3(SHX2_3)
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.setSwitchGunEnabled
-    SHX2_3 = false
-    SHX1_3(SHX2_3)
-    SHX1_3 = SHX9_1
-    SHX1_3()
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = SHX0_3.spawnpoints
-    SHX3_3 = SHX1_2
-    SHX2_3 = SHX2_3[SHX3_3]
-    SHX3_3 = SHX10_1
-    SHX4_3 = SHX2_3
-    SHX3_3(SHX4_3)
-    SHX3_3 = SetEntityCoordsNoOffset
-    SHX4_3 = SHX1_3
-    SHX5_3 = SHX2_3.x
-    SHX6_3 = SHX2_3.y
-    SHX7_3 = SHX2_3.z
-    SHX8_3 = true
-    SHX9_3 = false
-    SHX10_3 = false
-    SHX3_3(SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
-    SHX3_3 = SetEntityHeading
-    SHX4_3 = SHX1_3
-    SHX5_3 = SHX2_3.w
-    SHX3_3(SHX4_3, SHX5_3)
-    SHX3_3 = SetEntityHealth
-    SHX4_3 = SHX1_3
-    SHX5_3 = SHX6_1
-    SHX3_3(SHX4_3, SHX5_3)
-    SHX3_3 = FreezeEntityPosition
-    SHX4_3 = SHX1_3
-    SHX5_3 = true
-    SHX3_3(SHX4_3, SHX5_3)
-    SHX3_3 = {}
-    SHX3_3.killerPlayerSrc = nil
-    SHX3_3.lastUpdatedKiller = 0
-    SHX4_3 = CMG
-    SHX4_3 = SHX4_3.createTimerBars
-    SHX4_3 = SHX4_3()
-    SHX3_3.timers = SHX4_3
-    SHX1_1 = SHX3_3
-    SHX3_3 = currentEvent
-    SHX3_3.drawPlayersTimeBar = false
-  end
-  SHX2_2(SHX3_2)
+
+    -- Timer bars are rebuilt every frame.
+    matchState.timers.reset()
+
+    drawOneInChamberHud(matchState)
+
+    matchState.timers.draw()
 end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "bee9494620"
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX1_1
-  if SHX2_2 then
-    SHX1_1.killerPlayerSrc = SHX0_2
-    SHX1_1.lastUpdatedKiller = SHX1_2
-  end
-end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.registerMinigameCleanupHandler
-SHX15_1 = SHX0_1.minigameName
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.deleteThreadOnTick
-  SHX1_2 = SHX13_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = false
-  SHX8_1 = SHX0_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SetLocalPlayerAsGhost
-  SHX2_2 = false
-  SHX1_2(SHX2_2)
-  SHX1_2 = ResetEntityAlpha
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = FreezeEntityPosition
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.enableMinigamePlayerBlips
-  SHX2_2 = false
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.enableMinigamePlayerTags
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.clearMinigameBounds
-  SHX1_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setSwitchGunEnabled
-  SHX2_2 = true
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setPlayerCanOpenLeaderboard
-  SHX2_2 = false
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.stopEventSequence
-  SHX1_2()
-end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "80947f33ff"
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "OneInChamberClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.source
-    if SHX9_2 == SHX0_2 then
-      SHX9_2 = SHX8_2.data
-      SHX9_2.numKills = SHX1_2
-      break
+
+
+-- ============================================================
+-- MATCH START / COUNTDOWN
+-- ============================================================
+
+-- This event begins the actual round countdown.
+--
+-- IMPORTANT:
+-- The event hash is kept exactly as found in the original file.
+RegisterNetEvent("26fd108ba4", function()
+    CMG.stopEventSequence()
+    CMG.setPlayerCanOpenLeaderboard(true)
+
+    local clientData = getOneInChamberClientData()
+
+    -- Reset everybody's local displayed statistics.
+    if clientData and clientData.players then
+        for _, playerData in pairs(clientData.players) do
+            if playerData.data then
+                playerData.data.numKills = 0
+                playerData.data.numAttempts = 0
+            end
+        end
     end
-  end
-end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "9209f7b849"
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "OneInChamberClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.source
-    if SHX9_2 == SHX0_2 then
-      SHX9_2 = SHX8_2.data
-      SHX9_2.numAttempts = SHX1_2
-      break
+
+    loadArenaInterior()
+
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed, true)
+
+    -- Make sure the area underneath us is loaded before continuing.
+    preloadArea(
+        vector4(
+            playerCoords.x,
+            playerCoords.y,
+            playerCoords.z,
+            0.0
+        )
+    )
+
+    -- Temporarily freeze/protect the player during the countdown.
+    SetEntityHealth(playerPed, PRE_ROUND_HEALTH)
+    FreezeEntityPosition(playerPed, true)
+    SetLocalPlayerAsGhost(true)
+    SetEntityAlpha(playerPed, 155, false)
+
+    PlaySoundFrontend(
+        -1,
+        "5s",
+        "MP_MISSION_COUNTDOWN_SOUNDSET",
+        false
+    )
+
+    -- Existing countdown UI/event used by the framework.
+    TriggerEvent(
+        "b3cbc4aca5",
+        math.floor(config.startCountdownMsec / 1000)
+    )
+
+    local countdownStartedAt = GetGameTimer()
+
+    while GetGameTimer() - countdownStartedAt < config.startCountdownMsec do
+        -- If matchState disappeared while waiting, the event was cancelled.
+        if not matchState then
+            return
+        end
+
+        Wait(0)
     end
-  end
+
+    -- Countdown finished: allow the player to move and fight.
+    SetEntityHealth(playerPed, ACTIVE_ROUND_HEALTH)
+    FreezeEntityPosition(playerPed, false)
+    SetLocalPlayerAsGhost(false)
+    ResetEntityAlpha(playerPed)
+
+    CMG.createThreadOnTick(oneInChamberTick, "One In The Chamber")
+end)
+
+
+-- ============================================================
+-- PLAYER SETUP / TELEPORT
+-- ============================================================
+
+-- Sets this client up at a configured event location/spawnpoint.
+--
+-- locationIndex = which arena/location from config.locations
+-- spawnIndex    = which spawnpoint inside that location
+RegisterNetEvent("0fc9717b90", function(locationIndex, spawnIndex)
+    CreateThread(function()
+        local location = config.locations[locationIndex]
+
+        if not location then
+            return
+        end
+
+        local spawnpoint = location.spawnpoints[spawnIndex]
+
+        if not spawnpoint then
+            return
+        end
+
+        -- Show other minigame players.
+        CMG.enableMinigamePlayerBlips(true)
+        CMG.enableMinigamePlayerTags(true, false)
+
+        -- Stop players leaving the event area.
+        CMG.setMinigameBounds({
+            {
+                location.bounds.min,
+                location.bounds.max
+            }
+        })
+
+        -- One In The Chamber controls its own weapon logic.
+        CMG.setSwitchGunEnabled(false)
+
+        loadArenaInterior()
+
+        local playerPed = PlayerPedId()
+
+        -- Load the target spawn before teleporting.
+        preloadArea(spawnpoint)
+
+        SetEntityCoordsNoOffset(
+            playerPed,
+            spawnpoint.x,
+            spawnpoint.y,
+            spawnpoint.z,
+            true,
+            false,
+            false
+        )
+
+        SetEntityHeading(playerPed, spawnpoint.w)
+
+        -- Hold the player still until the round-start event releases them.
+        SetEntityHealth(playerPed, PRE_ROUND_HEALTH)
+        FreezeEntityPosition(playerPed, true)
+
+        matchState = {
+            -- Server ID of the person currently holding/owning the gun.
+            killerPlayerSrc = nil,
+
+            -- Network timestamp of the most recent gun-owner change.
+            lastUpdatedKiller = 0,
+
+            -- Framework helper used to display timer bars.
+            timers = CMG.createTimerBars()
+        }
+
+        -- This minigame draws its own player-count timer.
+        currentEvent.drawPlayersTimeBar = false
+    end)
+end)
+
+
+-- ============================================================
+-- CURRENT GUN HOLDER UPDATE
+-- ============================================================
+
+-- Sent when the server chooses/changes the player who currently has the gun.
+RegisterNetEvent("bee9494620", function(killerPlayerSrc, updatedAtNetworkTime)
+    if not matchState then
+        return
+    end
+
+    matchState.killerPlayerSrc = killerPlayerSrc
+    matchState.lastUpdatedKiller = updatedAtNetworkTime
+end)
+
+
+-- ============================================================
+-- CLEANUP
+-- ============================================================
+
+local function cleanupOneInChamber()
+    -- Stop drawing the custom HUD.
+    CMG.deleteThreadOnTick(oneInChamberTick)
+
+    -- Allow the arena to be initialized again next time.
+    arenaInteriorLoaded = false
+
+    local playerPed = PlayerPedId()
+
+    -- Undo temporary player states.
+    SetLocalPlayerAsGhost(false)
+    ResetEntityAlpha(playerPed)
+    FreezeEntityPosition(playerPed, false)
+
+    -- Undo minigame UI/world helpers.
+    CMG.enableMinigamePlayerBlips(false)
+    CMG.enableMinigamePlayerTags(false, false)
+    CMG.clearMinigameBounds()
+
+    -- Return normal weapon/leaderboard behaviour.
+    CMG.setSwitchGunEnabled(true)
+    CMG.setPlayerCanOpenLeaderboard(false)
+
+    CMG.stopEventSequence()
 end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "3836478e4b"
-function SHX16_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.format
-  SHX5_2 = "%s%s~w~ has killed %s%s~w~"
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getPlayerColour
-  SHX7_2 = SHX1_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = SHX3_2
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerColour
-  SHX9_2 = SHX0_2
-  SHX8_2 = SHX8_2(SHX9_2)
-  SHX9_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = notify
-  SHX6_2 = SHX4_2
-  SHX5_2(SHX6_2)
-end
-SHX14_1(SHX15_1, SHX16_1)
+
+CMG.registerMinigameCleanupHandler(
+    config.minigameName,
+    cleanupOneInChamber
+)
+
+
+-- ============================================================
+-- SCORE UPDATES
+-- ============================================================
+
+-- Updates a player's kill count in the local event-data copy.
+RegisterNetEvent("80947f33ff", function(playerServerId, newKillCount)
+    local playerData = findEventPlayerBySource(playerServerId)
+
+    if playerData and playerData.data then
+        playerData.data.numKills = newKillCount
+    end
+end)
+
+
+-- Updates a player's attempt count in the local event-data copy.
+RegisterNetEvent("9209f7b849", function(playerServerId, newAttemptCount)
+    local playerData = findEventPlayerBySource(playerServerId)
+
+    if playerData and playerData.data then
+        playerData.data.numAttempts = newAttemptCount
+    end
+end)
+
+
+-- ============================================================
+-- KILL FEED
+-- ============================================================
+
+-- Displays a message like:
+--   Bob has killed Alice
+--
+-- Parameters are kept in the same order as the original handler:
+-- victimServerId, killerServerId, victimName, killerName
+RegisterNetEvent(
+    "3836478e4b",
+    function(victimServerId, killerServerId, victimName, killerName)
+        local message = string.format(
+            "%s%s~w~ has killed %s%s~w~",
+            CMG.getPlayerColour(killerServerId),
+            killerName,
+            CMG.getPlayerColour(victimServerId),
+            victimName
+        )
+
+        notify(message)
+    end
+)
