@@ -1,1350 +1,1291 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    CMG EOD Robot - Beginner-Friendly Rewrite
+    ==========================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1
-SHX0_1 = -537896628
-SHX1_1 = -1613485779
-SHX2_1 = {}
-SHX2_1.active = false
-SHX2_1.vehicleHandle = 0
-SHX2_1.driverHandle = 0
-SHX2_1.cameraEnabled = false
-SHX2_1.cameraHandle = 0
-SHX2_1.nightVisionEnabled = false
-SHX2_1.hoseEnabled = false
-SHX2_1.thermal = false
-SHX3_1 = CMG
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1.active
-  return SHX0_2
+    This file is a readable rewrite of the supplied decompiled FiveM Lua.
+
+    WHAT THIS SCRIPT DOES
+    ---------------------
+    It controls an EOD (bomb-disposal) robot.
+
+    The script can:
+      - Spawn/remove the EOD robot.
+      - Remotely drive the robot.
+      - Open a camera attached to the robot.
+      - Toggle thermal vision.
+      - Toggle night vision.
+      - Run an 8-second bomb-disarm sequence.
+      - Activate/deactivate a water hose.
+      - Synchronise explosions, hose effects and sounds between clients.
+      - Provide two developer-only EOD visor commands.
+
+    IMPORTANT
+    ---------
+    The network event hashes are intentionally kept EXACTLY as they appeared
+    in the original file. Changing only the client event names would break
+    communication with the matching server script.
+
+    The two model hashes are also preserved exactly because the original
+    decompile does not tell us their source model names.
+]]
+
+---------------------------------------------------------------------
+-- MODEL CONSTANTS
+---------------------------------------------------------------------
+
+-- Vehicle model used as the EOD robot.
+local EOD_ROBOT_MODEL = -537896628
+
+-- Invisible ped placed in the driver's seat so GTA can drive the robot
+-- using TaskVehicleTempAction().
+local EOD_DRIVER_MODEL = -1613485779
+
+---------------------------------------------------------------------
+-- NETWORK EVENTS
+---------------------------------------------------------------------
+
+local EVENTS = {
+    -- Toggle/spawn the EOD robot.
+    TOGGLE_ROBOT = "6303abd345",
+
+    -- Ask the server to create/synchronise the disarm explosion/effect.
+    REQUEST_DISARM_EFFECT = "a2c6350ee0",
+
+    -- Server tells nearby clients to create the actual explosion.
+    CREATE_DISARM_EXPLOSION = "baeeded899",
+
+    -- Start the robot's water-cannon particle effect.
+    ACTIVATE_HOSE = "620bb841c2",
+
+    -- Stop the robot's water-cannon particle effect.
+    DEACTIVATE_HOSE = "c8662fcaa0",
+
+    -- Play an EOD-related sound for nearby players.
+    PLAY_NEARBY_SOUND = "879e33c266",
+}
+
+---------------------------------------------------------------------
+-- CONTROL IDS
+---------------------------------------------------------------------
+--
+-- Keeping the actual numeric control IDs makes it easy to compare this file
+-- with the original decompile.
+---------------------------------------------------------------------
+
+local CONTROLS = {
+    FORWARD = 172,
+    BACKWARD = 173,
+    LEFT = 174,
+    RIGHT = 175,
+
+    TOGGLE_CAMERA = 121,
+    TOGGLE_THERMAL = 178,
+    TOGGLE_NIGHT_VISION = 212,
+
+    START_DISARM = 208,
+    CANCEL_DISARM = 207,
+
+    HOSE = 74,
+}
+
+---------------------------------------------------------------------
+-- EOD ROBOT STATE
+---------------------------------------------------------------------
+
+local robot = {
+    active = false,
+
+    vehicleHandle = 0,
+    driverHandle = 0,
+
+    cameraEnabled = false,
+    cameraHandle = 0,
+
+    nightVisionEnabled = false,
+    thermalEnabled = false,
+
+    hoseEnabled = false,
+}
+
+-- True when the player has cancelled the current 8-second disarm sequence.
+local disarmCancelled = false
+
+-- Tracks entities that currently have an active hose particle effect.
+--
+-- Original decompile stored:
+--
+--     activeHoseEffects[entity] = { entity, entity }
+--
+-- Only the existence of the entry is actually important, so a boolean is
+-- clearer.
+local activeHoseEffects = {}
+
+---------------------------------------------------------------------
+-- PUBLIC HELPER
+---------------------------------------------------------------------
+
+-- Other scripts can use:
+--
+--     if CMG.isPlayerUsingRobot() then
+--         ...
+--     end
+--
+function CMG.isPlayerUsingRobot()
+    return robot.active
 end
-SHX3_1.isPlayerUsingRobot = SHX4_1
-SHX3_1 = false
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = SHX2_1.cameraEnabled
-  if SHX0_2 then
-    SHX0_2 = math
-    SHX0_2 = SHX0_2.ceil
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerCoords
-    SHX1_2 = SHX1_2()
-    SHX2_2 = GetEntityCoords
-    SHX3_2 = SHX2_1.vehicleHandle
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX1_2 = SHX1_2 - SHX2_2
-    SHX1_2 = #SHX1_2
-    SHX1_2 = SHX1_2 / 10
-    SHX0_2 = SHX0_2(SHX1_2)
-    SHX0_2 = 500 * SHX0_2
-    SHX1_2 = RenderScriptCams
-    SHX2_2 = false
-    SHX3_2 = true
-    SHX4_2 = SHX0_2
-    SHX5_2 = true
-    SHX6_2 = false
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX1_2 = ClearTimecycleModifier
-    SHX1_2()
-    SHX1_2 = DoesCamExist
-    SHX2_2 = SHX2_1.cameraHandle
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = DestroyCam
-      SHX2_2 = SHX2_1.cameraHandle
-      SHX3_2 = false
-      SHX1_2(SHX2_2, SHX3_2)
+
+---------------------------------------------------------------------
+-- SMALL HELPERS
+---------------------------------------------------------------------
+
+local function robotExists()
+    return robot.vehicleHandle ~= 0
+        and DoesEntityExist(robot.vehicleHandle)
+end
+
+local function driverExists()
+    return robot.driverHandle ~= 0
+        and DoesEntityExist(robot.driverHandle)
+end
+
+local function getRobotNetworkId()
+    if not robotExists() then
+        return 0
     end
-    SHX2_1.cameraEnabled = false
-    SHX1_2 = SHX2_1.nightVisionEnabled
-    if SHX1_2 then
-      SHX1_2 = SetNightvision
-      SHX2_2 = false
-      SHX1_2(SHX2_2)
-      SHX2_1.nightVisionEnabled = false
+
+    return NetworkGetNetworkIdFromEntity(robot.vehicleHandle)
+end
+
+local function getDistanceToRobot()
+    if not robotExists() then
+        return 0.0
     end
-  else
-    SHX0_2 = CreateCam
-    SHX1_2 = "DEFAULT_SCRIPTED_CAMERA"
-    SHX2_2 = true
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    SHX2_1.cameraHandle = SHX0_2
-    SHX0_2 = AttachCamToEntity
-    SHX1_2 = SHX2_1.cameraHandle
-    SHX2_2 = SHX2_1.vehicleHandle
-    SHX3_2 = -0.3
-    SHX4_2 = 0.0
-    SHX5_2 = 1.2
-    SHX6_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX0_2 = math
-    SHX0_2 = SHX0_2.ceil
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerCoords
-    SHX1_2 = SHX1_2()
-    SHX2_2 = GetEntityCoords
-    SHX3_2 = SHX2_1.vehicleHandle
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX1_2 = SHX1_2 - SHX2_2
-    SHX1_2 = #SHX1_2
-    SHX1_2 = SHX1_2 / 10
-    SHX0_2 = SHX0_2(SHX1_2)
-    SHX0_2 = 500 * SHX0_2
-    SHX2_1.cameraEnabled = true
-    SHX1_2 = RenderScriptCams
-    SHX2_2 = true
-    SHX3_2 = true
-    SHX4_2 = SHX0_2
-    SHX5_2 = true
-    SHX6_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX1_2 = Wait
-    SHX2_2 = SHX0_2
-    SHX1_2(SHX2_2)
-    SHX1_2 = SetTimecycleModifier
-    SHX2_2 = "scanline_cam_cheap"
-    SHX1_2(SHX2_2)
-    SHX1_2 = SetTimecycleModifierStrength
-    SHX2_2 = 1.0
-    SHX1_2(SHX2_2)
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.CreateThread
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-      while true do
-        SHX0_3 = DoesCamExist
-        SHX1_3 = SHX2_1.cameraHandle
-        SHX0_3 = SHX0_3(SHX1_3)
-        if not SHX0_3 then
-          break
-        end
-        SHX0_3 = Citizen
-        SHX0_3 = SHX0_3.Wait
-        SHX1_3 = 2
-        SHX0_3(SHX1_3)
-        SHX0_3 = GetEntityRotation
-        SHX1_3 = SHX2_1.vehicleHandle
-        SHX0_3 = SHX0_3(SHX1_3)
-        SHX1_3 = SetCamRot
-        SHX2_3 = SHX2_1.cameraHandle
-        SHX3_3 = SHX0_3.x
-        SHX4_3 = SHX0_3.y
-        SHX5_3 = SHX0_3.z
-        SHX6_3 = 2
-        SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      end
+
+    local playerCoords = CMG.getPlayerCoords()
+    local robotCoords = GetEntityCoords(robot.vehicleHandle)
+
+    return #(playerCoords - robotCoords)
+end
+
+-- The original script makes the camera transition longer when the robot is
+-- farther away from the player.
+local function getCameraTransitionTime()
+    local distance = getDistanceToRobot()
+
+    local distanceSteps = math.ceil(distance / 10.0)
+
+    return 500 * distanceSteps
+end
+
+---------------------------------------------------------------------
+-- CAMERA
+---------------------------------------------------------------------
+
+local function disableRobotCamera()
+    if not robot.cameraEnabled then
+        return
     end
-    SHX1_2(SHX2_2)
-  end
-end
-SHX5_1 = {}
-SHX6_1 = TriggerEvent
-SHX7_1 = "chat:addSuggestion"
-SHX8_1 = "/eod"
-SHX9_1 = "Setup or remove an EOD robot."
-SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX2_1.hoseEnabled
-  if SHX0_2 then
-    SHX0_2 = TriggerServerEvent
-    SHX1_2 = "c8662fcaa0"
-    SHX2_2 = VehToNet
-    SHX3_2 = SHX2_1.vehicleHandle
-    SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  end
-  SHX0_2 = Wait
-  SHX1_2 = 500
-  SHX0_2(SHX1_2)
-  SHX2_1.active = false
-  SHX0_2 = DeletePed
-  SHX1_2 = SHX2_1.driverHandle
-  SHX0_2(SHX1_2)
-  SHX0_2 = SetEntityAsMissionEntity
-  SHX1_2 = SHX2_1.vehicleHandle
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DeleteEntity
-  SHX1_2 = SHX2_1.vehicleHandle
-  SHX0_2(SHX1_2)
-  SHX0_2 = SetModelAsNoLongerNeeded
-  SHX1_2 = SHX0_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX2_1.thermal
-  if SHX0_2 then
-    SHX0_2 = SetSeethrough
-    SHX1_2 = false
-    SHX0_2(SHX1_2)
-  end
-end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadModel
-  SHX1_2 = SHX0_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadModel
-  SHX1_2 = SHX1_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetOffsetFromEntityInWorldCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = 0.0
-  SHX4_2 = 4.0
-  SHX5_2 = 0.0
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = GetEntityHeading
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "eod"
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.spawnVehicle
-  SHX4_2 = SHX0_1
-  SHX5_2 = SHX1_2.x
-  SHX6_2 = SHX1_2.y
-  SHX7_2 = SHX1_2.z
-  SHX8_2 = SHX2_2
-  SHX9_2 = false
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX2_1.vehicleHandle = SHX3_2
-  SHX3_2 = Wait
-  SHX4_2 = 1000
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetEntityAsMissionEntity
-  SHX4_2 = SHX2_1.vehicleHandle
-  SHX5_2 = true
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = NetworkGetNetworkIdFromEntity
-  SHX4_2 = SHX2_1.vehicleHandle
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = NetworkUseHighPrecisionBlending
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetNetworkIdCanMigrate
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetNetworkIdExistsOnAllMachines
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.requestEntitySpawn
-  SHX5_2 = "eod_ped"
-  SHX6_2 = SHX1_2
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = CreatePed
-  SHX5_2 = 4
-  SHX6_2 = SHX1_1
-  SHX7_2 = SHX1_2.x
-  SHX8_2 = SHX1_2.y
-  SHX9_2 = SHX1_2.z
-  SHX10_2 = SHX2_2
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX2_1.driverHandle = SHX4_2
-  SHX4_2 = SetEntityInvincible
-  SHX5_2 = SHX2_1.driverHandle
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityVisible
-  SHX5_2 = SHX2_1.driverHandle
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX2_1.driverHandle
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetPedAlertness
-  SHX5_2 = SHX2_1.driverHandle
-  SHX6_2 = 0.0
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = TaskWarpPedIntoVehicle
-  SHX5_2 = SHX2_1.driverHandle
-  SHX6_2 = SHX2_1.vehicleHandle
-  SHX7_2 = -1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  while true do
-    SHX4_2 = IsPedInVehicle
-    SHX5_2 = SHX2_1.driverHandle
-    SHX6_2 = SHX2_1.vehicleHandle
-    SHX7_2 = false
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    if SHX4_2 then
-      break
+
+    local transitionTime = getCameraTransitionTime()
+
+    RenderScriptCams(
+        false, -- stop rendering scripted cameras
+        true,  -- ease the transition
+        transitionTime,
+        true,
+        false
+    )
+
+    ClearTimecycleModifier()
+
+    if DoesCamExist(robot.cameraHandle) then
+        DestroyCam(robot.cameraHandle, false)
     end
-    SHX4_2 = Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
-  end
-  SHX4_2 = SetVehicleDoorsLocked
-  SHX5_2 = SHX2_1.vehicleHandle
-  SHX6_2 = 2
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetVehicleDoorsLockedForAllPlayers
-  SHX5_2 = SHX2_1.vehicleHandle
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetModelAsNoLongerNeeded
-  SHX5_2 = SHX0_1
-  SHX4_2(SHX5_2)
-  SHX4_2 = SetModelAsNoLongerNeeded
-  SHX5_2 = SHX1_1
-  SHX4_2(SHX5_2)
-  SHX2_1.active = true
-end
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "6303abd345"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1.active
-  if not SHX0_2 then
-    SHX0_2 = SHX7_1
-    SHX0_2()
-  else
-    SHX0_2 = SHX6_1
-    SHX0_2()
-  end
-end
-SHX8_1(SHX9_1, SHX10_1)
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = PlaySoundFrontend
-    SHX1_3 = -1
-    SHX2_3 = "5s_To_Event_Start_Countdown"
-    SHX3_3 = "GTAO_FM_Events_Soundset"
-    SHX4_3 = true
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-    SHX0_3 = drawNativeNotification
-    SHX1_3 = "Press ~INPUT_FRONTEND_LT~ to cancel."
-    SHX0_3(SHX1_3)
-    SHX0_3 = Wait
-    SHX1_3 = 8000
-    SHX0_3(SHX1_3)
-    SHX0_3 = SHX3_1
-    if not SHX0_3 then
-      SHX0_3 = SetEntityInvincible
-      SHX1_3 = SHX2_1.vehicleHandle
-      SHX2_3 = true
-      SHX0_3(SHX1_3, SHX2_3)
-      SHX0_3 = GetOffsetFromEntityInWorldCoords
-      SHX1_3 = SHX2_1.vehicleHandle
-      SHX2_3 = 0.0
-      SHX3_3 = 2.0
-      SHX4_3 = 0.1
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = TriggerServerEvent
-      SHX2_3 = "a2c6350ee0"
-      SHX3_3 = SHX0_3
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetVehicleFixed
-      SHX2_3 = SHX2_1.vehicleHandle
-      SHX1_3(SHX2_3)
-      SHX1_3 = PlaySoundFrontend
-      SHX2_3 = -1
-      SHX3_3 = "Bomb_Disarmed"
-      SHX4_3 = "GTAO_Speed_Convoy_Soundset"
-      SHX5_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX1_3 = Wait
-      SHX2_3 = 1000
-      SHX1_3(SHX2_3)
-      SHX1_3 = PlaySoundFrontend
-      SHX2_3 = -1
-      SHX3_3 = "BASE_JUMP_PASSED"
-      SHX4_3 = "HUD_AWARDS"
-      SHX5_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+
+    robot.cameraEnabled = false
+    robot.cameraHandle = 0
+
+    -- The original only automatically disabled NIGHT VISION here.
+    -- Thermal vision is left alone until manually toggled or the robot is
+    -- removed, so that behaviour is preserved.
+    if robot.nightVisionEnabled then
+        SetNightvision(false)
+        robot.nightVisionEnabled = false
     end
-    SHX0_3 = false
-    SHX3_1 = SHX0_3
-  end
-  SHX0_2(SHX1_2)
 end
-SHX9_1 = Citizen
-SHX9_1 = SHX9_1.CreateThread
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  while true do
-    SHX0_2 = SHX2_1.active
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.getPlayerCoords
-      SHX0_2 = SHX0_2()
-      SHX1_2 = GetEntityCoords
-      SHX2_2 = SHX2_1.vehicleHandle
-      SHX3_2 = true
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      SHX2_2 = SHX0_2 - SHX1_2
-      SHX2_2 = #SHX2_2
-      SHX3_2 = 1000.0
-      if SHX2_2 <= SHX3_2 then
-        SHX3_2 = NetworkHasControlOfEntity
-        SHX4_2 = SHX2_1.driverHandle
-        SHX3_2 = SHX3_2(SHX4_2)
-        if not SHX3_2 then
-          SHX3_2 = NetworkRequestControlOfEntity
-          SHX4_2 = SHX2_1.driverHandle
-          SHX3_2(SHX4_2)
-        else
-          SHX3_2 = NetworkHasControlOfEntity
-          SHX4_2 = SHX2_1.vehicleHandle
-          SHX3_2 = SHX3_2(SHX4_2)
-          if not SHX3_2 then
-            SHX3_2 = NetworkRequestControlOfEntity
-            SHX4_2 = SHX2_1.vehicleHandle
-            SHX3_2(SHX4_2)
-          end
-        end
-      else
-        SHX3_2 = TaskVehicleTempAction
-        SHX4_2 = SHX2_1.driverHandle
-        SHX5_2 = SHX2_1.vehicleHandle
-        SHX6_2 = 6
-        SHX7_2 = 2500
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      end
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 0
-      SHX5_2 = 172
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 1
-      SHX5_2 = 172
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 0
-      SHX5_2 = 300
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 0
-      SHX5_2 = 27
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 1
-      SHX5_2 = 27
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 0
-      SHX5_2 = 188
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 1
-      SHX5_2 = 188
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = IsDisabledControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 172
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 173
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if not SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 9
-          SHX7_2 = 1
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsDisabledControlJustReleased
-      SHX4_2 = 0
-      SHX5_2 = 172
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if not SHX3_2 then
-        SHX3_2 = IsControlJustReleased
-        SHX4_2 = 0
-        SHX5_2 = 173
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if not SHX3_2 then
-          goto SHX_LABEL_112
-        end
-      end
-      SHX3_2 = TaskVehicleTempAction
-      SHX4_2 = SHX2_1.driverHandle
-      SHX5_2 = SHX2_1.vehicleHandle
-      SHX6_2 = 6
-      SHX7_2 = 2500
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      -- [FIX IF ERROR] Move ::SHX_LABEL_112:: outside nested blocks until all 'goto SHX_LABEL_112' can see it
-      ::SHX_LABEL_112::
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 173
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsDisabledControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 172
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if not SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 22
-          SHX7_2 = 1
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 174
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 173
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 13
-          SHX7_2 = 1
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 175
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 173
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 14
-          SHX7_2 = 1
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsDisabledControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 172
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 173
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 30
-          SHX7_2 = 100
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 174
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsDisabledControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 172
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 7
-          SHX7_2 = 1
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 175
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsDisabledControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 172
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX3_2 = TaskVehicleTempAction
-          SHX4_2 = SHX2_1.driverHandle
-          SHX5_2 = SHX2_1.vehicleHandle
-          SHX6_2 = 8
-          SHX7_2 = 1
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        end
-      end
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 174
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsDisabledControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 172
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if not SHX3_2 then
-          SHX3_2 = IsControlPressed
-          SHX4_2 = 0
-          SHX5_2 = 173
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-          if not SHX3_2 then
-            SHX3_2 = TaskVehicleTempAction
-            SHX4_2 = SHX2_1.driverHandle
-            SHX5_2 = SHX2_1.vehicleHandle
-            SHX6_2 = 4
-            SHX7_2 = 1
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          end
-        end
-      end
-      SHX3_2 = IsControlPressed
-      SHX4_2 = 0
-      SHX5_2 = 175
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = IsDisabledControlPressed
-        SHX4_2 = 0
-        SHX5_2 = 172
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if not SHX3_2 then
-          SHX3_2 = IsControlPressed
-          SHX4_2 = 0
-          SHX5_2 = 173
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-          if not SHX3_2 then
-            SHX3_2 = TaskVehicleTempAction
-            SHX4_2 = SHX2_1.driverHandle
-            SHX5_2 = SHX2_1.vehicleHandle
-            SHX6_2 = 5
-            SHX7_2 = 1
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          end
-        end
-      end
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = 121
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = SHX4_1
-        SHX3_2()
-      end
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = 178
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = SHX2_1.cameraEnabled
-        if SHX3_2 then
-          SHX3_2 = SHX2_1.thermal
-          if SHX3_2 then
-            SHX3_2 = SetSeethrough
-            SHX4_2 = false
-            SHX3_2(SHX4_2)
-            SHX2_1.thermal = false
-          else
-            SHX3_2 = SetSeethrough
-            SHX4_2 = true
-            SHX3_2(SHX4_2)
-            SHX2_1.thermal = true
-          end
-        end
-      end
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = 212
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = SHX2_1.cameraEnabled
-        if SHX3_2 then
-          SHX3_2 = SHX2_1.nightVisionEnabled
-          if SHX3_2 then
-            SHX3_2 = SetNightvision
-            SHX4_2 = false
-            SHX3_2(SHX4_2)
-            SHX2_1.nightVisionEnabled = false
-          else
-            SHX3_2 = SetNightvision
-            SHX4_2 = true
-            SHX3_2(SHX4_2)
-            SHX2_1.nightVisionEnabled = true
-          end
-        end
-      end
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = 208
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = SHX8_1
-        SHX3_2()
-      end
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = 207
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = true
-        SHX3_1 = SHX3_2
-        SHX3_2 = drawNativeNotification
-        SHX4_2 = "Explosion cancelled"
-        SHX3_2(SHX4_2)
-      end
-      SHX3_2 = SHX2_1.hoseEnabled
-      if not SHX3_2 then
-        SHX3_2 = IsControlPressed
-        SHX4_2 = 1
-        SHX5_2 = 74
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX2_1.hoseEnabled = true
-          SHX3_2 = PlaySoundFrontend
-          SHX4_2 = -1
-          SHX5_2 = "EDIT"
-          SHX6_2 = "HUD_DEATHMATCH_SOUNDSET"
-          SHX7_2 = true
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX3_2 = TriggerServerEvent
-          SHX4_2 = "620bb841c2"
-          SHX5_2 = NetworkGetNetworkIdFromEntity
-          SHX6_2 = SHX2_1.vehicleHandle
-          SHX5_2, SHX6_2, SHX7_2 = SHX5_2(SHX6_2)
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          while true do
-            SHX3_2 = IsControlJustReleased
-            SHX4_2 = 1
-            SHX5_2 = 74
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = SHX2_1.hoseEnabled
-              if SHX3_2 then
+
+local function enableRobotCamera()
+    if not robotExists() then
+        return
+    end
+
+    robot.cameraHandle =
+        CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
+
+    -- Mount the camera slightly behind and above the robot.
+    AttachCamToEntity(
+        robot.cameraHandle,
+        robot.vehicleHandle,
+        -0.3,
+        0.0,
+        1.2,
+        true
+    )
+
+    local transitionTime = getCameraTransitionTime()
+
+    robot.cameraEnabled = true
+
+    RenderScriptCams(
+        true,
+        true,
+        transitionTime,
+        true,
+        true
+    )
+
+    Wait(transitionTime)
+
+    -- Give the robot camera a CCTV/scanline look.
+    SetTimecycleModifier("scanline_cam_cheap")
+    SetTimecycleModifierStrength(1.0)
+
+    -------------------------------------------------------------
+    -- KEEP CAMERA ROTATION MATCHED TO THE ROBOT
+    -------------------------------------------------------------
+
+    Citizen.CreateThread(function()
+        while DoesCamExist(robot.cameraHandle) do
+            Citizen.Wait(2)
+
+            if not robotExists() then
                 break
-              end
             end
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 0
-            SHX5_2 = 172
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 1
-            SHX5_2 = 172
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 0
-            SHX5_2 = 300
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 0
-            SHX5_2 = 27
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 1
-            SHX5_2 = 27
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 0
-            SHX5_2 = 188
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = DisableControlAction
-            SHX4_2 = 1
-            SHX5_2 = 188
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX3_2 = IsDisabledControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 172
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 173
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if not SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 9
-                SHX7_2 = 1
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsDisabledControlJustReleased
-            SHX4_2 = 0
-            SHX5_2 = 172
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if not SHX3_2 then
-              SHX3_2 = IsControlJustReleased
-              SHX4_2 = 0
-              SHX5_2 = 173
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if not SHX3_2 then
-                goto SHX_LABEL_439
-              end
-            end
-            SHX3_2 = TaskVehicleTempAction
-            SHX4_2 = SHX2_1.driverHandle
-            SHX5_2 = SHX2_1.vehicleHandle
-            SHX6_2 = 6
-            SHX7_2 = 2500
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-            -- [FIX IF ERROR] Move ::SHX_LABEL_439:: outside nested blocks until all 'goto SHX_LABEL_439' can see it
-            ::SHX_LABEL_439::
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 173
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsDisabledControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 172
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if not SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 22
-                SHX7_2 = 1
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 174
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 173
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 13
-                SHX7_2 = 1
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 175
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 173
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 14
-                SHX7_2 = 1
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsDisabledControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 172
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 173
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 30
-                SHX7_2 = 100
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 174
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsDisabledControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 172
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 7
-                SHX7_2 = 1
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 175
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsDisabledControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 172
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if SHX3_2 then
-                SHX3_2 = TaskVehicleTempAction
-                SHX4_2 = SHX2_1.driverHandle
-                SHX5_2 = SHX2_1.vehicleHandle
-                SHX6_2 = 8
-                SHX7_2 = 1
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-              end
-            end
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 174
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsDisabledControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 172
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if not SHX3_2 then
-                SHX3_2 = IsControlPressed
-                SHX4_2 = 0
-                SHX5_2 = 173
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-                if not SHX3_2 then
-                  SHX3_2 = TaskVehicleTempAction
-                  SHX4_2 = SHX2_1.driverHandle
-                  SHX5_2 = SHX2_1.vehicleHandle
-                  SHX6_2 = 4
-                  SHX7_2 = 1
-                  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-                end
-              end
-            end
-            SHX3_2 = IsControlPressed
-            SHX4_2 = 0
-            SHX5_2 = 175
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = IsDisabledControlPressed
-              SHX4_2 = 0
-              SHX5_2 = 172
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-              if not SHX3_2 then
-                SHX3_2 = IsControlPressed
-                SHX4_2 = 0
-                SHX5_2 = 173
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-                if not SHX3_2 then
-                  SHX3_2 = TaskVehicleTempAction
-                  SHX4_2 = SHX2_1.driverHandle
-                  SHX5_2 = SHX2_1.vehicleHandle
-                  SHX6_2 = 5
-                  SHX7_2 = 1
-                  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-                end
-              end
-            end
-            SHX3_2 = IsControlJustPressed
-            SHX4_2 = 0
-            SHX5_2 = 178
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = SHX2_1.cameraEnabled
-              if SHX3_2 then
-                SHX3_2 = SHX2_1.thermal
-                if SHX3_2 then
-                  SHX3_2 = SetSeethrough
-                  SHX4_2 = false
-                  SHX3_2(SHX4_2)
-                  SHX2_1.thermal = false
-                else
-                  SHX3_2 = SetSeethrough
-                  SHX4_2 = true
-                  SHX3_2(SHX4_2)
-                  SHX2_1.thermal = true
-                end
-              end
-            end
-            SHX3_2 = IsControlJustPressed
-            SHX4_2 = 0
-            SHX5_2 = 212
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = SHX2_1.cameraEnabled
-              if SHX3_2 then
-                SHX3_2 = SHX2_1.nightVisionEnabled
-                if SHX3_2 then
-                  SHX3_2 = SetNightvision
-                  SHX4_2 = false
-                  SHX3_2(SHX4_2)
-                  SHX2_1.nightVisionEnabled = false
-                else
-                  SHX3_2 = SetNightvision
-                  SHX4_2 = true
-                  SHX3_2(SHX4_2)
-                  SHX2_1.nightVisionEnabled = true
-                end
-              end
-            end
-            SHX3_2 = IsControlJustPressed
-            SHX4_2 = 0
-            SHX5_2 = 208
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = SHX8_1
-              SHX3_2()
-            end
-            SHX3_2 = IsControlJustPressed
-            SHX4_2 = 0
-            SHX5_2 = 207
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if SHX3_2 then
-              SHX3_2 = true
-              SHX3_1 = SHX3_2
-            end
-            SHX3_2 = Wait
-            SHX4_2 = 0
-            SHX3_2(SHX4_2)
-          end
-          SHX3_2 = SHX2_1.hoseEnabled
-          if SHX3_2 then
-            SHX3_2 = TriggerServerEvent
-            SHX4_2 = "c8662fcaa0"
-            SHX5_2 = NetworkGetNetworkIdFromEntity
-            SHX6_2 = SHX2_1.vehicleHandle
-            SHX5_2, SHX6_2, SHX7_2 = SHX5_2(SHX6_2)
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-            SHX2_1.hoseEnabled = false
-          end
+
+            local rotation =
+                GetEntityRotation(robot.vehicleHandle)
+
+            SetCamRot(
+                robot.cameraHandle,
+                rotation.x,
+                rotation.y,
+                rotation.z,
+                2
+            )
         end
-      end
+    end)
+end
+
+local function toggleRobotCamera()
+    if robot.cameraEnabled then
+        disableRobotCamera()
+    else
+        enableRobotCamera()
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
 end
-SHX9_1(SHX10_1)
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "baeeded899"
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX1_2 = SHX0_2 - SHX1_2
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 150.0
-  if SHX1_2 < SHX2_2 then
-    SHX2_2 = AddOwnedExplosion
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getPlayerPed
-    SHX3_2 = SHX3_2()
-    SHX4_2 = SHX0_2.x
-    SHX5_2 = SHX0_2.y
-    SHX6_2 = SHX0_2.z
-    SHX7_2 = 4
-    SHX8_2 = 17.0
-    SHX9_2 = true
-    SHX10_2 = false
-    SHX11_2 = 6.0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  end
-end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "620bb841c2"
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadPtfx
-  SHX2_2 = "core"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getObjectId
-  SHX2_2 = SHX0_2
-  SHX3_2 = "eodActivateHose"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 then
-    return
-  end
-  SHX2_2 = SHX5_1
-  SHX3_2 = {}
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX1_2
-  SHX3_2[1] = SHX4_2
-  SHX3_2[2] = SHX5_2
-  SHX2_2[SHX1_2] = SHX3_2
-  SHX2_2 = UseParticleFxAsset
-  SHX3_2 = "core"
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetParticleFxShootoutBoat
-  SHX3_2 = 1
-  SHX2_2(SHX3_2)
-  SHX2_2 = StartParticleFxLoopedOnEntity
-  SHX3_2 = "water_cannon_jet"
-  SHX4_2 = SHX1_2
-  SHX5_2 = 0.0
-  SHX6_2 = 0.19
-  SHX7_2 = 1.1
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = -0.7
-  SHX11_2 = 0.7
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  while true do
-    SHX3_2 = SHX5_1
-    SHX3_2 = SHX3_2[SHX1_2]
-    if nil == SHX3_2 then
-      break
+
+---------------------------------------------------------------------
+-- THERMAL / NIGHT VISION
+---------------------------------------------------------------------
+
+local function toggleThermalVision()
+    -- Original script only allows this while the robot camera is active.
+    if not robot.cameraEnabled then
+        return
     end
-    SHX3_2 = Wait
-    SHX4_2 = 100
-    SHX3_2(SHX4_2)
-  end
-  SHX3_2 = StopParticleFxLooped
-  SHX4_2 = SHX2_2
-  SHX5_2 = false
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = RemoveNamedPtfxAsset
-  SHX4_2 = "core"
-  SHX3_2(SHX4_2)
+
+    robot.thermalEnabled =
+        not robot.thermalEnabled
+
+    SetSeethrough(robot.thermalEnabled)
 end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "c8662fcaa0"
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getObjectId
-  SHX2_2 = SHX0_2
-  SHX3_2 = "eodDeactivateHose"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 then
-    return
-  end
-  SHX2_2 = SHX5_1
-  SHX2_2[SHX1_2] = nil
-end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "879e33c266"
-function SHX11_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  SHX3_2 = SHX0_2 - SHX3_2
-  SHX3_2 = #SHX3_2
-  if SHX3_2 < 30.0 then
-    SHX4_2 = PlaySoundFrontend
-    SHX5_2 = -1
-    SHX6_2 = SHX1_2
-    SHX7_2 = SHX2_2
-    SHX8_2 = true
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  end
-end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = RegisterCommand
-SHX10_1 = "eodvisorup"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientUserId
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isDeveloper
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = SetPedPropIndex
-      SHX2_2 = PlayerPedId
-      SHX2_2 = SHX2_2()
-      SHX3_2 = 0
-      SHX4_2 = 191
-      SHX5_2 = 0
-      SHX6_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+
+local function toggleNightVision()
+    -- Original script only allows this while the robot camera is active.
+    if not robot.cameraEnabled then
+        return
     end
-  end
+
+    robot.nightVisionEnabled =
+        not robot.nightVisionEnabled
+
+    SetNightvision(robot.nightVisionEnabled)
 end
-SHX12_1 = false
-SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX9_1 = RegisterCommand
-SHX10_1 = "eodvisordown"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientUserId
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isDeveloper
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = SetPedPropIndex
-      SHX2_2 = PlayerPedId
-      SHX2_2 = SHX2_2()
-      SHX3_2 = 0
-      SHX4_2 = 190
-      SHX5_2 = 0
-      SHX6_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+
+---------------------------------------------------------------------
+-- CHAT SUGGESTION
+---------------------------------------------------------------------
+
+-- The original client file only adds the suggestion here.
+-- The actual /eod command appears to be handled elsewhere and results in
+-- EVENTS.TOGGLE_ROBOT being sent back to this client.
+TriggerEvent(
+    "chat:addSuggestion",
+    "/eod",
+    "Setup or remove an EOD robot."
+)
+
+---------------------------------------------------------------------
+-- REMOVE / CLEAN UP THE ROBOT
+---------------------------------------------------------------------
+
+local function removeRobot()
+    -------------------------------------------------------------
+    -- STOP HOSE IF IT IS ACTIVE
+    -------------------------------------------------------------
+
+    if robot.hoseEnabled and robotExists() then
+        TriggerServerEvent(
+            EVENTS.DEACTIVATE_HOSE,
+            VehToNet(robot.vehicleHandle)
+        )
+
+        robot.hoseEnabled = false
     end
-  end
+
+    Wait(500)
+
+    robot.active = false
+
+    -------------------------------------------------------------
+    -- REMOVE INVISIBLE DRIVER
+    -------------------------------------------------------------
+
+    if driverExists() then
+        DeletePed(robot.driverHandle)
+    end
+
+    robot.driverHandle = 0
+
+    -------------------------------------------------------------
+    -- REMOVE ROBOT VEHICLE
+    -------------------------------------------------------------
+
+    if robotExists() then
+        SetEntityAsMissionEntity(
+            robot.vehicleHandle,
+            false,
+            false
+        )
+
+        DeleteEntity(robot.vehicleHandle)
+    end
+
+    robot.vehicleHandle = 0
+
+    SetModelAsNoLongerNeeded(EOD_ROBOT_MODEL)
+
+    -------------------------------------------------------------
+    -- CLEAN UP VISUAL MODES
+    -------------------------------------------------------------
+
+    if robot.thermalEnabled then
+        SetSeethrough(false)
+        robot.thermalEnabled = false
+    end
+
+    -- Camera cleanup was not explicitly performed inside the original
+    -- remove function. Keeping it here would be a behaviour change, so the
+    -- original camera cleanup path remains toggleRobotCamera().
 end
-SHX12_1 = false
-SHX9_1(SHX10_1, SHX11_1, SHX12_1)
+
+---------------------------------------------------------------------
+-- SPAWN THE ROBOT
+---------------------------------------------------------------------
+
+local function spawnRobot()
+    -------------------------------------------------------------
+    -- LOAD THE ROBOT + INVISIBLE DRIVER MODELS
+    -------------------------------------------------------------
+
+    CMG.loadModel(EOD_ROBOT_MODEL)
+    CMG.loadModel(EOD_DRIVER_MODEL)
+
+    -------------------------------------------------------------
+    -- SPAWN ABOUT FOUR METRES IN FRONT OF THE PLAYER
+    -------------------------------------------------------------
+
+    local playerPed = CMG.getPlayerPed()
+
+    local spawnCoords =
+        GetOffsetFromEntityInWorldCoords(
+            playerPed,
+            0.0,
+            4.0,
+            0.0
+        )
+
+    local heading =
+        GetEntityHeading(playerPed)
+
+    -------------------------------------------------------------
+    -- SPAWN THE ROBOT VEHICLE
+    -------------------------------------------------------------
+
+    CMG.requestEntitySpawn(
+        "eod",
+        spawnCoords
+    )
+
+    robot.vehicleHandle =
+        CMG.spawnVehicle(
+            EOD_ROBOT_MODEL,
+            spawnCoords.x,
+            spawnCoords.y,
+            spawnCoords.z,
+            heading,
+            false
+        )
+
+    Wait(1000)
+
+    if not robotExists() then
+        return
+    end
+
+    SetEntityAsMissionEntity(
+        robot.vehicleHandle,
+        true,
+        true
+    )
+
+    -------------------------------------------------------------
+    -- CONFIGURE NETWORK SYNCHRONISATION
+    -------------------------------------------------------------
+
+    local networkId =
+        NetworkGetNetworkIdFromEntity(
+            robot.vehicleHandle
+        )
+
+    NetworkUseHighPrecisionBlending(
+        networkId,
+        true
+    )
+
+    SetNetworkIdCanMigrate(
+        networkId,
+        true
+    )
+
+    SetNetworkIdExistsOnAllMachines(
+        networkId,
+        true
+    )
+
+    -------------------------------------------------------------
+    -- CREATE INVISIBLE AI DRIVER
+    -------------------------------------------------------------
+
+    CMG.requestEntitySpawn(
+        "eod_ped",
+        spawnCoords
+    )
+
+    robot.driverHandle =
+        CreatePed(
+            4,
+            EOD_DRIVER_MODEL,
+            spawnCoords.x,
+            spawnCoords.y,
+            spawnCoords.z,
+            heading,
+            true,
+            true
+        )
+
+    if not driverExists() then
+        DeleteEntity(robot.vehicleHandle)
+        robot.vehicleHandle = 0
+        return
+    end
+
+    SetEntityInvincible(
+        robot.driverHandle,
+        true
+    )
+
+    SetEntityVisible(
+        robot.driverHandle,
+        false,
+        false
+    )
+
+    FreezeEntityPosition(
+        robot.driverHandle,
+        true
+    )
+
+    SetPedAlertness(
+        robot.driverHandle,
+        0.0
+    )
+
+    -------------------------------------------------------------
+    -- PUT DRIVER INTO ROBOT
+    -------------------------------------------------------------
+
+    TaskWarpPedIntoVehicle(
+        robot.driverHandle,
+        robot.vehicleHandle,
+        -1
+    )
+
+    while not IsPedInVehicle(
+        robot.driverHandle,
+        robot.vehicleHandle,
+        false
+    ) do
+        Wait(0)
+    end
+
+    -------------------------------------------------------------
+    -- STOP PLAYERS ENTERING THE ROBOT
+    -------------------------------------------------------------
+
+    SetVehicleDoorsLocked(
+        robot.vehicleHandle,
+        2
+    )
+
+    SetVehicleDoorsLockedForAllPlayers(
+        robot.vehicleHandle,
+        true
+    )
+
+    SetModelAsNoLongerNeeded(
+        EOD_ROBOT_MODEL
+    )
+
+    SetModelAsNoLongerNeeded(
+        EOD_DRIVER_MODEL
+    )
+
+    robot.active = true
+end
+
+---------------------------------------------------------------------
+-- SERVER EVENT: TOGGLE ROBOT
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.TOGGLE_ROBOT)
+AddEventHandler(
+    EVENTS.TOGGLE_ROBOT,
+    function()
+        if robot.active then
+            removeRobot()
+        else
+            spawnRobot()
+        end
+    end
+)
+
+---------------------------------------------------------------------
+-- BOMB DISARM SEQUENCE
+---------------------------------------------------------------------
+
+local function beginDisarmSequence()
+    Citizen.CreateThread(function()
+        disarmCancelled = false
+
+        ---------------------------------------------------------
+        -- START COUNTDOWN
+        ---------------------------------------------------------
+
+        PlaySoundFrontend(
+            -1,
+            "5s_To_Event_Start_Countdown",
+            "GTAO_FM_Events_Soundset",
+            true
+        )
+
+        drawNativeNotification(
+            "Press ~INPUT_FRONTEND_LT~ to cancel."
+        )
+
+        -- Original code waits 8 seconds.
+        Wait(8000)
+
+        ---------------------------------------------------------
+        -- IF NOT CANCELLED, PERFORM THE DISARM EFFECT
+        ---------------------------------------------------------
+
+        if not disarmCancelled and robotExists() then
+            SetEntityInvincible(
+                robot.vehicleHandle,
+                true
+            )
+
+            -- Effect/explosion point is two metres in front of the robot.
+            local effectCoords =
+                GetOffsetFromEntityInWorldCoords(
+                    robot.vehicleHandle,
+                    0.0,
+                    2.0,
+                    0.1
+                )
+
+            TriggerServerEvent(
+                EVENTS.REQUEST_DISARM_EFFECT,
+                effectCoords
+            )
+
+            SetVehicleFixed(
+                robot.vehicleHandle
+            )
+
+            PlaySoundFrontend(
+                -1,
+                "Bomb_Disarmed",
+                "GTAO_Speed_Convoy_Soundset",
+                true
+            )
+
+            Wait(1000)
+
+            PlaySoundFrontend(
+                -1,
+                "BASE_JUMP_PASSED",
+                "HUD_AWARDS",
+                true
+            )
+        end
+
+        disarmCancelled = false
+    end)
+end
+
+local function cancelDisarmSequence(showMessage)
+    disarmCancelled = true
+
+    if showMessage then
+        drawNativeNotification(
+            "Explosion cancelled"
+        )
+    end
+end
+
+---------------------------------------------------------------------
+-- NETWORK OWNERSHIP
+---------------------------------------------------------------------
+
+local function requestRobotNetworkControl()
+    if not robot.active then
+        return
+    end
+
+    if driverExists()
+        and not NetworkHasControlOfEntity(
+            robot.driverHandle
+        )
+    then
+        NetworkRequestControlOfEntity(
+            robot.driverHandle
+        )
+    end
+
+    if robotExists()
+        and not NetworkHasControlOfEntity(
+            robot.vehicleHandle
+        )
+    then
+        NetworkRequestControlOfEntity(
+            robot.vehicleHandle
+        )
+    end
+end
+
+---------------------------------------------------------------------
+-- DISABLE NORMAL PLAYER CONTROLS USED TO DRIVE THE ROBOT
+---------------------------------------------------------------------
+
+local function disableRobotDrivingControls()
+    DisableControlAction(0, CONTROLS.FORWARD, true)
+    DisableControlAction(1, CONTROLS.FORWARD, true)
+
+    DisableControlAction(0, 300, true)
+
+    DisableControlAction(0, 27, true)
+    DisableControlAction(1, 27, true)
+
+    DisableControlAction(0, 188, true)
+    DisableControlAction(1, 188, true)
+end
+
+---------------------------------------------------------------------
+-- REMOTE DRIVING
+---------------------------------------------------------------------
+--
+-- The original decompiler repeated this entire block twice and used goto
+-- labels just to skip one "stop" action.
+--
+-- This helper contains the same individual movement cases in normal Lua.
+---------------------------------------------------------------------
+
+local function driveRobot()
+    if not robot.active
+        or not robotExists()
+        or not driverExists()
+    then
+        return
+    end
+
+    local forward =
+        IsDisabledControlPressed(
+            0,
+            CONTROLS.FORWARD
+        )
+
+    local backward =
+        IsControlPressed(
+            0,
+            CONTROLS.BACKWARD
+        )
+
+    local left =
+        IsControlPressed(
+            0,
+            CONTROLS.LEFT
+        )
+
+    local right =
+        IsControlPressed(
+            0,
+            CONTROLS.RIGHT
+        )
+
+    -------------------------------------------------------------
+    -- FORWARD
+    -------------------------------------------------------------
+
+    if forward and not backward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            9,
+            1
+        )
+    end
+
+    -------------------------------------------------------------
+    -- STOP WHEN FORWARD/BACK IS RELEASED
+    -------------------------------------------------------------
+
+    local releasedForward =
+        IsDisabledControlJustReleased(
+            0,
+            CONTROLS.FORWARD
+        )
+
+    local releasedBackward =
+        IsControlJustReleased(
+            0,
+            CONTROLS.BACKWARD
+        )
+
+    if releasedForward or releasedBackward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            6,
+            2500
+        )
+    end
+
+    -------------------------------------------------------------
+    -- BACKWARDS
+    -------------------------------------------------------------
+
+    if backward and not forward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            22,
+            1
+        )
+    end
+
+    -------------------------------------------------------------
+    -- TURN WHILE REVERSING
+    -------------------------------------------------------------
+
+    if left and backward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            13,
+            1
+        )
+    end
+
+    if right and backward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            14,
+            1
+        )
+    end
+
+    -------------------------------------------------------------
+    -- FORWARD + BACKWARD TOGETHER
+    -------------------------------------------------------------
+
+    if forward and backward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            30,
+            100
+        )
+    end
+
+    -------------------------------------------------------------
+    -- TURN WHILE MOVING FORWARD
+    -------------------------------------------------------------
+
+    if left and forward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            7,
+            1
+        )
+    end
+
+    if right and forward then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            8,
+            1
+        )
+    end
+
+    -------------------------------------------------------------
+    -- TURN ON THE SPOT
+    -------------------------------------------------------------
+
+    if left
+        and not forward
+        and not backward
+    then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            4,
+            1
+        )
+    end
+
+    if right
+        and not forward
+        and not backward
+    then
+        TaskVehicleTempAction(
+            robot.driverHandle,
+            robot.vehicleHandle,
+            5,
+            1
+        )
+    end
+end
+
+---------------------------------------------------------------------
+-- CAMERA / DISARM HOTKEYS
+---------------------------------------------------------------------
+
+local function handleRobotFeatureControls(
+    showCancelMessage
+)
+    -------------------------------------------------------------
+    -- CAMERA
+    -------------------------------------------------------------
+
+    if IsControlJustPressed(
+        0,
+        CONTROLS.TOGGLE_CAMERA
+    ) then
+        toggleRobotCamera()
+    end
+
+    -------------------------------------------------------------
+    -- THERMAL
+    -------------------------------------------------------------
+
+    if IsControlJustPressed(
+        0,
+        CONTROLS.TOGGLE_THERMAL
+    ) then
+        toggleThermalVision()
+    end
+
+    -------------------------------------------------------------
+    -- NIGHT VISION
+    -------------------------------------------------------------
+
+    if IsControlJustPressed(
+        0,
+        CONTROLS.TOGGLE_NIGHT_VISION
+    ) then
+        toggleNightVision()
+    end
+
+    -------------------------------------------------------------
+    -- START DISARM
+    -------------------------------------------------------------
+
+    if IsControlJustPressed(
+        0,
+        CONTROLS.START_DISARM
+    ) then
+        beginDisarmSequence()
+    end
+
+    -------------------------------------------------------------
+    -- CANCEL DISARM
+    -------------------------------------------------------------
+
+    if IsControlJustPressed(
+        0,
+        CONTROLS.CANCEL_DISARM
+    ) then
+        cancelDisarmSequence(
+            showCancelMessage
+        )
+    end
+end
+
+---------------------------------------------------------------------
+-- WATER HOSE
+---------------------------------------------------------------------
+
+local function startRobotHose()
+    if robot.hoseEnabled
+        or not robotExists()
+    then
+        return
+    end
+
+    robot.hoseEnabled = true
+
+    PlaySoundFrontend(
+        -1,
+        "EDIT",
+        "HUD_DEATHMATCH_SOUNDSET",
+        true
+    )
+
+    TriggerServerEvent(
+        EVENTS.ACTIVATE_HOSE,
+        getRobotNetworkId()
+    )
+
+    -------------------------------------------------------------
+    -- KEEP DRIVING AVAILABLE WHILE THE HOSE BUTTON IS HELD
+    -------------------------------------------------------------
+
+    while robot.active and robot.hoseEnabled do
+        -- The original stops the hose when this button is released.
+        if IsControlJustReleased(
+            1,
+            CONTROLS.HOSE
+        ) then
+            break
+        end
+
+        disableRobotDrivingControls()
+        driveRobot()
+
+        -- In the original inner loop, cancelling a disarm does not show the
+        -- "Explosion cancelled" message.
+        handleRobotFeatureControls(false)
+
+        Wait(0)
+    end
+
+    -------------------------------------------------------------
+    -- TELL OTHER CLIENTS TO REMOVE THE PARTICLE EFFECT
+    -------------------------------------------------------------
+
+    if robot.hoseEnabled then
+        TriggerServerEvent(
+            EVENTS.DEACTIVATE_HOSE,
+            getRobotNetworkId()
+        )
+
+        robot.hoseEnabled = false
+    end
+end
+
+---------------------------------------------------------------------
+-- MAIN EOD CONTROL LOOP
+---------------------------------------------------------------------
+
+Citizen.CreateThread(function()
+    while true do
+        if robot.active then
+            -----------------------------------------------------
+            -- NETWORK OWNERSHIP / RANGE
+            -----------------------------------------------------
+
+            local distance =
+                getDistanceToRobot()
+
+            if distance <= 1000.0 then
+                requestRobotNetworkControl()
+            else
+                -- If the player goes more than 1 km away, stop the robot.
+                if driverExists() and robotExists() then
+                    TaskVehicleTempAction(
+                        robot.driverHandle,
+                        robot.vehicleHandle,
+                        6,
+                        2500
+                    )
+                end
+            end
+
+            -----------------------------------------------------
+            -- DRIVE ROBOT
+            -----------------------------------------------------
+
+            disableRobotDrivingControls()
+            driveRobot()
+
+            -----------------------------------------------------
+            -- CAMERA / VISION / DISARM
+            -----------------------------------------------------
+
+            handleRobotFeatureControls(true)
+
+            -----------------------------------------------------
+            -- WATER HOSE
+            -----------------------------------------------------
+
+            if not robot.hoseEnabled
+                and IsControlPressed(
+                    1,
+                    CONTROLS.HOSE
+                )
+            then
+                startRobotHose()
+            end
+        end
+
+        Wait(0)
+    end
+end)
+
+---------------------------------------------------------------------
+-- SERVER EVENT: CREATE DISARM EXPLOSION
+---------------------------------------------------------------------
+
+RegisterNetEvent(
+    EVENTS.CREATE_DISARM_EXPLOSION
+)
+
+AddEventHandler(
+    EVENTS.CREATE_DISARM_EXPLOSION,
+    function(coords)
+        local playerCoords =
+            CMG.getPlayerCoords()
+
+        local distance =
+            #(coords - playerCoords)
+
+        -- Only create the effect for players close enough to see/hear it.
+        if distance < 150.0 then
+            AddOwnedExplosion(
+                CMG.getPlayerPed(),
+                coords.x,
+                coords.y,
+                coords.z,
+
+                4,      -- explosion type
+                17.0,   -- damage scale
+                true,   -- audible
+                false,  -- invisible?
+                6.0
+            )
+        end
+    end
+)
+
+---------------------------------------------------------------------
+-- SERVER EVENT: ACTIVATE HOSE PARTICLE EFFECT
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.ACTIVATE_HOSE)
+
+AddEventHandler(
+    EVENTS.ACTIVATE_HOSE,
+    function(robotNetworkId)
+        ---------------------------------------------------------
+        -- RESOLVE NETWORK ID INTO THE LOCAL ROBOT ENTITY
+        ---------------------------------------------------------
+
+        local robotEntity =
+            CMG.getObjectId(
+                robotNetworkId,
+                "eodActivateHose"
+            )
+
+        if not robotEntity then
+            return
+        end
+
+        activeHoseEffects[robotEntity] = true
+
+        ---------------------------------------------------------
+        -- LOAD PARTICLE EFFECT
+        ---------------------------------------------------------
+
+        CMG.loadPtfx("core")
+
+        UseParticleFxAsset("core")
+
+        SetParticleFxShootoutBoat(1)
+
+        local particleHandle =
+            StartParticleFxLoopedOnEntity(
+                "water_cannon_jet",
+                robotEntity,
+
+                -- Position offset
+                0.0,
+                0.19,
+                1.1,
+
+                -- Rotation
+                0.0,
+                0.0,
+                -0.7,
+
+                -- Scale
+                0.7,
+
+                false,
+                false,
+                false
+            )
+
+        ---------------------------------------------------------
+        -- KEEP IT ACTIVE UNTIL DEACTIVATE_HOSE REMOVES THE ENTRY
+        ---------------------------------------------------------
+
+        while activeHoseEffects[robotEntity] do
+            Wait(100)
+        end
+
+        StopParticleFxLooped(
+            particleHandle,
+            false
+        )
+
+        RemoveNamedPtfxAsset("core")
+    end
+)
+
+---------------------------------------------------------------------
+-- SERVER EVENT: DEACTIVATE HOSE PARTICLE EFFECT
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.DEACTIVATE_HOSE)
+
+AddEventHandler(
+    EVENTS.DEACTIVATE_HOSE,
+    function(robotNetworkId)
+        local robotEntity =
+            CMG.getObjectId(
+                robotNetworkId,
+                "eodDeactivateHose"
+            )
+
+        if not robotEntity then
+            return
+        end
+
+        activeHoseEffects[robotEntity] = nil
+    end
+)
+
+---------------------------------------------------------------------
+-- SERVER EVENT: PLAY EOD SOUND NEARBY
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.PLAY_NEARBY_SOUND)
+
+AddEventHandler(
+    EVENTS.PLAY_NEARBY_SOUND,
+    function(coords, soundName, soundSet)
+        local distance =
+            #(coords - CMG.getPlayerCoords())
+
+        if distance < 30.0 then
+            PlaySoundFrontend(
+                -1,
+                soundName,
+                soundSet,
+                true
+            )
+        end
+    end
+)
+
+---------------------------------------------------------------------
+-- DEVELOPER-ONLY EOD VISOR COMMANDS
+---------------------------------------------------------------------
+--
+-- These appear to swap between two helmet/visor prop variants.
+---------------------------------------------------------------------
+
+RegisterCommand(
+    "eodvisorup",
+    function()
+        local userId =
+            CMG.getClientUserId()
+
+        if not userId then
+            return
+        end
+
+        if not CMG.isDeveloper(userId) then
+            return
+        end
+
+        SetPedPropIndex(
+            PlayerPedId(),
+            0,
+            191,
+            0,
+            true
+        )
+    end,
+    false
+)
+
+RegisterCommand(
+    "eodvisordown",
+    function()
+        local userId =
+            CMG.getClientUserId()
+
+        if not userId then
+            return
+        end
+
+        if not CMG.isDeveloper(userId) then
+            return
+        end
+
+        SetPedPropIndex(
+            PlayerPedId(),
+            0,
+            190,
+            0,
+            true
+        )
+    end,
+    false
+)
