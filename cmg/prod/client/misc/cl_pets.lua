@@ -1,4259 +1,3149 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    CMG Pets - beginner-friendly rewrite
+    ====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgpets"
-SHX2_1 = "main"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateMenu
-SHX4_1 = ""
-SHX5_1 = "Select your ~b~Pet"
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.getRageUIMenuWidth
-SHX6_1 = SHX6_1()
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuHeight
-SHX7_1 = SHX7_1()
-SHX8_1 = "cmg_petsui"
-SHX9_1 = "cmg_petsui"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1)
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgpets"
-SHX2_1 = "store"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateMenu
-SHX4_1 = ""
-SHX5_1 = "~b~Store"
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.getRageUIMenuWidth
-SHX6_1 = SHX6_1()
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuHeight
-SHX7_1 = SHX7_1()
-SHX8_1 = "cmg_petsui"
-SHX9_1 = "cmg_petsui"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1)
-SHX0_1 = TriggerEvent
-SHX1_1 = "chat:addSuggestion"
-SHX2_1 = "/pet"
-SHX3_1 = "Manage your owned pets!"
-SHX0_1(SHX1_1, SHX2_1, SHX3_1)
-SHX0_1 = {}
-SHX1_1 = false
-SHX2_1 = false
-SHX3_1 = {}
-SHX3_1.purchasing = false
-SHX3_1.purchasingId = 0
-SHX3_1.viewingPet = false
-SHX3_1.lastViewingId = 0
-SHX3_1.viewingId = 0
-SHX3_1.cameraEnabled = false
-SHX3_1.cameraHandle = 0
-SHX4_1 = {}
-SHX4_1.Follow = 1
-SHX4_1.Stay = 2
-SHX4_1.Attack = 3
-SHX4_1.Sit = 4
-SHX4_1.Trick = 5
-SHX4_1.Shoulder = 5
-SHX4_1.Floor = 6
-SHX4_1.Ride = 7
-SHX5_1 = {}
-SHX5_1.active = false
-SHX5_1.id = 0
-SHX5_1.cooldown = false
-SHX6_1 = {}
-SHX6_1.Success = 1
-SHX6_1.Error = 2
-SHX6_1.Alert = 3
-SHX6_1.Info = 4
-SHX6_1.Unknown = 5
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgpets"
-  SHX4_2 = "store"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX3_1.viewingPet = true
-  SHX0_2 = SHX3_1.cameraEnabled
-  if not SHX0_2 then
-    SHX0_2 = DestroyCam
-    SHX1_2 = SHX3_1.cameraHandle
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = CreateCam
-    SHX1_2 = "DEFAULT_SCRIPTED_CAMERA"
-    SHX2_2 = true
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    SHX3_1.cameraHandle = SHX0_2
-    SHX0_2 = SetCamCoord
-    SHX1_2 = SHX3_1.cameraHandle
-    SHX2_2 = 562.7604
-    SHX3_2 = 2752.879
-    SHX4_2 = 42.4
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    SHX0_2 = SetCamRot
-    SHX1_2 = SHX3_1.cameraHandle
-    SHX2_2 = -1
-    SHX3_2 = -1
-    SHX4_2 = -84.73
-    SHX5_2 = 2
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = RenderScriptCams
-    SHX1_2 = true
-    SHX2_2 = false
-    SHX3_2 = 0
-    SHX4_2 = true
-    SHX5_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX3_1.cameraEnabled = true
-  end
-end
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgpets"
-  SHX4_2 = "store"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX3_1.viewingPet = false
-  SHX0_2 = SHX3_1.viewingId
-  if 0 ~= SHX0_2 then
-    SHX0_2 = DeleteEntity
-    SHX1_2 = SHX3_1.viewingEntity
-    SHX0_2(SHX1_2)
-    SHX3_1.viewingPet = false
-    SHX3_1.viewingId = 0
-  end
-  SHX0_2 = SHX3_1.cameraEnabled
-  if SHX0_2 then
-    SHX0_2 = RenderScriptCams
-    SHX1_2 = false
-    SHX2_2 = false
-    SHX3_2 = 0
-    SHX4_2 = true
-    SHX5_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = DestroyCam
-    SHX1_2 = SHX3_1.cameraHandle
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX3_1.cameraEnabled = false
-  end
-end
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-end
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = notify
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "5af8df8edf"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_1.pets
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    if not SHX0_2 then
-      SHX6_2 = SHX0_1.pets
-      SHX6_2 = SHX6_2[SHX5_2]
-      SHX6_2 = SHX6_2.abilities
-      SHX6_2.attack = false
-      SHX6_2 = SHX10_1
-      SHX7_2 = SHX6_1.Alert
-      SHX8_2 = "Your ability to attack has been disabled by a ~b~CMG Staff Member~w~."
-      SHX6_2(SHX7_2, SHX8_2)
-    end
-  end
-end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "a56e8354c6"
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX2_2 = SHX0_1.pets
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX2_2 = SHX2_2.info
-  SHX2_2 = SHX2_2.owned
-  if SHX2_2 then
-    SHX2_2 = SHX0_1.pets
-    SHX2_2 = SHX2_2[SHX0_2]
-    SHX2_2.health = SHX1_2
-    SHX2_2 = RMenu
-    SHX3_2 = SHX2_2
-    SHX2_2 = SHX2_2.Get
-    SHX4_2 = "cmgpets"
-    SHX5_2 = "main"
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = SHX2_2
-    SHX2_2 = SHX2_2.SetSubtitle
-    SHX4_2 = "~b~Pet: ~w~"
-    SHX5_2 = SHX0_1.pets
-    SHX6_2 = SHX5_1.id
-    SHX5_2 = SHX5_2[SHX6_2]
-    SHX5_2 = SHX5_2.name
-    SHX6_2 = " ~b~Health: ~w~"
-    SHX7_2 = SHX0_1.pets
-    SHX8_2 = SHX5_1.id
-    SHX7_2 = SHX7_2[SHX8_2]
-    SHX7_2 = SHX7_2.health
-    SHX8_2 = "/100"
-    SHX4_2 = SHX4_2 .. SHX5_2 .. SHX6_2 .. SHX7_2 .. SHX8_2
-    SHX2_2(SHX3_2, SHX4_2)
-  end
-end
-SHX11_1(SHX12_1, SHX13_1)
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 1
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 2
-  SHX4_2 = 12
-  SHX5_2 = 3
-  SHX6_2 = 1
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 3
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 4
-  SHX4_2 = 4
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 5
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 6
-  SHX4_2 = 75
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 7
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 8
-  SHX4_2 = 142
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 9
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 10
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetPedComponentVariation
-  SHX2_2 = SHX0_2
-  SHX3_2 = 11
-  SHX4_2 = 146
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-end
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "4c301d11e7"
-function SHX14_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_1 = SHX2_2
-  SHX3_2 = SHX0_2
-  SHX4_2 = pairs
-  SHX5_2 = SHX0_1.pets
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX9_2 = SHX0_1.pets
-    SHX9_2 = SHX9_2[SHX8_2]
-    SHX9_2 = SHX9_2.abilities
-    SHX9_2.teleport = false
-    SHX9_2 = SHX0_1.pets
-    SHX9_2 = SHX9_2[SHX8_2]
-    SHX9_2.awaitingHealthReduction = false
-    SHX9_2 = SHX0_1.pets
-    SHX9_2 = SHX9_2[SHX8_2]
-    SHX10_2 = {}
-    SHX10_2.currentAction = 1
-    SHX10_2.owned = false
-    SHX10_2.dead = false
-    SHX10_2.inVehicle = false
-    SHX9_2.info = SHX10_2
-    SHX9_2 = SHX1_2.attack
-    if SHX9_2 then
-      SHX9_2 = SHX0_1.pets
-      SHX9_2 = SHX9_2[SHX8_2]
-      SHX9_2 = SHX9_2.abilities
-      SHX9_2.attack = false
-    end
-    SHX9_2 = false
-    SHX10_2 = pairs
-    SHX11_2 = SHX3_2
-    SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-    for SHX14_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-      SHX15_2 = SHX3_2[SHX14_2]
-      SHX15_2 = SHX15_2.id
-      if SHX15_2 == SHX8_2 then
-        SHX9_2 = true
-        SHX15_2 = SHX0_1.pets
-        SHX15_2 = SHX15_2[SHX8_2]
-        SHX16_2 = SHX3_2[SHX14_2]
-        SHX16_2 = SHX16_2.name
-        SHX15_2.name = SHX16_2
-        SHX15_2 = SHX3_2[SHX14_2]
-        SHX15_2 = SHX15_2.ownedSkills
-        SHX15_2 = SHX15_2.teleport
-        if not SHX15_2 then
-          SHX15_2 = SHX0_1.pets
-          SHX15_2 = SHX15_2[SHX8_2]
-          SHX15_2 = SHX15_2.abilities
-          SHX15_2.teleport = false
-        else
-          SHX15_2 = SHX0_1.pets
-          SHX15_2 = SHX15_2[SHX8_2]
-          SHX15_2 = SHX15_2.abilities
-          SHX15_2.teleport = true
-        end
-        SHX15_2 = SHX3_2[SHX14_2]
-        SHX15_2 = SHX15_2.health
-        if nil ~= SHX15_2 then
-          SHX15_2 = SHX0_1.pets
-          SHX15_2 = SHX15_2[SHX8_2]
-          SHX16_2 = tonumber
-          SHX17_2 = SHX3_2[SHX14_2]
-          SHX17_2 = SHX17_2.health
-          SHX16_2 = SHX16_2(SHX17_2)
-          SHX15_2.health = SHX16_2
-        else
-          SHX15_2 = SHX0_1.pets
-          SHX15_2 = SHX15_2[SHX8_2]
-          SHX15_2.health = 100
-        end
-      end
-    end
-    if SHX9_2 then
-      SHX10_2 = SHX0_1.pets
-      SHX10_2 = SHX10_2[SHX8_2]
-      SHX10_2 = SHX10_2.info
-      SHX10_2.owned = true
-    end
-  end
-  SHX4_2 = tCMG
-  SHX4_2 = SHX4_2.addMarker
-  SHX5_2 = SHX0_1.shop
-  SHX5_2 = SHX5_2.coords
-  SHX5_2 = SHX5_2.x
-  SHX6_2 = SHX0_1.shop
-  SHX6_2 = SHX6_2.coords
-  SHX6_2 = SHX6_2.y
-  SHX7_2 = SHX0_1.shop
-  SHX7_2 = SHX7_2.coords
-  SHX7_2 = SHX7_2.z
-  SHX8_2 = 1.0001
-  SHX9_2 = 1.0001
-  SHX10_2 = 0.5001
-  SHX11_2 = 31
-  SHX12_2 = 135
-  SHX13_2 = 173
-  SHX14_2 = 220
-  SHX15_2 = 20.0
-  SHX16_2 = 31
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX19_2 = true
-  SHX20_2 = nil
-  SHX21_2 = nil
-  SHX22_2 = 0.0
-  SHX23_2 = 0.0
-  SHX24_2 = 0.0
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.createArea
-  SHX5_2 = "petStore"
-  SHX6_2 = SHX0_1.shop
-  SHX6_2 = SHX6_2.coords
-  SHX7_2 = 1.5
-  SHX8_2 = 1.5
-  SHX9_2 = SHX7_1
-  SHX10_2 = SHX8_1
-  SHX11_2 = SHX9_1
-  SHX12_2 = {}
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX4_2 = tCMG
-  SHX4_2 = SHX4_2.addBlip
-  SHX5_2 = SHX0_1.shop
-  SHX5_2 = SHX5_2.coords
-  SHX5_2 = SHX5_2.x
-  SHX6_2 = SHX0_1.shop
-  SHX6_2 = SHX6_2.coords
-  SHX6_2 = SHX6_2.y
-  SHX7_2 = SHX0_1.shop
-  SHX7_2 = SHX7_2.coords
-  SHX7_2 = SHX7_2.z
-  SHX8_2 = 442
-  SHX9_2 = 26
-  SHX10_2 = "Pet Store"
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX4_2 = true
-  SHX1_1 = SHX4_2
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.createDynamicPed
-  SHX5_2 = 1885233650
-  SHX6_2 = vector3
-  SHX7_2 = 558.74
-  SHX8_2 = 2752.71
-  SHX9_2 = 42.85
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX7_2 = 179.45
-  SHX8_2 = true
-  SHX9_2 = "mini@strip_club@idles@bouncer@base"
-  SHX10_2 = "base"
-  SHX11_2 = 10
-  SHX12_2 = false
-  SHX13_2 = SHX11_1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-SHX12_1(SHX13_1, SHX14_1)
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isHandcuffed
-  SHX0_2 = SHX0_2()
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isPlayerNearPrison
-  SHX0_2 = SHX0_2()
-  SHX0_2 = not SHX0_2 and SHX0_2
-  return SHX0_2
-end
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "fee61f9761"
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = SHX1_1
-  if not SHX0_2 then
-    SHX0_2 = SHX10_1
-    SHX1_2 = "Please wait before opening the pet menu."
-    SHX0_2(SHX1_2)
-  else
-    SHX0_2 = false
-    SHX1_2 = pairs
-    SHX2_2 = SHX0_1.pets
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = SHX6_2.info
-      SHX7_2 = SHX7_2.owned
-      if SHX7_2 then
-        SHX7_2 = SHX6_2.info
-        SHX7_2 = SHX7_2.dead
-        if not SHX7_2 then
-          SHX0_2 = true
-        end
-      end
-    end
-    SHX1_2 = SHX5_1.cooldown
-    if SHX1_2 then
-      SHX1_2 = SHX10_1
-      SHX2_2 = SHX6_1.Info
-      SHX3_2 = "Please wait before spawning in a new pet."
-      SHX1_2(SHX2_2, SHX3_2)
-    elseif not SHX0_2 then
-      SHX1_2 = SHX10_1
-      SHX2_2 = SHX6_1.Error
-      SHX3_2 = "You do not own any ~b~pets~w~. Visit a ~b~pet store ~w~to purchase one."
-      SHX1_2(SHX2_2, SHX3_2)
-    else
-      SHX1_2 = SHX12_1
-      SHX1_2 = SHX1_2()
-      if SHX1_2 then
-        SHX1_2 = RageUI
-        SHX1_2 = SHX1_2.Visible
-        SHX2_2 = RMenu
-        SHX3_2 = SHX2_2
-        SHX2_2 = SHX2_2.Get
-        SHX4_2 = "cmgpets"
-        SHX5_2 = "main"
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-        SHX3_2 = true
-        SHX1_2(SHX2_2, SHX3_2)
-      else
-        SHX1_2 = notify
-        SHX2_2 = "~r~Unable to access the pet menu at this time"
-        SHX1_2(SHX2_2)
-      end
-    end
-  end
-end
-SHX13_1(SHX14_1, SHX15_1)
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "47e666d484"
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = PlaySoundFrontend
-  SHX2_2 = -1
-  SHX3_2 = "PROPERTY_PURCHASE"
-  SHX4_2 = "HUD_AWARDS"
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX6_1.Success
-  SHX3_2 = "You have now ~b~purchased ~w~a ~b~"
-  SHX4_2 = SHX0_1.pets
-  SHX4_2 = SHX4_2[SHX0_2]
-  SHX4_2 = SHX4_2.name
-  SHX5_2 = "~w~. Use /pet to spawn it in."
-  SHX3_2 = SHX3_2 .. SHX4_2 .. SHX5_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_1.pets
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2 = SHX1_2.info
-  SHX1_2.owned = true
-  SHX1_2 = SHX0_1.pets
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2.health = 100
-end
-SHX13_1(SHX14_1, SHX15_1)
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "88afa5e8d8"
-function SHX15_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX2_2 = PlaySoundFrontend
-  SHX3_2 = -1
-  SHX4_2 = "PROPERTY_PURCHASE"
-  SHX5_2 = "HUD_AWARDS"
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX10_1
-  SHX3_2 = SHX6_1.Success
-  SHX4_2 = "You have now changed your pet name to ~b~"
-  SHX5_2 = SHX1_2
-  SHX6_2 = "~w~!"
-  SHX4_2 = SHX4_2 .. SHX5_2 .. SHX6_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SHX0_1.pets
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX2_2.name = SHX1_2
-  SHX2_2 = RMenu
-  SHX3_2 = SHX2_2
-  SHX2_2 = SHX2_2.Get
-  SHX4_2 = "cmgpets"
-  SHX5_2 = "main"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = SHX2_2
-  SHX2_2 = SHX2_2.SetSubtitle
-  SHX4_2 = "~b~Pet: ~w~"
-  SHX5_2 = SHX0_1.pets
-  SHX6_2 = SHX5_1.id
-  SHX5_2 = SHX5_2[SHX6_2]
-  SHX5_2 = SHX5_2.name
-  SHX6_2 = " ~b~Health: ~w~"
-  SHX7_2 = SHX0_1.pets
-  SHX8_2 = SHX5_1.id
-  SHX7_2 = SHX7_2[SHX8_2]
-  SHX7_2 = SHX7_2.health
-  SHX8_2 = "/100"
-  SHX4_2 = SHX4_2 .. SHX5_2 .. SHX6_2 .. SHX7_2 .. SHX8_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Visible
-  SHX3_2 = RMenu
-  SHX4_2 = SHX3_2
-  SHX3_2 = SHX3_2.Get
-  SHX5_2 = "cmgpets"
-  SHX6_2 = "main"
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-end
-SHX13_1(SHX14_1, SHX15_1)
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "5e0ec7f5c1"
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX0_1.pets
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2 = SHX1_2.abilities
-  SHX1_2.teleport = true
-end
-SHX13_1(SHX14_1, SHX15_1)
-function SHX13_1(SHX0_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = NetworkGetNetworkIdFromEntity
-  SHX2_2 = SHX5_1.handle
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "23e9f76715"
-    SHX4_2 = SHX5_1.id
-    SHX5_2 = SHX1_2
-    SHX6_2 = SHX0_2
-    SHX7_2 = ...
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  end
-end
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX5_1
-  if not SHX0_2 then
-    return
-  end
-  SHX0_2 = SHX0_1.pets
-  SHX1_2 = SHX5_1.id
-  SHX0_2 = SHX0_2[SHX1_2]
-  return SHX0_2
-end
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_1.pets
-  SHX2_2 = SHX5_1.id
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX1_2 = SHX1_2.onShoulder
-  if SHX1_2 then
-    SHX1_2 = SHX0_1.pets
-    SHX2_2 = SHX5_1.id
-    SHX1_2 = SHX1_2[SHX2_2]
-    SHX1_2 = SHX1_2.info
-    SHX2_2 = SHX4_1.Shoulder
-    SHX1_2.currentAction = SHX2_2
-    SHX1_2 = SHX13_1
-    SHX2_2 = "petOnShoulder"
-    SHX3_2 = GetPlayerServerId
-    SHX4_2 = PlayerId
-    SHX4_2 = SHX4_2()
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = SHX0_2
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX10_1
-    SHX2_2 = SHX6_1.Success
-    SHX3_2 = SHX14_1
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2.name
-    SHX4_2 = " is now on your shoulder."
-    SHX3_2 = SHX3_2 .. SHX4_2
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX0_1.pets
-  SHX1_2 = SHX5_1.id
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX0_2 = SHX0_2.onShoulder
-  if not SHX0_2 then
-    SHX0_2 = SHX10_1
-    SHX1_2 = SHX6_1.Info
-    SHX2_2 = SHX14_1
-    SHX2_2 = SHX2_2()
-    SHX2_2 = SHX2_2.name
-    SHX3_2 = " is now following."
-    SHX2_2 = SHX2_2 .. SHX3_2
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = SHX13_1
-    SHX1_2 = "petFollow"
-    SHX2_2 = GetPlayerServerId
-    SHX3_2 = PlayerId
-    SHX3_2 = SHX3_2()
-    SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = SHX0_1.pets
-    SHX1_2 = SHX5_1.id
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX0_2 = SHX0_2.info
-    SHX1_2 = SHX4_1.Follow
-    SHX0_2.currentAction = SHX1_2
-  else
-    SHX0_2 = SHX15_1
-    SHX0_2()
-  end
-end
-SHX17_1 = CMG
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX5_1
-  if SHX0_2 then
-    SHX0_2 = SHX5_1.id
-    if SHX0_2 then
-      SHX0_2 = SHX0_1.pets
-      SHX1_2 = SHX5_1.id
-      SHX0_2 = SHX0_2[SHX1_2]
-      if SHX0_2 then
-        SHX0_2 = SHX16_1
-        SHX0_2()
-      end
-    end
-  end
-end
-SHX17_1.setActivePetFollowsPlayer = SHX18_1
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadModel
-  SHX3_2 = SHX0_1.pets
-  SHX3_2 = SHX3_2[SHX0_2]
-  SHX3_2 = SHX3_2.model
-  SHX2_2(SHX3_2)
-  SHX2_2 = GetOffsetFromEntityInWorldCoords
-  SHX3_2 = SHX1_2
-  SHX4_2 = 0.0
-  SHX5_2 = 1.0
-  SHX6_2 = 0.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = GetEntityHeading
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.requestEntitySpawn
-  SHX5_2 = "pets_ped"
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX2_2
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SHX0_1.pets
-  SHX4_2 = SHX4_2[SHX0_2]
-  SHX4_2 = SHX4_2.info
-  SHX5_2 = CreatePed
-  SHX6_2 = 28
-  SHX7_2 = SHX0_1.pets
-  SHX7_2 = SHX7_2[SHX0_2]
-  SHX7_2 = SHX7_2.model
-  SHX8_2 = SHX2_2.x
-  SHX9_2 = SHX2_2.y
-  SHX10_2 = SHX2_2.z
-  SHX11_2 = SHX3_2
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX4_2.handle = SHX5_2
-  while true do
-    SHX4_2 = DoesEntityExist
-    SHX5_2 = SHX0_1.pets
-    SHX5_2 = SHX5_2[SHX0_2]
-    SHX5_2 = SHX5_2.info
-    SHX5_2 = SHX5_2.handle
-    SHX4_2 = SHX4_2(SHX5_2)
-    if SHX4_2 then
-      break
-    end
-    SHX4_2 = Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
-  end
-  SHX4_2 = SetModelAsNoLongerNeeded
-  SHX5_2 = SHX0_1.pets
-  SHX5_2 = SHX5_2[SHX0_2]
-  SHX5_2 = SHX5_2.model
-  SHX4_2(SHX5_2)
-  SHX4_2 = DoesEntityExist
-  SHX5_2 = SHX0_1.pets
-  SHX5_2 = SHX5_2[SHX0_2]
-  SHX5_2 = SHX5_2.info
-  SHX5_2 = SHX5_2.handle
-  SHX4_2 = SHX4_2(SHX5_2)
-  if SHX4_2 then
-    SHX4_2 = SHX0_1.pets
-    SHX4_2 = SHX4_2[SHX0_2]
-    SHX4_2 = SHX4_2.movementRate
-    if nil ~= SHX4_2 then
-      SHX4_2 = SetPedMoveRateOverride
-      SHX5_2 = SHX0_1.pets
-      SHX5_2 = SHX5_2[SHX0_2]
-      SHX5_2 = SHX5_2.info
-      SHX5_2 = SHX5_2.handle
-      SHX6_2 = SHX0_1.pets
-      SHX6_2 = SHX6_2[SHX0_2]
-      SHX6_2 = SHX6_2.movementRate
-      SHX4_2(SHX5_2, SHX6_2)
-    end
-    SHX4_2 = SetBlockingOfNonTemporaryEvents
-    SHX5_2 = SHX0_1.pets
-    SHX5_2 = SHX5_2[SHX0_2]
-    SHX5_2 = SHX5_2.info
-    SHX5_2 = SHX5_2.handle
-    SHX6_2 = true
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SHX0_1.pets
-    SHX4_2 = SHX4_2[SHX0_2]
-    SHX4_2 = SHX4_2.info
-    SHX4_2.active = true
-    SHX5_1.active = true
-    SHX5_1.id = SHX0_2
-    SHX4_2 = SHX0_1.pets
-    SHX4_2 = SHX4_2[SHX0_2]
-    SHX4_2 = SHX4_2.info
-    SHX4_2 = SHX4_2.handle
-    SHX5_1.handle = SHX4_2
-    SHX4_2 = SHX16_1
-    SHX4_2()
-    SHX4_2 = RMenu
-    SHX5_2 = SHX4_2
-    SHX4_2 = SHX4_2.Get
-    SHX6_2 = "cmgpets"
-    SHX7_2 = "main"
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX5_2 = SHX4_2
-    SHX4_2 = SHX4_2.SetSubtitle
-    SHX6_2 = "~b~Pet: ~w~"
-    SHX7_2 = SHX0_1.pets
-    SHX8_2 = SHX5_1.id
-    SHX7_2 = SHX7_2[SHX8_2]
-    SHX7_2 = SHX7_2.name
-    SHX6_2 = SHX6_2 .. SHX7_2
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SHX0_1.pets
-    SHX5_2 = SHX5_1.id
-    SHX4_2 = SHX4_2[SHX5_2]
-    SHX4_2 = SHX4_2.health
-    if nil ~= SHX4_2 then
-      SHX4_2 = RMenu
-      SHX5_2 = SHX4_2
-      SHX4_2 = SHX4_2.Get
-      SHX6_2 = "cmgpets"
-      SHX7_2 = "main"
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-      SHX5_2 = SHX4_2
-      SHX4_2 = SHX4_2.SetSubtitle
-      SHX6_2 = "~b~Pet: ~w~"
-      SHX7_2 = SHX0_1.pets
-      SHX8_2 = SHX5_1.id
-      SHX7_2 = SHX7_2[SHX8_2]
-      SHX7_2 = SHX7_2.name
-      SHX8_2 = " ~b~Health: ~w~"
-      SHX9_2 = SHX0_1.pets
-      SHX10_2 = SHX5_1.id
-      SHX9_2 = SHX9_2[SHX10_2]
-      SHX9_2 = SHX9_2.health
-      SHX10_2 = "/100"
-      SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2 .. SHX9_2 .. SHX10_2
-      SHX4_2(SHX5_2, SHX6_2)
-    end
-    SHX4_2 = SHX10_1
-    SHX5_2 = SHX6_1.Success
-    SHX6_2 = SHX14_1
-    SHX6_2 = SHX6_2()
-    SHX6_2 = SHX6_2.name
-    SHX7_2 = " has now been created."
-    SHX6_2 = SHX6_2 .. SHX7_2
-    SHX4_2(SHX5_2, SHX6_2)
-  end
-end
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX13_1
-  SHX1_2 = "petDelete"
-  SHX0_2(SHX1_2)
-  SHX5_1.active = false
-  SHX5_1.id = 0
-  SHX5_1.cooldown = true
-  SHX0_2 = false
-  SHX2_1 = SHX0_2
-  SHX0_2 = RMenu
-  SHX1_2 = SHX0_2
-  SHX0_2 = SHX0_2.Get
-  SHX2_2 = "cmgpets"
-  SHX3_2 = "main"
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_2
-  SHX0_2 = SHX0_2.SetSubtitle
-  SHX2_2 = "Select your ~b~Pet"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetTimeout
-  SHX1_2 = 20000
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX5_1.cooldown = false
-    SHX0_3 = SHX10_1
-    SHX1_3 = SHX6_1.Success
-    SHX2_3 = "You are now able to spawn in a pet again."
-    SHX0_3(SHX1_3, SHX2_3)
-  end
-  SHX0_2(SHX1_2, SHX2_2)
-end
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX13_1
-  SHX1_2 = "petStay"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX0_1.pets
-  SHX1_2 = SHX5_1.id
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX0_2 = SHX0_2.info
-  SHX1_2 = SHX4_1.Stay
-  SHX0_2.currentAction = SHX1_2
-end
-function SHX20_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.getNearestVehicle
-  SHX1_2 = 7.0
-  SHX0_2 = SHX0_2(SHX1_2)
-  if -1 ~= SHX0_2 and nil ~= SHX0_2 and 0 ~= SHX0_2 then
-    SHX1_2 = NetworkGetNetworkIdFromEntity
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if 0 ~= SHX1_2 then
-      SHX2_2 = SHX13_1
-      SHX3_2 = "putPetInVehicle"
-      SHX4_2 = SHX1_2
-      SHX2_2(SHX3_2, SHX4_2)
-    end
-    SHX2_2 = SHX0_1.pets
-    SHX3_2 = SHX5_1.id
-    SHX2_2 = SHX2_2[SHX3_2]
-    SHX2_2 = SHX2_2.info
-    SHX2_2.inVehicle = true
-    SHX2_2 = SHX0_1.pets
-    SHX3_2 = SHX5_1.id
-    SHX2_2 = SHX2_2[SHX3_2]
-    SHX2_2 = SHX2_2.info
-    SHX2_2.insideVehicleHandle = SHX0_2
-    SHX2_2 = SHX10_1
-    SHX3_2 = SHX6_1.Info
-    SHX4_2 = "Pet is now inside the vehicle"
-    SHX2_2(SHX3_2, SHX4_2)
-  else
-    SHX1_2 = SHX10_1
-    SHX2_2 = SHX6_1.Error
-    SHX3_2 = "No nearby vehicle found."
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-end
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = IsPedInAnyVehicle
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = true
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = SHX10_1
-    SHX1_2 = SHX6_1.Error
-    SHX2_2 = "You must be outside the vehicle."
-    SHX0_2(SHX1_2, SHX2_2)
-  else
-    SHX0_2 = SHX13_1
-    SHX1_2 = "removePetFromVehicle"
-    SHX2_2 = GetPlayerServerId
-    SHX3_2 = PlayerId
-    SHX3_2 = SHX3_2()
-    SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = SHX10_1
-    SHX1_2 = SHX6_1.Info
-    SHX2_2 = SHX14_1
-    SHX2_2 = SHX2_2()
-    SHX2_2 = SHX2_2.name
-    SHX3_2 = " is now removed from the vehicle."
-    SHX2_2 = SHX2_2 .. SHX3_2
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = SHX0_1.pets
-    SHX1_2 = SHX5_1.id
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX0_2 = SHX0_2.info
-    SHX0_2.inVehicle = false
-  end
-end
-function SHX22_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX0_1.pets
-  SHX1_2 = SHX5_1.id
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX0_2 = SHX0_2.animations
-  SHX0_2 = SHX0_2.sit
-  SHX0_2 = SHX0_2.dict
-  SHX1_2 = SHX0_1.pets
-  SHX2_2 = SHX5_1.id
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX1_2 = SHX1_2.animations
-  SHX1_2 = SHX1_2.sit
-  SHX1_2 = SHX1_2.base
-  SHX2_2 = SHX13_1
-  SHX3_2 = "petSit"
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-end
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX0_1.pets
-  SHX1_2 = SHX5_1.id
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX0_2 = SHX0_2.onShoulder
-  if SHX0_2 then
-    SHX0_2 = SHX0_1.pets
-    SHX1_2 = SHX5_1.id
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX0_2 = SHX0_2.info
-    SHX0_2 = SHX0_2.currentAction
-    SHX1_2 = SHX4_1.Shoulder
-    if SHX0_2 == SHX1_2 then
-      SHX0_2 = SHX0_1.pets
-      SHX1_2 = SHX5_1.id
-      SHX0_2 = SHX0_2[SHX1_2]
-      SHX0_2 = SHX0_2.info
-      SHX1_2 = SHX4_1.Floor
-      SHX0_2.currentAction = SHX1_2
-      SHX0_2 = SHX13_1
-      SHX1_2 = "petOnGround"
-      SHX2_2 = GetPlayerServerId
-      SHX3_2 = PlayerId
-      SHX3_2 = SHX3_2()
-      SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      SHX0_2 = SHX10_1
-      SHX1_2 = SHX6_1.Success
-      SHX2_2 = SHX14_1
-      SHX2_2 = SHX2_2()
-      SHX2_2 = SHX2_2.name
-      SHX3_2 = " is now on the ground"
-      SHX2_2 = SHX2_2 .. SHX3_2
-      SHX0_2(SHX1_2, SHX2_2)
-    end
-  end
-end
-function SHX24_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX13_1
-  SHX1_2 = "tpPet"
-  SHX2_2 = GetPlayerServerId
-  SHX3_2 = PlayerId
-  SHX3_2 = SHX3_2()
-  SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-end
-SHX25_1 = RegisterNetEvent
-SHX26_1 = "81dacc19c5"
-function SHX27_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = SetPedToRagdoll
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2 = SHX3_2()
-  SHX4_2 = 12000
-  SHX5_2 = 12000
-  SHX6_2 = 0
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX2_2 = SHX10_1
-  SHX3_2 = SHX6_1.Alert
-  SHX4_2 = "~y~~h~Alert~h~~s~: "
-  SHX5_2 = "You have been attacked by a pet."
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SHX10_1
-  SHX3_2 = SHX6_1.Alert
-  SHX4_2 = "~b~Owner: ~w~"
-  SHX5_2 = SHX1_2
-  SHX6_2 = [[
+    This is a readable rewrite of the supplied decompiled FiveM Lua script.
 
-User ID: ~b~]]
-  SHX7_2 = SHX0_2
-  SHX4_2 = SHX4_2 .. SHX5_2 .. SHX6_2 .. SHX7_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.Wait
-  SHX3_2 = 1000
-  SHX2_2(SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = IsPedRagdoll
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
-    SHX3_2 = SetPedToRagdoll
-    SHX4_2 = SHX2_2
-    SHX5_2 = -1
-    SHX6_2 = -1
-    SHX7_2 = 0
-    SHX8_2 = false
-    SHX9_2 = false
-    SHX10_2 = false
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  end
+    WHAT THIS SCRIPT DOES
+    ---------------------
+    1. Creates a /pet management menu.
+    2. Creates a pet store menu and pet preview camera.
+    3. Loads the player's owned pets from the server.
+    4. Spawns/deletes the active pet.
+    5. Supports pet actions:
+         - Follow
+         - Stay
+         - Sit
+         - Attack
+         - Teleport
+         - Tricks
+         - Shoulder pets
+         - Vehicle pets
+         - Rideable pets
+    6. Tracks pet health and feeding.
+    7. Handles pet purchase/name/skill updates from the server.
+    8. Synchronises pet actions between clients.
+    9. Spawns ambient cats at the cat cafe.
+
+    IMPORTANT
+    ---------
+    The original script uses hashed network event names such as:
+
+        "23e9f76715"
+        "dc7cc2772e"
+
+    Those strings are preserved exactly because the server-side resource
+    must be listening for those exact event names.
+
+    DECOMPILER RECONSTRUCTION
+    -------------------------
+    One helper in the decompiled file was clearly damaged:
+
+        CMG.isHandcuffed()
+        CMG.isPlayerNearPrison()
+        return not value and value
+
+    That expression can never return true, which would make /pet unusable.
+
+    Based on how the function is used, this rewrite reconstructs it as:
+
+        return not CMG.isHandcuffed()
+           and not CMG.isPlayerNearPrison()
+
+    That reconstruction is marked below.
+]]
+
+---------------------------------------------------------------------
+-- MENU SETUP
+---------------------------------------------------------------------
+
+local MENU_NAMESPACE = "cmgpets"
+local MENU_TEXTURE = "cmg_petsui"
+
+RMenu.Add(
+    MENU_NAMESPACE,
+    "main",
+    RageUI.CreateMenu(
+        "",
+        "Select your ~b~Pet",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        MENU_TEXTURE,
+        MENU_TEXTURE
+    )
+)
+
+RMenu.Add(
+    MENU_NAMESPACE,
+    "store",
+    RageUI.CreateMenu(
+        "",
+        "~b~Store",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        MENU_TEXTURE,
+        MENU_TEXTURE
+    )
+)
+
+TriggerEvent(
+    "chat:addSuggestion",
+    "/pet",
+    "Manage your owned pets!"
+)
+
+local function getPetMenu()
+    return RMenu:Get(MENU_NAMESPACE, "main")
 end
-SHX25_1(SHX26_1, SHX27_1)
-SHX25_1 = RageUI
-SHX25_1 = SHX25_1.CreateWhile
-SHX26_1 = 1.0
-SHX27_1 = RMenu
-SHX28_1 = SHX27_1
-SHX27_1 = SHX27_1.Get
-SHX29_1 = "cmgpets"
-SHX30_1 = "store"
-SHX27_1 = SHX27_1(SHX28_1, SHX29_1, SHX30_1)
-SHX28_1 = nil
-function SHX29_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgpets"
-  SHX4_2 = "store"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX0_3 = SHX3_1.purchasing
-    if SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Purchase "
-      SHX2_3 = SHX0_1.pets
-      SHX3_3 = SHX3_1.purchasingId
-      SHX2_3 = SHX2_3[SHX3_3]
-      SHX2_3 = SHX2_3.name
-      SHX1_3 = SHX1_3 .. SHX2_3
-      SHX2_3 = "Purchase"
-      SHX3_3 = {}
-      SHX4_3 = "\194\163"
-      SHX5_3 = getMoneyStringFormatted
-      SHX6_3 = SHX0_1.pets
-      SHX7_3 = SHX3_1.purchasingId
-      SHX6_3 = SHX6_3[SHX7_3]
-      SHX6_3 = SHX6_3.price
-      SHX5_3 = SHX5_3(SHX6_3)
-      SHX4_3 = SHX4_3 .. SHX5_3
-      SHX3_3.RightLabel = SHX4_3
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4
-        if SHX2_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "dc7cc2772e"
-          SHX5_4 = SHX3_1.purchasingId
-          SHX3_4(SHX4_4, SHX5_4)
-          SHX3_1.purchasing = false
-          SHX3_1.purchasingId = 0
+
+local function getPetStoreMenu()
+    return RMenu:Get(MENU_NAMESPACE, "store")
+end
+
+---------------------------------------------------------------------
+-- NETWORK EVENT CONSTANTS
+---------------------------------------------------------------------
+--
+-- Giving these hashes readable Lua names makes the rest of the script
+-- far easier to understand without changing the actual network protocol.
+---------------------------------------------------------------------
+
+local EVENTS = {
+    -- Server -> client
+    SET_ATTACK_ALLOWED = "5af8df8edf",
+    UPDATE_PET_HEALTH = "a56e8354c6",
+    INITIALISE_PETS = "4c301d11e7",
+    OPEN_PET_MENU = "fee61f9761",
+    PET_PURCHASED = "47e666d484",
+    PET_RENAMED = "88afa5e8d8",
+    TELEPORT_SKILL_PURCHASED = "5e0ec7f5c1",
+    PLAYER_ATTACKED_BY_PET = "81dacc19c5",
+    PET_ATTACK_FINISHED = "991adbef17",
+
+    -- Client <-> server pet action relay
+    PET_ACTION = "23e9f76715",
+
+    -- Client -> server
+    PURCHASE_PET = "dc7cc2772e",
+    REQUEST_PET_ATTACK = "e37c85acd2",
+    FEED_PET = "f895de7ef6",
+    PURCHASE_TELEPORT_SKILL = "967f1b0ab8",
+    REQUEST_PET_NAME_CHANGE = "55aec3a6bf",
+    SAVE_PET_HEALTH = "b4523ffc6f",
+
+    -- Server -> client low-level action helpers
+    START_PET_COMBAT = "0d37102e9e",
+    STOP_PET_TASKS = "dd2a28ff60",
+}
+
+---------------------------------------------------------------------
+-- PET CONFIG + STATE
+---------------------------------------------------------------------
+
+-- Filled when EVENTS.INITIALISE_PETS arrives from the server.
+local petConfig = {}
+
+-- True after the pet configuration has been received and the shop has
+-- finished initialising.
+local petsReady = false
+
+-- True while the special rideable-pet system is active.
+local isRidingPet = false
+
+-- Everything used by the pet-store preview UI.
+local storeState = {
+    purchasing = false,
+    purchasingId = 0,
+
+    viewingPet = false,
+    lastViewingId = 0,
+    viewingId = 0,
+    viewingEntity = 0,
+
+    cameraEnabled = false,
+    cameraHandle = 0,
+}
+
+-- The original file used numeric values for the pet's current action.
+-- "Trick" and "Shoulder" both used 5 in the source, so that is preserved.
+local PET_ACTION = {
+    Follow = 1,
+    Stay = 2,
+    Attack = 3,
+    Sit = 4,
+    Trick = 5,
+    Shoulder = 5,
+    Floor = 6,
+    Ride = 7,
+}
+
+-- Only one pet can be active at a time.
+local activePet = {
+    active = false,
+    id = 0,
+    handle = 0,
+
+    -- Prevent immediate re-spawning after manually deleting the pet.
+    cooldown = false,
+}
+
+-- The decompiled script passes notification "types" around, although the
+-- notification wrapper itself only calls notify(message).
+local NOTIFY_TYPE = {
+    Success = 1,
+    Error = 2,
+    Alert = 3,
+    Info = 4,
+    Unknown = 5,
+}
+
+local lastRideAttempt = 0
+
+---------------------------------------------------------------------
+-- GENERAL HELPERS
+---------------------------------------------------------------------
+
+local function petNotify(_, message)
+    -- The original helper ignored the notification type.
+    notify(message)
+end
+
+local function setMainMenuSubtitle()
+    if not activePet.active then
+        getPetMenu():SetSubtitle("Select your ~b~Pet")
+        return
+    end
+
+    local pet = petConfig.pets
+        and petConfig.pets[activePet.id]
+
+    if not pet then
+        getPetMenu():SetSubtitle("Select your ~b~Pet")
+        return
+    end
+
+    local subtitle = "~b~Pet: ~w~" .. tostring(pet.name)
+
+    if pet.health ~= nil then
+        subtitle = subtitle
+            .. " ~b~Health: ~w~"
+            .. tostring(pet.health)
+            .. "/100"
+    end
+
+    getPetMenu():SetSubtitle(subtitle)
+end
+
+local function getActivePet()
+    if not activePet.active or activePet.id == 0 then
+        return nil
+    end
+
+    if not petConfig.pets then
+        return nil
+    end
+
+    return petConfig.pets[activePet.id]
+end
+
+local function playerOwnsAnyUsablePet()
+    for _, pet in pairs(petConfig.pets or {}) do
+        if pet.info
+            and pet.info.owned
+            and not pet.info.dead
+        then
+            return true
         end
-      end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Cancel Purchase"
-      SHX2_3 = "Cancel"
-      SHX3_3 = {}
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        if SHX2_4 then
-          SHX3_1.purchasing = false
-          SHX3_1.purchasingId = 0
+    end
+
+    return false
+end
+
+---------------------------------------------------------------------
+-- PET MENU ACCESS CHECK
+---------------------------------------------------------------------
+
+local function canUsePetMenu()
+    -- [DECOMPILER RECONSTRUCTION]
+    --
+    -- The source's return expression was impossible:
+    --     not value and value
+    --
+    -- This is the behaviour that makes sense in context.
+    return not CMG.isHandcuffed()
+        and not CMG.isPlayerNearPrison()
+end
+
+---------------------------------------------------------------------
+-- PET STORE CAMERA
+---------------------------------------------------------------------
+
+local function openPetStore()
+    RageUI.Visible(getPetStoreMenu(), true)
+
+    storeState.viewingPet = true
+
+    if storeState.cameraEnabled then
+        return
+    end
+
+    if storeState.cameraHandle
+        and storeState.cameraHandle ~= 0
+    then
+        DestroyCam(storeState.cameraHandle, false)
+    end
+
+    storeState.cameraHandle =
+        CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
+
+    SetCamCoord(
+        storeState.cameraHandle,
+        562.7604,
+        2752.879,
+        42.4
+    )
+
+    SetCamRot(
+        storeState.cameraHandle,
+        -1.0,
+        -1.0,
+        -84.73,
+        2
+    )
+
+    RenderScriptCams(
+        true,
+        false,
+        0,
+        true,
+        true
+    )
+
+    storeState.cameraEnabled = true
+end
+
+local function closePetStore()
+    RageUI.Visible(getPetStoreMenu(), false)
+
+    storeState.viewingPet = false
+
+    if storeState.viewingEntity
+        and storeState.viewingEntity ~= 0
+        and DoesEntityExist(storeState.viewingEntity)
+    then
+        DeleteEntity(storeState.viewingEntity)
+    end
+
+    storeState.viewingEntity = 0
+    storeState.viewingId = 0
+
+    if storeState.cameraEnabled then
+        RenderScriptCams(
+            false,
+            false,
+            0,
+            true,
+            false
+        )
+
+        if storeState.cameraHandle
+            and storeState.cameraHandle ~= 0
+        then
+            DestroyCam(storeState.cameraHandle, false)
         end
-      end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    else
-      SHX0_3 = SHX1_1
-      if SHX0_3 then
-        SHX0_3 = false
-        SHX1_3 = pairs
-        SHX2_3 = SHX0_1.pets
-        SHX1_3, SHX2_3, SHX3_3, SHX4_3 = SHX1_3(SHX2_3)
-        for SHX5_3, SHX6_3 in SHX1_3, SHX2_3, SHX3_3, SHX4_3 do
-          SHX7_3 = SHX6_3.info
-          SHX7_3 = SHX7_3.owned
-          if not SHX7_3 then
-            SHX0_3 = true
-            SHX7_3 = RageUI
-            SHX7_3 = SHX7_3.ButtonWithStyle
-            SHX8_3 = SHX6_3.name
-            SHX9_3 = SHX6_3.description
-            SHX10_3 = {}
-            SHX11_3 = "\194\163"
-            SHX12_3 = getMoneyStringFormatted
-            SHX13_3 = SHX6_3.price
-            SHX12_3 = SHX12_3(SHX13_3)
-            SHX11_3 = SHX11_3 .. SHX12_3
-            SHX10_3.RightLabel = SHX11_3
-            SHX11_3 = true
-            function SHX12_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4
-              if SHX2_4 then
-                SHX3_1.purchasing = true
-                SHX3_4 = SHX5_3
-                SHX3_1.purchasingId = SHX3_4
-              end
-              if SHX1_4 then
-                SHX3_4 = SHX5_3
-                SHX3_1.viewingId = SHX3_4
-              end
+
+        storeState.cameraEnabled = false
+        storeState.cameraHandle = 0
+    end
+end
+
+local function petStoreAreaTick()
+    -- The original area tick callback was empty.
+end
+
+---------------------------------------------------------------------
+-- SHOP NPC APPEARANCE
+---------------------------------------------------------------------
+
+local function customisePetShopNpc(ped)
+    SetPedComponentVariation(ped, 1, 0, 0, 0)
+    SetPedComponentVariation(ped, 2, 12, 3, 1)
+    SetPedComponentVariation(ped, 3, 0, 0, 0)
+    SetPedComponentVariation(ped, 4, 4, 0, 0)
+    SetPedComponentVariation(ped, 5, 0, 0, 0)
+    SetPedComponentVariation(ped, 6, 75, 0, 0)
+    SetPedComponentVariation(ped, 7, 0, 0, 0)
+    SetPedComponentVariation(ped, 8, 142, 0, 0)
+    SetPedComponentVariation(ped, 9, 0, 0, 0)
+    SetPedComponentVariation(ped, 10, 0, 0, 0)
+    SetPedComponentVariation(ped, 11, 146, 0, 0)
+end
+
+---------------------------------------------------------------------
+-- INITIALISE PET CONFIG / OWNERSHIP
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.INITIALISE_PETS)
+AddEventHandler(
+    EVENTS.INITIALISE_PETS,
+    function(ownedPets, restrictions, config)
+        petConfig = config or {}
+
+        -------------------------------------------------------------
+        -- Build runtime state for every configured pet.
+        -------------------------------------------------------------
+
+        for petId, pet in pairs(petConfig.pets or {}) do
+            pet.abilities = pet.abilities or {}
+
+            -- Teleport is a purchasable skill, so start disabled.
+            pet.abilities.teleport = false
+
+            pet.awaitingHealthReduction = false
+
+            pet.info = {
+                currentAction = PET_ACTION.Follow,
+                owned = false,
+                dead = false,
+                inVehicle = false,
+                active = false,
+                isAttacking = false,
+                handle = 0,
+            }
+
+            -- Server can globally disable pet attacking.
+            if restrictions and restrictions.attack then
+                pet.abilities.attack = false
             end
-            SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-          end
-        end
-        if not SHX0_3 then
-          SHX1_3 = RageUI
-          SHX1_3 = SHX1_3.Visible
-          SHX2_3 = RMenu
-          SHX3_3 = SHX2_3
-          SHX2_3 = SHX2_3.Get
-          SHX4_3 = "cmgpets"
-          SHX5_3 = "store"
-          SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-          SHX3_3 = false
-          SHX1_3(SHX2_3, SHX3_3)
-          SHX1_3 = SHX10_1
-          SHX2_3 = SHX6_1.Info
-          SHX3_3 = "There are no available pets for you to purchase."
-          SHX1_3(SHX2_3, SHX3_3)
-        end
-      end
-    end
-  end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-end
-SHX25_1(SHX26_1, SHX27_1, SHX28_1, SHX29_1)
-function SHX25_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_1.pets
-  SHX2_2 = SHX5_1.id
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX1_2 = SHX1_2.info
-  SHX2_2 = SHX4_1.Trick
-  SHX1_2.currentAction = SHX2_2
-  SHX1_2 = SHX13_1
-  SHX2_2 = "petPerformTrick"
-  SHX3_2 = SHX0_2.dict
-  SHX4_2 = SHX0_2.base
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-end
-function SHX26_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = {}
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  SHX2_2 = SHX2_2 / 200
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.sin
-  SHX5_2 = SHX2_2 * SHX0_2
-  SHX5_2 = SHX5_2 + 0
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_2 * 127
-  SHX4_2 = SHX4_2 + 128
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX1_2.r = SHX3_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.sin
-  SHX5_2 = SHX2_2 * SHX0_2
-  SHX5_2 = SHX5_2 + 2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_2 * 127
-  SHX4_2 = SHX4_2 + 128
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX1_2.g = SHX3_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.sin
-  SHX5_2 = SHX2_2 * SHX0_2
-  SHX5_2 = SHX5_2 + 4
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_2 * 127
-  SHX4_2 = SHX4_2 + 128
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX1_2.b = SHX3_2
-  return SHX1_2
-end
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgpets"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3, SHX30_3
-    SHX0_3 = SHX0_1.pets
-    SHX1_3 = SHX5_1.id
-    SHX0_3 = SHX0_3[SHX1_3]
-    SHX0_3 = SHX0_3.info
-    SHX1_3 = SHX4_1.Attack
-    SHX0_3.currentAction = SHX1_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setupDogScaleform
-    SHX1_3 = "instructional_buttons"
-    SHX0_3 = SHX0_3(SHX1_3)
-    SHX1_3 = SHX10_1
-    SHX2_3 = SHX6_1.Info
-    SHX3_3 = "Aim at the ~b~target ~s~and press ENTER to begin the attack."
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = PlayerId
-    SHX1_3 = SHX1_3()
-    while true do
-      SHX2_3 = SHX5_1.id
-      if 0 == SHX2_3 then
-        break
-      end
-      SHX2_3 = SHX0_1.pets
-      SHX3_3 = SHX5_1.id
-      SHX2_3 = SHX2_3[SHX3_3]
-      SHX2_3 = SHX2_3.info
-      SHX2_3 = SHX2_3.currentAction
-      SHX3_3 = SHX4_1.Attack
-      if SHX2_3 ~= SHX3_3 then
-        break
-      end
-      SHX2_3 = GetEntityPlayerIsFreeAimingAt
-      SHX3_3 = SHX1_3
-      SHX2_3, SHX3_3 = SHX2_3(SHX3_3)
-      if SHX2_3 then
-        SHX4_3 = IsEntityAPed
-        SHX5_3 = SHX3_3
-        SHX4_3 = SHX4_3(SHX5_3)
-        if SHX4_3 then
-          SHX4_3 = SHX0_1.pets
-          SHX5_3 = SHX5_1.id
-          SHX4_3 = SHX4_3[SHX5_3]
-          SHX4_3 = SHX4_3.info
-          SHX4_3 = SHX4_3.handle
-          if SHX3_3 ~= SHX4_3 then
-            SHX4_3 = DrawScaleformMovieFullscreen
-            SHX5_3 = SHX0_3
-            SHX6_3 = 255
-            SHX7_3 = 255
-            SHX8_3 = 255
-            SHX9_3 = 255
-            SHX10_3 = 0
-            SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
-            SHX4_3 = GetEntityCoords
-            SHX5_3 = SHX3_3
-            SHX6_3 = true
-            SHX4_3 = SHX4_3(SHX5_3, SHX6_3)
-            SHX5_3 = SHX26_1
-            SHX6_3 = 0.5
-            SHX5_3 = SHX5_3(SHX6_3)
-            SHX6_3 = DrawMarker
-            SHX7_3 = 1
-            SHX8_3 = SHX4_3.x
-            SHX9_3 = SHX4_3.y
-            SHX10_3 = SHX4_3.z
-            SHX10_3 = SHX10_3 - 1.02
-            SHX11_3 = 0
-            SHX12_3 = 0
-            SHX13_3 = 0
-            SHX14_3 = 0
-            SHX15_3 = 0
-            SHX16_3 = 0
-            SHX17_3 = 0.7
-            SHX18_3 = 0.7
-            SHX19_3 = 1.5
-            SHX20_3 = SHX5_3.r
-            SHX21_3 = SHX5_3.g
-            SHX22_3 = SHX5_3.b
-            SHX23_3 = 200
-            SHX24_3 = false
-            SHX25_3 = false
-            SHX26_3 = 2
-            SHX27_3 = false
-            SHX28_3 = nil
-            SHX29_3 = nil
-            SHX30_3 = false
-            SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3, SHX30_3)
-            SHX6_3 = IsControlJustPressed
-            SHX7_3 = 1
-            SHX8_3 = 18
-            SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-            if SHX6_3 then
-              SHX6_3 = SHX0_1.pets
-              SHX7_3 = SHX5_1.id
-              SHX6_3 = SHX6_3[SHX7_3]
-              SHX6_3 = SHX6_3.info
-              SHX6_3 = SHX6_3.handle
-              SHX7_3 = NetworkGetNetworkIdFromEntity
-              SHX8_3 = SHX6_3
-              SHX7_3 = SHX7_3(SHX8_3)
-              SHX8_3 = NetworkGetNetworkIdFromEntity
-              SHX9_3 = SHX3_3
-              SHX8_3 = SHX8_3(SHX9_3)
-              if 0 ~= SHX7_3 and 0 ~= SHX8_3 then
-                SHX9_3 = TriggerServerEvent
-                SHX10_3 = "e37c85acd2"
-                SHX11_3 = SHX5_1.id
-                SHX12_3 = SHX7_3
-                SHX13_3 = SHX8_3
-                SHX9_3(SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-                SHX9_3 = SHX0_1.pets
-                SHX10_3 = SHX5_1.id
-                SHX9_3 = SHX9_3[SHX10_3]
-                SHX9_3 = SHX9_3.info
-                SHX9_3.isAttacking = true
-                SHX9_3 = CMG
-                SHX9_3 = SHX9_3.setupDogScaleform
-                SHX10_3 = "instructional_buttons"
-                SHX9_3 = SHX9_3(SHX10_3)
-                SHX0_3 = SHX9_3
-                SHX9_3 = SHX10_1
-                SHX10_3 = SHX6_1.Info
-                SHX11_3 = "Attack has started!"
-                SHX9_3(SHX10_3, SHX11_3)
-                while true do
-                  SHX9_3 = SHX5_1.id
-                  if 0 == SHX9_3 then
-                    goto SHX_LABEL_145
-                  end
-                  SHX9_3 = SHX0_1.pets
-                  SHX10_3 = SHX5_1.id
-                  SHX9_3 = SHX9_3[SHX10_3]
-                  SHX9_3 = SHX9_3.info
-                  SHX9_3 = SHX9_3.isAttacking
-                  if not SHX9_3 then
-                    goto SHX_LABEL_145
-                  end
-                  SHX9_3 = Citizen
-                  SHX9_3 = SHX9_3.Wait
-                  SHX10_3 = 0
-                  SHX9_3(SHX10_3)
+
+            ---------------------------------------------------------
+            -- Match this configured pet against the player's saved
+            -- ownership data sent by the server.
+            ---------------------------------------------------------
+
+            for _, ownedPet in pairs(ownedPets or {}) do
+                if ownedPet.id == petId then
+                    pet.info.owned = true
+
+                    if ownedPet.name then
+                        pet.name = ownedPet.name
+                    end
+
+                    if ownedPet.ownedSkills
+                        and ownedPet.ownedSkills.teleport
+                    then
+                        pet.abilities.teleport = true
+                    end
+
+                    if ownedPet.health ~= nil then
+                        pet.health =
+                            tonumber(ownedPet.health) or 100
+                    else
+                        pet.health = 100
+                    end
+
+                    break
                 end
-                goto SHX_LABEL_145
+            end
+        end
+
+        -------------------------------------------------------------
+        -- Create the pet-store marker, area, blip and NPC.
+        -------------------------------------------------------------
+
+        if petConfig.shop and petConfig.shop.coords then
+            local shop = petConfig.shop
+            local coords = shop.coords
+
+            tCMG.addMarker(
+                coords.x,
+                coords.y,
+                coords.z,
+                1.0001,
+                1.0001,
+                0.5001,
+                31,
+                135,
+                173,
+                220,
+                20.0,
+                31,
+                false,
+                false,
+                true,
+                nil,
+                nil,
+                0.0,
+                0.0,
+                0.0
+            )
+
+            CMG.createArea(
+                "petStore",
+                coords,
+                1.5,
+                1.5,
+                openPetStore,
+                closePetStore,
+                petStoreAreaTick,
+                {}
+            )
+
+            tCMG.addBlip(
+                coords.x,
+                coords.y,
+                coords.z,
+                442,
+                26,
+                "Pet Store"
+            )
+        end
+
+        petsReady = true
+
+        -- Pet store clerk.
+        CMG.createDynamicPed(
+            1885233650,
+            vector3(558.74, 2752.71, 42.85),
+            179.45,
+            true,
+            "mini@strip_club@idles@bouncer@base",
+            "base",
+            10,
+            false,
+            customisePetShopNpc
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- STAFF / SERVER PET ATTACK TOGGLE
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.SET_ATTACK_ALLOWED)
+AddEventHandler(
+    EVENTS.SET_ATTACK_ALLOWED,
+    function(attackAllowed)
+        if attackAllowed then
+            return
+        end
+
+        for _, pet in pairs(petConfig.pets or {}) do
+            pet.abilities = pet.abilities or {}
+            pet.abilities.attack = false
+
+            petNotify(
+                NOTIFY_TYPE.Alert,
+                "Your ability to attack has been disabled by a ~b~CMG Staff Member~w~."
+            )
+        end
+    end
+)
+
+---------------------------------------------------------------------
+-- HEALTH UPDATE FROM SERVER
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.UPDATE_PET_HEALTH)
+AddEventHandler(
+    EVENTS.UPDATE_PET_HEALTH,
+    function(petId, health)
+        local pet = petConfig.pets
+            and petConfig.pets[petId]
+
+        if not pet or not pet.info or not pet.info.owned then
+            return
+        end
+
+        pet.health = health
+        setMainMenuSubtitle()
+    end
+)
+
+---------------------------------------------------------------------
+-- OPEN /PET MENU
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.OPEN_PET_MENU)
+AddEventHandler(
+    EVENTS.OPEN_PET_MENU,
+    function()
+        if not petsReady then
+            petNotify(
+                NOTIFY_TYPE.Info,
+                "Please wait before opening the pet menu."
+            )
+            return
+        end
+
+        if activePet.cooldown then
+            petNotify(
+                NOTIFY_TYPE.Info,
+                "Please wait before spawning in a new pet."
+            )
+            return
+        end
+
+        if not playerOwnsAnyUsablePet() then
+            petNotify(
+                NOTIFY_TYPE.Error,
+                "You do not own any ~b~pets~w~. Visit a ~b~pet store ~w~to purchase one."
+            )
+            return
+        end
+
+        if not canUsePetMenu() then
+            notify("~r~Unable to access the pet menu at this time")
+            return
+        end
+
+        RageUI.Visible(getPetMenu(), true)
+    end
+)
+
+---------------------------------------------------------------------
+-- PURCHASE / NAME / SKILL RESPONSES
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.PET_PURCHASED)
+AddEventHandler(
+    EVENTS.PET_PURCHASED,
+    function(petId)
+        local pet = petConfig.pets
+            and petConfig.pets[petId]
+
+        if not pet then
+            return
+        end
+
+        PlaySoundFrontend(
+            -1,
+            "PROPERTY_PURCHASE",
+            "HUD_AWARDS",
+            false
+        )
+
+        petNotify(
+            NOTIFY_TYPE.Success,
+            "You have now ~b~purchased ~w~a ~b~"
+                .. tostring(pet.name)
+                .. "~w~. Use /pet to spawn it in."
+        )
+
+        pet.info.owned = true
+        pet.health = 100
+    end
+)
+
+RegisterNetEvent(EVENTS.PET_RENAMED)
+AddEventHandler(
+    EVENTS.PET_RENAMED,
+    function(petId, newName)
+        local pet = petConfig.pets
+            and petConfig.pets[petId]
+
+        if not pet then
+            return
+        end
+
+        PlaySoundFrontend(
+            -1,
+            "PROPERTY_PURCHASE",
+            "HUD_AWARDS",
+            false
+        )
+
+        petNotify(
+            NOTIFY_TYPE.Success,
+            "You have now changed your pet name to ~b~"
+                .. tostring(newName)
+                .. "~w~!"
+        )
+
+        pet.name = newName
+
+        setMainMenuSubtitle()
+        RageUI.Visible(getPetMenu(), true)
+    end
+)
+
+RegisterNetEvent(EVENTS.TELEPORT_SKILL_PURCHASED)
+AddEventHandler(
+    EVENTS.TELEPORT_SKILL_PURCHASED,
+    function(petId)
+        local pet = petConfig.pets
+            and petConfig.pets[petId]
+
+        if pet and pet.abilities then
+            pet.abilities.teleport = true
+        end
+    end
+)
+
+---------------------------------------------------------------------
+-- PET NETWORK-ACTION SENDER
+---------------------------------------------------------------------
+
+local function sendPetAction(actionName, ...)
+    if not activePet.active
+        or activePet.handle == 0
+        or not DoesEntityExist(activePet.handle)
+    then
+        return
+    end
+
+    local networkId =
+        NetworkGetNetworkIdFromEntity(activePet.handle)
+
+    if networkId == 0 then
+        return
+    end
+
+    -- The server receives:
+    --   active pet ID
+    --   pet network ID
+    --   action name
+    --   optional action arguments
+    TriggerServerEvent(
+        EVENTS.PET_ACTION,
+        activePet.id,
+        networkId,
+        actionName,
+        ...
+    )
+end
+
+---------------------------------------------------------------------
+-- PET SPAWNING
+---------------------------------------------------------------------
+
+local function makePetFollowPlayer()
+
+    local pet = getActivePet()
+    if not pet then
+        return
+    end
+
+    -- Shoulder-only pets are placed on the shoulder instead of being
+    -- given the normal ground-follow task. The decompiled source calls
+    -- the shoulder action here with no explicit side; false gives the
+    -- same left-shoulder branch on receiving clients.
+    if pet.onShoulder then
+        pet.info.currentAction =
+            PET_ACTION.Shoulder
+
+        sendPetAction(
+            "petOnShoulder",
+            GetPlayerServerId(PlayerId()),
+            false
+        )
+
+        petNotify(
+            NOTIFY_TYPE.Success,
+            tostring(pet.name)
+                .. " is now on your shoulder."
+        )
+
+        return
+    end
+
+    petNotify(
+        NOTIFY_TYPE.Info,
+        tostring(pet.name) .. " is now following."
+    )
+
+    sendPetAction(
+        "petFollow",
+        GetPlayerServerId(PlayerId())
+    )
+
+    pet.info.currentAction = PET_ACTION.Follow
+end
+
+function CMG.setActivePetFollowsPlayer()
+    if activePet.active
+        and activePet.id ~= 0
+        and petConfig.pets
+        and petConfig.pets[activePet.id]
+    then
+        makePetFollowPlayer()
+    end
+end
+
+local function spawnPet(petId)
+    local pet = petConfig.pets
+        and petConfig.pets[petId]
+
+    if not pet then
+        return
+    end
+
+    local playerPed = CMG.getPlayerPed()
+
+    CMG.loadModel(pet.model)
+
+    local spawnCoords =
+        GetOffsetFromEntityInWorldCoords(
+            playerPed,
+            0.0,
+            1.0,
+            0.0
+        )
+
+    local heading =
+        GetEntityHeading(playerPed)
+
+    -- Framework hook used before the local CreatePed call.
+    CMG.requestEntitySpawn(
+        "pets_ped",
+        petId,
+        spawnCoords
+    )
+
+    local petHandle =
+        CreatePed(
+            28,
+            pet.model,
+            spawnCoords.x,
+            spawnCoords.y,
+            spawnCoords.z,
+            heading,
+            true,
+            true
+        )
+
+    pet.info.handle = petHandle
+
+    while not DoesEntityExist(petHandle) do
+        Wait(0)
+    end
+
+    SetModelAsNoLongerNeeded(pet.model)
+
+    if pet.movementRate ~= nil then
+        SetPedMoveRateOverride(
+            petHandle,
+            pet.movementRate
+        )
+    end
+
+    SetBlockingOfNonTemporaryEvents(
+        petHandle,
+        true
+    )
+
+    pet.info.active = true
+
+    activePet.active = true
+    activePet.id = petId
+    activePet.handle = petHandle
+
+    makePetFollowPlayer()
+    setMainMenuSubtitle()
+
+    petNotify(
+        NOTIFY_TYPE.Success,
+        tostring(pet.name) .. " has now been created."
+    )
+end
+
+---------------------------------------------------------------------
+-- DELETE ACTIVE PET
+---------------------------------------------------------------------
+
+local function deleteActivePet()
+    if not activePet.active then
+        return
+    end
+
+    sendPetAction("petDelete")
+
+    local pet = getActivePet()
+
+    if pet and pet.info then
+        pet.info.active = false
+        pet.info.handle = 0
+        pet.info.inVehicle = false
+        pet.info.isAttacking = false
+    end
+
+    activePet.active = false
+    activePet.id = 0
+    activePet.handle = 0
+
+    activePet.cooldown = true
+
+    setMainMenuSubtitle()
+
+    SetTimeout(
+        20000,
+        function()
+            activePet.cooldown = false
+
+            petNotify(
+                NOTIFY_TYPE.Success,
+                "You are now able to spawn in a pet again."
+            )
+        end
+    )
+end
+
+---------------------------------------------------------------------
+-- BASIC PET ACTIONS
+---------------------------------------------------------------------
+
+local function makePetStay()
+    local pet = getActivePet()
+    if not pet then
+        return
+    end
+
+    sendPetAction("petStay")
+    pet.info.currentAction = PET_ACTION.Stay
+end
+
+local function makePetSit()
+    local pet = getActivePet()
+
+    if not pet
+        or not pet.animations
+        or not pet.animations.sit
+    then
+        return
+    end
+
+    local sit = pet.animations.sit
+
+    sendPetAction(
+        "petSit",
+        sit.dict,
+        sit.base
+    )
+
+    pet.info.currentAction = PET_ACTION.Sit
+end
+
+local function teleportPetToPlayer()
+    local pet = getActivePet()
+    if not pet then
+        return
+    end
+
+    sendPetAction(
+        "tpPet",
+        GetPlayerServerId(PlayerId())
+    )
+end
+
+local function performPetTrick(animation)
+    local pet = getActivePet()
+
+    if not pet or not animation then
+        return
+    end
+
+    pet.info.currentAction = PET_ACTION.Trick
+
+    sendPetAction(
+        "petPerformTrick",
+        animation.dict,
+        animation.base
+    )
+end
+
+---------------------------------------------------------------------
+-- SHOULDER PETS
+---------------------------------------------------------------------
+
+local function putPetOnShoulder(useRightShoulder)
+    local pet = getActivePet()
+
+    if not pet or not pet.onShoulder then
+        return
+    end
+
+    pet.info.currentAction =
+        PET_ACTION.Shoulder
+
+    sendPetAction(
+        "petOnShoulder",
+        GetPlayerServerId(PlayerId()),
+        useRightShoulder
+    )
+
+    petNotify(
+        NOTIFY_TYPE.Success,
+        tostring(pet.name)
+            .. " is now on your shoulder."
+    )
+end
+
+local function placeShoulderPetOnGround()
+    local pet = getActivePet()
+
+    if not pet
+        or not pet.onShoulder
+        or pet.info.currentAction ~= PET_ACTION.Shoulder
+    then
+        return
+    end
+
+    pet.info.currentAction =
+        PET_ACTION.Floor
+
+    sendPetAction(
+        "petOnGround",
+        GetPlayerServerId(PlayerId())
+    )
+
+    petNotify(
+        NOTIFY_TYPE.Success,
+        tostring(pet.name)
+            .. " is now on the ground"
+    )
+end
+
+---------------------------------------------------------------------
+-- VEHICLE PETS
+---------------------------------------------------------------------
+
+local function putPetInNearestVehicle()
+    local pet = getActivePet()
+    if not pet then
+        return
+    end
+
+    local vehicle =
+        tCMG.getNearestVehicle(7.0)
+
+    if vehicle == -1
+        or vehicle == nil
+        or vehicle == 0
+    then
+        petNotify(
+            NOTIFY_TYPE.Error,
+            "No nearby vehicle found."
+        )
+        return
+    end
+
+    local vehicleNetId =
+        NetworkGetNetworkIdFromEntity(vehicle)
+
+    if vehicleNetId ~= 0 then
+        sendPetAction(
+            "putPetInVehicle",
+            vehicleNetId
+        )
+    end
+
+    pet.info.inVehicle = true
+    pet.info.insideVehicleHandle = vehicle
+
+    petNotify(
+        NOTIFY_TYPE.Info,
+        "Pet is now inside the vehicle"
+    )
+end
+
+local function removePetFromVehicle()
+    local pet = getActivePet()
+    if not pet then
+        return
+    end
+
+    if IsPedInAnyVehicle(
+        CMG.getPlayerPed(),
+        true
+    ) then
+        petNotify(
+            NOTIFY_TYPE.Error,
+            "You must be outside the vehicle."
+        )
+        return
+    end
+
+    sendPetAction(
+        "removePetFromVehicle",
+        GetPlayerServerId(PlayerId())
+    )
+
+    pet.info.inVehicle = false
+
+    petNotify(
+        NOTIFY_TYPE.Info,
+        tostring(pet.name)
+            .. " is now removed from the vehicle."
+    )
+end
+
+---------------------------------------------------------------------
+-- ATTACK TARGETING
+---------------------------------------------------------------------
+
+local function animatedMarkerColour(speed)
+    local time = GetGameTimer() / 200
+
+    return {
+        r = math.floor(
+            math.sin((time * speed) + 0) * 127 + 128
+        ),
+        g = math.floor(
+            math.sin((time * speed) + 2) * 127 + 128
+        ),
+        b = math.floor(
+            math.sin((time * speed) + 4) * 127 + 128
+        ),
+    }
+end
+
+local function beginAttackSelection()
+    local pet = getActivePet()
+
+    if not pet
+        or not pet.abilities
+        or not pet.abilities.attack
+    then
+        return
+    end
+
+    RageUI.Visible(getPetMenu(), false)
+
+    Citizen.CreateThread(function()
+        pet.info.currentAction =
+            PET_ACTION.Attack
+
+        local scaleform =
+            CMG.setupDogScaleform(
+                "instructional_buttons"
+            )
+
+        petNotify(
+            NOTIFY_TYPE.Info,
+            "Aim at the ~b~target ~s~and press ENTER to begin the attack."
+        )
+
+        local localPlayerId = PlayerId()
+
+        while activePet.active
+            and activePet.id ~= 0
+            and pet.info.currentAction == PET_ACTION.Attack
+        do
+            local isAiming, targetEntity =
+                GetEntityPlayerIsFreeAimingAt(
+                    localPlayerId
+                )
+
+            if isAiming
+                and targetEntity ~= 0
+                and IsEntityAPed(targetEntity)
+                and targetEntity ~= pet.info.handle
+            then
+                DrawScaleformMovieFullscreen(
+                    scaleform,
+                    255,
+                    255,
+                    255,
+                    255,
+                    0
+                )
+
+                local targetCoords =
+                    GetEntityCoords(
+                        targetEntity,
+                        true
+                    )
+
+                local colour =
+                    animatedMarkerColour(0.5)
+
+                DrawMarker(
+                    1,
+                    targetCoords.x,
+                    targetCoords.y,
+                    targetCoords.z - 1.02,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.7,
+                    0.7,
+                    1.5,
+                    colour.r,
+                    colour.g,
+                    colour.b,
+                    200,
+                    false,
+                    false,
+                    2,
+                    false,
+                    nil,
+                    nil,
+                    false
+                )
+
+                -- ENTER
+                if IsControlJustPressed(1, 18) then
+                    local petNetId =
+                        NetworkGetNetworkIdFromEntity(
+                            pet.info.handle
+                        )
+
+                    local targetNetId =
+                        NetworkGetNetworkIdFromEntity(
+                            targetEntity
+                        )
+
+                    if petNetId ~= 0
+                        and targetNetId ~= 0
+                    then
+                        TriggerServerEvent(
+                            EVENTS.REQUEST_PET_ATTACK,
+                            activePet.id,
+                            petNetId,
+                            targetNetId
+                        )
+
+                        pet.info.isAttacking = true
+
+                        scaleform =
+                            CMG.setupDogScaleform(
+                                "instructional_buttons"
+                            )
+
+                        petNotify(
+                            NOTIFY_TYPE.Info,
+                            "Attack has started!"
+                        )
+
+                        -- Wait until the server tells us the attack ended.
+                        while activePet.active
+                            and pet.info.isAttacking
+                        do
+                            Wait(0)
+                        end
+
+                        break
+                    end
+                end
+            end
+
+            Wait(0)
+        end
+    end)
+end
+
+RegisterNetEvent(EVENTS.PET_ATTACK_FINISHED)
+AddEventHandler(
+    EVENTS.PET_ATTACK_FINISHED,
+    function(petId)
+        local pet = petConfig.pets
+            and petConfig.pets[petId]
+
+        if not pet or not pet.info then
+            return
+        end
+
+        pet.info.isAttacking = false
+
+        petNotify(
+            NOTIFY_TYPE.Alert,
+            "The attack has finished."
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- PLAYER WAS ATTACKED BY A PET
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.PLAYER_ATTACKED_BY_PET)
+AddEventHandler(
+    EVENTS.PLAYER_ATTACKED_BY_PET,
+    function(ownerUserId, ownerName)
+        SetPedToRagdoll(
+            CMG.getPlayerPed(),
+            12000,
+            12000,
+            0,
+            false,
+            false,
+            false
+        )
+
+        petNotify(
+            NOTIFY_TYPE.Alert,
+            "~y~~h~Alert~h~~s~: You have been attacked by a pet."
+        )
+
+        petNotify(
+            NOTIFY_TYPE.Alert,
+            "~b~Owner: ~w~"
+                .. tostring(ownerName)
+                .. "\n\nUser ID: ~b~"
+                .. tostring(ownerUserId)
+        )
+
+        Wait(1000)
+
+        local playerPed = CMG.getPlayerPed()
+
+        if not IsPedRagdoll(playerPed) then
+            SetPedToRagdoll(
+                playerPed,
+                -1,
+                -1,
+                0,
+                false,
+                false,
+                false
+            )
+        end
+    end
+)
+
+---------------------------------------------------------------------
+-- RIDEABLE PETS
+---------------------------------------------------------------------
+--
+-- This is the strangest part of the original script.
+--
+-- It:
+--   1. Saves the player's current customization.
+--   2. Clones the player's current ped.
+--   3. Changes the real player into model hash 6768186.
+--   4. Attaches the cloned human ped to the new model.
+--   5. Uses the clone to make it LOOK like the player is riding.
+--   6. Restores the real player's customization when finished.
+---------------------------------------------------------------------
+
+local RIDE_MODEL_HASH = 6768186
+
+local FREEMODE_MALE_HASH = 1885233650
+local FREEMODE_FEMALE_HASH = -1667301416
+
+local function startRidingPet()
+    local pet = getActivePet()
+
+    if not pet
+        or not pet.info
+        or not pet.info.handle
+        or not DoesEntityExist(pet.info.handle)
+        or IsEntityDead(pet.info.handle)
+    then
+        return
+    end
+
+    if isRidingPet then
+        return
+    end
+
+    local distance =
+        #(CMG.getPlayerCoords()
+            - GetEntityCoords(
+                pet.info.handle,
+                true
+            ))
+
+    if distance > 2.5 then
+        notify("~r~You are too far away")
+        return
+    end
+
+    local now = GetGameTimer()
+
+    if now - lastRideAttempt < 10000 then
+        notify("~r~Please try again in 10 seconds.")
+        return
+    end
+
+    lastRideAttempt = now
+
+    local playerPed = PlayerPedId()
+    local playerModel =
+        GetEntityModel(playerPed)
+
+    if playerModel ~= FREEMODE_MALE_HASH
+        and playerModel ~= FREEMODE_FEMALE_HASH
+    then
+        notify(
+            "~r~Custom peds cannot be used with riding."
+        )
+        return
+    end
+
+    -- Original pet ped is removed while riding.
+    DeleteEntity(pet.info.handle)
+
+    CMG.requestEntitySpawn(
+        "pets_bear_ped",
+        playerModel
+    )
+
+    -- Clone the human appearance before changing the real player's model.
+    local riderClone =
+        ClonePed(
+            playerPed,
+            true,
+            true,
+            true
+        )
+
+    isRidingPet = true
+
+    local originalHealth =
+        GetEntityHealth(playerPed)
+
+    local originalCustomization =
+        tCMG.getCustomization()
+
+    tCMG.setCustomization({
+        modelhash = RIDE_MODEL_HASH,
+    })
+
+    SetModelAsNoLongerNeeded(
+        RIDE_MODEL_HASH
+    )
+
+    Citizen.CreateThread(function()
+        Wait(200)
+
+        SetEntityHealth(
+            PlayerPedId(),
+            originalHealth
+        )
+    end)
+
+    pet.info.currentAction =
+        PET_ACTION.Ride
+
+    -- Attach the cloned human ped to the transformed player model.
+    AttachEntityToEntity(
+        riderClone,
+        PlayerPedId(),
+        GetPedBoneIndex(
+            PlayerPedId(),
+            24816
+        ),
+        -0.35,
+        0.0,
+        0.65,
+        0.0,
+        0.0,
+        -90.0,
+        false,
+        false,
+        false,
+        true,
+        2,
+        true
+    )
+
+    CMG.loadAnimDict(
+        "amb@prop_human_seat_chair@male@generic@base"
+    )
+
+    TaskPlayAnim(
+        riderClone,
+        "amb@prop_human_seat_chair@male@generic@base",
+        "base",
+        8.0,
+        1.0,
+        -1,
+        1,
+        1.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveAnimDict(
+        "amb@prop_human_seat_chair@male@generic@base"
+    )
+
+    FreezeEntityPosition(
+        PlayerPedId(),
+        false
+    )
+
+    FreezeEntityPosition(
+        riderClone,
+        false
+    )
+
+    SetPedComponentVariation(
+        PlayerPedId(),
+        0,
+        0,
+        0,
+        0
+    )
+
+    SetBlockingOfNonTemporaryEvents(
+        riderClone,
+        true
+    )
+
+    SetPedFleeAttributes(
+        riderClone,
+        0,
+        false
+    )
+
+    SetPedRelationshipGroupHash(
+        riderClone,
+        1191392768
+    )
+
+    Citizen.CreateThread(function()
+        while activePet.active
+            and activePet.id ~= 0
+            and petConfig.pets
+            and petConfig.pets[activePet.id]
+            and pet.info.currentAction == PET_ACTION.Ride
+            and isRidingPet
+        do
+            drawNativeNotification(
+                "~s~~INPUT_JUMP~ to stop riding"
+            )
+
+            CMG.setWeapon(
+                PlayerPedId(),
+                "weapon_unarmed",
+                true
+            )
+
+            DisableControlAction(0, 263, true)
+            DisableControlAction(0, 264, true)
+            DisableControlAction(0, 257, true)
+            DisableControlAction(0, 140, true)
+            DisableControlAction(0, 141, true)
+            DisableControlAction(0, 142, true)
+            DisableControlAction(0, 143, true)
+            DisableControlAction(0, 24, true)
+            DisableControlAction(0, 25, true)
+
+            SetPedDropsWeaponsWhenDead(
+                riderClone,
+                false
+            )
+
+            -- SPACE
+            if IsDisabledControlPressed(0, 22) then
                 break
-              end
             end
-          end
+
+            Wait(0)
         end
-      end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_145:: outside nested blocks until all 'goto SHX_LABEL_145' can see it
-      ::SHX_LABEL_145::
-      SHX2_3 = Wait
-      SHX3_3 = 0
-      SHX2_3(SHX3_3)
-    end
-  end
-  SHX0_2(SHX1_2)
+
+        DeleteEntity(riderClone)
+
+        DetachEntity(
+            PlayerPedId(),
+            false,
+            false
+        )
+
+        local health =
+            GetEntityHealth(PlayerPedId())
+
+        tCMG.setCustomization(
+            originalCustomization
+        )
+
+        Citizen.CreateThread(function()
+            Wait(200)
+
+            SetEntityHealth(
+                PlayerPedId(),
+                health
+            )
+
+            Wait(1000)
+
+            CMG.setInPoliceHorseDelayed(
+                false
+            )
+        end)
+
+        isRidingPet = false
+
+        -- Respawn the pet after restoring the player.
+        if activePet.id == petId then
+            spawnPet(petId)
+        end
+    end)
 end
-SHX28_1 = 0
-function SHX29_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX0_2 = SHX5_1.id
-  SHX1_2 = SHX0_1.pets
-  SHX2_2 = SHX5_1.id
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX1_2 = SHX1_2.info
-  SHX1_2 = SHX1_2.handle
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      goto SHX_LABEL_18
+
+---------------------------------------------------------------------
+-- PET STORE MENU
+---------------------------------------------------------------------
+
+local function drawPetStoreMenu()
+    if storeState.purchasing then
+        local pet =
+            petConfig.pets
+            and petConfig.pets[
+                storeState.purchasingId
+            ]
+
+        if not pet then
+            storeState.purchasing = false
+            storeState.purchasingId = 0
+            return
+        end
+
+        RageUI.ButtonWithStyle(
+            "Purchase " .. tostring(pet.name),
+            "Purchase",
+            {
+                RightLabel =
+                    "£"
+                    .. getMoneyStringFormatted(
+                        pet.price
+                    )
+            },
+            true,
+            function(_, _, selected)
+                if selected then
+                    TriggerServerEvent(
+                        EVENTS.PURCHASE_PET,
+                        storeState.purchasingId
+                    )
+
+                    storeState.purchasing = false
+                    storeState.purchasingId = 0
+                end
+            end
+        )
+
+        RageUI.ButtonWithStyle(
+            "Cancel Purchase",
+            "Cancel",
+            {},
+            true,
+            function(_, _, selected)
+                if selected then
+                    storeState.purchasing = false
+                    storeState.purchasingId = 0
+                end
+            end
+        )
+
+        return
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_18:: outside nested blocks until all 'goto SHX_LABEL_18' can see it
-  ::SHX_LABEL_18::
-  SHX2_2 = SHX2_1
-  if SHX2_2 then
-    return
-  end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerCoords
-  SHX2_2 = SHX2_2()
-  SHX3_2 = GetEntityCoords
-  SHX4_2 = SHX1_2
-  SHX5_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX2_2 = SHX2_2 - SHX3_2
-  SHX2_2 = #SHX2_2
-  SHX3_2 = 2.5
-  if SHX2_2 > SHX3_2 then
-    SHX2_2 = notify
-    SHX3_2 = "~r~You are too far away"
-    SHX2_2(SHX3_2)
-    return
-  end
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX28_1
-  SHX2_2 = SHX2_2 - SHX3_2
-  SHX3_2 = 10000
-  if SHX2_2 < SHX3_2 then
-    SHX2_2 = notify
-    SHX3_2 = "~r~Please try again in 10 seconds."
-    SHX2_2(SHX3_2)
-    return
-  end
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  SHX28_1 = SHX2_2
-  SHX2_2 = GetEntityModel
-  SHX3_2 = PlayerPedId
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2 = SHX3_2()
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-  if 1885233650 ~= SHX2_2 and -1667301416 ~= SHX2_2 then
-    SHX3_2 = notify
-    SHX4_2 = "~r~Custom peds cannot be used with riding."
-    SHX3_2(SHX4_2)
-    return
-  end
-  SHX3_2 = DeleteEntity
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "pets_bear_ped"
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = ClonePed
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = true
-  SHX6_2 = true
-  SHX7_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = true
-  SHX2_1 = SHX4_2
-  SHX4_2 = GetEntityHealth
-  SHX5_2 = PlayerPedId
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2 = SHX5_2()
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.getCustomization
-  SHX5_2 = SHX5_2()
-  SHX6_2 = tCMG
-  SHX6_2 = SHX6_2.setCustomization
-  SHX7_2 = {}
-  SHX7_2.modelhash = 6768186
-  SHX6_2(SHX7_2)
-  SHX6_2 = SetModelAsNoLongerNeeded
-  SHX7_2 = 6768186
-  SHX6_2(SHX7_2)
-  SHX6_2 = Citizen
-  SHX6_2 = SHX6_2.CreateThread
-  function SHX7_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = Citizen
-    SHX0_3 = SHX0_3.Wait
-    SHX1_3 = 200
-    SHX0_3(SHX1_3)
-    SHX0_3 = SetEntityHealth
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = SHX4_2
-    SHX0_3(SHX1_3, SHX2_3)
-  end
-  SHX6_2(SHX7_2)
-  SHX6_2 = SHX0_1.pets
-  SHX7_2 = SHX5_1.id
-  SHX6_2 = SHX6_2[SHX7_2]
-  SHX6_2 = SHX6_2.info
-  SHX7_2 = SHX4_1.Ride
-  SHX6_2.currentAction = SHX7_2
-  SHX6_2 = AttachEntityToEntity
-  SHX7_2 = SHX3_2
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = GetPedBoneIndex
-  SHX10_2 = PlayerPedId
-  SHX10_2 = SHX10_2()
-  SHX11_2 = 24816
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX10_2 = -0.35
-  SHX11_2 = 0.0
-  SHX12_2 = 0.65
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = -90.0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX19_2 = true
-  SHX20_2 = 2
-  SHX21_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.loadAnimDict
-  SHX7_2 = "amb@prop_human_seat_chair@male@generic@base"
-  SHX6_2(SHX7_2)
-  SHX6_2 = TaskPlayAnim
-  SHX7_2 = SHX3_2
-  SHX8_2 = "amb@prop_human_seat_chair@male@generic@base"
-  SHX9_2 = "base"
-  SHX10_2 = 8.0
-  SHX11_2 = 1
-  SHX12_2 = -1
-  SHX13_2 = 1
-  SHX14_2 = 1.0
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX6_2 = RemoveAnimDict
-  SHX7_2 = "amb@prop_human_seat_chair@male@generic@base"
-  SHX6_2(SHX7_2)
-  SHX6_2 = FreezeEntityPosition
-  SHX7_2 = PlayerPedId
-  SHX7_2 = SHX7_2()
-  SHX8_2 = false
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = FreezeEntityPosition
-  SHX7_2 = SHX3_2
-  SHX8_2 = false
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = SetPedComponentVariation
-  SHX7_2 = PlayerPedId
-  SHX7_2 = SHX7_2()
-  SHX8_2 = 0
-  SHX9_2 = 0
-  SHX10_2 = 0
-  SHX11_2 = 0
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX6_2 = SetBlockingOfNonTemporaryEvents
-  SHX7_2 = SHX3_2
-  SHX8_2 = true
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = SetPedFleeAttributes
-  SHX7_2 = SHX3_2
-  SHX8_2 = 0
-  SHX9_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = SetPedRelationshipGroupHash
-  SHX7_2 = SHX3_2
-  SHX8_2 = 1191392768
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = Citizen
-  SHX6_2 = SHX6_2.CreateThread
-  function SHX7_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
+
+    if not petsReady then
+        return
+    end
+
+    local foundPetForSale = false
+
+    for petId, pet in pairs(petConfig.pets or {}) do
+        if not pet.info.owned then
+            foundPetForSale = true
+
+            RageUI.ButtonWithStyle(
+                pet.name,
+                pet.description,
+                {
+                    RightLabel =
+                        "£"
+                        .. getMoneyStringFormatted(
+                            pet.price
+                        )
+                },
+                true,
+                function(_, hovered, selected)
+                    if hovered then
+                        storeState.viewingId =
+                            petId
+                    end
+
+                    if selected then
+                        storeState.purchasing =
+                            true
+
+                        storeState.purchasingId =
+                            petId
+                    end
+                end
+            )
+        end
+    end
+
+    if not foundPetForSale then
+        RageUI.Visible(
+            getPetStoreMenu(),
+            false
+        )
+
+        petNotify(
+            NOTIFY_TYPE.Info,
+            "There are no available pets for you to purchase."
+        )
+    end
+end
+
+RageUI.CreateWhile(
+    1.0,
+    getPetStoreMenu(),
+    nil,
+    function()
+        RageUI.IsVisible(
+            getPetStoreMenu(),
+            true,
+            true,
+            true,
+            drawPetStoreMenu,
+            function()
+            end
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- PET STORE PREVIEW THREAD
+---------------------------------------------------------------------
+
+Citizen.CreateThread(function()
     while true do
-      SHX0_3 = SHX5_1
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = SHX5_1.id
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = SHX0_1.pets
-      SHX1_3 = SHX5_1.id
-      SHX0_3 = SHX0_3[SHX1_3]
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = SHX0_1.pets
-      SHX1_3 = SHX5_1.id
-      SHX0_3 = SHX0_3[SHX1_3]
-      SHX0_3 = SHX0_3.info
-      SHX0_3 = SHX0_3.currentAction
-      SHX1_3 = SHX4_1.Ride
-      if SHX0_3 ~= SHX1_3 then
-        break
-      end
-      SHX0_3 = SHX2_1
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "~s~~INPUT_JUMP~ to stop riding"
-      SHX0_3(SHX1_3)
-      SHX0_3 = CMG
-      SHX0_3 = SHX0_3.setWeapon
-      SHX1_3 = PlayerPedId
-      SHX1_3 = SHX1_3()
-      SHX2_3 = "weapon_unarmed"
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 263
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 264
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 257
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 140
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 141
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 142
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 143
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 24
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 25
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = SetPedDropsWeaponsWhenDead
-      SHX1_3 = SHX3_2
-      SHX2_3 = false
-      SHX0_3(SHX1_3, SHX2_3)
-      SHX0_3 = IsDisabledControlPressed
-      SHX1_3 = 0
-      SHX2_3 = 22
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        break
-      end
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
-    end
-    SHX0_3 = DeleteEntity
-    SHX1_3 = SHX3_2
-    SHX0_3(SHX1_3)
-    SHX0_3 = DetachEntity
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = false
-    SHX3_3 = false
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = GetEntityHealth
-    SHX1_3 = PlayerPedId
-    SHX1_3, SHX2_3, SHX3_3 = SHX1_3()
-    SHX0_3 = SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX1_3 = tCMG
-    SHX1_3 = SHX1_3.setCustomization
-    SHX2_3 = SHX5_2
-    SHX1_3(SHX2_3)
-    SHX1_3 = Citizen
-    SHX1_3 = SHX1_3.CreateThread
-    function SHX2_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4
-      SHX0_4 = Citizen
-      SHX0_4 = SHX0_4.Wait
-      SHX1_4 = 200
-      SHX0_4(SHX1_4)
-      SHX0_4 = SetEntityHealth
-      SHX1_4 = PlayerPedId
-      SHX1_4 = SHX1_4()
-      SHX2_4 = SHX0_3
-      SHX0_4(SHX1_4, SHX2_4)
-      SHX0_4 = Citizen
-      SHX0_4 = SHX0_4.Wait
-      SHX1_4 = 1000
-      SHX0_4(SHX1_4)
-      SHX0_4 = CMG
-      SHX0_4 = SHX0_4.setInPoliceHorseDelayed
-      SHX1_4 = false
-      SHX0_4(SHX1_4)
-    end
-    SHX1_3(SHX2_3)
-    SHX1_3 = false
-    SHX2_1 = SHX1_3
-    SHX1_3 = SHX5_1.id
-    SHX2_3 = SHX0_2
-    if SHX1_3 == SHX2_3 then
-      SHX1_3 = SHX17_1
-      SHX2_3 = SHX0_2
-      SHX1_3(SHX2_3)
-    end
-  end
-  SHX6_2(SHX7_2)
-end
-SHX30_1 = RageUI
-SHX30_1 = SHX30_1.CreateWhile
-SHX31_1 = 1.0
-SHX32_1 = RMenu
-SHX33_1 = SHX32_1
-SHX32_1 = SHX32_1.Get
-SHX34_1 = "cmgpets"
-SHX35_1 = "main"
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = nil
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgpets"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = SHX12_1
-    SHX0_3 = SHX0_3()
-    if not SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.CloseAll
-      SHX0_3()
-      return
-    end
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.inOrganHesit
-    SHX0_3 = SHX0_3()
-    if SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Visible
-      SHX1_3 = RMenu
-      SHX2_3 = SHX1_3
-      SHX1_3 = SHX1_3.Get
-      SHX3_3 = "cmgpets"
-      SHX4_3 = "main"
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX2_3 = false
-      SHX0_3(SHX1_3, SHX2_3)
-      return
-    end
-    SHX0_3 = SHX5_1.active
-    if not SHX0_3 then
-      SHX0_3 = pairs
-      SHX1_3 = SHX0_1.pets
-      SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-      for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-        SHX6_3 = SHX5_3.info
-        SHX6_3 = SHX6_3.owned
-        if SHX6_3 then
-          SHX6_3 = RageUI
-          SHX6_3 = SHX6_3.Button
-          SHX7_3 = "Spawn "
-          SHX8_3 = SHX5_3.name
-          SHX7_3 = SHX7_3 .. SHX8_3
-          SHX8_3 = "Press to spawn"
-          SHX9_3 = true
-          function SHX10_3(SHX0_4, SHX1_4, SHX2_4)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-            if SHX2_4 then
-              SHX3_4 = SHX5_3.info
-              SHX3_4 = SHX3_4.dead
-              if SHX3_4 then
-                SHX3_4 = SHX10_1
-                SHX4_4 = SHX6_1.Info
-                SHX5_4 = "Please wait before spawning in "
-                SHX6_4 = SHX5_3.name
-                SHX7_4 = "."
-                SHX5_4 = SHX5_4 .. SHX6_4 .. SHX7_4
-                SHX3_4(SHX4_4, SHX5_4)
-              else
-                SHX3_4 = SHX5_1.cooldown
-                if SHX3_4 then
-                  SHX3_4 = SHX10_1
-                  SHX4_4 = SHX6_1.Info
-                  SHX5_4 = "Please wait before spawning in a pet."
-                  SHX3_4(SHX4_4, SHX5_4)
-                else
-                  SHX3_4 = SHX17_1
-                  SHX4_4 = SHX4_3
-                  SHX3_4(SHX4_4)
+        if storeState.viewingPet
+            and storeState.viewingId ~= 0
+            and storeState.viewingId
+                ~= storeState.lastViewingId
+        then
+            storeState.lastViewingId =
+                storeState.viewingId
+
+            local pet =
+                petConfig.pets
+                and petConfig.pets[
+                    storeState.viewingId
+                ]
+
+            if pet then
+                CMG.loadModel(pet.model)
+
+                drawNativeText(
+                    "You are viewing the ~b~"
+                        .. tostring(pet.name)
+                        .. "~w~."
+                )
+
+                if not pet.abilities.attack then
+                    if pet.onShoulder then
+                        drawNativeText(
+                            "This pet can only go on your ~b~shoulder ~w~."
+                        )
+                    else
+                        drawNativeText(
+                            "This pet ~b~cannot ~w~attack."
+                        )
+                    end
                 end
-              end
+
+                if storeState.viewingEntity ~= 0
+                    and DoesEntityExist(
+                        storeState.viewingEntity
+                    )
+                then
+                    DeleteEntity(
+                        storeState.viewingEntity
+                    )
+                end
+
+                local playerPed =
+                    CMG.getPlayerPed()
+
+                local previewPed =
+                    CreatePed(
+                        28,
+                        pet.model,
+                        564.83,
+                        2753.28,
+                        41.89,
+                        81.06,
+                        false,
+                        false
+                    )
+
+                storeState.viewingEntity =
+                    previewPed
+
+                SetEntityNoCollisionEntity(
+                    previewPed,
+                    playerPed,
+                    false
+                )
+
+                TaskStandStill(
+                    previewPed,
+                    100000
+                )
+
+                -----------------------------------------------------
+                -- Slowly rotate the preview while the same pet
+                -- remains highlighted.
+                -----------------------------------------------------
+
+                while storeState.viewingPet
+                    and storeState.viewingId
+                        == storeState.lastViewingId
+                    and DoesEntityExist(previewPed)
+                do
+                    SetEntityHeading(
+                        previewPed,
+                        GetEntityHeading(previewPed)
+                            - 0.3
+                    )
+
+                    Wait(0)
+                end
+
+                SetModelAsNoLongerNeeded(
+                    pet.model
+                )
+
+                if DoesEntityExist(previewPed) then
+                    DeleteEntity(previewPed)
+                end
+
+                if storeState.viewingEntity
+                    == previewPed
+                then
+                    storeState.viewingEntity = 0
+                end
             end
-          end
-          SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3)
         end
-      end
+
+        Wait(0)
+    end
+end)
+
+---------------------------------------------------------------------
+-- MAIN PET MENU
+---------------------------------------------------------------------
+
+local function drawMainPetMenu()
+    if not canUsePetMenu() then
+        RageUI.CloseAll()
+        return
+    end
+
+    -- The source blocks pet management during the Organ Heist.
+    if CMG.inOrganHesit() then
+        RageUI.Visible(
+            getPetMenu(),
+            false
+        )
+        return
+    end
+
+    -------------------------------------------------------------
+    -- NO ACTIVE PET:
+    -- Show every owned pet as a spawn button.
+    -------------------------------------------------------------
+
+    if not activePet.active then
+        for petId, pet in pairs(petConfig.pets or {}) do
+            if pet.info.owned then
+                RageUI.Button(
+                    "Spawn " .. tostring(pet.name),
+                    "Press to spawn",
+                    true,
+                    function(_, _, selected)
+                        if not selected then
+                            return
+                        end
+
+                        if pet.info.dead then
+                            petNotify(
+                                NOTIFY_TYPE.Info,
+                                "Please wait before spawning in "
+                                    .. tostring(pet.name)
+                                    .. "."
+                            )
+                            return
+                        end
+
+                        if activePet.cooldown then
+                            petNotify(
+                                NOTIFY_TYPE.Info,
+                                "Please wait before spawning in a pet."
+                            )
+                            return
+                        end
+
+                        spawnPet(petId)
+                    end
+                )
+            end
+        end
+
+        return
+    end
+
+    local pet = getActivePet()
+    if not pet then
+        return
+    end
+
+    -------------------------------------------------------------
+    -- PET IS CURRENTLY IN A VEHICLE
+    -------------------------------------------------------------
+
+    if pet.info.inVehicle then
+        RageUI.Button(
+            "Remove from vehicle",
+            "Remove pet from vehicle",
+            true,
+            function(_, _, selected)
+                if selected then
+                    removePetFromVehicle()
+                end
+            end
+        )
+
+        return
+    end
+
+    -------------------------------------------------------------
+    -- Most normal actions are hidden for a shoulder pet and
+    -- while health is too low.
+    -------------------------------------------------------------
+
+    local canUseNormalActions =
+        (pet.health == nil or pet.health > 1)
+        and not pet.onShoulder
+
+    if canUseNormalActions then
+        if pet.info.currentAction
+            ~= PET_ACTION.Follow
+        then
+            RageUI.Button(
+                "Follow",
+                "Pet will follow you",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        makePetFollowPlayer()
+                    end
+                end
+            )
+        end
+
+        if pet.info.currentAction
+            ~= PET_ACTION.Stay
+        then
+            RageUI.Button(
+                "Stay",
+                "Pet will stay",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        petNotify(
+                            NOTIFY_TYPE.Info,
+                            tostring(pet.name)
+                                .. " is now staying."
+                        )
+
+                        makePetStay()
+                    end
+                end
+            )
+        end
+
+        if pet.abilities.sit
+            and pet.info.currentAction
+                ~= PET_ACTION.Sit
+        then
+            RageUI.Button(
+                "Sit",
+                "Pet will sit",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        petNotify(
+                            NOTIFY_TYPE.Info,
+                            tostring(pet.name)
+                                .. " is now sitting."
+                        )
+
+                        makePetSit()
+                    end
+                end
+            )
+        end
+
+        if pet.abilities.teleport then
+            RageUI.Button(
+                "Teleport",
+                "Teleport pet to you",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        teleportPetToPlayer()
+
+                        petNotify(
+                            NOTIFY_TYPE.Info,
+                            "Pet has now been teleported to you."
+                        )
+                    end
+                end
+            )
+        end
+
+        if pet.abilities.attack
+            and pet.info.currentAction
+                ~= PET_ACTION.Attack
+        then
+            RageUI.Button(
+                "Attack",
+                "Pet will attack",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        beginAttackSelection()
+                    end
+                end
+            )
+        end
+
+        if pet.info.currentAction
+            ~= PET_ACTION.Attack
+        then
+            RageUI.Button(
+                "Put in vehicle",
+                "Put pet in vehicle",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        putPetInNearestVehicle()
+                    end
+                end
+            )
+
+            if pet.abilities.paw
+                and pet.animations
+                and pet.animations.paw
+            then
+                RageUI.Button(
+                    "Paw Trick",
+                    "Pet will lift paw",
+                    true,
+                    function(_, _, selected)
+                        if selected and not isRidingPet then
+                            performPetTrick(
+                                pet.animations.paw
+                            )
+                        end
+                    end
+                )
+            end
+
+            if pet.abilities.sleep
+                and pet.animations
+                and pet.animations.sleep
+            then
+                RageUI.Button(
+                    "Sleep Trick",
+                    "Pet will sleep",
+                    true,
+                    function(_, _, selected)
+                        if selected and not isRidingPet then
+                            performPetTrick(
+                                pet.animations.sleep
+                            )
+                        end
+                    end
+                )
+            end
+        end
+    end
+
+    -------------------------------------------------------------
+    -- SHOULDER-PET CONTROLS
+    -------------------------------------------------------------
+
+    if pet.onShoulder then
+        if pet.info.currentAction
+            == PET_ACTION.Shoulder
+        then
+            RageUI.Button(
+                "Place on ground",
+                "Place your pet on the ground",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        placeShoulderPetOnGround()
+                    end
+                end
+            )
+        elseif pet.info.currentAction
+            == PET_ACTION.Floor
+        then
+            RageUI.Button(
+                "Place on right shoulder",
+                "Place your pet on your right shoulder",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        putPetOnShoulder(true)
+                    end
+                end
+            )
+
+            RageUI.Button(
+                "Place on left shoulder",
+                "Place your pet on your left shoulder",
+                true,
+                function(_, _, selected)
+                    if selected and not isRidingPet then
+                        putPetOnShoulder(false)
+                    end
+                end
+            )
+        end
+    end
+
+    -------------------------------------------------------------
+    -- FEED PET
+    -------------------------------------------------------------
+
+    if pet.health ~= nil
+        and pet.health < 100
+    then
+        RageUI.Button(
+            "Feed Pet",
+            "Feed your current pet",
+            true,
+            function(_, _, selected)
+                if selected and not isRidingPet then
+                    TriggerServerEvent(
+                        EVENTS.FEED_PET,
+                        activePet.id
+                    )
+                end
+            end
+        )
+    end
+
+    -------------------------------------------------------------
+    -- DELETE PET
+    -------------------------------------------------------------
+
+    RageUI.Button(
+        "Delete Pet",
+        "Deletes your current pet",
+        true,
+        function(_, _, selected)
+            if selected then
+                RageUI.Visible(
+                    getPetMenu(),
+                    false
+                )
+
+                deleteActivePet()
+            end
+        end
+    )
+
+    -------------------------------------------------------------
+    -- BUY TELEPORT SKILL
+    -------------------------------------------------------------
+
+    if pet.abilities
+        and not pet.abilities.teleport
+        and not pet.onShoulder
+        and pet.skillPrices
+        and pet.skillPrices.teleport
+    then
+        RageUI.ButtonWithStyle(
+            "Purchase Teleport Feature",
+            "Purchase",
+            {
+                RightLabel =
+                    "£"
+                    .. getMoneyStringFormatted(
+                        pet.skillPrices.teleport
+                    )
+            },
+            true,
+            function(_, _, selected)
+                if selected then
+                    TriggerServerEvent(
+                        EVENTS.PURCHASE_TELEPORT_SKILL,
+                        activePet.id
+                    )
+                end
+            end
+        )
+    end
+
+    -------------------------------------------------------------
+    -- CHANGE NAME
+    -------------------------------------------------------------
+
+    if petConfig.shop
+        and petConfig.shop.changeNamePrice
+    then
+        RageUI.ButtonWithStyle(
+            "Change Name",
+            "Purchase",
+            {
+                RightLabel =
+                    "£"
+                    .. getMoneyStringFormatted(
+                        petConfig.shop.changeNamePrice
+                    )
+            },
+            true,
+            function(_, _, selected)
+                if selected then
+                    TriggerServerEvent(
+                        EVENTS.REQUEST_PET_NAME_CHANGE,
+                        activePet.id
+                    )
+
+                    RageUI.CloseAll()
+                end
+            end
+        )
+    end
+
+    -------------------------------------------------------------
+    -- RIDE PET
+    -------------------------------------------------------------
+
+    if pet.abilities
+        and pet.abilities.ride
+    then
+        RageUI.ButtonWithStyle(
+            "Ride",
+            "",
+            {},
+            true,
+            function(_, _, selected)
+                if selected then
+                    startRidingPet()
+                    RageUI.CloseAll()
+                end
+            end
+        )
+    end
+end
+
+RageUI.CreateWhile(
+    1.0,
+    getPetMenu(),
+    nil,
+    function()
+        RageUI.IsVisible(
+            getPetMenu(),
+            true,
+            true,
+            true,
+            drawMainPetMenu,
+            function()
+            end
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- LOW-LEVEL PET ACTION FUNCTIONS
+---------------------------------------------------------------------
+
+local function playPetAnimation(
+    petPed,
+    animationDictionary,
+    animationName
+)
+    ClearPedTasks(petPed)
+
+    CMG.loadAnimDict(
+        animationDictionary
+    )
+
+    TaskPlayAnim(
+        petPed,
+        animationDictionary,
+        animationName,
+        8.0,
+        -8.0,
+        -1,
+        2,
+        0.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveAnimDict(
+        animationDictionary
+    )
+end
+
+local function deletePetEntity(petPed)
+    DeleteEntity(petPed)
+end
+
+local function followPlayerByServerId(
+    petPed,
+    playerServerId
+)
+    local playerIndex =
+        GetPlayerFromServerId(
+            playerServerId
+        )
+
+    if playerIndex == -1 then
+        return
+    end
+
+    local playerPed =
+        GetPlayerPed(playerIndex)
+
+    if playerPed == 0 then
+        return
+    end
+
+    ClearPedTasks(petPed)
+
+    TaskFollowToOffsetOfEntity(
+        petPed,
+        playerPed,
+        0.0,
+        0.0,
+        0.0,
+        7.0,
+        -1,
+        10.0,
+        true
+    )
+end
+
+local function makePetEntityStay(petPed)
+    ClearPedTasks(petPed)
+end
+
+local function attachPetToVehicle(
+    petPed,
+    vehicleNetworkId
+)
+    if not NetworkDoesNetworkIdExist(
+        vehicleNetworkId
+    ) then
+        return
+    end
+
+    local vehicle =
+        NetworkGetEntityFromNetworkId(
+            vehicleNetworkId
+        )
+
+    if vehicle == 0 then
+        return
+    end
+
+    ClearPedTasks(petPed)
+
+    local seatBone =
+        GetEntityBoneIndexByName(
+            vehicle,
+            "seat_dside_r"
+        )
+
+    if seatBone == -1 then
+        seatBone =
+            GetEntityBoneIndexByName(
+                vehicle,
+                "seat_pside_f"
+            )
+    end
+
+    AttachEntityToEntity(
+        petPed,
+        vehicle,
+        seatBone,
+        0.0,
+        -0.1,
+        0.4,
+        0.0,
+        0.0,
+        0.0,
+        false,
+        false,
+        false,
+        true,
+        0,
+        true
+    )
+end
+
+local function removePetEntityFromVehicle(
+    petPed,
+    ownerServerId
+)
+    local ownerIndex =
+        GetPlayerFromServerId(
+            ownerServerId
+        )
+
+    if ownerIndex == -1 then
+        return
+    end
+
+    local ownerPed =
+        GetPlayerPed(ownerIndex)
+
+    if ownerPed == 0 then
+        return
+    end
+
+    ClearPedTasks(petPed)
+
+    local ownerCoords =
+        GetEntityCoords(
+            ownerPed,
+            true
+        )
+
+    DetachEntity(
+        petPed,
+        true,
+        true
+    )
+
+    SetEntityCoords(
+        petPed,
+        ownerCoords.x,
+        ownerCoords.y,
+        ownerCoords.z - 1.0,
+        false,
+        false,
+        false,
+        false
+    )
+
+    followPlayerByServerId(
+        petPed,
+        ownerServerId
+    )
+end
+
+local function placePetOnGround(
+    petPed,
+    ownerServerId
+)
+    local ownerIndex =
+        GetPlayerFromServerId(
+            ownerServerId
+        )
+
+    if ownerIndex == -1 then
+        return
+    end
+
+    local ownerPed =
+        GetPlayerPed(ownerIndex)
+
+    if ownerPed == 0 then
+        return
+    end
+
+    DetachEntity(
+        petPed,
+        false,
+        false
+    )
+
+    -- The decompiled source briefly starts a follow task and immediately
+    -- clears it. The useful effect here is simply detaching/idle.
+    ClearPedTasks(petPed)
+end
+
+local function attachPetToShoulder(
+    petPed,
+    ownerServerId,
+    useRightShoulder
+)
+    local ownerIndex =
+        GetPlayerFromServerId(
+            ownerServerId
+        )
+
+    if ownerIndex == -1 then
+        return
+    end
+
+    local ownerPed =
+        GetPlayerPed(ownerIndex)
+
+    if ownerPed == 0 then
+        return
+    end
+
+    local zOffset
+
+    if useRightShoulder then
+        zOffset = -0.18
     else
-      SHX0_3 = SHX14_1
-      SHX0_3 = SHX0_3()
-      SHX0_3 = SHX0_3.info
-      SHX0_3 = SHX0_3.inVehicle
-      if SHX0_3 then
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Button
-        SHX1_3 = "Remove from vehicle"
-        SHX2_3 = "Remove pet from vehicle"
-        SHX3_3 = true
-        function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4
-          if SHX2_4 then
-            SHX3_4 = SHX21_1
-            SHX3_4()
-          end
+        zOffset = 0.2
+    end
+
+    AttachEntityToEntity(
+        petPed,
+        ownerPed,
+        GetPedBoneIndex(
+            ownerPed,
+            24818
+        ),
+        0.17,
+        0.0,
+        zOffset,
+        0.0,
+        90.0,
+        0.0,
+        false,
+        false,
+        false,
+        true,
+        1,
+        true
+    )
+end
+
+local function teleportPetEntityToPlayer(
+    petPed,
+    ownerServerId
+)
+    local ownerIndex =
+        GetPlayerFromServerId(
+            ownerServerId
+        )
+
+    if ownerIndex == -1 then
+        return
+    end
+
+    local ownerPed =
+        GetPlayerPed(ownerIndex)
+
+    if ownerPed == 0 then
+        return
+    end
+
+    local coords =
+        GetEntityCoords(
+            ownerPed,
+            true
+        )
+
+    SetEntityCoords(
+        petPed,
+        coords.x,
+        coords.y,
+        coords.z - 1.0,
+        false,
+        false,
+        false,
+        false
+    )
+end
+
+---------------------------------------------------------------------
+-- PET ACTION BROADCAST FROM SERVER
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.PET_ACTION)
+AddEventHandler(
+    EVENTS.PET_ACTION,
+    function(petNetworkId, actionName, ...)
+        if not NetworkDoesNetworkIdExist(
+            petNetworkId
+        ) then
+            return
         end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-      else
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.health
-        if nil ~= SHX0_3 then
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.health
-          if not (SHX0_3 > 1) then
-            goto SHX_LABEL_207
-          end
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.onShoulder
-          if SHX0_3 then
-            goto SHX_LABEL_207
-          end
+
+        local petPed =
+            NetworkGetEntityFromNetworkId(
+                petNetworkId
+            )
+
+        if petPed == 0 then
+            return
         end
-        SHX0_3 = SHX14_1
-        SHX0_3 = SHX0_3()
-        SHX0_3 = SHX0_3.info
-        SHX0_3 = SHX0_3.currentAction
-        SHX1_3 = SHX4_1.Follow
-        if SHX0_3 ~= SHX1_3 then
-          SHX0_3 = RageUI
-          SHX0_3 = SHX0_3.Button
-          SHX1_3 = "Follow"
-          SHX2_3 = "Pet will follow you"
-          SHX3_3 = true
-          function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_4
-            if SHX2_4 then
-              SHX3_4 = SHX2_1
-              if not SHX3_4 then
-                SHX3_4 = SHX16_1
-                SHX3_4()
-              end
-            end
-          end
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+
+        if actionName == "petPerformTrick" then
+            playPetAnimation(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "petDelete" then
+            deletePetEntity(petPed)
+
+        elseif actionName == "petFollow" then
+            followPlayerByServerId(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "petStay" then
+            makePetEntityStay(petPed)
+
+        elseif actionName == "putPetInVehicle" then
+            attachPetToVehicle(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "removePetFromVehicle" then
+            removePetEntityFromVehicle(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "petSit" then
+            playPetAnimation(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "petAttack" then
+            playPetAnimation(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "petOnGround" then
+            placePetOnGround(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "petOnShoulder" then
+            attachPetToShoulder(
+                petPed,
+                ...
+            )
+
+        elseif actionName == "tpPet" then
+            teleportPetEntityToPlayer(
+                petPed,
+                ...
+            )
         end
-        SHX0_3 = SHX14_1
-        SHX0_3 = SHX0_3()
-        SHX0_3 = SHX0_3.info
-        SHX0_3 = SHX0_3.currentAction
-        SHX1_3 = SHX4_1.Stay
-        if SHX0_3 ~= SHX1_3 then
-          SHX0_3 = RageUI
-          SHX0_3 = SHX0_3.Button
-          SHX1_3 = "Stay"
-          SHX2_3 = "Pet will stay"
-          SHX3_3 = true
-          function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-            if SHX2_4 then
-              SHX3_4 = SHX2_1
-              if not SHX3_4 then
-                SHX3_4 = SHX10_1
-                SHX4_4 = SHX6_1.Info
-                SHX5_4 = SHX14_1
-                SHX5_4 = SHX5_4()
-                SHX5_4 = SHX5_4.name
-                SHX6_4 = " is now staying."
-                SHX5_4 = SHX5_4 .. SHX6_4
-                SHX3_4(SHX4_4, SHX5_4)
-                SHX3_4 = SHX19_1
-                SHX3_4()
-              end
-            end
-          end
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+    end
+)
+
+---------------------------------------------------------------------
+-- SERVER TELLS THIS CLIENT TO START PET COMBAT
+---------------------------------------------------------------------
+
+RegisterNetEvent(EVENTS.START_PET_COMBAT)
+AddEventHandler(
+    EVENTS.START_PET_COMBAT,
+    function(petNetworkId, targetNetworkId)
+        if not NetworkDoesNetworkIdExist(
+            petNetworkId
+        ) then
+            return
         end
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.abilities
-        SHX0_3 = SHX0_3.sit
-        if SHX0_3 then
-          SHX0_3 = SHX14_1
-          SHX0_3 = SHX0_3()
-          SHX0_3 = SHX0_3.info
-          SHX0_3 = SHX0_3.currentAction
-          SHX1_3 = SHX4_1.Sit
-          if SHX0_3 ~= SHX1_3 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Sit"
-            SHX2_3 = "Pet will sit"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX10_1
-                  SHX4_4 = SHX6_1.Info
-                  SHX5_4 = SHX14_1
-                  SHX5_4 = SHX5_4()
-                  SHX5_4 = SHX5_4.name
-                  SHX6_4 = " is now sitting."
-                  SHX5_4 = SHX5_4 .. SHX6_4
-                  SHX3_4(SHX4_4, SHX5_4)
-                  SHX3_4 = SHX22_1
-                  SHX3_4()
+
+        if not NetworkDoesNetworkIdExist(
+            targetNetworkId
+        ) then
+            return
+        end
+
+        if not NetworkDoesEntityExistWithNetworkId(
+            petNetworkId
+        ) then
+            return
+        end
+
+        if not NetworkDoesEntityExistWithNetworkId(
+            targetNetworkId
+        ) then
+            return
+        end
+
+        local petPed =
+            NetworkGetEntityFromNetworkId(
+                petNetworkId
+            )
+
+        local targetPed =
+            NetworkGetEntityFromNetworkId(
+                targetNetworkId
+            )
+
+        if petPed == 0
+            or targetPed == 0
+        then
+            return
+        end
+
+        if not NetworkHasControlOfEntity(
+            petPed
+        ) then
+            return
+        end
+
+        TaskCombatPed(
+            petPed,
+            targetPed,
+            0,
+            16
+        )
+    end
+)
+
+RegisterNetEvent(EVENTS.STOP_PET_TASKS)
+AddEventHandler(
+    EVENTS.STOP_PET_TASKS,
+    function(petNetworkId)
+        if not NetworkDoesNetworkIdExist(
+            petNetworkId
+        ) then
+            return
+        end
+
+        if not NetworkDoesEntityExistWithNetworkId(
+            petNetworkId
+        ) then
+            return
+        end
+
+        local petPed =
+            NetworkGetEntityFromNetworkId(
+                petNetworkId
+            )
+
+        if petPed == 0 then
+            return
+        end
+
+        if not NetworkHasControlOfEntity(
+            petPed
+        ) then
+            return
+        end
+
+        ClearPedTasksImmediately(
+            petPed
+        )
+    end
+)
+
+---------------------------------------------------------------------
+-- PET HEALTH / DEATH / STORE CAMERA TICK
+---------------------------------------------------------------------
+
+local function petSystemTick()
+    -------------------------------------------------------------
+    -- ACTIVE PET HEALTH / DEATH
+    -------------------------------------------------------------
+
+    if activePet.active
+        and activePet.handle ~= 0
+        and DoesEntityExist(activePet.handle)
+    then
+        local pet = getActivePet()
+
+        if not pet then
+            return
+        end
+
+        ---------------------------------------------------------
+        -- PET DIED
+        ---------------------------------------------------------
+
+        if IsEntityDead(activePet.handle) then
+            drawNativeText(
+                "Your pet has ~b~died~w~, please wait before respawning."
+            )
+
+            petNotify(
+                NOTIFY_TYPE.Alert,
+                "Please wait 5 minutes before respawning the pet."
+            )
+
+            local deadPetId =
+                activePet.id
+
+            pet.info.dead = true
+            pet.info.active = false
+
+            activePet.active = false
+            activePet.handle = 0
+
+            setMainMenuSubtitle()
+
+            SetTimeout(
+                300000,
+                function()
+                    local deadPet =
+                        petConfig.pets
+                        and petConfig.pets[
+                            deadPetId
+                        ]
+
+                    if deadPet
+                        and deadPet.info
+                    then
+                        deadPet.info.dead =
+                            false
+                    end
                 end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
-        end
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.abilities
-        SHX0_3 = SHX0_3.teleport
-        if SHX0_3 then
-          SHX0_3 = RageUI
-          SHX0_3 = SHX0_3.Button
-          SHX1_3 = "Teleport"
-          SHX2_3 = "Teleport pet to you"
-          SHX3_3 = true
-          function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_4, SHX4_4, SHX5_4
-            if SHX2_4 then
-              SHX3_4 = SHX2_1
-              if not SHX3_4 then
-                SHX3_4 = SHX24_1
-                SHX3_4()
-                SHX3_4 = SHX10_1
-                SHX4_4 = SHX6_1.Info
-                SHX5_4 = "Pet has now been teleported to you."
-                SHX3_4(SHX4_4, SHX5_4)
-              end
-            end
-          end
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-        end
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.abilities
-        SHX0_3 = SHX0_3.attack
-        if SHX0_3 then
-          SHX0_3 = SHX14_1
-          SHX0_3 = SHX0_3()
-          SHX0_3 = SHX0_3.info
-          SHX0_3 = SHX0_3.currentAction
-          SHX1_3 = SHX4_1.Attack
-          if SHX0_3 ~= SHX1_3 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Attack"
-            SHX2_3 = "Pet will attack"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX27_1
-                  SHX3_4()
+            )
+
+        ---------------------------------------------------------
+        -- PET HEALTH DRAIN
+        ---------------------------------------------------------
+
+        elseif not pet.awaitingHealthReduction
+            and pet.health ~= nil
+            and pet.health < 1
+        then
+            -- This odd condition is preserved from the decompile:
+            -- health only starts this 5-minute timer when it is below 1.
+            pet.awaitingHealthReduction =
+                true
+
+            SetTimeout(
+                300000,
+                function()
+                    local currentPet =
+                        getActivePet()
+
+                    if not currentPet then
+                        return
+                    end
+
+                    local newHealth =
+                        (currentPet.health or 0)
+                        - 10
+
+                    if newHealth < 2 then
+                        newHealth = 1
+
+                        petNotify(
+                            NOTIFY_TYPE.Alert,
+                            "You must feed your pet to continue using it. Head to a pet store!"
+                        )
+                    end
+
+                    currentPet.health =
+                        newHealth
+
+                    currentPet.awaitingHealthReduction =
+                        false
+
+                    TriggerServerEvent(
+                        EVENTS.SAVE_PET_HEALTH,
+                        activePet.id,
+                        newHealth
+                    )
+
+                    setMainMenuSubtitle()
                 end
-              end
+            )
+        end
+
+    -------------------------------------------------------------
+    -- CLOSE PREVIEW CAMERA IF STORE MENU IS NO LONGER VISIBLE
+    -------------------------------------------------------------
+
+    elseif storeState.cameraEnabled then
+        if not RageUI.Visible(
+            getPetStoreMenu()
+        ) then
+            RenderScriptCams(
+                false,
+                false,
+                0,
+                true,
+                false
+            )
+
+            if storeState.cameraHandle
+                and storeState.cameraHandle ~= 0
+            then
+                DestroyCam(
+                    storeState.cameraHandle,
+                    false
+                )
             end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
+
+            storeState.cameraEnabled =
+                false
+
+            storeState.cameraHandle = 0
+            storeState.viewingPet = false
         end
-        SHX0_3 = SHX14_1
-        SHX0_3 = SHX0_3()
-        SHX0_3 = SHX0_3.info
-        SHX0_3 = SHX0_3.currentAction
-        SHX1_3 = SHX4_1.Attack
-        if SHX0_3 ~= SHX1_3 then
-          SHX0_3 = RageUI
-          SHX0_3 = SHX0_3.Button
-          SHX1_3 = "Put in vehicle"
-          SHX2_3 = "Put pet from vehicle"
-          SHX3_3 = true
-          function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_4
-            if SHX2_4 then
-              SHX3_4 = SHX2_1
-              if not SHX3_4 then
-                SHX3_4 = SHX20_1
-                SHX3_4()
-              end
+    end
+end
+
+function CMG.hasPetSpawned()
+    return activePet.active
+end
+
+CMG.createThreadOnTick(
+    petSystemTick,
+    "Pets"
+)
+
+---------------------------------------------------------------------
+-- CAT CAFE
+---------------------------------------------------------------------
+--
+-- The final part of the original resource is independent from the player's
+-- owned pet system. It populates the cat cafe with ambient cats.
+---------------------------------------------------------------------
+
+local CAT_MODEL = 1462895032
+
+local catCafeStaticPositions = {
+    vector4(-576.30914306641, -1054.8338623047, 22.430583953857, 5.0),
+    vector4(-573.13830566406, -1056.7286376953, 22.34726524353, 10.0),
+    vector4(-583.85375976562, -1050.8475341797, 22.903409957886, 200.0),
+    vector4(-575.36315917969, -1049.3723144531, 23.532382965088, 150.0),
+    vector4(-571.82427978516, -1049.1110839844, 27.636543273926, 300.0),
+    vector4(-574.15216064453, -1067.8732910156, 26.716175079346, 350.0),
+    vector4(-575.49182128906, -1068.4104003906, 26.867456436157, 73.0),
+    vector4(-577.69000244141, -1069.3704833984, 27.260467529297, 351.0),
+    vector4(-580.46539306641, -1061.1938476562, 27.50301361084, 264.0),
+    vector4(-566.78350830078, -1049.1219482422, 24.757600784302, 193.0),
+    vector4(-577.61096191406, -1069.3815917969, 22.990507125854, 45.0),
+    vector4(-579.7275390625, -1062.9910888672, 23.105237960815, 80.0),
+    vector4(-588.34497070312, -1049.7238769531, 22.344200134277, 164.0),
+    vector4(-598.33673095703, -1050.1214599609, 22.849090576172, 200.0),
+    vector4(-573.61352539062, -1060.0550537109, 22.639022827148, 274.0),
+    vector4(-577.73022460938, -1051.1755371094, 22.347290039062, 189.0),
+    vector4(-582.08251953125, -1054.7325439453, 22.429388046265, 328.0),
+    vector4(-581.43719482422, -1058.3192138672, 22.344200134277, 239.0),
+}
+
+local catCafeNetworkSpawnPoints = {
+    vector3(-578.38031005859, -1059.7563476562, 21.339666366577),
+    vector3(-581.20819091797, -1053.5622558594, 21.347272872925),
+    vector3(-573.55206298828, -1051.6333007812, 21.344181060791),
+    vector3(-581.60565185547, -1067.0407714844, 21.344177246094),
+    vector3(-573.43670654297, -1050.8446044922, 22.344200134277),
+}
+
+local catCafeAnimations = {
+    {
+        "creatures@cat@amb@world_cat_sleeping_ground@base",
+        "base",
+    },
+}
+
+local localCatCafeCats = {}
+
+local function spawnCatCafeCats()
+    CMG.loadModel(CAT_MODEL)
+
+    -------------------------------------------------------------
+    -- STATIC LOCAL CATS
+    -------------------------------------------------------------
+
+    for index, coords in pairs(
+        catCafeStaticPositions
+    ) do
+        local cat =
+            CreatePed(
+                0,
+                CAT_MODEL,
+                coords.x,
+                coords.y,
+                coords.z - 1.0,
+                coords.w,
+                false,
+                false
+            )
+
+        FreezeEntityPosition(cat, true)
+        SetEntityCanBeDamaged(cat, false)
+        SetBlockingOfNonTemporaryEvents(
+            cat,
+            true
+        )
+
+        local animationIndex =
+            (index % #catCafeAnimations) + 1
+
+        local animation =
+            catCafeAnimations[
+                animationIndex
+            ]
+
+        CMG.loadAnimDict(
+            animation[1]
+        )
+
+        TaskPlayAnim(
+            cat,
+            animation[1],
+            animation[2],
+            8.0,
+            8.0,
+            -1,
+            3,
+            1.0,
+            false,
+            false,
+            false
+        )
+
+        RemoveAnimDict(
+            animation[1]
+        )
+
+        table.insert(
+            localCatCafeCats,
+            cat
+        )
+    end
+
+    SetModelAsNoLongerNeeded(
+        CAT_MODEL
+    )
+
+    -------------------------------------------------------------
+    -- OPTIONAL NETWORKED CAT
+    -------------------------------------------------------------
+
+    local networkedCatCount = 0
+
+    for _, ped in pairs(
+        GetGamePool("CPed")
+    ) do
+        if GetEntityModel(ped) == CAT_MODEL
+            and NetworkGetEntityIsNetworked(
+                ped
+            )
+        then
+            networkedCatCount =
+                networkedCatCount + 1
+        end
+    end
+
+    if networkedCatCount
+        < #catCafeNetworkSpawnPoints
+    then
+        local spawnPoint =
+            catCafeNetworkSpawnPoints[
+                math.random(
+                    1,
+                    #catCafeNetworkSpawnPoints
+                )
+            ]
+
+        CMG.requestEntitySpawn(
+            "catcafe_cat",
+            spawnPoint
+        )
+
+        local cat =
+            CreatePed(
+                0,
+                CAT_MODEL,
+                spawnPoint.x,
+                spawnPoint.y,
+                spawnPoint.z,
+                0.0,
+                true,
+                true
+            )
+
+        SetEntityCanBeDamaged(
+            cat,
+            false
+        )
+
+        SetEntityProofs(
+            cat,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        )
+    end
+end
+
+local function updateCatCafeCats()
+    for _, ped in pairs(
+        GetGamePool("CPed")
+    ) do
+        if GetEntityModel(ped) == CAT_MODEL
+            and NetworkGetEntityIsNetworked(
+                ped
+            )
+            and NetworkHasControlOfEntity(
+                ped
+            )
+        then
+            -- 1056466932 is the task hash checked by the original.
+            if GetScriptTaskStatus(
+                ped,
+                1056466932
+            ) == 7
+            then
+                TaskFollowToOffsetOfEntity(
+                    ped,
+                    PlayerPedId(),
+                    0.0,
+                    0.0,
+                    0.0,
+                    7.0,
+                    -1,
+                    10.0,
+                    true
+                )
             end
-          end
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.abilities
-          SHX0_3 = SHX0_3.paw
-          if SHX0_3 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Paw Trick"
-            SHX2_3 = "Pet will lift paw"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4, SHX5_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX25_1
-                  SHX4_4 = SHX0_1.pets
-                  SHX5_4 = SHX5_1.id
-                  SHX4_4 = SHX4_4[SHX5_4]
-                  SHX4_4 = SHX4_4.animations
-                  SHX4_4 = SHX4_4.paw
-                  SHX3_4(SHX4_4)
-                end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.abilities
-          SHX0_3 = SHX0_3.sleep
-          if SHX0_3 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Sleep Trick"
-            SHX2_3 = "Pet will sleep"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4, SHX5_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX25_1
-                  SHX4_4 = SHX0_1.pets
-                  SHX5_4 = SHX5_1.id
-                  SHX4_4 = SHX4_4[SHX5_4]
-                  SHX4_4 = SHX4_4.animations
-                  SHX4_4 = SHX4_4.sleep
-                  SHX3_4(SHX4_4)
-                end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
         end
-        -- [FIX IF ERROR] Move ::SHX_LABEL_207:: outside nested blocks until all 'goto SHX_LABEL_207' can see it
-        ::SHX_LABEL_207::
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.onShoulder
-        if SHX0_3 then
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.info
-          SHX0_3 = SHX0_3.currentAction
-          SHX1_3 = SHX4_1.Shoulder
-          if SHX0_3 == SHX1_3 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Place on ground"
-            SHX2_3 = "Place your pet on the ground"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX23_1
-                  SHX3_4()
-                end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
-        end
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.onShoulder
-        if SHX0_3 then
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.info
-          SHX0_3 = SHX0_3.currentAction
-          SHX1_3 = SHX4_1.Floor
-          if SHX0_3 == SHX1_3 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Place on right shoulder"
-            SHX2_3 = "Place your pet on your right shoulder"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX15_1
-                  SHX4_4 = true
-                  SHX3_4(SHX4_4)
-                end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Place on left shoulder"
-            SHX2_3 = "Place your pet on your left shoulder"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = SHX15_1
-                  SHX4_4 = false
-                  SHX3_4(SHX4_4)
-                end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
-        end
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        SHX0_3 = SHX0_3.health
-        if nil ~= SHX0_3 then
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.health
-          if SHX0_3 < 100 then
-            SHX0_3 = RageUI
-            SHX0_3 = SHX0_3.Button
-            SHX1_3 = "Feed Pet"
-            SHX2_3 = "Feed your current pet"
-            SHX3_3 = true
-            function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4, SHX5_4
-              if SHX2_4 then
-                SHX3_4 = SHX2_1
-                if not SHX3_4 then
-                  SHX3_4 = TriggerServerEvent
-                  SHX4_4 = "f895de7ef6"
-                  SHX5_4 = SHX5_1.id
-                  SHX3_4(SHX4_4, SHX5_4)
-                end
-              end
-            end
-            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-          end
-        end
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Button
-        SHX1_3 = "Delete Pet"
-        SHX2_3 = "Deletes your current pet"
-        SHX3_3 = true
-        function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-          if SHX2_4 then
-            SHX3_4 = RageUI
-            SHX3_4 = SHX3_4.Visible
-            SHX4_4 = RMenu
-            SHX5_4 = SHX4_4
-            SHX4_4 = SHX4_4.Get
-            SHX6_4 = "cmgpets"
-            SHX7_4 = "main"
-            SHX4_4 = SHX4_4(SHX5_4, SHX6_4, SHX7_4)
-            SHX5_4 = false
-            SHX3_4(SHX4_4, SHX5_4)
-            SHX3_4 = SHX18_1
-            SHX3_4()
-          end
-        end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        if nil ~= SHX0_3 then
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.abilities
-          if nil ~= SHX0_3 then
-            SHX0_3 = SHX0_1.pets
-            SHX1_3 = SHX5_1.id
-            SHX0_3 = SHX0_3[SHX1_3]
-            SHX0_3 = SHX0_3.abilities
-            SHX0_3 = SHX0_3.teleport
-            if not SHX0_3 then
-              SHX0_3 = SHX0_1.pets
-              SHX1_3 = SHX5_1.id
-              SHX0_3 = SHX0_3[SHX1_3]
-              SHX0_3 = SHX0_3.onShoulder
-              if not SHX0_3 then
-                SHX0_3 = RageUI
-                SHX0_3 = SHX0_3.ButtonWithStyle
-                SHX1_3 = "Purchase Teleport Feature"
-                SHX2_3 = "Purchase"
-                SHX3_3 = {}
-                SHX4_3 = "\194\163"
-                SHX5_3 = getMoneyStringFormatted
-                SHX6_3 = SHX0_1.pets
-                SHX7_3 = SHX5_1.id
-                SHX6_3 = SHX6_3[SHX7_3]
-                SHX6_3 = SHX6_3.skillPrices
-                SHX6_3 = SHX6_3.teleport
-                SHX5_3 = SHX5_3(SHX6_3)
-                SHX4_3 = SHX4_3 .. SHX5_3
-                SHX3_3.RightLabel = SHX4_3
-                SHX4_3 = true
-                function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-                  -- [AI CLEANUP] Decompiled Lua - Fix these:
-                  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                  -- 3. Replace goto/label with while/repeat-until where possible
-                  -- 4. Remove decompiler comments, add meaningful ones
-                  -- 5. Fix indentation and formatting
-                  
-                  local SHX3_4, SHX4_4, SHX5_4
-                  if SHX2_4 then
-                    SHX3_4 = TriggerServerEvent
-                    SHX4_4 = "967f1b0ab8"
-                    SHX5_4 = SHX5_1.id
-                    SHX3_4(SHX4_4, SHX5_4)
-                  end
-                end
-                SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-              end
-            end
-          end
-        end
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.ButtonWithStyle
-        SHX1_3 = "Change Name"
-        SHX2_3 = "Purchase"
-        SHX3_3 = {}
-        SHX4_3 = "\194\163"
-        SHX5_3 = getMoneyStringFormatted
-        SHX6_3 = SHX0_1.shop
-        SHX6_3 = SHX6_3.changeNamePrice
-        SHX5_3 = SHX5_3(SHX6_3)
-        SHX4_3 = SHX4_3 .. SHX5_3
-        SHX3_3.RightLabel = SHX4_3
-        SHX4_3 = true
-        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4, SHX4_4, SHX5_4
-          if SHX2_4 then
-            SHX3_4 = TriggerServerEvent
-            SHX4_4 = "55aec3a6bf"
-            SHX5_4 = SHX5_1.id
-            SHX3_4(SHX4_4, SHX5_4)
-            SHX3_4 = RageUI
-            SHX3_4 = SHX3_4.CloseAll
-            SHX3_4()
-          end
-        end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-        SHX0_3 = SHX0_1.pets
-        SHX1_3 = SHX5_1.id
-        SHX0_3 = SHX0_3[SHX1_3]
-        if nil ~= SHX0_3 then
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX5_1.id
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.abilities
-          if nil ~= SHX0_3 then
-            SHX0_3 = SHX0_1.pets
-            SHX1_3 = SHX5_1.id
-            SHX0_3 = SHX0_3[SHX1_3]
-            SHX0_3 = SHX0_3.abilities
-            SHX0_3 = SHX0_3.ride
-            if SHX0_3 then
-              SHX0_3 = RageUI
-              SHX0_3 = SHX0_3.ButtonWithStyle
-              SHX1_3 = "Ride"
-              SHX2_3 = ""
-              SHX3_3 = {}
-              SHX4_3 = true
-              function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-                -- [AI CLEANUP] Decompiled Lua - Fix these:
-                -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                -- 3. Replace goto/label with while/repeat-until where possible
-                -- 4. Remove decompiler comments, add meaningful ones
-                -- 5. Fix indentation and formatting
-                
-                local SHX3_4
-                if SHX2_4 then
-                  SHX3_4 = SHX29_1
-                  SHX3_4()
-                  SHX3_4 = RageUI
-                  SHX3_4 = SHX3_4.CloseAll
-                  SHX3_4()
-                end
-              end
-              SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-            end
-          end
-        end
-      end
     end
-  end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
 end
-SHX30_1(SHX31_1, SHX32_1, SHX33_1, SHX34_1)
-SHX30_1 = Citizen
-SHX30_1 = SHX30_1.CreateThread
-function SHX31_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  while true do
-    SHX0_2 = SHX3_1.viewingPet
-    if SHX0_2 then
-      SHX0_2 = SHX3_1.viewingId
-      SHX3_1.lastViewingId = SHX0_2
-      SHX0_2 = SHX3_1.viewingId
-      if 0 ~= SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.loadModel
-        SHX1_2 = SHX0_1.pets
-        SHX2_2 = SHX3_1.viewingId
-        SHX1_2 = SHX1_2[SHX2_2]
-        SHX1_2 = SHX1_2.model
-        SHX0_2(SHX1_2)
-        SHX0_2 = drawNativeText
-        SHX1_2 = "You are viewing the ~b~"
-        SHX2_2 = SHX0_1.pets
-        SHX3_2 = SHX3_1.viewingId
-        SHX2_2 = SHX2_2[SHX3_2]
-        SHX2_2 = SHX2_2.name
-        SHX3_2 = "~w~."
-        SHX1_2 = SHX1_2 .. SHX2_2 .. SHX3_2
-        SHX0_2(SHX1_2)
-        SHX0_2 = SHX0_1.pets
-        SHX1_2 = SHX3_1.viewingId
-        SHX0_2 = SHX0_2[SHX1_2]
-        SHX0_2 = SHX0_2.abilities
-        SHX0_2 = SHX0_2.attack
-        if not SHX0_2 then
-          SHX0_2 = SHX0_1.pets
-          SHX1_2 = SHX3_1.viewingId
-          SHX0_2 = SHX0_2[SHX1_2]
-          SHX0_2 = SHX0_2.onShoulder
-          if SHX0_2 then
-            SHX0_2 = drawNativeText
-            SHX1_2 = "This pet can only go on your ~b~shoulder ~w~."
-            SHX0_2(SHX1_2)
-          else
-            SHX0_2 = drawNativeText
-            SHX1_2 = "This pet ~b~cannot ~w~attack."
-            SHX0_2(SHX1_2)
-          end
+
+local function removeLocalCatCafeCats()
+    for _, cat in pairs(
+        localCatCafeCats
+    ) do
+        DeleteEntity(cat)
+    end
+
+    localCatCafeCats = {}
+end
+
+CMG.createArea(
+    "catCafeCats",
+    catCafeStaticPositions[1].xyz,
+    25.0,
+    50.0,
+    spawnCatCafeCats,
+    removeLocalCatCafeCats,
+    updateCatCafeCats,
+    {}
+)
+
+AddEventHandler(
+    "onResourceStop",
+    function(resourceName)
+        if resourceName
+            == GetCurrentResourceName()
+        then
+            removeLocalCatCafeCats()
         end
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.getPlayerPed
-        SHX0_2 = SHX0_2()
-        SHX1_2 = CreatePed
-        SHX2_2 = 28
-        SHX3_2 = SHX0_1.pets
-        SHX4_2 = SHX3_1.viewingId
-        SHX3_2 = SHX3_2[SHX4_2]
-        SHX3_2 = SHX3_2.model
-        SHX4_2 = 564.83
-        SHX5_2 = 2753.28
-        SHX6_2 = 41.89
-        SHX7_2 = 81.06
-        SHX8_2 = false
-        SHX9_2 = false
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX3_1.viewingEntity = SHX1_2
-        SHX2_2 = SetEntityNoCollisionEntity
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-        SHX2_2 = TaskStandStill
-        SHX3_2 = SHX1_2
-        SHX4_2 = 100000
-        SHX2_2(SHX3_2, SHX4_2)
-        while true do
-          SHX2_2 = SHX3_1.viewingId
-          SHX3_2 = SHX3_1.lastViewingId
-          if SHX2_2 ~= SHX3_2 then
-            break
-          end
-          SHX2_2 = SetEntityHeading
-          SHX3_2 = SHX1_2
-          SHX4_2 = GetEntityHeading
-          SHX5_2 = SHX1_2
-          SHX4_2 = SHX4_2(SHX5_2)
-          SHX4_2 = SHX4_2 - 0.3
-          SHX2_2(SHX3_2, SHX4_2)
-          SHX2_2 = Wait
-          SHX3_2 = 0
-          SHX2_2(SHX3_2)
-        end
-        SHX2_2 = SHX0_1.pets
-        SHX3_2 = SHX3_1.viewingId
-        SHX2_2 = SHX2_2[SHX3_2]
-        if nil ~= SHX2_2 then
-          SHX2_2 = SHX0_1.pets
-          SHX3_2 = SHX3_1.viewingId
-          SHX2_2 = SHX2_2[SHX3_2]
-          SHX2_2 = SHX2_2.model
-          if nil ~= SHX2_2 then
-            SHX2_2 = SetModelAsNoLongerNeeded
-            SHX3_2 = SHX0_1.pets
-            SHX4_2 = SHX3_1.viewingId
-            SHX3_2 = SHX3_2[SHX4_2]
-            SHX3_2 = SHX3_2.model
-            SHX2_2(SHX3_2)
-          end
-        end
-        SHX2_2 = DoesEntityExist
-        SHX3_2 = SHX3_1.viewingEntity
-        SHX2_2 = SHX2_2(SHX3_2)
-        if SHX2_2 then
-          SHX2_2 = DeleteEntity
-          SHX3_2 = SHX3_1.viewingEntity
-          SHX2_2(SHX3_2)
-        end
-      end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
-end
-SHX30_1(SHX31_1)
-SHX30_1 = RegisterNetEvent
-SHX31_1 = "991adbef17"
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_1.pets
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2 = SHX1_2.info
-  SHX1_2.isAttacking = false
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX6_1.Alert
-  SHX3_2 = "The attack has finished."
-  SHX1_2(SHX2_2, SHX3_2)
-end
-SHX30_1(SHX31_1, SHX32_1)
-function SHX30_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX3_2 = ClearPedTasks
-  SHX4_2 = SHX5_1.handle
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX2_2
-  SHX7_2 = 8.0
-  SHX8_2 = -8.0
-  SHX9_2 = -1
-  SHX10_2 = 2
-  SHX11_2 = 0.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveAnimDict
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-end
-function SHX31_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = DeleteEntity
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-end
-function SHX32_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX2_2 = GetPlayerFromServerId
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if -1 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetPlayerPed
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX3_2 then
-    return
-  end
-  SHX4_2 = ClearPedTasks
-  SHX5_2 = SHX0_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = TaskFollowToOffsetOfEntity
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX3_2
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 7.0
-  SHX11_2 = -1
-  SHX12_2 = 10.0
-  SHX13_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-function SHX33_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = ClearPedTasks
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-end
-function SHX34_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    return
-  end
-  SHX2_2 = NetworkGetEntityFromNetworkId
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
-    return
-  end
-  SHX3_2 = ClearPedTasks
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = GetEntityBoneIndexByName
-  SHX4_2 = SHX2_2
-  SHX5_2 = "seat_dside_r"
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if -1 == SHX3_2 then
-    SHX4_2 = GetEntityBoneIndexByName
-    SHX5_2 = SHX2_2
-    SHX6_2 = "seat_pside_f"
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    SHX3_2 = SHX4_2
-  end
-  SHX4_2 = AttachEntityToEntity
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX2_2
-  SHX7_2 = SHX3_2
-  SHX8_2 = 0.0
-  SHX9_2 = -0.1
-  SHX10_2 = 0.4
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = 0.0
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = true
-  SHX18_2 = 0
-  SHX19_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-end
-function SHX35_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX2_2 = GetPlayerFromServerId
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if -1 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetPlayerPed
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX3_2 then
-    return
-  end
-  SHX4_2 = ClearPedTasks
-  SHX5_2 = SHX0_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = GetEntityCoords
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = DetachEntity
-  SHX6_2 = SHX0_2
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = SetEntityCoords
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX4_2.x
-  SHX8_2 = SHX4_2.y
-  SHX9_2 = SHX4_2.z
-  SHX9_2 = SHX9_2 - 1.0
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = SHX32_1
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX1_2
-  SHX5_2(SHX6_2, SHX7_2)
-end
-function SHX36_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX3_2 = ClearPedTasks
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX2_2
-  SHX7_2 = 8.0
-  SHX8_2 = -8.0
-  SHX9_2 = -1
-  SHX10_2 = 2
-  SHX11_2 = 0.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveAnimDict
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-end
-function SHX37_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX3_2 = ClearPedTasks
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX2_2
-  SHX7_2 = 8.0
-  SHX8_2 = -8.0
-  SHX9_2 = -1
-  SHX10_2 = 2
-  SHX11_2 = 0.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveAnimDict
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-end
-function SHX38_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX2_2 = GetPlayerFromServerId
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if -1 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetPlayerPed
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX3_2 then
-    return
-  end
-  SHX4_2 = DetachEntity
-  SHX5_2 = SHX0_2
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = TaskFollowToOffsetOfEntity
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX3_2
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 1.0
-  SHX11_2 = -1
-  SHX12_2 = 10.0
-  SHX13_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX4_2 = ClearPedTasks
-  SHX5_2 = SHX0_2
-  SHX4_2(SHX5_2)
-end
-function SHX39_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX3_2 = GetPlayerFromServerId
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if -1 == SHX3_2 then
-    return
-  end
-  SHX4_2 = GetPlayerPed
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if 0 == SHX4_2 then
-    return
-  end
-  if SHX2_2 then
-    SHX5_2 = AttachEntityToEntity
-    SHX6_2 = SHX0_2
-    SHX7_2 = SHX4_2
-    SHX8_2 = GetPedBoneIndex
-    SHX9_2 = SHX4_2
-    SHX10_2 = 24818
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = 0.17
-    SHX10_2 = 0.0
-    SHX11_2 = -0.18
-    SHX12_2 = 0.0
-    SHX13_2 = 90.0
-    SHX14_2 = 0.0
-    SHX15_2 = false
-    SHX16_2 = false
-    SHX17_2 = false
-    SHX18_2 = true
-    SHX19_2 = 1
-    SHX20_2 = true
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  else
-    SHX5_2 = AttachEntityToEntity
-    SHX6_2 = SHX0_2
-    SHX7_2 = SHX4_2
-    SHX8_2 = GetPedBoneIndex
-    SHX9_2 = SHX4_2
-    SHX10_2 = 24818
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = 0.17
-    SHX10_2 = 0.0
-    SHX11_2 = 0.2
-    SHX12_2 = 0.0
-    SHX13_2 = 90.0
-    SHX14_2 = 0.0
-    SHX15_2 = false
-    SHX16_2 = false
-    SHX17_2 = false
-    SHX18_2 = true
-    SHX19_2 = 1
-    SHX20_2 = true
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  end
-end
-function SHX40_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX2_2 = GetPlayerFromServerId
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if -1 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetPlayerPed
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX3_2 then
-    return
-  end
-  SHX4_2 = GetEntityCoords
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = SetEntityCoords
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX4_2.x
-  SHX8_2 = SHX4_2.y
-  SHX9_2 = SHX4_2.z
-  SHX9_2 = SHX9_2 - 1.0
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-end
-SHX41_1 = RegisterNetEvent
-SHX42_1 = "23e9f76715"
-function SHX43_1(SHX0_2, SHX1_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    return
-  end
-  SHX2_2 = NetworkGetEntityFromNetworkId
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
-    return
-  end
-  if "petPerformTrick" == SHX1_2 then
-    SHX3_2 = SHX30_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "petDelete" == SHX1_2 then
-    SHX3_2 = SHX31_1
-    SHX4_2 = SHX2_2
-    SHX3_2(SHX4_2)
-  elseif "petFollow" == SHX1_2 then
-    SHX3_2 = SHX32_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "petStay" == SHX1_2 then
-    SHX3_2 = SHX33_1
-    SHX4_2 = SHX2_2
-    SHX3_2(SHX4_2)
-  elseif "putPetInVehicle" == SHX1_2 then
-    SHX3_2 = SHX34_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "removePetFromVehicle" == SHX1_2 then
-    SHX3_2 = SHX35_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "petSit" == SHX1_2 then
-    SHX3_2 = SHX36_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "petAttack" == SHX1_2 then
-    SHX3_2 = SHX37_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "petOnGround" == SHX1_2 then
-    SHX3_2 = SHX38_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "petOnShoulder" == SHX1_2 then
-    SHX3_2 = SHX39_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  elseif "tpPet" == SHX1_2 then
-    SHX3_2 = SHX40_1
-    SHX4_2 = SHX2_2
-    SHX5_2 = ...
-    SHX3_2(SHX4_2, SHX5_2)
-  end
-end
-SHX41_1(SHX42_1, SHX43_1)
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX5_1.active
-  if SHX0_2 then
-    SHX0_2 = DoesEntityExist
-    SHX1_2 = SHX5_1.handle
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = IsEntityDead
-      SHX1_2 = SHX5_1.handle
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = drawNativeText
-        SHX1_2 = "Your pet has ~b~died~w~, please wait before respawning."
-        SHX0_2(SHX1_2)
-        SHX0_2 = SHX10_1
-        SHX1_2 = SHX6_1.Alert
-        SHX2_2 = "Please wait 5 minutes before respawning the pet."
-        SHX0_2(SHX1_2, SHX2_2)
-        SHX0_2 = SHX5_1.id
-        SHX1_2 = SetTimeout
-        SHX2_2 = 300000
-        function SHX3_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3
-          SHX0_3 = SHX0_1.pets
-          SHX1_3 = SHX0_2
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX0_3 = SHX0_3.info
-          SHX0_3.dead = false
-        end
-        SHX1_2(SHX2_2, SHX3_2)
-        SHX1_2 = SHX0_1.pets
-        SHX2_2 = SHX5_1.id
-        SHX1_2 = SHX1_2[SHX2_2]
-        SHX1_2 = SHX1_2.info
-        SHX1_2.dead = true
-        SHX5_1.active = false
-        SHX1_2 = RMenu
-        SHX2_2 = SHX1_2
-        SHX1_2 = SHX1_2.Get
-        SHX3_2 = "cmgpets"
-        SHX4_2 = "main"
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-        SHX2_2 = SHX1_2
-        SHX1_2 = SHX1_2.SetSubtitle
-        SHX3_2 = "Select your ~b~Pet"
-        SHX1_2(SHX2_2, SHX3_2)
-    end
-    else
-      SHX0_2 = SHX0_1.pets
-      SHX1_2 = SHX5_1.id
-      SHX0_2 = SHX0_2[SHX1_2]
-      SHX0_2 = SHX0_2.awaitingHealthReduction
-      if not SHX0_2 then
-        SHX0_2 = SHX0_1.pets
-        SHX1_2 = SHX5_1.id
-        SHX0_2 = SHX0_2[SHX1_2]
-        SHX0_2 = SHX0_2.health
-        if SHX0_2 < 1 then
-          SHX0_2 = SHX0_1.pets
-          SHX1_2 = SHX5_1.id
-          SHX0_2 = SHX0_2[SHX1_2]
-          SHX0_2.awaitingHealthReduction = true
-          SHX0_2 = SetTimeout
-          SHX1_2 = 300000
-          function SHX2_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-            SHX0_3 = SHX0_1.pets
-            SHX1_3 = SHX5_1.id
-            SHX0_3 = SHX0_3[SHX1_3]
-            SHX0_3 = SHX0_3.health
-            SHX1_3 = SHX0_3 - 10
-            if SHX1_3 < 2 then
-              SHX1_3 = 1
-              SHX2_3 = SHX10_1
-              SHX3_3 = SHX6_1.Alert
-              SHX4_3 = "You must feed your pet to continue using it. Head to a pet store!"
-              SHX2_3(SHX3_3, SHX4_3)
-            end
-            SHX2_3 = SHX0_1.pets
-            SHX3_3 = SHX5_1.id
-            SHX2_3 = SHX2_3[SHX3_3]
-            SHX2_3.health = SHX1_3
-            SHX2_3 = SHX0_1.pets
-            SHX3_3 = SHX5_1.id
-            SHX2_3 = SHX2_3[SHX3_3]
-            SHX2_3.awaitingHealthReduction = false
-            SHX2_3 = TriggerServerEvent
-            SHX3_3 = "b4523ffc6f"
-            SHX4_3 = SHX5_1.id
-            SHX5_3 = SHX1_3
-            SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-            SHX2_3 = RMenu
-            SHX3_3 = SHX2_3
-            SHX2_3 = SHX2_3.Get
-            SHX4_3 = "cmgpets"
-            SHX5_3 = "main"
-            SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-            SHX3_3 = SHX2_3
-            SHX2_3 = SHX2_3.SetSubtitle
-            SHX4_3 = "~b~Pet: ~w~"
-            SHX5_3 = SHX0_1.pets
-            SHX6_3 = SHX5_1.id
-            SHX5_3 = SHX5_3[SHX6_3]
-            SHX5_3 = SHX5_3.name
-            SHX6_3 = " ~b~Health: ~w~"
-            SHX7_3 = SHX0_1.pets
-            SHX8_3 = SHX5_1.id
-            SHX7_3 = SHX7_3[SHX8_3]
-            SHX7_3 = SHX7_3.health
-            SHX8_3 = "/100"
-            SHX4_3 = SHX4_3 .. SHX5_3 .. SHX6_3 .. SHX7_3 .. SHX8_3
-            SHX2_3(SHX3_3, SHX4_3)
-          end
-          SHX0_2(SHX1_2, SHX2_2)
-        end
-      end
-    end
-  else
-    SHX0_2 = SHX3_1.cameraEnabled
-    if SHX0_2 then
-      SHX0_2 = RageUI
-      SHX0_2 = SHX0_2.Visible
-      SHX1_2 = RMenu
-      SHX2_2 = SHX1_2
-      SHX1_2 = SHX1_2.Get
-      SHX3_2 = "cmgpets"
-      SHX4_2 = "store"
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if not SHX0_2 then
-        SHX0_2 = RenderScriptCams
-        SHX1_2 = false
-        SHX2_2 = false
-        SHX3_2 = 0
-        SHX4_2 = true
-        SHX5_2 = false
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        SHX0_2 = SHX3_1.cameraHandle
-        if nil == SHX0_2 then
-          SHX0_2 = SHX3_1.cameraHandle
-          if 0 == SHX0_2 then
-            goto SHX_LABEL_93
-          end
-        end
-        SHX0_2 = DestroyCam
-        SHX1_2 = SHX3_1.cameraHandle
-        SHX2_2 = false
-        SHX0_2(SHX1_2, SHX2_2)
-        -- [FIX IF ERROR] Move ::SHX_LABEL_93:: outside nested blocks until all 'goto SHX_LABEL_93' can see it
-        ::SHX_LABEL_93::
-        SHX3_1.cameraEnabled = false
-        SHX3_1.viewingPet = false
-      end
-    end
-  end
-end
-SHX42_1 = CMG
-function SHX43_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX5_1.active
-  return SHX0_2
-end
-SHX42_1.hasPetSpawned = SHX43_1
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.createThreadOnTick
-SHX43_1 = SHX41_1
-SHX44_1 = "Pets"
-SHX42_1(SHX43_1, SHX44_1)
-SHX42_1 = {}
-SHX43_1 = vector4
-SHX44_1 = -576.30914306641
-SHX45_1 = -1054.8338623047
-SHX46_1 = 22.430583953857
-SHX47_1 = 5.0
-SHX43_1 = SHX43_1(SHX44_1, SHX45_1, SHX46_1, SHX47_1)
-SHX44_1 = vector4
-SHX45_1 = -573.13830566406
-SHX46_1 = -1056.7286376953
-SHX47_1 = 22.34726524353
-SHX48_1 = 10.0
-SHX44_1 = SHX44_1(SHX45_1, SHX46_1, SHX47_1, SHX48_1)
-SHX45_1 = vector4
-SHX46_1 = -583.85375976562
-SHX47_1 = -1050.8475341797
-SHX48_1 = 22.903409957886
-SHX49_1 = 200.0
-SHX45_1 = SHX45_1(SHX46_1, SHX47_1, SHX48_1, SHX49_1)
-SHX46_1 = vector4
-SHX47_1 = -575.36315917969
-SHX48_1 = -1049.3723144531
-SHX49_1 = 23.532382965088
-SHX50_1 = 150.0
-SHX46_1 = SHX46_1(SHX47_1, SHX48_1, SHX49_1, SHX50_1)
-SHX47_1 = vector4
-SHX48_1 = -571.82427978516
-SHX49_1 = -1049.1110839844
-SHX50_1 = 27.636543273926
-SHX51_1 = 300.0
-SHX47_1 = SHX47_1(SHX48_1, SHX49_1, SHX50_1, SHX51_1)
-SHX48_1 = vector4
-SHX49_1 = -574.15216064453
-SHX50_1 = -1067.8732910156
-SHX51_1 = 26.716175079346
-SHX52_1 = 350.0
-SHX48_1 = SHX48_1(SHX49_1, SHX50_1, SHX51_1, SHX52_1)
-SHX49_1 = vector4
-SHX50_1 = -575.49182128906
-SHX51_1 = -1068.4104003906
-SHX52_1 = 26.867456436157
-SHX53_1 = 73.0
-SHX49_1 = SHX49_1(SHX50_1, SHX51_1, SHX52_1, SHX53_1)
-SHX50_1 = vector4
-SHX51_1 = -577.69000244141
-SHX52_1 = -1069.3704833984
-SHX53_1 = 27.260467529297
-SHX54_1 = 351.0
-SHX50_1 = SHX50_1(SHX51_1, SHX52_1, SHX53_1, SHX54_1)
-SHX51_1 = vector4
-SHX52_1 = -580.46539306641
-SHX53_1 = -1061.1938476562
-SHX54_1 = 27.50301361084
-SHX55_1 = 264.0
-SHX51_1 = SHX51_1(SHX52_1, SHX53_1, SHX54_1, SHX55_1)
-SHX52_1 = vector4
-SHX53_1 = -566.78350830078
-SHX54_1 = -1049.1219482422
-SHX55_1 = 24.757600784302
-SHX56_1 = 193.0
-SHX52_1 = SHX52_1(SHX53_1, SHX54_1, SHX55_1, SHX56_1)
-SHX53_1 = vector4
-SHX54_1 = -577.61096191406
-SHX55_1 = -1069.3815917969
-SHX56_1 = 22.990507125854
-SHX57_1 = 45.0
-SHX53_1 = SHX53_1(SHX54_1, SHX55_1, SHX56_1, SHX57_1)
-SHX54_1 = vector4
-SHX55_1 = -579.7275390625
-SHX56_1 = -1062.9910888672
-SHX57_1 = 23.105237960815
-SHX58_1 = 80.0
-SHX54_1 = SHX54_1(SHX55_1, SHX56_1, SHX57_1, SHX58_1)
-SHX55_1 = vector4
-SHX56_1 = -588.34497070312
-SHX57_1 = -1049.7238769531
-SHX58_1 = 22.344200134277
-SHX59_1 = 164.0
-SHX55_1 = SHX55_1(SHX56_1, SHX57_1, SHX58_1, SHX59_1)
-SHX56_1 = vector4
-SHX57_1 = -598.33673095703
-SHX58_1 = -1050.1214599609
-SHX59_1 = 22.849090576172
-SHX60_1 = 200.0
-SHX56_1 = SHX56_1(SHX57_1, SHX58_1, SHX59_1, SHX60_1)
-SHX57_1 = vector4
-SHX58_1 = -573.61352539062
-SHX59_1 = -1060.0550537109
-SHX60_1 = 22.639022827148
-SHX61_1 = 274.0
-SHX57_1 = SHX57_1(SHX58_1, SHX59_1, SHX60_1, SHX61_1)
-SHX58_1 = vector4
-SHX59_1 = -577.73022460938
-SHX60_1 = -1051.1755371094
-SHX61_1 = 22.347290039062
-SHX62_1 = 189.0
-SHX58_1 = SHX58_1(SHX59_1, SHX60_1, SHX61_1, SHX62_1)
-SHX59_1 = vector4
-SHX60_1 = -582.08251953125
-SHX61_1 = -1054.7325439453
-SHX62_1 = 22.429388046265
-SHX63_1 = 328.0
-SHX59_1 = SHX59_1(SHX60_1, SHX61_1, SHX62_1, SHX63_1)
-SHX60_1 = vector4
-SHX61_1 = -581.43719482422
-SHX62_1 = -1058.3192138672
-SHX63_1 = 22.344200134277
-SHX64_1 = 239.0
-SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1 = SHX60_1(SHX61_1, SHX62_1, SHX63_1, SHX64_1)
-SHX42_1[1] = SHX43_1
-SHX42_1[2] = SHX44_1
-SHX42_1[3] = SHX45_1
-SHX42_1[4] = SHX46_1
-SHX42_1[5] = SHX47_1
-SHX42_1[6] = SHX48_1
-SHX42_1[7] = SHX49_1
-SHX42_1[8] = SHX50_1
-SHX42_1[9] = SHX51_1
-SHX42_1[10] = SHX52_1
-SHX42_1[11] = SHX53_1
-SHX42_1[12] = SHX54_1
-SHX42_1[13] = SHX55_1
-SHX42_1[14] = SHX56_1
-SHX42_1[15] = SHX57_1
-SHX42_1[16] = SHX58_1
-SHX42_1[17] = SHX59_1
-SHX42_1[18] = SHX60_1
-SHX42_1[19] = SHX61_1
-SHX42_1[20] = SHX62_1
-SHX42_1[21] = SHX63_1
-SHX42_1[22] = SHX64_1
-SHX43_1 = {}
-SHX44_1 = {}
-SHX45_1 = {}
-SHX46_1 = "creatures@cat@amb@world_cat_sleeping_ground@base"
-SHX47_1 = "base"
-SHX45_1[1] = SHX46_1
-SHX45_1[2] = SHX47_1
-SHX44_1[1] = SHX45_1
-SHX45_1 = {}
-SHX46_1 = vector3
-SHX47_1 = -578.38031005859
-SHX48_1 = -1059.7563476562
-SHX49_1 = 21.339666366577
-SHX46_1 = SHX46_1(SHX47_1, SHX48_1, SHX49_1)
-SHX47_1 = vector3
-SHX48_1 = -581.20819091797
-SHX49_1 = -1053.5622558594
-SHX50_1 = 21.347272872925
-SHX47_1 = SHX47_1(SHX48_1, SHX49_1, SHX50_1)
-SHX48_1 = vector3
-SHX49_1 = -573.55206298828
-SHX50_1 = -1051.6333007812
-SHX51_1 = 21.344181060791
-SHX48_1 = SHX48_1(SHX49_1, SHX50_1, SHX51_1)
-SHX49_1 = vector3
-SHX50_1 = -581.60565185547
-SHX51_1 = -1067.0407714844
-SHX52_1 = 21.344177246094
-SHX49_1 = SHX49_1(SHX50_1, SHX51_1, SHX52_1)
-SHX50_1 = vector3
-SHX51_1 = -573.43670654297
-SHX52_1 = -1050.8446044922
-SHX53_1 = 22.344200134277
-SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1 = SHX50_1(SHX51_1, SHX52_1, SHX53_1)
-SHX45_1[1] = SHX46_1
-SHX45_1[2] = SHX47_1
-SHX45_1[3] = SHX48_1
-SHX45_1[4] = SHX49_1
-SHX45_1[5] = SHX50_1
-SHX45_1[6] = SHX51_1
-SHX45_1[7] = SHX52_1
-SHX45_1[8] = SHX53_1
-SHX45_1[9] = SHX54_1
-SHX45_1[10] = SHX55_1
-SHX45_1[11] = SHX56_1
-SHX45_1[12] = SHX57_1
-SHX45_1[13] = SHX58_1
-SHX45_1[14] = SHX59_1
-SHX45_1[15] = SHX60_1
-SHX45_1[16] = SHX61_1
-SHX45_1[17] = SHX62_1
-SHX45_1[18] = SHX63_1
-SHX45_1[19] = SHX64_1
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadModel
-  SHX1_2 = 1462895032
-  SHX0_2(SHX1_2)
-  SHX0_2 = pairs
-  SHX1_2 = SHX42_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CreatePed
-    SHX7_2 = 0
-    SHX8_2 = 1462895032
-    SHX9_2 = SHX5_2.x
-    SHX10_2 = SHX5_2.y
-    SHX11_2 = SHX5_2.z
-    SHX11_2 = SHX11_2 - 1.0
-    SHX12_2 = SHX5_2.w
-    SHX13_2 = false
-    SHX14_2 = false
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX7_2 = FreezeEntityPosition
-    SHX8_2 = SHX6_2
-    SHX9_2 = true
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = SetEntityCanBeDamaged
-    SHX8_2 = SHX6_2
-    SHX9_2 = false
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = SetBlockingOfNonTemporaryEvents
-    SHX8_2 = SHX6_2
-    SHX9_2 = true
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = SHX44_1
-    SHX7_2 = #SHX7_2
-    SHX7_2 = SHX4_2 % SHX7_2
-    SHX8_2 = SHX7_2 + 1
-    SHX7_2 = SHX44_1
-    SHX7_2 = SHX7_2[SHX8_2]
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.loadAnimDict
-    SHX9_2 = SHX7_2[1]
-    SHX8_2(SHX9_2)
-    SHX8_2 = TaskPlayAnim
-    SHX9_2 = SHX6_2
-    SHX10_2 = SHX7_2[1]
-    SHX11_2 = SHX7_2[2]
-    SHX12_2 = 8.0
-    SHX13_2 = 8.0
-    SHX14_2 = -1
-    SHX15_2 = 3
-    SHX16_2 = 1.0
-    SHX17_2 = false
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX8_2 = RemoveAnimDict
-    SHX9_2 = SHX7_2[1]
-    SHX8_2(SHX9_2)
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.insert
-    SHX9_2 = SHX43_1
-    SHX10_2 = SHX6_2
-    SHX8_2(SHX9_2, SHX10_2)
-  end
-  SHX0_2 = SetModelAsNoLongerNeeded
-  SHX1_2 = 1462895032
-  SHX0_2(SHX1_2)
-  SHX0_2 = 0
-  SHX1_2 = pairs
-  SHX2_2 = GetGamePool
-  SHX3_2 = "CPed"
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2 = SHX2_2(SHX3_2)
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = GetEntityModel
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if 1462895032 == SHX7_2 then
-      SHX7_2 = NetworkGetEntityIsNetworked
-      SHX8_2 = SHX6_2
-      SHX7_2 = SHX7_2(SHX8_2)
-      if SHX7_2 then
-        SHX0_2 = SHX0_2 + 1
-      end
-    end
-  end
-  SHX1_2 = SHX45_1
-  SHX1_2 = #SHX1_2
-  if SHX0_2 < SHX1_2 then
-    SHX1_2 = math
-    SHX1_2 = SHX1_2.random
-    SHX2_2 = 1
-    SHX3_2 = SHX45_1
-    SHX3_2 = #SHX3_2
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    SHX2_2 = SHX45_1
-    SHX1_2 = SHX2_2[SHX1_2]
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.requestEntitySpawn
-    SHX3_2 = "catcafe_cat"
-    SHX4_2 = SHX1_2
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = CreatePed
-    SHX3_2 = 0
-    SHX4_2 = 1462895032
-    SHX5_2 = SHX1_2.x
-    SHX6_2 = SHX1_2.y
-    SHX7_2 = SHX1_2.z
-    SHX8_2 = 0.0
-    SHX9_2 = true
-    SHX10_2 = true
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX3_2 = SetEntityCanBeDamaged
-    SHX4_2 = SHX2_2
-    SHX5_2 = false
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX3_2 = SetEntityProofs
-    SHX4_2 = SHX2_2
-    SHX5_2 = true
-    SHX6_2 = true
-    SHX7_2 = true
-    SHX8_2 = true
-    SHX9_2 = true
-    SHX10_2 = true
-    SHX11_2 = true
-    SHX12_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  end
-end
-function SHX47_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX0_2 = pairs
-  SHX1_2 = GetGamePool
-  SHX2_2 = "CPed"
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX1_2(SHX2_2)
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = GetEntityModel
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if 1462895032 == SHX6_2 then
-      SHX6_2 = NetworkGetEntityIsNetworked
-      SHX7_2 = SHX5_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      if SHX6_2 then
-        SHX6_2 = NetworkHasControlOfEntity
-        SHX7_2 = SHX5_2
-        SHX6_2 = SHX6_2(SHX7_2)
-        if SHX6_2 then
-          SHX6_2 = GetScriptTaskStatus
-          SHX7_2 = SHX5_2
-          SHX8_2 = 1056466932
-          SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-          if 7 == SHX6_2 then
-            SHX6_2 = TaskFollowToOffsetOfEntity
-            SHX7_2 = SHX5_2
-            SHX8_2 = PlayerPedId
-            SHX8_2 = SHX8_2()
-            SHX9_2 = 0.0
-            SHX10_2 = 0.0
-            SHX11_2 = 0.0
-            SHX12_2 = 7.0
-            SHX13_2 = -1
-            SHX14_2 = 10.0
-            SHX15_2 = true
-            SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-          end
-        end
-      end
-    end
-  end
-end
-function SHX48_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX43_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = DeleteEntity
-    SHX7_2 = SHX5_2
-    SHX6_2(SHX7_2)
-  end
-end
-SHX49_1 = CMG
-SHX49_1 = SHX49_1.createArea
-SHX50_1 = "catCafeCats"
-SHX51_1 = SHX42_1[1]
-SHX51_1 = SHX51_1.xyz
-SHX52_1 = 25.0
-SHX53_1 = 50.0
-SHX54_1 = SHX46_1
-SHX55_1 = SHX48_1
-SHX56_1 = SHX47_1
-SHX57_1 = {}
-SHX49_1(SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1)
-SHX49_1 = AddEventHandler
-SHX50_1 = "onResourceStop"
-function SHX51_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX0_2 == SHX1_2 then
-    SHX1_2 = SHX48_1
-    SHX1_2()
-  end
-end
-SHX49_1(SHX50_1, SHX51_1)
-SHX49_1 = RegisterNetEvent
-SHX50_1 = "0d37102e9e"
-function SHX51_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = NetworkDoesNetworkIdExist
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_12
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX2_2 = NetworkDoesEntityExistWithNetworkId
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = NetworkDoesEntityExistWithNetworkId
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_23
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_23:: outside nested blocks until all 'goto SHX_LABEL_23' can see it
-  ::SHX_LABEL_23::
-  SHX2_2 = NetworkGetEntityFromNetworkId
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = NetworkGetEntityFromNetworkId
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX2_2 or 0 == SHX3_2 then
-    return
-  end
-  SHX4_2 = NetworkHasControlOfEntity
-  SHX5_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if not SHX4_2 then
-    return
-  end
-  SHX4_2 = TaskCombatPed
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX3_2
-  SHX7_2 = 0
-  SHX8_2 = 16
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-end
-SHX49_1(SHX50_1, SHX51_1)
-SHX49_1 = RegisterNetEvent
-SHX50_1 = "dd2a28ff60"
-function SHX51_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = NetworkDoesNetworkIdExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = NetworkDoesEntityExistWithNetworkId
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      goto SHX_LABEL_12
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX1_2 = NetworkGetEntityFromNetworkId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = NetworkHasControlOfEntity
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_23
-    end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_23:: outside nested blocks until all 'goto SHX_LABEL_23' can see it
-  ::SHX_LABEL_23::
-  SHX2_2 = ClearPedTasksImmediately
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX49_1(SHX50_1, SHX51_1)
+)
