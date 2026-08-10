@@ -1,3 +1,33 @@
+--[[
+    BEGINNER GUIDE — Interceptconvoy
+    ================================
+
+    File: cmg/prod/cfg/heists/client/cfg_interceptconvoy.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Network/hash identifiers found: 4
+      They are intentionally left unchanged because matching server code may use them.
+      * 279175563c
+      * a9469cd747
+      * f41b06e9fc
+      * 9d5eb52282
+
+    Example player-facing text in this file:
+      * ~INPUT_MOVE_DOWN_ONLY~
+      * ~INPUT_DIVE~
+      * ~INPUT_MOVE_UP_ONLY~
+      * Press ~INPUT_ENTER~ to drive the train
+      * Press ~INPUT_PICKUP~ to start stealing
+
+]]
 ----------- [[ UTILITIES ]] -----------
 
 local function drawPlayerCount(info)

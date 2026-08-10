@@ -1,3 +1,36 @@
+--[[
+    BEGINNER GUIDE — Dynamicraces
+    =============================
+
+    File: cmg/prod/cfg/events/cfg_dynamicraces.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/rockstarmaps/ccxRAFbX8USZmDOhP3caaQ.json
+      * cfg/rockstarmaps/IHjGoM1d0kifMRcTVQVXgw.json
+      * cfg/rockstarmaps/ZtXCCFu4Wk6CDDQ1cVmiBw.json
+      * cfg/rockstarmaps/oixGUQPHzE-ocwtJJpdZtw.json
+      * cfg/rockstarmaps/CiWHsIIzCEOrwmhwKexPeg.json
+      * cfg/rockstarmaps/Fari8h-rDUq5p_L1ztoIVA.json
+      * cfg/rockstarmaps/5-WwiwJ7Lk6WyqPIz6aN-Q.json
+      * cfg/rockstarmaps/I9pYFbIIQUSNznbftXdJZw.json
+      * cfg/rockstarmaps/42hHffVDC0mouVSD0Emi2Q.json
+      * cfg/rockstarmaps/IvyGatcmtUuVcc1HLiIMzw.json
+      * cfg/rockstarmaps/DwkElN4ackimuydOabhbIA.json
+      * cfg/rockstarmaps/UwO2WZPXoUqwBtNzpwubCw.json
+
+    Example player-facing text in this file:
+      * Open Wheel
+
+]]
 local cfg = {}
 
 -- sick deathmatch one https://socialclub.rockstargames.com/job/gtav/Vqe_GXKc-E2BhjYuLQJIIg

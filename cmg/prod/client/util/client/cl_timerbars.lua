@@ -1,493 +1,444 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    HUD Timer-Bar Manager
+    =====================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1
-SHX0_1 = CMG
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX1_2 = {}
-  SHX0_2.timers = SHX1_2
-  function SHX1_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-    SHX5_3 = table
-    SHX5_3 = SHX5_3.insert
-    SHX6_3 = SHX0_2.timers
-    SHX7_3 = {}
-    SHX8_3 = SHX0_3
-    SHX9_3 = SHX1_3
-    SHX10_3 = SHX2_3
-    SHX11_3 = SHX3_3
-    SHX12_3 = SHX4_3
-    SHX7_3[1] = SHX8_3
-    SHX7_3[2] = SHX9_3
-    SHX7_3[3] = SHX10_3
-    SHX7_3[4] = SHX11_3
-    SHX7_3[5] = SHX12_3
-    SHX5_3(SHX6_3, SHX7_3)
-  end
-  SHX0_2.push = SHX1_2
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-    SHX0_3 = ipairs
-    SHX1_3 = SHX0_2.timers
-    SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-    for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-      SHX6_3 = DrawGTATimerBar
-      SHX7_3 = SHX5_3[1]
-      SHX8_3 = SHX5_3[2]
-      SHX9_3 = SHX4_3
-      SHX10_3 = SHX5_3[3]
-      SHX11_3 = SHX5_3[4]
-      SHX12_3 = SHX5_3[5]
-      SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+    This is the shared system used by many minigames/jobs to draw GTA-style
+    timer bars.
+
+    Two layers exist:
+
+      1. CMG.createTimerBars()
+         Creates a temporary local collection with:
+           bars.push(label, value, optional...)
+           bars.draw()
+           bars.reset()
+           bars.rowCount()
+
+         Minigames such as One In The Chamber use this directly.
+
+      2. Global HUD providers + duration timers
+         Other systems can register:
+           CMG.registerHudTimerBarProvider(name, buildFunction)
+           CMG.setHudTimerBarProviderActive(name, true/false)
+
+         buildFunction(timerBars) adds rows each frame.
+
+         One-off countdowns use:
+           CMG.addHudDurationTimer(id, label, seconds, onExpire)
+           CMG.removeHudTimer(id)
+           CMG.isHudTimerActive(id)
+           CMG.getHudTimerRemainingSeconds(id)
+
+    The manager only creates its every-frame rendering thread while at least
+    one duration timer or enabled provider exists.
+]]
+
+-- ============================================================
+-- SIMPLE TIMER-BAR COLLECTION
+-- ============================================================
+
+function CMG.createTimerBars()
+    local collection = {
+        timers = {}
+    }
+
+    function collection.push(
+        label,
+        value,
+        option3,
+        option4,
+        option5
+    )
+        table.insert(
+            collection.timers,
+            {
+                label,
+                value,
+                option3,
+                option4,
+                option5
+            }
+        )
     end
-  end
-  SHX0_2.draw = SHX1_2
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = {}
-    SHX0_2.timers = SHX0_3
-  end
-  SHX0_2.reset = SHX1_2
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX0_2.timers
-    SHX0_3 = #SHX0_3
-    return SHX0_3
-  end
-  SHX0_2.rowCount = SHX1_2
-  return SHX0_2
-end
-SHX0_1.createTimerBars = SHX1_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = {}
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.max
-  SHX2_2 = 0
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.ceil
-  SHX4_2 = SHX0_2 / 1000
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX3_2(SHX4_2)
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.floor
-  SHX3_2 = SHX1_2 / 60
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX1_2 % 60
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.format
-  SHX5_2 = "%d:%02d"
-  SHX6_2 = SHX2_2
-  SHX7_2 = SHX3_2
-  return SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = next
-  SHX1_2 = SHX0_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  if nil ~= SHX0_2 then
-    SHX0_2 = true
-    return SHX0_2
-  end
-  SHX0_2 = ipairs
-  SHX1_2 = SHX2_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX1_1
-    SHX6_2 = SHX6_2[SHX5_2]
-    if SHX6_2 then
-      SHX7_2 = SHX6_2.enabled
-      if SHX7_2 then
-        SHX7_2 = true
-        return SHX7_2
-      end
-    end
-  end
-  SHX0_2 = false
-  return SHX0_2
-end
-SHX5_1 = false
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.createTimerBars
-  SHX1_2 = SHX1_2()
-  SHX2_2 = {}
-  SHX3_2 = {}
-  SHX4_2 = pairs
-  SHX5_2 = SHX0_1
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX9_2 = #SHX3_2
-    SHX9_2 = SHX9_2 + 1
-    SHX3_2[SHX9_2] = SHX8_2
-  end
-  SHX4_2 = table
-  SHX4_2 = SHX4_2.sort
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = ipairs
-  SHX5_2 = SHX3_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = SHX0_1
-    SHX10_2 = SHX10_2[SHX9_2]
-    SHX11_2 = SHX10_2.endTime
-    SHX11_2 = SHX11_2 - SHX0_2
-    if SHX11_2 > 0 then
-      SHX12_2 = SHX10_2.label
-      if not SHX12_2 then
-        SHX12_2 = SHX9_2
-      end
-      SHX13_2 = SHX3_1
-      SHX14_2 = SHX11_2
-      SHX13_2 = SHX13_2(SHX14_2)
-      SHX14_2 = 60000
-      if SHX11_2 < SHX14_2 then
-        SHX14_2 = "~r~"
-        if SHX14_2 then
-          goto SHX_LABEL_50
+
+    function collection.draw()
+        for rowIndex, row
+            in ipairs(
+                collection.timers
+            ) do
+
+            DrawGTATimerBar(
+                row[1],
+                row[2],
+                rowIndex,
+                row[3],
+                row[4],
+                row[5]
+            )
         end
-      end
-      SHX14_2 = "~y~"
-      -- [FIX IF ERROR] Move ::SHX_LABEL_50:: outside nested blocks until all 'goto SHX_LABEL_50' can see it
-      ::SHX_LABEL_50::
-      SHX15_2 = SHX1_2.push
-      SHX16_2 = SHX14_2
-      SHX17_2 = SHX12_2
-      SHX18_2 = "~w~"
-      SHX16_2 = SHX16_2 .. SHX17_2 .. SHX18_2
-      SHX17_2 = SHX13_2
-      SHX15_2(SHX16_2, SHX17_2)
-    else
-      SHX12_2 = #SHX2_2
-      SHX12_2 = SHX12_2 + 1
-      SHX13_2 = {}
-      SHX13_2.timerId = SHX9_2
-      SHX14_2 = SHX10_2.onExpire
-      SHX13_2.onExpire = SHX14_2
-      SHX2_2[SHX12_2] = SHX13_2
     end
-  end
-  SHX4_2 = ipairs
-  SHX5_2 = SHX2_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX11_2 = SHX9_2.timerId
-    SHX10_2 = SHX0_1
-    SHX10_2[SHX11_2] = nil
-    SHX10_2 = SHX9_2.onExpire
-    if SHX10_2 then
-      SHX10_2 = SHX9_2.onExpire
-      SHX10_2()
+
+    function collection.reset()
+        collection.timers = {}
     end
-  end
-  SHX4_2 = ipairs
-  SHX5_2 = SHX2_1
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = SHX1_1
-    SHX10_2 = SHX10_2[SHX9_2]
-    if SHX10_2 then
-      SHX11_2 = SHX10_2.enabled
-      if SHX11_2 then
-        SHX11_2 = SHX10_2.build
-        SHX12_2 = SHX1_2
-        SHX11_2(SHX12_2)
-      end
+
+    function collection.rowCount()
+        return
+            #collection.timers
     end
-  end
-  SHX4_2 = SHX1_2.rowCount
-  SHX4_2 = SHX4_2()
-  if SHX4_2 > 0 then
-    SHX4_2 = SHX1_2.draw
-    SHX4_2()
-  end
+
+    return collection
 end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX5_1
-  if SHX0_2 then
+
+
+-- ============================================================
+-- GLOBAL PROVIDERS / DURATION TIMERS
+-- ============================================================
+
+local durationTimers = {}
+
+local providers = {}
+
+-- Maintains deterministic provider order.
+local providerOrder = {}
+
+local renderThreadRunning =
+    false
+
+
+local function formatDuration(
+    milliseconds
+)
+    local totalSeconds =
+        math.max(
+            0,
+            math.ceil(
+                milliseconds
+                / 1000
+            )
+        )
+
+    local minutes =
+        math.floor(
+            totalSeconds / 60
+        )
+
+    local seconds =
+        totalSeconds % 60
+
     return
-  end
-  SHX0_2 = SHX4_1
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    return
-  end
-  SHX0_2 = true
-  SHX5_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    while true do
-      SHX0_3 = SHX5_1
-      if not SHX0_3 then
-        break
-      end
-      SHX0_3 = SHX4_1
-      SHX0_3 = SHX0_3()
-      if not SHX0_3 then
-        SHX0_3 = false
-        SHX5_1 = SHX0_3
-        break
-      end
-      SHX0_3 = SHX6_1
-      SHX0_3()
-      SHX0_3 = Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
+        string.format(
+            "%d:%02d",
+            minutes,
+            seconds
+        )
+end
+
+
+local function anythingNeedsRendering()
+    if next(durationTimers) ~= nil then
+        return true
     end
-  end
-  SHX0_2(SHX1_2)
-end
-SHX8_1 = CMG
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX2_2 then
-    return
-  end
-  SHX2_2 = SHX1_1
-  SHX3_2 = {}
-  SHX3_2.build = SHX1_2
-  SHX3_2.enabled = false
-  SHX2_2[SHX0_2] = SHX3_2
-  SHX2_2 = SHX2_1
-  SHX2_2 = #SHX2_2
-  SHX3_2 = SHX2_2 + 1
-  SHX2_2 = SHX2_1
-  SHX2_2[SHX3_2] = SHX0_2
-end
-SHX8_1.registerHudTimerBarProvider = SHX9_1
-SHX8_1 = CMG
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if not SHX2_2 then
-    return
-  end
-  if SHX1_2 then
-    SHX3_2 = true
-    if SHX3_2 then
-      goto SHX_LABEL_12
+
+    for _, providerName
+        in ipairs(providerOrder) do
+
+        local provider =
+            providers[
+                providerName
+            ]
+
+        if provider
+            and provider.enabled then
+            return true
+        end
     end
-  end
-  SHX3_2 = false
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX2_2.enabled = SHX3_2
-  SHX3_2 = SHX7_1
-  SHX3_2()
+
+    return false
 end
-SHX8_1.setHudTimerBarProviderActive = SHX9_1
-SHX8_1 = CMG
-function SHX9_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.max
-  SHX5_2 = 0
-  SHX6_2 = SHX2_2 or SHX6_2
-  if not SHX2_2 then
-    SHX6_2 = 0
-  end
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = SHX0_1
-  SHX6_2 = {}
-  SHX7_2 = GetGameTimer
-  SHX7_2 = SHX7_2()
-  SHX8_2 = SHX4_2 * 1000
-  SHX7_2 = SHX7_2 + SHX8_2
-  SHX6_2.endTime = SHX7_2
-  SHX6_2.label = SHX1_2
-  SHX6_2.onExpire = SHX3_2
-  SHX5_2[SHX0_2] = SHX6_2
-  SHX5_2 = SHX7_1
-  SHX5_2()
-end
-SHX8_1.addHudDurationTimer = SHX9_1
-SHX8_1 = CMG
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    return
-  end
-  SHX2_2 = SHX0_1
-  SHX2_2[SHX0_2] = nil
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX1_2.endTime
-  if SHX2_2 >= SHX3_2 then
-    SHX3_2 = SHX1_2.onExpire
-    if SHX3_2 then
-      SHX3_2 = SHX1_2.onExpire
-      SHX3_2()
+
+
+local function buildAndDrawGlobalBars()
+    local now =
+        GetGameTimer()
+
+    local timerBars =
+        CMG.createTimerBars()
+
+    local expired = {}
+
+    -- Sort timer IDs for stable display order.
+    local timerIds = {}
+
+    for timerId
+        in pairs(durationTimers) do
+
+        table.insert(
+            timerIds,
+            timerId
+        )
     end
-  end
+
+    table.sort(timerIds)
+
+    for _, timerId
+        in ipairs(timerIds) do
+
+        local timer =
+            durationTimers[
+                timerId
+            ]
+
+        local remaining =
+            timer.endTime - now
+
+        if remaining > 0 then
+            local label =
+                timer.label
+                or timerId
+
+            local colour =
+                remaining < 60000
+                and "~r~"
+                or "~y~"
+
+            timerBars.push(
+                colour
+                    .. tostring(label)
+                    .. "~w~",
+                formatDuration(
+                    remaining
+                )
+            )
+        else
+            table.insert(
+                expired,
+                {
+                    timerId =
+                        timerId,
+
+                    onExpire =
+                        timer.onExpire
+                }
+            )
+        end
+    end
+
+    -- Delete expired entries AFTER iterating.
+    for _, data
+        in ipairs(expired) do
+
+        durationTimers[
+            data.timerId
+        ] = nil
+
+        if data.onExpire then
+            data.onExpire()
+        end
+    end
+
+    -- Let enabled providers append their own custom rows.
+    for _, providerName
+        in ipairs(providerOrder) do
+
+        local provider =
+            providers[
+                providerName
+            ]
+
+        if provider
+            and provider.enabled then
+
+            provider.build(
+                timerBars
+            )
+        end
+    end
+
+    if timerBars.rowCount() > 0 then
+        timerBars.draw()
+    end
 end
-SHX8_1.removeHudTimer = SHX9_1
-SHX8_1 = CMG
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX2_2 = false
-    return SHX2_2
-  end
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX1_2.endTime
-  SHX2_2 = SHX2_2 < SHX3_2
-  return SHX2_2
+
+
+-- ============================================================
+-- START RENDER THREAD WHEN NEEDED
+-- ============================================================
+
+local function ensureRenderThread()
+    if renderThreadRunning then
+        return
+    end
+
+    if not anythingNeedsRendering() then
+        return
+    end
+
+    renderThreadRunning = true
+
+    Citizen.CreateThread(function()
+        while renderThreadRunning do
+            if not anythingNeedsRendering() then
+                renderThreadRunning =
+                    false
+                break
+            end
+
+            buildAndDrawGlobalBars()
+
+            Wait(0)
+        end
+    end)
 end
-SHX8_1.isHudTimerActive = SHX9_1
-SHX8_1 = CMG
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX2_2 = nil
-    return SHX2_2
-  end
-  SHX2_2 = SHX1_2.endTime
-  SHX3_2 = GetGameTimer
-  SHX3_2 = SHX3_2()
-  SHX2_2 = SHX2_2 - SHX3_2
-  if SHX2_2 <= 0 then
-    SHX3_2 = nil
-    return SHX3_2
-  end
-  SHX3_2 = SHX2_2 / 1000
-  return SHX3_2
+
+
+-- ============================================================
+-- PROVIDER API
+-- ============================================================
+
+function CMG.registerHudTimerBarProvider(
+    providerName,
+    buildFunction
+)
+    if providers[
+        providerName
+    ] then
+        return
+    end
+
+    providers[
+        providerName
+    ] = {
+        build =
+            buildFunction,
+        enabled =
+            false
+    }
+
+    table.insert(
+        providerOrder,
+        providerName
+    )
 end
-SHX8_1.getHudTimerRemainingSeconds = SHX9_1
+
+
+function CMG.setHudTimerBarProviderActive(
+    providerName,
+    enabled
+)
+    local provider =
+        providers[
+            providerName
+        ]
+
+    if not provider then
+        return
+    end
+
+    provider.enabled =
+        enabled == true
+
+    ensureRenderThread()
+end
+
+
+-- ============================================================
+-- DURATION-TIMER API
+-- ============================================================
+
+function CMG.addHudDurationTimer(
+    timerId,
+    label,
+    durationSeconds,
+    onExpire
+)
+    durationSeconds =
+        math.max(
+            0,
+            durationSeconds
+                or 0
+        )
+
+    durationTimers[timerId] = {
+        endTime =
+            GetGameTimer()
+            + durationSeconds
+                * 1000,
+
+        label = label,
+
+        onExpire = onExpire
+    }
+
+    ensureRenderThread()
+end
+
+
+function CMG.removeHudTimer(
+    timerId
+)
+    local timer =
+        durationTimers[
+            timerId
+        ]
+
+    if not timer then
+        return
+    end
+
+    durationTimers[
+        timerId
+    ] = nil
+
+    -- Preserve original behaviour: if removeHudTimer is called AFTER its end
+    -- time, run its expiration callback.
+    if GetGameTimer()
+        >= timer.endTime
+        and timer.onExpire then
+
+        timer.onExpire()
+    end
+end
+
+
+function CMG.isHudTimerActive(
+    timerId
+)
+    local timer =
+        durationTimers[
+            timerId
+        ]
+
+    if not timer then
+        return false
+    end
+
+    return
+        GetGameTimer()
+        < timer.endTime
+end
+
+
+function CMG.getHudTimerRemainingSeconds(
+    timerId
+)
+    local timer =
+        durationTimers[
+            timerId
+        ]
+
+    if not timer then
+        return nil
+    end
+
+    local remainingMs =
+        timer.endTime
+        - GetGameTimer()
+
+    if remainingMs <= 0 then
+        return nil
+    end
+
+    return
+        remainingMs / 1000
+end

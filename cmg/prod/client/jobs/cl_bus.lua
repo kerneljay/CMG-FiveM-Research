@@ -1,4 +1,59 @@
 --[[
+    Beginner Guide: cl_bus.lua
+    ==========================
+
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Important events used:
+      * CMG:onClientSpawn
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Bus
+    ====================
+
+    File: cmg/prod/client/jobs/cl_bus.lua
+    Purpose: This file contains job gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 5
+      They are intentionally left unchanged because matching server code may use them.
+      * 7332a52cba
+      * 3ecacefd77
+      * 76c99145ae
+      * ea390002ee
+      * f94f6be633
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+    Example player-facing text in this file:
+      * ~g~Bus Job started, exit the bus station and head to the first bus stop.
+      * Press ~INPUT_PICKUP~ to start your bus shift
+      * Bus Driver Job
+
+]]
+--[[
     CMG BUS DRIVER JOB
     Beginner-Friendly Rewrite
     ================================================================
@@ -86,7 +141,7 @@ local EVENTS = {
 -- 3. JOB STATE
 ---------------------------------------------------------------------
 --
--- Instead of SHX0_1.tempVehicle / SHX0_1.cashEarned etc,
+-- Instead of workValue.tempVehicle / workValue.cashEarned etc,
 -- keep everything in one clearly named table.
 ---------------------------------------------------------------------
 

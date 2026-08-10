@@ -1,123 +1,106 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    UUID / Unique-Code Generator
+    ============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX1_1.alphabet = "abcdefghijklmnopqrstuvwxyz"
-SHX1_1.numerical = "0123456789"
-SHX1_1.alphanumeric = "abcdefghijklmnopqrstuvwxyz0123456789"
-function SHX2_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = 0
-  SHX3_2 = ""
-  SHX4_2 = 0
-  SHX5_2 = {}
-  SHX6_2 = SHX1_1
-  SHX6_2 = SHX6_2[SHX1_2]
-  SHX5_2[1] = SHX6_2
-  repeat
-    SHX2_2 = SHX2_2 + 1
-    SHX6_2 = math
-    SHX6_2 = SHX6_2.random
-    SHX7_2 = SHX5_2[SHX2_2]
-    SHX8_2 = SHX7_2
-    SHX7_2 = SHX7_2.len
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX4_2 = SHX6_2
-    SHX6_2 = math
-    SHX6_2 = SHX6_2.random
-    SHX7_2 = 2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if 1 == SHX6_2 then
-      SHX6_2 = SHX3_2
-      SHX7_2 = SHX5_2[SHX2_2]
-      SHX8_2 = SHX7_2
-      SHX7_2 = SHX7_2.sub
-      SHX9_2 = SHX4_2
-      SHX10_2 = SHX4_2
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX6_2 = SHX6_2 .. SHX7_2
-      SHX3_2 = SHX6_2
-    else
-      SHX6_2 = SHX5_2[SHX2_2]
-      SHX7_2 = SHX6_2
-      SHX6_2 = SHX6_2.sub
-      SHX8_2 = SHX4_2
-      SHX9_2 = SHX4_2
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-      SHX7_2 = SHX3_2
-      SHX6_2 = SHX6_2 .. SHX7_2
-      SHX3_2 = SHX6_2
-    end
-    SHX6_2 = #SHX5_2
-    SHX2_2 = SHX2_2 % SHX6_2
-    SHX7_2 = SHX3_2
-    SHX6_2 = SHX3_2.len
-    SHX6_2 = SHX6_2(SHX7_2)
-  until SHX0_2 <= SHX6_2
-  return SHX3_2
+    CMG.generateUUID(namespace, length, characterSet)
+
+    Generates a random string and remembers every generated value inside the
+    supplied namespace so the same code is not returned twice during this
+    client session.
+
+    characterSet can be:
+      "alphabet"     -> letters only
+      "numerical"    -> numbers only
+      "alphanumeric" -> letters and numbers (default)
+
+    The original random-string helper sometimes PREPENDS and sometimes APPENDS
+    each random character. That unusual behaviour is preserved.
+]]
+
+local generatedByNamespace = {}
+
+local characterSets = {
+    alphabet =
+        "abcdefghijklmnopqrstuvwxyz",
+
+    numerical =
+        "0123456789",
+
+    alphanumeric =
+        "abcdefghijklmnopqrstuvwxyz0123456789"
+}
+
+local function randomString(length, characterSetName)
+    local characters =
+        characterSets[characterSetName]
+
+    assert(
+        characters,
+        "Unknown UUID character set: "
+            .. tostring(characterSetName)
+    )
+
+    local result = ""
+
+    repeat
+        local randomIndex =
+            math.random(
+                characters:len()
+            )
+
+        local character =
+            characters:sub(
+                randomIndex,
+                randomIndex
+            )
+
+        if math.random(2) == 1 then
+            result =
+                result .. character
+        else
+            result =
+                character .. result
+        end
+    until result:len() >= length
+
+    return result
 end
-SHX3_1 = CMG
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = SHX0_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  if nil == SHX3_2 then
-    SHX3_2 = SHX0_1
-    SHX4_2 = {}
-    SHX3_2[SHX0_2] = SHX4_2
-  end
-  if nil == SHX2_2 then
-    SHX2_2 = "alphanumeric"
-  end
-  SHX3_2 = SHX2_1
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = SHX0_1
-  SHX4_2 = SHX4_2[SHX0_2]
-  SHX4_2 = SHX4_2[SHX3_2]
-  if SHX4_2 then
-    while true do
-      SHX4_2 = SHX0_1
-      SHX4_2 = SHX4_2[SHX0_2]
-      SHX4_2 = SHX4_2[SHX3_2]
-      if nil == SHX4_2 then
-        break
-      end
-      SHX4_2 = SHX2_1
-      SHX5_2 = SHX1_2
-      SHX6_2 = SHX2_2
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-      SHX3_2 = SHX4_2
-      SHX4_2 = Wait
-      SHX5_2 = 0
-      SHX4_2(SHX5_2)
+
+function CMG.generateUUID(
+    namespace,
+    length,
+    characterSetName
+)
+    generatedByNamespace[namespace] =
+        generatedByNamespace[namespace]
+        or {}
+
+    characterSetName =
+        characterSetName
+        or "alphanumeric"
+
+    local uuid =
+        randomString(
+            length,
+            characterSetName
+        )
+
+    while generatedByNamespace[
+        namespace
+    ][uuid] do
+
+        uuid =
+            randomString(
+                length,
+                characterSetName
+            )
+
+        Wait(0)
     end
-  end
-  SHX4_2 = SHX0_1
-  SHX4_2 = SHX4_2[SHX0_2]
-  SHX4_2[SHX3_2] = true
-  return SHX3_2
+
+    generatedByNamespace[
+        namespace
+    ][uuid] = true
+
+    return uuid
 end
-SHX3_1.generateUUID = SHX4_1

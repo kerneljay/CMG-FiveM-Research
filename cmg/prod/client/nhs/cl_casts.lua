@@ -1,1115 +1,1058 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_casts.lua
+    ============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_casts"
-SHX0_1 = SHX0_1(SHX1_1)
-if not SHX0_1 then
-  SHX0_1 = {}
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Casts
+    ======================
+
+    File: cmg/prod/client/nhs/cl_casts.lua
+    Purpose: This file contains NHS/medical gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_casts
+      * cfg/cfg_forcedequipment
+
+    Network/hash identifiers found: 12
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * ~g~You have been bandaged.
+
+]]
+local cmgCall, dataTable, cmgCall4, dataTable2, dataTable3, dataTable4, workValue13, workValue15, workValue16, workValue17, workValue, workValue3, workValue4, workValue5, threadCall, workValue7, cmgCall3, textValue, workValue9
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+dataTable = "cfg/cfg_casts"
+-- Beginner: result below is config.
+cmgCall = cmgCall(dataTable)
+if not cmgCall then
+  cmgCall = {}
 end
-SHX1_1 = SHX0_1.casts
-if not SHX1_1 then
-  SHX1_1 = {}
+dataTable = cmgCall.casts
+if not dataTable then
+  dataTable = {}
 end
-SHX2_1 = CMG
-SHX2_1 = SHX2_1.loadModule
-SHX3_1 = "cfg/cfg_forcedequipment"
-SHX2_1 = SHX2_1(SHX3_1)
-SHX2_1 = SHX2_1.types
-SHX2_1 = SHX2_1.casts
-SHX2_1 = SHX2_1.defaultDurationSeconds
-SHX3_1 = {}
-SHX4_1 = {}
-SHX5_1 = {}
-SHX6_1 = nil
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX0_1.hashMale
-  if SHX1_2 == SHX2_2 then
-    SHX2_2 = "m"
-    return SHX2_2
+cmgCall4 = CMG
+cmgCall4 = cmgCall4.loadModule
+dataTable2 = "cfg/cfg_forcedequipment"
+-- Beginner: result below is config.
+cmgCall4 = cmgCall4(dataTable2)
+cmgCall4 = cmgCall4.types
+cmgCall4 = cmgCall4.casts
+cmgCall4 = cmgCall4.defaultDurationSeconds
+dataTable2 = {}
+dataTable3 = {}
+dataTable4 = {}
+workValue13 = nil
+function workValue15(arg1)
+  local arg2, arg3
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = cmgCall.hashMale
+  if arg2 == arg3 then
+    arg3 = "m"
+    return arg3
   end
-  SHX2_2 = SHX0_1.hashFemale
-  if SHX1_2 == SHX2_2 then
-    SHX2_2 = "f"
-    return SHX2_2
+  arg3 = cmgCall.hashFemale
+  if arg2 == arg3 then
+    arg3 = "f"
+    return arg3
   end
-  SHX2_2 = "m"
-  return SHX2_2
+  arg3 = "m"
+  return arg3
 end
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = HasAnimDictLoaded
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = true
-    return SHX1_2
+function workValue16(arg1)
+  local arg2, arg3, arg4
+  arg2 = HasAnimDictLoaded
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = true
+    return arg2
   end
-  SHX1_2 = RequestAnimDict
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = 0
+  arg2 = RequestAnimDict
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = 0
   while true do
-    SHX2_2 = HasAnimDictLoaded
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not (not SHX2_2 and SHX1_2 < 100) then
+    arg3 = HasAnimDictLoaded
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    if not (not arg3 and arg2 < 100) then
       break
     end
-    SHX2_2 = Wait
-    SHX3_2 = 10
-    SHX2_2(SHX3_2)
-    SHX1_2 = SHX1_2 + 1
+    arg3 = Wait
+    arg4 = 10
+    arg3(arg4)
+    arg2 = arg2 + 1
   end
-  SHX2_2 = HasAnimDictLoaded
-  SHX3_2 = SHX0_2
-  return SHX2_2(SHX3_2)
+  arg3 = HasAnimDictLoaded
+  arg4 = arg1
+  return arg3(arg4)
 end
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = HasClipSetLoaded
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = true
-    return SHX1_2
+function workValue17(arg1)
+  local arg2, arg3, arg4
+  arg2 = HasClipSetLoaded
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = true
+    return arg2
   end
-  SHX1_2 = RequestClipSet
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = 0
+  arg2 = RequestClipSet
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = 0
   while true do
-    SHX2_2 = HasClipSetLoaded
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not (not SHX2_2 and SHX1_2 < 100) then
+    arg3 = HasClipSetLoaded
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    if not (not arg3 and arg2 < 100) then
       break
     end
-    SHX2_2 = Wait
-    SHX3_2 = 10
-    SHX2_2(SHX3_2)
-    SHX1_2 = SHX1_2 + 1
+    arg3 = Wait
+    arg4 = 10
+    arg3(arg4)
+    arg2 = arg2 + 1
   end
-  SHX2_2 = HasClipSetLoaded
-  SHX3_2 = SHX0_2
-  return SHX2_2(SHX3_2)
+  arg3 = HasClipSetLoaded
+  arg4 = arg1
+  return arg3(arg4)
 end
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.removeForcedEquipment
-  SHX1_2 = "Cast"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.removeForcedEquipment
-  SHX1_2 = "Bandage"
-  SHX0_2(SHX1_2)
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = nil
-  SHX2_2 = nil
-  SHX3_2 = pairs
-  SHX4_2 = SHX5_1
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    if SHX8_2 > SHX0_2 and (nil == SHX2_2 or SHX8_2 < SHX2_2) then
-      SHX1_2 = SHX7_2
-      SHX2_2 = SHX8_2
+function workValue()
+  local arg1, arg2, arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2
+  arg1 = CMG
+  arg1 = arg1.removeForcedEquipment
+  arg2 = "Cast"
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.removeForcedEquipment
+  arg2 = "Bandage"
+  arg1(arg2)
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
+  arg2 = nil
+  arg3 = nil
+  arg4 = pairs
+  serverEventCall = dataTable4
+  arg4, serverEventCall, textValue3, labelValue = arg4(serverEventCall)
+  for cmgCall5, textValue4 in arg4, serverEventCall, textValue3, labelValue do
+    if textValue4 > arg1 and (nil == arg3 or textValue4 < arg3) then
+      arg2 = cmgCall5
+      arg3 = textValue4
     end
   end
-  if SHX1_2 and SHX2_2 then
-    SHX3_2 = SHX2_2 - SHX0_2
-    SHX3_2 = SHX3_2 / 1000
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX1_3 = SHX1_2
-      SHX0_3 = SHX5_1
-      SHX0_3[SHX1_3] = nil
-      SHX0_3 = SHX6_1
-      SHX1_3 = SHX1_2
-      SHX0_3(SHX1_3)
-      SHX0_3 = SHX10_1
-      SHX0_3()
+  if arg2 and arg3 then
+    arg4 = arg3 - arg1
+    arg4 = arg4 / 1000
+    function serverEventCall()
+      local waitCall, numberValue5
+      numberValue5 = arg2
+      waitCall = dataTable4
+      waitCall[numberValue5] = nil
+      waitCall = workValue13
+      numberValue5 = arg2
+      waitCall(numberValue5)
+      waitCall = workValue
+      waitCall()
     end
-    SHX5_2 = SHX1_1
-    SHX5_2 = SHX5_2[SHX1_2]
-    if SHX5_2 then
-      SHX6_2 = SHX5_2.label
-      if SHX6_2 then
-        SHX6_2 = SHX5_2.label
-        SHX7_2 = SHX6_2
-        SHX6_2 = SHX6_2.find
-        SHX8_2 = "Bandage"
-        SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-        if SHX6_2 then
-          SHX6_2 = "Bandage"
-          if SHX6_2 then
-            goto SHX_LABEL_53
+    textValue3 = dataTable
+    textValue3 = textValue3[arg2]
+    if textValue3 then
+      labelValue = textValue3.label
+      if labelValue then
+        labelValue = textValue3.label
+        cmgCall5 = labelValue
+        labelValue = labelValue.find
+        textValue4 = "Bandage"
+        labelValue = labelValue(cmgCall5, textValue4)
+        if labelValue then
+          labelValue = "Bandage"
+          if labelValue then
+            goto flow_label_53
           end
         end
       end
     end
-    SHX6_2 = "Cast"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_53:: outside nested blocks until all 'goto SHX_LABEL_53' can see it
-    ::SHX_LABEL_53::
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.addForcedEquipment
-    SHX8_2 = SHX6_2
-    SHX9_2 = SHX3_2
-    SHX10_2 = SHX4_2
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2)
+    labelValue = "Cast"
+    ::flow_label_53::
+    cmgCall5 = CMG
+    cmgCall5 = cmgCall5.addForcedEquipment
+    textValue4 = labelValue
+    workValue18 = arg4
+    workValue2 = serverEventCall
+    cmgCall5(textValue4, workValue18, workValue2)
   end
 end
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  if SHX1_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_9
+function workValue3(arg1, arg2)
+  local arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4
+  if arg2 then
+    arg3 = DoesEntityExist
+    arg4 = arg2
+    arg3 = arg3(arg4)
+    if arg3 then
+      goto flow_label_9
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX2_2 = tostring
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = NetworkGetNetworkIdFromEntity
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 and 0 ~= SHX3_2 then
-    SHX4_2 = TriggerServerEvent
-    SHX5_2 = "ce24d993d8"
-    SHX6_2 = "cast"
-    SHX7_2 = SHX3_2
-    SHX8_2 = SHX2_2
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  ::flow_label_9::
+  arg3 = tostring
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  arg4 = NetworkGetNetworkIdFromEntity
+  serverEventCall = arg2
+  arg4 = arg4(serverEventCall)
+  if arg4 and 0 ~= arg4 then
+    serverEventCall = TriggerServerEvent
+    textValue3 = "ce24d993d8"
+    labelValue = "cast"
+    cmgCall5 = arg4
+    textValue4 = arg3
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ce24d993d8".
+    serverEventCall(textValue3, labelValue, cmgCall5, textValue4)
   else
-    SHX4_2 = CreateThread
-    function SHX5_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = Wait
-      SHX1_3 = 100
-      SHX0_3(SHX1_3)
-      SHX0_3 = SHX1_2
-      if SHX0_3 then
-        SHX0_3 = DoesEntityExist
-        SHX1_3 = SHX1_2
-        SHX0_3 = SHX0_3(SHX1_3)
-        if SHX0_3 then
-          SHX0_3 = NetworkGetNetworkIdFromEntity
-          SHX1_3 = SHX1_2
-          SHX0_3 = SHX0_3(SHX1_3)
-          SHX3_2 = SHX0_3
-          SHX0_3 = SHX3_2
-          if SHX0_3 then
-            SHX0_3 = SHX3_2
-            if 0 ~= SHX0_3 then
-              SHX0_3 = TriggerServerEvent
-              SHX1_3 = "ce24d993d8"
-              SHX2_3 = "cast"
-              SHX3_3 = SHX3_2
-              SHX4_3 = SHX2_2
-              SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+    serverEventCall = CreateThread
+    -- Beginner: this function is the body of a background FiveM thread.
+    function textValue3()
+      local waitCall, numberValue5, textValue2, numberValue11, workValue11
+      waitCall = Wait
+      numberValue5 = 100
+      waitCall(numberValue5)
+      waitCall = arg2
+      if waitCall then
+        waitCall = DoesEntityExist
+        numberValue5 = arg2
+        waitCall = waitCall(numberValue5)
+        if waitCall then
+          waitCall = NetworkGetNetworkIdFromEntity
+          numberValue5 = arg2
+          waitCall = waitCall(numberValue5)
+          arg4 = waitCall
+          waitCall = arg4
+          if waitCall then
+            waitCall = arg4
+            if 0 ~= waitCall then
+              waitCall = TriggerServerEvent
+              numberValue5 = "ce24d993d8"
+              textValue2 = "cast"
+              numberValue11 = arg4
+              workValue11 = arg3
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ce24d993d8".
+              waitCall(numberValue5, textValue2, numberValue11, workValue11)
             end
           end
         end
       end
     end
-    SHX4_2(SHX5_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    serverEventCall(textValue3)
   end
 end
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX2_2 = SHX5_1
-  SHX2_2[SHX0_2] = nil
-  SHX2_2 = SHX3_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX2_2 then
-    SHX3_2 = DoesEntityExist
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      SHX3_2 = DetachEntity
-      SHX4_2 = SHX2_2
-      SHX5_2 = false
-      SHX6_2 = false
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DeleteEntity
-      SHX4_2 = SHX2_2
-      SHX3_2(SHX4_2)
-      SHX3_2 = SHX3_1
-      SHX3_2[SHX0_2] = nil
+function workValue4(arg1, arg2)
+  local arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue
+  arg3 = dataTable4
+  arg3[arg1] = nil
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  if arg3 then
+    arg4 = DoesEntityExist
+    serverEventCall = arg3
+    arg4 = arg4(serverEventCall)
+    if arg4 then
+      arg4 = DetachEntity
+      serverEventCall = arg3
+      textValue3 = false
+      labelValue = false
+      arg4(serverEventCall, textValue3, labelValue)
+      arg4 = DeleteEntity
+      serverEventCall = arg3
+      -- Beginner: Delete a GTA entity.
+      arg4(serverEventCall)
+      arg4 = dataTable2
+      arg4[arg1] = nil
     end
   end
-  SHX3_2 = TriggerServerEvent
-  SHX4_2 = "607b2e0073"
-  SHX5_2 = "cast"
-  SHX6_2 = tostring
-  SHX7_2 = SHX0_2
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX6_2(SHX7_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = SHX1_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  if SHX3_2 then
-    SHX4_2 = SHX3_2.anim
-    if SHX4_2 then
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.getPlayerPed
-      SHX4_2 = SHX4_2()
-      SHX5_2 = SHX7_1
-      SHX6_2 = SHX4_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      SHX6_2 = SHX3_2.anim
-      SHX6_2 = SHX6_2[SHX5_2]
-      if SHX6_2 then
-        SHX7_2 = StopAnimTask
-        SHX8_2 = SHX4_2
-        SHX9_2 = SHX6_2[1]
-        SHX10_2 = SHX6_2[2]
-        SHX11_2 = 1.0
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+  arg4 = TriggerServerEvent
+  serverEventCall = "607b2e0073"
+  textValue3 = "cast"
+  labelValue = tostring
+  cmgCall5 = arg1
+  labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue = labelValue(cmgCall5)
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "607b2e0073".
+  arg4(serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue)
+  arg4 = dataTable
+  arg4 = arg4[arg1]
+  if arg4 then
+    serverEventCall = arg4.anim
+    if serverEventCall then
+      serverEventCall = CMG
+      serverEventCall = serverEventCall.getPlayerPed
+      -- Beginner: result below is localPlayerPed.
+      serverEventCall = serverEventCall()
+      textValue3 = workValue15
+      labelValue = serverEventCall
+      textValue3 = textValue3(labelValue)
+      labelValue = arg4.anim
+      labelValue = labelValue[textValue3]
+      if labelValue then
+        cmgCall5 = StopAnimTask
+        textValue4 = serverEventCall
+        workValue18 = labelValue[1]
+        workValue2 = labelValue[2]
+        numberValue = 1.0
+        cmgCall5(textValue4, workValue18, workValue2, numberValue)
       end
     end
   end
-  SHX4_2 = SHX4_1
-  SHX4_2 = SHX4_2[SHX0_2]
-  if SHX4_2 then
-    SHX4_2 = ResetPedMovementClipset
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getPlayerPed
-    SHX5_2 = SHX5_2()
-    SHX6_2 = 1.0
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = ResetPedWeaponMovementClipset
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getPlayerPed
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX5_2()
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX4_2 = ResetPedStrafeClipset
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getPlayerPed
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX5_2()
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX4_2 = SHX4_1
-    SHX4_2[SHX0_2] = nil
-    SHX4_2 = TriggerEvent
-    SHX5_2 = "865ab191af"
-    SHX4_2(SHX5_2)
+  serverEventCall = dataTable3
+  serverEventCall = serverEventCall[arg1]
+  if serverEventCall then
+    serverEventCall = ResetPedMovementClipset
+    textValue3 = CMG
+    textValue3 = textValue3.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    textValue3 = textValue3()
+    labelValue = 1.0
+    serverEventCall(textValue3, labelValue)
+    serverEventCall = ResetPedWeaponMovementClipset
+    textValue3 = CMG
+    textValue3 = textValue3.getPlayerPed
+    textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue = textValue3()
+    serverEventCall(textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue)
+    serverEventCall = ResetPedStrafeClipset
+    textValue3 = CMG
+    textValue3 = textValue3.getPlayerPed
+    textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue = textValue3()
+    serverEventCall(textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue)
+    serverEventCall = dataTable3
+    serverEventCall[arg1] = nil
+    serverEventCall = TriggerEvent
+    textValue3 = "865ab191af"
+    -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "865ab191af".
+    serverEventCall(textValue3)
   end
-  if not SHX1_2 then
-    SHX4_2 = TriggerServerEvent
-    SHX5_2 = "c37f2f9014"
-    SHX6_2 = SHX0_2
-    SHX4_2(SHX5_2, SHX6_2)
+  if not arg2 then
+    serverEventCall = TriggerServerEvent
+    textValue3 = "c37f2f9014"
+    labelValue = arg1
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c37f2f9014".
+    serverEventCall(textValue3, labelValue)
   end
-  SHX4_2 = SHX10_1
-  SHX4_2()
+  serverEventCall = workValue
+  serverEventCall()
 end
-SHX6_1 = SHX12_1
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2
-  SHX1_2 = SHX1_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX2_2 = false
-    return SHX2_2
+workValue13 = workValue4
+function workValue4(arg1)
+  local arg2, arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue, numberValue2, workValue6, hashValue, cmgCall2, numberValue3, workValue8, numberValue4, workValue10, flag, flag2, flag3, flag4, numberValue6, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, numberValue10, flag9
+  arg2 = dataTable
+  arg2 = arg2[arg1]
+  if not arg2 then
+    arg3 = false
+    return arg3
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  SHX4_2 = SHX7_1
-  SHX5_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = SHX1_2[SHX4_2]
-  if not SHX5_2 then
-    SHX6_2 = false
-    return SHX6_2
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = CMG
+  arg4 = arg4.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg4 = arg4()
+  serverEventCall = workValue15
+  textValue3 = arg3
+  serverEventCall = serverEventCall(textValue3)
+  textValue3 = arg2[serverEventCall]
+  if not textValue3 then
+    labelValue = false
+    return labelValue
   end
-  SHX6_2 = SHX5_2[1]
-  SHX7_2 = SHX5_2[2]
-  SHX8_2 = SHX5_2[3]
-  SHX9_2 = SHX5_2[4]
-  SHX10_2 = SHX5_2[5]
-  SHX11_2 = SHX5_2[6]
-  SHX12_2 = SHX5_2[7]
-  SHX13_2 = SHX5_2[8]
-  SHX14_2 = GetHashKey
-  SHX15_2 = SHX6_2
-  SHX14_2 = SHX14_2(SHX15_2)
-  SHX15_2 = CMG
-  SHX15_2 = SHX15_2.loadModel
-  SHX16_2 = SHX14_2
-  SHX15_2 = SHX15_2(SHX16_2)
-  if not SHX15_2 then
-    SHX16_2 = RequestModel
-    SHX17_2 = SHX14_2
-    SHX16_2(SHX17_2)
-    SHX16_2 = 0
+  labelValue = textValue3[1]
+  cmgCall5 = textValue3[2]
+  textValue4 = textValue3[3]
+  workValue18 = textValue3[4]
+  workValue2 = textValue3[5]
+  numberValue = textValue3[6]
+  numberValue2 = textValue3[7]
+  workValue6 = textValue3[8]
+  hashValue = GetHashKey
+  cmgCall2 = labelValue
+  -- Beginner: result below is hash.
+  hashValue = hashValue(cmgCall2)
+  cmgCall2 = CMG
+  cmgCall2 = cmgCall2.loadModel
+  numberValue3 = hashValue
+  cmgCall2 = cmgCall2(numberValue3)
+  if not cmgCall2 then
+    numberValue3 = RequestModel
+    workValue8 = hashValue
+    numberValue3(workValue8)
+    numberValue3 = 0
     while true do
-      SHX17_2 = HasModelLoaded
-      SHX18_2 = SHX14_2
-      SHX17_2 = SHX17_2(SHX18_2)
-      if SHX17_2 then
+      workValue8 = HasModelLoaded
+      numberValue4 = hashValue
+      workValue8 = workValue8(numberValue4)
+      if workValue8 then
         break
       end
-      SHX17_2 = 150
-      if not (SHX16_2 < SHX17_2) then
+      workValue8 = 150
+      if not (numberValue3 < workValue8) then
         break
       end
-      SHX17_2 = Wait
-      SHX18_2 = 10
-      SHX17_2(SHX18_2)
-      SHX17_2 = RequestModel
-      SHX18_2 = SHX14_2
-      SHX17_2(SHX18_2)
-      SHX16_2 = SHX16_2 + 1
+      workValue8 = Wait
+      numberValue4 = 10
+      workValue8(numberValue4)
+      workValue8 = RequestModel
+      numberValue4 = hashValue
+      workValue8(numberValue4)
+      numberValue3 = numberValue3 + 1
     end
-    SHX17_2 = HasModelLoaded
-    SHX18_2 = SHX14_2
-    SHX17_2 = SHX17_2(SHX18_2)
-    if SHX17_2 then
-      SHX15_2 = SHX14_2
-    end
-  end
-  if not SHX15_2 then
-    SHX16_2 = notify
-    SHX17_2 = "~r~Cast model not available. Ensure plastercasts (or esx_plaster_cast) resource is started."
-    SHX16_2(SHX17_2)
-    SHX16_2 = false
-    return SHX16_2
-  end
-  SHX16_2 = CMG
-  SHX16_2 = SHX16_2.requestEntitySpawn
-  SHX17_2 = "cast_prop"
-  SHX18_2 = SHX0_2
-  SHX16_2(SHX17_2, SHX18_2)
-  SHX16_2 = CreateObject
-  SHX17_2 = SHX14_2
-  SHX18_2 = SHX3_2.x
-  SHX19_2 = SHX3_2.y
-  SHX20_2 = SHX3_2.z
-  SHX21_2 = true
-  SHX22_2 = true
-  SHX23_2 = false
-  SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  if SHX16_2 then
-    SHX17_2 = DoesEntityExist
-    SHX18_2 = SHX16_2
-    SHX17_2 = SHX17_2(SHX18_2)
-    if SHX17_2 then
-      goto SHX_LABEL_98
+    workValue8 = HasModelLoaded
+    numberValue4 = hashValue
+    workValue8 = workValue8(numberValue4)
+    if workValue8 then
+      cmgCall2 = hashValue
     end
   end
-  SHX17_2 = notify
-  SHX18_2 = "~r~Failed to create cast."
-  SHX17_2(SHX18_2)
-  SHX17_2 = false
-  return SHX17_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_98:: outside nested blocks until all 'goto SHX_LABEL_98' can see it
-  ::SHX_LABEL_98::
-  SHX17_2 = GetPedBoneIndex
-  SHX18_2 = SHX2_2
-  SHX19_2 = SHX7_2
-  SHX17_2 = SHX17_2(SHX18_2, SHX19_2)
-  SHX18_2 = SetModelAsNoLongerNeeded
-  SHX19_2 = SHX14_2
-  SHX18_2(SHX19_2)
-  SHX18_2 = SetEntityCollision
-  SHX19_2 = SHX16_2
-  SHX20_2 = false
-  SHX21_2 = false
-  SHX18_2(SHX19_2, SHX20_2, SHX21_2)
-  SHX18_2 = SetEntityCompletelyDisableCollision
-  SHX19_2 = SHX16_2
-  SHX20_2 = false
-  SHX21_2 = false
-  SHX18_2(SHX19_2, SHX20_2, SHX21_2)
-  SHX18_2 = AttachEntityToEntity
-  SHX19_2 = SHX16_2
-  SHX20_2 = SHX2_2
-  SHX21_2 = SHX17_2
-  SHX22_2 = SHX8_2
-  SHX23_2 = SHX9_2
-  SHX24_2 = SHX10_2
-  SHX25_2 = SHX11_2
-  SHX26_2 = SHX12_2
-  SHX27_2 = SHX13_2
-  SHX28_2 = true
-  SHX29_2 = true
-  SHX30_2 = false
-  SHX31_2 = true
-  SHX32_2 = 1
-  SHX33_2 = true
-  SHX18_2(SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2)
-  SHX18_2 = SHX3_1
-  SHX18_2[SHX0_2] = SHX16_2
-  SHX18_2 = SHX11_1
-  SHX19_2 = SHX0_2
-  SHX20_2 = SHX16_2
-  SHX18_2(SHX19_2, SHX20_2)
-  SHX18_2 = SHX1_2.anim
-  if SHX18_2 then
-    SHX18_2 = SHX1_2.anim
-    SHX18_2 = SHX18_2[SHX4_2]
-    if SHX18_2 then
-      SHX19_2 = SHX8_1
-      SHX20_2 = SHX18_2[1]
-      SHX19_2 = SHX19_2(SHX20_2)
-      if SHX19_2 then
-        SHX19_2 = TaskPlayAnim
-        SHX20_2 = SHX2_2
-        SHX21_2 = SHX18_2[1]
-        SHX22_2 = SHX18_2[2]
-        SHX23_2 = 1.0
-        SHX24_2 = -1.0
-        SHX25_2 = -1
-        SHX26_2 = 49
-        SHX27_2 = 0
-        SHX28_2 = false
-        SHX29_2 = false
-        SHX30_2 = false
-        SHX19_2(SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
+  if not cmgCall2 then
+    numberValue3 = notify
+    workValue8 = "~r~Cast model not available. Ensure plastercasts (or esx_plaster_cast) resource is started."
+    -- Beginner: Show a notification to the player.
+    numberValue3(workValue8)
+    numberValue3 = false
+    return numberValue3
+  end
+  numberValue3 = CMG
+  numberValue3 = numberValue3.requestEntitySpawn
+  workValue8 = "cast_prop"
+  numberValue4 = arg1
+  numberValue3(workValue8, numberValue4)
+  numberValue3 = CreateObject
+  workValue8 = hashValue
+  numberValue4 = arg4.x
+  workValue10 = arg4.y
+  flag = arg4.z
+  flag2 = true
+  flag3 = true
+  flag4 = false
+  -- Beginner: result below is objectEntity.
+  numberValue3 = numberValue3(workValue8, numberValue4, workValue10, flag, flag2, flag3, flag4)
+  if numberValue3 then
+    workValue8 = DoesEntityExist
+    numberValue4 = numberValue3
+    workValue8 = workValue8(numberValue4)
+    if workValue8 then
+      goto flow_label_98
+    end
+  end
+  workValue8 = notify
+  numberValue4 = "~r~Failed to create cast."
+  -- Beginner: Show a notification to the player.
+  workValue8(numberValue4)
+  workValue8 = false
+  return workValue8
+  ::flow_label_98::
+  workValue8 = GetPedBoneIndex
+  numberValue4 = arg3
+  workValue10 = cmgCall5
+  workValue8 = workValue8(numberValue4, workValue10)
+  numberValue4 = SetModelAsNoLongerNeeded
+  workValue10 = hashValue
+  numberValue4(workValue10)
+  numberValue4 = SetEntityCollision
+  workValue10 = numberValue3
+  flag = false
+  flag2 = false
+  numberValue4(workValue10, flag, flag2)
+  numberValue4 = SetEntityCompletelyDisableCollision
+  workValue10 = numberValue3
+  flag = false
+  flag2 = false
+  numberValue4(workValue10, flag, flag2)
+  numberValue4 = AttachEntityToEntity
+  workValue10 = numberValue3
+  flag = arg3
+  flag2 = workValue8
+  flag3 = textValue4
+  flag4 = workValue18
+  numberValue6 = workValue2
+  numberValue7 = numberValue
+  numberValue8 = numberValue2
+  numberValue9 = workValue6
+  flag5 = true
+  flag6 = true
+  flag7 = false
+  flag8 = true
+  numberValue10 = 1
+  flag9 = true
+  -- Beginner: Attach one entity to another entity.
+  numberValue4(workValue10, flag, flag2, flag3, flag4, numberValue6, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, numberValue10, flag9)
+  numberValue4 = dataTable2
+  numberValue4[arg1] = numberValue3
+  numberValue4 = workValue3
+  workValue10 = arg1
+  flag = numberValue3
+  numberValue4(workValue10, flag)
+  numberValue4 = arg2.anim
+  if numberValue4 then
+    numberValue4 = arg2.anim
+    numberValue4 = numberValue4[serverEventCall]
+    if numberValue4 then
+      workValue10 = workValue16
+      flag = numberValue4[1]
+      workValue10 = workValue10(flag)
+      if workValue10 then
+        workValue10 = TaskPlayAnim
+        flag = arg3
+        flag2 = numberValue4[1]
+        flag3 = numberValue4[2]
+        flag4 = 1.0
+        numberValue6 = -1.0
+        numberValue7 = -1
+        numberValue8 = 49
+        numberValue9 = 0
+        flag5 = false
+        flag6 = false
+        flag7 = false
+        -- Beginner: Play an animation on a ped.
+        workValue10(flag, flag2, flag3, flag4, numberValue6, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7)
       end
     end
   end
-  SHX18_2 = SHX1_2.clipset
-  if SHX18_2 then
-    SHX18_2 = SHX9_1
-    SHX19_2 = SHX1_2.clipset
-    SHX18_2 = SHX18_2(SHX19_2)
-    if SHX18_2 then
-      SHX18_2 = SetPedMovementClipset
-      SHX19_2 = SHX2_2
-      SHX20_2 = SHX1_2.clipset
-      SHX21_2 = 1.0
-      SHX18_2(SHX19_2, SHX20_2, SHX21_2)
-      SHX18_2 = SHX4_1
-      SHX18_2[SHX0_2] = true
-      SHX18_2 = RemoveClipSet
-      SHX19_2 = SHX1_2.clipset
-      SHX18_2(SHX19_2)
+  numberValue4 = arg2.clipset
+  if numberValue4 then
+    numberValue4 = workValue17
+    workValue10 = arg2.clipset
+    numberValue4 = numberValue4(workValue10)
+    if numberValue4 then
+      numberValue4 = SetPedMovementClipset
+      workValue10 = arg3
+      flag = arg2.clipset
+      flag2 = 1.0
+      numberValue4(workValue10, flag, flag2)
+      numberValue4 = dataTable3
+      numberValue4[arg1] = true
+      numberValue4 = RemoveClipSet
+      workValue10 = arg2.clipset
+      numberValue4(workValue10)
     end
   end
-  SHX18_2 = true
-  return SHX18_2
+  numberValue4 = true
+  return numberValue4
 end
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  if 0 ~= SHX0_2 then
-    SHX1_2 = IsEntityDead
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      goto SHX_LABEL_12
+function workValue5()
+  local arg1, arg2, arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue, numberValue2
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  if 0 ~= arg1 then
+    arg2 = IsEntityDead
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      goto flow_label_12
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX1_2 = {}
-  SHX2_2 = pairs
-  SHX3_2 = SHX4_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = #SHX1_2
-    SHX7_2 = SHX7_2 + 1
-    SHX1_2[SHX7_2] = SHX6_2
+  ::flow_label_12::
+  arg2 = {}
+  arg3 = pairs
+  arg4 = dataTable3
+  arg3, arg4, serverEventCall, textValue3 = arg3(arg4)
+  for labelValue in arg3, arg4, serverEventCall, textValue3 do
+    cmgCall5 = #arg2
+    cmgCall5 = cmgCall5 + 1
+    arg2[cmgCall5] = labelValue
   end
-  SHX2_2 = #SHX1_2
-  if 0 == SHX2_2 then
+  arg3 = #arg2
+  if 0 == arg3 then
     return
   end
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.sort
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = ipairs
-  SHX3_2 = SHX1_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX1_1
-    SHX8_2 = SHX8_2[SHX7_2]
-    if SHX8_2 then
-      SHX9_2 = SHX8_2.clipset
-      if SHX9_2 then
-        SHX9_2 = HasClipSetLoaded
-        SHX10_2 = SHX8_2.clipset
-        SHX9_2 = SHX9_2(SHX10_2)
-        if not SHX9_2 then
-          SHX9_2 = RequestClipSet
-          SHX10_2 = SHX8_2.clipset
-          SHX9_2(SHX10_2)
+  arg3 = table
+  arg3 = arg3.sort
+  arg4 = arg2
+  arg3(arg4)
+  arg3 = ipairs
+  arg4 = arg2
+  arg3, arg4, serverEventCall, textValue3 = arg3(arg4)
+  for labelValue, cmgCall5 in arg3, arg4, serverEventCall, textValue3 do
+    textValue4 = dataTable
+    textValue4 = textValue4[cmgCall5]
+    if textValue4 then
+      workValue18 = textValue4.clipset
+      if workValue18 then
+        workValue18 = HasClipSetLoaded
+        workValue2 = textValue4.clipset
+        workValue18 = workValue18(workValue2)
+        if not workValue18 then
+          workValue18 = RequestClipSet
+          workValue2 = textValue4.clipset
+          workValue18(workValue2)
         else
-          SHX9_2 = SetPedMovementClipset
-          SHX10_2 = SHX0_2
-          SHX11_2 = SHX8_2.clipset
-          SHX12_2 = 1.0
-          SHX9_2(SHX10_2, SHX11_2, SHX12_2)
+          workValue18 = SetPedMovementClipset
+          workValue2 = arg1
+          numberValue = textValue4.clipset
+          numberValue2 = 1.0
+          workValue18(workValue2, numberValue, numberValue2)
         end
       end
     end
   end
 end
-SHX14_1 = Citizen
-SHX14_1 = SHX14_1.CreateThread
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function workValue7()
+  local arg1, arg2
   while true do
-    SHX0_2 = Wait
-    SHX1_2 = 100
-    SHX0_2(SHX1_2)
-    SHX0_2 = next
-    SHX1_2 = SHX4_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = SHX13_1
-      SHX0_2()
-      SHX0_2 = TriggerEvent
-      SHX1_2 = "cd58811ed9"
-      SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 100
+    arg1(arg2)
+    arg1 = next
+    arg2 = dataTable3
+    arg1 = arg1(arg2)
+    if arg1 then
+      arg1 = workValue5
+      arg1()
+      arg1 = TriggerEvent
+      arg2 = "cd58811ed9"
+      -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "cd58811ed9".
+      arg1(arg2)
     end
   end
 end
-SHX14_1(SHX15_1)
-SHX14_1 = Citizen
-SHX14_1 = SHX14_1.CreateThread
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(workValue7)
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function workValue7()
+  local arg1, arg2, arg3, arg4, serverEventCall
   while true do
-    SHX0_2 = next
-    SHX1_2 = SHX3_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.getPlayerPed
-      SHX0_2 = SHX0_2()
-      if 0 ~= SHX0_2 then
-        SHX1_2 = IsEntityDead
-        SHX2_2 = SHX0_2
-        SHX1_2 = SHX1_2(SHX2_2)
-        if not SHX1_2 then
-          SHX1_2 = IsPedInAnyVehicle
-          SHX2_2 = SHX0_2
-          SHX3_2 = false
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if not SHX1_2 then
-            SHX1_2 = DisableControlAction
-            SHX2_2 = 0
-            SHX3_2 = 22
-            SHX4_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    arg1 = next
+    arg2 = dataTable2
+    arg1 = arg1(arg2)
+    if arg1 then
+      arg1 = CMG
+      arg1 = arg1.getPlayerPed
+      -- Beginner: result below is localPlayerPed.
+      arg1 = arg1()
+      if 0 ~= arg1 then
+        arg2 = IsEntityDead
+        arg3 = arg1
+        arg2 = arg2(arg3)
+        if not arg2 then
+          arg2 = IsPedInAnyVehicle
+          arg3 = arg1
+          arg4 = false
+          arg2 = arg2(arg3, arg4)
+          if not arg2 then
+            arg2 = DisableControlAction
+            arg3 = 0
+            arg4 = 22
+            serverEventCall = true
+            arg2(arg3, arg4, serverEventCall)
           end
         end
       end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 0
+    arg1(arg2)
   end
 end
-SHX14_1(SHX15_1)
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX3_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX3_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX1_2 = nil ~= SHX1_2 and SHX1_2
-  return SHX1_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(workValue7)
+function threadCall(arg1)
+  local arg2, arg3
+  arg2 = dataTable2
+  arg2 = arg2[arg1]
+  arg2 = DoesEntityExist
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  arg2 = nil ~= arg2 and arg2
+  return arg2
 end
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = {}
-  SHX5_1 = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.removeForcedEquipment
-  SHX2_2 = "Cast"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.removeForcedEquipment
-  SHX2_2 = "Bandage"
-  SHX1_2(SHX2_2)
-  SHX1_2 = {}
-  SHX2_2 = pairs
-  SHX3_2 = SHX3_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = #SHX1_2
-    SHX7_2 = SHX7_2 + 1
-    SHX1_2[SHX7_2] = SHX6_2
+function workValue7(arg1)
+  local arg2, arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2
+  arg2 = {}
+  dataTable4 = arg2
+  arg2 = CMG
+  arg2 = arg2.removeForcedEquipment
+  arg3 = "Cast"
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.removeForcedEquipment
+  arg3 = "Bandage"
+  arg2(arg3)
+  arg2 = {}
+  arg3 = pairs
+  arg4 = dataTable2
+  arg3, arg4, serverEventCall, textValue3 = arg3(arg4)
+  for labelValue in arg3, arg4, serverEventCall, textValue3 do
+    cmgCall5 = #arg2
+    cmgCall5 = cmgCall5 + 1
+    arg2[cmgCall5] = labelValue
   end
-  SHX2_2 = ipairs
-  SHX3_2 = SHX1_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX6_1
-    SHX9_2 = SHX7_2
-    SHX10_2 = SHX0_2
-    SHX8_2(SHX9_2, SHX10_2)
+  arg3 = ipairs
+  arg4 = arg2
+  arg3, arg4, serverEventCall, textValue3 = arg3(arg4)
+  for labelValue, cmgCall5 in arg3, arg4, serverEventCall, textValue3 do
+    textValue4 = workValue13
+    workValue18 = cmgCall5
+    workValue2 = arg1
+    textValue4(workValue18, workValue2)
   end
-  SHX2_2 = ResetPedMovementClipset
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2 = SHX3_2()
-  SHX4_2 = 1.0
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = ResetPedWeaponMovementClipset
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX3_2()
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX2_2 = ResetPedStrafeClipset
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX3_2()
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX2_2 = {}
-  SHX4_1 = SHX2_2
-  SHX2_2 = TriggerEvent
-  SHX3_2 = "865ab191af"
-  SHX2_2(SHX3_2)
+  arg3 = ResetPedMovementClipset
+  arg4 = CMG
+  arg4 = arg4.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg4 = arg4()
+  serverEventCall = 1.0
+  arg3(arg4, serverEventCall)
+  arg3 = ResetPedWeaponMovementClipset
+  arg4 = CMG
+  arg4 = arg4.getPlayerPed
+  arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2 = arg4()
+  arg3(arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2)
+  arg3 = ResetPedStrafeClipset
+  arg4 = CMG
+  arg4 = arg4.getPlayerPed
+  arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2 = arg4()
+  arg3(arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2)
+  arg3 = {}
+  dataTable3 = arg3
+  arg3 = TriggerEvent
+  arg4 = "865ab191af"
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "865ab191af".
+  arg3(arg4)
 end
-SHX16_1 = CMG
-SHX16_1 = SHX16_1.RegisterClientCallback
-SHX17_1 = "a20b2cf44e"
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX14_1
-  SHX2_2 = SHX0_2
-  return SHX1_2(SHX2_2)
+cmgCall3 = CMG
+cmgCall3 = cmgCall3.RegisterClientCallback
+textValue = "a20b2cf44e"
+function workValue9(arg1)
+  local arg2, arg3
+  arg2 = threadCall
+  arg3 = arg1
+  return arg2(arg3)
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "2b2bfb838d"
-function SHX18_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if not SHX2_2 then
+cmgCall3(textValue, workValue9)
+cmgCall3 = RegisterNetEvent
+textValue = "2b2bfb838d"
+-- Beginner: this function handles network event "2b2bfb838d".
+function workValue9(arg1, arg2)
+  local arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5
+  arg3 = dataTable
+  arg3 = arg3[arg1]
+  if not arg3 then
     return
   end
-  SHX2_2 = SHX14_1
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = SHX6_1
-    SHX3_2 = SHX0_2
-    SHX2_2(SHX3_2)
-    SHX2_2 = notify
-    SHX3_2 = "~g~Cast removed."
-    SHX2_2(SHX3_2)
+  arg3 = threadCall
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  if arg3 then
+    arg3 = workValue13
+    arg4 = arg1
+    arg3(arg4)
+    arg3 = notify
+    arg4 = "~g~Cast removed."
+    -- Beginner: Show a notification to the player.
+    arg3(arg4)
   else
-    SHX2_2 = SHX12_1
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      SHX2_2 = SHX1_2 or SHX2_2
-      if not SHX1_2 then
-        SHX2_2 = SHX2_1
+    arg3 = workValue4
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    if arg3 then
+      arg3 = arg2 or arg3
+      if not arg2 then
+        arg3 = cmgCall4
       end
-      SHX3_2 = SHX5_1
-      SHX4_2 = GetGameTimer
-      SHX4_2 = SHX4_2()
-      SHX5_2 = SHX2_2 * 1000
-      SHX4_2 = SHX4_2 + SHX5_2
-      SHX3_2[SHX0_2] = SHX4_2
-      SHX3_2 = SHX10_1
-      SHX3_2()
-      SHX3_2 = SHX1_1
-      SHX3_2 = SHX3_2[SHX0_2]
-      if SHX3_2 then
-        SHX3_2 = SHX1_1
-        SHX3_2 = SHX3_2[SHX0_2]
-        SHX3_2 = SHX3_2.label
-        if SHX3_2 then
-          goto SHX_LABEL_46
+      arg4 = dataTable4
+      serverEventCall = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      serverEventCall = serverEventCall()
+      textValue3 = arg3 * 1000
+      serverEventCall = serverEventCall + textValue3
+      arg4[arg1] = serverEventCall
+      arg4 = workValue
+      arg4()
+      arg4 = dataTable
+      arg4 = arg4[arg1]
+      if arg4 then
+        arg4 = dataTable
+        arg4 = arg4[arg1]
+        arg4 = arg4.label
+        if arg4 then
+          goto flow_label_46
         end
       end
-      SHX3_2 = SHX0_2
-      -- [FIX IF ERROR] Move ::SHX_LABEL_46:: outside nested blocks until all 'goto SHX_LABEL_46' can see it
-      ::SHX_LABEL_46::
-      SHX4_2 = notify
-      SHX5_2 = "~g~"
-      SHX6_2 = SHX3_2
-      SHX7_2 = " applied."
-      SHX5_2 = SHX5_2 .. SHX6_2 .. SHX7_2
-      SHX4_2(SHX5_2)
+      arg4 = arg1
+      ::flow_label_46::
+      serverEventCall = notify
+      textValue3 = "~g~"
+      labelValue = arg4
+      cmgCall5 = " applied."
+      textValue3 = textValue3 .. labelValue .. cmgCall5
+      -- Beginner: Show a notification to the player.
+      serverEventCall(textValue3)
     end
   end
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "f8c7a2074b"
-function SHX18_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX4_2 = SHX1_1
-  SHX4_2 = SHX4_2[SHX0_2]
-  if not SHX4_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2b2bfb838d".
+cmgCall3(textValue, workValue9)
+cmgCall3 = RegisterNetEvent
+textValue = "f8c7a2074b"
+-- Beginner: this function handles network event "f8c7a2074b".
+function workValue9(arg1, arg2, arg3, arg4)
+  local serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18
+  serverEventCall = dataTable
+  serverEventCall = serverEventCall[arg1]
+  if not serverEventCall then
     return
   end
-  SHX4_2 = SHX1_2 or SHX4_2
-  if not SHX1_2 then
-    SHX4_2 = SHX2_1
+  serverEventCall = arg2 or serverEventCall
+  if not arg2 then
+    serverEventCall = cmgCall4
   end
-  SHX5_2 = SHX14_1
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if SHX5_2 then
-    SHX5_2 = SHX5_1
-    SHX6_2 = GetGameTimer
-    SHX6_2 = SHX6_2()
-    SHX7_2 = SHX4_2 * 1000
-    SHX6_2 = SHX6_2 + SHX7_2
-    SHX5_2[SHX0_2] = SHX6_2
-    SHX5_2 = SHX10_1
-    SHX5_2()
-    if SHX2_2 and not SHX3_2 then
-      SHX5_2 = notify
-      SHX6_2 = "~g~You have been bandaged."
-      SHX5_2(SHX6_2)
+  textValue3 = threadCall
+  labelValue = arg1
+  textValue3 = textValue3(labelValue)
+  if textValue3 then
+    textValue3 = dataTable4
+    labelValue = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    labelValue = labelValue()
+    cmgCall5 = serverEventCall * 1000
+    labelValue = labelValue + cmgCall5
+    textValue3[arg1] = labelValue
+    textValue3 = workValue
+    textValue3()
+    if arg3 and not arg4 then
+      textValue3 = notify
+      labelValue = "~g~You have been bandaged."
+      -- Beginner: Show a notification to the player.
+      textValue3(labelValue)
     end
-  elseif SHX3_2 then
-    SHX5_2 = CreateThread
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-      SHX0_3 = SHX4_2
-      SHX0_3 = SHX0_3 * 1000
-      SHX1_3 = 1
-      SHX2_3 = 30
-      SHX3_3 = 1
-      for SHX4_3 = SHX1_3, SHX2_3, SHX3_3 do
-        SHX5_3 = SHX14_1
-        SHX6_3 = SHX0_2
-        SHX5_3 = SHX5_3(SHX6_3)
-        if SHX5_3 then
-          SHX6_3 = SHX0_2
-          SHX5_3 = SHX5_1
-          SHX7_3 = GetGameTimer
-          SHX7_3 = SHX7_3()
-          SHX7_3 = SHX7_3 + SHX0_3
-          SHX5_3[SHX6_3] = SHX7_3
-          SHX5_3 = SHX10_1
-          SHX5_3()
+  elseif arg4 then
+    textValue3 = CreateThread
+    -- Beginner: this function is the body of a background FiveM thread.
+    function labelValue()
+      local waitCall, numberValue5, textValue2, numberValue11, workValue11, workValue12, workValue14, gameTime, gameTime2
+      waitCall = serverEventCall
+      waitCall = waitCall * 1000
+      numberValue5 = 1
+      textValue2 = 30
+      numberValue11 = 1
+      for workValue11 = numberValue5, textValue2, numberValue11 do
+        workValue12 = threadCall
+        workValue14 = arg1
+        workValue12 = workValue12(workValue14)
+        if workValue12 then
+          workValue14 = arg1
+          workValue12 = dataTable4
+          gameTime = GetGameTimer
+          -- Beginner: result below is gameTimeMs.
+          gameTime = gameTime()
+          gameTime = gameTime + waitCall
+          workValue12[workValue14] = gameTime
+          workValue12 = workValue
+          workValue12()
           return
         end
-        SHX5_3 = CMG
-        SHX5_3 = SHX5_3.getPlayerPed
-        SHX5_3 = SHX5_3()
-        if 0 ~= SHX5_3 then
-          SHX6_3 = DoesEntityExist
-          SHX7_3 = SHX5_3
-          SHX6_3 = SHX6_3(SHX7_3)
-          if SHX6_3 then
-            SHX6_3 = IsEntityDead
-            SHX7_3 = SHX5_3
-            SHX6_3 = SHX6_3(SHX7_3)
-            if not SHX6_3 then
-              SHX6_3 = SHX12_1
-              SHX7_3 = SHX0_2
-              SHX6_3 = SHX6_3(SHX7_3)
-              if SHX6_3 then
-                SHX7_3 = SHX0_2
-                SHX6_3 = SHX5_1
-                SHX8_3 = GetGameTimer
-                SHX8_3 = SHX8_3()
-                SHX8_3 = SHX8_3 + SHX0_3
-                SHX6_3[SHX7_3] = SHX8_3
-                SHX6_3 = SHX10_1
-                SHX6_3()
+        workValue12 = CMG
+        workValue12 = workValue12.getPlayerPed
+        -- Beginner: result below is localPlayerPed.
+        workValue12 = workValue12()
+        if 0 ~= workValue12 then
+          workValue14 = DoesEntityExist
+          gameTime = workValue12
+          workValue14 = workValue14(gameTime)
+          if workValue14 then
+            workValue14 = IsEntityDead
+            gameTime = workValue12
+            workValue14 = workValue14(gameTime)
+            if not workValue14 then
+              workValue14 = workValue4
+              gameTime = arg1
+              workValue14 = workValue14(gameTime)
+              if workValue14 then
+                gameTime = arg1
+                workValue14 = dataTable4
+                gameTime2 = GetGameTimer
+                -- Beginner: result below is gameTimeMs.
+                gameTime2 = gameTime2()
+                gameTime2 = gameTime2 + waitCall
+                workValue14[gameTime] = gameTime2
+                workValue14 = workValue
+                workValue14()
                 return
               end
             end
           end
         end
-        SHX6_3 = Wait
-        SHX7_3 = 300
-        SHX6_3(SHX7_3)
+        workValue14 = Wait
+        gameTime = 300
+        workValue14(gameTime)
       end
     end
-    SHX5_2(SHX6_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    textValue3(labelValue)
   else
-    SHX5_2 = SHX12_1
-    SHX6_2 = SHX0_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if SHX5_2 then
-      SHX5_2 = SHX5_1
-      SHX6_2 = GetGameTimer
-      SHX6_2 = SHX6_2()
-      SHX7_2 = SHX4_2 * 1000
-      SHX6_2 = SHX6_2 + SHX7_2
-      SHX5_2[SHX0_2] = SHX6_2
-      SHX5_2 = SHX10_1
-      SHX5_2()
-      if not SHX3_2 then
-        if SHX2_2 then
-          SHX5_2 = notify
-          SHX6_2 = "~g~You have been bandaged."
-          SHX5_2(SHX6_2)
+    textValue3 = workValue4
+    labelValue = arg1
+    textValue3 = textValue3(labelValue)
+    if textValue3 then
+      textValue3 = dataTable4
+      labelValue = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      labelValue = labelValue()
+      cmgCall5 = serverEventCall * 1000
+      labelValue = labelValue + cmgCall5
+      textValue3[arg1] = labelValue
+      textValue3 = workValue
+      textValue3()
+      if not arg4 then
+        if arg3 then
+          textValue3 = notify
+          labelValue = "~g~You have been bandaged."
+          -- Beginner: Show a notification to the player.
+          textValue3(labelValue)
         else
-          SHX5_2 = SHX1_1
-          SHX5_2 = SHX5_2[SHX0_2]
-          if SHX5_2 then
-            SHX5_2 = SHX1_1
-            SHX5_2 = SHX5_2[SHX0_2]
-            SHX5_2 = SHX5_2.label
-            if SHX5_2 then
-              goto SHX_LABEL_71
+          textValue3 = dataTable
+          textValue3 = textValue3[arg1]
+          if textValue3 then
+            textValue3 = dataTable
+            textValue3 = textValue3[arg1]
+            textValue3 = textValue3.label
+            if textValue3 then
+              goto flow_label_71
             end
           end
-          SHX5_2 = SHX0_2
-          -- [FIX IF ERROR] Move ::SHX_LABEL_71:: outside nested blocks until all 'goto SHX_LABEL_71' can see it
-          ::SHX_LABEL_71::
-          SHX6_2 = notify
-          SHX7_2 = "~g~"
-          SHX8_2 = SHX5_2
-          SHX9_2 = " applied."
-          SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2
-          SHX6_2(SHX7_2)
+          textValue3 = arg1
+          ::flow_label_71::
+          labelValue = notify
+          cmgCall5 = "~g~"
+          textValue4 = textValue3
+          workValue18 = " applied."
+          cmgCall5 = cmgCall5 .. textValue4 .. workValue18
+          labelValue(cmgCall5)
         end
       end
     end
   end
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "f95fecdf35"
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX6_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f8c7a2074b".
+cmgCall3(textValue, workValue9)
+cmgCall3 = RegisterNetEvent
+textValue = "f95fecdf35"
+-- Beginner: this function handles network event "f95fecdf35".
+function workValue9(arg1)
+  local arg2, arg3
+  arg2 = workValue13
+  arg3 = arg1
+  arg2(arg3)
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "5c706bee2d"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX15_1
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f95fecdf35".
+cmgCall3(textValue, workValue9)
+cmgCall3 = RegisterNetEvent
+textValue = "5c706bee2d"
+-- Beginner: this function handles network event "5c706bee2d".
+function workValue9()
+  local arg1, arg2
+  arg1 = workValue7
+  arg2 = false
+  arg1(arg2)
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = Citizen
-SHX16_1 = SHX16_1.CreateThread
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5c706bee2d".
+cmgCall3(textValue, workValue9)
+cmgCall3 = Citizen
+cmgCall3 = cmgCall3.CreateThread
+-- Beginner: this function handles network event "5c706bee2d".
+function textValue()
+  local arg1, arg2, arg3, arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue, numberValue2, workValue6, hashValue, cmgCall2, numberValue3, workValue8, numberValue4, workValue10, flag, flag2
   while true do
-    SHX0_2 = Wait
-    SHX1_2 = 4000
-    SHX0_2(SHX1_2)
-    SHX0_2 = pairs
-    SHX1_2 = SHX3_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DoesEntityExist
-      SHX7_2 = SHX5_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      if SHX6_2 then
-        SHX6_2 = SHX1_1
-        SHX6_2 = SHX6_2[SHX4_2]
-        if SHX6_2 then
-          SHX7_2 = SHX6_2.anim
-          if SHX7_2 then
-            SHX7_2 = CMG
-            SHX7_2 = SHX7_2.getPlayerPed
-            SHX7_2 = SHX7_2()
-            SHX8_2 = SHX7_1
-            SHX9_2 = SHX7_2
-            SHX8_2 = SHX8_2(SHX9_2)
-            SHX9_2 = SHX6_2.anim
-            SHX9_2 = SHX9_2[SHX8_2]
-            if SHX9_2 then
-              SHX10_2 = IsEntityPlayingAnim
-              SHX11_2 = SHX7_2
-              SHX12_2 = SHX9_2[1]
-              SHX13_2 = SHX9_2[2]
-              SHX14_2 = 3
-              SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-              if not SHX10_2 then
-                SHX10_2 = SHX8_1
-                SHX11_2 = SHX9_2[1]
-                SHX10_2 = SHX10_2(SHX11_2)
-                if SHX10_2 then
-                  SHX10_2 = TaskPlayAnim
-                  SHX11_2 = SHX7_2
-                  SHX12_2 = SHX9_2[1]
-                  SHX13_2 = SHX9_2[2]
-                  SHX14_2 = 1.0
-                  SHX15_2 = -1.0
-                  SHX16_2 = -1
-                  SHX17_2 = 49
-                  SHX18_2 = 0
-                  SHX19_2 = false
-                  SHX20_2 = false
-                  SHX21_2 = false
-                  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
+    arg1 = Wait
+    arg2 = 4000
+    arg1(arg2)
+    arg1 = pairs
+    arg2 = dataTable2
+    arg1, arg2, arg3, arg4 = arg1(arg2)
+    for serverEventCall, textValue3 in arg1, arg2, arg3, arg4 do
+      labelValue = DoesEntityExist
+      cmgCall5 = textValue3
+      labelValue = labelValue(cmgCall5)
+      if labelValue then
+        labelValue = dataTable
+        labelValue = labelValue[serverEventCall]
+        if labelValue then
+          cmgCall5 = labelValue.anim
+          if cmgCall5 then
+            cmgCall5 = CMG
+            cmgCall5 = cmgCall5.getPlayerPed
+            -- Beginner: result below is localPlayerPed.
+            cmgCall5 = cmgCall5()
+            textValue4 = workValue15
+            workValue18 = cmgCall5
+            textValue4 = textValue4(workValue18)
+            workValue18 = labelValue.anim
+            workValue18 = workValue18[textValue4]
+            if workValue18 then
+              workValue2 = IsEntityPlayingAnim
+              numberValue = cmgCall5
+              numberValue2 = workValue18[1]
+              workValue6 = workValue18[2]
+              hashValue = 3
+              workValue2 = workValue2(numberValue, numberValue2, workValue6, hashValue)
+              if not workValue2 then
+                workValue2 = workValue16
+                numberValue = workValue18[1]
+                workValue2 = workValue2(numberValue)
+                if workValue2 then
+                  workValue2 = TaskPlayAnim
+                  numberValue = cmgCall5
+                  numberValue2 = workValue18[1]
+                  workValue6 = workValue18[2]
+                  hashValue = 1.0
+                  cmgCall2 = -1.0
+                  numberValue3 = -1
+                  workValue8 = 49
+                  numberValue4 = 0
+                  workValue10 = false
+                  flag = false
+                  flag2 = false
+                  -- Beginner: Play an animation on a ped.
+                  workValue2(numberValue, numberValue2, workValue6, hashValue, cmgCall2, numberValue3, workValue8, numberValue4, workValue10, flag, flag2)
                 end
               end
             end
@@ -1119,150 +1062,149 @@ function SHX17_1()
     end
   end
 end
-SHX16_1(SHX17_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "706fce7a08"
-function SHX18_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2 = SHX3_2()
-  if 0 ~= SHX3_2 then
-    SHX4_2 = DoesEntityExist
-    SHX5_2 = SHX3_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    if SHX4_2 then
-      goto SHX_LABEL_12
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall3(textValue)
+cmgCall3 = RegisterNetEvent
+textValue = "706fce7a08"
+-- Beginner: this function handles network event "706fce7a08".
+function workValue9(arg1, arg2, arg3)
+  local arg4, serverEventCall, textValue3, labelValue, cmgCall5, textValue4, workValue18, workValue2, numberValue, numberValue2, workValue6, hashValue, cmgCall2, numberValue3, workValue8, numberValue4, workValue10
+  arg4 = CMG
+  arg4 = arg4.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg4 = arg4()
+  if 0 ~= arg4 then
+    serverEventCall = DoesEntityExist
+    textValue3 = arg4
+    serverEventCall = serverEventCall(textValue3)
+    if serverEventCall then
+      goto flow_label_12
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX4_2 = GetPlayerFromServerId
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if -1 == SHX4_2 then
+  ::flow_label_12::
+  serverEventCall = GetPlayerFromServerId
+  textValue3 = arg1
+  -- Beginner: result below is playerIndex.
+  serverEventCall = serverEventCall(textValue3)
+  if -1 == serverEventCall then
     return
   end
-  SHX5_2 = GetPlayerPed
-  SHX6_2 = SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if 0 ~= SHX5_2 then
-    SHX6_2 = DoesEntityExist
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if SHX6_2 then
-      goto SHX_LABEL_29
+  textValue3 = GetPlayerPed
+  labelValue = serverEventCall
+  -- Beginner: result below is playerPed.
+  textValue3 = textValue3(labelValue)
+  if 0 ~= textValue3 then
+    labelValue = DoesEntityExist
+    cmgCall5 = textValue3
+    labelValue = labelValue(cmgCall5)
+    if labelValue then
+      goto flow_label_29
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_29:: outside nested blocks until all 'goto SHX_LABEL_29' can see it
-  ::SHX_LABEL_29::
-  SHX6_2 = 0.6
-  SHX7_2 = TaskGoToEntity
-  SHX8_2 = SHX3_2
-  SHX9_2 = SHX5_2
-  SHX10_2 = 10000
-  SHX11_2 = SHX6_2
-  SHX12_2 = 1.0
-  SHX13_2 = 0
-  SHX14_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX7_2 = GetGameTimer
-  SHX7_2 = SHX7_2()
+  ::flow_label_29::
+  labelValue = 0.6
+  cmgCall5 = TaskGoToEntity
+  textValue4 = arg4
+  workValue18 = textValue3
+  workValue2 = 10000
+  numberValue = labelValue
+  numberValue2 = 1.0
+  workValue6 = 0
+  hashValue = 0
+  cmgCall5(textValue4, workValue18, workValue2, numberValue, numberValue2, workValue6, hashValue)
+  cmgCall5 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  cmgCall5 = cmgCall5()
   while true do
-    SHX8_2 = GetGameTimer
-    SHX8_2 = SHX8_2()
-    SHX8_2 = SHX8_2 - SHX7_2
-    SHX9_2 = 10000
-    if not (SHX8_2 < SHX9_2) then
+    textValue4 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    textValue4 = textValue4()
+    textValue4 = textValue4 - cmgCall5
+    workValue18 = 10000
+    if not (textValue4 < workValue18) then
       break
     end
-    SHX8_2 = DoesEntityExist
-    SHX9_2 = SHX5_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    if not SHX8_2 then
+    textValue4 = DoesEntityExist
+    workValue18 = textValue3
+    textValue4 = textValue4(workValue18)
+    if not textValue4 then
       break
     end
-    SHX8_2 = GetEntityCoords
-    SHX9_2 = SHX3_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX9_2 = GetEntityCoords
-    SHX10_2 = SHX5_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX8_2 = SHX8_2 - SHX9_2
-    SHX8_2 = #SHX8_2
-    SHX9_2 = SHX6_2 + 0.3
-    if SHX8_2 <= SHX9_2 then
+    textValue4 = GetEntityCoords
+    workValue18 = arg4
+    -- Beginner: result below is entityCoords.
+    textValue4 = textValue4(workValue18)
+    workValue18 = GetEntityCoords
+    workValue2 = textValue3
+    -- Beginner: result below is entityCoords.
+    workValue18 = workValue18(workValue2)
+    textValue4 = textValue4 - workValue18
+    textValue4 = #textValue4
+    workValue18 = labelValue + 0.3
+    if textValue4 <= workValue18 then
       break
     end
-    SHX9_2 = Wait
-    SHX10_2 = 100
-    SHX9_2(SHX10_2)
+    workValue18 = Wait
+    workValue2 = 100
+    workValue18(workValue2)
   end
-  SHX8_2 = TaskTurnPedToFaceEntity
-  SHX9_2 = SHX3_2
-  SHX10_2 = SHX5_2
-  SHX11_2 = 500
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX8_2 = Wait
-  SHX9_2 = 300
-  SHX8_2(SHX9_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.loadAnimDict
-  SHX9_2 = "anim_heist@arcade_combined@"
-  SHX8_2(SHX9_2)
-  SHX8_2 = TaskPlayAnim
-  SHX9_2 = SHX3_2
-  SHX10_2 = "anim_heist@arcade_combined@"
-  SHX11_2 = "inspecting_high_idle_01_inspector"
-  SHX12_2 = 8.0
-  SHX13_2 = -8.0
-  SHX14_2 = 3000
-  SHX15_2 = 1
-  SHX16_2 = 0
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  SHX8_2 = RemoveAnimDict
-  SHX9_2 = "anim_heist@arcade_combined@"
-  SHX8_2(SHX9_2)
-  SHX8_2 = Wait
-  SHX9_2 = 3000
-  SHX8_2(SHX9_2)
-  SHX8_2 = TriggerServerEvent
-  SHX9_2 = "3cd4fe88fe"
-  SHX10_2 = SHX0_2
-  SHX11_2 = SHX1_2
-  SHX12_2 = SHX2_2
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+  textValue4 = TaskTurnPedToFaceEntity
+  workValue18 = arg4
+  workValue2 = textValue3
+  numberValue = 500
+  textValue4(workValue18, workValue2, numberValue)
+  textValue4 = Wait
+  workValue18 = 300
+  textValue4(workValue18)
+  textValue4 = CMG
+  textValue4 = textValue4.loadAnimDict
+  workValue18 = "anim_heist@arcade_combined@"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  textValue4(workValue18)
+  textValue4 = TaskPlayAnim
+  workValue18 = arg4
+  workValue2 = "anim_heist@arcade_combined@"
+  numberValue = "inspecting_high_idle_01_inspector"
+  numberValue2 = 8.0
+  workValue6 = -8.0
+  hashValue = 3000
+  cmgCall2 = 1
+  numberValue3 = 0
+  workValue8 = false
+  numberValue4 = false
+  workValue10 = false
+  -- Beginner: Play an animation on a ped.
+  textValue4(workValue18, workValue2, numberValue, numberValue2, workValue6, hashValue, cmgCall2, numberValue3, workValue8, numberValue4, workValue10)
+  textValue4 = RemoveAnimDict
+  workValue18 = "anim_heist@arcade_combined@"
+  textValue4(workValue18)
+  textValue4 = Wait
+  workValue18 = 3000
+  textValue4(workValue18)
+  textValue4 = TriggerServerEvent
+  workValue18 = "3cd4fe88fe"
+  workValue2 = arg1
+  numberValue = arg2
+  numberValue2 = arg3
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3cd4fe88fe".
+  textValue4(workValue18, workValue2, numberValue, numberValue2)
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = AddEventHandler
-SHX17_1 = "onResourceStop"
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX0_2 ~= SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "706fce7a08".
+cmgCall3(textValue, workValue9)
+cmgCall3 = AddEventHandler
+textValue = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function workValue9(arg1)
+  local arg2
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg1 ~= arg2 then
     return
   end
-  SHX1_2 = SHX15_1
-  SHX1_2()
+  arg2 = workValue7
+  arg2()
 end
-SHX16_1(SHX17_1, SHX18_1)
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+cmgCall3(textValue, workValue9)

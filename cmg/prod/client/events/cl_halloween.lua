@@ -1,413 +1,408 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Halloween Zombie Events
+    =======================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1
-SHX0_1 = {}
-SHX1_1 = RegisterNetEvent
-SHX2_1 = "69c2ae77f7"
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX0_1
-    SHX8_2 = vector3
-    SHX9_2 = SHX6_2.x
-    SHX10_2 = SHX6_2.y
-    SHX11_2 = SHX6_2.z
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX7_2[SHX5_2] = SHX8_2
-  end
-end
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = RegisterNetEvent
-SHX2_1 = "fb145a1459"
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX0_1
-  SHX1_2[SHX0_2] = nil
-end
-SHX1_1(SHX2_1, SHX3_1)
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadPtfx
-  SHX1_2 = "scr_rcbarry2"
-  SHX0_2(SHX1_2)
-  SHX0_2 = UseParticleFxAsset
-  SHX1_2 = "scr_rcbarry2"
-  SHX0_2(SHX1_2)
-  SHX0_2 = UseParticleFxAsset
-  SHX1_2 = "scr_rcbarry2"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCoords
-  SHX0_2 = SHX0_2()
-  SHX1_2 = StartNetworkedParticleFxNonLoopedAtCoord
-  SHX2_2 = "scr_clown_appears"
-  SHX3_2 = SHX0_2.x
-  SHX4_2 = SHX0_2.y
-  SHX5_2 = SHX0_2.z
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 1.0
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX1_2 = RemoveNamedPtfxAsset
-  SHX2_2 = "scr_rcbarry2"
-  SHX1_2(SHX2_2)
-end
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "c771c826dd"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.getCustomization
-  SHX0_2 = SHX0_2()
-  SHX1_2 = PlaySoundFrontend
-  SHX2_2 = -1
-  SHX3_2 = "Survival_Failed"
-  SHX4_2 = "DLC_VW_AS_Sounds"
-  SHX5_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.setCustomization
-  SHX2_2 = {}
-  SHX2_2.modelhash = -1404353274
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX1_1
-  SHX1_2()
-  SHX1_2 = SetTimecycleModifier
-  SHX2_2 = "BeastIntro01"
-  SHX1_2(SHX2_2)
-  SHX1_2 = SetTimecycleModifierStrength
-  SHX2_2 = 0.5
-  SHX1_2(SHX2_2)
-  SHX1_2 = PrepareMusicEvent
-  SHX2_2 = "HALLOWEEN_START_MUSIC"
-  SHX1_2(SHX2_2)
-  SHX1_2 = TriggerMusicEvent
-  SHX2_2 = "HALLOWEEN_START_MUSIC"
-  SHX1_2(SHX2_2)
-  SHX1_2 = RequestAnimSet
-  SHX2_2 = "anim_group_move_ballistic"
-  SHX1_2(SHX2_2)
-  while true do
-    SHX1_2 = HasAnimSetLoaded
-    SHX2_2 = "anim_group_move_ballistic"
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      break
+    This file only runs its background zombie logic while CMG.isHalloween().
+
+    Zombie table:
+      zombies[networkId] = last-known vector3 position
+
+    Server events:
+      69c2ae77f7(zombiePositions)
+        Replaces/updates the network-ID -> position lookup.
+
+      fb145a1459(networkId)
+        Removes one zombie from that lookup.
+
+      c771c826dd
+        Temporarily transforms THIS player into a zombie for 60 seconds.
+
+      89653ddee4(networkId)
+        Sent when a zombie gets within 1.5 metres and kills this player.
+
+    Nearby zombies:
+      * within 100m, their zombie idle animation is enforced
+      * ambient AI events are blocked
+      * within 30m, zombie sound is started once per ped
+      * within 1.5m, this player gets the jump-scare/death sequence
+
+    The player-zombie transformation:
+      * saves current customisation
+      * sets zombie model -1404353274
+      * plays Halloween music / timecycle
+      * applies zombie movement + damage packs
+      * waits 60 seconds
+      * restores original customisation
+
+    Hash-looking event names are deliberately unchanged.
+]]
+
+local zombies = {}
+
+-- ped handle -> true once zombie audio has been started for that entity.
+local zombieSoundStarted = {}
+
+
+-- ============================================================
+-- SERVER ZOMBIE TABLE
+-- ============================================================
+
+RegisterNetEvent(
+    "69c2ae77f7",
+    function(serverZombies)
+        zombies = {}
+
+        for networkId, coords
+            in pairs(serverZombies or {}) do
+
+            zombies[networkId] =
+                vector3(
+                    coords.x,
+                    coords.y,
+                    coords.z
+                )
+        end
     end
-    SHX1_2 = Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
-  end
-  SHX1_2 = SetPedMovementClipset
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = "anim_group_move_ballistic"
-  SHX4_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = RemoveAnimSet
-  SHX2_2 = "anim_group_move_ballistic"
-  SHX1_2(SHX2_2)
-  SHX1_2 = ApplyPedDamagePack
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = "BigHitByVehicle"
-  SHX4_2 = 0.0
-  SHX5_2 = 9.0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = ApplyPedDamagePack
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = "SCR_Dumpster"
-  SHX4_2 = 0.0
-  SHX5_2 = 9.0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = ApplyPedDamagePack
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = "SCR_Torture"
-  SHX4_2 = 0.0
-  SHX5_2 = 9.0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = Wait
-  SHX2_2 = 60000
-  SHX1_2(SHX2_2)
-  SHX1_2 = TriggerMusicEvent
-  SHX2_2 = "BST_STOP"
-  SHX1_2(SHX2_2)
-  SHX1_2 = ClearTimecycleModifier
-  SHX1_2()
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.setCustomization
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+)
+
+
+RegisterNetEvent(
+    "fb145a1459",
+    function(networkId)
+        zombies[networkId] =
+            nil
+    end
+)
+
+
+-- ============================================================
+-- PARTICLE / JUMPSCARE HELPERS
+-- ============================================================
+
+local function playZombieAppearanceParticle()
+    CMG.loadPtfx(
+        "scr_rcbarry2"
+    )
+
+    UseParticleFxAsset(
+        "scr_rcbarry2"
+    )
+
+    local coords =
+        CMG.getPlayerCoords()
+
+    StartNetworkedParticleFxNonLoopedAtCoord(
+        "scr_clown_appears",
+        coords.x,
+        coords.y,
+        coords.z,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveNamedPtfxAsset(
+        "scr_rcbarry2"
+    )
 end
-SHX2_1(SHX3_1, SHX4_1)
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
+
+
+local function playZombieJumpScare()
+    DoScreenFadeOut(100)
+
+    SendNUIMessage({
+        transactionType =
+            "zombiescream"
+    })
+end
+
+
+local function startZombieSound(ped)
+    if not DoesEntityExist(ped) then
+        return
+    end
+
+    while not RequestScriptAudioBank(
+        "DLC_HALLOWEEN\\HALLOWEEN",
+        false
+    ) do
+        Citizen.Wait(0)
+        print(
+            "infinite loading of halloween sound?"
+        )
+    end
+
+    local soundId =
+        GetSoundId()
+
+    PlaySoundFromEntity(
+        soundId,
+        "zombie",
+        ped,
+        "dlc_halloween_soundset",
+        false,
+        0
+    )
+end
+
+
+-- ============================================================
+-- TEMPORARILY TURN THIS PLAYER INTO A ZOMBIE
+-- ============================================================
+
+RegisterNetEvent(
+    "c771c826dd",
+    function()
+        local originalCustomisation =
+            tCMG.getCustomization()
+
+        PlaySoundFrontend(
+            -1,
+            "Survival_Failed",
+            "DLC_VW_AS_Sounds",
+            true
+        )
+
+        tCMG.setCustomization({
+            modelhash =
+                -1404353274
+        })
+
+        playZombieAppearanceParticle()
+
+        SetTimecycleModifier(
+            "BeastIntro01"
+        )
+
+        SetTimecycleModifierStrength(
+            0.5
+        )
+
+        PrepareMusicEvent(
+            "HALLOWEEN_START_MUSIC"
+        )
+
+        TriggerMusicEvent(
+            "HALLOWEEN_START_MUSIC"
+        )
+
+        local movementSet =
+            "anim_group_move_ballistic"
+
+        RequestAnimSet(
+            movementSet
+        )
+
+        while not HasAnimSetLoaded(
+            movementSet
+        ) do
+            Wait(0)
+        end
+
+        SetPedMovementClipset(
+            PlayerPedId(),
+            movementSet,
+            0
+        )
+
+        RemoveAnimSet(
+            movementSet
+        )
+
+        for _, damagePack in ipairs({
+            "BigHitByVehicle",
+            "SCR_Dumpster",
+            "SCR_Torture"
+        }) do
+            ApplyPedDamagePack(
+                PlayerPedId(),
+                damagePack,
+                0.0,
+                9.0
+            )
+        end
+
+        Wait(60000)
+
+        TriggerMusicEvent(
+            "BST_STOP"
+        )
+
+        ClearTimecycleModifier()
+
+        tCMG.setCustomization(
+            originalCustomisation
+        )
+    end
+)
+
+
+-- ============================================================
+-- ZOMBIE ANIMATION / KILL DISTANCE
+-- ============================================================
+
+CreateThread(function()
+    if not CMG.isHalloween() then
+        return
+    end
+
     while true do
-      SHX1_2 = RequestScriptAudioBank
-      SHX2_2 = "DLC_HALLOWEEN\\HALLOWEEN"
-      SHX3_2 = false
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      if SHX1_2 then
-        break
-      end
-      SHX1_2 = Citizen
-      SHX1_2 = SHX1_2.Wait
-      SHX2_2 = 0
-      SHX1_2(SHX2_2)
-      SHX1_2 = print
-      SHX2_2 = "infinite loading of halloween sound?"
-      SHX1_2(SHX2_2)
-    end
-    SHX1_2 = GetSoundId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = PlaySoundFromEntity
-    SHX3_2 = SHX1_2
-    SHX4_2 = "zombie"
-    SHX5_2 = SHX0_2
-    SHX6_2 = "dlc_halloween_soundset"
-    SHX7_2 = false
-    SHX8_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  end
-end
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = DoScreenFadeOut
-  SHX1_2 = 100
-  SHX0_2(SHX1_2)
-  SHX0_2 = SendNUIMessage
-  SHX1_2 = {}
-  SHX1_2.transactionType = "zombiescream"
-  SHX0_2(SHX1_2)
-end
-SHX4_1 = Citizen
-SHX4_1 = SHX4_1.CreateThread
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isHalloween
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    return
-  end
-  while true do
-    SHX0_2 = pairs
-    SHX1_2 = SHX0_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.getPlayerCoords
-      SHX6_2 = SHX6_2()
-      SHX7_2 = SHX6_2 - SHX5_2
-      SHX7_2 = #SHX7_2
-      if 0 ~= SHX4_2 then
-        SHX8_2 = NetworkDoesNetworkIdExist
-        SHX9_2 = SHX4_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        if SHX8_2 and SHX7_2 < 100 then
-          SHX8_2 = CMG
-          SHX8_2 = SHX8_2.getObjectId
-          SHX9_2 = SHX4_2
-          SHX10_2 = "zombie"
-          SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-          SHX9_2 = DoesEntityExist
-          SHX10_2 = SHX8_2
-          SHX9_2 = SHX9_2(SHX10_2)
-          if SHX9_2 then
-            SHX9_2 = IsEntityPlayingAnim
-            SHX10_2 = SHX8_2
-            SHX11_2 = "special_ped@zombie@base"
-            SHX12_2 = "base"
-            SHX13_2 = 3
-            SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-            if not SHX9_2 then
-              SHX9_2 = CMG
-              SHX9_2 = SHX9_2.loadAnimDict
-              SHX10_2 = "special_ped@zombie@base"
-              SHX9_2(SHX10_2)
-              SHX9_2 = TaskPlayAnim
-              SHX10_2 = SHX8_2
-              SHX11_2 = "special_ped@zombie@base"
-              SHX12_2 = "base"
-              SHX13_2 = 8.0
-              SHX14_2 = 8.0
-              SHX15_2 = -1
-              SHX16_2 = 1
-              SHX17_2 = 1.0
-              SHX18_2 = false
-              SHX19_2 = false
-              SHX20_2 = false
-              SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-              SHX9_2 = RemoveAnimDict
-              SHX10_2 = "special_ped@zombie@base"
-              SHX9_2(SHX10_2)
+        local playerCoords =
+            CMG.getPlayerCoords()
+
+        for networkId, zombieCoords
+            in pairs(zombies) do
+
+            local distance =
+                #(
+                    playerCoords
+                    - zombieCoords
+                )
+
+            if networkId ~= 0
+                and NetworkDoesNetworkIdExist(
+                    networkId
+                )
+                and distance < 100.0 then
+
+                local zombiePed =
+                    CMG.getObjectId(
+                        networkId,
+                        "zombie"
+                    )
+
+                if zombiePed
+                    and DoesEntityExist(
+                        zombiePed
+                    ) then
+
+                    local animDict =
+                        "special_ped@zombie@base"
+
+                    if not IsEntityPlayingAnim(
+                        zombiePed,
+                        animDict,
+                        "base",
+                        3
+                    ) then
+
+                        CMG.loadAnimDict(
+                            animDict
+                        )
+
+                        TaskPlayAnim(
+                            zombiePed,
+                            animDict,
+                            "base",
+                            8.0,
+                            8.0,
+                            -1,
+                            1,
+                            1.0,
+                            false,
+                            false,
+                            false
+                        )
+
+                        RemoveAnimDict(
+                            animDict
+                        )
+                    end
+
+                    SetBlockingOfNonTemporaryEvents(
+                        zombiePed,
+                        true
+                    )
+                end
             end
-            SHX9_2 = SetBlockingOfNonTemporaryEvents
-            SHX10_2 = SHX8_2
-            SHX11_2 = true
-            SHX9_2(SHX10_2, SHX11_2)
-          end
+
+            if distance < 1.5 then
+                CMG.setIgnoreDeathSound(
+                    true
+                )
+
+                playZombieJumpScare()
+
+                SetEntityHealth(
+                    PlayerPedId(),
+                    0
+                )
+
+                TriggerServerEvent(
+                    "89653ddee4",
+                    networkId
+                )
+
+                Wait(100)
+
+                DoScreenFadeIn(6000)
+
+                Wait(6000)
+
+                CMG.setIgnoreDeathSound(
+                    false
+                )
+            end
         end
-      end
-      SHX8_2 = 1.5
-      if SHX7_2 < SHX8_2 then
-        SHX8_2 = CMG
-        SHX8_2 = SHX8_2.setIgnoreDeathSound
-        SHX9_2 = true
-        SHX8_2(SHX9_2)
-        SHX8_2 = SHX3_1
-        SHX8_2()
-        SHX8_2 = SetEntityHealth
-        SHX9_2 = PlayerPedId
-        SHX9_2 = SHX9_2()
-        SHX10_2 = 0
-        SHX8_2(SHX9_2, SHX10_2)
-        SHX8_2 = TriggerServerEvent
-        SHX9_2 = "89653ddee4"
-        SHX10_2 = SHX4_2
-        SHX8_2(SHX9_2, SHX10_2)
-        SHX8_2 = Wait
-        SHX9_2 = 100
-        SHX8_2(SHX9_2)
-        SHX8_2 = DoScreenFadeIn
-        SHX9_2 = 6000
-        SHX8_2(SHX9_2)
-        SHX8_2 = Wait
-        SHX9_2 = 6000
-        SHX8_2(SHX9_2)
-        SHX8_2 = CMG
-        SHX8_2 = SHX8_2.setIgnoreDeathSound
-        SHX9_2 = false
-        SHX8_2(SHX9_2)
-      end
+
+        Wait(250)
     end
-    SHX0_2 = Wait
-    SHX1_2 = 250
-    SHX0_2(SHX1_2)
-  end
-end
-SHX4_1(SHX5_1)
-SHX4_1 = {}
-SHX5_1 = Citizen
-SHX5_1 = SHX5_1.CreateThread
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isHalloween
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    return
-  end
-  while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerCoords
-    SHX0_2 = SHX0_2()
-    SHX1_2 = pairs
-    SHX2_2 = SHX0_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = SHX0_2 - SHX6_2
-      SHX7_2 = #SHX7_2
-      SHX8_2 = NetworkDoesNetworkIdExist
-      SHX9_2 = SHX5_2
-      SHX8_2 = SHX8_2(SHX9_2)
-      if SHX8_2 then
-        SHX8_2 = CMG
-        SHX8_2 = SHX8_2.getObjectId
-        SHX9_2 = SHX5_2
-        SHX10_2 = "zombie nearby"
-        SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-        if SHX7_2 < 30 and SHX8_2 then
-          SHX9_2 = SHX4_1
-          SHX9_2 = SHX9_2[SHX8_2]
-          if not SHX9_2 then
-            SHX9_2 = SHX2_1
-            SHX10_2 = SHX8_2
-            SHX9_2(SHX10_2)
-            SHX9_2 = SHX4_1
-            SHX9_2[SHX8_2] = true
-          end
+end)
+
+
+-- ============================================================
+-- START ZOMBIE SOUND WHEN ONE GETS WITHIN 30M
+-- ============================================================
+
+CreateThread(function()
+    if not CMG.isHalloween() then
+        return
+    end
+
+    while true do
+        local playerCoords =
+            CMG.getPlayerCoords()
+
+        for networkId, zombieCoords
+            in pairs(zombies) do
+
+            local distance =
+                #(
+                    playerCoords
+                    - zombieCoords
+                )
+
+            if NetworkDoesNetworkIdExist(
+                networkId
+            ) then
+
+                local zombiePed =
+                    CMG.getObjectId(
+                        networkId,
+                        "zombie nearby"
+                    )
+
+                if distance < 30.0
+                    and zombiePed
+                    and not zombieSoundStarted[
+                        zombiePed
+                    ] then
+
+                    startZombieSound(
+                        zombiePed
+                    )
+
+                    zombieSoundStarted[
+                        zombiePed
+                    ] = true
+                end
+            end
         end
-      end
+
+        Wait(250)
     end
-    SHX1_2 = Wait
-    SHX2_2 = 250
-    SHX1_2(SHX2_2)
-  end
-end
-SHX5_1(SHX6_1)
+end)

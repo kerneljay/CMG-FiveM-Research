@@ -1,1086 +1,1018 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_casinochips.lua
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1
-SHX0_1 = "0"
-SHX1_1 = 0
-SHX2_1 = RMenu
-SHX2_1 = SHX2_1.Add
-SHX3_1 = "cmgchips"
-SHX4_1 = "cashier"
-SHX5_1 = RageUI
-SHX5_1 = SHX5_1.CreateMenu
-SHX6_1 = ""
-SHX7_1 = ""
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1 = SHX9_1()
-SHX10_1 = "cmg_casino"
-SHX11_1 = "cmg_casino"
-SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX2_1(SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1)
-SHX2_1 = RMenu
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.Get
-SHX4_1 = "cmgchips"
-SHX5_1 = "cashier"
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.SetSubtitle
-SHX4_1 = "~b~CHIPS"
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RMenu
-SHX2_1 = SHX2_1.Add
-SHX3_1 = "casino_enter"
-SHX4_1 = "casino"
-SHX5_1 = RageUI
-SHX5_1 = SHX5_1.CreateMenu
-SHX6_1 = ""
-SHX7_1 = ""
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1 = SHX9_1()
-SHX10_1 = "cmg_casino"
-SHX11_1 = "cmg_casino"
-SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX2_1(SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1)
-SHX2_1 = RMenu
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.Get
-SHX4_1 = "casino_enter"
-SHX5_1 = "casino"
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.SetSubtitle
-SHX4_1 = "~b~ENTER"
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RMenu
-SHX2_1 = SHX2_1.Add
-SHX3_1 = "casino_exit"
-SHX4_1 = "casino"
-SHX5_1 = RageUI
-SHX5_1 = SHX5_1.CreateMenu
-SHX6_1 = ""
-SHX7_1 = ""
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1 = SHX9_1()
-SHX10_1 = "cmg_casino"
-SHX11_1 = "cmg_casino"
-SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX2_1(SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1)
-SHX2_1 = RMenu
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.Get
-SHX4_1 = "casino_exit"
-SHX5_1 = "casino"
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.SetSubtitle
-SHX4_1 = "~b~EXIT"
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RMenu
-SHX2_1 = SHX2_1.Add
-SHX3_1 = "casino_rooftop_exit"
-SHX4_1 = "casino"
-SHX5_1 = RageUI
-SHX5_1 = SHX5_1.CreateMenu
-SHX6_1 = ""
-SHX7_1 = ""
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1 = SHX9_1()
-SHX10_1 = "cmg_casino"
-SHX11_1 = "cmg_casino"
-SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX2_1(SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1)
-SHX2_1 = RMenu
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.Get
-SHX4_1 = "casino_rooftop_exit"
-SHX5_1 = "casino"
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX3_1 = SHX2_1
-SHX2_1 = SHX2_1.SetSubtitle
-SHX4_1 = "~b~EXIT"
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = {}
-SHX3_1 = {}
-SHX3_1.model = -1156746507
-SHX4_1 = vector3
-SHX5_1 = 966.41003417969
-SHX6_1 = 23.916101455688
-SHX7_1 = 81.00611114502
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.pedPosition = SHX4_1
-SHX3_1.pedHeading = 328.0
-SHX4_1 = vector3
-SHX5_1 = 967.09735107422
-SHX6_1 = 25.525142669678
-SHX7_1 = 80.026103515625
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.entryPosition = SHX4_1
-SHX4_1 = {}
-SHX4_1.model = -1156746507
-SHX5_1 = vector3
-SHX6_1 = 414.69891357422
-SHX7_1 = 8.465934753418
-SHX8_1 = 91.927490234375
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.pedPosition = SHX5_1
-SHX4_1.pedHeading = 62.362205505371
-SHX5_1 = vector3
-SHX6_1 = 412.84494018555
-SHX7_1 = 9.5947942733765
-SHX8_1 = 91.035302734375
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.entryPosition = SHX5_1
-SHX5_1 = {}
-SHX5_1.model = -1156746507
-SHX6_1 = vector3
-SHX7_1 = -274.54943847656
-SHX8_1 = -732.19781494141
-SHX9_1 = 125.49230957031
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.pedPosition = SHX6_1
-SHX5_1.pedHeading = 73.700790405273
-SHX6_1 = vector3
-SHX7_1 = -276.10549926758
-SHX8_1 = -731.72308349609
-SHX9_1 = 124.46861816406
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.entryPosition = SHX6_1
-SHX6_1 = {}
-SHX6_1.model = -1156746507
-SHX7_1 = vector3
-SHX8_1 = -54.039554595947
-SHX9_1 = 8039.7231445312
-SHX10_1 = 12.665893554688
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.pedPosition = SHX7_1
-SHX6_1.pedHeading = 249.44882202148
-SHX7_1 = vector3
-SHX8_1 = -52.50394821167
-SHX9_1 = 8039.302734375
-SHX10_1 = 11.70361164093
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.entryPosition = SHX7_1
-SHX7_1 = {}
-SHX7_1.model = -1156746507
-SHX8_1 = vector3
-SHX9_1 = 1148.6636962891
-SHX10_1 = -428.51867675781
-SHX11_1 = 62.22119140625
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX7_1.pedPosition = SHX8_1
-SHX7_1.pedHeading = 167.24407958984
-SHX8_1 = vector3
-SHX9_1 = 1147.1414794922
-SHX10_1 = -429.94134521484
-SHX11_1 = 61.235101470947
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX7_1.entryPosition = SHX8_1
-SHX8_1 = {}
-SHX8_1.model = -1156746507
-SHX9_1 = vector3
-SHX10_1 = -114.57550811768
-SHX11_1 = 384.71957397461
-SHX12_1 = 113.28313446045
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.pedPosition = SHX9_1
-SHX8_1.pedHeading = 252.28346252441
-SHX9_1 = vector3
-SHX10_1 = -112.58515167236
-SHX11_1 = 383.98904418945
-SHX12_1 = 112.28524890137
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.entryPosition = SHX9_1
-SHX9_1 = {}
-SHX9_1.model = -1156746507
-SHX10_1 = vector3
-SHX11_1 = -263.38021850586
-SHX12_1 = -913.14727783203
-SHX13_1 = 32.312866210938
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.pedPosition = SHX10_1
-SHX9_1.pedHeading = 17.007873535156
-SHX10_1 = vector3
-SHX11_1 = -262.64916992188
-SHX12_1 = -911.17016601562
-SHX13_1 = 31.34413269043
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.entryPosition = SHX10_1
-SHX10_1 = {}
-SHX10_1.model = -1156746507
-SHX11_1 = vector3
-SHX12_1 = 2071.5825195312
-SHX13_1 = 5085.4946289062
-SHX14_1 = 41.950927734375
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1.pedPosition = SHX11_1
-SHX10_1.pedHeading = 124.72441101074
-SHX11_1 = vector3
-SHX12_1 = 2070.2563476562
-SHX13_1 = 5084.326171875
-SHX14_1 = 40.965917358398
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1.entryPosition = SHX11_1
-SHX11_1 = {}
-SHX11_1.model = -1156746507
-SHX12_1 = vector3
-SHX13_1 = 3943.1472167969
-SHX14_1 = 4859.7495117188
-SHX15_1 = 14.114990234375
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX11_1.pedPosition = SHX12_1
-SHX11_1.pedHeading = 289.13385009766
-SHX12_1 = vector3
-SHX13_1 = 3943.9750976562
-SHX14_1 = 4860.068359375
-SHX15_1 = 13.121613502502
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX11_1.entryPosition = SHX12_1
-SHX12_1 = {}
-SHX12_1.model = -1156746507
-SHX13_1 = vector3
-SHX14_1 = 1157.31640625
-SHX15_1 = -436.75601196289
-SHX16_1 = 62.225215911865
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX12_1.pedPosition = SHX13_1
-SHX12_1.pedHeading = 345.82678222656
-SHX13_1 = vector3
-SHX14_1 = 1157.9731445312
-SHX15_1 = -434.87191772461
-SHX16_1 = 61.225276947021
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX12_1.entryPosition = SHX13_1
-SHX13_1 = {}
-SHX13_1.model = -1156746507
-SHX14_1 = vector3
-SHX15_1 = 3762.5803222656
-SHX16_1 = -1556.5977783203
-SHX17_1 = 4.02197265625
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX13_1.pedPosition = SHX14_1
-SHX13_1.pedHeading = 164.4094543457
-SHX14_1 = vector3
-SHX15_1 = 3762.2326660156
-SHX16_1 = -1559.1011962891
-SHX17_1 = 3.0253777503967
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX13_1.entryPosition = SHX14_1
-SHX14_1 = {}
-SHX14_1.model = -1156746507
-SHX15_1 = vector3
-SHX16_1 = -3007.8989257812
-SHX17_1 = 76.193405151367
-SHX18_1 = 16.305541992188
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX14_1.pedPosition = SHX15_1
-SHX14_1.pedHeading = 238.11022949219
-SHX15_1 = vector3
-SHX16_1 = -3006.765625
-SHX17_1 = 75.510192871094
-SHX18_1 = 15.231451034546
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX14_1.entryPosition = SHX15_1
-SHX15_1 = {}
-SHX15_1.model = -1156746507
-SHX16_1 = vector3
-SHX17_1 = -1026.8967285156
-SHX18_1 = -1369.3714599609
-SHX19_1 = 9.4476318359375
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX15_1.pedPosition = SHX16_1
-SHX15_1.pedHeading = 289.13385009766
-SHX16_1 = vector3
-SHX17_1 = -1026.01171875
-SHX18_1 = -1368.8759765625
-SHX19_1 = 8.4597616195679
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX15_1.entryPosition = SHX16_1
-SHX16_1 = {}
-SHX16_1.model = -1156746507
-SHX17_1 = vector3
-SHX18_1 = -1890.4483642578
-SHX19_1 = 2064.3295898438
-SHX20_1 = 145.56042480469
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX16_1.pedPosition = SHX17_1
-SHX16_1.pedHeading = 252.28346252441
-SHX17_1 = vector3
-SHX18_1 = -1888.734375
-SHX19_1 = 2063.6904296875
-SHX20_1 = 144.57385253906
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX16_1.entryPosition = SHX17_1
-SHX2_1[1] = SHX3_1
-SHX2_1[2] = SHX4_1
-SHX2_1[3] = SHX5_1
-SHX2_1[4] = SHX6_1
-SHX2_1[5] = SHX7_1
-SHX2_1[6] = SHX8_1
-SHX2_1[7] = SHX9_1
-SHX2_1[8] = SHX10_1
-SHX2_1[9] = SHX11_1
-SHX2_1[10] = SHX12_1
-SHX2_1[11] = SHX13_1
-SHX2_1[12] = SHX14_1
-SHX2_1[13] = SHX15_1
-SHX2_1[14] = SHX16_1
-SHX3_1 = Citizen
-SHX3_1 = SHX3_1.CreateThread
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX2_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.createDynamicPed
-    SHX7_2 = SHX5_2.model
-    SHX8_2 = SHX5_2.pedPosition
-    SHX9_2 = 100.0
-    SHX10_2 = true
-    SHX11_2 = "mini@strip_club@idles@bouncer@base"
-    SHX12_2 = "base"
-    SHX13_2 = 75.0
-    SHX14_2 = nil
-    function SHX15_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-      SHX1_3 = SetEntityCanBeDamaged
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetPedAsEnemy
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetBlockingOfNonTemporaryEvents
-      SHX2_3 = SHX0_3
-      SHX3_3 = true
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetPedResetFlag
-      SHX2_3 = SHX0_3
-      SHX3_3 = 249
-      SHX4_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = SetPedConfigFlag
-      SHX2_3 = SHX0_3
-      SHX3_3 = 185
-      SHX4_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = SetPedConfigFlag
-      SHX2_3 = SHX0_3
-      SHX3_3 = 108
-      SHX4_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = SetPedCanEvasiveDive
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetPedCanRagdollFromPlayerImpact
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetPedConfigFlag
-      SHX2_3 = SHX0_3
-      SHX3_3 = 208
-      SHX4_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = SetEntityCollision
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX4_3 = false
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = SetEntityCoordsNoOffset
-      SHX2_3 = SHX0_3
-      SHX3_3 = SHX5_2.pedPosition
-      SHX3_3 = SHX3_3.x
-      SHX4_3 = SHX5_2.pedPosition
-      SHX4_3 = SHX4_3.y
-      SHX5_3 = SHX5_2.pedPosition
-      SHX5_3 = SHX5_3.z
-      SHX6_3 = false
-      SHX7_3 = false
-      SHX8_3 = false
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-      SHX1_3 = SetEntityHeading
-      SHX2_3 = SHX0_3
-      SHX3_3 = SHX5_2.pedHeading
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = FreezeEntityPosition
-      SHX2_3 = SHX0_3
-      SHX3_3 = true
-      SHX1_3(SHX2_3, SHX3_3)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Casinochips
+    ============================
+
+    File: cmg/prod/client/casino/cl_casinochips.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 5
+      They are intentionally left unchanged because matching server code may use them.
+      * d5dbf55707
+      * 434a212611
+      * 5de4d2dc4c
+      * d1aaad3e19
+      * 5b934498c8
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+    Example player-facing text in this file:
+      * Enter Chips
+      * CommonMenu
+
+]]
+local textValue, numberValue15, workValue5, textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23
+textValue = "0"
+numberValue15 = 0
+workValue5 = RMenu
+workValue5 = workValue5.Add
+textValue7 = "cmgchips"
+textValue8 = "cashier"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue11 = ""
+textValue12 = ""
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue2 = "cmg_casino"
+textValue3 = "cmg_casino"
+rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
+workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
+workValue5 = RMenu
+textValue7 = workValue5
+workValue5 = workValue5.Get
+textValue8 = "cmgchips"
+rageUiCall = "cashier"
+-- Beginner: result below is menu.
+workValue5 = workValue5(textValue7, textValue8, rageUiCall)
+textValue7 = workValue5
+workValue5 = workValue5.SetSubtitle
+textValue8 = "~b~CHIPS"
+workValue5(textValue7, textValue8)
+workValue5 = RMenu
+workValue5 = workValue5.Add
+textValue7 = "casino_enter"
+textValue8 = "casino"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue11 = ""
+textValue12 = ""
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue2 = "cmg_casino"
+textValue3 = "cmg_casino"
+rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
+workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
+workValue5 = RMenu
+textValue7 = workValue5
+workValue5 = workValue5.Get
+textValue8 = "casino_enter"
+rageUiCall = "casino"
+-- Beginner: result below is menu.
+workValue5 = workValue5(textValue7, textValue8, rageUiCall)
+textValue7 = workValue5
+workValue5 = workValue5.SetSubtitle
+textValue8 = "~b~ENTER"
+workValue5(textValue7, textValue8)
+workValue5 = RMenu
+workValue5 = workValue5.Add
+textValue7 = "casino_exit"
+textValue8 = "casino"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue11 = ""
+textValue12 = ""
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue2 = "cmg_casino"
+textValue3 = "cmg_casino"
+rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
+workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
+workValue5 = RMenu
+textValue7 = workValue5
+workValue5 = workValue5.Get
+textValue8 = "casino_exit"
+rageUiCall = "casino"
+-- Beginner: result below is menu.
+workValue5 = workValue5(textValue7, textValue8, rageUiCall)
+textValue7 = workValue5
+workValue5 = workValue5.SetSubtitle
+textValue8 = "~b~EXIT"
+workValue5(textValue7, textValue8)
+workValue5 = RMenu
+workValue5 = workValue5.Add
+textValue7 = "casino_rooftop_exit"
+textValue8 = "casino"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue11 = ""
+textValue12 = ""
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue2 = "cmg_casino"
+textValue3 = "cmg_casino"
+rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23 = rageUiCall(textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3)
+workValue5(textValue7, textValue8, rageUiCall, textValue11, textValue12, rageUiCall2, rageUiCall3, textValue2, textValue3, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, vector3Builder, vector3Builder2, numberValue19, numberValue21, numberValue23)
+workValue5 = RMenu
+textValue7 = workValue5
+workValue5 = workValue5.Get
+textValue8 = "casino_rooftop_exit"
+rageUiCall = "casino"
+-- Beginner: result below is menu.
+workValue5 = workValue5(textValue7, textValue8, rageUiCall)
+textValue7 = workValue5
+workValue5 = workValue5.SetSubtitle
+textValue8 = "~b~EXIT"
+workValue5(textValue7, textValue8)
+workValue5 = {}
+textValue7 = {}
+textValue7.model = -1156746507
+textValue8 = vector3
+rageUiCall = 966.41003417969
+textValue11 = 23.916101455688
+textValue12 = 81.00611114502
+textValue8 = textValue8(rageUiCall, textValue11, textValue12)
+textValue7.pedPosition = textValue8
+textValue7.pedHeading = 328.0
+textValue8 = vector3
+rageUiCall = 967.09735107422
+textValue11 = 25.525142669678
+textValue12 = 80.026103515625
+textValue8 = textValue8(rageUiCall, textValue11, textValue12)
+textValue7.entryPosition = textValue8
+textValue8 = {}
+textValue8.model = -1156746507
+rageUiCall = vector3
+textValue11 = 414.69891357422
+textValue12 = 8.465934753418
+rageUiCall2 = 91.927490234375
+rageUiCall = rageUiCall(textValue11, textValue12, rageUiCall2)
+textValue8.pedPosition = rageUiCall
+textValue8.pedHeading = 62.362205505371
+rageUiCall = vector3
+textValue11 = 412.84494018555
+textValue12 = 9.5947942733765
+rageUiCall2 = 91.035302734375
+rageUiCall = rageUiCall(textValue11, textValue12, rageUiCall2)
+textValue8.entryPosition = rageUiCall
+rageUiCall = {}
+rageUiCall.model = -1156746507
+textValue11 = vector3
+textValue12 = -274.54943847656
+rageUiCall2 = -732.19781494141
+rageUiCall3 = 125.49230957031
+textValue11 = textValue11(textValue12, rageUiCall2, rageUiCall3)
+rageUiCall.pedPosition = textValue11
+rageUiCall.pedHeading = 73.700790405273
+textValue11 = vector3
+textValue12 = -276.10549926758
+rageUiCall2 = -731.72308349609
+rageUiCall3 = 124.46861816406
+textValue11 = textValue11(textValue12, rageUiCall2, rageUiCall3)
+rageUiCall.entryPosition = textValue11
+textValue11 = {}
+textValue11.model = -1156746507
+textValue12 = vector3
+rageUiCall2 = -54.039554595947
+rageUiCall3 = 8039.7231445312
+textValue2 = 12.665893554688
+textValue12 = textValue12(rageUiCall2, rageUiCall3, textValue2)
+textValue11.pedPosition = textValue12
+textValue11.pedHeading = 249.44882202148
+textValue12 = vector3
+rageUiCall2 = -52.50394821167
+rageUiCall3 = 8039.302734375
+textValue2 = 11.70361164093
+textValue12 = textValue12(rageUiCall2, rageUiCall3, textValue2)
+textValue11.entryPosition = textValue12
+textValue12 = {}
+textValue12.model = -1156746507
+rageUiCall2 = vector3
+rageUiCall3 = 1148.6636962891
+textValue2 = -428.51867675781
+textValue3 = 62.22119140625
+rageUiCall2 = rageUiCall2(rageUiCall3, textValue2, textValue3)
+textValue12.pedPosition = rageUiCall2
+textValue12.pedHeading = 167.24407958984
+rageUiCall2 = vector3
+rageUiCall3 = 1147.1414794922
+textValue2 = -429.94134521484
+textValue3 = 61.235101470947
+rageUiCall2 = rageUiCall2(rageUiCall3, textValue2, textValue3)
+textValue12.entryPosition = rageUiCall2
+rageUiCall2 = {}
+rageUiCall2.model = -1156746507
+rageUiCall3 = vector3
+textValue2 = -114.57550811768
+textValue3 = 384.71957397461
+numberValue3 = 113.28313446045
+rageUiCall3 = rageUiCall3(textValue2, textValue3, numberValue3)
+rageUiCall2.pedPosition = rageUiCall3
+rageUiCall2.pedHeading = 252.28346252441
+rageUiCall3 = vector3
+textValue2 = -112.58515167236
+textValue3 = 383.98904418945
+numberValue3 = 112.28524890137
+rageUiCall3 = rageUiCall3(textValue2, textValue3, numberValue3)
+rageUiCall2.entryPosition = rageUiCall3
+rageUiCall3 = {}
+rageUiCall3.model = -1156746507
+textValue2 = vector3
+textValue3 = -263.38021850586
+numberValue3 = -913.14727783203
+numberValue5 = 32.312866210938
+textValue2 = textValue2(textValue3, numberValue3, numberValue5)
+rageUiCall3.pedPosition = textValue2
+rageUiCall3.pedHeading = 17.007873535156
+textValue2 = vector3
+textValue3 = -262.64916992188
+numberValue3 = -911.17016601562
+numberValue5 = 31.34413269043
+textValue2 = textValue2(textValue3, numberValue3, numberValue5)
+rageUiCall3.entryPosition = textValue2
+textValue2 = {}
+textValue2.model = -1156746507
+textValue3 = vector3
+numberValue3 = 2071.5825195312
+numberValue5 = 5085.4946289062
+numberValue7 = 41.950927734375
+textValue3 = textValue3(numberValue3, numberValue5, numberValue7)
+textValue2.pedPosition = textValue3
+textValue2.pedHeading = 124.72441101074
+textValue3 = vector3
+numberValue3 = 2070.2563476562
+numberValue5 = 5084.326171875
+numberValue7 = 40.965917358398
+textValue3 = textValue3(numberValue3, numberValue5, numberValue7)
+textValue2.entryPosition = textValue3
+textValue3 = {}
+textValue3.model = -1156746507
+numberValue3 = vector3
+numberValue5 = 3943.1472167969
+numberValue7 = 4859.7495117188
+numberValue8 = 14.114990234375
+numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
+textValue3.pedPosition = numberValue3
+textValue3.pedHeading = 289.13385009766
+numberValue3 = vector3
+numberValue5 = 3943.9750976562
+numberValue7 = 4860.068359375
+numberValue8 = 13.121613502502
+numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
+textValue3.entryPosition = numberValue3
+numberValue3 = {}
+numberValue3.model = -1156746507
+numberValue5 = vector3
+numberValue7 = 1157.31640625
+numberValue8 = -436.75601196289
+numberValue9 = 62.225215911865
+numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
+numberValue3.pedPosition = numberValue5
+numberValue3.pedHeading = 345.82678222656
+numberValue5 = vector3
+numberValue7 = 1157.9731445312
+numberValue8 = -434.87191772461
+numberValue9 = 61.225276947021
+numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
+numberValue3.entryPosition = numberValue5
+numberValue5 = {}
+numberValue5.model = -1156746507
+numberValue7 = vector3
+numberValue8 = 3762.5803222656
+numberValue9 = -1556.5977783203
+numberValue10 = 4.02197265625
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
+numberValue5.pedPosition = numberValue7
+numberValue5.pedHeading = 164.4094543457
+numberValue7 = vector3
+numberValue8 = 3762.2326660156
+numberValue9 = -1559.1011962891
+numberValue10 = 3.0253777503967
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
+numberValue5.entryPosition = numberValue7
+numberValue7 = {}
+numberValue7.model = -1156746507
+numberValue8 = vector3
+numberValue9 = -3007.8989257812
+numberValue10 = 76.193405151367
+numberValue12 = 16.305541992188
+numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
+numberValue7.pedPosition = numberValue8
+numberValue7.pedHeading = 238.11022949219
+numberValue8 = vector3
+numberValue9 = -3006.765625
+numberValue10 = 75.510192871094
+numberValue12 = 15.231451034546
+numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
+numberValue7.entryPosition = numberValue8
+numberValue8 = {}
+numberValue8.model = -1156746507
+numberValue9 = vector3
+numberValue10 = -1026.8967285156
+numberValue12 = -1369.3714599609
+numberValue14 = 9.4476318359375
+numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
+numberValue8.pedPosition = numberValue9
+numberValue8.pedHeading = 289.13385009766
+numberValue9 = vector3
+numberValue10 = -1026.01171875
+numberValue12 = -1368.8759765625
+numberValue14 = 8.4597616195679
+numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
+numberValue8.entryPosition = numberValue9
+numberValue9 = {}
+numberValue9.model = -1156746507
+numberValue10 = vector3
+numberValue12 = -1890.4483642578
+numberValue14 = 2064.3295898438
+numberValue16 = 145.56042480469
+numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
+numberValue9.pedPosition = numberValue10
+numberValue9.pedHeading = 252.28346252441
+numberValue10 = vector3
+numberValue12 = -1888.734375
+numberValue14 = 2063.6904296875
+numberValue16 = 144.57385253906
+numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
+numberValue9.entryPosition = numberValue10
+workValue5[1] = textValue7
+workValue5[2] = textValue8
+workValue5[3] = rageUiCall
+workValue5[4] = textValue11
+workValue5[5] = textValue12
+workValue5[6] = rageUiCall2
+workValue5[7] = rageUiCall3
+workValue5[8] = textValue2
+workValue5[9] = textValue3
+workValue5[10] = numberValue3
+workValue5[11] = numberValue5
+workValue5[12] = numberValue7
+workValue5[13] = numberValue8
+workValue5[14] = numberValue9
+textValue7 = Citizen
+textValue7 = textValue7.CreateThread
+function textValue8()
+  local arg1, arg2, flag2, flag3, flag5, textValue9, cmgCall4, iterator, workValue8, numberValue26, flag, textValue4, textValue5, cmgCall, workValue, workValue2
+  arg1 = pairs
+  arg2 = workValue5
+  arg1, arg2, flag2, flag3 = arg1(arg2)
+  for flag5, textValue9 in arg1, arg2, flag2, flag3 do
+    cmgCall4 = CMG
+    cmgCall4 = cmgCall4.createDynamicPed
+    iterator = textValue9.model
+    workValue8 = textValue9.pedPosition
+    numberValue26 = 100.0
+    flag = true
+    textValue4 = "mini@strip_club@idles@bouncer@base"
+    textValue5 = "base"
+    cmgCall = 75.0
+    workValue = nil
+    function workValue2(arg12)
+      local workValue4, workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9
+      workValue4 = SetEntityCanBeDamaged
+      workValue6 = arg12
+      flag4 = false
+      workValue4(workValue6, flag4)
+      workValue4 = SetPedAsEnemy
+      workValue6 = arg12
+      flag4 = false
+      workValue4(workValue6, flag4)
+      workValue4 = SetBlockingOfNonTemporaryEvents
+      workValue6 = arg12
+      flag4 = true
+      workValue4(workValue6, flag4)
+      workValue4 = SetPedResetFlag
+      workValue6 = arg12
+      flag4 = 249
+      flag6 = true
+      workValue4(workValue6, flag4, flag6)
+      workValue4 = SetPedConfigFlag
+      workValue6 = arg12
+      flag4 = 185
+      flag6 = true
+      workValue4(workValue6, flag4, flag6)
+      workValue4 = SetPedConfigFlag
+      workValue6 = arg12
+      flag4 = 108
+      flag6 = true
+      workValue4(workValue6, flag4, flag6)
+      workValue4 = SetPedCanEvasiveDive
+      workValue6 = arg12
+      flag4 = false
+      workValue4(workValue6, flag4)
+      workValue4 = SetPedCanRagdollFromPlayerImpact
+      workValue6 = arg12
+      flag4 = false
+      workValue4(workValue6, flag4)
+      workValue4 = SetPedConfigFlag
+      workValue6 = arg12
+      flag4 = 208
+      flag6 = true
+      workValue4(workValue6, flag4, flag6)
+      workValue4 = SetEntityCollision
+      workValue6 = arg12
+      flag4 = false
+      flag6 = false
+      workValue4(workValue6, flag4, flag6)
+      workValue4 = SetEntityCoordsNoOffset
+      workValue6 = arg12
+      flag4 = textValue9.pedPosition
+      flag4 = flag4.x
+      flag6 = textValue9.pedPosition
+      flag6 = flag6.y
+      numberValue25 = textValue9.pedPosition
+      numberValue25 = numberValue25.z
+      flag7 = false
+      flag8 = false
+      flag9 = false
+      -- Beginner: Move/teleport an entity to new coordinates.
+      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9)
+      workValue4 = SetEntityHeading
+      workValue6 = arg12
+      flag4 = textValue9.pedHeading
+      -- Beginner: Change the direction an entity is facing.
+      workValue4(workValue6, flag4)
+      workValue4 = FreezeEntityPosition
+      workValue6 = arg12
+      flag4 = true
+      -- Beginner: Freeze or unfreeze an entity in place.
+      workValue4(workValue6, flag4)
     end
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+    cmgCall4(iterator, workValue8, numberValue26, flag, textValue4, textValue5, cmgCall, workValue, workValue2)
   end
 end
-SHX3_1(SHX4_1)
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateWhile
-SHX4_1 = 1.0
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cmgchips"
-SHX8_1 = "cashier"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = nil
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgchips"
-  SHX4_2 = "cashier"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Buy chips"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-      if SHX2_4 then
-        SHX3_4 = CMG
-        SHX3_4 = SHX3_4.GetRageInputInt
-        SHX4_4 = "Enter Chips"
-        SHX3_4 = SHX3_4(SHX4_4)
-        if SHX3_4 then
-          if SHX3_4 > 0 then
-            SHX4_4 = TriggerServerEvent
-            SHX5_4 = "d5dbf55707"
-            SHX6_4 = math
-            SHX6_4 = SHX6_4.floor
-            SHX7_4 = SHX3_4
-            SHX6_4, SHX7_4 = SHX6_4(SHX7_4)
-            SHX4_4(SHX5_4, SHX6_4, SHX7_4)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+textValue7(textValue8)
+textValue7 = RageUI
+textValue7 = textValue7.CreateWhile
+textValue8 = 1.0
+rageUiCall = RMenu
+textValue11 = rageUiCall
+rageUiCall = rageUiCall.Get
+textValue12 = "cmgchips"
+rageUiCall2 = "cashier"
+-- Beginner: result below is menu.
+rageUiCall = rageUiCall(textValue11, textValue12, rageUiCall2)
+textValue11 = nil
+function textValue12()
+  local arg1, arg2, flag2, flag3, flag5, textValue9, cmgCall4
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  flag2 = arg2
+  arg2 = arg2.Get
+  flag3 = "cmgchips"
+  flag5 = "cashier"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag2, flag3, flag5)
+  flag2 = true
+  flag3 = true
+  flag5 = true
+  function textValue9()
+    local arg12, workValue4, workValue6, flag4, flag6, numberValue25
+    arg12 = RageUI
+    arg12 = arg12.ButtonWithStyle
+    workValue4 = "Buy chips"
+    workValue6 = ""
+    flag4 = {}
+    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    flag6 = true
+    function numberValue25(arg13, arg22, arg3)
+      local cmgCall2, cmgCall3, textValue10, mathHelper, workValue7
+      if arg3 then
+        cmgCall2 = CMG
+        cmgCall2 = cmgCall2.GetRageInputInt
+        cmgCall3 = "Enter Chips"
+        cmgCall2 = cmgCall2(cmgCall3)
+        if cmgCall2 then
+          if cmgCall2 > 0 then
+            cmgCall3 = TriggerServerEvent
+            textValue10 = "d5dbf55707"
+            mathHelper = math
+            mathHelper = mathHelper.floor
+            workValue7 = cmgCall2
+            mathHelper, workValue7 = mathHelper(workValue7)
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d5dbf55707".
+            cmgCall3(textValue10, mathHelper, workValue7)
           else
-            SHX4_4 = tCMG
-            SHX4_4 = SHX4_4.notify
-            SHX5_4 = "~r~Negative amount."
-            SHX4_4(SHX5_4)
+            cmgCall3 = tCMG
+            cmgCall3 = cmgCall3.notify
+            textValue10 = "~r~Negative amount."
+            -- Beginner: Show a notification to the player.
+            cmgCall3(textValue10)
           end
         else
-          SHX4_4 = tCMG
-          SHX4_4 = SHX4_4.notify
-          SHX5_4 = "~r~Invalid amount."
-          SHX4_4(SHX5_4)
+          cmgCall3 = tCMG
+          cmgCall3 = cmgCall3.notify
+          textValue10 = "~r~Invalid amount."
+          cmgCall3(textValue10)
         end
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Buy all chips"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4
-      if SHX2_4 then
-        SHX3_4 = TriggerServerEvent
-        SHX4_4 = "434a212611"
-        SHX3_4(SHX4_4)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
+    arg12 = RageUI
+    arg12 = arg12.ButtonWithStyle
+    workValue4 = "Buy all chips"
+    workValue6 = ""
+    flag4 = {}
+    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    flag6 = true
+    function numberValue25(arg13, arg22, arg3)
+      local cmgCall2, cmgCall3
+      if arg3 then
+        cmgCall2 = TriggerServerEvent
+        cmgCall3 = "434a212611"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "434a212611".
+        cmgCall2(cmgCall3)
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Sell chips"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-      if SHX2_4 then
-        SHX3_4 = CMG
-        SHX3_4 = SHX3_4.GetRageInputInt
-        SHX4_4 = "Enter Chips"
-        SHX3_4 = SHX3_4(SHX4_4)
-        if SHX3_4 then
-          if SHX3_4 > 0 then
-            SHX4_4 = TriggerServerEvent
-            SHX5_4 = "5de4d2dc4c"
-            SHX6_4 = SHX3_4
-            SHX4_4(SHX5_4, SHX6_4)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
+    arg12 = RageUI
+    arg12 = arg12.ButtonWithStyle
+    workValue4 = "Sell chips"
+    workValue6 = ""
+    flag4 = {}
+    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    flag6 = true
+    function numberValue25(arg13, arg22, arg3)
+      local cmgCall2, cmgCall3, textValue10, mathHelper
+      if arg3 then
+        cmgCall2 = CMG
+        cmgCall2 = cmgCall2.GetRageInputInt
+        cmgCall3 = "Enter Chips"
+        cmgCall2 = cmgCall2(cmgCall3)
+        if cmgCall2 then
+          if cmgCall2 > 0 then
+            cmgCall3 = TriggerServerEvent
+            textValue10 = "5de4d2dc4c"
+            mathHelper = cmgCall2
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5de4d2dc4c".
+            cmgCall3(textValue10, mathHelper)
           else
-            SHX4_4 = tCMG
-            SHX4_4 = SHX4_4.notify
-            SHX5_4 = "~r~Negative amount."
-            SHX4_4(SHX5_4)
+            cmgCall3 = tCMG
+            cmgCall3 = cmgCall3.notify
+            textValue10 = "~r~Negative amount."
+            -- Beginner: Show a notification to the player.
+            cmgCall3(textValue10)
           end
         else
-          SHX4_4 = tCMG
-          SHX4_4 = SHX4_4.notify
-          SHX5_4 = "~r~Invalid amount."
-          SHX4_4(SHX5_4)
+          cmgCall3 = tCMG
+          cmgCall3 = cmgCall3.notify
+          textValue10 = "~r~Invalid amount."
+          cmgCall3(textValue10)
         end
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Sell all chips"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4
-      if SHX2_4 then
-        SHX3_4 = TriggerServerEvent
-        SHX4_4 = "d1aaad3e19"
-        SHX3_4(SHX4_4)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
+    arg12 = RageUI
+    arg12 = arg12.ButtonWithStyle
+    workValue4 = "Sell all chips"
+    workValue6 = ""
+    flag4 = {}
+    flag4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    flag6 = true
+    function numberValue25(arg13, arg22, arg3)
+      local cmgCall2, cmgCall3
+      if arg3 then
+        cmgCall2 = TriggerServerEvent
+        cmgCall3 = "d1aaad3e19"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d1aaad3e19".
+        cmgCall2(cmgCall3)
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg12(workValue4, workValue6, flag4, flag6, numberValue25)
   end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function cmgCall4()
+    local arg12, workValue4
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  arg1(arg2, flag2, flag3, flag5, textValue9, cmgCall4)
 end
-SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1)
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Visible
-  SHX2_2 = RMenu
-  SHX3_2 = SHX2_2
-  SHX2_2 = SHX2_2.Get
-  SHX4_2 = "cmgchips"
-  SHX5_2 = "cashier"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
+textValue7(textValue8, rageUiCall, textValue11, textValue12)
+function textValue7(arg1)
+  local arg2, flag2, flag3, flag5, textValue9
+  arg2 = RageUI
+  arg2 = arg2.Visible
+  flag2 = RMenu
+  flag3 = flag2
+  flag2 = flag2.Get
+  flag5 = "cmgchips"
+  textValue9 = "cashier"
+  -- Beginner: result below is menu.
+  flag2 = flag2(flag3, flag5, textValue9)
+  flag3 = arg1
+  arg2(flag2, flag3)
 end
-SHX4_1 = RegisterNetEvent
-SHX5_1 = "5b934498c8"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.floor
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_1 = SHX1_2
-  SHX1_2 = tostring
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.floor
-  SHX3_2 = SHX0_2
-  SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = getMoneyStringFormatted
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX0_1 = SHX2_2
+textValue8 = RegisterNetEvent
+rageUiCall = "5b934498c8"
+-- Beginner: this function handles network event "5b934498c8".
+function textValue11(arg1)
+  local arg2, flag2, flag3
+  arg2 = math
+  arg2 = arg2.floor
+  flag2 = arg1
+  arg2 = arg2(flag2)
+  numberValue15 = arg2
+  arg2 = tostring
+  flag2 = math
+  flag2 = flag2.floor
+  flag3 = arg1
+  flag2, flag3 = flag2(flag3)
+  arg2 = arg2(flag2, flag3)
+  flag2 = getMoneyStringFormatted
+  flag3 = arg2
+  flag2 = flag2(flag3)
+  textValue = flag2
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = {}
-SHX5_1 = {}
-SHX6_1 = vector3
-SHX7_1 = 967.20806884766
-SHX8_1 = 36.561210632324
-SHX9_1 = 80.994140625
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.position = SHX6_1
-SHX5_1.radius = 100
-SHX6_1 = {}
-SHX7_1 = vector3
-SHX8_1 = 54.053936004639
-SHX9_1 = 6742.1513671875
-SHX10_1 = -107.354347229
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.position = SHX7_1
-SHX6_1.radius = 100
-SHX7_1 = {}
-SHX8_1 = vector3
-SHX9_1 = -1896.8582763672
-SHX10_1 = 2069.3537597656
-SHX11_1 = 144.86274719238
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX7_1.position = SHX8_1
-SHX7_1.radius = 10
-SHX8_1 = {}
-SHX9_1 = vector3
-SHX10_1 = 774.75134277344
-SHX11_1 = -552.91137695312
-SHX12_1 = 22.498882293701
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.position = SHX9_1
-SHX8_1.radius = 100
-SHX9_1 = {}
-SHX10_1 = vector3
-SHX11_1 = -1137.8917236328
-SHX12_1 = -184.71762084961
-SHX13_1 = 40.0803565979
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.position = SHX10_1
-SHX9_1.radius = 50
-SHX10_1 = {}
-SHX11_1 = vector3
-SHX12_1 = 422.06201171875
-SHX13_1 = 18.277492523193
-SHX14_1 = 91.935234069824
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1.position = SHX11_1
-SHX10_1.radius = 25
-SHX11_1 = {}
-SHX12_1 = vector3
-SHX13_1 = -276.10549926758
-SHX14_1 = -731.72308349609
-SHX15_1 = 124.46861816406
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX11_1.position = SHX12_1
-SHX11_1.radius = 25
-SHX12_1 = {}
-SHX13_1 = vector3
-SHX14_1 = -112.58515167236
-SHX15_1 = 383.98904418945
-SHX16_1 = 113.28324890137
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX12_1.position = SHX13_1
-SHX12_1.radius = 25
-SHX13_1 = {}
-SHX14_1 = vector3
-SHX15_1 = -52.887622833252
-SHX16_1 = 8034.4389648438
-SHX17_1 = 12.681856155396
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX13_1.position = SHX14_1
-SHX13_1.radius = 25
-SHX13_1.ignoreInteriorCheck = true
-SHX14_1 = {}
-SHX15_1 = vector3
-SHX16_1 = 1147.0424804688
-SHX17_1 = -433.18096923828
-SHX18_1 = 62.217880249023
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX14_1.position = SHX15_1
-SHX14_1.radius = 25
-SHX15_1 = {}
-SHX16_1 = vector3
-SHX17_1 = -251.02876281738
-SHX18_1 = -914.43530273438
-SHX19_1 = 32.557731628418
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX15_1.position = SHX16_1
-SHX15_1.radius = 25
-SHX16_1 = {}
-SHX17_1 = vector3
-SHX18_1 = -266.23413085938
-SHX19_1 = -912.22039794922
-SHX20_1 = 46.270469665527
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX16_1.position = SHX17_1
-SHX16_1.radius = 10
-SHX17_1 = {}
-SHX18_1 = vector3
-SHX19_1 = 2062.2058105469
-SHX20_1 = 5095.21484375
-SHX21_1 = 41.955909729004
-SHX18_1 = SHX18_1(SHX19_1, SHX20_1, SHX21_1)
-SHX17_1.position = SHX18_1
-SHX17_1.radius = 25
-SHX18_1 = {}
-SHX19_1 = vector3
-SHX20_1 = 3945.9306640625
-SHX21_1 = 4855.9868164062
-SHX22_1 = 14.121611595154
-SHX19_1 = SHX19_1(SHX20_1, SHX21_1, SHX22_1)
-SHX18_1.position = SHX19_1
-SHX18_1.radius = 10
-SHX19_1 = {}
-SHX20_1 = vector3
-SHX21_1 = 3761.9794921875
-SHX22_1 = -1559.1925048828
-SHX23_1 = 4.0253777503967
-SHX20_1 = SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX19_1.position = SHX20_1
-SHX19_1.radius = 40
-SHX19_1.ignoreInteriorCheck = true
-SHX20_1 = {}
-SHX21_1 = vector3
-SHX22_1 = -3006.765625
-SHX23_1 = 75.510192871094
-SHX24_1 = 16.231451034546
-SHX21_1 = SHX21_1(SHX22_1, SHX23_1, SHX24_1)
-SHX20_1.position = SHX21_1
-SHX20_1.radius = 40
-SHX20_1.ignoreInteriorCheck = true
-SHX21_1 = {}
-SHX22_1 = vector3
-SHX23_1 = -1022.5
-SHX24_1 = -1367.5
-SHX25_1 = 9.46
-SHX22_1 = SHX22_1(SHX23_1, SHX24_1, SHX25_1)
-SHX21_1.position = SHX22_1
-SHX21_1.radius = 25
-SHX4_1[1] = SHX5_1
-SHX4_1[2] = SHX6_1
-SHX4_1[3] = SHX7_1
-SHX4_1[4] = SHX8_1
-SHX4_1[5] = SHX9_1
-SHX4_1[6] = SHX10_1
-SHX4_1[7] = SHX11_1
-SHX4_1[8] = SHX12_1
-SHX4_1[9] = SHX13_1
-SHX4_1[10] = SHX14_1
-SHX4_1[11] = SHX15_1
-SHX4_1[12] = SHX16_1
-SHX4_1[13] = SHX17_1
-SHX4_1[14] = SHX18_1
-SHX4_1[15] = SHX19_1
-SHX4_1[16] = SHX20_1
-SHX4_1[17] = SHX21_1
-SHX5_1 = false
-SHX6_1 = CMG
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX5_1
-  return SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5b934498c8".
+textValue8(rageUiCall, textValue11)
+textValue8 = {}
+rageUiCall = {}
+textValue11 = vector3
+textValue12 = 967.20806884766
+rageUiCall2 = 36.561210632324
+rageUiCall3 = 80.994140625
+textValue11 = textValue11(textValue12, rageUiCall2, rageUiCall3)
+rageUiCall.position = textValue11
+rageUiCall.radius = 100
+textValue11 = {}
+textValue12 = vector3
+rageUiCall2 = 54.053936004639
+rageUiCall3 = 6742.1513671875
+textValue2 = -107.354347229
+textValue12 = textValue12(rageUiCall2, rageUiCall3, textValue2)
+textValue11.position = textValue12
+textValue11.radius = 100
+textValue12 = {}
+rageUiCall2 = vector3
+rageUiCall3 = -1896.8582763672
+textValue2 = 2069.3537597656
+textValue3 = 144.86274719238
+rageUiCall2 = rageUiCall2(rageUiCall3, textValue2, textValue3)
+textValue12.position = rageUiCall2
+textValue12.radius = 10
+rageUiCall2 = {}
+rageUiCall3 = vector3
+textValue2 = 774.75134277344
+textValue3 = -552.91137695312
+numberValue3 = 22.498882293701
+rageUiCall3 = rageUiCall3(textValue2, textValue3, numberValue3)
+rageUiCall2.position = rageUiCall3
+rageUiCall2.radius = 100
+rageUiCall3 = {}
+textValue2 = vector3
+textValue3 = -1137.8917236328
+numberValue3 = -184.71762084961
+numberValue5 = 40.0803565979
+textValue2 = textValue2(textValue3, numberValue3, numberValue5)
+rageUiCall3.position = textValue2
+rageUiCall3.radius = 50
+textValue2 = {}
+textValue3 = vector3
+numberValue3 = 422.06201171875
+numberValue5 = 18.277492523193
+numberValue7 = 91.935234069824
+textValue3 = textValue3(numberValue3, numberValue5, numberValue7)
+textValue2.position = textValue3
+textValue2.radius = 25
+textValue3 = {}
+numberValue3 = vector3
+numberValue5 = -276.10549926758
+numberValue7 = -731.72308349609
+numberValue8 = 124.46861816406
+numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
+textValue3.position = numberValue3
+textValue3.radius = 25
+numberValue3 = {}
+numberValue5 = vector3
+numberValue7 = -112.58515167236
+numberValue8 = 383.98904418945
+numberValue9 = 113.28324890137
+numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
+numberValue3.position = numberValue5
+numberValue3.radius = 25
+numberValue5 = {}
+numberValue7 = vector3
+numberValue8 = -52.887622833252
+numberValue9 = 8034.4389648438
+numberValue10 = 12.681856155396
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
+numberValue5.position = numberValue7
+numberValue5.radius = 25
+numberValue5.ignoreInteriorCheck = true
+numberValue7 = {}
+numberValue8 = vector3
+numberValue9 = 1147.0424804688
+numberValue10 = -433.18096923828
+numberValue12 = 62.217880249023
+numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
+numberValue7.position = numberValue8
+numberValue7.radius = 25
+numberValue8 = {}
+numberValue9 = vector3
+numberValue10 = -251.02876281738
+numberValue12 = -914.43530273438
+numberValue14 = 32.557731628418
+numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
+numberValue8.position = numberValue9
+numberValue8.radius = 25
+numberValue9 = {}
+numberValue10 = vector3
+numberValue12 = -266.23413085938
+numberValue14 = -912.22039794922
+numberValue16 = 46.270469665527
+numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
+numberValue9.position = numberValue10
+numberValue9.radius = 10
+numberValue10 = {}
+numberValue12 = vector3
+numberValue14 = 2062.2058105469
+numberValue16 = 5095.21484375
+vector3Builder = 41.955909729004
+numberValue12 = numberValue12(numberValue14, numberValue16, vector3Builder)
+numberValue10.position = numberValue12
+numberValue10.radius = 25
+numberValue12 = {}
+numberValue14 = vector3
+numberValue16 = 3945.9306640625
+vector3Builder = 4855.9868164062
+vector3Builder2 = 14.121611595154
+numberValue14 = numberValue14(numberValue16, vector3Builder, vector3Builder2)
+numberValue12.position = numberValue14
+numberValue12.radius = 10
+numberValue14 = {}
+numberValue16 = vector3
+vector3Builder = 3761.9794921875
+vector3Builder2 = -1559.1925048828
+numberValue19 = 4.0253777503967
+numberValue16 = numberValue16(vector3Builder, vector3Builder2, numberValue19)
+numberValue14.position = numberValue16
+numberValue14.radius = 40
+numberValue14.ignoreInteriorCheck = true
+numberValue16 = {}
+vector3Builder = vector3
+vector3Builder2 = -3006.765625
+numberValue19 = 75.510192871094
+numberValue21 = 16.231451034546
+vector3Builder = vector3Builder(vector3Builder2, numberValue19, numberValue21)
+numberValue16.position = vector3Builder
+numberValue16.radius = 40
+numberValue16.ignoreInteriorCheck = true
+vector3Builder = {}
+vector3Builder2 = vector3
+numberValue19 = -1022.5
+numberValue21 = -1367.5
+numberValue23 = 9.46
+vector3Builder2 = vector3Builder2(numberValue19, numberValue21, numberValue23)
+vector3Builder.position = vector3Builder2
+vector3Builder.radius = 25
+textValue8[1] = rageUiCall
+textValue8[2] = textValue11
+textValue8[3] = textValue12
+textValue8[4] = rageUiCall2
+textValue8[5] = rageUiCall3
+textValue8[6] = textValue2
+textValue8[7] = textValue3
+textValue8[8] = numberValue3
+textValue8[9] = numberValue5
+textValue8[10] = numberValue7
+textValue8[11] = numberValue8
+textValue8[12] = numberValue9
+textValue8[13] = numberValue10
+textValue8[14] = numberValue12
+textValue8[15] = numberValue14
+textValue8[16] = numberValue16
+textValue8[17] = vector3Builder
+rageUiCall = false
+textValue11 = CMG
+function textValue12()
+  local arg1, arg2
+  arg1 = rageUiCall
+  return arg1
 end
-SHX6_1.isDrawingCasinoChipsUI = SHX7_1
-SHX6_1 = CMG
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  return SHX0_2
+textValue11.isDrawingCasinoChipsUI = textValue12
+textValue11 = CMG
+function textValue12()
+  local arg1, arg2
+  arg1 = numberValue15
+  return arg1
 end
-SHX6_1.getChipsClientDisplayAmount = SHX7_1
-SHX6_1 = AddEventHandler
-SHX7_1 = "CMG:onClientSpawn"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2
-  if SHX1_2 then
-    SHX2_2 = RequestStreamedTextureDict
-    SHX3_2 = "CommonMenu"
-    SHX4_2 = false
-    SHX2_2(SHX3_2, SHX4_2)
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX3_1
-      SHX1_3 = true
-      SHX0_3(SHX1_3)
+textValue11.getChipsClientDisplayAmount = textValue12
+textValue11 = AddEventHandler
+textValue12 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function rageUiCall2(arg1, arg2)
+  local flag2, flag3, flag5, textValue9, cmgCall4, iterator, workValue8, numberValue26, flag, textValue4, textValue5, cmgCall, workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable, numberValue18, numberValue20, numberValue22, numberValue24
+  if arg2 then
+    flag2 = RequestStreamedTextureDict
+    flag3 = "CommonMenu"
+    flag5 = false
+    flag2(flag3, flag5)
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function flag2()
+      local arg12, workValue4
+      arg12 = textValue7
+      workValue4 = true
+      arg12(workValue4)
     end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX3_1
-      SHX1_3 = false
-      SHX0_3(SHX1_3)
+    function flag3()
+      local arg12, workValue4
+      arg12 = textValue7
+      workValue4 = false
+      arg12(workValue4)
     end
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function flag5()
+      local arg12, workValue4
     end
-    function SHX5_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = false
-      SHX5_1 = SHX0_3
+    function textValue9()
+      local arg12, workValue4
+      arg12 = false
+      rageUiCall = arg12
     end
-    function SHX6_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-      SHX1_3 = false
-      SHX5_1 = SHX1_3
-      SHX1_3 = GetRoomKeyFromEntity
-      SHX2_3 = PlayerPedId
-      SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX2_3()
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      if 0 == SHX1_3 then
-        SHX1_3 = SHX0_3.ignoreInteriorCheck
-        if not SHX1_3 then
-          goto SHX_LABEL_57
+    function cmgCall4(arg12)
+      local workValue4, workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6
+      workValue4 = false
+      rageUiCall = workValue4
+      workValue4 = GetRoomKeyFromEntity
+      workValue6 = PlayerPedId
+      workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6 = workValue6()
+      workValue4 = workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6)
+      if 0 == workValue4 then
+        workValue4 = arg12.ignoreInteriorCheck
+        if not workValue4 then
+          goto flow_label_57
         end
       end
-      SHX1_3 = SetScriptGfxDrawOrder
-      SHX2_3 = 7
-      SHX1_3(SHX2_3)
-      SHX1_3 = DrawSprite
-      SHX2_3 = "CommonMenu"
-      SHX3_3 = "shop_chips_b"
-      SHX4_3 = 0.89
-      SHX5_3 = 0.078
-      SHX6_3 = 0.025
-      SHX7_3 = 0.03
-      SHX8_3 = 0.0
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX12_3 = 255
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX1_3 = SetScriptGfxDrawOrder
-      SHX2_3 = 1
-      SHX1_3(SHX2_3)
-      SHX1_3 = DrawRect
-      SHX2_3 = 0.934
-      SHX3_3 = 0.077
-      SHX4_3 = 0.104
-      SHX5_3 = 0.036
-      SHX6_3 = 0
-      SHX7_3 = 0
-      SHX8_3 = 0
-      SHX9_3 = 150
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX1_3 = DrawAdvancedTextNoOutline
-      SHX2_3 = 1.037
-      SHX3_3 = 0.08
-      SHX4_3 = 0.005
-      SHX5_3 = 0.0028
-      SHX6_3 = 0.52
-      SHX7_3 = SHX0_1
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX12_3 = 7
-      SHX13_3 = 0
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      SHX1_3 = true
-      SHX5_1 = SHX1_3
-      -- [FIX IF ERROR] Move ::SHX_LABEL_57:: outside nested blocks until all 'goto SHX_LABEL_57' can see it
-      ::SHX_LABEL_57::
+      workValue4 = SetScriptGfxDrawOrder
+      workValue6 = 7
+      workValue4(workValue6)
+      workValue4 = DrawSprite
+      workValue6 = "CommonMenu"
+      flag4 = "shop_chips_b"
+      flag6 = 0.89
+      numberValue25 = 0.078
+      flag7 = 0.025
+      flag8 = 0.03
+      flag9 = 0.0
+      numberValue27 = 255
+      numberValue = 255
+      numberValue2 = 255
+      numberValue4 = 255
+      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4)
+      workValue4 = SetScriptGfxDrawOrder
+      workValue6 = 1
+      workValue4(workValue6)
+      workValue4 = DrawRect
+      workValue6 = 0.934
+      flag4 = 0.077
+      flag6 = 0.104
+      numberValue25 = 0.036
+      flag7 = 0
+      flag8 = 0
+      flag9 = 0
+      numberValue27 = 150
+      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27)
+      workValue4 = DrawAdvancedTextNoOutline
+      workValue6 = 1.037
+      flag4 = 0.08
+      flag6 = 0.005
+      numberValue25 = 0.0028
+      flag7 = 0.52
+      flag8 = textValue
+      flag9 = 255
+      numberValue27 = 255
+      numberValue = 255
+      numberValue2 = 255
+      numberValue4 = 7
+      numberValue6 = 0
+      workValue4(workValue6, flag4, flag6, numberValue25, flag7, flag8, flag9, numberValue27, numberValue, numberValue2, numberValue4, numberValue6)
+      workValue4 = true
+      rageUiCall = workValue4
+      ::flow_label_57::
     end
-    SHX7_2 = pairs
-    SHX8_2 = SHX2_1
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-    for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-      SHX13_2 = tCMG
-      SHX13_2 = SHX13_2.addBlip
-      SHX14_2 = SHX12_2.entryPosition
-      SHX14_2 = SHX14_2.x
-      SHX15_2 = SHX12_2.entryPosition
-      SHX15_2 = SHX15_2.y
-      SHX16_2 = SHX12_2.entryPosition
-      SHX16_2 = SHX16_2.z
-      SHX17_2 = 683
-      SHX18_2 = 0
-      SHX19_2 = "Chips Cashier"
-      SHX20_2 = 0.7
-      SHX21_2 = true
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-      SHX13_2 = tCMG
-      SHX13_2 = SHX13_2.addMarker
-      SHX14_2 = SHX12_2.entryPosition
-      SHX14_2 = SHX14_2.x
-      SHX15_2 = SHX12_2.entryPosition
-      SHX15_2 = SHX15_2.y
-      SHX16_2 = SHX12_2.entryPosition
-      SHX16_2 = SHX16_2.z
-      SHX17_2 = 1.0
-      SHX18_2 = 1.0
-      SHX19_2 = 1.0
-      SHX20_2 = 138
-      SHX21_2 = 43
-      SHX22_2 = 226
-      SHX23_2 = 70
-      SHX24_2 = 50
-      SHX25_2 = 27
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-      SHX13_2 = CMG
-      SHX13_2 = SHX13_2.createArea
-      SHX14_2 = "chipscashier_"
-      SHX15_2 = SHX11_2
-      SHX14_2 = SHX14_2 .. SHX15_2
-      SHX15_2 = SHX12_2.entryPosition
-      SHX16_2 = 1.5
-      SHX17_2 = 6
-      SHX18_2 = SHX2_2
-      SHX19_2 = SHX3_2
-      SHX20_2 = SHX4_2
-      SHX21_2 = {}
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
+    iterator = pairs
+    workValue8 = workValue5
+    iterator, workValue8, numberValue26, flag = iterator(workValue8)
+    for textValue4, textValue5 in iterator, workValue8, numberValue26, flag do
+      cmgCall = tCMG
+      cmgCall = cmgCall.addBlip
+      workValue = textValue5.entryPosition
+      workValue = workValue.x
+      workValue2 = textValue5.entryPosition
+      workValue2 = workValue2.y
+      workValue3 = textValue5.entryPosition
+      workValue3 = workValue3.z
+      numberValue11 = 683
+      numberValue13 = 0
+      textValue6 = "Chips Cashier"
+      numberValue17 = 0.7
+      dataTable = true
+      -- Beginner: Create a minimap blip.
+      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable)
+      cmgCall = tCMG
+      cmgCall = cmgCall.addMarker
+      workValue = textValue5.entryPosition
+      workValue = workValue.x
+      workValue2 = textValue5.entryPosition
+      workValue2 = workValue2.y
+      workValue3 = textValue5.entryPosition
+      workValue3 = workValue3.z
+      numberValue11 = 1.0
+      numberValue13 = 1.0
+      textValue6 = 1.0
+      numberValue17 = 138
+      dataTable = 43
+      numberValue18 = 226
+      numberValue20 = 70
+      numberValue22 = 50
+      numberValue24 = 27
+      -- Beginner: Create a world marker.
+      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable, numberValue18, numberValue20, numberValue22, numberValue24)
+      cmgCall = CMG
+      cmgCall = cmgCall.createArea
+      workValue = "chipscashier_"
+      workValue2 = textValue4
+      workValue = workValue .. workValue2
+      workValue2 = textValue5.entryPosition
+      workValue3 = 1.5
+      numberValue11 = 6
+      numberValue13 = flag2
+      textValue6 = flag3
+      numberValue17 = flag5
+      dataTable = {}
+      -- Beginner: Create an interaction area around a world position.
+      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable)
     end
-    SHX7_2 = pairs
-    SHX8_2 = SHX4_1
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-    for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-      SHX13_2 = CMG
-      SHX13_2 = SHX13_2.createArea
-      SHX14_2 = "casinos_"
-      SHX15_2 = SHX11_2
-      SHX14_2 = SHX14_2 .. SHX15_2
-      SHX15_2 = SHX12_2.position
-      SHX16_2 = SHX12_2.radius
-      SHX17_2 = 6
-      function SHX18_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3
+    iterator = pairs
+    workValue8 = textValue8
+    iterator, workValue8, numberValue26, flag = iterator(workValue8)
+    for textValue4, textValue5 in iterator, workValue8, numberValue26, flag do
+      cmgCall = CMG
+      cmgCall = cmgCall.createArea
+      workValue = "casinos_"
+      workValue2 = textValue4
+      workValue = workValue .. workValue2
+      workValue2 = textValue5.position
+      workValue3 = textValue5.radius
+      numberValue11 = 6
+      function numberValue13()
+        local arg12, workValue4
       end
-      SHX19_2 = SHX5_2
-      SHX20_2 = SHX6_2
-      SHX21_2 = {}
-      SHX22_2 = SHX12_2.ignoreInteriorCheck
-      SHX21_2.ignoreInteriorCheck = SHX22_2
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
+      textValue6 = textValue9
+      numberValue17 = cmgCall4
+      dataTable = {}
+      numberValue18 = textValue5.ignoreInteriorCheck
+      dataTable.ignoreInteriorCheck = numberValue18
+      cmgCall(workValue, workValue2, workValue3, numberValue11, numberValue13, textValue6, numberValue17, dataTable)
     end
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+textValue11(textValue12, rageUiCall2)

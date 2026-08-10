@@ -1,3 +1,39 @@
+--[[
+    BEGINNER GUIDE — Anticheat
+    ==========================
+
+    File: cmg/prod/cfg/cfg_anticheat.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Network/hash identifiers found: 16
+      They are intentionally left unchanged because matching server code may use them.
+
+    Named framework/network events found:
+      * AdminMenu:giveCash
+      * AdminMenu:giveBank
+      * antilynx8:anticheat
+      * antilynxr4:detect
+      * bank:deposit
+      * bank:withdraw
+      * Banca:deposit
+      * Banca:withdraw
+
+    Example player-facing text in this file:
+      * AdminMenu:giveCash
+      * AdminMenu:giveBank
+      * esx-qalle-jail:jailPlayer
+      * truckerJob:addMoney
+      * AdminMenu:giveDirtyMoney
+
+]]
 local cfg = {}
 
 cfg.ignoredModels = {

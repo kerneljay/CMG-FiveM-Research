@@ -1,2158 +1,2050 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_prisonToiletEscapeMinigame.lua
+    =================================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_prison"
-SHX0_1 = SHX0_1(SHX1_1)
-function SHX1_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = 1
-  SHX3_2 = #SHX0_2
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX0_2[SHX5_2]
-    if SHX6_2 == SHX1_2 then
-      SHX6_2 = true
-      return SHX6_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Prison Toilet Escape Minigame
+    ==============================================
+
+    File: cmg/prod/client/hmp/cl_prisonToiletEscapeMinigame.lua
+    Purpose: This file contains prison/HMP gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_prison
+
+    Network/hash identifiers found: 4
+      They are intentionally left unchanged because matching server code may use them.
+      * 343493b5b7
+      * 2a18065f82
+      * a44731beab
+      * 87baecbdcf
+
+]]
+local cmgCall, textValue, workValue6, dataTable, textValue2, dataTable2, dataTable3, textValue3, textValue4, dataTable4, workValue2
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+textValue = "cfg/cfg_prison"
+-- Beginner: result below is config.
+cmgCall = cmgCall(textValue)
+function textValue(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7
+  arg3 = 1
+  arg4 = #arg1
+  arg5 = 1
+  for arg6 = arg3, arg4, arg5 do
+    arg7 = arg1[arg6]
+    if arg7 == arg2 then
+      arg7 = true
+      return arg7
     end
   end
-  SHX2_2 = false
-  return SHX2_2
+  arg3 = false
+  return arg3
 end
-function SHX2_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  if SHX0_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_10
+function workValue6(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3
+  if arg1 then
+    arg3 = DoesEntityExist
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    if arg3 then
+      goto flow_label_10
     end
   end
-  SHX2_2 = false
-  return SHX2_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX2_2 = GetNuiCursorPosition
-  SHX2_2, SHX3_2 = SHX2_2()
-  SHX4_2 = GetActiveScreenResolution
-  SHX4_2, SHX5_2 = SHX4_2()
-  SHX6_2 = GetEntityCoords
-  SHX7_2 = SHX0_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = World3dToScreen2d
-  SHX8_2 = SHX6_2.x
-  SHX9_2 = SHX6_2.y
-  SHX10_2 = SHX6_2.z
-  SHX7_2, SHX8_2, SHX9_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  if not SHX7_2 then
-    SHX10_2 = false
-    return SHX10_2
+  arg3 = false
+  return arg3
+  ::flow_label_10::
+  arg3 = GetNuiCursorPosition
+  arg3, arg4 = arg3()
+  arg5 = GetActiveScreenResolution
+  arg5, arg6 = arg5()
+  arg7 = GetEntityCoords
+  workValue7 = arg1
+  -- Beginner: result below is entityCoords.
+  arg7 = arg7(workValue7)
+  workValue7 = World3dToScreen2d
+  workValue8 = arg7.x
+  workValue9 = arg7.y
+  modelHash = arg7.z
+  workValue7, workValue8, workValue9 = workValue7(workValue8, workValue9, modelHash)
+  if not workValue7 then
+    modelHash = false
+    return modelHash
   end
-  SHX10_2 = GetEntityModel
-  SHX11_2 = SHX0_2
-  SHX10_2 = SHX10_2(SHX11_2)
-  SHX11_2 = GetModelDimensions
-  SHX12_2 = SHX10_2
-  SHX11_2, SHX12_2 = SHX11_2(SHX12_2)
-  SHX13_2 = math
-  SHX13_2 = SHX13_2.max
-  SHX14_2 = math
-  SHX14_2 = SHX14_2.abs
-  SHX15_2 = SHX12_2.x
-  SHX16_2 = SHX11_2.x
-  SHX15_2 = SHX15_2 - SHX16_2
-  SHX14_2 = SHX14_2(SHX15_2)
-  SHX15_2 = math
-  SHX15_2 = SHX15_2.abs
-  SHX16_2 = SHX12_2.y
-  SHX17_2 = SHX11_2.y
-  SHX16_2 = SHX16_2 - SHX17_2
-  SHX15_2 = SHX15_2(SHX16_2)
-  SHX16_2 = math
-  SHX16_2 = SHX16_2.abs
-  SHX17_2 = SHX12_2.z
-  SHX18_2 = SHX11_2.z
-  SHX17_2 = SHX17_2 - SHX18_2
-  SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX16_2(SHX17_2)
-  SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX14_2 = GetFinalRenderedCamCoord
-  SHX14_2 = SHX14_2()
-  SHX15_2 = SHX14_2 - SHX6_2
-  SHX15_2 = #SHX15_2
-  SHX16_2 = SHX13_2 * 100.0
-  SHX17_2 = math
-  SHX17_2 = SHX17_2.max
-  SHX18_2 = SHX15_2
-  SHX19_2 = 1.0
-  SHX17_2 = SHX17_2(SHX18_2, SHX19_2)
-  SHX16_2 = SHX16_2 / SHX17_2
-  SHX16_2 = SHX1_2 + SHX16_2
-  SHX17_2 = SHX8_2 * SHX4_2
-  SHX18_2 = SHX9_2 * SHX5_2
-  SHX19_2 = SHX2_2 - SHX17_2
-  SHX20_2 = SHX3_2 - SHX18_2
-  SHX21_2 = SHX19_2 * SHX19_2
-  SHX22_2 = SHX20_2 * SHX20_2
-  SHX21_2 = SHX21_2 + SHX22_2
-  SHX22_2 = SHX16_2 * SHX16_2
-  SHX21_2 = SHX21_2 <= SHX22_2
-  return SHX21_2
+  modelHash = GetEntityModel
+  workValue3 = arg1
+  -- Beginner: result below is modelHash.
+  modelHash = modelHash(workValue3)
+  workValue3 = GetModelDimensions
+  numberValue = modelHash
+  workValue3, numberValue = workValue3(numberValue)
+  mathHelper = math
+  mathHelper = mathHelper.max
+  mathHelper2 = math
+  mathHelper2 = mathHelper2.abs
+  mathHelper3 = numberValue.x
+  mathHelper4 = workValue3.x
+  mathHelper3 = mathHelper3 - mathHelper4
+  mathHelper2 = mathHelper2(mathHelper3)
+  mathHelper3 = math
+  mathHelper3 = mathHelper3.abs
+  mathHelper4 = numberValue.y
+  mathHelper5 = workValue3.y
+  mathHelper4 = mathHelper4 - mathHelper5
+  mathHelper3 = mathHelper3(mathHelper4)
+  mathHelper4 = math
+  mathHelper4 = mathHelper4.abs
+  mathHelper5 = numberValue.z
+  workValue4 = workValue3.z
+  mathHelper5 = mathHelper5 - workValue4
+  mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3 = mathHelper4(mathHelper5)
+  mathHelper = mathHelper(mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3)
+  mathHelper2 = GetFinalRenderedCamCoord
+  mathHelper2 = mathHelper2()
+  mathHelper3 = mathHelper2 - arg7
+  mathHelper3 = #mathHelper3
+  mathHelper4 = mathHelper * 100.0
+  mathHelper5 = math
+  mathHelper5 = mathHelper5.max
+  workValue4 = mathHelper3
+  flag = 1.0
+  mathHelper5 = mathHelper5(workValue4, flag)
+  mathHelper4 = mathHelper4 / mathHelper5
+  mathHelper4 = arg2 + mathHelper4
+  mathHelper5 = workValue8 * arg5
+  workValue4 = workValue9 * arg6
+  flag = arg3 - mathHelper5
+  flag2 = arg4 - workValue4
+  workValue5 = flag * flag
+  flag3 = flag2 * flag2
+  workValue5 = workValue5 + flag3
+  flag3 = mathHelper4 * mathHelper4
+  workValue5 = workValue5 <= flag3
+  return workValue5
 end
-SHX3_1 = {}
-SHX3_1.__index = SHX3_1
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = setmetatable
-  SHX2_2 = {}
-  SHX3_2 = SHX3_1
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2.entity = SHX0_2
-  SHX2_2 = CreateCam
-  SHX3_2 = "DEFAULT_SCRIPTED_CAMERA"
-  SHX4_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX1_2.cam = SHX2_2
-  SHX1_2.isActive = false
-  return SHX1_2
+dataTable = {}
+dataTable.__index = dataTable
+function textValue2(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = setmetatable
+  arg3 = {}
+  arg4 = dataTable
+  arg2 = arg2(arg3, arg4)
+  arg2.entity = arg1
+  arg3 = CreateCam
+  arg4 = "DEFAULT_SCRIPTED_CAMERA"
+  arg5 = true
+  -- Beginner: result below is cameraHandle.
+  arg3 = arg3(arg4, arg5)
+  arg2.cam = arg3
+  arg2.isActive = false
+  return arg2
 end
-SHX3_1.new = SHX4_1
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX4_2 = DoesEntityExist
-  SHX5_2 = SHX0_2.entity
-  SHX4_2 = SHX4_2(SHX5_2)
-  if not SHX4_2 then
+dataTable.new = textValue2
+function textValue2(arg1, arg2, arg3, arg4)
+  local arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue
+  arg5 = DoesEntityExist
+  arg6 = arg1.entity
+  arg5 = arg5(arg6)
+  if not arg5 then
     return
   end
-  SHX4_2 = GetOffsetFromEntityInWorldCoords
-  SHX5_2 = SHX0_2.entity
-  SHX6_2 = SHX1_2[1]
-  SHX6_2 = SHX6_2.x
-  SHX7_2 = SHX1_2[1]
-  SHX7_2 = SHX7_2.y
-  SHX8_2 = SHX1_2[1]
-  SHX8_2 = SHX8_2.z
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = nil
-  if not SHX3_2 then
-    SHX6_2 = GetEntityRotation
-    SHX7_2 = SHX0_2.entity
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX7_2 = vector3
-    SHX8_2 = SHX1_2[2]
-    SHX8_2 = SHX8_2.x
-    SHX9_2 = SHX6_2.x
-    SHX8_2 = SHX8_2 + SHX9_2
-    SHX9_2 = SHX1_2[2]
-    SHX9_2 = SHX9_2.y
-    SHX10_2 = SHX6_2.y
-    SHX9_2 = SHX9_2 + SHX10_2
-    SHX10_2 = SHX1_2[2]
-    SHX10_2 = SHX10_2.z
-    SHX11_2 = SHX6_2.z
-    SHX10_2 = SHX10_2 + SHX11_2
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    SHX5_2 = SHX7_2
+  arg5 = GetOffsetFromEntityInWorldCoords
+  arg6 = arg1.entity
+  arg7 = arg2[1]
+  arg7 = arg7.x
+  workValue7 = arg2[1]
+  workValue7 = workValue7.y
+  workValue8 = arg2[1]
+  workValue8 = workValue8.z
+  arg5 = arg5(arg6, arg7, workValue7, workValue8)
+  arg6 = nil
+  if not arg4 then
+    arg7 = GetEntityRotation
+    workValue7 = arg1.entity
+    arg7 = arg7(workValue7)
+    workValue7 = vector3
+    workValue8 = arg2[2]
+    workValue8 = workValue8.x
+    workValue9 = arg7.x
+    workValue8 = workValue8 + workValue9
+    workValue9 = arg2[2]
+    workValue9 = workValue9.y
+    modelHash = arg7.y
+    workValue9 = workValue9 + modelHash
+    modelHash = arg2[2]
+    modelHash = modelHash.z
+    workValue3 = arg7.z
+    modelHash = modelHash + workValue3
+    workValue7 = workValue7(workValue8, workValue9, modelHash)
+    arg6 = workValue7
   else
-    SHX5_2 = SHX1_2[2]
+    arg6 = arg2[2]
   end
-  if SHX2_2 then
-    SHX6_2 = SHX0_2.isActive
-    if SHX6_2 then
-      SHX6_2 = CreateCam
-      SHX7_2 = "DEFAULT_SCRIPTED_CAMERA"
-      SHX8_2 = true
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-      SHX7_2 = SetCamCoord
-      SHX8_2 = SHX6_2
-      SHX9_2 = SHX4_2.x
-      SHX10_2 = SHX4_2.y
-      SHX11_2 = SHX4_2.z
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-      SHX7_2 = SetCamRot
-      SHX8_2 = SHX6_2
-      SHX9_2 = SHX5_2.x
-      SHX10_2 = SHX5_2.y
-      SHX11_2 = SHX5_2.z
-      SHX12_2 = 2
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX7_2 = SetCamFov
-      SHX8_2 = SHX6_2
-      SHX9_2 = 30.0
-      SHX7_2(SHX8_2, SHX9_2)
-      SHX7_2 = SetCamActive
-      SHX8_2 = SHX6_2
-      SHX9_2 = true
-      SHX7_2(SHX8_2, SHX9_2)
-      SHX7_2 = SetCamActiveWithInterp
-      SHX8_2 = SHX6_2
-      SHX9_2 = SHX0_2.cam
-      SHX10_2 = 1500
-      SHX11_2 = 1
-      SHX12_2 = 1
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX7_2 = SetCamActive
-      SHX8_2 = SHX0_2.cam
-      SHX9_2 = false
-      SHX7_2(SHX8_2, SHX9_2)
-      SHX7_2 = DestroyCam
-      SHX8_2 = SHX0_2.cam
-      SHX9_2 = false
-      SHX7_2(SHX8_2, SHX9_2)
-      SHX0_2.cam = SHX6_2
+  if arg3 then
+    arg7 = arg1.isActive
+    if arg7 then
+      arg7 = CreateCam
+      workValue7 = "DEFAULT_SCRIPTED_CAMERA"
+      workValue8 = true
+      -- Beginner: result below is cameraHandle.
+      arg7 = arg7(workValue7, workValue8)
+      workValue7 = SetCamCoord
+      workValue8 = arg7
+      workValue9 = arg5.x
+      modelHash = arg5.y
+      workValue3 = arg5.z
+      workValue7(workValue8, workValue9, modelHash, workValue3)
+      workValue7 = SetCamRot
+      workValue8 = arg7
+      workValue9 = arg6.x
+      modelHash = arg6.y
+      workValue3 = arg6.z
+      numberValue = 2
+      workValue7(workValue8, workValue9, modelHash, workValue3, numberValue)
+      workValue7 = SetCamFov
+      workValue8 = arg7
+      workValue9 = 30.0
+      workValue7(workValue8, workValue9)
+      workValue7 = SetCamActive
+      workValue8 = arg7
+      workValue9 = true
+      workValue7(workValue8, workValue9)
+      workValue7 = SetCamActiveWithInterp
+      workValue8 = arg7
+      workValue9 = arg1.cam
+      modelHash = 1500
+      workValue3 = 1
+      numberValue = 1
+      workValue7(workValue8, workValue9, modelHash, workValue3, numberValue)
+      workValue7 = SetCamActive
+      workValue8 = arg1.cam
+      workValue9 = false
+      workValue7(workValue8, workValue9)
+      workValue7 = DestroyCam
+      workValue8 = arg1.cam
+      workValue9 = false
+      workValue7(workValue8, workValue9)
+      arg1.cam = arg7
   end
   else
-    SHX6_2 = SetCamCoord
-    SHX7_2 = SHX0_2.cam
-    SHX8_2 = SHX4_2.x
-    SHX9_2 = SHX4_2.y
-    SHX10_2 = SHX4_2.z
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX6_2 = SetCamRot
-    SHX7_2 = SHX0_2.cam
-    SHX8_2 = SHX5_2.x
-    SHX9_2 = SHX5_2.y
-    SHX10_2 = SHX5_2.z
-    SHX11_2 = 2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = SetCamFov
-    SHX7_2 = SHX0_2.cam
-    SHX8_2 = 30.0
-    SHX6_2(SHX7_2, SHX8_2)
-    SHX6_2 = SHX0_2.isActive
-    if not SHX6_2 then
-      SHX6_2 = SetCamActive
-      SHX7_2 = SHX0_2.cam
-      SHX8_2 = true
-      SHX6_2(SHX7_2, SHX8_2)
+    arg7 = SetCamCoord
+    workValue7 = arg1.cam
+    workValue8 = arg5.x
+    workValue9 = arg5.y
+    modelHash = arg5.z
+    arg7(workValue7, workValue8, workValue9, modelHash)
+    arg7 = SetCamRot
+    workValue7 = arg1.cam
+    workValue8 = arg6.x
+    workValue9 = arg6.y
+    modelHash = arg6.z
+    workValue3 = 2
+    arg7(workValue7, workValue8, workValue9, modelHash, workValue3)
+    arg7 = SetCamFov
+    workValue7 = arg1.cam
+    workValue8 = 30.0
+    arg7(workValue7, workValue8)
+    arg7 = arg1.isActive
+    if not arg7 then
+      arg7 = SetCamActive
+      workValue7 = arg1.cam
+      workValue8 = true
+      arg7(workValue7, workValue8)
     end
   end
 end
-SHX3_1.setCamera = SHX4_1
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX3_2 = RenderScriptCams
-  SHX4_2 = true
-  SHX5_2 = SHX1_2 or SHX5_2
-  if not SHX1_2 then
-    SHX5_2 = false
+dataTable.setCamera = textValue2
+function textValue2(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, workValue7, workValue8
+  arg4 = RenderScriptCams
+  arg5 = true
+  arg6 = arg2 or arg6
+  if not arg2 then
+    arg6 = false
   end
-  SHX6_2 = SHX2_2 or SHX6_2
-  if not SHX2_2 then
-    SHX6_2 = 0
+  arg7 = arg3 or arg7
+  if not arg3 then
+    arg7 = 0
   end
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2.isActive = true
+  workValue7 = true
+  workValue8 = true
+  arg4(arg5, arg6, arg7, workValue7, workValue8)
+  arg1.isActive = true
 end
-SHX3_1.activate = SHX4_1
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX3_2 = RenderScriptCams
-  SHX4_2 = false
-  SHX5_2 = SHX1_2 or SHX5_2
-  if not SHX1_2 then
-    SHX5_2 = false
+dataTable.activate = textValue2
+function textValue2(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, workValue7, workValue8
+  arg4 = RenderScriptCams
+  arg5 = false
+  arg6 = arg2 or arg6
+  if not arg2 then
+    arg6 = false
   end
-  SHX6_2 = SHX2_2 or SHX6_2
-  if not SHX2_2 then
-    SHX6_2 = 0
+  arg7 = arg3 or arg7
+  if not arg3 then
+    arg7 = 0
   end
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2.isActive = false
+  workValue7 = true
+  workValue8 = true
+  arg4(arg5, arg6, arg7, workValue7, workValue8)
+  arg1.isActive = false
 end
-SHX3_1.deactivate = SHX4_1
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.isActive
-  if SHX1_2 then
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX0_2.deactivate
-    SHX3_2 = true
-    SHX4_2 = 1500
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = Wait
-    SHX2_2 = 1500
-    SHX1_2(SHX2_2)
+dataTable.deactivate = textValue2
+function textValue2(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = arg1.isActive
+  if arg2 then
+    arg3 = arg1
+    arg2 = arg1.deactivate
+    arg4 = true
+    arg5 = 1500
+    arg2(arg3, arg4, arg5)
+    arg2 = Wait
+    arg3 = 1500
+    arg2(arg3)
   end
-  SHX1_2 = SHX0_2.cam
-  if SHX1_2 then
-    SHX1_2 = DestroyCam
-    SHX2_2 = SHX0_2.cam
-    SHX3_2 = false
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX0_2.cam = nil
+  arg2 = arg1.cam
+  if arg2 then
+    arg2 = DestroyCam
+    arg3 = arg1.cam
+    arg4 = false
+    arg2(arg3, arg4)
+    arg1.cam = nil
   end
-  SHX0_2.isActive = false
+  arg1.isActive = false
 end
-SHX3_1.destroy = SHX4_1
-SHX4_1 = "prompt@jail"
-SHX5_1 = {}
-SHX6_1 = "jail_work_left_up"
-SHX7_1 = "jail_work_left_down"
-SHX8_1 = "jail_work_right_up"
-SHX9_1 = "jail_work_right_down"
-SHX5_1[1] = SHX6_1
-SHX5_1[2] = SHX7_1
-SHX5_1[3] = SHX8_1
-SHX5_1[4] = SHX9_1
-SHX6_1 = {}
-SHX6_1.__index = SHX6_1
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = setmetatable
-  SHX2_2 = {}
-  SHX3_2 = SHX6_1
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2.ped = SHX0_2
-  SHX1_2.currentAnim = nil
-  SHX1_2.animSpeed = 1.0
-  return SHX1_2
+dataTable.destroy = textValue2
+textValue2 = "prompt@jail"
+dataTable2 = {}
+dataTable3 = "jail_work_left_up"
+textValue3 = "jail_work_left_down"
+textValue4 = "jail_work_right_up"
+dataTable4 = "jail_work_right_down"
+dataTable2[1] = dataTable3
+dataTable2[2] = textValue3
+dataTable2[3] = textValue4
+dataTable2[4] = dataTable4
+dataTable3 = {}
+dataTable3.__index = dataTable3
+function textValue3(arg1)
+  local arg2, arg3, arg4
+  arg2 = setmetatable
+  arg3 = {}
+  arg4 = dataTable3
+  arg2 = arg2(arg3, arg4)
+  arg2.ped = arg1
+  arg2.currentAnim = nil
+  arg2.animSpeed = 1.0
+  return arg2
 end
-SHX6_1.new = SHX7_1
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX2_2 = SHX5_1
-  SHX2_2 = SHX2_2[SHX1_2]
-  if not SHX2_2 then
+dataTable3.new = textValue3
+function textValue3(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2
+  arg3 = dataTable2
+  arg3 = arg3[arg2]
+  if not arg3 then
     return
   end
-  SHX0_2.currentAnim = SHX2_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = SHX4_1
-  SHX3_2(SHX4_2)
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX0_2.ped
-  SHX5_2 = SHX4_1
-  SHX6_2 = SHX2_2
-  SHX7_2 = 8.0
-  SHX8_2 = -8.0
-  SHX9_2 = -1
-  SHX10_2 = 2
-  SHX11_2 = 0.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+  arg1.currentAnim = arg3
+  arg4 = CMG
+  arg4 = arg4.loadAnimDict
+  arg5 = textValue2
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg4(arg5)
+  arg4 = TaskPlayAnim
+  arg5 = arg1.ped
+  arg6 = textValue2
+  arg7 = arg3
+  workValue7 = 8.0
+  workValue8 = -8.0
+  workValue9 = -1
+  modelHash = 2
+  workValue3 = 0.0
+  numberValue = false
+  mathHelper = false
+  mathHelper2 = false
+  -- Beginner: Play an animation on a ped.
+  arg4(arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2)
 end
-SHX6_1.playScrewAnim = SHX7_1
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX0_2.currentAnim
-  if not SHX2_2 then
+dataTable3.playScrewAnim = textValue3
+function textValue3(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7
+  arg3 = arg1.currentAnim
+  if not arg3 then
     return
   end
-  SHX0_2.animSpeed = SHX1_2
-  SHX2_2 = SetEntityAnimSpeed
-  SHX3_2 = SHX0_2.ped
-  SHX4_2 = SHX4_1
-  SHX5_2 = SHX0_2.currentAnim
-  SHX6_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  arg1.animSpeed = arg2
+  arg3 = SetEntityAnimSpeed
+  arg4 = arg1.ped
+  arg5 = textValue2
+  arg6 = arg1.currentAnim
+  arg7 = arg2
+  arg3(arg4, arg5, arg6, arg7)
 end
-SHX6_1.setSpeed = SHX7_1
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.currentAnim
-  if not SHX1_2 then
-    SHX1_2 = 0.0
-    return SHX1_2
+dataTable3.setSpeed = textValue3
+function textValue3(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = arg1.currentAnim
+  if not arg2 then
+    arg2 = 0.0
+    return arg2
   end
-  SHX1_2 = GetEntityAnimCurrentTime
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = SHX4_1
-  SHX4_2 = SHX0_2.currentAnim
-  return SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  arg2 = GetEntityAnimCurrentTime
+  arg3 = arg1.ped
+  arg4 = textValue2
+  arg5 = arg1.currentAnim
+  return arg2(arg3, arg4, arg5)
 end
-SHX6_1.getCurrentTime = SHX7_1
-function SHX7_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX0_2.getCurrentTime
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX1_2 <= SHX3_2 and SHX2_2 >= SHX3_2
-  return SHX4_2
+dataTable3.getCurrentTime = textValue3
+function textValue3(arg1, arg2, arg3)
+  local arg4, arg5
+  arg5 = arg1
+  arg4 = arg1.getCurrentTime
+  arg4 = arg4(arg5)
+  arg5 = arg2 <= arg4 and arg3 >= arg4
+  return arg5
 end
-SHX6_1.isInTimeRange = SHX7_1
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = ClearPedTasks
-  SHX2_2 = SHX0_2.ped
-  SHX1_2(SHX2_2)
-  SHX0_2.currentAnim = nil
+dataTable3.isInTimeRange = textValue3
+function textValue3(arg1)
+  local arg2, arg3
+  arg2 = ClearPedTasks
+  arg3 = arg1.ped
+  arg2(arg3)
+  arg1.currentAnim = nil
 end
-SHX6_1.stop = SHX7_1
-function SHX7_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.loadAnimDict
-  SHX8_2 = SHX1_2
-  SHX7_2(SHX8_2)
-  SHX7_2 = HasAnimDictLoaded
-  SHX8_2 = SHX1_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  if not SHX7_2 then
-    SHX7_2 = false
-    return SHX7_2
+dataTable3.stop = textValue3
+function textValue3(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+  local workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4
+  workValue7 = CMG
+  workValue7 = workValue7.loadAnimDict
+  workValue8 = arg2
+  -- Beginner: Load a GTA animation dictionary before using it.
+  workValue7(workValue8)
+  workValue7 = HasAnimDictLoaded
+  workValue8 = arg2
+  workValue7 = workValue7(workValue8)
+  if not workValue7 then
+    workValue7 = false
+    return workValue7
   end
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = SHX0_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2 or SHX11_2
-  if not SHX3_2 then
-    SHX11_2 = 8.0
+  workValue7 = TaskPlayAnim
+  workValue8 = arg1
+  workValue9 = arg2
+  modelHash = arg3
+  workValue3 = arg4 or workValue3
+  if not arg4 then
+    workValue3 = 8.0
   end
-  SHX12_2 = SHX4_2 or SHX12_2
-  if not SHX4_2 then
-    SHX12_2 = -8.0
+  numberValue = arg5 or numberValue
+  if not arg5 then
+    numberValue = -8.0
   end
-  SHX13_2 = SHX5_2 or SHX13_2
-  if not SHX5_2 then
-    SHX13_2 = -1
+  mathHelper = arg6 or mathHelper
+  if not arg6 then
+    mathHelper = -1
   end
-  SHX14_2 = SHX6_2 or SHX14_2
-  if not SHX6_2 then
-    SHX14_2 = 2
+  mathHelper2 = arg7 or mathHelper2
+  if not arg7 then
+    mathHelper2 = 2
   end
-  SHX15_2 = 0.0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = true
-  return SHX7_2
+  mathHelper3 = 0.0
+  mathHelper4 = false
+  mathHelper5 = false
+  workValue4 = false
+  -- Beginner: Play an animation on a ped.
+  workValue7(workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4)
+  workValue7 = true
+  return workValue7
 end
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 14
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 15
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 16
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 17
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 37
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+function textValue4()
+  local arg1, arg2, arg3, arg4
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 14
+  arg4 = true
+  arg1(arg2, arg3, arg4)
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 15
+  arg4 = true
+  arg1(arg2, arg3, arg4)
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 16
+  arg4 = true
+  arg1(arg2, arg3, arg4)
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 17
+  arg4 = true
+  arg1(arg2, arg3, arg4)
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 37
+  arg4 = true
+  arg1(arg2, arg3, arg4)
 end
-SHX9_1 = {}
-SHX9_1.__index = SHX9_1
-SHX9_1.activeInstance = nil
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = setmetatable
-  SHX2_2 = {}
-  SHX3_2 = SHX9_1
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2.entity = SHX0_2
-  SHX1_2.isRunning = false
-  SHX1_2.isInMinigame = false
-  SHX1_2.cameraAlternate = false
-  SHX1_2.inControlRange = false
-  SHX2_2 = SHX3_1.new
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX1_2.camera = SHX2_2
-  SHX2_2 = SHX6_1.new
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX1_2.animator = SHX2_2
-  SHX1_2.screwDriver = nil
-  SHX1_2.screwObject = nil
-  return SHX1_2
+dataTable4 = {}
+dataTable4.__index = dataTable4
+dataTable4.activeInstance = nil
+function workValue2(arg1)
+  local arg2, arg3, arg4
+  arg2 = setmetatable
+  arg3 = {}
+  arg4 = dataTable4
+  arg2 = arg2(arg3, arg4)
+  arg2.entity = arg1
+  arg2.isRunning = false
+  arg2.isInMinigame = false
+  arg2.cameraAlternate = false
+  arg2.inControlRange = false
+  arg3 = dataTable.new
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  arg2.camera = arg3
+  arg3 = dataTable3.new
+  arg4 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg4 = arg4()
+  arg3 = arg3(arg4)
+  arg2.animator = arg3
+  arg2.screwDriver = nil
+  arg2.screwObject = nil
+  return arg2
 end
-SHX9_1.new = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = SHX0_1.toiletEscape
-  if not SHX1_2 then
-    SHX2_2 = false
-    return SHX2_2
+dataTable4.new = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash
+  arg2 = cmgCall.toiletEscape
+  if not arg2 then
+    arg3 = false
+    return arg3
   end
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX0_2.entity
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadModel
-  SHX4_2 = SHX1_2.screwDriverModel
-  SHX3_2(SHX4_2)
-  SHX3_2 = CreateObject
-  SHX4_2 = SHX1_2.screwDriverModel
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 10
-  SHX8_2 = SHX1_2.useNetworkedObjects
-  SHX9_2 = true
-  SHX10_2 = false
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX0_2.screwDriver = SHX3_2
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX0_2.screwDriver
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
-    SHX3_2 = false
-    return SHX3_2
+  arg3 = GetEntityCoords
+  arg4 = arg1.entity
+  -- Beginner: result below is entityCoords.
+  arg3 = arg3(arg4)
+  arg4 = CMG
+  arg4 = arg4.loadModel
+  arg5 = arg2.screwDriverModel
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg4(arg5)
+  arg4 = CreateObject
+  arg5 = arg2.screwDriverModel
+  arg6 = arg3.x
+  arg7 = arg3.y
+  workValue7 = arg3.z
+  workValue7 = workValue7 - 10
+  workValue8 = arg2.useNetworkedObjects
+  workValue9 = true
+  modelHash = false
+  -- Beginner: result below is objectEntity.
+  arg4 = arg4(arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash)
+  arg1.screwDriver = arg4
+  arg4 = DoesEntityExist
+  arg5 = arg1.screwDriver
+  arg4 = arg4(arg5)
+  if not arg4 then
+    arg4 = false
+    return arg4
   end
-  SHX3_2 = SetEntityVisible
-  SHX4_2 = SHX0_2.screwDriver
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetModelAsNoLongerNeeded
-  SHX4_2 = SHX1_2.screwDriverModel
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetEntityCompletelyDisableCollision
-  SHX4_2 = SHX0_2.screwDriver
-  SHX5_2 = false
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadModel
-  SHX4_2 = SHX1_2.screwModel
-  SHX3_2(SHX4_2)
-  SHX3_2 = CreateObject
-  SHX4_2 = SHX1_2.screwModel
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 10
-  SHX8_2 = SHX1_2.useNetworkedObjects
-  SHX9_2 = true
-  SHX10_2 = false
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX0_2.screwObject = SHX3_2
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX0_2.screwObject
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
-    SHX3_2 = false
-    return SHX3_2
+  arg4 = SetEntityVisible
+  arg5 = arg1.screwDriver
+  arg6 = false
+  arg7 = false
+  arg4(arg5, arg6, arg7)
+  arg4 = SetModelAsNoLongerNeeded
+  arg5 = arg2.screwDriverModel
+  arg4(arg5)
+  arg4 = SetEntityCompletelyDisableCollision
+  arg5 = arg1.screwDriver
+  arg6 = false
+  arg7 = true
+  arg4(arg5, arg6, arg7)
+  arg4 = CMG
+  arg4 = arg4.loadModel
+  arg5 = arg2.screwModel
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg4(arg5)
+  arg4 = CreateObject
+  arg5 = arg2.screwModel
+  arg6 = arg3.x
+  arg7 = arg3.y
+  workValue7 = arg3.z
+  workValue7 = workValue7 - 10
+  workValue8 = arg2.useNetworkedObjects
+  workValue9 = true
+  modelHash = false
+  -- Beginner: result below is objectEntity.
+  arg4 = arg4(arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash)
+  arg1.screwObject = arg4
+  arg4 = DoesEntityExist
+  arg5 = arg1.screwObject
+  arg4 = arg4(arg5)
+  if not arg4 then
+    arg4 = false
+    return arg4
   end
-  SHX3_2 = SetEntityVisible
-  SHX4_2 = SHX0_2.screwObject
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetModelAsNoLongerNeeded
-  SHX4_2 = SHX1_2.screwModel
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetEntityCompletelyDisableCollision
-  SHX4_2 = SHX0_2.screwObject
-  SHX5_2 = false
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = true
-  return SHX3_2
+  arg4 = SetEntityVisible
+  arg5 = arg1.screwObject
+  arg6 = false
+  arg7 = false
+  arg4(arg5, arg6, arg7)
+  arg4 = SetModelAsNoLongerNeeded
+  arg5 = arg2.screwModel
+  arg4(arg5)
+  arg4 = SetEntityCompletelyDisableCollision
+  arg5 = arg1.screwObject
+  arg6 = false
+  arg7 = true
+  arg4(arg5, arg6, arg7)
+  arg4 = true
+  return arg4
 end
-SHX9_1.createObjects = SHX10_1
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX0_2.screwDriver
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
+dataTable4.createObjects = workValue2
+function workValue2(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4
+  arg3 = DoesEntityExist
+  arg4 = arg1.screwDriver
+  arg3 = arg3(arg4)
+  if not arg3 then
     return
   end
-  SHX2_2 = SetEntityVisible
-  SHX3_2 = SHX0_2.screwDriver
-  SHX4_2 = true
-  SHX5_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  if 1 == SHX1_2 or 2 == SHX1_2 then
-    SHX3_2 = AttachEntityToEntity
-    SHX4_2 = SHX0_2.screwDriver
-    SHX5_2 = SHX2_2
-    SHX6_2 = GetPedBoneIndex
-    SHX7_2 = SHX2_2
-    SHX8_2 = 18905
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    SHX7_2 = 0.1319
-    SHX8_2 = 0.082
-    SHX9_2 = -1.7E-4
-    SHX10_2 = 158.9
-    SHX11_2 = -28.8
-    SHX12_2 = -8.86
-    SHX13_2 = true
-    SHX14_2 = true
-    SHX15_2 = false
-    SHX16_2 = true
-    SHX17_2 = 1
-    SHX18_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+  arg3 = SetEntityVisible
+  arg4 = arg1.screwDriver
+  arg5 = true
+  arg6 = false
+  arg3(arg4, arg5, arg6)
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  if 1 == arg2 or 2 == arg2 then
+    arg4 = AttachEntityToEntity
+    arg5 = arg1.screwDriver
+    arg6 = arg3
+    arg7 = GetPedBoneIndex
+    workValue7 = arg3
+    workValue8 = 18905
+    arg7 = arg7(workValue7, workValue8)
+    workValue7 = 0.1319
+    workValue8 = 0.082
+    workValue9 = -1.7E-4
+    modelHash = 158.9
+    workValue3 = -28.8
+    numberValue = -8.86
+    mathHelper = true
+    mathHelper2 = true
+    mathHelper3 = false
+    mathHelper4 = true
+    mathHelper5 = 1
+    workValue4 = true
+    -- Beginner: Attach one entity to another entity.
+    arg4(arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4)
   else
-    SHX3_2 = AttachEntityToEntity
-    SHX4_2 = SHX0_2.screwDriver
-    SHX5_2 = SHX2_2
-    SHX6_2 = GetPedBoneIndex
-    SHX7_2 = SHX2_2
-    SHX8_2 = 57005
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    SHX7_2 = 0.1445
-    SHX8_2 = 0.0838
-    SHX9_2 = -0.0306
-    SHX10_2 = -8.9
-    SHX11_2 = 40.15
-    SHX12_2 = 160.55
-    SHX13_2 = true
-    SHX14_2 = true
-    SHX15_2 = false
-    SHX16_2 = true
-    SHX17_2 = 1
-    SHX18_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+    arg4 = AttachEntityToEntity
+    arg5 = arg1.screwDriver
+    arg6 = arg3
+    arg7 = GetPedBoneIndex
+    workValue7 = arg3
+    workValue8 = 57005
+    arg7 = arg7(workValue7, workValue8)
+    workValue7 = 0.1445
+    workValue8 = 0.0838
+    workValue9 = -0.0306
+    modelHash = -8.9
+    workValue3 = 40.15
+    numberValue = 160.55
+    mathHelper = true
+    mathHelper2 = true
+    mathHelper3 = false
+    mathHelper4 = true
+    mathHelper5 = 1
+    workValue4 = true
+    arg4(arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4)
   end
 end
-SHX9_1.attachScrewdriver = SHX10_1
-function SHX10_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX4_2 = DoesEntityExist
-  SHX5_2 = SHX0_2.screwObject
-  SHX4_2 = SHX4_2(SHX5_2)
-  if not SHX4_2 then
+dataTable4.attachScrewdriver = workValue2
+function workValue2(arg1, arg2, arg3, arg4)
+  local arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4
+  arg5 = DoesEntityExist
+  arg6 = arg1.screwObject
+  arg5 = arg5(arg6)
+  if not arg5 then
     return
   end
-  SHX4_2 = SHX0_1.toiletEscape
-  if SHX4_2 then
-    SHX5_2 = SHX4_2.screwOffsets
-    SHX5_2 = SHX5_2[SHX1_2]
-    if SHX5_2 then
-      goto SHX_LABEL_15
+  arg5 = cmgCall.toiletEscape
+  if arg5 then
+    arg6 = arg5.screwOffsets
+    arg6 = arg6[arg2]
+    if arg6 then
+      goto flow_label_15
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_15:: outside nested blocks until all 'goto SHX_LABEL_15' can see it
-  ::SHX_LABEL_15::
-  SHX5_2 = SHX4_2.screwOffsets
-  SHX5_2 = SHX5_2[SHX1_2]
-  SHX6_2 = 1 == SHX1_2 or 2 == SHX1_2
-  SHX7_2 = GetEntityRotation
-  SHX8_2 = SHX0_2.entity
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = SHX5_2.screw
-  SHX8_2 = SHX8_2.x
-  if SHX6_2 then
-    SHX9_2 = -SHX2_2
-    if SHX9_2 then
-      goto SHX_LABEL_34
+  ::flow_label_15::
+  arg6 = arg5.screwOffsets
+  arg6 = arg6[arg2]
+  arg7 = 1 == arg2 or 2 == arg2
+  workValue7 = GetEntityRotation
+  workValue8 = arg1.entity
+  workValue7 = workValue7(workValue8)
+  workValue8 = arg6.screw
+  workValue8 = workValue8.x
+  if arg7 then
+    workValue9 = -arg3
+    if workValue9 then
+      goto flow_label_34
     end
   end
-  SHX9_2 = SHX2_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_34:: outside nested blocks until all 'goto SHX_LABEL_34' can see it
-  ::SHX_LABEL_34::
-  SHX8_2 = SHX8_2 + SHX9_2
-  SHX9_2 = GetOffsetFromEntityInWorldCoords
-  SHX10_2 = SHX0_2.entity
-  SHX11_2 = SHX8_2
-  SHX12_2 = SHX5_2.screw
-  SHX12_2 = SHX12_2.y
-  SHX13_2 = SHX5_2.screw
-  SHX13_2 = SHX13_2.z
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = SetEntityCoords
-  SHX11_2 = SHX0_2.screwObject
-  SHX12_2 = SHX9_2.x
-  SHX13_2 = SHX9_2.y
-  SHX14_2 = SHX9_2.z
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX10_2 = SetEntityRotation
-  SHX11_2 = SHX0_2.screwObject
-  SHX12_2 = SHX7_2.x
-  SHX12_2 = SHX12_2 + SHX3_2
-  SHX13_2 = SHX7_2.y
-  if SHX6_2 then
-    SHX14_2 = -90.0
-    if SHX14_2 then
-      goto SHX_LABEL_66
+  workValue9 = arg3
+  ::flow_label_34::
+  workValue8 = workValue8 + workValue9
+  workValue9 = GetOffsetFromEntityInWorldCoords
+  modelHash = arg1.entity
+  workValue3 = workValue8
+  numberValue = arg6.screw
+  numberValue = numberValue.y
+  mathHelper = arg6.screw
+  mathHelper = mathHelper.z
+  workValue9 = workValue9(modelHash, workValue3, numberValue, mathHelper)
+  modelHash = SetEntityCoords
+  workValue3 = arg1.screwObject
+  numberValue = workValue9.x
+  mathHelper = workValue9.y
+  mathHelper2 = workValue9.z
+  mathHelper3 = false
+  mathHelper4 = false
+  mathHelper5 = false
+  workValue4 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  modelHash(workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4)
+  modelHash = SetEntityRotation
+  workValue3 = arg1.screwObject
+  numberValue = workValue7.x
+  numberValue = numberValue + arg4
+  mathHelper = workValue7.y
+  if arg7 then
+    mathHelper2 = -90.0
+    if mathHelper2 then
+      goto flow_label_66
     end
   end
-  SHX14_2 = 90.0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_66:: outside nested blocks until all 'goto SHX_LABEL_66' can see it
-  ::SHX_LABEL_66::
-  SHX13_2 = SHX13_2 + SHX14_2
-  SHX14_2 = SHX7_2.z
-  SHX15_2 = 2
-  SHX16_2 = true
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX10_2 = SetEntityVisible
-  SHX11_2 = SHX0_2.screwObject
-  SHX12_2 = true
-  SHX13_2 = false
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
+  mathHelper2 = 90.0
+  ::flow_label_66::
+  mathHelper = mathHelper + mathHelper2
+  mathHelper2 = workValue7.z
+  mathHelper3 = 2
+  mathHelper4 = true
+  modelHash(workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4)
+  modelHash = SetEntityVisible
+  workValue3 = arg1.screwObject
+  numberValue = true
+  mathHelper = false
+  modelHash(workValue3, numberValue, mathHelper)
 end
-SHX9_1.positionScrew = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = SHX0_2.isInMinigame
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.cameraAlternate
-    if not SHX1_2 then
-      goto SHX_LABEL_8
+dataTable4.positionScrew = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9
+  arg2 = arg1.isInMinigame
+  if arg2 then
+    arg2 = arg1.cameraAlternate
+    if not arg2 then
+      goto flow_label_8
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX0_2.cameraAlternate = true
-  SHX1_2 = SHX0_2.camera
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.setCamera
-  SHX3_2 = {}
-  SHX4_2 = vector3
-  SHX5_2 = 0.0
-  SHX6_2 = 0.0
-  SHX7_2 = 1.0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX5_2 = vector3
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = GetEntityHeading
-  SHX9_2 = SHX0_2.entity
-  SHX8_2 = SHX8_2(SHX9_2)
-  SHX8_2 = SHX8_2 + 180.0
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2[1] = SHX4_2
-  SHX3_2[2] = SHX5_2
-  SHX3_2[3] = SHX6_2
-  SHX3_2[4] = SHX7_2
-  SHX3_2[5] = SHX8_2
-  SHX3_2[6] = SHX9_2
-  SHX4_2 = true
-  SHX5_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SHX0_2.camera
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.activate
-  SHX3_2 = true
-  SHX4_2 = 300
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  ::flow_label_8::
+  arg1.cameraAlternate = true
+  arg2 = arg1.camera
+  arg3 = arg2
+  arg2 = arg2.setCamera
+  arg4 = {}
+  arg5 = vector3
+  arg6 = 0.0
+  arg7 = 0.0
+  workValue7 = 1.0
+  arg5 = arg5(arg6, arg7, workValue7)
+  arg6 = vector3
+  arg7 = 0.0
+  workValue7 = 0.0
+  workValue8 = GetEntityHeading
+  workValue9 = arg1.entity
+  -- Beginner: result below is heading.
+  workValue8 = workValue8(workValue9)
+  workValue8 = workValue8 + 180.0
+  arg6, arg7, workValue7, workValue8, workValue9 = arg6(arg7, workValue7, workValue8)
+  arg4[1] = arg5
+  arg4[2] = arg6
+  arg4[3] = arg7
+  arg4[4] = workValue7
+  arg4[5] = workValue8
+  arg4[6] = workValue9
+  arg5 = true
+  arg6 = true
+  arg2(arg3, arg4, arg5, arg6)
+  arg2 = arg1.camera
+  arg3 = arg2
+  arg2 = arg2.activate
+  arg4 = true
+  arg5 = 300
+  arg2(arg3, arg4, arg5)
 end
-SHX9_1.switchToAlternateCamera = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX0_2.isInMinigame
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.cameraAlternate
-    if SHX1_2 then
-      goto SHX_LABEL_8
+dataTable4.switchToAlternateCamera = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = arg1.isInMinigame
+  if arg2 then
+    arg2 = arg1.cameraAlternate
+    if arg2 then
+      goto flow_label_8
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX0_2.cameraAlternate = false
-  SHX1_2 = SHX0_1.toiletEscape
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.screwOffsets
-    SHX3_2 = SHX0_2.currentScrewIndex
-    SHX2_2 = SHX2_2[SHX3_2]
-    if SHX2_2 then
-      goto SHX_LABEL_18
+  ::flow_label_8::
+  arg1.cameraAlternate = false
+  arg2 = cmgCall.toiletEscape
+  if arg2 then
+    arg3 = arg2.screwOffsets
+    arg4 = arg1.currentScrewIndex
+    arg3 = arg3[arg4]
+    if arg3 then
+      goto flow_label_18
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_18:: outside nested blocks until all 'goto SHX_LABEL_18' can see it
-  ::SHX_LABEL_18::
-  SHX2_2 = SHX1_2.screwOffsets
-  SHX3_2 = SHX0_2.currentScrewIndex
-  SHX2_2 = SHX2_2[SHX3_2]
-  SHX2_2 = SHX2_2.cam
-  SHX3_2 = SHX0_2.camera
-  SHX4_2 = SHX3_2
-  SHX3_2 = SHX3_2.setCamera
-  SHX5_2 = SHX2_2
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SHX0_2.camera
-  SHX4_2 = SHX3_2
-  SHX3_2 = SHX3_2.activate
-  SHX5_2 = true
-  SHX6_2 = 300
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  ::flow_label_18::
+  arg3 = arg2.screwOffsets
+  arg4 = arg1.currentScrewIndex
+  arg3 = arg3[arg4]
+  arg3 = arg3.cam
+  arg4 = arg1.camera
+  arg5 = arg4
+  arg4 = arg4.setCamera
+  arg6 = arg3
+  arg7 = true
+  arg4(arg5, arg6, arg7)
+  arg4 = arg1.camera
+  arg5 = arg4
+  arg4 = arg4.activate
+  arg6 = true
+  arg7 = 300
+  arg4(arg5, arg6, arg7)
 end
-SHX9_1.switchToScrewCamera = SHX10_1
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX2_2 = SHX0_1.toiletEscape
-  if not SHX2_2 then
-    SHX3_2 = false
-    return SHX3_2
+dataTable4.switchToScrewCamera = workValue2
+function workValue2(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5
+  arg3 = cmgCall.toiletEscape
+  if not arg3 then
+    arg4 = false
+    return arg4
   end
-  SHX3_2 = 1 == SHX1_2 or 2 == SHX1_2
-  SHX0_2.isInMinigame = true
-  SHX0_2.currentScrewIndex = SHX1_2
-  SHX0_2.cameraAlternate = false
-  SHX4_2 = SHX2_2.screwOffsets
-  SHX4_2 = SHX4_2[SHX1_2]
-  SHX4_2 = SHX4_2.cam
-  SHX5_2 = SHX0_2.camera
-  SHX6_2 = SHX5_2
-  SHX5_2 = SHX5_2.setCamera
-  SHX7_2 = SHX4_2
-  SHX8_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = SHX0_2.camera
-  SHX6_2 = SHX5_2
-  SHX5_2 = SHX5_2.activate
-  SHX7_2 = true
-  SHX8_2 = 1500
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX0_2.positionScrew
-  SHX7_2 = SHX1_2
-  SHX8_2 = 0
-  SHX9_2 = 0
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX0_2.attachScrewdriver
-  SHX7_2 = SHX1_2
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SHX0_2.animator
-  SHX6_2 = SHX5_2
-  SHX5_2 = SHX5_2.playScrewAnim
-  SHX7_2 = SHX1_2
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = Wait
-  SHX6_2 = 100
-  SHX5_2(SHX6_2)
-  SHX5_2 = {}
-  SHX5_2.start = 0.25
-  SHX5_2.finish = 0.75
-  SHX0_2.inControlRange = false
-  SHX6_2 = false
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = SetEntityVisible
-  SHX10_2 = SHX0_2.screwObject
-  SHX11_2 = true
-  SHX12_2 = false
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = CreateThread
-  function SHX10_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
+  arg4 = 1 == arg2 or 2 == arg2
+  arg1.isInMinigame = true
+  arg1.currentScrewIndex = arg2
+  arg1.cameraAlternate = false
+  arg5 = arg3.screwOffsets
+  arg5 = arg5[arg2]
+  arg5 = arg5.cam
+  arg6 = arg1.camera
+  arg7 = arg6
+  arg6 = arg6.setCamera
+  workValue7 = arg5
+  workValue8 = false
+  arg6(arg7, workValue7, workValue8)
+  arg6 = arg1.camera
+  arg7 = arg6
+  arg6 = arg6.activate
+  workValue7 = true
+  workValue8 = 1500
+  arg6(arg7, workValue7, workValue8)
+  arg7 = arg1
+  arg6 = arg1.positionScrew
+  workValue7 = arg2
+  workValue8 = 0
+  workValue9 = 0
+  arg6(arg7, workValue7, workValue8, workValue9)
+  arg7 = arg1
+  arg6 = arg1.attachScrewdriver
+  workValue7 = arg2
+  arg6(arg7, workValue7)
+  arg6 = arg1.animator
+  arg7 = arg6
+  arg6 = arg6.playScrewAnim
+  workValue7 = arg2
+  arg6(arg7, workValue7)
+  arg6 = Wait
+  arg7 = 100
+  arg6(arg7)
+  arg6 = {}
+  arg6.start = 0.25
+  arg6.finish = 0.75
+  arg1.inControlRange = false
+  arg7 = false
+  workValue7 = 0.0
+  workValue8 = 0.0
+  workValue9 = SetEntityVisible
+  modelHash = arg1.screwObject
+  workValue3 = true
+  numberValue = false
+  workValue9(modelHash, workValue3, numberValue)
+  workValue9 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function modelHash()
+    local workValue, numberValue2, numberValue3
     while true do
-      SHX0_3 = SHX0_2.isRunning
-      if not SHX0_3 then
+      workValue = arg1.isRunning
+      if not workValue then
         break
       end
-      SHX0_3 = SHX0_2.isInMinigame
-      if not SHX0_3 then
+      workValue = arg1.isInMinigame
+      if not workValue then
         break
       end
-      SHX0_3 = IsDisabledControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 45
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = SHX0_2
-        SHX1_3 = SHX0_3
-        SHX0_3 = SHX0_3.switchToAlternateCamera
-        SHX0_3(SHX1_3)
+      workValue = IsDisabledControlJustPressed
+      numberValue2 = 0
+      numberValue3 = 45
+      workValue = workValue(numberValue2, numberValue3)
+      if workValue then
+        workValue = arg1
+        numberValue2 = workValue
+        workValue = workValue.switchToAlternateCamera
+        workValue(numberValue2)
       end
-      SHX0_3 = IsControlJustReleased
-      SHX1_3 = 0
-      SHX2_3 = 45
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = SHX0_2
-        SHX1_3 = SHX0_3
-        SHX0_3 = SHX0_3.switchToScrewCamera
-        SHX0_3(SHX1_3)
+      workValue = IsControlJustReleased
+      numberValue2 = 0
+      numberValue3 = 45
+      workValue = workValue(numberValue2, numberValue3)
+      if workValue then
+        workValue = arg1
+        numberValue2 = workValue
+        workValue = workValue.switchToScrewCamera
+        workValue(numberValue2)
       end
-      SHX0_3 = SHX8_1
-      SHX0_3()
-      SHX0_3 = Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
+      workValue = textValue4
+      workValue()
+      workValue = Wait
+      numberValue2 = 0
+      workValue(numberValue2)
     end
   end
-  SHX9_2(SHX10_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  workValue9(modelHash)
   while true do
-    SHX9_2 = SHX0_2.isRunning
-    if not SHX9_2 then
+    workValue9 = arg1.isRunning
+    if not workValue9 then
       break
     end
-    SHX9_2 = SHX8_1
-    SHX9_2()
-    SHX9_2 = SHX0_2.animator
-    SHX10_2 = SHX9_2
-    SHX9_2 = SHX9_2.getCurrentTime
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX10_2 = SHX0_2.animator
-    SHX11_2 = SHX10_2
-    SHX10_2 = SHX10_2.isInTimeRange
-    SHX12_2 = SHX5_2.start
-    SHX13_2 = SHX5_2.finish
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX11_2 = IsDisabledControlJustPressed
-    SHX12_2 = 0
-    SHX13_2 = 73
-    SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-    if SHX11_2 then
-      SHX11_2 = SetNuiFocus
-      SHX12_2 = false
-      SHX13_2 = false
-      SHX11_2(SHX12_2, SHX13_2)
-      SHX12_2 = SHX0_2
-      SHX11_2 = SHX0_2.cancelWithAnimation
-      SHX11_2(SHX12_2)
-      SHX0_2.isRunning = false
-      SHX11_2 = false
-      return SHX11_2
+    workValue9 = textValue4
+    workValue9()
+    workValue9 = arg1.animator
+    modelHash = workValue9
+    workValue9 = workValue9.getCurrentTime
+    workValue9 = workValue9(modelHash)
+    modelHash = arg1.animator
+    workValue3 = modelHash
+    modelHash = modelHash.isInTimeRange
+    numberValue = arg6.start
+    mathHelper = arg6.finish
+    modelHash = modelHash(workValue3, numberValue, mathHelper)
+    workValue3 = IsDisabledControlJustPressed
+    numberValue = 0
+    mathHelper = 73
+    workValue3 = workValue3(numberValue, mathHelper)
+    if workValue3 then
+      workValue3 = SetNuiFocus
+      numberValue = false
+      mathHelper = false
+      -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+      workValue3(numberValue, mathHelper)
+      numberValue = arg1
+      workValue3 = arg1.cancelWithAnimation
+      workValue3(numberValue)
+      arg1.isRunning = false
+      workValue3 = false
+      return workValue3
     end
-    if SHX10_2 then
-      SHX11_2 = SHX0_2.inControlRange
-      if not SHX11_2 then
-        SHX11_2 = SHX0_2.animator
-        SHX12_2 = SHX11_2
-        SHX11_2 = SHX11_2.setSpeed
-        SHX13_2 = 0.0
-        SHX11_2(SHX12_2, SHX13_2)
-        SHX0_2.inControlRange = true
-        SHX11_2 = SetNuiFocus
-        SHX12_2 = false
-        SHX13_2 = true
-        SHX11_2(SHX12_2, SHX13_2)
+    if modelHash then
+      workValue3 = arg1.inControlRange
+      if not workValue3 then
+        workValue3 = arg1.animator
+        numberValue = workValue3
+        workValue3 = workValue3.setSpeed
+        mathHelper = 0.0
+        workValue3(numberValue, mathHelper)
+        arg1.inControlRange = true
+        workValue3 = SetNuiFocus
+        numberValue = false
+        mathHelper = true
+        -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+        workValue3(numberValue, mathHelper)
       end
     end
-    SHX11_2 = SHX0_2.inControlRange
-    if SHX11_2 then
-      SHX11_2 = SHX2_1
-      SHX12_2 = SHX0_2.screwObject
-      SHX13_2 = 35.0
-      SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-      SHX12_2 = IsControlPressed
-      SHX13_2 = 0
-      SHX14_2 = 24
-      SHX12_2 = SHX12_2(SHX13_2, SHX14_2)
-      if not SHX12_2 then
-        SHX12_2 = IsDisabledControlPressed
-        SHX13_2 = 0
-        SHX14_2 = 24
-        SHX12_2 = SHX12_2(SHX13_2, SHX14_2)
+    workValue3 = arg1.inControlRange
+    if workValue3 then
+      workValue3 = workValue6
+      numberValue = arg1.screwObject
+      mathHelper = 35.0
+      workValue3 = workValue3(numberValue, mathHelper)
+      numberValue = IsControlPressed
+      mathHelper = 0
+      mathHelper2 = 24
+      numberValue = numberValue(mathHelper, mathHelper2)
+      if not numberValue then
+        numberValue = IsDisabledControlPressed
+        mathHelper = 0
+        mathHelper2 = 24
+        numberValue = numberValue(mathHelper, mathHelper2)
       end
-      if SHX11_2 then
-        SHX13_2 = SetEntityDrawOutline
-        SHX14_2 = SHX0_2.screwObject
-        SHX15_2 = true
-        SHX13_2(SHX14_2, SHX15_2)
-        SHX13_2 = SetEntityDrawOutlineColor
-        SHX14_2 = 255
-        SHX15_2 = 255
-        SHX16_2 = 0
-        SHX17_2 = 255
-        SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-        SHX13_2 = SetEntityDrawOutlineShader
-        SHX14_2 = 1
-        SHX13_2(SHX14_2)
+      if workValue3 then
+        mathHelper = SetEntityDrawOutline
+        mathHelper2 = arg1.screwObject
+        mathHelper3 = true
+        mathHelper(mathHelper2, mathHelper3)
+        mathHelper = SetEntityDrawOutlineColor
+        mathHelper2 = 255
+        mathHelper3 = 255
+        mathHelper4 = 0
+        mathHelper5 = 255
+        mathHelper(mathHelper2, mathHelper3, mathHelper4, mathHelper5)
+        mathHelper = SetEntityDrawOutlineShader
+        mathHelper2 = 1
+        mathHelper(mathHelper2)
       else
-        SHX13_2 = SetEntityDrawOutline
-        SHX14_2 = SHX0_2.screwObject
-        SHX15_2 = false
-        SHX13_2(SHX14_2, SHX15_2)
+        mathHelper = SetEntityDrawOutline
+        mathHelper2 = arg1.screwObject
+        mathHelper3 = false
+        mathHelper(mathHelper2, mathHelper3)
       end
-      if SHX11_2 and SHX12_2 then
-        if not SHX6_2 then
-          SHX13_2 = SHX0_2.animator
-          SHX14_2 = SHX13_2
-          SHX13_2 = SHX13_2.setSpeed
-          SHX15_2 = 1.0
-          SHX13_2(SHX14_2, SHX15_2)
-          SHX13_2 = SetEntityDrawOutlineColor
-          SHX14_2 = 0
-          SHX15_2 = 255
-          SHX16_2 = 0
-          SHX17_2 = 255
-          SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-          SHX6_2 = true
+      if workValue3 and numberValue then
+        if not arg7 then
+          mathHelper = arg1.animator
+          mathHelper2 = mathHelper
+          mathHelper = mathHelper.setSpeed
+          mathHelper3 = 1.0
+          mathHelper(mathHelper2, mathHelper3)
+          mathHelper = SetEntityDrawOutlineColor
+          mathHelper2 = 0
+          mathHelper3 = 255
+          mathHelper4 = 0
+          mathHelper5 = 255
+          mathHelper(mathHelper2, mathHelper3, mathHelper4, mathHelper5)
+          arg7 = true
         end
-        SHX8_2 = SHX8_2 + 1.0E-4
-        if SHX3_2 then
-          SHX13_2 = -2.0
-          if SHX13_2 then
-            goto SHX_LABEL_163
+        workValue8 = workValue8 + 1.0E-4
+        if arg4 then
+          mathHelper = -2.0
+          if mathHelper then
+            goto flow_label_163
           end
         end
-        SHX13_2 = 2.0
-        -- [FIX IF ERROR] Move ::SHX_LABEL_163:: outside nested blocks until all 'goto SHX_LABEL_163' can see it
-        ::SHX_LABEL_163::
-        SHX7_2 = SHX7_2 + SHX13_2
-        SHX14_2 = SHX0_2
-        SHX13_2 = SHX0_2.positionScrew
-        SHX15_2 = SHX1_2
-        SHX16_2 = SHX8_2
-        SHX17_2 = SHX7_2
-        SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-        SHX13_2 = SHX5_2.finish
-        if SHX9_2 >= SHX13_2 then
-          SHX13_2 = SetNuiFocus
-          SHX14_2 = false
-          SHX15_2 = false
-          SHX13_2(SHX14_2, SHX15_2)
-          SHX13_2 = SetEntityDrawOutline
-          SHX14_2 = SHX0_2.screwObject
-          SHX15_2 = false
-          SHX13_2(SHX14_2, SHX15_2)
-          SHX13_2 = SetEntityVisible
-          SHX14_2 = SHX0_2.screwObject
-          SHX15_2 = false
-          SHX16_2 = false
-          SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-          SHX13_2 = SHX0_2.camera
-          if SHX13_2 then
-            SHX13_2 = SHX0_2.camera
-            SHX14_2 = SHX13_2
-            SHX13_2 = SHX13_2.destroy
-            SHX13_2(SHX14_2)
-            SHX0_2.camera = nil
+        mathHelper = 2.0
+        ::flow_label_163::
+        workValue7 = workValue7 + mathHelper
+        mathHelper2 = arg1
+        mathHelper = arg1.positionScrew
+        mathHelper3 = arg2
+        mathHelper4 = workValue8
+        mathHelper5 = workValue7
+        mathHelper(mathHelper2, mathHelper3, mathHelper4, mathHelper5)
+        mathHelper = arg6.finish
+        if workValue9 >= mathHelper then
+          mathHelper = SetNuiFocus
+          mathHelper2 = false
+          mathHelper3 = false
+          -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+          mathHelper(mathHelper2, mathHelper3)
+          mathHelper = SetEntityDrawOutline
+          mathHelper2 = arg1.screwObject
+          mathHelper3 = false
+          mathHelper(mathHelper2, mathHelper3)
+          mathHelper = SetEntityVisible
+          mathHelper2 = arg1.screwObject
+          mathHelper3 = false
+          mathHelper4 = false
+          mathHelper(mathHelper2, mathHelper3, mathHelper4)
+          mathHelper = arg1.camera
+          if mathHelper then
+            mathHelper = arg1.camera
+            mathHelper2 = mathHelper
+            mathHelper = mathHelper.destroy
+            mathHelper(mathHelper2)
+            arg1.camera = nil
           end
-          SHX13_2 = true
-          return SHX13_2
+          mathHelper = true
+          return mathHelper
         end
-      elseif SHX6_2 then
-        SHX13_2 = SHX0_2.animator
-        SHX14_2 = SHX13_2
-        SHX13_2 = SHX13_2.setSpeed
-        SHX15_2 = 0.0
-        SHX13_2(SHX14_2, SHX15_2)
-        if SHX11_2 then
-          SHX13_2 = SetEntityDrawOutlineColor
-          SHX14_2 = 255
-          SHX15_2 = 255
-          SHX16_2 = 0
-          SHX17_2 = 255
-          SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
+      elseif arg7 then
+        mathHelper = arg1.animator
+        mathHelper2 = mathHelper
+        mathHelper = mathHelper.setSpeed
+        mathHelper3 = 0.0
+        mathHelper(mathHelper2, mathHelper3)
+        if workValue3 then
+          mathHelper = SetEntityDrawOutlineColor
+          mathHelper2 = 255
+          mathHelper3 = 255
+          mathHelper4 = 0
+          mathHelper5 = 255
+          mathHelper(mathHelper2, mathHelper3, mathHelper4, mathHelper5)
         end
-        SHX6_2 = false
+        arg7 = false
       end
     end
-    SHX11_2 = Wait
-    SHX12_2 = 0
-    SHX11_2(SHX12_2)
+    workValue3 = Wait
+    numberValue = 0
+    workValue3(numberValue)
   end
-  SHX9_2 = SetNuiFocus
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX9_2(SHX10_2, SHX11_2)
-  SHX9_2 = SetEntityDrawOutline
-  SHX10_2 = SHX0_2.screwObject
-  SHX11_2 = false
-  SHX9_2(SHX10_2, SHX11_2)
-  SHX0_2.isInMinigame = false
-  SHX9_2 = SHX0_2.camera
-  if SHX9_2 then
-    SHX9_2 = SHX0_2.camera
-    SHX10_2 = SHX9_2
-    SHX9_2 = SHX9_2.destroy
-    SHX9_2(SHX10_2)
-    SHX0_2.camera = nil
+  workValue9 = SetNuiFocus
+  modelHash = false
+  workValue3 = false
+  -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+  workValue9(modelHash, workValue3)
+  workValue9 = SetEntityDrawOutline
+  modelHash = arg1.screwObject
+  workValue3 = false
+  workValue9(modelHash, workValue3)
+  arg1.isInMinigame = false
+  workValue9 = arg1.camera
+  if workValue9 then
+    workValue9 = arg1.camera
+    modelHash = workValue9
+    workValue9 = workValue9.destroy
+    workValue9(modelHash)
+    arg1.camera = nil
   end
-  SHX9_2 = false
-  return SHX9_2
+  workValue9 = false
+  return workValue9
 end
-SHX9_1.handleScrewMinigame = SHX10_1
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = {}
-  SHX3_2 = 1
-  SHX4_2 = 4
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = SHX1_1
-    SHX8_2 = SHX1_2
-    SHX9_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if not SHX7_2 then
-      SHX7_2 = #SHX2_2
-      SHX7_2 = SHX7_2 + 1
-      SHX2_2[SHX7_2] = SHX6_2
+dataTable4.handleScrewMinigame = workValue2
+function workValue2(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash
+  arg3 = {}
+  arg4 = 1
+  arg5 = 4
+  arg6 = 1
+  for arg7 = arg4, arg5, arg6 do
+    workValue7 = textValue
+    workValue8 = arg2
+    workValue9 = arg7
+    workValue7 = workValue7(workValue8, workValue9)
+    if not workValue7 then
+      workValue7 = #arg3
+      workValue7 = workValue7 + 1
+      arg3[workValue7] = arg7
     end
   end
-  SHX3_2 = #SHX2_2
-  if 0 == SHX3_2 then
-    SHX3_2 = nil
-    return SHX3_2
+  arg4 = #arg3
+  if 0 == arg4 then
+    arg4 = nil
+    return arg4
   end
-  SHX3_2 = SHX0_1.toiletEscape
-  if SHX3_2 then
-    SHX4_2 = SHX3_2.screwLabels
-    if SHX4_2 then
-      goto SHX_LABEL_36
+  arg4 = cmgCall.toiletEscape
+  if arg4 then
+    arg5 = arg4.screwLabels
+    if arg5 then
+      goto flow_label_36
     end
   end
-  SHX4_2 = {}
-  SHX5_2 = "Top left"
-  SHX6_2 = "Bottom left"
-  SHX7_2 = "Top right"
-  SHX8_2 = "Bottom right"
-  SHX4_2[1] = SHX5_2
-  SHX4_2[2] = SHX6_2
-  SHX4_2[3] = SHX7_2
-  SHX4_2[4] = SHX8_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_36:: outside nested blocks until all 'goto SHX_LABEL_36' can see it
-  ::SHX_LABEL_36::
-  SHX5_2 = 1
-  SHX6_2 = true
-  SHX7_2 = nil
-  SHX8_2 = CreateThread
-  function SHX9_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
+  arg5 = {}
+  arg6 = "Top left"
+  arg7 = "Bottom left"
+  workValue7 = "Top right"
+  workValue8 = "Bottom right"
+  arg5[1] = arg6
+  arg5[2] = arg7
+  arg5[3] = workValue7
+  arg5[4] = workValue8
+  ::flow_label_36::
+  arg6 = 1
+  arg7 = true
+  workValue7 = nil
+  workValue8 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function workValue9()
+    local workValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7
     while true do
-      SHX0_3 = SHX6_2
-      if not SHX0_3 then
+      workValue = arg7
+      if not workValue then
         break
       end
-      SHX0_3 = SHX0_2.isRunning
-      if not SHX0_3 then
+      workValue = arg1.isRunning
+      if not workValue then
         break
       end
-      SHX0_3 = SHX8_1
-      SHX0_3()
-      SHX1_3 = SHX5_2
-      SHX0_3 = SHX2_2
-      SHX1_3 = SHX0_3[SHX1_3]
-      SHX0_3 = SHX4_2
-      SHX0_3 = SHX0_3[SHX1_3]
-      if not SHX0_3 then
-        SHX0_3 = "Screw "
-        SHX2_3 = SHX5_2
-        SHX1_3 = SHX2_2
-        SHX1_3 = SHX1_3[SHX2_3]
-        SHX0_3 = SHX0_3 .. SHX1_3
+      workValue = textValue4
+      workValue()
+      numberValue2 = arg6
+      workValue = arg3
+      numberValue2 = workValue[numberValue2]
+      workValue = arg5
+      workValue = workValue[numberValue2]
+      if not workValue then
+        workValue = "Screw "
+        numberValue3 = arg6
+        numberValue2 = arg3
+        numberValue2 = numberValue2[numberValue3]
+        workValue = workValue .. numberValue2
       end
-      SHX1_3 = SetTextFont
-      SHX2_3 = 4
-      SHX1_3(SHX2_3)
-      SHX1_3 = SetTextScale
-      SHX2_3 = 0.35
-      SHX3_3 = 0.35
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SetTextColour
-      SHX2_3 = 255
-      SHX3_3 = 255
-      SHX4_3 = 255
-      SHX5_3 = 255
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX1_3 = SetTextDropshadow
-      SHX2_3 = 0
-      SHX3_3 = 0
-      SHX4_3 = 0
-      SHX5_3 = 0
-      SHX6_3 = 255
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      SHX1_3 = SetTextEdge
-      SHX2_3 = 1
-      SHX3_3 = 0
-      SHX4_3 = 0
-      SHX5_3 = 0
-      SHX6_3 = 255
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      SHX1_3 = SetTextEntry
-      SHX2_3 = "STRING"
-      SHX1_3(SHX2_3)
-      SHX1_3 = AddTextComponentSubstringPlayerName
-      SHX2_3 = SHX0_3
-      SHX3_3 = " - [SCROLL] change [E] select [X] cancel"
-      SHX2_3 = SHX2_3 .. SHX3_3
-      SHX1_3(SHX2_3)
-      SHX1_3 = DrawText
-      SHX2_3 = 0.4
-      SHX3_3 = 0.25
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = Wait
-      SHX2_3 = 0
-      SHX1_3(SHX2_3)
+      numberValue2 = SetTextFont
+      numberValue3 = 4
+      numberValue2(numberValue3)
+      numberValue2 = SetTextScale
+      numberValue3 = 0.35
+      numberValue4 = 0.35
+      numberValue2(numberValue3, numberValue4)
+      numberValue2 = SetTextColour
+      numberValue3 = 255
+      numberValue4 = 255
+      numberValue5 = 255
+      numberValue6 = 255
+      numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
+      numberValue2 = SetTextDropshadow
+      numberValue3 = 0
+      numberValue4 = 0
+      numberValue5 = 0
+      numberValue6 = 0
+      numberValue7 = 255
+      numberValue2(numberValue3, numberValue4, numberValue5, numberValue6, numberValue7)
+      numberValue2 = SetTextEdge
+      numberValue3 = 1
+      numberValue4 = 0
+      numberValue5 = 0
+      numberValue6 = 0
+      numberValue7 = 255
+      numberValue2(numberValue3, numberValue4, numberValue5, numberValue6, numberValue7)
+      numberValue2 = SetTextEntry
+      numberValue3 = "STRING"
+      numberValue2(numberValue3)
+      numberValue2 = AddTextComponentSubstringPlayerName
+      numberValue3 = workValue
+      numberValue4 = " - [SCROLL] change [E] select [X] cancel"
+      numberValue3 = numberValue3 .. numberValue4
+      numberValue2(numberValue3)
+      numberValue2 = DrawText
+      numberValue3 = 0.4
+      numberValue4 = 0.25
+      numberValue2(numberValue3, numberValue4)
+      numberValue2 = Wait
+      numberValue3 = 0
+      numberValue2(numberValue3)
     end
   end
-  SHX8_2(SHX9_2)
-  SHX8_2 = Wait
-  SHX9_2 = 100
-  SHX8_2(SHX9_2)
-  while SHX6_2 do
-    SHX8_2 = SHX8_1
-    SHX8_2()
-    SHX8_2 = IsDisabledControlJustPressed
-    SHX9_2 = 0
-    SHX10_2 = 14
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if not SHX8_2 then
-      SHX8_2 = IsDisabledControlJustPressed
-      SHX9_2 = 0
-      SHX10_2 = 172
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      if not SHX8_2 then
-        goto SHX_LABEL_66
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  workValue8(workValue9)
+  workValue8 = Wait
+  workValue9 = 100
+  workValue8(workValue9)
+  while arg7 do
+    workValue8 = textValue4
+    workValue8()
+    workValue8 = IsDisabledControlJustPressed
+    workValue9 = 0
+    modelHash = 14
+    workValue8 = workValue8(workValue9, modelHash)
+    if not workValue8 then
+      workValue8 = IsDisabledControlJustPressed
+      workValue9 = 0
+      modelHash = 172
+      workValue8 = workValue8(workValue9, modelHash)
+      if not workValue8 then
+        goto flow_label_66
       end
     end
-    SHX5_2 = SHX5_2 - 1
-    if SHX5_2 < 1 then
-      SHX5_2 = #SHX2_2
+    arg6 = arg6 - 1
+    if arg6 < 1 then
+      arg6 = #arg3
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_66:: outside nested blocks until all 'goto SHX_LABEL_66' can see it
-    ::SHX_LABEL_66::
-    SHX8_2 = IsDisabledControlJustPressed
-    SHX9_2 = 0
-    SHX10_2 = 15
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if not SHX8_2 then
-      SHX8_2 = IsDisabledControlJustPressed
-      SHX9_2 = 0
-      SHX10_2 = 173
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      if not SHX8_2 then
-        goto SHX_LABEL_84
+    ::flow_label_66::
+    workValue8 = IsDisabledControlJustPressed
+    workValue9 = 0
+    modelHash = 15
+    workValue8 = workValue8(workValue9, modelHash)
+    if not workValue8 then
+      workValue8 = IsDisabledControlJustPressed
+      workValue9 = 0
+      modelHash = 173
+      workValue8 = workValue8(workValue9, modelHash)
+      if not workValue8 then
+        goto flow_label_84
       end
     end
-    SHX5_2 = SHX5_2 + 1
-    SHX8_2 = #SHX2_2
-    if SHX5_2 > SHX8_2 then
-      SHX5_2 = 1
+    arg6 = arg6 + 1
+    workValue8 = #arg3
+    if arg6 > workValue8 then
+      arg6 = 1
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_84:: outside nested blocks until all 'goto SHX_LABEL_84' can see it
-    ::SHX_LABEL_84::
-    SHX8_2 = IsDisabledControlJustPressed
-    SHX9_2 = 0
-    SHX10_2 = 38
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if not SHX8_2 then
-      SHX8_2 = IsDisabledControlJustPressed
-      SHX9_2 = 0
-      SHX10_2 = 191
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      if not SHX8_2 then
-        goto SHX_LABEL_98
+    ::flow_label_84::
+    workValue8 = IsDisabledControlJustPressed
+    workValue9 = 0
+    modelHash = 38
+    workValue8 = workValue8(workValue9, modelHash)
+    if not workValue8 then
+      workValue8 = IsDisabledControlJustPressed
+      workValue9 = 0
+      modelHash = 191
+      workValue8 = workValue8(workValue9, modelHash)
+      if not workValue8 then
+        goto flow_label_98
       end
     end
-    SHX7_2 = SHX2_2[SHX5_2]
-    SHX6_2 = false
-    -- [FIX IF ERROR] Move ::SHX_LABEL_98:: outside nested blocks until all 'goto SHX_LABEL_98' can see it
-    ::SHX_LABEL_98::
-    SHX8_2 = IsDisabledControlJustPressed
-    SHX9_2 = 0
-    SHX10_2 = 73
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if not SHX8_2 then
-      SHX8_2 = IsDisabledControlJustPressed
-      SHX9_2 = 0
-      SHX10_2 = 194
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      if not SHX8_2 then
-        goto SHX_LABEL_111
+    workValue7 = arg3[arg6]
+    arg7 = false
+    ::flow_label_98::
+    workValue8 = IsDisabledControlJustPressed
+    workValue9 = 0
+    modelHash = 73
+    workValue8 = workValue8(workValue9, modelHash)
+    if not workValue8 then
+      workValue8 = IsDisabledControlJustPressed
+      workValue9 = 0
+      modelHash = 194
+      workValue8 = workValue8(workValue9, modelHash)
+      if not workValue8 then
+        goto flow_label_111
       end
     end
-    SHX6_2 = false
-    -- [FIX IF ERROR] Move ::SHX_LABEL_111:: outside nested blocks until all 'goto SHX_LABEL_111' can see it
-    ::SHX_LABEL_111::
-    SHX8_2 = Wait
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
+    arg7 = false
+    ::flow_label_111::
+    workValue8 = Wait
+    workValue9 = 0
+    workValue8(workValue9)
   end
-  return SHX7_2
+  return workValue7
 end
-SHX9_1.selectScrew = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX1_2 = SetNuiFocus
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_2.camera
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.camera
-    SHX2_2 = SHX1_2
-    SHX1_2 = SHX1_2.destroy
-    SHX1_2(SHX2_2)
-    SHX0_2.camera = nil
+dataTable4.selectScrew = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3, flag4, flag5
+  arg2 = SetNuiFocus
+  arg3 = false
+  arg4 = false
+  -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+  arg2(arg3, arg4)
+  arg2 = arg1.camera
+  if arg2 then
+    arg2 = arg1.camera
+    arg3 = arg2
+    arg2 = arg2.destroy
+    arg2(arg3)
+    arg1.camera = nil
   end
-  SHX1_2 = DetachEntity
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = true
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = GetEntityHeading
-  SHX2_2 = SHX0_2.entity
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX0_2.entity
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetOffsetFromEntityInWorldCoords
-  SHX4_2 = SHX0_2.entity
-  SHX5_2 = 0.0
-  SHX6_2 = 0.0
-  SHX7_2 = 0.55
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SetEntityCoordsNoOffset
-  SHX5_2 = PlayerPedId
-  SHX5_2 = SHX5_2()
-  SHX6_2 = SHX3_2.x
-  SHX7_2 = SHX3_2.y
-  SHX8_2 = SHX3_2.z
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX4_2 = SetEntityHeading
-  SHX5_2 = PlayerPedId
-  SHX5_2 = SHX5_2()
-  SHX6_2 = SHX1_2 - 173.0
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX7_1
-  SHX5_2 = PlayerPedId
-  SHX5_2 = SHX5_2()
-  SHX6_2 = "promt@jail_4"
-  SHX7_2 = "jail_exit_open_ped"
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = Wait
-  SHX5_2 = 4000
-  SHX4_2(SHX5_2)
-  SHX4_2 = GetOffsetFromEntityInWorldCoords
-  SHX5_2 = SHX0_2.entity
-  SHX6_2 = -0.5
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = SHX4_2.x
-  SHX6_2 = SHX2_2.x
-  SHX5_2 = SHX5_2 - SHX6_2
-  SHX6_2 = SHX4_2.y
-  SHX7_2 = SHX2_2.y
-  SHX6_2 = SHX6_2 - SHX7_2
-  SHX7_2 = 25
-  SHX8_2 = 80.0
-  SHX9_2 = 1
-  SHX10_2 = SHX8_2
-  SHX11_2 = 1
-  for SHX12_2 = SHX9_2, SHX10_2, SHX11_2 do
-    SHX13_2 = SHX12_2 / SHX8_2
-    SHX14_2 = SetEntityCoords
-    SHX15_2 = SHX0_2.entity
-    SHX16_2 = SHX2_2.x
-    SHX17_2 = SHX5_2 * SHX13_2
-    SHX16_2 = SHX16_2 + SHX17_2
-    SHX17_2 = SHX2_2.y
-    SHX18_2 = SHX6_2 * SHX13_2
-    SHX17_2 = SHX17_2 + SHX18_2
-    SHX18_2 = SHX2_2.z
-    SHX19_2 = false
-    SHX20_2 = false
-    SHX21_2 = false
-    SHX22_2 = false
-    SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-    SHX14_2 = Wait
-    SHX15_2 = SHX7_2
-    SHX14_2(SHX15_2)
+  arg2 = DetachEntity
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = true
+  arg5 = false
+  arg2(arg3, arg4, arg5)
+  arg2 = GetEntityHeading
+  arg3 = arg1.entity
+  -- Beginner: result below is heading.
+  arg2 = arg2(arg3)
+  arg3 = GetEntityCoords
+  arg4 = arg1.entity
+  -- Beginner: result below is entityCoords.
+  arg3 = arg3(arg4)
+  arg4 = GetOffsetFromEntityInWorldCoords
+  arg5 = arg1.entity
+  arg6 = 0.0
+  arg7 = 0.0
+  workValue7 = 0.55
+  arg4 = arg4(arg5, arg6, arg7, workValue7)
+  arg5 = SetEntityCoordsNoOffset
+  arg6 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg6 = arg6()
+  arg7 = arg4.x
+  workValue7 = arg4.y
+  workValue8 = arg4.z
+  workValue9 = false
+  modelHash = false
+  workValue3 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  arg5(arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3)
+  arg5 = SetEntityHeading
+  arg6 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg6 = arg6()
+  arg7 = arg2 - 173.0
+  -- Beginner: Change the direction an entity is facing.
+  arg5(arg6, arg7)
+  arg5 = textValue3
+  arg6 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg6 = arg6()
+  arg7 = "promt@jail_4"
+  workValue7 = "jail_exit_open_ped"
+  arg5(arg6, arg7, workValue7)
+  arg5 = Wait
+  arg6 = 4000
+  arg5(arg6)
+  arg5 = GetOffsetFromEntityInWorldCoords
+  arg6 = arg1.entity
+  arg7 = -0.5
+  workValue7 = 0.0
+  workValue8 = 0.0
+  arg5 = arg5(arg6, arg7, workValue7, workValue8)
+  arg6 = arg5.x
+  arg7 = arg3.x
+  arg6 = arg6 - arg7
+  arg7 = arg5.y
+  workValue7 = arg3.y
+  arg7 = arg7 - workValue7
+  workValue7 = 25
+  workValue8 = 80.0
+  workValue9 = 1
+  modelHash = workValue8
+  workValue3 = 1
+  for numberValue = workValue9, modelHash, workValue3 do
+    mathHelper = numberValue / workValue8
+    mathHelper2 = SetEntityCoords
+    mathHelper3 = arg1.entity
+    mathHelper4 = arg3.x
+    mathHelper5 = arg6 * mathHelper
+    mathHelper4 = mathHelper4 + mathHelper5
+    mathHelper5 = arg3.y
+    workValue4 = arg7 * mathHelper
+    mathHelper5 = mathHelper5 + workValue4
+    workValue4 = arg3.z
+    flag = false
+    flag2 = false
+    workValue5 = false
+    flag3 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    mathHelper2(mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3)
+    mathHelper2 = Wait
+    mathHelper3 = workValue7
+    mathHelper2(mathHelper3)
   end
-  SHX9_2 = GetOffsetFromEntityInWorldCoords
-  SHX10_2 = SHX0_2.entity
-  SHX11_2 = 0.5
-  SHX12_2 = 1.5
-  SHX13_2 = 0.0
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = Wait
-  SHX11_2 = GetAnimDuration
-  SHX12_2 = "promt@jail_4"
-  SHX13_2 = "jail_exit_open_ped"
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = SHX11_2 * 1000
-  SHX11_2 = SHX11_2 - 7000
-  SHX10_2(SHX11_2)
-  SHX10_2 = GetOffsetFromEntityInWorldCoords
-  SHX11_2 = SHX0_2.entity
-  SHX12_2 = 0.5
-  SHX13_2 = -1.0
-  SHX14_2 = 0.0
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX4_2 = SHX10_2
-  SHX10_2 = SetEntityCoordsNoOffset
-  SHX11_2 = PlayerPedId
-  SHX11_2 = SHX11_2()
-  SHX12_2 = SHX4_2.x
-  SHX13_2 = SHX4_2.y
-  SHX14_2 = SHX4_2.z
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX10_2 = SHX7_1
-  SHX11_2 = PlayerPedId
-  SHX11_2 = SHX11_2()
-  SHX12_2 = "promt@jail_5"
-  SHX13_2 = "jail_exit_ped"
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = SetEntityHeading
-  SHX11_2 = PlayerPedId
-  SHX11_2 = SHX11_2()
-  SHX12_2 = SHX1_2
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetEntityCollision
-  SHX11_2 = SHX0_2.entity
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = Wait
-  SHX11_2 = GetAnimDuration
-  SHX12_2 = "promt@jail_5"
-  SHX13_2 = "jail_exit_ped"
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = SHX11_2 * 1000
-  SHX10_2(SHX11_2)
-  SHX10_2 = SetEntityCoordsNoOffset
-  SHX11_2 = PlayerPedId
-  SHX11_2 = SHX11_2()
-  SHX12_2 = SHX9_2.x
-  SHX13_2 = SHX9_2.y
-  SHX14_2 = SHX9_2.z
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX10_2 = SetEntityHeading
-  SHX11_2 = PlayerPedId
-  SHX11_2 = SHX11_2()
-  SHX12_2 = SHX1_2 + 180.0
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetEntityCollision
-  SHX11_2 = SHX0_2.entity
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = SHX7_1
-  SHX11_2 = PlayerPedId
-  SHX11_2 = SHX11_2()
-  SHX12_2 = "prompt@jail"
-  SHX13_2 = "jail_exit_close"
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = Wait
-  SHX11_2 = 2500
-  SHX10_2(SHX11_2)
-  SHX10_2 = GetEntityCoords
-  SHX11_2 = SHX0_2.entity
-  SHX10_2 = SHX10_2(SHX11_2)
-  SHX11_2 = GetOffsetFromEntityInWorldCoords
-  SHX12_2 = SHX0_2.entity
-  SHX13_2 = 0.5
-  SHX14_2 = 0.0
-  SHX15_2 = 0.0
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2 = SHX11_2
-  SHX11_2 = SHX4_2.x
-  SHX12_2 = SHX10_2.x
-  SHX5_2 = SHX11_2 - SHX12_2
-  SHX11_2 = SHX4_2.y
-  SHX12_2 = SHX10_2.y
-  SHX6_2 = SHX11_2 - SHX12_2
-  SHX11_2 = 1
-  SHX12_2 = SHX8_2
-  SHX13_2 = 1
-  for SHX14_2 = SHX11_2, SHX12_2, SHX13_2 do
-    SHX15_2 = SHX14_2 / SHX8_2
-    SHX16_2 = SetEntityCoords
-    SHX17_2 = SHX0_2.entity
-    SHX18_2 = SHX10_2.x
-    SHX19_2 = SHX5_2 * SHX15_2
-    SHX18_2 = SHX18_2 + SHX19_2
-    SHX19_2 = SHX10_2.y
-    SHX20_2 = SHX6_2 * SHX15_2
-    SHX19_2 = SHX19_2 + SHX20_2
-    SHX20_2 = SHX10_2.z
-    SHX21_2 = false
-    SHX22_2 = false
-    SHX23_2 = false
-    SHX24_2 = false
-    SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-    SHX16_2 = Wait
-    SHX17_2 = SHX7_2
-    SHX16_2(SHX17_2)
+  workValue9 = GetOffsetFromEntityInWorldCoords
+  modelHash = arg1.entity
+  workValue3 = 0.5
+  numberValue = 1.5
+  mathHelper = 0.0
+  workValue9 = workValue9(modelHash, workValue3, numberValue, mathHelper)
+  modelHash = Wait
+  workValue3 = GetAnimDuration
+  numberValue = "promt@jail_4"
+  mathHelper = "jail_exit_open_ped"
+  workValue3 = workValue3(numberValue, mathHelper)
+  workValue3 = workValue3 * 1000
+  workValue3 = workValue3 - 7000
+  modelHash(workValue3)
+  modelHash = GetOffsetFromEntityInWorldCoords
+  workValue3 = arg1.entity
+  numberValue = 0.5
+  mathHelper = -1.0
+  mathHelper2 = 0.0
+  modelHash = modelHash(workValue3, numberValue, mathHelper, mathHelper2)
+  arg5 = modelHash
+  modelHash = SetEntityCoordsNoOffset
+  workValue3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue3 = workValue3()
+  numberValue = arg5.x
+  mathHelper = arg5.y
+  mathHelper2 = arg5.z
+  mathHelper3 = false
+  mathHelper4 = false
+  mathHelper5 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  modelHash(workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5)
+  modelHash = textValue3
+  workValue3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue3 = workValue3()
+  numberValue = "promt@jail_5"
+  mathHelper = "jail_exit_ped"
+  modelHash(workValue3, numberValue, mathHelper)
+  modelHash = SetEntityHeading
+  workValue3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue3 = workValue3()
+  numberValue = arg2
+  -- Beginner: Change the direction an entity is facing.
+  modelHash(workValue3, numberValue)
+  modelHash = SetEntityCollision
+  workValue3 = arg1.entity
+  numberValue = false
+  mathHelper = false
+  modelHash(workValue3, numberValue, mathHelper)
+  modelHash = Wait
+  workValue3 = GetAnimDuration
+  numberValue = "promt@jail_5"
+  mathHelper = "jail_exit_ped"
+  workValue3 = workValue3(numberValue, mathHelper)
+  workValue3 = workValue3 * 1000
+  modelHash(workValue3)
+  modelHash = SetEntityCoordsNoOffset
+  workValue3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue3 = workValue3()
+  numberValue = workValue9.x
+  mathHelper = workValue9.y
+  mathHelper2 = workValue9.z
+  mathHelper3 = false
+  mathHelper4 = false
+  mathHelper5 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  modelHash(workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5)
+  modelHash = SetEntityHeading
+  workValue3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue3 = workValue3()
+  numberValue = arg2 + 180.0
+  -- Beginner: Change the direction an entity is facing.
+  modelHash(workValue3, numberValue)
+  modelHash = SetEntityCollision
+  workValue3 = arg1.entity
+  numberValue = true
+  mathHelper = true
+  modelHash(workValue3, numberValue, mathHelper)
+  modelHash = textValue3
+  workValue3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue3 = workValue3()
+  numberValue = "prompt@jail"
+  mathHelper = "jail_exit_close"
+  modelHash(workValue3, numberValue, mathHelper)
+  modelHash = Wait
+  workValue3 = 2500
+  modelHash(workValue3)
+  modelHash = GetEntityCoords
+  workValue3 = arg1.entity
+  -- Beginner: result below is entityCoords.
+  modelHash = modelHash(workValue3)
+  workValue3 = GetOffsetFromEntityInWorldCoords
+  numberValue = arg1.entity
+  mathHelper = 0.5
+  mathHelper2 = 0.0
+  mathHelper3 = 0.0
+  workValue3 = workValue3(numberValue, mathHelper, mathHelper2, mathHelper3)
+  arg5 = workValue3
+  workValue3 = arg5.x
+  numberValue = modelHash.x
+  arg6 = workValue3 - numberValue
+  workValue3 = arg5.y
+  numberValue = modelHash.y
+  arg7 = workValue3 - numberValue
+  workValue3 = 1
+  numberValue = workValue8
+  mathHelper = 1
+  for mathHelper2 = workValue3, numberValue, mathHelper do
+    mathHelper3 = mathHelper2 / workValue8
+    mathHelper4 = SetEntityCoords
+    mathHelper5 = arg1.entity
+    workValue4 = modelHash.x
+    flag = arg6 * mathHelper3
+    workValue4 = workValue4 + flag
+    flag = modelHash.y
+    flag2 = arg7 * mathHelper3
+    flag = flag + flag2
+    flag2 = modelHash.z
+    workValue5 = false
+    flag3 = false
+    flag4 = false
+    flag5 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    mathHelper4(mathHelper5, workValue4, flag, flag2, workValue5, flag3, flag4, flag5)
+    mathHelper4 = Wait
+    mathHelper5 = workValue7
+    mathHelper4(mathHelper5)
   end
-  SHX11_2 = Wait
-  SHX12_2 = GetAnimDuration
-  SHX13_2 = "prompt@jail"
-  SHX14_2 = "jail_exit_close"
-  SHX12_2 = SHX12_2(SHX13_2, SHX14_2)
-  SHX12_2 = SHX12_2 * 1000
-  SHX12_2 = SHX12_2 - 2500
-  SHX12_2 = SHX12_2 - 2000
-  SHX11_2(SHX12_2)
+  workValue3 = Wait
+  numberValue = GetAnimDuration
+  mathHelper = "prompt@jail"
+  mathHelper2 = "jail_exit_close"
+  numberValue = numberValue(mathHelper, mathHelper2)
+  numberValue = numberValue * 1000
+  numberValue = numberValue - 2500
+  numberValue = numberValue - 2000
+  workValue3(numberValue)
 end
-SHX9_1.playExitSequence = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = SetNuiFocus
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_2.camera
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.camera
-    SHX2_2 = SHX1_2
-    SHX1_2 = SHX1_2.destroy
-    SHX1_2(SHX2_2)
-    SHX0_2.camera = nil
+dataTable4.playExitSequence = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash
+  arg2 = SetNuiFocus
+  arg3 = false
+  arg4 = false
+  -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+  arg2(arg3, arg4)
+  arg2 = arg1.camera
+  if arg2 then
+    arg2 = arg1.camera
+    arg3 = arg2
+    arg2 = arg2.destroy
+    arg2(arg3)
+    arg1.camera = nil
   end
-  SHX1_2 = DetachEntity
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = true
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = GetEntityHeading
-  SHX2_2 = SHX0_2.entity
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetOffsetFromEntityInWorldCoords
-  SHX3_2 = SHX0_2.entity
-  SHX4_2 = 0.0
-  SHX5_2 = 0.0
-  SHX6_2 = 0.55
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetEntityCoordsNoOffset
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX3_2 = SetEntityHeading
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = SHX1_2 - 173.0
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SHX7_1
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = "promt@jail_2"
-  SHX6_2 = "jail_enter_off_ped"
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = Wait
-  SHX4_2 = 1000
-  SHX3_2(SHX4_2)
-  SHX3_2 = SHX0_2.screwDriver
-  if SHX3_2 then
-    SHX3_2 = DoesEntityExist
-    SHX4_2 = SHX0_2.screwDriver
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      SHX3_2 = DeleteEntity
-      SHX4_2 = SHX0_2.screwDriver
-      SHX3_2(SHX4_2)
-      SHX0_2.screwDriver = nil
+  arg2 = DetachEntity
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = true
+  arg5 = false
+  arg2(arg3, arg4, arg5)
+  arg2 = GetEntityHeading
+  arg3 = arg1.entity
+  -- Beginner: result below is heading.
+  arg2 = arg2(arg3)
+  arg3 = GetOffsetFromEntityInWorldCoords
+  arg4 = arg1.entity
+  arg5 = 0.0
+  arg6 = 0.0
+  arg7 = 0.55
+  arg3 = arg3(arg4, arg5, arg6, arg7)
+  arg4 = SetEntityCoordsNoOffset
+  arg5 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = arg3.x
+  arg7 = arg3.y
+  workValue7 = arg3.z
+  workValue8 = false
+  workValue9 = false
+  modelHash = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  arg4(arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash)
+  arg4 = SetEntityHeading
+  arg5 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = arg2 - 173.0
+  -- Beginner: Change the direction an entity is facing.
+  arg4(arg5, arg6)
+  arg4 = textValue3
+  arg5 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = "promt@jail_2"
+  arg7 = "jail_enter_off_ped"
+  arg4(arg5, arg6, arg7)
+  arg4 = Wait
+  arg5 = 1000
+  arg4(arg5)
+  arg4 = arg1.screwDriver
+  if arg4 then
+    arg4 = DoesEntityExist
+    arg5 = arg1.screwDriver
+    arg4 = arg4(arg5)
+    if arg4 then
+      arg4 = DeleteEntity
+      arg5 = arg1.screwDriver
+      -- Beginner: Delete a GTA entity.
+      arg4(arg5)
+      arg1.screwDriver = nil
     end
   end
-  SHX3_2 = Wait
-  SHX4_2 = GetAnimDuration
-  SHX5_2 = "promt@jail_2"
-  SHX6_2 = "jail_enter_off_ped"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2 * 1000
-  SHX4_2 = SHX4_2 - 1000
-  SHX3_2(SHX4_2)
+  arg4 = Wait
+  arg5 = GetAnimDuration
+  arg6 = "promt@jail_2"
+  arg7 = "jail_enter_off_ped"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5 * 1000
+  arg5 = arg5 - 1000
+  arg4(arg5)
 end
-SHX9_1.cancelWithAnimation = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2.isRunning = false
-  SHX0_2.isInMinigame = false
-  SHX1_2 = SHX9_1.activeInstance
-  if SHX1_2 == SHX0_2 then
-    SHX9_1.activeInstance = nil
+dataTable4.cancelWithAnimation = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5
+  arg1.isRunning = false
+  arg1.isInMinigame = false
+  arg2 = dataTable4.activeInstance
+  if arg2 == arg1 then
+    dataTable4.activeInstance = nil
   end
-  SHX1_2 = SetNuiFocus
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_2.screwDriver
-  if SHX1_2 then
-    SHX1_2 = DoesEntityExist
-    SHX2_2 = SHX0_2.screwDriver
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = DeleteEntity
-      SHX2_2 = SHX0_2.screwDriver
-      SHX1_2(SHX2_2)
-      SHX0_2.screwDriver = nil
+  arg2 = SetNuiFocus
+  arg3 = false
+  arg4 = false
+  -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+  arg2(arg3, arg4)
+  arg2 = arg1.screwDriver
+  if arg2 then
+    arg2 = DoesEntityExist
+    arg3 = arg1.screwDriver
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = DeleteEntity
+      arg3 = arg1.screwDriver
+      -- Beginner: Delete a GTA entity.
+      arg2(arg3)
+      arg1.screwDriver = nil
     end
   end
-  SHX1_2 = SHX0_2.screwObject
-  if SHX1_2 then
-    SHX1_2 = DoesEntityExist
-    SHX2_2 = SHX0_2.screwObject
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = SetEntityDrawOutline
-      SHX2_2 = SHX0_2.screwObject
-      SHX3_2 = false
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = DeleteEntity
-      SHX2_2 = SHX0_2.screwObject
-      SHX1_2(SHX2_2)
-      SHX0_2.screwObject = nil
+  arg2 = arg1.screwObject
+  if arg2 then
+    arg2 = DoesEntityExist
+    arg3 = arg1.screwObject
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = SetEntityDrawOutline
+      arg3 = arg1.screwObject
+      arg4 = false
+      arg2(arg3, arg4)
+      arg2 = DeleteEntity
+      arg3 = arg1.screwObject
+      -- Beginner: Delete a GTA entity.
+      arg2(arg3)
+      arg1.screwObject = nil
     end
   end
-  SHX1_2 = SHX0_2.camera
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.camera
-    SHX2_2 = SHX1_2
-    SHX1_2 = SHX1_2.destroy
-    SHX1_2(SHX2_2)
-    SHX0_2.camera = nil
+  arg2 = arg1.camera
+  if arg2 then
+    arg2 = arg1.camera
+    arg3 = arg2
+    arg2 = arg2.destroy
+    arg2(arg3)
+    arg1.camera = nil
   end
-  SHX1_2 = DetachEntity
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = true
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SHX0_2.animator
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.animator
-    SHX2_2 = SHX1_2
-    SHX1_2 = SHX1_2.stop
-    SHX1_2(SHX2_2)
-    SHX0_2.animator = nil
+  arg2 = DetachEntity
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = true
+  arg5 = false
+  arg2(arg3, arg4, arg5)
+  arg2 = arg1.animator
+  if arg2 then
+    arg2 = arg1.animator
+    arg3 = arg2
+    arg2 = arg2.stop
+    arg2(arg3)
+    arg1.animator = nil
   end
 end
-SHX9_1.cleanup = SHX10_1
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2
-  SHX1_2 = false
-  SHX0_2.isRunning = true
-  SHX9_1.activeInstance = SHX0_2
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX0_2.createObjects
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX0_2.cleanup
-    SHX2_2(SHX3_2)
+dataTable4.cleanup = workValue2
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3, flag4
+  arg2 = false
+  arg1.isRunning = true
+  dataTable4.activeInstance = arg1
+  arg4 = arg1
+  arg3 = arg1.createObjects
+  arg3 = arg3(arg4)
+  if not arg3 then
+    arg4 = arg1
+    arg3 = arg1.cleanup
+    arg3(arg4)
     return
   end
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = ClearPedTasks
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = GetOffsetFromEntityInWorldCoords
-  SHX4_2 = SHX0_2.entity
-  SHX5_2 = 0.0
-  SHX6_2 = -0.5
-  SHX7_2 = 0.55
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SetEntityCoordsNoOffset
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX3_2.x
-  SHX7_2 = SHX3_2.y
-  SHX8_2 = SHX3_2.z
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX4_2 = SetEntityHeading
-  SHX5_2 = SHX2_2
-  SHX6_2 = GetEntityHeading
-  SHX7_2 = SHX0_2.entity
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX6_2(SHX7_2)
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX4_2 = GetAnimDuration
-  SHX5_2 = "promt@jail_3"
-  SHX6_2 = "jail_enter_ped"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  if not SHX4_2 then
-    SHX4_2 = 0.0
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = ClearPedTasks
+  arg5 = arg3
+  arg4(arg5)
+  arg4 = GetOffsetFromEntityInWorldCoords
+  arg5 = arg1.entity
+  arg6 = 0.0
+  arg7 = -0.5
+  workValue7 = 0.55
+  arg4 = arg4(arg5, arg6, arg7, workValue7)
+  arg5 = SetEntityCoordsNoOffset
+  arg6 = arg3
+  arg7 = arg4.x
+  workValue7 = arg4.y
+  workValue8 = arg4.z
+  workValue9 = false
+  modelHash = false
+  workValue3 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  arg5(arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3)
+  arg5 = SetEntityHeading
+  arg6 = arg3
+  arg7 = GetEntityHeading
+  workValue7 = arg1.entity
+  arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3, flag4 = arg7(workValue7)
+  -- Beginner: Change the direction an entity is facing.
+  arg5(arg6, arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3, flag4)
+  arg5 = GetAnimDuration
+  arg6 = "promt@jail_3"
+  arg7 = "jail_enter_ped"
+  arg5 = arg5(arg6, arg7)
+  if not arg5 then
+    arg5 = 0.0
   end
-  SHX4_2 = SHX4_2 * 1000
-  if SHX4_2 <= 0 then
-    SHX4_2 = 2000
+  arg5 = arg5 * 1000
+  if arg5 <= 0 then
+    arg5 = 2000
   end
-  SHX5_2 = SHX7_1
-  SHX6_2 = SHX2_2
-  SHX7_2 = "promt@jail_3"
-  SHX8_2 = "jail_enter_ped"
-  SHX9_2 = 8.0
-  SHX10_2 = -8.0
-  SHX11_2 = -1
-  SHX12_2 = 2
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX5_2 = Wait
-  SHX6_2 = 2000
-  SHX5_2(SHX6_2)
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX0_2.attachScrewdriver
-  SHX7_2 = 1
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.max
-  SHX6_2 = 0
-  SHX7_2 = SHX4_2 - 2000
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX6_2 = Wait
-  SHX7_2 = SHX5_2
-  SHX6_2(SHX7_2)
-  SHX6_2 = AttachEntityToEntity
-  SHX7_2 = SHX2_2
-  SHX8_2 = SHX0_2.entity
-  SHX9_2 = 0
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 0.55
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 0.0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = true
-  SHX19_2 = false
-  SHX20_2 = 2
-  SHX21_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.TriggerServerCallback
-  SHX7_2 = "343493b5b7"
-  SHX6_2 = SHX6_2(SHX7_2)
-  if not SHX6_2 then
-    SHX6_2 = {}
+  arg6 = textValue3
+  arg7 = arg3
+  workValue7 = "promt@jail_3"
+  workValue8 = "jail_enter_ped"
+  workValue9 = 8.0
+  modelHash = -8.0
+  workValue3 = -1
+  numberValue = 2
+  arg6(arg7, workValue7, workValue8, workValue9, modelHash, workValue3, numberValue)
+  arg6 = Wait
+  arg7 = 2000
+  arg6(arg7)
+  arg7 = arg1
+  arg6 = arg1.attachScrewdriver
+  workValue7 = 1
+  arg6(arg7, workValue7)
+  arg6 = math
+  arg6 = arg6.max
+  arg7 = 0
+  workValue7 = arg5 - 2000
+  arg6 = arg6(arg7, workValue7)
+  arg7 = Wait
+  workValue7 = arg6
+  arg7(workValue7)
+  arg7 = AttachEntityToEntity
+  workValue7 = arg3
+  workValue8 = arg1.entity
+  workValue9 = 0
+  modelHash = 0.0
+  workValue3 = 0.0
+  numberValue = 0.55
+  mathHelper = 0.0
+  mathHelper2 = 0.0
+  mathHelper3 = 0.0
+  mathHelper4 = false
+  mathHelper5 = false
+  workValue4 = true
+  flag = false
+  flag2 = 2
+  workValue5 = true
+  -- Beginner: Attach one entity to another entity.
+  arg7(workValue7, workValue8, workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5)
+  arg7 = CMG
+  arg7 = arg7.TriggerServerCallback
+  workValue7 = "343493b5b7"
+  arg7 = arg7(workValue7)
+  if not arg7 then
+    arg7 = {}
   end
   while true do
-    SHX7_2 = SHX0_2.isRunning
-    if not SHX7_2 then
+    workValue7 = arg1.isRunning
+    if not workValue7 then
       break
     end
-    SHX7_2 = #SHX6_2
-    if not (SHX7_2 < 4) then
+    workValue7 = #arg7
+    if not (workValue7 < 4) then
       break
     end
-    SHX8_2 = SHX0_2
-    SHX7_2 = SHX0_2.selectScrew
-    SHX9_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    if not SHX7_2 then
-      SHX9_2 = SHX0_2
-      SHX8_2 = SHX0_2.cancelWithAnimation
-      SHX8_2(SHX9_2)
-      SHX0_2.isRunning = false
+    workValue8 = arg1
+    workValue7 = arg1.selectScrew
+    workValue9 = arg7
+    workValue7 = workValue7(workValue8, workValue9)
+    if not workValue7 then
+      workValue9 = arg1
+      workValue8 = arg1.cancelWithAnimation
+      workValue8(workValue9)
+      arg1.isRunning = false
       break
     end
-    SHX8_2 = AttachEntityToEntity
-    SHX9_2 = SHX2_2
-    SHX10_2 = SHX0_2.entity
-    SHX11_2 = 0
-    SHX12_2 = 0.0
-    SHX13_2 = 0.0
-    SHX14_2 = 0.55
-    SHX15_2 = 0.0
-    SHX16_2 = 0.0
-    SHX17_2 = -180.0
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX20_2 = true
-    SHX21_2 = false
-    SHX22_2 = 2
-    SHX23_2 = true
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-    SHX9_2 = SHX0_2
-    SHX8_2 = SHX0_2.handleScrewMinigame
-    SHX10_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = SHX0_2.camera
-    if SHX9_2 then
-      SHX9_2 = SHX0_2.camera
-      SHX10_2 = SHX9_2
-      SHX9_2 = SHX9_2.destroy
-      SHX9_2(SHX10_2)
-      SHX0_2.camera = nil
+    workValue8 = AttachEntityToEntity
+    workValue9 = arg3
+    modelHash = arg1.entity
+    workValue3 = 0
+    numberValue = 0.0
+    mathHelper = 0.0
+    mathHelper2 = 0.55
+    mathHelper3 = 0.0
+    mathHelper4 = 0.0
+    mathHelper5 = -180.0
+    workValue4 = false
+    flag = false
+    flag2 = true
+    workValue5 = false
+    flag3 = 2
+    flag4 = true
+    -- Beginner: Attach one entity to another entity.
+    workValue8(workValue9, modelHash, workValue3, numberValue, mathHelper, mathHelper2, mathHelper3, mathHelper4, mathHelper5, workValue4, flag, flag2, workValue5, flag3, flag4)
+    workValue9 = arg1
+    workValue8 = arg1.handleScrewMinigame
+    modelHash = workValue7
+    workValue8 = workValue8(workValue9, modelHash)
+    workValue9 = arg1.camera
+    if workValue9 then
+      workValue9 = arg1.camera
+      modelHash = workValue9
+      workValue9 = workValue9.destroy
+      workValue9(modelHash)
+      arg1.camera = nil
     end
-    if not SHX8_2 then
+    if not workValue8 then
       break
     end
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.TriggerServerCallback
-    SHX10_2 = "2a18065f82"
-    SHX11_2 = SHX7_2
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    if not SHX9_2 then
+    workValue9 = CMG
+    workValue9 = workValue9.TriggerServerCallback
+    modelHash = "2a18065f82"
+    workValue3 = workValue7
+    workValue9 = workValue9(modelHash, workValue3)
+    if not workValue9 then
       break
     end
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX6_2
-    SHX11_2 = SHX7_2
-    SHX9_2(SHX10_2, SHX11_2)
-    SHX9_2 = #SHX6_2
-    if SHX9_2 < 4 then
-      SHX9_2 = SHX3_1.new
-      SHX10_2 = SHX0_2.entity
-      SHX9_2 = SHX9_2(SHX10_2)
-      SHX0_2.camera = SHX9_2
+    workValue9 = table
+    workValue9 = workValue9.insert
+    modelHash = arg7
+    workValue3 = workValue7
+    workValue9(modelHash, workValue3)
+    workValue9 = #arg7
+    if workValue9 < 4 then
+      workValue9 = dataTable.new
+      modelHash = arg1.entity
+      workValue9 = workValue9(modelHash)
+      arg1.camera = workValue9
     end
   end
-  SHX7_2 = SHX0_2.screwDriver
-  if SHX7_2 then
-    SHX7_2 = DoesEntityExist
-    SHX8_2 = SHX0_2.screwDriver
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 then
-      SHX7_2 = DeleteEntity
-      SHX8_2 = SHX0_2.screwDriver
-      SHX7_2(SHX8_2)
-      SHX0_2.screwDriver = nil
+  workValue7 = arg1.screwDriver
+  if workValue7 then
+    workValue7 = DoesEntityExist
+    workValue8 = arg1.screwDriver
+    workValue7 = workValue7(workValue8)
+    if workValue7 then
+      workValue7 = DeleteEntity
+      workValue8 = arg1.screwDriver
+      -- Beginner: Delete a GTA entity.
+      workValue7(workValue8)
+      arg1.screwDriver = nil
     end
   end
-  SHX7_2 = SHX0_2.screwObject
-  if SHX7_2 then
-    SHX7_2 = DoesEntityExist
-    SHX8_2 = SHX0_2.screwObject
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityDrawOutline
-      SHX8_2 = SHX0_2.screwObject
-      SHX9_2 = false
-      SHX7_2(SHX8_2, SHX9_2)
+  workValue7 = arg1.screwObject
+  if workValue7 then
+    workValue7 = DoesEntityExist
+    workValue8 = arg1.screwObject
+    workValue7 = workValue7(workValue8)
+    if workValue7 then
+      workValue7 = SetEntityDrawOutline
+      workValue8 = arg1.screwObject
+      workValue9 = false
+      workValue7(workValue8, workValue9)
     end
   end
-  SHX7_2 = #SHX6_2
-  if SHX7_2 >= 4 then
-    SHX7_2 = false
-    SHX8_2 = SHX0_1.toiletEscape
-    if SHX8_2 then
-      SHX9_2 = SHX8_2.instructionsEscape
-      if SHX9_2 then
-        goto SHX_LABEL_197
+  workValue7 = #arg7
+  if workValue7 >= 4 then
+    workValue7 = false
+    workValue8 = cmgCall.toiletEscape
+    if workValue8 then
+      workValue9 = workValue8.instructionsEscape
+      if workValue9 then
+        goto flow_label_197
       end
     end
-    SHX9_2 = "[E] - Escape   [X] - Cancel"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_197:: outside nested blocks until all 'goto SHX_LABEL_197' can see it
-    ::SHX_LABEL_197::
-    SHX10_2 = CreateThread
-    function SHX11_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-      SHX0_3 = GetGameTimer
-      SHX0_3 = SHX0_3()
-      SHX0_3 = SHX0_3 + 30000
+    workValue9 = "[E] - Escape   [X] - Cancel"
+    ::flow_label_197::
+    modelHash = CreateThread
+    -- Beginner: this function is the body of a background FiveM thread.
+    function workValue3()
+      local workValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6
+      workValue = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      workValue = workValue()
+      workValue = workValue + 30000
       while true do
-        SHX1_3 = SHX0_2.isRunning
-        if not SHX1_3 then
+        numberValue2 = arg1.isRunning
+        if not numberValue2 then
           break
         end
-        SHX1_3 = GetGameTimer
-        SHX1_3 = SHX1_3()
-        if not (SHX0_3 > SHX1_3) then
+        numberValue2 = GetGameTimer
+        -- Beginner: result below is gameTimeMs.
+        numberValue2 = numberValue2()
+        if not (workValue > numberValue2) then
           break
         end
-        SHX1_3 = BeginTextCommandDisplayHelp
-        SHX2_3 = "STRING"
-        SHX1_3(SHX2_3)
-        SHX1_3 = AddTextComponentSubstringPlayerName
-        SHX2_3 = SHX9_2
-        SHX1_3(SHX2_3)
-        SHX1_3 = EndTextCommandDisplayHelp
-        SHX2_3 = 0
-        SHX3_3 = false
-        SHX4_3 = false
-        SHX5_3 = -1
-        SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-        SHX1_3 = IsDisabledControlJustPressed
-        SHX2_3 = 0
-        SHX3_3 = 38
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-        if SHX1_3 then
-          SHX1_3 = SHX0_2
-          SHX2_3 = SHX1_3
-          SHX1_3 = SHX1_3.playExitSequence
-          SHX1_3(SHX2_3)
-          SHX1_3 = true
-          SHX7_2 = SHX1_3
+        numberValue2 = BeginTextCommandDisplayHelp
+        numberValue3 = "STRING"
+        numberValue2(numberValue3)
+        numberValue2 = AddTextComponentSubstringPlayerName
+        numberValue3 = workValue9
+        numberValue2(numberValue3)
+        numberValue2 = EndTextCommandDisplayHelp
+        numberValue3 = 0
+        numberValue4 = false
+        numberValue5 = false
+        numberValue6 = -1
+        numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
+        numberValue2 = IsDisabledControlJustPressed
+        numberValue3 = 0
+        numberValue4 = 38
+        numberValue2 = numberValue2(numberValue3, numberValue4)
+        if numberValue2 then
+          numberValue2 = arg1
+          numberValue3 = numberValue2
+          numberValue2 = numberValue2.playExitSequence
+          numberValue2(numberValue3)
+          numberValue2 = true
+          workValue7 = numberValue2
           break
         end
-        SHX1_3 = IsDisabledControlJustPressed
-        SHX2_3 = 0
-        SHX3_3 = 73
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-        if SHX1_3 then
-          SHX1_3 = SHX0_2
-          SHX2_3 = SHX1_3
-          SHX1_3 = SHX1_3.cancelWithAnimation
-          SHX1_3(SHX2_3)
-          SHX0_2.isRunning = false
+        numberValue2 = IsDisabledControlJustPressed
+        numberValue3 = 0
+        numberValue4 = 73
+        numberValue2 = numberValue2(numberValue3, numberValue4)
+        if numberValue2 then
+          numberValue2 = arg1
+          numberValue3 = numberValue2
+          numberValue2 = numberValue2.cancelWithAnimation
+          numberValue2(numberValue3)
+          arg1.isRunning = false
           break
         end
-        SHX1_3 = Wait
-        SHX2_3 = 0
-        SHX1_3(SHX2_3)
+        numberValue2 = Wait
+        numberValue3 = 0
+        numberValue2(numberValue3)
       end
     end
-    SHX10_2(SHX11_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    modelHash(workValue3)
     while true do
-      SHX10_2 = SHX0_2.isRunning
-      if not SHX10_2 or SHX7_2 then
+      modelHash = arg1.isRunning
+      if not modelHash or workValue7 then
         break
       end
-      SHX10_2 = Wait
-      SHX11_2 = 100
-      SHX10_2(SHX11_2)
+      modelHash = Wait
+      workValue3 = 100
+      modelHash(workValue3)
     end
-    SHX1_2 = SHX7_2
+    arg2 = workValue7
   end
-  if SHX1_2 then
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.TriggerServerCallback
-    SHX8_2 = "a44731beab"
-    SHX7_2(SHX8_2)
+  if arg2 then
+    workValue7 = CMG
+    workValue7 = workValue7.TriggerServerCallback
+    workValue8 = "a44731beab"
+    workValue7(workValue8)
   else
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.TriggerServerCallback
-    SHX8_2 = "87baecbdcf"
-    SHX7_2(SHX8_2)
+    workValue7 = CMG
+    workValue7 = workValue7.TriggerServerCallback
+    workValue8 = "87baecbdcf"
+    workValue7(workValue8)
   end
-  SHX8_2 = SHX0_2
-  SHX7_2 = SHX0_2.cleanup
-  SHX7_2(SHX8_2)
+  workValue8 = arg1
+  workValue7 = arg1.cleanup
+  workValue7(workValue8)
 end
-SHX9_1.start = SHX10_1
-SHX10_1 = _G
-SHX10_1.CMG_PrisonToiletScrewGame = SHX9_1
+dataTable4.start = workValue2
+workValue2 = _G
+workValue2.CMG_PrisonToiletScrewGame = dataTable4

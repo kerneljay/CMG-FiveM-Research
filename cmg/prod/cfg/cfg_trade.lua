@@ -1,3 +1,19 @@
+--[[
+    BEGINNER GUIDE — Trade
+    ======================
+
+    File: cmg/prod/cfg/cfg_trade.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+]]
 -- Secure trading system tunables. A trade is a two-party escrow: neither side's
 -- assets move until BOTH players lock and confirm, and the server re-validates
 -- everything (greenzone, ownership, balances) at commit.

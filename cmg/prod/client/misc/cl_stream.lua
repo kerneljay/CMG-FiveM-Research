@@ -1,4 +1,24 @@
 --[[
+    BEGINNER GUIDE — Stream
+    =======================
+
+    File: cmg/prod/client/misc/cl_stream.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Network/hash identifiers found: 1
+      They are intentionally left unchanged because matching server code may use them.
+      * 02b1617ec9
+
+]]
+--[[
     Stream File Client Helper
     =========================
 

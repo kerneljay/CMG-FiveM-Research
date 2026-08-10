@@ -1,331 +1,223 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Mouse / GUI Cursor Helpers
+    ==========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1
-SHX0_1 = 0
-SHX1_1 = 0.0
-SHX2_1 = 0.0
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = CMG
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX3_1 = SHX0_2
+    This utility keeps track of GTA's mouse cursor and provides simple
+    rectangle-hit-test helpers used by old CMG user interfaces.
+
+    State:
+      cursorEnabled
+        The old client uses numeric value 1 to mean the mouse cursor should be
+        active and tracked.
+
+      cursorX / cursorY
+        Current normalised cursor coordinates from 0.0 to 1.0.
+
+      inGui
+        True while a CMG GUI wants normal combat/weapon controls disabled.
+
+    Global helper names such as CursorInZone, CursorInArea, CursorInAreaRect and
+    GetArea are deliberately preserved because old client scripts may call
+    them directly.
+]]
+
+local cursorEnabled = 0
+local cursorX = 0.0
+local cursorY = 0.0
+
+local inGui = false
+
+-- This flag was always false inside the decompiled file. It controls whether
+-- camera-look controls 1 and 2 are additionally disabled while in a GUI.
+local allowCameraLookInGui = false
+
+
+-- ============================================================
+-- PUBLIC CURSOR STATE
+-- ============================================================
+
+function CMG.setInGUI(enabled)
+    inGui = enabled
 end
-SHX5_1.setInGUI = SHX6_1
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2
-  SHX4_2 = SHX0_1
-  if 1 == SHX4_2 then
-    SHX4_2 = SHX1_1
-    if SHX0_2 < SHX4_2 then
-      SHX4_2 = SHX1_1
-      if SHX2_2 > SHX4_2 then
-        SHX4_2 = SHX2_1
-        if SHX1_2 < SHX4_2 then
-          SHX4_2 = SHX2_1
-          if SHX3_2 > SHX4_2 then
-            SHX4_2 = true
-            return SHX4_2
-        end
-      end
+
+
+function CMG.setCursor(enabledValue)
+    cursorEnabled = enabledValue
+end
+
+
+-- ============================================================
+-- HIT-TEST HELPERS
+-- ============================================================
+
+function CursorInZone(
+    minX,
+    minY,
+    maxX,
+    maxY
+)
+    if cursorEnabled ~= 1 then
+        return false
     end
-  end
-  else
-    SHX4_2 = false
-    return SHX4_2
-  end
+
+    return
+        minX < cursorX
+        and maxX > cursorX
+        and minY < cursorY
+        and maxY > cursorY
 end
-CursorInZone = SHX5_1
-SHX5_1 = CMG
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX0_1 = SHX0_2
+
+
+function CursorInArea(
+    minX,
+    maxX,
+    minY,
+    maxY
+)
+    return
+        minX < cursorX
+        and maxX > cursorX
+        and minY < cursorY
+        and maxY > cursorY
 end
-SHX5_1.setCursor = SHX6_1
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2
-  SHX4_2 = SHX1_1
-  if SHX0_2 < SHX4_2 then
-    SHX4_2 = SHX1_1
-    if SHX1_2 > SHX4_2 then
-      SHX4_2 = SHX2_1
-      if SHX2_2 < SHX4_2 then
-        SHX4_2 = SHX2_1
-        if SHX3_2 > SHX4_2 then
-          SHX4_2 = true
-          return SHX4_2
-        end
-      end
+
+
+function CursorInAreaRect(
+    centreX,
+    centreY,
+    width,
+    height
+)
+    local halfWidth =
+        width / 2.0
+
+    local halfHeight =
+        height / 2.0
+
+    return CursorInArea(
+        centreX - halfWidth,
+        centreX + halfWidth,
+        centreY - halfHeight,
+        centreY + halfHeight
+    )
+end
+
+
+function GetArea(
+    centreX,
+    centreY,
+    width,
+    height
+)
+    local halfWidth =
+        width / 2
+
+    local halfHeight =
+        height / 2
+
+    return
+        centreX - halfWidth,
+        centreX + halfWidth,
+        centreY - halfHeight,
+        centreY + halfHeight
+end
+
+
+-- ============================================================
+-- CURSOR POSITION TICK
+-- ============================================================
+
+local function mouseControlsTick()
+    if cursorEnabled ~= 1 then
+        return
     end
-  end
+
+    cursorX =
+        GetControlNormal(
+            2,
+            239
+        )
+
+    cursorY =
+        GetControlNormal(
+            2,
+            240
+        )
+
+    SetMouseCursorActiveThisFrame()
 end
-CursorInArea = SHX5_1
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX4_2 = SHX2_2 / 2.0
-  SHX5_2 = SHX3_2 / 2.0
-  SHX6_2 = CursorInArea
-  SHX7_2 = SHX0_2 - SHX4_2
-  SHX8_2 = SHX0_2 + SHX4_2
-  SHX9_2 = SHX1_2 - SHX5_2
-  SHX10_2 = SHX1_2 + SHX5_2
-  return SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-end
-CursorInAreaRect = SHX5_1
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX0_1
-  if 1 == SHX0_2 then
-    SHX0_2 = GetControlNormal
-    SHX1_2 = 2
-    SHX2_2 = 239
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    SHX1_1 = SHX0_2
-    SHX0_2 = GetControlNormal
-    SHX1_2 = 2
-    SHX2_2 = 240
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    SHX2_1 = SHX0_2
-    SHX0_2 = SetMouseCursorActiveThisFrame
-    SHX0_2()
-  end
-end
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.createThreadOnTick
-SHX7_1 = SHX5_1
-SHX8_1 = "Mouse Controls"
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = CMG
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 25
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 106
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 24
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 140
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 141
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 142
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 257
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 263
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 264
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 12
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 14
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 15
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 16
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 17
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-end
-SHX6_1.disableStandardControlsForUI = SHX7_1
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = SHX4_1
-    if not SHX0_2 then
-      SHX0_2 = DisableControlAction
-      SHX1_2 = 0
-      SHX2_2 = 1
-      SHX3_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      SHX0_2 = DisableControlAction
-      SHX1_2 = 0
-      SHX2_2 = 2
-      SHX3_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+
+CMG.createThreadOnTick(
+    mouseControlsTick,
+    "Mouse Controls"
+)
+
+
+-- ============================================================
+-- DISABLE NORMAL GAMEPLAY CONTROLS WHILE USING UI
+-- ============================================================
+
+function CMG.disableStandardControlsForUI()
+    -- Aim / attack / melee / weapon selection.
+    for _, control in ipairs({
+        25,
+        106,
+        24,
+        140,
+        141,
+        142,
+        257,
+        263,
+        264,
+
+        -- Weapon-wheel / scrolling-related controls used by the old UI.
+        12,
+        14,
+        15,
+        16,
+        17
+    }) do
+        DisableControlAction(
+            0,
+            control,
+            true
+        )
     end
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.disableStandardControlsForUI
-    SHX0_2()
-  end
 end
-function SHX7_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX4_2 = SHX2_2 / 2
-  SHX4_2 = SHX0_2 - SHX4_2
-  SHX5_2 = SHX2_2 / 2
-  SHX5_2 = SHX0_2 + SHX5_2
-  SHX6_2 = SHX3_2 / 2
-  SHX6_2 = SHX1_2 - SHX6_2
-  SHX7_2 = SHX3_2 / 2
-  SHX7_2 = SHX1_2 + SHX7_2
-  SHX8_2 = SHX4_2
-  SHX9_2 = SHX5_2
-  SHX10_2 = SHX6_2
-  SHX11_2 = SHX7_2
-  return SHX8_2, SHX9_2, SHX10_2, SHX11_2
-end
-GetArea = SHX7_1
-SHX7_1 = Citizen
-SHX7_1 = SHX7_1.CreateThread
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.createThreadOnTick
-    if SHX0_2 then
-      break
+
+
+local function guiControlsTick()
+    if not inGui then
+        return
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.createThreadOnTick
-  SHX1_2 = SHX6_1
-  SHX2_2 = "GUI Controls"
-  SHX0_2(SHX1_2, SHX2_2)
+
+    if not allowCameraLookInGui then
+        DisableControlAction(
+            0,
+            1,
+            true
+        )
+
+        DisableControlAction(
+            0,
+            2,
+            true
+        )
+    end
+
+    CMG.disableStandardControlsForUI()
 end
-SHX7_1(SHX8_1)
-function SHX7_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX4_2 = SHX2_2 / 2
-  SHX4_2 = SHX0_2 - SHX4_2
-  SHX5_2 = SHX2_2 / 2
-  SHX5_2 = SHX0_2 + SHX5_2
-  SHX6_2 = SHX3_2 / 2
-  SHX6_2 = SHX1_2 - SHX6_2
-  SHX7_2 = SHX3_2 / 2
-  SHX7_2 = SHX1_2 + SHX7_2
-  SHX8_2 = SHX4_2
-  SHX9_2 = SHX5_2
-  SHX10_2 = SHX6_2
-  SHX11_2 = SHX7_2
-  return SHX8_2, SHX9_2, SHX10_2, SHX11_2
-end
-GetArea = SHX7_1
+
+
+-- Some utility files load before cl_thread.lua. Wait for the shared thread
+-- helper to exist before registering this tick.
+Citizen.CreateThread(function()
+    while not CMG.createThreadOnTick do
+        Wait(0)
+    end
+
+    CMG.createThreadOnTick(
+        guiControlsTick,
+        "GUI Controls"
+    )
+end)

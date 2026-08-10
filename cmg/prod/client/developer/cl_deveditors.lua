@@ -1,4 +1,21 @@
 --[[
+    Beginner Guide: cl_deveditors.lua
+    =================================
+
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Important events used:
+      * 2b9c7299fb
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
     READABLE VERSION OF THE DECOMPILED DEVELOPER EDITOR SCRIPT
     ----------------------------------------------------------
 
@@ -19,7 +36,7 @@
       - A "native" is a built-in GTA/FiveM function.
       - RageUI is the menu library used by the developer menu.
 
-    The strange SHX0_1 / SHX1_2 decompiler variable names have been removed.
+    The strange workValue / workValue2 decompiler variable names have been removed.
     The CMG function names and server event hash used by the original script
     are intentionally kept so this can still fit into the same resource.
 ]]

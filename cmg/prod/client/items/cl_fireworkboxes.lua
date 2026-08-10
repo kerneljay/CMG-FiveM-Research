@@ -1,1236 +1,1202 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_fireworkboxes.lua
+    ====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1
-SHX0_1 = "anim@mp_fireworks"
-SHX1_1 = -1118757580
-SHX2_1 = false
-SHX3_1 = TriggerEvent
-SHX4_1 = "chat:addSuggestion"
-SHX5_1 = "/firework"
-SHX6_1 = "Lights a firework box"
-SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "9e8cc9d4c6"
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2 = SHX0_2()
-  if 0 == SHX0_2 then
-    SHX0_2 = GetEntityHealth
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerPed
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX1_2()
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    if SHX0_2 > 102 then
-      SHX0_2 = SHX2_1
-      if not SHX0_2 then
-        SHX0_2 = true
-        SHX2_1 = SHX0_2
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.loadAnimDict
-        SHX1_2 = "anim@mp_fireworks"
-        SHX0_2(SHX1_2)
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.loadModel
-        SHX1_2 = SHX1_1
-        SHX0_2(SHX1_2)
-        SHX0_2 = GetOffsetFromEntityInWorldCoords
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.getPlayerPed
-        SHX1_2 = SHX1_2()
-        SHX2_2 = 0.0
-        SHX3_2 = 0.5
-        SHX4_2 = 0.0
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-        SHX1_2 = GetOffsetFromEntityInWorldCoords
-        SHX2_2 = CMG
-        SHX2_2 = SHX2_2.getPlayerPed
-        SHX2_2 = SHX2_2()
-        SHX3_2 = 0.0
-        SHX4_2 = 0.5
-        SHX5_2 = -2.5
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2 = SHX3_2()
-        SHX4_2 = SHX0_1
-        SHX5_2 = "place_firework_3_box"
-        SHX6_2 = -1
-        SHX7_2 = -8.0
-        SHX8_2 = 3000
-        SHX9_2 = 0
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = RemoveAnimDict
-        SHX3_2 = "anim@mp_fireworks"
-        SHX2_2(SHX3_2)
-        SHX2_2 = Wait
-        SHX3_2 = 1000
-        SHX2_2(SHX3_2)
-        SHX2_2 = CMG
-        SHX2_2 = SHX2_2.requestEntitySpawn
-        SHX3_2 = "firework_box_object"
-        SHX2_2(SHX3_2)
-        SHX2_2 = CreateObject
-        SHX3_2 = SHX1_1
-        SHX4_2 = SHX0_2.x
-        SHX5_2 = SHX0_2.y
-        SHX6_2 = SHX0_2.z
-        SHX7_2 = true
-        SHX8_2 = false
-        SHX9_2 = false
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX3_2 = PlaceObjectOnGroundProperly
-        SHX4_2 = SHX2_2
-        SHX3_2(SHX4_2)
-        SHX3_2 = FreezeEntityPosition
-        SHX4_2 = SHX2_2
-        SHX5_2 = true
-        SHX3_2(SHX4_2, SHX5_2)
-        SHX3_2 = SetModelAsNoLongerNeeded
-        SHX4_2 = SHX1_1
-        SHX3_2(SHX4_2)
-        SHX3_2 = Wait
-        SHX4_2 = 3000
-        SHX3_2(SHX4_2)
-        SHX3_2 = TriggerServerEvent
-        SHX4_2 = "656f5e70a8"
-        SHX5_2 = SHX1_2
-        SHX3_2(SHX4_2, SHX5_2)
-        SHX3_2 = Wait
-        SHX4_2 = 10000
-        SHX3_2(SHX4_2)
-        SHX3_2 = DeleteEntity
-        SHX4_2 = SHX2_2
-        SHX3_2(SHX4_2)
-        SHX3_2 = false
-        SHX2_1 = SHX3_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Fireworkboxes
+    ==============================
+
+    File: cmg/prod/client/items/cl_fireworkboxes.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Commands/command-like entries found:
+      * /firework
+
+    Network/hash identifiers found: 5
+      They are intentionally left unchanged because matching server code may use them.
+      * 9e8cc9d4c6
+      * 656f5e70a8
+      * 9078dfe5bb
+      * 4e630ebd93
+      * 698a9bf67f
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * You are ~r~not able ~w~to use a ~r~firework box ~w~right now.
+
+]]
+local textValue, numberValue2, flag9, cmgCall, eventRegistration2, flag11, textValue4, workValue7, workValue8, workValue9, workValue2, workValue3, dataTable, vector3Builder, eventRegistration, vector3Builder2, vector3Builder3, vector3Builder4, vector3Builder5, vector3Builder6, vector3Builder7, vector3Builder8, vector3Builder9, numberValue5, numberValue6, numberValue7
+textValue = "anim@mp_fireworks"
+numberValue2 = -1118757580
+flag9 = false
+cmgCall = TriggerEvent
+eventRegistration2 = "chat:addSuggestion"
+flag11 = "/firework"
+textValue4 = "Lights a firework box"
+-- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+cmgCall(eventRegistration2, flag11, textValue4)
+cmgCall = RegisterNetEvent
+eventRegistration2 = "9e8cc9d4c6"
+-- Beginner: this function handles network event "9e8cc9d4c6".
+function flag11()
+  local arg1, arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5
+  arg1 = CMG
+  arg1 = arg1.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg1 = arg1()
+  if 0 == arg1 then
+    arg1 = GetEntityHealth
+    arg2 = CMG
+    arg2 = arg2.getPlayerPed
+    arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5 = arg2()
+    -- Beginner: result below is health.
+    arg1 = arg1(arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5)
+    if arg1 > 102 then
+      arg1 = flag9
+      if not arg1 then
+        arg1 = true
+        flag9 = arg1
+        arg1 = CMG
+        arg1 = arg1.loadAnimDict
+        arg2 = "anim@mp_fireworks"
+        -- Beginner: Load a GTA animation dictionary before using it.
+        arg1(arg2)
+        arg1 = CMG
+        arg1 = arg1.loadModel
+        arg2 = numberValue2
+        -- Beginner: Request/load a GTA model before spawning or applying it.
+        arg1(arg2)
+        arg1 = GetOffsetFromEntityInWorldCoords
+        arg2 = CMG
+        arg2 = arg2.getPlayerPed
+        -- Beginner: result below is localPlayerPed.
+        arg2 = arg2()
+        arg3 = 0.0
+        cmgCall2 = 0.5
+        numberValue9 = 0.0
+        arg1 = arg1(arg2, arg3, cmgCall2, numberValue9)
+        arg2 = GetOffsetFromEntityInWorldCoords
+        arg3 = CMG
+        arg3 = arg3.getPlayerPed
+        -- Beginner: result below is localPlayerPed.
+        arg3 = arg3()
+        cmgCall2 = 0.0
+        numberValue9 = 0.5
+        textValue3 = -2.5
+        arg2 = arg2(arg3, cmgCall2, numberValue9, textValue3)
+        arg3 = TaskPlayAnim
+        cmgCall2 = CMG
+        cmgCall2 = cmgCall2.getPlayerPed
+        -- Beginner: result below is localPlayerPed.
+        cmgCall2 = cmgCall2()
+        numberValue9 = textValue
+        textValue3 = "place_firework_3_box"
+        numberValue11 = -1
+        mathHelper6 = -8.0
+        mathHelper7 = 3000
+        mathHelper8 = 0
+        mathHelper = 0
+        mathHelper3 = false
+        mathHelper4 = false
+        mathHelper5 = false
+        -- Beginner: Play an animation on a ped.
+        arg3(cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5)
+        arg3 = RemoveAnimDict
+        cmgCall2 = "anim@mp_fireworks"
+        arg3(cmgCall2)
+        arg3 = Wait
+        cmgCall2 = 1000
+        arg3(cmgCall2)
+        arg3 = CMG
+        arg3 = arg3.requestEntitySpawn
+        cmgCall2 = "firework_box_object"
+        arg3(cmgCall2)
+        arg3 = CreateObject
+        cmgCall2 = numberValue2
+        numberValue9 = arg1.x
+        textValue3 = arg1.y
+        numberValue11 = arg1.z
+        mathHelper6 = true
+        mathHelper7 = false
+        mathHelper8 = false
+        -- Beginner: result below is objectEntity.
+        arg3 = arg3(cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8)
+        cmgCall2 = PlaceObjectOnGroundProperly
+        numberValue9 = arg3
+        cmgCall2(numberValue9)
+        cmgCall2 = FreezeEntityPosition
+        numberValue9 = arg3
+        textValue3 = true
+        -- Beginner: Freeze or unfreeze an entity in place.
+        cmgCall2(numberValue9, textValue3)
+        cmgCall2 = SetModelAsNoLongerNeeded
+        numberValue9 = numberValue2
+        cmgCall2(numberValue9)
+        cmgCall2 = Wait
+        numberValue9 = 3000
+        cmgCall2(numberValue9)
+        cmgCall2 = TriggerServerEvent
+        numberValue9 = "656f5e70a8"
+        textValue3 = arg2
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "656f5e70a8".
+        cmgCall2(numberValue9, textValue3)
+        cmgCall2 = Wait
+        numberValue9 = 10000
+        cmgCall2(numberValue9)
+        cmgCall2 = DeleteEntity
+        numberValue9 = arg3
+        -- Beginner: Delete a GTA entity.
+        cmgCall2(numberValue9)
+        cmgCall2 = false
+        flag9 = cmgCall2
     end
   end
   else
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.notify
-    SHX1_2 = "You are ~r~not able ~w~to use a ~r~firework box ~w~right now."
-    SHX0_2(SHX1_2)
+    arg1 = tCMG
+    arg1 = arg1.notify
+    arg2 = "You are ~r~not able ~w~to use a ~r~firework box ~w~right now."
+    -- Beginner: Show a notification to the player.
+    arg1(arg2)
   end
 end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = CMG
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadPtfx
-  SHX3_2 = "scr_indep_fireworks"
-  SHX2_2(SHX3_2)
-  SHX2_2 = UseParticleFxAsset
-  SHX3_2 = "scr_indep_fireworks"
-  SHX2_2(SHX3_2)
-  SHX2_2 = 100
-  if SHX1_2 then
-    SHX2_2 = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9e8cc9d4c6".
+cmgCall(eventRegistration2, flag11)
+cmgCall = CMG
+function eventRegistration2(arg1, arg2)
+  local arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8
+  arg3 = CMG
+  arg3 = arg3.loadPtfx
+  cmgCall2 = "scr_indep_fireworks"
+  arg3(cmgCall2)
+  arg3 = UseParticleFxAsset
+  cmgCall2 = "scr_indep_fireworks"
+  arg3(cmgCall2)
+  arg3 = 100
+  if arg2 then
+    arg3 = arg2
   end
-  SHX3_2 = 1
-  SHX4_2 = SHX2_2
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = math
-    SHX7_2 = SHX7_2.random
-    SHX7_2 = SHX7_2()
-    SHX8_2 = math
-    SHX8_2 = SHX8_2.random
-    SHX8_2 = SHX8_2()
-    SHX9_2 = math
-    SHX9_2 = SHX9_2.random
-    SHX9_2 = SHX9_2()
-    SHX10_2 = math
-    SHX10_2 = SHX10_2.random
-    SHX11_2 = -5
-    SHX12_2 = 5
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = math
-    SHX11_2 = SHX11_2.random
-    SHX11_2 = SHX11_2()
-    SHX10_2 = SHX10_2 + SHX11_2
-    SHX11_2 = math
-    SHX11_2 = SHX11_2.random
-    SHX12_2 = -5
-    SHX13_2 = 5
-    SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-    SHX12_2 = math
-    SHX12_2 = SHX12_2.random
-    SHX12_2 = SHX12_2()
-    SHX11_2 = SHX11_2 + SHX12_2
-    SHX12_2 = math
-    SHX12_2 = SHX12_2.random
-    SHX13_2 = 5
-    SHX14_2 = 25
-    SHX12_2 = SHX12_2(SHX13_2, SHX14_2)
-    SHX13_2 = math
-    SHX13_2 = SHX13_2.random
-    SHX13_2 = SHX13_2()
-    SHX12_2 = SHX12_2 + SHX13_2
-    SHX13_2 = UseParticleFxAsset
-    SHX14_2 = "scr_indep_fireworks"
-    SHX13_2(SHX14_2)
-    SHX13_2 = StartNetworkedParticleFxNonLoopedAtCoord
-    SHX14_2 = "scr_indep_firework_trailburst"
-    SHX15_2 = SHX0_2.x
-    SHX15_2 = SHX15_2 + SHX10_2
-    SHX16_2 = SHX0_2.y
-    SHX16_2 = SHX16_2 + SHX11_2
-    SHX17_2 = SHX0_2.z
-    SHX17_2 = SHX17_2 + SHX12_2
-    SHX18_2 = 0.0
-    SHX19_2 = 0.0
-    SHX20_2 = 0.0
-    SHX21_2 = 1.0
-    SHX22_2 = false
-    SHX23_2 = false
-    SHX24_2 = false
-    SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-    SHX13_2 = SetParticleFxNonLoopedColour
-    SHX14_2 = SHX7_2
-    SHX15_2 = SHX8_2
-    SHX16_2 = SHX9_2
-    SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-    SHX13_2 = Wait
-    SHX14_2 = math
-    SHX14_2 = SHX14_2.random
-    SHX15_2 = 150
-    SHX16_2 = 300
-    SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX14_2(SHX15_2, SHX16_2)
-    SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+  cmgCall2 = 1
+  numberValue9 = arg3
+  textValue3 = 1
+  for numberValue11 = cmgCall2, numberValue9, textValue3 do
+    mathHelper6 = math
+    mathHelper6 = mathHelper6.random
+    mathHelper6 = mathHelper6()
+    mathHelper7 = math
+    mathHelper7 = mathHelper7.random
+    mathHelper7 = mathHelper7()
+    mathHelper8 = math
+    mathHelper8 = mathHelper8.random
+    mathHelper8 = mathHelper8()
+    mathHelper = math
+    mathHelper = mathHelper.random
+    mathHelper3 = -5
+    mathHelper4 = 5
+    mathHelper = mathHelper(mathHelper3, mathHelper4)
+    mathHelper3 = math
+    mathHelper3 = mathHelper3.random
+    mathHelper3 = mathHelper3()
+    mathHelper = mathHelper + mathHelper3
+    mathHelper3 = math
+    mathHelper3 = mathHelper3.random
+    mathHelper4 = -5
+    mathHelper5 = 5
+    mathHelper3 = mathHelper3(mathHelper4, mathHelper5)
+    mathHelper4 = math
+    mathHelper4 = mathHelper4.random
+    mathHelper4 = mathHelper4()
+    mathHelper3 = mathHelper3 + mathHelper4
+    mathHelper4 = math
+    mathHelper4 = mathHelper4.random
+    mathHelper5 = 5
+    textValue2 = 25
+    mathHelper4 = mathHelper4(mathHelper5, textValue2)
+    mathHelper5 = math
+    mathHelper5 = mathHelper5.random
+    mathHelper5 = mathHelper5()
+    mathHelper4 = mathHelper4 + mathHelper5
+    mathHelper5 = UseParticleFxAsset
+    textValue2 = "scr_indep_fireworks"
+    mathHelper5(textValue2)
+    mathHelper5 = StartNetworkedParticleFxNonLoopedAtCoord
+    textValue2 = "scr_indep_firework_trailburst"
+    workValue4 = arg1.x
+    workValue4 = workValue4 + mathHelper
+    workValue5 = arg1.y
+    workValue5 = workValue5 + mathHelper3
+    flag4 = arg1.z
+    flag4 = flag4 + mathHelper4
+    flag5 = 0.0
+    numberValue = 0.0
+    numberValue3 = 0.0
+    numberValue4 = 1.0
+    flag6 = false
+    flag7 = false
+    flag8 = false
+    mathHelper5(textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8)
+    mathHelper5 = SetParticleFxNonLoopedColour
+    textValue2 = mathHelper6
+    workValue4 = mathHelper7
+    workValue5 = mathHelper8
+    mathHelper5(textValue2, workValue4, workValue5)
+    mathHelper5 = Wait
+    textValue2 = math
+    textValue2 = textValue2.random
+    workValue4 = 150
+    workValue5 = 300
+    textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8 = textValue2(workValue4, workValue5)
+    mathHelper5(textValue2, workValue4, workValue5, flag4, flag5, numberValue, numberValue3, numberValue4, flag6, flag7, flag8)
   end
-  SHX3_2 = RemoveNamedPtfxAsset
-  SHX4_2 = "scr_indep_fireworks"
-  SHX3_2(SHX4_2)
+  cmgCall2 = RemoveNamedPtfxAsset
+  numberValue9 = "scr_indep_fireworks"
+  cmgCall2(numberValue9)
 end
-SHX3_1.startFireworksAtCoord = SHX4_1
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "9078dfe5bb"
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.startFireworksAtCoord
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+cmgCall.startFireworksAtCoord = eventRegistration2
+cmgCall = RegisterNetEvent
+eventRegistration2 = "9078dfe5bb"
+-- Beginner: this function handles network event "9078dfe5bb".
+function flag11(arg1)
+  local arg2, arg3
+  arg2 = CMG
+  arg2 = arg2.startFireworksAtCoord
+  arg3 = arg1
+  arg2(arg3)
 end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = nil
-SHX4_1 = RegisterNetEvent
-SHX5_1 = "4e630ebd93"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  if SHX0_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addBlip
-    SHX2_2 = -407.36
-    SHX3_2 = 1189.33
-    SHX4_2 = 325.62
-    SHX5_2 = 0
-    SHX6_2 = 27
-    SHX7_2 = nil
-    SHX8_2 = 1.0
-    SHX9_2 = false
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX3_1 = SHX1_2
-    SHX1_2 = SetBlipRoute
-    SHX2_2 = SHX3_1
-    SHX3_2 = true
-    SHX1_2(SHX2_2, SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9078dfe5bb".
+cmgCall(eventRegistration2, flag11)
+cmgCall = nil
+eventRegistration2 = RegisterNetEvent
+flag11 = "4e630ebd93"
+-- Beginner: this function handles network event "4e630ebd93".
+function textValue4(arg1)
+  local arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8
+  if arg1 then
+    arg2 = tCMG
+    arg2 = arg2.addBlip
+    arg3 = -407.36
+    cmgCall2 = 1189.33
+    numberValue9 = 325.62
+    textValue3 = 0
+    numberValue11 = 27
+    mathHelper6 = nil
+    mathHelper7 = 1.0
+    mathHelper8 = false
+    arg2 = arg2(arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8)
+    cmgCall = arg2
+    arg2 = SetBlipRoute
+    arg3 = cmgCall
+    cmgCall2 = true
+    arg2(arg3, cmgCall2)
   else
-    SHX1_2 = SHX3_1
-    if SHX1_2 then
-      SHX1_2 = tCMG
-      SHX1_2 = SHX1_2.removeBlip
-      SHX2_2 = SHX3_1
-      SHX1_2(SHX2_2)
-      SHX1_2 = nil
-      SHX3_1 = SHX1_2
+    arg2 = cmgCall
+    if arg2 then
+      arg2 = tCMG
+      arg2 = arg2.removeBlip
+      arg3 = cmgCall
+      arg2(arg3)
+      arg2 = nil
+      cmgCall = arg2
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = nil
-SHX5_1 = false
-SHX6_1 = 0
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.CreateThreadNow
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX0_3 = SHX6_1
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4e630ebd93".
+eventRegistration2(flag11, textValue4)
+eventRegistration2 = nil
+flag11 = false
+textValue4 = 0
+function workValue7(arg1, arg2)
+  local arg3, cmgCall2
+  arg3 = Citizen
+  arg3 = arg3.CreateThreadNow
+  function cmgCall2()
+    local workValue, workValue6, waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3
+    workValue = textValue4
     while true do
-      SHX1_3 = SHX4_1
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      if not workValue6 then
         break
       end
-      SHX1_3 = SHX4_1
-      SHX1_3 = SHX1_3[SHX0_3]
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      workValue6 = workValue6[workValue]
+      if not workValue6 then
         break
       end
-      SHX1_3 = UseParticleFxAsset
-      SHX2_3 = "scr_indep_fireworks"
-      SHX1_3(SHX2_3)
-      SHX1_3 = StartParticleFxLoopedAtCoord
-      SHX2_3 = "scr_indep_firework_fountain"
-      SHX3_3 = SHX0_2.x
-      SHX4_3 = SHX0_2.y
-      SHX5_3 = SHX0_2.z
-      SHX6_3 = 0.0
-      SHX7_3 = 0.0
-      SHX8_3 = 0.0
-      SHX9_3 = SHX1_2
-      SHX10_3 = false
-      SHX11_3 = false
-      SHX12_3 = false
-      SHX13_3 = false
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      SHX2_3 = Citizen
-      SHX2_3 = SHX2_3.Wait
-      SHX3_3 = 5000
-      SHX2_3(SHX3_3)
-      SHX2_3 = StopParticleFxLooped
-      SHX3_3 = SHX1_3
-      SHX4_3 = false
-      SHX2_3(SHX3_3, SHX4_3)
+      workValue6 = UseParticleFxAsset
+      waitCall = "scr_indep_fireworks"
+      workValue6(waitCall)
+      workValue6 = StartParticleFxLoopedAtCoord
+      waitCall = "scr_indep_firework_fountain"
+      numberValue8 = arg1.x
+      flag10 = arg1.y
+      numberValue10 = arg1.z
+      numberValue12 = 0.0
+      numberValue13 = 0.0
+      numberValue14 = 0.0
+      workValue10 = arg2
+      mathHelper2 = false
+      flag = false
+      flag2 = false
+      flag3 = false
+      workValue6 = workValue6(waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      waitCall = Citizen
+      waitCall = waitCall.Wait
+      numberValue8 = 5000
+      waitCall(numberValue8)
+      waitCall = StopParticleFxLooped
+      numberValue8 = workValue6
+      flag10 = false
+      waitCall(numberValue8, flag10)
     end
   end
-  SHX2_2(SHX3_2)
+  arg3(cmgCall2)
 end
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.CreateThreadNow
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX0_3 = SHX6_1
+function workValue8(arg1, arg2)
+  local arg3, cmgCall2
+  arg3 = Citizen
+  arg3 = arg3.CreateThreadNow
+  function cmgCall2()
+    local workValue, workValue6, waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3
+    workValue = textValue4
     while true do
-      SHX1_3 = SHX4_1
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      if not workValue6 then
         break
       end
-      SHX1_3 = SHX4_1
-      SHX1_3 = SHX1_3[SHX0_3]
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      workValue6 = workValue6[workValue]
+      if not workValue6 then
         break
       end
-      SHX1_3 = UseParticleFxAsset
-      SHX2_3 = "scr_indep_fireworks"
-      SHX1_3(SHX2_3)
-      SHX1_3 = StartParticleFxLoopedAtCoord
-      SHX2_3 = "scr_indep_firework_starburst"
-      SHX3_3 = SHX0_2.x
-      SHX4_3 = SHX0_2.y
-      SHX5_3 = SHX0_2.z
-      SHX6_3 = 0.0
-      SHX7_3 = 0.0
-      SHX8_3 = 0.0
-      SHX9_3 = SHX1_2
-      SHX10_3 = math
-      SHX10_3 = SHX10_3.random
-      SHX10_3 = SHX10_3()
-      SHX10_3 = SHX10_3 * 2.0
-      SHX9_3 = SHX9_3 * SHX10_3
-      SHX10_3 = false
-      SHX11_3 = false
-      SHX12_3 = false
-      SHX13_3 = false
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      SHX2_3 = Citizen
-      SHX2_3 = SHX2_3.Wait
-      SHX3_3 = math
-      SHX3_3 = SHX3_3.random
-      SHX4_3 = 500
-      SHX5_3 = 2500
-      SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX3_3(SHX4_3, SHX5_3)
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      SHX2_3 = StopParticleFxLooped
-      SHX3_3 = SHX1_3
-      SHX4_3 = false
-      SHX2_3(SHX3_3, SHX4_3)
+      workValue6 = UseParticleFxAsset
+      waitCall = "scr_indep_fireworks"
+      workValue6(waitCall)
+      workValue6 = StartParticleFxLoopedAtCoord
+      waitCall = "scr_indep_firework_starburst"
+      numberValue8 = arg1.x
+      flag10 = arg1.y
+      numberValue10 = arg1.z
+      numberValue12 = 0.0
+      numberValue13 = 0.0
+      numberValue14 = 0.0
+      workValue10 = arg2
+      mathHelper2 = math
+      mathHelper2 = mathHelper2.random
+      mathHelper2 = mathHelper2()
+      mathHelper2 = mathHelper2 * 2.0
+      workValue10 = workValue10 * mathHelper2
+      mathHelper2 = false
+      flag = false
+      flag2 = false
+      flag3 = false
+      workValue6 = workValue6(waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      waitCall = Citizen
+      waitCall = waitCall.Wait
+      numberValue8 = math
+      numberValue8 = numberValue8.random
+      flag10 = 500
+      numberValue10 = 2500
+      numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3 = numberValue8(flag10, numberValue10)
+      waitCall(numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      waitCall = StopParticleFxLooped
+      numberValue8 = workValue6
+      flag10 = false
+      waitCall(numberValue8, flag10)
     end
   end
-  SHX2_2(SHX3_2)
+  arg3(cmgCall2)
 end
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.CreateThreadNow
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX0_3 = SHX6_1
+function workValue9(arg1, arg2)
+  local arg3, cmgCall2
+  arg3 = Citizen
+  arg3 = arg3.CreateThreadNow
+  function cmgCall2()
+    local workValue, workValue6, waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3
+    workValue = textValue4
     while true do
-      SHX1_3 = SHX4_1
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      if not workValue6 then
         break
       end
-      SHX1_3 = SHX4_1
-      SHX1_3 = SHX1_3[SHX0_3]
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      workValue6 = workValue6[workValue]
+      if not workValue6 then
         break
       end
-      SHX1_3 = UseParticleFxAsset
-      SHX2_3 = "scr_indep_fireworks"
-      SHX1_3(SHX2_3)
-      SHX1_3 = StartParticleFxLoopedAtCoord
-      SHX2_3 = "scr_indep_firework_trailburst"
-      SHX3_3 = SHX0_2.x
-      SHX4_3 = SHX0_2.y
-      SHX5_3 = SHX0_2.z
-      SHX6_3 = 0.0
-      SHX7_3 = 0.0
-      SHX8_3 = 0.0
-      SHX9_3 = SHX1_2
-      SHX10_3 = math
-      SHX10_3 = SHX10_3.random
-      SHX10_3 = SHX10_3()
-      SHX10_3 = SHX10_3 * 2.0
-      SHX9_3 = SHX9_3 * SHX10_3
-      SHX10_3 = false
-      SHX11_3 = false
-      SHX12_3 = false
-      SHX13_3 = false
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      SHX2_3 = Citizen
-      SHX2_3 = SHX2_3.Wait
-      SHX3_3 = math
-      SHX3_3 = SHX3_3.random
-      SHX4_3 = 500
-      SHX5_3 = 2500
-      SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX3_3(SHX4_3, SHX5_3)
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
-      SHX2_3 = StopParticleFxLooped
-      SHX3_3 = SHX1_3
-      SHX4_3 = false
-      SHX2_3(SHX3_3, SHX4_3)
+      workValue6 = UseParticleFxAsset
+      waitCall = "scr_indep_fireworks"
+      workValue6(waitCall)
+      workValue6 = StartParticleFxLoopedAtCoord
+      waitCall = "scr_indep_firework_trailburst"
+      numberValue8 = arg1.x
+      flag10 = arg1.y
+      numberValue10 = arg1.z
+      numberValue12 = 0.0
+      numberValue13 = 0.0
+      numberValue14 = 0.0
+      workValue10 = arg2
+      mathHelper2 = math
+      mathHelper2 = mathHelper2.random
+      mathHelper2 = mathHelper2()
+      mathHelper2 = mathHelper2 * 2.0
+      workValue10 = workValue10 * mathHelper2
+      mathHelper2 = false
+      flag = false
+      flag2 = false
+      flag3 = false
+      workValue6 = workValue6(waitCall, numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      waitCall = Citizen
+      waitCall = waitCall.Wait
+      numberValue8 = math
+      numberValue8 = numberValue8.random
+      flag10 = 500
+      numberValue10 = 2500
+      numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3 = numberValue8(flag10, numberValue10)
+      waitCall(numberValue8, flag10, numberValue10, numberValue12, numberValue13, numberValue14, workValue10, mathHelper2, flag, flag2, flag3)
+      waitCall = StopParticleFxLooped
+      numberValue8 = workValue6
+      flag10 = false
+      waitCall(numberValue8, flag10)
     end
   end
-  SHX2_2(SHX3_2)
+  arg3(cmgCall2)
 end
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.random
-  SHX2_2 = SHX2_2()
-  SHX2_2 = SHX2_2 - 0.5
-  SHX2_2 = SHX2_2 * SHX1_2
-  SHX2_2 = SHX2_2 * 2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.random
-  SHX3_2 = SHX3_2()
-  SHX3_2 = SHX3_2 - 0.5
-  SHX3_2 = SHX3_2 * SHX1_2
-  SHX3_2 = SHX3_2 * 2
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.random
-  SHX4_2 = SHX4_2()
-  SHX4_2 = SHX4_2 * 75.0
-  SHX5_2 = vector3
-  SHX6_2 = SHX0_2.x
-  SHX6_2 = SHX6_2 + SHX2_2
-  SHX7_2 = SHX0_2.y
-  SHX7_2 = SHX7_2 + SHX3_2
-  SHX8_2 = SHX0_2.z
-  SHX8_2 = SHX8_2 + 25.0
-  SHX8_2 = SHX8_2 + SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = SHX0_2 - SHX5_2
-  SHX5_2 = #SHX5_2
-  SHX6_2 = ShootSingleBulletBetweenCoords
-  SHX7_2 = SHX0_2.x
-  SHX8_2 = SHX0_2.y
-  SHX9_2 = SHX0_2.z
-  SHX10_2 = SHX0_2.x
-  SHX10_2 = SHX10_2 + SHX2_2
-  SHX11_2 = SHX0_2.y
-  SHX11_2 = SHX11_2 + SHX3_2
-  SHX12_2 = SHX0_2.z
-  SHX12_2 = SHX12_2 + SHX4_2
-  SHX12_2 = SHX12_2 + 25.0
-  SHX13_2 = 10
-  SHX14_2 = true
-  SHX15_2 = 2138347493
-  SHX16_2 = 0
-  SHX17_2 = true
-  SHX18_2 = false
-  SHX19_2 = SHX5_2 * 2.0
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
+function workValue2(arg1, arg2)
+  local arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4, workValue5, flag4, flag5, numberValue
+  arg3 = math
+  arg3 = arg3.random
+  arg3 = arg3()
+  arg3 = arg3 - 0.5
+  arg3 = arg3 * arg2
+  arg3 = arg3 * 2
+  cmgCall2 = math
+  cmgCall2 = cmgCall2.random
+  cmgCall2 = cmgCall2()
+  cmgCall2 = cmgCall2 - 0.5
+  cmgCall2 = cmgCall2 * arg2
+  cmgCall2 = cmgCall2 * 2
+  numberValue9 = math
+  numberValue9 = numberValue9.random
+  numberValue9 = numberValue9()
+  numberValue9 = numberValue9 * 75.0
+  textValue3 = vector3
+  numberValue11 = arg1.x
+  numberValue11 = numberValue11 + arg3
+  mathHelper6 = arg1.y
+  mathHelper6 = mathHelper6 + cmgCall2
+  mathHelper7 = arg1.z
+  mathHelper7 = mathHelper7 + 25.0
+  mathHelper7 = mathHelper7 + numberValue9
+  textValue3 = textValue3(numberValue11, mathHelper6, mathHelper7)
+  textValue3 = arg1 - textValue3
+  textValue3 = #textValue3
+  numberValue11 = ShootSingleBulletBetweenCoords
+  mathHelper6 = arg1.x
+  mathHelper7 = arg1.y
+  mathHelper8 = arg1.z
+  mathHelper = arg1.x
+  mathHelper = mathHelper + arg3
+  mathHelper3 = arg1.y
+  mathHelper3 = mathHelper3 + cmgCall2
+  mathHelper4 = arg1.z
+  mathHelper4 = mathHelper4 + numberValue9
+  mathHelper4 = mathHelper4 + 25.0
+  mathHelper5 = 10
+  textValue2 = true
+  workValue4 = 2138347493
+  workValue5 = 0
+  flag4 = true
+  flag5 = false
+  numberValue = textValue3 * 2.0
+  numberValue11(mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4, workValue5, flag4, flag5, numberValue)
 end
-function SHX11_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.CreateThreadNow
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = SHX6_1
+function workValue3(arg1, arg2, arg3)
+  local cmgCall2, numberValue9
+  cmgCall2 = Citizen
+  cmgCall2 = cmgCall2.CreateThreadNow
+  function numberValue9()
+    local workValue, workValue6, waitCall, numberValue8
+    workValue = textValue4
     while true do
-      SHX1_3 = SHX4_1
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      if not workValue6 then
         break
       end
-      SHX1_3 = SHX4_1
-      SHX1_3 = SHX1_3[SHX0_3]
-      if not SHX1_3 then
+      workValue6 = eventRegistration2
+      workValue6 = workValue6[workValue]
+      if not workValue6 then
         break
       end
-      SHX1_3 = SHX10_1
-      SHX2_3 = SHX0_2
-      SHX3_3 = SHX1_2
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = Citizen
-      SHX1_3 = SHX1_3.Wait
-      SHX2_3 = SHX2_2
-      SHX1_3(SHX2_3)
+      workValue6 = workValue2
+      waitCall = arg1
+      numberValue8 = arg2
+      workValue6(waitCall, numberValue8)
+      workValue6 = Citizen
+      workValue6 = workValue6.Wait
+      waitCall = arg3
+      workValue6(waitCall)
     end
   end
-  SHX3_2(SHX4_2)
+  cmgCall2(numberValue9)
 end
-SHX12_1 = {}
-SHX13_1 = vector3
-SHX14_1 = -421.4
-SHX15_1 = 1108.81
-SHX16_1 = 332.53
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX14_1 = vector3
-SHX15_1 = -436.92
-SHX16_1 = 1112.98
-SHX17_1 = 332.54
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX15_1 = vector3
-SHX16_1 = -401.12
-SHX17_1 = 1100.29
-SHX18_1 = 332.53
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX16_1 = vector3
-SHX17_1 = -458.45
-SHX18_1 = 1115.95
-SHX19_1 = 332.55
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX17_1 = vector3
-SHX18_1 = -413.05
-SHX19_1 = 1097.44
-SHX20_1 = 332.53
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX18_1 = vector3
-SHX19_1 = -449.77
-SHX20_1 = 1107.41
-SHX21_1 = 332.53
-SHX18_1 = SHX18_1(SHX19_1, SHX20_1, SHX21_1)
-SHX19_1 = vector3
-SHX20_1 = -431.66
-SHX21_1 = 1101.79
-SHX22_1 = 340.52
-SHX19_1 = SHX19_1(SHX20_1, SHX21_1, SHX22_1)
-SHX20_1 = vector3
-SHX21_1 = -401.41
-SHX22_1 = 1092.78
-SHX23_1 = 343.85
-SHX20_1 = SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX21_1 = vector3
-SHX22_1 = -439.14
-SHX23_1 = 1075.14
-SHX24_1 = 352.42
-SHX21_1 = SHX21_1(SHX22_1, SHX23_1, SHX24_1)
-SHX22_1 = vector3
-SHX23_1 = -462.21
-SHX24_1 = 1109.73
-SHX25_1 = 343.85
-SHX22_1, SHX23_1, SHX24_1, SHX25_1 = SHX22_1(SHX23_1, SHX24_1, SHX25_1)
-SHX12_1[1] = SHX13_1
-SHX12_1[2] = SHX14_1
-SHX12_1[3] = SHX15_1
-SHX12_1[4] = SHX16_1
-SHX12_1[5] = SHX17_1
-SHX12_1[6] = SHX18_1
-SHX12_1[7] = SHX19_1
-SHX12_1[8] = SHX20_1
-SHX12_1[9] = SHX21_1
-SHX12_1[10] = SHX22_1
-SHX12_1[11] = SHX23_1
-SHX12_1[12] = SHX24_1
-SHX12_1[13] = SHX25_1
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
+dataTable = {}
+vector3Builder = vector3
+eventRegistration = -421.4
+vector3Builder2 = 1108.81
+vector3Builder3 = 332.53
+vector3Builder = vector3Builder(eventRegistration, vector3Builder2, vector3Builder3)
+eventRegistration = vector3
+vector3Builder2 = -436.92
+vector3Builder3 = 1112.98
+vector3Builder4 = 332.54
+eventRegistration = eventRegistration(vector3Builder2, vector3Builder3, vector3Builder4)
+vector3Builder2 = vector3
+vector3Builder3 = -401.12
+vector3Builder4 = 1100.29
+vector3Builder5 = 332.53
+vector3Builder2 = vector3Builder2(vector3Builder3, vector3Builder4, vector3Builder5)
+vector3Builder3 = vector3
+vector3Builder4 = -458.45
+vector3Builder5 = 1115.95
+vector3Builder6 = 332.55
+vector3Builder3 = vector3Builder3(vector3Builder4, vector3Builder5, vector3Builder6)
+vector3Builder4 = vector3
+vector3Builder5 = -413.05
+vector3Builder6 = 1097.44
+vector3Builder7 = 332.53
+vector3Builder4 = vector3Builder4(vector3Builder5, vector3Builder6, vector3Builder7)
+vector3Builder5 = vector3
+vector3Builder6 = -449.77
+vector3Builder7 = 1107.41
+vector3Builder8 = 332.53
+vector3Builder5 = vector3Builder5(vector3Builder6, vector3Builder7, vector3Builder8)
+vector3Builder6 = vector3
+vector3Builder7 = -431.66
+vector3Builder8 = 1101.79
+vector3Builder9 = 340.52
+vector3Builder6 = vector3Builder6(vector3Builder7, vector3Builder8, vector3Builder9)
+vector3Builder7 = vector3
+vector3Builder8 = -401.41
+vector3Builder9 = 1092.78
+numberValue5 = 343.85
+vector3Builder7 = vector3Builder7(vector3Builder8, vector3Builder9, numberValue5)
+vector3Builder8 = vector3
+vector3Builder9 = -439.14
+numberValue5 = 1075.14
+numberValue6 = 352.42
+vector3Builder8 = vector3Builder8(vector3Builder9, numberValue5, numberValue6)
+vector3Builder9 = vector3
+numberValue5 = -462.21
+numberValue6 = 1109.73
+numberValue7 = 343.85
+vector3Builder9, numberValue5, numberValue6, numberValue7 = vector3Builder9(numberValue5, numberValue6, numberValue7)
+dataTable[1] = vector3Builder
+dataTable[2] = eventRegistration
+dataTable[3] = vector3Builder2
+dataTable[4] = vector3Builder3
+dataTable[5] = vector3Builder4
+dataTable[6] = vector3Builder5
+dataTable[7] = vector3Builder6
+dataTable[8] = vector3Builder7
+dataTable[9] = vector3Builder8
+dataTable[10] = vector3Builder9
+dataTable[11] = numberValue5
+dataTable[12] = numberValue6
+dataTable[13] = numberValue7
+function vector3Builder()
+  local arg1, arg2, arg3, cmgCall2, numberValue9, textValue3, numberValue11, mathHelper6, mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4
   while true do
-    SHX0_2 = SHX5_1
-    if not SHX0_2 then
+    arg1 = flag11
+    if not arg1 then
       break
     end
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerCoords
-    SHX0_2 = SHX0_2()
-    SHX1_2 = ipairs
-    SHX2_2 = SHX12_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = SHX0_2 - SHX6_2
-      SHX7_2 = #SHX7_2
-      if SHX7_2 < 10.0 then
-        SHX7_2 = SetEntityCoords
-        SHX8_2 = CMG
-        SHX8_2 = SHX8_2.getPlayerPed
-        SHX8_2 = SHX8_2()
-        SHX9_2 = -410.52
-        SHX10_2 = 1181.81
-        SHX11_2 = 325.59
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX14_2 = false
-        SHX15_2 = false
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+    arg1 = CMG
+    arg1 = arg1.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    arg1 = arg1()
+    arg2 = ipairs
+    arg3 = dataTable
+    arg2, arg3, cmgCall2, numberValue9 = arg2(arg3)
+    for textValue3, numberValue11 in arg2, arg3, cmgCall2, numberValue9 do
+      mathHelper6 = arg1 - numberValue11
+      mathHelper6 = #mathHelper6
+      if mathHelper6 < 10.0 then
+        mathHelper6 = SetEntityCoords
+        mathHelper7 = CMG
+        mathHelper7 = mathHelper7.getPlayerPed
+        -- Beginner: result below is localPlayerPed.
+        mathHelper7 = mathHelper7()
+        mathHelper8 = -410.52
+        mathHelper = 1181.81
+        mathHelper3 = 325.59
+        mathHelper4 = false
+        mathHelper5 = false
+        textValue2 = false
+        workValue4 = false
+        -- Beginner: Move/teleport an entity to new coordinates.
+        mathHelper6(mathHelper7, mathHelper8, mathHelper, mathHelper3, mathHelper4, mathHelper5, textValue2, workValue4)
         break
       end
     end
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+    arg2 = Citizen
+    arg2 = arg2.Wait
+    arg3 = 0
+    arg2(arg3)
   end
 end
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "698a9bf67f"
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadPtfx
-  SHX2_2 = "scr_indep_fireworks"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadWeaponAsset
-  SHX2_2 = "weapon_firework"
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX4_1
-  if not SHX1_2 then
-    SHX1_2 = {}
-    SHX4_1 = SHX1_2
+eventRegistration = RegisterNetEvent
+vector3Builder2 = "698a9bf67f"
+-- Beginner: this function handles network event "698a9bf67f".
+function vector3Builder3(arg1)
+  local arg2, arg3, cmgCall2, numberValue9, textValue3
+  arg2 = CMG
+  arg2 = arg2.loadPtfx
+  arg3 = "scr_indep_fireworks"
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.loadWeaponAsset
+  arg3 = "weapon_firework"
+  arg2(arg3)
+  arg2 = eventRegistration2
+  if not arg2 then
+    arg2 = {}
+    eventRegistration2 = arg2
   end
-  SHX1_2 = SHX4_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX1_2 = SHX4_1
-    SHX2_2 = {}
-    SHX1_2[SHX0_2] = SHX2_2
+  arg2 = eventRegistration2
+  arg2 = arg2[arg1]
+  if not arg2 then
+    arg2 = eventRegistration2
+    arg3 = {}
+    arg2[arg1] = arg3
   end
-  SHX6_1 = SHX0_2
-  SHX1_2 = SHX5_1
-  if not SHX1_2 then
-    SHX1_2 = true
-    SHX5_1 = SHX1_2
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.CreateThreadNow
-    SHX2_2 = SHX13_1
-    SHX1_2(SHX2_2)
+  textValue4 = arg1
+  arg2 = flag11
+  if not arg2 then
+    arg2 = true
+    flag11 = arg2
+    arg2 = Citizen
+    arg2 = arg2.CreateThreadNow
+    arg3 = vector3Builder
+    arg2(arg3)
   end
-  if 1 == SHX0_2 then
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -421.4
-    SHX4_2 = 1108.81
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -436.92
-    SHX4_2 = 1112.98
-    SHX5_2 = 332.54
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.12
-    SHX4_2 = 1100.29
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -458.45
-    SHX4_2 = 1115.95
-    SHX5_2 = 332.55
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 2 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[1] = nil
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -413.05
-    SHX4_2 = 1097.44
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 25.0
-    SHX4_2 = 1000
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -449.77
-    SHX4_2 = 1107.41
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 25.0
-    SHX4_2 = 1000
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  elseif 3 == SHX0_2 then
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -431.66
-    SHX4_2 = 1101.79
-    SHX5_2 = 340.52
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 4 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[2] = nil
-    SHX1_2 = SHX4_1
-    SHX1_2[3] = nil
-  elseif 5 == SHX0_2 then
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -431.66
-    SHX4_2 = 1101.79
-    SHX5_2 = 340.52
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 6 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[5] = nil
-  elseif 7 == SHX0_2 then
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -413.05
-    SHX4_2 = 1097.44
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 1.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -449.77
-    SHX4_2 = 1107.41
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 1.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 8 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[7] = nil
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 100.0
-    SHX4_2 = 400
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 100.0
-    SHX4_2 = 400
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 100.0
-    SHX4_2 = 400
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  elseif 9 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[8] = nil
-  elseif 10 == SHX0_2 then
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -431.66
-    SHX4_2 = 1101.79
-    SHX5_2 = 340.52
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX8_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 11 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[10] = nil
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -421.4
-    SHX4_2 = 1108.81
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -436.92
-    SHX4_2 = 1112.98
-    SHX5_2 = 332.54
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.12
-    SHX4_2 = 1100.29
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -458.45
-    SHX4_2 = 1115.95
-    SHX5_2 = 332.55
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -431.66
-    SHX4_2 = 1101.79
-    SHX5_2 = 340.52
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 12 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[11] = nil
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -421.4
-    SHX4_2 = 1108.81
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -436.92
-    SHX4_2 = 1112.98
-    SHX5_2 = 332.54
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.12
-    SHX4_2 = 1100.29
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -458.45
-    SHX4_2 = 1115.95
-    SHX5_2 = 332.55
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -413.05
-    SHX4_2 = 1097.44
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 25.0
-    SHX4_2 = 1000
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -449.77
-    SHX4_2 = 1107.41
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 25.0
-    SHX4_2 = 1000
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  elseif 13 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[12] = nil
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -413.05
-    SHX4_2 = 1097.44
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 1.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -449.77
-    SHX4_2 = 1107.41
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 1.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -431.66
-    SHX4_2 = 1101.79
-    SHX5_2 = 340.52
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX9_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 4.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 14 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[13] = nil
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.41
-    SHX4_2 = 1092.78
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 100.0
-    SHX4_2 = 400
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -439.14
-    SHX4_2 = 1075.14
-    SHX5_2 = 352.42
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 100.0
-    SHX4_2 = 400
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX11_1
-    SHX2_2 = vector3
-    SHX3_2 = -462.21
-    SHX4_2 = 1109.73
-    SHX5_2 = 343.85
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 100.0
-    SHX4_2 = 400
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  elseif 15 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[14] = nil
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -413.05
-    SHX4_2 = 1097.44
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -449.77
-    SHX4_2 = 1107.41
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -421.4
-    SHX4_2 = 1108.81
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -436.92
-    SHX4_2 = 1112.98
-    SHX5_2 = 332.54
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -401.12
-    SHX4_2 = 1100.29
-    SHX5_2 = 332.53
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -458.45
-    SHX4_2 = 1115.95
-    SHX5_2 = 332.55
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -383.67
-    SHX4_2 = 1185.89
-    SHX5_2 = 325.79
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX7_1
-    SHX2_2 = vector3
-    SHX3_2 = -430.62
-    SHX4_2 = 1197.46
-    SHX5_2 = 325.64
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = 2.0
-    SHX1_2(SHX2_2, SHX3_2)
-  elseif 16 == SHX0_2 then
-    SHX1_2 = SHX4_1
-    SHX1_2[15] = nil
-    SHX1_2 = false
-    SHX5_1 = SHX1_2
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 5000
-    SHX1_2(SHX2_2)
-    SHX1_2 = nil
-    SHX4_1 = SHX1_2
-    SHX1_2 = 0
-    SHX6_1 = SHX1_2
+  if 1 == arg1 then
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -421.4
+    numberValue9 = 1108.81
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -436.92
+    numberValue9 = 1112.98
+    textValue3 = 332.54
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -401.12
+    numberValue9 = 1100.29
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -458.45
+    numberValue9 = 1115.95
+    textValue3 = 332.55
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+  elseif 2 == arg1 then
+    arg2 = eventRegistration2
+    arg2[1] = nil
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -413.05
+    numberValue9 = 1097.44
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 25.0
+    numberValue9 = 1000
+    arg2(arg3, cmgCall2, numberValue9)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -449.77
+    numberValue9 = 1107.41
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 25.0
+    numberValue9 = 1000
+    arg2(arg3, cmgCall2, numberValue9)
+  elseif 3 == arg1 then
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -431.66
+    numberValue9 = 1101.79
+    textValue3 = 340.52
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+  elseif 4 == arg1 then
+    arg2 = eventRegistration2
+    arg2[2] = nil
+    arg2 = eventRegistration2
+    arg2[3] = nil
+  elseif 5 == arg1 then
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -431.66
+    numberValue9 = 1101.79
+    textValue3 = 340.52
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+  elseif 6 == arg1 then
+    arg2 = eventRegistration2
+    arg2[5] = nil
+  elseif 7 == arg1 then
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -413.05
+    numberValue9 = 1097.44
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 1.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -449.77
+    numberValue9 = 1107.41
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 1.0
+    arg2(arg3, cmgCall2)
+  elseif 8 == arg1 then
+    arg2 = eventRegistration2
+    arg2[7] = nil
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 100.0
+    numberValue9 = 400
+    arg2(arg3, cmgCall2, numberValue9)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 100.0
+    numberValue9 = 400
+    arg2(arg3, cmgCall2, numberValue9)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 100.0
+    numberValue9 = 400
+    arg2(arg3, cmgCall2, numberValue9)
+  elseif 9 == arg1 then
+    arg2 = eventRegistration2
+    arg2[8] = nil
+  elseif 10 == arg1 then
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -431.66
+    numberValue9 = 1101.79
+    textValue3 = 340.52
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue8
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+  elseif 11 == arg1 then
+    arg2 = eventRegistration2
+    arg2[10] = nil
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -421.4
+    numberValue9 = 1108.81
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -436.92
+    numberValue9 = 1112.98
+    textValue3 = 332.54
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -401.12
+    numberValue9 = 1100.29
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -458.45
+    numberValue9 = 1115.95
+    textValue3 = 332.55
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -431.66
+    numberValue9 = 1101.79
+    textValue3 = 340.52
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+  elseif 12 == arg1 then
+    arg2 = eventRegistration2
+    arg2[11] = nil
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -421.4
+    numberValue9 = 1108.81
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -436.92
+    numberValue9 = 1112.98
+    textValue3 = 332.54
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -401.12
+    numberValue9 = 1100.29
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -458.45
+    numberValue9 = 1115.95
+    textValue3 = 332.55
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -413.05
+    numberValue9 = 1097.44
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 25.0
+    numberValue9 = 1000
+    arg2(arg3, cmgCall2, numberValue9)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -449.77
+    numberValue9 = 1107.41
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 25.0
+    numberValue9 = 1000
+    arg2(arg3, cmgCall2, numberValue9)
+  elseif 13 == arg1 then
+    arg2 = eventRegistration2
+    arg2[12] = nil
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -413.05
+    numberValue9 = 1097.44
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 1.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -449.77
+    numberValue9 = 1107.41
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 1.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -431.66
+    numberValue9 = 1101.79
+    textValue3 = 340.52
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue9
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 4.0
+    arg2(arg3, cmgCall2)
+  elseif 14 == arg1 then
+    arg2 = eventRegistration2
+    arg2[13] = nil
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -401.41
+    numberValue9 = 1092.78
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 100.0
+    numberValue9 = 400
+    arg2(arg3, cmgCall2, numberValue9)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -439.14
+    numberValue9 = 1075.14
+    textValue3 = 352.42
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 100.0
+    numberValue9 = 400
+    arg2(arg3, cmgCall2, numberValue9)
+    arg2 = workValue3
+    arg3 = vector3
+    cmgCall2 = -462.21
+    numberValue9 = 1109.73
+    textValue3 = 343.85
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 100.0
+    numberValue9 = 400
+    arg2(arg3, cmgCall2, numberValue9)
+  elseif 15 == arg1 then
+    arg2 = eventRegistration2
+    arg2[14] = nil
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -413.05
+    numberValue9 = 1097.44
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -449.77
+    numberValue9 = 1107.41
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -421.4
+    numberValue9 = 1108.81
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -436.92
+    numberValue9 = 1112.98
+    textValue3 = 332.54
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -401.12
+    numberValue9 = 1100.29
+    textValue3 = 332.53
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -458.45
+    numberValue9 = 1115.95
+    textValue3 = 332.55
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -383.67
+    numberValue9 = 1185.89
+    textValue3 = 325.79
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+    arg2 = workValue7
+    arg3 = vector3
+    cmgCall2 = -430.62
+    numberValue9 = 1197.46
+    textValue3 = 325.64
+    arg3 = arg3(cmgCall2, numberValue9, textValue3)
+    cmgCall2 = 2.0
+    arg2(arg3, cmgCall2)
+  elseif 16 == arg1 then
+    arg2 = eventRegistration2
+    arg2[15] = nil
+    arg2 = false
+    flag11 = arg2
+    arg2 = Citizen
+    arg2 = arg2.Wait
+    arg3 = 5000
+    arg2(arg3)
+    arg2 = nil
+    eventRegistration2 = arg2
+    arg2 = 0
+    textValue4 = arg2
   end
 end
-SHX14_1(SHX15_1, SHX16_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "698a9bf67f".
+eventRegistration(vector3Builder2, vector3Builder3)

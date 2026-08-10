@@ -1,3 +1,30 @@
+--[[
+    BEGINNER GUIDE — Emotes
+    =======================
+
+    File: cmg/prod/cfg/cfg_emotes.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_rpemotes
+      * cfg/cfg_pazeee_emotes
+
+    Example player-facing text in this file:
+      * Press ~y~G~w~ to make it rain.
+      * Press ~y~G~w~ to use camera flash.
+      * Steal Stop Sign 
+      * Steal Stop Sign Snow 
+      * Press ~y~G~w~ to flash camera.
+
+]]
 local cfgRP = CMG.loadModule("cfg/cfg_rpemotes")
 
 local cfg = {}

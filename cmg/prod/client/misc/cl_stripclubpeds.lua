@@ -1,253 +1,268 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Strip Club Ambient NPCs
+    =======================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX1_1.type = "bartender"
-SHX1_1.model = 2014052797
-SHX2_1 = vector4
-SHX3_1 = 128.9
-SHX4_1 = -1283.211
-SHX5_1 = 29.273
-SHX6_1 = 123.98
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1, SHX6_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = {}
-SHX2_1.type = "stripper"
-SHX2_1.model = 695248020
-SHX3_1 = vector4
-SHX4_1 = 112.159
-SHX5_1 = -1287.326
-SHX6_1 = 28.459
-SHX7_1 = 265.902
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1)
-SHX2_1.position = SHX3_1
-SHX3_1 = {}
-SHX3_1.type = "stripper"
-SHX3_1.model = 695248020
-SHX4_1 = vector4
-SHX5_1 = 108.44
-SHX6_1 = -1289.298
-SHX7_1 = 28.859
-SHX8_1 = 338.7
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1)
-SHX3_1.position = SHX4_1
-SHX4_1 = {}
-SHX4_1.type = "stripper"
-SHX4_1.model = 695248020
-SHX5_1 = vector4
-SHX6_1 = 108.181
-SHX7_1 = -1304.807
-SHX8_1 = 28.769
-SHX9_1 = 186.893
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1)
-SHX4_1.position = SHX5_1
-SHX5_1 = {}
-SHX5_1.type = "stripper"
-SHX5_1.model = 695248020
-SHX6_1 = vector4
-SHX7_1 = 118.125
-SHX8_1 = -1283.357
-SHX9_1 = 28.277
-SHX10_1 = 124.466
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX5_1.position = SHX6_1
-SHX6_1 = {}
-SHX6_1.type = "boucer"
-SHX6_1.model = -1613485779
-SHX7_1 = vector4
-SHX8_1 = 130.328
-SHX9_1 = -1298.409
-SHX10_1 = 29.233
-SHX11_1 = 211.486
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX6_1.position = SHX7_1
-SHX7_1 = {}
-SHX7_1.type = "boucer"
-SHX7_1.model = -1613485779
-SHX8_1 = vector4
-SHX9_1 = 127.404
-SHX10_1 = -1300.126
-SHX11_1 = 29.23
-SHX12_1 = 211.587
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1, SHX12_1)
-SHX7_1.position = SHX8_1
-SHX8_1 = {}
-SHX8_1.type = "boucer"
-SHX8_1.model = -1613485779
-SHX9_1 = vector4
-SHX10_1 = 111.088
-SHX11_1 = -1304.371
-SHX12_1 = 29.02
-SHX13_1 = 296.699
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1)
-SHX8_1.position = SHX9_1
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX0_1[5] = SHX5_1
-SHX0_1[6] = SHX6_1
-SHX0_1[7] = SHX7_1
-SHX0_1[8] = SHX8_1
-SHX1_1 = {}
-SHX2_1 = {}
-SHX2_1.dict = "mini@strip_club@private_dance@part2"
-SHX2_1.name = "priv_dance_p2"
-SHX1_1.stripper = SHX2_1
-SHX2_1 = {}
-SHX2_1.dict = "mini@strip_club@idles@bouncer@base"
-SHX2_1.name = "base"
-SHX1_1.bouncer = SHX2_1
-SHX2_1 = nil
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX0_2 = {}
-  SHX2_1 = SHX0_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.loadModel
-    SHX7_2 = SHX5_2.model
-    SHX6_2(SHX7_2)
-    SHX6_2 = SHX5_2.position
-    SHX7_2 = CreatePed
-    SHX8_2 = 5
-    SHX9_2 = SHX5_2.model
-    SHX10_2 = SHX6_2.x
-    SHX11_2 = SHX6_2.y
-    SHX12_2 = SHX6_2.z
-    SHX13_2 = SHX6_2.w
-    SHX14_2 = false
-    SHX15_2 = true
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    SHX8_2 = SetModelAsNoLongerNeeded
-    SHX9_2 = SHX5_2.model
-    SHX8_2(SHX9_2)
-    SHX8_2 = SetBlockingOfNonTemporaryEvents
-    SHX9_2 = SHX7_2
-    SHX10_2 = true
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = SetPedDiesWhenInjured
-    SHX9_2 = SHX7_2
-    SHX10_2 = false
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = SetPedRelationshipGroupHash
-    SHX9_2 = SHX7_2
-    SHX10_2 = 45677184
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = SHX5_2.type
-    SHX8_2 = SHX1_1
-    SHX8_2 = SHX8_2[SHX9_2]
-    if SHX8_2 then
-      SHX9_2 = CMG
-      SHX9_2 = SHX9_2.loadAnimDict
-      SHX10_2 = SHX8_2.dict
-      SHX9_2(SHX10_2)
-      SHX9_2 = TaskPlayAnim
-      SHX10_2 = SHX7_2
-      SHX11_2 = SHX8_2.dict
-      SHX12_2 = SHX8_2.name
-      SHX13_2 = 8.0
-      SHX14_2 = 0.0
-      SHX15_2 = -1
-      SHX16_2 = 1
-      SHX17_2 = 0
-      SHX18_2 = false
-      SHX19_2 = false
-      SHX20_2 = false
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-      SHX9_2 = RemoveAnimDict
-      SHX10_2 = SHX8_2.dict
-      SHX9_2(SHX10_2)
-    end
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX2_1
-    SHX11_2 = SHX7_2
-    SHX9_2(SHX10_2, SHX11_2)
-  end
-end
-SHX4_1 = vector3
-SHX5_1 = 123.43956756592
-SHX6_1 = -1288.5036621094
-SHX7_1 = 29.674297332764
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = AddEventHandler
-SHX6_1 = "CMG:onClientSpawn"
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  if SHX1_2 then
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX2_1
-      if not SHX0_3 then
-        SHX0_3 = SHX3_1
-        SHX0_3()
-      end
-    end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
-        SHX0_3 = pairs
-        SHX1_3 = SHX2_1
-        SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-        for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-          SHX6_3 = DeleteEntity
-          SHX7_3 = SHX5_3
-          SHX6_3(SHX7_3)
+    These NPCs are only spawned while the local player is near the strip club.
+    Leaving the 100-metre area deletes all of them again.
+
+    Types:
+      bartender = stands without a configured animation
+      stripper  = loops a private-dance animation
+      bouncer   = would loop the bouncer idle animation
+
+    IMPORTANT DECOMPILE QUIRK:
+      The three bouncer config rows in the original source say "boucer"
+      (missing the N), but the animation lookup key is "bouncer".
+      Therefore those three NPCs DO NOT receive the bouncer animation in the
+      decompiled behaviour. The typo is preserved here deliberately.
+]]
+
+local pedDefinitions = {
+    {
+        type = "bartender",
+        model = 2014052797,
+        position =
+            vector4(
+                128.9,
+                -1283.211,
+                29.273,
+                123.98
+            )
+    },
+
+    {
+        type = "stripper",
+        model = 695248020,
+        position =
+            vector4(
+                112.159,
+                -1287.326,
+                28.459,
+                265.902
+            )
+    },
+
+    {
+        type = "stripper",
+        model = 695248020,
+        position =
+            vector4(
+                108.44,
+                -1289.298,
+                28.859,
+                338.7
+            )
+    },
+
+    {
+        type = "stripper",
+        model = 695248020,
+        position =
+            vector4(
+                108.181,
+                -1304.807,
+                28.769,
+                186.893
+            )
+    },
+
+    {
+        type = "stripper",
+        model = 695248020,
+        position =
+            vector4(
+                118.125,
+                -1283.357,
+                28.277,
+                124.466
+            )
+    },
+
+    {
+        type = "boucer",
+        model = -1613485779,
+        position =
+            vector4(
+                130.328,
+                -1298.409,
+                29.233,
+                211.486
+            )
+    },
+
+    {
+        type = "boucer",
+        model = -1613485779,
+        position =
+            vector4(
+                127.404,
+                -1300.126,
+                29.23,
+                211.587
+            )
+    },
+
+    {
+        type = "boucer",
+        model = -1613485779,
+        position =
+            vector4(
+                111.088,
+                -1304.371,
+                29.02,
+                296.699
+            )
+    }
+}
+
+
+local animationsByType = {
+    stripper = {
+        dict =
+            "mini@strip_club@private_dance@part2",
+        name =
+            "priv_dance_p2"
+    },
+
+    bouncer = {
+        dict =
+            "mini@strip_club@idles@bouncer@base",
+        name =
+            "base"
+    }
+}
+
+
+local activePeds = nil
+
+local stripClubCentre =
+    vector3(
+        123.43956756592,
+        -1288.5036621094,
+        29.674297332764
+    )
+
+
+local function spawnStripClubPeds()
+    activePeds = {}
+
+    for _, definition
+        in pairs(pedDefinitions) do
+
+        CMG.loadModel(
+            definition.model
+        )
+
+        local pos =
+            definition.position
+
+        local ped =
+            CreatePed(
+                5,
+                definition.model,
+                pos.x,
+                pos.y,
+                pos.z,
+                pos.w,
+                false,
+                true
+            )
+
+        SetModelAsNoLongerNeeded(
+            definition.model
+        )
+
+        SetBlockingOfNonTemporaryEvents(
+            ped,
+            true
+        )
+
+        SetPedDiesWhenInjured(
+            ped,
+            false
+        )
+
+        SetPedRelationshipGroupHash(
+            ped,
+            45677184
+        )
+
+        local animation =
+            animationsByType[
+                definition.type
+            ]
+
+        if animation then
+            CMG.loadAnimDict(
+                animation.dict
+            )
+
+            TaskPlayAnim(
+                ped,
+                animation.dict,
+                animation.name,
+                8.0,
+                0.0,
+                -1,
+                1,
+                0,
+                false,
+                false,
+                false
+            )
+
+            RemoveAnimDict(
+                animation.dict
+            )
         end
-        SHX0_3 = nil
-        SHX2_1 = SHX0_3
-      end
+
+        table.insert(
+            activePeds,
+            ped
+        )
     end
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.createArea
-    SHX5_2 = "stripclub"
-    SHX6_2 = SHX4_1
-    SHX7_2 = 100.0
-    SHX8_2 = 6
-    SHX9_2 = SHX2_2
-    SHX10_2 = SHX3_2
-    SHX11_2 = nil
-    SHX12_2 = {}
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  end
 end
-SHX5_1(SHX6_1, SHX7_1)
+
+
+local function deleteStripClubPeds()
+    if not activePeds then
+        return
+    end
+
+    for _, ped
+        in pairs(activePeds) do
+
+        DeleteEntity(ped)
+    end
+
+    activePeds = nil
+end
+
+
+AddEventHandler(
+    "CMG:onClientSpawn",
+    function(_, firstSpawn)
+        if not firstSpawn then
+            return
+        end
+
+        CMG.createArea(
+            "stripclub",
+            stripClubCentre,
+            100.0,
+            6,
+
+            function()
+                if not activePeds then
+                    spawnStripClubPeds()
+                end
+            end,
+
+            deleteStripClubPeds,
+
+            nil,
+
+            {}
+        )
+    end
+)

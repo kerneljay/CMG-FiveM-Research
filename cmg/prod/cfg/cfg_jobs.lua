@@ -1,3 +1,28 @@
+--[[
+    BEGINNER GUIDE — Jobs
+    =====================
+
+    File: cmg/prod/cfg/cfg_jobs.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_factiongroups
+
+    Network/hash identifiers found: 3
+      They are intentionally left unchanged because matching server code may use them.
+      * e3a2b4bde0
+      * 579a73060c
+      * 87318b22f0
+
+]]
 local factionCfg = CMG.loadModule("cfg/cfg_factiongroups")
 
 local cfg = {}

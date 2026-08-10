@@ -1,1360 +1,1174 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_dogfighting.lua
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/events/cfg_dogfighting"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = nil
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = IsNewLoadSceneLoaded
-  SHX1_2 = SHX1_2()
-  SHX2_2 = HasModelLoaded
-  SHX3_2 = SHX0_2.selectedVehicleModelHash
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    SHX3_2 = RequestModel
-    SHX4_2 = SHX0_2.selectedVehicleModelHash
-    SHX3_2(SHX4_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Dogfighting
+    ============================
+
+    File: cmg/prod/client/events/cl_dogfighting.lua
+    Purpose: This file contains event/minigame logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/events/cfg_dogfighting
+
+    Network/hash identifiers found: 15
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * DLC_IE_JN_Player_Sounds
+
+]]
+local cmgCall, textValue, workValue25, workValue34, workValue42, workValue48, workValue49, workValue50, workValue51, workValue52, workValue, workValue2, workValue4, workValue5, workValue6, workValue7, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue23, workValue26, workValue27, workValue28, workValue29, workValue30, workValue32, eventRegistration, textValue2, cmgCall2, eventHandlerRegistration, textValue3, workValue35, workValue36, workValue37, workValue38, iterator, numberValue5, workValue39, workValue40, workValue41, workValue44, workValue45, numberValue6, workValue46, workValue47
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+textValue = "cfg/events/cfg_dogfighting"
+-- Beginner: result below is config.
+cmgCall = cmgCall(textValue)
+textValue = nil
+function workValue25(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = IsNewLoadSceneLoaded
+  arg2 = arg2()
+  arg3 = HasModelLoaded
+  arg4 = arg1.selectedVehicleModelHash
+  arg3 = arg3(arg4)
+  if not arg3 then
+    arg4 = RequestModel
+    arg5 = arg1.selectedVehicleModelHash
+    arg4(arg5)
   end
-  if SHX1_2 and SHX2_2 then
-    SHX3_2 = SHX0_2.hasSentLoadedEvent
-    if not SHX3_2 then
-      SHX3_2 = TriggerServerEvent
-      SHX4_2 = "394e95d641"
-      SHX3_2(SHX4_2)
-      SHX0_2.hasSentLoadedEvent = true
+  if arg2 and arg3 then
+    arg4 = arg1.hasSentLoadedEvent
+    if not arg4 then
+      arg4 = TriggerServerEvent
+      arg5 = "394e95d641"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "394e95d641".
+      arg4(arg5)
+      arg1.hasSentLoadedEvent = true
     end
   end
 end
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = IsScreenFadedOut
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX0_2 = IsScreenFadingOut
-    SHX0_2 = SHX0_2()
-    if SHX0_2 then
-      goto SHX_LABEL_14
+function workValue34()
+  local arg1, arg2
+  arg1 = IsScreenFadedOut
+  arg1 = arg1()
+  if arg1 then
+    arg1 = IsScreenFadingOut
+    arg1 = arg1()
+    if arg1 then
+      goto flow_label_14
     end
   end
-  SHX0_2 = DoScreenFadeOut
-  SHX1_2 = 500
-  SHX0_2(SHX1_2)
-  SHX0_2 = false
-  return SHX0_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_14:: outside nested blocks until all 'goto SHX_LABEL_14' can see it
-  ::SHX_LABEL_14::
-  SHX0_2 = true
-  return SHX0_2
+  arg1 = DoScreenFadeOut
+  arg2 = 500
+  arg1(arg2)
+  arg1 = false
+  return arg1
+  ::flow_label_14::
+  arg1 = true
+  return arg1
 end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isEventSequenceRunning
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX0_2 = SHX3_1
-    SHX0_2 = SHX0_2()
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.stopEventSequence
-      SHX0_2()
+function workValue42()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.isEventSequenceRunning
+  arg1 = arg1()
+  if arg1 then
+    arg1 = workValue34
+    arg1 = arg1()
+    if arg1 then
+      arg1 = CMG
+      arg1 = arg1.stopEventSequence
+      arg1()
     end
   end
 end
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = IsScreenFadedIn
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = IsScreenFadingIn
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = DoScreenFadeIn
-      SHX1_2 = 500
-      SHX0_2(SHX1_2)
+function workValue48()
+  local arg1, arg2
+  arg1 = IsScreenFadedIn
+  arg1 = arg1()
+  if not arg1 then
+    arg1 = IsScreenFadingIn
+    arg1 = arg1()
+    if not arg1 then
+      arg1 = DoScreenFadeIn
+      arg2 = 500
+      arg1(arg2)
     end
   end
 end
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = IsPlayerControlOn
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = SetPlayerControl
-    SHX3_2 = SHX1_2
-    SHX4_2 = false
-    SHX5_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+function workValue49(arg1)
+  local arg2, arg3, arg4, arg5, arg6
+  arg2 = PlayerId
+  -- Beginner: result below is localPlayerIndex.
+  arg2 = arg2()
+  arg3 = IsPlayerControlOn
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  if arg3 then
+    arg3 = SetPlayerControl
+    arg4 = arg2
+    arg5 = false
+    arg6 = 0
+    arg3(arg4, arg5, arg6)
   end
-  if SHX0_2 then
-    SHX2_2 = DisableAllControlActions
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.hideAllDisplays
-    SHX3_2 = "dogfighting"
-    SHX2_2(SHX3_2)
+  if arg1 then
+    arg3 = DisableAllControlActions
+    arg4 = 0
+    arg3(arg4)
+    arg3 = CMG
+    arg3 = arg3.hideAllDisplays
+    arg4 = "dogfighting"
+    arg3(arg4)
   end
 end
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX4_1
-  SHX1_2()
-  SHX1_2 = SHX2_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX6_1
-  SHX2_2 = true
-  SHX1_2(SHX2_2)
+function workValue50(arg1)
+  local arg2, arg3
+  arg2 = workValue42
+  arg2()
+  arg2 = workValue25
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = workValue49
+  arg3 = true
+  arg2(arg3)
 end
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1
-  SHX0_2()
-  SHX0_2 = SHX6_1
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
+function workValue51()
+  local arg1, arg2
+  arg1 = workValue42
+  arg1()
+  arg1 = workValue49
+  arg2 = true
+  arg1(arg2)
 end
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_1.teams
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.name
-    if SHX7_2 == SHX0_2 then
-      return SHX6_2
+function workValue52(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg2 = pairs
+  arg3 = cmgCall.teams
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    arg8 = arg7.name
+    if arg8 == arg1 then
+      return arg7
     end
   end
-  SHX1_2 = nil
-  return SHX1_2
+  arg2 = nil
+  return arg2
 end
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX5_1
-  SHX1_2()
-  SHX1_2 = SHX6_1
-  SHX2_2 = false
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX0_2.hasSetupCustomisation
-  if SHX1_2 then
+function workValue(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg2 = workValue48
+  arg2()
+  arg2 = workValue49
+  arg3 = false
+  arg2(arg3)
+  arg2 = arg1.hasSetupCustomisation
+  if arg2 then
     return
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.startVehicleSelection
-  SHX2_2 = SHX0_2.spawnPosition
-  SHX2_2 = SHX2_2.xyz
-  SHX3_2 = SHX0_2.spawnPosition
-  SHX3_2 = SHX3_2.w
-  SHX4_2 = {}
-  SHX5_2 = SHX0_2.vehicleName
-  SHX6_2 = {}
-  SHX6_2.level = 0
-  SHX7_2 = SHX0_2.selectedVehicleModelHash
-  SHX6_2.model = SHX7_2
-  SHX4_2[SHX5_2] = SHX6_2
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.floor
-  SHX6_2 = SHX0_1.customVehicleTimeMsec
-  SHX6_2 = SHX6_2 / 1000
-  SHX5_2 = SHX5_2(SHX6_2)
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  arg2 = CMG
+  arg2 = arg2.startVehicleSelection
+  arg3 = arg1.spawnPosition
+  arg3 = arg3.xyz
+  arg4 = arg1.spawnPosition
+  arg4 = arg4.w
+  arg5 = {}
+  arg6 = arg1.vehicleName
+  arg7 = {}
+  arg7.level = 0
+  arg8 = arg1.selectedVehicleModelHash
+  arg7.model = arg8
+  arg5[arg6] = arg7
+  arg6 = math
+  arg6 = arg6.floor
+  arg7 = cmgCall.customVehicleTimeMsec
+  arg7 = arg7 / 1000
+  arg6 = arg6(arg7)
+  function arg7()
+    local arg12, arg22
   end
-  function SHX7_2(SHX0_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX1_3, SHX2_3, SHX3_3
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.getEventLocalPlayer
-    SHX1_3 = SHX1_3()
-    if SHX1_3 then
-      SHX2_3 = SHX1_3.data
-      SHX2_3 = SHX2_3.teamName
-      if SHX2_3 then
-        SHX2_3 = SHX9_1
-        SHX3_3 = SHX1_3.data
-        SHX3_3 = SHX3_3.teamName
-        SHX2_3 = SHX2_3(SHX3_3)
-        if SHX2_3 then
-          SHX3_3 = SHX2_3.vehicleColour
-          SHX0_2.selectedVehicleColour = SHX3_3
+  function arg8(arg12)
+    local arg22, arg32, arg42
+    arg22 = CMG
+    arg22 = arg22.getEventLocalPlayer
+    arg22 = arg22()
+    if arg22 then
+      arg32 = arg22.data
+      arg32 = arg32.teamName
+      if arg32 then
+        arg32 = workValue52
+        arg42 = arg22.data
+        arg42 = arg42.teamName
+        arg32 = arg32(arg42)
+        if arg32 then
+          arg42 = arg32.vehicleColour
+          arg1.selectedVehicleColour = arg42
           return
         end
       end
     end
-    SHX0_2.selectedVehicleColour = SHX0_3
+    arg1.selectedVehicleColour = arg12
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX0_2.hasSetupCustomisation = true
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+  arg1.hasSetupCustomisation = true
 end
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.requestEntitySpawn
-  SHX2_2 = "dogfighting"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.spawnVehicle
-  SHX2_2 = SHX0_2.selectedVehicleModelHash
-  SHX3_2 = SHX0_2.spawnPosition
-  SHX3_2 = SHX3_2.x
-  SHX4_2 = SHX0_2.spawnPosition
-  SHX4_2 = SHX4_2.y
-  SHX5_2 = SHX0_2.spawnPosition
-  SHX5_2 = SHX5_2.z
-  SHX6_2 = SHX0_2.spawnPosition
-  SHX6_2 = SHX6_2.w
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX0_2.vehicle = SHX1_2
-  SHX1_2 = FreezeEntityPosition
-  SHX2_2 = SHX0_2.vehicle
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetVehicleEngineOn
-  SHX2_2 = SHX0_2.vehicle
-  SHX3_2 = true
-  SHX4_2 = true
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SetHeliBladesFullSpeed
-  SHX2_2 = SHX0_2.vehicle
-  SHX1_2(SHX2_2)
-  SHX1_2 = ControlLandingGear
-  SHX2_2 = SHX0_2.vehicle
-  SHX3_2 = 3
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetVehicleFlightNozzlePositionImmediate
-  SHX2_2 = SHX0_2.vehicle
-  SHX3_2 = 0.0
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetVehicleColours
-  SHX2_2 = SHX0_2.vehicle
-  SHX3_2 = SHX0_2.selectedVehicleColour
-  SHX4_2 = SHX0_2.selectedVehicleColour
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SHX0_2.spawnProtectEndTime
-  if not SHX1_2 then
-    SHX1_2 = 0
+function workValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17
+  arg2 = CMG
+  arg2 = arg2.requestEntitySpawn
+  arg3 = "dogfighting"
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.spawnVehicle
+  arg3 = arg1.selectedVehicleModelHash
+  arg4 = arg1.spawnPosition
+  arg4 = arg4.x
+  arg5 = arg1.spawnPosition
+  arg5 = arg5.y
+  arg6 = arg1.spawnPosition
+  arg6 = arg6.z
+  arg7 = arg1.spawnPosition
+  arg7 = arg7.w
+  arg8 = true
+  coords = true
+  flag17 = true
+  arg2 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17)
+  arg1.vehicle = arg2
+  arg2 = FreezeEntityPosition
+  arg3 = arg1.vehicle
+  arg4 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg2(arg3, arg4)
+  arg2 = SetVehicleEngineOn
+  arg3 = arg1.vehicle
+  arg4 = true
+  arg5 = true
+  arg6 = false
+  arg2(arg3, arg4, arg5, arg6)
+  arg2 = SetHeliBladesFullSpeed
+  arg3 = arg1.vehicle
+  arg2(arg3)
+  arg2 = ControlLandingGear
+  arg3 = arg1.vehicle
+  arg4 = 3
+  arg2(arg3, arg4)
+  arg2 = SetVehicleFlightNozzlePositionImmediate
+  arg3 = arg1.vehicle
+  arg4 = 0.0
+  arg2(arg3, arg4)
+  arg2 = SetVehicleColours
+  arg3 = arg1.vehicle
+  arg4 = arg1.selectedVehicleColour
+  arg5 = arg1.selectedVehicleColour
+  arg2(arg3, arg4, arg5)
+  arg2 = arg1.spawnProtectEndTime
+  if not arg2 then
+    arg2 = 0
   end
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.max
-  SHX3_2 = GetNetworkTime
-  SHX3_2 = SHX3_2()
-  SHX4_2 = SHX0_1.respawnProtectionTimeMsec
-  SHX3_2 = SHX3_2 + SHX4_2
-  SHX4_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX0_2.spawnProtectEndTime = SHX2_2
-  SHX0_2.isRequestVehicle = false
+  arg3 = math
+  arg3 = arg3.max
+  arg4 = GetNetworkTime
+  -- Beginner: result below is networkTime.
+  arg4 = arg4()
+  arg5 = cmgCall.respawnProtectionTimeMsec
+  arg4 = arg4 + arg5
+  arg5 = arg2
+  arg3 = arg3(arg4, arg5)
+  arg1.spawnProtectEndTime = arg3
+  arg1.isRequestVehicle = false
 end
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX0_2.vehicle
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = SHX0_2.isRequestVehicle
-    if not SHX1_2 then
-      SHX1_2 = Citizen
-      SHX1_2 = SHX1_2.CreateThreadNow
-      function SHX2_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3
-        SHX0_3 = SHX11_1
-        SHX1_3 = SHX0_2
-        SHX0_3(SHX1_3)
+function workValue4(arg1)
+  local arg2, arg3
+  arg2 = DoesEntityExist
+  arg3 = arg1.vehicle
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = arg1.isRequestVehicle
+    if not arg2 then
+      arg2 = Citizen
+      arg2 = arg2.CreateThreadNow
+      function arg3()
+        local arg12, arg22
+        arg12 = workValue2
+        arg22 = arg1
+        arg12(arg22)
       end
-      SHX1_2(SHX2_2)
-      SHX0_2.isRequestVehicle = true
+      arg2(arg3)
+      arg1.isRequestVehicle = true
     end
   end
 end
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX1_2 = SHX5_1
-  SHX1_2()
-  SHX1_2 = SHX6_1
-  SHX2_2 = true
-  SHX1_2(SHX2_2)
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetFrameCount
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2.flyInStartTime
-  if not SHX3_2 then
-    SHX0_2.flyInStartTime = SHX1_2
+function workValue5(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6
+  arg2 = workValue48
+  arg2()
+  arg2 = workValue49
+  arg3 = true
+  arg2(arg3)
+  arg2 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg2 = arg2()
+  arg3 = GetFrameCount
+  arg3 = arg3()
+  arg4 = arg1.flyInStartTime
+  if not arg4 then
+    arg1.flyInStartTime = arg2
   end
-  SHX3_2 = SHX0_2.flyInStartTime
-  SHX3_2 = SHX1_2 - SHX3_2
-  SHX4_2 = SHX0_1.flyInIntroTimeMsec
-  SHX4_2 = SHX4_2 / 2
-  SHX4_2 = SHX3_2 < SHX4_2
-  SHX5_2 = GetTogglePausedRenderphasesStatus
-  SHX5_2 = SHX5_2()
-  if SHX4_2 then
-    SHX6_2 = 1
-    if SHX6_2 then
-      goto SHX_LABEL_32
+  arg4 = arg1.flyInStartTime
+  arg4 = arg2 - arg4
+  arg5 = cmgCall.flyInIntroTimeMsec
+  arg5 = arg5 / 2
+  arg5 = arg4 < arg5
+  arg6 = GetTogglePausedRenderphasesStatus
+  arg6 = arg6()
+  if arg5 then
+    arg7 = 1
+    if arg7 then
+      goto flow_label_32
     end
   end
-  SHX6_2 = false
-  -- [FIX IF ERROR] Move ::SHX_LABEL_32:: outside nested blocks until all 'goto SHX_LABEL_32' can see it
-  ::SHX_LABEL_32::
-  if SHX5_2 == SHX6_2 then
-    SHX5_2 = TogglePausedRenderphases
-    SHX6_2 = not SHX4_2
-    SHX5_2(SHX6_2)
-    SHX0_2.toggledRenderPhaseFrame = SHX2_2
+  arg7 = false
+  ::flow_label_32::
+  if arg6 == arg7 then
+    arg6 = TogglePausedRenderphases
+    arg7 = not arg5
+    arg6(arg7)
+    arg1.toggledRenderPhaseFrame = arg3
   end
-  SHX5_2 = SHX0_2.hasSetupCustomisation
-  if SHX5_2 then
-    SHX5_2 = SHX0_2.toggledRenderPhaseFrame
-    if 0 ~= SHX5_2 then
-      SHX5_2 = SHX0_2.toggledRenderPhaseFrame
-      if SHX2_2 > SHX5_2 then
-        SHX5_2 = CMG
-        SHX5_2 = SHX5_2.endVehicleSelection
-        SHX5_2()
-        SHX5_2 = AnimpostfxPlay
-        SHX6_2 = "SuccessNeutral"
-        SHX7_2 = -1
-        SHX8_2 = false
-        SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-        SHX5_2 = PlaySoundFrontend
-        SHX6_2 = -1
-        SHX7_2 = "Become_Attacker"
-        SHX8_2 = "DLC_IE_JN_Player_Sounds"
-        SHX9_2 = false
-        SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX0_2.hasSetupCustomisation = false
+  arg6 = arg1.hasSetupCustomisation
+  if arg6 then
+    arg6 = arg1.toggledRenderPhaseFrame
+    if 0 ~= arg6 then
+      arg6 = arg1.toggledRenderPhaseFrame
+      if arg3 > arg6 then
+        arg6 = CMG
+        arg6 = arg6.endVehicleSelection
+        arg6()
+        arg6 = AnimpostfxPlay
+        arg7 = "SuccessNeutral"
+        arg8 = -1
+        coords = false
+        arg6(arg7, arg8, coords)
+        arg6 = PlaySoundFrontend
+        arg7 = -1
+        arg8 = "Become_Attacker"
+        coords = "DLC_IE_JN_Player_Sounds"
+        flag17 = false
+        arg6(arg7, arg8, coords, flag17)
+        arg1.hasSetupCustomisation = false
       end
     end
   end
-  SHX5_2 = SHX12_1
-  SHX6_2 = SHX0_2
-  SHX5_2(SHX6_2)
-  if SHX4_2 then
+  arg6 = workValue4
+  arg7 = arg1
+  arg6(arg7)
+  if arg5 then
     return
   end
-  SHX5_2 = AnimpostfxIsRunning
-  SHX6_2 = "SuccessNeutral"
-  SHX5_2 = SHX5_2(SHX6_2)
-  if SHX5_2 then
-    SHX5_2 = AnimpostfxStop
-    SHX6_2 = "SuccessNeutral"
-    SHX5_2(SHX6_2)
+  arg6 = AnimpostfxIsRunning
+  arg7 = "SuccessNeutral"
+  arg6 = arg6(arg7)
+  if arg6 then
+    arg6 = AnimpostfxStop
+    arg7 = "SuccessNeutral"
+    arg6(arg7)
   end
-  SHX5_2 = GetFrameTime
-  SHX5_2 = SHX5_2()
-  SHX6_2 = GetEntityMatrix
-  SHX7_2 = SHX0_2.vehicle
-  SHX6_2, SHX7_2 = SHX6_2(SHX7_2)
-  SHX8_2 = GetEntityCoords
-  SHX9_2 = SHX0_2.vehicle
-  SHX10_2 = true
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = SHX6_2 * 50.0
-  SHX10_2 = SHX9_2 * SHX5_2
-  SHX10_2 = SHX8_2 + SHX10_2
-  SHX11_2 = SetEntityCoordsNoOffset
-  SHX12_2 = SHX0_2.vehicle
-  SHX13_2 = SHX10_2.x
-  SHX14_2 = SHX10_2.y
-  SHX15_2 = SHX10_2.z
-  SHX16_2 = true
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX11_2 = SetEntityVelocity
-  SHX12_2 = SHX0_2.vehicle
-  SHX13_2 = SHX9_2.x
-  SHX14_2 = SHX9_2.y
-  SHX15_2 = SHX9_2.z
-  SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX11_2 = SHX0_2.flyInCamera
-  if 0 ~= SHX11_2 then
-    SHX11_2 = SHX0_2.easingFlyInCamera
-    if not SHX11_2 then
-      SHX11_2 = SHX0_2.flyInEndTime
-      if SHX11_2 then
-        SHX11_2 = SHX0_2.flyInEndTime
-        SHX12_2 = GetNetworkTime
-        SHX12_2 = SHX12_2()
-        SHX11_2 = SHX11_2 - SHX12_2
-        if SHX11_2 then
-          goto SHX_LABEL_123
+  arg6 = GetFrameTime
+  arg6 = arg6()
+  arg7 = GetEntityMatrix
+  arg8 = arg1.vehicle
+  arg7, arg8 = arg7(arg8)
+  coords = GetEntityCoords
+  flag17 = arg1.vehicle
+  flag = true
+  -- Beginner: result below is entityCoords.
+  coords = coords(flag17, flag)
+  flag17 = arg7 * 50.0
+  flag = flag17 * arg6
+  flag = coords + flag
+  workValue3 = SetEntityCoordsNoOffset
+  networkTime = arg1.vehicle
+  flag2 = flag.x
+  flag3 = flag.y
+  workValue8 = flag.z
+  flag4 = true
+  flag5 = false
+  flag6 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  workValue3(networkTime, flag2, flag3, workValue8, flag4, flag5, flag6)
+  workValue3 = SetEntityVelocity
+  networkTime = arg1.vehicle
+  flag2 = flag17.x
+  flag3 = flag17.y
+  workValue8 = flag17.z
+  workValue3(networkTime, flag2, flag3, workValue8)
+  workValue3 = arg1.flyInCamera
+  if 0 ~= workValue3 then
+    workValue3 = arg1.easingFlyInCamera
+    if not workValue3 then
+      workValue3 = arg1.flyInEndTime
+      if workValue3 then
+        workValue3 = arg1.flyInEndTime
+        networkTime = GetNetworkTime
+        -- Beginner: result below is networkTime.
+        networkTime = networkTime()
+        workValue3 = workValue3 - networkTime
+        if workValue3 then
+          goto flow_label_123
         end
       end
-      SHX11_2 = 0
-      -- [FIX IF ERROR] Move ::SHX_LABEL_123:: outside nested blocks until all 'goto SHX_LABEL_123' can see it
-      ::SHX_LABEL_123::
-      if SHX11_2 < 0 then
-        SHX11_2 = 0
+      workValue3 = 0
+      ::flow_label_123::
+      if workValue3 < 0 then
+        workValue3 = 0
       end
-      SHX12_2 = RenderScriptCams
-      SHX13_2 = false
-      SHX14_2 = true
-      SHX15_2 = SHX11_2
-      SHX16_2 = false
-      SHX17_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX0_2.easingFlyInCamera = true
+      networkTime = RenderScriptCams
+      flag2 = false
+      flag3 = true
+      workValue8 = workValue3
+      flag4 = false
+      flag5 = false
+      networkTime(flag2, flag3, workValue8, flag4, flag5)
+      arg1.easingFlyInCamera = true
     end
     return
   end
-  SHX11_2 = CreateCam
-  SHX12_2 = "DEFAULT_SCRIPTED_CAMERA"
-  SHX13_2 = true
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX0_2.flyInCamera = SHX11_2
-  SHX11_2 = SHX0_2.spawnPosition
-  SHX11_2 = SHX11_2.xyz
-  SHX12_2 = SHX6_2 * -30.0
-  SHX11_2 = SHX11_2 + SHX12_2
-  SHX12_2 = SHX7_2 * 20.0
-  SHX11_2 = SHX11_2 + SHX12_2
-  SHX12_2 = vector3
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 10.0
-  SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-  SHX11_2 = SHX11_2 + SHX12_2
-  SHX12_2 = SetCamCoord
-  SHX13_2 = SHX0_2.flyInCamera
-  SHX14_2 = SHX11_2.x
-  SHX15_2 = SHX11_2.y
-  SHX16_2 = SHX11_2.z
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX12_2 = PointCamAtEntity
-  SHX13_2 = SHX0_2.flyInCamera
-  SHX14_2 = SHX0_2.vehicle
-  SHX15_2 = 0.0
-  SHX16_2 = 0.0
-  SHX17_2 = 0.0
-  SHX18_2 = false
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX12_2 = SetCamActive
-  SHX13_2 = SHX0_2.flyInCamera
-  SHX14_2 = true
-  SHX12_2(SHX13_2, SHX14_2)
-  SHX12_2 = RenderScriptCams
-  SHX13_2 = true
-  SHX14_2 = false
-  SHX15_2 = 0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
+  workValue3 = CreateCam
+  networkTime = "DEFAULT_SCRIPTED_CAMERA"
+  flag2 = true
+  -- Beginner: result below is cameraHandle.
+  workValue3 = workValue3(networkTime, flag2)
+  arg1.flyInCamera = workValue3
+  workValue3 = arg1.spawnPosition
+  workValue3 = workValue3.xyz
+  networkTime = arg7 * -30.0
+  workValue3 = workValue3 + networkTime
+  networkTime = arg8 * 20.0
+  workValue3 = workValue3 + networkTime
+  networkTime = vector3
+  flag2 = 0.0
+  flag3 = 0.0
+  workValue8 = 10.0
+  networkTime = networkTime(flag2, flag3, workValue8)
+  workValue3 = workValue3 + networkTime
+  networkTime = SetCamCoord
+  flag2 = arg1.flyInCamera
+  flag3 = workValue3.x
+  workValue8 = workValue3.y
+  flag4 = workValue3.z
+  networkTime(flag2, flag3, workValue8, flag4)
+  networkTime = PointCamAtEntity
+  flag2 = arg1.flyInCamera
+  flag3 = arg1.vehicle
+  workValue8 = 0.0
+  flag4 = 0.0
+  flag5 = 0.0
+  flag6 = false
+  networkTime(flag2, flag3, workValue8, flag4, flag5, flag6)
+  networkTime = SetCamActive
+  flag2 = arg1.flyInCamera
+  flag3 = true
+  networkTime(flag2, flag3)
+  networkTime = RenderScriptCams
+  flag2 = true
+  flag3 = false
+  workValue8 = 0
+  flag4 = false
+  flag5 = false
+  networkTime(flag2, flag3, workValue8, flag4, flag5)
 end
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getClientEventData
-  SHX2_2 = "DogFightingClientData"
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX0_2.timers
-  SHX2_2 = SHX2_2.push
-  SHX3_2 = "~y~PLAYERS"
-  SHX4_2 = tostring
-  SHX5_2 = SHX1_2.players
-  SHX5_2 = #SHX5_2
-  SHX4_2, SHX5_2, SHX6_2 = SHX4_2(SHX5_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getEventLocalPlayer
-  SHX2_2 = SHX2_2()
-  if not SHX2_2 then
+function workValue6(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = CMG
+  arg2 = arg2.getClientEventData
+  arg3 = "DogFightingClientData"
+  arg2 = arg2(arg3)
+  arg3 = arg1.timers
+  arg3 = arg3.push
+  arg4 = "~y~PLAYERS"
+  arg5 = tostring
+  arg6 = arg2.players
+  arg6 = #arg6
+  arg5, arg6, arg7 = arg5(arg6)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = CMG
+  arg3 = arg3.getEventLocalPlayer
+  arg3 = arg3()
+  if not arg3 then
     return
   end
-  SHX3_2 = SHX0_2.timers
-  SHX3_2 = SHX3_2.push
-  SHX4_2 = "~r~LIVES"
-  SHX5_2 = tostring
-  SHX6_2 = SHX2_2.data
-  SHX6_2 = SHX6_2.numLives
-  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SHX0_2.timers
-  SHX3_2 = SHX3_2.push
-  SHX4_2 = "~g~KILLS"
-  SHX5_2 = tostring
-  SHX6_2 = SHX2_2.data
-  SHX6_2 = SHX6_2.numKills
-  SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  arg4 = arg1.timers
+  arg4 = arg4.push
+  arg5 = "~r~LIVES"
+  arg6 = tostring
+  arg7 = arg3.data
+  arg7 = arg7.numLives
+  arg6, arg7 = arg6(arg7)
+  arg4(arg5, arg6, arg7)
+  arg4 = arg1.timers
+  arg4 = arg4.push
+  arg5 = "~g~KILLS"
+  arg6 = tostring
+  arg7 = arg3.data
+  arg7 = arg7.numKills
+  arg6, arg7 = arg6(arg7)
+  arg4(arg5, arg6, arg7)
 end
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = IsPlayerControlOn
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX0_2.isRequestVehicle
-  if SHX2_2 == SHX3_2 then
-    SHX2_2 = SetPlayerControl
-    SHX3_2 = SHX1_2
-    SHX4_2 = SHX0_2.isRequestVehicle
-    SHX4_2 = not SHX4_2
-    SHX5_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = DisableAllControlActions
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+function workValue7(arg1)
+  local arg2, arg3, arg4, arg5, arg6
+  arg2 = PlayerId
+  -- Beginner: result below is localPlayerIndex.
+  arg2 = arg2()
+  arg3 = IsPlayerControlOn
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  arg4 = arg1.isRequestVehicle
+  if arg3 == arg4 then
+    arg3 = SetPlayerControl
+    arg4 = arg2
+    arg5 = arg1.isRequestVehicle
+    arg5 = not arg5
+    arg6 = 0
+    arg3(arg4, arg5, arg6)
+    arg3 = DisableAllControlActions
+    arg4 = 0
+    arg3(arg4)
   end
 end
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = IsEntityPositionFrozen
-  SHX2_2 = SHX0_2.vehicle
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = FreezeEntityPosition
-    SHX2_2 = SHX0_2.vehicle
-    SHX3_2 = false
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = GetEntityForwardVector
-    SHX2_2 = SHX0_2.vehicle
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = SHX1_2 * 50.0
-    SHX2_2 = SetEntityVelocity
-    SHX3_2 = SHX0_2.vehicle
-    SHX4_2 = SHX1_2.x
-    SHX5_2 = SHX1_2.y
-    SHX6_2 = SHX1_2.z
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+function workValue9(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = IsEntityPositionFrozen
+  arg3 = arg1.vehicle
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = FreezeEntityPosition
+    arg3 = arg1.vehicle
+    arg4 = false
+    -- Beginner: Freeze or unfreeze an entity in place.
+    arg2(arg3, arg4)
+    arg2 = GetEntityForwardVector
+    arg3 = arg1.vehicle
+    arg2 = arg2(arg3)
+    arg2 = arg2 * 50.0
+    arg3 = SetEntityVelocity
+    arg4 = arg1.vehicle
+    arg5 = arg2.x
+    arg6 = arg2.y
+    arg7 = arg2.z
+    arg3(arg4, arg5, arg6, arg7)
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerVehicle
-  SHX1_2 = SHX1_2()
-  if 0 == SHX1_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX0_2.vehicle
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      SHX2_2 = GetVehicleEngineHealth
-      SHX3_2 = SHX0_2.vehicle
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 > 0 then
-        SHX2_2 = SetPedIntoVehicle
-        SHX3_2 = PlayerPedId
-        SHX3_2 = SHX3_2()
-        SHX4_2 = SHX0_2.vehicle
-        SHX5_2 = -1
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  arg2 = CMG
+  arg2 = arg2.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg2 = arg2()
+  if 0 == arg2 then
+    arg3 = DoesEntityExist
+    arg4 = arg1.vehicle
+    arg3 = arg3(arg4)
+    if arg3 then
+      arg3 = GetVehicleEngineHealth
+      arg4 = arg1.vehicle
+      arg3 = arg3(arg4)
+      if arg3 > 0 then
+        arg3 = SetPedIntoVehicle
+        arg4 = PlayerPedId
+        -- Beginner: result below is localPlayerPed.
+        arg4 = arg4()
+        arg5 = arg1.vehicle
+        arg6 = -1
+        arg3(arg4, arg5, arg6)
       else
       end
     end
   end
 end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX0_2.allowGuns
-  if not SHX2_2 then
-    SHX2_2 = pairs
-    SHX3_2 = SHX0_1.gunHashes
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-    for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-      SHX8_2 = DisableVehicleWeapon
-      SHX9_2 = true
-      SHX10_2 = SHX7_2
-      SHX11_2 = SHX0_2.vehicle
-      SHX12_2 = SHX1_2
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+function workValue10(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = arg1.allowGuns
+  if not arg3 then
+    arg3 = pairs
+    arg4 = cmgCall.gunHashes
+    arg3, arg4, arg5, arg6 = arg3(arg4)
+    for arg7, arg8 in arg3, arg4, arg5, arg6 do
+      coords = DisableVehicleWeapon
+      flag17 = true
+      flag = arg8
+      workValue3 = arg1.vehicle
+      networkTime = arg2
+      coords(flag17, flag, workValue3, networkTime)
     end
   end
-  SHX2_2 = SHX0_2.allowRockets
-  if not SHX2_2 then
-    SHX2_2 = pairs
-    SHX3_2 = SHX0_1.missileHashes
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-    for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-      SHX8_2 = DisableVehicleWeapon
-      SHX9_2 = true
-      SHX10_2 = SHX7_2
-      SHX11_2 = SHX0_2.vehicle
-      SHX12_2 = SHX1_2
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+  arg3 = arg1.allowRockets
+  if not arg3 then
+    arg3 = pairs
+    arg4 = cmgCall.missileHashes
+    arg3, arg4, arg5, arg6 = arg3(arg4)
+    for arg7, arg8 in arg3, arg4, arg5, arg6 do
+      coords = DisableVehicleWeapon
+      flag17 = true
+      flag = arg8
+      workValue3 = arg1.vehicle
+      networkTime = arg2
+      coords(flag17, flag, workValue3, networkTime)
     end
   end
 end
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SetEntityInvincible
-  SHX3_2 = SHX1_2
-  SHX4_2 = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetEntityVisible
-  SHX3_2 = SHX1_2
-  SHX4_2 = not SHX0_2
-  SHX5_2 = not SHX0_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = SetEntityProofs
-  SHX3_2 = SHX1_2
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX0_2
-  SHX9_2 = SHX0_2
-  SHX10_2 = SHX0_2
-  SHX11_2 = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX2_2 = FreezeEntityPosition
-  SHX3_2 = SHX1_2
-  SHX4_2 = not SHX0_2
-  SHX2_2(SHX3_2, SHX4_2)
+function workValue11(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = SetEntityInvincible
+  arg4 = arg2
+  arg5 = arg1
+  arg3(arg4, arg5)
+  arg3 = SetEntityVisible
+  arg4 = arg2
+  arg5 = not arg1
+  arg6 = not arg1
+  arg3(arg4, arg5, arg6)
+  arg3 = SetEntityProofs
+  arg4 = arg2
+  arg5 = arg1
+  arg6 = arg1
+  arg7 = arg1
+  arg8 = arg1
+  coords = arg1
+  flag17 = arg1
+  flag = arg1
+  workValue3 = arg1
+  arg3(arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3)
+  arg3 = FreezeEntityPosition
+  arg4 = arg2
+  arg5 = not arg1
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg3(arg4, arg5)
 end
-function SHX19_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX18_1
-  SHX2_2 = SHX0_2.hasRespawned
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX0_2.hasRespawned
-  if not SHX1_2 then
-    SHX1_2 = SHX5_1
-    SHX1_2()
+function workValue12(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg2 = workValue11
+  arg3 = arg1.hasRespawned
+  arg2(arg3)
+  arg2 = arg1.hasRespawned
+  if not arg2 then
+    arg2 = workValue48
+    arg2()
     return
   end
-  SHX1_2 = IsScreenFadedOut
-  SHX1_2 = SHX1_2()
-  if SHX1_2 then
-    SHX1_2 = IsScreenFadingOut
-    SHX1_2 = SHX1_2()
-    if SHX1_2 then
-      goto SHX_LABEL_21
+  arg2 = IsScreenFadedOut
+  arg2 = arg2()
+  if arg2 then
+    arg2 = IsScreenFadingOut
+    arg2 = arg2()
+    if arg2 then
+      goto flow_label_21
     end
   end
-  SHX1_2 = DoScreenFadeOut
-  SHX2_2 = 500
-  SHX1_2(SHX2_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_21:: outside nested blocks until all 'goto SHX_LABEL_21' can see it
-  ::SHX_LABEL_21::
-  SHX1_2 = SHX0_2.wantsNewVehicle
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.isRequestVehicle
-    if not SHX1_2 then
-      SHX1_2 = IsScreenFadedOut
-      SHX1_2 = SHX1_2()
-      if not SHX1_2 then
-        SHX1_2 = DoScreenFadeOut
-        SHX2_2 = 0
-        SHX1_2(SHX2_2)
+  arg2 = DoScreenFadeOut
+  arg3 = 500
+  arg2(arg3)
+  ::flow_label_21::
+  arg2 = arg1.wantsNewVehicle
+  if arg2 then
+    arg2 = arg1.isRequestVehicle
+    if not arg2 then
+      arg2 = IsScreenFadedOut
+      arg2 = arg2()
+      if not arg2 then
+        arg2 = DoScreenFadeOut
+        arg3 = 0
+        arg2(arg3)
       end
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.getEventKillCamera
-      SHX1_2 = SHX1_2()
-      if SHX1_2 then
-        SHX2_2 = RenderScriptCams
-        SHX3_2 = false
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = false
-        SHX7_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        SHX2_2 = SetCamActive
-        SHX3_2 = SHX1_2
-        SHX4_2 = false
-        SHX2_2(SHX3_2, SHX4_2)
-        SHX2_2 = DestroyCam
-        SHX3_2 = SHX1_2
-        SHX4_2 = false
-        SHX2_2(SHX3_2, SHX4_2)
+      arg2 = CMG
+      arg2 = arg2.getEventKillCamera
+      arg2 = arg2()
+      if arg2 then
+        arg3 = RenderScriptCams
+        arg4 = false
+        arg5 = false
+        arg6 = 0
+        arg7 = false
+        arg8 = false
+        arg3(arg4, arg5, arg6, arg7, arg8)
+        arg3 = SetCamActive
+        arg4 = arg2
+        arg5 = false
+        arg3(arg4, arg5)
+        arg3 = DestroyCam
+        arg4 = arg2
+        arg5 = false
+        arg3(arg4, arg5)
       end
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.CreateThreadNow
-      function SHX3_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3
-        SHX0_3 = SHX11_1
-        SHX1_3 = SHX0_2
-        SHX0_3(SHX1_3)
-        SHX0_2.hasRespawned = false
-        SHX0_2.wantsNewVehicle = false
+      arg3 = Citizen
+      arg3 = arg3.CreateThreadNow
+      function arg4()
+        local arg12, arg22
+        arg12 = workValue2
+        arg22 = arg1
+        arg12(arg22)
+        arg1.hasRespawned = false
+        arg1.wantsNewVehicle = false
       end
-      SHX2_2(SHX3_2)
-      SHX0_2.isRequestVehicle = true
+      arg3(arg4)
+      arg1.isRequestVehicle = true
     end
   end
 end
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_2.vehicle
-  if 0 ~= SHX1_2 then
-    SHX1_2 = DoesEntityExist
-    SHX2_2 = SHX0_2.vehicle
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = DeleteEntity
-      SHX2_2 = SHX0_2.vehicle
-      SHX1_2(SHX2_2)
+function workValue13(arg1)
+  local arg2, arg3
+  arg2 = arg1.vehicle
+  if 0 ~= arg2 then
+    arg2 = DoesEntityExist
+    arg3 = arg1.vehicle
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = DeleteEntity
+      arg3 = arg1.vehicle
+      -- Beginner: Delete a GTA entity.
+      arg2(arg3)
     end
   end
 end
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 49
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 75
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+function workValue14()
+  local arg1, arg2, arg3, arg4
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 49
+  arg4 = true
+  arg1(arg2, arg3, arg4)
+  arg1 = DisableControlAction
+  arg2 = 0
+  arg3 = 75
+  arg4 = true
+  arg1(arg2, arg3, arg4)
 end
-function SHX22_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientEventData
-  SHX1_2 = "DogFightingClientData"
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.players
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.blip
-    if SHX7_2 then
-      SHX7_2 = GetPlayerFromServerId
-      SHX8_2 = SHX6_2.source
-      SHX7_2 = SHX7_2(SHX8_2)
-      if SHX7_2 >= 0 then
-        SHX8_2 = GetPlayerPed
-        SHX9_2 = SHX7_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        if 0 ~= SHX8_2 then
-          SHX9_2 = SetBlipSprite
-          SHX10_2 = SHX6_2.blip
-          SHX11_2 = 16
-          SHX9_2(SHX10_2, SHX11_2)
-          SHX9_2 = SetBlipRotation
-          SHX10_2 = SHX6_2.blip
-          SHX11_2 = math
-          SHX11_2 = SHX11_2.ceil
-          SHX12_2 = GetEntityHeading
-          SHX13_2 = SHX8_2
-          SHX12_2, SHX13_2 = SHX12_2(SHX13_2)
-          SHX11_2, SHX12_2, SHX13_2 = SHX11_2(SHX12_2, SHX13_2)
-          SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-          SHX9_2 = SHX9_1
-          SHX10_2 = SHX6_2.data
-          SHX10_2 = SHX10_2.teamName
-          SHX9_2 = SHX9_2(SHX10_2)
-          if SHX9_2 then
-            SHX10_2 = SetBlipColour
-            SHX11_2 = SHX6_2.blip
-            SHX12_2 = SHX9_2.blipColour
-            SHX10_2(SHX11_2, SHX12_2)
+function workValue15()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime, flag2
+  arg1 = CMG
+  arg1 = arg1.getClientEventData
+  arg2 = "DogFightingClientData"
+  arg1 = arg1(arg2)
+  arg2 = pairs
+  arg3 = arg1.players
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    arg8 = arg7.blip
+    if arg8 then
+      arg8 = GetPlayerFromServerId
+      coords = arg7.source
+      -- Beginner: result below is playerIndex.
+      arg8 = arg8(coords)
+      if arg8 >= 0 then
+        coords = GetPlayerPed
+        flag17 = arg8
+        -- Beginner: result below is playerPed.
+        coords = coords(flag17)
+        if 0 ~= coords then
+          flag17 = SetBlipSprite
+          flag = arg7.blip
+          workValue3 = 16
+          flag17(flag, workValue3)
+          flag17 = SetBlipRotation
+          flag = arg7.blip
+          workValue3 = math
+          workValue3 = workValue3.ceil
+          networkTime = GetEntityHeading
+          flag2 = coords
+          networkTime, flag2 = networkTime(flag2)
+          workValue3, networkTime, flag2 = workValue3(networkTime, flag2)
+          flag17(flag, workValue3, networkTime, flag2)
+          flag17 = workValue52
+          flag = arg7.data
+          flag = flag.teamName
+          flag17 = flag17(flag)
+          if flag17 then
+            flag = SetBlipColour
+            workValue3 = arg7.blip
+            networkTime = flag17.blipColour
+            flag(workValue3, networkTime)
           end
         end
       end
     end
   end
 end
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getEventLocalPlayer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX0_1.defaultRelationshipHash
-  if SHX0_2 then
-    SHX2_2 = SHX0_2.data
-    SHX2_2 = SHX2_2.teamName
-    if SHX2_2 then
-      SHX2_2 = SHX9_1
-      SHX3_2 = SHX0_2.data
-      SHX3_2 = SHX3_2.teamName
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 then
-        SHX1_2 = SHX2_2.relationshipHash
+function workValue16()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
+  arg1 = CMG
+  arg1 = arg1.getEventLocalPlayer
+  arg1 = arg1()
+  arg2 = cmgCall.defaultRelationshipHash
+  if arg1 then
+    arg3 = arg1.data
+    arg3 = arg3.teamName
+    if arg3 then
+      arg3 = workValue52
+      arg4 = arg1.data
+      arg4 = arg4.teamName
+      arg3 = arg3(arg4)
+      if arg3 then
+        arg2 = arg3.relationshipHash
       end
     end
   end
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SetPedRelationshipGroupHash
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetPedConfigFlag
-  SHX4_2 = SHX2_2
-  SHX5_2 = 44
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetPedConfigFlag
-  SHX4_2 = SHX2_2
-  SHX5_2 = 45
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = SetPedRelationshipGroupHash
+  arg5 = arg3
+  arg6 = arg2
+  arg4(arg5, arg6)
+  arg4 = SetPedConfigFlag
+  arg5 = arg3
+  arg6 = 44
+  arg7 = true
+  arg4(arg5, arg6, arg7)
+  arg4 = SetPedConfigFlag
+  arg5 = arg3
+  arg6 = 45
+  arg7 = false
+  arg4(arg5, arg6, arg7)
 end
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2
-  SHX1_2 = SHX0_1.locations
-  SHX2_2 = SHX0_2.mapName
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerVehicle
-  SHX2_2 = SHX2_2()
-  if 0 == SHX2_2 then
+function workValue17(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11, numberValue3, flag12, workValue22, workValue24, flag13
+  arg2 = cmgCall.locations
+  arg3 = arg1.mapName
+  arg2 = arg2[arg3]
+  arg3 = CMG
+  arg3 = arg3.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg3 = arg3()
+  if 0 == arg3 then
     return
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  SHX4_2 = SHX1_2.centerPosition
-  SHX3_2 = SHX3_2 - SHX4_2
-  SHX3_2 = #SHX3_2
-  SHX4_2 = SHX1_2.initialRadius
-  SHX4_2 = SHX4_2 - SHX3_2
-  SHX5_2 = SHX1_2.initialRadius
-  SHX5_2 = SHX5_2 * 0.15
-  if SHX4_2 >= SHX5_2 then
+  arg4 = CMG
+  arg4 = arg4.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg4 = arg4()
+  arg5 = arg2.centerPosition
+  arg4 = arg4 - arg5
+  arg4 = #arg4
+  arg5 = arg2.initialRadius
+  arg5 = arg5 - arg4
+  arg6 = arg2.initialRadius
+  arg6 = arg6 * 0.15
+  if arg5 >= arg6 then
     return
   end
-  SHX6_2 = DrawMarker
-  SHX7_2 = 1
-  SHX8_2 = SHX1_2.centerPosition
-  SHX8_2 = SHX8_2.x
-  SHX9_2 = SHX1_2.centerPosition
-  SHX9_2 = SHX9_2.y
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 0.0
-  SHX16_2 = 0.0
-  SHX17_2 = SHX1_2.initialRadius
-  SHX17_2 = SHX17_2 * 2.0
-  SHX18_2 = SHX1_2.initialRadius
-  SHX18_2 = SHX18_2 * 2.0
-  SHX19_2 = SHX1_2.initialRadius
-  SHX19_2 = SHX19_2 * 2.0
-  SHX20_2 = 255
-  SHX21_2 = 0
-  SHX22_2 = 0
-  SHX23_2 = 75
-  SHX24_2 = false
-  SHX25_2 = false
-  SHX26_2 = 2
-  SHX27_2 = false
-  SHX28_2 = nil
-  SHX29_2 = nil
-  SHX30_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
+  arg7 = DrawMarker
+  arg8 = 1
+  coords = arg2.centerPosition
+  coords = coords.x
+  flag17 = arg2.centerPosition
+  flag17 = flag17.y
+  flag = 0.0
+  workValue3 = 0.0
+  networkTime = 0.0
+  flag2 = 0.0
+  flag3 = 0.0
+  workValue8 = 0.0
+  flag4 = 0.0
+  flag5 = arg2.initialRadius
+  flag5 = flag5 * 2.0
+  flag6 = arg2.initialRadius
+  flag6 = flag6 * 2.0
+  flag7 = arg2.initialRadius
+  flag7 = flag7 * 2.0
+  flag8 = 255
+  numberValue = 0
+  flag9 = 0
+  numberValue2 = 75
+  flag10 = false
+  flag11 = false
+  numberValue3 = 2
+  flag12 = false
+  workValue22 = nil
+  workValue24 = nil
+  flag13 = false
+  arg7(arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11, numberValue3, flag12, workValue22, workValue24, flag13)
 end
-function SHX25_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hideAllDisplays
-  SHX2_2 = "dogfighting"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.showDisplay
-  SHX2_2 = "radar"
-  SHX3_2 = "dogfighting"
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.showDisplay
-  SHX2_2 = "compass"
-  SHX3_2 = "dogfighting"
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setPlayerCanOpenLeaderboard
-  SHX2_2 = true
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getEventLocalPlayer
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX14_1
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SHX15_1
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SHX16_1
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SHX17_1
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.active
-    if SHX2_2 then
-      SHX2_2 = SHX19_1
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
+function workValue18(arg1)
+  local arg2, arg3, arg4
+  arg2 = CMG
+  arg2 = arg2.hideAllDisplays
+  arg3 = "dogfighting"
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.showDisplay
+  arg3 = "radar"
+  arg4 = "dogfighting"
+  arg2(arg3, arg4)
+  arg2 = CMG
+  arg2 = arg2.showDisplay
+  arg3 = "compass"
+  arg4 = "dogfighting"
+  arg2(arg3, arg4)
+  arg2 = CMG
+  arg2 = arg2.setPlayerCanOpenLeaderboard
+  arg3 = true
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.getEventLocalPlayer
+  arg2 = arg2()
+  arg3 = workValue6
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = workValue7
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = workValue9
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = workValue10
+  arg4 = arg1
+  arg3(arg4)
+  if arg2 then
+    arg3 = arg2.active
+    if arg3 then
+      arg3 = workValue12
+      arg4 = arg1
+      arg3(arg4)
   end
   else
-    SHX2_2 = SHX20_1
-    SHX3_2 = SHX0_2
-    SHX2_2(SHX3_2)
+    arg3 = workValue13
+    arg4 = arg1
+    arg3(arg4)
   end
-  SHX2_2 = SHX22_1
-  SHX2_2()
-  SHX2_2 = SHX21_1
-  SHX2_2()
-  SHX2_2 = SHX23_1
-  SHX2_2()
-  SHX2_2 = SHX24_1
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
+  arg3 = workValue15
+  arg3()
+  arg3 = workValue14
+  arg3()
+  arg3 = workValue16
+  arg3()
+  arg3 = workValue17
+  arg4 = arg1
+  arg3(arg4)
 end
-function SHX26_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SetLocalPlayerAsGhost
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetNetworkVehicleAsGhost
-  SHX3_2 = SHX0_2.vehicle
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
+function workValue19(arg1, arg2)
+  local arg3, arg4, arg5
+  arg3 = SetLocalPlayerAsGhost
+  arg4 = arg2
+  arg3(arg4)
+  arg3 = SetNetworkVehicleAsGhost
+  arg4 = arg1.vehicle
+  arg5 = arg2
+  arg3(arg4, arg5)
 end
-function SHX27_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX0_2.spawnProtectEndTime
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.spawnProtectEndTime
-    SHX2_2 = GetNetworkTime
-    SHX2_2 = SHX2_2()
-    SHX1_2 = SHX1_2 - SHX2_2
-    if SHX1_2 >= 0 then
-      SHX2_2 = SHX0_2.timers
-      SHX2_2 = SHX2_2.push
-      SHX3_2 = "~q~PROTECTION"
-      SHX4_2 = tostring
-      SHX5_2 = math
-      SHX5_2 = SHX5_2.rounddp
-      SHX6_2 = SHX1_2 / 1000.0
-      SHX7_2 = 1
-      SHX5_2, SHX6_2, SHX7_2 = SHX5_2(SHX6_2, SHX7_2)
-      SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      SHX2_2 = true
-      return SHX2_2
+function workValue20(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg2 = arg1.spawnProtectEndTime
+  if arg2 then
+    arg2 = arg1.spawnProtectEndTime
+    arg3 = GetNetworkTime
+    -- Beginner: result below is networkTime.
+    arg3 = arg3()
+    arg2 = arg2 - arg3
+    if arg2 >= 0 then
+      arg3 = arg1.timers
+      arg3 = arg3.push
+      arg4 = "~q~PROTECTION"
+      arg5 = tostring
+      arg6 = math
+      arg6 = arg6.rounddp
+      arg7 = arg2 / 1000.0
+      arg8 = 1
+      arg6, arg7, arg8 = arg6(arg7, arg8)
+      arg5, arg6, arg7, arg8 = arg5(arg6, arg7, arg8)
+      arg3(arg4, arg5, arg6, arg7, arg8)
+      arg3 = true
+      return arg3
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-function SHX28_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = drawNativeNotification
-  SHX1_2 = [[
+function workValue21()
+  local arg1, arg2, arg3
+  arg1 = drawNativeNotification
+  arg2 = [[
 Press ~INPUT_VEH_FLY_ATTACK2~ to fire your weapon.
 Press ~INPUT_VEH_SELECT_NEXT_WEAPON~ to switch weapons.
 Press ~INPUT_VEH_ROOF~ to toggle stealth.
 Hold ~INPUT_VEH_FLY_UNDERCARRIAGE~ to toggle VTOL.]]
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
+  arg3 = true
+  -- Beginner: Show a GTA-style notification/help prompt.
+  arg1(arg2, arg3)
 end
-function SHX29_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX25_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX26_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX27_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX28_1
-  SHX1_2()
+function workValue23(arg1)
+  local arg2, arg3, arg4
+  arg2 = workValue18
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = workValue19
+  arg3 = arg1
+  arg4 = true
+  arg2(arg3, arg4)
+  arg2 = workValue20
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = workValue21
+  arg2()
 end
-function SHX30_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2
-  SHX1_2 = DrawMarker
-  SHX2_2 = 6
-  SHX3_2 = SHX0_2.x
-  SHX4_2 = SHX0_2.y
-  SHX5_2 = SHX0_2.z
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 20.0
-  SHX13_2 = 20.0
-  SHX14_2 = 20.0
-  SHX15_2 = 255
-  SHX16_2 = 255
-  SHX17_2 = 0
-  SHX18_2 = 180
-  SHX19_2 = false
-  SHX20_2 = true
-  SHX21_2 = 2
-  SHX22_2 = false
-  SHX23_2 = nil
-  SHX24_2 = nil
-  SHX25_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
+function workValue26(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11
+  arg2 = DrawMarker
+  arg3 = 6
+  arg4 = arg1.x
+  arg5 = arg1.y
+  arg6 = arg1.z
+  arg7 = 0.0
+  arg8 = 0.0
+  coords = 0.0
+  flag17 = 0.0
+  flag = 0.0
+  workValue3 = 0.0
+  networkTime = 20.0
+  flag2 = 20.0
+  flag3 = 20.0
+  workValue8 = 255
+  flag4 = 255
+  flag5 = 0
+  flag6 = 180
+  flag7 = false
+  flag8 = true
+  numberValue = 2
+  flag9 = false
+  numberValue2 = nil
+  flag10 = nil
+  flag11 = false
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11)
 end
-function SHX31_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = SHX0_1.locations
-  SHX2_2 = SHX0_2.mapName
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerCoords
-  SHX2_2 = SHX2_2()
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_2.activeCollectableIndicies
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX8_2 = SHX1_2.collectableSpawns
-    SHX8_2 = SHX8_2[SHX7_2]
-    SHX9_2 = SHX30_1
-    SHX10_2 = SHX8_2
-    SHX9_2(SHX10_2)
-    SHX9_2 = SHX2_2 - SHX8_2
-    SHX9_2 = #SHX9_2
-    if SHX9_2 < 20.0 then
-      SHX9_2 = TriggerServerEvent
-      SHX10_2 = "d6a062ef9a"
-      SHX11_2 = SHX7_2
-      SHX9_2(SHX10_2, SHX11_2)
+function workValue27(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3
+  arg2 = cmgCall.locations
+  arg3 = arg1.mapName
+  arg2 = arg2[arg3]
+  arg3 = CMG
+  arg3 = arg3.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg3 = arg3()
+  arg4 = pairs
+  arg5 = arg1.activeCollectableIndicies
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8 in arg4, arg5, arg6, arg7 do
+    coords = arg2.collectableSpawns
+    coords = coords[arg8]
+    flag17 = workValue26
+    flag = coords
+    flag17(flag)
+    flag17 = arg3 - coords
+    flag17 = #flag17
+    if flag17 < 20.0 then
+      flag17 = TriggerServerEvent
+      flag = "d6a062ef9a"
+      workValue3 = arg8
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d6a062ef9a".
+      flag17(flag, workValue3)
     end
   end
 end
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX25_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX26_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX27_1
-  SHX4_2 = SHX0_2
-  SHX3_2, SHX4_2 = SHX3_2(SHX4_2)
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SHX31_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX0_2.isFirstGame
-  if SHX1_2 then
-    SHX1_2 = SHX28_1
-    SHX1_2()
+function workValue28(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = workValue18
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = workValue19
+  arg3 = arg1
+  arg4 = workValue20
+  arg5 = arg1
+  arg4, arg5 = arg4(arg5)
+  arg2(arg3, arg4, arg5)
+  arg2 = workValue27
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = arg1.isFirstGame
+  if arg2 then
+    arg2 = workValue21
+    arg2()
   end
 end
-function SHX33_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  if not SHX0_2 then
+function workValue29()
+  local arg1, arg2
+  arg1 = textValue
+  if not arg1 then
     return
   end
-  SHX0_2 = SHX1_1.timers
-  SHX0_2 = SHX0_2.reset
-  SHX0_2()
-  SHX0_2 = SHX1_1.serverState
-  if "SETUP" == SHX0_2 then
-    SHX0_2 = SHX2_1
-    SHX1_2 = SHX1_1
-    SHX0_2(SHX1_2)
+  arg1 = textValue.timers
+  arg1 = arg1.reset
+  arg1()
+  arg1 = textValue.serverState
+  if "SETUP" == arg1 then
+    arg1 = workValue25
+    arg2 = textValue
+    arg1(arg2)
   else
-    SHX0_2 = SHX1_1.serverState
-    if "WAITING_FOR_PLAYERS" == SHX0_2 then
-      SHX0_2 = SHX7_1
-      SHX1_2 = SHX1_1
-      SHX0_2(SHX1_2)
+    arg1 = textValue.serverState
+    if "WAITING_FOR_PLAYERS" == arg1 then
+      arg1 = workValue50
+      arg2 = textValue
+      arg1(arg2)
     else
-      SHX0_2 = SHX1_1.serverState
-      if "ASSIGN_PLAYER_TEAMS" == SHX0_2 then
-        SHX0_2 = SHX8_1
-        SHX0_2()
+      arg1 = textValue.serverState
+      if "ASSIGN_PLAYER_TEAMS" == arg1 then
+        arg1 = workValue51
+        arg1()
       else
-        SHX0_2 = SHX1_1.serverState
-        if "CUSTOMISE_VEHICLE" == SHX0_2 then
-          SHX0_2 = SHX10_1
-          SHX1_2 = SHX1_1
-          SHX0_2(SHX1_2)
+        arg1 = textValue.serverState
+        if "CUSTOMISE_VEHICLE" == arg1 then
+          arg1 = workValue
+          arg2 = textValue
+          arg1(arg2)
         else
-          SHX0_2 = SHX1_1.serverState
-          if "FLY_IN_INTRO" == SHX0_2 then
-            SHX0_2 = SHX13_1
-            SHX1_2 = SHX1_1
-            SHX0_2(SHX1_2)
+          arg1 = textValue.serverState
+          if "FLY_IN_INTRO" == arg1 then
+            arg1 = workValue5
+            arg2 = textValue
+            arg1(arg2)
           else
-            SHX0_2 = SHX1_1.serverState
-            if "INITIAL_SPAWN_PROTECTION" == SHX0_2 then
-              SHX0_2 = SHX29_1
-              SHX1_2 = SHX1_1
-              SHX0_2(SHX1_2)
+            arg1 = textValue.serverState
+            if "INITIAL_SPAWN_PROTECTION" == arg1 then
+              arg1 = workValue23
+              arg2 = textValue
+              arg1(arg2)
             else
-              SHX0_2 = SHX1_1.serverState
-              if "MAIN_GAME_ZONE_STATIC" == SHX0_2 then
-                SHX0_2 = SHX32_1
-                SHX1_2 = SHX1_1
-                SHX0_2(SHX1_2)
+              arg1 = textValue.serverState
+              if "MAIN_GAME_ZONE_STATIC" == arg1 then
+                arg1 = workValue28
+                arg2 = textValue
+                arg1(arg2)
               end
             end
           end
@@ -1362,989 +1176,832 @@ function SHX33_1()
       end
     end
   end
-  SHX0_2 = SHX1_1.timers
-  SHX0_2 = SHX0_2.draw
-  SHX0_2()
+  arg1 = textValue.timers
+  arg1 = arg1.draw
+  arg1()
 end
-function SHX34_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = SHX1_1
-  if not SHX1_2 then
-    SHX1_2 = false
-    return SHX1_2
+function workValue30(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag
+  arg2 = textValue
+  if not arg2 then
+    arg2 = false
+    return arg2
   end
-  SHX1_2 = SHX1_1.enableEnemyBlips
-  if SHX1_2 then
-    SHX1_2 = true
-    return SHX1_2
+  arg2 = textValue.enableEnemyBlips
+  if arg2 then
+    arg2 = true
+    return arg2
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getEventLocalPlayer
-  SHX1_2 = SHX1_2()
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.data
-    SHX2_2 = SHX2_2.teamName
-    if SHX2_2 then
-      goto SHX_LABEL_22
+  arg2 = CMG
+  arg2 = arg2.getEventLocalPlayer
+  arg2 = arg2()
+  if arg2 then
+    arg3 = arg2.data
+    arg3 = arg3.teamName
+    if arg3 then
+      goto flow_label_22
     end
   end
-  SHX2_2 = false
-  return SHX2_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_22:: outside nested blocks until all 'goto SHX_LABEL_22' can see it
-  ::SHX_LABEL_22::
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "DogFightingClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.source
-    if SHX9_2 == SHX0_2 then
-      SHX9_2 = SHX8_2.data
-      SHX9_2 = SHX9_2.teamName
-      SHX10_2 = SHX1_2.data
-      SHX10_2 = SHX10_2.teamName
-      if SHX9_2 == SHX10_2 then
-        SHX9_2 = true
-        return SHX9_2
+  arg3 = false
+  return arg3
+  ::flow_label_22::
+  arg3 = CMG
+  arg3 = arg3.getClientEventData
+  arg4 = "DogFightingClientData"
+  arg3 = arg3(arg4)
+  arg4 = pairs
+  arg5 = arg3.players
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8, coords in arg4, arg5, arg6, arg7 do
+    flag17 = coords.source
+    if flag17 == arg1 then
+      flag17 = coords.data
+      flag17 = flag17.teamName
+      flag = arg2.data
+      flag = flag.teamName
+      if flag17 == flag then
+        flag17 = true
+        return flag17
       end
     end
   end
-  SHX3_2 = false
-  return SHX3_2
+  arg4 = false
+  return arg4
 end
-function SHX35_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getClientEventData
-  SHX2_2 = "DogFightingClientData"
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = pairs
-  SHX3_2 = SHX1_2.players
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX7_2.source
-    if SHX8_2 == SHX0_2 then
-      SHX8_2 = SHX7_2.data
-      SHX8_2 = SHX8_2.teamName
-      if SHX8_2 then
-        SHX8_2 = SHX9_1
-        SHX9_2 = SHX7_2.data
-        SHX9_2 = SHX9_2.teamName
-        SHX8_2 = SHX8_2(SHX9_2)
-        if SHX8_2 then
-          SHX9_2 = SHX8_2.tagColour
-          return SHX9_2
+function workValue32(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17
+  arg2 = CMG
+  arg2 = arg2.getClientEventData
+  arg3 = "DogFightingClientData"
+  arg2 = arg2(arg3)
+  arg3 = pairs
+  arg4 = arg2.players
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    coords = arg8.source
+    if coords == arg1 then
+      coords = arg8.data
+      coords = coords.teamName
+      if coords then
+        coords = workValue52
+        flag17 = arg8.data
+        flag17 = flag17.teamName
+        coords = coords(flag17)
+        if coords then
+          flag17 = coords.tagColour
+          return flag17
         end
       end
     end
   end
-  SHX2_2 = 0
-  return SHX2_2
+  arg3 = 0
+  return arg3
 end
-SHX36_1 = RegisterNetEvent
-SHX37_1 = "7b173da89d"
-function SHX38_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX8_2 = SHX0_1.locations
-  SHX8_2 = SHX8_2[SHX0_2]
-  SHX9_2 = SHX8_2.spawnPositions
-  SHX9_2 = SHX9_2[SHX2_2]
-  SHX10_2 = AddBlipForRadius
-  SHX11_2 = SHX8_2.centerPosition
-  SHX11_2 = SHX11_2.x
-  SHX12_2 = SHX8_2.centerPosition
-  SHX12_2 = SHX12_2.y
-  SHX13_2 = SHX8_2.centerPosition
-  SHX13_2 = SHX13_2.z
-  SHX14_2 = SHX8_2.initialRadius
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX11_2 = SetBlipColour
-  SHX12_2 = SHX10_2
-  SHX13_2 = 1
-  SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = SetBlipAlpha
-  SHX12_2 = SHX10_2
-  SHX13_2 = 75
-  SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = {}
-  SHX11_2.mapName = SHX0_2
-  SHX12_2 = GetHashKey
-  SHX13_2 = SHX1_2
-  SHX12_2 = SHX12_2(SHX13_2)
-  SHX11_2.selectedVehicleModelHash = SHX12_2
-  SHX11_2.hasSentLoadedEvent = false
-  SHX11_2.spawnPosition = SHX9_2
-  SHX11_2.serverState = "SETUP"
-  SHX11_2.vehicleName = SHX3_2
-  SHX11_2.hasSetupCustomisation = false
-  SHX11_2.selectedVehicleColour = 0
-  SHX11_2.vehicle = 0
-  SHX11_2.isRequestVehicle = false
-  SHX11_2.toggledRenderPhaseFrame = 0
-  SHX11_2.flyInCamera = 0
-  SHX11_2.easingFlyInCamera = false
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.createTimerBars
-  SHX12_2 = SHX12_2()
-  SHX11_2.timers = SHX12_2
-  SHX11_2.hasRespawned = false
-  SHX11_2.wantsNewVehicle = false
-  SHX11_2.enableEnemyBlips = SHX4_2
-  SHX11_2.allowGuns = SHX5_2
-  SHX11_2.allowRockets = SHX6_2
-  SHX12_2 = {}
-  SHX11_2.activeCollectableIndicies = SHX12_2
-  SHX12_2 = GetResourceKvpInt
-  SHX13_2 = "cmg_has_played_dogfighting"
-  SHX12_2 = SHX12_2(SHX13_2)
-  SHX12_2 = 1 ~= SHX12_2
-  SHX11_2.isFirstGame = SHX12_2
-  SHX11_2.areaBlip = SHX10_2
-  SHX1_1 = SHX11_2
-  SHX11_2 = CMG
-  SHX11_2 = SHX11_2.getClientEventData
-  SHX12_2 = "DogFightingClientData"
-  SHX11_2 = SHX11_2(SHX12_2)
-  SHX11_2.drawPlayersTimeBar = false
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.enableDriveBy
-  SHX13_2 = true
-  SHX12_2(SHX13_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.setEventsUsingNetworkResurrect
-  SHX13_2 = true
-  SHX12_2(SHX13_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.setIgnoreEventRespawns
-  SHX13_2 = true
-  SHX12_2(SHX13_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.enableMinigamePlayerBlips
-  SHX13_2 = true
-  SHX14_2 = nil
-  SHX15_2 = SHX34_1
-  SHX16_2 = true
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.enableMinigamePlayerTags
-  SHX13_2 = true
-  SHX14_2 = false
-  SHX15_2 = SHX35_1
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.setFriendlyFire
-  SHX13_2 = SHX7_2 <= 1
-  SHX12_2(SHX13_2)
-  SHX12_2 = NewLoadSceneStartSphere
-  SHX13_2 = SHX9_2.x
-  SHX14_2 = SHX9_2.y
-  SHX15_2 = SHX9_2.z
-  SHX16_2 = 100.0
-  SHX17_2 = 0
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.createThreadOnTick
-  SHX13_2 = SHX33_1
-  SHX14_2 = "Dog Fighting"
-  SHX12_2(SHX13_2, SHX14_2)
+eventRegistration = RegisterNetEvent
+textValue2 = "7b173da89d"
+-- Beginner: this function handles network event "7b173da89d".
+function cmgCall2(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+  local coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5
+  coords = cmgCall.locations
+  coords = coords[arg1]
+  flag17 = coords.spawnPositions
+  flag17 = flag17[arg3]
+  flag = AddBlipForRadius
+  workValue3 = coords.centerPosition
+  workValue3 = workValue3.x
+  networkTime = coords.centerPosition
+  networkTime = networkTime.y
+  flag2 = coords.centerPosition
+  flag2 = flag2.z
+  flag3 = coords.initialRadius
+  -- Beginner: result below is blipHandle.
+  flag = flag(workValue3, networkTime, flag2, flag3)
+  workValue3 = SetBlipColour
+  networkTime = flag
+  flag2 = 1
+  workValue3(networkTime, flag2)
+  workValue3 = SetBlipAlpha
+  networkTime = flag
+  flag2 = 75
+  workValue3(networkTime, flag2)
+  workValue3 = {}
+  workValue3.mapName = arg1
+  networkTime = GetHashKey
+  flag2 = arg2
+  -- Beginner: result below is hash.
+  networkTime = networkTime(flag2)
+  workValue3.selectedVehicleModelHash = networkTime
+  workValue3.hasSentLoadedEvent = false
+  workValue3.spawnPosition = flag17
+  workValue3.serverState = "SETUP"
+  workValue3.vehicleName = arg4
+  workValue3.hasSetupCustomisation = false
+  workValue3.selectedVehicleColour = 0
+  workValue3.vehicle = 0
+  workValue3.isRequestVehicle = false
+  workValue3.toggledRenderPhaseFrame = 0
+  workValue3.flyInCamera = 0
+  workValue3.easingFlyInCamera = false
+  networkTime = CMG
+  networkTime = networkTime.createTimerBars
+  -- Beginner: result below is timerBars.
+  networkTime = networkTime()
+  workValue3.timers = networkTime
+  workValue3.hasRespawned = false
+  workValue3.wantsNewVehicle = false
+  workValue3.enableEnemyBlips = arg5
+  workValue3.allowGuns = arg6
+  workValue3.allowRockets = arg7
+  networkTime = {}
+  workValue3.activeCollectableIndicies = networkTime
+  networkTime = GetResourceKvpInt
+  flag2 = "cmg_has_played_dogfighting"
+  networkTime = networkTime(flag2)
+  networkTime = 1 ~= networkTime
+  workValue3.isFirstGame = networkTime
+  workValue3.areaBlip = flag
+  textValue = workValue3
+  workValue3 = CMG
+  workValue3 = workValue3.getClientEventData
+  networkTime = "DogFightingClientData"
+  workValue3 = workValue3(networkTime)
+  workValue3.drawPlayersTimeBar = false
+  networkTime = CMG
+  networkTime = networkTime.enableDriveBy
+  flag2 = true
+  networkTime(flag2)
+  networkTime = CMG
+  networkTime = networkTime.setEventsUsingNetworkResurrect
+  flag2 = true
+  networkTime(flag2)
+  networkTime = CMG
+  networkTime = networkTime.setIgnoreEventRespawns
+  flag2 = true
+  networkTime(flag2)
+  networkTime = CMG
+  networkTime = networkTime.enableMinigamePlayerBlips
+  flag2 = true
+  flag3 = nil
+  workValue8 = workValue30
+  flag4 = true
+  networkTime(flag2, flag3, workValue8, flag4)
+  networkTime = CMG
+  networkTime = networkTime.enableMinigamePlayerTags
+  flag2 = true
+  flag3 = false
+  workValue8 = workValue32
+  networkTime(flag2, flag3, workValue8)
+  networkTime = CMG
+  networkTime = networkTime.setFriendlyFire
+  flag2 = arg8 <= 1
+  networkTime(flag2)
+  networkTime = NewLoadSceneStartSphere
+  flag2 = flag17.x
+  flag3 = flag17.y
+  workValue8 = flag17.z
+  flag4 = 100.0
+  flag5 = 0
+  networkTime(flag2, flag3, workValue8, flag4, flag5)
+  networkTime = CMG
+  networkTime = networkTime.createThreadOnTick
+  flag2 = workValue29
+  flag3 = "Dog Fighting"
+  -- Beginner: Run a helper every game frame while this script is active.
+  networkTime(flag2, flag3)
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = RegisterNetEvent
-SHX37_1 = "5dbce82101"
-function SHX38_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isDevMode
-    SHX1_2 = SHX1_2()
-    if SHX1_2 then
-      SHX1_2 = print
-      SHX2_2 = string
-      SHX2_2 = SHX2_2.format
-      SHX3_2 = "[Dog Fighting] Server state updated to %s"
-      SHX4_2 = SHX0_2
-      SHX2_2, SHX3_2, SHX4_2 = SHX2_2(SHX3_2, SHX4_2)
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7b173da89d".
+eventRegistration(textValue2, cmgCall2)
+eventRegistration = RegisterNetEvent
+textValue2 = "5dbce82101"
+-- Beginner: this function handles network event "5dbce82101".
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = textValue
+  if arg2 then
+    arg2 = CMG
+    arg2 = arg2.isDevMode
+    arg2 = arg2()
+    if arg2 then
+      arg2 = print
+      arg3 = string
+      arg3 = arg3.format
+      arg4 = "[Dog Fighting] Server state updated to %s"
+      arg5 = arg1
+      arg3, arg4, arg5 = arg3(arg4, arg5)
+      arg2(arg3, arg4, arg5)
     end
-    SHX1_1.serverState = SHX0_2
+    textValue.serverState = arg1
   end
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = RegisterNetEvent
-SHX37_1 = "a66ea189a9"
-function SHX38_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
-    SHX1_1.flyInEndTime = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5dbce82101".
+eventRegistration(textValue2, cmgCall2)
+eventRegistration = RegisterNetEvent
+textValue2 = "a66ea189a9"
+-- Beginner: this function handles network event "a66ea189a9".
+function cmgCall2(arg1)
+  local arg2
+  arg2 = textValue
+  if arg2 then
+    textValue.flyInEndTime = arg1
   end
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = RegisterNetEvent
-SHX37_1 = "c43761eb3c"
-function SHX38_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
-    SHX1_1.spawnProtectEndTime = SHX0_2
+eventRegistration(textValue2, cmgCall2)
+eventRegistration = RegisterNetEvent
+textValue2 = "c43761eb3c"
+-- Beginner: this function handles network event "c43761eb3c".
+function cmgCall2(arg1)
+  local arg2
+  arg2 = textValue
+  if arg2 then
+    textValue.spawnProtectEndTime = arg1
   end
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = RegisterNetEvent
-SHX37_1 = "65bce35065"
-function SHX38_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "DogFightingClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.data
-    SHX10_2 = SHX8_2.source
-    SHX10_2 = SHX0_2[SHX10_2]
-    SHX9_2.teamName = SHX10_2
-    SHX9_2 = SHX8_2.data
-    SHX9_2.numLives = SHX1_2
-    SHX9_2 = SHX8_2.data
-    SHX9_2.numKills = 0
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c43761eb3c".
+eventRegistration(textValue2, cmgCall2)
+eventRegistration = RegisterNetEvent
+textValue2 = "65bce35065"
+-- Beginner: this function handles network event "65bce35065".
+function cmgCall2(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag
+  arg3 = CMG
+  arg3 = arg3.getClientEventData
+  arg4 = "DogFightingClientData"
+  arg3 = arg3(arg4)
+  arg4 = pairs
+  arg5 = arg3.players
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8, coords in arg4, arg5, arg6, arg7 do
+    flag17 = coords.data
+    flag = coords.source
+    flag = arg1[flag]
+    flag17.teamName = flag
+    flag17 = coords.data
+    flag17.numLives = arg2
+    flag17 = coords.data
+    flag17.numKills = 0
   end
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = CMG
-SHX36_1 = SHX36_1.registerMinigameCleanupHandler
-SHX37_1 = "Dog Fighting"
-function SHX38_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.deleteThreadOnTick
-  SHX1_2 = SHX33_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX1_1
-  if not SHX0_2 then
+eventRegistration(textValue2, cmgCall2)
+eventRegistration = CMG
+eventRegistration = eventRegistration.registerMinigameCleanupHandler
+textValue2 = "Dog Fighting"
+function cmgCall2()
+  local arg1, arg2, arg3
+  arg1 = CMG
+  arg1 = arg1.deleteThreadOnTick
+  arg2 = workValue29
+  arg1(arg2)
+  arg1 = textValue
+  if not arg1 then
     return
   end
-  SHX0_2 = RemoveBlip
-  SHX1_2 = SHX1_1.areaBlip
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX1_1.hasSetupCustomisation
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.endVehicleSelection
-    SHX0_2()
+  arg1 = RemoveBlip
+  arg2 = textValue.areaBlip
+  arg1(arg2)
+  arg1 = textValue.hasSetupCustomisation
+  if arg1 then
+    arg1 = CMG
+    arg1 = arg1.endVehicleSelection
+    arg1()
   end
-  SHX0_2 = SetPedRelationshipGroupHash
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = 1862763509
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetModelAsNoLongerNeeded
-  SHX1_2 = SHX1_1.selectedVehicleModelHash
-  SHX0_2(SHX1_2)
-  SHX0_2 = NewLoadSceneStop
-  SHX0_2()
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.enableDriveBy
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setEventsUsingNetworkResurrect
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.enableMinigamePlayerBlips
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.enableMinigamePlayerTags
-  SHX1_2 = false
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setFriendlyFire
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setPlayerCanOpenLeaderboard
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = SetResourceKvpInt
-  SHX1_2 = "cmg_has_played_dogfighting"
-  SHX2_2 = 1
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = IsScreenFadedIn
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX0_2 = IsScreenFadedOut
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      goto SHX_LABEL_68
+  arg1 = SetPedRelationshipGroupHash
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = 1862763509
+  arg1(arg2, arg3)
+  arg1 = SetModelAsNoLongerNeeded
+  arg2 = textValue.selectedVehicleModelHash
+  arg1(arg2)
+  arg1 = NewLoadSceneStop
+  arg1()
+  arg1 = CMG
+  arg1 = arg1.enableDriveBy
+  arg2 = false
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.setEventsUsingNetworkResurrect
+  arg2 = false
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.enableMinigamePlayerBlips
+  arg2 = false
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.enableMinigamePlayerTags
+  arg2 = false
+  arg3 = false
+  arg1(arg2, arg3)
+  arg1 = CMG
+  arg1 = arg1.setFriendlyFire
+  arg2 = true
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.setPlayerCanOpenLeaderboard
+  arg2 = false
+  arg1(arg2)
+  arg1 = SetResourceKvpInt
+  arg2 = "cmg_has_played_dogfighting"
+  arg3 = 1
+  arg1(arg2, arg3)
+  arg1 = IsScreenFadedIn
+  arg1 = arg1()
+  if arg1 then
+    arg1 = IsScreenFadedOut
+    arg1 = arg1()
+    if not arg1 then
+      goto flow_label_68
     end
   end
-  SHX0_2 = DoScreenFadeIn
-  SHX1_2 = 500
-  SHX0_2(SHX1_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_68:: outside nested blocks until all 'goto SHX_LABEL_68' can see it
-  ::SHX_LABEL_68::
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.showAllDisplays
-  SHX1_2 = "dogfighting"
-  SHX0_2(SHX1_2)
-  SHX0_2 = nil
-  SHX1_1 = SHX0_2
+  arg1 = DoScreenFadeIn
+  arg2 = 500
+  arg1(arg2)
+  ::flow_label_68::
+  arg1 = CMG
+  arg1 = arg1.showAllDisplays
+  arg2 = "dogfighting"
+  arg1(arg2)
+  arg1 = nil
+  textValue = arg1
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = {}
-SHX36_1.vehicleCategoryIndex = 1
-SHX36_1.vehicleSpawncodeIndex = 1
-SHX36_1.numTeams = 1
-SHX36_1.vehicleWeaponIndex = 1
-SHX36_1.startFlying = true
-SHX36_1.numLives = 3
-SHX36_1.enableCollectables = true
-SHX36_1.enableEnemyBlips = true
-SHX37_1 = CMG
-SHX37_1 = SHX37_1.registerMinigameOptionsHandler
-SHX38_1 = "Dog Fighting"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.List
-  SHX1_2 = "Aircraft Category"
-  SHX2_2 = SHX0_1.categoryNames
-  SHX3_2 = SHX36_1.vehicleCategoryIndex
-  SHX4_2 = "The category of aircraft to use. When changed, will reset the option below."
-  SHX5_2 = {}
-  SHX6_2 = true
-  function SHX7_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3
-    SHX4_3 = SHX36_1.vehicleCategoryIndex
-    if SHX3_3 ~= SHX4_3 then
-      SHX36_1.vehicleCategoryIndex = SHX3_3
-      SHX36_1.vehicleSpawncodeIndex = 1
+eventRegistration(textValue2, cmgCall2)
+eventRegistration = {}
+eventRegistration.vehicleCategoryIndex = 1
+eventRegistration.vehicleSpawncodeIndex = 1
+eventRegistration.numTeams = 1
+eventRegistration.vehicleWeaponIndex = 1
+eventRegistration.startFlying = true
+eventRegistration.numLives = 3
+eventRegistration.enableCollectables = true
+eventRegistration.enableEnemyBlips = true
+textValue2 = CMG
+textValue2 = textValue2.registerMinigameOptionsHandler
+cmgCall2 = "Dog Fighting"
+function eventHandlerRegistration()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords
+  arg1 = RageUI
+  arg1 = arg1.List
+  arg2 = "Aircraft Category"
+  arg3 = cmgCall.categoryNames
+  arg4 = eventRegistration.vehicleCategoryIndex
+  arg5 = "The category of aircraft to use. When changed, will reset the option below."
+  arg6 = {}
+  arg7 = true
+  function arg8(arg12, arg22, arg32, arg42)
+    local workValue43
+    workValue43 = eventRegistration.vehicleCategoryIndex
+    if arg42 ~= workValue43 then
+      eventRegistration.vehicleCategoryIndex = arg42
+      eventRegistration.vehicleSpawncodeIndex = 1
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX0_2 = SHX0_1.categoryNames
-  SHX1_2 = SHX36_1.vehicleCategoryIndex
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.List
-  SHX2_2 = "Aircraft Type"
-  SHX3_2 = SHX0_1.categoryVehicleNames
-  SHX3_2 = SHX3_2[SHX0_2]
-  SHX4_2 = SHX36_1.vehicleSpawncodeIndex
-  SHX5_2 = "The specific aircraft to use from the above category."
-  SHX6_2 = {}
-  SHX7_2 = true
-  function SHX8_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3
-    SHX4_3 = SHX36_1.vehicleSpawncodeIndex
-    if SHX3_3 ~= SHX4_3 then
-      SHX36_1.vehicleSpawncodeIndex = SHX3_3
+  -- Beginner: Draw a RageUI list selector.
+  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+  arg1 = cmgCall.categoryNames
+  arg2 = eventRegistration.vehicleCategoryIndex
+  arg1 = arg1[arg2]
+  arg2 = RageUI
+  arg2 = arg2.List
+  arg3 = "Aircraft Type"
+  arg4 = cmgCall.categoryVehicleNames
+  arg4 = arg4[arg1]
+  arg5 = eventRegistration.vehicleSpawncodeIndex
+  arg6 = "The specific aircraft to use from the above category."
+  arg7 = {}
+  arg8 = true
+  function coords(arg12, arg22, arg32, arg42)
+    local workValue43
+    workValue43 = eventRegistration.vehicleSpawncodeIndex
+    if arg42 ~= workValue43 then
+      eventRegistration.vehicleSpawncodeIndex = arg42
     end
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.List
-  SHX2_2 = "Num Teams"
-  SHX3_2 = SHX0_1.numTeamsList
-  SHX4_2 = SHX36_1.numTeams
-  SHX5_2 = "The number of teams to have. If set to one, it will be every player vs every player."
-  SHX6_2 = {}
-  SHX7_2 = true
-  function SHX8_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3
-    SHX4_3 = SHX36_1.numTeams
-    if SHX3_3 ~= SHX4_3 then
-      SHX36_1.numTeams = SHX3_3
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, coords)
+  arg2 = RageUI
+  arg2 = arg2.List
+  arg3 = "Num Teams"
+  arg4 = cmgCall.numTeamsList
+  arg5 = eventRegistration.numTeams
+  arg6 = "The number of teams to have. If set to one, it will be every player vs every player."
+  arg7 = {}
+  arg8 = true
+  function coords(arg12, arg22, arg32, arg42)
+    local workValue43
+    workValue43 = eventRegistration.numTeams
+    if arg42 ~= workValue43 then
+      eventRegistration.numTeams = arg42
     end
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.List
-  SHX2_2 = "Allowed Weapons"
-  SHX3_2 = SHX0_1.vehicleWeaponsList
-  SHX4_2 = SHX36_1.vehicleWeaponIndex
-  SHX5_2 = "The weapons which are allowed to be used in fighting."
-  SHX6_2 = {}
-  SHX7_2 = true
-  function SHX8_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3
-    SHX4_3 = SHX36_1.vehicleWeaponIndex
-    if SHX3_3 ~= SHX4_3 then
-      SHX36_1.vehicleWeaponIndex = SHX3_3
+  -- Beginner: Draw a RageUI list selector.
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, coords)
+  arg2 = RageUI
+  arg2 = arg2.List
+  arg3 = "Allowed Weapons"
+  arg4 = cmgCall.vehicleWeaponsList
+  arg5 = eventRegistration.vehicleWeaponIndex
+  arg6 = "The weapons which are allowed to be used in fighting."
+  arg7 = {}
+  arg8 = true
+  function coords(arg12, arg22, arg32, arg42)
+    local workValue43
+    workValue43 = eventRegistration.vehicleWeaponIndex
+    if arg42 ~= workValue43 then
+      eventRegistration.vehicleWeaponIndex = arg42
     end
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.List
-  SHX2_2 = "Num Lives"
-  SHX3_2 = SHX0_1.numLivesList
-  SHX4_2 = SHX36_1.numLives
-  SHX5_2 = "The amount of lives each player should have. When killed, if having extra lives they will respawn in another aircraft."
-  SHX6_2 = {}
-  SHX7_2 = true
-  function SHX8_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX4_3
-    SHX4_3 = SHX36_1.numLives
-    if SHX3_3 ~= SHX4_3 then
-      SHX36_1.numLives = SHX3_3
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, coords)
+  arg2 = RageUI
+  arg2 = arg2.List
+  arg3 = "Num Lives"
+  arg4 = cmgCall.numLivesList
+  arg5 = eventRegistration.numLives
+  arg6 = "The amount of lives each player should have. When killed, if having extra lives they will respawn in another aircraft."
+  arg7 = {}
+  arg8 = true
+  function coords(arg12, arg22, arg32, arg42)
+    local workValue43
+    workValue43 = eventRegistration.numLives
+    if arg42 ~= workValue43 then
+      eventRegistration.numLives = arg42
     end
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Checkbox
-  SHX2_2 = "Enable Collectables"
-  SHX3_2 = "Enables mid air collectables which can be flown through to collect and receive special effects."
-  SHX4_2 = SHX36_1.enableCollectables
-  SHX5_2 = {}
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    SHX36_1.enableCollectables = SHX3_3
+  -- Beginner: Draw a RageUI list selector.
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, coords)
+  arg2 = RageUI
+  arg2 = arg2.Checkbox
+  arg3 = "Enable Collectables"
+  arg4 = "Enables mid air collectables which can be flown through to collect and receive special effects."
+  arg5 = eventRegistration.enableCollectables
+  arg6 = {}
+  function arg7(arg12, arg22, arg32, arg42)
+    eventRegistration.enableCollectables = arg42
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Checkbox
-  SHX2_2 = "Show Enemy Blips"
-  SHX3_2 = "Whether to show the blips of enemy aircraft. Your own teams blip will always be shown."
-  SHX4_2 = SHX36_1.enableEnemyBlips
-  SHX5_2 = {}
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    SHX36_1.enableEnemyBlips = SHX3_3
+  -- Beginner: Draw a RageUI checkbox.
+  arg2(arg3, arg4, arg5, arg6, arg7)
+  arg2 = RageUI
+  arg2 = arg2.Checkbox
+  arg3 = "Show Enemy Blips"
+  arg4 = "Whether to show the blips of enemy aircraft. Your own teams blip will always be shown."
+  arg5 = eventRegistration.enableEnemyBlips
+  arg6 = {}
+  function arg7(arg12, arg22, arg32, arg42)
+    eventRegistration.enableEnemyBlips = arg42
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SHX36_1
-  return SHX1_2
+  arg2(arg3, arg4, arg5, arg6, arg7)
+  arg2 = eventRegistration
+  return arg2
 end
-SHX37_1(SHX38_1, SHX39_1)
-SHX37_1 = CMG
-SHX37_1 = SHX37_1.registerDevMenuState
-SHX38_1 = "Dog Fighting"
-SHX39_1 = {}
-SHX39_1.drawMaps = false
-SHX37_1 = SHX37_1(SHX38_1, SHX39_1)
-SHX38_1 = CMG
-SHX38_1 = SHX38_1.registerDevMenuItems
-SHX39_1 = "Events/Dog Fighting"
-function SHX40_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Checkbox
-  SHX1_2 = "Draw Maps"
-  SHX2_2 = "Draw debug information for each location."
-  SHX3_2 = SHX37_1.drawMaps
-  SHX4_2 = {}
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    SHX37_1.drawMaps = SHX3_3
+textValue2(cmgCall2, eventHandlerRegistration)
+textValue2 = CMG
+textValue2 = textValue2.registerDevMenuState
+cmgCall2 = "Dog Fighting"
+eventHandlerRegistration = {}
+eventHandlerRegistration.drawMaps = false
+textValue2 = textValue2(cmgCall2, eventHandlerRegistration)
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.registerDevMenuItems
+eventHandlerRegistration = "Events/Dog Fighting"
+function textValue3()
+  local arg1, arg2, arg3, arg4, arg5, arg6
+  arg1 = RageUI
+  arg1 = arg1.Checkbox
+  arg2 = "Draw Maps"
+  arg3 = "Draw debug information for each location."
+  arg4 = textValue2.drawMaps
+  arg5 = {}
+  function arg6(arg12, arg22, arg32, arg42)
+    textValue2.drawMaps = arg42
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  -- Beginner: Draw a RageUI checkbox.
+  arg1(arg2, arg3, arg4, arg5, arg6)
 end
-SHX38_1(SHX39_1, SHX40_1)
-SHX38_1 = CMG
-SHX38_1 = SHX38_1.registerDevMenuThread
-SHX39_1 = "Dog Fighting"
-function SHX40_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2
-  SHX0_2 = SHX37_1.drawMaps
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX0_1.locations
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DrawMarker
-      SHX7_2 = 28
-      SHX8_2 = SHX5_2.centerPosition
-      SHX8_2 = SHX8_2.x
-      SHX9_2 = SHX5_2.centerPosition
-      SHX9_2 = SHX9_2.y
-      SHX10_2 = SHX5_2.centerPosition
-      SHX10_2 = SHX10_2.z
-      SHX11_2 = 0.0
-      SHX12_2 = 0.0
-      SHX13_2 = 0.0
-      SHX14_2 = 0.0
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = 10.0
-      SHX18_2 = 10.0
-      SHX19_2 = 10.0
-      SHX20_2 = 0
-      SHX21_2 = 0
-      SHX22_2 = 255
-      SHX23_2 = 180
-      SHX24_2 = false
-      SHX25_2 = false
-      SHX26_2 = 2
-      SHX27_2 = false
-      SHX28_2 = nil
-      SHX29_2 = nil
-      SHX30_2 = false
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-      SHX6_2 = DrawMarker
-      SHX7_2 = 1
-      SHX8_2 = SHX5_2.centerPosition
-      SHX8_2 = SHX8_2.x
-      SHX9_2 = SHX5_2.centerPosition
-      SHX9_2 = SHX9_2.y
-      SHX10_2 = 0.0
-      SHX11_2 = 0.0
-      SHX12_2 = 0.0
-      SHX13_2 = 0.0
-      SHX14_2 = 0.0
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = SHX5_2.initialRadius
-      SHX17_2 = SHX17_2 * 2.0
-      SHX18_2 = SHX5_2.initialRadius
-      SHX18_2 = SHX18_2 * 2.0
-      SHX19_2 = SHX5_2.initialRadius
-      SHX19_2 = SHX19_2 * 2.0
-      SHX20_2 = 255
-      SHX21_2 = 0
-      SHX22_2 = 0
-      SHX23_2 = 75
-      SHX24_2 = false
-      SHX25_2 = false
-      SHX26_2 = 2
-      SHX27_2 = false
-      SHX28_2 = nil
-      SHX29_2 = nil
-      SHX30_2 = false
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-      SHX6_2 = pairs
-      SHX7_2 = SHX5_2.spawnPositions
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-      for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-        SHX12_2 = DrawMarker
-        SHX13_2 = 28
-        SHX14_2 = SHX11_2.x
-        SHX15_2 = SHX11_2.y
-        SHX16_2 = SHX11_2.z
-        SHX17_2 = 0.0
-        SHX18_2 = 0.0
-        SHX19_2 = 0.0
-        SHX20_2 = 0.0
-        SHX21_2 = 0.0
-        SHX22_2 = 0.0
-        SHX23_2 = 10.0
-        SHX24_2 = 10.0
-        SHX25_2 = 10.0
-        SHX26_2 = 0
-        SHX27_2 = 255
-        SHX28_2 = 0
-        SHX29_2 = 180
-        SHX30_2 = false
-        SHX31_2 = false
-        SHX32_2 = 2
-        SHX33_2 = false
-        SHX34_2 = nil
-        SHX35_2 = nil
-        SHX36_2 = false
-        SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-        SHX12_2 = CMG
-        SHX12_2 = SHX12_2.drawHeadingFromPoint
-        SHX13_2 = SHX11_2.xyz
-        SHX14_2 = math
-        SHX14_2 = SHX14_2.rad
-        SHX15_2 = SHX11_2.w
-        SHX14_2 = SHX14_2(SHX15_2)
-        SHX15_2 = 50.0
-        SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+cmgCall2(eventHandlerRegistration, textValue3)
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.registerDevMenuThread
+eventHandlerRegistration = "Dog Fighting"
+function textValue3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11, numberValue3, flag12, workValue22, workValue24, flag13, flag14, numberValue4, flag15, workValue31, workValue33, flag16
+  arg1 = textValue2.drawMaps
+  if arg1 then
+    arg1 = pairs
+    arg2 = cmgCall.locations
+    arg1, arg2, arg3, arg4 = arg1(arg2)
+    for arg5, arg6 in arg1, arg2, arg3, arg4 do
+      arg7 = DrawMarker
+      arg8 = 28
+      coords = arg6.centerPosition
+      coords = coords.x
+      flag17 = arg6.centerPosition
+      flag17 = flag17.y
+      flag = arg6.centerPosition
+      flag = flag.z
+      workValue3 = 0.0
+      networkTime = 0.0
+      flag2 = 0.0
+      flag3 = 0.0
+      workValue8 = 0.0
+      flag4 = 0.0
+      flag5 = 10.0
+      flag6 = 10.0
+      flag7 = 10.0
+      flag8 = 0
+      numberValue = 0
+      flag9 = 255
+      numberValue2 = 180
+      flag10 = false
+      flag11 = false
+      numberValue3 = 2
+      flag12 = false
+      workValue22 = nil
+      workValue24 = nil
+      flag13 = false
+      arg7(arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11, numberValue3, flag12, workValue22, workValue24, flag13)
+      arg7 = DrawMarker
+      arg8 = 1
+      coords = arg6.centerPosition
+      coords = coords.x
+      flag17 = arg6.centerPosition
+      flag17 = flag17.y
+      flag = 0.0
+      workValue3 = 0.0
+      networkTime = 0.0
+      flag2 = 0.0
+      flag3 = 0.0
+      workValue8 = 0.0
+      flag4 = 0.0
+      flag5 = arg6.initialRadius
+      flag5 = flag5 * 2.0
+      flag6 = arg6.initialRadius
+      flag6 = flag6 * 2.0
+      flag7 = arg6.initialRadius
+      flag7 = flag7 * 2.0
+      flag8 = 255
+      numberValue = 0
+      flag9 = 0
+      numberValue2 = 75
+      flag10 = false
+      flag11 = false
+      numberValue3 = 2
+      flag12 = false
+      workValue22 = nil
+      workValue24 = nil
+      flag13 = false
+      arg7(arg8, coords, flag17, flag, workValue3, networkTime, flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11, numberValue3, flag12, workValue22, workValue24, flag13)
+      arg7 = pairs
+      arg8 = arg6.spawnPositions
+      arg7, arg8, coords, flag17 = arg7(arg8)
+      for flag, workValue3 in arg7, arg8, coords, flag17 do
+        networkTime = DrawMarker
+        flag2 = 28
+        flag3 = workValue3.x
+        workValue8 = workValue3.y
+        flag4 = workValue3.z
+        flag5 = 0.0
+        flag6 = 0.0
+        flag7 = 0.0
+        flag8 = 0.0
+        numberValue = 0.0
+        flag9 = 0.0
+        numberValue2 = 10.0
+        flag10 = 10.0
+        flag11 = 10.0
+        numberValue3 = 0
+        flag12 = 255
+        workValue22 = 0
+        workValue24 = 180
+        flag13 = false
+        flag14 = false
+        numberValue4 = 2
+        flag15 = false
+        workValue31 = nil
+        workValue33 = nil
+        flag16 = false
+        networkTime(flag2, flag3, workValue8, flag4, flag5, flag6, flag7, flag8, numberValue, flag9, numberValue2, flag10, flag11, numberValue3, flag12, workValue22, workValue24, flag13, flag14, numberValue4, flag15, workValue31, workValue33, flag16)
+        networkTime = CMG
+        networkTime = networkTime.drawHeadingFromPoint
+        flag2 = workValue3.xyz
+        flag3 = math
+        flag3 = flag3.rad
+        workValue8 = workValue3.w
+        flag3 = flag3(workValue8)
+        workValue8 = 50.0
+        networkTime(flag2, flag3, workValue8)
       end
-      SHX6_2 = pairs
-      SHX7_2 = SHX5_2.collectableSpawns
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-      for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-        SHX12_2 = SHX30_1
-        SHX13_2 = SHX11_2
-        SHX12_2(SHX13_2)
+      arg7 = pairs
+      arg8 = arg6.collectableSpawns
+      arg7, arg8, coords, flag17 = arg7(arg8)
+      for flag, workValue3 in arg7, arg8, coords, flag17 do
+        networkTime = workValue26
+        flag2 = workValue3
+        networkTime(flag2)
       end
     end
   end
 end
-SHX38_1(SHX39_1, SHX40_1)
-function SHX38_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.vehicle
-  if 0 == SHX1_2 then
+cmgCall2(eventHandlerRegistration, textValue3)
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = arg1.vehicle
+  if 0 == arg2 then
     return
   end
-  SHX1_2 = SetEntityAsNoLongerNeeded
-  SHX2_2 = SHX0_2.vehicle
-  SHX1_2(SHX2_2)
-  SHX1_2 = NetworkGetNetworkIdFromEntity
-  SHX2_2 = SHX0_2.vehicle
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
+  arg2 = SetEntityAsNoLongerNeeded
+  arg3 = arg1.vehicle
+  arg2(arg3)
+  arg2 = NetworkGetNetworkIdFromEntity
+  arg3 = arg1.vehicle
+  arg2 = arg2(arg3)
+  arg3 = NetworkDoesNetworkIdExist
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  if not arg3 then
     return
   end
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "3ab272a10d"
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
+  arg3 = TriggerServerEvent
+  arg4 = "3ab272a10d"
+  arg5 = arg2
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3ab272a10d".
+  arg3(arg4, arg5)
 end
-SHX39_1 = AddEventHandler
-SHX40_1 = "5dac3d7c66"
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = SHX38_1
-    SHX1_2 = SHX1_1
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetEntityCoordsNoOffset
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = 0.0
-    SHX3_2 = 0.0
-    SHX4_2 = 0.0
-    SHX5_2 = true
-    SHX6_2 = false
-    SHX7_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX0_2 = SHX18_1
-    SHX1_2 = true
-    SHX0_2(SHX1_2)
-    SHX1_1.hasRespawned = true
+eventHandlerRegistration = AddEventHandler
+textValue3 = "5dac3d7c66"
+-- Beginner: this function runs when client event "5dac3d7c66" fires.
+function workValue35()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg1 = textValue
+  if arg1 then
+    arg1 = cmgCall2
+    arg2 = textValue
+    arg1(arg2)
+    arg1 = SetEntityCoordsNoOffset
+    arg2 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg2 = arg2()
+    arg3 = 0.0
+    arg4 = 0.0
+    arg5 = 0.0
+    arg6 = true
+    arg7 = false
+    arg8 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    arg1 = workValue11
+    arg2 = true
+    arg1(arg2)
+    textValue.hasRespawned = true
   end
 end
-SHX39_1(SHX40_1, SHX41_1)
-SHX39_1 = RegisterNetEvent
-SHX40_1 = "546310b6b7"
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = SHX38_1
-    SHX1_2 = SHX1_1
-    SHX0_2(SHX1_2)
-    SHX1_1.wantsNewVehicle = true
+-- Beginner: Register a client-side event handler. Event/command: "5dac3d7c66".
+eventHandlerRegistration(textValue3, workValue35)
+eventHandlerRegistration = RegisterNetEvent
+textValue3 = "546310b6b7"
+-- Beginner: this function handles network event "546310b6b7".
+function workValue35()
+  local arg1, arg2
+  arg1 = textValue
+  if arg1 then
+    arg1 = cmgCall2
+    arg2 = textValue
+    arg1(arg2)
+    textValue.wantsNewVehicle = true
   end
 end
-SHX39_1(SHX40_1, SHX41_1)
-SHX39_1 = RegisterNetEvent
-SHX40_1 = "4960beeb90"
-function SHX41_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "DogFightingClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.source
-    if SHX9_2 == SHX0_2 then
-      SHX9_2 = SHX8_2.data
-      SHX9_2.numLives = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "546310b6b7".
+eventHandlerRegistration(textValue3, workValue35)
+eventHandlerRegistration = RegisterNetEvent
+textValue3 = "4960beeb90"
+-- Beginner: this function handles network event "4960beeb90".
+function workValue35(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17
+  arg3 = CMG
+  arg3 = arg3.getClientEventData
+  arg4 = "DogFightingClientData"
+  arg3 = arg3(arg4)
+  arg4 = pairs
+  arg5 = arg3.players
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8, coords in arg4, arg5, arg6, arg7 do
+    flag17 = coords.source
+    if flag17 == arg1 then
+      flag17 = coords.data
+      flag17.numLives = arg2
       break
     end
   end
 end
-SHX39_1(SHX40_1, SHX41_1)
-SHX39_1 = RegisterNetEvent
-SHX40_1 = "ae38cbb08d"
-function SHX41_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientEventData
-  SHX3_2 = "DogFightingClientData"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2.players
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.source
-    if SHX9_2 == SHX0_2 then
-      SHX9_2 = SHX8_2.data
-      SHX9_2.numKills = SHX1_2
+eventHandlerRegistration(textValue3, workValue35)
+eventHandlerRegistration = RegisterNetEvent
+textValue3 = "ae38cbb08d"
+-- Beginner: this function handles network event "ae38cbb08d".
+function workValue35(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, coords, flag17
+  arg3 = CMG
+  arg3 = arg3.getClientEventData
+  arg4 = "DogFightingClientData"
+  arg3 = arg3(arg4)
+  arg4 = pairs
+  arg5 = arg3.players
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8, coords in arg4, arg5, arg6, arg7 do
+    flag17 = coords.source
+    if flag17 == arg1 then
+      flag17 = coords.data
+      flag17.numKills = arg2
       break
     end
   end
 end
-SHX39_1(SHX40_1, SHX41_1)
-SHX39_1 = RegisterNetEvent
-SHX40_1 = "c7b4793225"
-function SHX41_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
-    SHX1_2 = SHX1_1.activeCollectableIndicies
-    SHX1_2[SHX0_2] = true
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ae38cbb08d".
+eventHandlerRegistration(textValue3, workValue35)
+eventHandlerRegistration = RegisterNetEvent
+textValue3 = "c7b4793225"
+-- Beginner: this function handles network event "c7b4793225".
+function workValue35(arg1)
+  local arg2
+  arg2 = textValue
+  if arg2 then
+    arg2 = textValue.activeCollectableIndicies
+    arg2[arg1] = true
   end
 end
-SHX39_1(SHX40_1, SHX41_1)
-SHX39_1 = RegisterNetEvent
-SHX40_1 = "0544b9386d"
-function SHX41_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
-    SHX1_2 = SHX1_1.activeCollectableIndicies
-    SHX1_2[SHX0_2] = nil
+eventHandlerRegistration(textValue3, workValue35)
+eventHandlerRegistration = RegisterNetEvent
+textValue3 = "0544b9386d"
+-- Beginner: this function handles network event "0544b9386d".
+function workValue35(arg1)
+  local arg2
+  arg2 = textValue
+  if arg2 then
+    arg2 = textValue.activeCollectableIndicies
+    arg2[arg1] = nil
   end
 end
-SHX39_1(SHX40_1, SHX41_1)
-SHX39_1 = AddRelationshipGroup
-SHX40_1 = SHX0_1.defaultRelationshipName
-SHX39_1(SHX40_1)
-SHX39_1 = pairs
-SHX40_1 = SHX0_1.teams
-SHX39_1, SHX40_1, SHX41_1, SHX42_1 = SHX39_1(SHX40_1)
-for SHX43_1, SHX44_1 in SHX39_1, SHX40_1, SHX41_1, SHX42_1 do
-  SHX45_1 = AddRelationshipGroup
-  SHX46_1 = SHX44_1.relationshipName
-  SHX45_1(SHX46_1)
-  SHX45_1 = pairs
-  SHX46_1 = SHX0_1.teams
-  SHX45_1, SHX46_1, SHX47_1, SHX48_1 = SHX45_1(SHX46_1)
-  for SHX49_1, SHX50_1 in SHX45_1, SHX46_1, SHX47_1, SHX48_1 do
-    SHX51_1 = SHX44_1.relationshipHash
-    SHX52_1 = SHX50_1.relationshipHash
-    if SHX51_1 == SHX52_1 then
-      SHX51_1 = SetRelationshipBetweenGroups
-      SHX52_1 = 0
-      SHX53_1 = SHX44_1.relationshipHash
-      SHX54_1 = SHX50_1.relationshipHash
-      SHX51_1(SHX52_1, SHX53_1, SHX54_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0544b9386d".
+eventHandlerRegistration(textValue3, workValue35)
+eventHandlerRegistration = AddRelationshipGroup
+textValue3 = cmgCall.defaultRelationshipName
+eventHandlerRegistration(textValue3)
+eventHandlerRegistration = pairs
+textValue3 = cmgCall.teams
+eventHandlerRegistration, textValue3, workValue35, workValue36 = eventHandlerRegistration(textValue3)
+for workValue37, workValue38 in eventHandlerRegistration, textValue3, workValue35, workValue36 do
+  iterator = AddRelationshipGroup
+  numberValue5 = workValue38.relationshipName
+  iterator(numberValue5)
+  iterator = pairs
+  numberValue5 = cmgCall.teams
+  iterator, numberValue5, workValue39, workValue40 = iterator(numberValue5)
+  for workValue41, workValue44 in iterator, numberValue5, workValue39, workValue40 do
+    workValue45 = workValue38.relationshipHash
+    numberValue6 = workValue44.relationshipHash
+    if workValue45 == numberValue6 then
+      workValue45 = SetRelationshipBetweenGroups
+      numberValue6 = 0
+      workValue46 = workValue38.relationshipHash
+      workValue47 = workValue44.relationshipHash
+      workValue45(numberValue6, workValue46, workValue47)
     else
-      SHX51_1 = SetRelationshipBetweenGroups
-      SHX52_1 = 5
-      SHX53_1 = SHX44_1.relationshipHash
-      SHX54_1 = SHX50_1.relationshipHash
-      SHX51_1(SHX52_1, SHX53_1, SHX54_1)
+      workValue45 = SetRelationshipBetweenGroups
+      numberValue6 = 5
+      workValue46 = workValue38.relationshipHash
+      workValue47 = workValue44.relationshipHash
+      workValue45(numberValue6, workValue46, workValue47)
     end
   end
-  SHX45_1 = SetRelationshipBetweenGroups
-  SHX46_1 = 5
-  SHX47_1 = SHX44_1.relationshipHash
-  SHX48_1 = SHX0_1.defaultRelationshipHash
-  SHX45_1(SHX46_1, SHX47_1, SHX48_1)
-  SHX45_1 = SetRelationshipBetweenGroups
-  SHX46_1 = 5
-  SHX47_1 = SHX0_1.defaultRelationshipHash
-  SHX48_1 = SHX44_1.relationshipHash
-  SHX45_1(SHX46_1, SHX47_1, SHX48_1)
+  iterator = SetRelationshipBetweenGroups
+  numberValue5 = 5
+  workValue39 = workValue38.relationshipHash
+  workValue40 = cmgCall.defaultRelationshipHash
+  iterator(numberValue5, workValue39, workValue40)
+  iterator = SetRelationshipBetweenGroups
+  numberValue5 = 5
+  workValue39 = cmgCall.defaultRelationshipHash
+  workValue40 = workValue38.relationshipHash
+  iterator(numberValue5, workValue39, workValue40)
 end
-SHX39_1 = RegisterNetEvent
-SHX40_1 = "c229477440"
-function SHX41_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.format
-  SHX5_2 = "%s%s~w~ has killed %s%s~w~"
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getPlayerColour
-  SHX7_2 = SHX1_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = SHX3_2
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerColour
-  SHX9_2 = SHX0_2
-  SHX8_2 = SHX8_2(SHX9_2)
-  SHX9_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = notify
-  SHX6_2 = SHX4_2
-  SHX5_2(SHX6_2)
+eventHandlerRegistration = RegisterNetEvent
+textValue3 = "c229477440"
+-- Beginner: this function handles network event "c229477440".
+function workValue35(arg1, arg2, arg3, arg4)
+  local arg5, arg6, arg7, arg8, coords, flag17
+  arg5 = string
+  arg5 = arg5.format
+  arg6 = "%s%s~w~ has killed %s%s~w~"
+  arg7 = CMG
+  arg7 = arg7.getPlayerColour
+  arg8 = arg2
+  arg7 = arg7(arg8)
+  arg8 = arg4
+  coords = CMG
+  coords = coords.getPlayerColour
+  flag17 = arg1
+  coords = coords(flag17)
+  flag17 = arg3
+  arg5 = arg5(arg6, arg7, arg8, coords, flag17)
+  arg6 = notify
+  arg7 = arg5
+  -- Beginner: Show a notification to the player.
+  arg6(arg7)
 end
-SHX39_1(SHX40_1, SHX41_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c229477440".
+eventHandlerRegistration(textValue3, workValue35)

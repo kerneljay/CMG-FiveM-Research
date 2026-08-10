@@ -1,453 +1,510 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_clamp.lua
+    ============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1
-SHX0_1 = {}
-SHX1_1 = "wheel_lf"
-SHX2_1 = "wheel_rf"
-SHX3_1 = "wheel_lr"
-SHX4_1 = "wheel_rr"
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX1_1 = false
-function SHX2_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Clamp
+    ======================
+
+    File: cmg/prod/client/police/cl_clamp.lua
+    Purpose: This file contains police gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Commands/command-like entries found:
+      * /clamp
+
+    Network/hash identifiers found: 5
+      They are intentionally left unchanged because matching server code may use them.
+      * b9a311db61
+      * e6da6979c7
+      * 1b7e99a63d
+      * da3b635d57
+      * 1f35d11d0c
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * ~r~You can not clamp whilst in a vehicle.
+      * ~r~You can not clamp this vehicle.
+      * ~r~You can not clamp a moving vehicle.
+      * ~r~You are not nearby to any wheel.
+      * ~y~Vehicle clamped.
+
+]]
+local dataTable, flag4, textValue2, localEventCall, textValue3, textValue4, textValue5
+dataTable = {}
+flag4 = "wheel_lf"
+textValue2 = "wheel_rf"
+localEventCall = "wheel_lr"
+textValue3 = "wheel_rr"
+dataTable[1] = flag4
+dataTable[2] = textValue2
+dataTable[3] = localEventCall
+dataTable[4] = textValue3
+flag4 = false
+function textValue2(arg1, arg2)
+  local gameTime, gameTime2, numberValue6
+  gameTime = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  gameTime = gameTime()
   while true do
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2 - SHX2_2
-    if not (SHX1_2 > SHX3_2) then
+    gameTime2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    gameTime2 = gameTime2()
+    gameTime2 = gameTime2 - gameTime
+    if not (arg2 > gameTime2) then
       break
     end
-    SHX3_2 = GetEntitySpeed
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = 0.2
-    if SHX3_2 > SHX4_2 then
-      SHX3_2 = true
-      return SHX3_2
+    gameTime2 = GetEntitySpeed
+    numberValue6 = arg1
+    -- Beginner: result below is speed.
+    gameTime2 = gameTime2(numberValue6)
+    numberValue6 = 0.2
+    if gameTime2 > numberValue6 then
+      gameTime2 = true
+      return gameTime2
     end
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
+    gameTime2 = Citizen
+    gameTime2 = gameTime2.Wait
+    numberValue6 = 0
+    gameTime2(numberValue6)
   end
-  SHX3_2 = false
-  return SHX3_2
+  gameTime2 = false
+  return gameTime2
 end
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "b9a311db61"
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
+localEventCall = RegisterNetEvent
+textValue3 = "b9a311db61"
+-- Beginner: this function handles network event "b9a311db61".
+function textValue4()
+  local arg1, arg2, gameTime, gameTime2, numberValue6, vector3Builder
+  arg1 = flag4
+  if arg1 then
     return
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClosestVehicle
-  SHX1_2 = 7.0
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX1_2 = NetworkGetEntityIsNetworked
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      goto SHX_LABEL_20
+  arg1 = CMG
+  arg1 = arg1.getClosestVehicle
+  arg2 = 7.0
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg2 = NetworkGetEntityIsNetworked
+    gameTime = arg1
+    arg2 = arg2(gameTime)
+    if arg2 then
+      goto flow_label_20
     end
   end
-  SHX1_2 = notify
-  SHX2_2 = "~r~No vehicle found."
-  SHX1_2(SHX2_2)
+  arg2 = notify
+  gameTime = "~r~No vehicle found."
+  -- Beginner: Show a notification to the player.
+  arg2(gameTime)
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_20:: outside nested blocks until all 'goto SHX_LABEL_20' can see it
-  ::SHX_LABEL_20::
-  SHX1_2 = NetworkGetNetworkIdFromEntity
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 == SHX1_2 then
+  ::flow_label_20::
+  arg2 = NetworkGetNetworkIdFromEntity
+  gameTime = arg1
+  arg2 = arg2(gameTime)
+  if 0 == arg2 then
     return
   end
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "e6da6979c7"
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  gameTime = TriggerServerEvent
+  gameTime2 = "e6da6979c7"
+  numberValue6 = arg2
+  vector3Builder = arg1
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e6da6979c7".
+  gameTime(gameTime2, numberValue6, vector3Builder)
 end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "1b7e99a63d"
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerVehicle
-  SHX2_2 = SHX2_2()
-  if 0 ~= SHX2_2 then
-    SHX2_2 = notify
-    SHX3_2 = "~r~You can not clamp whilst in a vehicle."
-    SHX2_2(SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b9a311db61".
+localEventCall(textValue3, textValue4)
+localEventCall = RegisterNetEvent
+textValue3 = "1b7e99a63d"
+-- Beginner: this function handles network event "1b7e99a63d".
+function textValue4(arg1, arg2)
+  local gameTime, gameTime2, numberValue6, vector3Builder, cmgCall, iterator, textValue6, numberValue7, flag, dataTable2, textValue, numberValue, workValue, workValue2, flag2, flag3, numberValue2, numberValue3, numberValue4, flag5, flag6, flag7, flag8, numberValue5, flag9
+  gameTime = CMG
+  gameTime = gameTime.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  gameTime = gameTime()
+  if 0 ~= gameTime then
+    gameTime = notify
+    gameTime2 = "~r~You can not clamp whilst in a vehicle."
+    -- Beginner: Show a notification to the player.
+    gameTime(gameTime2)
     return
   end
-  SHX2_2 = GetVehicleClass
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 14 == SHX2_2 or 15 == SHX2_2 or 18 == SHX2_2 or 21 == SHX2_2 then
-    SHX3_2 = notify
-    SHX4_2 = "~r~You can not clamp this vehicle."
-    SHX3_2(SHX4_2)
+  gameTime = GetVehicleClass
+  gameTime2 = arg2
+  gameTime = gameTime(gameTime2)
+  if 14 == gameTime or 15 == gameTime or 18 == gameTime or 21 == gameTime then
+    gameTime2 = notify
+    numberValue6 = "~r~You can not clamp this vehicle."
+    gameTime2(numberValue6)
     return
   end
-  SHX3_2 = GetEntitySpeed
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = 0.2
-  if SHX3_2 > SHX4_2 then
-    SHX3_2 = notify
-    SHX4_2 = "~r~You can not clamp a moving vehicle."
-    SHX3_2(SHX4_2)
+  gameTime2 = GetEntitySpeed
+  numberValue6 = arg2
+  -- Beginner: result below is speed.
+  gameTime2 = gameTime2(numberValue6)
+  numberValue6 = 0.2
+  if gameTime2 > numberValue6 then
+    gameTime2 = notify
+    numberValue6 = "~r~You can not clamp a moving vehicle."
+    -- Beginner: Show a notification to the player.
+    gameTime2(numberValue6)
     return
   end
-  SHX3_2 = -1
-  SHX4_2 = 1.5
-  SHX5_2 = vector3
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getPlayerCoords
-  SHX6_2 = SHX6_2()
-  SHX7_2 = pairs
-  SHX8_2 = SHX0_1
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-  for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-    SHX13_2 = GetEntityBoneIndexByName
-    SHX14_2 = SHX1_2
-    SHX15_2 = SHX12_2
-    SHX13_2 = SHX13_2(SHX14_2, SHX15_2)
-    if -1 ~= SHX13_2 then
-      SHX14_2 = GetWorldPositionOfEntityBone
-      SHX15_2 = SHX1_2
-      SHX16_2 = SHX13_2
-      SHX14_2 = SHX14_2(SHX15_2, SHX16_2)
-      SHX15_2 = SHX6_2 - SHX14_2
-      SHX15_2 = #SHX15_2
-      if SHX4_2 > SHX15_2 then
-        SHX3_2 = SHX13_2
-        SHX4_2 = SHX15_2
-        SHX5_2 = SHX14_2
+  gameTime2 = -1
+  numberValue6 = 1.5
+  vector3Builder = vector3
+  cmgCall = 0.0
+  iterator = 0.0
+  textValue6 = 0.0
+  vector3Builder = vector3Builder(cmgCall, iterator, textValue6)
+  cmgCall = CMG
+  cmgCall = cmgCall.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  cmgCall = cmgCall()
+  iterator = pairs
+  textValue6 = dataTable
+  iterator, textValue6, numberValue7, flag = iterator(textValue6)
+  for dataTable2, textValue in iterator, textValue6, numberValue7, flag do
+    numberValue = GetEntityBoneIndexByName
+    workValue = arg2
+    workValue2 = textValue
+    numberValue = numberValue(workValue, workValue2)
+    if -1 ~= numberValue then
+      workValue = GetWorldPositionOfEntityBone
+      workValue2 = arg2
+      flag2 = numberValue
+      workValue = workValue(workValue2, flag2)
+      workValue2 = cmgCall - workValue
+      workValue2 = #workValue2
+      if numberValue6 > workValue2 then
+        gameTime2 = numberValue
+        numberValue6 = workValue2
+        vector3Builder = workValue
       end
     end
   end
-  if -1 == SHX3_2 then
-    SHX7_2 = notify
-    SHX8_2 = "~r~You are not nearby to any wheel."
-    SHX7_2(SHX8_2)
+  if -1 == gameTime2 then
+    iterator = notify
+    textValue6 = "~r~You are not nearby to any wheel."
+    iterator(textValue6)
     return
   end
-  SHX7_2 = true
-  SHX1_1 = SHX7_2
-  SHX7_2 = PlayerPedId
-  SHX7_2 = SHX7_2()
-  SHX8_2 = TaskTurnPedToFaceCoord
-  SHX9_2 = SHX7_2
-  SHX10_2 = SHX5_2.x
-  SHX11_2 = SHX5_2.y
-  SHX12_2 = SHX5_2.z
-  SHX13_2 = 2000
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+  iterator = true
+  flag4 = iterator
+  iterator = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  iterator = iterator()
+  textValue6 = TaskTurnPedToFaceCoord
+  numberValue7 = iterator
+  flag = vector3Builder.x
+  dataTable2 = vector3Builder.y
+  textValue = vector3Builder.z
+  numberValue = 2000
+  textValue6(numberValue7, flag, dataTable2, textValue, numberValue)
   while true do
-    SHX8_2 = GetScriptTaskStatus
-    SHX9_2 = SHX7_2
-    SHX10_2 = 1464580341
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if 7 == SHX8_2 then
+    textValue6 = GetScriptTaskStatus
+    numberValue7 = iterator
+    flag = 1464580341
+    textValue6 = textValue6(numberValue7, flag)
+    if 7 == textValue6 then
       break
     end
-    SHX8_2 = Citizen
-    SHX8_2 = SHX8_2.Wait
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
+    textValue6 = Citizen
+    textValue6 = textValue6.Wait
+    numberValue7 = 0
+    textValue6(numberValue7)
   end
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.loadClipSet
-  SHX9_2 = "move_ped_crouched"
-  SHX8_2(SHX9_2)
-  SHX8_2 = SetPedCanPlayAmbientAnims
-  SHX9_2 = SHX7_2
-  SHX10_2 = false
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SetPedCanPlayAmbientBaseAnims
-  SHX9_2 = SHX7_2
-  SHX10_2 = false
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SetPedMovementClipset
-  SHX9_2 = SHX7_2
-  SHX10_2 = "move_ped_crouched"
-  SHX11_2 = 0.35
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX8_2 = SetPedStrafeClipset
-  SHX9_2 = SHX7_2
-  SHX10_2 = "move_ped_crouched_strafing"
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = RemoveClipSet
-  SHX9_2 = "move_ped_crouched"
-  SHX8_2(SHX9_2)
-  SHX8_2 = tCMG
-  SHX8_2 = SHX8_2.playAnim
-  SHX9_2 = true
-  SHX10_2 = {}
-  SHX11_2 = {}
-  SHX12_2 = "rcmextreme3"
-  SHX13_2 = "idle"
-  SHX14_2 = 1
-  SHX11_2[1] = SHX12_2
-  SHX11_2[2] = SHX13_2
-  SHX11_2[3] = SHX14_2
-  SHX10_2[1] = SHX11_2
-  SHX11_2 = true
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.loadModel
-  SHX9_2 = -1099035225
-  SHX8_2(SHX9_2)
-  SHX8_2 = GetOffsetFromEntityInWorldCoords
-  SHX9_2 = SHX7_2
-  SHX10_2 = 0.0
-  SHX11_2 = 0.2
-  SHX12_2 = 0.0
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.requestEntitySpawn
-  SHX10_2 = "clamp_object"
-  SHX9_2(SHX10_2)
-  SHX9_2 = CreateObject
-  SHX10_2 = -1099035225
-  SHX11_2 = SHX8_2.x
-  SHX12_2 = SHX8_2.y
-  SHX13_2 = SHX8_2.z
-  SHX14_2 = true
-  SHX15_2 = true
-  SHX16_2 = true
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX10_2 = SetModelAsNoLongerNeeded
-  SHX11_2 = -1099035225
-  SHX10_2(SHX11_2)
-  SHX10_2 = PlaceObjectOnGroundProperly
-  SHX11_2 = SHX9_2
-  SHX10_2(SHX11_2)
-  SHX10_2 = FreezeEntityPosition
-  SHX11_2 = SHX9_2
-  SHX12_2 = true
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetEntityRotation
-  SHX11_2 = SHX9_2
-  SHX12_2 = -90.0
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 2
-  SHX16_2 = true
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX10_2 = SetEntityCollision
-  SHX11_2 = SHX9_2
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = SHX2_1
-  SHX11_2 = SHX1_2
-  SHX12_2 = 4000
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-  if not SHX10_2 then
-    SHX11_2 = SetEntityCollision
-    SHX12_2 = SHX9_2
-    SHX13_2 = true
-    SHX14_2 = true
-    SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-    SHX11_2 = SetEntityHeading
-    SHX12_2 = SHX9_2
-    SHX13_2 = 0.0
-    SHX11_2(SHX12_2, SHX13_2)
-    SHX11_2 = SetEntityRotation
-    SHX12_2 = SHX9_2
-    SHX13_2 = 60.0
-    SHX14_2 = 20.0
-    SHX15_2 = 10.0
-    SHX16_2 = 1
-    SHX17_2 = true
-    SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX11_2 = AttachEntityToEntity
-    SHX12_2 = SHX9_2
-    SHX13_2 = SHX1_2
-    SHX14_2 = SHX3_2
-    SHX15_2 = -0.1
-    SHX16_2 = 0.15
-    SHX17_2 = -0.3
-    SHX18_2 = 180.0
-    SHX19_2 = 200.0
-    SHX20_2 = 90.0
-    SHX21_2 = true
-    SHX22_2 = true
-    SHX23_2 = false
-    SHX24_2 = false
-    SHX25_2 = 2
-    SHX26_2 = true
-    SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-    SHX11_2 = SHX2_1
-    SHX12_2 = SHX1_2
-    SHX13_2 = 1000
-    SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-    SHX10_2 = SHX11_2
+  textValue6 = CMG
+  textValue6 = textValue6.loadClipSet
+  numberValue7 = "move_ped_crouched"
+  textValue6(numberValue7)
+  textValue6 = SetPedCanPlayAmbientAnims
+  numberValue7 = iterator
+  flag = false
+  textValue6(numberValue7, flag)
+  textValue6 = SetPedCanPlayAmbientBaseAnims
+  numberValue7 = iterator
+  flag = false
+  textValue6(numberValue7, flag)
+  textValue6 = SetPedMovementClipset
+  numberValue7 = iterator
+  flag = "move_ped_crouched"
+  dataTable2 = 0.35
+  textValue6(numberValue7, flag, dataTable2)
+  textValue6 = SetPedStrafeClipset
+  numberValue7 = iterator
+  flag = "move_ped_crouched_strafing"
+  textValue6(numberValue7, flag)
+  textValue6 = RemoveClipSet
+  numberValue7 = "move_ped_crouched"
+  textValue6(numberValue7)
+  textValue6 = tCMG
+  textValue6 = textValue6.playAnim
+  numberValue7 = true
+  flag = {}
+  dataTable2 = {}
+  textValue = "rcmextreme3"
+  numberValue = "idle"
+  workValue = 1
+  dataTable2[1] = textValue
+  dataTable2[2] = numberValue
+  dataTable2[3] = workValue
+  flag[1] = dataTable2
+  dataTable2 = true
+  textValue6(numberValue7, flag, dataTable2)
+  textValue6 = CMG
+  textValue6 = textValue6.loadModel
+  numberValue7 = -1099035225
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  textValue6(numberValue7)
+  textValue6 = GetOffsetFromEntityInWorldCoords
+  numberValue7 = iterator
+  flag = 0.0
+  dataTable2 = 0.2
+  textValue = 0.0
+  textValue6 = textValue6(numberValue7, flag, dataTable2, textValue)
+  numberValue7 = CMG
+  numberValue7 = numberValue7.requestEntitySpawn
+  flag = "clamp_object"
+  numberValue7(flag)
+  numberValue7 = CreateObject
+  flag = -1099035225
+  dataTable2 = textValue6.x
+  textValue = textValue6.y
+  numberValue = textValue6.z
+  workValue = true
+  workValue2 = true
+  flag2 = true
+  -- Beginner: result below is objectEntity.
+  numberValue7 = numberValue7(flag, dataTable2, textValue, numberValue, workValue, workValue2, flag2)
+  flag = SetModelAsNoLongerNeeded
+  dataTable2 = -1099035225
+  flag(dataTable2)
+  flag = PlaceObjectOnGroundProperly
+  dataTable2 = numberValue7
+  flag(dataTable2)
+  flag = FreezeEntityPosition
+  dataTable2 = numberValue7
+  textValue = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  flag(dataTable2, textValue)
+  flag = SetEntityRotation
+  dataTable2 = numberValue7
+  textValue = -90.0
+  numberValue = 0.0
+  workValue = 0.0
+  workValue2 = 2
+  flag2 = true
+  flag(dataTable2, textValue, numberValue, workValue, workValue2, flag2)
+  flag = SetEntityCollision
+  dataTable2 = numberValue7
+  textValue = false
+  numberValue = false
+  flag(dataTable2, textValue, numberValue)
+  flag = textValue2
+  dataTable2 = arg2
+  textValue = 4000
+  flag = flag(dataTable2, textValue)
+  if not flag then
+    dataTable2 = SetEntityCollision
+    textValue = numberValue7
+    numberValue = true
+    workValue = true
+    dataTable2(textValue, numberValue, workValue)
+    dataTable2 = SetEntityHeading
+    textValue = numberValue7
+    numberValue = 0.0
+    -- Beginner: Change the direction an entity is facing.
+    dataTable2(textValue, numberValue)
+    dataTable2 = SetEntityRotation
+    textValue = numberValue7
+    numberValue = 60.0
+    workValue = 20.0
+    workValue2 = 10.0
+    flag2 = 1
+    flag3 = true
+    dataTable2(textValue, numberValue, workValue, workValue2, flag2, flag3)
+    dataTable2 = AttachEntityToEntity
+    textValue = numberValue7
+    numberValue = arg2
+    workValue = gameTime2
+    workValue2 = -0.1
+    flag2 = 0.15
+    flag3 = -0.3
+    numberValue2 = 180.0
+    numberValue3 = 200.0
+    numberValue4 = 90.0
+    flag5 = true
+    flag6 = true
+    flag7 = false
+    flag8 = false
+    numberValue5 = 2
+    flag9 = true
+    -- Beginner: Attach one entity to another entity.
+    dataTable2(textValue, numberValue, workValue, workValue2, flag2, flag3, numberValue2, numberValue3, numberValue4, flag5, flag6, flag7, flag8, numberValue5, flag9)
+    dataTable2 = textValue2
+    textValue = arg2
+    numberValue = 1000
+    dataTable2 = dataTable2(textValue, numberValue)
+    flag = dataTable2
   end
-  SHX11_2 = tCMG
-  SHX11_2 = SHX11_2.stopAnim
-  SHX12_2 = true
-  SHX11_2(SHX12_2)
-  SHX11_2 = ResetPedStrafeClipset
-  SHX12_2 = SHX7_2
-  SHX11_2(SHX12_2)
-  SHX11_2 = ResetPedMovementClipset
-  SHX12_2 = SHX7_2
-  SHX13_2 = 0.0
-  SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = SetPedCanPlayAmbientAnims
-  SHX12_2 = SHX7_2
-  SHX13_2 = true
-  SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = SetPedCanPlayAmbientBaseAnims
-  SHX12_2 = SHX7_2
-  SHX13_2 = true
-  SHX11_2(SHX12_2, SHX13_2)
-  if not SHX10_2 then
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.getPlayerCoords
-    SHX11_2 = SHX11_2()
-    SHX11_2 = SHX11_2 - SHX5_2
-    SHX11_2 = #SHX11_2
-    if not (SHX11_2 > 5.0) then
-      goto SHX_LABEL_265
+  dataTable2 = tCMG
+  dataTable2 = dataTable2.stopAnim
+  textValue = true
+  dataTable2(textValue)
+  dataTable2 = ResetPedStrafeClipset
+  textValue = iterator
+  dataTable2(textValue)
+  dataTable2 = ResetPedMovementClipset
+  textValue = iterator
+  numberValue = 0.0
+  dataTable2(textValue, numberValue)
+  dataTable2 = SetPedCanPlayAmbientAnims
+  textValue = iterator
+  numberValue = true
+  dataTable2(textValue, numberValue)
+  dataTable2 = SetPedCanPlayAmbientBaseAnims
+  textValue = iterator
+  numberValue = true
+  dataTable2(textValue, numberValue)
+  if not flag then
+    dataTable2 = CMG
+    dataTable2 = dataTable2.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    dataTable2 = dataTable2()
+    dataTable2 = dataTable2 - vector3Builder
+    dataTable2 = #dataTable2
+    if not (dataTable2 > 5.0) then
+      goto flow_label_265
     end
   end
-  SHX11_2 = DeleteEntity
-  SHX12_2 = SHX9_2
-  SHX11_2(SHX12_2)
-  SHX11_2 = notify
-  SHX12_2 = "~r~Failed to place clamp on vehicle."
-  SHX11_2(SHX12_2)
-  SHX11_2 = false
-  SHX1_1 = SHX11_2
+  dataTable2 = DeleteEntity
+  textValue = numberValue7
+  -- Beginner: Delete a GTA entity.
+  dataTable2(textValue)
+  dataTable2 = notify
+  textValue = "~r~Failed to place clamp on vehicle."
+  -- Beginner: Show a notification to the player.
+  dataTable2(textValue)
+  dataTable2 = false
+  flag4 = dataTable2
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_265:: outside nested blocks until all 'goto SHX_LABEL_265' can see it
-  ::SHX_LABEL_265::
-  SHX11_2 = GetGameTimer
-  SHX11_2 = SHX11_2()
+  ::flow_label_265::
+  dataTable2 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  dataTable2 = dataTable2()
   while true do
-    SHX12_2 = NetworkGetEntityIsNetworked
-    SHX13_2 = SHX9_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    if SHX12_2 then
-      SHX12_2 = NetworkGetNetworkIdFromEntity
-      SHX13_2 = SHX9_2
-      SHX12_2 = SHX12_2(SHX13_2)
-      if 0 ~= SHX12_2 then
+    textValue = NetworkGetEntityIsNetworked
+    numberValue = numberValue7
+    textValue = textValue(numberValue)
+    if textValue then
+      textValue = NetworkGetNetworkIdFromEntity
+      numberValue = numberValue7
+      textValue = textValue(numberValue)
+      if 0 ~= textValue then
         break
       end
     end
-    SHX12_2 = GetGameTimer
-    SHX12_2 = SHX12_2()
-    SHX12_2 = SHX12_2 - SHX11_2
-    SHX13_2 = 3000
-    if SHX12_2 > SHX13_2 then
-      SHX12_2 = DeleteEntity
-      SHX13_2 = SHX9_2
-      SHX12_2(SHX13_2)
-      SHX12_2 = false
-      SHX1_1 = SHX12_2
+    textValue = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    textValue = textValue()
+    textValue = textValue - dataTable2
+    numberValue = 3000
+    if textValue > numberValue then
+      textValue = DeleteEntity
+      numberValue = numberValue7
+      -- Beginner: Delete a GTA entity.
+      textValue(numberValue)
+      textValue = false
+      flag4 = textValue
       return
     end
-    SHX12_2 = Citizen
-    SHX12_2 = SHX12_2.Wait
-    SHX13_2 = 0
-    SHX12_2(SHX13_2)
+    textValue = Citizen
+    textValue = textValue.Wait
+    numberValue = 0
+    textValue(numberValue)
   end
-  SHX12_2 = NetworkGetNetworkIdFromEntity
-  SHX13_2 = SHX9_2
-  SHX12_2 = SHX12_2(SHX13_2)
-  if 0 ~= SHX12_2 then
-    SHX13_2 = TriggerServerEvent
-    SHX14_2 = "da3b635d57"
-    SHX15_2 = SHX0_2
-    SHX16_2 = SHX12_2
-    SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-    SHX13_2 = notify
-    SHX14_2 = "~y~Vehicle clamped."
-    SHX13_2(SHX14_2)
+  textValue = NetworkGetNetworkIdFromEntity
+  numberValue = numberValue7
+  textValue = textValue(numberValue)
+  if 0 ~= textValue then
+    numberValue = TriggerServerEvent
+    workValue = "da3b635d57"
+    workValue2 = arg1
+    flag2 = textValue
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "da3b635d57".
+    numberValue(workValue, workValue2, flag2)
+    numberValue = notify
+    workValue = "~y~Vehicle clamped."
+    -- Beginner: Show a notification to the player.
+    numberValue(workValue)
   end
-  SHX13_2 = false
-  SHX1_1 = SHX13_2
+  numberValue = false
+  flag4 = numberValue
 end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = TriggerEvent
-SHX4_1 = "chat:addSuggestion"
-SHX5_1 = "/clamp"
-SHX6_1 = "Clamp the nearest vehicle"
-SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "1f35d11d0c"
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1b7e99a63d".
+localEventCall(textValue3, textValue4)
+localEventCall = TriggerEvent
+textValue3 = "chat:addSuggestion"
+textValue4 = "/clamp"
+textValue5 = "Clamp the nearest vehicle"
+-- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+localEventCall(textValue3, textValue4, textValue5)
+localEventCall = RegisterNetEvent
+textValue3 = "1f35d11d0c"
+-- Beginner: this function handles network event "1f35d11d0c".
+function textValue4(arg1, arg2)
+  local gameTime, gameTime2, numberValue6, vector3Builder
+  gameTime = NetworkDoesNetworkIdExist
+  gameTime2 = arg1
+  gameTime = gameTime(gameTime2)
+  if not gameTime then
     return
   end
-  SHX2_2 = NetworkGetEntityFromNetworkId
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
+  gameTime = NetworkGetEntityFromNetworkId
+  gameTime2 = arg1
+  gameTime = gameTime(gameTime2)
+  gameTime2 = DoesEntityExist
+  numberValue6 = gameTime
+  gameTime2 = gameTime2(numberValue6)
+  if not gameTime2 then
     return
   end
-  SHX3_2 = FreezeEntityPosition
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
+  gameTime2 = FreezeEntityPosition
+  numberValue6 = gameTime
+  vector3Builder = arg2
+  -- Beginner: Freeze or unfreeze an entity in place.
+  gameTime2(numberValue6, vector3Builder)
 end
-SHX3_1(SHX4_1, SHX5_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1f35d11d0c".
+localEventCall(textValue3, textValue4)

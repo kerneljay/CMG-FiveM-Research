@@ -1,403 +1,350 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Spawn / Death-Screen UI Bridge
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = false
-SHX1_1 = CMG
-SHX1_1 = SHX1_1.uiRegisterCallback
-SHX2_1 = "respawnButtonClicked"
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX0_1
-  if not SHX1_2 then
-    return
-  end
-  SHX1_2 = SHX0_2.location
-  SHX1_2 = SHX1_2.name
-  SHX2_2 = tonumber
-  SHX3_2 = SHX0_2.location
-  SHX3_2 = SHX3_2.price
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = TriggerEvent
-  SHX4_2 = "600fad7b06"
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.uiSendMessage
-  SHX4_2 = {}
-  SHX4_2.app = ""
-  SHX4_2.type = "APP_TOGGLE"
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.uiSetFocus
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = false
-  SHX0_1 = SHX3_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.showHud
-  SHX3_2()
-end
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = AddEventHandler
-SHX2_1 = "CMGUI:openSpawnMenu"
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.type = "SET_SPAWN_LOCATIONS"
-  SHX3_2 = {}
-  SHX3_2.locations = SHX0_2
-  SHX2_2.info = SHX3_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.app = "spawn"
-  SHX2_2.type = "APP_TOGGLE"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSetFocus
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = true
-  SHX0_1 = SHX1_2
-end
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = 0
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "0cee493655"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = ClearTimecycleModifier
-  SHX0_2()
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.uiSendMessage
-  SHX1_2 = {}
-  SHX1_2.app = ""
-  SHX1_2.type = "APP_TOGGLE"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.uiSetFocus
-  SHX1_2 = false
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = 0
-  SHX1_1 = SHX0_2
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "2f40f9b5e7"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.uiSendMessage
-  SHX1_2 = {}
-  SHX1_2.page = "deathscreen"
-  SHX1_2.type = "RESPAWN_KEY_PRESSED"
-  SHX0_2(SHX1_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "fdf12e0408"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SetTimecycleModifier
-  SHX2_2 = "damage"
-  SHX1_2(SHX2_2)
-  SHX1_2 = SetTimecycleModifierStrength
-  SHX2_2 = 1.0
-  SHX1_2(SHX2_2)
-  SHX1_2 = tonumber
-  SHX2_2 = SHX0_2.timer
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = 0
-  end
-  SHX0_2.timer = SHX1_2
-  SHX1_2 = SHX0_2.killer
-  if not SHX1_2 then
-    SHX1_2 = "N/A"
-  end
-  SHX0_2.killer = SHX1_2
-  SHX1_2 = SHX0_2.killerPermId
-  if not SHX1_2 then
-    SHX1_2 = 0
-  end
-  SHX0_2.killerPermId = SHX1_2
-  SHX1_2 = SHX0_2.killedByWeapon
-  if not SHX1_2 then
-    SHX1_2 = "N/A"
-  end
-  SHX0_2.killedByWeapon = SHX1_2
-  SHX1_2 = SHX0_2.suicide
-  SHX1_2 = true == SHX1_2
-  SHX0_2.suicide = SHX1_2
-  SHX1_2 = SHX0_2.ignoreCallingNhs
-  SHX1_2 = true == SHX1_2
-  SHX0_2.ignoreCallingNhs = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.page = "deathscreen"
-  SHX2_2.type = "SHOW_DEATH_SCREEN"
-  SHX2_2.info = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSetFocus
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.floor
-  SHX2_2 = SHX0_2.timer
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_1 = SHX1_2
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "0d3f9227c2"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.uiSendMessage
-  SHX1_2 = {}
-  SHX1_2.page = "deathscreen"
-  SHX1_2.type = "DEATH_SCREEN_NHS_CALLED"
-  SHX0_2(SHX1_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "5d1f7b4ba9"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.uiSendMessage
-  SHX1_2 = {}
-  SHX1_2.page = "deathscreen"
-  SHX1_2.type = "DEATH_SCREEN_RDM_REPORTED"
-  SHX0_2(SHX1_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "d374144aa8"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.uiSendMessage
-  SHX1_2 = {}
-  SHX1_2.page = "deathscreen"
-  SHX1_2.type = "DEATH_SCREEN_RDM_REPORT_RESET"
-  SHX0_2(SHX1_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "10e19c3bc2"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.page = "deathscreen"
-  SHX2_2.type = "DEATH_SCREEN_NHS_CALL_BLOCKED"
-  SHX3_2 = {}
-  SHX4_2 = SHX0_2 or SHX4_2
-  if not SHX0_2 then
-    SHX4_2 = "You cannot call the health service in this area."
-  end
-  SHX3_2.message = SHX4_2
-  SHX2_2.info = SHX3_2
-  SHX1_2(SHX2_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "6b772be49e"
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.uiSendMessage
-  SHX3_2 = {}
-  SHX3_2.page = "deathscreen"
-  SHX3_2.type = "DEATHSCREEN_SET_NEARBY_AMBULANCE"
-  SHX4_2 = {}
-  SHX4_2.nearestMedics = SHX0_2
-  SHX4_2.medicCallStatus = SHX1_2
-  SHX3_2.info = SHX4_2
-  SHX2_2(SHX3_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "543db28eb0"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = tonumber
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX0_2 = SHX1_2 or SHX0_2
-  if not SHX1_2 then
-    SHX0_2 = 0
-  end
-  if SHX0_2 <= 0 then
-    return
-  end
-  SHX1_2 = SHX1_1
-  if not (SHX1_2 <= 0) then
-    SHX1_2 = SHX1_1
-    if not (SHX0_2 >= SHX1_2) then
-      goto SHX_LABEL_17
+    This file does not decide WHERE the player may respawn. It only passes
+    data between CMG Lua and the browser/NUI.
+
+    Spawn menu:
+      Event "CMGUI:openSpawnMenu"(locations)
+        sends the location list to NUI and focuses the spawn app.
+
+      NUI callback "respawnButtonClicked"
+        forwards the selected location name + price to local event 600fad7b06,
+        then closes the spawn UI.
+
+    Death screen:
+      Event fdf12e0408(data)
+        normalises the death data, applies the "damage" colour filter and shows
+        the death screen.
+
+      data fields used:
+        timer
+        killer
+        killerPermId
+        killedByWeapon
+        suicide
+        ignoreCallingNhs
+
+      Other events update NHS/RDM/status information in the death-screen UI.
+
+    deathScreenTimer counts down once per second. When it reaches zero, local
+    event 5e8a71b65d is fired.
+]]
+
+local spawnMenuOpen = false
+local deathScreenTimer = 0
+
+
+-- ============================================================
+-- SPAWN MENU
+-- ============================================================
+
+CMG.uiRegisterCallback(
+    "respawnButtonClicked",
+    function(data)
+        if not spawnMenuOpen then
+            return
+        end
+
+        local location =
+            data.location
+
+        TriggerEvent(
+            "600fad7b06",
+            location.name,
+            tonumber(
+                location.price
+            )
+        )
+
+        CMG.uiSendMessage({
+            type = "APP_TOGGLE",
+            app = ""
+        })
+
+        CMG.uiSetFocus(
+            false,
+            false,
+            false
+        )
+
+        spawnMenuOpen = false
+
+        CMG.showHud()
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_17:: outside nested blocks until all 'goto SHX_LABEL_17' can see it
-  ::SHX_LABEL_17::
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.floor
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_1 = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.page = "deathscreen"
-  SHX2_2.type = "UPDATE_DEATH_SCREEN_TIMER"
-  SHX3_2 = {}
-  SHX4_2 = SHX1_1
-  SHX3_2.timer = SHX4_2
-  SHX2_2.info = SHX3_2
-  SHX1_2(SHX2_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = Citizen
-SHX2_1 = SHX2_1.CreateThread
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  while true do
-    SHX0_2 = SHX1_1
-    if SHX0_2 > 0 then
-      SHX0_2 = SHX1_1
-      SHX0_2 = SHX0_2 - 1
-      SHX1_1 = SHX0_2
-      SHX0_2 = SHX1_1
-      if 0 == SHX0_2 then
-        SHX0_2 = TriggerEvent
-        SHX1_2 = "5e8a71b65d"
-        SHX0_2(SHX1_2)
-      end
+)
+
+
+AddEventHandler(
+    "CMGUI:openSpawnMenu",
+    function(locations)
+        CMG.uiSendMessage({
+            type =
+                "SET_SPAWN_LOCATIONS",
+
+            info = {
+                locations = locations
+            }
+        })
+
+        CMG.uiSendMessage({
+            type = "APP_TOGGLE",
+            app = "spawn"
+        })
+
+        CMG.uiSetFocus(
+            true,
+            true,
+            false
+        )
+
+        spawnMenuOpen = true
     end
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-  end
-end
-SHX2_1(SHX3_1)
-SHX2_1 = CMG
-SHX2_1 = SHX2_1.uiRegisterCallback
-SHX3_1 = "countdownEnded"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-end
-SHX2_1(SHX3_1, SHX4_1)
+)
+
+
+-- ============================================================
+-- CLOSE DEATH/SPAWN UI
+-- ============================================================
+
+RegisterNetEvent(
+    "0cee493655",
+    function()
+        ClearTimecycleModifier()
+
+        CMG.uiSendMessage({
+            type = "APP_TOGGLE",
+            app = ""
+        })
+
+        CMG.uiSetFocus(
+            false,
+            false,
+            false
+        )
+
+        deathScreenTimer = 0
+    end
+)
+
+
+-- ============================================================
+-- DEATH-SCREEN BUTTON / STATE EVENTS
+-- ============================================================
+
+RegisterNetEvent(
+    "2f40f9b5e7",
+    function()
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "RESPAWN_KEY_PRESSED"
+        })
+    end
+)
+
+
+AddEventHandler(
+    "fdf12e0408",
+    function(data)
+        SetTimecycleModifier(
+            "damage"
+        )
+
+        SetTimecycleModifierStrength(
+            1.0
+        )
+
+        data.timer =
+            tonumber(data.timer)
+            or 0
+
+        data.killer =
+            data.killer
+            or "N/A"
+
+        data.killerPermId =
+            data.killerPermId
+            or 0
+
+        data.killedByWeapon =
+            data.killedByWeapon
+            or "N/A"
+
+        data.suicide =
+            data.suicide == true
+
+        data.ignoreCallingNhs =
+            data.ignoreCallingNhs
+            == true
+
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "SHOW_DEATH_SCREEN",
+            info = data
+        })
+
+        CMG.uiSetFocus(
+            false,
+            false,
+            false
+        )
+
+        deathScreenTimer =
+            math.floor(
+                data.timer
+            )
+    end
+)
+
+
+AddEventHandler(
+    "0d3f9227c2",
+    function()
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "DEATH_SCREEN_NHS_CALLED"
+        })
+    end
+)
+
+
+AddEventHandler(
+    "5d1f7b4ba9",
+    function()
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "DEATH_SCREEN_RDM_REPORTED"
+        })
+    end
+)
+
+
+AddEventHandler(
+    "d374144aa8",
+    function()
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "DEATH_SCREEN_RDM_REPORT_RESET"
+        })
+    end
+)
+
+
+AddEventHandler(
+    "10e19c3bc2",
+    function(message)
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "DEATH_SCREEN_NHS_CALL_BLOCKED",
+
+            info = {
+                message =
+                    message
+                    or "You cannot call the health service in this area."
+            }
+        })
+    end
+)
+
+
+AddEventHandler(
+    "6b772be49e",
+    function(
+        nearestMedics,
+        medicCallStatus
+    )
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "DEATHSCREEN_SET_NEARBY_AMBULANCE",
+
+            info = {
+                nearestMedics =
+                    nearestMedics,
+
+                medicCallStatus =
+                    medicCallStatus
+            }
+        })
+    end
+)
+
+
+-- ============================================================
+-- TIMER CORRECTION
+-- ============================================================
+
+AddEventHandler(
+    "543db28eb0",
+    function(newTimer)
+        newTimer =
+            tonumber(newTimer)
+            or 0
+
+        if newTimer <= 0 then
+            return
+        end
+
+        -- The original only accepts this update if there is no timer yet OR
+        -- the new value is SHORTER than the current timer.
+        if deathScreenTimer > 0
+            and newTimer
+                >= deathScreenTimer then
+            return
+        end
+
+        deathScreenTimer =
+            math.floor(
+                newTimer
+            )
+
+        CMG.uiSendMessage({
+            page = "deathscreen",
+            type =
+                "UPDATE_DEATH_SCREEN_TIMER",
+
+            info = {
+                timer =
+                    deathScreenTimer
+            }
+        })
+    end
+)
+
+
+-- ============================================================
+-- ONE-SECOND COUNTDOWN
+-- ============================================================
+
+Citizen.CreateThread(function()
+    while true do
+        if deathScreenTimer > 0 then
+            deathScreenTimer =
+                deathScreenTimer - 1
+
+            if deathScreenTimer == 0 then
+                TriggerEvent(
+                    "5e8a71b65d"
+                )
+            end
+        end
+
+        Citizen.Wait(1000)
+    end
+end)
+
+
+-- NUI has its own countdown completion callback. The old Lua callback was
+-- intentionally empty.
+CMG.uiRegisterCallback(
+    "countdownEnded",
+    function()
+    end
+)

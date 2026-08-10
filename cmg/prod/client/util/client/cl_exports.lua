@@ -1,392 +1,294 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Common Client Exports + Prompt Bridge
+    =====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = nil
-function SHX1_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if nil == SHX3_2 then
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    This file contains small public helpers used by other CMG resources.
+
+    Prompt system:
+      CMG.clientPrompt(title, defaultText, inputType, callback)
+        Opens the browser prompt and calls the supplied client callback.
+
+      tCMG.prompt(title, defaultText)
+        Opens the same prompt for the older server/RPC interface.
+
+      Only one prompt callback is active at a time. A new prompt waits until
+      the old one has finished.
+
+    Other public helpers/exports:
+      playSound(transactionType)
+      CMG.copyToClipboard(value)
+      CMG.openURL(url)
+      isOnFactionDuty
+      getClientFaction
+      getClientJob
+      getClientJobGrade
+      getUserId
+      notify
+      hasClientPermission
+      canPerformSurgery
+
+    Event bcde297e37(text) copies a trimmed non-empty string to clipboard.
+]]
+
+local activePromptCallback = nil
+
+
+-- ============================================================
+-- PROMPT SYSTEM
+-- ============================================================
+
+local function openPrompt(
+    title,
+    defaultText,
+    promptType,
+    callback
+)
+    callback =
+        callback
+        or function()
+        end
+
+    -- Do not overwrite an existing caller's callback.
+    while activePromptCallback do
+        Wait(0)
     end
-    SHX3_2 = SHX4_2
-  end
-  SHX4_2 = SHX0_1
-  if SHX4_2 then
-    while true do
-      SHX4_2 = SHX0_1
-      if not SHX4_2 then
-        break
-      end
-      SHX4_2 = Wait
-      SHX5_2 = 0
-      SHX4_2(SHX5_2)
+
+    CMG.uiSendMessage({
+        action = "togglePrompt",
+        data = {
+            visible = true
+        }
+    })
+
+    CMG.uiSendMessage({
+        type = "SET_PROMPT_DATA",
+        info = {
+            title = title,
+            defaultText = defaultText,
+            type = promptType
+        }
+    })
+
+    CMG.uiSetFocus(
+        true,
+        false,
+        false
+    )
+
+    activePromptCallback =
+        callback
+end
+
+
+function CMG.clientPrompt(
+    title,
+    defaultText,
+    callback
+)
+    openPrompt(
+        title,
+        defaultText,
+        "client",
+        callback
+    )
+end
+
+
+function tCMG.prompt(
+    title,
+    defaultText
+)
+    openPrompt(
+        title,
+        defaultText,
+        "server",
+        nil
+    )
+end
+
+
+CMG.uiRegisterCallback(
+    "promptResult",
+    function(data)
+        CMG.uiSendMessage({
+            action = "togglePrompt",
+            data = {
+                visible = false
+            }
+        })
+
+        CMG.uiSetFocus(
+            false,
+            false,
+            false
+        )
+
+        -- Server/RPC prompts send their result back to CMGclient.
+        if data.type ~= "client" then
+            CMGclient.promptResult({
+                data.result
+            })
+        end
+
+        if activePromptCallback then
+            local callback =
+                activePromptCallback
+
+            -- Clear before running user code so that callback is allowed to
+            -- immediately open another prompt.
+            activePromptCallback =
+                nil
+
+            Citizen.CreateThreadNow(
+                function()
+                    callback(
+                        data.result
+                    )
+                end
+            )
+        end
     end
-  end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.uiSendMessage
-  SHX5_2 = {}
-  SHX5_2.action = "togglePrompt"
-  SHX6_2 = {}
-  SHX6_2.visible = true
-  SHX5_2.data = SHX6_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.uiSendMessage
-  SHX5_2 = {}
-  SHX5_2.type = "SET_PROMPT_DATA"
-  SHX6_2 = {}
-  SHX6_2.title = SHX0_2
-  SHX6_2.defaultText = SHX1_2
-  SHX6_2.type = SHX2_2
-  SHX5_2.info = SHX6_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.uiSetFocus
-  SHX5_2 = true
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX0_1 = SHX3_2
-end
-SHX2_1 = CMG
-function SHX3_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX3_2 = SHX1_1
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = "client"
-  SHX7_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-end
-SHX2_1.clientPrompt = SHX3_1
-SHX2_1 = tCMG
-function SHX3_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX1_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = "server"
-  SHX6_2 = nil
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-end
-SHX2_1.prompt = SHX3_1
-SHX2_1 = CMG
-SHX2_1 = SHX2_1.uiRegisterCallback
-SHX3_1 = "promptResult"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.action = "togglePrompt"
-  SHX3_2 = {}
-  SHX3_2.visible = false
-  SHX2_2.data = SHX3_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSetFocus
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SHX0_2.type
-  if "client" ~= SHX1_2 then
-    SHX1_2 = CMGclient
-    SHX1_2 = SHX1_2.promptResult
-    SHX2_2 = {}
-    SHX3_2 = SHX0_2.result
-    SHX2_2[1] = SHX3_2
-    SHX1_2(SHX2_2)
-  end
-  SHX1_2 = SHX0_1
-  if SHX1_2 then
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.CreateThreadNow
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX0_1
-      SHX1_3 = SHX0_2.result
-      SHX0_3(SHX1_3)
+)
+
+
+-- ============================================================
+-- SMALL NUI / CLIPBOARD HELPERS
+-- ============================================================
+
+exports(
+    "playSound",
+    function(transactionType)
+        SendNUIMessage({
+            transactionType =
+                transactionType
+        })
     end
-    SHX1_2(SHX2_2)
-    SHX1_2 = nil
-    SHX0_1 = SHX1_2
-  end
+)
+
+
+function CMG.copyToClipboard(value)
+    SendNUIMessage({
+        act = "copy_clipboard",
+        text = tostring(value)
+    })
 end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "playSound"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SendNUIMessage
-  SHX2_2 = {}
-  SHX2_2.transactionType = SHX0_2
-  SHX1_2(SHX2_2)
+
+
+RegisterNetEvent(
+    "bcde297e37",
+    function(text)
+        if type(text)
+            ~= "string" then
+            return
+        end
+
+        local trimmed =
+            text:match(
+                "^%s*(.-)%s*$"
+            )
+
+        if not trimmed
+            or trimmed == "" then
+            return
+        end
+
+        CMG.copyToClipboard(
+            trimmed
+        )
+    end
+)
+
+
+function CMG.openURL(url)
+    SendNUIMessage({
+        type = "open_url",
+        url = url
+    })
 end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = CMG
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SendNUIMessage
-  SHX2_2 = {}
-  SHX2_2.act = "copy_clipboard"
-  SHX3_2 = tostring
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX2_2.text = SHX3_2
-  SHX1_2(SHX2_2)
-end
-SHX2_1.copyToClipboard = SHX3_1
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "bcde297e37"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "string" ~= SHX1_2 then
-    return
-  end
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX0_2.match
-  SHX3_2 = "^%s*(.-)%s*$"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 or "" == SHX1_2 then
-    return
-  end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.copyToClipboard
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = CMG
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SendNUIMessage
-  SHX2_2 = {}
-  SHX2_2.type = "open_url"
-  SHX2_2.url = SHX0_2
-  SHX1_2(SHX2_2)
-end
-SHX2_1.openURL = SHX3_1
-SHX2_1 = exports
-SHX3_1 = "isOnFactionDuty"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "police.onduty.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hasClientPermission
-    SHX1_2 = "nhs.onduty.permission"
-    SHX0_2 = SHX0_2(SHX1_2)
-  end
-  return SHX0_2
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "getClientFaction"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientFaction
-  return SHX0_2()
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "getClientJob"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientJob
-  return SHX0_2()
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "getClientJobGrade"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientJobGrade
-  return SHX0_2()
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "getUserId"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientUserId
-  return SHX0_2()
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "notify"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = notify
-  SHX2_2 = SHX0_2
-  return SHX1_2(SHX2_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "hasClientPermission"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasClientPermission
-  SHX2_2 = SHX0_2
-  return SHX1_2(SHX2_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = exports
-SHX3_1 = "canPerformSurgery"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "doctor.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hasClientPermission
-    SHX1_2 = "nhs.surgeon.whitelisted"
-    SHX0_2 = SHX0_2(SHX1_2)
-  end
-  return SHX0_2
-end
-SHX2_1(SHX3_1, SHX4_1)
+
+
+-- ============================================================
+-- EXPORTED FRAMEWORK QUERIES
+-- ============================================================
+
+exports(
+    "isOnFactionDuty",
+    function()
+        return
+            CMG.hasClientPermission(
+                "police.onduty.permission"
+            )
+            or CMG.hasClientPermission(
+                "nhs.onduty.permission"
+            )
+    end
+)
+
+
+exports(
+    "getClientFaction",
+    function()
+        return
+            CMG.getClientFaction()
+    end
+)
+
+
+exports(
+    "getClientJob",
+    function()
+        return
+            CMG.getClientJob()
+    end
+)
+
+
+exports(
+    "getClientJobGrade",
+    function()
+        return
+            CMG.getClientJobGrade()
+    end
+)
+
+
+exports(
+    "getUserId",
+    function()
+        return
+            CMG.getClientUserId()
+    end
+)
+
+
+exports(
+    "notify",
+    function(message)
+        return notify(message)
+    end
+)
+
+
+exports(
+    "hasClientPermission",
+    function(permission)
+        return
+            CMG.hasClientPermission(
+                permission
+            )
+    end
+)
+
+
+exports(
+    "canPerformSurgery",
+    function()
+        return
+            CMG.hasClientPermission(
+                "doctor.permission"
+            )
+            or CMG.hasClientPermission(
+                "nhs.surgeon.whitelisted"
+            )
+    end
+)

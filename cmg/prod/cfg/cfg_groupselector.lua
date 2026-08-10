@@ -1,3 +1,29 @@
+--[[
+    BEGINNER GUIDE — Groupselector
+    ==============================
+
+    File: cmg/prod/cfg/cfg_groupselector.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_factiongroups
+      * cfg/cfg_business
+      * cfg/cfg_vigilante
+
+    Example player-facing text in this file:
+      * Job Selector
+      * Casino Jobs
+      * Vigilante Jobs
+
+]]
 local cfg = {}
 local groupCfg = CMG.loadModule("cfg/cfg_factiongroups")
 local businessCfg = CMG.loadModule("cfg/cfg_business")

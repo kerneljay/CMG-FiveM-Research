@@ -1,1376 +1,1336 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_borderforce.lua
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 1307.67163
-SHX4_1 = 575.666138
-SHX5_1 = 80.11085
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 131.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 1305.7927246094
-SHX4_1 = 581.07287597656
-SHX5_1 = 80.081733703613
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 226.0
-SHX1_1.rotation = 133.46
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[1] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 1336.73181
-SHX4_1 = 602.823364
-SHX5_1 = 80.15877
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX1_1.gateRotation = nil
-SHX2_1 = vector3
-SHX3_1 = 1330.9665527344
-SHX4_1 = 604.69061279297
-SHX5_1 = 80.189002990723
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 226.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[2] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 1313.71228
-SHX4_1 = 628.0808
-SHX5_1 = 80.1978455
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 311.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 1312.9809570313
-SHX4_1 = 623.81829833984
-SHX5_1 = 80.197242736816
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 41.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[3] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 1283.63123
-SHX4_1 = 600.256348
-SHX5_1 = 80.0751
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 311.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 1288.6761474609
-SHX4_1 = 598.40759277344
-SHX5_1 = 80.098342895508
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 41.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[4] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 2436.67236
-SHX4_1 = -221.798569
-SHX5_1 = 86.0626144
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 155.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 2432.5932617188
-SHX4_1 = -217.69305419922
-SHX5_1 = 86.343444824219
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 240.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[5] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 2454.306
-SHX4_1 = -186.302841
-SHX5_1 = 87.8461151
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 155.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 2447.4279785156
-SHX4_1 = -187.01138305664
-SHX5_1 = 87.809188842773
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 240.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[6] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 2423.53882
-SHX4_1 = -171.105515
-SHX5_1 = 87.77565
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 333.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 2426.1889648438
-SHX4_1 = -175.99674987793
-SHX5_1 = 87.734436035156
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 68.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[7] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = 2405.56372
-SHX4_1 = -208.031891
-SHX5_1 = 86.09489
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 333.0
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 2411.3996582031
-SHX4_1 = -207.52787780762
-SHX5_1 = 86.227264404297
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 68.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[8] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = -2401.57422
-SHX4_1 = -235.169571
-SHX5_1 = 15.5775642
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 242.5
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = -2406.2575683594
-SHX4_1 = -239.23776245117
-SHX5_1 = 15.476901054382
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 330.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[9] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = -2436.278
-SHX4_1 = -216.735123
-SHX5_1 = 16.4167013
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 242.5
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = -2434.2758789063
-SHX4_1 = -224.33985900879
-SHX5_1 = 16.358936309814
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 330.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[10] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = -2452.826
-SHX4_1 = -245.910721
-SHX5_1 = 16.44616
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 60
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = -2444.1645507813
-SHX4_1 = -244.25773620605
-SHX5_1 = 16.33381652832
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 150.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[11] = SHX1_1
-SHX1_1 = {}
-SHX1_1.prop = "cmg_prop_gate_military_01"
-SHX1_1.prop_frame = "cmg_prop_gate_frame_02"
-SHX1_1.prop_controller = "prop_rail_controller"
-SHX2_1 = vector3
-SHX3_1 = -2416.83057
-SHX4_1 = -264.836578
-SHX5_1 = 15.4028273
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = 60
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.gateRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = -2416.6555175781
-SHX4_1 = -259.09844970703
-SHX5_1 = 15.234084701538
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.controllerPos = SHX2_1
-SHX1_1.controllerRotation = 150.0
-SHX1_1.rotation = 131.69
-SHX2_1 = {}
-SHX1_1.propObjHandlers = SHX2_1
-SHX1_1.propFrameObjHandler = 0
-SHX1_1.propControllerHandler = 0
-SHX1_1.open = false
-SHX1_1.instruction = "none"
-SHX0_1[12] = SHX1_1
-SHX1_1 = {}
-SHX2_1 = {}
-SHX2_1.name = "Los Santos"
-SHX3_1 = vector4
-SHX4_1 = 1312.8000488281
-SHX5_1 = 603.81097412109
-SHX6_1 = 80.317993164062
-SHX7_1 = 131.81103515625
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1)
-SHX2_1.position = SHX3_1
-SHX3_1 = {}
-SHX4_1 = 1
-SHX5_1 = 2
-SHX6_1 = 3
-SHX7_1 = 4
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX2_1.opens = SHX3_1
-SHX1_1[1] = SHX2_1
-SHX2_1 = {}
-SHX2_1.name = "Olympic"
-SHX3_1 = vector4
-SHX4_1 = 2432.6638183594
-SHX5_1 = -192.52746582031
-SHX6_1 = 87.428588867188
-SHX7_1 = 153.07086181641
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1)
-SHX2_1.position = SHX3_1
-SHX3_1 = {}
-SHX4_1 = 5
-SHX5_1 = 6
-SHX6_1 = 7
-SHX7_1 = 8
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX2_1.opens = SHX3_1
-SHX1_1[2] = SHX2_1
-SHX2_1 = {}
-SHX2_1.name = "Great Ocean"
-SHX3_1 = vector4
-SHX4_1 = -2431.2526855469
-SHX5_1 = -237.65274047852
-SHX6_1 = 16.305541992188
-SHX7_1 = 249.44882202148
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1)
-SHX2_1.position = SHX3_1
-SHX3_1 = {}
-SHX4_1 = 9
-SHX5_1 = 10
-SHX6_1 = 11
-SHX7_1 = 12
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX2_1.opens = SHX3_1
-SHX1_1[3] = SHX2_1
-SHX2_1 = {}
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasClientPermission
-  SHX2_2 = "borderforce.onduty.permission"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isStaffedOnClient
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
-      goto SHX_LABEL_88
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Borderforce
+    ============================
+
+    File: cmg/prod/client/police/cl_borderforce.lua
+    Purpose: This file contains police gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 7
+      They are intentionally left unchanged because matching server code may use them.
+      * bfb85eb237
+      * 03e141ef40
+      * 46592aad2d
+      * 923b558511
+      * 9da3977b15
+      * d95fd9b2cd
+      * 5e416b2e9c
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+    Example player-facing text in this file:
+      * Press [E] to close gates
+      * Press [E] to open gates
+      * Press [E] to close gate
+      * Press [E] to open gate
+
+]]
+local dataTable, dataTable2, vector3Builder, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, flag9, cmgCall6, cmgCall, workValue, textValue2
+dataTable = {}
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 1307.67163
+numberValue3 = 575.666138
+numberValue4 = 80.11085
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 131.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1305.7927246094
+numberValue3 = 581.07287597656
+numberValue4 = 80.081733703613
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 226.0
+dataTable2.rotation = 133.46
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[1] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 1336.73181
+numberValue3 = 602.823364
+numberValue4 = 80.15877
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+dataTable2.gateRotation = nil
+vector3Builder = vector3
+numberValue2 = 1330.9665527344
+numberValue3 = 604.69061279297
+numberValue4 = 80.189002990723
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 226.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[2] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 1313.71228
+numberValue3 = 628.0808
+numberValue4 = 80.1978455
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 311.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1312.9809570313
+numberValue3 = 623.81829833984
+numberValue4 = 80.197242736816
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 41.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[3] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 1283.63123
+numberValue3 = 600.256348
+numberValue4 = 80.0751
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 311.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1288.6761474609
+numberValue3 = 598.40759277344
+numberValue4 = 80.098342895508
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 41.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[4] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 2436.67236
+numberValue3 = -221.798569
+numberValue4 = 86.0626144
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 155.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2432.5932617188
+numberValue3 = -217.69305419922
+numberValue4 = 86.343444824219
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 240.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[5] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 2454.306
+numberValue3 = -186.302841
+numberValue4 = 87.8461151
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 155.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2447.4279785156
+numberValue3 = -187.01138305664
+numberValue4 = 87.809188842773
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 240.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[6] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 2423.53882
+numberValue3 = -171.105515
+numberValue4 = 87.77565
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 333.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2426.1889648438
+numberValue3 = -175.99674987793
+numberValue4 = 87.734436035156
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 68.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[7] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = 2405.56372
+numberValue3 = -208.031891
+numberValue4 = 86.09489
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 333.0
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2411.3996582031
+numberValue3 = -207.52787780762
+numberValue4 = 86.227264404297
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 68.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[8] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = -2401.57422
+numberValue3 = -235.169571
+numberValue4 = 15.5775642
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 242.5
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2406.2575683594
+numberValue3 = -239.23776245117
+numberValue4 = 15.476901054382
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 330.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[9] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = -2436.278
+numberValue3 = -216.735123
+numberValue4 = 16.4167013
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 242.5
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2434.2758789063
+numberValue3 = -224.33985900879
+numberValue4 = 16.358936309814
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 330.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[10] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = -2452.826
+numberValue3 = -245.910721
+numberValue4 = 16.44616
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 60
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2444.1645507813
+numberValue3 = -244.25773620605
+numberValue4 = 16.33381652832
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 150.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[11] = dataTable2
+dataTable2 = {}
+dataTable2.prop = "cmg_prop_gate_military_01"
+dataTable2.prop_frame = "cmg_prop_gate_frame_02"
+dataTable2.prop_controller = "prop_rail_controller"
+vector3Builder = vector3
+numberValue2 = -2416.83057
+numberValue3 = -264.836578
+numberValue4 = 15.4028273
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.position = vector3Builder
+vector3Builder = vector3
+numberValue2 = 0.0
+numberValue3 = 0.0
+numberValue4 = 60
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.gateRotation = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2416.6555175781
+numberValue3 = -259.09844970703
+numberValue4 = 15.234084701538
+vector3Builder = vector3Builder(numberValue2, numberValue3, numberValue4)
+dataTable2.controllerPos = vector3Builder
+dataTable2.controllerRotation = 150.0
+dataTable2.rotation = 131.69
+vector3Builder = {}
+dataTable2.propObjHandlers = vector3Builder
+dataTable2.propFrameObjHandler = 0
+dataTable2.propControllerHandler = 0
+dataTable2.open = false
+dataTable2.instruction = "none"
+dataTable[12] = dataTable2
+dataTable2 = {}
+vector3Builder = {}
+vector3Builder.name = "Los Santos"
+numberValue2 = vector4
+numberValue3 = 1312.8000488281
+numberValue4 = 603.81097412109
+numberValue5 = 80.317993164062
+numberValue6 = 131.81103515625
+numberValue2 = numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
+vector3Builder.position = numberValue2
+numberValue2 = {}
+numberValue3 = 1
+numberValue4 = 2
+numberValue5 = 3
+numberValue6 = 4
+numberValue2[1] = numberValue3
+numberValue2[2] = numberValue4
+numberValue2[3] = numberValue5
+numberValue2[4] = numberValue6
+vector3Builder.opens = numberValue2
+dataTable2[1] = vector3Builder
+vector3Builder = {}
+vector3Builder.name = "Olympic"
+numberValue2 = vector4
+numberValue3 = 2432.6638183594
+numberValue4 = -192.52746582031
+numberValue5 = 87.428588867188
+numberValue6 = 153.07086181641
+numberValue2 = numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
+vector3Builder.position = numberValue2
+numberValue2 = {}
+numberValue3 = 5
+numberValue4 = 6
+numberValue5 = 7
+numberValue6 = 8
+numberValue2[1] = numberValue3
+numberValue2[2] = numberValue4
+numberValue2[3] = numberValue5
+numberValue2[4] = numberValue6
+vector3Builder.opens = numberValue2
+dataTable2[2] = vector3Builder
+vector3Builder = {}
+vector3Builder.name = "Great Ocean"
+numberValue2 = vector4
+numberValue3 = -2431.2526855469
+numberValue4 = -237.65274047852
+numberValue5 = 16.305541992188
+numberValue6 = 249.44882202148
+numberValue2 = numberValue2(numberValue3, numberValue4, numberValue5, numberValue6)
+vector3Builder.position = numberValue2
+numberValue2 = {}
+numberValue3 = 9
+numberValue4 = 10
+numberValue5 = 11
+numberValue6 = 12
+numberValue2[1] = numberValue3
+numberValue2[2] = numberValue4
+numberValue2[3] = numberValue5
+numberValue2[4] = numberValue6
+vector3Builder.opens = numberValue2
+dataTable2[3] = vector3Builder
+vector3Builder = {}
+function numberValue2(arg1)
+  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue
+  arg2 = CMG
+  arg2 = arg2.hasClientPermission
+  cmgCall3 = "borderforce.onduty.permission"
+  arg2 = arg2(cmgCall3)
+  if not arg2 then
+    arg2 = CMG
+    arg2 = arg2.isStaffedOnClient
+    arg2 = arg2()
+    if not arg2 then
+      goto flow_label_88
     end
   end
-  SHX1_2 = false
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2.opens
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX0_1
-    SHX8_2 = SHX8_2[SHX7_2]
-    SHX8_2 = SHX8_2.open
-    if SHX8_2 then
-      SHX1_2 = true
+  arg2 = false
+  cmgCall3 = pairs
+  position3 = arg1.opens
+  cmgCall3, position3, textValue5, iterator = cmgCall3(position3)
+  for cmgCall4, cmgCall5 in cmgCall3, position3, textValue5, iterator do
+    serverEventCall = dataTable
+    serverEventCall = serverEventCall[cmgCall5]
+    serverEventCall = serverEventCall.open
+    if serverEventCall then
+      arg2 = true
       break
     end
   end
-  if SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.DrawText3D
-    SHX3_2 = SHX0_2.position
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = "Press [E] to close gates"
-    SHX5_2 = 0.35
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = IsControlJustPressed
-    SHX3_2 = 0
-    SHX4_2 = 38
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      SHX2_2 = tCMG
-      SHX2_2 = SHX2_2.notify
-      SHX3_2 = "~g~Gate closing..."
-      SHX2_2(SHX3_2)
-      SHX2_2 = pairs
-      SHX3_2 = SHX0_2.opens
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-      for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-        SHX8_2 = TriggerServerEvent
-        SHX9_2 = "bfb85eb237"
-        SHX10_2 = SHX7_2
-        SHX11_2 = "close"
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2)
+  if arg2 then
+    cmgCall3 = CMG
+    cmgCall3 = cmgCall3.DrawText3D
+    position3 = arg1.position
+    position3 = position3.xyz
+    textValue5 = "Press [E] to close gates"
+    iterator = 0.35
+    cmgCall3(position3, textValue5, iterator)
+    cmgCall3 = IsControlJustPressed
+    position3 = 0
+    textValue5 = 38
+    cmgCall3 = cmgCall3(position3, textValue5)
+    if cmgCall3 then
+      cmgCall3 = tCMG
+      cmgCall3 = cmgCall3.notify
+      position3 = "~g~Gate closing..."
+      -- Beginner: Show a notification to the player.
+      cmgCall3(position3)
+      cmgCall3 = pairs
+      position3 = arg1.opens
+      cmgCall3, position3, textValue5, iterator = cmgCall3(position3)
+      for cmgCall4, cmgCall5 in cmgCall3, position3, textValue5, iterator do
+        serverEventCall = TriggerServerEvent
+        textValue8 = "bfb85eb237"
+        tableHelper = cmgCall5
+        textValue = "close"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
+        serverEventCall(textValue8, tableHelper, textValue)
       end
     end
   else
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.DrawText3D
-    SHX3_2 = SHX0_2.position
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = "Press [E] to open gates"
-    SHX5_2 = 0.35
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = IsControlJustPressed
-    SHX3_2 = 0
-    SHX4_2 = 38
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      SHX2_2 = tCMG
-      SHX2_2 = SHX2_2.notify
-      SHX3_2 = "~g~Gate opening..."
-      SHX2_2(SHX3_2)
-      SHX2_2 = pairs
-      SHX3_2 = SHX0_2.opens
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-      for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-        SHX8_2 = TriggerServerEvent
-        SHX9_2 = "bfb85eb237"
-        SHX10_2 = SHX7_2
-        SHX11_2 = "open"
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2)
+    cmgCall3 = CMG
+    cmgCall3 = cmgCall3.DrawText3D
+    position3 = arg1.position
+    position3 = position3.xyz
+    textValue5 = "Press [E] to open gates"
+    iterator = 0.35
+    cmgCall3(position3, textValue5, iterator)
+    cmgCall3 = IsControlJustPressed
+    position3 = 0
+    textValue5 = 38
+    cmgCall3 = cmgCall3(position3, textValue5)
+    if cmgCall3 then
+      cmgCall3 = tCMG
+      cmgCall3 = cmgCall3.notify
+      position3 = "~g~Gate opening..."
+      -- Beginner: Show a notification to the player.
+      cmgCall3(position3)
+      cmgCall3 = pairs
+      position3 = arg1.opens
+      cmgCall3, position3, textValue5, iterator = cmgCall3(position3)
+      for cmgCall4, cmgCall5 in cmgCall3, position3, textValue5, iterator do
+        serverEventCall = TriggerServerEvent
+        textValue8 = "bfb85eb237"
+        tableHelper = cmgCall5
+        textValue = "open"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
+        serverEventCall(textValue8, tableHelper, textValue)
       end
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_88:: outside nested blocks until all 'goto SHX_LABEL_88' can see it
-  ::SHX_LABEL_88::
+  ::flow_label_88::
 end
-SHX4_1 = Citizen
-SHX4_1 = SHX4_1.CreateThread
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.loadModel
-    SHX7_2 = SHX5_2.prop
-    SHX6_2 = SHX6_2(SHX7_2)
-    if not SHX6_2 then
+numberValue3 = Citizen
+numberValue3 = numberValue3.CreateThread
+function numberValue4()
+  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2, flag3, flag4, workValue2, workValue3, flag5, flag6, flag7, numberValue, flag8
+  arg1 = pairs
+  arg2 = dataTable
+  arg1, arg2, cmgCall3, position3 = arg1(arg2)
+  for textValue5, iterator in arg1, arg2, cmgCall3, position3 do
+    cmgCall4 = CMG
+    cmgCall4 = cmgCall4.loadModel
+    cmgCall5 = iterator.prop
+    cmgCall4 = cmgCall4(cmgCall5)
+    if not cmgCall4 then
       return
     end
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.loadModel
-    SHX8_2 = SHX5_2.prop_frame
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.loadModel
-    SHX9_2 = SHX5_2.prop_controller
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX9_2 = CreateObjectNoOffset
-    SHX10_2 = SHX6_2
-    SHX11_2 = SHX5_2.position
-    SHX11_2 = SHX11_2.x
-    SHX12_2 = SHX5_2.position
-    SHX12_2 = SHX12_2.y
-    SHX13_2 = SHX5_2.position
-    SHX13_2 = SHX13_2.z
-    SHX13_2 = SHX13_2 - 1
-    SHX14_2 = false
-    SHX15_2 = false
-    SHX16_2 = true
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX10_2 = table
-    SHX10_2 = SHX10_2.insert
-    SHX11_2 = SHX0_1
-    SHX11_2 = SHX11_2[SHX4_2]
-    SHX11_2 = SHX11_2.propObjHandlers
-    SHX12_2 = SHX9_2
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = CreateObjectNoOffset
-    SHX11_2 = SHX6_2
-    SHX12_2 = SHX5_2.position
-    SHX12_2 = SHX12_2.x
-    SHX13_2 = SHX5_2.position
-    SHX13_2 = SHX13_2.y
-    SHX14_2 = SHX5_2.position
-    SHX14_2 = SHX14_2.z
-    SHX14_2 = SHX14_2 - 1
-    SHX15_2 = false
-    SHX16_2 = false
-    SHX17_2 = true
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX11_2 = table
-    SHX11_2 = SHX11_2.insert
-    SHX12_2 = SHX0_1
-    SHX12_2 = SHX12_2[SHX4_2]
-    SHX12_2 = SHX12_2.propObjHandlers
-    SHX13_2 = SHX10_2
-    SHX11_2(SHX12_2, SHX13_2)
-    SHX11_2 = pairs
-    SHX12_2 = SHX0_1
-    SHX12_2 = SHX12_2[SHX4_2]
-    SHX12_2 = SHX12_2.propObjHandlers
-    SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-    for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-      SHX17_2 = SetEntityHeading
-      SHX18_2 = SHX16_2
-      SHX19_2 = SHX0_1
-      SHX19_2 = SHX19_2[SHX4_2]
-      SHX19_2 = SHX19_2.rotation
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = SetEntityInvincible
-      SHX18_2 = SHX16_2
-      SHX19_2 = true
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = FreezeEntityPosition
-      SHX18_2 = SHX16_2
-      SHX19_2 = true
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = SHX0_1
-      SHX17_2 = SHX17_2[SHX4_2]
-      SHX17_2 = SHX17_2.gateRotation
-      if nil ~= SHX17_2 then
-        SHX18_2 = SetEntityRotation
-        SHX19_2 = SHX16_2
-        SHX20_2 = SHX17_2.x
-        SHX21_2 = SHX17_2.y
-        SHX22_2 = SHX17_2.z
-        SHX23_2 = 2
-        SHX24_2 = false
-        SHX18_2(SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+    cmgCall5 = CMG
+    cmgCall5 = cmgCall5.loadModel
+    serverEventCall = iterator.prop_frame
+    cmgCall5 = cmgCall5(serverEventCall)
+    serverEventCall = CMG
+    serverEventCall = serverEventCall.loadModel
+    textValue8 = iterator.prop_controller
+    serverEventCall = serverEventCall(textValue8)
+    textValue8 = CreateObjectNoOffset
+    tableHelper = cmgCall4
+    textValue = iterator.position
+    textValue = textValue.x
+    position = iterator.position
+    position = position.y
+    position2 = iterator.position
+    position2 = position2.z
+    position2 = position2 - 1
+    flag = false
+    flag2 = false
+    flag3 = true
+    -- Beginner: result below is objectEntity.
+    textValue8 = textValue8(tableHelper, textValue, position, position2, flag, flag2, flag3)
+    tableHelper = table
+    tableHelper = tableHelper.insert
+    textValue = dataTable
+    textValue = textValue[textValue5]
+    textValue = textValue.propObjHandlers
+    position = textValue8
+    tableHelper(textValue, position)
+    tableHelper = CreateObjectNoOffset
+    textValue = cmgCall4
+    position = iterator.position
+    position = position.x
+    position2 = iterator.position
+    position2 = position2.y
+    flag = iterator.position
+    flag = flag.z
+    flag = flag - 1
+    flag2 = false
+    flag3 = false
+    flag4 = true
+    -- Beginner: result below is objectEntity.
+    tableHelper = tableHelper(textValue, position, position2, flag, flag2, flag3, flag4)
+    textValue = table
+    textValue = textValue.insert
+    position = dataTable
+    position = position[textValue5]
+    position = position.propObjHandlers
+    position2 = tableHelper
+    textValue(position, position2)
+    textValue = pairs
+    position = dataTable
+    position = position[textValue5]
+    position = position.propObjHandlers
+    textValue, position, position2, flag = textValue(position)
+    for flag2, flag3 in textValue, position, position2, flag do
+      flag4 = SetEntityHeading
+      workValue2 = flag3
+      workValue3 = dataTable
+      workValue3 = workValue3[textValue5]
+      workValue3 = workValue3.rotation
+      -- Beginner: Change the direction an entity is facing.
+      flag4(workValue2, workValue3)
+      flag4 = SetEntityInvincible
+      workValue2 = flag3
+      workValue3 = true
+      flag4(workValue2, workValue3)
+      flag4 = FreezeEntityPosition
+      workValue2 = flag3
+      workValue3 = true
+      -- Beginner: Freeze or unfreeze an entity in place.
+      flag4(workValue2, workValue3)
+      flag4 = dataTable
+      flag4 = flag4[textValue5]
+      flag4 = flag4.gateRotation
+      if nil ~= flag4 then
+        workValue2 = SetEntityRotation
+        workValue3 = flag3
+        flag5 = flag4.x
+        flag6 = flag4.y
+        flag7 = flag4.z
+        numberValue = 2
+        flag8 = false
+        workValue2(workValue3, flag5, flag6, flag7, numberValue, flag8)
       end
     end
-    SHX11_2 = CreateObjectNoOffset
-    SHX12_2 = SHX7_2
-    SHX13_2 = SHX5_2.position
-    SHX13_2 = SHX13_2.x
-    SHX14_2 = SHX5_2.position
-    SHX14_2 = SHX14_2.y
-    SHX15_2 = SHX5_2.position
-    SHX15_2 = SHX15_2.z
-    SHX15_2 = SHX15_2 - 1.0
-    SHX16_2 = false
-    SHX17_2 = true
-    SHX18_2 = false
-    SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    SHX12_2 = SHX0_1
-    SHX12_2 = SHX12_2[SHX4_2]
-    SHX12_2.propFrameObjHandler = SHX11_2
-    SHX12_2 = SetEntityHeading
-    SHX13_2 = SHX0_1
-    SHX13_2 = SHX13_2[SHX4_2]
-    SHX13_2 = SHX13_2.propFrameObjHandler
-    SHX14_2 = SHX0_1
-    SHX14_2 = SHX14_2[SHX4_2]
-    SHX14_2 = SHX14_2.rotation
-    SHX12_2(SHX13_2, SHX14_2)
-    SHX12_2 = SetEntityInvincible
-    SHX13_2 = SHX0_1
-    SHX13_2 = SHX13_2[SHX4_2]
-    SHX13_2 = SHX13_2.propFrameObjHandler
-    SHX14_2 = true
-    SHX12_2(SHX13_2, SHX14_2)
-    SHX12_2 = FreezeEntityPosition
-    SHX13_2 = SHX0_1
-    SHX13_2 = SHX13_2[SHX4_2]
-    SHX13_2 = SHX13_2.propFrameObjHandler
-    SHX14_2 = true
-    SHX12_2(SHX13_2, SHX14_2)
-    SHX12_2 = SHX0_1
-    SHX12_2 = SHX12_2[SHX4_2]
-    SHX12_2 = SHX12_2.gateRotation
-    if nil ~= SHX12_2 then
-      SHX13_2 = SetEntityRotation
-      SHX14_2 = SHX0_1
-      SHX14_2 = SHX14_2[SHX4_2]
-      SHX14_2 = SHX14_2.propFrameObjHandler
-      SHX15_2 = SHX12_2.x
-      SHX16_2 = SHX12_2.y
-      SHX17_2 = SHX12_2.z
-      SHX18_2 = 2
-      SHX19_2 = false
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
+    textValue = CreateObjectNoOffset
+    position = cmgCall5
+    position2 = iterator.position
+    position2 = position2.x
+    flag = iterator.position
+    flag = flag.y
+    flag2 = iterator.position
+    flag2 = flag2.z
+    flag2 = flag2 - 1.0
+    flag3 = false
+    flag4 = true
+    workValue2 = false
+    -- Beginner: result below is objectEntity.
+    textValue = textValue(position, position2, flag, flag2, flag3, flag4, workValue2)
+    position = dataTable
+    position = position[textValue5]
+    position.propFrameObjHandler = textValue
+    position = SetEntityHeading
+    position2 = dataTable
+    position2 = position2[textValue5]
+    position2 = position2.propFrameObjHandler
+    flag = dataTable
+    flag = flag[textValue5]
+    flag = flag.rotation
+    -- Beginner: Change the direction an entity is facing.
+    position(position2, flag)
+    position = SetEntityInvincible
+    position2 = dataTable
+    position2 = position2[textValue5]
+    position2 = position2.propFrameObjHandler
+    flag = true
+    position(position2, flag)
+    position = FreezeEntityPosition
+    position2 = dataTable
+    position2 = position2[textValue5]
+    position2 = position2.propFrameObjHandler
+    flag = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    position(position2, flag)
+    position = dataTable
+    position = position[textValue5]
+    position = position.gateRotation
+    if nil ~= position then
+      position2 = SetEntityRotation
+      flag = dataTable
+      flag = flag[textValue5]
+      flag = flag.propFrameObjHandler
+      flag2 = position.x
+      flag3 = position.y
+      flag4 = position.z
+      workValue2 = 2
+      workValue3 = false
+      position2(flag, flag2, flag3, flag4, workValue2, workValue3)
     end
-    SHX13_2 = CreateObjectNoOffset
-    SHX14_2 = SHX8_2
-    SHX15_2 = SHX5_2.controllerPos
-    SHX15_2 = SHX15_2.x
-    SHX16_2 = SHX5_2.controllerPos
-    SHX16_2 = SHX16_2.y
-    SHX17_2 = SHX5_2.controllerPos
-    SHX17_2 = SHX17_2.z
-    SHX17_2 = SHX17_2 - 1
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX20_2 = true
-    SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-    SHX14_2 = SHX0_1
-    SHX14_2 = SHX14_2[SHX4_2]
-    SHX14_2.propControllerHandler = SHX13_2
-    SHX14_2 = SetEntityHeading
-    SHX15_2 = SHX13_2
-    SHX16_2 = SHX0_1
-    SHX16_2 = SHX16_2[SHX4_2]
-    SHX16_2 = SHX16_2.controllerRotation
-    SHX14_2(SHX15_2, SHX16_2)
-    SHX14_2 = SetEntityInvincible
-    SHX15_2 = SHX13_2
-    SHX16_2 = true
-    SHX14_2(SHX15_2, SHX16_2)
-    SHX14_2 = FreezeEntityPosition
-    SHX15_2 = SHX13_2
-    SHX16_2 = true
-    SHX14_2(SHX15_2, SHX16_2)
-    SHX14_2 = SetModelAsNoLongerNeeded
-    SHX15_2 = SHX6_2
-    SHX14_2(SHX15_2)
-    SHX14_2 = SetModelAsNoLongerNeeded
-    SHX15_2 = SHX7_2
-    SHX14_2(SHX15_2)
-    SHX14_2 = SetModelAsNoLongerNeeded
-    SHX15_2 = SHX8_2
-    SHX14_2(SHX15_2)
+    position2 = CreateObjectNoOffset
+    flag = serverEventCall
+    flag2 = iterator.controllerPos
+    flag2 = flag2.x
+    flag3 = iterator.controllerPos
+    flag3 = flag3.y
+    flag4 = iterator.controllerPos
+    flag4 = flag4.z
+    flag4 = flag4 - 1
+    workValue2 = false
+    workValue3 = false
+    flag5 = true
+    -- Beginner: result below is objectEntity.
+    position2 = position2(flag, flag2, flag3, flag4, workValue2, workValue3, flag5)
+    flag = dataTable
+    flag = flag[textValue5]
+    flag.propControllerHandler = position2
+    flag = SetEntityHeading
+    flag2 = position2
+    flag3 = dataTable
+    flag3 = flag3[textValue5]
+    flag3 = flag3.controllerRotation
+    -- Beginner: Change the direction an entity is facing.
+    flag(flag2, flag3)
+    flag = SetEntityInvincible
+    flag2 = position2
+    flag3 = true
+    flag(flag2, flag3)
+    flag = FreezeEntityPosition
+    flag2 = position2
+    flag3 = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    flag(flag2, flag3)
+    flag = SetModelAsNoLongerNeeded
+    flag2 = cmgCall4
+    flag(flag2)
+    flag = SetModelAsNoLongerNeeded
+    flag2 = cmgCall5
+    flag(flag2)
+    flag = SetModelAsNoLongerNeeded
+    flag2 = serverEventCall
+    flag(flag2)
   end
-  SHX0_2 = pairs
-  SHX1_2 = SHX1_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CreateObjectNoOffset
-    SHX7_2 = -257022130
-    SHX8_2 = SHX5_2.position
-    SHX8_2 = SHX8_2.x
-    SHX9_2 = SHX5_2.position
-    SHX9_2 = SHX9_2.y
-    SHX10_2 = SHX5_2.position
-    SHX10_2 = SHX10_2.z
-    SHX10_2 = SHX10_2 - 1.0
-    SHX11_2 = false
-    SHX12_2 = false
-    SHX13_2 = true
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX7_2 = SetEntityHeading
-    SHX8_2 = SHX6_2
-    SHX9_2 = SHX5_2.position
-    SHX9_2 = SHX9_2.w
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.insert
-    SHX8_2 = SHX2_1
-    SHX9_2 = SHX6_2
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.createArea
-    SHX8_2 = "bordercloseall_"
-    SHX9_2 = tostring
-    SHX10_2 = SHX4_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX8_2 = SHX8_2 .. SHX9_2
-    SHX9_2 = SHX5_2.position
-    SHX9_2 = SHX9_2.xyz
-    SHX10_2 = 1.5
-    SHX11_2 = 6.0
-    function SHX12_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg1 = pairs
+  arg2 = dataTable2
+  arg1, arg2, cmgCall3, position3 = arg1(arg2)
+  for textValue5, iterator in arg1, arg2, cmgCall3, position3 do
+    cmgCall4 = CreateObjectNoOffset
+    cmgCall5 = -257022130
+    serverEventCall = iterator.position
+    serverEventCall = serverEventCall.x
+    textValue8 = iterator.position
+    textValue8 = textValue8.y
+    tableHelper = iterator.position
+    tableHelper = tableHelper.z
+    tableHelper = tableHelper - 1.0
+    textValue = false
+    position = false
+    position2 = true
+    -- Beginner: result below is objectEntity.
+    cmgCall4 = cmgCall4(cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2)
+    cmgCall5 = SetEntityHeading
+    serverEventCall = cmgCall4
+    textValue8 = iterator.position
+    textValue8 = textValue8.w
+    -- Beginner: Change the direction an entity is facing.
+    cmgCall5(serverEventCall, textValue8)
+    cmgCall5 = table
+    cmgCall5 = cmgCall5.insert
+    serverEventCall = vector3Builder
+    textValue8 = cmgCall4
+    cmgCall5(serverEventCall, textValue8)
+    cmgCall5 = CMG
+    cmgCall5 = cmgCall5.createArea
+    serverEventCall = "bordercloseall_"
+    textValue8 = tostring
+    tableHelper = textValue5
+    textValue8 = textValue8(tableHelper)
+    serverEventCall = serverEventCall .. textValue8
+    textValue8 = iterator.position
+    textValue8 = textValue8.xyz
+    tableHelper = 1.5
+    textValue = 6.0
+    function position()
+      local arg12, cmgCall2
     end
-    function SHX13_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function position2()
+      local arg12, cmgCall2
     end
-    SHX14_2 = SHX3_1
-    SHX15_2 = SHX5_2
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+    flag = numberValue2
+    flag2 = iterator
+    -- Beginner: Create an interaction area around a world position.
+    cmgCall5(serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2)
   end
 end
-SHX4_1(SHX5_1)
-SHX4_1 = 10000
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2.instruction
-    if "open" == SHX6_2 then
-      SHX6_2 = pairs
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX4_2]
-      SHX7_2 = SHX7_2.propObjHandlers
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-      for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-        SHX12_2 = GetEntityCoords
-        SHX13_2 = SHX11_2
-        SHX12_2 = SHX12_2(SHX13_2)
-        SHX13_2 = GetOffsetFromEntityInWorldCoords
-        SHX14_2 = SHX0_1
-        SHX14_2 = SHX14_2[SHX4_2]
-        SHX14_2 = SHX14_2.propFrameObjHandler
-        SHX15_2 = SHX10_2 * 5.0
-        SHX16_2 = 0.0
-        SHX17_2 = 0.0
-        SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-        SHX14_2 = SHX12_2.xy
-        SHX15_2 = SHX5_2.position
-        SHX15_2 = SHX15_2.xy
-        SHX14_2 = SHX14_2 - SHX15_2
-        SHX14_2 = #SHX14_2
-        SHX15_2 = 0.1
-        if SHX14_2 < SHX15_2 then
-          SHX14_2 = SHX0_1
-          SHX14_2 = SHX14_2[SHX4_2]
-          SHX14_2.instruction = "none"
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+numberValue3(numberValue4)
+numberValue3 = 10000
+function numberValue4()
+  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2, flag3, flag4, workValue2, workValue3, flag5, flag6, flag7
+  arg1 = pairs
+  arg2 = dataTable
+  arg1, arg2, cmgCall3, position3 = arg1(arg2)
+  for textValue5, iterator in arg1, arg2, cmgCall3, position3 do
+    cmgCall4 = iterator.instruction
+    if "open" == cmgCall4 then
+      cmgCall4 = pairs
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[textValue5]
+      cmgCall5 = cmgCall5.propObjHandlers
+      cmgCall4, cmgCall5, serverEventCall, textValue8 = cmgCall4(cmgCall5)
+      for tableHelper, textValue in cmgCall4, cmgCall5, serverEventCall, textValue8 do
+        position = GetEntityCoords
+        position2 = textValue
+        -- Beginner: result below is entityCoords.
+        position = position(position2)
+        position2 = GetOffsetFromEntityInWorldCoords
+        flag = dataTable
+        flag = flag[textValue5]
+        flag = flag.propFrameObjHandler
+        flag2 = tableHelper * 5.0
+        flag3 = 0.0
+        flag4 = 0.0
+        position2 = position2(flag, flag2, flag3, flag4)
+        flag = position.xy
+        flag2 = iterator.position
+        flag2 = flag2.xy
+        flag = flag - flag2
+        flag = #flag
+        flag2 = 0.1
+        if flag < flag2 then
+          flag = dataTable
+          flag = flag[textValue5]
+          flag.instruction = "none"
         end
-        SHX14_2 = SHX4_1
-        SHX15_2 = GetFrameTime
-        SHX15_2 = SHX15_2()
-        SHX14_2 = SHX14_2 * SHX15_2
-        SHX15_2 = SetEntityCoordsNoOffset
-        SHX16_2 = SHX11_2
-        SHX17_2 = SHX12_2.x
-        SHX18_2 = SHX5_2.position
-        SHX18_2 = SHX18_2.x
-        SHX19_2 = SHX13_2.x
-        SHX18_2 = SHX18_2 - SHX19_2
-        SHX18_2 = SHX18_2 / SHX14_2
-        SHX17_2 = SHX17_2 + SHX18_2
-        SHX18_2 = SHX12_2.y
-        SHX19_2 = SHX5_2.position
-        SHX19_2 = SHX19_2.y
-        SHX20_2 = SHX13_2.y
-        SHX19_2 = SHX19_2 - SHX20_2
-        SHX19_2 = SHX19_2 / SHX14_2
-        SHX18_2 = SHX18_2 + SHX19_2
-        SHX19_2 = SHX12_2.z
-        SHX20_2 = false
-        SHX21_2 = false
-        SHX22_2 = false
-        SHX15_2(SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+        flag = numberValue3
+        flag2 = GetFrameTime
+        flag2 = flag2()
+        flag = flag * flag2
+        flag2 = SetEntityCoordsNoOffset
+        flag3 = textValue
+        flag4 = position.x
+        workValue2 = iterator.position
+        workValue2 = workValue2.x
+        workValue3 = position2.x
+        workValue2 = workValue2 - workValue3
+        workValue2 = workValue2 / flag
+        flag4 = flag4 + workValue2
+        workValue2 = position.y
+        workValue3 = iterator.position
+        workValue3 = workValue3.y
+        flag5 = position2.y
+        workValue3 = workValue3 - flag5
+        workValue3 = workValue3 / flag
+        workValue2 = workValue2 + workValue3
+        workValue3 = position.z
+        flag5 = false
+        flag6 = false
+        flag7 = false
+        -- Beginner: Move/teleport an entity to new coordinates.
+        flag2(flag3, flag4, workValue2, workValue3, flag5, flag6, flag7)
       end
     end
-    SHX6_2 = SHX5_2.instruction
-    if "close" == SHX6_2 then
-      SHX6_2 = pairs
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX4_2]
-      SHX7_2 = SHX7_2.propObjHandlers
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-      for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-        SHX12_2 = GetEntityCoords
-        SHX13_2 = SHX11_2
-        SHX12_2 = SHX12_2(SHX13_2)
-        SHX13_2 = GetOffsetFromEntityInWorldCoords
-        SHX14_2 = SHX0_1
-        SHX14_2 = SHX14_2[SHX4_2]
-        SHX14_2 = SHX14_2.propFrameObjHandler
-        SHX15_2 = SHX10_2 * 5.0
-        SHX16_2 = 0.0
-        SHX17_2 = 0.0
-        SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-        SHX14_2 = SHX12_2 - SHX13_2
-        SHX14_2 = #SHX14_2
-        SHX15_2 = 0.1
-        if SHX14_2 < SHX15_2 then
-          SHX14_2 = SHX0_1
-          SHX14_2 = SHX14_2[SHX4_2]
-          SHX14_2.instruction = "none"
+    cmgCall4 = iterator.instruction
+    if "close" == cmgCall4 then
+      cmgCall4 = pairs
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[textValue5]
+      cmgCall5 = cmgCall5.propObjHandlers
+      cmgCall4, cmgCall5, serverEventCall, textValue8 = cmgCall4(cmgCall5)
+      for tableHelper, textValue in cmgCall4, cmgCall5, serverEventCall, textValue8 do
+        position = GetEntityCoords
+        position2 = textValue
+        -- Beginner: result below is entityCoords.
+        position = position(position2)
+        position2 = GetOffsetFromEntityInWorldCoords
+        flag = dataTable
+        flag = flag[textValue5]
+        flag = flag.propFrameObjHandler
+        flag2 = tableHelper * 5.0
+        flag3 = 0.0
+        flag4 = 0.0
+        position2 = position2(flag, flag2, flag3, flag4)
+        flag = position - position2
+        flag = #flag
+        flag2 = 0.1
+        if flag < flag2 then
+          flag = dataTable
+          flag = flag[textValue5]
+          flag.instruction = "none"
         end
-        SHX14_2 = SHX4_1
-        SHX15_2 = GetFrameTime
-        SHX15_2 = SHX15_2()
-        SHX14_2 = SHX14_2 * SHX15_2
-        SHX15_2 = SetEntityCoordsNoOffset
-        SHX16_2 = SHX11_2
-        SHX17_2 = SHX12_2.x
-        SHX18_2 = SHX13_2.x
-        SHX19_2 = SHX5_2.position
-        SHX19_2 = SHX19_2.x
-        SHX18_2 = SHX18_2 - SHX19_2
-        SHX18_2 = SHX18_2 / SHX14_2
-        SHX17_2 = SHX17_2 + SHX18_2
-        SHX18_2 = SHX12_2.y
-        SHX19_2 = SHX13_2.y
-        SHX20_2 = SHX5_2.position
-        SHX20_2 = SHX20_2.y
-        SHX19_2 = SHX19_2 - SHX20_2
-        SHX19_2 = SHX19_2 / SHX14_2
-        SHX18_2 = SHX18_2 + SHX19_2
-        SHX19_2 = SHX12_2.z
-        SHX20_2 = false
-        SHX21_2 = false
-        SHX22_2 = false
-        SHX15_2(SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+        flag = numberValue3
+        flag2 = GetFrameTime
+        flag2 = flag2()
+        flag = flag * flag2
+        flag2 = SetEntityCoordsNoOffset
+        flag3 = textValue
+        flag4 = position.x
+        workValue2 = position2.x
+        workValue3 = iterator.position
+        workValue3 = workValue3.x
+        workValue2 = workValue2 - workValue3
+        workValue2 = workValue2 / flag
+        flag4 = flag4 + workValue2
+        workValue2 = position.y
+        workValue3 = position2.y
+        flag5 = iterator.position
+        flag5 = flag5.y
+        workValue3 = workValue3 - flag5
+        workValue3 = workValue3 / flag
+        workValue2 = workValue2 + workValue3
+        workValue3 = position.z
+        flag5 = false
+        flag6 = false
+        flag7 = false
+        flag2(flag3, flag4, workValue2, workValue3, flag5, flag6, flag7)
       end
     end
   end
 end
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.createThreadOnTick
-SHX7_1 = SHX5_1
-SHX8_1 = "Border Force"
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "CMG:onClientSpawn"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  if SHX1_2 then
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+numberValue5 = CMG
+numberValue5 = numberValue5.createThreadOnTick
+numberValue6 = numberValue4
+flag9 = "Border Force"
+-- Beginner: Run a helper every game frame while this script is active.
+numberValue5(numberValue6, flag9)
+numberValue5 = AddEventHandler
+numberValue6 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function flag9(arg1, arg2)
+  local cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2, flag, flag2, flag3, flag4, workValue2, workValue3
+  if arg2 then
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function cmgCall3()
+      local arg12, cmgCall2
     end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function position3()
+      local arg12, cmgCall2
     end
-    function SHX4_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-      SHX1_3 = CMG
-      SHX1_3 = SHX1_3.hasClientPermission
-      SHX2_3 = "borderforce.onduty.permission"
-      SHX1_3 = SHX1_3(SHX2_3)
-      if not SHX1_3 then
-        SHX1_3 = CMG
-        SHX1_3 = SHX1_3.isStaffedOnClient
-        SHX1_3 = SHX1_3()
-        if not SHX1_3 then
-          goto SHX_LABEL_65
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function textValue5(arg12)
+      local cmgCall2, textValue3, textValue4, textValue6, textValue7
+      cmgCall2 = CMG
+      cmgCall2 = cmgCall2.hasClientPermission
+      textValue3 = "borderforce.onduty.permission"
+      cmgCall2 = cmgCall2(textValue3)
+      if not cmgCall2 then
+        cmgCall2 = CMG
+        cmgCall2 = cmgCall2.isStaffedOnClient
+        cmgCall2 = cmgCall2()
+        if not cmgCall2 then
+          goto flow_label_65
         end
       end
-      SHX1_3 = SHX0_3.objectId
-      SHX2_3 = SHX0_1
-      SHX2_3 = SHX2_3[SHX1_3]
-      SHX2_3 = SHX2_3.open
-      if SHX2_3 then
-        SHX2_3 = IsControlJustPressed
-        SHX3_3 = 0
-        SHX4_3 = 38
-        SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-        if SHX2_3 then
-          SHX2_3 = tCMG
-          SHX2_3 = SHX2_3.notify
-          SHX3_3 = "~g~Gate closing..."
-          SHX2_3(SHX3_3)
-          SHX2_3 = TriggerServerEvent
-          SHX3_3 = "bfb85eb237"
-          SHX4_3 = SHX1_3
-          SHX5_3 = "close"
-          SHX2_3(SHX3_3, SHX4_3, SHX5_3)
+      cmgCall2 = arg12.objectId
+      textValue3 = dataTable
+      textValue3 = textValue3[cmgCall2]
+      textValue3 = textValue3.open
+      if textValue3 then
+        textValue3 = IsControlJustPressed
+        textValue4 = 0
+        textValue6 = 38
+        textValue3 = textValue3(textValue4, textValue6)
+        if textValue3 then
+          textValue3 = tCMG
+          textValue3 = textValue3.notify
+          textValue4 = "~g~Gate closing..."
+          -- Beginner: Show a notification to the player.
+          textValue3(textValue4)
+          textValue3 = TriggerServerEvent
+          textValue4 = "bfb85eb237"
+          textValue6 = cmgCall2
+          textValue7 = "close"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
+          textValue3(textValue4, textValue6, textValue7)
         end
-        SHX2_3 = CMG
-        SHX2_3 = SHX2_3.DrawText3D
-        SHX3_3 = SHX0_1
-        SHX3_3 = SHX3_3[SHX1_3]
-        SHX3_3 = SHX3_3.controllerPos
-        SHX4_3 = "Press [E] to close gate"
-        SHX5_3 = 0.35
-        SHX2_3(SHX3_3, SHX4_3, SHX5_3)
+        textValue3 = CMG
+        textValue3 = textValue3.DrawText3D
+        textValue4 = dataTable
+        textValue4 = textValue4[cmgCall2]
+        textValue4 = textValue4.controllerPos
+        textValue6 = "Press [E] to close gate"
+        textValue7 = 0.35
+        textValue3(textValue4, textValue6, textValue7)
       else
-        SHX2_3 = CMG
-        SHX2_3 = SHX2_3.DrawText3D
-        SHX3_3 = SHX0_1
-        SHX3_3 = SHX3_3[SHX1_3]
-        SHX3_3 = SHX3_3.controllerPos
-        SHX4_3 = "Press [E] to open gate"
-        SHX5_3 = 0.35
-        SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-        SHX2_3 = IsControlJustPressed
-        SHX3_3 = 0
-        SHX4_3 = 38
-        SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-        if SHX2_3 then
-          SHX2_3 = tCMG
-          SHX2_3 = SHX2_3.notify
-          SHX3_3 = "~g~Gate opening..."
-          SHX2_3(SHX3_3)
-          SHX2_3 = TriggerServerEvent
-          SHX3_3 = "bfb85eb237"
-          SHX4_3 = SHX1_3
-          SHX5_3 = "open"
-          SHX2_3(SHX3_3, SHX4_3, SHX5_3)
+        textValue3 = CMG
+        textValue3 = textValue3.DrawText3D
+        textValue4 = dataTable
+        textValue4 = textValue4[cmgCall2]
+        textValue4 = textValue4.controllerPos
+        textValue6 = "Press [E] to open gate"
+        textValue7 = 0.35
+        textValue3(textValue4, textValue6, textValue7)
+        textValue3 = IsControlJustPressed
+        textValue4 = 0
+        textValue6 = 38
+        textValue3 = textValue3(textValue4, textValue6)
+        if textValue3 then
+          textValue3 = tCMG
+          textValue3 = textValue3.notify
+          textValue4 = "~g~Gate opening..."
+          -- Beginner: Show a notification to the player.
+          textValue3(textValue4)
+          textValue3 = TriggerServerEvent
+          textValue4 = "bfb85eb237"
+          textValue6 = cmgCall2
+          textValue7 = "open"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bfb85eb237".
+          textValue3(textValue4, textValue6, textValue7)
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_65:: outside nested blocks until all 'goto SHX_LABEL_65' can see it
-      ::SHX_LABEL_65::
+      ::flow_label_65::
     end
-    SHX5_2 = pairs
-    SHX6_2 = SHX0_1
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX11_2 = CMG
-      SHX11_2 = SHX11_2.createArea
-      SHX12_2 = "border_"
-      SHX13_2 = SHX9_2
-      SHX12_2 = SHX12_2 .. SHX13_2
-      SHX13_2 = SHX10_2.controllerPos
-      SHX14_2 = 1.5
-      SHX15_2 = 6
-      SHX16_2 = SHX2_2
-      SHX17_2 = SHX3_2
-      SHX18_2 = SHX4_2
-      SHX19_2 = {}
-      SHX19_2.objectId = SHX9_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
+    iterator = pairs
+    cmgCall4 = dataTable
+    iterator, cmgCall4, cmgCall5, serverEventCall = iterator(cmgCall4)
+    for textValue8, tableHelper in iterator, cmgCall4, cmgCall5, serverEventCall do
+      textValue = CMG
+      textValue = textValue.createArea
+      position = "border_"
+      position2 = textValue8
+      position = position .. position2
+      position2 = tableHelper.controllerPos
+      flag = 1.5
+      flag2 = 6
+      flag3 = cmgCall3
+      flag4 = position3
+      workValue2 = textValue5
+      workValue3 = {}
+      workValue3.objectId = textValue8
+      -- Beginner: Create an interaction area around a world position.
+      textValue(position, position2, flag, flag2, flag3, flag4, workValue2, workValue3)
     end
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "onResourceStop"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX0_2 == SHX1_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX0_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX6_2 = pairs
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX7_2 = SHX7_2.propObjHandlers
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-      for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-        SHX12_2 = DeleteObject
-        SHX13_2 = SHX11_2
-        SHX12_2(SHX13_2)
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+numberValue5(numberValue6, flag9)
+numberValue5 = AddEventHandler
+numberValue6 = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function flag9(arg1)
+  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position, position2
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg1 == arg2 then
+    arg2 = pairs
+    cmgCall3 = dataTable
+    arg2, cmgCall3, position3, textValue5 = arg2(cmgCall3)
+    for iterator in arg2, cmgCall3, position3, textValue5 do
+      cmgCall4 = pairs
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[iterator]
+      cmgCall5 = cmgCall5.propObjHandlers
+      cmgCall4, cmgCall5, serverEventCall, textValue8 = cmgCall4(cmgCall5)
+      for tableHelper, textValue in cmgCall4, cmgCall5, serverEventCall, textValue8 do
+        position = DeleteObject
+        position2 = textValue
+        position(position2)
       end
-      SHX6_2 = DeleteObject
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX7_2 = SHX7_2.propFrameObjHandler
-      SHX6_2(SHX7_2)
-      SHX6_2 = DeleteObject
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX7_2 = SHX7_2.propControllerHandler
-      SHX6_2(SHX7_2)
+      cmgCall4 = DeleteObject
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[iterator]
+      cmgCall5 = cmgCall5.propFrameObjHandler
+      cmgCall4(cmgCall5)
+      cmgCall4 = DeleteObject
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[iterator]
+      cmgCall5 = cmgCall5.propControllerHandler
+      cmgCall4(cmgCall5)
     end
-    SHX1_2 = pairs
-    SHX2_2 = SHX2_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = DeleteEntity
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
+    arg2 = pairs
+    cmgCall3 = vector3Builder
+    arg2, cmgCall3, position3, textValue5 = arg2(cmgCall3)
+    for iterator, cmgCall4 in arg2, cmgCall3, position3, textValue5 do
+      cmgCall5 = DeleteEntity
+      serverEventCall = cmgCall4
+      -- Beginner: Delete a GTA entity.
+      cmgCall5(serverEventCall)
     end
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "03e141ef40"
-SHX6_1(SHX7_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "03e141ef40"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX0_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX2_2.instruction = SHX1_2
-  if "open" == SHX1_2 then
-    SHX2_2 = SHX0_1
-    SHX2_2 = SHX2_2[SHX0_2]
-    SHX2_2.open = true
-  elseif "close" == SHX1_2 then
-    SHX2_2 = SHX0_1
-    SHX2_2 = SHX2_2[SHX0_2]
-    SHX2_2.open = false
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+numberValue5(numberValue6, flag9)
+numberValue5 = RegisterNetEvent
+numberValue6 = "03e141ef40"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "03e141ef40".
+numberValue5(numberValue6)
+numberValue5 = AddEventHandler
+numberValue6 = "03e141ef40"
+-- Beginner: this function runs when client event "03e141ef40" fires.
+function flag9(arg1, arg2)
+  local cmgCall3
+  cmgCall3 = dataTable
+  cmgCall3 = cmgCall3[arg1]
+  cmgCall3.instruction = arg2
+  if "open" == arg2 then
+    cmgCall3 = dataTable
+    cmgCall3 = cmgCall3[arg1]
+    cmgCall3.open = true
+  elseif "close" == arg2 then
+    cmgCall3 = dataTable
+    cmgCall3 = cmgCall3[arg1]
+    cmgCall3.open = false
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "46592aad2d"
-SHX6_1(SHX7_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "46592aad2d"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX6_2.open
-    if SHX7_2 then
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX7_2 = SHX7_2.open
-      if not SHX7_2 then
-        SHX7_2 = SHX0_1
-        SHX7_2 = SHX7_2[SHX5_2]
-        SHX7_2.instruction = "open"
-        SHX7_2 = SHX0_1
-        SHX7_2 = SHX7_2[SHX5_2]
-        SHX7_2.open = true
+-- Beginner: Register a client-side event handler. Event/command: "03e141ef40".
+numberValue5(numberValue6, flag9)
+numberValue5 = RegisterNetEvent
+numberValue6 = "46592aad2d"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "46592aad2d".
+numberValue5(numberValue6)
+numberValue5 = AddEventHandler
+numberValue6 = "46592aad2d"
+-- Beginner: this function runs when client event "46592aad2d" fires.
+function flag9(arg1)
+  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5
+  arg2 = pairs
+  cmgCall3 = arg1
+  arg2, cmgCall3, position3, textValue5 = arg2(cmgCall3)
+  for iterator, cmgCall4 in arg2, cmgCall3, position3, textValue5 do
+    cmgCall5 = cmgCall4.open
+    if cmgCall5 then
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[iterator]
+      cmgCall5 = cmgCall5.open
+      if not cmgCall5 then
+        cmgCall5 = dataTable
+        cmgCall5 = cmgCall5[iterator]
+        cmgCall5.instruction = "open"
+        cmgCall5 = dataTable
+        cmgCall5 = cmgCall5[iterator]
+        cmgCall5.open = true
       end
     end
-    SHX7_2 = SHX6_2.open
-    if not SHX7_2 then
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX7_2 = SHX7_2.open
-      if not SHX7_2 then
-        SHX7_2 = SHX0_1
-        SHX7_2 = SHX7_2[SHX5_2]
-        SHX7_2.instruction = "close"
-        SHX7_2 = SHX0_1
-        SHX7_2 = SHX7_2[SHX5_2]
-        SHX7_2.open = false
+    cmgCall5 = cmgCall4.open
+    if not cmgCall5 then
+      cmgCall5 = dataTable
+      cmgCall5 = cmgCall5[iterator]
+      cmgCall5 = cmgCall5.open
+      if not cmgCall5 then
+        cmgCall5 = dataTable
+        cmgCall5 = cmgCall5[iterator]
+        cmgCall5.instruction = "close"
+        cmgCall5 = dataTable
+        cmgCall5 = cmgCall5[iterator]
+        cmgCall5.open = false
       end
     end
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "CMG:onClientSpawn"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  if SHX1_2 then
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "923b558511"
-    SHX2_2(SHX3_2)
+-- Beginner: Register a client-side event handler. Event/command: "46592aad2d".
+numberValue5(numberValue6, flag9)
+numberValue5 = AddEventHandler
+numberValue6 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function flag9(arg1, arg2)
+  local cmgCall3, position3
+  if arg2 then
+    cmgCall3 = TriggerServerEvent
+    position3 = "923b558511"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "923b558511".
+    cmgCall3(position3)
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "9da3977b15"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = nil
-  SHX1_2 = 75.0
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerCoords
-  SHX2_2 = SHX2_2()
-  SHX3_2 = pairs
-  SHX4_2 = SHX1_1
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.position
-    SHX9_2 = SHX9_2.xyz
-    SHX9_2 = SHX2_2 - SHX9_2
-    SHX9_2 = #SHX9_2
-    if SHX1_2 > SHX9_2 then
-      SHX0_2 = SHX8_2
-      SHX1_2 = SHX9_2
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+numberValue5(numberValue6, flag9)
+numberValue5 = RegisterNetEvent
+numberValue6 = "9da3977b15"
+-- Beginner: this function handles network event "9da3977b15".
+function flag9()
+  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position
+  arg1 = nil
+  arg2 = 75.0
+  cmgCall3 = CMG
+  cmgCall3 = cmgCall3.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  cmgCall3 = cmgCall3()
+  position3 = pairs
+  textValue5 = dataTable2
+  position3, textValue5, iterator, cmgCall4 = position3(textValue5)
+  for cmgCall5, serverEventCall in position3, textValue5, iterator, cmgCall4 do
+    textValue8 = serverEventCall.position
+    textValue8 = textValue8.xyz
+    textValue8 = cmgCall3 - textValue8
+    textValue8 = #textValue8
+    if arg2 > textValue8 then
+      arg1 = serverEventCall
+      arg2 = textValue8
     end
   end
-  if SHX0_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "d95fd9b2cd"
-    SHX5_2 = SHX0_2.name
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX3_2 = pairs
-    SHX4_2 = SHX0_2.opens
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = TriggerServerEvent
-      SHX10_2 = "bfb85eb237"
-      SHX11_2 = SHX8_2
-      SHX12_2 = "close"
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2)
+  if arg1 then
+    position3 = TriggerServerEvent
+    textValue5 = "d95fd9b2cd"
+    iterator = arg1.name
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d95fd9b2cd".
+    position3(textValue5, iterator)
+    position3 = pairs
+    textValue5 = arg1.opens
+    position3, textValue5, iterator, cmgCall4 = position3(textValue5)
+    for cmgCall5, serverEventCall in position3, textValue5, iterator, cmgCall4 do
+      textValue8 = TriggerServerEvent
+      tableHelper = "bfb85eb237"
+      textValue = serverEventCall
+      position = "close"
+      textValue8(tableHelper, textValue, position)
     end
   else
-    SHX3_2 = notify
-    SHX4_2 = "~r~No nearby border to lockdown"
-    SHX3_2(SHX4_2)
+    position3 = notify
+    textValue5 = "~r~No nearby border to lockdown"
+    -- Beginner: Show a notification to the player.
+    position3(textValue5)
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "d95fd9b2cd"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.notifyPicture
-  SHX2_2 = "polnotification"
-  SHX3_2 = "notification"
-  SHX4_2 = "~r~Lockdown triggered at the "
-  SHX5_2 = SHX0_2
-  SHX6_2 = " border!"
-  SHX4_2 = SHX4_2 .. SHX5_2 .. SHX6_2
-  SHX5_2 = "Border Force"
-  SHX6_2 = SHX0_2
-  SHX7_2 = nil
-  SHX8_2 = nil
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9da3977b15".
+numberValue5(numberValue6, flag9)
+numberValue5 = RegisterNetEvent
+numberValue6 = "d95fd9b2cd"
+-- Beginner: this function handles network event "d95fd9b2cd".
+function flag9(arg1)
+  local arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall
+  arg2 = CMG
+  arg2 = arg2.notifyPicture
+  cmgCall3 = "polnotification"
+  position3 = "notification"
+  textValue5 = "~r~Lockdown triggered at the "
+  iterator = arg1
+  cmgCall4 = " border!"
+  textValue5 = textValue5 .. iterator .. cmgCall4
+  iterator = "Border Force"
+  cmgCall4 = arg1
+  cmgCall5 = nil
+  serverEventCall = nil
+  arg2(cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall)
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = ""
-SHX7_1 = ""
-SHX8_1 = false
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "5e416b2e9c"
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX6_1 = SHX1_2
-  SHX7_1 = SHX0_2
-  SHX2_2 = true
-  SHX8_1 = SHX2_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d95fd9b2cd".
+numberValue5(numberValue6, flag9)
+numberValue5 = ""
+numberValue6 = ""
+flag9 = false
+cmgCall6 = RegisterNetEvent
+cmgCall = "5e416b2e9c"
+-- Beginner: this function handles network event "5e416b2e9c".
+function workValue(arg1, arg2)
+  local cmgCall3
+  numberValue5 = arg2
+  numberValue6 = arg1
+  cmgCall3 = true
+  flag9 = cmgCall3
 end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = CMG
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  return SHX0_2
+cmgCall6(cmgCall, workValue)
+cmgCall6 = CMG
+-- Beginner: this function handles network event "5e416b2e9c".
+function cmgCall()
+  local arg1, arg2
+  arg1 = numberValue6
+  return arg1
 end
-SHX9_1.getBorderForceCallsign = SHX10_1
-SHX9_1 = CMG
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX6_1
-  return SHX0_2
+cmgCall6.getBorderForceCallsign = cmgCall
+cmgCall6 = CMG
+function cmgCall()
+  local arg1, arg2
+  arg1 = numberValue5
+  return arg1
 end
-SHX9_1.getBorderForceRank = SHX10_1
-SHX9_1 = CMG
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  return SHX0_2
+cmgCall6.getBorderForceRank = cmgCall
+cmgCall6 = CMG
+function cmgCall()
+  local arg1, arg2
+  arg1 = flag9
+  return arg1
 end
-SHX9_1.hasBorderForceCallsign = SHX10_1
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = SHX7_1
-  if "" ~= SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hasClientPermission
-    SHX1_2 = "borderforce.onduty.permission"
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 1.064
-      SHX2_2 = 0.972
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = SHX7_1
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 0
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+cmgCall6.hasBorderForceCallsign = cmgCall
+function cmgCall6()
+  local arg1, arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position
+  arg1 = numberValue6
+  if "" ~= arg1 then
+    arg1 = CMG
+    arg1 = arg1.hasClientPermission
+    arg2 = "borderforce.onduty.permission"
+    arg1 = arg1(arg2)
+    if arg1 then
+      arg1 = DrawAdvancedText
+      arg2 = 1.064
+      cmgCall3 = 0.972
+      position3 = 0.005
+      textValue5 = 0.0028
+      iterator = 0.4
+      cmgCall4 = numberValue6
+      cmgCall5 = 255
+      serverEventCall = 255
+      textValue8 = 255
+      tableHelper = 255
+      textValue = 0
+      position = 0
+      arg1(arg2, cmgCall3, position3, textValue5, iterator, cmgCall4, cmgCall5, serverEventCall, textValue8, tableHelper, textValue, position)
     end
   end
 end
-SHX10_1 = CMG
-SHX10_1 = SHX10_1.createThreadOnTick
-SHX11_1 = SHX9_1
-SHX12_1 = "Border Force Callsign"
-SHX10_1(SHX11_1, SHX12_1)
+cmgCall = CMG
+cmgCall = cmgCall.createThreadOnTick
+workValue = cmgCall6
+textValue2 = "Border Force Callsign"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall(workValue, textValue2)

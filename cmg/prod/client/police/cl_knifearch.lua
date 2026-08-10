@@ -1,335 +1,356 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Police Knife Arch / Metal Detector
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1
-SHX0_1 = TriggerEvent
-SHX1_1 = "chat:addSuggestion"
-SHX2_1 = "/setuparch"
-SHX3_1 = "Setup a knife arch"
-SHX0_1(SHX1_1, SHX2_1, SHX3_1)
-SHX0_1 = TriggerEvent
-SHX1_1 = "chat:addSuggestion"
-SHX2_1 = "/removearch"
-SHX3_1 = "Remove a knife arch"
-SHX0_1(SHX1_1, SHX2_1, SHX3_1)
-SHX0_1 = {}
-SHX1_1 = false
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "3167b12587"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadModel
-  SHX1_2 = 1548832211
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerCoords
-  SHX2_2 = SHX2_2()
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "knife_arch"
-  SHX3_2(SHX4_2)
-  SHX3_2 = CreateObject
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 1.0
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX10_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX4_2 = PlaceObjectOnGroundProperly
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityHeading
-  SHX5_2 = SHX3_2
-  SHX6_2 = GetEntityHeading
-  SHX7_2 = SHX1_2
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX6_2(SHX7_2)
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX4_2 = SetModelAsNoLongerNeeded
-  SHX5_2 = SHX0_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = GetGameTimer
-  SHX4_2 = SHX4_2()
-  while true do
-    SHX5_2 = GetGameTimer
-    SHX5_2 = SHX5_2()
-    SHX5_2 = SHX5_2 - SHX4_2
-    SHX6_2 = 5000
-    if SHX5_2 > SHX6_2 then
-      SHX5_2 = DeleteEntity
-      SHX6_2 = SHX3_2
-      SHX5_2(SHX6_2)
-      return
-    else
-      SHX5_2 = NetworkGetEntityIsNetworked
-      SHX6_2 = SHX3_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      if SHX5_2 then
-        SHX5_2 = NetworkGetNetworkIdFromEntity
-        SHX6_2 = SHX3_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        if 0 ~= SHX5_2 then
-          break
+    Commands are registered elsewhere/server-side, but this client exposes the
+    supporting network events.
+
+    Setup event 3167b12587:
+      * spawns arch model 1548832211 at the player's position
+      * freezes it and faces it the same way as the player
+      * waits up to 5 seconds for a valid network ID
+      * tells the server its position + network ID
+
+    Remove event f1a982d264:
+      * finds a configured arch within 5 metres
+      * tells the server which network ID is being removed
+      * hides/deletes the local object
+
+    Trigger event e4b1cfaa9e(coords):
+      * if the local player is within 20 metres, plays the knife-arch NUI sound
+
+    Server synchronisation:
+      84acbce207(table)          -> replace all known arches
+      59118ecc97(coords, netId)  -> add/update one arch
+      3eb79decde(netId)          -> remove one arch
+
+    A 350ms background scan checks whether the player is within 1.6m of a known
+    arch. If they carry more weapons than the script's allowed baseline, the
+    server gets e8ecf4fc28. Otherwise 20711efe1d is rate-limited to once every
+    five seconds.
+
+    Hash-looking event names are deliberately unchanged.
+]]
+
+TriggerEvent(
+    "chat:addSuggestion",
+    "/setuparch",
+    "Setup a knife arch"
+)
+
+TriggerEvent(
+    "chat:addSuggestion",
+    "/removearch",
+    "Remove a knife arch"
+)
+
+
+-- knownArches[networkId] = {coords, networkId}
+local knownArches = {}
+local hasKnownArches = false
+
+local ARCH_MODEL_HASH = 1548832211
+
+
+-- ============================================================
+-- SETUP
+-- ============================================================
+
+RegisterNetEvent(
+    "3167b12587",
+    function()
+        local modelHash =
+            CMG.loadModel(
+                ARCH_MODEL_HASH
+            )
+
+        local ped =
+            CMG.getPlayerPed()
+
+        local coords =
+            CMG.getPlayerCoords()
+
+        CMG.requestEntitySpawn(
+            "knife_arch"
+        )
+
+        local arch =
+            CreateObject(
+                modelHash,
+                coords.x,
+                coords.y,
+                coords.z - 1.0,
+                true,
+                true,
+                true
+            )
+
+        PlaceObjectOnGroundProperly(
+            arch
+        )
+
+        FreezeEntityPosition(
+            arch,
+            true
+        )
+
+        SetEntityHeading(
+            arch,
+            GetEntityHeading(ped)
+        )
+
+        SetModelAsNoLongerNeeded(
+            modelHash
+        )
+
+        local startedAt =
+            GetGameTimer()
+
+        while true do
+            if GetGameTimer()
+                - startedAt
+                > 5000 then
+
+                DeleteEntity(arch)
+                return
+            end
+
+            if NetworkGetEntityIsNetworked(
+                arch
+            ) then
+
+                local networkId =
+                    NetworkGetNetworkIdFromEntity(
+                        arch
+                    )
+
+                if networkId ~= 0 then
+                    tCMG.notify(
+                        "~g~Success! ~w~Knife Arch setup."
+                    )
+
+                    TriggerServerEvent(
+                        "409cde8b69",
+                        coords,
+                        networkId
+                    )
+
+                    return
+                end
+            end
+
+            Citizen.Wait(200)
         end
-      end
     end
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 200
-    SHX5_2(SHX6_2)
-  end
-  SHX5_2 = NetworkGetNetworkIdFromEntity
-  SHX6_2 = SHX3_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = tCMG
-  SHX6_2 = SHX6_2.notify
-  SHX7_2 = "~g~Success! ~w~Knife Arch setup."
-  SHX6_2(SHX7_2)
-  SHX6_2 = TriggerServerEvent
-  SHX7_2 = "409cde8b69"
-  SHX8_2 = SHX2_2
-  SHX9_2 = SHX5_2
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "f1a982d264"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2[1]
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.getPlayerCoords
-    SHX7_2 = SHX7_2()
-    SHX6_2 = SHX6_2 - SHX7_2
-    SHX6_2 = #SHX6_2
-    if SHX6_2 <= 5.0 then
-      SHX6_2 = SHX5_2[2]
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.getObjectId
-      SHX8_2 = SHX5_2[2]
-      SHX9_2 = "deleteArch"
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-      if SHX7_2 then
-        SHX8_2 = TriggerServerEvent
-        SHX9_2 = "0817bcb014"
-        SHX10_2 = SHX6_2
-        SHX8_2(SHX9_2, SHX10_2)
-        SHX8_2 = SetEntityVisible
-        SHX9_2 = SHX7_2
-        SHX10_2 = false
-        SHX11_2 = false
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-        SHX8_2 = DeleteEntity
-        SHX9_2 = SHX7_2
-        SHX8_2(SHX9_2)
-        SHX8_2 = tCMG
-        SHX8_2 = SHX8_2.notify
-        SHX9_2 = "~g~Success! ~w~Knife Arch removed."
-        SHX8_2(SHX9_2)
-      end
-      break
-    end
-  end
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "e4b1cfaa9e"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX1_2 - SHX0_2
-  SHX2_2 = #SHX2_2
-  if SHX2_2 <= 20.0 then
-    SHX2_2 = SendNUIMessage
-    SHX3_2 = {}
-    SHX3_2.transactionType = "knifeArch"
-    SHX2_2(SHX3_2)
-  end
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "84acbce207"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX0_1 = SHX0_2
-  SHX1_2 = true
-  SHX1_1 = SHX1_2
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "59118ecc97"
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX0_1
-  SHX3_2 = {}
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX3_2[1] = SHX4_2
-  SHX3_2[2] = SHX5_2
-  SHX2_2[SHX1_2] = SHX3_2
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.count
-  SHX3_2 = SHX0_1
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 > 0 then
-    SHX3_2 = true
-    SHX1_1 = SHX3_2
-  end
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "3eb79decde"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_1
-  SHX1_2[SHX0_2] = nil
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.count
-  SHX2_2 = SHX0_1
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 < 1 then
-    SHX1_2 = false
-    SHX1_1 = SHX1_2
-  end
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = 0
-SHX3_1 = Citizen
-SHX3_1 = SHX3_1.CreateThread
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  while true do
-    SHX0_2 = SHX1_1
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.getPlayerCoords
-      SHX0_2 = SHX0_2()
-      SHX1_2 = pairs
-      SHX2_2 = SHX0_1
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = SHX6_2[1]
-        SHX8_2 = SHX7_2 - SHX0_2
-        SHX8_2 = #SHX8_2
-        SHX9_2 = 1.6
-        if SHX8_2 <= SHX9_2 then
-          SHX8_2 = 0
-          SHX9_2 = HasPedGotWeapon
-          SHX10_2 = PlayerPedId
-          SHX10_2 = SHX10_2()
-          SHX11_2 = -72657034
-          SHX12_2 = false
-          SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-          if SHX9_2 then
-            SHX8_2 = 1
-          end
-          SHX9_2 = table
-          SHX9_2 = SHX9_2.count
-          SHX10_2 = CMG
-          SHX10_2 = SHX10_2.getWeapons
-          SHX10_2, SHX11_2, SHX12_2 = SHX10_2()
-          SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-          if SHX8_2 < SHX9_2 then
-            SHX9_2 = TriggerServerEvent
-            SHX10_2 = "e8ecf4fc28"
-            SHX11_2 = SHX0_2
-            SHX9_2(SHX10_2, SHX11_2)
-            SHX9_2 = Wait
-            SHX10_2 = 3000
-            SHX9_2(SHX10_2)
-            break
-          end
-          SHX9_2 = GetGameTimer
-          SHX9_2 = SHX9_2()
-          SHX10_2 = SHX2_1
-          SHX10_2 = SHX9_2 - SHX10_2
-          SHX11_2 = 5000
-          if SHX10_2 > SHX11_2 then
-            SHX10_2 = TriggerServerEvent
-            SHX11_2 = "20711efe1d"
-            SHX12_2 = SHX0_2
-            SHX10_2(SHX11_2, SHX12_2)
-            SHX2_1 = SHX9_2
-          end
+)
+
+
+-- ============================================================
+-- REMOVE NEAREST
+-- ============================================================
+
+RegisterNetEvent(
+    "f1a982d264",
+    function()
+        local playerCoords =
+            CMG.getPlayerCoords()
+
+        for _, archData
+            in pairs(knownArches) do
+
+            local coords =
+                archData[1]
+
+            local networkId =
+                archData[2]
+
+            if #(
+                coords
+                - playerCoords
+            ) <= 5.0 then
+
+                local arch =
+                    CMG.getObjectId(
+                        networkId,
+                        "deleteArch"
+                    )
+
+                if arch then
+                    TriggerServerEvent(
+                        "0817bcb014",
+                        networkId
+                    )
+
+                    SetEntityVisible(
+                        arch,
+                        false,
+                        false
+                    )
+
+                    DeleteEntity(arch)
+
+                    tCMG.notify(
+                        "~g~Success! ~w~Knife Arch removed."
+                    )
+                end
+
+                break
+            end
         end
-      end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 350
-    SHX0_2(SHX1_2)
-  end
-end
-SHX3_1(SHX4_1)
-SHX3_1 = TriggerServerEvent
-SHX4_1 = "b6d9f40b37"
-SHX5_1 = SHX0_1
-SHX3_1(SHX4_1, SHX5_1)
+)
+
+
+-- ============================================================
+-- LOCAL DETECTOR SOUND
+-- ============================================================
+
+RegisterNetEvent(
+    "e4b1cfaa9e",
+    function(coords)
+        if #(
+            CMG.getPlayerCoords()
+            - coords
+        ) <= 20.0 then
+
+            SendNUIMessage({
+                transactionType =
+                    "knifeArch"
+            })
+        end
+    end
+)
+
+
+-- ============================================================
+-- SERVER ARCH LIST
+-- ============================================================
+
+RegisterNetEvent(
+    "84acbce207",
+    function(serverArches)
+        knownArches =
+            serverArches or {}
+
+        hasKnownArches =
+            true
+    end
+)
+
+
+RegisterNetEvent(
+    "59118ecc97",
+    function(coords, networkId)
+        knownArches[
+            networkId
+        ] = {
+            coords,
+            networkId
+        }
+
+        if table.count(
+            knownArches
+        ) > 0 then
+            hasKnownArches = true
+        end
+    end
+)
+
+
+RegisterNetEvent(
+    "3eb79decde",
+    function(networkId)
+        knownArches[
+            networkId
+        ] = nil
+
+        if table.count(
+            knownArches
+        ) < 1 then
+            hasKnownArches = false
+        end
+    end
+)
+
+
+-- ============================================================
+-- WALK-THROUGH DETECTION
+-- ============================================================
+
+local lastEmptyScanAt = 0
+
+
+CreateThread(function()
+    while true do
+        if hasKnownArches then
+            local playerCoords =
+                CMG.getPlayerCoords()
+
+            for _, archData
+                in pairs(knownArches) do
+
+                local archCoords =
+                    archData[1]
+
+                if #(
+                    archCoords
+                    - playerCoords
+                ) <= 1.6 then
+
+                    -- Reserve parachute weapon is treated as one allowed
+                    -- weapon in the original baseline.
+                    local allowedWeaponCount = 0
+
+                    if HasPedGotWeapon(
+                        PlayerPedId(),
+                        -72657034,
+                        false
+                    ) then
+                        allowedWeaponCount = 1
+                    end
+
+                    local actualWeaponCount =
+                        table.count(
+                            CMG.getWeapons()
+                        )
+
+                    if actualWeaponCount
+                        > allowedWeaponCount then
+
+                        TriggerServerEvent(
+                            "e8ecf4fc28",
+                            playerCoords
+                        )
+
+                        Wait(3000)
+                        break
+                    end
+
+                    local now =
+                        GetGameTimer()
+
+                    if now
+                        - lastEmptyScanAt
+                        > 5000 then
+
+                        TriggerServerEvent(
+                            "20711efe1d",
+                            playerCoords
+                        )
+
+                        lastEmptyScanAt = now
+                    end
+                end
+            end
+        end
+
+        Wait(350)
+    end
+end)
+
+
+-- Ask the server for existing arch state after this client starts.
+TriggerServerEvent(
+    "b6d9f40b37",
+    knownArches
+)

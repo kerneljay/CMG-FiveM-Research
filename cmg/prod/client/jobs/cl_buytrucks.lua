@@ -1,486 +1,423 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Truck Dealership / Rental
+    =========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgtruckmenu"
-SHX2_1 = "buy-rent"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateMenu
-SHX4_1 = ""
-SHX5_1 = "~b~CMG Trucking"
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.getRageUIMenuWidth
-SHX6_1 = SHX6_1()
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuHeight
-SHX7_1 = SHX7_1()
-SHX8_1 = "cmg_truckingjob"
-SHX9_1 = "cmg_truckingjob"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgtruckmenu"
-SHX2_1 = "vehicle"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateSubMenu
-SHX4_1 = RMenu
-SHX5_1 = SHX4_1
-SHX4_1 = SHX4_1.Get
-SHX6_1 = "cmgtruckmenu"
-SHX7_1 = "buy-rent"
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = "CMG Trucking"
-SHX6_1 = "~b~CMG Trucking"
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuWidth
-SHX7_1 = SHX7_1()
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuHeight
-SHX8_1 = SHX8_1()
-SHX9_1 = "cmg_truckingjob"
-SHX10_1 = "cmg_truckingjob"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgtruckmenu"
-SHX2_1 = "vehicles"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateMenu
-SHX4_1 = "Your Trucks"
-SHX5_1 = "~b~CMG Trucking"
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.getRageUIMenuWidth
-SHX6_1 = SHX6_1()
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuHeight
-SHX7_1 = SHX7_1()
-SHX8_1 = "cmg_truckingjob"
-SHX9_1 = "cmg_truckingjob"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgtruckmenu"
-SHX2_1 = "rented_trucks"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateSubMenu
-SHX4_1 = RMenu
-SHX5_1 = SHX4_1
-SHX4_1 = SHX4_1.Get
-SHX6_1 = "cmgtruckmenu"
-SHX7_1 = "vehicles"
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = "Rented Vehicles"
-SHX6_1 = "~b~CMG Trucking"
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuWidth
-SHX7_1 = SHX7_1()
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuHeight
-SHX8_1 = SHX8_1()
-SHX9_1 = "cmg_truckingjob"
-SHX10_1 = "cmg_truckingjob"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX0_1 = RMenu
-SHX0_1 = SHX0_1.Add
-SHX1_1 = "cmgtruckmenu"
-SHX2_1 = "owned_trucks"
-SHX3_1 = RageUI
-SHX3_1 = SHX3_1.CreateSubMenu
-SHX4_1 = RMenu
-SHX5_1 = SHX4_1
-SHX4_1 = SHX4_1.Get
-SHX6_1 = "cmgtruckmenu"
-SHX7_1 = "vehicles"
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = "Owned Vehicles"
-SHX6_1 = "~b~CMG Trucking"
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuWidth
-SHX7_1 = SHX7_1()
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuHeight
-SHX8_1 = SHX8_1()
-SHX9_1 = "cmg_truckingjob"
-SHX10_1 = "cmg_truckingjob"
-SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX0_1(SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_trucking"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = SHX0_1.trucks
-SHX2_1 = {}
-SHX3_1 = nil
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "dad36733a1"
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+    Config: cfg/cfg_trucking
+
+    This client creates the trucking dealership/rental interaction.
+
+    Menus:
+      buy-rent
+        Lists configured NON-custom trucks.
+        If a truck model is already in `rented`, the button shows a tick.
+        Otherwise it shows the configured purchase/rental price.
+
+      vehicle
+        Exists as a submenu in the original resource. The decompiled client
+        does not draw content into it here.
+
+      vehicles
+        Top-level "Your Trucks" menu container.
+
+      rented_trucks / owned_trucks
+        Submenus created for other trucking code to populate.
+
+    Server actions:
+      dad36733a1(modelName, price)
+        Buy/rent a truck that is not currently rented.
+
+      c0a43cc041(modelName)
+        Spawn/use a truck already in the rented list.
+
+      55dd309134(ownedList, rentedList)
+        Replaces the local server-owned vehicle lists.
+
+      4fd18e8fe3(modelHash)
+        Adds a newly-rented model hash to the local rented list and then asks
+        the server to spawn/use it.
+
+      cddad45dd3(modelName)
+        Spawns a purchased/rented truck at the player's current position.
+
+    Hash-looking event names are deliberately unchanged.
+]]
+
+local truckingConfig =
+    CMG.loadModule(
+        "cfg/cfg_trucking"
+    )
+
+local truckDefinitions =
+    truckingConfig.trucks
+
+local ownedAndRented = {
+    owned = {},
+    rented = {}
+}
+
+
+-- ============================================================
+-- MENUS
+-- ============================================================
+
+RMenu.Add(
+    "cmgtruckmenu",
+    "buy-rent",
+    RageUI.CreateMenu(
+        "",
+        "~b~CMG Trucking",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        "cmg_truckingjob",
+        "cmg_truckingjob"
+    )
+)
+
+local buyRentMenu =
+    RMenu:Get(
+        "cmgtruckmenu",
+        "buy-rent"
+    )
+
+
+RMenu.Add(
+    "cmgtruckmenu",
+    "vehicle",
+    RageUI.CreateSubMenu(
+        buyRentMenu,
+        "CMG Trucking",
+        "~b~CMG Trucking",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        "cmg_truckingjob",
+        "cmg_truckingjob"
+    )
+)
+
+
+RMenu.Add(
+    "cmgtruckmenu",
+    "vehicles",
+    RageUI.CreateMenu(
+        "Your Trucks",
+        "~b~CMG Trucking",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        "cmg_truckingjob",
+        "cmg_truckingjob"
+    )
+)
+
+local vehiclesMenu =
+    RMenu:Get(
+        "cmgtruckmenu",
+        "vehicles"
+    )
+
+
+RMenu.Add(
+    "cmgtruckmenu",
+    "rented_trucks",
+    RageUI.CreateSubMenu(
+        vehiclesMenu,
+        "Rented Vehicles",
+        "~b~CMG Trucking",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        "cmg_truckingjob",
+        "cmg_truckingjob"
+    )
+)
+
+
+RMenu.Add(
+    "cmgtruckmenu",
+    "owned_trucks",
+    RageUI.CreateSubMenu(
+        vehiclesMenu,
+        "Owned Vehicles",
+        "~b~CMG Trucking",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        "cmg_truckingjob",
+        "cmg_truckingjob"
+    )
+)
+
+
+-- ============================================================
+-- SERVER ACTION HELPERS
+-- ============================================================
+
+local function buyOrRentTruck(
+    modelName,
+    price
+)
+    TriggerServerEvent(
+        "dad36733a1",
+        modelName,
+        price
+    )
 end
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "c0a43cc041"
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
+
+
+local function useRentedTruck(
+    modelName
+)
+    TriggerServerEvent(
+        "c0a43cc041",
+        modelName
+    )
 end
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "4fd18e8fe3"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.insert
-  SHX2_2 = SHX2_1.rented
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX5_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RageUI
-SHX6_1 = SHX6_1.CreateWhile
-SHX7_1 = 1.0
-SHX8_1 = RMenu
-SHX9_1 = SHX8_1
-SHX8_1 = SHX8_1.Get
-SHX10_1 = "cmgtruckmenu"
-SHX11_1 = "buy-rent"
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX9_1 = nil
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgtruckmenu"
-  SHX4_2 = "buy-rent"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-    SHX0_3 = pairs
-    SHX1_3 = SHX1_1
-    SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-    for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-      SHX6_3 = SHX5_3.custom
-      if not SHX6_3 then
-        SHX6_3 = nil
-        SHX7_3 = table
-        SHX7_3 = SHX7_3.has
-        SHX8_3 = SHX2_1.rented
-        SHX9_3 = GetHashKey
-        SHX10_3 = SHX4_3
-        SHX9_3, SHX10_3, SHX11_3, SHX12_3 = SHX9_3(SHX10_3)
-        SHX7_3 = SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-        if SHX7_3 then
-          SHX7_3 = {}
-          SHX8_3 = RageUI
-          SHX8_3 = SHX8_3.BadgeStyle
-          SHX8_3 = SHX8_3.Tick
-          SHX7_3.RightBadge = SHX8_3
-          SHX6_3 = SHX7_3
-        else
-          SHX7_3 = {}
-          SHX8_3 = "\194\163"
-          SHX9_3 = getMoneyStringFormatted
-          SHX10_3 = SHX5_3.price
-          SHX9_3 = SHX9_3(SHX10_3)
-          SHX8_3 = SHX8_3 .. SHX9_3
-          SHX7_3.RightLabel = SHX8_3
-          SHX6_3 = SHX7_3
-        end
-        SHX7_3 = RageUI
-        SHX7_3 = SHX7_3.ButtonWithStyle
-        SHX8_3 = SHX5_3.name
-        SHX9_3 = "Press to spawn."
-        SHX10_3 = SHX6_3
-        SHX11_3 = true
-        function SHX12_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-          if SHX2_4 then
-            SHX3_4 = table
-            SHX3_4 = SHX3_4.has
-            SHX4_4 = SHX2_1.rented
-            SHX5_4 = GetHashKey
-            SHX6_4 = SHX4_3
-            SHX5_4, SHX6_4 = SHX5_4(SHX6_4)
-            SHX3_4 = SHX3_4(SHX4_4, SHX5_4, SHX6_4)
-            if not SHX3_4 then
-              SHX3_4 = SHX4_1
-              SHX4_4 = SHX4_3
-              SHX5_4 = SHX5_3.price
-              SHX3_4(SHX4_4, SHX5_4)
-            else
-              SHX3_4 = SHX5_1
-              SHX4_4 = SHX4_3
-              SHX3_4(SHX4_4)
+
+
+-- Server confirms a new rented truck model hash.
+RegisterNetEvent(
+    "4fd18e8fe3",
+    function(modelHash)
+        table.insert(
+            ownedAndRented.rented,
+            modelHash
+        )
+
+        useRentedTruck(
+            modelHash
+        )
+    end
+)
+
+
+-- ============================================================
+-- BUY / RENT MENU
+-- ============================================================
+
+RageUI.CreateWhile(
+    1.0,
+    buyRentMenu,
+    nil,
+    function()
+        RageUI.IsVisible(
+            buyRentMenu,
+            true,
+            false,
+            true,
+            function()
+                for modelName, truck
+                    in pairs(
+                        truckDefinitions
+                    ) do
+
+                    -- Custom trucks are handled elsewhere.
+                    if not truck.custom then
+                        local modelHash =
+                            GetHashKey(
+                                modelName
+                            )
+
+                        local alreadyRented =
+                            table.has(
+                                ownedAndRented.rented,
+                                modelHash
+                            )
+
+                        local style
+
+                        if alreadyRented then
+                            style = {
+                                RightBadge =
+                                    RageUI.BadgeStyle.Tick
+                            }
+                        else
+                            style = {
+                                RightLabel =
+                                    "£"
+                                    .. getMoneyStringFormatted(
+                                        truck.price
+                                    )
+                            }
+                        end
+
+                        RageUI.ButtonWithStyle(
+                            truck.name,
+                            "Press to spawn.",
+                            style,
+                            true,
+                            function(_, _, selected)
+                                if not selected then
+                                    return
+                                end
+
+                                if alreadyRented then
+                                    useRentedTruck(
+                                        modelName
+                                    )
+                                else
+                                    buyOrRentTruck(
+                                        modelName,
+                                        truck.price
+                                    )
+                                end
+                            end
+                        )
+                    end
+                end
             end
-          end
+        )
+    end
+)
+
+
+-- ============================================================
+-- SERVER LIST UPDATE
+-- ============================================================
+
+RegisterNetEvent(
+    "55dd309134",
+    function(
+        ownedTrucks,
+        rentedTrucks
+    )
+        ownedAndRented.owned =
+            ownedTrucks or {}
+
+        ownedAndRented.rented =
+            rentedTrucks or {}
+    end
+)
+
+
+-- ============================================================
+-- WORLD DEALERSHIP MARKERS
+-- ============================================================
+
+CreateThread(function()
+    for _, location
+        in ipairs(
+            truckingConfig.buylocations
+        ) do
+
+        local coords =
+            location.main
+
+        -- This text uses a fixed dealership location in the original client.
+        CMG.add3DTextForCoord(
+            "Truck Dealership",
+            895.5809,
+            -3187.351,
+            5.808145,
+            8.0
+        )
+
+        CMG.add3DTextForCoord(
+            "Truck Rental",
+            coords.x,
+            coords.y,
+            coords.z,
+            8.0
+        )
+
+        tCMG.addPropMarker(
+            "bzzz_marker_shop_blue_anim",
+            coords.x,
+            coords.y,
+            coords.z,
+            50.0
+        )
+
+        tCMG.addBlip(
+            coords.x,
+            coords.y,
+            coords.z,
+            67,
+            5,
+            "Truck Rental"
+        )
+    end
+end)
+
+
+-- ============================================================
+-- OPEN MENU WHEN ENTERING RENTAL AREA
+-- ============================================================
+
+AddEventHandler(
+    "CMG:onClientSpawn",
+    function(_, firstSpawn)
+        if not firstSpawn then
+            return
         end
-        SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      end
-    end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-end
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "55dd309134"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  SHX2_1.owned = SHX0_2
-  SHX2_1.rented = SHX1_2
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = Citizen
-SHX6_1 = SHX6_1.CreateThread
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = 1
-  SHX1_2 = SHX0_1.buylocations
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
-    SHX4_2 = SHX0_1.buylocations
-    SHX4_2 = SHX4_2[SHX3_2]
-    SHX5_2 = SHX4_2.main
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.add3DTextForCoord
-    SHX7_2 = "Truck Dealership"
-    SHX8_2 = 895.5809
-    SHX9_2 = -3187.351
-    SHX10_2 = 5.808145
-    SHX11_2 = 8.0
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.add3DTextForCoord
-    SHX7_2 = "Truck Rental"
-    SHX8_2 = SHX5_2.x
-    SHX9_2 = SHX5_2.y
-    SHX10_2 = SHX5_2.z
-    SHX11_2 = 8.0
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.addPropMarker
-    SHX7_2 = "bzzz_marker_shop_blue_anim"
-    SHX8_2 = SHX5_2.x
-    SHX9_2 = SHX5_2.y
-    SHX10_2 = SHX5_2.z
-    SHX11_2 = 50.0
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.addBlip
-    SHX7_2 = SHX5_2.x
-    SHX8_2 = SHX5_2.y
-    SHX9_2 = SHX5_2.z
-    SHX10_2 = 67
-    SHX11_2 = 5
-    SHX12_2 = "Truck Rental"
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  end
-end
-SHX6_1(SHX7_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "CMG:onClientSpawn"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  if SHX1_2 then
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-      SHX0_3 = PlayerPedId
-      SHX0_3 = SHX0_3()
-      SHX1_3 = IsPedInAnyVehicle
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      if not SHX1_3 then
-        SHX1_3 = GetVehiclePedIsIn
-        SHX2_3 = SHX0_3
-        SHX3_3 = false
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-        SHX2_3 = SHX3_1
-        if SHX1_3 ~= SHX2_3 then
-          SHX1_3 = RageUI
-          SHX1_3 = SHX1_3.CloseAll
-          SHX1_3()
-          SHX1_3 = RageUI
-          SHX1_3 = SHX1_3.Visible
-          SHX2_3 = RMenu
-          SHX3_3 = SHX2_3
-          SHX2_3 = SHX2_3.Get
-          SHX4_3 = "cmgtruckmenu"
-          SHX5_3 = "buy-rent"
-          SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-          SHX3_3 = true
-          SHX1_3(SHX2_3, SHX3_3)
+
+        local function onEnter()
+            local ped =
+                PlayerPedId()
+
+            -- The decompiler checks that the player is NOT currently in a
+            -- vehicle before opening.
+            if not IsPedInAnyVehicle(
+                ped,
+                false
+            ) then
+                RageUI.CloseAll()
+
+                RageUI.Visible(
+                    buyRentMenu,
+                    true
+                )
+            end
         end
-      end
+
+        local function onLeave()
+            RageUI.CloseAll()
+        end
+
+        for index, location
+            in ipairs(
+                truckingConfig.buylocations
+            ) do
+
+            CMG.createArea(
+                "trucking_buy_"
+                    .. tostring(index),
+                location.main,
+                1.15,
+                6,
+                onEnter,
+                onLeave,
+                function()
+                end,
+                {}
+            )
+        end
     end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.CloseAll
-      SHX0_3()
+)
+
+
+-- ============================================================
+-- CLIENT SPAWN VEHICLE EVENT
+-- ============================================================
+
+RegisterNetEvent(
+    "cddad45dd3",
+    function(modelName)
+        local ped =
+            PlayerPedId()
+
+        local coords =
+            GetEntityCoords(ped)
+
+        CMG.requestEntitySpawn(
+            "buytrucks"
+        )
+
+        CMG.spawnVehicle(
+            modelName,
+            coords.x,
+            coords.y,
+            coords.z,
+            GetEntityHeading(ped),
+            true,
+            true,
+            true
+        )
     end
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-    end
-    SHX5_2 = 1
-    SHX6_2 = SHX0_1.buylocations
-    SHX6_2 = #SHX6_2
-    SHX7_2 = 1
-    for SHX8_2 = SHX5_2, SHX6_2, SHX7_2 do
-      SHX9_2 = SHX0_1.buylocations
-      SHX9_2 = SHX9_2[SHX8_2]
-      SHX10_2 = CMG
-      SHX10_2 = SHX10_2.createArea
-      SHX11_2 = "trucking_buy_"
-      SHX12_2 = SHX8_2
-      SHX11_2 = SHX11_2 .. SHX12_2
-      SHX12_2 = SHX9_2.main
-      SHX13_2 = 1.15
-      SHX14_2 = 6
-      SHX15_2 = SHX2_2
-      SHX16_2 = SHX3_2
-      SHX17_2 = SHX4_2
-      SHX18_2 = {}
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    end
-  end
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "cddad45dd3"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "buytrucks"
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.spawnVehicle
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX8_2 = GetEntityHeading
-  SHX9_2 = SHX1_2
-  SHX8_2 = SHX8_2(SHX9_2)
-  SHX9_2 = true
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-end
-SHX6_1(SHX7_1, SHX8_1)
+)

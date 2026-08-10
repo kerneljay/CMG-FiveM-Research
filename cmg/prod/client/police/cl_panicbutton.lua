@@ -1,640 +1,646 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_panicbutton.lua
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1
-SHX0_1 = {}
-SHX0_1.Cooldown = 15
-SHX0_1.DisableAllMessages = false
-SHX0_1.ChatSuggestions = true
-SHX0_1.Reminder = true
-SHX0_1.Message = "Attention all units, MET officer in distress!"
-SHX1_1 = {}
-SHX1_1.Cooling = 0
-SHX1_1.Tuned = true
-SHX2_1 = false
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX0_1.Cooldown
-  SHX1_1.Cooling = SHX0_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Panicbutton
+    ============================
+
+    File: cmg/prod/client/police/cl_panicbutton.lua
+    Purpose: This file contains police gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Commands/command-like entries found:
+      * panic
+
+    Network/hash identifiers found: 3
+      They are intentionally left unchanged because matching server code may use them.
+      * 9baa82cbda
+      * 2d588b850f
+      * 9d185ee4de
+
+]]
+local dataTable, dataTable2, flag, workValue5, workValue6, eventRegistration, textValue4, workValue8, flag3
+dataTable = {}
+dataTable.Cooldown = 15
+dataTable.DisableAllMessages = false
+dataTable.ChatSuggestions = true
+dataTable.Reminder = true
+dataTable.Message = "Attention all units, MET officer in distress!"
+dataTable2 = {}
+dataTable2.Cooling = 0
+dataTable2.Tuned = true
+flag = false
+function workValue5()
+  local arg1, arg2
+  arg1 = dataTable.Cooldown
+  dataTable2.Cooling = arg1
+  arg1 = flag
+  if arg1 then
     return
   end
-  SHX0_2 = true
-  SHX2_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  arg1 = true
+  flag = arg1
+  arg1 = Citizen
+  arg1 = arg1.CreateThread
+  function arg2()
+    local waitCall, numberValue
     while true do
-      SHX0_3 = SHX1_1.Cooling
-      if not (SHX0_3 > 0) then
+      waitCall = dataTable2.Cooling
+      if not (waitCall > 0) then
         break
       end
-      SHX0_3 = SHX1_1.Cooling
-      SHX0_3 = SHX0_3 - 1
-      SHX1_1.Cooling = SHX0_3
-      SHX0_3 = Wait
-      SHX1_3 = 1000
-      SHX0_3(SHX1_3)
+      waitCall = dataTable2.Cooling
+      waitCall = waitCall - 1
+      dataTable2.Cooling = waitCall
+      waitCall = Wait
+      numberValue = 1000
+      waitCall(numberValue)
     end
-    SHX0_3 = false
-    SHX2_1 = SHX0_3
+    waitCall = false
+    flag = waitCall
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(arg2)
 end
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = RegisterPedheadshot
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = IsPedheadshotValid
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    SHX2_2 = "CHAR_BLOCKED"
-    return SHX2_2
+function workValue6(arg1)
+  local arg2, arg3, gameTime, numberValue4, workValue7
+  arg2 = RegisterPedheadshot
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = IsPedheadshotValid
+  gameTime = arg2
+  arg3 = arg3(gameTime)
+  if not arg3 then
+    arg3 = "CHAR_BLOCKED"
+    return arg3
   end
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
+  arg3 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg3 = arg3()
   while true do
-    SHX3_2 = IsPedheadshotReady
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
+    gameTime = IsPedheadshotReady
+    numberValue4 = arg2
+    gameTime = gameTime(numberValue4)
+    if gameTime then
       break
     end
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2 - SHX2_2
-    SHX4_2 = 2500
-    if SHX3_2 > SHX4_2 then
-      SHX3_2 = UnregisterPedheadshot
-      SHX4_2 = SHX1_2
-      SHX3_2(SHX4_2)
-      SHX3_2 = "CHAR_BLOCKED"
-      return SHX3_2
+    gameTime = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    gameTime = gameTime()
+    gameTime = gameTime - arg3
+    numberValue4 = 2500
+    if gameTime > numberValue4 then
+      gameTime = UnregisterPedheadshot
+      numberValue4 = arg2
+      gameTime(numberValue4)
+      gameTime = "CHAR_BLOCKED"
+      return gameTime
     end
-    SHX3_2 = Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
+    gameTime = Wait
+    numberValue4 = 0
+    gameTime(numberValue4)
   end
-  SHX3_2 = GetPedheadshotTxdString
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX3_2
-  SHX5_2 = SHX1_2
-  return SHX4_2, SHX5_2
+  gameTime = GetPedheadshotTxdString
+  numberValue4 = arg2
+  gameTime = gameTime(numberValue4)
+  numberValue4 = gameTime
+  workValue7 = arg2
+  return numberValue4, workValue7
 end
-SHX5_1 = RegisterCommand
-SHX6_1 = "panic"
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasRadioItem
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
+eventRegistration = RegisterCommand
+textValue4 = "panic"
+-- Beginner: this function is the command handler for "panic".
+function workValue8()
+  local arg1, arg2, arg3, gameTime, numberValue4, workValue7, playerIndex
+  arg1 = CMG
+  arg1 = arg1.hasRadioItem
+  arg1 = arg1()
+  if not arg1 then
     return
   end
-  SHX0_2 = IsEntityDead
-  SHX1_2 = PlayerPedId
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  if SHX0_2 then
+  arg1 = IsEntityDead
+  arg2 = PlayerPedId
+  arg2, arg3, gameTime, numberValue4, workValue7, playerIndex = arg2()
+  arg1 = arg1(arg2, arg3, gameTime, numberValue4, workValue7, playerIndex)
+  if arg1 then
     return
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "police.onduty.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hasClientPermission
-    SHX1_2 = "nhs.onduty.permission"
-    SHX0_2 = SHX0_2(SHX1_2)
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.hasClientPermission
-      SHX1_2 = "prisonguard.onduty.permission"
-      SHX0_2 = SHX0_2(SHX1_2)
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.hasClientPermission
-        SHX1_2 = "lfb.onduty.permission"
-        SHX0_2 = SHX0_2(SHX1_2)
-        if not SHX0_2 then
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.isSelectedGangAdvanced
-          SHX0_2 = SHX0_2()
-          if not SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.hasClientPermission
-            SHX1_2 = "borderforce.onduty.permission"
-            SHX0_2 = SHX0_2(SHX1_2)
-            if not SHX0_2 then
-              goto SHX_LABEL_190
+  arg1 = CMG
+  arg1 = arg1.hasClientPermission
+  arg2 = "police.onduty.permission"
+  arg1 = arg1(arg2)
+  if not arg1 then
+    arg1 = CMG
+    arg1 = arg1.hasClientPermission
+    arg2 = "nhs.onduty.permission"
+    arg1 = arg1(arg2)
+    if not arg1 then
+      arg1 = CMG
+      arg1 = arg1.hasClientPermission
+      arg2 = "prisonguard.onduty.permission"
+      arg1 = arg1(arg2)
+      if not arg1 then
+        arg1 = CMG
+        arg1 = arg1.hasClientPermission
+        arg2 = "lfb.onduty.permission"
+        arg1 = arg1(arg2)
+        if not arg1 then
+          arg1 = CMG
+          arg1 = arg1.isSelectedGangAdvanced
+          arg1 = arg1()
+          if not arg1 then
+            arg1 = CMG
+            arg1 = arg1.hasClientPermission
+            arg2 = "borderforce.onduty.permission"
+            arg1 = arg1(arg2)
+            if not arg1 then
+              goto flow_label_190
             end
           end
         end
       end
     end
   end
-  SHX0_2 = SHX1_1.Cooling
-  if 0 == SHX0_2 then
-    SHX0_2 = {}
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerId
-    SHX1_2 = SHX1_2()
-    SHX0_2.Player = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerPed
-    SHX1_2 = SHX1_2()
-    SHX0_2.Ped = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerName
-    SHX2_2 = SHX0_2.Player
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX0_2.Name = SHX1_2
-    SHX1_2 = GetEntityCoords
-    SHX2_2 = SHX0_2.Ped
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX0_2.Coords = SHX1_2
-    SHX1_2 = {}
-    SHX0_2.Location = SHX1_2
-    SHX1_2 = SHX0_2.Location
-    SHX2_2 = SHX0_2.Location
-    SHX3_2 = GetStreetNameAtCoord
-    SHX4_2 = SHX0_2.Coords
-    SHX4_2 = SHX4_2.x
-    SHX5_2 = SHX0_2.Coords
-    SHX5_2 = SHX5_2.y
-    SHX6_2 = SHX0_2.Coords
-    SHX6_2 = SHX6_2.z
-    SHX3_2, SHX4_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2.CrossStreetHash = SHX4_2
-    SHX1_2.StreetHash = SHX3_2
-    SHX1_2 = SHX0_2.Location
-    SHX2_2 = GetStreetNameFromHashKey
-    SHX3_2 = SHX0_2.Location
-    SHX3_2 = SHX3_2.StreetHash
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX1_2.Street = SHX2_2
-    SHX1_2 = SHX0_2.Location
-    SHX1_2 = SHX1_2.CrossStreet
-    if 0 ~= SHX1_2 then
-      SHX1_2 = SHX0_2.Location
-      SHX2_2 = GetStreetNameFromHashKey
-      SHX3_2 = SHX0_2.Location
-      SHX3_2 = SHX3_2.CrossStreetHash
-      SHX2_2 = SHX2_2(SHX3_2)
-      SHX1_2.CrossStreet = SHX2_2
-      SHX1_2 = SHX0_2.Location
-      SHX1_2 = SHX1_2.Street
-      SHX2_2 = " X "
-      SHX3_2 = SHX0_2.Location
-      SHX3_2 = SHX3_2.CrossStreet
-      SHX1_2 = SHX1_2 .. SHX2_2 .. SHX3_2
-      SHX0_2.Location = SHX1_2
+  arg1 = dataTable2.Cooling
+  if 0 == arg1 then
+    arg1 = {}
+    arg2 = CMG
+    arg2 = arg2.getPlayerId
+    -- Beginner: result below is localPlayerIndex.
+    arg2 = arg2()
+    arg1.Player = arg2
+    arg2 = CMG
+    arg2 = arg2.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    arg2 = arg2()
+    arg1.Ped = arg2
+    arg2 = CMG
+    arg2 = arg2.getPlayerName
+    arg3 = arg1.Player
+    arg2 = arg2(arg3)
+    arg1.Name = arg2
+    arg2 = GetEntityCoords
+    arg3 = arg1.Ped
+    -- Beginner: result below is entityCoords.
+    arg2 = arg2(arg3)
+    arg1.Coords = arg2
+    arg2 = {}
+    arg1.Location = arg2
+    arg2 = arg1.Location
+    arg3 = arg1.Location
+    gameTime = GetStreetNameAtCoord
+    numberValue4 = arg1.Coords
+    numberValue4 = numberValue4.x
+    workValue7 = arg1.Coords
+    workValue7 = workValue7.y
+    playerIndex = arg1.Coords
+    playerIndex = playerIndex.z
+    gameTime, numberValue4 = gameTime(numberValue4, workValue7, playerIndex)
+    arg3.CrossStreetHash = numberValue4
+    arg2.StreetHash = gameTime
+    arg2 = arg1.Location
+    arg3 = GetStreetNameFromHashKey
+    gameTime = arg1.Location
+    gameTime = gameTime.StreetHash
+    arg3 = arg3(gameTime)
+    arg2.Street = arg3
+    arg2 = arg1.Location
+    arg2 = arg2.CrossStreet
+    if 0 ~= arg2 then
+      arg2 = arg1.Location
+      arg3 = GetStreetNameFromHashKey
+      gameTime = arg1.Location
+      gameTime = gameTime.CrossStreetHash
+      arg3 = arg3(gameTime)
+      arg2.CrossStreet = arg3
+      arg2 = arg1.Location
+      arg2 = arg2.Street
+      arg3 = " X "
+      gameTime = arg1.Location
+      gameTime = gameTime.CrossStreet
+      arg2 = arg2 .. arg3 .. gameTime
+      arg1.Location = arg2
     else
-      SHX1_2 = SHX0_2.Location
-      SHX1_2 = SHX1_2.Street
-      SHX0_2.Location = SHX1_2
+      arg2 = arg1.Location
+      arg2 = arg2.Street
+      arg1.Location = arg2
     end
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.hasClientPermission
-    SHX2_2 = "police.onduty.permission"
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = TriggerServerEvent
-      SHX2_2 = "9baa82cbda"
-      SHX3_2 = SHX0_2
-      SHX4_2 = 3
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    arg2 = CMG
+    arg2 = arg2.hasClientPermission
+    arg3 = "police.onduty.permission"
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = TriggerServerEvent
+      arg3 = "9baa82cbda"
+      gameTime = arg1
+      numberValue4 = 3
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9baa82cbda".
+      arg2(arg3, gameTime, numberValue4)
     else
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.hasClientPermission
-      SHX2_2 = "nhs.onduty.permission"
-      SHX1_2 = SHX1_2(SHX2_2)
-      if SHX1_2 then
-        SHX1_2 = TriggerServerEvent
-        SHX2_2 = "9baa82cbda"
-        SHX3_2 = SHX0_2
-        SHX4_2 = 2
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+      arg2 = CMG
+      arg2 = arg2.hasClientPermission
+      arg3 = "nhs.onduty.permission"
+      arg2 = arg2(arg3)
+      if arg2 then
+        arg2 = TriggerServerEvent
+        arg3 = "9baa82cbda"
+        gameTime = arg1
+        numberValue4 = 2
+        arg2(arg3, gameTime, numberValue4)
       else
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.hasClientPermission
-        SHX2_2 = "prisonguard.onduty.permission"
-        SHX1_2 = SHX1_2(SHX2_2)
-        if SHX1_2 then
-          SHX1_2 = TriggerServerEvent
-          SHX2_2 = "9baa82cbda"
-          SHX3_2 = SHX0_2
-          SHX4_2 = 4
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+        arg2 = CMG
+        arg2 = arg2.hasClientPermission
+        arg3 = "prisonguard.onduty.permission"
+        arg2 = arg2(arg3)
+        if arg2 then
+          arg2 = TriggerServerEvent
+          arg3 = "9baa82cbda"
+          gameTime = arg1
+          numberValue4 = 4
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9baa82cbda".
+          arg2(arg3, gameTime, numberValue4)
         else
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.hasClientPermission
-          SHX2_2 = "lfb.onduty.permission"
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 then
-            SHX1_2 = TriggerServerEvent
-            SHX2_2 = "9baa82cbda"
-            SHX3_2 = SHX0_2
-            SHX4_2 = 5
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+          arg2 = CMG
+          arg2 = arg2.hasClientPermission
+          arg3 = "lfb.onduty.permission"
+          arg2 = arg2(arg3)
+          if arg2 then
+            arg2 = TriggerServerEvent
+            arg3 = "9baa82cbda"
+            gameTime = arg1
+            numberValue4 = 5
+            arg2(arg3, gameTime, numberValue4)
           else
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.hasClientPermission
-            SHX2_2 = "borderforce.onduty.permission"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = TriggerServerEvent
-              SHX2_2 = "9baa82cbda"
-              SHX3_2 = SHX0_2
-              SHX4_2 = 7
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+            arg2 = CMG
+            arg2 = arg2.hasClientPermission
+            arg3 = "borderforce.onduty.permission"
+            arg2 = arg2(arg3)
+            if arg2 then
+              arg2 = TriggerServerEvent
+              arg3 = "9baa82cbda"
+              gameTime = arg1
+              numberValue4 = 7
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9baa82cbda".
+              arg2(arg3, gameTime, numberValue4)
             else
-              SHX1_2 = CMG
-              SHX1_2 = SHX1_2.isSelectedGangAdvanced
-              SHX1_2 = SHX1_2()
-              if SHX1_2 then
-                SHX1_2 = TriggerServerEvent
-                SHX2_2 = "2d588b850f"
-                SHX3_2 = SHX0_2
-                SHX4_2 = false
-                SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+              arg2 = CMG
+              arg2 = arg2.isSelectedGangAdvanced
+              arg2 = arg2()
+              if arg2 then
+                arg2 = TriggerServerEvent
+                arg3 = "2d588b850f"
+                gameTime = arg1
+                numberValue4 = false
+                arg2(arg3, gameTime, numberValue4)
               end
             end
           end
         end
       end
     end
-    SHX1_2 = SHX3_1
-    SHX1_2()
+    arg2 = workValue5
+    arg2()
   else
-    SHX0_2 = notify
-    SHX1_2 = "~r~Panic Button still cooling down."
-    SHX2_2 = true
-    SHX0_2(SHX1_2, SHX2_2)
+    arg1 = notify
+    arg2 = "~r~Panic Button still cooling down."
+    arg3 = true
+    -- Beginner: Show a notification to the player.
+    arg1(arg2, arg3)
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_190:: outside nested blocks until all 'goto SHX_LABEL_190' can see it
-  ::SHX_LABEL_190::
+  ::flow_label_190::
 end
-SHX8_1 = false
-SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX5_1 = RegisterNetEvent
-SHX6_1 = "9d185ee4de"
-function SHX7_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.hasRadioItem
-  SHX3_2 = SHX3_2()
-  if not SHX3_2 then
+flag3 = false
+-- Beginner: Register a chat/console command. Event/command: "panic".
+eventRegistration(textValue4, workValue8, flag3)
+eventRegistration = RegisterNetEvent
+textValue4 = "9d185ee4de"
+-- Beginner: this function handles network event "9d185ee4de".
+function workValue8(arg1, arg2, arg3)
+  local gameTime, numberValue4, workValue7, playerIndex, workValue9, numberValue6, stringHelper, textValue, textValue2, workValue, textValue3, workValue2, workValue3
+  gameTime = CMG
+  gameTime = gameTime.hasRadioItem
+  gameTime = gameTime()
+  if not gameTime then
     return
   end
-  if 6 == SHX2_2 then
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.isGangPanicsPinnedOnly
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.isPlayerPinnedInGang
-      SHX4_2 = SHX1_2.user_id
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX1_2.user_id
-        SHX4_2 = CMG
-        SHX4_2 = SHX4_2.getClientUserId
-        SHX4_2 = SHX4_2()
-        if SHX3_2 ~= SHX4_2 then
+  if 6 == arg3 then
+    gameTime = CMG
+    gameTime = gameTime.isGangPanicsPinnedOnly
+    gameTime = gameTime()
+    if gameTime then
+      gameTime = CMG
+      gameTime = gameTime.isPlayerPinnedInGang
+      numberValue4 = arg2.user_id
+      gameTime = gameTime(numberValue4)
+      if not gameTime then
+        gameTime = arg2.user_id
+        numberValue4 = CMG
+        numberValue4 = numberValue4.getClientUserId
+        -- Beginner: result below is userId.
+        numberValue4 = numberValue4()
+        if gameTime ~= numberValue4 then
           return
         end
       end
     end
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getClientUserId
-  SHX3_2 = SHX3_2()
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.hasClientPermission
-  SHX5_2 = "police.onduty.permission"
-  SHX4_2 = SHX4_2(SHX5_2)
-  if not SHX4_2 then
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.hasClientPermission
-    SHX5_2 = "nhs.onduty.permission"
-    SHX4_2 = SHX4_2(SHX5_2)
-    if not SHX4_2 or 1 == SHX3_2 then
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.hasClientPermission
-      SHX5_2 = "prisonguard.onduty.permission"
-      SHX4_2 = SHX4_2(SHX5_2)
-      if not SHX4_2 or 4 ~= SHX2_2 and 7 ~= SHX2_2 then
-        SHX4_2 = CMG
-        SHX4_2 = SHX4_2.hasClientPermission
-        SHX5_2 = "lfb.onduty.permission"
-        SHX4_2 = SHX4_2(SHX5_2)
-        if not SHX4_2 or 5 ~= SHX2_2 then
-          if 6 == SHX2_2 then
-            SHX4_2 = CMG
-            SHX4_2 = SHX4_2.isEmergencyService
-            SHX4_2 = SHX4_2()
-            if not SHX4_2 then
-              goto SHX_LABEL_75
+  gameTime = CMG
+  gameTime = gameTime.getClientUserId
+  -- Beginner: result below is userId.
+  gameTime = gameTime()
+  numberValue4 = CMG
+  numberValue4 = numberValue4.hasClientPermission
+  workValue7 = "police.onduty.permission"
+  numberValue4 = numberValue4(workValue7)
+  if not numberValue4 then
+    numberValue4 = CMG
+    numberValue4 = numberValue4.hasClientPermission
+    workValue7 = "nhs.onduty.permission"
+    numberValue4 = numberValue4(workValue7)
+    if not numberValue4 or 1 == gameTime then
+      numberValue4 = CMG
+      numberValue4 = numberValue4.hasClientPermission
+      workValue7 = "prisonguard.onduty.permission"
+      numberValue4 = numberValue4(workValue7)
+      if not numberValue4 or 4 ~= arg3 and 7 ~= arg3 then
+        numberValue4 = CMG
+        numberValue4 = numberValue4.hasClientPermission
+        workValue7 = "lfb.onduty.permission"
+        numberValue4 = numberValue4(workValue7)
+        if not numberValue4 or 5 ~= arg3 then
+          if 6 == arg3 then
+            numberValue4 = CMG
+            numberValue4 = numberValue4.isEmergencyService
+            numberValue4 = numberValue4()
+            if not numberValue4 then
+              goto flow_label_75
             end
           end
-          SHX4_2 = CMG
-          SHX4_2 = SHX4_2.hasClientPermission
-          SHX5_2 = "borderforce.onduty.permission"
-          SHX4_2 = SHX4_2(SHX5_2)
-          if not SHX4_2 then
-            goto SHX_LABEL_223
+          numberValue4 = CMG
+          numberValue4 = numberValue4.hasClientPermission
+          workValue7 = "borderforce.onduty.permission"
+          numberValue4 = numberValue4(workValue7)
+          if not numberValue4 then
+            goto flow_label_223
           end
         end
       end
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_75:: outside nested blocks until all 'goto SHX_LABEL_75' can see it
-  ::SHX_LABEL_75::
-  SHX4_2 = SendNUIMessage
-  SHX5_2 = {}
-  SHX5_2.PayloadType = "Panic"
-  SHX5_2.Payload = SHX0_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_1
-  SHX5_2 = GetPlayerPed
-  SHX6_2 = GetPlayerFromServerId
-  SHX7_2 = SHX1_2.Source
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX6_2(SHX7_2)
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2, SHX5_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX1_2.Headshot = SHX4_2
-  if 2 == SHX2_2 then
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.notifyPicture
-    SHX7_2 = SHX1_2.Headshot
-    SHX8_2 = 2
-    SHX9_2 = string
-    SHX9_2 = SHX9_2.format
-    SHX10_2 = "NHS - %s"
-    SHX11_2 = SHX1_2.Name
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    SHX10_2 = nil
-    SHX11_2 = "~r~NHS Paramedic in distress! - "
-    SHX12_2 = SHX1_2.Location
-    SHX11_2 = SHX11_2 .. SHX12_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  elseif 3 == SHX2_2 then
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.notifyPicture
-    SHX7_2 = SHX1_2.Headshot
-    SHX8_2 = 2
-    SHX9_2 = string
-    SHX9_2 = SHX9_2.format
-    SHX10_2 = "MET Police - %s"
-    SHX11_2 = SHX1_2.Name
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    SHX10_2 = nil
-    SHX11_2 = "~r~Officer in distress! - "
-    SHX12_2 = SHX1_2.Location
-    SHX11_2 = SHX11_2 .. SHX12_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  elseif 4 == SHX2_2 then
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.notifyPicture
-    SHX7_2 = SHX1_2.Headshot
-    SHX8_2 = 2
-    SHX9_2 = string
-    SHX9_2 = SHX9_2.format
-    SHX10_2 = "HM Prison - %s"
-    SHX11_2 = SHX1_2.Name
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    SHX10_2 = nil
-    SHX11_2 = "~r~Prison Guard in distress! - "
-    SHX12_2 = SHX1_2.Location
-    SHX11_2 = SHX11_2 .. SHX12_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  elseif 5 == SHX2_2 then
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.notifyPicture
-    SHX7_2 = SHX1_2.Headshot
-    SHX8_2 = 2
-    SHX9_2 = string
-    SHX9_2 = SHX9_2.format
-    SHX10_2 = "LFB - %s"
-    SHX11_2 = SHX1_2.Name
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    SHX10_2 = nil
-    SHX11_2 = "~r~LFB Panic Alarm Activated! - "
-    SHX12_2 = SHX1_2.Location
-    SHX11_2 = SHX11_2 .. SHX12_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  elseif 6 == SHX2_2 then
-    SHX6_2 = SHX1_2.Name
-    if SHX6_2 then
-      SHX6_2 = SHX1_2.Name
-      if "" ~= SHX6_2 then
-        SHX6_2 = SHX1_2.Name
-        if SHX6_2 then
-          goto SHX_LABEL_169
+  ::flow_label_75::
+  numberValue4 = SendNUIMessage
+  workValue7 = {}
+  workValue7.PayloadType = "Panic"
+  workValue7.Payload = arg1
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  numberValue4(workValue7)
+  numberValue4 = workValue6
+  workValue7 = GetPlayerPed
+  playerIndex = GetPlayerFromServerId
+  workValue9 = arg2.Source
+  playerIndex, workValue9, numberValue6, stringHelper, textValue, textValue2, workValue, textValue3, workValue2, workValue3 = playerIndex(workValue9)
+  workValue7, playerIndex, workValue9, numberValue6, stringHelper, textValue, textValue2, workValue, textValue3, workValue2, workValue3 = workValue7(playerIndex, workValue9, numberValue6, stringHelper, textValue, textValue2, workValue, textValue3, workValue2, workValue3)
+  numberValue4, workValue7 = numberValue4(workValue7, playerIndex, workValue9, numberValue6, stringHelper, textValue, textValue2, workValue, textValue3, workValue2, workValue3)
+  arg2.Headshot = numberValue4
+  if 2 == arg3 then
+    playerIndex = tCMG
+    playerIndex = playerIndex.notifyPicture
+    workValue9 = arg2.Headshot
+    numberValue6 = 2
+    stringHelper = string
+    stringHelper = stringHelper.format
+    textValue = "NHS - %s"
+    textValue2 = arg2.Name
+    stringHelper = stringHelper(textValue, textValue2)
+    textValue = nil
+    textValue2 = "~r~NHS Paramedic in distress! - "
+    workValue = arg2.Location
+    textValue2 = textValue2 .. workValue
+    playerIndex(workValue9, numberValue6, stringHelper, textValue, textValue2)
+  elseif 3 == arg3 then
+    playerIndex = tCMG
+    playerIndex = playerIndex.notifyPicture
+    workValue9 = arg2.Headshot
+    numberValue6 = 2
+    stringHelper = string
+    stringHelper = stringHelper.format
+    textValue = "MET Police - %s"
+    textValue2 = arg2.Name
+    stringHelper = stringHelper(textValue, textValue2)
+    textValue = nil
+    textValue2 = "~r~Officer in distress! - "
+    workValue = arg2.Location
+    textValue2 = textValue2 .. workValue
+    playerIndex(workValue9, numberValue6, stringHelper, textValue, textValue2)
+  elseif 4 == arg3 then
+    playerIndex = tCMG
+    playerIndex = playerIndex.notifyPicture
+    workValue9 = arg2.Headshot
+    numberValue6 = 2
+    stringHelper = string
+    stringHelper = stringHelper.format
+    textValue = "HM Prison - %s"
+    textValue2 = arg2.Name
+    stringHelper = stringHelper(textValue, textValue2)
+    textValue = nil
+    textValue2 = "~r~Prison Guard in distress! - "
+    workValue = arg2.Location
+    textValue2 = textValue2 .. workValue
+    playerIndex(workValue9, numberValue6, stringHelper, textValue, textValue2)
+  elseif 5 == arg3 then
+    playerIndex = tCMG
+    playerIndex = playerIndex.notifyPicture
+    workValue9 = arg2.Headshot
+    numberValue6 = 2
+    stringHelper = string
+    stringHelper = stringHelper.format
+    textValue = "LFB - %s"
+    textValue2 = arg2.Name
+    stringHelper = stringHelper(textValue, textValue2)
+    textValue = nil
+    textValue2 = "~r~LFB Panic Alarm Activated! - "
+    workValue = arg2.Location
+    textValue2 = textValue2 .. workValue
+    playerIndex(workValue9, numberValue6, stringHelper, textValue, textValue2)
+  elseif 6 == arg3 then
+    playerIndex = arg2.Name
+    if playerIndex then
+      playerIndex = arg2.Name
+      if "" ~= playerIndex then
+        playerIndex = arg2.Name
+        if playerIndex then
+          goto flow_label_169
         end
       end
     end
-    SHX6_2 = "Unknown"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_169:: outside nested blocks until all 'goto SHX_LABEL_169' can see it
-    ::SHX_LABEL_169::
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.notifyPicture
-    SHX8_2 = SHX1_2.Headshot
-    SHX9_2 = 2
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.format
-    SHX11_2 = "Gang Panic - %s"
-    SHX12_2 = SHX6_2
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = nil
-    SHX12_2 = string
-    SHX12_2 = SHX12_2.format
-    SHX13_2 = "~r~%s triggered a gang panic - %s"
-    SHX14_2 = SHX6_2
-    SHX15_2 = SHX1_2.Location
-    SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  elseif 7 == SHX2_2 then
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.notifyPicture
-    SHX7_2 = SHX1_2.Headshot
-    SHX8_2 = 2
-    SHX9_2 = string
-    SHX9_2 = SHX9_2.format
-    SHX10_2 = "Border Force - %s"
-    SHX11_2 = SHX1_2.Name
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    SHX10_2 = nil
-    SHX11_2 = "~r~Border Force Panic Alarm Activated! - "
-    SHX12_2 = SHX1_2.Location
-    SHX11_2 = SHX11_2 .. SHX12_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+    playerIndex = "Unknown"
+    ::flow_label_169::
+    workValue9 = tCMG
+    workValue9 = workValue9.notifyPicture
+    numberValue6 = arg2.Headshot
+    stringHelper = 2
+    textValue = string
+    textValue = textValue.format
+    textValue2 = "Gang Panic - %s"
+    workValue = playerIndex
+    textValue = textValue(textValue2, workValue)
+    textValue2 = nil
+    workValue = string
+    workValue = workValue.format
+    textValue3 = "~r~%s triggered a gang panic - %s"
+    workValue2 = playerIndex
+    workValue3 = arg2.Location
+    workValue, textValue3, workValue2, workValue3 = workValue(textValue3, workValue2, workValue3)
+    workValue9(numberValue6, stringHelper, textValue, textValue2, workValue, textValue3, workValue2, workValue3)
+  elseif 7 == arg3 then
+    playerIndex = tCMG
+    playerIndex = playerIndex.notifyPicture
+    workValue9 = arg2.Headshot
+    numberValue6 = 2
+    stringHelper = string
+    stringHelper = stringHelper.format
+    textValue = "Border Force - %s"
+    textValue2 = arg2.Name
+    stringHelper = stringHelper(textValue, textValue2)
+    textValue = nil
+    textValue2 = "~r~Border Force Panic Alarm Activated! - "
+    workValue = arg2.Location
+    textValue2 = textValue2 .. workValue
+    playerIndex(workValue9, numberValue6, stringHelper, textValue, textValue2)
   end
-  if nil ~= SHX5_2 then
-    SHX6_2 = UnregisterPedheadshot
-    SHX7_2 = SHX5_2
-    SHX6_2(SHX7_2)
+  if nil ~= workValue7 then
+    playerIndex = UnregisterPedheadshot
+    workValue9 = workValue7
+    playerIndex(workValue9)
   end
-  SHX6_2 = Citizen
-  SHX6_2 = SHX6_2.CreateThread
-  function SHX7_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.isDoingTruckRoute
-    SHX0_3 = SHX0_3()
-    if SHX0_3 then
+  playerIndex = Citizen
+  playerIndex = playerIndex.CreateThread
+  function workValue9()
+    local waitCall, numberValue, workValue4, flag2, numberValue5
+    waitCall = CMG
+    waitCall = waitCall.isDoingTruckRoute
+    waitCall = waitCall()
+    if waitCall then
       return
     end
-    SHX0_3 = AddBlipForRadius
-    SHX1_3 = SHX1_2.Coords
-    SHX1_3 = SHX1_3.x
-    SHX2_3 = SHX1_2.Coords
-    SHX2_3 = SHX2_3.y
-    SHX3_3 = SHX1_2.Coords
-    SHX3_3 = SHX3_3.z
-    SHX4_3 = 100.0
-    SHX0_3 = SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-    SHX1_3 = SetBlipRoute
-    SHX2_3 = SHX0_3
-    SHX3_3 = true
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = Citizen
-    SHX1_3 = SHX1_3.CreateThread
-    function SHX2_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4
+    waitCall = AddBlipForRadius
+    numberValue = arg2.Coords
+    numberValue = numberValue.x
+    workValue4 = arg2.Coords
+    workValue4 = workValue4.y
+    flag2 = arg2.Coords
+    flag2 = flag2.z
+    numberValue5 = 100.0
+    -- Beginner: result below is blipHandle.
+    waitCall = waitCall(numberValue, workValue4, flag2, numberValue5)
+    numberValue = SetBlipRoute
+    workValue4 = waitCall
+    flag2 = true
+    numberValue(workValue4, flag2)
+    numberValue = Citizen
+    numberValue = numberValue.CreateThread
+    function workValue4()
+      local waitCall2, numberValue2, numberValue3
       while true do
-        SHX0_4 = SHX0_3
-        if not SHX0_4 then
+        waitCall2 = waitCall
+        if not waitCall2 then
           break
         end
-        SHX0_4 = SetBlipRouteColour
-        SHX1_4 = SHX0_3
-        SHX2_4 = 1
-        SHX0_4(SHX1_4, SHX2_4)
-        SHX0_4 = Citizen
-        SHX0_4 = SHX0_4.Wait
-        SHX1_4 = 150
-        SHX0_4(SHX1_4)
-        SHX0_4 = SetBlipRouteColour
-        SHX1_4 = SHX0_3
-        SHX2_4 = 6
-        SHX0_4(SHX1_4, SHX2_4)
-        SHX0_4 = Citizen
-        SHX0_4 = SHX0_4.Wait
-        SHX1_4 = 150
-        SHX0_4(SHX1_4)
-        SHX0_4 = SetBlipRouteColour
-        SHX1_4 = SHX0_3
-        SHX2_4 = 35
-        SHX0_4(SHX1_4, SHX2_4)
-        SHX0_4 = Citizen
-        SHX0_4 = SHX0_4.Wait
-        SHX1_4 = 150
-        SHX0_4(SHX1_4)
-        SHX0_4 = SetBlipRouteColour
-        SHX1_4 = SHX0_3
-        SHX2_4 = 6
-        SHX0_4(SHX1_4, SHX2_4)
+        waitCall2 = SetBlipRouteColour
+        numberValue2 = waitCall
+        numberValue3 = 1
+        waitCall2(numberValue2, numberValue3)
+        waitCall2 = Citizen
+        waitCall2 = waitCall2.Wait
+        numberValue2 = 150
+        waitCall2(numberValue2)
+        waitCall2 = SetBlipRouteColour
+        numberValue2 = waitCall
+        numberValue3 = 6
+        waitCall2(numberValue2, numberValue3)
+        waitCall2 = Citizen
+        waitCall2 = waitCall2.Wait
+        numberValue2 = 150
+        waitCall2(numberValue2)
+        waitCall2 = SetBlipRouteColour
+        numberValue2 = waitCall
+        numberValue3 = 35
+        waitCall2(numberValue2, numberValue3)
+        waitCall2 = Citizen
+        waitCall2 = waitCall2.Wait
+        numberValue2 = 150
+        waitCall2(numberValue2)
+        waitCall2 = SetBlipRouteColour
+        numberValue2 = waitCall
+        numberValue3 = 6
+        waitCall2(numberValue2, numberValue3)
       end
     end
-    SHX1_3(SHX2_3)
-    SHX1_3 = SetBlipColour
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX2_2
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = SetBlipAlpha
-    SHX2_3 = SHX0_3
-    SHX3_3 = 60
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = SetBlipFlashes
-    SHX2_3 = SHX0_3
-    SHX3_3 = true
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = SetBlipFlashInterval
-    SHX2_3 = SHX0_3
-    SHX3_3 = 200
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = Citizen
-    SHX1_3 = SHX1_3.Wait
-    SHX2_3 = 90000
-    SHX1_3(SHX2_3)
-    SHX1_3 = RemoveBlip
-    SHX2_3 = SHX0_3
-    SHX1_3(SHX2_3)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    numberValue(workValue4)
+    numberValue = SetBlipColour
+    workValue4 = waitCall
+    flag2 = arg3
+    numberValue(workValue4, flag2)
+    numberValue = SetBlipAlpha
+    workValue4 = waitCall
+    flag2 = 60
+    numberValue(workValue4, flag2)
+    numberValue = SetBlipFlashes
+    workValue4 = waitCall
+    flag2 = true
+    numberValue(workValue4, flag2)
+    numberValue = SetBlipFlashInterval
+    workValue4 = waitCall
+    flag2 = 200
+    numberValue(workValue4, flag2)
+    numberValue = Citizen
+    numberValue = numberValue.Wait
+    workValue4 = 90000
+    numberValue(workValue4)
+    numberValue = RemoveBlip
+    workValue4 = waitCall
+    numberValue(workValue4)
   end
-  SHX6_2(SHX7_2)
-  SHX6_2 = GetSoundId
-  SHX6_2 = SHX6_2()
-  SHX7_2 = PlaySoundFrontend
-  SHX8_2 = SHX6_2
-  SHX9_2 = "police_notification"
-  SHX10_2 = "DLC_AS_VNT_Sounds"
-  SHX11_2 = true
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX7_2 = ReleaseSoundId
-  SHX8_2 = SHX6_2
-  SHX7_2(SHX8_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_223:: outside nested blocks until all 'goto SHX_LABEL_223' can see it
-  ::SHX_LABEL_223::
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  playerIndex(workValue9)
+  playerIndex = GetSoundId
+  -- Beginner: result below is soundHandle.
+  playerIndex = playerIndex()
+  workValue9 = PlaySoundFrontend
+  numberValue6 = playerIndex
+  stringHelper = "police_notification"
+  textValue = "DLC_AS_VNT_Sounds"
+  textValue2 = true
+  workValue9(numberValue6, stringHelper, textValue, textValue2)
+  workValue9 = ReleaseSoundId
+  numberValue6 = playerIndex
+  workValue9(numberValue6)
+  ::flow_label_223::
 end
-SHX5_1(SHX6_1, SHX7_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9d185ee4de".
+eventRegistration(textValue4, workValue8)

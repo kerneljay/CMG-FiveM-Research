@@ -1,1089 +1,968 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: utils.lua
+    =========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1
-SHX0_1 = {}
-SHX1_1 = true
-SHX2_1 = CMG
-function SHX3_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  if nil == SHX1_2 then
-    SHX1_2 = SHX0_2
-    SHX0_2 = "cmg"
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Utils
+    ======================
+
+    File: cmg/prod/client/lib/utils.lua
+    Purpose: This file contains shared helper/library code.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+]]
+local dataTable, flag, cmgCall5, workValue2, workValue4, workValue6, stringHelper, tableHelper2, workValue7, workValue9, cmgCall, cmgCall2, cmgCall3, cmgCall4, textValue5, workValue
+dataTable = {}
+flag = true
+cmgCall5 = CMG
+function workValue2(arg1, arg2)
+  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4
+  if nil == arg2 then
+    arg2 = arg1
+    arg1 = "cmg"
   end
-  SHX2_2 = SHX1_1
-  if not SHX2_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.warn
-    SHX3_2 = "Failed to load "
-    SHX4_2 = SHX0_2
-    SHX5_2 = "/"
-    SHX6_2 = SHX1_2
-    SHX7_2 = ", isLoadingFiles is false"
-    SHX3_2 = SHX3_2 .. SHX4_2 .. SHX5_2 .. SHX6_2 .. SHX7_2
-    SHX2_2(SHX3_2)
-    SHX2_2 = {}
-    return SHX2_2
+  arg3 = flag
+  if not arg3 then
+    arg3 = CMG
+    arg3 = arg3.warn
+    textValue32 = "Failed to load "
+    workValue5 = arg1
+    cmgCall6 = "/"
+    textValue49 = arg2
+    textValue50 = ", isLoadingFiles is false"
+    textValue32 = textValue32 .. workValue5 .. cmgCall6 .. textValue49 .. textValue50
+    arg3(textValue32)
+    arg3 = {}
+    return arg3
   end
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX0_1
-  SHX3_2 = SHX3_2[SHX2_2]
-  if SHX3_2 then
-    SHX3_2 = table
-    SHX3_2 = SHX3_2.unpack
-    SHX4_2 = SHX0_1
-    SHX4_2 = SHX4_2[SHX2_2]
-    return SHX3_2(SHX4_2)
+  arg3 = arg1
+  textValue32 = arg2
+  arg3 = arg3 .. textValue32
+  textValue32 = dataTable
+  textValue32 = textValue32[arg3]
+  if textValue32 then
+    textValue32 = table
+    textValue32 = textValue32.unpack
+    workValue5 = dataTable
+    workValue5 = workValue5[arg3]
+    return textValue32(workValue5)
   else
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.loadResourceFile
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    SHX6_2 = ".lua"
-    SHX5_2 = SHX5_2 .. SHX6_2
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if not SHX3_2 then
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.warn
-      SHX5_2 = "[CMG] Failed to CMG.loadResourceFile "
-      SHX6_2 = SHX0_2
-      SHX7_2 = "/"
-      SHX8_2 = SHX1_2
-      SHX5_2 = SHX5_2 .. SHX6_2 .. SHX7_2 .. SHX8_2
-      SHX4_2(SHX5_2)
-      SHX4_2 = {}
-      return SHX4_2
+    textValue32 = CMG
+    textValue32 = textValue32.loadResourceFile
+    workValue5 = arg1
+    cmgCall6 = arg2
+    textValue49 = ".lua"
+    cmgCall6 = cmgCall6 .. textValue49
+    textValue32 = textValue32(workValue5, cmgCall6)
+    if not textValue32 then
+      workValue5 = CMG
+      workValue5 = workValue5.warn
+      cmgCall6 = "[CMG] Failed to CMG.loadResourceFile "
+      textValue49 = arg1
+      textValue50 = "/"
+      workValue8 = arg2
+      cmgCall6 = cmgCall6 .. textValue49 .. textValue50 .. workValue8
+      workValue5(cmgCall6)
+      workValue5 = {}
+      return workValue5
     end
-    SHX4_2 = load
-    SHX5_2 = SHX3_2
-    SHX4_2, SHX5_2 = SHX4_2(SHX5_2)
-    if SHX4_2 then
-      SHX6_2 = {}
-      SHX7_2 = pcall
-      SHX8_2 = SHX4_2
-      SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX7_2(SHX8_2)
-      SHX6_2[1] = SHX7_2
-      SHX6_2[2] = SHX8_2
-      SHX6_2[3] = SHX9_2
-      SHX6_2[4] = SHX10_2
-      SHX6_2[5] = SHX11_2
-      SHX6_2[6] = SHX12_2
-      SHX6_2[7] = SHX13_2
-      SHX7_2 = SHX6_2[1]
-      if SHX7_2 then
-        SHX7_2 = table
-        SHX7_2 = SHX7_2.remove
-        SHX8_2 = SHX6_2
-        SHX9_2 = 1
-        SHX7_2(SHX8_2, SHX9_2)
-        SHX7_2 = SHX0_1
-        SHX7_2[SHX2_2] = SHX6_2
-        SHX7_2 = table
-        SHX7_2 = SHX7_2.unpack
-        SHX8_2 = SHX6_2
-        return SHX7_2(SHX8_2)
+    workValue5 = load
+    cmgCall6 = textValue32
+    workValue5, cmgCall6 = workValue5(cmgCall6)
+    if workValue5 then
+      textValue49 = {}
+      textValue50 = pcall
+      workValue8 = workValue5
+      textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4 = textValue50(workValue8)
+      textValue49[1] = textValue50
+      textValue49[2] = workValue8
+      textValue49[3] = textValue51
+      textValue49[4] = textValue
+      textValue49[5] = textValue2
+      textValue49[6] = textValue3
+      textValue49[7] = textValue4
+      textValue50 = textValue49[1]
+      if textValue50 then
+        textValue50 = table
+        textValue50 = textValue50.remove
+        workValue8 = textValue49
+        textValue51 = 1
+        textValue50(workValue8, textValue51)
+        textValue50 = dataTable
+        textValue50[arg3] = textValue49
+        textValue50 = table
+        textValue50 = textValue50.unpack
+        workValue8 = textValue49
+        return textValue50(workValue8)
       else
-        SHX7_2 = SHX0_1
-        SHX7_2[SHX2_2] = nil
-        SHX7_2 = CMG
-        SHX7_2 = SHX7_2.warn
-        SHX8_2 = "[CMG] error loading module "
-        SHX9_2 = SHX0_2
-        SHX10_2 = "/"
-        SHX11_2 = SHX1_2
-        SHX12_2 = ":"
-        SHX13_2 = SHX6_2[2]
-        SHX8_2 = SHX8_2 .. SHX9_2 .. SHX10_2 .. SHX11_2 .. SHX12_2 .. SHX13_2
-        SHX7_2(SHX8_2)
+        textValue50 = dataTable
+        textValue50[arg3] = nil
+        textValue50 = CMG
+        textValue50 = textValue50.warn
+        workValue8 = "[CMG] error loading module "
+        textValue51 = arg1
+        textValue = "/"
+        textValue2 = arg2
+        textValue3 = ":"
+        textValue4 = textValue49[2]
+        workValue8 = workValue8 .. textValue51 .. textValue .. textValue2 .. textValue3 .. textValue4
+        textValue50(workValue8)
       end
     else
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.warn
-      SHX7_2 = "[CMG] error parsing module "
-      SHX8_2 = SHX0_2
-      SHX9_2 = "/"
-      SHX10_2 = SHX1_2
-      SHX11_2 = ":"
-      SHX12_2 = SHX5_2
-      SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2 .. SHX10_2 .. SHX11_2 .. SHX12_2
-      SHX6_2(SHX7_2)
+      textValue49 = CMG
+      textValue49 = textValue49.warn
+      textValue50 = "[CMG] error parsing module "
+      workValue8 = arg1
+      textValue51 = "/"
+      textValue = arg2
+      textValue2 = ":"
+      textValue3 = cmgCall6
+      textValue50 = textValue50 .. workValue8 .. textValue51 .. textValue .. textValue2 .. textValue3
+      textValue49(textValue50)
     end
   end
-  SHX3_2 = {}
-  return SHX3_2
+  textValue32 = {}
+  return textValue32
 end
-SHX2_1.loadModule = SHX3_1
-function SHX2_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2
-  SHX3_2 = SHX0_2 >> SHX1_2
-  SHX4_2 = 1 << SHX2_2
-  SHX4_2 = SHX4_2 - 1
-  SHX3_2 = SHX3_2 & SHX4_2
-  return SHX3_2
+cmgCall5.loadModule = workValue2
+function cmgCall5(arg1, arg2, arg3)
+  local textValue32, workValue5
+  textValue32 = arg1 >> arg2
+  workValue5 = 1 << arg3
+  workValue5 = workValue5 - 1
+  textValue32 = textValue32 & workValue5
+  return textValue32
 end
-function SHX3_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2, SHX37_2, SHX38_2, SHX39_2, SHX40_2, SHX41_2, SHX42_2, SHX43_2, SHX44_2, SHX45_2, SHX46_2, SHX47_2, SHX48_2, SHX49_2, SHX50_2, SHX51_2, SHX52_2, SHX53_2, SHX54_2, SHX55_2
-  SHX3_2 = {}
-  SHX4_2 = pairs
-  SHX5_2 = {}
-  SHX5_2[0] = "A"
-  SHX6_2 = "B"
-  SHX7_2 = "C"
-  SHX8_2 = "D"
-  SHX9_2 = "E"
-  SHX10_2 = "F"
-  SHX11_2 = "G"
-  SHX12_2 = "H"
-  SHX13_2 = "I"
-  SHX14_2 = "J"
-  SHX15_2 = "K"
-  SHX16_2 = "L"
-  SHX17_2 = "M"
-  SHX18_2 = "N"
-  SHX19_2 = "O"
-  SHX20_2 = "P"
-  SHX21_2 = "Q"
-  SHX22_2 = "R"
-  SHX23_2 = "S"
-  SHX24_2 = "T"
-  SHX25_2 = "U"
-  SHX26_2 = "V"
-  SHX27_2 = "W"
-  SHX28_2 = "X"
-  SHX29_2 = "Y"
-  SHX30_2 = "Z"
-  SHX31_2 = "a"
-  SHX32_2 = "b"
-  SHX33_2 = "c"
-  SHX34_2 = "d"
-  SHX35_2 = "e"
-  SHX36_2 = "f"
-  SHX37_2 = "g"
-  SHX38_2 = "h"
-  SHX39_2 = "i"
-  SHX40_2 = "j"
-  SHX41_2 = "k"
-  SHX42_2 = "l"
-  SHX43_2 = "m"
-  SHX44_2 = "n"
-  SHX45_2 = "o"
-  SHX46_2 = "p"
-  SHX47_2 = "q"
-  SHX48_2 = "r"
-  SHX49_2 = "s"
-  SHX50_2 = "t"
-  SHX51_2 = "u"
-  SHX52_2 = "v"
-  SHX53_2 = "w"
-  SHX54_2 = "x"
-  SHX55_2 = "y"
-  SHX5_2[1] = SHX6_2
-  SHX5_2[2] = SHX7_2
-  SHX5_2[3] = SHX8_2
-  SHX5_2[4] = SHX9_2
-  SHX5_2[5] = SHX10_2
-  SHX5_2[6] = SHX11_2
-  SHX5_2[7] = SHX12_2
-  SHX5_2[8] = SHX13_2
-  SHX5_2[9] = SHX14_2
-  SHX5_2[10] = SHX15_2
-  SHX5_2[11] = SHX16_2
-  SHX5_2[12] = SHX17_2
-  SHX5_2[13] = SHX18_2
-  SHX5_2[14] = SHX19_2
-  SHX5_2[15] = SHX20_2
-  SHX5_2[16] = SHX21_2
-  SHX5_2[17] = SHX22_2
-  SHX5_2[18] = SHX23_2
-  SHX5_2[19] = SHX24_2
-  SHX5_2[20] = SHX25_2
-  SHX5_2[21] = SHX26_2
-  SHX5_2[22] = SHX27_2
-  SHX5_2[23] = SHX28_2
-  SHX5_2[24] = SHX29_2
-  SHX5_2[25] = SHX30_2
-  SHX5_2[26] = SHX31_2
-  SHX5_2[27] = SHX32_2
-  SHX5_2[28] = SHX33_2
-  SHX5_2[29] = SHX34_2
-  SHX5_2[30] = SHX35_2
-  SHX5_2[31] = SHX36_2
-  SHX5_2[32] = SHX37_2
-  SHX5_2[33] = SHX38_2
-  SHX5_2[34] = SHX39_2
-  SHX5_2[35] = SHX40_2
-  SHX5_2[36] = SHX41_2
-  SHX5_2[37] = SHX42_2
-  SHX5_2[38] = SHX43_2
-  SHX5_2[39] = SHX44_2
-  SHX5_2[40] = SHX45_2
-  SHX5_2[41] = SHX46_2
-  SHX5_2[42] = SHX47_2
-  SHX5_2[43] = SHX48_2
-  SHX5_2[44] = SHX49_2
-  SHX5_2[45] = SHX50_2
-  SHX5_2[46] = SHX51_2
-  SHX5_2[47] = SHX52_2
-  SHX5_2[48] = SHX53_2
-  SHX5_2[49] = SHX54_2
-  SHX5_2[50] = SHX55_2
-  SHX6_2 = "z"
-  SHX7_2 = "0"
-  SHX8_2 = "1"
-  SHX9_2 = "2"
-  SHX10_2 = "3"
-  SHX11_2 = "4"
-  SHX12_2 = "5"
-  SHX13_2 = "6"
-  SHX14_2 = "7"
-  SHX15_2 = "8"
-  SHX16_2 = "9"
-  SHX17_2 = SHX0_2 or SHX17_2
-  if not SHX0_2 then
-    SHX17_2 = "+"
+function workValue2(arg1, arg2, arg3)
+  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48
+  textValue32 = {}
+  workValue5 = pairs
+  cmgCall6 = {}
+  cmgCall6[0] = "A"
+  textValue49 = "B"
+  textValue50 = "C"
+  workValue8 = "D"
+  textValue51 = "E"
+  textValue = "F"
+  textValue2 = "G"
+  textValue3 = "H"
+  textValue4 = "I"
+  textValue6 = "J"
+  textValue7 = "K"
+  textValue8 = "L"
+  textValue9 = "M"
+  textValue10 = "N"
+  textValue11 = "O"
+  textValue12 = "P"
+  textValue13 = "Q"
+  textValue14 = "R"
+  textValue15 = "S"
+  textValue16 = "T"
+  textValue17 = "U"
+  textValue18 = "V"
+  textValue19 = "W"
+  textValue20 = "X"
+  textValue21 = "Y"
+  textValue22 = "Z"
+  textValue23 = "a"
+  textValue24 = "b"
+  textValue25 = "c"
+  textValue26 = "d"
+  textValue27 = "e"
+  textValue28 = "f"
+  textValue29 = "g"
+  textValue30 = "h"
+  textValue31 = "i"
+  textValue33 = "j"
+  textValue34 = "k"
+  textValue35 = "l"
+  textValue36 = "m"
+  textValue37 = "n"
+  textValue38 = "o"
+  textValue39 = "p"
+  textValue40 = "q"
+  textValue41 = "r"
+  textValue42 = "s"
+  textValue43 = "t"
+  textValue44 = "u"
+  textValue45 = "v"
+  textValue46 = "w"
+  textValue47 = "x"
+  textValue48 = "y"
+  cmgCall6[1] = textValue49
+  cmgCall6[2] = textValue50
+  cmgCall6[3] = workValue8
+  cmgCall6[4] = textValue51
+  cmgCall6[5] = textValue
+  cmgCall6[6] = textValue2
+  cmgCall6[7] = textValue3
+  cmgCall6[8] = textValue4
+  cmgCall6[9] = textValue6
+  cmgCall6[10] = textValue7
+  cmgCall6[11] = textValue8
+  cmgCall6[12] = textValue9
+  cmgCall6[13] = textValue10
+  cmgCall6[14] = textValue11
+  cmgCall6[15] = textValue12
+  cmgCall6[16] = textValue13
+  cmgCall6[17] = textValue14
+  cmgCall6[18] = textValue15
+  cmgCall6[19] = textValue16
+  cmgCall6[20] = textValue17
+  cmgCall6[21] = textValue18
+  cmgCall6[22] = textValue19
+  cmgCall6[23] = textValue20
+  cmgCall6[24] = textValue21
+  cmgCall6[25] = textValue22
+  cmgCall6[26] = textValue23
+  cmgCall6[27] = textValue24
+  cmgCall6[28] = textValue25
+  cmgCall6[29] = textValue26
+  cmgCall6[30] = textValue27
+  cmgCall6[31] = textValue28
+  cmgCall6[32] = textValue29
+  cmgCall6[33] = textValue30
+  cmgCall6[34] = textValue31
+  cmgCall6[35] = textValue33
+  cmgCall6[36] = textValue34
+  cmgCall6[37] = textValue35
+  cmgCall6[38] = textValue36
+  cmgCall6[39] = textValue37
+  cmgCall6[40] = textValue38
+  cmgCall6[41] = textValue39
+  cmgCall6[42] = textValue40
+  cmgCall6[43] = textValue41
+  cmgCall6[44] = textValue42
+  cmgCall6[45] = textValue43
+  cmgCall6[46] = textValue44
+  cmgCall6[47] = textValue45
+  cmgCall6[48] = textValue46
+  cmgCall6[49] = textValue47
+  cmgCall6[50] = textValue48
+  textValue49 = "z"
+  textValue50 = "0"
+  workValue8 = "1"
+  textValue51 = "2"
+  textValue = "3"
+  textValue2 = "4"
+  textValue3 = "5"
+  textValue4 = "6"
+  textValue6 = "7"
+  textValue7 = "8"
+  textValue8 = "9"
+  textValue9 = arg1 or textValue9
+  if not arg1 then
+    textValue9 = "+"
   end
-  SHX18_2 = SHX1_2 or SHX18_2
-  if not SHX1_2 then
-    SHX18_2 = "/"
+  textValue10 = arg2 or textValue10
+  if not arg2 then
+    textValue10 = "/"
   end
-  SHX19_2 = SHX2_2 or SHX19_2
-  if not SHX2_2 then
-    SHX19_2 = "="
+  textValue11 = arg3 or textValue11
+  if not arg3 then
+    textValue11 = "="
   end
-  SHX5_2[51] = SHX6_2
-  SHX5_2[52] = SHX7_2
-  SHX5_2[53] = SHX8_2
-  SHX5_2[54] = SHX9_2
-  SHX5_2[55] = SHX10_2
-  SHX5_2[56] = SHX11_2
-  SHX5_2[57] = SHX12_2
-  SHX5_2[58] = SHX13_2
-  SHX5_2[59] = SHX14_2
-  SHX5_2[60] = SHX15_2
-  SHX5_2[61] = SHX16_2
-  SHX5_2[62] = SHX17_2
-  SHX5_2[63] = SHX18_2
-  SHX5_2[64] = SHX19_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.byte
-    SHX11_2 = SHX9_2
-    SHX10_2 = SHX10_2(SHX11_2)
-    SHX3_2[SHX8_2] = SHX10_2
+  cmgCall6[51] = textValue49
+  cmgCall6[52] = textValue50
+  cmgCall6[53] = workValue8
+  cmgCall6[54] = textValue51
+  cmgCall6[55] = textValue
+  cmgCall6[56] = textValue2
+  cmgCall6[57] = textValue3
+  cmgCall6[58] = textValue4
+  cmgCall6[59] = textValue6
+  cmgCall6[60] = textValue7
+  cmgCall6[61] = textValue8
+  cmgCall6[62] = textValue9
+  cmgCall6[63] = textValue10
+  cmgCall6[64] = textValue11
+  workValue5, cmgCall6, textValue49, textValue50 = workValue5(cmgCall6)
+  for workValue8, textValue51 in workValue5, cmgCall6, textValue49, textValue50 do
+    textValue = string
+    textValue = textValue.byte
+    textValue2 = textValue51
+    textValue = textValue(textValue2)
+    textValue32[workValue8] = textValue
   end
-  return SHX3_2
+  return textValue32
 end
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX3_2 = {}
-  SHX4_2 = pairs
-  SHX5_2 = SHX3_1
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX2_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX3_2[SHX9_2] = SHX8_2
+function workValue4(arg1, arg2, arg3)
+  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue
+  textValue32 = {}
+  workValue5 = pairs
+  cmgCall6 = workValue2
+  textValue49 = arg1
+  textValue50 = arg2
+  workValue8 = arg3
+  cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue = cmgCall6(textValue49, textValue50, workValue8)
+  workValue5, cmgCall6, textValue49, textValue50 = workValue5(cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue)
+  for workValue8, textValue51 in workValue5, cmgCall6, textValue49, textValue50 do
+    textValue32[textValue51] = workValue8
   end
-  return SHX3_2
+  return textValue32
 end
-SHX5_1 = SHX4_1
-SHX5_1 = SHX5_1()
-SHX6_1 = string
-SHX6_1 = SHX6_1.char
-SHX7_1 = table
-SHX7_1 = SHX7_1.concat
-function SHX8_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2
-  if not SHX1_2 then
-    SHX1_2 = SHX5_1
+workValue6 = workValue4
+workValue6 = workValue6()
+stringHelper = string
+stringHelper = stringHelper.char
+tableHelper2 = table
+tableHelper2 = tableHelper2.concat
+function workValue7(arg1, arg2, arg3)
+  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18
+  if not arg2 then
+    arg2 = workValue6
   end
-  SHX3_2 = "[^%w%+%/%=]"
-  if SHX1_2 then
-    SHX4_2 = nil
-    SHX5_2 = nil
-    SHX6_2 = pairs
-    SHX7_2 = SHX1_2
-    SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-    for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-      if 62 == SHX11_2 then
-        SHX4_2 = SHX10_2
-      elseif 63 == SHX11_2 then
-        SHX5_2 = SHX10_2
+  textValue32 = "[^%w%+%/%=]"
+  if arg2 then
+    workValue5 = nil
+    cmgCall6 = nil
+    textValue49 = pairs
+    textValue50 = arg2
+    textValue49, textValue50, workValue8, textValue51 = textValue49(textValue50)
+    for textValue, textValue2 in textValue49, textValue50, workValue8, textValue51 do
+      if 62 == textValue2 then
+        workValue5 = textValue
+      elseif 63 == textValue2 then
+        cmgCall6 = textValue
       end
     end
-    SHX6_2 = string
-    SHX6_2 = SHX6_2.format
-    SHX7_2 = "[^%%w%%%s%%%s%%=]"
-    SHX8_2 = SHX6_1
-    SHX9_2 = SHX4_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX9_2 = SHX6_1
-    SHX10_2 = SHX5_2
-    SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2 = SHX9_2(SHX10_2)
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-    SHX3_2 = SHX6_2
+    textValue49 = string
+    textValue49 = textValue49.format
+    textValue50 = "[^%%w%%%s%%%s%%=]"
+    workValue8 = stringHelper
+    textValue51 = workValue5
+    workValue8 = workValue8(textValue51)
+    textValue51 = stringHelper
+    textValue = cmgCall6
+    textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18 = textValue51(textValue)
+    textValue49 = textValue49(textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
+    textValue32 = textValue49
   end
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX0_2.gsub
-  SHX6_2 = SHX3_2
-  SHX7_2 = ""
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX0_2 = SHX4_2
-  SHX4_2 = SHX2_2 or SHX4_2
-  if SHX2_2 then
-    SHX4_2 = {}
+  cmgCall6 = arg1
+  workValue5 = arg1.gsub
+  textValue49 = textValue32
+  textValue50 = ""
+  workValue5 = workValue5(cmgCall6, textValue49, textValue50)
+  arg1 = workValue5
+  workValue5 = arg3 or workValue5
+  if arg3 then
+    workValue5 = {}
   end
-  SHX5_2 = {}
-  SHX6_2 = 1
-  SHX7_2 = #SHX0_2
-  SHX9_2 = SHX0_2
-  SHX8_2 = SHX0_2.sub
-  SHX10_2 = -2
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  if "==" == SHX8_2 then
-    SHX8_2 = 2
-    if SHX8_2 then
-      goto SHX_LABEL_63
+  cmgCall6 = {}
+  textValue49 = 1
+  textValue50 = #arg1
+  textValue51 = arg1
+  workValue8 = arg1.sub
+  textValue = -2
+  workValue8 = workValue8(textValue51, textValue)
+  if "==" == workValue8 then
+    workValue8 = 2
+    if workValue8 then
+      goto flow_label_63
     end
   end
-  SHX9_2 = SHX0_2
-  SHX8_2 = SHX0_2.sub
-  SHX10_2 = -1
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  if "=" == SHX8_2 then
-    SHX8_2 = 1
-    if SHX8_2 then
-      goto SHX_LABEL_63
+  textValue51 = arg1
+  workValue8 = arg1.sub
+  textValue = -1
+  workValue8 = workValue8(textValue51, textValue)
+  if "=" == workValue8 then
+    workValue8 = 1
+    if workValue8 then
+      goto flow_label_63
     end
   end
-  SHX8_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_63:: outside nested blocks until all 'goto SHX_LABEL_63' can see it
-  ::SHX_LABEL_63::
-  SHX9_2 = 1
-  if SHX8_2 > 0 then
-    SHX10_2 = SHX7_2 - 4
-    if SHX10_2 then
-      goto SHX_LABEL_71
+  workValue8 = 0
+  ::flow_label_63::
+  textValue51 = 1
+  if workValue8 > 0 then
+    textValue = textValue50 - 4
+    if textValue then
+      goto flow_label_71
     end
   end
-  SHX10_2 = SHX7_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_71:: outside nested blocks until all 'goto SHX_LABEL_71' can see it
-  ::SHX_LABEL_71::
-  SHX11_2 = 4
-  for SHX12_2 = SHX9_2, SHX10_2, SHX11_2 do
-    SHX14_2 = SHX0_2
-    SHX13_2 = SHX0_2.byte
-    SHX15_2 = SHX12_2
-    SHX16_2 = SHX12_2 + 3
-    SHX13_2, SHX14_2, SHX15_2, SHX16_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-    SHX17_2 = nil
-    if SHX2_2 then
-      SHX18_2 = SHX13_2 * 16777216
-      SHX19_2 = SHX14_2 * 65536
-      SHX18_2 = SHX18_2 + SHX19_2
-      SHX19_2 = SHX15_2 * 256
-      SHX18_2 = SHX18_2 + SHX19_2
-      SHX18_2 = SHX18_2 + SHX16_2
-      SHX17_2 = SHX4_2[SHX18_2]
-      if not SHX17_2 then
-        SHX19_2 = SHX1_2[SHX13_2]
-        SHX19_2 = SHX19_2 * 262144
-        SHX20_2 = SHX1_2[SHX14_2]
-        SHX20_2 = SHX20_2 * 4096
-        SHX19_2 = SHX19_2 + SHX20_2
-        SHX20_2 = SHX1_2[SHX15_2]
-        SHX20_2 = SHX20_2 * 64
-        SHX19_2 = SHX19_2 + SHX20_2
-        SHX20_2 = SHX1_2[SHX16_2]
-        SHX19_2 = SHX19_2 + SHX20_2
-        SHX20_2 = SHX6_1
-        SHX21_2 = SHX2_1
-        SHX22_2 = SHX19_2
-        SHX23_2 = 16
-        SHX24_2 = 8
-        SHX21_2 = SHX21_2(SHX22_2, SHX23_2, SHX24_2)
-        SHX22_2 = SHX2_1
-        SHX23_2 = SHX19_2
-        SHX24_2 = 8
-        SHX25_2 = 8
-        SHX22_2 = SHX22_2(SHX23_2, SHX24_2, SHX25_2)
-        SHX23_2 = SHX2_1
-        SHX24_2 = SHX19_2
-        SHX25_2 = 0
-        SHX26_2 = 8
-        SHX23_2, SHX24_2, SHX25_2, SHX26_2 = SHX23_2(SHX24_2, SHX25_2, SHX26_2)
-        SHX20_2 = SHX20_2(SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-        SHX17_2 = SHX20_2
-        SHX4_2[SHX18_2] = SHX17_2
+  textValue = textValue50
+  ::flow_label_71::
+  textValue2 = 4
+  for textValue3 = textValue51, textValue, textValue2 do
+    textValue6 = arg1
+    textValue4 = arg1.byte
+    textValue7 = textValue3
+    textValue8 = textValue3 + 3
+    textValue4, textValue6, textValue7, textValue8 = textValue4(textValue6, textValue7, textValue8)
+    textValue9 = nil
+    if arg3 then
+      textValue10 = textValue4 * 16777216
+      textValue11 = textValue6 * 65536
+      textValue10 = textValue10 + textValue11
+      textValue11 = textValue7 * 256
+      textValue10 = textValue10 + textValue11
+      textValue10 = textValue10 + textValue8
+      textValue9 = workValue5[textValue10]
+      if not textValue9 then
+        textValue11 = arg2[textValue4]
+        textValue11 = textValue11 * 262144
+        textValue12 = arg2[textValue6]
+        textValue12 = textValue12 * 4096
+        textValue11 = textValue11 + textValue12
+        textValue12 = arg2[textValue7]
+        textValue12 = textValue12 * 64
+        textValue11 = textValue11 + textValue12
+        textValue12 = arg2[textValue8]
+        textValue11 = textValue11 + textValue12
+        textValue12 = stringHelper
+        textValue13 = cmgCall5
+        textValue14 = textValue11
+        textValue15 = 16
+        textValue16 = 8
+        textValue13 = textValue13(textValue14, textValue15, textValue16)
+        textValue14 = cmgCall5
+        textValue15 = textValue11
+        textValue16 = 8
+        textValue17 = 8
+        textValue14 = textValue14(textValue15, textValue16, textValue17)
+        textValue15 = cmgCall5
+        textValue16 = textValue11
+        textValue17 = 0
+        textValue18 = 8
+        textValue15, textValue16, textValue17, textValue18 = textValue15(textValue16, textValue17, textValue18)
+        textValue12 = textValue12(textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
+        textValue9 = textValue12
+        workValue5[textValue10] = textValue9
       end
     else
-      SHX18_2 = SHX1_2[SHX13_2]
-      SHX18_2 = SHX18_2 * 262144
-      SHX19_2 = SHX1_2[SHX14_2]
-      SHX19_2 = SHX19_2 * 4096
-      SHX18_2 = SHX18_2 + SHX19_2
-      SHX19_2 = SHX1_2[SHX15_2]
-      SHX19_2 = SHX19_2 * 64
-      SHX18_2 = SHX18_2 + SHX19_2
-      SHX19_2 = SHX1_2[SHX16_2]
-      SHX18_2 = SHX18_2 + SHX19_2
-      SHX19_2 = SHX6_1
-      SHX20_2 = SHX2_1
-      SHX21_2 = SHX18_2
-      SHX22_2 = 16
-      SHX23_2 = 8
-      SHX20_2 = SHX20_2(SHX21_2, SHX22_2, SHX23_2)
-      SHX21_2 = SHX2_1
-      SHX22_2 = SHX18_2
-      SHX23_2 = 8
-      SHX24_2 = 8
-      SHX21_2 = SHX21_2(SHX22_2, SHX23_2, SHX24_2)
-      SHX22_2 = SHX2_1
-      SHX23_2 = SHX18_2
-      SHX24_2 = 0
-      SHX25_2 = 8
-      SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2 = SHX22_2(SHX23_2, SHX24_2, SHX25_2)
-      SHX19_2 = SHX19_2(SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-      SHX17_2 = SHX19_2
+      textValue10 = arg2[textValue4]
+      textValue10 = textValue10 * 262144
+      textValue11 = arg2[textValue6]
+      textValue11 = textValue11 * 4096
+      textValue10 = textValue10 + textValue11
+      textValue11 = arg2[textValue7]
+      textValue11 = textValue11 * 64
+      textValue10 = textValue10 + textValue11
+      textValue11 = arg2[textValue8]
+      textValue10 = textValue10 + textValue11
+      textValue11 = stringHelper
+      textValue12 = cmgCall5
+      textValue13 = textValue10
+      textValue14 = 16
+      textValue15 = 8
+      textValue12 = textValue12(textValue13, textValue14, textValue15)
+      textValue13 = cmgCall5
+      textValue14 = textValue10
+      textValue15 = 8
+      textValue16 = 8
+      textValue13 = textValue13(textValue14, textValue15, textValue16)
+      textValue14 = cmgCall5
+      textValue15 = textValue10
+      textValue16 = 0
+      textValue17 = 8
+      textValue14, textValue15, textValue16, textValue17, textValue18 = textValue14(textValue15, textValue16, textValue17)
+      textValue11 = textValue11(textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
+      textValue9 = textValue11
     end
-    SHX5_2[SHX6_2] = SHX17_2
-    SHX6_2 = SHX6_2 + 1
+    cmgCall6[textValue49] = textValue9
+    textValue49 = textValue49 + 1
   end
-  if 1 == SHX8_2 then
-    SHX10_2 = SHX0_2
-    SHX9_2 = SHX0_2.byte
-    SHX11_2 = SHX7_2 - 3
-    SHX12_2 = SHX7_2 - 1
-    SHX9_2, SHX10_2, SHX11_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-    SHX12_2 = SHX1_2[SHX9_2]
-    SHX12_2 = SHX12_2 * 262144
-    SHX13_2 = SHX1_2[SHX10_2]
-    SHX13_2 = SHX13_2 * 4096
-    SHX12_2 = SHX12_2 + SHX13_2
-    SHX13_2 = SHX1_2[SHX11_2]
-    SHX13_2 = SHX13_2 * 64
-    SHX12_2 = SHX12_2 + SHX13_2
-    SHX13_2 = SHX6_1
-    SHX14_2 = SHX2_1
-    SHX15_2 = SHX12_2
-    SHX16_2 = 16
-    SHX17_2 = 8
-    SHX14_2 = SHX14_2(SHX15_2, SHX16_2, SHX17_2)
-    SHX15_2 = SHX2_1
-    SHX16_2 = SHX12_2
-    SHX17_2 = 8
-    SHX18_2 = 8
-    SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2 = SHX15_2(SHX16_2, SHX17_2, SHX18_2)
-    SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-    SHX5_2[SHX6_2] = SHX13_2
-  elseif 2 == SHX8_2 then
-    SHX10_2 = SHX0_2
-    SHX9_2 = SHX0_2.byte
-    SHX11_2 = SHX7_2 - 3
-    SHX12_2 = SHX7_2 - 2
-    SHX9_2, SHX10_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-    SHX11_2 = SHX1_2[SHX9_2]
-    SHX11_2 = SHX11_2 * 262144
-    SHX12_2 = SHX1_2[SHX10_2]
-    SHX12_2 = SHX12_2 * 4096
-    SHX11_2 = SHX11_2 + SHX12_2
-    SHX12_2 = SHX6_1
-    SHX13_2 = SHX2_1
-    SHX14_2 = SHX11_2
-    SHX15_2 = 16
-    SHX16_2 = 8
-    SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-    SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-    SHX5_2[SHX6_2] = SHX12_2
+  if 1 == workValue8 then
+    textValue = arg1
+    textValue51 = arg1.byte
+    textValue2 = textValue50 - 3
+    textValue3 = textValue50 - 1
+    textValue51, textValue, textValue2 = textValue51(textValue, textValue2, textValue3)
+    textValue3 = arg2[textValue51]
+    textValue3 = textValue3 * 262144
+    textValue4 = arg2[textValue]
+    textValue4 = textValue4 * 4096
+    textValue3 = textValue3 + textValue4
+    textValue4 = arg2[textValue2]
+    textValue4 = textValue4 * 64
+    textValue3 = textValue3 + textValue4
+    textValue4 = stringHelper
+    textValue6 = cmgCall5
+    textValue7 = textValue3
+    textValue8 = 16
+    textValue9 = 8
+    textValue6 = textValue6(textValue7, textValue8, textValue9)
+    textValue7 = cmgCall5
+    textValue8 = textValue3
+    textValue9 = 8
+    textValue10 = 8
+    textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18 = textValue7(textValue8, textValue9, textValue10)
+    textValue4 = textValue4(textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
+    cmgCall6[textValue49] = textValue4
+  elseif 2 == workValue8 then
+    textValue = arg1
+    textValue51 = arg1.byte
+    textValue2 = textValue50 - 3
+    textValue3 = textValue50 - 2
+    textValue51, textValue = textValue51(textValue, textValue2, textValue3)
+    textValue2 = arg2[textValue51]
+    textValue2 = textValue2 * 262144
+    textValue3 = arg2[textValue]
+    textValue3 = textValue3 * 4096
+    textValue2 = textValue2 + textValue3
+    textValue3 = stringHelper
+    textValue4 = cmgCall5
+    textValue6 = textValue2
+    textValue7 = 16
+    textValue8 = 8
+    textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18 = textValue4(textValue6, textValue7, textValue8)
+    textValue3 = textValue3(textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18)
+    cmgCall6[textValue49] = textValue3
   end
-  SHX9_2 = SHX7_1
-  SHX10_2 = SHX5_2
-  return SHX9_2(SHX10_2)
+  textValue51 = tableHelper2
+  textValue = cmgCall6
+  return textValue51(textValue)
 end
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX2_2 = SHX1_1
-  if not SHX2_2 then
-    return SHX1_2
+function workValue9(arg1, arg2)
+  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7
+  arg3 = flag
+  if not arg3 then
+    return arg2
   end
-  SHX2_2 = string
-  SHX2_2 = SHX2_2.find
-  SHX3_2 = SHX0_2
-  SHX4_2 = "cfg"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if not SHX2_2 or SHX2_2 <= 0 then
-    return SHX1_2
+  arg3 = string
+  arg3 = arg3.find
+  textValue32 = arg1
+  workValue5 = "cfg"
+  arg3 = arg3(textValue32, workValue5)
+  if not arg3 or arg3 <= 0 then
+    return arg2
   end
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.sub
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX2_2 + 4
-  SHX6_2 = -1
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX4_2 = GetHashKey
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = table
-  SHX5_2 = SHX5_2.create
-  SHX6_2 = #SHX1_2
-  SHX7_2 = 0
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX6_2 = 5
-  SHX7_2 = #SHX1_2
-  SHX8_2 = 1
-  for SHX9_2 = SHX6_2, SHX7_2, SHX8_2 do
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.byte
-    SHX11_2 = SHX1_2
-    SHX12_2 = SHX9_2
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = SHX9_2 % 8
-    SHX11_2 = SHX11_2 * 4
-    SHX11_2 = SHX4_2 >> SHX11_2
-    SHX11_2 = SHX11_2 & 15
-    SHX12_2 = SHX11_2 + SHX9_2
-    SHX12_2 = SHX12_2 % 63
-    SHX12_2 = SHX10_2 - SHX12_2
-    SHX13_2 = SHX9_2 - 4
-    SHX14_2 = string
-    SHX14_2 = SHX14_2.char
-    SHX15_2 = SHX12_2
-    SHX14_2 = SHX14_2(SHX15_2)
-    SHX5_2[SHX13_2] = SHX14_2
+  textValue32 = string
+  textValue32 = textValue32.sub
+  workValue5 = arg1
+  cmgCall6 = arg3 + 4
+  textValue49 = -1
+  textValue32 = textValue32(workValue5, cmgCall6, textValue49)
+  workValue5 = GetHashKey
+  cmgCall6 = textValue32
+  -- Beginner: result below is hash.
+  workValue5 = workValue5(cmgCall6)
+  cmgCall6 = table
+  cmgCall6 = cmgCall6.create
+  textValue49 = #arg2
+  textValue50 = 0
+  cmgCall6 = cmgCall6(textValue49, textValue50)
+  textValue49 = 5
+  textValue50 = #arg2
+  workValue8 = 1
+  for textValue51 = textValue49, textValue50, workValue8 do
+    textValue = string
+    textValue = textValue.byte
+    textValue2 = arg2
+    textValue3 = textValue51
+    textValue = textValue(textValue2, textValue3)
+    textValue2 = textValue51 % 8
+    textValue2 = textValue2 * 4
+    textValue2 = workValue5 >> textValue2
+    textValue2 = textValue2 & 15
+    textValue3 = textValue2 + textValue51
+    textValue3 = textValue3 % 63
+    textValue3 = textValue - textValue3
+    textValue4 = textValue51 - 4
+    textValue6 = string
+    textValue6 = textValue6.char
+    textValue7 = textValue3
+    textValue6 = textValue6(textValue7)
+    cmgCall6[textValue4] = textValue6
   end
-  SHX6_2 = SHX8_1
-  SHX7_2 = table
-  SHX7_2 = SHX7_2.concat
-  SHX8_2 = SHX5_2
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX7_2(SHX8_2)
-  return SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+  textValue49 = workValue7
+  textValue50 = table
+  textValue50 = textValue50.concat
+  workValue8 = cmgCall6
+  textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7 = textValue50(workValue8)
+  return textValue49(textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7)
 end
-SHX10_1 = CMG
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = nil
-  SHX3_2 = IsDuplicityVersion
-  SHX3_2 = SHX3_2()
-  if SHX3_2 then
-    SHX3_2 = GetConvarInt
-    SHX4_2 = "serverNum"
-    SHX5_2 = 0
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if 0 ~= SHX3_2 then
-      goto SHX_LABEL_17
+cmgCall = CMG
+function cmgCall2(arg1, arg2)
+  local arg3, textValue32, workValue5, cmgCall6, textValue49
+  arg3 = nil
+  textValue32 = IsDuplicityVersion
+  textValue32 = textValue32()
+  if textValue32 then
+    textValue32 = GetConvarInt
+    workValue5 = "serverNum"
+    cmgCall6 = 0
+    textValue32 = textValue32(workValue5, cmgCall6)
+    if 0 ~= textValue32 then
+      goto flow_label_17
     end
   end
-  SHX3_2 = LoadResourceFile
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX2_2 = SHX3_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_17:: outside nested blocks until all 'goto SHX_LABEL_17' can see it
-  ::SHX_LABEL_17::
-  if not SHX2_2 then
-    SHX3_2 = LoadResourceFile
-    SHX4_2 = SHX0_2
-    SHX5_2 = "prod/"
-    SHX6_2 = SHX1_2
-    SHX5_2 = SHX5_2 .. SHX6_2
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX2_2 = SHX3_2
+  textValue32 = LoadResourceFile
+  workValue5 = arg1
+  cmgCall6 = arg2
+  textValue32 = textValue32(workValue5, cmgCall6)
+  arg3 = textValue32
+  ::flow_label_17::
+  if not arg3 then
+    textValue32 = LoadResourceFile
+    workValue5 = arg1
+    cmgCall6 = "prod/"
+    textValue49 = arg2
+    cmgCall6 = cmgCall6 .. textValue49
+    textValue32 = textValue32(workValue5, cmgCall6)
+    arg3 = textValue32
   end
-  if SHX2_2 then
-    SHX3_2 = #SHX2_2
-    if SHX3_2 > 4 then
-      SHX3_2 = string
-      SHX3_2 = SHX3_2.sub
-      SHX4_2 = SHX2_2
-      SHX5_2 = 1
-      SHX6_2 = 4
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      if "CMGP" == SHX3_2 then
-        SHX3_2 = SHX9_1
-        SHX4_2 = SHX1_2
-        SHX5_2 = SHX2_2
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        SHX2_2 = SHX3_2
+  if arg3 then
+    textValue32 = #arg3
+    if textValue32 > 4 then
+      textValue32 = string
+      textValue32 = textValue32.sub
+      workValue5 = arg3
+      cmgCall6 = 1
+      textValue49 = 4
+      textValue32 = textValue32(workValue5, cmgCall6, textValue49)
+      if "CMGP" == textValue32 then
+        textValue32 = workValue9
+        workValue5 = arg2
+        cmgCall6 = arg3
+        textValue32 = textValue32(workValue5, cmgCall6)
+        arg3 = textValue32
       end
     end
   end
-  return SHX2_2
+  return arg3
 end
-SHX10_1.loadResourceFile = SHX11_1
-SHX10_1 = nil
-SHX11_1 = CMG
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = type
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if "boolean" == SHX2_2 then
-    SHX2_2 = type
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if "number" == SHX2_2 then
-      SHX2_2 = GetFrameCount
-      SHX2_2 = SHX2_2()
-      if SHX1_2 == SHX2_2 then
-        SHX2_2 = string
-        SHX2_2 = SHX2_2.dump
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.setGameplayTask
-        SHX2_2 = SHX2_2(SHX3_2)
-        SHX3_2 = SHX10_1
-        if SHX2_2 == SHX3_2 then
-          SHX1_1 = SHX0_2
+cmgCall.loadResourceFile = cmgCall2
+cmgCall = nil
+cmgCall2 = CMG
+function cmgCall3(arg1, arg2)
+  local arg3, textValue32
+  arg3 = type
+  textValue32 = arg1
+  arg3 = arg3(textValue32)
+  if "boolean" == arg3 then
+    arg3 = type
+    textValue32 = arg2
+    arg3 = arg3(textValue32)
+    if "number" == arg3 then
+      arg3 = GetFrameCount
+      arg3 = arg3()
+      if arg2 == arg3 then
+        arg3 = string
+        arg3 = arg3.dump
+        textValue32 = CMG
+        textValue32 = textValue32.setGameplayTask
+        arg3 = arg3(textValue32)
+        textValue32 = cmgCall
+        if arg3 == textValue32 then
+          flag = arg1
         end
       end
     end
   end
 end
-SHX11_1.setGameplayTask = SHX12_1
-SHX11_1 = string
-SHX11_1 = SHX11_1.dump
-SHX12_1 = CMG
-SHX12_1 = SHX12_1.setGameplayTask
-SHX11_1 = SHX11_1(SHX12_1)
-SHX10_1 = SHX11_1
-SHX11_1 = IsDuplicityVersion
-SHX11_1 = SHX11_1()
-if not SHX11_1 then
-  SHX11_1 = Citizen
-  SHX11_1 = SHX11_1.CreateThread
-  function SHX12_1()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_2, SHX1_2
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-    SHX0_2 = false
-    SHX1_1 = SHX0_2
+cmgCall2.setGameplayTask = cmgCall3
+cmgCall2 = string
+cmgCall2 = cmgCall2.dump
+cmgCall3 = CMG
+cmgCall3 = cmgCall3.setGameplayTask
+cmgCall2 = cmgCall2(cmgCall3)
+cmgCall = cmgCall2
+cmgCall2 = IsDuplicityVersion
+cmgCall2 = cmgCall2()
+if not cmgCall2 then
+  cmgCall2 = Citizen
+  cmgCall2 = cmgCall2.CreateThread
+  function cmgCall3()
+    local arg1, arg2
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 0
+    arg1(arg2)
+    arg1 = false
+    flag = arg1
   end
-  SHX11_1(SHX12_1)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  cmgCall2(cmgCall3)
 end
-function SHX11_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  if nil == SHX2_2 then
-    SHX2_2 = 5000
+function cmgCall2(arg1, arg2, arg3)
+  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8
+  if nil == arg3 then
+    arg3 = 5000
   end
-  SHX3_2 = {}
-  SHX3_2.done = false
-  function SHX4_2(SHX0_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX1_3, SHX2_3, SHX3_3
-    SHX1_3 = SHX3_2.done
-    if not SHX1_3 then
-      if nil == SHX0_3 then
-        SHX1_3 = SHX1_2
-        SHX0_3 = SHX1_3 or SHX0_3
-        if not SHX1_3 then
-          SHX1_3 = {}
-          SHX0_3 = SHX1_3
+  textValue32 = {}
+  textValue32.done = false
+  function workValue5(arg12)
+    local arg22, tableHelper, workValue3
+    arg22 = textValue32.done
+    if not arg22 then
+      if nil == arg12 then
+        arg22 = arg2
+        arg12 = arg22 or arg12
+        if not arg22 then
+          arg22 = {}
+          arg12 = arg22
         end
       end
-      SHX3_2.done = true
-      SHX1_3 = SHX0_2
-      SHX2_3 = table
-      SHX2_3 = SHX2_3.unpack
-      SHX3_3 = SHX0_3
-      SHX2_3, SHX3_3 = SHX2_3(SHX3_3)
-      SHX1_3(SHX2_3, SHX3_3)
+      textValue32.done = true
+      arg22 = arg1
+      tableHelper = table
+      tableHelper = tableHelper.unpack
+      workValue3 = arg12
+      tableHelper, workValue3 = tableHelper(workValue3)
+      arg22(tableHelper, workValue3)
     end
   end
-  SHX5_2 = setmetatable
-  SHX6_2 = SHX3_2
-  SHX7_2 = {}
-  function SHX8_2(SHX0_3, SHX1_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX2_3, SHX3_3
-    SHX2_3 = SHX4_2
-    SHX3_3 = SHX1_3
-    SHX2_3(SHX3_3)
+  cmgCall6 = setmetatable
+  textValue49 = textValue32
+  textValue50 = {}
+  function workValue8(arg12, arg22)
+    local tableHelper, workValue3
+    tableHelper = workValue5
+    workValue3 = arg22
+    tableHelper(workValue3)
   end
-  SHX7_2.__call = SHX8_2
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SetTimeout
-  SHX6_2 = SHX2_2
-  function SHX7_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX4_2
-    SHX1_3 = SHX1_2
-    SHX0_3(SHX1_3)
+  textValue50.__call = workValue8
+  cmgCall6(textValue49, textValue50)
+  cmgCall6 = SetTimeout
+  textValue49 = arg3
+  function textValue50()
+    local arg12, arg22
+    arg12 = workValue5
+    arg22 = arg2
+    arg12(arg22)
   end
-  SHX5_2(SHX6_2, SHX7_2)
-  return SHX3_2
+  cmgCall6(textValue49, textValue50)
+  return textValue32
 end
-Task = SHX11_1
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = tonumber
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if nil == SHX1_2 then
-    SHX2_2 = 0
-    return SHX2_2
+Task = cmgCall2
+function cmgCall2(arg1)
+  local arg2, arg3, textValue32
+  arg2 = tonumber
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if nil == arg2 then
+    arg3 = 0
+    return arg3
   else
-    SHX2_2 = math
-    SHX2_2 = SHX2_2.floor
-    SHX3_2 = SHX1_2
-    return SHX2_2(SHX3_2)
+    arg3 = math
+    arg3 = arg3.floor
+    textValue32 = arg2
+    return arg3(textValue32)
   end
 end
-parseInt = SHX11_1
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = tonumber
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if nil == SHX1_2 then
-    SHX1_2 = 0
+parseInt = cmgCall2
+function cmgCall2(arg1)
+  local arg2, arg3
+  arg2 = tonumber
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if nil == arg2 then
+    arg2 = 0
   end
-  return SHX1_2
+  return arg2
 end
-parseDouble = SHX11_1
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = parseDouble
-  SHX2_2 = SHX0_2
-  return SHX1_2(SHX2_2)
+parseDouble = cmgCall2
+function cmgCall2(arg1)
+  local arg2, arg3
+  arg2 = parseDouble
+  arg3 = arg1
+  return arg2(arg3)
 end
-parseFloat = SHX11_1
-SHX11_1 = {}
-function SHX12_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = ""
-  SHX4_2 = SHX11_1
-  SHX4_2 = SHX4_2[SHX1_2]
-  if nil == SHX4_2 then
-    SHX5_2 = {}
-    SHX4_2 = SHX5_2
-    SHX5_2 = string
-    SHX5_2 = SHX5_2.len
-    SHX6_2 = SHX1_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = 1
-    SHX7_2 = SHX5_2
-    SHX8_2 = 1
-    for SHX9_2 = SHX6_2, SHX7_2, SHX8_2 do
-      SHX10_2 = string
-      SHX10_2 = SHX10_2.sub
-      SHX11_2 = SHX1_2
-      SHX12_2 = SHX9_2
-      SHX13_2 = SHX9_2
-      SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-      SHX4_2[SHX10_2] = true
+parseFloat = cmgCall2
+cmgCall2 = {}
+function cmgCall3(arg1, arg2, arg3)
+  local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4
+  textValue32 = ""
+  workValue5 = cmgCall2
+  workValue5 = workValue5[arg2]
+  if nil == workValue5 then
+    cmgCall6 = {}
+    workValue5 = cmgCall6
+    cmgCall6 = string
+    cmgCall6 = cmgCall6.len
+    textValue49 = arg2
+    cmgCall6 = cmgCall6(textValue49)
+    textValue49 = 1
+    textValue50 = cmgCall6
+    workValue8 = 1
+    for textValue51 = textValue49, textValue50, workValue8 do
+      textValue = string
+      textValue = textValue.sub
+      textValue2 = arg2
+      textValue3 = textValue51
+      textValue4 = textValue51
+      textValue = textValue(textValue2, textValue3, textValue4)
+      workValue5[textValue] = true
     end
-    SHX6_2 = SHX11_1
-    SHX6_2[SHX1_2] = SHX4_2
+    textValue49 = cmgCall2
+    textValue49[arg2] = workValue5
   end
-  SHX5_2 = string
-  SHX5_2 = SHX5_2.len
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = 1
-  SHX7_2 = SHX5_2
-  SHX8_2 = 1
-  for SHX9_2 = SHX6_2, SHX7_2, SHX8_2 do
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.sub
-    SHX11_2 = SHX0_2
-    SHX12_2 = SHX9_2
-    SHX13_2 = SHX9_2
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    if SHX2_2 then
-      SHX11_2 = SHX4_2[SHX10_2]
-      if SHX11_2 then
-        goto SHX_LABEL_51
+  cmgCall6 = string
+  cmgCall6 = cmgCall6.len
+  textValue49 = arg1
+  cmgCall6 = cmgCall6(textValue49)
+  textValue49 = 1
+  textValue50 = cmgCall6
+  workValue8 = 1
+  for textValue51 = textValue49, textValue50, workValue8 do
+    textValue = string
+    textValue = textValue.sub
+    textValue2 = arg1
+    textValue3 = textValue51
+    textValue4 = textValue51
+    textValue = textValue(textValue2, textValue3, textValue4)
+    if arg3 then
+      textValue2 = workValue5[textValue]
+      if textValue2 then
+        goto flow_label_51
       end
     end
-    if not SHX2_2 then
-      SHX11_2 = SHX4_2[SHX10_2]
-      -- [FIX IF ERROR] Move ::SHX_LABEL_51:: outside nested blocks until all 'goto SHX_LABEL_51' can see it
-      ::SHX_LABEL_51::
-      if not SHX11_2 then
-        SHX11_2 = SHX3_2
-        SHX12_2 = SHX10_2
-        SHX11_2 = SHX11_2 .. SHX12_2
-        SHX3_2 = SHX11_2
+    if not arg3 then
+      textValue2 = workValue5[textValue]
+      ::flow_label_51::
+      if not textValue2 then
+        textValue2 = textValue32
+        textValue3 = textValue
+        textValue2 = textValue2 .. textValue3
+        textValue32 = textValue2
       end
     end
   end
-  return SHX3_2
+  return textValue32
 end
-sanitizeString = SHX12_1
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  if nil == SHX1_2 then
-    SHX1_2 = "%s"
+sanitizeString = cmgCall3
+function cmgCall3(arg1, arg2)
+  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue
+  if nil == arg2 then
+    arg2 = "%s"
   end
-  SHX2_2 = {}
-  SHX3_2 = 1
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.gmatch
-  SHX5_2 = SHX0_2
-  SHX6_2 = "([^"
-  SHX7_2 = SHX1_2
-  SHX8_2 = "]+)"
-  SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2)
-  for SHX8_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX2_2[SHX3_2] = SHX8_2
-    SHX3_2 = SHX3_2 + 1
+  arg3 = {}
+  textValue32 = 1
+  workValue5 = string
+  workValue5 = workValue5.gmatch
+  cmgCall6 = arg1
+  textValue49 = "([^"
+  textValue50 = arg2
+  workValue8 = "]+)"
+  textValue49 = textValue49 .. textValue50 .. workValue8
+  workValue5, cmgCall6, textValue49, textValue50 = workValue5(cmgCall6, textValue49)
+  for workValue8 in workValue5, cmgCall6, textValue49, textValue50 do
+    arg3[textValue32] = workValue8
+    textValue32 = textValue32 + 1
   end
-  return SHX2_2
+  return arg3
 end
-splitString = SHX12_1
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  if nil == SHX1_2 then
-    SHX1_2 = ""
+splitString = cmgCall3
+function cmgCall3(arg1, arg2)
+  local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3
+  if nil == arg2 then
+    arg2 = ""
   end
-  SHX2_2 = ""
-  SHX3_2 = 0
-  SHX4_2 = #SHX0_2
-  SHX5_2 = pairs
-  SHX6_2 = SHX0_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-  for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-    SHX3_2 = SHX3_2 + 1
-    SHX11_2 = SHX2_2
-    SHX12_2 = SHX10_2
-    SHX11_2 = SHX11_2 .. SHX12_2
-    SHX2_2 = SHX11_2
-    if SHX4_2 > SHX3_2 then
-      SHX11_2 = SHX2_2
-      SHX12_2 = SHX1_2
-      SHX11_2 = SHX11_2 .. SHX12_2
-      SHX2_2 = SHX11_2
+  arg3 = ""
+  textValue32 = 0
+  workValue5 = #arg1
+  cmgCall6 = pairs
+  textValue49 = arg1
+  cmgCall6, textValue49, textValue50, workValue8 = cmgCall6(textValue49)
+  for textValue51, textValue in cmgCall6, textValue49, textValue50, workValue8 do
+    textValue32 = textValue32 + 1
+    textValue2 = arg3
+    textValue3 = textValue
+    textValue2 = textValue2 .. textValue3
+    arg3 = textValue2
+    if workValue5 > textValue32 then
+      textValue2 = arg3
+      textValue3 = arg2
+      textValue2 = textValue2 .. textValue3
+      arg3 = textValue2
     end
   end
-  return SHX2_2
+  return arg3
 end
-joinStrings = SHX12_1
-SHX12_1 = CMG
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX1_2 = SHX0_1
-    SHX1_2 = SHX1_2[SHX0_2]
-    return SHX1_2
+joinStrings = cmgCall3
+cmgCall3 = CMG
+function cmgCall4(arg1)
+  local arg2, arg3, textValue32
+  arg2 = dataTable
+  arg2 = arg2[arg1]
+  if arg2 then
+    arg2 = dataTable
+    arg2 = arg2[arg1]
+    return arg2
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadResourceFile
-  SHX2_2 = GetCurrentResourceName
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = json
-  SHX2_2 = SHX2_2.decode
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX0_1
-  SHX3_2[SHX0_2] = SHX2_2
-  return SHX2_2
+  arg2 = CMG
+  arg2 = arg2.loadResourceFile
+  arg3 = GetCurrentResourceName
+  arg3 = arg3()
+  textValue32 = arg1
+  arg2 = arg2(arg3, textValue32)
+  arg3 = json
+  arg3 = arg3.decode
+  textValue32 = arg2
+  arg3 = arg3(textValue32)
+  textValue32 = dataTable
+  textValue32[arg1] = arg3
+  return arg3
 end
-SHX12_1.loadJsonModule = SHX13_1
-SHX12_1 = {}
-SHX13_1 = CMG
-function SHX14_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = SHX12_1
-  SHX3_2[SHX0_2] = true
-  SHX3_2 = RegisterCommand
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+cmgCall3.loadJsonModule = cmgCall4
+cmgCall3 = {}
+cmgCall4 = CMG
+function textValue5(arg1, arg2, arg3)
+  local textValue32, workValue5, cmgCall6, textValue49
+  textValue32 = cmgCall3
+  textValue32[arg1] = true
+  textValue32 = RegisterCommand
+  workValue5 = arg1
+  cmgCall6 = arg2
+  textValue49 = arg3
+  -- Beginner: Register a chat/console command. Event/command: false.
+  textValue32(workValue5, cmgCall6, textValue49)
 end
-SHX13_1.registerCommand = SHX14_1
-SHX13_1 = exports
-SHX14_1 = "isCommandHidden"
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.starts
-  SHX2_2 = SHX0_2
-  SHX3_2 = "+"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 then
-    SHX1_2 = string
-    SHX1_2 = SHX1_2.starts
-    SHX2_2 = SHX0_2
-    SHX3_2 = "-"
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if not SHX1_2 then
-      goto SHX_LABEL_17
+cmgCall4.registerCommand = textValue5
+cmgCall4 = exports
+textValue5 = "isCommandHidden"
+-- Beginner: this function is the command handler for "isCommandHidden".
+function workValue(arg1)
+  local arg2, arg3, textValue32
+  arg2 = string
+  arg2 = arg2.starts
+  arg3 = arg1
+  textValue32 = "+"
+  arg2 = arg2(arg3, textValue32)
+  if not arg2 then
+    arg2 = string
+    arg2 = arg2.starts
+    arg3 = arg1
+    textValue32 = "-"
+    arg2 = arg2(arg3, textValue32)
+    if not arg2 then
+      goto flow_label_17
     end
   end
-  SHX1_2 = true
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_17:: outside nested blocks until all 'goto SHX_LABEL_17' can see it
-  ::SHX_LABEL_17::
-  SHX1_2 = SHX12_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  return SHX1_2
+  arg2 = true
+  return arg2
+  ::flow_label_17::
+  arg2 = cmgCall3
+  arg2 = arg2[arg1]
+  return arg2
 end
-SHX13_1(SHX14_1, SHX15_1)
+cmgCall4(textValue5, workValue)

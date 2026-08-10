@@ -1,4 +1,40 @@
 --[[
+    Beginner Guide: cl_devui.lua
+    ============================
+
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Devui
+    ======================
+
+    File: cmg/prod/client/developer/cl_devui.lua
+    Purpose: This file contains developer/debug tooling.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+]]
+--[[
     CMG SCREEN UI DEBUG
     Beginner-Friendly Rewrite
     =================================================================
@@ -31,7 +67,7 @@
 
     There are NO server events in this file.
 
-    The original decompile used names such as SHX0_1, SHX6_2 and SHX13_2.
+    The original decompile used names such as workValue, workValue3 and workValue2.
     Those were temporary decompiler register names, not meaningful names from
     the original developer.
 ]]
@@ -549,6 +585,7 @@ local function drawScreenDebug()
 
     local playerSpeedMetresPerSecond =
         GetEntitySpeed(
+            -- Beginner: Get the local player's ped/entity.
             PlayerPedId()
         )
 

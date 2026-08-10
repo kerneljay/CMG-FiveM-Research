@@ -1,564 +1,600 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_pushcar.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1
-SHX0_1 = {}
-SHX0_1.DamageNeeded = 200.0
-SHX0_1.MaxWidth = 5.0
-SHX0_1.MaxHeight = 5.0
-SHX0_1.MaxLength = 5.0
-SHX1_1 = false
-SHX2_1 = {}
-SHX2_1.ESC = 322
-SHX2_1.F1 = 288
-SHX2_1.F2 = 289
-SHX2_1.F3 = 170
-SHX2_1.F5 = 166
-SHX2_1.F6 = 167
-SHX2_1.F7 = 168
-SHX2_1.F8 = 169
-SHX2_1.F9 = 56
-SHX2_1.F10 = 57
-SHX2_1["~"] = 243
-SHX2_1["1"] = 157
-SHX2_1["2"] = 158
-SHX2_1["3"] = 160
-SHX2_1["4"] = 164
-SHX2_1["5"] = 165
-SHX2_1["6"] = 159
-SHX2_1["7"] = 161
-SHX2_1["8"] = 162
-SHX2_1["9"] = 163
-SHX2_1["-"] = 84
-SHX2_1["="] = 83
-SHX2_1.BACKSPACE = 177
-SHX2_1.TAB = 37
-SHX2_1.Q = 44
-SHX2_1.W = 32
-SHX2_1.E = 38
-SHX2_1.R = 45
-SHX2_1.T = 245
-SHX2_1.Y = 246
-SHX2_1.U = 303
-SHX2_1.P = 199
-SHX2_1["["] = 39
-SHX2_1["]"] = 40
-SHX2_1.ENTER = 18
-SHX2_1.CAPS = 137
-SHX2_1.A = 34
-SHX2_1.S = 8
-SHX2_1.D = 9
-SHX2_1.F = 23
-SHX2_1.G = 47
-SHX2_1.H = 74
-SHX2_1.K = 311
-SHX2_1.L = 182
-SHX2_1.LEFTSHIFT = 21
-SHX2_1.Z = 20
-SHX2_1.X = 73
-SHX2_1.C = 26
-SHX2_1.V = 0
-SHX2_1.B = 29
-SHX2_1.N = 249
-SHX2_1.M = 244
-SHX2_1[","] = 82
-SHX2_1["."] = 81
-SHX2_1.LEFTCTRL = 36
-SHX2_1.LEFTALT = 19
-SHX2_1.SPACE = 22
-SHX2_1.RIGHTCTRL = 70
-SHX2_1.HOME = 213
-SHX2_1.PAGEUP = 10
-SHX2_1.PAGEDOWN = 11
-SHX2_1.DELETE = 178
-SHX2_1.LEFT = 174
-SHX2_1.RIGHT = 175
-SHX2_1.TOP = 27
-SHX2_1.DOWN = 173
-SHX2_1.NENTER = 201
-SHX2_1.N4 = 108
-SHX2_1.N5 = 60
-SHX2_1.N6 = 107
-SHX2_1["N+"] = 96
-SHX2_1["N-"] = 97
-SHX2_1.N7 = 117
-SHX2_1.N8 = 61
-SHX2_1.N9 = 118
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX1_2 = GetEntityForwardVector
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = -SHX1_2
-  SHX2_2 = {}
-  SHX3_2 = "wheel_lr"
-  SHX4_2 = "wheel_rr"
-  SHX2_2[1] = SHX3_2
-  SHX2_2[2] = SHX4_2
-  SHX3_2 = ipairs
-  SHX4_2 = SHX2_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = GetEntityBoneIndexByName
-    SHX10_2 = SHX0_2
-    SHX11_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    SHX10_2 = GetWorldPositionOfEntityBone
-    SHX11_2 = SHX0_2
-    SHX12_2 = SHX9_2
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = SHX1_2 * 4.0
-    SHX11_2 = SHX10_2 + SHX11_2
-    SHX12_2 = _ENV
-    SHX13_2 = "StartExpensiveSynchronousShapeTestLosProbe"
-    SHX12_2 = SHX12_2[SHX13_2]
-    SHX13_2 = SHX10_2.x
-    SHX14_2 = SHX10_2.y
-    SHX15_2 = SHX10_2.z
-    SHX16_2 = SHX11_2.x
-    SHX17_2 = SHX11_2.y
-    SHX18_2 = SHX11_2.z
-    SHX19_2 = -1
-    SHX20_2 = SHX0_2
-    SHX21_2 = 1
-    SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX13_2 = GetShapeTestResult
-    SHX14_2 = SHX12_2
-    SHX13_2, SHX14_2 = SHX13_2(SHX14_2)
-    if 1 == SHX14_2 then
-      SHX15_2 = true
-      return SHX15_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Pushcar
+    ========================
+
+    File: cmg/prod/client/misc/cl_pushcar.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Example player-facing text in this file:
+      * Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle
+
+]]
+local dataTable, flag, dataTable2, workValue5, workValue6, cmgCall2, workValue7, textValue2
+dataTable = {}
+dataTable.DamageNeeded = 200.0
+dataTable.MaxWidth = 5.0
+dataTable.MaxHeight = 5.0
+dataTable.MaxLength = 5.0
+flag = false
+dataTable2 = {}
+dataTable2.ESC = 322
+dataTable2.F1 = 288
+dataTable2.F2 = 289
+dataTable2.F3 = 170
+dataTable2.F5 = 166
+dataTable2.F6 = 167
+dataTable2.F7 = 168
+dataTable2.F8 = 169
+dataTable2.F9 = 56
+dataTable2.F10 = 57
+dataTable2["~"] = 243
+dataTable2["1"] = 157
+dataTable2["2"] = 158
+dataTable2["3"] = 160
+dataTable2["4"] = 164
+dataTable2["5"] = 165
+dataTable2["6"] = 159
+dataTable2["7"] = 161
+dataTable2["8"] = 162
+dataTable2["9"] = 163
+dataTable2["-"] = 84
+dataTable2["="] = 83
+dataTable2.BACKSPACE = 177
+dataTable2.TAB = 37
+dataTable2.Q = 44
+dataTable2.W = 32
+dataTable2.E = 38
+dataTable2.R = 45
+dataTable2.T = 245
+dataTable2.Y = 246
+dataTable2.U = 303
+dataTable2.P = 199
+dataTable2["["] = 39
+dataTable2["]"] = 40
+dataTable2.ENTER = 18
+dataTable2.CAPS = 137
+dataTable2.A = 34
+dataTable2.S = 8
+dataTable2.D = 9
+dataTable2.F = 23
+dataTable2.G = 47
+dataTable2.H = 74
+dataTable2.K = 311
+dataTable2.L = 182
+dataTable2.LEFTSHIFT = 21
+dataTable2.Z = 20
+dataTable2.X = 73
+dataTable2.C = 26
+dataTable2.V = 0
+dataTable2.B = 29
+dataTable2.N = 249
+dataTable2.M = 244
+dataTable2[","] = 82
+dataTable2["."] = 81
+dataTable2.LEFTCTRL = 36
+dataTable2.LEFTALT = 19
+dataTable2.SPACE = 22
+dataTable2.RIGHTCTRL = 70
+dataTable2.HOME = 213
+dataTable2.PAGEUP = 10
+dataTable2.PAGEDOWN = 11
+dataTable2.DELETE = 178
+dataTable2.LEFT = 174
+dataTable2.RIGHT = 175
+dataTable2.TOP = 27
+dataTable2.DOWN = 173
+dataTable2.NENTER = 201
+dataTable2.N4 = 108
+dataTable2.N5 = 60
+dataTable2.N6 = 107
+dataTable2["N+"] = 96
+dataTable2["N-"] = 97
+dataTable2.N7 = 117
+dataTable2.N8 = 61
+dataTable2.N9 = 118
+function workValue5(arg1)
+  local vehicle, coords, modelHash, vector3Builder, vector3Builder2, numberValue7, numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3
+  vehicle = GetEntityForwardVector
+  coords = arg1
+  vehicle = vehicle(coords)
+  vehicle = -vehicle
+  coords = {}
+  modelHash = "wheel_lr"
+  vector3Builder = "wheel_rr"
+  coords[1] = modelHash
+  coords[2] = vector3Builder
+  modelHash = ipairs
+  vector3Builder = coords
+  modelHash, vector3Builder, vector3Builder2, numberValue7 = modelHash(vector3Builder)
+  for numberValue8, coords2 in modelHash, vector3Builder, vector3Builder2, numberValue7 do
+    workValue8 = GetEntityBoneIndexByName
+    workValue = arg1
+    workValue2 = coords2
+    workValue8 = workValue8(workValue, workValue2)
+    workValue = GetWorldPositionOfEntityBone
+    workValue2 = arg1
+    workValue3 = workValue8
+    workValue = workValue(workValue2, workValue3)
+    workValue2 = vehicle * 4.0
+    workValue2 = workValue + workValue2
+    workValue3 = _ENV
+    textValue = "StartExpensiveSynchronousShapeTestLosProbe"
+    workValue3 = workValue3[textValue]
+    textValue = workValue.x
+    playerPed = workValue.y
+    playerPed2 = workValue.z
+    numberValue = workValue2.x
+    numberValue2 = workValue2.y
+    numberValue3 = workValue2.z
+    numberValue4 = -1
+    flag2 = arg1
+    flag3 = 1
+    workValue3 = workValue3(textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3)
+    textValue = GetShapeTestResult
+    playerPed = workValue3
+    textValue, playerPed = textValue(playerPed)
+    if 1 == playerPed then
+      playerPed2 = true
+      return playerPed2
     end
   end
-  SHX3_2 = GetEntityModel
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 ~= SHX3_2 then
-    SHX4_2 = vector3
-    SHX5_2 = 0.0
-    SHX6_2 = 0.0
-    SHX7_2 = 0.0
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX5_2 = vector3
-    SHX6_2 = 5.0
-    SHX7_2 = 5.0
-    SHX8_2 = 5.0
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-    SHX6_2 = GetModelDimensions
-    SHX7_2 = SHX3_2
-    SHX8_2 = SHX4_2
-    SHX9_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-    SHX7_2 = GetOffsetFromEntityInWorldCoords
-    SHX8_2 = SHX0_2
-    SHX9_2 = 0.0
-    SHX10_2 = SHX6_2.y
-    SHX10_2 = SHX10_2 - 0.3
-    SHX11_2 = SHX6_2.z
-    SHX11_2 = SHX11_2 + 1.0
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = GetEntityCoords
-    SHX9_2 = SHX0_2
-    SHX10_2 = true
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = _ENV
-    SHX10_2 = "StartExpensiveSynchronousShapeTestLosProbe"
-    SHX9_2 = SHX9_2[SHX10_2]
-    SHX10_2 = SHX7_2.x
-    SHX11_2 = SHX7_2.y
-    SHX12_2 = SHX7_2.z
-    SHX13_2 = SHX8_2.x
-    SHX14_2 = SHX8_2.y
-    SHX15_2 = SHX8_2.z
-    SHX16_2 = -1
-    SHX17_2 = SHX0_2
-    SHX18_2 = 1
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    SHX10_2 = GetShapeTestResult
-    SHX11_2 = SHX9_2
-    SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX10_2(SHX11_2)
-    if 0 ~= SHX14_2 and SHX14_2 ~= SHX0_2 then
-      SHX15_2 = PlayerPedId
-      SHX15_2 = SHX15_2()
-      if SHX14_2 ~= SHX15_2 then
-        SHX15_2 = true
-        return SHX15_2
+  modelHash = GetEntityModel
+  vector3Builder = arg1
+  -- Beginner: result below is modelHash.
+  modelHash = modelHash(vector3Builder)
+  if 0 ~= modelHash then
+    vector3Builder = vector3
+    vector3Builder2 = 0.0
+    numberValue7 = 0.0
+    numberValue8 = 0.0
+    vector3Builder = vector3Builder(vector3Builder2, numberValue7, numberValue8)
+    vector3Builder2 = vector3
+    numberValue7 = 5.0
+    numberValue8 = 5.0
+    coords2 = 5.0
+    vector3Builder2 = vector3Builder2(numberValue7, numberValue8, coords2)
+    numberValue7 = GetModelDimensions
+    numberValue8 = modelHash
+    coords2 = vector3Builder
+    workValue8 = vector3Builder2
+    numberValue7 = numberValue7(numberValue8, coords2, workValue8)
+    numberValue8 = GetOffsetFromEntityInWorldCoords
+    coords2 = arg1
+    workValue8 = 0.0
+    workValue = numberValue7.y
+    workValue = workValue - 0.3
+    workValue2 = numberValue7.z
+    workValue2 = workValue2 + 1.0
+    numberValue8 = numberValue8(coords2, workValue8, workValue, workValue2)
+    coords2 = GetEntityCoords
+    workValue8 = arg1
+    workValue = true
+    -- Beginner: result below is entityCoords.
+    coords2 = coords2(workValue8, workValue)
+    workValue8 = _ENV
+    workValue = "StartExpensiveSynchronousShapeTestLosProbe"
+    workValue8 = workValue8[workValue]
+    workValue = numberValue8.x
+    workValue2 = numberValue8.y
+    workValue3 = numberValue8.z
+    textValue = coords2.x
+    playerPed = coords2.y
+    playerPed2 = coords2.z
+    numberValue = -1
+    numberValue2 = arg1
+    numberValue3 = 1
+    workValue8 = workValue8(workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3)
+    workValue = GetShapeTestResult
+    workValue2 = workValue8
+    workValue, workValue2, workValue3, textValue, playerPed = workValue(workValue2)
+    if 0 ~= playerPed and playerPed ~= arg1 then
+      playerPed2 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      playerPed2 = playerPed2()
+      if playerPed ~= playerPed2 then
+        playerPed2 = true
+        return playerPed2
       end
     end
   end
-  SHX4_2 = false
-  return SHX4_2
+  vector3Builder = false
+  return vector3Builder
 end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
+function workValue6()
+  local arg1, vehicle, coords, modelHash, vector3Builder, vector3Builder2, numberValue7, numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6
+  arg1 = flag
+  if arg1 then
     return
   end
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetVehiclePedIsIn
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = GetEntityCoords
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX3_2 = GetEntityCoords
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = GetEntityCoords
-    SHX5_2 = SHX0_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = SHX3_2 - SHX4_2
-    SHX5_2 = #SHX5_2
-    SHX6_2 = IsVehicleSeatFree
-    SHX7_2 = SHX1_2
-    SHX8_2 = -1
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    if SHX6_2 then
-      SHX6_2 = GetVehicleEngineHealth
-      SHX7_2 = SHX1_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      SHX7_2 = SHX0_1.DamageNeeded
-      if SHX6_2 <= SHX7_2 then
-        SHX6_2 = IsEntityInWater
-        SHX7_2 = SHX1_2
-        SHX6_2 = SHX6_2(SHX7_2)
-        if not SHX6_2 then
-          if SHX5_2 < 10 then
-            SHX6_2 = CMG
-            SHX6_2 = SHX6_2.DrawText3D
-            SHX7_2 = SHX2_2
-            SHX8_2 = "Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle"
-            SHX9_2 = 0.2
-            SHX6_2(SHX7_2, SHX8_2, SHX9_2)
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  vehicle = GetVehiclePedIsIn
+  coords = arg1
+  modelHash = true
+  -- Beginner: result below is currentVehicle.
+  vehicle = vehicle(coords, modelHash)
+  if 0 ~= vehicle then
+    coords = GetEntityCoords
+    modelHash = vehicle
+    -- Beginner: result below is entityCoords.
+    coords = coords(modelHash)
+    modelHash = GetEntityCoords
+    vector3Builder = vehicle
+    -- Beginner: result below is entityCoords.
+    modelHash = modelHash(vector3Builder)
+    vector3Builder = GetEntityCoords
+    vector3Builder2 = arg1
+    -- Beginner: result below is entityCoords.
+    vector3Builder = vector3Builder(vector3Builder2)
+    vector3Builder2 = modelHash - vector3Builder
+    vector3Builder2 = #vector3Builder2
+    numberValue7 = IsVehicleSeatFree
+    numberValue8 = vehicle
+    coords2 = -1
+    numberValue7 = numberValue7(numberValue8, coords2)
+    if numberValue7 then
+      numberValue7 = GetVehicleEngineHealth
+      numberValue8 = vehicle
+      numberValue7 = numberValue7(numberValue8)
+      numberValue8 = dataTable.DamageNeeded
+      if numberValue7 <= numberValue8 then
+        numberValue7 = IsEntityInWater
+        numberValue8 = vehicle
+        numberValue7 = numberValue7(numberValue8)
+        if not numberValue7 then
+          if vector3Builder2 < 10 then
+            numberValue7 = CMG
+            numberValue7 = numberValue7.DrawText3D
+            numberValue8 = coords
+            coords2 = "Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle"
+            workValue8 = 0.2
+            numberValue7(numberValue8, coords2, workValue8)
           end
       end
     end
     else
-      SHX6_2 = GetVehiclePedIsTryingToEnter
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.getPlayerPed
-      SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2 = SHX7_2()
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-      SHX1_2 = SHX6_2
+      numberValue7 = GetVehiclePedIsTryingToEnter
+      numberValue8 = CMG
+      numberValue8 = numberValue8.getPlayerPed
+      numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6 = numberValue8()
+      numberValue7 = numberValue7(numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
+      vehicle = numberValue7
     end
-    SHX6_2 = IsControlPressed
-    SHX7_2 = 0
-    SHX8_2 = SHX2_1.LEFTSHIFT
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    if SHX6_2 then
-      SHX6_2 = GetEntityHealth
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.getPlayerPed
-      SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2 = SHX7_2()
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-      if SHX6_2 > 102 then
-        SHX6_2 = IsVehicleSeatFree
-        SHX7_2 = SHX1_2
-        SHX8_2 = -1
-        SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-        if SHX6_2 then
-          SHX6_2 = IsEntityAttachedToEntity
-          SHX7_2 = SHX0_2
-          SHX8_2 = SHX1_2
-          SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-          if not SHX6_2 then
-            SHX6_2 = IsControlJustPressed
-            SHX7_2 = 0
-            SHX8_2 = SHX2_1.E
-            SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-            if SHX6_2 then
-              SHX6_2 = GetVehicleEngineHealth
-              SHX7_2 = SHX1_2
-              SHX6_2 = SHX6_2(SHX7_2)
-              SHX7_2 = SHX0_1.DamageNeeded
-              if SHX6_2 <= SHX7_2 then
-                SHX6_2 = tCMG
-                SHX6_2 = SHX6_2.canAnim
-                SHX6_2 = SHX6_2()
-                if SHX6_2 then
-                  SHX6_2 = tCMG
-                  SHX6_2 = SHX6_2.isTazed
-                  SHX6_2 = SHX6_2()
-                  if not SHX6_2 then
-                    SHX6_2 = GetEntityCoords
-                    SHX7_2 = SHX1_2
-                    SHX6_2 = SHX6_2(SHX7_2)
-                    SHX3_2 = SHX6_2
-                    SHX6_2 = GetEntityCoords
-                    SHX7_2 = CMG
-                    SHX7_2 = SHX7_2.getPlayerPed
-                    SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2 = SHX7_2()
-                    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-                    SHX4_2 = SHX6_2
-                    SHX6_2 = SHX3_2 - SHX4_2
-                    SHX5_2 = #SHX6_2
-                    if SHX5_2 < 10 then
-                      SHX6_2 = SHX3_1
-                      SHX7_2 = SHX1_2
-                      SHX6_2 = SHX6_2(SHX7_2)
-                      if not SHX6_2 then
-                        SHX6_2 = false
-                        SHX7_2 = GetEntityCoords
-                        SHX8_2 = SHX0_2
-                        SHX7_2 = SHX7_2(SHX8_2)
-                        SHX2_2 = SHX7_2
-                        SHX7_2 = GetEntityCoords
-                        SHX8_2 = SHX1_2
-                        SHX7_2 = SHX7_2(SHX8_2)
-                        SHX8_2 = GetEntityForwardVector
-                        SHX9_2 = SHX1_2
-                        SHX8_2 = SHX8_2(SHX9_2)
-                        SHX7_2 = SHX7_2 + SHX8_2
-                        SHX8_2 = GetEntityCoords
-                        SHX9_2 = SHX0_2
-                        SHX8_2 = SHX8_2(SHX9_2)
-                        SHX7_2 = SHX7_2 - SHX8_2
-                        SHX7_2 = #SHX7_2
-                        SHX8_2 = GetEntityCoords
-                        SHX9_2 = SHX1_2
-                        SHX8_2 = SHX8_2(SHX9_2)
-                        SHX9_2 = GetEntityForwardVector
-                        SHX10_2 = SHX1_2
-                        SHX9_2 = SHX9_2(SHX10_2)
-                        SHX9_2 = SHX9_2 * -1
-                        SHX8_2 = SHX8_2 + SHX9_2
-                        SHX9_2 = GetEntityCoords
-                        SHX10_2 = SHX0_2
-                        SHX9_2 = SHX9_2(SHX10_2)
-                        SHX8_2 = SHX8_2 - SHX9_2
-                        SHX8_2 = #SHX8_2
-                        if SHX7_2 > SHX8_2 then
-                          SHX6_2 = false
+    numberValue7 = IsControlPressed
+    numberValue8 = 0
+    coords2 = dataTable2.LEFTSHIFT
+    numberValue7 = numberValue7(numberValue8, coords2)
+    if numberValue7 then
+      numberValue7 = GetEntityHealth
+      numberValue8 = CMG
+      numberValue8 = numberValue8.getPlayerPed
+      numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6 = numberValue8()
+      -- Beginner: result below is health.
+      numberValue7 = numberValue7(numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
+      if numberValue7 > 102 then
+        numberValue7 = IsVehicleSeatFree
+        numberValue8 = vehicle
+        coords2 = -1
+        numberValue7 = numberValue7(numberValue8, coords2)
+        if numberValue7 then
+          numberValue7 = IsEntityAttachedToEntity
+          numberValue8 = arg1
+          coords2 = vehicle
+          numberValue7 = numberValue7(numberValue8, coords2)
+          if not numberValue7 then
+            numberValue7 = IsControlJustPressed
+            numberValue8 = 0
+            coords2 = dataTable2.E
+            numberValue7 = numberValue7(numberValue8, coords2)
+            if numberValue7 then
+              numberValue7 = GetVehicleEngineHealth
+              numberValue8 = vehicle
+              numberValue7 = numberValue7(numberValue8)
+              numberValue8 = dataTable.DamageNeeded
+              if numberValue7 <= numberValue8 then
+                numberValue7 = tCMG
+                numberValue7 = numberValue7.canAnim
+                numberValue7 = numberValue7()
+                if numberValue7 then
+                  numberValue7 = tCMG
+                  numberValue7 = numberValue7.isTazed
+                  numberValue7 = numberValue7()
+                  if not numberValue7 then
+                    numberValue7 = GetEntityCoords
+                    numberValue8 = vehicle
+                    -- Beginner: result below is entityCoords.
+                    numberValue7 = numberValue7(numberValue8)
+                    modelHash = numberValue7
+                    numberValue7 = GetEntityCoords
+                    numberValue8 = CMG
+                    numberValue8 = numberValue8.getPlayerPed
+                    numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6 = numberValue8()
+                    -- Beginner: result below is entityCoords.
+                    numberValue7 = numberValue7(numberValue8, coords2, workValue8, workValue, workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
+                    vector3Builder = numberValue7
+                    numberValue7 = modelHash - vector3Builder
+                    vector3Builder2 = #numberValue7
+                    if vector3Builder2 < 10 then
+                      numberValue7 = workValue5
+                      numberValue8 = vehicle
+                      numberValue7 = numberValue7(numberValue8)
+                      if not numberValue7 then
+                        numberValue7 = false
+                        numberValue8 = GetEntityCoords
+                        coords2 = arg1
+                        -- Beginner: result below is entityCoords.
+                        numberValue8 = numberValue8(coords2)
+                        coords = numberValue8
+                        numberValue8 = GetEntityCoords
+                        coords2 = vehicle
+                        -- Beginner: result below is entityCoords.
+                        numberValue8 = numberValue8(coords2)
+                        coords2 = GetEntityForwardVector
+                        workValue8 = vehicle
+                        coords2 = coords2(workValue8)
+                        numberValue8 = numberValue8 + coords2
+                        coords2 = GetEntityCoords
+                        workValue8 = arg1
+                        -- Beginner: result below is entityCoords.
+                        coords2 = coords2(workValue8)
+                        numberValue8 = numberValue8 - coords2
+                        numberValue8 = #numberValue8
+                        coords2 = GetEntityCoords
+                        workValue8 = vehicle
+                        -- Beginner: result below is entityCoords.
+                        coords2 = coords2(workValue8)
+                        workValue8 = GetEntityForwardVector
+                        workValue = vehicle
+                        workValue8 = workValue8(workValue)
+                        workValue8 = workValue8 * -1
+                        coords2 = coords2 + workValue8
+                        workValue8 = GetEntityCoords
+                        workValue = arg1
+                        -- Beginner: result below is entityCoords.
+                        workValue8 = workValue8(workValue)
+                        coords2 = coords2 - workValue8
+                        coords2 = #coords2
+                        if numberValue8 > coords2 then
+                          numberValue7 = false
                         else
-                          SHX6_2 = true
+                          numberValue7 = true
                         end
-                        SHX7_2 = vector3
-                        SHX8_2 = 0.0
-                        SHX9_2 = 0.0
-                        SHX10_2 = 0.0
-                        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-                        SHX8_2 = vector3
-                        SHX9_2 = 5.0
-                        SHX10_2 = 5.0
-                        SHX11_2 = 5.0
-                        SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-                        SHX9_2 = GetModelDimensions
-                        SHX10_2 = GetEntityModel
-                        SHX11_2 = SHX1_2
-                        SHX10_2 = SHX10_2(SHX11_2)
-                        SHX11_2 = SHX7_2
-                        SHX12_2 = SHX8_2
-                        SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-                        if SHX6_2 then
-                          SHX10_2 = AttachEntityToEntity
-                          SHX11_2 = CMG
-                          SHX11_2 = SHX11_2.getPlayerPed
-                          SHX11_2 = SHX11_2()
-                          SHX12_2 = SHX1_2
-                          SHX13_2 = GetPedBoneIndex
-                          SHX14_2 = PlayerPedId
-                          SHX14_2 = SHX14_2()
-                          SHX15_2 = 6286
-                          SHX13_2 = SHX13_2(SHX14_2, SHX15_2)
-                          SHX14_2 = 0.0
-                          SHX15_2 = SHX9_2.y
-                          SHX15_2 = SHX15_2 * -1
-                          SHX15_2 = SHX15_2 + 0.1
-                          SHX16_2 = SHX9_2.z
-                          SHX16_2 = SHX16_2 + 1.0
-                          SHX17_2 = 0.0
-                          SHX18_2 = 0.0
-                          SHX19_2 = 180.0
-                          SHX20_2 = true
-                          SHX21_2 = false
-                          SHX22_2 = false
-                          SHX23_2 = true
-                          SHX24_2 = 0
-                          SHX25_2 = true
-                          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
+                        numberValue8 = vector3
+                        coords2 = 0.0
+                        workValue8 = 0.0
+                        workValue = 0.0
+                        numberValue8 = numberValue8(coords2, workValue8, workValue)
+                        coords2 = vector3
+                        workValue8 = 5.0
+                        workValue = 5.0
+                        workValue2 = 5.0
+                        coords2 = coords2(workValue8, workValue, workValue2)
+                        workValue8 = GetModelDimensions
+                        workValue = GetEntityModel
+                        workValue2 = vehicle
+                        -- Beginner: result below is modelHash.
+                        workValue = workValue(workValue2)
+                        workValue2 = numberValue8
+                        workValue3 = coords2
+                        workValue8 = workValue8(workValue, workValue2, workValue3)
+                        if numberValue7 then
+                          workValue = AttachEntityToEntity
+                          workValue2 = CMG
+                          workValue2 = workValue2.getPlayerPed
+                          -- Beginner: result below is localPlayerPed.
+                          workValue2 = workValue2()
+                          workValue3 = vehicle
+                          textValue = GetPedBoneIndex
+                          playerPed = PlayerPedId
+                          -- Beginner: result below is localPlayerPed.
+                          playerPed = playerPed()
+                          playerPed2 = 6286
+                          textValue = textValue(playerPed, playerPed2)
+                          playerPed = 0.0
+                          playerPed2 = workValue8.y
+                          playerPed2 = playerPed2 * -1
+                          playerPed2 = playerPed2 + 0.1
+                          numberValue = workValue8.z
+                          numberValue = numberValue + 1.0
+                          numberValue2 = 0.0
+                          numberValue3 = 0.0
+                          numberValue4 = 180.0
+                          flag2 = true
+                          flag3 = false
+                          flag4 = false
+                          flag5 = true
+                          numberValue5 = 0
+                          flag6 = true
+                          -- Beginner: Attach one entity to another entity.
+                          workValue(workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
                         else
-                          SHX10_2 = AttachEntityToEntity
-                          SHX11_2 = CMG
-                          SHX11_2 = SHX11_2.getPlayerPed
-                          SHX11_2 = SHX11_2()
-                          SHX12_2 = SHX1_2
-                          SHX13_2 = -1
-                          SHX14_2 = 0.0
-                          SHX15_2 = SHX9_2.y
-                          SHX15_2 = SHX15_2 - 0.3
-                          SHX16_2 = SHX9_2.z
-                          SHX16_2 = SHX16_2 + 1.0
-                          SHX17_2 = 0.0
-                          SHX18_2 = 0.0
-                          SHX19_2 = 0.0
-                          SHX20_2 = true
-                          SHX21_2 = false
-                          SHX22_2 = false
-                          SHX23_2 = true
-                          SHX24_2 = 0
-                          SHX25_2 = true
-                          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
+                          workValue = AttachEntityToEntity
+                          workValue2 = CMG
+                          workValue2 = workValue2.getPlayerPed
+                          -- Beginner: result below is localPlayerPed.
+                          workValue2 = workValue2()
+                          workValue3 = vehicle
+                          textValue = -1
+                          playerPed = 0.0
+                          playerPed2 = workValue8.y
+                          playerPed2 = playerPed2 - 0.3
+                          numberValue = workValue8.z
+                          numberValue = numberValue + 1.0
+                          numberValue2 = 0.0
+                          numberValue3 = 0.0
+                          numberValue4 = 0.0
+                          flag2 = true
+                          flag3 = false
+                          flag4 = false
+                          flag5 = true
+                          numberValue5 = 0
+                          flag6 = true
+                          workValue(workValue2, workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, numberValue5, flag6)
                         end
-                        SHX10_2 = "missfinale_c2ig_11"
-                        SHX11_2 = RequestAnimDict
-                        SHX12_2 = SHX10_2
-                        SHX11_2(SHX12_2)
+                        workValue = "missfinale_c2ig_11"
+                        workValue2 = RequestAnimDict
+                        workValue3 = workValue
+                        workValue2(workValue3)
                         while true do
-                          SHX11_2 = HasAnimDictLoaded
-                          SHX12_2 = SHX10_2
-                          SHX11_2 = SHX11_2(SHX12_2)
-                          if SHX11_2 then
+                          workValue2 = HasAnimDictLoaded
+                          workValue3 = workValue
+                          workValue2 = workValue2(workValue3)
+                          if workValue2 then
                             break
                           end
-                          SHX11_2 = Citizen
-                          SHX11_2 = SHX11_2.Wait
-                          SHX12_2 = 100
-                          SHX11_2(SHX12_2)
+                          workValue2 = Citizen
+                          workValue2 = workValue2.Wait
+                          workValue3 = 100
+                          workValue2(workValue3)
                         end
-                        SHX11_2 = TaskPlayAnim
-                        SHX12_2 = SHX0_2
-                        SHX13_2 = "missfinale_c2ig_11"
-                        SHX14_2 = "pushcar_offcliff_m"
-                        SHX15_2 = 2.0
-                        SHX16_2 = -8.0
-                        SHX17_2 = -1
-                        SHX18_2 = 35
-                        SHX19_2 = 0
-                        SHX20_2 = false
-                        SHX21_2 = false
-                        SHX22_2 = false
-                        SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-                        SHX11_2 = RemoveAnimDict
-                        SHX12_2 = SHX10_2
-                        SHX11_2(SHX12_2)
-                        SHX11_2 = Citizen
-                        SHX11_2 = SHX11_2.Wait
-                        SHX12_2 = 200
-                        SHX11_2(SHX12_2)
-                        SHX11_2 = SHX1_2
-                        SHX12_2 = true
-                        SHX1_1 = SHX12_2
-                        SHX12_2 = Citizen
-                        SHX12_2 = SHX12_2.CreateThread
-                        function SHX13_2()
-                          -- [AI CLEANUP] Decompiled Lua - Fix these:
-                          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                          -- 3. Replace goto/label with while/repeat-until where possible
-                          -- 4. Remove decompiler comments, add meaningful ones
-                          -- 5. Fix indentation and formatting
-                          
-                          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
+                        workValue2 = TaskPlayAnim
+                        workValue3 = arg1
+                        textValue = "missfinale_c2ig_11"
+                        playerPed = "pushcar_offcliff_m"
+                        playerPed2 = 2.0
+                        numberValue = -8.0
+                        numberValue2 = -1
+                        numberValue3 = 35
+                        numberValue4 = 0
+                        flag2 = false
+                        flag3 = false
+                        flag4 = false
+                        -- Beginner: Play an animation on a ped.
+                        workValue2(workValue3, textValue, playerPed, playerPed2, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4)
+                        workValue2 = RemoveAnimDict
+                        workValue3 = workValue
+                        workValue2(workValue3)
+                        workValue2 = Citizen
+                        workValue2 = workValue2.Wait
+                        workValue3 = 200
+                        workValue2(workValue3)
+                        workValue2 = vehicle
+                        workValue3 = true
+                        flag = workValue3
+                        workValue3 = Citizen
+                        workValue3 = workValue3.CreateThread
+                        function textValue()
+                          local waitCall, cmgCall, workValue4, flag7, numberValue6
                           while true do
-                            SHX0_3 = Citizen
-                            SHX0_3 = SHX0_3.Wait
-                            SHX1_3 = 5
-                            SHX0_3(SHX1_3)
-                            SHX0_3 = IsDisabledControlPressed
-                            SHX1_3 = 0
-                            SHX2_3 = SHX2_1.A
-                            SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                            if SHX0_3 then
-                              SHX0_3 = TaskVehicleTempAction
-                              SHX1_3 = CMG
-                              SHX1_3 = SHX1_3.getPlayerPed
-                              SHX1_3 = SHX1_3()
-                              SHX2_3 = SHX11_2
-                              SHX3_3 = 11
-                              SHX4_3 = 1000
-                              SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+                            waitCall = Citizen
+                            waitCall = waitCall.Wait
+                            cmgCall = 5
+                            waitCall(cmgCall)
+                            waitCall = IsDisabledControlPressed
+                            cmgCall = 0
+                            workValue4 = dataTable2.A
+                            waitCall = waitCall(cmgCall, workValue4)
+                            if waitCall then
+                              waitCall = TaskVehicleTempAction
+                              cmgCall = CMG
+                              cmgCall = cmgCall.getPlayerPed
+                              -- Beginner: result below is localPlayerPed.
+                              cmgCall = cmgCall()
+                              workValue4 = workValue2
+                              flag7 = 11
+                              numberValue6 = 1000
+                              waitCall(cmgCall, workValue4, flag7, numberValue6)
                             end
-                            SHX0_3 = IsDisabledControlPressed
-                            SHX1_3 = 0
-                            SHX2_3 = SHX2_1.D
-                            SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                            if SHX0_3 then
-                              SHX0_3 = TaskVehicleTempAction
-                              SHX1_3 = CMG
-                              SHX1_3 = SHX1_3.getPlayerPed
-                              SHX1_3 = SHX1_3()
-                              SHX2_3 = SHX11_2
-                              SHX3_3 = 10
-                              SHX4_3 = 1000
-                              SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+                            waitCall = IsDisabledControlPressed
+                            cmgCall = 0
+                            workValue4 = dataTable2.D
+                            waitCall = waitCall(cmgCall, workValue4)
+                            if waitCall then
+                              waitCall = TaskVehicleTempAction
+                              cmgCall = CMG
+                              cmgCall = cmgCall.getPlayerPed
+                              -- Beginner: result below is localPlayerPed.
+                              cmgCall = cmgCall()
+                              workValue4 = workValue2
+                              flag7 = 10
+                              numberValue6 = 1000
+                              waitCall(cmgCall, workValue4, flag7, numberValue6)
                             end
-                            SHX0_3 = SHX6_2
-                            if SHX0_3 then
-                              SHX0_3 = SetVehicleForwardSpeed
-                              SHX1_3 = SHX11_2
-                              SHX2_3 = -1.0
-                              SHX0_3(SHX1_3, SHX2_3)
+                            waitCall = numberValue7
+                            if waitCall then
+                              waitCall = SetVehicleForwardSpeed
+                              cmgCall = workValue2
+                              workValue4 = -1.0
+                              waitCall(cmgCall, workValue4)
                             else
-                              SHX0_3 = SetVehicleForwardSpeed
-                              SHX1_3 = SHX11_2
-                              SHX2_3 = 1.0
-                              SHX0_3(SHX1_3, SHX2_3)
+                              waitCall = SetVehicleForwardSpeed
+                              cmgCall = workValue2
+                              workValue4 = 1.0
+                              waitCall(cmgCall, workValue4)
                             end
-                            SHX0_3 = HasEntityCollidedWithAnything
-                            SHX1_3 = SHX11_2
-                            SHX0_3 = SHX0_3(SHX1_3)
-                            if SHX0_3 then
-                              SHX0_3 = SetVehicleOnGroundProperly
-                              SHX1_3 = SHX11_2
-                              SHX0_3(SHX1_3)
+                            waitCall = HasEntityCollidedWithAnything
+                            cmgCall = workValue2
+                            waitCall = waitCall(cmgCall)
+                            if waitCall then
+                              waitCall = SetVehicleOnGroundProperly
+                              cmgCall = workValue2
+                              waitCall(cmgCall)
                             end
-                            SHX0_3 = IsDisabledControlPressed
-                            SHX1_3 = 0
-                            SHX2_3 = SHX2_1.E
-                            SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                            if SHX0_3 then
-                              SHX0_3 = IsEntityInWater
-                              SHX1_3 = SHX11_2
-                              SHX0_3 = SHX0_3(SHX1_3)
-                              if not SHX0_3 then
-                                goto SHX_LABEL_80
+                            waitCall = IsDisabledControlPressed
+                            cmgCall = 0
+                            workValue4 = dataTable2.E
+                            waitCall = waitCall(cmgCall, workValue4)
+                            if waitCall then
+                              waitCall = IsEntityInWater
+                              cmgCall = workValue2
+                              waitCall = waitCall(cmgCall)
+                              if not waitCall then
+                                goto flow_label_80
                               end
                             end
-                            SHX0_3 = DetachEntity
-                            SHX1_3 = SHX0_2
-                            SHX2_3 = false
-                            SHX3_3 = false
-                            SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-                            SHX0_3 = StopAnimTask
-                            SHX1_3 = SHX0_2
-                            SHX2_3 = "missfinale_c2ig_11"
-                            SHX3_3 = "pushcar_offcliff_m"
-                            SHX4_3 = 2.0
-                            SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-                            SHX0_3 = FreezeEntityPosition
-                            SHX1_3 = SHX0_2
-                            SHX2_3 = false
-                            SHX0_3(SHX1_3, SHX2_3)
+                            waitCall = DetachEntity
+                            cmgCall = arg1
+                            workValue4 = false
+                            flag7 = false
+                            waitCall(cmgCall, workValue4, flag7)
+                            waitCall = StopAnimTask
+                            cmgCall = arg1
+                            workValue4 = "missfinale_c2ig_11"
+                            flag7 = "pushcar_offcliff_m"
+                            numberValue6 = 2.0
+                            waitCall(cmgCall, workValue4, flag7, numberValue6)
+                            waitCall = FreezeEntityPosition
+                            cmgCall = arg1
+                            workValue4 = false
+                            -- Beginner: Freeze or unfreeze an entity in place.
+                            waitCall(cmgCall, workValue4)
                             do break end
-                            -- [FIX IF ERROR] Move ::SHX_LABEL_80:: outside nested blocks until all 'goto SHX_LABEL_80' can see it
-                            ::SHX_LABEL_80::
+                            ::flow_label_80::
                           end
-                          SHX0_3 = false
-                          SHX1_1 = SHX0_3
+                          waitCall = false
+                          flag = waitCall
                         end
-                        SHX12_2(SHX13_2)
+                        -- Beginner: Start a separate FiveM thread so this code can run independently.
+                        workValue3(textValue)
                       end
                     end
                   end
@@ -571,8 +607,9 @@ function SHX4_1()
     end
   end
 end
-SHX5_1 = CMG
-SHX5_1 = SHX5_1.createThreadOnTick
-SHX6_1 = SHX4_1
-SHX7_1 = "Push Car"
-SHX5_1(SHX6_1, SHX7_1)
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.createThreadOnTick
+workValue7 = workValue6
+textValue2 = "Push Car"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall2(workValue7, textValue2)

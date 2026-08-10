@@ -1,1055 +1,691 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: ItemsBadge.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1
-SHX0_1 = RageUI
-SHX1_1 = {}
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = ""
-  SHX0_2.BadgeDictionary = "commonmenu"
-  return SHX0_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Items Badge
+    ============================
+
+    File: cmg/prod/client/rageui/menu/elements/ItemsBadge.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+]]
+local rageUiCall, dataTable, workValue
+rageUiCall = RageUI
+dataTable = {}
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = ""
+  arg1.BadgeDictionary = "commonmenu"
+  return arg1
 end
-SHX1_1.None = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "mp_medal_bronze"
-  return SHX0_2
+dataTable.None = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "mp_medal_bronze"
+  return arg1
 end
-SHX1_1.BronzeMedal = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "mp_medal_gold"
-  return SHX0_2
+dataTable.BronzeMedal = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "mp_medal_gold"
+  return arg1
 end
-SHX1_1.GoldMedal = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "medal_silver"
-  return SHX0_2
+dataTable.GoldMedal = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "medal_silver"
+  return arg1
 end
-SHX1_1.SilverMedal = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "mp_alerttriangle"
-  return SHX0_2
+dataTable.SilverMedal = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "mp_alerttriangle"
+  return arg1
 end
-SHX1_1.Alert = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  SHX1_2.BadgeTexture = "mp_hostcrown"
-  if SHX0_2 then
-    SHX2_2 = {}
-    SHX2_2.R = 0
-    SHX2_2.G = 0
-    SHX2_2.B = 0
-    SHX2_2.A = 255
-    if SHX2_2 then
-      goto SHX_LABEL_20
+dataTable.Alert = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  dataTable2.BadgeTexture = "mp_hostcrown"
+  if arg1 then
+    dataTable3 = {}
+    dataTable3.R = 0
+    dataTable3.G = 0
+    dataTable3.B = 0
+    dataTable3.A = 255
+    if dataTable3 then
+      goto flow_label_20
     end
   end
-  SHX2_2 = {}
-  SHX2_2.R = 255
-  SHX2_2.G = 255
-  SHX2_2.B = 255
-  SHX2_2.A = 255
-  -- [FIX IF ERROR] Move ::SHX_LABEL_20:: outside nested blocks until all 'goto SHX_LABEL_20' can see it
-  ::SHX_LABEL_20::
-  SHX1_2.BadgeColour = SHX2_2
-  return SHX1_2
+  dataTable3 = {}
+  dataTable3.R = 255
+  dataTable3.G = 255
+  dataTable3.B = 255
+  dataTable3.A = 255
+  ::flow_label_20::
+  dataTable2.BadgeColour = dataTable3
+  return dataTable2
 end
-SHX1_1.Crown = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_ammo_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Crown = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_ammo_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_ammo_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_ammo_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Ammo = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_armour_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Ammo = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_armour_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_armour_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_armour_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Armour = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_barber_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Armour = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_barber_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_barber_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_barber_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Barber = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_clothing_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Barber = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_clothing_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_clothing_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_clothing_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Clothes = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_franklin_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Clothes = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_franklin_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_franklin_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_franklin_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Franklin = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_garage_bike_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Franklin = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_garage_bike_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_garage_bike_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_garage_bike_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Bike = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_garage_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Bike = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_garage_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_garage_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_garage_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Car = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "shop_garage_icon_a"
-  return SHX0_2
+dataTable.Car = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "shop_garage_icon_a"
+  return arg1
 end
-SHX1_1.CarWhite = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "shop_garage_icon_b"
-  return SHX0_2
+dataTable.CarWhite = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "shop_garage_icon_b"
+  return arg1
 end
-SHX1_1.CarBlack = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_boat_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.CarBlack = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_boat_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_boat"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_boat"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Boat = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_heli_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Boat = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_heli_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_heli"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_heli"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Heli = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_plane_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Heli = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_plane_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_plane"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_plane"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Plane = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_boatpickup_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Plane = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_boatpickup_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_boatpickup"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_boatpickup"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.BoatPickup = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_keycard_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.BoatPickup = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_keycard_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_keycard"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_keycard"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Card = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_gunclub_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Card = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_gunclub_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_gunclub_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_gunclub_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Gun = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_health_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Gun = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_health_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_health_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_health_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Heart = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_makeup_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Heart = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_makeup_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_makeup_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_makeup_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Makeup = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_mask_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Makeup = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_mask_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_mask_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_mask_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Mask = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_michael_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Mask = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_michael_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_michael_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_michael_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Michael = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "shop_new_star"
-  return SHX0_2
+dataTable.Michael = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "shop_new_star"
+  return arg1
 end
-SHX1_1.Star = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_tattoos_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Star = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_tattoos_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_tattoos_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_tattoos_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Tattoo = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "shop_trevor_icon_b"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Tattoo = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "shop_trevor_icon_b"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "shop_trevor_icon_a"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  return SHX1_2
+  dataTable3 = "shop_trevor_icon_a"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  return dataTable2
 end
-SHX1_1.Trevor = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  SHX1_2.BadgeTexture = "shop_lock"
-  if SHX0_2 then
-    SHX2_2 = {}
-    SHX2_2.R = 0
-    SHX2_2.G = 0
-    SHX2_2.B = 0
-    SHX2_2.A = 255
-    if SHX2_2 then
-      goto SHX_LABEL_20
+dataTable.Trevor = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  dataTable2.BadgeTexture = "shop_lock"
+  if arg1 then
+    dataTable3 = {}
+    dataTable3.R = 0
+    dataTable3.G = 0
+    dataTable3.B = 0
+    dataTable3.A = 255
+    if dataTable3 then
+      goto flow_label_20
     end
   end
-  SHX2_2 = {}
-  SHX2_2.R = 255
-  SHX2_2.G = 255
-  SHX2_2.B = 255
-  SHX2_2.A = 255
-  -- [FIX IF ERROR] Move ::SHX_LABEL_20:: outside nested blocks until all 'goto SHX_LABEL_20' can see it
-  ::SHX_LABEL_20::
-  SHX1_2.BadgeColour = SHX2_2
-  return SHX1_2
+  dataTable3 = {}
+  dataTable3.R = 255
+  dataTable3.G = 255
+  dataTable3.B = 255
+  dataTable3.A = 255
+  ::flow_label_20::
+  dataTable2.BadgeColour = dataTable3
+  return dataTable2
 end
-SHX1_1.Lock = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  SHX1_2.BadgeTexture = "shop_tick_icon"
-  if SHX0_2 then
-    SHX2_2 = {}
-    SHX2_2.R = 0
-    SHX2_2.G = 0
-    SHX2_2.B = 0
-    SHX2_2.A = 255
-    if SHX2_2 then
-      goto SHX_LABEL_20
+dataTable.Lock = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  dataTable2.BadgeTexture = "shop_tick_icon"
+  if arg1 then
+    dataTable3 = {}
+    dataTable3.R = 0
+    dataTable3.G = 0
+    dataTable3.B = 0
+    dataTable3.A = 255
+    if dataTable3 then
+      goto flow_label_20
     end
   end
-  SHX2_2 = {}
-  SHX2_2.R = 255
-  SHX2_2.G = 255
-  SHX2_2.B = 255
-  SHX2_2.A = 255
-  -- [FIX IF ERROR] Move ::SHX_LABEL_20:: outside nested blocks until all 'goto SHX_LABEL_20' can see it
-  ::SHX_LABEL_20::
-  SHX1_2.BadgeColour = SHX2_2
-  return SHX1_2
+  dataTable3 = {}
+  dataTable3.R = 255
+  dataTable3.G = 255
+  dataTable3.B = 255
+  dataTable3.A = 255
+  ::flow_label_20::
+  dataTable2.BadgeColour = dataTable3
+  return dataTable2
 end
-SHX1_1.Tick = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_cuffkeys_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Tick = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_cuffkeys_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_cuffkeys"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_cuffkeys"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Key = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_coke_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Key = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_coke_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_coke"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_coke"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Coke = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_heroin_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Coke = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_heroin_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_heroin"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_heroin"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Heroin = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_meth_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Heroin = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_meth_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_meth"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_meth"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Meth = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_weed_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Meth = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_weed_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_weed"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_weed"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Weed = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_package_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Weed = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_package_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_package"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_package"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Package = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = {}
-  if SHX0_2 then
-    SHX2_2 = "mp_specitem_cash_black"
-    if SHX2_2 then
-      goto SHX_LABEL_9
+dataTable.Package = workValue
+function workValue(arg1)
+  local dataTable2, dataTable3
+  dataTable2 = {}
+  if arg1 then
+    dataTable3 = "mp_specitem_cash_black"
+    if dataTable3 then
+      goto flow_label_9
     end
   end
-  SHX2_2 = "mp_specitem_cash"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2.BadgeTexture = SHX2_2
-  SHX1_2.BadgeDictionary = "mpinventory"
-  return SHX1_2
+  dataTable3 = "mp_specitem_cash"
+  ::flow_label_9::
+  dataTable2.BadgeTexture = dataTable3
+  dataTable2.BadgeDictionary = "mpinventory"
+  return dataTable2
 end
-SHX1_1.Cash = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = {}
-  SHX1_2.BadgeTexture = "mp_anim_rp"
-  SHX1_2.BadgeDictionary = "mphud"
-  return SHX1_2
+dataTable.Cash = workValue
+function workValue(arg1)
+  local dataTable2
+  dataTable2 = {}
+  dataTable2.BadgeTexture = "mp_anim_rp"
+  dataTable2.BadgeDictionary = "mphud"
+  return dataTable2
 end
-SHX1_1.RP = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "mpgroundlogo_cops"
-  SHX0_2.BadgeDictionary = "3dtextures"
-  return SHX0_2
+dataTable.RP = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "mpgroundlogo_cops"
+  arg1.BadgeDictionary = "3dtextures"
+  return arg1
 end
-SHX1_1.LSPD = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "mpgroundlogo_vagos"
-  SHX0_2.BadgeDictionary = "3dtextures"
-  return SHX0_2
+dataTable.LSPD = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "mpgroundlogo_vagos"
+  arg1.BadgeDictionary = "3dtextures"
+  return arg1
 end
-SHX1_1.Vagos = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "mpgroundlogo_bikers"
-  SHX0_2.BadgeDictionary = "3dtextures"
-  return SHX0_2
+dataTable.Vagos = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "mpgroundlogo_bikers"
+  arg1.BadgeDictionary = "3dtextures"
+  return arg1
 end
-SHX1_1.Bikers = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "badbeat"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.Bikers = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "badbeat"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.Badbeat = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "cashingout"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.Badbeat = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "cashingout"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.CashingOut = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "fullhouse"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.CashingOut = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "fullhouse"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.FullHouse = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "highroller"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.FullHouse = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "highroller"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.HighRoller = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "housekeeping"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.HighRoller = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "housekeeping"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.HouseKeeping = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "loosecheng"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.HouseKeeping = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "loosecheng"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.LooseCheng = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "luckylucky"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.LooseCheng = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "luckylucky"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.LuckyLucky = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "playtowin"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.LuckyLucky = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "playtowin"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.PlayToWin = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "straightflush"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.PlayToWin = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "straightflush"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.StraightFlush = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "strongarmtactics"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.StraightFlush = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "strongarmtactics"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.StrongArmTactics = SHX2_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX0_2.BadgeTexture = "toppair"
-  SHX0_2.BadgeDictionary = "mpawardcasino"
-  return SHX0_2
+dataTable.StrongArmTactics = workValue
+function workValue()
+  local arg1, dataTable2
+  arg1 = {}
+  arg1.BadgeTexture = "toppair"
+  arg1.BadgeDictionary = "mpawardcasino"
+  return arg1
 end
-SHX1_1.TopPair = SHX2_1
-SHX0_1.BadgeStyle = SHX1_1
+dataTable.TopPair = workValue
+rageUiCall.BadgeStyle = dataTable

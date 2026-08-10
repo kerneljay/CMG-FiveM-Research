@@ -1,531 +1,495 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_cayoperico_loader.lua
+    ========================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1
-SHX0_1 = {}
-SHX1_1 = "xn_h4_islandx_terrain_01_slod"
-SHX2_1 = "xn_h4_islandx_terrain_02_slod"
-SHX3_1 = "xn_h4_islandx_terrain_04_slod"
-SHX4_1 = "xn_h4_islandx_terrain_05_slod"
-SHX5_1 = "xn_h4_islandx_terrain_06_slod"
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX0_1[5] = SHX5_1
-SHX1_1 = {}
-SHX2_1 = "xn_ap1_lod"
-SHX3_1 = "xn_apa_ch2_lod"
-SHX4_1 = "xn_apa_ch2_lod2"
-SHX5_1 = "xn_apa_ch2_lod3"
-SHX6_1 = "xn_apa_ch2_lod4"
-SHX7_1 = "xn_apa_ss1_lod"
-SHX8_1 = "xn_bh1_lod"
-SHX9_1 = "xn_bkr_id1_lod"
-SHX10_1 = "xn_ch1_lod"
-SHX11_1 = "xn_ch2_lod"
-SHX12_1 = "xn_ch2_lod2"
-SHX13_1 = "xn_ch2_lod3"
-SHX14_1 = "xn_ch2_lod4"
-SHX15_1 = "xn_ch3_lod"
-SHX16_1 = "xn_cs1_lod"
-SHX17_1 = "xn_cs1_lod2"
-SHX18_1 = "xn_cs1_lod3"
-SHX19_1 = "xn_cs2_lod"
-SHX20_1 = "xn_cs2_lod2"
-SHX21_1 = "xn_cs3_lod"
-SHX22_1 = "xn_cs4_lod"
-SHX23_1 = "xn_cs5_lod"
-SHX24_1 = "xn_cs6_lod"
-SHX25_1 = "xn_dt1_lod"
-SHX26_1 = "xn_hei_ap1_lod"
-SHX27_1 = "xn_hei_bh1_lod"
-SHX28_1 = "xn_hei_ch1_lod"
-SHX29_1 = "xn_hei_ch2_lod"
-SHX30_1 = "xn_hei_ch2_lod2"
-SHX31_1 = "xn_hei_ch2_lod3"
-SHX32_1 = "xn_hei_ch2_lod4"
-SHX33_1 = "xn_hei_ch3_lod"
-SHX34_1 = "xn_hei_cs1_lod"
-SHX35_1 = "xn_hei_cs1_lod2"
-SHX36_1 = "xn_hei_cs1_lod3"
-SHX37_1 = "xn_hei_cs2_lod"
-SHX38_1 = "xn_hei_cs2_lod2"
-SHX39_1 = "xn_hei_cs3_lod"
-SHX40_1 = "xn_hei_cs4_lod"
-SHX41_1 = "xn_hei_cs6_lod"
-SHX42_1 = "xn_hei_dt1_lod"
-SHX43_1 = "xn_hei_hw1_lod"
-SHX44_1 = "xn_hei_id1_lod"
-SHX45_1 = "xn_hei_id2_lod"
-SHX46_1 = "xn_hei_kt1_lod"
-SHX47_1 = "xn_hei_po1_lod"
-SHX48_1 = "xn_hei_sc1_lod"
-SHX49_1 = "xn_hei_sm_lod"
-SHX50_1 = "xn_hei_ss1_lod"
-SHX51_1 = "xn_hei_vb_lod"
-SHX1_1[1] = SHX2_1
-SHX1_1[2] = SHX3_1
-SHX1_1[3] = SHX4_1
-SHX1_1[4] = SHX5_1
-SHX1_1[5] = SHX6_1
-SHX1_1[6] = SHX7_1
-SHX1_1[7] = SHX8_1
-SHX1_1[8] = SHX9_1
-SHX1_1[9] = SHX10_1
-SHX1_1[10] = SHX11_1
-SHX1_1[11] = SHX12_1
-SHX1_1[12] = SHX13_1
-SHX1_1[13] = SHX14_1
-SHX1_1[14] = SHX15_1
-SHX1_1[15] = SHX16_1
-SHX1_1[16] = SHX17_1
-SHX1_1[17] = SHX18_1
-SHX1_1[18] = SHX19_1
-SHX1_1[19] = SHX20_1
-SHX1_1[20] = SHX21_1
-SHX1_1[21] = SHX22_1
-SHX1_1[22] = SHX23_1
-SHX1_1[23] = SHX24_1
-SHX1_1[24] = SHX25_1
-SHX1_1[25] = SHX26_1
-SHX1_1[26] = SHX27_1
-SHX1_1[27] = SHX28_1
-SHX1_1[28] = SHX29_1
-SHX1_1[29] = SHX30_1
-SHX1_1[30] = SHX31_1
-SHX1_1[31] = SHX32_1
-SHX1_1[32] = SHX33_1
-SHX1_1[33] = SHX34_1
-SHX1_1[34] = SHX35_1
-SHX1_1[35] = SHX36_1
-SHX1_1[36] = SHX37_1
-SHX1_1[37] = SHX38_1
-SHX1_1[38] = SHX39_1
-SHX1_1[39] = SHX40_1
-SHX1_1[40] = SHX41_1
-SHX1_1[41] = SHX42_1
-SHX1_1[42] = SHX43_1
-SHX1_1[43] = SHX44_1
-SHX1_1[44] = SHX45_1
-SHX1_1[45] = SHX46_1
-SHX1_1[46] = SHX47_1
-SHX1_1[47] = SHX48_1
-SHX1_1[48] = SHX49_1
-SHX1_1[49] = SHX50_1
-SHX1_1[50] = SHX51_1
-SHX2_1 = "xn_hw1_lod"
-SHX3_1 = "xn_id1_lod"
-SHX4_1 = "xn_id2_lod"
-SHX5_1 = "xn_kt1_lod"
-SHX6_1 = "xn_lr_cs4_lod"
-SHX7_1 = "xn_lr_cs6_lod"
-SHX8_1 = "xn_lr_id1_lod"
-SHX9_1 = "xn_lr_sc1_lod"
-SHX10_1 = "xn_po1_lod"
-SHX11_1 = "xn_sc1_lod"
-SHX12_1 = "xn_sm_lod"
-SHX13_1 = "xn_sp1_lod"
-SHX14_1 = "xn_ss1_lod"
-SHX15_1 = "xn_vb_lod"
-SHX1_1[51] = SHX2_1
-SHX1_1[52] = SHX3_1
-SHX1_1[53] = SHX4_1
-SHX1_1[54] = SHX5_1
-SHX1_1[55] = SHX6_1
-SHX1_1[56] = SHX7_1
-SHX1_1[57] = SHX8_1
-SHX1_1[58] = SHX9_1
-SHX1_1[59] = SHX10_1
-SHX1_1[60] = SHX11_1
-SHX1_1[61] = SHX12_1
-SHX1_1[62] = SHX13_1
-SHX1_1[63] = SHX14_1
-SHX1_1[64] = SHX15_1
-SHX2_1 = false
-SHX3_1 = CMG
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  return SHX0_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Cayoperico Loader
+    ==================================
+
+    File: cmg/prod/client/misc/cl_cayoperico_loader.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Example player-facing text in this file:
+      * PlayerOnDLCHeist4Island
+
+]]
+local dataTable, dataTable2, textValue21, cmgCall, textValue43, textValue46, textValue47, flag4, textValue48, textValue49, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue44, textValue45
+dataTable = {}
+dataTable2 = "xn_h4_islandx_terrain_01_slod"
+textValue21 = "xn_h4_islandx_terrain_02_slod"
+cmgCall = "xn_h4_islandx_terrain_04_slod"
+textValue43 = "xn_h4_islandx_terrain_05_slod"
+textValue46 = "xn_h4_islandx_terrain_06_slod"
+dataTable[1] = dataTable2
+dataTable[2] = textValue21
+dataTable[3] = cmgCall
+dataTable[4] = textValue43
+dataTable[5] = textValue46
+dataTable2 = {}
+textValue21 = "xn_ap1_lod"
+cmgCall = "xn_apa_ch2_lod"
+textValue43 = "xn_apa_ch2_lod2"
+textValue46 = "xn_apa_ch2_lod3"
+textValue47 = "xn_apa_ch2_lod4"
+flag4 = "xn_apa_ss1_lod"
+textValue48 = "xn_bh1_lod"
+textValue49 = "xn_bkr_id1_lod"
+textValue = "xn_ch1_lod"
+textValue2 = "xn_ch2_lod"
+textValue3 = "xn_ch2_lod2"
+textValue4 = "xn_ch2_lod3"
+textValue5 = "xn_ch2_lod4"
+textValue6 = "xn_ch3_lod"
+textValue7 = "xn_cs1_lod"
+textValue8 = "xn_cs1_lod2"
+textValue9 = "xn_cs1_lod3"
+textValue10 = "xn_cs2_lod"
+textValue11 = "xn_cs2_lod2"
+textValue12 = "xn_cs3_lod"
+textValue13 = "xn_cs4_lod"
+textValue14 = "xn_cs5_lod"
+textValue15 = "xn_cs6_lod"
+textValue16 = "xn_dt1_lod"
+textValue17 = "xn_hei_ap1_lod"
+textValue18 = "xn_hei_bh1_lod"
+textValue19 = "xn_hei_ch1_lod"
+textValue20 = "xn_hei_ch2_lod"
+textValue23 = "xn_hei_ch2_lod2"
+textValue24 = "xn_hei_ch2_lod3"
+textValue25 = "xn_hei_ch2_lod4"
+textValue26 = "xn_hei_ch3_lod"
+textValue27 = "xn_hei_cs1_lod"
+textValue28 = "xn_hei_cs1_lod2"
+textValue29 = "xn_hei_cs1_lod3"
+textValue30 = "xn_hei_cs2_lod"
+textValue31 = "xn_hei_cs2_lod2"
+textValue32 = "xn_hei_cs3_lod"
+textValue33 = "xn_hei_cs4_lod"
+textValue34 = "xn_hei_cs6_lod"
+textValue35 = "xn_hei_dt1_lod"
+textValue36 = "xn_hei_hw1_lod"
+textValue37 = "xn_hei_id1_lod"
+textValue38 = "xn_hei_id2_lod"
+textValue39 = "xn_hei_kt1_lod"
+textValue40 = "xn_hei_po1_lod"
+textValue41 = "xn_hei_sc1_lod"
+textValue42 = "xn_hei_sm_lod"
+textValue44 = "xn_hei_ss1_lod"
+textValue45 = "xn_hei_vb_lod"
+dataTable2[1] = textValue21
+dataTable2[2] = cmgCall
+dataTable2[3] = textValue43
+dataTable2[4] = textValue46
+dataTable2[5] = textValue47
+dataTable2[6] = flag4
+dataTable2[7] = textValue48
+dataTable2[8] = textValue49
+dataTable2[9] = textValue
+dataTable2[10] = textValue2
+dataTable2[11] = textValue3
+dataTable2[12] = textValue4
+dataTable2[13] = textValue5
+dataTable2[14] = textValue6
+dataTable2[15] = textValue7
+dataTable2[16] = textValue8
+dataTable2[17] = textValue9
+dataTable2[18] = textValue10
+dataTable2[19] = textValue11
+dataTable2[20] = textValue12
+dataTable2[21] = textValue13
+dataTable2[22] = textValue14
+dataTable2[23] = textValue15
+dataTable2[24] = textValue16
+dataTable2[25] = textValue17
+dataTable2[26] = textValue18
+dataTable2[27] = textValue19
+dataTable2[28] = textValue20
+dataTable2[29] = textValue23
+dataTable2[30] = textValue24
+dataTable2[31] = textValue25
+dataTable2[32] = textValue26
+dataTable2[33] = textValue27
+dataTable2[34] = textValue28
+dataTable2[35] = textValue29
+dataTable2[36] = textValue30
+dataTable2[37] = textValue31
+dataTable2[38] = textValue32
+dataTable2[39] = textValue33
+dataTable2[40] = textValue34
+dataTable2[41] = textValue35
+dataTable2[42] = textValue36
+dataTable2[43] = textValue37
+dataTable2[44] = textValue38
+dataTable2[45] = textValue39
+dataTable2[46] = textValue40
+dataTable2[47] = textValue41
+dataTable2[48] = textValue42
+dataTable2[49] = textValue44
+dataTable2[50] = textValue45
+textValue21 = "xn_hw1_lod"
+cmgCall = "xn_id1_lod"
+textValue43 = "xn_id2_lod"
+textValue46 = "xn_kt1_lod"
+textValue47 = "xn_lr_cs4_lod"
+flag4 = "xn_lr_cs6_lod"
+textValue48 = "xn_lr_id1_lod"
+textValue49 = "xn_lr_sc1_lod"
+textValue = "xn_po1_lod"
+textValue2 = "xn_sc1_lod"
+textValue3 = "xn_sm_lod"
+textValue4 = "xn_sp1_lod"
+textValue5 = "xn_ss1_lod"
+textValue6 = "xn_vb_lod"
+dataTable2[51] = textValue21
+dataTable2[52] = cmgCall
+dataTable2[53] = textValue43
+dataTable2[54] = textValue46
+dataTable2[55] = textValue47
+dataTable2[56] = flag4
+dataTable2[57] = textValue48
+dataTable2[58] = textValue49
+dataTable2[59] = textValue
+dataTable2[60] = textValue2
+dataTable2[61] = textValue3
+dataTable2[62] = textValue4
+dataTable2[63] = textValue5
+dataTable2[64] = textValue6
+textValue21 = false
+cmgCall = CMG
+function textValue43()
+  local arg1, flag
+  arg1 = textValue21
+  return arg1
 end
-SHX3_1.isInCayoPerico = SHX4_1
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = DisableCayoPerico
-    SHX1_2 = false
-    SHX0_2(SHX1_2)
+cmgCall.isInCayoPerico = textValue43
+function cmgCall()
+  local arg1, flag, textValue22
+  arg1 = textValue21
+  if arg1 then
+    arg1 = DisableCayoPerico
+    flag = false
+    arg1(flag)
   else
-    SHX0_2 = EnableCayoPerico
-    SHX1_2 = false
-    SHX0_2(SHX1_2)
+    arg1 = EnableCayoPerico
+    flag = false
+    arg1(flag)
   end
-  SHX0_2 = Wait
-  SHX1_2 = 1000
-  SHX0_2(SHX1_2)
-  SHX0_2 = DoScreenFadeIn
-  SHX1_2 = 2000
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX2_1
-  SHX0_2 = not SHX0_2
-  SHX2_1 = SHX0_2
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "IsInCayoPerico"
-  SHX2_2 = SHX2_1
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "IsInCayoPerico"
-  SHX2_2 = SHX2_1
-  SHX0_2(SHX1_2, SHX2_2)
+  arg1 = Wait
+  flag = 1000
+  arg1(flag)
+  arg1 = DoScreenFadeIn
+  flag = 2000
+  arg1(flag)
+  arg1 = textValue21
+  arg1 = not arg1
+  textValue21 = arg1
+  arg1 = TriggerEvent
+  flag = "IsInCayoPerico"
+  textValue22 = textValue21
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "IsInCayoPerico".
+  arg1(flag, textValue22)
+  arg1 = TriggerServerEvent
+  flag = "IsInCayoPerico"
+  textValue22 = textValue21
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "IsInCayoPerico".
+  arg1(flag, textValue22)
 end
-TogglePerico = SHX3_1
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = SetIslandHopperEnabled
-  SHX2_2 = "HeistIsland"
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetAiGlobalPathNodesType
-  SHX2_2 = 1
-  SHX1_2(SHX2_2)
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.InvokeNative
-  SHX2_2 = 6014969029414136234
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetScenarioGroupEnabled
-  SHX2_2 = "Heist_Island_Peds"
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetAudioFlag
-  SHX2_2 = "PlayerOnDLCHeist4Island"
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetAmbientZoneListStatePersistent
-  SHX2_2 = "AZL_DLC_Hei4_Island_Zones"
-  SHX3_2 = true
-  SHX4_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SetAmbientZoneListStatePersistent
-  SHX2_2 = "AZL_DLC_Hei4_Island_Disabled_Zones"
-  SHX3_2 = false
-  SHX4_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = ipairs
-  SHX2_2 = SHX1_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = RequestIpl
-    SHX8_2 = SHX6_2
-    SHX7_2(SHX8_2)
+TogglePerico = cmgCall
+function cmgCall(arg1)
+  local flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3, workValue4
+  flag = SetIslandHopperEnabled
+  textValue22 = "HeistIsland"
+  flag2 = true
+  flag(textValue22, flag2)
+  flag = SetAiGlobalPathNodesType
+  textValue22 = 1
+  flag(textValue22)
+  flag = Citizen
+  flag = flag.InvokeNative
+  textValue22 = 6014969029414136234
+  flag2 = false
+  flag(textValue22, flag2)
+  flag = SetScenarioGroupEnabled
+  textValue22 = "Heist_Island_Peds"
+  flag2 = true
+  flag(textValue22, flag2)
+  flag = SetAudioFlag
+  textValue22 = "PlayerOnDLCHeist4Island"
+  flag2 = true
+  flag(textValue22, flag2)
+  flag = SetAmbientZoneListStatePersistent
+  textValue22 = "AZL_DLC_Hei4_Island_Zones"
+  flag2 = true
+  flag3 = true
+  flag(textValue22, flag2, flag3)
+  flag = SetAmbientZoneListStatePersistent
+  textValue22 = "AZL_DLC_Hei4_Island_Disabled_Zones"
+  flag2 = false
+  flag3 = true
+  flag(textValue22, flag2, flag3)
+  flag = ipairs
+  textValue22 = dataTable2
+  flag, textValue22, flag2, flag3 = flag(textValue22)
+  for numberValue, numberValue2 in flag, textValue22, flag2, flag3 do
+    workValue3 = RequestIpl
+    workValue4 = numberValue2
+    workValue3(workValue4)
   end
-  SHX1_2 = ipairs
-  SHX2_2 = SHX0_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = RemoveIpl
-    SHX8_2 = SHX6_2
-    SHX7_2(SHX8_2)
+  flag = ipairs
+  textValue22 = dataTable
+  flag, textValue22, flag2, flag3 = flag(textValue22)
+  for numberValue, numberValue2 in flag, textValue22, flag2, flag3 do
+    workValue3 = RemoveIpl
+    workValue4 = numberValue2
+    workValue3(workValue4)
   end
-  if SHX0_2 then
-    SHX1_2 = true
-    SHX2_1 = SHX1_2
-    SHX1_2 = TriggerEvent
-    SHX2_2 = "IsInCayoPerico"
-    SHX3_2 = true
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "IsInCayoPerico"
-    SHX3_2 = true
-    SHX1_2(SHX2_2, SHX3_2)
+  if arg1 then
+    flag = true
+    textValue21 = flag
+    flag = TriggerEvent
+    textValue22 = "IsInCayoPerico"
+    flag2 = true
+    -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "IsInCayoPerico".
+    flag(textValue22, flag2)
+    flag = TriggerServerEvent
+    textValue22 = "IsInCayoPerico"
+    flag2 = true
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "IsInCayoPerico".
+    flag(textValue22, flag2)
   end
 end
-EnableCayoPerico = SHX3_1
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = SetIslandHopperEnabled
-  SHX2_2 = "HeistIsland"
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetAiGlobalPathNodesType
-  SHX2_2 = 0
-  SHX1_2(SHX2_2)
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.InvokeNative
-  SHX2_2 = 6014969029414136234
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetScenarioGroupEnabled
-  SHX2_2 = "Heist_Island_Peds"
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetAudioFlag
-  SHX2_2 = "PlayerOnDLCHeist4Island"
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetAmbientZoneListStatePersistent
-  SHX2_2 = "AZL_DLC_Hei4_Island_Zones"
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SetAmbientZoneListStatePersistent
-  SHX2_2 = "AZL_DLC_Hei4_Island_Disabled_Zones"
-  SHX3_2 = true
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = ipairs
-  SHX2_2 = SHX0_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = RequestIpl
-    SHX8_2 = SHX6_2
-    SHX7_2(SHX8_2)
+EnableCayoPerico = cmgCall
+function cmgCall(arg1)
+  local flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3, workValue4
+  flag = SetIslandHopperEnabled
+  textValue22 = "HeistIsland"
+  flag2 = false
+  flag(textValue22, flag2)
+  flag = SetAiGlobalPathNodesType
+  textValue22 = 0
+  flag(textValue22)
+  flag = Citizen
+  flag = flag.InvokeNative
+  textValue22 = 6014969029414136234
+  flag2 = true
+  flag(textValue22, flag2)
+  flag = SetScenarioGroupEnabled
+  textValue22 = "Heist_Island_Peds"
+  flag2 = false
+  flag(textValue22, flag2)
+  flag = SetAudioFlag
+  textValue22 = "PlayerOnDLCHeist4Island"
+  flag2 = false
+  flag(textValue22, flag2)
+  flag = SetAmbientZoneListStatePersistent
+  textValue22 = "AZL_DLC_Hei4_Island_Zones"
+  flag2 = false
+  flag3 = false
+  flag(textValue22, flag2, flag3)
+  flag = SetAmbientZoneListStatePersistent
+  textValue22 = "AZL_DLC_Hei4_Island_Disabled_Zones"
+  flag2 = true
+  flag3 = false
+  flag(textValue22, flag2, flag3)
+  flag = ipairs
+  textValue22 = dataTable
+  flag, textValue22, flag2, flag3 = flag(textValue22)
+  for numberValue, numberValue2 in flag, textValue22, flag2, flag3 do
+    workValue3 = RequestIpl
+    workValue4 = numberValue2
+    workValue3(workValue4)
   end
-  SHX1_2 = ipairs
-  SHX2_2 = SHX1_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = RemoveIpl
-    SHX8_2 = SHX6_2
-    SHX7_2(SHX8_2)
+  flag = ipairs
+  textValue22 = dataTable2
+  flag, textValue22, flag2, flag3 = flag(textValue22)
+  for numberValue, numberValue2 in flag, textValue22, flag2, flag3 do
+    workValue3 = RemoveIpl
+    workValue4 = numberValue2
+    workValue3(workValue4)
   end
-  if SHX0_2 then
-    SHX1_2 = false
-    SHX2_1 = SHX1_2
-    SHX1_2 = TriggerEvent
-    SHX2_2 = "IsInCayoPerico"
-    SHX3_2 = false
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "IsInCayoPerico"
-    SHX3_2 = false
-    SHX1_2(SHX2_2, SHX3_2)
+  if arg1 then
+    flag = false
+    textValue21 = flag
+    flag = TriggerEvent
+    textValue22 = "IsInCayoPerico"
+    flag2 = false
+    -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "IsInCayoPerico".
+    flag(textValue22, flag2)
+    flag = TriggerServerEvent
+    textValue22 = "IsInCayoPerico"
+    flag2 = false
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "IsInCayoPerico".
+    flag(textValue22, flag2)
   end
 end
-DisableCayoPerico = SHX3_1
-SHX3_1 = Citizen
-SHX3_1 = SHX3_1.CreateThread
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.createArea
-  SHX1_2 = "cayo_island"
-  SHX2_2 = vector3
-  SHX3_2 = 5218.9399414062
-  SHX4_2 = -5393.2563476562
-  SHX5_2 = 67.318588256836
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = 2142.0
-  SHX4_2 = 1400.0
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = TogglePerico
-    SHX0_3()
+DisableCayoPerico = cmgCall
+cmgCall = Citizen
+cmgCall = cmgCall.CreateThread
+function textValue43()
+  local arg1, flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3
+  arg1 = CMG
+  arg1 = arg1.createArea
+  flag = "cayo_island"
+  textValue22 = vector3
+  flag2 = 5218.9399414062
+  flag3 = -5393.2563476562
+  numberValue = 67.318588256836
+  textValue22 = textValue22(flag2, flag3, numberValue)
+  flag2 = 2142.0
+  flag3 = 1400.0
+  function numberValue()
+    local workValue, workValue2
+    workValue = TogglePerico
+    workValue()
   end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = TogglePerico
-    SHX0_3()
+  function numberValue2()
+    local workValue, workValue2
+    workValue = TogglePerico
+    workValue()
   end
-  function SHX7_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function workValue3()
+    local workValue, workValue2
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
+  -- Beginner: Create an interaction area around a world position.
+  arg1(flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3)
 end
-SHX3_1(SHX4_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "EnableCayoPerico"
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = EnableCayoPerico
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall(textValue43)
+cmgCall = RegisterNetEvent
+textValue43 = "EnableCayoPerico"
+-- Beginner: this function handles network event "EnableCayoPerico".
+function textValue46()
+  local arg1, flag
+  arg1 = EnableCayoPerico
+  flag = true
+  arg1(flag)
 end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "DisableCayoPerico"
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = DisableCayoPerico
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "EnableCayoPerico".
+cmgCall(textValue43, textValue46)
+cmgCall = RegisterNetEvent
+textValue43 = "DisableCayoPerico"
+-- Beginner: this function handles network event "DisableCayoPerico".
+function textValue46()
+  local arg1, flag
+  arg1 = DisableCayoPerico
+  flag = true
+  arg1(flag)
 end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = Citizen
-SHX5_1 = SHX5_1.CreateThread
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "DisableCayoPerico".
+cmgCall(textValue43, textValue46)
+cmgCall = false
+textValue43 = false
+textValue46 = Citizen
+textValue46 = textValue46.CreateThread
+function textValue47()
+  local arg1, flag, textValue22, flag2, flag3
   while true do
-    SHX0_2 = GetEntityCoords
-    SHX1_2 = PlayerPedId
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2()
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = vector3
-    SHX2_2 = 4858.0
-    SHX3_2 = -5171.0
-    SHX4_2 = 2.0
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX0_2 = SHX0_2 - SHX1_2
-    SHX0_2 = #SHX0_2
-    SHX1_2 = 2200.0
-    SHX0_2 = SHX0_2 < SHX1_2
-    SHX1_2 = SHX3_1
-    if SHX1_2 ~= SHX0_2 then
-      SHX3_1 = SHX0_2
-      SHX4_1 = SHX0_2
-      SHX1_2 = SetToggleMinimapHeistIsland
-      SHX2_2 = SHX3_1
-      SHX1_2(SHX2_2)
+    arg1 = GetEntityCoords
+    flag = PlayerPedId
+    flag, textValue22, flag2, flag3 = flag()
+    -- Beginner: result below is entityCoords.
+    arg1 = arg1(flag, textValue22, flag2, flag3)
+    flag = vector3
+    textValue22 = 4858.0
+    flag2 = -5171.0
+    flag3 = 2.0
+    flag = flag(textValue22, flag2, flag3)
+    arg1 = arg1 - flag
+    arg1 = #arg1
+    flag = 2200.0
+    arg1 = arg1 < flag
+    flag = cmgCall
+    if flag ~= arg1 then
+      cmgCall = arg1
+      textValue43 = arg1
+      flag = SetToggleMinimapHeistIsland
+      textValue22 = cmgCall
+      flag(textValue22)
     end
-    SHX1_2 = Wait
-    SHX2_2 = 5000
-    SHX1_2(SHX2_2)
+    flag = Wait
+    textValue22 = 5000
+    flag(textValue22)
   end
 end
-SHX5_1(SHX6_1)
-SHX5_1 = CreateThread
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+textValue46(textValue47)
+textValue46 = CreateThread
+-- Beginner: this function is the body of a background FiveM thread.
+function textValue47()
+  local arg1, flag, textValue22, flag2, flag3, numberValue, numberValue2
   while true do
-    SHX0_2 = 500
-    SHX1_2 = IsPauseMenuActive
-    SHX1_2 = SHX1_2()
-    if SHX1_2 then
-      SHX1_2 = IsMinimapInInterior
-      SHX1_2 = SHX1_2()
-      if not SHX1_2 then
-        SHX1_2 = SHX4_1
-        if SHX1_2 then
-          SHX1_2 = false
-          SHX4_1 = SHX1_2
-          SHX1_2 = SetToggleMinimapHeistIsland
-          SHX2_2 = false
-          SHX1_2(SHX2_2)
+    arg1 = 500
+    flag = IsPauseMenuActive
+    flag = flag()
+    if flag then
+      flag = IsMinimapInInterior
+      flag = flag()
+      if not flag then
+        flag = textValue43
+        if flag then
+          flag = false
+          textValue43 = flag
+          flag = SetToggleMinimapHeistIsland
+          textValue22 = false
+          flag(textValue22)
         end
-        SHX1_2 = SetRadarAsExteriorThisFrame
-        SHX1_2()
-        SHX1_2 = SetRadarAsInteriorThisFrame
-        SHX2_2 = -1062664944
-        SHX3_2 = 4700.0
-        SHX4_2 = -5145.0
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = 0
+        flag = SetRadarAsExteriorThisFrame
+        flag()
+        flag = SetRadarAsInteriorThisFrame
+        textValue22 = -1062664944
+        flag2 = 4700.0
+        flag3 = -5145.0
+        numberValue = 0
+        numberValue2 = 0
+        flag(textValue22, flag2, flag3, numberValue, numberValue2)
+        arg1 = 0
     end
     else
-      SHX1_2 = SHX4_1
-      if not SHX1_2 then
-        SHX1_2 = SHX3_1
-        if SHX1_2 then
-          SHX1_2 = true
-          SHX4_1 = SHX1_2
-          SHX1_2 = SetToggleMinimapHeistIsland
-          SHX2_2 = true
-          SHX1_2(SHX2_2)
+      flag = textValue43
+      if not flag then
+        flag = cmgCall
+        if flag then
+          flag = true
+          textValue43 = flag
+          flag = SetToggleMinimapHeistIsland
+          textValue22 = true
+          flag(textValue22)
         end
       end
     end
-    SHX1_2 = Wait
-    SHX2_2 = SHX0_2
-    SHX1_2(SHX2_2)
+    flag = Wait
+    textValue22 = arg1
+    flag(textValue22)
   end
 end
-SHX5_1(SHX6_1)
-SHX5_1 = Citizen
-SHX5_1 = SHX5_1.InvokeNative
-SHX6_1 = 3604191389194645194
-SHX7_1 = false
-SHX5_1(SHX6_1, SHX7_1)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+textValue46(textValue47)
+textValue46 = Citizen
+textValue46 = textValue46.InvokeNative
+textValue47 = 3604191389194645194
+flag4 = false
+textValue46(textValue47, flag4)

@@ -1,1527 +1,1483 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_scubadiving.lua
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_scubadiving"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = 0
-SHX3_1 = false
-SHX4_1 = ""
-SHX5_1 = 0
-SHX6_1 = nil
-SHX7_1 = false
-SHX8_1 = RMenu
-SHX8_1 = SHX8_1.Add
-SHX9_1 = "scubadiving"
-SHX10_1 = "main"
-SHX11_1 = RageUI
-SHX11_1 = SHX11_1.CreateMenu
-SHX12_1 = ""
-SHX13_1 = ""
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.getRageUIMenuWidth
-SHX14_1 = SHX14_1()
-SHX15_1 = CMG
-SHX15_1 = SHX15_1.getRageUIMenuHeight
-SHX15_1 = SHX15_1()
-SHX16_1 = "cmg_scubajob"
-SHX17_1 = "cmg_scubajob"
-SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1)
-SHX8_1(SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1)
-SHX8_1 = RMenu
-SHX9_1 = SHX8_1
-SHX8_1 = SHX8_1.Get
-SHX10_1 = "scubadiving"
-SHX11_1 = "main"
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX9_1 = SHX8_1
-SHX8_1 = SHX8_1.SetSubtitle
-SHX10_1 = "~b~Scuba Diving"
-SHX8_1(SHX9_1, SHX10_1)
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.CloseAll
-  SHX0_2()
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "scubadiving"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Scubadiving
+    ============================
+
+    File: cmg/prod/client/jobs/cl_scubadiving.lua
+    Purpose: This file contains job gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_scubadiving
+
+    Network/hash identifiers found: 6
+      They are intentionally left unchanged because matching server code may use them.
+      * 72d27dd1d1
+      * e370842c85
+      * 64b26a9931
+      * 82c23c96fb
+      * 15464d9482
+      * 78dddcfb46
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+    Example player-facing text in this file:
+      * Request Job
+      * Boat_Dive_Enter_Player
+      * Boat_Dive_Idle_Player
+      * Press ~INPUT_PICKUP~ to start Scuba Diving.
+      * Boat_Dive_Exit_Player
+
+]]
+local cmgCall, dataTable2, numberValue5, flag13, textValue6, numberValue9, workValue4, flag16, workValue5, textValue11, eventHandlerRegistration, rageUiCall, textValue, textValue2, rageUiCall2, rageUiCall3, textValue3, textValue4, numberValue4
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+dataTable2 = "cfg/cfg_scubadiving"
+-- Beginner: result below is config.
+cmgCall = cmgCall(dataTable2)
+dataTable2 = {}
+numberValue5 = 0
+flag13 = false
+textValue6 = ""
+numberValue9 = 0
+workValue4 = nil
+flag16 = false
+workValue5 = RMenu
+workValue5 = workValue5.Add
+textValue11 = "scubadiving"
+eventHandlerRegistration = "main"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue = ""
+textValue2 = ""
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue3 = "cmg_scubajob"
+textValue4 = "cmg_scubajob"
+rageUiCall, textValue, textValue2, rageUiCall2, rageUiCall3, textValue3, textValue4, numberValue4 = rageUiCall(textValue, textValue2, rageUiCall2, rageUiCall3, textValue3, textValue4)
+workValue5(textValue11, eventHandlerRegistration, rageUiCall, textValue, textValue2, rageUiCall2, rageUiCall3, textValue3, textValue4, numberValue4)
+workValue5 = RMenu
+textValue11 = workValue5
+workValue5 = workValue5.Get
+eventHandlerRegistration = "scubadiving"
+rageUiCall = "main"
+-- Beginner: result below is menu.
+workValue5 = workValue5(textValue11, eventHandlerRegistration, rageUiCall)
+textValue11 = workValue5
+workValue5 = workValue5.SetSubtitle
+eventHandlerRegistration = "~b~Scuba Diving"
+workValue5(textValue11, eventHandlerRegistration)
+function workValue5()
+  local arg1, arg2, flag12, textValue5, textValue7
+  arg1 = RageUI
+  arg1 = arg1.CloseAll
+  arg1()
+  arg1 = RageUI
+  arg1 = arg1.Visible
+  arg2 = RMenu
+  flag12 = arg2
+  arg2 = arg2.Get
+  textValue5 = "scubadiving"
+  textValue7 = "main"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag12, textValue5, textValue7)
+  flag12 = true
+  arg1(arg2, flag12)
 end
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.CloseAll
-  SHX0_2()
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "scubadiving"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
+function textValue11()
+  local arg1, arg2, flag12, textValue5, textValue7
+  arg1 = RageUI
+  arg1 = arg1.CloseAll
+  arg1()
+  arg1 = RageUI
+  arg1 = arg1.Visible
+  arg2 = RMenu
+  flag12 = arg2
+  arg2 = arg2.Get
+  textValue5 = "scubadiving"
+  textValue7 = "main"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag12, textValue5, textValue7)
+  flag12 = false
+  arg1(arg2, flag12)
 end
-SHX10_1 = AddEventHandler
-SHX11_1 = "CMG:onClientSpawn"
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  if SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.createDynamicPed
-    SHX3_2 = SHX0_1.jobPedModel
-    SHX4_2 = SHX0_1.jobPedPosition
-    SHX5_2 = SHX0_1.jobPedHeading
-    SHX6_2 = true
-    SHX7_2 = "mini@strip_club@idles@bouncer@base"
-    SHX8_2 = "base"
-    SHX9_2 = 100
-    SHX10_2 = false
-    function SHX11_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3
-      SHX1_3 = math
-      SHX1_3 = SHX1_3.random
-      SHX2_3 = 1
-      SHX3_3 = 15
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      SHX2_3 = SetPedComponentVariation
-      SHX3_3 = SHX0_3
-      SHX4_3 = 11
-      SHX5_3 = 243
-      SHX6_3 = SHX1_3
-      SHX7_3 = 0
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = SetPedComponentVariation
-      SHX3_3 = SHX0_3
-      SHX4_3 = 3
-      SHX5_3 = 123
-      SHX6_3 = 0
-      SHX7_3 = 0
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = SetPedComponentVariation
-      SHX3_3 = SHX0_3
-      SHX4_3 = 4
-      SHX5_3 = 94
-      SHX6_3 = SHX1_3
-      SHX7_3 = 0
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = SetPedComponentVariation
-      SHX3_3 = SHX0_3
-      SHX4_3 = 6
-      SHX5_3 = 67
-      SHX6_3 = 1
-      SHX7_3 = 0
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = SetPedComponentVariation
-      SHX3_3 = SHX0_3
-      SHX4_3 = 7
-      SHX5_3 = 40
-      SHX6_3 = 1
-      SHX7_3 = 0
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = SetPedComponentVariation
-      SHX3_3 = SHX0_3
-      SHX4_3 = 8
-      SHX5_3 = 15
-      SHX6_3 = 0
-      SHX7_3 = 1
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = SetPedScubaGearVariation
-      SHX3_3 = SHX0_3
-      SHX2_3(SHX3_3)
+eventHandlerRegistration = AddEventHandler
+rageUiCall = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function textValue(arg1, arg2)
+  local flag12, textValue5, textValue7, workValue2, flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4
+  if arg2 then
+    flag12 = CMG
+    flag12 = flag12.createDynamicPed
+    textValue5 = cmgCall.jobPedModel
+    textValue7 = cmgCall.jobPedPosition
+    workValue2 = cmgCall.jobPedHeading
+    flag14 = true
+    textValue9 = "mini@strip_club@idles@bouncer@base"
+    textValue10 = "base"
+    numberValue13 = 100
+    flag = false
+    function numberValue(arg12)
+      local mathHelper, numberValue6, numberValue7, numberValue8, numberValue10, numberValue11, numberValue12
+      mathHelper = math
+      mathHelper = mathHelper.random
+      numberValue6 = 1
+      numberValue7 = 15
+      mathHelper = mathHelper(numberValue6, numberValue7)
+      numberValue6 = SetPedComponentVariation
+      numberValue7 = arg12
+      numberValue8 = 11
+      numberValue10 = 243
+      numberValue11 = mathHelper
+      numberValue12 = 0
+      numberValue6(numberValue7, numberValue8, numberValue10, numberValue11, numberValue12)
+      numberValue6 = SetPedComponentVariation
+      numberValue7 = arg12
+      numberValue8 = 3
+      numberValue10 = 123
+      numberValue11 = 0
+      numberValue12 = 0
+      numberValue6(numberValue7, numberValue8, numberValue10, numberValue11, numberValue12)
+      numberValue6 = SetPedComponentVariation
+      numberValue7 = arg12
+      numberValue8 = 4
+      numberValue10 = 94
+      numberValue11 = mathHelper
+      numberValue12 = 0
+      numberValue6(numberValue7, numberValue8, numberValue10, numberValue11, numberValue12)
+      numberValue6 = SetPedComponentVariation
+      numberValue7 = arg12
+      numberValue8 = 6
+      numberValue10 = 67
+      numberValue11 = 1
+      numberValue12 = 0
+      numberValue6(numberValue7, numberValue8, numberValue10, numberValue11, numberValue12)
+      numberValue6 = SetPedComponentVariation
+      numberValue7 = arg12
+      numberValue8 = 7
+      numberValue10 = 40
+      numberValue11 = 1
+      numberValue12 = 0
+      numberValue6(numberValue7, numberValue8, numberValue10, numberValue11, numberValue12)
+      numberValue6 = SetPedComponentVariation
+      numberValue7 = arg12
+      numberValue8 = 8
+      numberValue10 = 15
+      numberValue11 = 0
+      numberValue12 = 1
+      numberValue6(numberValue7, numberValue8, numberValue10, numberValue11, numberValue12)
+      numberValue6 = SetPedScubaGearVariation
+      numberValue7 = arg12
+      numberValue6(numberValue7)
     end
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX2_2 = tCMG
-    SHX2_2 = SHX2_2.addBlip
-    SHX3_2 = SHX0_1.jobPosition
-    SHX3_2 = SHX3_2.x
-    SHX4_2 = SHX0_1.jobPosition
-    SHX4_2 = SHX4_2.y
-    SHX5_2 = SHX0_1.jobPosition
-    SHX5_2 = SHX5_2.z
-    SHX6_2 = 308
-    SHX7_2 = 0
-    SHX8_2 = "Scuba Diving"
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX2_2 = tCMG
-    SHX2_2 = SHX2_2.addMarker
-    SHX3_2 = SHX0_1.jobPosition
-    SHX3_2 = SHX3_2.x
-    SHX4_2 = SHX0_1.jobPosition
-    SHX4_2 = SHX4_2.y
-    SHX5_2 = SHX0_1.jobPosition
-    SHX5_2 = SHX5_2.z
-    SHX5_2 = SHX5_2 - 0.2
-    SHX6_2 = 0.5
-    SHX7_2 = 0.5
-    SHX8_2 = 0.5
-    SHX9_2 = 0
-    SHX10_2 = 50
-    SHX11_2 = 255
-    SHX12_2 = 170
-    SHX13_2 = 50
-    SHX14_2 = 20
-    SHX15_2 = false
-    SHX16_2 = false
-    SHX17_2 = true
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX8_1
-      SHX0_3()
+    flag12(textValue5, textValue7, workValue2, flag14, textValue9, textValue10, numberValue13, flag, numberValue)
+    flag12 = tCMG
+    flag12 = flag12.addBlip
+    textValue5 = cmgCall.jobPosition
+    textValue5 = textValue5.x
+    textValue7 = cmgCall.jobPosition
+    textValue7 = textValue7.y
+    workValue2 = cmgCall.jobPosition
+    workValue2 = workValue2.z
+    flag14 = 308
+    textValue9 = 0
+    textValue10 = "Scuba Diving"
+    -- Beginner: Create a minimap blip.
+    flag12(textValue5, textValue7, workValue2, flag14, textValue9, textValue10)
+    flag12 = tCMG
+    flag12 = flag12.addMarker
+    textValue5 = cmgCall.jobPosition
+    textValue5 = textValue5.x
+    textValue7 = cmgCall.jobPosition
+    textValue7 = textValue7.y
+    workValue2 = cmgCall.jobPosition
+    workValue2 = workValue2.z
+    workValue2 = workValue2 - 0.2
+    flag14 = 0.5
+    textValue9 = 0.5
+    textValue10 = 0.5
+    numberValue13 = 0
+    flag = 50
+    numberValue = 255
+    numberValue2 = 170
+    dataTable = 50
+    numberValue3 = 20
+    flag2 = false
+    flag3 = false
+    flag4 = true
+    -- Beginner: Create a world marker.
+    flag12(textValue5, textValue7, workValue2, flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4)
+    function flag12()
+      local arg12, mathHelper
+      arg12 = workValue5
+      arg12()
     end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX9_1
-      SHX0_3()
+    function textValue5()
+      local arg12, mathHelper
+      arg12 = textValue11
+      arg12()
     end
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function textValue7()
+      local arg12, mathHelper
     end
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.createArea
-    SHX6_2 = "scubajob"
-    SHX7_2 = SHX0_1.jobPosition
-    SHX8_2 = 1.5
-    SHX9_2 = 6
-    SHX10_2 = SHX2_2
-    SHX11_2 = SHX3_2
-    SHX12_2 = SHX4_2
-    SHX13_2 = {}
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+    workValue2 = CMG
+    workValue2 = workValue2.createArea
+    flag14 = "scubajob"
+    textValue9 = cmgCall.jobPosition
+    textValue10 = 1.5
+    numberValue13 = 6
+    flag = flag12
+    numberValue = textValue5
+    numberValue2 = textValue7
+    dataTable = {}
+    -- Beginner: Create an interaction area around a world position.
+    workValue2(flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = RageUI
-SHX10_1 = SHX10_1.CreateWhile
-SHX11_1 = 1.0
-SHX12_1 = RMenu
-SHX13_1 = SHX12_1
-SHX12_1 = SHX12_1.Get
-SHX14_1 = "scubadiving"
-SHX15_1 = "main"
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX13_1 = nil
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "scubadiving"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Request Job"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4
-      if SHX2_4 then
-        SHX3_4 = SHX3_1
-        if not SHX3_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "72d27dd1d1"
-          SHX3_4(SHX4_4)
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+eventHandlerRegistration(rageUiCall, textValue)
+eventHandlerRegistration = RageUI
+eventHandlerRegistration = eventHandlerRegistration.CreateWhile
+rageUiCall = 1.0
+textValue = RMenu
+textValue2 = textValue
+textValue = textValue.Get
+rageUiCall2 = "scubadiving"
+rageUiCall3 = "main"
+-- Beginner: result below is menu.
+textValue = textValue(textValue2, rageUiCall2, rageUiCall3)
+textValue2 = nil
+function rageUiCall2()
+  local arg1, arg2, flag12, textValue5, textValue7, workValue2, flag14
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  flag12 = arg2
+  arg2 = arg2.Get
+  textValue5 = "scubadiving"
+  textValue7 = "main"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag12, textValue5, textValue7)
+  flag12 = true
+  textValue5 = true
+  textValue7 = true
+  function workValue2()
+    local arg12, mathHelper, numberValue6, numberValue7, numberValue8, numberValue10
+    arg12 = RageUI
+    arg12 = arg12.ButtonWithStyle
+    mathHelper = "Request Job"
+    numberValue6 = ""
+    numberValue7 = {}
+    numberValue7.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    numberValue8 = true
+    function numberValue10(arg13, arg22, arg3)
+      local serverEventCall, textValue8
+      if arg3 then
+        serverEventCall = flag13
+        if not serverEventCall then
+          serverEventCall = TriggerServerEvent
+          textValue8 = "72d27dd1d1"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "72d27dd1d1".
+          serverEventCall(textValue8)
         end
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = SHX2_1
-    if 0 ~= SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Claim Reward"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "e370842c85"
-          SHX3_4(SHX4_4)
-          SHX3_4 = 0
-          SHX2_1 = SHX3_4
-          SHX3_4 = false
-          SHX3_1 = SHX3_4
-          SHX3_4 = false
-          SHX7_1 = SHX3_4
-          SHX3_4 = DoesEntityExist
-          SHX4_4 = SHX5_1
-          SHX3_4 = SHX3_4(SHX4_4)
-          if SHX3_4 then
-            SHX3_4 = DeleteVehicle
-            SHX4_4 = SHX5_1
-            SHX3_4(SHX4_4)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg12(mathHelper, numberValue6, numberValue7, numberValue8, numberValue10)
+    arg12 = numberValue5
+    if 0 ~= arg12 then
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      mathHelper = "Claim Reward"
+      numberValue6 = ""
+      numberValue7 = {}
+      numberValue7.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      numberValue8 = true
+      function numberValue10(arg13, arg22, arg3)
+        local serverEventCall, textValue8, workValue3, flag15
+        if arg3 then
+          serverEventCall = TriggerServerEvent
+          textValue8 = "e370842c85"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e370842c85".
+          serverEventCall(textValue8)
+          serverEventCall = 0
+          numberValue5 = serverEventCall
+          serverEventCall = false
+          flag13 = serverEventCall
+          serverEventCall = false
+          flag16 = serverEventCall
+          serverEventCall = DoesEntityExist
+          textValue8 = numberValue9
+          serverEventCall = serverEventCall(textValue8)
+          if serverEventCall then
+            serverEventCall = DeleteVehicle
+            textValue8 = numberValue9
+            serverEventCall(textValue8)
           end
-          SHX3_4 = tCMG
-          SHX3_4 = SHX3_4.setCustomization
-          SHX4_4 = SHX6_1
-          SHX3_4(SHX4_4)
-          SHX3_4 = PlayerPedId
-          SHX3_4 = SHX3_4()
-          SHX4_4 = SetEnableScuba
-          SHX5_4 = SHX3_4
-          SHX6_4 = false
-          SHX4_4(SHX5_4, SHX6_4)
-          SHX4_4 = SetPedMaxTimeUnderwater
-          SHX5_4 = SHX3_4
-          SHX6_4 = 10.0
-          SHX4_4(SHX5_4, SHX6_4)
+          serverEventCall = tCMG
+          serverEventCall = serverEventCall.setCustomization
+          textValue8 = workValue4
+          serverEventCall(textValue8)
+          serverEventCall = PlayerPedId
+          -- Beginner: result below is localPlayerPed.
+          serverEventCall = serverEventCall()
+          textValue8 = SetEnableScuba
+          workValue3 = serverEventCall
+          flag15 = false
+          textValue8(workValue3, flag15)
+          textValue8 = SetPedMaxTimeUnderwater
+          workValue3 = serverEventCall
+          flag15 = 10.0
+          textValue8(workValue3, flag15)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(mathHelper, numberValue6, numberValue7, numberValue8, numberValue10)
     end
   end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function flag14()
+    local arg12, mathHelper
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  arg1(arg2, flag12, textValue5, textValue7, workValue2, flag14)
 end
-SHX10_1(SHX11_1, SHX12_1, SHX13_1, SHX14_1)
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX1_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.removeMarker
-    SHX7_2 = SHX5_2.objectMarker
-    SHX6_2(SHX7_2)
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.removeArea
-    SHX7_2 = SHX5_2.objectArea
-    SHX6_2(SHX7_2)
-    SHX6_2 = DoesEntityExist
-    SHX7_2 = SHX5_2.objectId
-    SHX6_2 = SHX6_2(SHX7_2)
-    if SHX6_2 then
-      SHX6_2 = DeleteEntity
-      SHX7_2 = SHX5_2.objectId
-      SHX6_2(SHX7_2)
+eventHandlerRegistration(rageUiCall, textValue, textValue2, rageUiCall2)
+function eventHandlerRegistration()
+  local arg1, arg2, flag12, textValue5, textValue7, workValue2, flag14, textValue9
+  arg1 = pairs
+  arg2 = dataTable2
+  arg1, arg2, flag12, textValue5 = arg1(arg2)
+  for textValue7, workValue2 in arg1, arg2, flag12, textValue5 do
+    flag14 = tCMG
+    flag14 = flag14.removeMarker
+    textValue9 = workValue2.objectMarker
+    flag14(textValue9)
+    flag14 = tCMG
+    flag14 = flag14.removeArea
+    textValue9 = workValue2.objectArea
+    flag14(textValue9)
+    flag14 = DoesEntityExist
+    textValue9 = workValue2.objectId
+    flag14 = flag14(textValue9)
+    if flag14 then
+      flag14 = DeleteEntity
+      textValue9 = workValue2.objectId
+      -- Beginner: Delete a GTA entity.
+      flag14(textValue9)
     end
   end
-  SHX0_2 = {}
-  SHX1_1 = SHX0_2
+  arg1 = {}
+  dataTable2 = arg1
 end
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.InvokeNative
-  SHX3_2 = 6304891098843168073
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+function rageUiCall(arg1, arg2)
+  local flag12, textValue5, textValue7, workValue2
+  flag12 = Citizen
+  flag12 = flag12.InvokeNative
+  textValue5 = 6304891098843168073
+  textValue7 = arg1
+  workValue2 = arg2
+  flag12(textValue5, textValue7, workValue2)
 end
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadAnimDict
-  SHX1_2 = "missheistchem2"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCoords
-  SHX0_2 = SHX0_2()
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetVehiclePedIsIn
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = NetworkGetNetworkIdFromEntity
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = GetEntityCoords
-  SHX5_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = SetBoatAnchor
-  SHX6_2 = SHX2_2
-  SHX7_2 = true
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SHX11_1
-  SHX6_2 = SHX2_2
-  SHX7_2 = true
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SetVehicleEngineOn
-  SHX6_2 = SHX2_2
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = ClearPedTasksImmediately
-  SHX6_2 = SHX1_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = CreateSynchronizedScene
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 2
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX6_2 = TaskSynchronizedScene
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX5_2
-  SHX9_2 = "missheistchem2"
-  SHX10_2 = "Boat_Dive_Enter_Player"
-  SHX11_2 = 1000.0
-  SHX12_2 = -8.0
-  SHX13_2 = 4
-  SHX14_2 = 0
-  SHX15_2 = 1148846080
-  SHX16_2 = 0
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX6_2 = AttachSynchronizedSceneToEntity
-  SHX7_2 = SHX5_2
-  SHX8_2 = SHX2_2
-  SHX9_2 = 0
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = StartAudioScene
-  SHX7_2 = "FBI_5_DIVE_IN_SYNC_SCENE"
-  SHX6_2(SHX7_2)
+function textValue()
+  local arg1, arg2, flag12, textValue5, textValue7, workValue2, flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11
+  arg1 = CMG
+  arg1 = arg1.loadAnimDict
+  arg2 = "missheistchem2"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg1 = arg1()
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  flag12 = GetVehiclePedIsIn
+  textValue5 = arg2
+  textValue7 = false
+  -- Beginner: result below is currentVehicle.
+  flag12 = flag12(textValue5, textValue7)
+  textValue5 = NetworkGetNetworkIdFromEntity
+  textValue7 = flag12
+  textValue5 = textValue5(textValue7)
+  textValue7 = GetEntityCoords
+  workValue2 = flag12
+  -- Beginner: result below is entityCoords.
+  textValue7 = textValue7(workValue2)
+  workValue2 = SetBoatAnchor
+  flag14 = flag12
+  textValue9 = true
+  workValue2(flag14, textValue9)
+  workValue2 = rageUiCall
+  flag14 = flag12
+  textValue9 = true
+  workValue2(flag14, textValue9)
+  workValue2 = SetVehicleEngineOn
+  flag14 = flag12
+  textValue9 = false
+  textValue10 = false
+  numberValue13 = false
+  workValue2(flag14, textValue9, textValue10, numberValue13)
+  workValue2 = ClearPedTasksImmediately
+  flag14 = arg2
+  workValue2(flag14)
+  workValue2 = CreateSynchronizedScene
+  flag14 = 0.0
+  textValue9 = 0.0
+  textValue10 = 0.0
+  numberValue13 = 0.0
+  flag = 0.0
+  numberValue = 0.0
+  numberValue2 = 2
+  workValue2 = workValue2(flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2)
+  flag14 = TaskSynchronizedScene
+  textValue9 = arg2
+  textValue10 = workValue2
+  numberValue13 = "missheistchem2"
+  flag = "Boat_Dive_Enter_Player"
+  numberValue = 1000.0
+  numberValue2 = -8.0
+  dataTable = 4
+  numberValue3 = 0
+  flag2 = 1148846080
+  flag3 = 0
+  flag14(textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3)
+  flag14 = AttachSynchronizedSceneToEntity
+  textValue9 = workValue2
+  textValue10 = flag12
+  numberValue13 = 0
+  flag14(textValue9, textValue10, numberValue13)
+  flag14 = StartAudioScene
+  textValue9 = "FBI_5_DIVE_IN_SYNC_SCENE"
+  flag14(textValue9)
   while true do
-    SHX6_2 = IsSynchronizedSceneRunning
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if not SHX6_2 then
+    flag14 = IsSynchronizedSceneRunning
+    textValue9 = workValue2
+    flag14 = flag14(textValue9)
+    if not flag14 then
       break
     end
-    SHX6_2 = GetSynchronizedScenePhase
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if not (SHX6_2 < 1.0) then
+    flag14 = GetSynchronizedScenePhase
+    textValue9 = workValue2
+    flag14 = flag14(textValue9)
+    if not (flag14 < 1.0) then
       break
     end
-    SHX6_2 = Wait
-    SHX7_2 = 0
-    SHX6_2(SHX7_2)
+    flag14 = Wait
+    textValue9 = 0
+    flag14(textValue9)
   end
-  SHX6_2 = CreateSynchronizedScene
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = 2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX7_2 = TaskSynchronizedScene
-  SHX8_2 = SHX1_2
-  SHX9_2 = SHX6_2
-  SHX10_2 = "missheistchem2"
-  SHX11_2 = "Boat_Dive_Idle_Player"
-  SHX12_2 = 8.0
-  SHX13_2 = -8.0
-  SHX14_2 = 4
-  SHX15_2 = 0
-  SHX16_2 = 8.0
-  SHX17_2 = 1024
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX7_2 = AttachSynchronizedSceneToEntity
-  SHX8_2 = SHX6_2
-  SHX9_2 = SHX2_2
-  SHX10_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = SetSynchronizedSceneLooped
-  SHX8_2 = SHX6_2
-  SHX9_2 = true
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.getPlayerCoords
-  SHX7_2 = SHX7_2()
-  SHX7_2 = #SHX7_2
-  if SHX7_2 < 10.0 then
-    SHX7_2 = SetEntityCoords
-    SHX8_2 = SHX1_2
-    SHX9_2 = SHX0_2.x
-    SHX10_2 = SHX0_2.y
-    SHX11_2 = SHX0_2.z
-    SHX12_2 = true
-    SHX13_2 = false
-    SHX14_2 = false
-    SHX15_2 = false
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+  flag14 = CreateSynchronizedScene
+  textValue9 = 0.0
+  textValue10 = 0.0
+  numberValue13 = 0.0
+  flag = 0.0
+  numberValue = 0.0
+  numberValue2 = 0.0
+  dataTable = 2
+  flag14 = flag14(textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable)
+  textValue9 = TaskSynchronizedScene
+  textValue10 = arg2
+  numberValue13 = flag14
+  flag = "missheistchem2"
+  numberValue = "Boat_Dive_Idle_Player"
+  numberValue2 = 8.0
+  dataTable = -8.0
+  numberValue3 = 4
+  flag2 = 0
+  flag3 = 8.0
+  flag4 = 1024
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4)
+  textValue9 = AttachSynchronizedSceneToEntity
+  textValue10 = flag14
+  numberValue13 = flag12
+  flag = 0
+  textValue9(textValue10, numberValue13, flag)
+  textValue9 = SetSynchronizedSceneLooped
+  textValue10 = flag14
+  numberValue13 = true
+  textValue9(textValue10, numberValue13)
+  textValue9 = CMG
+  textValue9 = textValue9.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  textValue9 = textValue9()
+  textValue9 = #textValue9
+  if textValue9 < 10.0 then
+    textValue9 = SetEntityCoords
+    textValue10 = arg2
+    numberValue13 = arg1.x
+    flag = arg1.y
+    numberValue = arg1.z
+    numberValue2 = true
+    dataTable = false
+    numberValue3 = false
+    flag2 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    textValue9(textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2)
   end
-  SHX7_2 = false
-  SHX8_2 = SetPedScubaGearVariation
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX9_2()
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-  SHX8_2 = drawNativeNotification
-  SHX9_2 = "Press ~INPUT_PICKUP~ to start Scuba Diving."
-  SHX8_2(SHX9_2)
-  while not SHX7_2 do
-    SHX8_2 = IsControlJustReleased
-    SHX9_2 = 1
-    SHX10_2 = 38
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if SHX8_2 then
+  textValue9 = false
+  textValue10 = SetPedScubaGearVariation
+  numberValue13 = CMG
+  numberValue13 = numberValue13.getPlayerPed
+  numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11 = numberValue13()
+  textValue10(numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11)
+  textValue10 = drawNativeNotification
+  numberValue13 = "Press ~INPUT_PICKUP~ to start Scuba Diving."
+  -- Beginner: Show a GTA-style notification/help prompt.
+  textValue10(numberValue13)
+  while not textValue9 do
+    textValue10 = IsControlJustReleased
+    numberValue13 = 1
+    flag = 38
+    textValue10 = textValue10(numberValue13, flag)
+    if textValue10 then
       break
     end
-    SHX8_2 = Wait
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
+    textValue10 = Wait
+    numberValue13 = 0
+    textValue10(numberValue13)
   end
-  SHX8_2 = SetPlayerControl
-  SHX9_2 = PlayerId
-  SHX9_2 = SHX9_2()
-  SHX10_2 = false
-  SHX11_2 = 256
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX8_2 = CreateSynchronizedScene
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 2
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX6_2 = SHX8_2
-  SHX8_2 = TaskSynchronizedScene
-  SHX9_2 = PlayerPedId
-  SHX9_2 = SHX9_2()
-  SHX10_2 = SHX6_2
-  SHX11_2 = "missheistchem2"
-  SHX12_2 = "Boat_Dive_Exit_Player"
-  SHX13_2 = 1000.0
-  SHX14_2 = -8.0
-  SHX15_2 = 4
-  SHX16_2 = 0
-  SHX17_2 = 1148846080
-  SHX18_2 = 0
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX8_2 = AttachSynchronizedSceneToEntity
-  SHX9_2 = SHX6_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = 0
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX8_2 = GetGameTimer
-  SHX8_2 = SHX8_2()
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.getPlayerCoords
-  SHX12_2 = SHX12_2()
-  SHX12_2 = #SHX12_2
-  if SHX12_2 < 10.0 then
-    SHX12_2 = SetEntityCoords
-    SHX13_2 = SHX1_2
-    SHX14_2 = SHX0_2.x
-    SHX15_2 = SHX0_2.y
-    SHX16_2 = SHX0_2.z
-    SHX17_2 = true
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX20_2 = false
-    SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
+  textValue10 = SetPlayerControl
+  numberValue13 = PlayerId
+  -- Beginner: result below is localPlayerIndex.
+  numberValue13 = numberValue13()
+  flag = false
+  numberValue = 256
+  textValue10(numberValue13, flag, numberValue)
+  textValue10 = CreateSynchronizedScene
+  numberValue13 = 0.0
+  flag = 0.0
+  numberValue = 0.0
+  numberValue2 = 0.0
+  dataTable = 0.0
+  numberValue3 = 0.0
+  flag2 = 2
+  textValue10 = textValue10(numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2)
+  flag14 = textValue10
+  textValue10 = TaskSynchronizedScene
+  numberValue13 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  numberValue13 = numberValue13()
+  flag = flag14
+  numberValue = "missheistchem2"
+  numberValue2 = "Boat_Dive_Exit_Player"
+  dataTable = 1000.0
+  numberValue3 = -8.0
+  flag2 = 4
+  flag3 = 0
+  flag4 = 1148846080
+  flag5 = 0
+  textValue10(numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4, flag5)
+  textValue10 = AttachSynchronizedSceneToEntity
+  numberValue13 = flag14
+  flag = flag12
+  numberValue = 0
+  textValue10(numberValue13, flag, numberValue)
+  textValue10 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  textValue10 = textValue10()
+  numberValue13 = false
+  flag = false
+  numberValue = false
+  numberValue2 = CMG
+  numberValue2 = numberValue2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  numberValue2 = numberValue2()
+  numberValue2 = #numberValue2
+  if numberValue2 < 10.0 then
+    numberValue2 = SetEntityCoords
+    dataTable = arg2
+    numberValue3 = arg1.x
+    flag2 = arg1.y
+    flag3 = arg1.z
+    flag4 = true
+    flag5 = false
+    flag6 = false
+    flag7 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    numberValue2(dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7)
   end
-  SHX12_2 = SetEnableScuba
-  SHX13_2 = SHX1_2
-  SHX14_2 = true
-  SHX12_2(SHX13_2, SHX14_2)
-  SHX12_2 = SetPedMaxTimeUnderwater
-  SHX13_2 = SHX1_2
-  SHX14_2 = 400.0
-  SHX12_2(SHX13_2, SHX14_2)
+  numberValue2 = SetEnableScuba
+  dataTable = arg2
+  numberValue3 = true
+  numberValue2(dataTable, numberValue3)
+  numberValue2 = SetPedMaxTimeUnderwater
+  dataTable = arg2
+  numberValue3 = 400.0
+  numberValue2(dataTable, numberValue3)
   while true do
-    SHX12_2 = IsSynchronizedSceneRunning
-    SHX13_2 = SHX6_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    if not SHX12_2 then
+    numberValue2 = IsSynchronizedSceneRunning
+    dataTable = flag14
+    numberValue2 = numberValue2(dataTable)
+    if not numberValue2 then
       break
     end
-    SHX12_2 = GetGameTimer
-    SHX12_2 = SHX12_2()
-    SHX12_2 = SHX12_2 - SHX8_2
-    SHX13_2 = 20000
-    if not (SHX12_2 < SHX13_2) then
+    numberValue2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    numberValue2 = numberValue2()
+    numberValue2 = numberValue2 - textValue10
+    dataTable = 20000
+    if not (numberValue2 < dataTable) then
       break
     end
-    SHX12_2 = GetSynchronizedScenePhase
-    SHX13_2 = SHX6_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    SHX13_2 = 0.147
-    if SHX12_2 > SHX13_2 and not SHX9_2 then
-      SHX12_2 = CMG
-      SHX12_2 = SHX12_2.loadPtfx
-      SHX13_2 = "scr_fbi5a"
-      SHX12_2(SHX13_2)
-      SHX12_2 = StartParticleFxNonLoopedOnEntity
-      SHX13_2 = "scr_fbi5_ped_water_splash"
-      SHX14_2 = PlayerPedId
-      SHX14_2 = SHX14_2()
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = 0.0
-      SHX18_2 = 0.0
-      SHX19_2 = 0.0
-      SHX20_2 = 0.0
-      SHX21_2 = 1065353216
-      SHX22_2 = false
-      SHX23_2 = false
-      SHX24_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX12_2 = RemoveNamedPtfxAsset
-      SHX13_2 = "scr_fbi5a"
-      SHX12_2(SHX13_2)
-      SHX9_2 = true
+    numberValue2 = GetSynchronizedScenePhase
+    dataTable = flag14
+    numberValue2 = numberValue2(dataTable)
+    dataTable = 0.147
+    if numberValue2 > dataTable and not numberValue13 then
+      numberValue2 = CMG
+      numberValue2 = numberValue2.loadPtfx
+      dataTable = "scr_fbi5a"
+      numberValue2(dataTable)
+      numberValue2 = StartParticleFxNonLoopedOnEntity
+      dataTable = "scr_fbi5_ped_water_splash"
+      numberValue3 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      numberValue3 = numberValue3()
+      flag2 = 0.0
+      flag3 = 0.0
+      flag4 = 0.0
+      flag5 = 0.0
+      flag6 = 0.0
+      flag7 = 0.0
+      flag8 = 1065353216
+      flag9 = false
+      flag10 = false
+      flag11 = false
+      numberValue2(dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11)
+      numberValue2 = RemoveNamedPtfxAsset
+      dataTable = "scr_fbi5a"
+      numberValue2(dataTable)
+      numberValue13 = true
     end
-    SHX12_2 = GetSynchronizedScenePhase
-    SHX13_2 = SHX6_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    SHX13_2 = 0.48
-    if SHX12_2 > SHX13_2 and not SHX10_2 then
-      SHX12_2 = CMG
-      SHX12_2 = SHX12_2.loadPtfx
-      SHX13_2 = "scr_fbi5a"
-      SHX12_2(SHX13_2)
-      SHX12_2 = StartParticleFxNonLoopedOnEntity
-      SHX13_2 = "water_splash_ped_bubbles"
-      SHX14_2 = PlayerPedId
-      SHX14_2 = SHX14_2()
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = 0.0
-      SHX18_2 = 0.0
-      SHX19_2 = 0.0
-      SHX20_2 = 0.0
-      SHX21_2 = 1065353216
-      SHX22_2 = false
-      SHX23_2 = false
-      SHX24_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX10_2 = true
-      SHX12_2 = DetachEntity
-      SHX13_2 = PlayerPedId
-      SHX13_2 = SHX13_2()
-      SHX14_2 = false
-      SHX15_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-      SHX12_2 = RemoveNamedPtfxAsset
-      SHX13_2 = "scr_fbi5a"
-      SHX12_2(SHX13_2)
+    numberValue2 = GetSynchronizedScenePhase
+    dataTable = flag14
+    numberValue2 = numberValue2(dataTable)
+    dataTable = 0.48
+    if numberValue2 > dataTable and not flag then
+      numberValue2 = CMG
+      numberValue2 = numberValue2.loadPtfx
+      dataTable = "scr_fbi5a"
+      numberValue2(dataTable)
+      numberValue2 = StartParticleFxNonLoopedOnEntity
+      dataTable = "water_splash_ped_bubbles"
+      numberValue3 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      numberValue3 = numberValue3()
+      flag2 = 0.0
+      flag3 = 0.0
+      flag4 = 0.0
+      flag5 = 0.0
+      flag6 = 0.0
+      flag7 = 0.0
+      flag8 = 1065353216
+      flag9 = false
+      flag10 = false
+      flag11 = false
+      numberValue2(dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11)
+      flag = true
+      numberValue2 = DetachEntity
+      dataTable = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      dataTable = dataTable()
+      numberValue3 = false
+      flag2 = false
+      numberValue2(dataTable, numberValue3, flag2)
+      numberValue2 = RemoveNamedPtfxAsset
+      dataTable = "scr_fbi5a"
+      numberValue2(dataTable)
     end
-    SHX12_2 = GetSynchronizedScenePhase
-    SHX13_2 = SHX6_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    SHX13_2 = 0.65
-    if SHX12_2 > SHX13_2 and not SHX11_2 then
-      SHX11_2 = true
-      SHX12_2 = DetachEntity
-      SHX13_2 = PlayerPedId
-      SHX13_2 = SHX13_2()
-      SHX14_2 = false
-      SHX15_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-      SHX12_2 = TaskPlayAnim
-      SHX13_2 = PlayerPedId
-      SHX13_2 = SHX13_2()
-      SHX14_2 = "SWIMMING@scuba"
-      SHX15_2 = "dive_run"
-      SHX16_2 = 4.0
-      SHX17_2 = -1.5
-      SHX18_2 = 1000
-      SHX19_2 = 131081
-      SHX20_2 = 0
-      SHX21_2 = false
-      SHX22_2 = false
-      SHX23_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-      SHX12_2 = TaskForceMotionState
-      SHX13_2 = PlayerPedId
-      SHX13_2 = SHX13_2()
-      SHX14_2 = -1855028596
-      SHX15_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-      SHX12_2 = TaskGoStraightToCoord
-      SHX13_2 = PlayerPedId
-      SHX13_2 = SHX13_2()
-      SHX14_2 = SHX4_2.x
-      SHX15_2 = SHX4_2.y
-      SHX16_2 = SHX4_2.z
-      SHX16_2 = SHX16_2 - 5.0
-      SHX17_2 = -7.5
-      SHX18_2 = 2
-      SHX19_2 = -1
-      SHX20_2 = 1193033728
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-      SHX12_2 = SetPlayerControl
-      SHX13_2 = PlayerId
-      SHX13_2 = SHX13_2()
-      SHX14_2 = true
-      SHX15_2 = 256
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+    numberValue2 = GetSynchronizedScenePhase
+    dataTable = flag14
+    numberValue2 = numberValue2(dataTable)
+    dataTable = 0.65
+    if numberValue2 > dataTable and not numberValue then
+      numberValue = true
+      numberValue2 = DetachEntity
+      dataTable = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      dataTable = dataTable()
+      numberValue3 = false
+      flag2 = false
+      numberValue2(dataTable, numberValue3, flag2)
+      numberValue2 = TaskPlayAnim
+      dataTable = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      dataTable = dataTable()
+      numberValue3 = "SWIMMING@scuba"
+      flag2 = "dive_run"
+      flag3 = 4.0
+      flag4 = -1.5
+      flag5 = 1000
+      flag6 = 131081
+      flag7 = 0
+      flag8 = false
+      flag9 = false
+      flag10 = false
+      -- Beginner: Play an animation on a ped.
+      numberValue2(dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10)
+      numberValue2 = TaskForceMotionState
+      dataTable = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      dataTable = dataTable()
+      numberValue3 = -1855028596
+      flag2 = false
+      numberValue2(dataTable, numberValue3, flag2)
+      numberValue2 = TaskGoStraightToCoord
+      dataTable = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      dataTable = dataTable()
+      numberValue3 = textValue7.x
+      flag2 = textValue7.y
+      flag3 = textValue7.z
+      flag3 = flag3 - 5.0
+      flag4 = -7.5
+      flag5 = 2
+      flag6 = -1
+      flag7 = 1193033728
+      numberValue2(dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7)
+      numberValue2 = SetPlayerControl
+      dataTable = PlayerId
+      -- Beginner: result below is localPlayerIndex.
+      dataTable = dataTable()
+      numberValue3 = true
+      flag2 = 256
+      numberValue2(dataTable, numberValue3, flag2)
     end
-    SHX12_2 = Wait
-    SHX13_2 = 0
-    SHX12_2(SHX13_2)
+    numberValue2 = Wait
+    dataTable = 0
+    numberValue2(dataTable)
   end
-  SHX12_2 = RemoveAnimDict
-  SHX13_2 = "missheistchem2"
-  SHX12_2(SHX13_2)
-  SHX12_2 = DisposeSynchronizedScene
-  SHX13_2 = SHX6_2
-  SHX12_2(SHX13_2)
-  SHX12_2 = ClearPedTasksImmediately
-  SHX13_2 = SHX1_2
-  SHX12_2(SHX13_2)
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.getPlayerCoords
-  SHX12_2 = SHX12_2()
-  SHX12_2 = #SHX12_2
-  if SHX12_2 < 10.0 then
-    SHX12_2 = SetEntityCoords
-    SHX13_2 = SHX1_2
-    SHX14_2 = SHX0_2.x
-    SHX15_2 = SHX0_2.y
-    SHX16_2 = SHX0_2.z
-    SHX17_2 = true
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX20_2 = false
-    SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
+  numberValue2 = RemoveAnimDict
+  dataTable = "missheistchem2"
+  numberValue2(dataTable)
+  numberValue2 = DisposeSynchronizedScene
+  dataTable = flag14
+  numberValue2(dataTable)
+  numberValue2 = ClearPedTasksImmediately
+  dataTable = arg2
+  numberValue2(dataTable)
+  numberValue2 = CMG
+  numberValue2 = numberValue2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  numberValue2 = numberValue2()
+  numberValue2 = #numberValue2
+  if numberValue2 < 10.0 then
+    numberValue2 = SetEntityCoords
+    dataTable = arg2
+    numberValue3 = arg1.x
+    flag2 = arg1.y
+    flag3 = arg1.z
+    flag4 = true
+    flag5 = false
+    flag6 = false
+    flag7 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    numberValue2(dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7)
   end
-  SHX12_2 = false
+  numberValue2 = false
   while true do
-    SHX13_2 = GetVehiclePedIsIn
-    SHX14_2 = PlayerPedId
-    SHX14_2 = SHX14_2()
-    SHX15_2 = false
-    SHX13_2 = SHX13_2(SHX14_2, SHX15_2)
-    if SHX13_2 == SHX2_2 then
+    dataTable = GetVehiclePedIsIn
+    numberValue3 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    numberValue3 = numberValue3()
+    flag2 = false
+    -- Beginner: result below is currentVehicle.
+    dataTable = dataTable(numberValue3, flag2)
+    if dataTable == flag12 then
       break
     end
-    SHX13_2 = DoesEntityExist
-    SHX14_2 = SHX2_2
-    SHX13_2 = SHX13_2(SHX14_2)
-    if not SHX13_2 then
-      if not SHX12_2 then
-        SHX13_2 = print
-        SHX14_2 = "[Scuba] Boat has left scope. Previous Entity:"
-        SHX15_2 = SHX2_2
-        SHX16_2 = "NetID:"
-        SHX17_2 = SHX3_2
-        SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-        SHX12_2 = true
+    dataTable = DoesEntityExist
+    numberValue3 = flag12
+    dataTable = dataTable(numberValue3)
+    if not dataTable then
+      if not numberValue2 then
+        dataTable = print
+        numberValue3 = "[Scuba] Boat has left scope. Previous Entity:"
+        flag2 = flag12
+        flag3 = "NetID:"
+        flag4 = textValue5
+        dataTable(numberValue3, flag2, flag3, flag4)
+        numberValue2 = true
       end
-      SHX13_2 = NetworkDoesEntityExistWithNetworkId
-      SHX14_2 = SHX3_2
-      SHX13_2 = SHX13_2(SHX14_2)
-      if SHX13_2 then
-        SHX13_2 = NetworkGetEntityFromNetworkId
-        SHX14_2 = SHX3_2
-        SHX13_2 = SHX13_2(SHX14_2)
-        SHX2_2 = SHX13_2
-        SHX14_2 = print
-        SHX15_2 = "[Scuba] Boat has come back in to scope. Entity:"
-        SHX16_2 = SHX2_2
-        SHX17_2 = "NetID:"
-        SHX18_2 = SHX3_2
-        SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-        SHX12_2 = false
+      dataTable = NetworkDoesEntityExistWithNetworkId
+      numberValue3 = textValue5
+      dataTable = dataTable(numberValue3)
+      if dataTable then
+        dataTable = NetworkGetEntityFromNetworkId
+        numberValue3 = textValue5
+        dataTable = dataTable(numberValue3)
+        flag12 = dataTable
+        numberValue3 = print
+        flag2 = "[Scuba] Boat has come back in to scope. Entity:"
+        flag3 = flag12
+        flag4 = "NetID:"
+        flag5 = textValue5
+        numberValue3(flag2, flag3, flag4, flag5)
+        numberValue2 = false
       end
     end
-    SHX13_2 = Wait
-    SHX14_2 = 250
-    SHX13_2(SHX14_2)
+    dataTable = Wait
+    numberValue3 = 250
+    dataTable(numberValue3)
   end
-  SHX13_2 = SetBoatAnchor
-  SHX14_2 = SHX2_2
-  SHX15_2 = false
-  SHX13_2(SHX14_2, SHX15_2)
-  SHX13_2 = SHX11_1
-  SHX14_2 = SHX2_2
-  SHX15_2 = false
-  SHX13_2(SHX14_2, SHX15_2)
-  SHX13_2 = tCMG
-  SHX13_2 = SHX13_2.notify
-  SHX14_2 = "~g~Scuba Diving job ended, return to HQ to get paid!"
-  SHX13_2(SHX14_2)
-  SHX13_2 = SetNewWaypoint
-  SHX14_2 = -2195.6926269531
-  SHX15_2 = -394.82040405273
-  SHX13_2(SHX14_2, SHX15_2)
-  SHX13_2 = SHX10_1
-  SHX13_2()
-  SHX13_2 = SHX2_1
-  if SHX13_2 > 6 then
-    SHX13_2 = 6
-    SHX2_1 = SHX13_2
+  dataTable = SetBoatAnchor
+  numberValue3 = flag12
+  flag2 = false
+  dataTable(numberValue3, flag2)
+  dataTable = rageUiCall
+  numberValue3 = flag12
+  flag2 = false
+  dataTable(numberValue3, flag2)
+  dataTable = tCMG
+  dataTable = dataTable.notify
+  numberValue3 = "~g~Scuba Diving job ended, return to HQ to get paid!"
+  -- Beginner: Show a notification to the player.
+  dataTable(numberValue3)
+  dataTable = SetNewWaypoint
+  numberValue3 = -2195.6926269531
+  flag2 = -394.82040405273
+  dataTable(numberValue3, flag2)
+  dataTable = eventHandlerRegistration
+  dataTable()
+  dataTable = numberValue5
+  if dataTable > 6 then
+    dataTable = 6
+    numberValue5 = dataTable
   end
-  SHX13_2 = TriggerServerEvent
-  SHX14_2 = "64b26a9931"
-  SHX15_2 = SHX2_1
-  SHX13_2(SHX14_2, SHX15_2)
+  dataTable = TriggerServerEvent
+  numberValue3 = "64b26a9931"
+  flag2 = numberValue5
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "64b26a9931".
+  dataTable(numberValue3, flag2)
 end
-SHX13_1 = {}
-SHX14_1 = 2
-SHX15_1 = 160
-SHX16_1 = 161
-SHX17_1 = 163
-SHX18_1 = 167
-SHX13_1[1] = SHX14_1
-SHX13_1[2] = SHX15_1
-SHX13_1[3] = SHX16_1
-SHX13_1[4] = SHX17_1
-SHX13_1[5] = SHX18_1
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.rewardObjects
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.loadModel
-    SHX8_2 = SHX6_2.objectModel
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = CreateObject
-    SHX9_2 = SHX7_2
-    SHX10_2 = SHX6_2.objectPosition
-    SHX10_2 = SHX10_2.x
-    SHX11_2 = SHX6_2.objectPosition
-    SHX11_2 = SHX11_2.y
-    SHX12_2 = SHX6_2.objectPosition
-    SHX12_2 = SHX12_2.z
-    SHX13_2 = false
-    SHX14_2 = true
-    SHX15_2 = false
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    SHX9_2 = SetModelAsNoLongerNeeded
-    SHX10_2 = SHX7_2
-    SHX9_2(SHX10_2)
-    SHX9_2 = tCMG
-    SHX9_2 = SHX9_2.addMarker
-    SHX10_2 = SHX6_2.objectPosition
-    SHX10_2 = SHX10_2.x
-    SHX11_2 = SHX6_2.objectPosition
-    SHX11_2 = SHX11_2.y
-    SHX12_2 = SHX6_2.objectPosition
-    SHX12_2 = SHX12_2.z
-    SHX12_2 = SHX12_2 + 0.6
-    SHX13_2 = 0.5
-    SHX14_2 = 0.5
-    SHX15_2 = 0.5
-    SHX16_2 = 255
-    SHX17_2 = 223
-    SHX18_2 = 0
-    SHX19_2 = 150
-    SHX20_2 = 50.0
-    SHX21_2 = 0
-    SHX22_2 = false
-    SHX23_2 = true
-    SHX24_2 = true
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-    function SHX10_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_PICKUP~ to collect!"
-      SHX0_3(SHX1_3)
+textValue2 = {}
+rageUiCall2 = 2
+rageUiCall3 = 160
+textValue3 = 161
+textValue4 = 163
+numberValue4 = 167
+textValue2[1] = rageUiCall2
+textValue2[2] = rageUiCall3
+textValue2[3] = textValue3
+textValue2[4] = textValue4
+textValue2[5] = numberValue4
+function rageUiCall2(arg1)
+  local arg2, flag12, textValue5, textValue7, workValue2, flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11
+  arg2 = pairs
+  flag12 = arg1.rewardObjects
+  arg2, flag12, textValue5, textValue7 = arg2(flag12)
+  for workValue2, flag14 in arg2, flag12, textValue5, textValue7 do
+    textValue9 = CMG
+    textValue9 = textValue9.loadModel
+    textValue10 = flag14.objectModel
+    textValue9 = textValue9(textValue10)
+    textValue10 = CreateObject
+    numberValue13 = textValue9
+    flag = flag14.objectPosition
+    flag = flag.x
+    numberValue = flag14.objectPosition
+    numberValue = numberValue.y
+    numberValue2 = flag14.objectPosition
+    numberValue2 = numberValue2.z
+    dataTable = false
+    numberValue3 = true
+    flag2 = false
+    -- Beginner: result below is objectEntity.
+    textValue10 = textValue10(numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2)
+    numberValue13 = SetModelAsNoLongerNeeded
+    flag = textValue9
+    numberValue13(flag)
+    numberValue13 = tCMG
+    numberValue13 = numberValue13.addMarker
+    flag = flag14.objectPosition
+    flag = flag.x
+    numberValue = flag14.objectPosition
+    numberValue = numberValue.y
+    numberValue2 = flag14.objectPosition
+    numberValue2 = numberValue2.z
+    numberValue2 = numberValue2 + 0.6
+    dataTable = 0.5
+    numberValue3 = 0.5
+    flag2 = 0.5
+    flag3 = 255
+    flag4 = 223
+    flag5 = 0
+    flag6 = 150
+    flag7 = 50.0
+    flag8 = 0
+    flag9 = false
+    flag10 = true
+    flag11 = true
+    numberValue13 = numberValue13(flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11)
+    function flag()
+      local arg12, mathHelper
+      arg12 = drawNativeNotification
+      mathHelper = "Press ~INPUT_PICKUP~ to collect!"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(mathHelper)
     end
-    function SHX11_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue()
+      local arg12, mathHelper
     end
-    function SHX12_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3, SHX2_3, SHX3_3
-      SHX1_3 = IsControlJustReleased
-      SHX2_3 = 1
-      SHX3_3 = 38
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      if SHX1_3 then
-        SHX1_3 = SHX3_1
-        if SHX1_3 then
-          SHX1_3 = tCMG
-          SHX1_3 = SHX1_3.notify
-          SHX2_3 = "~g~Item collected."
-          SHX1_3(SHX2_3)
-          SHX1_3 = SHX2_1
-          SHX1_3 = SHX1_3 + 1
-          SHX2_1 = SHX1_3
-          SHX1_3 = tCMG
-          SHX1_3 = SHX1_3.removeMarker
-          SHX3_3 = SHX0_3.objectId
-          SHX2_3 = SHX1_1
-          SHX2_3 = SHX2_3[SHX3_3]
-          SHX2_3 = SHX2_3.objectMarker
-          SHX1_3(SHX2_3)
-          SHX1_3 = tCMG
-          SHX1_3 = SHX1_3.removeArea
-          SHX3_3 = SHX0_3.objectId
-          SHX2_3 = SHX1_1
-          SHX2_3 = SHX2_3[SHX3_3]
-          SHX2_3 = SHX2_3.objectArea
-          SHX1_3(SHX2_3)
-          SHX1_3 = DeleteEntity
-          SHX3_3 = SHX0_3.objectId
-          SHX2_3 = SHX1_1
-          SHX2_3 = SHX2_3[SHX3_3]
-          SHX2_3 = SHX2_3.objectId
-          SHX1_3(SHX2_3)
-          SHX2_3 = SHX0_3.objectId
-          SHX1_3 = SHX1_1
-          SHX1_3 = SHX1_3[SHX2_3]
-          SHX1_3.objectMarker = nil
-          SHX2_3 = SHX0_3.objectId
-          SHX1_3 = SHX1_1
-          SHX1_3 = SHX1_3[SHX2_3]
-          SHX1_3.objectArea = nil
-          SHX2_3 = SHX0_3.objectId
-          SHX1_3 = SHX1_1
-          SHX1_3 = SHX1_3[SHX2_3]
-          SHX1_3.objectId = nil
+    function numberValue2(arg12)
+      local mathHelper, numberValue6, numberValue7
+      mathHelper = IsControlJustReleased
+      numberValue6 = 1
+      numberValue7 = 38
+      mathHelper = mathHelper(numberValue6, numberValue7)
+      if mathHelper then
+        mathHelper = flag13
+        if mathHelper then
+          mathHelper = tCMG
+          mathHelper = mathHelper.notify
+          numberValue6 = "~g~Item collected."
+          -- Beginner: Show a notification to the player.
+          mathHelper(numberValue6)
+          mathHelper = numberValue5
+          mathHelper = mathHelper + 1
+          numberValue5 = mathHelper
+          mathHelper = tCMG
+          mathHelper = mathHelper.removeMarker
+          numberValue7 = arg12.objectId
+          numberValue6 = dataTable2
+          numberValue6 = numberValue6[numberValue7]
+          numberValue6 = numberValue6.objectMarker
+          mathHelper(numberValue6)
+          mathHelper = tCMG
+          mathHelper = mathHelper.removeArea
+          numberValue7 = arg12.objectId
+          numberValue6 = dataTable2
+          numberValue6 = numberValue6[numberValue7]
+          numberValue6 = numberValue6.objectArea
+          mathHelper(numberValue6)
+          mathHelper = DeleteEntity
+          numberValue7 = arg12.objectId
+          numberValue6 = dataTable2
+          numberValue6 = numberValue6[numberValue7]
+          numberValue6 = numberValue6.objectId
+          -- Beginner: Delete a GTA entity.
+          mathHelper(numberValue6)
+          numberValue6 = arg12.objectId
+          mathHelper = dataTable2
+          mathHelper = mathHelper[numberValue6]
+          mathHelper.objectMarker = nil
+          numberValue6 = arg12.objectId
+          mathHelper = dataTable2
+          mathHelper = mathHelper[numberValue6]
+          mathHelper.objectArea = nil
+          numberValue6 = arg12.objectId
+          mathHelper = dataTable2
+          mathHelper = mathHelper[numberValue6]
+          mathHelper.objectId = nil
         end
       end
     end
-    SHX13_2 = CMG
-    SHX13_2 = SHX13_2.createArea
-    SHX14_2 = "scubajob_"
-    SHX15_2 = SHX0_2.name
-    SHX16_2 = "_obj_"
-    SHX17_2 = SHX5_2
-    SHX14_2 = SHX14_2 .. SHX15_2 .. SHX16_2 .. SHX17_2
-    SHX15_2 = SHX6_2.objectPosition
-    SHX16_2 = 3.0
-    SHX17_2 = 3.0
-    SHX18_2 = SHX10_2
-    SHX19_2 = SHX11_2
-    SHX20_2 = SHX12_2
-    SHX21_2 = {}
-    SHX21_2.objectId = SHX5_2
-    SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX13_2 = SHX1_1
-    SHX14_2 = {}
-    SHX13_2[SHX5_2] = SHX14_2
-    SHX13_2 = SHX1_1
-    SHX13_2 = SHX13_2[SHX5_2]
-    SHX13_2.objectId = SHX8_2
-    SHX13_2 = SHX1_1
-    SHX13_2 = SHX13_2[SHX5_2]
-    SHX13_2.objectMarker = SHX9_2
-    SHX13_2 = SHX1_1
-    SHX13_2 = SHX13_2[SHX5_2]
-    SHX14_2 = "scubajob_"
-    SHX15_2 = SHX0_2.name
-    SHX16_2 = "_obj_"
-    SHX17_2 = SHX5_2
-    SHX14_2 = SHX14_2 .. SHX15_2 .. SHX16_2 .. SHX17_2
-    SHX13_2.objectArea = SHX14_2
+    dataTable = CMG
+    dataTable = dataTable.createArea
+    numberValue3 = "scubajob_"
+    flag2 = arg1.name
+    flag3 = "_obj_"
+    flag4 = workValue2
+    numberValue3 = numberValue3 .. flag2 .. flag3 .. flag4
+    flag2 = flag14.objectPosition
+    flag3 = 3.0
+    flag4 = 3.0
+    flag5 = flag
+    flag6 = numberValue
+    flag7 = numberValue2
+    flag8 = {}
+    flag8.objectId = workValue2
+    -- Beginner: Create an interaction area around a world position.
+    dataTable(numberValue3, flag2, flag3, flag4, flag5, flag6, flag7, flag8)
+    dataTable = dataTable2
+    numberValue3 = {}
+    dataTable[workValue2] = numberValue3
+    dataTable = dataTable2
+    dataTable = dataTable[workValue2]
+    dataTable.objectId = textValue10
+    dataTable = dataTable2
+    dataTable = dataTable[workValue2]
+    dataTable.objectMarker = numberValue13
+    dataTable = dataTable2
+    dataTable = dataTable[workValue2]
+    numberValue3 = "scubajob_"
+    flag2 = arg1.name
+    flag3 = "_obj_"
+    flag4 = workValue2
+    numberValue3 = numberValue3 .. flag2 .. flag3 .. flag4
+    dataTable.objectArea = numberValue3
   end
 end
-SHX15_1 = RegisterNetEvent
-SHX16_1 = "82c23c96fb"
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX1_2 = true
-  SHX3_1 = SHX1_2
-  SHX1_2 = DoScreenFadeOut
-  SHX2_2 = 500
-  SHX1_2(SHX2_2)
-  SHX1_2 = Wait
-  SHX2_2 = 600
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddBlipForRadius
-  SHX2_2 = SHX0_2.position
-  SHX2_2 = SHX2_2.x
-  SHX3_2 = SHX0_2.position
-  SHX3_2 = SHX3_2.y
-  SHX4_2 = SHX0_2.position
-  SHX4_2 = SHX4_2.z
-  SHX5_2 = 250.0
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = SetBlipColour
-  SHX3_2 = SHX1_2
-  SHX4_2 = 30
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetBlipAlpha
-  SHX3_2 = SHX1_2
-  SHX4_2 = 180
-  SHX2_2(SHX3_2, SHX4_2)
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = drawNativeNotification
-    SHX1_3 = "Press ~INPUT_DETONATE~ to begin diving!"
-    SHX0_3(SHX1_3)
+rageUiCall3 = RegisterNetEvent
+textValue3 = "82c23c96fb"
+-- Beginner: this function handles network event "82c23c96fb".
+function textValue4(arg1)
+  local arg2, flag12, textValue5, textValue7, workValue2, flag14, textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4
+  arg2 = true
+  flag13 = arg2
+  arg2 = DoScreenFadeOut
+  flag12 = 500
+  arg2(flag12)
+  arg2 = Wait
+  flag12 = 600
+  arg2(flag12)
+  arg2 = AddBlipForRadius
+  flag12 = arg1.position
+  flag12 = flag12.x
+  textValue5 = arg1.position
+  textValue5 = textValue5.y
+  textValue7 = arg1.position
+  textValue7 = textValue7.z
+  workValue2 = 250.0
+  -- Beginner: result below is blipHandle.
+  arg2 = arg2(flag12, textValue5, textValue7, workValue2)
+  flag12 = SetBlipColour
+  textValue5 = arg2
+  textValue7 = 30
+  flag12(textValue5, textValue7)
+  flag12 = SetBlipAlpha
+  textValue5 = arg2
+  textValue7 = 180
+  flag12(textValue5, textValue7)
+  function flag12()
+    local arg12, mathHelper
+    arg12 = drawNativeNotification
+    mathHelper = "Press ~INPUT_DETONATE~ to begin diving!"
+    -- Beginner: Show a GTA-style notification/help prompt.
+    arg12(mathHelper)
   end
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function textValue5()
+    local arg12, mathHelper
   end
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = IsControlJustReleased
-    SHX1_3 = 1
-    SHX2_3 = 47
-    SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-    if not SHX0_3 then
+  function textValue7()
+    local arg12, mathHelper, numberValue6, numberValue7, numberValue8, numberValue10, numberValue11, numberValue12, cmgCall2, textValue12, workValue
+    arg12 = IsControlJustReleased
+    mathHelper = 1
+    numberValue6 = 47
+    arg12 = arg12(mathHelper, numberValue6)
+    if not arg12 then
       return
     end
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getPlayerPed
-    SHX0_3 = SHX0_3()
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.getPlayerVehicle
-    SHX1_3 = SHX1_3()
-    if 0 ~= SHX1_3 then
-      SHX2_3 = DoesEntityExist
-      SHX3_3 = SHX1_3
-      SHX2_3 = SHX2_3(SHX3_3)
-      if SHX2_3 then
-        goto SHX_LABEL_26
+    arg12 = CMG
+    arg12 = arg12.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    arg12 = arg12()
+    mathHelper = CMG
+    mathHelper = mathHelper.getPlayerVehicle
+    -- Beginner: result below is currentVehicle.
+    mathHelper = mathHelper()
+    if 0 ~= mathHelper then
+      numberValue6 = DoesEntityExist
+      numberValue7 = mathHelper
+      numberValue6 = numberValue6(numberValue7)
+      if numberValue6 then
+        goto flow_label_26
       end
     end
-    SHX2_3 = tCMG
-    SHX2_3 = SHX2_3.notify
-    SHX3_3 = "~r~You must be in a boat to start scuba diving!"
-    SHX2_3(SHX3_3)
+    numberValue6 = tCMG
+    numberValue6 = numberValue6.notify
+    numberValue7 = "~r~You must be in a boat to start scuba diving!"
+    -- Beginner: Show a notification to the player.
+    numberValue6(numberValue7)
     return
-    -- [FIX IF ERROR] Move ::SHX_LABEL_26:: outside nested blocks until all 'goto SHX_LABEL_26' can see it
-    ::SHX_LABEL_26::
-    SHX2_3 = GetEntityModel
-    SHX3_3 = SHX1_3
-    SHX2_3 = SHX2_3(SHX3_3)
-    if 1033245328 ~= SHX2_3 then
-      SHX2_3 = tCMG
-      SHX2_3 = SHX2_3.notify
-      SHX3_3 = "~r~You must be in a dinghy to start scuba diving!"
-      SHX2_3(SHX3_3)
+    ::flow_label_26::
+    numberValue6 = GetEntityModel
+    numberValue7 = mathHelper
+    -- Beginner: result below is modelHash.
+    numberValue6 = numberValue6(numberValue7)
+    if 1033245328 ~= numberValue6 then
+      numberValue6 = tCMG
+      numberValue6 = numberValue6.notify
+      numberValue7 = "~r~You must be in a dinghy to start scuba diving!"
+      numberValue6(numberValue7)
       return
     end
-    SHX2_3 = GetPedInVehicleSeat
-    SHX3_3 = SHX1_3
-    SHX4_3 = -1
-    SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-    if SHX2_3 ~= SHX0_3 then
-      SHX2_3 = tCMG
-      SHX2_3 = SHX2_3.notify
-      SHX3_3 = "~r~You must be in the driver seat of the dinghy to start scuba diving!"
-      SHX2_3(SHX3_3)
+    numberValue6 = GetPedInVehicleSeat
+    numberValue7 = mathHelper
+    numberValue8 = -1
+    numberValue6 = numberValue6(numberValue7, numberValue8)
+    if numberValue6 ~= arg12 then
+      numberValue6 = tCMG
+      numberValue6 = numberValue6.notify
+      numberValue7 = "~r~You must be in the driver seat of the dinghy to start scuba diving!"
+      -- Beginner: Show a notification to the player.
+      numberValue6(numberValue7)
       return
     end
-    SHX2_3 = pairs
-    SHX3_3 = SHX13_1
-    SHX2_3, SHX3_3, SHX4_3, SHX5_3 = SHX2_3(SHX3_3)
-    for SHX6_3, SHX7_3 in SHX2_3, SHX3_3, SHX4_3, SHX5_3 do
-      SHX8_3 = GetIsTaskActive
-      SHX9_3 = SHX0_3
-      SHX10_3 = SHX7_3
-      SHX8_3 = SHX8_3(SHX9_3, SHX10_3)
-      if SHX8_3 then
-        SHX8_3 = tCMG
-        SHX8_3 = SHX8_3.notify
-        SHX9_3 = "~r~You must be stationary in the driver seat to start scuba diving!"
-        SHX8_3(SHX9_3)
+    numberValue6 = pairs
+    numberValue7 = textValue2
+    numberValue6, numberValue7, numberValue8, numberValue10 = numberValue6(numberValue7)
+    for numberValue11, numberValue12 in numberValue6, numberValue7, numberValue8, numberValue10 do
+      cmgCall2 = GetIsTaskActive
+      textValue12 = arg12
+      workValue = numberValue12
+      cmgCall2 = cmgCall2(textValue12, workValue)
+      if cmgCall2 then
+        cmgCall2 = tCMG
+        cmgCall2 = cmgCall2.notify
+        textValue12 = "~r~You must be stationary in the driver seat to start scuba diving!"
+        cmgCall2(textValue12)
         return
       end
     end
-    SHX2_3 = TriggerServerEvent
-    SHX3_3 = "15464d9482"
-    SHX2_3(SHX3_3)
-    SHX2_3 = tCMG
-    SHX2_3 = SHX2_3.removeArea
-    SHX3_3 = "scubajob_"
-    SHX4_3 = SHX0_2.name
-    SHX3_3 = SHX3_3 .. SHX4_3
-    SHX2_3(SHX3_3)
-    SHX2_3 = "~y~Search for treasures and return to your boat when finished"
-    SHX4_1 = SHX2_3
-    SHX2_3 = SHX14_1
-    SHX3_3 = SHX0_2
-    SHX2_3(SHX3_3)
-    SHX2_3 = CreateThread
-    SHX3_3 = SHX12_1
-    SHX2_3(SHX3_3)
+    numberValue6 = TriggerServerEvent
+    numberValue7 = "15464d9482"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "15464d9482".
+    numberValue6(numberValue7)
+    numberValue6 = tCMG
+    numberValue6 = numberValue6.removeArea
+    numberValue7 = "scubajob_"
+    numberValue8 = arg1.name
+    numberValue7 = numberValue7 .. numberValue8
+    numberValue6(numberValue7)
+    numberValue6 = "~y~Search for treasures and return to your boat when finished"
+    textValue6 = numberValue6
+    numberValue6 = rageUiCall2
+    numberValue7 = arg1
+    numberValue6(numberValue7)
+    numberValue6 = CreateThread
+    numberValue7 = textValue
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    numberValue6(numberValue7)
   end
-  SHX5_2 = SetWaypointOff
-  SHX5_2()
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.addBlip
-  SHX6_2 = SHX0_2.position
-  SHX6_2 = SHX6_2.x
-  SHX7_2 = SHX0_2.position
-  SHX7_2 = SHX7_2.y
-  SHX8_2 = SHX0_2.position
-  SHX8_2 = SHX8_2.z
-  SHX9_2 = SHX0_2.blipId
-  SHX10_2 = SHX0_2.blipColour
-  SHX11_2 = "Scuba Diving"
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX6_2 = SetNewWaypoint
-  SHX7_2 = SHX0_2.position
-  SHX7_2 = SHX7_2.x
-  SHX8_2 = SHX0_2.position
-  SHX8_2 = SHX8_2.y
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.createArea
-  SHX7_2 = "scubajob_"
-  SHX8_2 = SHX0_2.name
-  SHX7_2 = SHX7_2 .. SHX8_2
-  SHX8_2 = SHX0_2.position
-  SHX9_2 = 250
-  SHX10_2 = 15
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = SHX4_2
-  SHX14_2 = {}
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX6_2 = tCMG
-  SHX6_2 = SHX6_2.getCustomization
-  SHX6_2 = SHX6_2()
-  SHX6_1 = SHX6_2
-  SHX6_2 = tCMG
-  SHX6_2 = SHX6_2.setCustomization
-  SHX7_2 = {}
-  SHX7_2.modelhash = 1885233650
-  SHX6_2(SHX7_2)
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.random
-  SHX7_2 = 1
-  SHX8_2 = 15
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX7_2 = SetPedComponentVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 11
-  SHX10_2 = 243
-  SHX11_2 = SHX6_2
-  SHX12_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = SetPedComponentVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 3
-  SHX10_2 = 123
-  SHX11_2 = 0
-  SHX12_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = SetPedComponentVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 4
-  SHX10_2 = 94
-  SHX11_2 = SHX6_2
-  SHX12_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = SetPedComponentVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 6
-  SHX10_2 = 67
-  SHX11_2 = 1
-  SHX12_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = SetPedComponentVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 7
-  SHX10_2 = 40
-  SHX11_2 = 1
-  SHX12_2 = 0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = SetPedComponentVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 8
-  SHX10_2 = 15
-  SHX11_2 = 0
-  SHX12_2 = 1
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX7_2 = SetPedScubaGearVariation
-  SHX8_2 = PlayerPedId
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX8_2()
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX7_2 = Wait
-  SHX8_2 = 0
-  SHX7_2(SHX8_2)
-  SHX7_2 = math
-  SHX7_2 = SHX7_2.random
-  SHX8_2 = SHX0_2.dinghySpawnPositions
-  SHX8_2 = #SHX8_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = SHX0_2.dinghySpawnPositions
-  SHX8_2 = SHX8_2[SHX7_2]
-  SHX9_2 = SetEntityCoords
-  SHX10_2 = PlayerPedId
-  SHX10_2 = SHX10_2()
-  SHX11_2 = SHX8_2.x
-  SHX12_2 = SHX8_2.y
-  SHX13_2 = SHX8_2.z
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.requestEntitySpawn
-  SHX10_2 = "scubajob"
-  SHX11_2 = SHX0_2.dinghySpawnPositions
-  SHX11_2 = SHX11_2[SHX7_2]
-  SHX9_2(SHX10_2, SHX11_2)
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.spawnVehicle
-  SHX10_2 = 1033245328
-  SHX11_2 = SHX0_2.dinghySpawnPositions
-  SHX11_2 = SHX11_2[SHX7_2]
-  SHX11_2 = SHX11_2.x
-  SHX12_2 = SHX0_2.dinghySpawnPositions
-  SHX12_2 = SHX12_2[SHX7_2]
-  SHX12_2 = SHX12_2.y
-  SHX13_2 = SHX0_2.dinghySpawnPositions
-  SHX13_2 = SHX13_2[SHX7_2]
-  SHX13_2 = SHX13_2.z
-  SHX14_2 = SHX0_2.dinghySpawnHeading
-  SHX15_2 = true
-  SHX16_2 = true
-  SHX17_2 = true
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX5_1 = SHX9_2
-  SHX9_2 = AddBlipForEntity
-  SHX10_2 = SHX5_1
-  SHX9_2 = SHX9_2(SHX10_2)
-  SHX10_2 = SetBlipSprite
-  SHX11_2 = SHX9_2
-  SHX12_2 = 427
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetBlipDisplay
-  SHX11_2 = SHX9_2
-  SHX12_2 = 4
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetBlipScale
-  SHX11_2 = SHX9_2
-  SHX12_2 = 1.0
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetBlipColour
-  SHX11_2 = SHX9_2
-  SHX12_2 = 2
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetBlipAsShortRange
-  SHX11_2 = SHX9_2
-  SHX12_2 = true
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = BeginTextCommandSetBlipName
-  SHX11_2 = "STRING"
-  SHX10_2(SHX11_2)
-  SHX10_2 = AddTextComponentSubstringPlayerName
-  SHX11_2 = "Scuba Dinghy"
-  SHX10_2(SHX11_2)
-  SHX10_2 = EndTextCommandSetBlipName
-  SHX11_2 = SHX9_2
-  SHX10_2(SHX11_2)
-  SHX10_2 = Wait
-  SHX11_2 = 2000
-  SHX10_2(SHX11_2)
-  SHX10_2 = NetworkGetNetworkIdFromEntity
-  SHX11_2 = SHX5_1
-  SHX10_2 = SHX10_2(SHX11_2)
-  SHX11_2 = TriggerServerEvent
-  SHX12_2 = "78dddcfb46"
-  SHX13_2 = SHX10_2
-  SHX11_2(SHX12_2, SHX13_2)
-  SHX11_2 = DoScreenFadeIn
-  SHX12_2 = 2000
-  SHX11_2(SHX12_2)
-  SHX11_2 = SetPedScubaGearVariation
-  SHX12_2 = PlayerPedId
-  SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX12_2()
-  SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX11_2 = Citizen
-  SHX11_2 = SHX11_2.CreateThread
-  function SHX12_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
+  workValue2 = SetWaypointOff
+  workValue2()
+  workValue2 = tCMG
+  workValue2 = workValue2.addBlip
+  flag14 = arg1.position
+  flag14 = flag14.x
+  textValue9 = arg1.position
+  textValue9 = textValue9.y
+  textValue10 = arg1.position
+  textValue10 = textValue10.z
+  numberValue13 = arg1.blipId
+  flag = arg1.blipColour
+  numberValue = "Scuba Diving"
+  workValue2 = workValue2(flag14, textValue9, textValue10, numberValue13, flag, numberValue)
+  flag14 = SetNewWaypoint
+  textValue9 = arg1.position
+  textValue9 = textValue9.x
+  textValue10 = arg1.position
+  textValue10 = textValue10.y
+  flag14(textValue9, textValue10)
+  flag14 = CMG
+  flag14 = flag14.createArea
+  textValue9 = "scubajob_"
+  textValue10 = arg1.name
+  textValue9 = textValue9 .. textValue10
+  textValue10 = arg1.position
+  numberValue13 = 250
+  flag = 15
+  numberValue = flag12
+  numberValue2 = textValue5
+  dataTable = textValue7
+  numberValue3 = {}
+  -- Beginner: Create an interaction area around a world position.
+  flag14(textValue9, textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3)
+  flag14 = tCMG
+  flag14 = flag14.getCustomization
+  flag14 = flag14()
+  workValue4 = flag14
+  flag14 = tCMG
+  flag14 = flag14.setCustomization
+  textValue9 = {}
+  textValue9.modelhash = 1885233650
+  flag14(textValue9)
+  flag14 = math
+  flag14 = flag14.random
+  textValue9 = 1
+  textValue10 = 15
+  flag14 = flag14(textValue9, textValue10)
+  textValue9 = SetPedComponentVariation
+  textValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  textValue10 = textValue10()
+  numberValue13 = 11
+  flag = 243
+  numberValue = flag14
+  numberValue2 = 0
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2)
+  textValue9 = SetPedComponentVariation
+  textValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  textValue10 = textValue10()
+  numberValue13 = 3
+  flag = 123
+  numberValue = 0
+  numberValue2 = 0
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2)
+  textValue9 = SetPedComponentVariation
+  textValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  textValue10 = textValue10()
+  numberValue13 = 4
+  flag = 94
+  numberValue = flag14
+  numberValue2 = 0
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2)
+  textValue9 = SetPedComponentVariation
+  textValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  textValue10 = textValue10()
+  numberValue13 = 6
+  flag = 67
+  numberValue = 1
+  numberValue2 = 0
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2)
+  textValue9 = SetPedComponentVariation
+  textValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  textValue10 = textValue10()
+  numberValue13 = 7
+  flag = 40
+  numberValue = 1
+  numberValue2 = 0
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2)
+  textValue9 = SetPedComponentVariation
+  textValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  textValue10 = textValue10()
+  numberValue13 = 8
+  flag = 15
+  numberValue = 0
+  numberValue2 = 1
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2)
+  textValue9 = SetPedScubaGearVariation
+  textValue10 = PlayerPedId
+  textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4 = textValue10()
+  textValue9(textValue10, numberValue13, flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4)
+  textValue9 = Wait
+  textValue10 = 0
+  textValue9(textValue10)
+  textValue9 = math
+  textValue9 = textValue9.random
+  textValue10 = arg1.dinghySpawnPositions
+  textValue10 = #textValue10
+  textValue9 = textValue9(textValue10)
+  textValue10 = arg1.dinghySpawnPositions
+  textValue10 = textValue10[textValue9]
+  numberValue13 = SetEntityCoords
+  flag = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  flag = flag()
+  numberValue = textValue10.x
+  numberValue2 = textValue10.y
+  dataTable = textValue10.z
+  numberValue3 = false
+  flag2 = false
+  flag3 = false
+  flag4 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  numberValue13(flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4)
+  numberValue13 = CMG
+  numberValue13 = numberValue13.requestEntitySpawn
+  flag = "scubajob"
+  numberValue = arg1.dinghySpawnPositions
+  numberValue = numberValue[textValue9]
+  numberValue13(flag, numberValue)
+  numberValue13 = CMG
+  numberValue13 = numberValue13.spawnVehicle
+  flag = 1033245328
+  numberValue = arg1.dinghySpawnPositions
+  numberValue = numberValue[textValue9]
+  numberValue = numberValue.x
+  numberValue2 = arg1.dinghySpawnPositions
+  numberValue2 = numberValue2[textValue9]
+  numberValue2 = numberValue2.y
+  dataTable = arg1.dinghySpawnPositions
+  dataTable = dataTable[textValue9]
+  dataTable = dataTable.z
+  numberValue3 = arg1.dinghySpawnHeading
+  flag2 = true
+  flag3 = true
+  flag4 = true
+  numberValue13 = numberValue13(flag, numberValue, numberValue2, dataTable, numberValue3, flag2, flag3, flag4)
+  numberValue9 = numberValue13
+  numberValue13 = AddBlipForEntity
+  flag = numberValue9
+  -- Beginner: result below is blipHandle.
+  numberValue13 = numberValue13(flag)
+  flag = SetBlipSprite
+  numberValue = numberValue13
+  numberValue2 = 427
+  flag(numberValue, numberValue2)
+  flag = SetBlipDisplay
+  numberValue = numberValue13
+  numberValue2 = 4
+  flag(numberValue, numberValue2)
+  flag = SetBlipScale
+  numberValue = numberValue13
+  numberValue2 = 1.0
+  flag(numberValue, numberValue2)
+  flag = SetBlipColour
+  numberValue = numberValue13
+  numberValue2 = 2
+  flag(numberValue, numberValue2)
+  flag = SetBlipAsShortRange
+  numberValue = numberValue13
+  numberValue2 = true
+  flag(numberValue, numberValue2)
+  flag = BeginTextCommandSetBlipName
+  numberValue = "STRING"
+  flag(numberValue)
+  flag = AddTextComponentSubstringPlayerName
+  numberValue = "Scuba Dinghy"
+  flag(numberValue)
+  flag = EndTextCommandSetBlipName
+  numberValue = numberValue13
+  flag(numberValue)
+  flag = Wait
+  numberValue = 2000
+  flag(numberValue)
+  flag = NetworkGetNetworkIdFromEntity
+  numberValue = numberValue9
+  flag = flag(numberValue)
+  numberValue = TriggerServerEvent
+  numberValue2 = "78dddcfb46"
+  dataTable = flag
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "78dddcfb46".
+  numberValue(numberValue2, dataTable)
+  numberValue = DoScreenFadeIn
+  numberValue2 = 2000
+  numberValue(numberValue2)
+  numberValue = SetPedScubaGearVariation
+  numberValue2 = PlayerPedId
+  numberValue2, dataTable, numberValue3, flag2, flag3, flag4 = numberValue2()
+  numberValue(numberValue2, dataTable, numberValue3, flag2, flag3, flag4)
+  numberValue = Citizen
+  numberValue = numberValue.CreateThread
+  function numberValue2()
+    local arg12, mathHelper, numberValue6, numberValue7
     while true do
-      SHX0_3 = SHX3_1
-      if not SHX0_3 then
+      arg12 = flag13
+      if not arg12 then
         break
       end
-      SHX0_3 = SHX7_1
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.drawPlaneScaleForm
-        SHX1_3 = "~r~MISSION FAILED"
-        SHX2_3 = "Your boat has been destroyed, go get a new one!"
-        SHX0_3(SHX1_3, SHX2_3)
-        SHX0_3 = SHX3_1
-        if SHX0_3 then
-          SHX0_3 = SHX7_1
-          if SHX0_3 then
-            goto SHX_LABEL_19
+      arg12 = flag16
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.drawPlaneScaleForm
+        mathHelper = "~r~MISSION FAILED"
+        numberValue6 = "Your boat has been destroyed, go get a new one!"
+        arg12(mathHelper, numberValue6)
+        arg12 = flag13
+        if arg12 then
+          arg12 = flag16
+          if arg12 then
+            goto flow_label_19
           end
         end
         return
-        -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-        ::SHX_LABEL_19::
-        SHX0_3 = SetWaypointOff
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "64b26a9931"
-        SHX2_3 = 0
-        SHX0_3(SHX1_3, SHX2_3)
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "e370842c85"
-        SHX0_3(SHX1_3)
-        SHX0_3 = 0
-        SHX2_1 = SHX0_3
-        SHX0_3 = false
-        SHX3_1 = SHX0_3
-        SHX0_3 = false
-        SHX7_1 = SHX0_3
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.setCustomization
-        SHX1_3 = SHX6_1
-        SHX0_3(SHX1_3)
-        SHX0_3 = PlayerPedId
-        SHX0_3 = SHX0_3()
-        SHX1_3 = SetEnableScuba
-        SHX2_3 = SHX0_3
-        SHX3_3 = false
-        SHX1_3(SHX2_3, SHX3_3)
-        SHX1_3 = SetPedMaxTimeUnderwater
-        SHX2_3 = SHX0_3
-        SHX3_3 = 10.0
-        SHX1_3(SHX2_3, SHX3_3)
-        SHX1_3 = SHX10_1
-        SHX1_3()
+        ::flow_label_19::
+        arg12 = SetWaypointOff
+        arg12()
+        arg12 = TriggerServerEvent
+        mathHelper = "64b26a9931"
+        numberValue6 = 0
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "64b26a9931".
+        arg12(mathHelper, numberValue6)
+        arg12 = TriggerServerEvent
+        mathHelper = "e370842c85"
+        arg12(mathHelper)
+        arg12 = 0
+        numberValue5 = arg12
+        arg12 = false
+        flag13 = arg12
+        arg12 = false
+        flag16 = arg12
+        arg12 = tCMG
+        arg12 = arg12.setCustomization
+        mathHelper = workValue4
+        arg12(mathHelper)
+        arg12 = PlayerPedId
+        -- Beginner: result below is localPlayerPed.
+        arg12 = arg12()
+        mathHelper = SetEnableScuba
+        numberValue6 = arg12
+        numberValue7 = false
+        mathHelper(numberValue6, numberValue7)
+        mathHelper = SetPedMaxTimeUnderwater
+        numberValue6 = arg12
+        numberValue7 = 10.0
+        mathHelper(numberValue6, numberValue7)
+        mathHelper = eventHandlerRegistration
+        mathHelper()
         break
       end
-      SHX0_3 = Wait
-      SHX1_3 = 250
-      SHX0_3(SHX1_3)
+      arg12 = Wait
+      mathHelper = 250
+      arg12(mathHelper)
     end
   end
-  SHX11_2(SHX12_2)
-  SHX11_2 = "~y~Head to the diving location: "
-  SHX12_2 = SHX0_2.name
-  SHX11_2 = SHX11_2 .. SHX12_2
-  SHX4_1 = SHX11_2
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  numberValue(numberValue2)
+  numberValue = "~y~Head to the diving location: "
+  numberValue2 = arg1.name
+  numberValue = numberValue .. numberValue2
+  textValue6 = numberValue
   while true do
-    SHX11_2 = SHX3_1
-    if not SHX11_2 then
+    numberValue = flag13
+    if not numberValue then
       break
     end
-    SHX11_2 = drawNativeText
-    SHX12_2 = SHX4_1
-    SHX11_2(SHX12_2)
-    SHX11_2 = Wait
-    SHX12_2 = 0
-    SHX11_2(SHX12_2)
+    numberValue = drawNativeText
+    numberValue2 = textValue6
+    -- Beginner: Draw GTA-style text on screen.
+    numberValue(numberValue2)
+    numberValue = Wait
+    numberValue2 = 0
+    numberValue(numberValue2)
   end
-  SHX11_2 = tCMG
-  SHX11_2 = SHX11_2.removeBlip
-  SHX12_2 = SHX5_2
-  SHX11_2(SHX12_2)
-  SHX11_2 = RemoveBlip
-  SHX12_2 = SHX1_2
-  SHX11_2(SHX12_2)
+  numberValue = tCMG
+  numberValue = numberValue.removeBlip
+  numberValue2 = workValue2
+  numberValue(numberValue2)
+  numberValue = RemoveBlip
+  numberValue2 = arg2
+  numberValue(numberValue2)
 end
-SHX15_1(SHX16_1, SHX17_1)
-SHX15_1 = CMG
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX3_1
-  return SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "82c23c96fb".
+rageUiCall3(textValue3, textValue4)
+rageUiCall3 = CMG
+function textValue3()
+  local arg1, arg2
+  arg1 = flag13
+  return arg1
 end
-SHX15_1.isScubaJobInProgress = SHX16_1
+rageUiCall3.isScubaJobInProgress = textValue3

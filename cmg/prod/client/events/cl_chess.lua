@@ -1,1280 +1,1169 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_chess.lua
+    ============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_chess"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = nil
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_2.bViewingBoard
-  if SHX1_2 then
-    SHX1_2 = SendNUIMessage
-    SHX2_2 = {}
-    SHX2_2.updateChessBoard = true
-    SHX3_2 = SHX0_2.boardFEN
-    SHX2_2.fen = SHX3_2
-    SHX1_2(SHX2_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Chess
+    ======================
+
+    File: cmg/prod/client/events/cl_chess.lua
+    Purpose: This file contains event/minigame logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Config/data used:
+      * cfg/cfg_chess
+
+    Network/hash identifiers found: 9
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * Press ~INPUT_CONTEXT~ to play as white
+      * Press ~INPUT_CONTEXT~ to play as black
+      * Press ~INPUT_INTERACTION_MENU~ to toggle board
+
+]]
+local cmgCall, dataTable2, workValue8, workValue10, workValue11, workValue12, eventRegistration, textValue4, threadCall, workValue14, workValue3, cmgCall2, textValue, textValue2
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+dataTable2 = "cfg/cfg_chess"
+-- Beginner: result below is config.
+cmgCall = cmgCall(dataTable2)
+dataTable2 = {}
+workValue8 = nil
+function workValue10(arg1)
+  local arg2, arg3, dataTable3
+  arg2 = arg1.bViewingBoard
+  if arg2 then
+    arg2 = SendNUIMessage
+    arg3 = {}
+    arg3.updateChessBoard = true
+    dataTable3 = arg1.boardFEN
+    arg3.fen = dataTable3
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    arg2(arg3)
   end
 end
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = SHX0_2.boardObjects
-  if SHX1_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX0_2.boardObjects
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = pairs
-      SHX8_2 = SHX6_2
-      SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-      for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-        if 0 ~= SHX12_2 then
-          SHX13_2 = DeleteEntity
-          SHX14_2 = SHX12_2
-          SHX13_2(SHX14_2)
+function workValue11(arg1)
+  local arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6
+  arg2 = arg1.boardObjects
+  if arg2 then
+    arg2 = pairs
+    arg3 = arg1.boardObjects
+    arg2, arg3, dataTable3, dataTable4 = arg2(arg3)
+    for dataTable5, dataTable6 in arg2, arg3, dataTable3, dataTable4 do
+      iterator = pairs
+      dataTable7 = dataTable6
+      iterator, dataTable7, iterator2, dataTable = iterator(dataTable7)
+      for numberValue2, numberValue3 in iterator, dataTable7, iterator2, dataTable do
+        if 0 ~= numberValue3 then
+          numberValue5 = DeleteEntity
+          numberValue6 = numberValue3
+          -- Beginner: Delete a GTA entity.
+          numberValue5(numberValue6)
         end
       end
     end
   end
 end
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX2_2 = SHX1_2.insideRadius
-  if not SHX2_2 then
+function workValue12(arg1, arg2)
+  local arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7, cmgCall3, vector3Builder, workValue4, workValue5, heading, workValue7, flag2, flag3, flag4
+  arg3 = arg2.insideRadius
+  if not arg3 then
     return
   end
-  SHX2_2 = SHX4_1
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = {}
-  SHX3_2 = {}
-  SHX4_2 = {}
-  SHX5_2 = {}
-  SHX6_2 = {}
-  SHX7_2 = {}
-  SHX8_2 = {}
-  SHX9_2 = {}
-  SHX10_2 = {}
-  SHX2_2[1] = SHX3_2
-  SHX2_2[2] = SHX4_2
-  SHX2_2[3] = SHX5_2
-  SHX2_2[4] = SHX6_2
-  SHX2_2[5] = SHX7_2
-  SHX2_2[6] = SHX8_2
-  SHX2_2[7] = SHX9_2
-  SHX2_2[8] = SHX10_2
-  SHX1_2.boardObjects = SHX2_2
-  SHX2_2 = SHX1_2.boardObject
-  if 0 == SHX2_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.loadModel
-    SHX3_2 = 1235783144
-    SHX2_2(SHX3_2)
-    SHX2_2 = CreateObject
-    SHX3_2 = 1235783144
-    SHX4_2 = SHX0_1.locations
-    SHX4_2 = SHX4_2[SHX0_2]
-    SHX4_2 = SHX4_2.originPosition
-    SHX4_2 = SHX4_2.x
-    SHX4_2 = SHX4_2 + 10.1
-    SHX5_2 = SHX0_1.locations
-    SHX5_2 = SHX5_2[SHX0_2]
-    SHX5_2 = SHX5_2.originPosition
-    SHX5_2 = SHX5_2.y
-    SHX5_2 = SHX5_2 + 9.25
-    SHX6_2 = SHX0_1.locations
-    SHX6_2 = SHX6_2[SHX0_2]
-    SHX6_2 = SHX6_2.originPosition
-    SHX6_2 = SHX6_2.z
-    SHX6_2 = SHX6_2 - 42.85
-    SHX7_2 = false
-    SHX8_2 = false
-    SHX9_2 = false
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX1_2.boardObject = SHX2_2
-    SHX2_2 = FreezeEntityPosition
-    SHX3_2 = SHX1_2.boardObject
-    SHX4_2 = true
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = SetEntityLodDist
-    SHX3_2 = SHX1_2.boardObject
-    SHX4_2 = 200
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = SetModelAsNoLongerNeeded
-    SHX3_2 = 1235783144
-    SHX2_2(SHX3_2)
+  arg3 = workValue11
+  dataTable3 = arg2
+  arg3(dataTable3)
+  arg3 = {}
+  dataTable3 = {}
+  dataTable4 = {}
+  dataTable5 = {}
+  dataTable6 = {}
+  iterator = {}
+  dataTable7 = {}
+  iterator2 = {}
+  dataTable = {}
+  arg3[1] = dataTable3
+  arg3[2] = dataTable4
+  arg3[3] = dataTable5
+  arg3[4] = dataTable6
+  arg3[5] = iterator
+  arg3[6] = dataTable7
+  arg3[7] = iterator2
+  arg3[8] = dataTable
+  arg2.boardObjects = arg3
+  arg3 = arg2.boardObject
+  if 0 == arg3 then
+    arg3 = CMG
+    arg3 = arg3.loadModel
+    dataTable3 = 1235783144
+    -- Beginner: Request/load a GTA model before spawning or applying it.
+    arg3(dataTable3)
+    arg3 = CreateObject
+    dataTable3 = 1235783144
+    dataTable4 = cmgCall.locations
+    dataTable4 = dataTable4[arg1]
+    dataTable4 = dataTable4.originPosition
+    dataTable4 = dataTable4.x
+    dataTable4 = dataTable4 + 10.1
+    dataTable5 = cmgCall.locations
+    dataTable5 = dataTable5[arg1]
+    dataTable5 = dataTable5.originPosition
+    dataTable5 = dataTable5.y
+    dataTable5 = dataTable5 + 9.25
+    dataTable6 = cmgCall.locations
+    dataTable6 = dataTable6[arg1]
+    dataTable6 = dataTable6.originPosition
+    dataTable6 = dataTable6.z
+    dataTable6 = dataTable6 - 42.85
+    iterator = false
+    dataTable7 = false
+    iterator2 = false
+    -- Beginner: result below is objectEntity.
+    arg3 = arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2)
+    arg2.boardObject = arg3
+    arg3 = FreezeEntityPosition
+    dataTable3 = arg2.boardObject
+    dataTable4 = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    arg3(dataTable3, dataTable4)
+    arg3 = SetEntityLodDist
+    dataTable3 = arg2.boardObject
+    dataTable4 = 200
+    arg3(dataTable3, dataTable4)
+    arg3 = SetModelAsNoLongerNeeded
+    dataTable3 = 1235783144
+    arg3(dataTable3)
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.parseChessFEN
-  SHX3_2 = SHX1_2.boardFEN
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = pairs
-    SHX10_2 = SHX8_2
-    SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-    for SHX13_2, SHX14_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-      SHX15_2 = SHX0_1.pieceToArchetypeMap
-      SHX15_2 = SHX15_2[SHX14_2]
-      if SHX15_2 then
-        SHX16_2 = CMG
-        SHX16_2 = SHX16_2.loadModel
-        SHX17_2 = SHX15_2
-        SHX16_2(SHX17_2)
-        SHX16_2 = SHX0_1.locations
-        SHX16_2 = SHX16_2[SHX0_2]
-        SHX16_2 = SHX16_2.originPosition
-        SHX17_2 = vector3
-        SHX18_2 = SHX0_1.squareSize
-        SHX18_2 = SHX7_2 * SHX18_2
-        SHX19_2 = SHX0_1.squareSize
-        SHX19_2 = SHX13_2 * SHX19_2
-        SHX20_2 = 0.0
-        SHX17_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-        SHX16_2 = SHX16_2 + SHX17_2
-        SHX17_2 = SHX0_1.archetypeToOffsetMap
-        SHX17_2 = SHX17_2[SHX15_2]
-        SHX16_2 = SHX16_2 - SHX17_2
-        SHX17_2 = CreateObjectNoOffset
-        SHX18_2 = SHX15_2
-        SHX19_2 = SHX16_2.x
-        SHX20_2 = SHX16_2.y
-        SHX21_2 = SHX16_2.z
-        SHX22_2 = false
-        SHX23_2 = false
-        SHX24_2 = false
-        SHX17_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX18_2 = SetEntityHeading
-        SHX19_2 = SHX17_2
-        SHX20_2 = GetEntityHeading
-        SHX21_2 = SHX17_2
-        SHX20_2 = SHX20_2(SHX21_2)
-        SHX21_2 = SHX0_1.archetypeToHeadingsMap
-        SHX21_2 = SHX21_2[SHX15_2]
-        SHX20_2 = SHX20_2 + SHX21_2
-        SHX18_2(SHX19_2, SHX20_2)
-        SHX18_2 = FreezeEntityPosition
-        SHX19_2 = SHX17_2
-        SHX20_2 = true
-        SHX18_2(SHX19_2, SHX20_2)
-        SHX18_2 = SetEntityLodDist
-        SHX19_2 = SHX17_2
-        SHX20_2 = 200
-        SHX18_2(SHX19_2, SHX20_2)
-        SHX18_2 = table
-        SHX18_2 = SHX18_2.insert
-        SHX19_2 = SHX1_2.boardObjects
-        SHX19_2 = SHX19_2[SHX7_2]
-        SHX20_2 = SHX17_2
-        SHX18_2(SHX19_2, SHX20_2)
-        SHX18_2 = SetModelAsNoLongerNeeded
-        SHX19_2 = SHX15_2
-        SHX18_2(SHX19_2)
+  arg3 = CMG
+  arg3 = arg3.parseChessFEN
+  dataTable3 = arg2.boardFEN
+  arg3 = arg3(dataTable3)
+  dataTable3 = pairs
+  dataTable4 = arg3
+  dataTable3, dataTable4, dataTable5, dataTable6 = dataTable3(dataTable4)
+  for iterator, dataTable7 in dataTable3, dataTable4, dataTable5, dataTable6 do
+    iterator2 = pairs
+    dataTable = dataTable7
+    iterator2, dataTable, numberValue2, numberValue3 = iterator2(dataTable)
+    for numberValue5, numberValue6 in iterator2, dataTable, numberValue2, numberValue3 do
+      numberValue7 = cmgCall.pieceToArchetypeMap
+      numberValue7 = numberValue7[numberValue6]
+      if numberValue7 then
+        cmgCall3 = CMG
+        cmgCall3 = cmgCall3.loadModel
+        vector3Builder = numberValue7
+        -- Beginner: Request/load a GTA model before spawning or applying it.
+        cmgCall3(vector3Builder)
+        cmgCall3 = cmgCall.locations
+        cmgCall3 = cmgCall3[arg1]
+        cmgCall3 = cmgCall3.originPosition
+        vector3Builder = vector3
+        workValue4 = cmgCall.squareSize
+        workValue4 = iterator * workValue4
+        workValue5 = cmgCall.squareSize
+        workValue5 = numberValue5 * workValue5
+        heading = 0.0
+        vector3Builder = vector3Builder(workValue4, workValue5, heading)
+        cmgCall3 = cmgCall3 + vector3Builder
+        vector3Builder = cmgCall.archetypeToOffsetMap
+        vector3Builder = vector3Builder[numberValue7]
+        cmgCall3 = cmgCall3 - vector3Builder
+        vector3Builder = CreateObjectNoOffset
+        workValue4 = numberValue7
+        workValue5 = cmgCall3.x
+        heading = cmgCall3.y
+        workValue7 = cmgCall3.z
+        flag2 = false
+        flag3 = false
+        flag4 = false
+        -- Beginner: result below is objectEntity.
+        vector3Builder = vector3Builder(workValue4, workValue5, heading, workValue7, flag2, flag3, flag4)
+        workValue4 = SetEntityHeading
+        workValue5 = vector3Builder
+        heading = GetEntityHeading
+        workValue7 = vector3Builder
+        -- Beginner: result below is heading.
+        heading = heading(workValue7)
+        workValue7 = cmgCall.archetypeToHeadingsMap
+        workValue7 = workValue7[numberValue7]
+        heading = heading + workValue7
+        -- Beginner: Change the direction an entity is facing.
+        workValue4(workValue5, heading)
+        workValue4 = FreezeEntityPosition
+        workValue5 = vector3Builder
+        heading = true
+        -- Beginner: Freeze or unfreeze an entity in place.
+        workValue4(workValue5, heading)
+        workValue4 = SetEntityLodDist
+        workValue5 = vector3Builder
+        heading = 200
+        workValue4(workValue5, heading)
+        workValue4 = table
+        workValue4 = workValue4.insert
+        workValue5 = arg2.boardObjects
+        workValue5 = workValue5[iterator]
+        heading = vector3Builder
+        workValue4(workValue5, heading)
+        workValue4 = SetModelAsNoLongerNeeded
+        workValue5 = numberValue7
+        workValue4(workValue5)
       end
     end
   end
 end
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "a641ace444"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX3_2 = SHX2_2.bViewingBoard
-  if SHX3_2 then
-    SHX3_2 = SendNUIMessage
-    SHX4_2 = {}
-    SHX4_2.transactionType = "chess_move"
-    SHX3_2(SHX4_2)
+eventRegistration = RegisterNetEvent
+textValue4 = "a641ace444"
+-- Beginner: this function handles network event "a641ace444".
+function threadCall(arg1, arg2)
+  local arg3, dataTable3, dataTable4, dataTable5
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  dataTable3 = arg3.bViewingBoard
+  if dataTable3 then
+    dataTable3 = SendNUIMessage
+    dataTable4 = {}
+    dataTable4.transactionType = "chess_move"
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    dataTable3(dataTable4)
   end
-  SHX2_2.boardFEN = SHX1_2
-  SHX3_2 = SHX3_1
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = SHX5_1
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
+  arg3.boardFEN = arg2
+  dataTable3 = workValue10
+  dataTable4 = arg3
+  dataTable3(dataTable4)
+  dataTable3 = workValue12
+  dataTable4 = arg1
+  dataTable5 = arg3
+  dataTable3(dataTable4, dataTable5)
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "36e0214c1e"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if not SHX1_2 then
-    SHX2_2.bPlayingActive = false
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a641ace444".
+eventRegistration(textValue4, threadCall)
+eventRegistration = RegisterNetEvent
+textValue4 = "36e0214c1e"
+-- Beginner: this function handles network event "36e0214c1e".
+function threadCall(arg1, arg2)
+  local arg3
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  if not arg2 then
+    arg3.bPlayingActive = false
   end
-  SHX2_2.playingSide = SHX1_2
+  arg3.playingSide = arg2
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "a8fdaf5c82"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX2_2.bPlayingActive = SHX1_2
+eventRegistration(textValue4, threadCall)
+eventRegistration = RegisterNetEvent
+textValue4 = "a8fdaf5c82"
+-- Beginner: this function handles network event "a8fdaf5c82".
+function threadCall(arg1, arg2)
+  local arg3
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  arg3.bPlayingActive = arg2
 end
-SHX6_1(SHX7_1, SHX8_1)
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = SHX0_1.locations
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX1_2 = SHX1_2.originPosition
-  SHX2_2 = vector3
-  SHX3_2 = 10.0
-  SHX4_2 = 10.0
-  SHX5_2 = 20.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SHX1_2 + SHX2_2
-  SHX2_2 = SetCamParams
-  SHX3_2 = SHX1_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  SHX3_2 = SHX3_2.spectatingCamera
-  SHX4_2 = SHX1_2.x
-  SHX5_2 = SHX1_2.y
-  SHX6_2 = SHX1_2.z
-  SHX7_2 = -90.0
-  SHX8_2 = 0.0
-  SHX9_2 = 90.0
-  SHX10_2 = 50.0
-  SHX11_2 = 1000
-  SHX12_2 = 0
-  SHX13_2 = 0
-  SHX14_2 = 2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a8fdaf5c82".
+eventRegistration(textValue4, threadCall)
+-- Beginner: this function handles network event "a8fdaf5c82".
+function eventRegistration(arg1)
+  local arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6
+  arg2 = cmgCall.locations
+  arg2 = arg2[arg1]
+  arg2 = arg2.originPosition
+  arg3 = vector3
+  dataTable3 = 10.0
+  dataTable4 = 10.0
+  dataTable5 = 20.0
+  arg3 = arg3(dataTable3, dataTable4, dataTable5)
+  arg2 = arg2 + arg3
+  arg3 = SetCamParams
+  dataTable3 = dataTable2
+  dataTable3 = dataTable3[arg1]
+  dataTable3 = dataTable3.spectatingCamera
+  dataTable4 = arg2.x
+  dataTable5 = arg2.y
+  dataTable6 = arg2.z
+  iterator = -90.0
+  dataTable7 = 0.0
+  iterator2 = 90.0
+  dataTable = 50.0
+  numberValue2 = 1000
+  numberValue3 = 0
+  numberValue5 = 0
+  numberValue6 = 2
+  arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
 end
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX2_2 = SHX1_1
-  SHX3_2 = {}
-  SHX3_2.boardFEN = nil
-  SHX3_2.boardObject = 0
-  SHX4_2 = {}
-  SHX3_2.boardObjects = SHX4_2
-  SHX3_2.playingSide = nil
-  SHX3_2.playingActive = false
-  SHX3_2.bViewingBoard = false
-  SHX3_2.spectatingCamera = 0
-  SHX3_2.insideStartMarker = false
-  SHX3_2.insideRadius = false
-  SHX2_2[SHX0_2] = SHX3_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.createArea
-  SHX4_2 = "chess_white_"
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX5_2 = SHX1_2.whitePosition
-  SHX6_2 = 1.5
-  SHX7_2 = 6
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX2_2.insideStartMarker = true
+function textValue4(arg1, arg2)
+  local arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7
+  arg3 = dataTable2
+  dataTable3 = {}
+  dataTable3.boardFEN = nil
+  dataTable3.boardObject = 0
+  dataTable4 = {}
+  dataTable3.boardObjects = dataTable4
+  dataTable3.playingSide = nil
+  dataTable3.playingActive = false
+  dataTable3.bViewingBoard = false
+  dataTable3.spectatingCamera = 0
+  dataTable3.insideStartMarker = false
+  dataTable3.insideRadius = false
+  arg3[arg1] = dataTable3
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  dataTable3 = CMG
+  dataTable3 = dataTable3.createArea
+  dataTable4 = "chess_white_"
+  dataTable5 = arg1
+  dataTable4 = dataTable4 .. dataTable5
+  dataTable5 = arg2.whitePosition
+  dataTable6 = 1.5
+  iterator = 6
+  function dataTable7()
+    local workValue, textValue3
+    arg3.insideStartMarker = true
   end
-  function SHX9_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX2_2.insideStartMarker = false
+  function iterator2()
+    local workValue, textValue3
+    arg3.insideStartMarker = false
   end
-  function SHX10_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = SHX2_2.playingSide
-    if not SHX0_3 then
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to play as white"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "5f8c0ed877"
-        SHX2_3 = SHX0_2
-        SHX0_3(SHX1_3, SHX2_3)
+  function dataTable()
+    local workValue, textValue3, numberValue8
+    workValue = arg3.playingSide
+    if not workValue then
+      workValue = drawNativeNotification
+      textValue3 = "Press ~INPUT_CONTEXT~ to play as white"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      workValue(textValue3)
+      workValue = IsControlJustPressed
+      textValue3 = 0
+      numberValue8 = 51
+      workValue = workValue(textValue3, numberValue8)
+      if workValue then
+        workValue = TriggerServerEvent
+        textValue3 = "5f8c0ed877"
+        numberValue8 = arg1
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5f8c0ed877".
+        workValue(textValue3, numberValue8)
       end
     else
-      SHX0_3 = SHX2_2.playingSide
-      if "w" == SHX0_3 then
-        SHX0_3 = drawNativeNotification
-        SHX1_3 = [[
+      workValue = arg3.playingSide
+      if "w" == workValue then
+        workValue = drawNativeNotification
+        textValue3 = [[
 Press ~INPUT_CONTEXT~ to resign.
 Press ~INPUT_INTERACTION_MENU~ to toggle board]]
-        SHX0_3(SHX1_3)
-        SHX0_3 = IsControlJustPressed
-        SHX1_3 = 0
-        SHX2_3 = 51
-        SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-        if SHX0_3 then
-          SHX0_3 = SHX2_2.bViewingBoard
-          if not SHX0_3 then
-            SHX0_3 = TriggerServerEvent
-            SHX1_3 = "a7db4cf034"
-            SHX2_3 = SHX0_2
-            SHX0_3(SHX1_3, SHX2_3)
+        -- Beginner: Show a GTA-style notification/help prompt.
+        workValue(textValue3)
+        workValue = IsControlJustPressed
+        textValue3 = 0
+        numberValue8 = 51
+        workValue = workValue(textValue3, numberValue8)
+        if workValue then
+          workValue = arg3.bViewingBoard
+          if not workValue then
+            workValue = TriggerServerEvent
+            textValue3 = "a7db4cf034"
+            numberValue8 = arg1
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7db4cf034".
+            workValue(textValue3, numberValue8)
           end
         end
       end
     end
   end
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.addMarker
-  SHX4_2 = SHX1_2.whitePosition
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX1_2.whitePosition
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX1_2.whitePosition
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = 1.0
-  SHX8_2 = 1.0
-  SHX9_2 = 1.0
-  SHX10_2 = 255
-  SHX11_2 = 0
-  SHX12_2 = 0
-  SHX13_2 = 170
-  SHX14_2 = 50
-  SHX15_2 = 27
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.createArea
-  SHX4_2 = "chess_black_"
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX5_2 = SHX1_2.blackPosition
-  SHX6_2 = 1.5
-  SHX7_2 = 6
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX2_2.insideStartMarker = true
+  -- Beginner: Create an interaction area around a world position.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable)
+  dataTable3 = tCMG
+  dataTable3 = dataTable3.addMarker
+  dataTable4 = arg2.whitePosition
+  dataTable4 = dataTable4.x
+  dataTable5 = arg2.whitePosition
+  dataTable5 = dataTable5.y
+  dataTable6 = arg2.whitePosition
+  dataTable6 = dataTable6.z
+  iterator = 1.0
+  dataTable7 = 1.0
+  iterator2 = 1.0
+  dataTable = 255
+  numberValue2 = 0
+  numberValue3 = 0
+  numberValue5 = 170
+  numberValue6 = 50
+  numberValue7 = 27
+  -- Beginner: Create a world marker.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7)
+  dataTable3 = CMG
+  dataTable3 = dataTable3.createArea
+  dataTable4 = "chess_black_"
+  dataTable5 = arg1
+  dataTable4 = dataTable4 .. dataTable5
+  dataTable5 = arg2.blackPosition
+  dataTable6 = 1.5
+  iterator = 6
+  function dataTable7()
+    local workValue, textValue3
+    arg3.insideStartMarker = true
   end
-  function SHX9_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX2_2.insideStartMarker = false
+  function iterator2()
+    local workValue, textValue3
+    arg3.insideStartMarker = false
   end
-  function SHX10_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = SHX2_2.playingSide
-    if not SHX0_3 then
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to play as black"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "467142150f"
-        SHX2_3 = SHX0_2
-        SHX0_3(SHX1_3, SHX2_3)
+  function dataTable()
+    local workValue, textValue3, numberValue8
+    workValue = arg3.playingSide
+    if not workValue then
+      workValue = drawNativeNotification
+      textValue3 = "Press ~INPUT_CONTEXT~ to play as black"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      workValue(textValue3)
+      workValue = IsControlJustPressed
+      textValue3 = 0
+      numberValue8 = 51
+      workValue = workValue(textValue3, numberValue8)
+      if workValue then
+        workValue = TriggerServerEvent
+        textValue3 = "467142150f"
+        numberValue8 = arg1
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "467142150f".
+        workValue(textValue3, numberValue8)
       end
     else
-      SHX0_3 = SHX2_2.playingSide
-      if "b" == SHX0_3 then
-        SHX0_3 = drawNativeNotification
-        SHX1_3 = [[
+      workValue = arg3.playingSide
+      if "b" == workValue then
+        workValue = drawNativeNotification
+        textValue3 = [[
 Press ~INPUT_CONTEXT~ to resign.
 Press ~INPUT_INTERACTION_MENU~ to toggle board]]
-        SHX0_3(SHX1_3)
-        SHX0_3 = IsControlJustPressed
-        SHX1_3 = 0
-        SHX2_3 = 51
-        SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-        if SHX0_3 then
-          SHX0_3 = SHX2_2.bViewingBoard
-          if not SHX0_3 then
-            SHX0_3 = TriggerServerEvent
-            SHX1_3 = "a7db4cf034"
-            SHX2_3 = SHX0_2
-            SHX0_3(SHX1_3, SHX2_3)
+        -- Beginner: Show a GTA-style notification/help prompt.
+        workValue(textValue3)
+        workValue = IsControlJustPressed
+        textValue3 = 0
+        numberValue8 = 51
+        workValue = workValue(textValue3, numberValue8)
+        if workValue then
+          workValue = arg3.bViewingBoard
+          if not workValue then
+            workValue = TriggerServerEvent
+            textValue3 = "a7db4cf034"
+            numberValue8 = arg1
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7db4cf034".
+            workValue(textValue3, numberValue8)
           end
         end
       end
     end
   end
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.addMarker
-  SHX4_2 = SHX1_2.blackPosition
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX1_2.blackPosition
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX1_2.blackPosition
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = 1.0
-  SHX8_2 = 1.0
-  SHX9_2 = 1.0
-  SHX10_2 = 255
-  SHX11_2 = 0
-  SHX12_2 = 0
-  SHX13_2 = 170
-  SHX14_2 = 50
-  SHX15_2 = 27
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.createArea
-  SHX4_2 = "chess_spectate_"
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX5_2 = SHX1_2.spectatePosition
-  SHX6_2 = 2.0
-  SHX7_2 = 6
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  -- Beginner: Create an interaction area around a world position.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable)
+  dataTable3 = tCMG
+  dataTable3 = dataTable3.addMarker
+  dataTable4 = arg2.blackPosition
+  dataTable4 = dataTable4.x
+  dataTable5 = arg2.blackPosition
+  dataTable5 = dataTable5.y
+  dataTable6 = arg2.blackPosition
+  dataTable6 = dataTable6.z
+  iterator = 1.0
+  dataTable7 = 1.0
+  iterator2 = 1.0
+  dataTable = 255
+  numberValue2 = 0
+  numberValue3 = 0
+  numberValue5 = 170
+  numberValue6 = 50
+  numberValue7 = 27
+  -- Beginner: Create a world marker.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7)
+  dataTable3 = CMG
+  dataTable3 = dataTable3.createArea
+  dataTable4 = "chess_spectate_"
+  dataTable5 = arg1
+  dataTable4 = dataTable4 .. dataTable5
+  dataTable5 = arg2.spectatePosition
+  dataTable6 = 2.0
+  iterator = 6
+  function dataTable7()
+    local workValue, textValue3
   end
-  function SHX9_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function iterator2()
+    local workValue, textValue3
   end
-  function SHX10_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-    SHX0_3 = SHX2_2.spectatingCamera
-    if 0 == SHX0_3 then
-      SHX0_3 = SHX2_2.playingSide
-      if not SHX0_3 then
-        SHX0_3 = drawNativeNotification
-        SHX1_3 = [[
+  function dataTable()
+    local workValue, textValue3, numberValue8, flag5, flag6, numberValue9, flag7, flag8, workValue13, workValue15, numberValue, flag, numberValue4
+    workValue = arg3.spectatingCamera
+    if 0 == workValue then
+      workValue = arg3.playingSide
+      if not workValue then
+        workValue = drawNativeNotification
+        textValue3 = [[
 Press ~INPUT_CONTEXT~ to spectate the board
 Press ~INPUT_MELEE_ATTACK_LIGHT~ to reset the board]]
-        SHX0_3(SHX1_3)
-        SHX0_3 = IsControlJustPressed
-        SHX1_3 = 0
-        SHX2_3 = 51
-        SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-        if SHX0_3 then
-          SHX0_3 = GetGameplayCamCoord
-          SHX0_3 = SHX0_3()
-          SHX1_3 = GetGameplayCamRot
-          SHX2_3 = 2
-          SHX1_3 = SHX1_3(SHX2_3)
-          SHX2_3 = CreateCamWithParams
-          SHX3_3 = "DEFAULT_SCRIPTED_CAMERA"
-          SHX4_3 = SHX0_3.x
-          SHX5_3 = SHX0_3.y
-          SHX6_3 = SHX0_3.z
-          SHX7_3 = SHX1_3.x
-          SHX8_3 = SHX1_3.y
-          SHX9_3 = SHX1_3.z
-          SHX10_3 = 50.0
-          SHX11_3 = true
-          SHX12_3 = 2
-          SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-          SHX2_2.spectatingCamera = SHX2_3
-          SHX2_3 = RenderScriptCams
-          SHX3_3 = true
-          SHX4_3 = true
-          SHX5_3 = 1000
-          SHX6_3 = true
-          SHX7_3 = true
-          SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-          SHX2_3 = SHX6_1
-          SHX3_3 = SHX0_2
-          SHX2_3(SHX3_3)
-          SHX2_3 = CMG
-          SHX2_3 = SHX2_3.hideAllDisplays
-          SHX3_3 = "chess"
-          SHX2_3(SHX3_3)
+        -- Beginner: Show a GTA-style notification/help prompt.
+        workValue(textValue3)
+        workValue = IsControlJustPressed
+        textValue3 = 0
+        numberValue8 = 51
+        workValue = workValue(textValue3, numberValue8)
+        if workValue then
+          workValue = GetGameplayCamCoord
+          workValue = workValue()
+          textValue3 = GetGameplayCamRot
+          numberValue8 = 2
+          textValue3 = textValue3(numberValue8)
+          numberValue8 = CreateCamWithParams
+          flag5 = "DEFAULT_SCRIPTED_CAMERA"
+          flag6 = workValue.x
+          numberValue9 = workValue.y
+          flag7 = workValue.z
+          flag8 = textValue3.x
+          workValue13 = textValue3.y
+          workValue15 = textValue3.z
+          numberValue = 50.0
+          flag = true
+          numberValue4 = 2
+          numberValue8 = numberValue8(flag5, flag6, numberValue9, flag7, flag8, workValue13, workValue15, numberValue, flag, numberValue4)
+          arg3.spectatingCamera = numberValue8
+          numberValue8 = RenderScriptCams
+          flag5 = true
+          flag6 = true
+          numberValue9 = 1000
+          flag7 = true
+          flag8 = true
+          numberValue8(flag5, flag6, numberValue9, flag7, flag8)
+          numberValue8 = eventRegistration
+          flag5 = arg1
+          -- Beginner: Register a network event handler that the server/other clients can trigger.
+          numberValue8(flag5)
+          numberValue8 = CMG
+          numberValue8 = numberValue8.hideAllDisplays
+          flag5 = "chess"
+          numberValue8(flag5)
         end
-        SHX0_3 = DisableControlAction
-        SHX1_3 = 0
-        SHX2_3 = 140
-        SHX3_3 = true
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-        SHX0_3 = IsDisabledControlPressed
-        SHX1_3 = 0
-        SHX2_3 = 140
-        SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-        if SHX0_3 then
-          SHX0_3 = TriggerServerEvent
-          SHX1_3 = "a07cde6467"
-          SHX2_3 = SHX0_2
-          SHX0_3(SHX1_3, SHX2_3)
+        workValue = DisableControlAction
+        textValue3 = 0
+        numberValue8 = 140
+        flag5 = true
+        workValue(textValue3, numberValue8, flag5)
+        workValue = IsDisabledControlPressed
+        textValue3 = 0
+        numberValue8 = 140
+        workValue = workValue(textValue3, numberValue8)
+        if workValue then
+          workValue = TriggerServerEvent
+          textValue3 = "a07cde6467"
+          numberValue8 = arg1
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a07cde6467".
+          workValue(textValue3, numberValue8)
         end
       end
     end
   end
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.addMarker
-  SHX4_2 = SHX1_2.spectatePosition
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX1_2.spectatePosition
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX1_2.spectatePosition
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = 1.0
-  SHX8_2 = 1.0
-  SHX9_2 = 1.0
-  SHX10_2 = 0
-  SHX11_2 = 0
-  SHX12_2 = 255
-  SHX13_2 = 170
-  SHX14_2 = 50
-  SHX15_2 = 27
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.addBlip
-  SHX4_2 = SHX1_2.spectatePosition
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX1_2.spectatePosition
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX1_2.spectatePosition
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = 183
-  SHX8_2 = 13
-  SHX9_2 = "Chess"
-  SHX10_2 = 1.0
-  SHX11_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.CreateThread
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-    SHX0_3 = Citizen
-    SHX0_3 = SHX0_3.Wait
-    SHX1_3 = 2000
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.createArea
-    SHX1_3 = "chess_radius_"
-    SHX2_3 = SHX0_2
-    SHX1_3 = SHX1_3 .. SHX2_3
-    SHX2_3 = SHX1_2.spectatePosition
-    SHX3_3 = 250.0
-    SHX4_3 = 100.0
-    function SHX5_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4
-      SHX0_4 = SHX0_2
-      SHX2_1 = SHX0_4
-      SHX2_2.insideRadius = true
-      SHX0_4 = SHX2_2.boardFEN
-      if SHX0_4 then
-        SHX0_4 = SHX5_1
-        SHX1_4 = SHX0_2
-        SHX2_4 = SHX2_2
-        SHX0_4(SHX1_4, SHX2_4)
+  -- Beginner: Create an interaction area around a world position.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable)
+  dataTable3 = tCMG
+  dataTable3 = dataTable3.addMarker
+  dataTable4 = arg2.spectatePosition
+  dataTable4 = dataTable4.x
+  dataTable5 = arg2.spectatePosition
+  dataTable5 = dataTable5.y
+  dataTable6 = arg2.spectatePosition
+  dataTable6 = dataTable6.z
+  iterator = 1.0
+  dataTable7 = 1.0
+  iterator2 = 1.0
+  dataTable = 0
+  numberValue2 = 0
+  numberValue3 = 255
+  numberValue5 = 170
+  numberValue6 = 50
+  numberValue7 = 27
+  -- Beginner: Create a world marker.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7)
+  dataTable3 = tCMG
+  dataTable3 = dataTable3.addBlip
+  dataTable4 = arg2.spectatePosition
+  dataTable4 = dataTable4.x
+  dataTable5 = arg2.spectatePosition
+  dataTable5 = dataTable5.y
+  dataTable6 = arg2.spectatePosition
+  dataTable6 = dataTable6.z
+  iterator = 183
+  dataTable7 = 13
+  iterator2 = "Chess"
+  dataTable = 1.0
+  numberValue2 = false
+  -- Beginner: Create a minimap blip.
+  dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2)
+  dataTable3 = Citizen
+  dataTable3 = dataTable3.CreateThread
+  function dataTable4()
+    local workValue, textValue3, numberValue8, flag5, flag6, numberValue9, flag7, flag8, workValue13
+    workValue = Citizen
+    workValue = workValue.Wait
+    textValue3 = 2000
+    workValue(textValue3)
+    workValue = CMG
+    workValue = workValue.createArea
+    textValue3 = "chess_radius_"
+    numberValue8 = arg1
+    textValue3 = textValue3 .. numberValue8
+    numberValue8 = arg2.spectatePosition
+    flag5 = 250.0
+    flag6 = 100.0
+    function numberValue9()
+      local workValue2, workValue6, workValue9
+      workValue2 = arg1
+      workValue8 = workValue2
+      arg3.insideRadius = true
+      workValue2 = arg3.boardFEN
+      if workValue2 then
+        workValue2 = workValue12
+        workValue6 = arg1
+        workValue9 = arg3
+        workValue2(workValue6, workValue9)
       end
     end
-    function SHX6_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
-      SHX2_2.insideRadius = false
-      SHX0_4 = SHX4_1
-      SHX1_4 = SHX2_2
-      SHX0_4(SHX1_4)
-      SHX0_4 = SHX2_2.boardObject
-      if 0 ~= SHX0_4 then
-        SHX0_4 = DeleteEntity
-        SHX1_4 = SHX2_2.boardObject
-        SHX0_4(SHX1_4)
-        SHX2_2.boardObject = 0
+    function flag7()
+      local workValue2, workValue6
+      arg3.insideRadius = false
+      workValue2 = workValue11
+      workValue6 = arg3
+      workValue2(workValue6)
+      workValue2 = arg3.boardObject
+      if 0 ~= workValue2 then
+        workValue2 = DeleteEntity
+        workValue6 = arg3.boardObject
+        -- Beginner: Delete a GTA entity.
+        workValue2(workValue6)
+        arg3.boardObject = 0
       end
-      SHX0_4 = nil
-      SHX2_1 = SHX0_4
+      workValue2 = nil
+      workValue8 = workValue2
     end
-    function SHX7_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
+    function flag8()
+      local workValue2, workValue6
     end
-    SHX8_3 = nil
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
+    workValue13 = nil
+    -- Beginner: Create an interaction area around a world position.
+    workValue(textValue3, numberValue8, flag5, flag6, numberValue9, flag7, flag8, workValue13)
   end
-  SHX3_2(SHX4_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  dataTable3(dataTable4)
 end
-SHX8_1 = Citizen
-SHX8_1 = SHX8_1.CreateThread
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = AddTextEntryByHash
-  SHX1_2 = 198910421
-  SHX2_2 = [[
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function workValue14()
+  local arg1, arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7
+  arg1 = AddTextEntryByHash
+  arg2 = 198910421
+  arg3 = [[
 ~INPUT_SELECT_WEAPON_UNARMED~ White View
 ~INPUT_SELECT_WEAPON_MELEE~ Black View
 ~INPUT_SELECT_WEAPON_SHOTGUN~ Birds View
 ~INPUT_FRONTEND_PAUSE_ALTERNATE~ Exit Spectate]]
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1.locations
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX7_1
-    SHX7_2 = SHX4_2
-    SHX8_2 = SHX5_2
-    SHX6_2(SHX7_2, SHX8_2)
+  arg1(arg2, arg3)
+  arg1 = pairs
+  arg2 = cmgCall.locations
+  arg1, arg2, arg3, dataTable3 = arg1(arg2)
+  for dataTable4, dataTable5 in arg1, arg2, arg3, dataTable3 do
+    dataTable6 = textValue4
+    iterator = dataTable4
+    dataTable7 = dataTable5
+    dataTable6(iterator, dataTable7)
   end
 end
-SHX8_1(SHX9_1)
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.parseChessFEN
-  SHX3_2 = SHX0_2.boardFEN
-  SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-  SHX4_2 = SendNUIMessage
-  SHX5_2 = {}
-  SHX5_2.displayChessBoard = true
-  SHX5_2.visible = SHX1_2
-  SHX5_2.activeColour = SHX3_2
-  SHX6_2 = SHX0_2.bPlayingActive
-  SHX5_2.playingActive = SHX6_2
-  SHX6_2 = SHX0_2.playingSide
-  SHX5_2.playingSide = SHX6_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = SHX3_1
-  SHX5_2 = SHX0_2
-  SHX4_2(SHX5_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(workValue14)
+function threadCall(arg1, arg2)
+  local arg3, dataTable3, dataTable4, dataTable5, dataTable6
+  arg3 = CMG
+  arg3 = arg3.parseChessFEN
+  dataTable3 = arg1.boardFEN
+  arg3, dataTable3 = arg3(dataTable3)
+  dataTable4 = SendNUIMessage
+  dataTable5 = {}
+  dataTable5.displayChessBoard = true
+  dataTable5.visible = arg2
+  dataTable5.activeColour = dataTable3
+  dataTable6 = arg1.bPlayingActive
+  dataTable5.playingActive = dataTable6
+  dataTable6 = arg1.playingSide
+  dataTable5.playingSide = dataTable6
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  dataTable4(dataTable5)
+  dataTable4 = workValue10
+  dataTable5 = arg1
+  dataTable4(dataTable5)
 end
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_2.bViewingBoard
-  SHX1_2 = not SHX1_2
-  SHX0_2.bViewingBoard = SHX1_2
-  SHX1_2 = SetNuiFocus
-  SHX2_2 = SHX0_2.bViewingBoard
-  SHX3_2 = SHX0_2.bViewingBoard
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetNuiFocusKeepInput
-  SHX2_2 = SHX0_2.bViewingBoard
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX8_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX0_2.bViewingBoard
-  SHX1_2(SHX2_2, SHX3_2)
+function workValue14(arg1)
+  local arg2, arg3, dataTable3
+  arg2 = arg1.bViewingBoard
+  arg2 = not arg2
+  arg1.bViewingBoard = arg2
+  arg2 = SetNuiFocus
+  arg3 = arg1.bViewingBoard
+  dataTable3 = arg1.bViewingBoard
+  -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+  arg2(arg3, dataTable3)
+  arg2 = SetNuiFocusKeepInput
+  arg3 = arg1.bViewingBoard
+  arg2(arg3)
+  arg2 = threadCall
+  arg3 = arg1
+  dataTable3 = arg1.bViewingBoard
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2(arg3, dataTable3)
 end
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = SHX2_1
-  if not SHX0_2 then
+function workValue3()
+  local arg1, arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6
+  arg1 = workValue8
+  if not arg1 then
     return
   end
-  SHX1_2 = SHX2_1
-  SHX0_2 = SHX1_1
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX1_2 = SHX0_2.playingSide
-  if SHX1_2 then
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.InvokeNative
-    SHX2_2 = -6795882342541246497
-    SHX3_2 = -1209618476
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SHX0_2.insideStartMarker
-    if not SHX1_2 then
-      SHX1_2 = drawNativeNotification
-      SHX2_2 = "Press ~INPUT_INTERACTION_MENU~ to toggle board"
-      SHX1_2(SHX2_2)
+  arg2 = workValue8
+  arg1 = dataTable2
+  arg1 = arg1[arg2]
+  arg2 = arg1.playingSide
+  if arg2 then
+    arg2 = Citizen
+    arg2 = arg2.InvokeNative
+    arg3 = -6795882342541246497
+    dataTable3 = -1209618476
+    arg2(arg3, dataTable3)
+    arg2 = arg1.insideStartMarker
+    if not arg2 then
+      arg2 = drawNativeNotification
+      arg3 = "Press ~INPUT_INTERACTION_MENU~ to toggle board"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg2(arg3)
     end
-    SHX1_2 = IsControlJustPressed
-    SHX2_2 = 0
-    SHX3_2 = 244
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX1_2 = SHX9_1
-      SHX2_2 = SHX0_2
-      SHX1_2(SHX2_2)
+    arg2 = IsControlJustPressed
+    arg3 = 0
+    dataTable3 = 244
+    arg2 = arg2(arg3, dataTable3)
+    if arg2 then
+      arg2 = workValue14
+      arg3 = arg1
+      arg2(arg3)
     end
-    SHX1_2 = SHX0_2.bPlayingActive
-    if SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.parseChessFEN
-      SHX2_2 = SHX0_2.boardFEN
-      SHX1_2, SHX2_2 = SHX1_2(SHX2_2)
-      SHX3_2 = SHX0_2.playingSide
-      if SHX2_2 == SHX3_2 then
-        SHX3_2 = drawNativeText
-        SHX4_2 = "~g~Your turn to make a move."
-        SHX3_2(SHX4_2)
+    arg2 = arg1.bPlayingActive
+    if arg2 then
+      arg2 = CMG
+      arg2 = arg2.parseChessFEN
+      arg3 = arg1.boardFEN
+      arg2, arg3 = arg2(arg3)
+      dataTable3 = arg1.playingSide
+      if arg3 == dataTable3 then
+        dataTable3 = drawNativeText
+        dataTable4 = "~g~Your turn to make a move."
+        -- Beginner: Draw GTA-style text on screen.
+        dataTable3(dataTable4)
       else
-        SHX3_2 = drawNativeText
-        SHX4_2 = string
-        SHX4_2 = SHX4_2.format
-        SHX5_2 = "~y~%s is making their move."
-        if "w" == SHX2_2 then
-          SHX6_2 = "White"
-          if SHX6_2 then
-            goto SHX_LABEL_55
+        dataTable3 = drawNativeText
+        dataTable4 = string
+        dataTable4 = dataTable4.format
+        dataTable5 = "~y~%s is making their move."
+        if "w" == arg3 then
+          dataTable6 = "White"
+          if dataTable6 then
+            goto flow_label_55
           end
         end
-        SHX6_2 = "Black"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_55:: outside nested blocks until all 'goto SHX_LABEL_55' can see it
-        ::SHX_LABEL_55::
-        SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX4_2(SHX5_2, SHX6_2)
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+        dataTable6 = "Black"
+        ::flow_label_55::
+        dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6 = dataTable4(dataTable5, dataTable6)
+        dataTable3(dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
       end
     else
-      SHX1_2 = drawNativeText
-      SHX2_2 = "~y~Waiting for other player to join..."
-      SHX1_2(SHX2_2)
+      arg2 = drawNativeText
+      arg3 = "~y~Waiting for other player to join..."
+      -- Beginner: Draw GTA-style text on screen.
+      arg2(arg3)
     end
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerCoords
-    SHX1_2 = SHX1_2()
-    SHX2_2 = SHX0_1.locations
-    SHX3_2 = SHX2_1
-    SHX2_2 = SHX2_2[SHX3_2]
-    SHX2_2 = SHX2_2.originPosition
-    SHX1_2 = SHX1_2 - SHX2_2
-    SHX1_2 = #SHX1_2
-    if SHX1_2 > 40.0 then
-      SHX1_2 = TriggerServerEvent
-      SHX2_2 = "a7db4cf034"
-      SHX1_2(SHX2_2)
-    end
-  end
-  SHX1_2 = SHX0_2.bViewingBoard
-  if SHX1_2 then
-    SHX1_2 = 0
-    SHX2_2 = 6
-    SHX3_2 = 1
-    for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = SHX4_2
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-    end
-    SHX1_2 = DisablePlayerFiring
-    SHX2_2 = PlayerId
-    SHX2_2 = SHX2_2()
-    SHX3_2 = true
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 24
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 25
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 200
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = IsDisabledControlJustReleased
-    SHX2_2 = 0
-    SHX3_2 = 200
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX1_2 = SHX9_1
-      SHX2_2 = SHX0_2
-      SHX1_2(SHX2_2)
+    arg2 = CMG
+    arg2 = arg2.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    arg2 = arg2()
+    arg3 = cmgCall.locations
+    dataTable3 = workValue8
+    arg3 = arg3[dataTable3]
+    arg3 = arg3.originPosition
+    arg2 = arg2 - arg3
+    arg2 = #arg2
+    if arg2 > 40.0 then
+      arg2 = TriggerServerEvent
+      arg3 = "a7db4cf034"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7db4cf034".
+      arg2(arg3)
     end
   end
-  SHX1_2 = SHX0_2.spectatingCamera
-  if 0 ~= SHX1_2 then
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.InvokeNative
-    SHX2_2 = -6795882342541246497
-    SHX3_2 = -1209618476
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = DisableAllControlActions
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
-    SHX1_2 = BeginTextCommandDisplayHelp
-    SHX2_2 = "STRING"
-    SHX1_2(SHX2_2)
-    SHX1_2 = AddTextComponentSubstringTextLabel
-    SHX2_2 = "CHESS_SPECTATE"
-    SHX1_2(SHX2_2)
-    SHX1_2 = EndTextCommandDisplayHelp
-    SHX2_2 = 0
-    SHX3_2 = false
-    SHX4_2 = false
-    SHX5_2 = -1
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX1_2 = IsDisabledControlJustPressed
-    SHX2_2 = 0
-    SHX3_2 = 157
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX1_2 = SHX0_1.locations
-      SHX2_2 = SHX2_1
-      SHX1_2 = SHX1_2[SHX2_2]
-      SHX1_2 = SHX1_2.originPosition
-      SHX2_2 = vector3
-      SHX3_2 = 24.0
-      SHX4_2 = 10.0
-      SHX5_2 = 10.0
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX1_2 = SHX1_2 + SHX2_2
-      SHX2_2 = SetCamParams
-      SHX3_2 = SHX0_2.spectatingCamera
-      SHX4_2 = SHX1_2.x
-      SHX5_2 = SHX1_2.y
-      SHX6_2 = SHX1_2.z
-      SHX7_2 = -45.0
-      SHX8_2 = 0.0
-      SHX9_2 = 90.0
-      SHX10_2 = 50.0
-      SHX11_2 = 1000
-      SHX12_2 = 0
-      SHX13_2 = 0
-      SHX14_2 = 2
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+  arg2 = arg1.bViewingBoard
+  if arg2 then
+    arg2 = 0
+    arg3 = 6
+    dataTable3 = 1
+    for dataTable4 = arg2, arg3, dataTable3 do
+      dataTable5 = DisableControlAction
+      dataTable6 = 0
+      iterator = dataTable4
+      dataTable7 = true
+      dataTable5(dataTable6, iterator, dataTable7)
+    end
+    arg2 = DisablePlayerFiring
+    arg3 = PlayerId
+    -- Beginner: result below is localPlayerIndex.
+    arg3 = arg3()
+    dataTable3 = true
+    arg2(arg3, dataTable3)
+    arg2 = DisableControlAction
+    arg3 = 0
+    dataTable3 = 24
+    dataTable4 = true
+    arg2(arg3, dataTable3, dataTable4)
+    arg2 = DisableControlAction
+    arg3 = 0
+    dataTable3 = 25
+    dataTable4 = true
+    arg2(arg3, dataTable3, dataTable4)
+    arg2 = DisableControlAction
+    arg3 = 0
+    dataTable3 = 200
+    dataTable4 = true
+    arg2(arg3, dataTable3, dataTable4)
+    arg2 = IsDisabledControlJustReleased
+    arg3 = 0
+    dataTable3 = 200
+    arg2 = arg2(arg3, dataTable3)
+    if arg2 then
+      arg2 = workValue14
+      arg3 = arg1
+      arg2(arg3)
+    end
+  end
+  arg2 = arg1.spectatingCamera
+  if 0 ~= arg2 then
+    arg2 = Citizen
+    arg2 = arg2.InvokeNative
+    arg3 = -6795882342541246497
+    dataTable3 = -1209618476
+    arg2(arg3, dataTable3)
+    arg2 = DisableAllControlActions
+    arg3 = 0
+    arg2(arg3)
+    arg2 = BeginTextCommandDisplayHelp
+    arg3 = "STRING"
+    arg2(arg3)
+    arg2 = AddTextComponentSubstringTextLabel
+    arg3 = "CHESS_SPECTATE"
+    arg2(arg3)
+    arg2 = EndTextCommandDisplayHelp
+    arg3 = 0
+    dataTable3 = false
+    dataTable4 = false
+    dataTable5 = -1
+    arg2(arg3, dataTable3, dataTable4, dataTable5)
+    arg2 = IsDisabledControlJustPressed
+    arg3 = 0
+    dataTable3 = 157
+    arg2 = arg2(arg3, dataTable3)
+    if arg2 then
+      arg2 = cmgCall.locations
+      arg3 = workValue8
+      arg2 = arg2[arg3]
+      arg2 = arg2.originPosition
+      arg3 = vector3
+      dataTable3 = 24.0
+      dataTable4 = 10.0
+      dataTable5 = 10.0
+      arg3 = arg3(dataTable3, dataTable4, dataTable5)
+      arg2 = arg2 + arg3
+      arg3 = SetCamParams
+      dataTable3 = arg1.spectatingCamera
+      dataTable4 = arg2.x
+      dataTable5 = arg2.y
+      dataTable6 = arg2.z
+      iterator = -45.0
+      dataTable7 = 0.0
+      iterator2 = 90.0
+      dataTable = 50.0
+      numberValue2 = 1000
+      numberValue3 = 0
+      numberValue5 = 0
+      numberValue6 = 2
+      arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
     else
-      SHX1_2 = IsDisabledControlJustPressed
-      SHX2_2 = 0
-      SHX3_2 = 158
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      if SHX1_2 then
-        SHX1_2 = SHX0_1.locations
-        SHX2_2 = SHX2_1
-        SHX1_2 = SHX1_2[SHX2_2]
-        SHX1_2 = SHX1_2.originPosition
-        SHX2_2 = vector3
-        SHX3_2 = -3.0
-        SHX4_2 = 10.0
-        SHX5_2 = 10.0
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-        SHX1_2 = SHX1_2 + SHX2_2
-        SHX2_2 = SetCamParams
-        SHX3_2 = SHX0_2.spectatingCamera
-        SHX4_2 = SHX1_2.x
-        SHX5_2 = SHX1_2.y
-        SHX6_2 = SHX1_2.z
-        SHX7_2 = -45.0
-        SHX8_2 = 0.0
-        SHX9_2 = -90.0
-        SHX10_2 = 50.0
-        SHX11_2 = 1000
-        SHX12_2 = 0
-        SHX13_2 = 0
-        SHX14_2 = 2
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+      arg2 = IsDisabledControlJustPressed
+      arg3 = 0
+      dataTable3 = 158
+      arg2 = arg2(arg3, dataTable3)
+      if arg2 then
+        arg2 = cmgCall.locations
+        arg3 = workValue8
+        arg2 = arg2[arg3]
+        arg2 = arg2.originPosition
+        arg3 = vector3
+        dataTable3 = -3.0
+        dataTable4 = 10.0
+        dataTable5 = 10.0
+        arg3 = arg3(dataTable3, dataTable4, dataTable5)
+        arg2 = arg2 + arg3
+        arg3 = SetCamParams
+        dataTable3 = arg1.spectatingCamera
+        dataTable4 = arg2.x
+        dataTable5 = arg2.y
+        dataTable6 = arg2.z
+        iterator = -45.0
+        dataTable7 = 0.0
+        iterator2 = -90.0
+        dataTable = 50.0
+        numberValue2 = 1000
+        numberValue3 = 0
+        numberValue5 = 0
+        numberValue6 = 2
+        arg3(dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6)
       else
-        SHX1_2 = IsDisabledControlJustPressed
-        SHX2_2 = 0
-        SHX3_2 = 160
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if SHX1_2 then
-          SHX1_2 = SHX6_1
-          SHX2_2 = SHX2_1
-          SHX1_2(SHX2_2)
+        arg2 = IsDisabledControlJustPressed
+        arg3 = 0
+        dataTable3 = 160
+        arg2 = arg2(arg3, dataTable3)
+        if arg2 then
+          arg2 = eventRegistration
+          arg3 = workValue8
+          -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: nil.
+          arg2(arg3)
         else
-          SHX1_2 = IsDisabledControlJustReleased
-          SHX2_2 = 0
-          SHX3_2 = 200
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if SHX1_2 then
-            SHX1_2 = RenderScriptCams
-            SHX2_2 = false
-            SHX3_2 = true
-            SHX4_2 = 1000
-            SHX5_2 = false
-            SHX6_2 = false
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-            SHX1_2 = SetCamActive
-            SHX2_2 = SHX0_2.spectatingCamera
-            SHX3_2 = false
-            SHX1_2(SHX2_2, SHX3_2)
-            SHX1_2 = DestroyCam
-            SHX2_2 = SHX0_2.spectatingCamera
-            SHX3_2 = true
-            SHX1_2(SHX2_2, SHX3_2)
-            SHX0_2.spectatingCamera = 0
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.showAllDisplays
-            SHX2_2 = "chess"
-            SHX1_2(SHX2_2)
+          arg2 = IsDisabledControlJustReleased
+          arg3 = 0
+          dataTable3 = 200
+          arg2 = arg2(arg3, dataTable3)
+          if arg2 then
+            arg2 = RenderScriptCams
+            arg3 = false
+            dataTable3 = true
+            dataTable4 = 1000
+            dataTable5 = false
+            dataTable6 = false
+            arg2(arg3, dataTable3, dataTable4, dataTable5, dataTable6)
+            arg2 = SetCamActive
+            arg3 = arg1.spectatingCamera
+            dataTable3 = false
+            arg2(arg3, dataTable3)
+            arg2 = DestroyCam
+            arg3 = arg1.spectatingCamera
+            dataTable3 = true
+            arg2(arg3, dataTable3)
+            arg1.spectatingCamera = 0
+            arg2 = CMG
+            arg2 = arg2.showAllDisplays
+            arg3 = "chess"
+            arg2(arg3)
           end
         end
       end
     end
   end
 end
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.createThreadOnTick
-SHX12_1 = SHX10_1
-SHX13_1 = "Chess Board"
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX1_2 = SHX2_1
-    SHX0_2 = SHX1_1
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX0_2 = SHX0_2.playingSide
-    SHX0_2 = nil ~= SHX0_2
-    return SHX0_2
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.createThreadOnTick
+textValue = workValue3
+textValue2 = "Chess Board"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall2(textValue, textValue2)
+cmgCall2 = CMG
+function textValue()
+  local arg1, arg2
+  arg1 = workValue8
+  if arg1 then
+    arg2 = workValue8
+    arg1 = dataTable2
+    arg1 = arg1[arg2]
+    arg1 = arg1.playingSide
+    arg1 = nil ~= arg1
+    return arg1
   else
-    SHX0_2 = false
-    return SHX0_2
+    arg1 = false
+    return arg1
   end
 end
-SHX11_1.inChessGame = SHX12_1
-SHX11_1 = RegisterNUICallback
-SHX12_1 = "chessUpdatedFEN"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX2_1
-  if SHX1_2 then
-    SHX2_2 = SHX2_1
-    SHX1_2 = SHX1_1
-    SHX1_2 = SHX1_2[SHX2_2]
-    SHX2_2 = SHX1_2.bViewingBoard
-    if SHX2_2 then
-      SHX2_2 = SHX1_2.bPlayingActive
-      if SHX2_2 then
-        SHX2_2 = TriggerServerEvent
-        SHX3_2 = "604b58a33c"
-        SHX4_2 = SHX0_2
-        SHX2_2(SHX3_2, SHX4_2)
+cmgCall2.inChessGame = textValue
+cmgCall2 = RegisterNUICallback
+textValue = "chessUpdatedFEN"
+function textValue2(arg1)
+  local arg2, arg3, dataTable3, dataTable4
+  arg2 = workValue8
+  if arg2 then
+    arg3 = workValue8
+    arg2 = dataTable2
+    arg2 = arg2[arg3]
+    arg3 = arg2.bViewingBoard
+    if arg3 then
+      arg3 = arg2.bPlayingActive
+      if arg3 then
+        arg3 = TriggerServerEvent
+        dataTable3 = "604b58a33c"
+        dataTable4 = arg1
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "604b58a33c".
+        arg3(dataTable3, dataTable4)
       end
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNUICallback
-SHX12_1 = "chessPlayCheckSound"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX1_2 = SHX2_1
-    SHX0_2 = SHX1_1
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX0_2 = SHX0_2.bViewingBoard
-    if SHX0_2 then
-      SHX0_2 = SendNUIMessage
-      SHX1_2 = {}
-      SHX1_2.transactionType = "chess_notify"
-      SHX0_2(SHX1_2)
+cmgCall2(textValue, textValue2)
+cmgCall2 = RegisterNUICallback
+textValue = "chessPlayCheckSound"
+function textValue2()
+  local arg1, arg2
+  arg1 = workValue8
+  if arg1 then
+    arg2 = workValue8
+    arg1 = dataTable2
+    arg1 = arg1[arg2]
+    arg1 = arg1.bViewingBoard
+    if arg1 then
+      arg1 = SendNUIMessage
+      arg2 = {}
+      arg2.transactionType = "chess_notify"
+      -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+      arg1(arg2)
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "29d5f19513"
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 5000
-  SHX3_2(SHX4_2)
-  SHX3_2 = SHX1_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  SHX4_2 = SHX3_2.bViewingBoard
-  if SHX4_2 then
-    SHX4_2 = SHX9_1
-    SHX5_2 = SHX3_2
-    SHX4_2(SHX5_2)
+cmgCall2(textValue, textValue2)
+cmgCall2 = RegisterNetEvent
+textValue = "29d5f19513"
+-- Beginner: this function handles network event "29d5f19513".
+function textValue2(arg1, arg2, arg3)
+  local dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7, iterator2, dataTable, numberValue2, numberValue3, numberValue5, numberValue6, numberValue7, cmgCall3, vector3Builder, workValue4, workValue5, heading
+  dataTable3 = Citizen
+  dataTable3 = dataTable3.Wait
+  dataTable4 = 5000
+  dataTable3(dataTable4)
+  dataTable3 = dataTable2
+  dataTable3 = dataTable3[arg1]
+  dataTable4 = dataTable3.bViewingBoard
+  if dataTable4 then
+    dataTable4 = workValue14
+    dataTable5 = dataTable3
+    dataTable4(dataTable5)
   end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerCoords
-  SHX4_2 = SHX4_2()
-  SHX5_2 = SHX0_1.locations
-  SHX5_2 = SHX5_2[SHX0_2]
-  SHX5_2 = SHX5_2.originPosition
-  SHX4_2 = SHX4_2 - SHX5_2
-  SHX4_2 = #SHX4_2
-  if SHX4_2 < 75.0 then
-    if SHX1_2 then
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.announceMpBigMsg
-      SHX5_2 = "STALEMATE"
-      SHX6_2 = "The chess game has ended with a draw!"
-      SHX7_2 = 10000
-      SHX8_2 = true
-      SHX9_2 = true
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+  dataTable4 = CMG
+  dataTable4 = dataTable4.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  dataTable4 = dataTable4()
+  dataTable5 = cmgCall.locations
+  dataTable5 = dataTable5[arg1]
+  dataTable5 = dataTable5.originPosition
+  dataTable4 = dataTable4 - dataTable5
+  dataTable4 = #dataTable4
+  if dataTable4 < 75.0 then
+    if arg2 then
+      dataTable4 = CMG
+      dataTable4 = dataTable4.announceMpBigMsg
+      dataTable5 = "STALEMATE"
+      dataTable6 = "The chess game has ended with a draw!"
+      iterator = 10000
+      dataTable7 = true
+      iterator2 = true
+      dataTable4(dataTable5, dataTable6, iterator, dataTable7, iterator2)
     else
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.announceMpBigMsg
-      SHX5_2 = "CHECKMATE"
-      SHX6_2 = string
-      SHX6_2 = SHX6_2.format
-      SHX7_2 = "%s has won the chess game!"
-      SHX8_2 = SHX2_2
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-      SHX7_2 = 10000
-      SHX8_2 = true
-      SHX9_2 = true
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+      dataTable4 = CMG
+      dataTable4 = dataTable4.announceMpBigMsg
+      dataTable5 = "CHECKMATE"
+      dataTable6 = string
+      dataTable6 = dataTable6.format
+      iterator = "%s has won the chess game!"
+      dataTable7 = arg3
+      dataTable6 = dataTable6(iterator, dataTable7)
+      iterator = 10000
+      dataTable7 = true
+      iterator2 = true
+      dataTable4(dataTable5, dataTable6, iterator, dataTable7, iterator2)
     end
   end
-  SHX4_2 = SHX3_2.boardObjects
-  if SHX4_2 then
-    SHX4_2 = pairs
-    SHX5_2 = SHX3_2.boardObjects
-    SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-    for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-      SHX10_2 = pairs
-      SHX11_2 = SHX9_2
-      SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-      for SHX14_2, SHX15_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-        if 0 ~= SHX15_2 then
-          SHX16_2 = GetEntityModel
-          SHX17_2 = SHX15_2
-          SHX16_2 = SHX16_2(SHX17_2)
-          if "White" == SHX2_2 and -581108805 == SHX16_2 then
-            SHX17_2 = CMG
-            SHX17_2 = SHX17_2.startFireworksAtCoord
-            SHX18_2 = GetEntityCoords
-            SHX19_2 = SHX15_2
-            SHX20_2 = true
-            SHX18_2, SHX19_2, SHX20_2 = SHX18_2(SHX19_2, SHX20_2)
-            SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-          elseif "Black" == SHX2_2 and -864843523 == SHX16_2 then
-            SHX17_2 = CMG
-            SHX17_2 = SHX17_2.startFireworksAtCoord
-            SHX18_2 = GetEntityCoords
-            SHX19_2 = SHX15_2
-            SHX20_2 = true
-            SHX18_2, SHX19_2, SHX20_2 = SHX18_2(SHX19_2, SHX20_2)
-            SHX17_2(SHX18_2, SHX19_2, SHX20_2)
+  dataTable4 = dataTable3.boardObjects
+  if dataTable4 then
+    dataTable4 = pairs
+    dataTable5 = dataTable3.boardObjects
+    dataTable4, dataTable5, dataTable6, iterator = dataTable4(dataTable5)
+    for dataTable7, iterator2 in dataTable4, dataTable5, dataTable6, iterator do
+      dataTable = pairs
+      numberValue2 = iterator2
+      dataTable, numberValue2, numberValue3, numberValue5 = dataTable(numberValue2)
+      for numberValue6, numberValue7 in dataTable, numberValue2, numberValue3, numberValue5 do
+        if 0 ~= numberValue7 then
+          cmgCall3 = GetEntityModel
+          vector3Builder = numberValue7
+          -- Beginner: result below is modelHash.
+          cmgCall3 = cmgCall3(vector3Builder)
+          if "White" == arg3 and -581108805 == cmgCall3 then
+            vector3Builder = CMG
+            vector3Builder = vector3Builder.startFireworksAtCoord
+            workValue4 = GetEntityCoords
+            workValue5 = numberValue7
+            heading = true
+            workValue4, workValue5, heading = workValue4(workValue5, heading)
+            vector3Builder(workValue4, workValue5, heading)
+          elseif "Black" == arg3 and -864843523 == cmgCall3 then
+            vector3Builder = CMG
+            vector3Builder = vector3Builder.startFireworksAtCoord
+            workValue4 = GetEntityCoords
+            workValue5 = numberValue7
+            heading = true
+            workValue4, workValue5, heading = workValue4(workValue5, heading)
+            vector3Builder(workValue4, workValue5, heading)
           end
         end
       end
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "onResourceStop"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX1_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = SHX6_2.boardObject
-      if 0 ~= SHX7_2 then
-        SHX7_2 = DeleteEntity
-        SHX8_2 = SHX6_2.boardObject
-        SHX7_2(SHX8_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "29d5f19513".
+cmgCall2(textValue, textValue2)
+cmgCall2 = AddEventHandler
+textValue = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function textValue2(arg1)
+  local arg2, arg3, dataTable3, dataTable4, dataTable5, dataTable6, iterator, dataTable7
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg2 == arg1 then
+    arg2 = pairs
+    arg3 = dataTable2
+    arg2, arg3, dataTable3, dataTable4 = arg2(arg3)
+    for dataTable5, dataTable6 in arg2, arg3, dataTable3, dataTable4 do
+      iterator = dataTable6.boardObject
+      if 0 ~= iterator then
+        iterator = DeleteEntity
+        dataTable7 = dataTable6.boardObject
+        -- Beginner: Delete a GTA entity.
+        iterator(dataTable7)
       end
-      SHX7_2 = SHX4_1
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
+      iterator = workValue11
+      dataTable7 = dataTable6
+      iterator(dataTable7)
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+cmgCall2(textValue, textValue2)

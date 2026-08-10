@@ -1,172 +1,132 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Circular Buffer Helper
+    ======================
 
-local SHX0_1, SHX1_1
-SHX0_1 = CMG
-function SHX1_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = {}
-  SHX3_2 = {}
-  SHX2_2.data = SHX3_2
-  SHX3_2 = 1
-  SHX4_2 = SHX0_2
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = type
-    SHX8_2 = SHX1_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if "table" == SHX7_2 then
-      SHX7_2 = table
-      SHX7_2 = SHX7_2.insert
-      SHX8_2 = SHX2_2.data
-      SHX9_2 = table
-      SHX9_2 = SHX9_2.copy
-      SHX10_2 = SHX1_2
-      SHX9_2, SHX10_2 = SHX9_2(SHX10_2)
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    else
-      SHX7_2 = table
-      SHX7_2 = SHX7_2.insert
-      SHX8_2 = SHX2_2.data
-      SHX9_2 = 0
-      SHX7_2(SHX8_2, SHX9_2)
+    CMG.createCircularBuffer(size, template)
+
+    A circular buffer is a fixed-size history list. Once the end is reached,
+    new values start overwriting the oldest values from the beginning.
+
+    Returned object:
+      buffer.put(value)
+        Store one simple value.
+
+      buffer.put(a, b, c, ...)
+        If a table template was supplied, update the current history row with
+        the supplied fields.
+
+      buffer.get()
+        Return the most recently written row/value.
+
+      buffer.iterator()
+        Returns an iterator which walks backwards from newest to oldest.
+
+    Example:
+      local positions = CMG.createCircularBuffer(10, {x=0, y=0})
+      positions.put({x=10, y=20})
+      print(positions.get().x)
+]]
+
+function CMG.createCircularBuffer(size, template)
+    local buffer = {
+        data = {},
+        head = 1
+    }
+
+    -- Pre-create each slot.
+    for index = 1, size do
+        if type(template) == "table" then
+            table.insert(
+                buffer.data,
+                table.copy(template)
+            )
+        else
+            table.insert(
+                buffer.data,
+                0
+            )
+        end
     end
-  end
-  SHX2_2.head = 1
-  function SHX3_2(...)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-    SHX0_3 = {}
-    SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3 = ...
-    SHX0_3[1] = SHX1_3
-    SHX0_3[2] = SHX2_3
-    SHX0_3[3] = SHX3_3
-    SHX0_3[4] = SHX4_3
-    SHX0_3[5] = SHX5_3
-    SHX0_3[6] = SHX6_3
-    SHX0_3[7] = SHX7_3
-    SHX0_3[8] = SHX8_3
-    SHX1_3 = #SHX0_3
-    if 1 == SHX1_3 then
-      SHX1_3 = type
-      SHX2_3 = SHX0_3[1]
-      SHX1_3 = SHX1_3(SHX2_3)
-      if "table" ~= SHX1_3 then
-        SHX1_3 = SHX2_2.data
-        SHX2_3 = SHX2_2.head
-        SHX3_3 = SHX0_3[1]
-        SHX1_3[SHX2_3] = SHX3_3
+
+
+    function buffer.put(...)
+        local values = {...}
+
+        -- A single non-table value is stored directly.
+        if #values == 1
+            and type(values[1]) ~= "table" then
+
+            buffer.data[
+                buffer.head
+            ] = values[1]
+
+        else
+            -- For structured rows, the original decompile expects the number
+            -- of passed values to match the template length.
+            assert(
+                #values == #template
+            )
+
+            local row =
+                buffer.data[
+                    buffer.head
+                ]
+
+            for fieldIndex, value
+                in pairs(values) do
+
+                row[fieldIndex] = value
+            end
+        end
+
+        buffer.head =
+            buffer.head + 1
+
+        if buffer.head > size then
+            buffer.head = 1
+        end
     end
-    else
-      SHX1_3 = assert
-      SHX2_3 = #SHX0_3
-      SHX3_3 = SHX1_2
-      SHX3_3 = #SHX3_3
-      SHX2_3 = SHX2_3 == SHX3_3
-      SHX1_3(SHX2_3)
-      SHX1_3 = SHX2_2.data
-      SHX2_3 = SHX2_2.head
-      SHX1_3 = SHX1_3[SHX2_3]
-      SHX2_3 = pairs
-      SHX3_3 = SHX0_3
-      SHX2_3, SHX3_3, SHX4_3, SHX5_3 = SHX2_3(SHX3_3)
-      for SHX6_3, SHX7_3 in SHX2_3, SHX3_3, SHX4_3, SHX5_3 do
-        SHX1_3[SHX6_3] = SHX7_3
-      end
+
+
+    function buffer.get()
+        local newestIndex =
+            buffer.head - 1
+
+        if newestIndex == 0 then
+            newestIndex = size
+        end
+
+        return
+            buffer.data[
+                newestIndex
+            ]
     end
-    SHX1_3 = SHX2_2.head
-    SHX1_3 = SHX1_3 + 1
-    SHX2_2.head = SHX1_3
-    SHX1_3 = SHX2_2.head
-    SHX2_3 = SHX0_2
-    if SHX1_3 > SHX2_3 then
-      SHX2_2.head = 1
+
+
+    function buffer.iterator()
+        local returnedCount = 0
+        local index = buffer.head
+
+        return function()
+            index = index - 1
+
+            if index == 0 then
+                index = size
+            end
+
+            returnedCount =
+                returnedCount + 1
+
+            if returnedCount <= size then
+                return
+                    returnedCount,
+                    buffer.data[index]
+            end
+
+            return nil
+        end
     end
-  end
-  SHX2_2.put = SHX3_2
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX2_2.head
-    SHX0_3 = SHX0_3 - 1
-    if 0 == SHX0_3 then
-      SHX0_3 = SHX0_2
-    end
-    SHX1_3 = SHX2_2.data
-    SHX1_3 = SHX1_3[SHX0_3]
-    return SHX1_3
-  end
-  SHX2_2.get = SHX3_2
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = 0
-    SHX1_3 = SHX2_2.head
-    function SHX2_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4
-      SHX0_4 = SHX1_3
-      SHX0_4 = SHX0_4 - 1
-      SHX1_3 = SHX0_4
-      SHX0_4 = SHX1_3
-      if 0 == SHX0_4 then
-        SHX0_4 = SHX0_2
-        SHX1_3 = SHX0_4
-      end
-      SHX0_4 = SHX0_3
-      SHX0_4 = SHX0_4 + 1
-      SHX0_3 = SHX0_4
-      SHX0_4 = SHX0_3
-      SHX1_4 = SHX0_2
-      if SHX0_4 <= SHX1_4 then
-        SHX0_4 = SHX0_3
-        SHX1_4 = SHX2_2.data
-        SHX2_4 = SHX1_3
-        SHX1_4 = SHX1_4[SHX2_4]
-        return SHX0_4, SHX1_4
-      else
-        SHX0_4 = nil
-        return SHX0_4
-      end
-    end
-    return SHX2_3
-  end
-  SHX2_2.iterator = SHX3_2
-  return SHX2_2
+
+
+    return buffer
 end
-SHX0_1.createCircularBuffer = SHX1_1

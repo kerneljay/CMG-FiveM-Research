@@ -1,3 +1,26 @@
+--[[
+    BEGINNER GUIDE — Pazeee Emotes
+    ==============================
+
+    File: cmg/prod/cfg/cfg_pazeee_emotes.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Example player-facing text in this file:
+      * Punish Hog Rider Player 1 To Player 2
+      * Punish Hog Rider Player 3 To Player 1
+      * Italy · Start Race
+      * Turkey · Wave Open Door / Heli (Right)
+      * Argentina · Wave Open Door / Heli (Left)
+
+]]
 -- Auto-generated from resources/[CMGEscrow] (tools/merge_escrow_animations.py)
 return {
     shared = {

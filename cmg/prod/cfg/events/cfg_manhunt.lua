@@ -1,3 +1,26 @@
+--[[
+    BEGINNER GUIDE — Manhunt
+    ========================
+
+    File: cmg/prod/cfg/events/cfg_manhunt.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/rockstarmaps/cIqbnMssGke5HkpgtmwL3g.json
+      * cfg/rockstarmaps/QHmFVXPtnkmHvBW6gMEMyg.json
+      * cfg/rockstarmaps/tMPO7CZUyU6xXRYtcwfk5w.json
+      * cfg/rockstarmaps/5p4j2wmBCk2XateztGnVww.json
+      * cfg/rockstarmaps/KSTCyZCPQUaLq1plMssHbA.json
+
+]]
 local cfg = {}
 
 cfg.minPlayers = 4

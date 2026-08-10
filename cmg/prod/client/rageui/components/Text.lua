@@ -1,375 +1,316 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    RageUI Text Rendering Helpers
+    =============================
 
-local SHX0_1, SHX1_1
-function SHX0_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = BeginTextCommandGetWidth
-  SHX4_2 = "CELL_EMAIL_BCON"
-  SHX3_2(SHX4_2)
-  SHX3_2 = AddTextComponentSubstringPlayerName
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetTextFont
-  SHX4_2 = SHX1_2 or SHX4_2
-  if not SHX1_2 then
-    SHX4_2 = 0
-  end
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetTextScale
-  SHX4_2 = 1.0
-  SHX5_2 = SHX2_2 or SHX5_2
-  if not SHX2_2 then
-    SHX5_2 = 0
-  end
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = EndTextCommandGetWidth
-  SHX4_2 = true
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_2 = SHX3_2 * 1920
-  return SHX3_2
+    This file is UI-framework code used by RageUI.
+
+    MeasureStringWidth(text, font, scale)
+      Returns approximate width in 1920-pixel UI coordinates.
+
+    GetCharacterCount(text)
+      Counts UTF-8 characters rather than raw bytes.
+
+    AddText(text)
+      Adds text to a GTA text command in safe chunks of roughly 100 characters.
+      GTA text components have practical length limits.
+
+    GetLineCount(...)
+      Configures the text style/wrapping and asks GTA how many lines the text
+      would use.
+
+    RenderText(...)
+      Uses the same settings and actually draws the text.
+
+    Coordinates passed to these helpers are 1920x1080-style UI coordinates and
+    are converted into GTA's 0.0-1.0 normalised screen space.
+]]
+
+-- ============================================================
+-- WIDTH / CHARACTER HELPERS
+-- ============================================================
+
+function MeasureStringWidth(
+    text,
+    font,
+    scale
+)
+    BeginTextCommandGetWidth(
+        "CELL_EMAIL_BCON"
+    )
+
+    AddTextComponentSubstringPlayerName(
+        text
+    )
+
+    SetTextFont(
+        font or 0
+    )
+
+    SetTextScale(
+        1.0,
+        scale or 0
+    )
+
+    return
+        EndTextCommandGetWidth(true)
+        * 1920
 end
-MeasureStringWidth = SHX0_1
-function SHX0_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = 0
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX0_2.gmatch
-  SHX4_2 = "[%z\001-\127\194-\244][\128-\191]*"
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2, SHX4_2)
-  for SHX6_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX1_2 = SHX1_2 + 1
-  end
-  return SHX1_2
-end
-GetCharacterCount = SHX0_1
-function SHX0_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = GetCharacterCount
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 < 100 then
-    SHX2_2 = AddTextComponentSubstringPlayerName
-    SHX3_2 = SHX0_2
-    SHX2_2(SHX3_2)
-  else
-    SHX2_2 = SHX1_2 % 100
-    if 0 == SHX2_2 then
-      SHX2_2 = SHX1_2 / 100
-      if SHX2_2 then
-        goto SHX_LABEL_22
-      end
+
+
+function GetCharacterCount(text)
+    local count = 0
+
+    -- Match one UTF-8 codepoint at a time.
+    for _ in text:gmatch(
+        "[%z\1-\127\194-\244][\128-\191]*"
+    ) do
+        count = count + 1
     end
-    SHX2_2 = SHX1_2 / 100
-    SHX2_2 = SHX2_2 + 1
-    -- [FIX IF ERROR] Move ::SHX_LABEL_22:: outside nested blocks until all 'goto SHX_LABEL_22' can see it
-    ::SHX_LABEL_22::
-    SHX3_2 = 0
-    SHX4_2 = SHX2_2
-    SHX5_2 = 1
-    for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-      SHX7_2 = AddTextComponentSubstringPlayerName
-      SHX9_2 = SHX0_2
-      SHX8_2 = SHX0_2.sub
-      SHX10_2 = SHX6_2 * 100
-      SHX11_2 = SHX6_2 * 100
-      SHX11_2 = SHX11_2 + 100
-      SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    end
-  end
+
+    return count
 end
-AddText = SHX0_1
-function SHX0_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX13_2 = tostring
-  SHX14_2 = SHX0_2
-  SHX13_2 = SHX13_2(SHX14_2)
-  SHX14_2 = tonumber
-  SHX15_2 = SHX1_2
-  SHX14_2 = SHX14_2(SHX15_2)
-  if not SHX14_2 then
-    SHX14_2 = 0
-  end
-  SHX14_2 = SHX14_2 / 1920
-  SHX15_2 = tonumber
-  SHX16_2 = SHX2_2
-  SHX15_2 = SHX15_2(SHX16_2)
-  if not SHX15_2 then
-    SHX15_2 = 0
-  end
-  SHX2_2 = SHX15_2 / 1080
-  SHX1_2 = SHX14_2
-  SHX0_2 = SHX13_2
-  SHX13_2 = SetTextFont
-  SHX14_2 = SHX3_2 or SHX14_2
-  if not SHX3_2 then
-    SHX14_2 = 0
-  end
-  SHX13_2(SHX14_2)
-  SHX13_2 = SetTextScale
-  SHX14_2 = 1.0
-  SHX15_2 = SHX4_2 or SHX15_2
-  if not SHX4_2 then
-    SHX15_2 = 0
-  end
-  SHX13_2(SHX14_2, SHX15_2)
-  SHX13_2 = SetTextColour
-  SHX14_2 = tonumber
-  SHX15_2 = SHX5_2
-  SHX14_2 = SHX14_2(SHX15_2)
-  if not SHX14_2 then
-    SHX14_2 = 255
-  end
-  SHX15_2 = tonumber
-  SHX16_2 = SHX6_2
-  SHX15_2 = SHX15_2(SHX16_2)
-  if not SHX15_2 then
-    SHX15_2 = 255
-  end
-  SHX16_2 = tonumber
-  SHX17_2 = SHX7_2
-  SHX16_2 = SHX16_2(SHX17_2)
-  if not SHX16_2 then
-    SHX16_2 = 255
-  end
-  SHX17_2 = tonumber
-  SHX18_2 = SHX8_2
-  SHX17_2 = SHX17_2(SHX18_2)
-  if not SHX17_2 then
-    SHX17_2 = 255
-  end
-  SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  if SHX10_2 then
-    SHX13_2 = SetTextDropShadow
-    SHX13_2()
-  end
-  if SHX11_2 then
-    SHX13_2 = SetTextOutline
-    SHX13_2()
-  end
-  if nil ~= SHX9_2 then
-    if 1 == SHX9_2 or "Center" == SHX9_2 or "Centre" == SHX9_2 then
-      SHX13_2 = SetTextCentre
-      SHX14_2 = true
-      SHX13_2(SHX14_2)
-    elseif 2 == SHX9_2 or "Right" == SHX9_2 then
-      SHX13_2 = SetTextRightJustify
-      SHX14_2 = true
-      SHX13_2(SHX14_2)
+
+
+function AddText(text)
+    local characterCount =
+        GetCharacterCount(text)
+
+    if characterCount < 100 then
+        AddTextComponentSubstringPlayerName(
+            text
+        )
+        return
     end
-  end
-  SHX13_2 = tonumber
-  SHX14_2 = SHX12_2
-  SHX13_2 = SHX13_2(SHX14_2)
-  if SHX13_2 then
-    SHX13_2 = tonumber
-    SHX14_2 = SHX12_2
-    SHX13_2 = SHX13_2(SHX14_2)
-    if 0 ~= SHX13_2 then
-      if 1 == SHX9_2 or "Center" == SHX9_2 or "Centre" == SHX9_2 then
-        SHX13_2 = SetTextWrap
-        SHX14_2 = SHX12_2 / 1920
-        SHX14_2 = SHX14_2 / 2
-        SHX14_2 = SHX1_2 - SHX14_2
-        SHX15_2 = SHX12_2 / 1920
-        SHX15_2 = SHX15_2 / 2
-        SHX15_2 = SHX1_2 + SHX15_2
-        SHX13_2(SHX14_2, SHX15_2)
-      elseif 2 == SHX9_2 or "Right" == SHX9_2 then
-        SHX13_2 = SetTextWrap
-        SHX14_2 = 0
-        SHX15_2 = SHX1_2
-        SHX13_2(SHX14_2, SHX15_2)
-      else
-        SHX13_2 = SetTextWrap
-        SHX14_2 = SHX1_2
-        SHX15_2 = SHX12_2 / 1920
-        SHX15_2 = SHX1_2 + SHX15_2
-        SHX13_2(SHX14_2, SHX15_2)
-      end
-  end
-  elseif 2 == SHX9_2 or "Right" == SHX9_2 then
-    SHX13_2 = SetTextWrap
-    SHX14_2 = 0
-    SHX15_2 = SHX1_2
-    SHX13_2(SHX14_2, SHX15_2)
-  end
-  SHX13_2 = BeginTextCommandLineCount
-  SHX14_2 = "CELL_EMAIL_BCON"
-  SHX13_2(SHX14_2)
-  SHX13_2 = AddText
-  SHX14_2 = SHX0_2
-  SHX13_2(SHX14_2)
-  SHX13_2 = EndTextCommandLineCount
-  SHX14_2 = SHX1_2
-  SHX15_2 = SHX2_2
-  return SHX13_2(SHX14_2, SHX15_2)
-end
-GetLineCount = SHX0_1
-function SHX0_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX13_2 = tostring
-  SHX14_2 = SHX0_2
-  SHX13_2 = SHX13_2(SHX14_2)
-  SHX14_2 = tonumber
-  SHX15_2 = SHX1_2
-  SHX14_2 = SHX14_2(SHX15_2)
-  if not SHX14_2 then
-    SHX14_2 = 0
-  end
-  SHX14_2 = SHX14_2 / 1920
-  SHX15_2 = tonumber
-  SHX16_2 = SHX2_2
-  SHX15_2 = SHX15_2(SHX16_2)
-  if not SHX15_2 then
-    SHX15_2 = 0
-  end
-  SHX2_2 = SHX15_2 / 1080
-  SHX1_2 = SHX14_2
-  SHX0_2 = SHX13_2
-  SHX13_2 = SetTextFont
-  SHX14_2 = SHX3_2 or SHX14_2
-  if not SHX3_2 then
-    SHX14_2 = 0
-  end
-  SHX13_2(SHX14_2)
-  SHX13_2 = SetTextScale
-  SHX14_2 = 1.0
-  SHX15_2 = SHX4_2 or SHX15_2
-  if not SHX4_2 then
-    SHX15_2 = 0
-  end
-  SHX13_2(SHX14_2, SHX15_2)
-  SHX13_2 = SetTextColour
-  SHX14_2 = tonumber
-  SHX15_2 = SHX5_2
-  SHX14_2 = SHX14_2(SHX15_2)
-  if not SHX14_2 then
-    SHX14_2 = 255
-  end
-  SHX15_2 = tonumber
-  SHX16_2 = SHX6_2
-  SHX15_2 = SHX15_2(SHX16_2)
-  if not SHX15_2 then
-    SHX15_2 = 255
-  end
-  SHX16_2 = tonumber
-  SHX17_2 = SHX7_2
-  SHX16_2 = SHX16_2(SHX17_2)
-  if not SHX16_2 then
-    SHX16_2 = 255
-  end
-  SHX17_2 = tonumber
-  SHX18_2 = SHX8_2
-  SHX17_2 = SHX17_2(SHX18_2)
-  if not SHX17_2 then
-    SHX17_2 = 255
-  end
-  SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  if SHX10_2 then
-    SHX13_2 = SetTextDropShadow
-    SHX13_2()
-  end
-  if SHX11_2 then
-    SHX13_2 = SetTextOutline
-    SHX13_2()
-  end
-  if nil ~= SHX9_2 then
-    if 1 == SHX9_2 or "Center" == SHX9_2 or "Centre" == SHX9_2 then
-      SHX13_2 = SetTextCentre
-      SHX14_2 = true
-      SHX13_2(SHX14_2)
-    elseif 2 == SHX9_2 or "Right" == SHX9_2 then
-      SHX13_2 = SetTextRightJustify
-      SHX14_2 = true
-      SHX13_2(SHX14_2)
+
+    local chunkCount =
+        math.ceil(
+            characterCount / 100
+        )
+
+    -- The original decompile loops from 0 through chunkCount inclusive.
+    -- Keep that shape so boundary behaviour remains the same.
+    for chunkIndex = 0,
+        chunkCount do
+
+        local startIndex =
+            chunkIndex * 100
+
+        local endIndex =
+            startIndex + 100
+
+        AddTextComponentSubstringPlayerName(
+            text:sub(
+                startIndex,
+                endIndex
+            )
+        )
     end
-  end
-  SHX13_2 = tonumber
-  SHX14_2 = SHX12_2
-  SHX13_2 = SHX13_2(SHX14_2)
-  if SHX13_2 then
-    SHX13_2 = tonumber
-    SHX14_2 = SHX12_2
-    SHX13_2 = SHX13_2(SHX14_2)
-    if 0 ~= SHX13_2 then
-      if 1 == SHX9_2 or "Center" == SHX9_2 or "Centre" == SHX9_2 then
-        SHX13_2 = SetTextWrap
-        SHX14_2 = SHX12_2 / 1920
-        SHX14_2 = SHX14_2 / 2
-        SHX14_2 = SHX1_2 - SHX14_2
-        SHX15_2 = SHX12_2 / 1920
-        SHX15_2 = SHX15_2 / 2
-        SHX15_2 = SHX1_2 + SHX15_2
-        SHX13_2(SHX14_2, SHX15_2)
-      elseif 2 == SHX9_2 or "Right" == SHX9_2 then
-        SHX13_2 = SetTextWrap
-        SHX14_2 = 0
-        SHX15_2 = SHX1_2
-        SHX13_2(SHX14_2, SHX15_2)
-      else
-        SHX13_2 = SetTextWrap
-        SHX14_2 = SHX1_2
-        SHX15_2 = SHX12_2 / 1920
-        SHX15_2 = SHX1_2 + SHX15_2
-        SHX13_2(SHX14_2, SHX15_2)
-      end
-  end
-  elseif 2 == SHX9_2 or "Right" == SHX9_2 then
-    SHX13_2 = SetTextWrap
-    SHX14_2 = 0
-    SHX15_2 = SHX1_2
-    SHX13_2(SHX14_2, SHX15_2)
-  end
-  SHX13_2 = BeginTextCommandDisplayText
-  SHX14_2 = "CELL_EMAIL_BCON"
-  SHX13_2(SHX14_2)
-  SHX13_2 = AddText
-  SHX14_2 = SHX0_2
-  SHX13_2(SHX14_2)
-  SHX13_2 = EndTextCommandDisplayText
-  SHX14_2 = SHX1_2
-  SHX15_2 = SHX2_2
-  SHX13_2(SHX14_2, SHX15_2)
 end
-RenderText = SHX0_1
+
+
+-- ============================================================
+-- COMMON STYLE SETUP
+-- ============================================================
+
+local function configureText(
+    text,
+    x,
+    y,
+    font,
+    scale,
+    red,
+    green,
+    blue,
+    alpha,
+    alignment,
+    dropShadow,
+    outline,
+    wrapWidth
+)
+    text =
+        tostring(text)
+
+    x =
+        (tonumber(x) or 0)
+        / 1920
+
+    y =
+        (tonumber(y) or 0)
+        / 1080
+
+    SetTextFont(
+        font or 0
+    )
+
+    SetTextScale(
+        1.0,
+        scale or 0
+    )
+
+    SetTextColour(
+        tonumber(red) or 255,
+        tonumber(green) or 255,
+        tonumber(blue) or 255,
+        tonumber(alpha) or 255
+    )
+
+    if dropShadow then
+        SetTextDropShadow()
+    end
+
+    if outline then
+        SetTextOutline()
+    end
+
+    local centered =
+        alignment == 1
+        or alignment == "Center"
+        or alignment == "Centre"
+
+    local rightAligned =
+        alignment == 2
+        or alignment == "Right"
+
+    if centered then
+        SetTextCentre(true)
+
+    elseif rightAligned then
+        SetTextRightJustify(true)
+    end
+
+    local numericWrap =
+        tonumber(wrapWidth)
+
+    if numericWrap
+        and numericWrap ~= 0 then
+
+        local normalisedWidth =
+            numericWrap / 1920
+
+        if centered then
+            SetTextWrap(
+                x - normalisedWidth / 2,
+                x + normalisedWidth / 2
+            )
+
+        elseif rightAligned then
+            SetTextWrap(
+                0,
+                x
+            )
+
+        else
+            SetTextWrap(
+                x,
+                x + normalisedWidth
+            )
+        end
+
+    elseif rightAligned then
+        SetTextWrap(
+            0,
+            x
+        )
+    end
+
+    return text, x, y
+end
+
+
+-- ============================================================
+-- MEASURE LINE COUNT
+-- ============================================================
+
+function GetLineCount(
+    text,
+    x,
+    y,
+    font,
+    scale,
+    red,
+    green,
+    blue,
+    alpha,
+    alignment,
+    dropShadow,
+    outline,
+    wrapWidth
+)
+    text, x, y =
+        configureText(
+            text,
+            x,
+            y,
+            font,
+            scale,
+            red,
+            green,
+            blue,
+            alpha,
+            alignment,
+            dropShadow,
+            outline,
+            wrapWidth
+        )
+
+    BeginTextCommandLineCount(
+        "CELL_EMAIL_BCON"
+    )
+
+    AddText(text)
+
+    return
+        EndTextCommandLineCount(
+            x,
+            y
+        )
+end
+
+
+-- ============================================================
+-- DRAW TEXT
+-- ============================================================
+
+function RenderText(
+    text,
+    x,
+    y,
+    font,
+    scale,
+    red,
+    green,
+    blue,
+    alpha,
+    alignment,
+    dropShadow,
+    outline,
+    wrapWidth
+)
+    text, x, y =
+        configureText(
+            text,
+            x,
+            y,
+            font,
+            scale,
+            red,
+            green,
+            blue,
+            alpha,
+            alignment,
+            dropShadow,
+            outline,
+            wrapWidth
+        )
+
+    BeginTextCommandDisplayText(
+        "CELL_EMAIL_BCON"
+    )
+
+    AddText(text)
+
+    EndTextCommandDisplayText(
+        x,
+        y
+    )
+end

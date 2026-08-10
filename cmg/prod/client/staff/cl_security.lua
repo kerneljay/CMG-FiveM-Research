@@ -1,620 +1,535 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_security.lua
+    ===============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1
-SHX0_1 = Wait
-SHX1_1 = 0
-SHX0_1(SHX1_1)
-SHX0_1 = {}
-SHX1_1 = 1
-SHX2_1 = false
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX1_1
-  SHX2_2 = SHX0_1
-  SHX2_2[SHX1_2] = SHX0_2
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2 + 1
-  SHX1_1 = SHX2_2
-  return SHX1_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Security
+    =========================
+
+    File: cmg/prod/client/staff/cl_security.lua
+    Purpose: This file contains staff/admin tools.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 8
+      They are intentionally left unchanged because matching server code may use them.
+      * 99f7ddf34a
+      * 27459d8750
+      * 4193527f42
+      * a7d85abf0b
+      * ca62cdb8a4
+      * 1210872e84
+      * cb3f1ca2d1
+      * f41bab8346
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+]]
+local waitCall, numberValue, flag, workValue2, cmgCall, textValue2, workValue3, cmgCall3, cmgCall4, cmgCall5, textValue, workValue
+waitCall = Wait
+numberValue = 0
+waitCall(numberValue)
+waitCall = {}
+numberValue = 1
+flag = false
+function workValue2(arg1)
+  local arg2, arg3
+  arg2 = numberValue
+  arg3 = waitCall
+  arg3[arg2] = arg1
+  arg3 = numberValue
+  arg3 = arg3 + 1
+  numberValue = arg3
+  return arg2
 end
-SHX4_1 = CMG
-SHX4_1 = SHX4_1.uiRegisterCallback
-SHX5_1 = "screenshot_created"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_2.id
-  if SHX1_2 then
-    SHX2_2 = SHX0_2.id
-    SHX1_2 = SHX0_1
-    SHX1_2 = SHX1_2[SHX2_2]
-    if SHX1_2 then
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2 = SHX1_2[SHX2_2]
-      SHX2_2 = SHX0_2.data
-      SHX1_2(SHX2_2)
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2[SHX2_2] = nil
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue2 = "screenshot_created"
+function workValue3(arg1)
+  local arg2, arg3
+  arg2 = arg1.id
+  if arg2 then
+    arg3 = arg1.id
+    arg2 = waitCall
+    arg2 = arg2[arg3]
+    if arg2 then
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2 = arg2[arg3]
+      arg3 = arg1.data
+      arg2(arg3)
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2[arg3] = nil
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = CMG
-SHX4_1 = SHX4_1.uiRegisterCallback
-SHX5_1 = "video_created"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_2.id
-  if SHX1_2 then
-    SHX2_2 = SHX0_2.id
-    SHX1_2 = SHX0_1
-    SHX1_2 = SHX1_2[SHX2_2]
-    if SHX1_2 then
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2 = SHX1_2[SHX2_2]
-      SHX2_2 = SHX0_2.currentVideo
-      SHX3_2 = SHX0_2.previousVideo
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2[SHX2_2] = nil
+cmgCall(textValue2, workValue3)
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue2 = "video_created"
+function workValue3(arg1)
+  local arg2, arg3, arg4
+  arg2 = arg1.id
+  if arg2 then
+    arg3 = arg1.id
+    arg2 = waitCall
+    arg2 = arg2[arg3]
+    if arg2 then
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2 = arg2[arg3]
+      arg3 = arg1.currentVideo
+      arg4 = arg1.previousVideo
+      arg2(arg3, arg4)
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2[arg3] = nil
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = CMG
-SHX4_1 = SHX4_1.uiRegisterCallback
-SHX5_1 = "video_uploading"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_2.id
-  if SHX1_2 then
-    SHX2_2 = SHX0_2.id
-    SHX1_2 = SHX0_1
-    SHX1_2 = SHX1_2[SHX2_2]
-    if SHX1_2 then
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2 = SHX1_2[SHX2_2]
-      SHX1_2()
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2[SHX2_2] = nil
+cmgCall(textValue2, workValue3)
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue2 = "video_uploading"
+function workValue3(arg1)
+  local arg2, arg3
+  arg2 = arg1.id
+  if arg2 then
+    arg3 = arg1.id
+    arg2 = waitCall
+    arg2 = arg2[arg3]
+    if arg2 then
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2 = arg2[arg3]
+      arg2()
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2[arg3] = nil
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = CMG
-SHX4_1 = SHX4_1.uiRegisterCallback
-SHX5_1 = "keep_alive"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_2.id
-  if SHX1_2 then
-    SHX2_2 = SHX0_2.id
-    SHX1_2 = SHX0_1
-    SHX1_2 = SHX1_2[SHX2_2]
-    if SHX1_2 then
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2 = SHX1_2[SHX2_2]
-      SHX2_2 = SHX0_2.failReason
-      SHX1_2(SHX2_2)
-      SHX2_2 = SHX0_2.id
-      SHX1_2 = SHX0_1
-      SHX1_2[SHX2_2] = nil
+cmgCall(textValue2, workValue3)
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue2 = "keep_alive"
+function workValue3(arg1)
+  local arg2, arg3
+  arg2 = arg1.id
+  if arg2 then
+    arg3 = arg1.id
+    arg2 = waitCall
+    arg2 = arg2[arg3]
+    if arg2 then
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2 = arg2[arg3]
+      arg3 = arg1.failReason
+      arg2(arg3)
+      arg3 = arg1.id
+      arg2 = waitCall
+      arg2[arg3] = nil
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = CMG
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX4_2 = SHX2_2 or SHX4_2
-  if not SHX3_2 or not SHX2_2 then
-    SHX4_2 = {}
-    SHX5_2 = {}
-    SHX4_2.headers = SHX5_2
-    SHX4_2.encoding = "jpg"
+cmgCall(textValue2, workValue3)
+cmgCall = CMG
+function textValue2(arg1, arg2, arg3, arg4)
+  local arg5, dataTable, cmgCall2, dataTable2
+  arg5 = arg3 or arg5
+  if not arg4 or not arg3 then
+    arg5 = {}
+    dataTable = {}
+    arg5.headers = dataTable
+    arg5.encoding = "jpg"
   end
-  SHX5_2 = SHX3_2 or SHX5_2
-  if not SHX3_2 then
-    SHX5_2 = SHX2_2
+  dataTable = arg4 or dataTable
+  if not arg4 then
+    dataTable = arg3
   end
-  SHX4_2.targetURL = SHX0_2
-  SHX4_2.targetField = SHX1_2
-  SHX4_2.resultURL = "http://cmgui/screenshot_created"
-  SHX6_2 = SHX3_1
-  SHX7_2 = SHX5_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX4_2.correlation = SHX6_2
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.uiSendMessage
-  SHX7_2 = {}
-  SHX7_2.action = "securityRecorder"
-  SHX7_2.data = SHX4_2
-  SHX6_2(SHX7_2)
+  arg5.targetURL = arg1
+  arg5.targetField = arg2
+  arg5.resultURL = "http://cmgui/screenshot_created"
+  cmgCall2 = workValue2
+  dataTable2 = dataTable
+  cmgCall2 = cmgCall2(dataTable2)
+  arg5.correlation = cmgCall2
+  cmgCall2 = CMG
+  cmgCall2 = cmgCall2.uiSendMessage
+  dataTable2 = {}
+  dataTable2.action = "securityRecorder"
+  dataTable2.data = arg5
+  cmgCall2(dataTable2)
 end
-SHX4_1.requestScreenshotUpload = SHX5_1
-SHX4_1 = CMG
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX5_2 = SHX2_2 or SHX5_2
-  if not SHX3_2 or not SHX2_2 then
-    SHX5_2 = {}
-    SHX6_2 = {}
-    SHX5_2.headers = SHX6_2
-    SHX5_2.isVideo = true
-    SHX5_2.isManual = false
-    SHX5_2.encoding = "webm"
+cmgCall.requestScreenshotUpload = textValue2
+cmgCall = CMG
+function textValue2(arg1, arg2, arg3, arg4, arg5)
+  local dataTable, cmgCall2, dataTable2, dataTable3
+  dataTable = arg3 or dataTable
+  if not arg4 or not arg3 then
+    dataTable = {}
+    cmgCall2 = {}
+    dataTable.headers = cmgCall2
+    dataTable.isVideo = true
+    dataTable.isManual = false
+    dataTable.encoding = "webm"
   end
-  SHX6_2 = SHX3_2 or SHX6_2
-  if not SHX3_2 then
-    SHX6_2 = SHX2_2
+  cmgCall2 = arg4 or cmgCall2
+  if not arg4 then
+    cmgCall2 = arg3
   end
-  SHX5_2.targetURL = SHX0_2
-  SHX5_2.targetField = SHX1_2
-  SHX5_2.resultURL = "http://cmgui/video_created"
-  SHX7_2 = SHX3_1
-  SHX8_2 = SHX6_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX5_2.correlation = SHX7_2
-  if SHX4_2 then
-    SHX5_2.uploadingResultURL = "http://cmgui/video_uploading"
-    SHX7_2 = SHX3_1
-    SHX8_2 = SHX4_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX5_2.uploadingCorrelation = SHX7_2
+  dataTable.targetURL = arg1
+  dataTable.targetField = arg2
+  dataTable.resultURL = "http://cmgui/video_created"
+  dataTable2 = workValue2
+  dataTable3 = cmgCall2
+  dataTable2 = dataTable2(dataTable3)
+  dataTable.correlation = dataTable2
+  if arg5 then
+    dataTable.uploadingResultURL = "http://cmgui/video_uploading"
+    dataTable2 = workValue2
+    dataTable3 = arg5
+    dataTable2 = dataTable2(dataTable3)
+    dataTable.uploadingCorrelation = dataTable2
   end
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.uiSendMessage
-  SHX8_2 = {}
-  SHX8_2.action = "securityRecorder"
-  SHX8_2.data = SHX5_2
-  SHX7_2(SHX8_2)
+  dataTable2 = CMG
+  dataTable2 = dataTable2.uiSendMessage
+  dataTable3 = {}
+  dataTable3.action = "securityRecorder"
+  dataTable3.data = dataTable
+  dataTable2(dataTable3)
 end
-SHX4_1.requestVideoUpload = SHX5_1
-SHX4_1 = 0
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.action = "securityRecorder"
-  SHX3_2 = {}
-  SHX3_2.isKeepAlive = true
-  SHX4_2 = SHX3_1
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX3_2.correlation = SHX4_2
-  SHX3_2.resultURL = "http://cmgui/keep_alive"
-  SHX2_2.data = SHX3_2
-  SHX1_2(SHX2_2)
+cmgCall.requestVideoUpload = textValue2
+cmgCall = 0
+function textValue2(arg1)
+  local arg2, arg3, arg4, arg5, dataTable
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.action = "securityRecorder"
+  arg4 = {}
+  arg4.isKeepAlive = true
+  arg5 = workValue2
+  dataTable = arg1
+  arg5 = arg5(dataTable)
+  arg4.correlation = arg5
+  arg4.resultURL = "http://cmgui/keep_alive"
+  arg3.data = arg4
+  arg2(arg3)
 end
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX5_1
-  function SHX1_2(SHX0_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX1_3
-    if not SHX0_3 then
-      SHX1_3 = GetGameTimer
-      SHX1_3 = SHX1_3()
-      SHX4_1 = SHX1_3
+function workValue3()
+  local arg1, arg2
+  arg1 = textValue2
+  function arg2(arg12)
+    local gameTime
+    if not arg12 then
+      gameTime = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      gameTime = gameTime()
+      cmgCall = gameTime
     end
   end
-  SHX0_2(SHX1_2)
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX4_1
-  SHX0_2 = SHX0_2 - SHX1_2
-  SHX1_2 = 120000
-  if SHX0_2 > SHX1_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.isDevMode
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "99f7ddf34a"
-      SHX0_2(SHX1_2)
+  arg1(arg2)
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
+  arg2 = cmgCall
+  arg1 = arg1 - arg2
+  arg2 = 120000
+  if arg1 > arg2 then
+    arg1 = CMG
+    arg1 = arg1.isDevMode
+    arg1 = arg1()
+    if not arg1 then
+      arg1 = TriggerServerEvent
+      arg2 = "99f7ddf34a"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "99f7ddf34a".
+      arg1(arg2)
     end
   end
 end
-SHX7_1 = AddEventHandler
-SHX8_1 = "CMG:onClientSpawn"
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  if SHX1_2 then
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX4_1 = SHX2_2
+cmgCall3 = AddEventHandler
+cmgCall4 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function cmgCall5(arg1, arg2)
+  local arg3, arg4
+  if arg2 then
+    arg3 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg3 = arg3()
+    cmgCall = arg3
     while true do
-      SHX2_2 = SHX6_1
-      SHX2_2()
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.Wait
-      SHX3_2 = 5000
-      SHX2_2(SHX3_2)
+      arg3 = workValue3
+      arg3()
+      arg3 = Citizen
+      arg3 = arg3.Wait
+      arg4 = 5000
+      arg3(arg4)
     end
   end
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "27459d8750"
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  if SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.isDevMode
-    SHX2_2 = SHX2_2()
-    if SHX2_2 then
-      SHX2_2 = "localhost"
-      if SHX2_2 then
-        goto SHX_LABEL_12
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+cmgCall3(cmgCall4, cmgCall5)
+cmgCall3 = RegisterNetEvent
+cmgCall4 = "27459d8750"
+-- Beginner: this function handles network event "27459d8750".
+function cmgCall5(arg1, arg2)
+  local arg3, arg4, arg5, dataTable, cmgCall2
+  if arg2 then
+    arg3 = CMG
+    arg3 = arg3.isDevMode
+    arg3 = arg3()
+    if arg3 then
+      arg3 = "localhost"
+      if arg3 then
+        goto flow_label_12
       end
     end
-    SHX2_2 = "s1.cmg.city"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-    ::SHX_LABEL_12::
-    SHX3_2 = "http://"
-    SHX4_2 = SHX2_2
-    SHX5_2 = ":30120/cmg/screen?guid="
-    SHX6_2 = SHX0_2
-    SHX3_2 = SHX3_2 .. SHX4_2 .. SHX5_2 .. SHX6_2
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.openURL
-    SHX5_2 = SHX3_2
-    SHX4_2(SHX5_2)
+    arg3 = "s1.cmg.city"
+    ::flow_label_12::
+    arg4 = "http://"
+    arg5 = arg3
+    dataTable = ":30120/cmg/screen?guid="
+    cmgCall2 = arg1
+    arg4 = arg4 .. arg5 .. dataTable .. cmgCall2
+    arg5 = CMG
+    arg5 = arg5.openURL
+    dataTable = arg4
+    arg5(dataTable)
   else
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.uiSendMessage
-    SHX3_2 = {}
-    SHX3_2.action = "fetchPeerIdForScreenView"
-    SHX2_2(SHX3_2)
+    arg3 = CMG
+    arg3 = arg3.uiSendMessage
+    arg4 = {}
+    arg4.action = "fetchPeerIdForScreenView"
+    arg3(arg4)
   end
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.uiRegisterCallback
-SHX8_1 = "fetchPeerIdForScreenView"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "27459d8750"
-  SHX3_2 = SHX0_2.peerId
-  SHX1_2(SHX2_2, SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "27459d8750".
+cmgCall3(cmgCall4, cmgCall5)
+cmgCall3 = CMG
+cmgCall3 = cmgCall3.uiRegisterCallback
+cmgCall4 = "fetchPeerIdForScreenView"
+function cmgCall5(arg1)
+  local arg2, arg3, arg4
+  arg2 = TriggerServerEvent
+  arg3 = "27459d8750"
+  arg4 = arg1.peerId
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "27459d8750".
+  arg2(arg3, arg4)
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "4193527f42"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.action = "connectScreenViewToPeerId"
-  SHX3_2 = {}
-  SHX3_2.peerId = SHX0_2
-  SHX2_2.data = SHX3_2
-  SHX1_2(SHX2_2)
+cmgCall3(cmgCall4, cmgCall5)
+cmgCall3 = RegisterNetEvent
+cmgCall4 = "4193527f42"
+-- Beginner: this function handles network event "4193527f42".
+function cmgCall5(arg1)
+  local arg2, arg3, arg4
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.action = "connectScreenViewToPeerId"
+  arg4 = {}
+  arg4.peerId = arg1
+  arg3.data = arg4
+  arg2(arg3)
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.uiRegisterCallback
-SHX8_1 = "closeScreenView"
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "a7d85abf0b"
-  SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4193527f42".
+cmgCall3(cmgCall4, cmgCall5)
+cmgCall3 = CMG
+cmgCall3 = cmgCall3.uiRegisterCallback
+cmgCall4 = "closeScreenView"
+function cmgCall5()
+  local arg1, arg2
+  arg1 = TriggerServerEvent
+  arg2 = "a7d85abf0b"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a7d85abf0b".
+  arg1(arg2)
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "ca62cdb8a4"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.action = "closeScreenViewConnection"
-  SHX3_2 = {}
-  SHX3_2.isStaff = SHX0_2
-  SHX2_2.data = SHX3_2
-  SHX1_2(SHX2_2)
+cmgCall3(cmgCall4, cmgCall5)
+cmgCall3 = RegisterNetEvent
+cmgCall4 = "ca62cdb8a4"
+-- Beginner: this function handles network event "ca62cdb8a4".
+function cmgCall5(arg1)
+  local arg2, arg3, arg4
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.action = "closeScreenViewConnection"
+  arg4 = {}
+  arg4.isStaff = arg1
+  arg3.data = arg4
+  arg2(arg3)
 end
-SHX7_1(SHX8_1, SHX9_1)
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = IsControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 344
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.action = "setScreenViewFullscreen"
-    SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ca62cdb8a4".
+cmgCall3(cmgCall4, cmgCall5)
+function cmgCall3()
+  local arg1, arg2, arg3
+  arg1 = IsControlJustPressed
+  arg2 = 0
+  arg3 = 344
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = CMG
+    arg1 = arg1.uiSendMessage
+    arg2 = {}
+    arg2.action = "setScreenViewFullscreen"
+    arg1(arg2)
   end
 end
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.uiRegisterCallback
-SHX9_1 = "setScreenViewActive"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.active
-  if SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.hideAllDisplays
-    SHX2_2 = "screenview"
-    SHX1_2(SHX2_2)
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.uiSetFocus
-    SHX2_2 = true
-    SHX3_2 = false
-    SHX4_2 = false
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+cmgCall4 = CMG
+cmgCall4 = cmgCall4.uiRegisterCallback
+cmgCall5 = "setScreenViewActive"
+function textValue(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = arg1.active
+  if arg2 then
+    arg2 = CMG
+    arg2 = arg2.hideAllDisplays
+    arg3 = "screenview"
+    arg2(arg3)
+    arg2 = CMG
+    arg2 = arg2.uiSetFocus
+    arg3 = true
+    arg4 = false
+    arg5 = false
+    arg2(arg3, arg4, arg5)
   else
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.showAllDisplays
-    SHX2_2 = "screenview"
-    SHX1_2(SHX2_2)
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.uiSetFocus
-    SHX2_2 = false
-    SHX3_2 = false
-    SHX4_2 = false
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    arg2 = CMG
+    arg2 = arg2.showAllDisplays
+    arg3 = "screenview"
+    arg2(arg3)
+    arg2 = CMG
+    arg2 = arg2.uiSetFocus
+    arg3 = false
+    arg4 = false
+    arg5 = false
+    arg2(arg3, arg4, arg5)
   end
-  SHX1_2 = SHX0_2.fullscreen
-  if SHX1_2 then
-    SHX1_2 = SHX2_1
-    if SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.deleteThreadOnTick
-      SHX2_2 = SHX7_1
-      SHX1_2(SHX2_2)
-      SHX1_2 = false
-      SHX2_1 = SHX1_2
+  arg2 = arg1.fullscreen
+  if arg2 then
+    arg2 = flag
+    if arg2 then
+      arg2 = CMG
+      arg2 = arg2.deleteThreadOnTick
+      arg3 = cmgCall3
+      arg2(arg3)
+      arg2 = false
+      flag = arg2
     end
   else
-    SHX1_2 = SHX2_1
-    if not SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.createThreadOnTick
-      SHX2_2 = SHX7_1
-      SHX3_2 = "Security Windowed Controls"
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = true
-      SHX2_1 = SHX1_2
+    arg2 = flag
+    if not arg2 then
+      arg2 = CMG
+      arg2 = arg2.createThreadOnTick
+      arg3 = cmgCall3
+      arg4 = "Security Windowed Controls"
+      -- Beginner: Run a helper every game frame while this script is active.
+      arg2(arg3, arg4)
+      arg2 = true
+      flag = arg2
     end
   end
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.uiRegisterCallback
-SHX9_1 = "scFail"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "1210872e84"
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
+cmgCall4(cmgCall5, textValue)
+cmgCall4 = CMG
+cmgCall4 = cmgCall4.uiRegisterCallback
+cmgCall5 = "scFail"
+function textValue(arg1)
+  local arg2, arg3, arg4
+  arg2 = TriggerServerEvent
+  arg3 = "1210872e84"
+  arg4 = arg1
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1210872e84".
+  arg2(arg3, arg4)
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = false
-SHX9_1 = RegisterNUICallback
-SHX10_1 = "syncClock"
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX8_1
-  if not SHX2_2 then
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "cb3f1ca2d1"
-    SHX2_2(SHX3_2)
-    SHX2_2 = true
-    SHX8_1 = SHX2_2
+cmgCall4(cmgCall5, textValue)
+cmgCall4 = false
+cmgCall5 = RegisterNUICallback
+textValue = "syncClock"
+function workValue(arg1, arg2)
+  local arg3, arg4
+  arg3 = cmgCall4
+  if not arg3 then
+    arg3 = TriggerServerEvent
+    arg4 = "cb3f1ca2d1"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cb3f1ca2d1".
+    arg3(arg4)
+    arg3 = true
+    cmgCall4 = arg3
   end
-  SHX2_2 = SHX1_2
-  SHX3_2 = "ok"
-  SHX2_2(SHX3_2)
+  arg3 = arg2
+  arg4 = "ok"
+  arg3(arg4)
 end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.uiRegisterCallback
-SHX10_1 = "tasty"
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getClientUserId
-  SHX1_2 = SHX1_2()
-  while not SHX1_2 do
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getClientUserId
-    SHX2_2 = SHX2_2()
-    SHX1_2 = SHX2_2
-    SHX2_2 = Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+cmgCall5(textValue, workValue)
+cmgCall5 = CMG
+cmgCall5 = cmgCall5.uiRegisterCallback
+textValue = "tasty"
+function workValue(arg1)
+  local arg2, arg3, arg4, arg5, dataTable
+  arg2 = CMG
+  arg2 = arg2.getClientUserId
+  -- Beginner: result below is userId.
+  arg2 = arg2()
+  while not arg2 do
+    arg3 = CMG
+    arg3 = arg3.getClientUserId
+    -- Beginner: result below is userId.
+    arg3 = arg3()
+    arg2 = arg3
+    arg3 = Wait
+    arg4 = 0
+    arg3(arg4)
   end
-  SHX2_2 = 0
-  if SHX0_2 then
-    SHX3_2 = SHX0_2[1]
-    if SHX3_2 then
-      SHX3_2 = tonumber
-      SHX4_2 = SHX0_2[1]
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        SHX3_2 = tonumber
-        SHX4_2 = SHX0_2[1]
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX2_2 = SHX3_2 ~ 3735928559
+  arg3 = 0
+  if arg1 then
+    arg4 = arg1[1]
+    if arg4 then
+      arg4 = tonumber
+      arg5 = arg1[1]
+      arg4 = arg4(arg5)
+      if arg4 then
+        arg4 = tonumber
+        arg5 = arg1[1]
+        arg4 = arg4(arg5)
+        arg3 = arg4 ~ 3735928559
       end
     end
   end
-  if SHX2_2 > 0 and SHX2_2 ~= SHX1_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "f41bab8346"
-    SHX5_2 = SHX2_2
-    SHX3_2(SHX4_2, SHX5_2)
+  if arg3 > 0 and arg3 ~= arg2 then
+    arg4 = TriggerServerEvent
+    arg5 = "f41bab8346"
+    dataTable = arg3
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f41bab8346".
+    arg4(arg5, dataTable)
     return
   end
-  SHX3_2 = {}
-  SHX4_2 = SHX1_2 ~ 3735928559
-  SHX3_2[1] = SHX4_2
-  return SHX3_2
+  arg4 = {}
+  arg5 = arg2 ~ 3735928559
+  arg4[1] = arg5
+  return arg4
 end
-SHX9_1(SHX10_1, SHX11_1)
+cmgCall5(textValue, workValue)

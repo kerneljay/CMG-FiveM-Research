@@ -1,276 +1,239 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Smoke Grenades
+    ==============
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1
-SHX0_1 = 0
-SHX1_1 = 4000
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.random
-  SHX1_2 = 1
-  SHX2_2 = 1000000
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "142a59a379"
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.Wait
-  SHX2_2 = 100
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetClosestObjectOfType
-  SHX3_2 = SHX1_2.x
-  SHX4_2 = SHX1_2.y
-  SHX5_2 = SHX1_2.z
-  SHX6_2 = 10.0
-  SHX7_2 = 399566324
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  if 0 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetGameTimer
-  SHX3_2 = SHX3_2()
-  while true do
-    SHX4_2 = GetEntitySpeed
-    SHX5_2 = SHX2_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = 0.2
-    if not (SHX4_2 > SHX5_2) then
-      break
+    Two weapon hashes are treated as smoke-grenade throwables:
+      -2144752413
+      -795216620
+
+    When one is fired:
+      1. Attacking is temporarily blocked for 4 seconds.
+      2. A random throw ID is sent to the server.
+      3. The client finds the nearest thrown grenade object (model 399566324).
+      4. It waits for that object to stop moving, up to 6 seconds.
+      5. The final grenade coordinates are sent to the server.
+
+    The server then broadcasts event d370ce0c4b(id, coords).
+
+    That event creates a streamed smoke effect around those coordinates for
+    up to 60 seconds. The effect starts when this client is inside the large
+    streaming area and stops when the client leaves it.
+]]
+
+local lastThrowAt = 0
+local THROW_COOLDOWN_MS = 4000
+
+local SMOKE_WEAPONS = {
+    [-2144752413] = true,
+    [-795216620] = true
+}
+
+
+-- ============================================================
+-- FIND WHERE THE THROWN GRENADE LANDED
+-- ============================================================
+
+local function reportThrownSmokeGrenade()
+    local throwId =
+        math.random(
+            1,
+            1000000
+        )
+
+    TriggerServerEvent(
+        "142a59a379",
+        throwId
+    )
+
+    -- Give GTA a moment to create the physical grenade object.
+    Citizen.Wait(100)
+
+    local playerCoords =
+        CMG.getPlayerCoords()
+
+    local grenadeObject =
+        GetClosestObjectOfType(
+            playerCoords.x,
+            playerCoords.y,
+            playerCoords.z,
+            10.0,
+            399566324,
+            false,
+            false,
+            false
+        )
+
+    if grenadeObject == 0 then
+        return
     end
-    SHX4_2 = GetGameTimer
-    SHX4_2 = SHX4_2()
-    SHX4_2 = SHX4_2 - SHX3_2
-    SHX5_2 = 6000
-    if not (SHX4_2 < SHX5_2) then
-      break
+
+    local waitStartedAt =
+        GetGameTimer()
+
+    -- Wait for the grenade to settle, but never wait longer than 6 seconds.
+    while GetEntitySpeed(grenadeObject) > 0.2
+        and GetGameTimer() - waitStartedAt < 6000 do
+        Citizen.Wait(0)
     end
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
-  end
-  SHX4_2 = GetEntityCoords
-  SHX5_2 = SHX2_2
-  SHX6_2 = true
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = TriggerServerEvent
-  SHX6_2 = "176d0baec2"
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX4_2
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+
+    local finalCoords =
+        GetEntityCoords(
+            grenadeObject,
+            true
+        )
+
+    TriggerServerEvent(
+        "176d0baec2",
+        throwId,
+        finalCoords
+    )
 end
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = GetSelectedPedWeapon
-  SHX2_2 = SHX0_2.playerPed
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -2144752413 == SHX1_2 or -795216620 == SHX1_2 then
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX3_2 = SHX0_1
-    SHX2_2 = SHX2_2 - SHX3_2
-    SHX3_2 = SHX1_1
-    if SHX2_2 < SHX3_2 then
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 24
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 69
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 257
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 58
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    else
-      SHX2_2 = IsPedShooting
-      SHX3_2 = SHX0_2.playerPed
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 then
-        SHX2_2 = Citizen
-        SHX2_2 = SHX2_2.CreateThreadNow
-        SHX3_2 = SHX2_1
-        SHX2_2(SHX3_2)
-        SHX2_2 = GetGameTimer
-        SHX2_2 = SHX2_2()
-        SHX0_1 = SHX2_2
-      end
+
+
+-- ============================================================
+-- LOCAL THROW CONTROL
+-- ============================================================
+
+local function smokeGrenadeTick(context)
+    local selectedWeapon =
+        GetSelectedPedWeapon(
+            context.playerPed
+        )
+
+    local timeSinceThrow =
+        GetGameTimer()
+        - lastThrowAt
+
+    if SMOKE_WEAPONS[selectedWeapon] then
+        if timeSinceThrow < THROW_COOLDOWN_MS then
+            -- Prevent throwing multiple grenades during the cooldown.
+            for _, control in ipairs({
+                24,
+                69,
+                257,
+                58
+            }) do
+                DisableControlAction(
+                    0,
+                    control,
+                    true
+                )
+            end
+
+        elseif IsPedShooting(
+            context.playerPed
+        ) then
+            Citizen.CreateThreadNow(
+                reportThrownSmokeGrenade
+            )
+
+            lastThrowAt =
+                GetGameTimer()
+        end
+
+    elseif lastThrowAt > 0
+        and timeSinceThrow < THROW_COOLDOWN_MS then
+
+        -- The original client also blocks control 58 for the remainder of
+        -- the cooldown even if the player changes weapon immediately.
+        DisableControlAction(
+            0,
+            58,
+            true
+        )
     end
-  else
-    SHX2_2 = SHX0_1
-    if SHX2_2 > 0 then
-      SHX2_2 = GetGameTimer
-      SHX2_2 = SHX2_2()
-      SHX3_2 = SHX0_1
-      SHX2_2 = SHX2_2 - SHX3_2
-      SHX3_2 = SHX1_1
-      if SHX2_2 < SHX3_2 then
-        SHX2_2 = DisableControlAction
-        SHX3_2 = 0
-        SHX4_2 = 58
-        SHX5_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      end
+end
+
+CMG.createThreadOnTick(
+    smokeGrenadeTick,
+    "Smoke Grenades"
+)
+
+
+-- ============================================================
+-- STREAMED SMOKE EFFECT
+-- ============================================================
+
+local function startSmokeEffect(effectData)
+    if effectData.isDeleted then
+        return
     end
-  end
+
+    CMG.loadPtfx("core")
+
+    UseParticleFxAsset("core")
+
+    effectData.handle =
+        StartParticleFxLoopedAtCoord(
+            "exp_grd_grenade_smoke",
+            effectData.coords.x,
+            effectData.coords.y,
+            effectData.coords.z,
+            0.0,
+            0.0,
+            0.0,
+            2.0,
+            false,
+            false,
+            false,
+            false
+        )
+
+    RemoveNamedPtfxAsset("core")
 end
-SHX4_1 = CMG
-SHX4_1 = SHX4_1.createThreadOnTick
-SHX5_1 = SHX3_1
-SHX6_1 = "Smoke Grenades"
-SHX4_1(SHX5_1, SHX6_1)
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX0_2.isDeleted
-  if not SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.loadPtfx
-    SHX2_2 = "core"
-    SHX1_2(SHX2_2)
-    SHX1_2 = UseParticleFxAsset
-    SHX2_2 = "core"
-    SHX1_2(SHX2_2)
-    SHX1_2 = StartParticleFxLoopedAtCoord
-    SHX2_2 = "exp_grd_grenade_smoke"
-    SHX3_2 = SHX0_2.coords
-    SHX3_2 = SHX3_2.x
-    SHX4_2 = SHX0_2.coords
-    SHX4_2 = SHX4_2.y
-    SHX5_2 = SHX0_2.coords
-    SHX5_2 = SHX5_2.z
-    SHX6_2 = 0.0
-    SHX7_2 = 0.0
-    SHX8_2 = 0.0
-    SHX9_2 = 2.0
-    SHX10_2 = false
-    SHX11_2 = false
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX0_2.handle = SHX1_2
-    SHX1_2 = RemoveNamedPtfxAsset
-    SHX2_2 = "core"
-    SHX1_2(SHX2_2)
-  end
+
+
+local function stopSmokeEffect(effectData)
+    if effectData.handle then
+        StopParticleFxLooped(
+            effectData.handle,
+            false
+        )
+
+        effectData.handle = nil
+    end
 end
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX0_2.handle
-  if SHX1_2 then
-    SHX1_2 = StopParticleFxLooped
-    SHX2_2 = SHX0_2.handle
-    SHX3_2 = false
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX0_2.handle = nil
-  end
-end
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "d370ce0c4b"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX2_2 = {}
-  SHX2_2.coords = SHX1_2
-  SHX2_2.isDeleted = false
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.createArea
-  SHX4_2 = "smoke_"
-  SHX5_2 = tostring
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = 250.0
-  SHX7_2 = 1000.0
-  SHX8_2 = SHX4_1
-  SHX9_2 = SHX5_1
-  function SHX10_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX11_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 60000
-  SHX3_2(SHX4_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.removeArea
-  SHX4_2 = "smoke_"
-  SHX5_2 = tostring
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = SHX2_2.handle
-  if SHX3_2 then
-    SHX3_2 = StopParticleFxLooped
-    SHX4_2 = SHX2_2.handle
-    SHX5_2 = false
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX2_2.handle = nil
-    SHX2_2.isDeleted = true
-  end
-end
-SHX6_1(SHX7_1, SHX8_1)
+
+
+RegisterNetEvent(
+    "d370ce0c4b",
+    function(smokeId, coords)
+        local effectData = {
+            coords = coords,
+            isDeleted = false,
+            handle = nil
+        }
+
+        local areaName =
+            "smoke_"
+            .. tostring(smokeId)
+
+        CMG.createArea(
+            areaName,
+            coords,
+            250.0,
+            1000.0,
+            startSmokeEffect,
+            stopSmokeEffect,
+            function()
+            end,
+            effectData
+        )
+
+        Citizen.Wait(60000)
+
+        tCMG.removeArea(
+            areaName
+        )
+
+        if effectData.handle then
+            StopParticleFxLooped(
+                effectData.handle,
+                false
+            )
+
+            effectData.handle = nil
+            effectData.isDeleted = true
+        end
+    end
+)

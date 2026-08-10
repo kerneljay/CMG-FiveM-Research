@@ -1,3 +1,22 @@
+--[[
+    BEGINNER GUIDE — Licenses
+    =========================
+
+    File: cmg/prod/cfg/cfg_licenses.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Example player-facing text in this file:
+      * Vehicle Boot Security License
+
+]]
 local cfg = {}
 
 cfg.shopCoords = vector3(-533.28350830078,-189.46655273438,38.21964263916)

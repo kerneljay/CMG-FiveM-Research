@@ -1,581 +1,510 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    CMGUI Focus / NUI Callback Bridge
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1
-SHX0_1 = false
-SHX1_1 = false
-SHX2_1 = false
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = {}
-SHX6_1 = false
-SHX7_1 = {}
-SHX8_1 = false
-SHX9_1 = CMG
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = GetResourceState
-  SHX2_2 = "cmgui"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "started" == SHX1_2 then
-    SHX1_2 = exports
-    SHX1_2 = SHX1_2.cmgui
-    SHX2_2 = SHX1_2
-    SHX1_2 = SHX1_2.sendMessage
-    SHX3_2 = SHX0_2
-    SHX1_2(SHX2_2, SHX3_2)
-  end
+    This file is the shared bridge between CMG Lua and the browser UI resource
+    named "cmgui".
+
+    Main jobs:
+      * track whether CMG currently wants NUI focus
+      * track focus requested by OTHER resources
+      * merge those requests into one effective focus state
+      * register browser callbacks, retrying while cmgui is still starting
+      * forward controller D-pad / A / B input to the browser UI
+      * provide CMG.uiSendMessage(...)
+      * provide CMG.uiRegisterCallback(...)
+      * provide CMG.awaitInterfaceLoaded()
+
+    Beginner terms:
+      NUI
+        FiveM's HTML/JavaScript browser interface.
+
+      focus
+        Whether keyboard/mouse/controller input is being captured by NUI.
+
+      cursor
+        Whether the browser mouse cursor should be visible.
+
+    Important compatibility detail:
+      The original resource patches the GLOBAL SetNuiFocus function. Whenever
+      CMG itself calls SetNuiFocus, that patched function updates this manager's
+      resource-focus table and then reapplies the effective focus.
+
+    No invented "cmgui loaded" event is used here. The original code simply
+    retries callback registration while the cmgui resource is starting.
+]]
+
+local requestedFocus = false
+local cursorEnabled = false
+local disableControlsWhileFocused = false
+
+-- True while a controller is being used instead of keyboard/mouse.
+local controllerMode = false
+
+-- Special mode enabled by the server tunable "cmgui_focus".
+local forcedFocusMode = false
+
+-- resourceFocus[resourceName] = true when another resource asked for NUI focus.
+local resourceFocus = {}
+
+-- Temporarily suppresses effective focus, used while GTA's keyboard prompt is
+-- open so the browser does not steal input.
+local temporaryFocusDisabled = false
+
+
+-- ============================================================
+-- CALLBACK REGISTRATION STATE
+-- ============================================================
+
+-- Each entry:
+--   {
+--       [1] = callback name,
+--       [2] = Lua function,
+--       [3] = true after cmgui accepted the registration
+--   }
+local pendingCallbacks = {}
+
+local callbackRetryThreadRunning = false
+
+
+-- ============================================================
+-- SAFE CMGUI MESSAGE
+-- ============================================================
+
+function CMG.uiSendMessage(message)
+    if GetResourceState("cmgui") ~= "started" then
+        return
+    end
+
+    exports["cmgui"]:sendMessage(
+        message
+    )
 end
-SHX9_1.uiSendMessage = SHX10_1
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = GetResourceState
-  SHX1_2 = "cmgui"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if "started" ~= SHX0_2 then
-    return
-  end
-  SHX0_2 = pairs
-  SHX1_2 = SHX7_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2[3]
-    if not SHX6_2 then
-      SHX6_2 = pcall
-      function SHX7_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-        SHX0_3 = exports
-        SHX0_3 = SHX0_3.cmgui
-        SHX1_3 = SHX0_3
-        SHX0_3 = SHX0_3.registerCallback
-        SHX2_3 = SHX5_2
-        SHX2_3 = SHX2_3[1]
-        SHX3_3 = SHX5_2
-        SHX3_3 = SHX3_3[2]
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      end
-      SHX6_2 = SHX6_2(SHX7_2)
-      if SHX6_2 then
-        SHX5_2[3] = true
-      end
+
+
+-- ============================================================
+-- TRY TO REGISTER ANY UNREGISTERED CALLBACKS
+-- ============================================================
+
+local function tryRegisterCallbacks()
+    if GetResourceState("cmgui") ~= "started" then
+        return false
     end
-  end
+
+    local allRegistered = true
+
+    for _, entry
+        in ipairs(pendingCallbacks) do
+
+        if not entry[3] then
+            local callbackName =
+                entry[1]
+
+            local callback =
+                entry[2]
+
+            local success =
+                pcall(
+                    function()
+                        exports["cmgui"]:registerCallback(
+                            callbackName,
+                            callback
+                        )
+                    end
+                )
+
+            if success then
+                entry[3] = true
+            else
+                allRegistered = false
+            end
+        end
+    end
+
+    return allRegistered
 end
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  if SHX0_2 then
-    return
-  end
-  SHX0_2 = true
-  SHX8_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-    SHX0_3 = 0
-    while true do
-      SHX1_3 = 400
-      if not (SHX0_3 < SHX1_3) then
-        break
-      end
-      SHX1_3 = GetResourceState
-      SHX2_3 = "cmgui"
-      SHX1_3 = SHX1_3(SHX2_3)
-      if "started" == SHX1_3 then
-        SHX1_3 = SHX9_1
-        SHX1_3()
-        SHX1_3 = true
-        SHX2_3 = pairs
-        SHX3_3 = SHX7_1
-        SHX2_3, SHX3_3, SHX4_3, SHX5_3 = SHX2_3(SHX3_3)
-        for SHX6_3, SHX7_3 in SHX2_3, SHX3_3, SHX4_3, SHX5_3 do
-          SHX8_3 = SHX7_3[3]
-          if not SHX8_3 then
-            SHX1_3 = false
-            break
-          end
-        end
-        if SHX1_3 then
-          break
-        end
-      end
-      SHX0_3 = SHX0_3 + 1
-      SHX1_3 = Wait
-      SHX2_3 = 0
-      SHX1_3(SHX2_3)
+
+
+-- The original retries for at most 400 frames. That covers the case where
+-- another file registers UI callbacks before the cmgui resource is fully ready.
+local function startCallbackRetryThread()
+    if callbackRetryThreadRunning then
+        return
     end
-    SHX1_3 = false
-    SHX8_1 = SHX1_3
-  end
-  SHX0_2(SHX1_2)
+
+    callbackRetryThreadRunning = true
+
+    CreateThread(function()
+        for _ = 1, 400 do
+            if GetResourceState("cmgui") == "started" then
+                if tryRegisterCallbacks() then
+                    break
+                end
+            end
+
+            Wait(0)
+        end
+
+        callbackRetryThreadRunning =
+            false
+    end)
 end
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = table
-  SHX0_2 = SHX0_2.count
-  SHX1_2 = SHX5_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  if 0 == SHX0_2 then
-    SHX0_2 = SHX0_1
-    if SHX0_2 then
-      goto SHX_LABEL_11
+
+
+-- ============================================================
+-- EFFECTIVE FOCUS
+-- ============================================================
+
+local function applyEffectiveFocus()
+    local hasExternalFocus =
+        table.count(resourceFocus) > 0
+
+    local effectiveFocus =
+        hasExternalFocus
+        or requestedFocus
+
+    if temporaryFocusDisabled then
+        effectiveFocus = false
     end
-  end
-  SHX0_2 = false
-  -- [FIX IF ERROR] Move ::SHX_LABEL_11:: outside nested blocks until all 'goto SHX_LABEL_11' can see it
-  ::SHX_LABEL_11::
-  SHX1_2 = SHX6_1
-  if SHX1_2 then
-    SHX0_2 = false
-  end
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.CreateThreadNow
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = GetResourceState
-    SHX1_3 = "cmgui"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if "started" ~= SHX0_3 then
-      return
-    end
-    SHX0_3 = pcall
-    function SHX1_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4, SHX3_4, SHX4_4
-      SHX0_4 = exports
-      SHX0_4 = SHX0_4.cmgui
-      SHX1_4 = SHX0_4
-      SHX0_4 = SHX0_4.setFocus
-      SHX2_4 = SHX0_2
-      SHX3_4 = SHX0_2
-      if SHX3_4 then
-        SHX3_4 = SHX1_1
-        if SHX3_4 then
-          goto SHX_LABEL_12
+
+    -- The original uses CreateThreadNow so focus is applied outside the caller
+    -- without waiting for another normal frame.
+    Citizen.CreateThreadNow(function()
+        if GetResourceState("cmgui") ~= "started" then
+            return
         end
-      end
-      SHX3_4 = false
-      -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-      ::SHX_LABEL_12::
-      SHX4_4 = SHX0_2
-      if SHX4_4 then
-        SHX4_4 = SHX2_1
-        if SHX4_4 then
-          goto SHX_LABEL_19
-        end
-      end
-      SHX4_4 = false
-      -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-      ::SHX_LABEL_19::
-      SHX0_4(SHX1_4, SHX2_4, SHX3_4, SHX4_4)
-    end
-    SHX0_3(SHX1_3)
-  end
-  SHX1_2(SHX2_2)
+
+        pcall(
+            function()
+                exports["cmgui"]:setFocus(
+                    effectiveFocus,
+
+                    effectiveFocus
+                        and cursorEnabled
+                        or false,
+
+                    effectiveFocus
+                        and disableControlsWhileFocused
+                        or false
+                )
+            end
+        )
+    end)
 end
-SHX12_1 = CMG
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2
-  SHX3_2 = GetResourceState
-  SHX4_2 = "cmgui"
-  SHX3_2 = SHX3_2(SHX4_2)
-  if "started" == SHX3_2 then
-    if not SHX0_2 then
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.getTunableValue
-      SHX4_2 = "cmgui_focus"
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        SHX0_2 = true
-        SHX2_2 = true
-        SHX3_2 = true
-        SHX4_1 = SHX3_2
+
+
+function CMG.uiSetFocus(
+    focus,
+    cursor,
+    disableControls
+)
+    -- Original behaviour: uiSetFocus does nothing until cmgui is started.
+    if GetResourceState("cmgui") ~= "started" then
+        return
     end
+
+    -- Optional tunable: asking to unfocus can instead leave browser focus
+    -- alive in a special controller-friendly mode.
+    if not focus
+        and CMG.getTunableValue(
+            "cmgui_focus"
+        ) then
+
+        focus = true
+        disableControls = true
+        forcedFocusMode = true
     else
-      SHX3_2 = false
-      SHX4_1 = SHX3_2
+        forcedFocusMode = false
     end
-    SHX0_1 = SHX0_2
-    SHX1_1 = SHX1_2
-    SHX3_2 = true == SHX2_2
-    SHX2_1 = SHX3_2
-    SHX3_2 = SHX11_1
-    SHX3_2()
-    SHX3_2 = false
-    SHX3_1 = SHX3_2
-  end
+
+    requestedFocus =
+        focus == true
+
+    cursorEnabled =
+        cursor == true
+
+    disableControlsWhileFocused =
+        disableControls == true
+
+    applyEffectiveFocus()
+
+    -- Force controller-mode detection to run fresh after a focus change.
+    controllerMode = false
 end
-SHX12_1.uiSetFocus = SHX13_1
-SHX12_1 = CMG
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.CreateThreadNow
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = {}
-    SHX1_3 = SHX0_2
-    SHX2_3 = SHX1_2
-    SHX3_3 = false
-    SHX0_3[1] = SHX1_3
-    SHX0_3[2] = SHX2_3
-    SHX0_3[3] = SHX3_3
-    SHX1_3 = table
-    SHX1_3 = SHX1_3.insert
-    SHX2_3 = SHX7_1
-    SHX3_3 = SHX0_3
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = SHX10_1
-    SHX1_3()
-  end
-  SHX2_2(SHX3_2)
+
+
+-- ============================================================
+-- REGISTER A UI CALLBACK
+-- ============================================================
+
+function CMG.uiRegisterCallback(
+    callbackName,
+    callback
+)
+    assert(
+        type(callbackName) == "string",
+        "UI callback name must be a string"
+    )
+
+    assert(
+        type(callback) == "function",
+        "UI callback must be a function"
+    )
+
+    Citizen.CreateThreadNow(function()
+        table.insert(
+            pendingCallbacks,
+            {
+                callbackName,
+                callback,
+                false
+            }
+        )
+
+        startCallbackRetryThread()
+    end)
 end
-SHX12_1.uiRegisterCallback = SHX13_1
-SHX12_1 = AddEventHandler
-SHX13_1 = "onClientResourceStart"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  if "cmgui" == SHX0_2 then
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
-    SHX1_2 = SHX10_1
-    SHX1_2()
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.uiSetFocus
-    SHX2_2 = false
-    SHX3_2 = false
-    SHX4_2 = false
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  elseif "cmg" == SHX0_2 then
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
-    SHX1_2 = SHX10_1
-    SHX1_2()
-  end
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = AddEventHandler
-SHX13_1 = "onClientResourceStop"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if "cmgui" == SHX0_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX7_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX6_2[3] = false
+
+
+-- ============================================================
+-- RESOURCE START / STOP
+-- ============================================================
+
+AddEventHandler(
+    "onClientResourceStart",
+    function(resourceName)
+        if resourceName == "cmgui" then
+            Wait(0)
+
+            startCallbackRetryThread()
+
+            CMG.uiSetFocus(
+                false,
+                false,
+                false
+            )
+
+        elseif resourceName
+            == GetCurrentResourceName() then
+
+            Wait(0)
+
+            startCallbackRetryThread()
+        end
     end
-  end
-end
-SHX12_1(SHX13_1, SHX14_1)
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX0_1
-  if not SHX0_2 then
-    return
-  end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isUsingKeyboard
-  SHX1_2 = 0
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = SHX3_1
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.uiSendMessage
-      SHX1_2 = {}
-      SHX1_2.type = "controllerToggle"
-      SHX1_2.enabled = false
-      SHX0_2(SHX1_2)
-      SHX0_2 = false
-      SHX3_1 = SHX0_2
+)
+
+
+AddEventHandler(
+    "onClientResourceStop",
+    function(resourceName)
+        if resourceName ~= "cmgui" then
+            return
+        end
+
+        -- cmgui forgot all callbacks because it stopped. Mark every local
+        -- callback as needing registration again next time it starts.
+        for _, entry
+            in ipairs(pendingCallbacks) do
+
+            entry[3] = false
+        end
     end
-  else
-    SHX0_2 = SHX3_1
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.uiSendMessage
-      SHX1_2 = {}
-      SHX1_2.type = "controllerToggle"
-      SHX1_2.enabled = true
-      SHX0_2(SHX1_2)
-      SHX0_2 = true
-      SHX3_1 = SHX0_2
+)
+
+
+function CMG.awaitInterfaceLoaded()
+    while GetResourceState("cmgui")
+        ~= "started" do
+
+        startCallbackRetryThread()
+
+        Wait(0)
     end
-  end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = SHX4_1
-    if not SHX0_2 then
-      goto SHX_LABEL_43
+
+    startCallbackRetryThread()
+end
+
+
+-- ============================================================
+-- OTHER RESOURCES REQUESTING NUI FOCUS
+-- ============================================================
+
+RegisterNetEvent(
+    "CMG:resourceFocusUpdated"
+)
+
+AddEventHandler(
+    "CMG:resourceFocusUpdated",
+    function(hasFocus)
+        local invokingResource =
+            GetInvokingResource()
+
+        if not invokingResource then
+            return
+        end
+
+        if hasFocus then
+            resourceFocus[
+                invokingResource
+            ] = true
+        else
+            resourceFocus[
+                invokingResource
+            ] = nil
+        end
+
+        applyEffectiveFocus()
     end
-  end
-  return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_43:: outside nested blocks until all 'goto SHX_LABEL_43' can see it
-  ::SHX_LABEL_43::
-  SHX0_2 = SHX2_1
-  if not SHX0_2 then
-    SHX0_2 = DisableAllControlActions
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 188
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.type = "controllerInput"
-    SHX1_2.inputName = "UP"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 190
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.type = "controllerInput"
-    SHX1_2.inputName = "RIGHT"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 187
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.type = "controllerInput"
-    SHX1_2.inputName = "DOWN"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 189
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.type = "controllerInput"
-    SHX1_2.inputName = "LEFT"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 201
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.type = "controllerInput"
-    SHX1_2.inputName = "ACCEPT"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 202
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.uiSendMessage
-    SHX1_2 = {}
-    SHX1_2.type = "controllerInput"
-    SHX1_2.inputName = "CANCEL"
-    SHX0_2(SHX1_2)
-  end
-end
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.createThreadOnTick
-SHX14_1 = SHX12_1
-SHX15_1 = "NUI Controller Input"
-SHX13_1(SHX14_1, SHX15_1)
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "CMG:resourceFocusUpdated"
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = GetInvokingResource
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX5_1
-  if SHX0_2 then
-    SHX3_2 = true
-    if SHX3_2 then
-      goto SHX_LABEL_10
+)
+
+
+-- ============================================================
+-- PATCH GLOBAL SetNuiFocus
+-- ============================================================
+
+-- CMG.patchFunction(name, originalFunction, wrapper)
+-- gives the wrapper the original function as its first argument.
+CMG.patchFunction(
+    "SetNuiFocus",
+    SetNuiFocus,
+
+    function(
+        originalSetNuiFocus,
+        focus,
+        cursor
+    )
+        originalSetNuiFocus(
+            focus,
+            cursor
+        )
+
+        -- The patched global belongs to the CMG resource itself.
+        resourceFocus.cmg =
+            focus
+            and true
+            or nil
+
+        applyEffectiveFocus()
     end
-  end
-  SHX3_2 = nil
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX2_2[SHX1_2] = SHX3_2
-  SHX2_2 = SHX11_1
-  SHX2_2()
+)
+
+
+-- ============================================================
+-- TEMPORARILY SUPPRESS FOCUS
+-- ============================================================
+
+function CMG.toggleTemporaryFocusDisable()
+    temporaryFocusDisabled =
+        not temporaryFocusDisabled
+
+    CMG.debugLog(
+        "Temporary UI focus disable:",
+        temporaryFocusDisabled
+    )
+
+    applyEffectiveFocus()
 end
-SHX13_1(SHX14_1, SHX15_1)
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.patchFunction
-SHX14_1 = "SetNuiFocus"
-SHX15_1 = SetNuiFocus
-function SHX16_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2)
-  if SHX1_2 then
-    SHX3_2 = true
-    if SHX3_2 then
-      goto SHX_LABEL_11
+
+
+-- ============================================================
+-- CONTROLLER INPUT FOR NUI
+-- ============================================================
+
+local controllerInputs = {
+    {
+        control = 188,
+        inputName = "up"
+    },
+    {
+        control = 190,
+        inputName = "right"
+    },
+    {
+        control = 187,
+        inputName = "down"
+    },
+    {
+        control = 189,
+        inputName = "left"
+    },
+    {
+        control = 201,
+        inputName = "accept"
+    },
+    {
+        control = 202,
+        inputName = "cancel"
+    }
+}
+
+
+local function controllerUiTick()
+    if not requestedFocus then
+        return
     end
-  end
-  SHX3_2 = nil
-  -- [FIX IF ERROR] Move ::SHX_LABEL_11:: outside nested blocks until all 'goto SHX_LABEL_11' can see it
-  ::SHX_LABEL_11::
-  SHX5_1.cmg = SHX3_2
-  SHX3_2 = SHX11_1
-  SHX3_2()
+
+    local usingKeyboard =
+        CMG.isUsingKeyboard(0)
+
+    if usingKeyboard
+        and controllerMode then
+
+        controllerMode = false
+
+        CMG.uiSendMessage({
+            type =
+                "controllerToggle",
+            enabled =
+                false
+        })
+
+    elseif not usingKeyboard
+        and not controllerMode then
+
+        controllerMode = true
+
+        CMG.uiSendMessage({
+            type =
+                "controllerToggle",
+            enabled =
+                true
+        })
+    end
+
+    if not controllerMode
+        or forcedFocusMode then
+        return
+    end
+
+    -- When the caller did NOT already request all gameplay controls disabled,
+    -- the original code disables them itself while controller-NUI navigation
+    -- is active.
+    if not disableControlsWhileFocused then
+        DisableAllControlActions(0)
+    end
+
+    for _, input
+        in ipairs(controllerInputs) do
+
+        if IsDisabledControlJustPressed(
+            0,
+            input.control
+        ) then
+
+            CMG.uiSendMessage({
+                type =
+                    "controllerInput",
+
+                input =
+                    input.inputName
+            })
+        end
+    end
 end
-SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX13_1 = CMG
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX6_1
-  SHX0_2 = not SHX0_2
-  SHX6_1 = SHX0_2
-  SHX0_2 = SHX11_1
-  SHX0_2()
-end
-SHX13_1.toggleTemporaryFocusDisable = SHX14_1
+
+
+CMG.createThreadOnTick(
+    controllerUiTick,
+    "CMG UI Controller"
+)

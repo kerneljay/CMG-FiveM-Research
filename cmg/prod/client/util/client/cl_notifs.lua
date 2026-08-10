@@ -1,102 +1,50 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Notification Helper
+    ===================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX1_1.top = 10
-SHX1_1.right = 1450
-SHX0_1["top-left"] = SHX1_1
-SHX1_1 = {}
-SHX1_1.top = 1000
-SHX1_1.right = 1450
-SHX0_1["bottom-left"] = SHX1_1
-SHX1_1 = {}
-SHX1_1.top = 10
-SHX1_1.right = 10
-SHX0_1["top-right"] = SHX1_1
-SHX1_1 = {}
-SHX1_1.top = 1000
-SHX1_1.right = 10
-SHX0_1["bottom-right"] = SHX1_1
-SHX1_1 = {}
-SHX1_1.success = "fas fa-check"
-SHX1_1.bad = "fas fa-times"
-function SHX2_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.show = true
-  SHX3_2.options = SHX0_2
-  SHX5_2 = SHX0_2.pos
-  SHX4_2 = SHX0_1
-  SHX4_2 = SHX4_2[SHX5_2]
-  SHX3_2.pos = SHX4_2
-  SHX5_2 = SHX0_2.icon
-  SHX4_2 = SHX1_1
-  SHX4_2 = SHX4_2[SHX5_2]
-  if not SHX4_2 then
-    SHX4_2 = ""
-  end
-  SHX3_2.icon = SHX4_2
-  SHX4_2 = SHX1_2 / 1000
-  SHX3_2.delaySeconds = SHX4_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.Wait
-  SHX3_2 = SHX1_2 or SHX3_2
-  if not SHX1_2 then
-    SHX3_2 = 15000
-  end
-  SHX2_2(SHX3_2)
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.show = false
-  SHX3_2.options = SHX0_2
-  SHX2_2(SHX3_2)
+    sendNotification(options, durationMs) shows an HTML/NUI notification and
+    hides it after the requested duration.
+
+    Common options:
+      options.pos  = "top-left", "bottom-left", "top-right" or "bottom-right"
+      options.icon = "success" or "bad"
+
+    The exported function and hashed network event both use the same helper.
+]]
+
+local screenPositions = {
+    ["top-left"] = {top = 10, right = 1450},
+    ["bottom-left"] = {top = 1000, right = 1450},
+    ["top-right"] = {top = 10, right = 10},
+    ["bottom-right"] = {top = 1000, right = 10}
+}
+
+local notificationIcons = {
+    success = "fas fa-check",
+    bad = "fas fa-times"
+}
+
+local function sendNotification(options, durationMs)
+    durationMs = durationMs or 15000
+
+    SendNUIMessage({
+        show = true,
+        options = options,
+        pos = screenPositions[options.pos],
+        icon = notificationIcons[options.icon] or "",
+        delaySeconds = durationMs / 1000
+    })
+
+    Citizen.Wait(durationMs)
+
+    SendNUIMessage({
+        show = false,
+        options = options
+    })
 end
-SHX3_1 = exports
-SHX4_1 = "sendNotification"
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX2_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
-end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "371eab1d3a"
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX2_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
-end
-SHX3_1(SHX4_1, SHX5_1)
+
+exports("sendNotification", sendNotification)
+
+RegisterNetEvent("371eab1d3a", function(options, durationMs)
+    sendNotification(options, durationMs)
+end)

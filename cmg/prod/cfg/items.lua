@@ -1,3 +1,34 @@
+--[[
+    BEGINNER GUIDE — Items
+    ======================
+
+    File: cmg/prod/cfg/items.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_backpacks
+      * cfg/cfg_food
+      * cfg/item/
+
+    Network/hash identifiers found: 29
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * ~r~You already have a backpack equipped.
+      * ~r~You lack the skills to use this drug.
+      * ~r~You are not bleeding.
+      * ~r~You can not use your own items.
+      * ~r~Player must be on the kneeling on the ground.
+
+]]
 local cfg = {}
 local backpackCfg = CMG.loadModule("cfg/cfg_backpacks")
 

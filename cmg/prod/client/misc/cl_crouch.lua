@@ -1,452 +1,483 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_crouch.lua
+    =============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1
-SHX0_1 = {}
-SHX0_1.crouchKeybindEnabled = true
-SHX0_1.crouchKeybind = "LCONTROL"
-SHX0_1.crouchOverride = true
-SHX0_1.crouchKeypressTimer = 1000
-SHX0_1.crawlKeybindEnabled = true
-SHX0_1.crawlKeybind = "RCONTROL"
-SHX1_1 = {}
-SHX1_1.crouch_keymapping = "Crouch"
-SHX1_1.crouch_chat_suggestion = "Crouch"
-SHX1_1.crawl_keymapping = "Crawl"
-SHX1_1.crawl_chat_suggestion = "Crawl"
-SHX0_1.localization = SHX1_1
-SHX1_1 = {}
-SHX2_1 = -2146642687
-SHX1_1[SHX2_1] = "move_m@alien"
-SHX2_1 = 1450392727
-SHX1_1[SHX2_1] = "anim_group_move_ballistic"
-SHX2_1 = 1646588077
-SHX1_1[SHX2_1] = "move_f@arrogant@a"
-SHX2_1 = -1273245730
-SHX1_1[SHX2_1] = "move_m@hurry_butch@a"
-SHX2_1 = -1654611352
-SHX1_1[SHX2_1] = "move_m@hurry_butch@b"
-SHX2_1 = 1135734536
-SHX1_1[SHX2_1] = "move_m@hurry_butch@c"
-SHX2_1 = -1768281232
-SHX1_1[SHX2_1] = "move_m@brave"
-SHX2_1 = 1160259160
-SHX1_1[SHX2_1] = "move_m@casual@a"
-SHX2_1 = 1249489219
-SHX1_1[SHX2_1] = "move_m@casual@b"
-SHX2_1 = 1022236204
-SHX1_1[SHX2_1] = "move_m@casual@c"
-SHX2_1 = 1730505370
-SHX1_1[SHX2_1] = "move_m@casual@d"
-SHX2_1 = 1500565297
-SHX1_1[SHX2_1] = "move_m@casual@e"
-SHX2_1 = -742407223
-SHX1_1[SHX2_1] = "move_m@casual@f"
-SHX2_1 = -2125795638
-SHX1_1[SHX2_1] = "move_f@chichi"
-SHX2_1 = 1130158996
-SHX1_1[SHX2_1] = "move_m@confident"
-SHX2_1 = 1607161685
-SHX1_1[SHX2_1] = "move_m@business@a"
-SHX2_1 = 1845818312
-SHX1_1[SHX2_1] = "move_m@business@b"
-SHX2_1 = -59928421
-SHX1_1[SHX2_1] = "move_m@business@c"
-SHX2_1 = -2055591238
-SHX1_1[SHX2_1] = "move_chubby"
-SHX2_1 = -108537538
-SHX1_1[SHX2_1] = "move_f@chubby@a"
-SHX2_1 = -1401903942
-SHX1_1[SHX2_1] = "move_f@multiplayer"
-SHX2_1 = 1113513977
-SHX1_1[SHX2_1] = "move_m@multiplayer"
-SHX2_1 = -1287120285
-SHX1_1[SHX2_1] = "move_m@depressed@a"
-SHX2_1 = -502630425
-SHX1_1[SHX2_1] = "move_m@depressed@b"
-SHX2_1 = 685317947
-SHX1_1[SHX2_1] = "move_f@depressed@a"
-SHX2_1 = -859042698
-SHX1_1[SHX2_1] = "move_m@drunk@a"
-SHX2_1 = 2037534323
-SHX1_1[SHX2_1] = "move_m@buzzed"
-SHX2_1 = -1925018459
-SHX1_1[SHX2_1] = "move_m@drunk@moderatedrunk"
-SHX2_1 = -1201085968
-SHX1_1[SHX2_1] = "move_m@drunk@moderatedrunk_head_up"
-SHX2_1 = 875753685
-SHX1_1[SHX2_1] = "move_m@drunk@slightlydrunk"
-SHX2_1 = -297078218
-SHX1_1[SHX2_1] = "move_m@drunk@verydrunk"
-SHX2_1 = 1524082234
-SHX1_1[SHX2_1] = "move_m@fat@a"
-SHX2_1 = 522820593
-SHX1_1[SHX2_1] = "move_f@fat@a"
-SHX2_1 = -1732630094
-SHX1_1[SHX2_1] = "move_m@fat@bulky"
-SHX2_1 = -669438934
-SHX1_1[SHX2_1] = "move_f@femme@"
-SHX2_1 = -1857789306
-SHX1_1[SHX2_1] = "move_characters@franklin@fire"
-SHX2_1 = -433101684
-SHX1_1[SHX2_1] = "move_characters@michael@fire"
-SHX2_1 = 989819896
-SHX1_1[SHX2_1] = "move_m@fire"
-SHX2_1 = 2077811903
-SHX1_1[SHX2_1] = "move_f@flee@a"
-SHX2_1 = 864310395
-SHX1_1[SHX2_1] = "move_f@flee@c"
-SHX2_1 = -1960902366
-SHX1_1[SHX2_1] = "move_m@flee@a"
-SHX2_1 = 1287652361
-SHX1_1[SHX2_1] = "move_m@flee@b"
-SHX2_1 = -796046076
-SHX1_1[SHX2_1] = "move_p_m_one"
-SHX2_1 = -1810566716
-SHX1_1[SHX2_1] = "move_m@gangster@generic"
-SHX2_1 = -2114609648
-SHX1_1[SHX2_1] = "move_m@gangster@ng"
-SHX2_1 = -875359244
-SHX1_1[SHX2_1] = "move_m@gangster@var_e"
-SHX2_1 = 1203637196
-SHX1_1[SHX2_1] = "move_m@gangster@var_f"
-SHX2_1 = -1796495834
-SHX1_1[SHX2_1] = "move_m@gangster@var_i"
-SHX2_1 = 132330440
-SHX1_1[SHX2_1] = "move_m@generic"
-SHX2_1 = 642383383
-SHX1_1[SHX2_1] = "move_f@generic"
-SHX2_1 = 696702737
-SHX1_1[SHX2_1] = "anim@move_m@grooving@"
-SHX2_1 = -705606766
-SHX1_1[SHX2_1] = "anim@move_f@grooving@"
-SHX2_1 = 1013381506
-SHX1_1[SHX2_1] = "move_m@prison_gaurd"
-SHX2_1 = 1500055922
-SHX1_1[SHX2_1] = "move_m@prisoner_cuffed"
-SHX2_1 = 101970339
-SHX1_1[SHX2_1] = "move_f@heels@c"
-SHX2_1 = -1100881352
-SHX1_1[SHX2_1] = "move_f@heels@d"
-SHX2_1 = 1712688432
-SHX1_1[SHX2_1] = "move_m@hiking"
-SHX2_1 = -1806913316
-SHX1_1[SHX2_1] = "move_f@hiking"
-SHX2_1 = -1261021058
-SHX1_1[SHX2_1] = "move_m@hipster@a"
-SHX2_1 = -1027640375
-SHX1_1[SHX2_1] = "move_m@hobo@a"
-SHX2_1 = -725870658
-SHX1_1[SHX2_1] = "move_m@hobo@b"
-SHX2_1 = -1694147212
-SHX1_1[SHX2_1] = "move_m@hurry@a"
-SHX2_1 = 1605790647
-SHX1_1[SHX2_1] = "move_f@hurry@a"
-SHX2_1 = -32565260
-SHX1_1[SHX2_1] = "move_f@injured"
-SHX2_1 = 868295932
-SHX1_1[SHX2_1] = "move_m@intimidation@1h"
-SHX2_1 = -749057629
-SHX1_1[SHX2_1] = "move_m@intimidation@cop@unarmed"
-SHX2_1 = 584873396
-SHX1_1[SHX2_1] = "move_m@intimidation@unarmed"
-SHX2_1 = 92422612
-SHX1_1[SHX2_1] = "move_p_m_zero_janitor"
-SHX2_1 = 1864844954
-SHX1_1[SHX2_1] = "move_p_m_zero_slow"
-SHX2_1 = 1103953188
-SHX1_1[SHX2_1] = "move_m@jog@"
-SHX2_1 = -708603839
-SHX1_1[SHX2_1] = "move_characters@jimmy@nervous@"
-SHX2_1 = 1909742916
-SHX1_1[SHX2_1] = "anim_group_move_lemar_alley"
-SHX2_1 = 1690913150
-SHX1_1[SHX2_1] = "move_heist_lester"
-SHX2_1 = 549262148
-SHX1_1[SHX2_1] = "move_lester_caneup"
-SHX2_1 = 186601483
-SHX1_1[SHX2_1] = "move_f@maneater"
-SHX2_1 = -578327514
-SHX1_1[SHX2_1] = "move_ped_bucket"
-SHX2_1 = -1269633907
-SHX1_1[SHX2_1] = "move_m@money"
-SHX2_1 = -207491758
-SHX1_1[SHX2_1] = "move_m@muscle@a"
-SHX2_1 = -1543095923
-SHX1_1[SHX2_1] = "move_m@posh@"
-SHX2_1 = -1868494245
-SHX1_1[SHX2_1] = "move_f@posh@"
-SHX2_1 = 1023544707
-SHX1_1[SHX2_1] = "move_m@quick"
-SHX2_1 = 636261340
-SHX1_1[SHX2_1] = "female_fast_runner"
-SHX2_1 = -1599479573
-SHX1_1[SHX2_1] = "move_m@sad@a"
-SHX2_1 = -1847704748
-SHX1_1[SHX2_1] = "move_m@sad@b"
-SHX2_1 = -2077448207
-SHX1_1[SHX2_1] = "move_m@sad@c"
-SHX2_1 = -566100771
-SHX1_1[SHX2_1] = "move_f@sad@a"
-SHX2_1 = -930295437
-SHX1_1[SHX2_1] = "move_f@sad@b"
-SHX2_1 = 1207987305
-SHX1_1[SHX2_1] = "move_m@sassy"
-SHX2_1 = 1235276737
-SHX1_1[SHX2_1] = "move_f@sassy"
-SHX2_1 = -1472832709
-SHX1_1[SHX2_1] = "move_f@scared"
-SHX2_1 = -1990894342
-SHX1_1[SHX2_1] = "move_f@sexy@a"
-SHX2_1 = -1818270454
-SHX1_1[SHX2_1] = "move_m@shadyped@a"
-SHX2_1 = -510722362
-SHX1_1[SHX2_1] = "move_characters@jimmy@slow@"
-SHX2_1 = -409852351
-SHX1_1[SHX2_1] = "move_m@swagger"
-SHX2_1 = 1802187645
-SHX1_1[SHX2_1] = "move_m@tough_guy@"
-SHX2_1 = -1568317798
-SHX1_1[SHX2_1] = "move_f@tough_guy@"
-SHX2_1 = -500831769
-SHX1_1[SHX2_1] = "move_m@tool_belt@a"
-SHX2_1 = -976584416
-SHX1_1[SHX2_1] = "move_f@tool_belt@a"
-SHX2_1 = 1844458253
-SHX1_1[SHX2_1] = "clipset@move@trash_fast_turn"
-SHX2_1 = -435990891
-SHX1_1[SHX2_1] = "missfbi4prepp1_garbageman"
-SHX2_1 = -895219889
-SHX1_1[SHX2_1] = "move_p_m_two"
-SHX2_1 = 1258529727
-SHX1_1[SHX2_1] = "move_m@bag"
-SHX2_1 = -650503762
-SHX1_1[SHX2_1] = "move_m@injured"
-SHX2_1 = -1104677118
-SHX1_1[SHX2_1] = "move_injured_generic"
-SHX2_1 = -2129845123
-SHX1_1[SHX2_1] = "MOVE_M@BAIL_BOND_NOT_TAZERED"
-SHX2_1 = -70818445
-SHX1_1[SHX2_1] = "MOVE_M@BAIL_BOND_TAZERED"
-SHX2_1 = -618380859
-SHX1_1[SHX2_1] = "MOVE_P_M_ONE_BRIEFCASE"
-SHX2_1 = 666904976
-SHX1_1[SHX2_1] = "move_ped_mop"
-SHX2_1 = -1312865774
-SHX1_1[SHX2_1] = "move_m@femme@"
-SHX2_1 = 735579764
-SHX1_1[SHX2_1] = "move_f@gangster@ng"
-SHX2_1 = -1168427927
-SHX1_1[SHX2_1] = "move_characters@orleans@core@"
-SHX2_1 = -1164222247
-SHX1_1[SHX2_1] = "move_m@coward"
-SHX2_1 = 279703740
-SHX1_1[SHX2_1] = "move_characters@dave_n"
-SHX2_1 = 1539166312
-SHX1_1[SHX2_1] = "move_characters@jimmy"
-SHX2_1 = 1899314058
-SHX1_1[SHX2_1] = "move_characters@patricia"
-SHX2_1 = 1583990743
-SHX1_1[SHX2_1] = "move_characters@ron"
-SHX2_1 = 1528838481
-SHX1_1[SHX2_1] = "move_m@swagger@b"
-SHX2_1 = 148072839
-SHX1_1[SHX2_1] = "move_m@leaf_blower"
-SHX2_1 = -2018280977
-SHX1_1[SHX2_1] = "move_m@flee@c"
-SHX2_1 = -1960115337
-SHX3_1 = "move_characters@amanda@bag"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1701187980
-SHX3_1 = "move_f@film_reel"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1163090857
-SHX3_1 = "move_f@flee@generic"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 922192683
-SHX3_1 = "move_f@handbag"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -905417764
-SHX3_1 = "move_m@flee@generic"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -871949441
-SHX3_1 = "move_m@shocked@a"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1728327052
-SHX3_1 = "move_characters@floyd"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 756811395
-SHX3_1 = "move_f@hurry@b"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -975292135
-SHX3_1 = "move_characters@lamar"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 70692426
-SHX3_1 = "move_characters@tracey"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -582520880
-SHX3_1 = "move_m@brave@a"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -388968941
-SHX3_1 = "move_m@gangster@var_a"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1874148793
-SHX3_1 = "move_f@stripper@a"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -2076638015
-SHX3_1 = "move_m@gangster@var_b"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1366140557
-SHX3_1 = "move_m@gangster@var_c"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -535479176
-SHX3_1 = "move_m@gangster@var_d"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 2038230857
-SHX3_1 = "move_m@gangster@var_g"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1664205491
-SHX3_1 = "move_m@gangster@var_h"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 445985183
-SHX3_1 = "move_m@gangster@var_j"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -288695797
-SHX3_1 = "move_m@gangster@var_k"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 862223719
-SHX3_1 = "move_m@clipboard"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -409207550
-SHX3_1 = "move_cop@action"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1259887674
-SHX3_1 = "move_gangster"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -795792088
-SHX3_1 = "move_casey"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1938021834
-SHX3_1 = "move_dreyfuss"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 202679515
-SHX3_1 = "move_paramedic"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1345269979
-SHX3_1 = "move_f@fat@a_no_add"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1267550608
-SHX3_1 = "move_f@depressed@c"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1720274816
-SHX3_1 = "anim@move_f@grooving@slow@"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 148615797
-SHX3_1 = "anim@move_m@grooving@slow@"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 422291091
-SHX3_1 = "AMBIENT_WALK_VARIATION_F_ARROGANT_A"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1510605100
-SHX3_1 = "AMBIENT_WALK_VARIATION_M_SAD_B"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -746382641
-SHX3_1 = "AMBIENT_WALK_VARIATION_M_BUSINESS_B"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 1799136145
-SHX3_1 = "AMBIENT_WALK_VARIATION_M_SAD_A"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 11564329
-SHX3_1 = "AMBIENT_WALK_VARIATION_M_BUSINESS_C"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 471477248
-SHX3_1 = "AMBIENT_WALK_VARIATION_M_BUSINESS_A"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1749517176
-SHX3_1 = "AMBIENT_WALK_VARIATION_M_SAD_C"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -1561136569
-SHX3_1 = "AMBIENT_WALK_VARIATION_F_SAD_A"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = 381019249
-SHX3_1 = "HUSKY@MOVE"
-SHX1_1[SHX2_1] = SHX3_1
-SHX2_1 = -289665739
-SHX3_1 = "RETRIEVER@MOVE"
-SHX1_1[SHX2_1] = SHX3_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = GetPedMovementClipset
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_1
-  SHX2_2 = SHX2_2[SHX1_2]
-  if SHX2_2 then
-    SHX2_2 = SHX1_1
-    SHX2_2 = SHX2_2[SHX1_2]
-    return SHX2_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Crouch
+    =======================
+
+    File: cmg/prod/client/misc/cl_crouch.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Commands/command-like entries found:
+      * /crouch
+      * crouch
+      * crawl
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * SetPlayerClipset
+
+]]
+local dataTable, dataTable2, numberValue13, textValue2, flag10, flag12, flag13, textValue4, numberValue16, workValue19, numberValue, workValue2, workValue4, textValue, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, threadCall
+dataTable = {}
+dataTable.crouchKeybindEnabled = true
+dataTable.crouchKeybind = "LCONTROL"
+dataTable.crouchOverride = true
+dataTable.crouchKeypressTimer = 1000
+dataTable.crawlKeybindEnabled = true
+dataTable.crawlKeybind = "RCONTROL"
+dataTable2 = {}
+dataTable2.crouch_keymapping = "Crouch"
+dataTable2.crouch_chat_suggestion = "Crouch"
+dataTable2.crawl_keymapping = "Crawl"
+dataTable2.crawl_chat_suggestion = "Crawl"
+dataTable.localization = dataTable2
+dataTable2 = {}
+numberValue13 = -2146642687
+dataTable2[numberValue13] = "move_m@alien"
+numberValue13 = 1450392727
+dataTable2[numberValue13] = "anim_group_move_ballistic"
+numberValue13 = 1646588077
+dataTable2[numberValue13] = "move_f@arrogant@a"
+numberValue13 = -1273245730
+dataTable2[numberValue13] = "move_m@hurry_butch@a"
+numberValue13 = -1654611352
+dataTable2[numberValue13] = "move_m@hurry_butch@b"
+numberValue13 = 1135734536
+dataTable2[numberValue13] = "move_m@hurry_butch@c"
+numberValue13 = -1768281232
+dataTable2[numberValue13] = "move_m@brave"
+numberValue13 = 1160259160
+dataTable2[numberValue13] = "move_m@casual@a"
+numberValue13 = 1249489219
+dataTable2[numberValue13] = "move_m@casual@b"
+numberValue13 = 1022236204
+dataTable2[numberValue13] = "move_m@casual@c"
+numberValue13 = 1730505370
+dataTable2[numberValue13] = "move_m@casual@d"
+numberValue13 = 1500565297
+dataTable2[numberValue13] = "move_m@casual@e"
+numberValue13 = -742407223
+dataTable2[numberValue13] = "move_m@casual@f"
+numberValue13 = -2125795638
+dataTable2[numberValue13] = "move_f@chichi"
+numberValue13 = 1130158996
+dataTable2[numberValue13] = "move_m@confident"
+numberValue13 = 1607161685
+dataTable2[numberValue13] = "move_m@business@a"
+numberValue13 = 1845818312
+dataTable2[numberValue13] = "move_m@business@b"
+numberValue13 = -59928421
+dataTable2[numberValue13] = "move_m@business@c"
+numberValue13 = -2055591238
+dataTable2[numberValue13] = "move_chubby"
+numberValue13 = -108537538
+dataTable2[numberValue13] = "move_f@chubby@a"
+numberValue13 = -1401903942
+dataTable2[numberValue13] = "move_f@multiplayer"
+numberValue13 = 1113513977
+dataTable2[numberValue13] = "move_m@multiplayer"
+numberValue13 = -1287120285
+dataTable2[numberValue13] = "move_m@depressed@a"
+numberValue13 = -502630425
+dataTable2[numberValue13] = "move_m@depressed@b"
+numberValue13 = 685317947
+dataTable2[numberValue13] = "move_f@depressed@a"
+numberValue13 = -859042698
+dataTable2[numberValue13] = "move_m@drunk@a"
+numberValue13 = 2037534323
+dataTable2[numberValue13] = "move_m@buzzed"
+numberValue13 = -1925018459
+dataTable2[numberValue13] = "move_m@drunk@moderatedrunk"
+numberValue13 = -1201085968
+dataTable2[numberValue13] = "move_m@drunk@moderatedrunk_head_up"
+numberValue13 = 875753685
+dataTable2[numberValue13] = "move_m@drunk@slightlydrunk"
+numberValue13 = -297078218
+dataTable2[numberValue13] = "move_m@drunk@verydrunk"
+numberValue13 = 1524082234
+dataTable2[numberValue13] = "move_m@fat@a"
+numberValue13 = 522820593
+dataTable2[numberValue13] = "move_f@fat@a"
+numberValue13 = -1732630094
+dataTable2[numberValue13] = "move_m@fat@bulky"
+numberValue13 = -669438934
+dataTable2[numberValue13] = "move_f@femme@"
+numberValue13 = -1857789306
+dataTable2[numberValue13] = "move_characters@franklin@fire"
+numberValue13 = -433101684
+dataTable2[numberValue13] = "move_characters@michael@fire"
+numberValue13 = 989819896
+dataTable2[numberValue13] = "move_m@fire"
+numberValue13 = 2077811903
+dataTable2[numberValue13] = "move_f@flee@a"
+numberValue13 = 864310395
+dataTable2[numberValue13] = "move_f@flee@c"
+numberValue13 = -1960902366
+dataTable2[numberValue13] = "move_m@flee@a"
+numberValue13 = 1287652361
+dataTable2[numberValue13] = "move_m@flee@b"
+numberValue13 = -796046076
+dataTable2[numberValue13] = "move_p_m_one"
+numberValue13 = -1810566716
+dataTable2[numberValue13] = "move_m@gangster@generic"
+numberValue13 = -2114609648
+dataTable2[numberValue13] = "move_m@gangster@ng"
+numberValue13 = -875359244
+dataTable2[numberValue13] = "move_m@gangster@var_e"
+numberValue13 = 1203637196
+dataTable2[numberValue13] = "move_m@gangster@var_f"
+numberValue13 = -1796495834
+dataTable2[numberValue13] = "move_m@gangster@var_i"
+numberValue13 = 132330440
+dataTable2[numberValue13] = "move_m@generic"
+numberValue13 = 642383383
+dataTable2[numberValue13] = "move_f@generic"
+numberValue13 = 696702737
+dataTable2[numberValue13] = "anim@move_m@grooving@"
+numberValue13 = -705606766
+dataTable2[numberValue13] = "anim@move_f@grooving@"
+numberValue13 = 1013381506
+dataTable2[numberValue13] = "move_m@prison_gaurd"
+numberValue13 = 1500055922
+dataTable2[numberValue13] = "move_m@prisoner_cuffed"
+numberValue13 = 101970339
+dataTable2[numberValue13] = "move_f@heels@c"
+numberValue13 = -1100881352
+dataTable2[numberValue13] = "move_f@heels@d"
+numberValue13 = 1712688432
+dataTable2[numberValue13] = "move_m@hiking"
+numberValue13 = -1806913316
+dataTable2[numberValue13] = "move_f@hiking"
+numberValue13 = -1261021058
+dataTable2[numberValue13] = "move_m@hipster@a"
+numberValue13 = -1027640375
+dataTable2[numberValue13] = "move_m@hobo@a"
+numberValue13 = -725870658
+dataTable2[numberValue13] = "move_m@hobo@b"
+numberValue13 = -1694147212
+dataTable2[numberValue13] = "move_m@hurry@a"
+numberValue13 = 1605790647
+dataTable2[numberValue13] = "move_f@hurry@a"
+numberValue13 = -32565260
+dataTable2[numberValue13] = "move_f@injured"
+numberValue13 = 868295932
+dataTable2[numberValue13] = "move_m@intimidation@1h"
+numberValue13 = -749057629
+dataTable2[numberValue13] = "move_m@intimidation@cop@unarmed"
+numberValue13 = 584873396
+dataTable2[numberValue13] = "move_m@intimidation@unarmed"
+numberValue13 = 92422612
+dataTable2[numberValue13] = "move_p_m_zero_janitor"
+numberValue13 = 1864844954
+dataTable2[numberValue13] = "move_p_m_zero_slow"
+numberValue13 = 1103953188
+dataTable2[numberValue13] = "move_m@jog@"
+numberValue13 = -708603839
+dataTable2[numberValue13] = "move_characters@jimmy@nervous@"
+numberValue13 = 1909742916
+dataTable2[numberValue13] = "anim_group_move_lemar_alley"
+numberValue13 = 1690913150
+dataTable2[numberValue13] = "move_heist_lester"
+numberValue13 = 549262148
+dataTable2[numberValue13] = "move_lester_caneup"
+numberValue13 = 186601483
+dataTable2[numberValue13] = "move_f@maneater"
+numberValue13 = -578327514
+dataTable2[numberValue13] = "move_ped_bucket"
+numberValue13 = -1269633907
+dataTable2[numberValue13] = "move_m@money"
+numberValue13 = -207491758
+dataTable2[numberValue13] = "move_m@muscle@a"
+numberValue13 = -1543095923
+dataTable2[numberValue13] = "move_m@posh@"
+numberValue13 = -1868494245
+dataTable2[numberValue13] = "move_f@posh@"
+numberValue13 = 1023544707
+dataTable2[numberValue13] = "move_m@quick"
+numberValue13 = 636261340
+dataTable2[numberValue13] = "female_fast_runner"
+numberValue13 = -1599479573
+dataTable2[numberValue13] = "move_m@sad@a"
+numberValue13 = -1847704748
+dataTable2[numberValue13] = "move_m@sad@b"
+numberValue13 = -2077448207
+dataTable2[numberValue13] = "move_m@sad@c"
+numberValue13 = -566100771
+dataTable2[numberValue13] = "move_f@sad@a"
+numberValue13 = -930295437
+dataTable2[numberValue13] = "move_f@sad@b"
+numberValue13 = 1207987305
+dataTable2[numberValue13] = "move_m@sassy"
+numberValue13 = 1235276737
+dataTable2[numberValue13] = "move_f@sassy"
+numberValue13 = -1472832709
+dataTable2[numberValue13] = "move_f@scared"
+numberValue13 = -1990894342
+dataTable2[numberValue13] = "move_f@sexy@a"
+numberValue13 = -1818270454
+dataTable2[numberValue13] = "move_m@shadyped@a"
+numberValue13 = -510722362
+dataTable2[numberValue13] = "move_characters@jimmy@slow@"
+numberValue13 = -409852351
+dataTable2[numberValue13] = "move_m@swagger"
+numberValue13 = 1802187645
+dataTable2[numberValue13] = "move_m@tough_guy@"
+numberValue13 = -1568317798
+dataTable2[numberValue13] = "move_f@tough_guy@"
+numberValue13 = -500831769
+dataTable2[numberValue13] = "move_m@tool_belt@a"
+numberValue13 = -976584416
+dataTable2[numberValue13] = "move_f@tool_belt@a"
+numberValue13 = 1844458253
+dataTable2[numberValue13] = "clipset@move@trash_fast_turn"
+numberValue13 = -435990891
+dataTable2[numberValue13] = "missfbi4prepp1_garbageman"
+numberValue13 = -895219889
+dataTable2[numberValue13] = "move_p_m_two"
+numberValue13 = 1258529727
+dataTable2[numberValue13] = "move_m@bag"
+numberValue13 = -650503762
+dataTable2[numberValue13] = "move_m@injured"
+numberValue13 = -1104677118
+dataTable2[numberValue13] = "move_injured_generic"
+numberValue13 = -2129845123
+dataTable2[numberValue13] = "MOVE_M@BAIL_BOND_NOT_TAZERED"
+numberValue13 = -70818445
+dataTable2[numberValue13] = "MOVE_M@BAIL_BOND_TAZERED"
+numberValue13 = -618380859
+dataTable2[numberValue13] = "MOVE_P_M_ONE_BRIEFCASE"
+numberValue13 = 666904976
+dataTable2[numberValue13] = "move_ped_mop"
+numberValue13 = -1312865774
+dataTable2[numberValue13] = "move_m@femme@"
+numberValue13 = 735579764
+dataTable2[numberValue13] = "move_f@gangster@ng"
+numberValue13 = -1168427927
+dataTable2[numberValue13] = "move_characters@orleans@core@"
+numberValue13 = -1164222247
+dataTable2[numberValue13] = "move_m@coward"
+numberValue13 = 279703740
+dataTable2[numberValue13] = "move_characters@dave_n"
+numberValue13 = 1539166312
+dataTable2[numberValue13] = "move_characters@jimmy"
+numberValue13 = 1899314058
+dataTable2[numberValue13] = "move_characters@patricia"
+numberValue13 = 1583990743
+dataTable2[numberValue13] = "move_characters@ron"
+numberValue13 = 1528838481
+dataTable2[numberValue13] = "move_m@swagger@b"
+numberValue13 = 148072839
+dataTable2[numberValue13] = "move_m@leaf_blower"
+numberValue13 = -2018280977
+dataTable2[numberValue13] = "move_m@flee@c"
+numberValue13 = -1960115337
+textValue2 = "move_characters@amanda@bag"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1701187980
+textValue2 = "move_f@film_reel"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1163090857
+textValue2 = "move_f@flee@generic"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 922192683
+textValue2 = "move_f@handbag"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -905417764
+textValue2 = "move_m@flee@generic"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -871949441
+textValue2 = "move_m@shocked@a"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1728327052
+textValue2 = "move_characters@floyd"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 756811395
+textValue2 = "move_f@hurry@b"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -975292135
+textValue2 = "move_characters@lamar"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 70692426
+textValue2 = "move_characters@tracey"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -582520880
+textValue2 = "move_m@brave@a"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -388968941
+textValue2 = "move_m@gangster@var_a"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1874148793
+textValue2 = "move_f@stripper@a"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -2076638015
+textValue2 = "move_m@gangster@var_b"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1366140557
+textValue2 = "move_m@gangster@var_c"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -535479176
+textValue2 = "move_m@gangster@var_d"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 2038230857
+textValue2 = "move_m@gangster@var_g"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1664205491
+textValue2 = "move_m@gangster@var_h"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 445985183
+textValue2 = "move_m@gangster@var_j"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -288695797
+textValue2 = "move_m@gangster@var_k"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 862223719
+textValue2 = "move_m@clipboard"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -409207550
+textValue2 = "move_cop@action"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1259887674
+textValue2 = "move_gangster"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -795792088
+textValue2 = "move_casey"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1938021834
+textValue2 = "move_dreyfuss"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 202679515
+textValue2 = "move_paramedic"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1345269979
+textValue2 = "move_f@fat@a_no_add"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1267550608
+textValue2 = "move_f@depressed@c"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1720274816
+textValue2 = "anim@move_f@grooving@slow@"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 148615797
+textValue2 = "anim@move_m@grooving@slow@"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 422291091
+textValue2 = "AMBIENT_WALK_VARIATION_F_ARROGANT_A"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1510605100
+textValue2 = "AMBIENT_WALK_VARIATION_M_SAD_B"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -746382641
+textValue2 = "AMBIENT_WALK_VARIATION_M_BUSINESS_B"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 1799136145
+textValue2 = "AMBIENT_WALK_VARIATION_M_SAD_A"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 11564329
+textValue2 = "AMBIENT_WALK_VARIATION_M_BUSINESS_C"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 471477248
+textValue2 = "AMBIENT_WALK_VARIATION_M_BUSINESS_A"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1749517176
+textValue2 = "AMBIENT_WALK_VARIATION_M_SAD_C"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -1561136569
+textValue2 = "AMBIENT_WALK_VARIATION_F_SAD_A"
+dataTable2[numberValue13] = textValue2
+numberValue13 = 381019249
+textValue2 = "HUSKY@MOVE"
+dataTable2[numberValue13] = textValue2
+numberValue13 = -289665739
+textValue2 = "RETRIEVER@MOVE"
+dataTable2[numberValue13] = textValue2
+function numberValue13(arg1)
+  local arg2, arg3
+  arg2 = GetPedMovementClipset
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = dataTable2
+  arg3 = arg3[arg2]
+  if arg3 then
+    arg3 = dataTable2
+    arg3 = arg3[arg2]
+    return arg3
   else
-    SHX2_2 = nil
-    return SHX2_2
+    arg3 = nil
+    return arg3
   end
 end
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = false
-SHX6_1 = false
-SHX7_1 = "onfront"
-SHX8_1 = 0
-SHX9_1 = nil
-SHX10_1 = 0
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = IsPedOnFoot
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsPedJumping
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = IsPedFalling
-      SHX3_2 = SHX0_2
-      SHX2_2 = SHX2_2(SHX3_2)
-      if not SHX2_2 then
-        SHX2_2 = IsPedInjured
-        SHX3_2 = SHX0_2
-        SHX2_2 = SHX2_2(SHX3_2)
-        if not SHX2_2 then
-          SHX2_2 = IsPedInMeleeCombat
-          SHX3_2 = SHX0_2
-          SHX2_2 = SHX2_2(SHX3_2)
-          if not SHX2_2 then
-            SHX2_2 = IsPedRagdoll
-            SHX3_2 = SHX0_2
-            SHX2_2 = SHX2_2(SHX3_2)
-            if not SHX2_2 then
-              SHX2_2 = IsPedCuffed
-              SHX3_2 = SHX0_2
-              SHX2_2 = SHX2_2(SHX3_2)
-              if not SHX2_2 then
-                goto SHX_LABEL_38
+textValue2 = false
+flag10 = false
+flag12 = false
+flag13 = false
+textValue4 = "onfront"
+numberValue16 = 0
+workValue19 = nil
+numberValue = 0
+function workValue2(arg1, arg2)
+  local arg3, arg4, arg5, arg6
+  arg3 = IsPedOnFoot
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  if arg3 then
+    arg3 = IsPedJumping
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    if not arg3 then
+      arg3 = IsPedFalling
+      arg4 = arg1
+      arg3 = arg3(arg4)
+      if not arg3 then
+        arg3 = IsPedInjured
+        arg4 = arg1
+        arg3 = arg3(arg4)
+        if not arg3 then
+          arg3 = IsPedInMeleeCombat
+          arg4 = arg1
+          arg3 = arg3(arg4)
+          if not arg3 then
+            arg3 = IsPedRagdoll
+            arg4 = arg1
+            arg3 = arg3(arg4)
+            if not arg3 then
+              arg3 = IsPedCuffed
+              arg4 = arg1
+              arg3 = arg3(arg4)
+              if not arg3 then
+                goto flow_label_38
               end
             end
           end
@@ -454,1286 +485,1144 @@ function SHX11_1(SHX0_2, SHX1_2)
       end
     end
   end
-  SHX2_2 = false
-  return SHX2_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_38:: outside nested blocks until all 'goto SHX_LABEL_38' can see it
-  ::SHX_LABEL_38::
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getTunableValue
-  SHX3_2 = "crouch_enabled"
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 and SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getCurrentWagerFlag
-    SHX3_2 = "allowCrouchShoot"
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = IsPlayerFreeAiming
-      SHX3_2 = PlayerId
-      SHX3_2, SHX4_2, SHX5_2 = SHX3_2()
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      if not SHX2_2 then
-        SHX2_2 = GetPedConfigFlag
-        SHX3_2 = SHX0_2
-        SHX4_2 = 78
-        SHX5_2 = false
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-        if not SHX2_2 then
-          goto SHX_LABEL_67
+  arg3 = false
+  return arg3
+  ::flow_label_38::
+  arg3 = CMG
+  arg3 = arg3.getTunableValue
+  arg4 = "crouch_enabled"
+  arg3 = arg3(arg4)
+  if not arg3 and arg2 then
+    arg3 = CMG
+    arg3 = arg3.getCurrentWagerFlag
+    arg4 = "allowCrouchShoot"
+    arg3 = arg3(arg4)
+    if not arg3 then
+      arg3 = IsPlayerFreeAiming
+      arg4 = PlayerId
+      arg4, arg5, arg6 = arg4()
+      arg3 = arg3(arg4, arg5, arg6)
+      if not arg3 then
+        arg3 = GetPedConfigFlag
+        arg4 = arg1
+        arg5 = 78
+        arg6 = false
+        arg3 = arg3(arg4, arg5, arg6)
+        if not arg3 then
+          goto flow_label_67
         end
       end
-      SHX2_2 = false
-      return SHX2_2
+      arg3 = false
+      return arg3
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_67:: outside nested blocks until all 'goto SHX_LABEL_67' can see it
-  ::SHX_LABEL_67::
-  SHX2_2 = true
-  return SHX2_2
+  ::flow_label_67::
+  arg3 = true
+  return arg3
 end
-SHX12_1 = _ENV
-SHX13_1 = "SetPlayerClipset"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadClipSet
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SetPedMovementClipset
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2
-  SHX4_2 = 0.5
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = RemoveClipSet
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+workValue4 = _ENV
+textValue = "SetPlayerClipset"
+function workValue5(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = CMG
+  arg2 = arg2.loadClipSet
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = SetPedMovementClipset
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = arg1
+  arg5 = 0.5
+  arg2(arg3, arg4, arg5)
+  arg2 = RemoveClipSet
+  arg3 = arg1
+  arg2(arg3)
 end
-SHX12_1[SHX13_1] = SHX14_1
-function SHX12_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.loadAnimDict
-  SHX8_2 = SHX1_2
-  SHX7_2(SHX8_2)
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = SHX0_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2 or SHX11_2
-  if not SHX3_2 then
-    SHX11_2 = 2.0
+workValue4[textValue] = workValue5
+function workValue4(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+  local cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3
+  cmgCall = CMG
+  cmgCall = cmgCall.loadAnimDict
+  workValue18 = arg2
+  -- Beginner: Load a GTA animation dictionary before using it.
+  cmgCall(workValue18)
+  cmgCall = TaskPlayAnim
+  workValue18 = arg1
+  numberValue17 = arg2
+  waitCall = arg3
+  numberValue2 = arg4 or numberValue2
+  if not arg4 then
+    numberValue2 = 2.0
   end
-  SHX12_2 = SHX4_2 or SHX12_2
-  if not SHX4_2 then
-    SHX12_2 = 2.0
+  heading = arg5 or heading
+  if not arg5 then
+    heading = 2.0
   end
-  SHX13_2 = SHX5_2 or SHX13_2
-  if not SHX5_2 then
-    SHX13_2 = -1
+  numberValue4 = arg6 or numberValue4
+  if not arg6 then
+    numberValue4 = -1
   end
-  SHX14_2 = 0
-  SHX15_2 = SHX6_2 or SHX15_2
-  if not SHX6_2 then
-    SHX15_2 = 0.0
+  numberValue6 = 0
+  numberValue7 = arg7 or numberValue7
+  if not arg7 then
+    numberValue7 = 0.0
   end
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = RemoveAnimDict
-  SHX8_2 = SHX1_2
-  SHX7_2(SHX8_2)
+  flag = false
+  flag2 = false
+  flag3 = false
+  -- Beginner: Play an animation on a ped.
+  cmgCall(workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3)
+  cmgCall = RemoveAnimDict
+  workValue18 = arg2
+  cmgCall(workValue18)
 end
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.abs
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX1_2 / SHX3_2
-  SHX5_2 = SHX2_2 / SHX3_2
-  SHX6_2 = 1
-  SHX7_2 = SHX3_2
-  SHX8_2 = 1
-  for SHX9_2 = SHX6_2, SHX7_2, SHX8_2 do
-    SHX10_2 = Wait
-    SHX11_2 = SHX5_2
-    SHX10_2(SHX11_2)
-    SHX10_2 = SetEntityHeading
-    SHX11_2 = SHX0_2
-    SHX12_2 = GetEntityHeading
-    SHX13_2 = SHX0_2
-    SHX12_2 = SHX12_2(SHX13_2)
-    SHX12_2 = SHX12_2 + SHX4_2
-    SHX10_2(SHX11_2, SHX12_2)
+function textValue(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4
+  arg4 = math
+  arg4 = arg4.abs
+  arg5 = arg2
+  arg4 = arg4(arg5)
+  arg5 = arg2 / arg4
+  arg6 = arg3 / arg4
+  arg7 = 1
+  cmgCall = arg4
+  workValue18 = 1
+  for numberValue17 = arg7, cmgCall, workValue18 do
+    waitCall = Wait
+    numberValue2 = arg6
+    waitCall(numberValue2)
+    waitCall = SetEntityHeading
+    numberValue2 = arg1
+    heading = GetEntityHeading
+    numberValue4 = arg1
+    -- Beginner: result below is heading.
+    heading = heading(numberValue4)
+    heading = heading + arg5
+    -- Beginner: Change the direction an entity is facing.
+    waitCall(numberValue2, heading)
   end
 end
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = ResetPedStrafeClipset
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = ResetPedWeaponMovementClipset
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SetPedMaxMoveBlendRatio
-  SHX2_2 = SHX0_2
-  SHX3_2 = 1.0
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetPedCanPlayAmbientAnims
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX9_1
-  if nil ~= SHX1_2 then
-    SHX1_2 = SetPlayerClipset
-    SHX2_2 = SHX9_1
-    SHX1_2(SHX2_2)
+function workValue5()
+  local arg1, arg2, arg3, arg4
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = ResetPedStrafeClipset
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = ResetPedWeaponMovementClipset
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = SetPedMaxMoveBlendRatio
+  arg3 = arg1
+  arg4 = 1.0
+  arg2(arg3, arg4)
+  arg2 = SetPedCanPlayAmbientAnims
+  arg3 = arg1
+  arg4 = true
+  arg2(arg3, arg4)
+  arg2 = workValue19
+  if nil ~= arg2 then
+    arg2 = SetPlayerClipset
+    arg3 = workValue19
+    arg2(arg3)
   else
-    SHX1_2 = ResetPedMovementClipset
-    SHX2_2 = SHX0_2
-    SHX3_2 = 0.5
-    SHX1_2(SHX2_2, SHX3_2)
+    arg2 = ResetPedMovementClipset
+    arg3 = arg1
+    arg4 = 0.5
+    arg2(arg3, arg4)
   end
-  SHX1_2 = RemoveAnimSet
-  SHX2_2 = "move_ped_crouched"
-  SHX1_2(SHX2_2)
+  arg2 = RemoveAnimSet
+  arg3 = "move_ped_crouched"
+  arg2(arg3)
 end
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
+function workValue6()
+  local arg1, arg2
+  arg1 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function arg2()
+    local playerPed, flag5, numberValue14, flag9, flag11, textValue3
     while true do
-      SHX0_3 = SHX4_1
-      if not SHX0_3 then
+      playerPed = flag10
+      if not playerPed then
         break
       end
-      SHX0_3 = PlayerPedId
-      SHX0_3 = SHX0_3()
-      SHX1_3 = SHX11_1
-      SHX2_3 = SHX0_3
-      SHX3_3 = true
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      if not SHX1_3 then
-        SHX1_3 = false
-        SHX4_1 = SHX1_3
+      playerPed = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      playerPed = playerPed()
+      flag5 = workValue2
+      numberValue14 = playerPed
+      flag9 = true
+      flag5 = flag5(numberValue14, flag9)
+      if not flag5 then
+        flag5 = false
+        flag10 = flag5
         break
       end
-      SHX1_3 = SetPedCanPlayAmbientAnims
-      SHX2_3 = SHX0_3
-      SHX3_3 = false
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = DisableControlAction
-      SHX2_3 = 0
-      SHX3_3 = 36
-      SHX4_3 = true
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX1_3 = IsPedUsingActionMode
-      SHX2_3 = SHX0_3
-      SHX1_3 = SHX1_3(SHX2_3)
-      if 1 == SHX1_3 then
-        SHX1_3 = SetPedUsingActionMode
-        SHX2_3 = SHX0_3
-        SHX3_3 = false
-        SHX4_3 = -1
-        SHX5_3 = "DEFAULT_ACTION"
-        SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      flag5 = SetPedCanPlayAmbientAnims
+      numberValue14 = playerPed
+      flag9 = false
+      flag5(numberValue14, flag9)
+      flag5 = DisableControlAction
+      numberValue14 = 0
+      flag9 = 36
+      flag11 = true
+      flag5(numberValue14, flag9, flag11)
+      flag5 = IsPedUsingActionMode
+      numberValue14 = playerPed
+      flag5 = flag5(numberValue14)
+      if 1 == flag5 then
+        flag5 = SetPedUsingActionMode
+        numberValue14 = playerPed
+        flag9 = false
+        flag11 = -1
+        textValue3 = "DEFAULT_ACTION"
+        flag5(numberValue14, flag9, flag11, textValue3)
       end
-      SHX1_3 = Wait
-      SHX2_3 = 0
-      SHX1_3(SHX2_3)
+      flag5 = Wait
+      numberValue14 = 0
+      flag5(numberValue14)
     end
-    SHX0_3 = SHX14_1
-    SHX0_3()
+    playerPed = workValue5
+    playerPed()
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(arg2)
 end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = true
-  SHX4_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadClipSet
-  SHX1_2 = "move_ped_crouched"
-  SHX0_2(SHX1_2)
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetPedStealthMovement
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 1 == SHX1_2 then
-    SHX1_2 = SetPedStealthMovement
-    SHX2_2 = SHX0_2
-    SHX3_2 = false
-    SHX4_2 = "DEFAULT_ACTION"
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = Wait
-    SHX2_2 = 100
-    SHX1_2(SHX2_2)
+function workValue7()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = true
+  flag10 = arg1
+  arg1 = CMG
+  arg1 = arg1.loadClipSet
+  arg2 = "move_ped_crouched"
+  arg1(arg2)
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetPedStealthMovement
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if 1 == arg2 then
+    arg2 = SetPedStealthMovement
+    arg3 = arg1
+    arg4 = false
+    arg5 = "DEFAULT_ACTION"
+    arg2(arg3, arg4, arg5)
+    arg2 = Wait
+    arg3 = 100
+    arg2(arg3)
   end
-  SHX1_2 = GetFollowPedCamViewMode
-  SHX1_2 = SHX1_2()
-  if 4 == SHX1_2 then
-    SHX1_2 = SetFollowPedCamViewMode
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+  arg2 = GetFollowPedCamViewMode
+  arg2 = arg2()
+  if 4 == arg2 then
+    arg2 = SetFollowPedCamViewMode
+    arg3 = 0
+    arg2(arg3)
   end
-  SHX1_2 = SHX2_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = SHX9_1
+  arg2 = numberValue13
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = workValue19
   end
-  SHX9_1 = SHX1_2
-  SHX1_2 = SetPedMovementClipset
-  SHX2_2 = SHX0_2
-  SHX3_2 = "move_ped_crouched"
-  SHX4_2 = 0.6
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SetPedStrafeClipset
-  SHX2_2 = SHX0_2
-  SHX3_2 = "move_ped_crouched_strafing"
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX15_1
-  SHX1_2()
+  workValue19 = arg2
+  arg2 = SetPedMovementClipset
+  arg3 = arg1
+  arg4 = "move_ped_crouched"
+  arg5 = 0.6
+  arg2(arg3, arg4, arg5)
+  arg2 = SetPedStrafeClipset
+  arg3 = arg1
+  arg4 = "move_ped_crouched_strafing"
+  arg2(arg3, arg4)
+  arg2 = workValue6
+  arg2()
 end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX11_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 then
-    SHX1_2 = SHX16_1
-    SHX1_2()
-    SHX1_2 = true
-    return SHX1_2
+function workValue8(arg1)
+  local arg2, arg3, arg4
+  arg2 = workValue2
+  arg3 = arg1
+  arg4 = true
+  arg2 = arg2(arg3, arg4)
+  if arg2 then
+    arg2 = workValue7
+    arg2()
+    arg2 = true
+    return arg2
   else
-    SHX1_2 = false
-    return SHX1_2
+    arg2 = false
+    return arg2
   end
 end
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isNoClipActive
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
+function workValue9()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, cmgCall
+  arg1 = CMG
+  arg1 = arg1.isNoClipActive
+  arg1 = arg1()
+  if arg1 then
     return
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientEventData
-  SHX1_2 = "SpellingBeeClientData"
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX0_2 = SHX0_2.minigameName
-  if "Spelling Bee" == SHX0_2 then
+  arg1 = CMG
+  arg1 = arg1.getClientEventData
+  arg2 = "SpellingBeeClientData"
+  arg1 = arg1(arg2)
+  arg1 = arg1.minigameName
+  if "Spelling Bee" == arg1 then
     return
   end
-  SHX0_2 = GetFrameCount
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX10_1
-  if SHX0_2 == SHX1_2 then
+  arg1 = GetFrameCount
+  arg1 = arg1()
+  arg2 = numberValue
+  if arg1 == arg2 then
     return
   end
-  SHX0_2 = GetFrameCount
-  SHX0_2 = SHX0_2()
-  SHX10_1 = SHX0_2
-  SHX0_2 = SHX6_1
-  if SHX0_2 then
+  arg1 = GetFrameCount
+  arg1 = arg1()
+  numberValue = arg1
+  arg1 = flag13
+  if arg1 then
     return
   end
-  SHX0_2 = SHX4_1
-  if SHX0_2 then
-    SHX0_2 = false
-    SHX4_1 = SHX0_2
+  arg1 = flag10
+  if arg1 then
+    arg1 = false
+    flag10 = arg1
     return
   end
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX0_1.crouchOverride
-  if SHX1_2 then
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 36
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = dataTable.crouchOverride
+  if arg2 then
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 36
+    arg5 = true
+    arg2(arg3, arg4, arg5)
   else
-    SHX1_2 = GetControlInstructionalButton
-    SHX2_2 = 0
-    SHX3_2 = 3536895674
-    SHX4_2 = false
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX2_2 = GetControlInstructionalButton
-    SHX3_2 = 0
-    SHX4_2 = 36
-    SHX5_2 = false
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    if SHX1_2 == SHX2_2 then
-      SHX3_2 = SHX3_1
-      if not SHX3_2 then
-        SHX3_2 = GetGameTimer
-        SHX3_2 = SHX3_2()
-        SHX4_2 = GetPedStealthMovement
-        SHX5_2 = SHX0_2
-        SHX4_2 = SHX4_2(SHX5_2)
-        if 1 == SHX4_2 then
-          SHX4_2 = SHX8_1
-          SHX4_2 = SHX3_2 - SHX4_2
-          SHX5_2 = 1000
-          if SHX4_2 < SHX5_2 then
-            SHX4_2 = DisableControlAction
-            SHX5_2 = 0
-            SHX6_2 = 36
-            SHX7_2 = true
-            SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-            SHX4_2 = 0
-            SHX8_1 = SHX4_2
-            SHX4_2 = SHX17_1
-            SHX5_2 = SHX0_2
-            SHX4_2(SHX5_2)
+    arg2 = GetControlInstructionalButton
+    arg3 = 0
+    arg4 = 3536895674
+    arg5 = false
+    arg2 = arg2(arg3, arg4, arg5)
+    arg3 = GetControlInstructionalButton
+    arg4 = 0
+    arg5 = 36
+    arg6 = false
+    arg3 = arg3(arg4, arg5, arg6)
+    if arg2 == arg3 then
+      arg4 = textValue2
+      if not arg4 then
+        arg4 = GetGameTimer
+        -- Beginner: result below is gameTimeMs.
+        arg4 = arg4()
+        arg5 = GetPedStealthMovement
+        arg6 = arg1
+        arg5 = arg5(arg6)
+        if 1 == arg5 then
+          arg5 = numberValue16
+          arg5 = arg4 - arg5
+          arg6 = 1000
+          if arg5 < arg6 then
+            arg5 = DisableControlAction
+            arg6 = 0
+            arg7 = 36
+            cmgCall = true
+            arg5(arg6, arg7, cmgCall)
+            arg5 = 0
+            numberValue16 = arg5
+            arg5 = workValue8
+            arg6 = arg1
+            arg5(arg6)
             return
           end
         end
-        SHX8_1 = SHX3_2
+        numberValue16 = arg4
         return
       end
     end
   end
-  SHX1_2 = SHX17_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = SHX3_1
-    if SHX1_2 then
-      SHX1_2 = true
-      SHX6_1 = SHX1_2
-      SHX1_2 = tCMG
-      SHX1_2 = SHX1_2.setCanAnim
-      SHX2_2 = true
-      SHX1_2(SHX2_2)
-      SHX1_2 = false
-      SHX3_1 = SHX1_2
-      SHX1_2 = SHX12_1
-      SHX2_2 = SHX0_2
-      SHX3_2 = "get_up@directional@transition@prone_to_knees@crawl"
-      SHX4_2 = "front"
-      SHX5_2 = nil
-      SHX6_2 = nil
-      SHX7_2 = 780
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      SHX1_2 = Wait
-      SHX2_2 = 780
-      SHX1_2(SHX2_2)
-      SHX1_2 = false
-      SHX6_1 = SHX1_2
+  arg2 = workValue8
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = textValue2
+    if arg2 then
+      arg2 = true
+      flag13 = arg2
+      arg2 = tCMG
+      arg2 = arg2.setCanAnim
+      arg3 = true
+      arg2(arg3)
+      arg2 = false
+      textValue2 = arg2
+      arg2 = workValue4
+      arg3 = arg1
+      arg4 = "get_up@directional@transition@prone_to_knees@crawl"
+      arg5 = "front"
+      arg6 = nil
+      arg7 = nil
+      cmgCall = 780
+      arg2(arg3, arg4, arg5, arg6, arg7, cmgCall)
+      arg2 = Wait
+      arg3 = 780
+      arg2(arg3)
+      arg2 = false
+      flag13 = arg2
     end
   end
 end
-function SHX19_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = IsPedRunning
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = IsPedSprinting
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      goto SHX_LABEL_13
+function workValue10(arg1)
+  local arg2, arg3
+  arg2 = IsPedRunning
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = IsPedSprinting
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      goto flow_label_13
     end
   end
-  SHX1_2 = true
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_13:: outside nested blocks until all 'goto SHX_LABEL_13' can see it
-  ::SHX_LABEL_13::
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = true
+  return arg2
+  ::flow_label_13::
+  arg2 = false
+  return arg2
 end
-function SHX20_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX3_2 = GetEntityCoords
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = TaskPlayAnimAdvanced
-  SHX5_2 = SHX0_2
-  SHX6_2 = "move_crawl"
-  SHX7_2 = SHX7_1
-  SHX8_2 = "_fwd"
-  SHX7_2 = SHX7_2 .. SHX8_2
-  SHX8_2 = SHX3_2.x
-  SHX9_2 = SHX3_2.y
-  SHX10_2 = SHX3_2.z
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = SHX1_2 or SHX13_2
-  if not SHX1_2 then
-    SHX13_2 = GetEntityHeading
-    SHX14_2 = SHX0_2
-    SHX13_2 = SHX13_2(SHX14_2)
+function workValue11(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3, flag4, flag6
+  arg4 = GetEntityCoords
+  arg5 = arg1
+  -- Beginner: result below is entityCoords.
+  arg4 = arg4(arg5)
+  arg5 = TaskPlayAnimAdvanced
+  arg6 = arg1
+  arg7 = "move_crawl"
+  cmgCall = textValue4
+  workValue18 = "_fwd"
+  cmgCall = cmgCall .. workValue18
+  workValue18 = arg4.x
+  numberValue17 = arg4.y
+  waitCall = arg4.z
+  numberValue2 = 0.0
+  heading = 0.0
+  numberValue4 = arg2 or numberValue4
+  if not arg2 then
+    numberValue4 = GetEntityHeading
+    numberValue6 = arg1
+    -- Beginner: result below is heading.
+    numberValue4 = numberValue4(numberValue6)
   end
-  SHX14_2 = SHX2_2 or SHX14_2
-  if not SHX2_2 then
-    SHX14_2 = 2.0
+  numberValue6 = arg3 or numberValue6
+  if not arg3 then
+    numberValue6 = 2.0
   end
-  SHX15_2 = 2.0
-  SHX16_2 = -1
-  SHX17_2 = 2
-  SHX18_2 = 1.0
-  SHX19_2 = false
-  SHX20_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
+  numberValue7 = 2.0
+  flag = -1
+  flag2 = 2
+  flag3 = 1.0
+  flag4 = false
+  flag6 = false
+  arg5(arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3, flag4, flag6)
 end
-function SHX21_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  if not SHX0_2 then
-    SHX1_2 = true
-    SHX6_1 = SHX1_2
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = SHX7_1
-    if "onfront" == SHX2_2 then
-      SHX2_2 = SHX12_1
-      SHX3_2 = SHX1_2
-      SHX4_2 = "get_up@directional@transition@prone_to_knees@crawl"
-      SHX5_2 = "front"
-      SHX6_2 = nil
-      SHX7_2 = nil
-      SHX8_2 = 780
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX2_2 = SHX4_1
-      if not SHX2_2 then
-        SHX2_2 = Wait
-        SHX3_2 = 780
-        SHX2_2(SHX3_2)
-        SHX2_2 = SHX12_1
-        SHX3_2 = SHX1_2
-        SHX4_2 = "get_up@directional@movement@from_knees@standard"
-        SHX5_2 = "getup_l_0"
-        SHX6_2 = nil
-        SHX7_2 = nil
-        SHX8_2 = 1300
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+function workValue12(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall, workValue18
+  if not arg1 then
+    arg2 = true
+    flag13 = arg2
+    arg2 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg2 = arg2()
+    arg3 = textValue4
+    if "onfront" == arg3 then
+      arg3 = workValue4
+      arg4 = arg2
+      arg5 = "get_up@directional@transition@prone_to_knees@crawl"
+      arg6 = "front"
+      arg7 = nil
+      cmgCall = nil
+      workValue18 = 780
+      arg3(arg4, arg5, arg6, arg7, cmgCall, workValue18)
+      arg3 = flag10
+      if not arg3 then
+        arg3 = Wait
+        arg4 = 780
+        arg3(arg4)
+        arg3 = workValue4
+        arg4 = arg2
+        arg5 = "get_up@directional@movement@from_knees@standard"
+        arg6 = "getup_l_0"
+        arg7 = nil
+        cmgCall = nil
+        workValue18 = 1300
+        arg3(arg4, arg5, arg6, arg7, cmgCall, workValue18)
       end
     else
-      SHX2_2 = SHX12_1
-      SHX3_2 = SHX1_2
-      SHX4_2 = "get_up@directional@transition@prone_to_seated@crawl"
-      SHX5_2 = "back"
-      SHX6_2 = 16.0
-      SHX7_2 = nil
-      SHX8_2 = 950
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX2_2 = SHX4_1
-      if not SHX2_2 then
-        SHX2_2 = Wait
-        SHX3_2 = 950
-        SHX2_2(SHX3_2)
-        SHX2_2 = SHX12_1
-        SHX3_2 = SHX1_2
-        SHX4_2 = "get_up@directional@movement@from_seated@standard"
-        SHX5_2 = "get_up_l_0"
-        SHX6_2 = nil
-        SHX7_2 = nil
-        SHX8_2 = 1300
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+      arg3 = workValue4
+      arg4 = arg2
+      arg5 = "get_up@directional@transition@prone_to_seated@crawl"
+      arg6 = "back"
+      arg7 = 16.0
+      cmgCall = nil
+      workValue18 = 950
+      arg3(arg4, arg5, arg6, arg7, cmgCall, workValue18)
+      arg3 = flag10
+      if not arg3 then
+        arg3 = Wait
+        arg4 = 950
+        arg3(arg4)
+        arg3 = workValue4
+        arg4 = arg2
+        arg5 = "get_up@directional@movement@from_seated@standard"
+        arg6 = "get_up_l_0"
+        arg7 = nil
+        cmgCall = nil
+        workValue18 = 1300
+        arg3(arg4, arg5, arg6, arg7, cmgCall, workValue18)
       end
     end
   end
 end
-function SHX22_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX3_2 = true
-  SHX5_1 = SHX3_2
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX0_2
-  SHX5_2 = "move_crawl"
-  SHX6_2 = SHX1_2
-  SHX7_2 = "_"
-  SHX8_2 = SHX2_2
-  SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-  SHX7_2 = 8.0
-  SHX8_2 = -8.0
-  SHX9_2 = -1
-  SHX10_2 = 2
-  SHX11_2 = 0.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = {}
-  SHX4_2 = {}
-  SHX4_2.fwd = 820
-  SHX4_2.bwd = 990
-  SHX3_2.onfront = SHX4_2
-  SHX4_2 = {}
-  SHX4_2.fwd = 1200
-  SHX4_2.bwd = 1200
-  SHX3_2.onback = SHX4_2
-  SHX4_2 = SetTimeout
-  SHX5_2 = SHX3_2[SHX1_2]
-  SHX5_2 = SHX5_2[SHX2_2]
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = false
-    SHX5_1 = SHX0_3
+function workValue13(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6
+  arg4 = true
+  flag12 = arg4
+  arg4 = TaskPlayAnim
+  arg5 = arg1
+  arg6 = "move_crawl"
+  arg7 = arg2
+  cmgCall = "_"
+  workValue18 = arg3
+  arg7 = arg7 .. cmgCall .. workValue18
+  cmgCall = 8.0
+  workValue18 = -8.0
+  numberValue17 = -1
+  waitCall = 2
+  numberValue2 = 0.0
+  heading = false
+  numberValue4 = false
+  numberValue6 = false
+  -- Beginner: Play an animation on a ped.
+  arg4(arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6)
+  arg4 = {}
+  arg5 = {}
+  arg5.fwd = 820
+  arg5.bwd = 990
+  arg4.onfront = arg5
+  arg5 = {}
+  arg5.fwd = 1200
+  arg5.bwd = 1200
+  arg4.onback = arg5
+  arg5 = SetTimeout
+  arg6 = arg4[arg2]
+  arg6 = arg6[arg3]
+  function arg7()
+    local playerPed, flag5
+    playerPed = false
+    flag12 = playerPed
   end
-  SHX4_2(SHX5_2, SHX6_2)
+  arg5(arg6, arg7)
 end
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = true
-  SHX6_1 = SHX1_2
-  SHX1_2 = GetEntityHeading
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX7_1
-  if "onfront" == SHX2_2 then
-    SHX2_2 = "onback"
-    SHX7_1 = SHX2_2
-    SHX2_2 = SHX12_1
-    SHX3_2 = SHX0_2
-    SHX4_2 = "get_up@directional_sweep@combat@pistol@front"
-    SHX5_2 = "front_to_prone"
-    SHX6_2 = 2.0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2 = SHX13_1
-    SHX3_2 = SHX0_2
-    SHX4_2 = -18.0
-    SHX5_2 = 3600
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+function workValue14(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall, workValue18
+  arg2 = true
+  flag13 = arg2
+  arg2 = GetEntityHeading
+  arg3 = arg1
+  -- Beginner: result below is heading.
+  arg2 = arg2(arg3)
+  arg3 = textValue4
+  if "onfront" == arg3 then
+    arg3 = "onback"
+    textValue4 = arg3
+    arg3 = workValue4
+    arg4 = arg1
+    arg5 = "get_up@directional_sweep@combat@pistol@front"
+    arg6 = "front_to_prone"
+    arg7 = 2.0
+    arg3(arg4, arg5, arg6, arg7)
+    arg3 = textValue
+    arg4 = arg1
+    arg5 = -18.0
+    arg6 = 3600
+    arg3(arg4, arg5, arg6)
   else
-    SHX2_2 = "onfront"
-    SHX7_1 = SHX2_2
-    SHX2_2 = SHX12_1
-    SHX3_2 = SHX0_2
-    SHX4_2 = "move_crawlprone2crawlfront"
-    SHX5_2 = "back"
-    SHX6_2 = 2.0
-    SHX7_2 = nil
-    SHX8_2 = -1
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX2_2 = SHX13_1
-    SHX3_2 = SHX0_2
-    SHX4_2 = 12.0
-    SHX5_2 = 1700
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+    arg3 = "onfront"
+    textValue4 = arg3
+    arg3 = workValue4
+    arg4 = arg1
+    arg5 = "move_crawlprone2crawlfront"
+    arg6 = "back"
+    arg7 = 2.0
+    cmgCall = nil
+    workValue18 = -1
+    arg3(arg4, arg5, arg6, arg7, cmgCall, workValue18)
+    arg3 = textValue
+    arg4 = arg1
+    arg5 = 12.0
+    arg6 = 1700
+    arg3(arg4, arg5, arg6)
   end
-  SHX2_2 = SHX20_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2 + 180.0
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = Wait
-  SHX3_2 = 400
-  SHX2_2(SHX3_2)
-  SHX2_2 = false
-  SHX6_1 = SHX2_2
+  arg3 = workValue11
+  arg4 = arg1
+  arg5 = arg2 + 180.0
+  arg3(arg4, arg5)
+  arg3 = Wait
+  arg4 = 400
+  arg3(arg4)
+  arg3 = false
+  flag13 = arg3
 end
-function SHX24_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3
-    SHX0_3 = Wait
-    SHX1_3 = 400
-    SHX0_3(SHX1_3)
-    SHX0_3 = false
+function workValue15()
+  local arg1, arg2
+  arg1 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function arg2()
+    local playerPed, flag5, numberValue14, flag9, flag11, textValue3, numberValue15, heading3, textValue5, workValue20, workValue, workValue3, numberValue3, numberValue5, heading2, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag7, flag8
+    playerPed = Wait
+    flag5 = 400
+    playerPed(flag5)
+    playerPed = false
     while true do
-      SHX1_3 = SHX3_1
-      if not SHX1_3 then
+      flag5 = textValue2
+      if not flag5 then
         break
       end
-      SHX1_3 = PlayerPedId
-      SHX1_3 = SHX1_3()
-      SHX2_3 = SHX11_1
-      SHX3_3 = SHX1_3
-      SHX4_3 = false
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      if SHX2_3 then
-        SHX2_3 = IsEntityInWater
-        SHX3_3 = SHX1_3
-        SHX2_3 = SHX2_3(SHX3_3)
-        if not SHX2_3 then
-          goto SHX_LABEL_35
+      flag5 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      flag5 = flag5()
+      numberValue14 = workValue2
+      flag9 = flag5
+      flag11 = false
+      numberValue14 = numberValue14(flag9, flag11)
+      if numberValue14 then
+        numberValue14 = IsEntityInWater
+        flag9 = flag5
+        numberValue14 = numberValue14(flag9)
+        if not numberValue14 then
+          goto flow_label_35
         end
       end
-      SHX2_3 = ClearPedTasks
-      SHX3_3 = SHX1_3
-      SHX2_3(SHX3_3)
-      SHX2_3 = SHX3_1
-      if SHX2_3 then
-        SHX2_3 = tCMG
-        SHX2_3 = SHX2_3.setCanAnim
-        SHX3_3 = true
-        SHX2_3(SHX3_3)
-        SHX2_3 = false
-        SHX3_1 = SHX2_3
+      numberValue14 = ClearPedTasks
+      flag9 = flag5
+      numberValue14(flag9)
+      numberValue14 = textValue2
+      if numberValue14 then
+        numberValue14 = tCMG
+        numberValue14 = numberValue14.setCanAnim
+        flag9 = true
+        numberValue14(flag9)
+        numberValue14 = false
+        textValue2 = numberValue14
       end
-      SHX0_3 = true
+      playerPed = true
       do break end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_35:: outside nested blocks until all 'goto SHX_LABEL_35' can see it
-      ::SHX_LABEL_35::
-      SHX2_3 = IsControlPressed
-      SHX3_3 = 0
-      SHX4_3 = 32
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      SHX3_3 = IsControlPressed
-      SHX4_3 = 0
-      SHX5_3 = 33
-      SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-      SHX4_3 = SHX5_1
-      if not SHX4_3 then
-        if SHX2_3 then
-          SHX4_3 = SHX22_1
-          SHX5_3 = SHX1_3
-          SHX6_3 = SHX7_1
-          SHX7_3 = "fwd"
-          SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-        elseif SHX3_3 then
-          SHX4_3 = SHX22_1
-          SHX5_3 = SHX1_3
-          SHX6_3 = SHX7_1
-          SHX7_3 = "bwd"
-          SHX4_3(SHX5_3, SHX6_3, SHX7_3)
+      ::flow_label_35::
+      numberValue14 = IsControlPressed
+      flag9 = 0
+      flag11 = 32
+      numberValue14 = numberValue14(flag9, flag11)
+      flag9 = IsControlPressed
+      flag11 = 0
+      textValue3 = 33
+      flag9 = flag9(flag11, textValue3)
+      flag11 = flag12
+      if not flag11 then
+        if numberValue14 then
+          flag11 = workValue13
+          textValue3 = flag5
+          numberValue15 = textValue4
+          heading3 = "fwd"
+          flag11(textValue3, numberValue15, heading3)
+        elseif flag9 then
+          flag11 = workValue13
+          textValue3 = flag5
+          numberValue15 = textValue4
+          heading3 = "bwd"
+          flag11(textValue3, numberValue15, heading3)
         end
       end
-      SHX4_3 = IsControlPressed
-      SHX5_3 = 0
-      SHX6_3 = 34
-      SHX4_3 = SHX4_3(SHX5_3, SHX6_3)
-      if SHX4_3 then
-        SHX4_3 = SHX5_1
-        if SHX4_3 then
-          if SHX2_3 then
-            SHX4_3 = 1.0
-            if SHX4_3 then
-              goto SHX_LABEL_76
+      flag11 = IsControlPressed
+      textValue3 = 0
+      numberValue15 = 34
+      flag11 = flag11(textValue3, numberValue15)
+      if flag11 then
+        flag11 = flag12
+        if flag11 then
+          if numberValue14 then
+            flag11 = 1.0
+            if flag11 then
+              goto flow_label_76
             end
           end
-          SHX4_3 = -1.0
-          -- [FIX IF ERROR] Move ::SHX_LABEL_76:: outside nested blocks until all 'goto SHX_LABEL_76' can see it
-          ::SHX_LABEL_76::
-          SHX5_3 = SetEntityHeading
-          SHX6_3 = SHX1_3
-          SHX7_3 = GetEntityHeading
-          SHX8_3 = SHX1_3
-          SHX7_3 = SHX7_3(SHX8_3)
-          SHX7_3 = SHX7_3 + SHX4_3
-          SHX5_3(SHX6_3, SHX7_3)
+          flag11 = -1.0
+          ::flow_label_76::
+          textValue3 = SetEntityHeading
+          numberValue15 = flag5
+          heading3 = GetEntityHeading
+          textValue5 = flag5
+          -- Beginner: result below is heading.
+          heading3 = heading3(textValue5)
+          heading3 = heading3 + flag11
+          -- Beginner: Change the direction an entity is facing.
+          textValue3(numberValue15, heading3)
         else
-          SHX4_3 = true
-          SHX6_1 = SHX4_3
-          SHX4_3 = SHX7_1
-          if "onfront" == SHX4_3 then
-            SHX4_3 = GetEntityCoords
-            SHX5_3 = SHX1_3
-            SHX4_3 = SHX4_3(SHX5_3)
-            SHX5_3 = TaskPlayAnimAdvanced
-            SHX6_3 = SHX1_3
-            SHX7_3 = "move_crawlprone2crawlfront"
-            SHX8_3 = "left"
-            SHX9_3 = SHX4_3.x
-            SHX10_3 = SHX4_3.y
-            SHX11_3 = SHX4_3.z
-            SHX12_3 = 0.0
-            SHX13_3 = 0.0
-            SHX14_3 = GetEntityHeading
-            SHX15_3 = SHX1_3
-            SHX14_3 = SHX14_3(SHX15_3)
-            SHX15_3 = 2.0
-            SHX16_3 = 2.0
-            SHX17_3 = -1
-            SHX18_3 = 2
-            SHX19_3 = 0.1
-            SHX20_3 = false
-            SHX21_3 = false
-            SHX5_3(SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3)
-            SHX5_3 = SHX13_1
-            SHX6_3 = SHX1_3
-            SHX7_3 = -10.0
-            SHX8_3 = 300
-            SHX5_3(SHX6_3, SHX7_3, SHX8_3)
-            SHX5_3 = Wait
-            SHX6_3 = 700
-            SHX5_3(SHX6_3)
+          flag11 = true
+          flag13 = flag11
+          flag11 = textValue4
+          if "onfront" == flag11 then
+            flag11 = GetEntityCoords
+            textValue3 = flag5
+            -- Beginner: result below is entityCoords.
+            flag11 = flag11(textValue3)
+            textValue3 = TaskPlayAnimAdvanced
+            numberValue15 = flag5
+            heading3 = "move_crawlprone2crawlfront"
+            textValue5 = "left"
+            workValue20 = flag11.x
+            workValue = flag11.y
+            workValue3 = flag11.z
+            numberValue3 = 0.0
+            numberValue5 = 0.0
+            heading2 = GetEntityHeading
+            numberValue8 = flag5
+            -- Beginner: result below is heading.
+            heading2 = heading2(numberValue8)
+            numberValue8 = 2.0
+            numberValue9 = 2.0
+            numberValue10 = -1
+            numberValue11 = 2
+            numberValue12 = 0.1
+            flag7 = false
+            flag8 = false
+            textValue3(numberValue15, heading3, textValue5, workValue20, workValue, workValue3, numberValue3, numberValue5, heading2, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag7, flag8)
+            textValue3 = textValue
+            numberValue15 = flag5
+            heading3 = -10.0
+            textValue5 = 300
+            textValue3(numberValue15, heading3, textValue5)
+            textValue3 = Wait
+            numberValue15 = 700
+            textValue3(numberValue15)
           else
-            SHX4_3 = SHX12_1
-            SHX5_3 = SHX1_3
-            SHX6_3 = "get_up@directional_sweep@combat@pistol@left"
-            SHX7_3 = "left_to_prone"
-            SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-            SHX4_3 = SHX13_1
-            SHX5_3 = SHX1_3
-            SHX6_3 = 25.0
-            SHX7_3 = 400
-            SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-            SHX4_3 = SHX20_1
-            SHX5_3 = SHX1_3
-            SHX4_3(SHX5_3)
-            SHX4_3 = Wait
-            SHX5_3 = 600
-            SHX4_3(SHX5_3)
+            flag11 = workValue4
+            textValue3 = flag5
+            numberValue15 = "get_up@directional_sweep@combat@pistol@left"
+            heading3 = "left_to_prone"
+            flag11(textValue3, numberValue15, heading3)
+            flag11 = textValue
+            textValue3 = flag5
+            numberValue15 = 25.0
+            heading3 = 400
+            flag11(textValue3, numberValue15, heading3)
+            flag11 = workValue11
+            textValue3 = flag5
+            flag11(textValue3)
+            flag11 = Wait
+            textValue3 = 600
+            flag11(textValue3)
           end
-          SHX4_3 = false
-          SHX6_1 = SHX4_3
+          flag11 = false
+          flag13 = flag11
         end
       else
-        SHX4_3 = IsControlPressed
-        SHX5_3 = 0
-        SHX6_3 = 35
-        SHX4_3 = SHX4_3(SHX5_3, SHX6_3)
-        if SHX4_3 then
-          SHX4_3 = SHX5_1
-          if SHX4_3 then
-            if SHX3_3 then
-              SHX4_3 = 1.0
-              if SHX4_3 then
-                goto SHX_LABEL_156
+        flag11 = IsControlPressed
+        textValue3 = 0
+        numberValue15 = 35
+        flag11 = flag11(textValue3, numberValue15)
+        if flag11 then
+          flag11 = flag12
+          if flag11 then
+            if flag9 then
+              flag11 = 1.0
+              if flag11 then
+                goto flow_label_156
               end
             end
-            SHX4_3 = -1.0
-            -- [FIX IF ERROR] Move ::SHX_LABEL_156:: outside nested blocks until all 'goto SHX_LABEL_156' can see it
-            ::SHX_LABEL_156::
-            SHX5_3 = SetEntityHeading
-            SHX6_3 = SHX1_3
-            SHX7_3 = GetEntityHeading
-            SHX8_3 = SHX1_3
-            SHX7_3 = SHX7_3(SHX8_3)
-            SHX7_3 = SHX7_3 + SHX4_3
-            SHX5_3(SHX6_3, SHX7_3)
+            flag11 = -1.0
+            ::flow_label_156::
+            textValue3 = SetEntityHeading
+            numberValue15 = flag5
+            heading3 = GetEntityHeading
+            textValue5 = flag5
+            -- Beginner: result below is heading.
+            heading3 = heading3(textValue5)
+            heading3 = heading3 + flag11
+            -- Beginner: Change the direction an entity is facing.
+            textValue3(numberValue15, heading3)
           else
-            SHX4_3 = true
-            SHX6_1 = SHX4_3
-            SHX4_3 = SHX7_1
-            if "onfront" == SHX4_3 then
-              SHX4_3 = GetEntityCoords
-              SHX5_3 = SHX1_3
-              SHX4_3 = SHX4_3(SHX5_3)
-              SHX5_3 = TaskPlayAnimAdvanced
-              SHX6_3 = SHX1_3
-              SHX7_3 = "move_crawlprone2crawlfront"
-              SHX8_3 = "right"
-              SHX9_3 = SHX4_3.x
-              SHX10_3 = SHX4_3.y
-              SHX11_3 = SHX4_3.z
-              SHX12_3 = 0.0
-              SHX13_3 = 0.0
-              SHX14_3 = GetEntityHeading
-              SHX15_3 = SHX1_3
-              SHX14_3 = SHX14_3(SHX15_3)
-              SHX15_3 = 2.0
-              SHX16_3 = 2.0
-              SHX17_3 = -1
-              SHX18_3 = 2
-              SHX19_3 = 0.1
-              SHX20_3 = false
-              SHX21_3 = false
-              SHX5_3(SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3)
-              SHX5_3 = SHX13_1
-              SHX6_3 = SHX1_3
-              SHX7_3 = 10.0
-              SHX8_3 = 300
-              SHX5_3(SHX6_3, SHX7_3, SHX8_3)
-              SHX5_3 = Wait
-              SHX6_3 = 700
-              SHX5_3(SHX6_3)
+            flag11 = true
+            flag13 = flag11
+            flag11 = textValue4
+            if "onfront" == flag11 then
+              flag11 = GetEntityCoords
+              textValue3 = flag5
+              -- Beginner: result below is entityCoords.
+              flag11 = flag11(textValue3)
+              textValue3 = TaskPlayAnimAdvanced
+              numberValue15 = flag5
+              heading3 = "move_crawlprone2crawlfront"
+              textValue5 = "right"
+              workValue20 = flag11.x
+              workValue = flag11.y
+              workValue3 = flag11.z
+              numberValue3 = 0.0
+              numberValue5 = 0.0
+              heading2 = GetEntityHeading
+              numberValue8 = flag5
+              -- Beginner: result below is heading.
+              heading2 = heading2(numberValue8)
+              numberValue8 = 2.0
+              numberValue9 = 2.0
+              numberValue10 = -1
+              numberValue11 = 2
+              numberValue12 = 0.1
+              flag7 = false
+              flag8 = false
+              textValue3(numberValue15, heading3, textValue5, workValue20, workValue, workValue3, numberValue3, numberValue5, heading2, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag7, flag8)
+              textValue3 = textValue
+              numberValue15 = flag5
+              heading3 = 10.0
+              textValue5 = 300
+              textValue3(numberValue15, heading3, textValue5)
+              textValue3 = Wait
+              numberValue15 = 700
+              textValue3(numberValue15)
             else
-              SHX4_3 = SHX12_1
-              SHX5_3 = SHX1_3
-              SHX6_3 = "get_up@directional_sweep@combat@pistol@right"
-              SHX7_3 = "right_to_prone"
-              SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-              SHX4_3 = SHX13_1
-              SHX5_3 = SHX1_3
-              SHX6_3 = -25.0
-              SHX7_3 = 400
-              SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-              SHX4_3 = SHX20_1
-              SHX5_3 = SHX1_3
-              SHX4_3(SHX5_3)
-              SHX4_3 = Wait
-              SHX5_3 = 600
-              SHX4_3(SHX5_3)
+              flag11 = workValue4
+              textValue3 = flag5
+              numberValue15 = "get_up@directional_sweep@combat@pistol@right"
+              heading3 = "right_to_prone"
+              flag11(textValue3, numberValue15, heading3)
+              flag11 = textValue
+              textValue3 = flag5
+              numberValue15 = -25.0
+              heading3 = 400
+              flag11(textValue3, numberValue15, heading3)
+              flag11 = workValue11
+              textValue3 = flag5
+              flag11(textValue3)
+              flag11 = Wait
+              textValue3 = 600
+              flag11(textValue3)
             end
-            SHX4_3 = false
-            SHX6_1 = SHX4_3
+            flag11 = false
+            flag13 = flag11
           end
         end
       end
-      SHX4_3 = SHX5_1
-      if not SHX4_3 then
-        SHX4_3 = IsControlPressed
-        SHX5_3 = 0
-        SHX6_3 = 22
-        SHX4_3 = SHX4_3(SHX5_3, SHX6_3)
-        if SHX4_3 then
-          SHX4_3 = SHX23_1
-          SHX5_3 = SHX1_3
-          SHX4_3(SHX5_3)
+      flag11 = flag12
+      if not flag11 then
+        flag11 = IsControlPressed
+        textValue3 = 0
+        numberValue15 = 22
+        flag11 = flag11(textValue3, numberValue15)
+        if flag11 then
+          flag11 = workValue14
+          textValue3 = flag5
+          flag11(textValue3)
         end
       end
-      SHX4_3 = Wait
-      SHX5_3 = 0
-      SHX4_3(SHX5_3)
+      flag11 = Wait
+      textValue3 = 0
+      flag11(textValue3)
     end
-    SHX1_3 = SHX21_1
-    SHX2_3 = SHX0_3
-    SHX1_3(SHX2_3)
-    SHX1_3 = false
-    SHX5_1 = SHX1_3
-    SHX1_3 = false
-    SHX6_1 = SHX1_3
-    SHX1_3 = "onfront"
-    SHX7_1 = SHX1_3
-    SHX1_3 = SetPedConfigFlag
-    SHX2_3 = PlayerPedId
-    SHX2_3 = SHX2_3()
-    SHX3_3 = 48
-    SHX4_3 = false
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-    SHX1_3 = RemoveAnimDict
-    SHX2_3 = "move_crawl"
-    SHX1_3(SHX2_3)
-    SHX1_3 = RemoveAnimDict
-    SHX2_3 = "move_crawlprone2crawlfront"
-    SHX1_3(SHX2_3)
+    flag5 = workValue12
+    numberValue14 = playerPed
+    flag5(numberValue14)
+    flag5 = false
+    flag12 = flag5
+    flag5 = false
+    flag13 = flag5
+    flag5 = "onfront"
+    textValue4 = flag5
+    flag5 = SetPedConfigFlag
+    numberValue14 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    numberValue14 = numberValue14()
+    flag9 = 48
+    flag11 = false
+    flag5(numberValue14, flag9, flag11)
+    flag5 = RemoveAnimDict
+    numberValue14 = "move_crawl"
+    flag5(numberValue14)
+    flag5 = RemoveAnimDict
+    numberValue14 = "move_crawlprone2crawlfront"
+    flag5(numberValue14)
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(arg2)
 end
-function SHX25_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = SHX6_1
-  if SHX0_2 then
+function workValue16()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17
+  arg1 = flag13
+  if arg1 then
     return
   end
-  SHX0_2 = IsPauseMenuActive
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
+  arg1 = IsPauseMenuActive
+  arg1 = arg1()
+  if arg1 then
     return
   end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.setCanAnim
-    SHX1_2 = true
-    SHX0_2(SHX1_2)
-    SHX0_2 = false
-    SHX3_1 = SHX0_2
+  arg1 = textValue2
+  if arg1 then
+    arg1 = tCMG
+    arg1 = arg1.setCanAnim
+    arg2 = true
+    arg1(arg2)
+    arg1 = false
+    textValue2 = arg1
     return
   end
-  SHX0_2 = false
-  SHX1_2 = SHX4_1
-  if SHX1_2 then
-    SHX1_2 = false
-    SHX4_1 = SHX1_2
-    SHX0_2 = true
+  arg1 = false
+  arg2 = flag10
+  if arg2 then
+    arg2 = false
+    flag10 = arg2
+    arg1 = true
   end
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX11_1
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityInWater
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = tCMG
-      SHX2_2 = SHX2_2.canAnim
-      SHX2_2 = SHX2_2()
-      if SHX2_2 then
-        goto SHX_LABEL_46
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = workValue2
+  arg4 = arg2
+  arg5 = false
+  arg3 = arg3(arg4, arg5)
+  if arg3 then
+    arg3 = IsEntityInWater
+    arg4 = arg2
+    arg3 = arg3(arg4)
+    if not arg3 then
+      arg3 = tCMG
+      arg3 = arg3.canAnim
+      arg3 = arg3()
+      if arg3 then
+        goto flow_label_46
       end
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_46:: outside nested blocks until all 'goto SHX_LABEL_46' can see it
-  ::SHX_LABEL_46::
-  SHX2_2 = true
-  SHX6_1 = SHX2_2
-  SHX2_2 = Pointing
-  if SHX2_2 then
+  ::flow_label_46::
+  arg3 = true
+  flag13 = arg3
+  arg3 = Pointing
+  if arg3 then
     Pointing = false
   end
-  SHX2_2 = tCMG
-  SHX2_2 = SHX2_2.setCanAnim
-  SHX3_2 = false
-  SHX2_2(SHX3_2)
-  SHX2_2 = true
-  SHX3_1 = SHX2_2
-  SHX2_2 = SetPedConfigFlag
-  SHX3_2 = SHX1_2
-  SHX4_2 = 48
-  SHX5_2 = true
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = GetPedStealthMovement
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 1 == SHX2_2 then
-    SHX2_2 = SetPedStealthMovement
-    SHX3_2 = SHX1_2
-    SHX4_2 = false
-    SHX5_2 = "DEFAULT_ACTION"
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = Wait
-    SHX3_2 = 100
-    SHX2_2(SHX3_2)
+  arg3 = tCMG
+  arg3 = arg3.setCanAnim
+  arg4 = false
+  arg3(arg4)
+  arg3 = true
+  textValue2 = arg3
+  arg3 = SetPedConfigFlag
+  arg4 = arg2
+  arg5 = 48
+  arg6 = true
+  arg3(arg4, arg5, arg6)
+  arg3 = GetPedStealthMovement
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  if 1 == arg3 then
+    arg3 = SetPedStealthMovement
+    arg4 = arg2
+    arg5 = false
+    arg6 = "DEFAULT_ACTION"
+    arg3(arg4, arg5, arg6)
+    arg3 = Wait
+    arg4 = 100
+    arg3(arg4)
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadAnimDict
-  SHX3_2 = "move_crawl"
-  SHX2_2(SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadAnimDict
-  SHX3_2 = "move_crawlprone2crawlfront"
-  SHX2_2(SHX3_2)
-  SHX2_2 = SHX19_1
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = false
-    if SHX2_2 then
-      SHX2_2 = SHX12_1
-      SHX3_2 = SHX1_2
-      SHX4_2 = "explosions"
-      SHX5_2 = "react_blown_forwards"
-      SHX6_2 = nil
-      SHX7_2 = 3.0
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      SHX2_2 = Wait
-      SHX3_2 = 1100
-      SHX2_2(SHX3_2)
+  arg3 = CMG
+  arg3 = arg3.loadAnimDict
+  arg4 = "move_crawl"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg3(arg4)
+  arg3 = CMG
+  arg3 = arg3.loadAnimDict
+  arg4 = "move_crawlprone2crawlfront"
+  arg3(arg4)
+  arg3 = workValue10
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  if arg3 then
+    arg3 = false
+    if arg3 then
+      arg3 = workValue4
+      arg4 = arg2
+      arg5 = "explosions"
+      arg6 = "react_blown_forwards"
+      arg7 = nil
+      cmgCall = 3.0
+      arg3(arg4, arg5, arg6, arg7, cmgCall)
+      arg3 = Wait
+      arg4 = 1100
+      arg3(arg4)
   end
-  elseif SHX0_2 then
-    SHX2_2 = SHX12_1
-    SHX3_2 = SHX1_2
-    SHX4_2 = "amb@world_human_sunbathe@male@front@enter"
-    SHX5_2 = "enter"
-    SHX6_2 = nil
-    SHX7_2 = nil
-    SHX8_2 = -1
-    SHX9_2 = 0.3
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX2_2 = Wait
-    SHX3_2 = 1500
-    SHX2_2(SHX3_2)
+  elseif arg1 then
+    arg3 = workValue4
+    arg4 = arg2
+    arg5 = "amb@world_human_sunbathe@male@front@enter"
+    arg6 = "enter"
+    arg7 = nil
+    cmgCall = nil
+    workValue18 = -1
+    numberValue17 = 0.3
+    arg3(arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17)
+    arg3 = Wait
+    arg4 = 1500
+    arg3(arg4)
   else
-    SHX2_2 = SHX12_1
-    SHX3_2 = SHX1_2
-    SHX4_2 = "amb@world_human_sunbathe@male@front@enter"
-    SHX5_2 = "enter"
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = Wait
-    SHX3_2 = 3000
-    SHX2_2(SHX3_2)
+    arg3 = workValue4
+    arg4 = arg2
+    arg5 = "amb@world_human_sunbathe@male@front@enter"
+    arg6 = "enter"
+    arg3(arg4, arg5, arg6)
+    arg3 = Wait
+    arg4 = 3000
+    arg3(arg4)
   end
-  SHX2_2 = SHX11_1
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityInWater
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = SHX20_1
-      SHX3_2 = SHX1_2
-      SHX4_2 = nil
-      SHX5_2 = 3.0
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+  arg3 = workValue2
+  arg4 = arg2
+  arg5 = false
+  arg3 = arg3(arg4, arg5)
+  if arg3 then
+    arg3 = IsEntityInWater
+    arg4 = arg2
+    arg3 = arg3(arg4)
+    if not arg3 then
+      arg3 = workValue11
+      arg4 = arg2
+      arg5 = nil
+      arg6 = 3.0
+      arg3(arg4, arg5, arg6)
     end
   end
-  SHX2_2 = false
-  SHX6_1 = SHX2_2
-  SHX2_2 = SHX24_1
-  SHX2_2()
+  arg3 = false
+  flag13 = arg3
+  arg3 = workValue15
+  arg3()
 end
-SHX26_1 = _ENV
-SHX27_1 = "CreateThread"
-SHX26_1 = SHX26_1[SHX27_1]
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX0_1.crouchKeybindEnabled
-  if SHX0_2 then
-    SHX0_2 = RegisterKeyMapping
-    SHX1_2 = "+crouch"
-    SHX2_2 = SHX0_1.localization
-    SHX2_2 = SHX2_2.crouch_keymapping
-    SHX3_2 = "keyboard"
-    SHX4_2 = SHX0_1.crouchKeybind
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.registerCommand
-    SHX1_2 = "+crouch"
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX18_1
-      SHX0_3()
+workValue17 = _ENV
+threadCall = "CreateThread"
+workValue17 = workValue17[threadCall]
+function threadCall()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = dataTable.crouchKeybindEnabled
+  if arg1 then
+    arg1 = RegisterKeyMapping
+    arg2 = "+crouch"
+    arg3 = dataTable.localization
+    arg3 = arg3.crouch_keymapping
+    arg4 = "keyboard"
+    arg5 = dataTable.crouchKeybind
+    -- Beginner: Bind a command to a keyboard/controller key.
+    arg1(arg2, arg3, arg4, arg5)
+    arg1 = CMG
+    arg1 = arg1.registerCommand
+    arg2 = "+crouch"
+    function arg3()
+      local playerPed, flag5
+      playerPed = workValue9
+      playerPed()
     end
-    SHX3_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.registerCommand
-    SHX1_2 = "-crouch"
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    arg4 = false
+    arg1(arg2, arg3, arg4)
+    arg1 = CMG
+    arg1 = arg1.registerCommand
+    arg2 = "-crouch"
+    function arg3()
+      local playerPed, flag5
     end
-    SHX3_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+    arg4 = false
+    arg1(arg2, arg3, arg4)
   end
-  SHX0_2 = RegisterCommand
-  SHX1_2 = "crouch"
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = GetFrameCount
-    SHX0_3 = SHX0_3()
-    SHX1_3 = SHX10_1
-    if SHX0_3 == SHX1_3 then
+  arg1 = RegisterCommand
+  arg2 = "crouch"
+  -- Beginner: this function is the command handler for "crouch".
+  function arg3()
+    local playerPed, flag5
+    playerPed = GetFrameCount
+    playerPed = playerPed()
+    flag5 = numberValue
+    if playerPed == flag5 then
       return
     end
-    SHX0_3 = GetFrameCount
-    SHX0_3 = SHX0_3()
-    SHX10_1 = SHX0_3
-    SHX0_3 = SHX4_1
-    if SHX0_3 then
-      SHX0_3 = false
-      SHX4_1 = SHX0_3
+    playerPed = GetFrameCount
+    playerPed = playerPed()
+    numberValue = playerPed
+    playerPed = flag10
+    if playerPed then
+      playerPed = false
+      flag10 = playerPed
       return
     end
-    SHX0_3 = SHX17_1
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX0_3(SHX1_3)
+    playerPed = workValue8
+    flag5 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    flag5 = flag5()
+    playerPed(flag5)
   end
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "chat:addSuggestion"
-  SHX2_2 = "/crouch"
-  SHX3_2 = SHX0_1.localization
-  SHX3_2 = SHX3_2.crouch_chat_suggestion
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = SHX0_1.crawlKeybindEnabled
-  if SHX0_2 then
-    SHX0_2 = RegisterKeyMapping
-    SHX1_2 = "+crawl"
-    SHX2_2 = SHX0_1.localization
-    SHX2_2 = SHX2_2.crawl_keymapping
-    SHX3_2 = "keyboard"
-    SHX4_2 = SHX0_1.crawlKeybind
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.registerCommand
-    SHX1_2 = "+crawl"
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = SHX25_1
-      SHX0_3()
+  arg4 = false
+  -- Beginner: Register a chat/console command. Event/command: "crouch".
+  arg1(arg2, arg3, arg4)
+  arg1 = TriggerEvent
+  arg2 = "chat:addSuggestion"
+  arg3 = "/crouch"
+  arg4 = dataTable.localization
+  arg4 = arg4.crouch_chat_suggestion
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+  arg1(arg2, arg3, arg4)
+  arg1 = dataTable.crawlKeybindEnabled
+  if arg1 then
+    arg1 = RegisterKeyMapping
+    arg2 = "+crawl"
+    arg3 = dataTable.localization
+    arg3 = arg3.crawl_keymapping
+    arg4 = "keyboard"
+    arg5 = dataTable.crawlKeybind
+    -- Beginner: Bind a command to a keyboard/controller key.
+    arg1(arg2, arg3, arg4, arg5)
+    arg1 = CMG
+    arg1 = arg1.registerCommand
+    arg2 = "+crawl"
+    function arg3()
+      local playerPed, flag5
+      playerPed = workValue16
+      playerPed()
     end
-    SHX3_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.registerCommand
-    SHX1_2 = "-crawl"
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    arg4 = false
+    arg1(arg2, arg3, arg4)
+    arg1 = CMG
+    arg1 = arg1.registerCommand
+    arg2 = "-crawl"
+    function arg3()
+      local playerPed, flag5
     end
-    SHX3_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+    arg4 = false
+    arg1(arg2, arg3, arg4)
   end
-  SHX0_2 = RegisterCommand
-  SHX1_2 = "crawl"
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX25_1
-    SHX0_3()
+  arg1 = RegisterCommand
+  arg2 = "crawl"
+  -- Beginner: this function is the command handler for "crawl".
+  function arg3()
+    local playerPed, flag5
+    playerPed = workValue16
+    playerPed()
   end
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "chat:addSuggestion"
-  SHX2_2 = "/crouch"
-  SHX3_2 = SHX0_1.localization
-  SHX3_2 = SHX3_2.crawl_chat_suggestion
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+  arg4 = false
+  -- Beginner: Register a chat/console command. Event/command: "crawl".
+  arg1(arg2, arg3, arg4)
+  arg1 = TriggerEvent
+  arg2 = "chat:addSuggestion"
+  arg3 = "/crouch"
+  arg4 = dataTable.localization
+  arg4 = arg4.crawl_chat_suggestion
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+  arg1(arg2, arg3, arg4)
 end
-SHX26_1(SHX27_1)
+workValue17(threadCall)

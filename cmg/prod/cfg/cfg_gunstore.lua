@@ -1,3 +1,25 @@
+--[[
+    BEGINNER GUIDE — Gunstore
+    =========================
+
+    File: cmg/prod/cfg/cfg_gunstore.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/weapons
+
+    Example player-facing text in this file:
+      * M4A1-S Player Two
+
+]]
 local cfgWeapons = CMG.loadModule("cfg/weapons")
 
 local cfg = {}

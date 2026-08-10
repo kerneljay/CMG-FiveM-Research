@@ -1,4 +1,84 @@
 --[[
+    Beginner Guide: cl_trapper.lua
+    ==============================
+
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Config/modules used:
+      * cfg/cfg_trapper
+
+    Commands:
+      * /trapnetspeech
+
+    Important events used:
+      * CMG:requestTrapperConfig
+      * CMG:trapNetContacts
+      * CMG:trapNetOpened
+      * CMG:trapNetOrder
+      * CMG:trapNetOrderLegalSupply
+      * CMG:trapNetRequestContacts
+      * ae47027072
+      * onResourceStop
+
+    Exports:
+      * getTrapperNPC
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Trapper
+    ========================
+
+    File: cmg/prod/client/jobs/trapper/cl_trapper.lua
+    Purpose: This file contains job gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Config/data used:
+      * cfg/cfg_trapper
+
+    Commands/command-like entries found:
+      * trapnetspeech
+
+    Network/hash identifiers found: 61
+      They are intentionally left unchanged because matching server code may use them.
+
+    Named framework/network events found:
+      * CMG:trapNetOpened
+      * CMG:trapNetOrder
+      * CMG:trapNetOrderLegalSupply
+      * CMG:requestTrapperConfig
+      * CMG:trapNetGotConfig
+      * CMG:trapNetContacts
+      * CMG:trapNetRequestContacts
+
+    Example player-facing text in this file:
+      * Press F6 to get started
+      * ~r~You are already inside a warehouse.
+      * ~r~You can not enter a warehouse with a combat timer.
+      * Press [F] to enter warehouse
+      * ~r~You must be on the Trapper job to use the warehouse seller.
+
+]]
+--[[
     CMG TRAPPER / DRUG DEN WAREHOUSE
     Beginner-Friendly Rewrite / Learning Version
     ===============================================================
@@ -8,9 +88,9 @@
     The supplied file was a very large Lua decompile.  It used temporary
     variables such as:
 
-        SHX0_1
-        SHX94_2
-        SHX173_4
+        workValue
+        workValue4
+        workValue2
 
     Those are decompiler "register" names, not names written by the original
     developer, so they make a simple idea extremely hard to understand.
@@ -1269,6 +1349,7 @@ local function previewWarehouse(
     -- This keeps it separate from the real world.
     -------------------------------------------------------------
 
+    -- Beginner: Request/load a GTA model before spawning or applying it.
     CMG.loadModel(warehouseId)
 
     local shellCoords =
@@ -1352,6 +1433,7 @@ local function previewWarehouse(
         originalHeading
     )
 
+    -- Beginner: Delete a GTA entity.
     DeleteEntity(shell)
 
     SetModelAsNoLongerNeeded(
@@ -1376,8 +1458,10 @@ CMG.uiRegisterCallback(
         end
 
         -- Original client fires this local event before previewing.
+        -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "b4fcca60d5".
         TriggerEvent("b4fcca60d5")
 
+        -- Beginner: Start a separate FiveM thread so this code can run independently.
         Citizen.CreateThread(function()
             Wait(400)
 
@@ -1579,6 +1663,7 @@ CMG.uiRegisterCallback(
 -- 21. SERVER -> UI RESULT EVENTS
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.KEY_HOLDERS_RESULT)
 
 AddEventHandler(
@@ -1597,6 +1682,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.LEADERBOARD_RESULT)
 
 AddEventHandler(
@@ -1612,6 +1698,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.LEVELS_RESULT)
 
 AddEventHandler(
@@ -1729,6 +1816,7 @@ AddEventHandler(
 -- 23. ORDER CONFIRMATION
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.ORDER_CONFIRMED)
 
 AddEventHandler(
@@ -1758,6 +1846,7 @@ AddEventHandler(
 -- 24. DELIVERY TIMER
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.DELIVERY_TIMER)
 
 AddEventHandler(
@@ -1813,6 +1902,7 @@ local function createTrapNetDelivery(
         deliveryPedModel
         or DELIVERY_PED_MODEL
 
+    -- Beginner: Request/load a GTA model before spawning or applying it.
     CMG.loadModel(deliveryPedModel)
     CMG.loadModel(DELIVERY_BOX_MODEL)
 
@@ -1953,6 +2043,7 @@ local function createTrapNetDelivery(
         box
 
     local boxCoords =
+        -- Beginner: Read an entity's world coordinates.
         GetEntityCoords(box)
 
     TriggerServerEvent(
@@ -1991,6 +2082,7 @@ local function createTrapNetDelivery(
     )
 end
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.START_DELIVERY)
 
 AddEventHandler(
@@ -2119,6 +2211,7 @@ AddEventHandler(
 -- 28. ITEM RECEIVED
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.ITEM_RECEIVED)
 
 AddEventHandler(
@@ -2197,6 +2290,7 @@ local function validBuyerEntity(
 
     if contact and contact.coords then
         if #(
+            -- Beginner: Read an entity's world coordinates.
             GetEntityCoords(entity)
             - contact.coords
         ) > 12.0 then
@@ -2371,7 +2465,9 @@ AddEventHandler(
             return
         end
 
+        -- Beginner: Request/load a GTA model before spawning or applying it.
         CMG.loadModel(model)
+        -- Beginner: Load a GTA animation dictionary before using it.
         CMG.loadAnimDict("mp_common")
 
         tCMG.setCanAnim(false)
@@ -2430,6 +2526,7 @@ AddEventHandler(
         Wait(1500)
 
         if DoesEntityExist(object) then
+            -- Beginner: Delete a GTA entity.
             DeleteEntity(object)
         end
 
@@ -2449,6 +2546,7 @@ AddEventHandler(
 -- 32. BUYER REFUSAL
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.BUYER_REFUSED)
 
 AddEventHandler(
@@ -2521,6 +2619,7 @@ local function deleteExtraObjects(runtimeObject)
         or {}
     ) do
         if DoesEntityExist(entity) then
+            -- Beginner: Delete a GTA entity.
             DeleteEntity(entity)
         end
     end
@@ -2694,6 +2793,7 @@ local function normaliseShelfSlots(slots)
     return result
 end
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_SHELF)
 
 AddEventHandler(
@@ -2777,6 +2877,7 @@ AddEventHandler(
                 oldObject
             )
 
+        -- Beginner: Delete a GTA entity.
         DeleteEntity(oldObject)
 
         CMG.loadModel(
@@ -3154,6 +3255,7 @@ local function beginWeedWorkbenchSession(
         mode
     )
 
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
     Citizen.CreateThread(function()
         if mode == "trim" then
             drawNativeNotification(
@@ -3363,6 +3465,7 @@ end
 -- 48. LOAD / ENTER WAREHOUSE
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.LOAD_WAREHOUSE)
 
 AddEventHandler(
@@ -3429,6 +3532,7 @@ AddEventHandler(
             or definition.model
             or warehouseName
 
+        -- Beginner: Request/load a GTA model before spawning or applying it.
         CMG.loadModel(shellModel)
 
         ---------------------------------------------------------
@@ -3547,6 +3651,7 @@ AddEventHandler(
 -- 49. UNLOAD WAREHOUSE
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UNLOAD_WAREHOUSE)
 
 AddEventHandler(
@@ -3633,6 +3738,7 @@ end
 -- 52. INITIAL CLIENT SETUP
 ---------------------------------------------------------------------
 
+-- Beginner: Start a separate FiveM thread so this code can run independently.
 Citizen.CreateThread(function()
     -------------------------------------------------------------
     -- Build seller + currently known entrances.
@@ -3704,7 +3810,7 @@ AddEventHandler(
 --   G. CMG.processWeedBud() / CMG.processWeedBag()
 --      Starts the first-person workbench minigames.
 --
--- This is far easier than trying to follow SHX0_1 -> SHX97_2 -> SHX5_4.
+-- This is far easier than trying to follow workValue -> workValue5 -> workValue3.
 --
 -- FOR EXACT ANIMATION / PLACEMENT GEOMETRY:
 --

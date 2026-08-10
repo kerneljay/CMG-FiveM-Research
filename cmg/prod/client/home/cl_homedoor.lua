@@ -1,320 +1,297 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Home Door Peephole
+    ==================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/homes"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = nil
-SHX2_1 = nil
-SHX3_1 = false
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.showAllDisplays
-    SHX1_2 = "peephole"
-    SHX0_2(SHX1_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.setHomeExitForcesOpenMenu
-    SHX1_2 = true
-    SHX0_2(SHX1_2)
-    SHX0_2 = RenderScriptCams
-    SHX1_2 = false
-    SHX2_2 = false
-    SHX3_2 = 0
-    SHX4_2 = false
-    SHX5_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = SetCamActive
-    SHX1_2 = SHX2_1
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = DestroyCam
-    SHX1_2 = SHX2_1
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = nil
-    SHX2_1 = SHX0_2
-    SHX0_2 = SHX3_1
-    if SHX0_2 then
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "536b0723e3"
-      SHX2_2 = SHX1_1
-      SHX0_2(SHX1_2, SHX2_2)
+    Config: cfg/homes
+
+    Homes can buy a door peephole for £50,000.
+
+    Once owned, the home-exit menu receives:
+      "View Peephole"
+
+    Viewing:
+      * creates a scripted camera at the home's outside entry point
+      * hides normal HUD/displays
+      * prevents the exit menu being forced open
+      * disables normal controls
+      * BACKSPACE exits
+      * when editing rotation, horizontal mouse movement rotates the camera
+
+    Home-customisation menu:
+      no peephole -> "Purchase" (£50,000)
+      owned       -> "Edit Rotation"
+
+    Server events:
+      65628adf18(heading) -> peephole now exists / set its heading
+      97c2f3afb4          -> remove peephole
+      12558d4fd3          -> purchase request
+      536b0723e3(heading) -> save edited rotation
+
+    Hash-looking event names are deliberately unchanged.
+]]
+
+local homesConfig =
+    CMG.loadModule(
+        "cfg/homes"
+    )
+
+local peepholeHeading = nil
+local peepholeCamera = nil
+
+local editingRotation = false
+
+
+-- ============================================================
+-- CLOSE CAMERA
+-- ============================================================
+
+local function closePeephole()
+    if not peepholeCamera then
+        return
     end
-    SHX0_2 = false
-    SHX3_1 = SHX0_2
-  end
+
+    CMG.showAllDisplays(
+        "peephole"
+    )
+
+    CMG.setHomeExitForcesOpenMenu(
+        true
+    )
+
+    RenderScriptCams(
+        false,
+        false,
+        0,
+        false,
+        false
+    )
+
+    SetCamActive(
+        peepholeCamera,
+        false
+    )
+
+    DestroyCam(
+        peepholeCamera,
+        false
+    )
+
+    peepholeCamera = nil
+
+    if editingRotation then
+        TriggerServerEvent(
+            "536b0723e3",
+            peepholeHeading
+        )
+    end
+
+    editingRotation = false
 end
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = assert
-  SHX1_2 = SHX1_1
-  SHX2_2 = "Peephole heading is required to enter camera"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isInHouse
-  SHX0_2, SHX1_2 = SHX0_2()
-  SHX2_2 = SHX0_1.homes
-  SHX2_2 = SHX2_2[SHX1_2]
-  SHX2_2 = SHX2_2.entry_point
-  SHX3_2 = CreateCamWithParams
-  SHX4_2 = "DEFAULT_SCRIPTED_CAMERA"
-  SHX5_2 = SHX2_2[1]
-  SHX6_2 = SHX2_2[2]
-  SHX7_2 = SHX2_2[3]
-  SHX7_2 = SHX7_2 + 0.5
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = SHX1_1
-  SHX11_2 = 165.0
-  SHX12_2 = true
-  SHX13_2 = 2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX2_1 = SHX3_2
-  SHX3_2 = RenderScriptCams
-  SHX4_2 = true
-  SHX5_2 = false
-  SHX6_2 = 0
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.hideAllDisplays
-  SHX4_2 = "peephole"
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.setHomeExitForcesOpenMenu
-  SHX4_2 = false
-  SHX3_2(SHX4_2)
-  SHX3_2 = RageUI
-  SHX3_2 = SHX3_2.CloseAll
-  SHX3_2()
-  while true do
-    SHX3_2 = SHX2_1
-    if not SHX3_2 then
-      break
+
+
+-- ============================================================
+-- OPEN CAMERA
+-- ============================================================
+
+local function openPeephole()
+    assert(
+        peepholeHeading,
+        "Peephole heading is required to enter camera"
+    )
+
+    local _, homeId =
+        CMG.isInHouse()
+
+    local home =
+        homesConfig.homes[
+            homeId
+        ]
+
+    if not home then
+        return
     end
-    SHX3_2 = DisableAllControlActions
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
-    SHX3_2 = IsDisabledControlJustReleased
-    SHX4_2 = 0
-    SHX5_2 = 202
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if SHX3_2 then
-      SHX3_2 = SHX4_1
-      SHX3_2()
-    end
-    SHX3_2 = SHX3_1
-    if SHX3_2 then
-      SHX3_2 = GetDisabledControlNormal
-      SHX4_2 = 0
-      SHX5_2 = 1
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      SHX4_2 = SHX1_1
-      SHX5_2 = GetFrameTime
-      SHX5_2 = SHX5_2()
-      SHX5_2 = SHX5_2 * SHX3_2
-      SHX5_2 = SHX5_2 * -150.0
-      SHX4_2 = SHX4_2 + SHX5_2
-      SHX1_1 = SHX4_2
-      SHX4_2 = SHX1_1
-      SHX5_2 = 360.0
-      if SHX4_2 > SHX5_2 then
-        SHX4_2 = 0.0
-        SHX1_1 = SHX4_2
-      else
-        SHX4_2 = SHX1_1
-        if SHX4_2 < 0.0 then
-          SHX4_2 = 360.0
-          SHX1_1 = SHX4_2
+
+    local entryPoint =
+        home.entry_point
+
+    peepholeCamera =
+        CreateCamWithParams(
+            "DEFAULT_SCRIPTED_CAMERA",
+            entryPoint[1],
+            entryPoint[2],
+            entryPoint[3] + 0.5,
+            0.0,
+            0.0,
+            peepholeHeading,
+            165.0,
+            true,
+            2
+        )
+
+    RenderScriptCams(
+        true,
+        false,
+        0,
+        false,
+        false
+    )
+
+    CMG.hideAllDisplays(
+        "peephole"
+    )
+
+    CMG.setHomeExitForcesOpenMenu(
+        false
+    )
+
+    RageUI.CloseAll()
+
+    while peepholeCamera do
+        DisableAllControlActions(0)
+
+        -- Back / ESC.
+        if IsDisabledControlJustReleased(
+            0,
+            202
+        ) then
+            closePeephole()
         end
-      end
-      SHX4_2 = SetCamRot
-      SHX5_2 = SHX2_1
-      SHX6_2 = 0.0
-      SHX7_2 = 0.0
-      SHX8_2 = SHX1_1
-      SHX9_2 = 2
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+
+        if editingRotation
+            and peepholeCamera then
+
+            local mouseX =
+                GetDisabledControlNormal(
+                    0,
+                    1
+                )
+
+            peepholeHeading =
+                peepholeHeading
+                + GetFrameTime()
+                    * mouseX
+                    * -150.0
+
+            if peepholeHeading > 360.0 then
+                peepholeHeading = 0.0
+
+            elseif peepholeHeading < 0.0 then
+                peepholeHeading = 360.0
+            end
+
+            SetCamRot(
+                peepholeCamera,
+                0.0,
+                0.0,
+                peepholeHeading,
+                2
+            )
+        end
+
+        Citizen.Wait(0)
     end
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
-  end
 end
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.registerHomeCustomisationButtons
-SHX7_1 = "Door Peephole"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Separator
-  SHX1_2 = "~y~Allows you to view through your door"
-  SHX0_2(SHX1_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Separator
-  SHX1_2 = "~y~This can be accessed by the exit"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.ButtonWithStyle
-    SHX1_2 = "Edit Rotation"
-    SHX2_2 = ""
-    SHX3_2 = {}
-    SHX3_2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_2 = true
-    function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_3, SHX4_3
-      if SHX2_3 then
-        SHX3_3 = true
-        SHX3_1 = SHX3_3
-        SHX3_3 = Citizen
-        SHX3_3 = SHX3_3.CreateThread
-        SHX4_3 = SHX5_1
-        SHX3_3(SHX4_3)
-      end
+
+
+-- ============================================================
+-- HOME CUSTOMISATION BUTTON
+-- ============================================================
+
+CMG.registerHomeCustomisationButtons(
+    "Door Peephole",
+    function()
+        RageUI.Separator(
+            "~y~Allows you to view through your door"
+        )
+
+        RageUI.Separator(
+            "~y~This can be accessed by the exit"
+        )
+
+        if peepholeHeading then
+            RageUI.ButtonWithStyle(
+                "Edit Rotation",
+                "",
+                {RightLabel = "→→→"},
+                true,
+                function(_, _, selected)
+                    if selected then
+                        editingRotation =
+                            true
+
+                        Citizen.CreateThread(
+                            openPeephole
+                        )
+                    end
+                end
+            )
+        else
+            RageUI.ButtonWithStyle(
+                "Purchase",
+                "",
+                {RightLabel = "£50,000"},
+                true,
+                function(_, _, selected)
+                    if selected then
+                        TriggerServerEvent(
+                            "12558d4fd3"
+                        )
+                    end
+                end
+            )
+        end
     end
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  else
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.ButtonWithStyle
-    SHX1_2 = "Purchase"
-    SHX2_2 = ""
-    SHX3_2 = {}
-    SHX3_2.RightLabel = "\194\16350,000"
-    SHX4_2 = true
-    function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_3, SHX4_3
-      if SHX2_3 then
-        SHX3_3 = TriggerServerEvent
-        SHX4_3 = "12558d4fd3"
-        SHX3_3(SHX4_3)
-      end
+)
+
+
+-- ============================================================
+-- HOME EXIT BUTTON
+-- ============================================================
+
+local function drawPeepholeExitButton()
+    RageUI.ButtonWithStyle(
+        "View Peephole",
+        nil,
+        {RightLabel = "→→→"},
+        true,
+        function(_, _, selected)
+            if selected
+                and not peepholeCamera then
+
+                Citizen.CreateThread(
+                    openPeephole
+                )
+            end
+        end
+    )
+end
+
+
+-- Server says this home owns a peephole and supplies its saved heading.
+RegisterNetEvent(
+    "65628adf18",
+    function(heading)
+        peepholeHeading =
+            heading
+
+        CMG.registerHomeExitButtons(
+            "peephole",
+            drawPeepholeExitButton
+        )
     end
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  end
-end
-SHX6_1(SHX7_1, SHX8_1)
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.ButtonWithStyle
-  SHX1_2 = "View Peephole"
-  SHX2_2 = nil
-  SHX3_2 = {}
-  SHX3_2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-  SHX4_2 = true
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3
-    if SHX2_3 then
-      SHX3_3 = SHX2_1
-      if not SHX3_3 then
-        SHX3_3 = Citizen
-        SHX3_3 = SHX3_3.CreateThread
-        SHX4_3 = SHX5_1
-        SHX3_3(SHX4_3)
-      end
+)
+
+
+-- Server removes the peephole.
+RegisterNetEvent(
+    "97c2f3afb4",
+    function()
+        closePeephole()
+
+        peepholeHeading = nil
+
+        CMG.unregisterHomeExitButtons(
+            "peephole"
+        )
     end
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-end
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "65628adf18"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_1 = SHX0_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.registerHomeExitButtons
-  SHX2_2 = "peephole"
-  SHX3_2 = SHX6_1
-  SHX1_2(SHX2_2, SHX3_2)
-end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "97c2f3afb4"
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1
-  SHX0_2()
-  SHX0_2 = nil
-  SHX1_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.unregisterHomeExitButtons
-  SHX1_2 = "peephole"
-  SHX0_2(SHX1_2)
-end
-SHX7_1(SHX8_1, SHX9_1)
+)

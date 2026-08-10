@@ -1,798 +1,701 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: oop.lua
+    =======================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1
-SHX0_1 = {}
-Luaoop = SHX0_1
-SHX0_1 = string
-SHX0_1 = SHX0_1.find
-SHX1_1 = _VERSION
-SHX2_1 = "5.1"
-SHX0_1 = SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = nil ~= SHX0_1
-SHX1_1 = getmetatable
-SHX2_1 = setmetatable
-SHX3_1 = pairs
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = SHX0_2.luaoop
-  SHX2_2 = SHX2_2.custom
-  if not SHX2_2 then
-    SHX2_2 = {}
-    SHX3_2 = SHX3_1
-    SHX4_2 = SHX0_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX2_2[SHX7_2] = SHX8_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Oop
+    ====================
+
+    File: cmg/prod/client/util/shared/oop.lua
+    Purpose: This file contains shared utility code.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+]]
+local stringHelper, tableHelper, tableHelper2, iterator, workValue26, workValue28, workValue30, workValue32, workValue34, workValue36, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue12, workValue14, workValue16, workValue18, workValue20, workValue21, workValue22, workValue23, workValue24, dataTable2, dataTable3, workValue25
+stringHelper = {}
+Luaoop = stringHelper
+stringHelper = string
+stringHelper = stringHelper.find
+tableHelper = _VERSION
+tableHelper2 = "5.1"
+stringHelper = stringHelper(tableHelper, tableHelper2)
+stringHelper = nil ~= stringHelper
+tableHelper = getmetatable
+tableHelper2 = setmetatable
+iterator = pairs
+function workValue26(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37
+  arg3 = arg1.luaoop
+  arg3 = arg3.custom
+  if not arg3 then
+    arg3 = {}
+    arg4 = iterator
+    workValue27 = arg1
+    arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+    for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+      arg3[workValue33] = workValue35
     end
-    SHX3_2 = {}
-    SHX2_2.luaoop = SHX3_2
-    SHX3_2 = SHX3_1
-    SHX4_2 = SHX0_2.luaoop
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = SHX2_2.luaoop
-      SHX9_2[SHX7_2] = SHX8_2
+    arg4 = {}
+    arg3.luaoop = arg4
+    arg4 = iterator
+    workValue27 = arg1.luaoop
+    arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+    for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+      workValue37 = arg3.luaoop
+      workValue37[workValue33] = workValue35
     end
-    SHX3_2 = SHX2_2.luaoop
-    SHX3_2.custom = true
-    SHX3_2 = SHX2_1
-    SHX4_2 = SHX1_2
-    SHX5_2 = SHX2_2
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX0_2 = SHX2_2
+    arg4 = arg3.luaoop
+    arg4.custom = true
+    arg4 = tableHelper2
+    workValue27 = arg2
+    workValue29 = arg3
+    arg4(workValue27, workValue29)
+    arg1 = arg3
   end
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX0_2.luaoop
-  return SHX2_2, SHX3_2
+  arg3 = arg1
+  arg4 = arg1.luaoop
+  return arg3, arg4
 end
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  if SHX0_2 then
-    SHX1_2 = SHX1_1
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = nil
-    if SHX1_2 then
-      SHX2_2 = SHX1_2.luaoop
+function workValue28(arg1)
+  local arg2, arg3, arg4
+  if arg1 then
+    arg2 = tableHelper
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg3 = nil
+    if arg2 then
+      arg3 = arg2.luaoop
     end
-    if SHX2_2 then
-      SHX3_2 = SHX2_2.type
-      if not SHX3_2 then
-        SHX3_2 = SHX0_2
+    if arg3 then
+      arg4 = arg3.type
+      if not arg4 then
+        arg4 = arg1
       end
-      return SHX3_2
+      return arg4
     end
   end
 end
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  if SHX0_2 then
-    SHX1_2 = SHX1_1
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = nil
-    if SHX1_2 then
-      SHX2_2 = SHX1_2.luaoop
+function workValue30(arg1)
+  local arg2, arg3, arg4
+  if arg1 then
+    arg2 = tableHelper
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg3 = nil
+    if arg2 then
+      arg3 = arg2.luaoop
     end
-    if SHX2_2 then
-      SHX3_2 = SHX2_2.name
-      return SHX3_2
+    if arg3 then
+      arg4 = arg3.name
+      return arg4
     end
   end
 end
-function SHX7_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX4_2 = SHX1_1
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = nil
-  if SHX4_2 then
-    SHX5_2 = SHX4_2.luaoop
+function workValue32(arg1, arg2, arg3, arg4)
+  local workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2, textValue3, numberValue, stringHelper3
+  workValue27 = tableHelper
+  workValue29 = arg1
+  workValue27 = workValue27(workValue29)
+  workValue29 = nil
+  if workValue27 then
+    workValue29 = workValue27.luaoop
   end
-  if SHX5_2 then
-    SHX6_2 = SHX5_2.type
-    if SHX6_2 then
-      SHX6_2 = nil
-      SHX7_2 = nil
-      if nil ~= SHX2_2 then
-        SHX8_2 = SHX5_1
-        SHX9_2 = SHX2_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        SHX6_2 = SHX8_2
-        if not SHX6_2 then
-          SHX8_2 = type
-          SHX9_2 = SHX2_2
-          SHX8_2 = SHX8_2(SHX9_2)
-          SHX6_2 = SHX8_2
+  if workValue29 then
+    workValue31 = workValue29.type
+    if workValue31 then
+      workValue31 = nil
+      workValue33 = nil
+      if nil ~= arg3 then
+        workValue35 = workValue28
+        workValue37 = arg3
+        workValue35 = workValue35(workValue37)
+        workValue31 = workValue35
+        if not workValue31 then
+          workValue35 = type
+          workValue37 = arg3
+          workValue35 = workValue35(workValue37)
+          workValue31 = workValue35
         end
-        SHX8_2 = SHX5_2.type
-        SHX8_2 = SHX8_2[SHX1_2]
-        SHX7_2 = SHX8_2[SHX6_2]
+        workValue35 = workValue29.type
+        workValue35 = workValue35[arg2]
+        workValue33 = workValue35[workValue31]
       else
-        SHX8_2 = SHX5_2.type
-        SHX7_2 = SHX8_2[SHX1_2]
+        workValue35 = workValue29.type
+        workValue33 = workValue35[arg2]
       end
-      if SHX7_2 then
-        return SHX7_2
-      elseif not SHX3_2 then
-        SHX8_2 = nil
-        if nil == SHX6_2 then
-          SHX8_2 = "nil"
+      if workValue33 then
+        return workValue33
+      elseif not arg4 then
+        workValue35 = nil
+        if nil == workValue31 then
+          workValue35 = "nil"
         else
-          SHX9_2 = type
-          SHX10_2 = SHX6_2
-          SHX9_2 = SHX9_2(SHX10_2)
-          if "string" == SHX9_2 then
-            SHX8_2 = SHX6_2
+          workValue37 = type
+          textValue = workValue31
+          workValue37 = workValue37(textValue)
+          if "string" == workValue37 then
+            workValue35 = workValue31
           else
-            SHX9_2 = SHX6_1
-            SHX10_2 = SHX6_2
-            SHX9_2 = SHX9_2(SHX10_2)
-            SHX8_2 = SHX9_2
+            workValue37 = workValue30
+            textValue = workValue31
+            workValue37 = workValue37(textValue)
+            workValue35 = workValue37
           end
         end
-        SHX9_2 = error
-        SHX10_2 = "operator <"
-        SHX11_2 = SHX5_2.name
-        SHX12_2 = "> ["
-        SHX13_2 = string
-        SHX13_2 = SHX13_2.sub
-        SHX14_2 = SHX1_2
-        SHX15_2 = 3
-        SHX13_2 = SHX13_2(SHX14_2, SHX15_2)
-        SHX14_2 = "] <"
-        SHX15_2 = SHX8_2
-        SHX16_2 = "> undefined"
-        SHX10_2 = SHX10_2 .. SHX11_2 .. SHX12_2 .. SHX13_2 .. SHX14_2 .. SHX15_2 .. SHX16_2
-        SHX9_2(SHX10_2)
+        workValue37 = error
+        textValue = "operator <"
+        nameValue = workValue29.name
+        textValue2 = "> ["
+        stringHelper2 = string
+        stringHelper2 = stringHelper2.sub
+        textValue3 = arg2
+        numberValue = 3
+        stringHelper2 = stringHelper2(textValue3, numberValue)
+        textValue3 = "] <"
+        numberValue = workValue35
+        stringHelper3 = "> undefined"
+        textValue = textValue .. nameValue .. textValue2 .. stringHelper2 .. textValue3 .. numberValue .. stringHelper3
+        workValue37(textValue)
       end
   end
-  elseif not SHX3_2 then
-    SHX6_2 = error
-    SHX7_2 = "left operand for operator ["
-    SHX8_2 = string
-    SHX8_2 = SHX8_2.sub
-    SHX9_2 = SHX1_2
-    SHX10_2 = 3
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = "] is not an instance"
-    SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2
-    SHX6_2(SHX7_2)
+  elseif not arg4 then
+    workValue31 = error
+    workValue33 = "left operand for operator ["
+    workValue35 = string
+    workValue35 = workValue35.sub
+    workValue37 = arg2
+    textValue = 3
+    workValue35 = workValue35(workValue37, textValue)
+    workValue37 = "] is not an instance"
+    workValue33 = workValue33 .. workValue35 .. workValue37
+    workValue31(workValue33)
   end
 end
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = SHX7_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = "__tostring"
-  SHX4_2 = nil
-  SHX5_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  if SHX1_2 then
-    SHX2_2 = SHX1_2
-    SHX3_2 = SHX0_2
-    return SHX2_2(SHX3_2)
+function workValue34(arg1)
+  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35
+  arg2 = workValue32
+  arg3 = arg1
+  arg4 = "__tostring"
+  workValue27 = nil
+  workValue29 = true
+  arg2 = arg2(arg3, arg4, workValue27, workValue29)
+  if arg2 then
+    arg3 = arg2
+    arg4 = arg1
+    return arg3(arg4)
   else
-    SHX2_2 = SHX1_1
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX2_2.__tostring = nil
-    SHX3_2 = string
-    SHX3_2 = SHX3_2.gsub
-    SHX4_2 = tostring
-    SHX5_2 = SHX0_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = "table:"
-    SHX6_2 = "instance<"
-    SHX7_2 = SHX6_1
-    SHX8_2 = SHX0_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = ">:"
-    SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-    SHX7_2 = 1
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = SHX8_1
-    SHX2_2.__tostring = SHX4_2
-    return SHX3_2
+    arg3 = tableHelper
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    arg3.__tostring = nil
+    arg4 = string
+    arg4 = arg4.gsub
+    workValue27 = tostring
+    workValue29 = arg1
+    workValue27 = workValue27(workValue29)
+    workValue29 = "table:"
+    workValue31 = "instance<"
+    workValue33 = workValue30
+    workValue35 = arg1
+    workValue33 = workValue33(workValue35)
+    workValue35 = ">:"
+    workValue31 = workValue31 .. workValue33 .. workValue35
+    workValue33 = 1
+    arg4 = arg4(workValue27, workValue29, workValue31, workValue33)
+    workValue27 = workValue34
+    arg3.__tostring = workValue27
+    return arg4
   end
 end
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__concat"
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue36(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29, workValue31
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__concat"
+  workValue29 = arg2
+  workValue31 = true
+  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
-  SHX3_2 = SHX7_1
-  SHX4_2 = SHX1_2
-  SHX5_2 = "__concat"
-  SHX6_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX1_2
-    SHX5_2 = SHX0_2
-    SHX6_2 = true
-    return SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+  arg4 = workValue32
+  workValue27 = arg2
+  workValue29 = "__concat"
+  workValue31 = arg1
+  arg4 = arg4(workValue27, workValue29, workValue31)
+  arg3 = arg4
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg2
+    workValue29 = arg1
+    workValue31 = true
+    return arg4(workValue27, workValue29, workValue31)
   end
 end
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX7_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = "__unm"
-  SHX4_2 = nil
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  if SHX1_2 then
-    SHX2_2 = SHX1_2
-    SHX3_2 = SHX0_2
-    return SHX2_2(SHX3_2)
+function workValue(arg1)
+  local arg2, arg3, arg4, workValue27
+  arg2 = workValue32
+  arg3 = arg1
+  arg4 = "__unm"
+  workValue27 = nil
+  arg2 = arg2(arg3, arg4, workValue27)
+  if arg2 then
+    arg3 = arg2
+    arg4 = arg1
+    return arg3(arg4)
   end
 end
-function SHX11_1(SHX0_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX7_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = "__call"
-  SHX4_2 = nil
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  if SHX1_2 then
-    SHX2_2 = SHX1_2
-    SHX3_2 = SHX0_2
-    SHX4_2 = ...
-    return SHX2_2(SHX3_2, SHX4_2)
+function workValue2(arg1, ...)
+  local arg2, arg3, arg4, workValue27
+  arg2 = workValue32
+  arg3 = arg1
+  arg4 = "__call"
+  workValue27 = nil
+  arg2 = arg2(arg3, arg4, workValue27)
+  if arg2 then
+    arg3 = arg2
+    arg4 = arg1
+    workValue27 = ...
+    return arg3(arg4, workValue27)
   end
 end
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__add"
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue3(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29, workValue31
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__add"
+  workValue29 = arg2
+  workValue31 = true
+  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
-  SHX3_2 = SHX7_1
-  SHX4_2 = SHX1_2
-  SHX5_2 = "__add"
-  SHX6_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX1_2
-    SHX5_2 = SHX0_2
-    return SHX3_2(SHX4_2, SHX5_2)
+  arg4 = workValue32
+  workValue27 = arg2
+  workValue29 = "__add"
+  workValue31 = arg1
+  arg4 = arg4(workValue27, workValue29, workValue31)
+  arg3 = arg4
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg2
+    workValue29 = arg1
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__sub"
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue4(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29, workValue31
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__sub"
+  workValue29 = arg2
+  workValue31 = true
+  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
-  SHX3_2 = SHX7_1
-  SHX4_2 = SHX0_2
-  SHX5_2 = "__add"
-  SHX6_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = -SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+  arg4 = workValue32
+  workValue27 = arg1
+  workValue29 = "__add"
+  workValue31 = arg2
+  arg4 = arg4(workValue27, workValue29, workValue31)
+  arg3 = arg4
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = -arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX14_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__mul"
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue5(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29, workValue31
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__mul"
+  workValue29 = arg2
+  workValue31 = true
+  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
-  SHX3_2 = SHX7_1
-  SHX4_2 = SHX1_2
-  SHX5_2 = "__mul"
-  SHX6_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX3_2
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX1_2
-    SHX5_2 = SHX0_2
-    return SHX3_2(SHX4_2, SHX5_2)
+  arg4 = workValue32
+  workValue27 = arg2
+  workValue29 = "__mul"
+  workValue31 = arg1
+  arg4 = arg4(workValue27, workValue29, workValue31)
+  arg3 = arg4
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg2
+    workValue29 = arg1
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX15_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__div"
-  SHX5_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue6(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__div"
+  workValue29 = arg2
+  arg3 = arg3(arg4, workValue27, workValue29)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__mod"
-  SHX5_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue7(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__mod"
+  workValue29 = arg2
+  arg3 = arg3(arg4, workValue27, workValue29)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX17_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__pow"
-  SHX5_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue8(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__pow"
+  workValue29 = arg2
+  arg3 = arg3(arg4, workValue27, workValue29)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX18_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__eq"
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue9(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29, workValue31
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__eq"
+  workValue29 = arg2
+  workValue31 = true
+  arg3 = arg3(arg4, workValue27, workValue29, workValue31)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX19_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__lt"
-  SHX5_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue10(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__lt"
+  workValue29 = arg2
+  arg3 = arg3(arg4, workValue27, workValue29)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX20_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX7_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = "__le"
-  SHX5_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  if SHX2_2 then
-    SHX3_2 = SHX2_2
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX1_2
-    return SHX3_2(SHX4_2, SHX5_2)
+function workValue12(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29
+  arg3 = workValue32
+  arg4 = arg1
+  workValue27 = "__le"
+  workValue29 = arg2
+  arg3 = arg3(arg4, workValue27, workValue29)
+  if arg3 then
+    arg4 = arg3
+    workValue27 = arg1
+    workValue29 = arg2
+    return arg4(workValue27, workValue29)
   end
 end
-function SHX21_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2
-  if SHX0_2 then
-    SHX1_2 = SHX1_1
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = nil
-    if SHX1_2 then
-      SHX2_2 = SHX1_2.luaoop
+function workValue14(arg1)
+  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2, textValue3, numberValue, stringHelper3, dataTable, numberValue2, numberValue3, workValue13, workValue15, workValue17, workValue19
+  if arg1 then
+    arg2 = tableHelper
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg3 = nil
+    if arg2 then
+      arg3 = arg2.luaoop
     end
-    if SHX2_2 then
-      SHX3_2 = SHX2_2.type
-      if not SHX3_2 then
-        SHX3_2 = SHX2_2.build
-        if not SHX3_2 then
-          SHX3_2 = {}
-          SHX2_2.build = SHX3_2
+    if arg3 then
+      arg4 = arg3.type
+      if not arg4 then
+        arg4 = arg3.build
+        if not arg4 then
+          arg4 = {}
+          arg3.build = arg4
         end
-        SHX3_2 = SHX3_1
-        SHX4_2 = SHX2_2.build
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX8_2 = SHX2_2.build
-          SHX8_2[SHX7_2] = nil
+        arg4 = iterator
+        workValue27 = arg3.build
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33 in arg4, workValue27, workValue29, workValue31 do
+          workValue35 = arg3.build
+          workValue35[workValue33] = nil
         end
-        SHX3_2 = SHX2_2.types
-        if not SHX3_2 then
-          SHX3_2 = {}
-          SHX2_2.types = SHX3_2
+        arg4 = arg3.types
+        if not arg4 then
+          arg4 = {}
+          arg3.types = arg4
         end
-        SHX3_2 = SHX3_1
-        SHX4_2 = SHX2_2.types
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX8_2 = SHX2_2.types
-          SHX8_2[SHX7_2] = nil
+        arg4 = iterator
+        workValue27 = arg3.types
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33 in arg4, workValue27, workValue29, workValue31 do
+          workValue35 = arg3.types
+          workValue35[workValue33] = nil
         end
-        SHX3_2 = SHX2_2.instance_build
-        if not SHX3_2 then
-          SHX3_2 = {}
-          SHX2_2.instance_build = SHX3_2
+        arg4 = arg3.instance_build
+        if not arg4 then
+          arg4 = {}
+          arg3.instance_build = arg4
         end
-        SHX3_2 = SHX3_1
-        SHX4_2 = SHX2_2.instance_build
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX8_2 = SHX2_2.instance_build
-          SHX8_2[SHX7_2] = nil
+        arg4 = iterator
+        workValue27 = arg3.instance_build
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33 in arg4, workValue27, workValue29, workValue31 do
+          workValue35 = arg3.instance_build
+          workValue35[workValue33] = nil
         end
-        SHX3_2 = ipairs
-        SHX4_2 = SHX2_2.bases
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX9_2 = SHX1_1
-          SHX10_2 = SHX8_2
-          SHX9_2 = SHX9_2(SHX10_2)
-          SHX9_2 = SHX9_2.luaoop
-          SHX10_2 = SHX3_1
-          SHX11_2 = SHX9_2.types
-          SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-          for SHX14_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-            SHX15_2 = SHX2_2.types
-            SHX15_2[SHX14_2] = true
+        arg4 = ipairs
+        workValue27 = arg3.bases
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+          workValue37 = tableHelper
+          textValue = workValue35
+          workValue37 = workValue37(textValue)
+          workValue37 = workValue37.luaoop
+          textValue = iterator
+          nameValue = workValue37.types
+          textValue, nameValue, textValue2, stringHelper2 = textValue(nameValue)
+          for textValue3 in textValue, nameValue, textValue2, stringHelper2 do
+            numberValue = arg3.types
+            numberValue[textValue3] = true
           end
-          SHX10_2 = SHX3_1
-          SHX11_2 = SHX9_2.build
-          SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-          for SHX14_2, SHX15_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-            SHX16_2 = type
-            SHX17_2 = SHX15_2
-            SHX16_2 = SHX16_2(SHX17_2)
-            if "table" == SHX16_2 then
-              SHX16_2 = string
-              SHX16_2 = SHX16_2.sub
-              SHX17_2 = SHX14_2
-              SHX18_2 = 1
-              SHX19_2 = 2
-              SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-              if "__" == SHX16_2 then
-                SHX16_2 = SHX2_2.build
-                SHX16_2 = SHX16_2[SHX14_2]
-                if not SHX16_2 then
-                  SHX17_2 = {}
-                  SHX16_2 = SHX17_2
-                  SHX17_2 = SHX2_2.build
-                  SHX17_2[SHX14_2] = SHX16_2
+          textValue = iterator
+          nameValue = workValue37.build
+          textValue, nameValue, textValue2, stringHelper2 = textValue(nameValue)
+          for textValue3, numberValue in textValue, nameValue, textValue2, stringHelper2 do
+            stringHelper3 = type
+            dataTable = numberValue
+            stringHelper3 = stringHelper3(dataTable)
+            if "table" == stringHelper3 then
+              stringHelper3 = string
+              stringHelper3 = stringHelper3.sub
+              dataTable = textValue3
+              numberValue2 = 1
+              numberValue3 = 2
+              stringHelper3 = stringHelper3(dataTable, numberValue2, numberValue3)
+              if "__" == stringHelper3 then
+                stringHelper3 = arg3.build
+                stringHelper3 = stringHelper3[textValue3]
+                if not stringHelper3 then
+                  dataTable = {}
+                  stringHelper3 = dataTable
+                  dataTable = arg3.build
+                  dataTable[textValue3] = stringHelper3
                 end
-                SHX17_2 = SHX3_1
-                SHX18_2 = SHX15_2
-                SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX17_2(SHX18_2)
-                for SHX21_2, SHX22_2 in SHX17_2, SHX18_2, SHX19_2, SHX20_2 do
-                  SHX16_2[SHX21_2] = SHX22_2
-                end
-            end
-            else
-              SHX16_2 = SHX2_2.build
-              SHX16_2[SHX14_2] = SHX15_2
-            end
-          end
-          SHX10_2 = SHX3_1
-          SHX11_2 = SHX8_2
-          SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-          for SHX14_2, SHX15_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-            SHX16_2 = type
-            SHX17_2 = SHX15_2
-            SHX16_2 = SHX16_2(SHX17_2)
-            if "table" == SHX16_2 then
-              SHX16_2 = string
-              SHX16_2 = SHX16_2.sub
-              SHX17_2 = SHX14_2
-              SHX18_2 = 1
-              SHX19_2 = 2
-              SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-              if "__" == SHX16_2 then
-                SHX16_2 = SHX2_2.build
-                SHX16_2 = SHX16_2[SHX14_2]
-                if not SHX16_2 then
-                  SHX17_2 = {}
-                  SHX16_2 = SHX17_2
-                  SHX17_2 = SHX2_2.build
-                  SHX17_2[SHX14_2] = SHX16_2
-                end
-                SHX17_2 = SHX3_1
-                SHX18_2 = SHX15_2
-                SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX17_2(SHX18_2)
-                for SHX21_2, SHX22_2 in SHX17_2, SHX18_2, SHX19_2, SHX20_2 do
-                  SHX16_2[SHX21_2] = SHX22_2
+                dataTable = iterator
+                numberValue2 = numberValue
+                dataTable, numberValue2, numberValue3, workValue13 = dataTable(numberValue2)
+                for workValue15, workValue17 in dataTable, numberValue2, numberValue3, workValue13 do
+                  stringHelper3[workValue15] = workValue17
                 end
             end
             else
-              SHX16_2 = SHX2_2.build
-              SHX16_2[SHX14_2] = SHX15_2
+              stringHelper3 = arg3.build
+              stringHelper3[textValue3] = numberValue
+            end
+          end
+          textValue = iterator
+          nameValue = workValue35
+          textValue, nameValue, textValue2, stringHelper2 = textValue(nameValue)
+          for textValue3, numberValue in textValue, nameValue, textValue2, stringHelper2 do
+            stringHelper3 = type
+            dataTable = numberValue
+            stringHelper3 = stringHelper3(dataTable)
+            if "table" == stringHelper3 then
+              stringHelper3 = string
+              stringHelper3 = stringHelper3.sub
+              dataTable = textValue3
+              numberValue2 = 1
+              numberValue3 = 2
+              stringHelper3 = stringHelper3(dataTable, numberValue2, numberValue3)
+              if "__" == stringHelper3 then
+                stringHelper3 = arg3.build
+                stringHelper3 = stringHelper3[textValue3]
+                if not stringHelper3 then
+                  dataTable = {}
+                  stringHelper3 = dataTable
+                  dataTable = arg3.build
+                  dataTable[textValue3] = stringHelper3
+                end
+                dataTable = iterator
+                numberValue2 = numberValue
+                dataTable, numberValue2, numberValue3, workValue13 = dataTable(numberValue2)
+                for workValue15, workValue17 in dataTable, numberValue2, numberValue3, workValue13 do
+                  stringHelper3[workValue15] = workValue17
+                end
+            end
+            else
+              stringHelper3 = arg3.build
+              stringHelper3[textValue3] = numberValue
             end
           end
         end
-        SHX3_2 = SHX2_2.types
-        SHX3_2[SHX0_2] = true
-        SHX3_2 = SHX2_2.__postbuild
-        if SHX3_2 then
-          SHX3_2 = SHX2_2.__postbuild
-          SHX4_2 = SHX0_2
-          SHX5_2 = SHX2_2.build
-          SHX3_2(SHX4_2, SHX5_2)
+        arg4 = arg3.types
+        arg4[arg1] = true
+        arg4 = arg3.__postbuild
+        if arg4 then
+          arg4 = arg3.__postbuild
+          workValue27 = arg1
+          workValue29 = arg3.build
+          arg4(workValue27, workValue29)
         end
-        SHX3_2 = SHX3_1
-        SHX4_2 = SHX2_2.build
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX9_2 = string
-          SHX9_2 = SHX9_2.sub
-          SHX10_2 = SHX7_2
-          SHX11_2 = 1
-          SHX12_2 = 2
-          SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-          if "__" ~= SHX9_2 then
-            SHX9_2 = SHX2_2.instance_build
-            SHX9_2[SHX7_2] = SHX8_2
+        arg4 = iterator
+        workValue27 = arg3.build
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+          workValue37 = string
+          workValue37 = workValue37.sub
+          textValue = workValue33
+          nameValue = 1
+          textValue2 = 2
+          workValue37 = workValue37(textValue, nameValue, textValue2)
+          if "__" ~= workValue37 then
+            workValue37 = arg3.instance_build
+            workValue37[workValue33] = workValue35
           end
         end
-        SHX3_2 = SHX3_1
-        SHX4_2 = SHX0_2
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX9_2 = string
-          SHX9_2 = SHX9_2.sub
-          SHX10_2 = SHX7_2
-          SHX11_2 = 1
-          SHX12_2 = 2
-          SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-          if "__" ~= SHX9_2 then
-            SHX9_2 = SHX2_2.instance_build
-            SHX9_2[SHX7_2] = SHX8_2
+        arg4 = iterator
+        workValue27 = arg1
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+          workValue37 = string
+          workValue37 = workValue37.sub
+          textValue = workValue33
+          nameValue = 1
+          textValue2 = 2
+          workValue37 = workValue37(textValue, nameValue, textValue2)
+          if "__" ~= workValue37 then
+            workValue37 = arg3.instance_build
+            workValue37[workValue33] = workValue35
           end
         end
-        SHX3_2 = SHX2_2.meta
-        if not SHX3_2 then
-          SHX3_2 = {}
-          SHX4_2 = SHX2_2.instance_build
-          SHX3_2.__index = SHX4_2
-          SHX4_2 = {}
-          SHX5_2 = SHX2_2.name
-          SHX4_2.name = SHX5_2
-          SHX5_2 = SHX2_2.types
-          SHX4_2.types = SHX5_2
-          SHX4_2.type = SHX0_2
-          SHX3_2.luaoop = SHX4_2
-          SHX4_2 = SHX11_1
-          SHX3_2.__call = SHX4_2
-          SHX4_2 = SHX10_1
-          SHX3_2.__unm = SHX4_2
-          SHX4_2 = SHX12_1
-          SHX3_2.__add = SHX4_2
-          SHX4_2 = SHX13_1
-          SHX3_2.__sub = SHX4_2
-          SHX4_2 = SHX14_1
-          SHX3_2.__mul = SHX4_2
-          SHX4_2 = SHX15_1
-          SHX3_2.__div = SHX4_2
-          SHX4_2 = SHX17_1
-          SHX3_2.__pow = SHX4_2
-          SHX4_2 = SHX16_1
-          SHX3_2.__mod = SHX4_2
-          SHX4_2 = SHX18_1
-          SHX3_2.__eq = SHX4_2
-          SHX4_2 = SHX20_1
-          SHX3_2.__le = SHX4_2
-          SHX4_2 = SHX19_1
-          SHX3_2.__lt = SHX4_2
-          SHX4_2 = SHX8_1
-          SHX3_2.__tostring = SHX4_2
-          SHX4_2 = SHX9_1
-          SHX3_2.__concat = SHX4_2
-          SHX2_2.meta = SHX3_2
-          SHX3_2 = SHX2_2.__postmeta
-          if SHX3_2 then
-            SHX3_2 = SHX2_2.__postmeta
-            SHX4_2 = SHX0_2
-            SHX5_2 = SHX2_2.meta
-            SHX3_2(SHX4_2, SHX5_2)
+        arg4 = arg3.meta
+        if not arg4 then
+          arg4 = {}
+          workValue27 = arg3.instance_build
+          arg4.__index = workValue27
+          workValue27 = {}
+          workValue29 = arg3.name
+          workValue27.name = workValue29
+          workValue29 = arg3.types
+          workValue27.types = workValue29
+          workValue27.type = arg1
+          arg4.luaoop = workValue27
+          workValue27 = workValue2
+          arg4.__call = workValue27
+          workValue27 = workValue
+          arg4.__unm = workValue27
+          workValue27 = workValue3
+          arg4.__add = workValue27
+          workValue27 = workValue4
+          arg4.__sub = workValue27
+          workValue27 = workValue5
+          arg4.__mul = workValue27
+          workValue27 = workValue6
+          arg4.__div = workValue27
+          workValue27 = workValue8
+          arg4.__pow = workValue27
+          workValue27 = workValue7
+          arg4.__mod = workValue27
+          workValue27 = workValue9
+          arg4.__eq = workValue27
+          workValue27 = workValue12
+          arg4.__le = workValue27
+          workValue27 = workValue10
+          arg4.__lt = workValue27
+          workValue27 = workValue34
+          arg4.__tostring = workValue27
+          workValue27 = workValue36
+          arg4.__concat = workValue27
+          arg3.meta = arg4
+          arg4 = arg3.__postmeta
+          if arg4 then
+            arg4 = arg3.__postmeta
+            workValue27 = arg1
+            workValue29 = arg3.meta
+            arg4(workValue27, workValue29)
           end
         end
-        SHX3_2 = SHX2_2.build
-        SHX1_2.__index = SHX3_2
-        SHX3_2 = SHX3_1
-        SHX4_2 = SHX0_2
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-        for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-          SHX9_2 = type
-          SHX10_2 = SHX8_2
-          SHX9_2 = SHX9_2(SHX10_2)
-          if "table" == SHX9_2 then
-            SHX9_2 = string
-            SHX9_2 = SHX9_2.sub
-            SHX10_2 = SHX7_2
-            SHX11_2 = 1
-            SHX12_2 = 2
-            SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-            if "__" == SHX9_2 then
-              SHX9_2 = SHX2_1
-              SHX10_2 = SHX8_2
-              SHX11_2 = {}
-              SHX12_2 = SHX2_2.build
-              SHX12_2 = SHX12_2[SHX7_2]
-              SHX11_2.__index = SHX12_2
-              SHX9_2(SHX10_2, SHX11_2)
+        arg4 = arg3.build
+        arg2.__index = arg4
+        arg4 = iterator
+        workValue27 = arg1
+        arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+        for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+          workValue37 = type
+          textValue = workValue35
+          workValue37 = workValue37(textValue)
+          if "table" == workValue37 then
+            workValue37 = string
+            workValue37 = workValue37.sub
+            textValue = workValue33
+            nameValue = 1
+            textValue2 = 2
+            workValue37 = workValue37(textValue, nameValue, textValue2)
+            if "__" == workValue37 then
+              workValue37 = tableHelper2
+              textValue = workValue35
+              nameValue = {}
+              textValue2 = arg3.build
+              textValue2 = textValue2[workValue33]
+              nameValue.__index = textValue2
+              workValue37(textValue, nameValue)
             end
           end
         end
@@ -800,352 +703,295 @@ function SHX21_1(SHX0_2)
     end
   end
 end
-function SHX22_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX1_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2.destructor
-  SHX3_2 = SHX1_2.instance
-  SHX2_2(SHX3_2)
+function workValue16(arg1)
+  local arg2, arg3, arg4
+  arg2 = tableHelper
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2.destructor
+  arg4 = arg2.instance
+  arg3(arg4)
 end
-function SHX23_1(SHX0_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = SHX1_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = nil
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.luaoop
+function workValue18(arg1, ...)
+  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2
+  arg2 = tableHelper
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = nil
+  if arg2 then
+    arg3 = arg2.luaoop
   end
-  if SHX2_2 then
-    SHX3_2 = SHX2_2.type
-    if not SHX3_2 then
-      SHX3_2 = SHX2_2.build
-      if not SHX3_2 then
-        SHX3_2 = SHX21_1
-        SHX4_2 = SHX0_2
-        SHX3_2(SHX4_2)
+  if arg3 then
+    arg4 = arg3.type
+    if not arg4 then
+      arg4 = arg3.build
+      if not arg4 then
+        arg4 = workValue14
+        workValue27 = arg1
+        arg4(workValue27)
       end
-      SHX3_2 = SHX2_2.__instantiate
-      if SHX3_2 then
-        SHX4_2 = SHX3_2
-        SHX5_2 = SHX0_2
-        SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = ...
-        return SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+      arg4 = arg3.__instantiate
+      if arg4 then
+        workValue27 = arg4
+        workValue29 = arg1
+        workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2 = ...
+        return workValue27(workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2)
       else
-        SHX4_2 = SHX2_1
-        SHX5_2 = {}
-        SHX6_2 = SHX2_2.meta
-        SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-        SHX5_2 = SHX0_2.__construct
-        SHX6_2 = SHX0_2.__destruct
-        if SHX6_2 then
-          SHX7_2 = SHX4_1
-          SHX8_2 = SHX2_2.meta
-          SHX9_2 = SHX4_2
-          SHX7_2, SHX8_2 = SHX7_2(SHX8_2, SHX9_2)
-          SHX9_2 = SHX0_1
-          if SHX9_2 then
-            SHX9_2 = newproxy
-            SHX10_2 = true
-            SHX9_2 = SHX9_2(SHX10_2)
-            SHX10_2 = SHX1_1
-            SHX11_2 = SHX9_2
-            SHX10_2 = SHX10_2(SHX11_2)
-            SHX11_2 = SHX22_1
-            SHX10_2.__gc = SHX11_2
-            SHX10_2.destructor = SHX6_2
-            SHX10_2.instance = SHX4_2
-            SHX8_2.proxy = SHX9_2
+        workValue27 = tableHelper2
+        workValue29 = {}
+        workValue31 = arg3.meta
+        workValue27 = workValue27(workValue29, workValue31)
+        workValue29 = arg1.__construct
+        workValue31 = arg1.__destruct
+        if workValue31 then
+          workValue33 = workValue26
+          workValue35 = arg3.meta
+          workValue37 = workValue27
+          workValue33, workValue35 = workValue33(workValue35, workValue37)
+          workValue37 = stringHelper
+          if workValue37 then
+            workValue37 = newproxy
+            textValue = true
+            workValue37 = workValue37(textValue)
+            textValue = tableHelper
+            nameValue = workValue37
+            textValue = textValue(nameValue)
+            nameValue = workValue16
+            textValue.__gc = nameValue
+            textValue.destructor = workValue31
+            textValue.instance = workValue27
+            workValue35.proxy = workValue37
           else
-            SHX9_2 = SHX2_1
-            SHX10_2 = {}
-            SHX11_2 = {}
-            SHX12_2 = SHX22_1
-            SHX11_2.__gc = SHX12_2
-            SHX11_2.instance = SHX4_2
-            SHX11_2.destructor = SHX6_2
-            SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-            SHX8_2.proxy = SHX9_2
+            workValue37 = tableHelper2
+            textValue = {}
+            nameValue = {}
+            textValue2 = workValue16
+            nameValue.__gc = textValue2
+            nameValue.instance = workValue27
+            nameValue.destructor = workValue31
+            workValue37 = workValue37(textValue, nameValue)
+            workValue35.proxy = workValue37
           end
         end
-        if SHX5_2 then
-          SHX7_2 = SHX5_2
-          SHX8_2 = SHX4_2
-          SHX9_2, SHX10_2, SHX11_2, SHX12_2 = ...
-          SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+        if workValue29 then
+          workValue33 = workValue29
+          workValue35 = workValue27
+          workValue37, textValue, nameValue, textValue2 = ...
+          workValue33(workValue35, workValue37, textValue, nameValue, textValue2)
         end
-        return SHX4_2
+        return workValue27
       end
     end
   end
 end
-function SHX24_1(SHX0_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "string" == SHX1_2 then
-    SHX1_2 = {}
-    SHX2_2 = {}
-    SHX1_2.__add = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__sub = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__mul = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__div = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__pow = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__mod = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__eq = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__le = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__lt = SHX2_2
-    SHX2_2 = {}
-    SHX1_2.__concat = SHX2_2
-    SHX2_2 = {}
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = ...
-    SHX2_2[1] = SHX3_2
-    SHX2_2[2] = SHX4_2
-    SHX2_2[3] = SHX5_2
-    SHX2_2[4] = SHX6_2
-    SHX2_2[5] = SHX7_2
-    SHX2_2[6] = SHX8_2
-    SHX2_2[7] = SHX9_2
-    SHX2_2[8] = SHX10_2
-    SHX2_2[9] = SHX11_2
-    SHX2_2[10] = SHX12_2
-    SHX2_2[11] = SHX13_2
-    SHX3_2 = SHX3_1
-    SHX4_2 = SHX2_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = SHX1_1
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      SHX10_2 = nil
-      if SHX9_2 then
-        SHX10_2 = SHX9_2.luaoop
+function workValue20(arg1, ...)
+  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2
+  arg2 = type
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if "string" == arg2 then
+    arg2 = {}
+    arg3 = {}
+    arg2.__add = arg3
+    arg3 = {}
+    arg2.__sub = arg3
+    arg3 = {}
+    arg2.__mul = arg3
+    arg3 = {}
+    arg2.__div = arg3
+    arg3 = {}
+    arg2.__pow = arg3
+    arg3 = {}
+    arg2.__mod = arg3
+    arg3 = {}
+    arg2.__eq = arg3
+    arg3 = {}
+    arg2.__le = arg3
+    arg3 = {}
+    arg2.__lt = arg3
+    arg3 = {}
+    arg2.__concat = arg3
+    arg3 = {}
+    arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue, nameValue, textValue2, stringHelper2 = ...
+    arg3[1] = arg4
+    arg3[2] = workValue27
+    arg3[3] = workValue29
+    arg3[4] = workValue31
+    arg3[5] = workValue33
+    arg3[6] = workValue35
+    arg3[7] = workValue37
+    arg3[8] = textValue
+    arg3[9] = nameValue
+    arg3[10] = textValue2
+    arg3[11] = stringHelper2
+    arg4 = iterator
+    workValue27 = arg3
+    arg4, workValue27, workValue29, workValue31 = arg4(workValue27)
+    for workValue33, workValue35 in arg4, workValue27, workValue29, workValue31 do
+      workValue37 = tableHelper
+      textValue = workValue35
+      workValue37 = workValue37(textValue)
+      textValue = nil
+      if workValue37 then
+        textValue = workValue37.luaoop
       end
-      if SHX10_2 then
-        SHX11_2 = SHX10_2.type
-        if not SHX11_2 then
-          goto SHX_LABEL_64
+      if textValue then
+        nameValue = textValue.type
+        if not nameValue then
+          goto flow_label_64
         end
       end
-      SHX11_2 = error
-      SHX12_2 = "invalid base class #"
-      SHX13_2 = SHX7_2
-      SHX12_2 = SHX12_2 .. SHX13_2
-      SHX11_2(SHX12_2)
-      -- [FIX IF ERROR] Move ::SHX_LABEL_64:: outside nested blocks until all 'goto SHX_LABEL_64' can see it
-      ::SHX_LABEL_64::
-      SHX11_2 = SHX10_2.build
-      if not SHX11_2 then
-        SHX11_2 = SHX21_1
-        SHX12_2 = SHX8_2
-        SHX11_2(SHX12_2)
+      nameValue = error
+      textValue2 = "invalid base class #"
+      stringHelper2 = workValue33
+      textValue2 = textValue2 .. stringHelper2
+      nameValue(textValue2)
+      ::flow_label_64::
+      nameValue = textValue.build
+      if not nameValue then
+        nameValue = workValue14
+        textValue2 = workValue35
+        nameValue(textValue2)
       end
     end
-    SHX3_2 = string
-    SHX3_2 = SHX3_2.gsub
-    SHX4_2 = tostring
-    SHX5_2 = SHX1_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = "table:"
-    SHX6_2 = "class<"
-    SHX7_2 = SHX0_2
-    SHX8_2 = ">:"
-    SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-    SHX7_2 = 1
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = SHX2_1
-    SHX5_2 = SHX1_2
-    SHX6_2 = {}
-    SHX7_2 = {}
-    SHX7_2.bases = SHX2_2
-    SHX7_2.name = SHX0_2
-    SHX6_2.luaoop = SHX7_2
-    SHX7_2 = SHX23_1
-    SHX6_2.__call = SHX7_2
-    function SHX7_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3
-      SHX1_3 = SHX3_2
-      return SHX1_3
+    arg4 = string
+    arg4 = arg4.gsub
+    workValue27 = tostring
+    workValue29 = arg2
+    workValue27 = workValue27(workValue29)
+    workValue29 = "table:"
+    workValue31 = "class<"
+    workValue33 = arg1
+    workValue35 = ">:"
+    workValue31 = workValue31 .. workValue33 .. workValue35
+    workValue33 = 1
+    arg4 = arg4(workValue27, workValue29, workValue31, workValue33)
+    workValue27 = tableHelper2
+    workValue29 = arg2
+    workValue31 = {}
+    workValue33 = {}
+    workValue33.bases = arg3
+    workValue33.name = arg1
+    workValue31.luaoop = workValue33
+    workValue33 = workValue18
+    workValue31.__call = workValue33
+    function workValue33(arg12)
+      local workValue11
+      workValue11 = arg4
+      return workValue11
     end
-    SHX6_2.__tostring = SHX7_2
-    return SHX4_2(SHX5_2, SHX6_2)
+    workValue31.__tostring = workValue33
+    return workValue27(workValue29, workValue31)
   else
-    SHX1_2 = error
-    SHX2_2 = "class name is not a string"
-    SHX1_2(SHX2_2)
+    arg2 = error
+    arg3 = "class name is not a string"
+    arg2(arg3)
   end
 end
-function SHX25_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  if SHX0_2 then
-    SHX2_2 = SHX1_1
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX3_2 = nil
-    if SHX2_2 then
-      SHX3_2 = SHX2_2.luaoop
+function workValue21(arg1, arg2)
+  local arg3, arg4, workValue27, workValue29
+  if arg1 then
+    arg3 = tableHelper
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    arg4 = nil
+    if arg3 then
+      arg4 = arg3.luaoop
     end
-    if SHX3_2 then
-      SHX4_2 = SHX3_2.type
-      if not SHX4_2 then
-        SHX4_2 = SHX3_2.types
-        if not SHX4_2 then
-          SHX4_2 = SHX21_1
-          SHX5_2 = SHX0_2
-          SHX4_2(SHX5_2)
+    if arg4 then
+      workValue27 = arg4.type
+      if not workValue27 then
+        workValue27 = arg4.types
+        if not workValue27 then
+          workValue27 = workValue14
+          workValue29 = arg1
+          workValue27(workValue29)
         end
       end
-      SHX4_2 = SHX3_2.types
-      SHX4_2 = SHX4_2[SHX1_2]
-      return SHX4_2
+      workValue27 = arg4.types
+      workValue27 = workValue27[arg2]
+      return workValue27
     end
   end
 end
-function SHX26_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  if SHX0_2 then
-    SHX1_2 = SHX1_1
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = nil
-    if SHX1_2 then
-      SHX2_2 = SHX1_2.luaoop
+function workValue22(arg1)
+  local arg2, arg3, arg4, workValue27, workValue29, workValue31, workValue33, workValue35, workValue37, textValue
+  if arg1 then
+    arg2 = tableHelper
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg3 = nil
+    if arg2 then
+      arg3 = arg2.luaoop
     end
-    if SHX2_2 then
-      SHX3_2 = SHX2_2.types
-      if not SHX3_2 then
-        SHX3_2 = SHX2_2.type
-        if not SHX3_2 then
-          SHX3_2 = SHX21_1
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+    if arg3 then
+      arg4 = arg3.types
+      if not arg4 then
+        arg4 = arg3.type
+        if not arg4 then
+          arg4 = workValue14
+          workValue27 = arg1
+          arg4(workValue27)
         end
       end
-      SHX3_2 = {}
-      SHX4_2 = SHX3_1
-      SHX5_2 = SHX2_2.types
-      SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-      for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-        SHX3_2[SHX8_2] = SHX9_2
+      arg4 = {}
+      workValue27 = iterator
+      workValue29 = arg3.types
+      workValue27, workValue29, workValue31, workValue33 = workValue27(workValue29)
+      for workValue35, workValue37 in workValue27, workValue29, workValue31, workValue33 do
+        arg4[workValue35] = workValue37
       end
-      return SHX3_2
+      return arg4
     end
   end
 end
-function SHX27_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  if SHX0_2 then
-    SHX1_2 = SHX1_1
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = nil
-    if SHX1_2 then
-      SHX2_2 = SHX1_2.luaoop
+function workValue23(arg1)
+  local arg2, arg3, arg4, workValue27
+  if arg1 then
+    arg2 = tableHelper
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg3 = nil
+    if arg2 then
+      arg3 = arg2.luaoop
     end
-    if SHX2_2 then
-      SHX3_2 = SHX2_2.type
-      if not SHX3_2 then
-        SHX3_2 = SHX2_2.build
-        if not SHX3_2 then
-          SHX3_2 = SHX21_1
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+    if arg3 then
+      arg4 = arg3.type
+      if not arg4 then
+        arg4 = arg3.build
+        if not arg4 then
+          arg4 = workValue14
+          workValue27 = arg1
+          arg4(workValue27)
         end
-        SHX3_2 = SHX2_2.meta
-        return SHX3_2
+        arg4 = arg3.meta
+        return arg4
       end
     end
   end
 end
-SHX28_1 = SHX2_1
-SHX29_1 = {}
-SHX29_1.new = SHX24_1
-SHX29_1.name = SHX6_1
-SHX29_1.type = SHX5_1
-SHX29_1.is = SHX25_1
-SHX29_1.types = SHX26_1
-SHX29_1.meta = SHX27_1
-SHX29_1.instantiate = SHX23_1
-SHX29_1.build = SHX21_1
-SHX29_1.getop = SHX7_1
-SHX30_1 = {}
-function SHX31_1(SHX0_2, SHX1_2, ...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX24_1
-  SHX3_2 = SHX1_2
-  SHX4_2 = ...
-  return SHX2_2(SHX3_2, SHX4_2)
+workValue24 = tableHelper2
+dataTable2 = {}
+dataTable2.new = workValue20
+dataTable2.name = workValue30
+dataTable2.type = workValue28
+dataTable2.is = workValue21
+dataTable2.types = workValue22
+dataTable2.meta = workValue23
+dataTable2.instantiate = workValue18
+dataTable2.build = workValue14
+dataTable2.getop = workValue32
+dataTable3 = {}
+function workValue25(arg1, arg2, ...)
+  local arg3, arg4, workValue27
+  arg3 = workValue20
+  arg4 = arg2
+  workValue27 = ...
+  return arg3(arg4, workValue27)
 end
-SHX30_1.__call = SHX31_1
-SHX28_1 = SHX28_1(SHX29_1, SHX30_1)
-class = SHX28_1
-SHX28_1 = Luaoop
-SHX29_1 = class
-SHX28_1.class = SHX29_1
+dataTable3.__call = workValue25
+workValue24 = workValue24(dataTable2, dataTable3)
+class = workValue24
+workValue24 = Luaoop
+dataTable2 = class
+workValue24.class = dataTable2

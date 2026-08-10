@@ -1,174 +1,176 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Russian Roulette Command
+    ========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1
-SHX0_1 = math
-SHX0_1 = SHX0_1.randomseed
-SHX1_1 = GetGameTimer
-SHX1_1, SHX2_1, SHX3_1 = SHX1_1()
-SHX0_1(SHX1_1, SHX2_1, SHX3_1)
-SHX0_1 = RegisterCommand
-SHX1_1 = "russianroulette"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = HasPedGotWeapon
-  SHX2_2 = SHX0_2
-  SHX3_2 = 2048965069
-  SHX4_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  if SHX1_2 then
-    SHX1_2 = GetAmmoInPedWeapon
-    SHX2_2 = SHX0_2
-    SHX3_2 = 2048965069
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 > 0 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.setWeapon
-      SHX2_2 = SHX0_2
-      SHX3_2 = 2048965069
-      SHX4_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = GetEntityCoords
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX2_2 = TriggerServerEvent
-      SHX3_2 = "playRussianRouletteGlobally"
-      SHX4_2 = SHX1_2
-      SHX2_2(SHX3_2, SHX4_2)
-      SHX2_2 = math
-      SHX2_2 = SHX2_2.random
-      SHX3_2 = 1
-      SHX4_2 = 6
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      SHX3_2 = HasAnimDictLoaded
-      SHX4_2 = "anim@weapons@first_person@aim_rng@general@pistol@revolver@str"
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = RequestAnimDict
-        SHX4_2 = "anim@weapons@first_person@aim_rng@general@pistol@revolver@str"
-        SHX3_2(SHX4_2)
-        while true do
-          SHX3_2 = HasAnimDictLoaded
-          SHX4_2 = "anim@weapons@first_person@aim_rng@general@pistol@revolver@str"
-          SHX3_2 = SHX3_2(SHX4_2)
-          if SHX3_2 then
-            break
-          end
-          SHX3_2 = Wait
-          SHX4_2 = 1
-          SHX3_2(SHX4_2)
-        end
-      end
-      SHX3_2 = TaskPlayAnim
-      SHX4_2 = SHX0_2
-      SHX5_2 = "anim@weapons@first_person@aim_rng@general@pistol@revolver@str"
-      SHX6_2 = "reload_aim"
-      SHX7_2 = 8.0
-      SHX8_2 = 8.0
-      SHX9_2 = -1
-      SHX10_2 = 2
-      SHX11_2 = 1.0
-      SHX12_2 = false
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-      SHX3_2 = RemoveAnimDict
-      SHX4_2 = "anim@weapons@first_person@aim_rng@general@pistol@revolver@str"
-      SHX3_2(SHX4_2)
-      SHX3_2 = Wait
-      SHX4_2 = 4500
-      SHX3_2(SHX4_2)
-      SHX3_2 = HasAnimDictLoaded
-      SHX4_2 = "mp_suicide"
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = RequestAnimDict
-        SHX4_2 = "mp_suicide"
-        SHX3_2(SHX4_2)
-        while true do
-          SHX3_2 = HasAnimDictLoaded
-          SHX4_2 = "mp_suicide"
-          SHX3_2 = SHX3_2(SHX4_2)
-          if SHX3_2 then
-            break
-          end
-          SHX3_2 = Wait
-          SHX4_2 = 1
-          SHX3_2(SHX4_2)
-        end
-      end
-      if 1 == SHX2_2 then
-        SHX3_2 = TaskPlayAnim
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_suicide"
-        SHX6_2 = "pistol"
-        SHX7_2 = 4.0
-        SHX8_2 = 0.0
-        SHX9_2 = -1
-        SHX10_2 = 0
-        SHX11_2 = 0.1
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX14_2 = false
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        SHX3_2 = Wait
-        SHX4_2 = 800
-        SHX3_2(SHX4_2)
-        SHX3_2 = SetPedShootsAtCoord
-        SHX4_2 = SHX0_2
-        SHX5_2 = 0.0
-        SHX6_2 = 0.0
-        SHX7_2 = 0.0
-        SHX8_2 = false
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX3_2 = SetEntityHealth
-        SHX4_2 = SHX0_2
-        SHX5_2 = 0
-        SHX3_2(SHX4_2, SHX5_2)
-      else
-        SHX3_2 = TaskPlayAnim
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_suicide"
-        SHX6_2 = "pistol"
-        SHX7_2 = 2.0
-        SHX8_2 = 100.0
-        SHX9_2 = 500
-        SHX10_2 = 0
-        SHX11_2 = 0.1
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX14_2 = false
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        SHX3_2 = Wait
-        SHX4_2 = 500
-        SHX3_2(SHX4_2)
-        SHX3_2 = TriggerServerEvent
-        SHX4_2 = "playEmptyGunGlobally"
-        SHX5_2 = SHX1_2
-        SHX3_2(SHX4_2, SHX5_2)
-      end
-      SHX3_2 = RemoveAnimDict
-      SHX4_2 = "mp_suicide"
-      SHX3_2(SHX4_2)
-      SHX3_2 = ClearPedSecondaryTask
-      SHX4_2 = SHX0_2
-      SHX3_2(SHX4_2)
+    /russianroulette works only when the player owns weapon hash 2048965069
+    and has at least one round for it.
+
+    Flow:
+      * equip the revolver
+      * play a global roulette sound/event at the player's position
+      * roll a random number from 1 to 6
+      * play a reload/spin animation
+      * play the suicide-style pistol animation
+      * roll == 1: fire the gun effect and kill the local player
+      * otherwise: play the empty-gun sound globally
+
+    This is intentionally a game mechanic; the 1-in-6 chance is exactly what
+    the original client used.
+]]
+
+local REVOLVER_HASH = 2048965069
+local RELOAD_ANIM_DICT =
+    "anim@weapons@first_person@aim_rng@general@pistol@revolver@str"
+
+math.randomseed(
+    GetGameTimer()
+)
+
+
+local function loadAnimationDictionary(
+    animDict
+)
+    if HasAnimDictLoaded(animDict) then
+        return
     end
-  end
+
+    RequestAnimDict(animDict)
+
+    while not HasAnimDictLoaded(
+        animDict
+    ) do
+        Wait(1)
+    end
 end
-SHX3_1 = false
-SHX0_1(SHX1_1, SHX2_1, SHX3_1)
+
+
+RegisterCommand(
+    "russianroulette",
+    function()
+        local playerPed =
+            CMG.getPlayerPed()
+
+        if not HasPedGotWeapon(
+            playerPed,
+            REVOLVER_HASH,
+            false
+        ) then
+            return
+        end
+
+        if GetAmmoInPedWeapon(
+            playerPed,
+            REVOLVER_HASH
+        ) <= 0 then
+            return
+        end
+
+        CMG.setWeapon(
+            playerPed,
+            REVOLVER_HASH,
+            true
+        )
+
+        local coords =
+            GetEntityCoords(
+                playerPed
+            )
+
+        TriggerServerEvent(
+            "playRussianRouletteGlobally",
+            coords
+        )
+
+        local chamberRoll =
+            math.random(1, 6)
+
+        loadAnimationDictionary(
+            RELOAD_ANIM_DICT
+        )
+
+        TaskPlayAnim(
+            playerPed,
+            RELOAD_ANIM_DICT,
+            "reload_aim",
+            8.0,
+            8.0,
+            -1,
+            2,
+            1.0,
+            false,
+            false,
+            false
+        )
+
+        RemoveAnimDict(
+            RELOAD_ANIM_DICT
+        )
+
+        Wait(4500)
+
+        loadAnimationDictionary(
+            "mp_suicide"
+        )
+
+        if chamberRoll == 1 then
+            TaskPlayAnim(
+                playerPed,
+                "mp_suicide",
+                "pistol",
+                4.0,
+                0.0,
+                -1,
+                0,
+                0.1,
+                false,
+                false,
+                false
+            )
+
+            Wait(800)
+
+            SetPedShootsAtCoord(
+                playerPed,
+                0.0,
+                0.0,
+                0.0,
+                false
+            )
+
+            SetEntityHealth(
+                playerPed,
+                0
+            )
+        else
+            TaskPlayAnim(
+                playerPed,
+                "mp_suicide",
+                "pistol",
+                2.0,
+                100.0,
+                500,
+                0,
+                0.1,
+                false,
+                false,
+                false
+            )
+
+            Wait(500)
+
+            TriggerServerEvent(
+                "playEmptyGunGlobally",
+                coords
+            )
+        end
+
+        RemoveAnimDict(
+            "mp_suicide"
+        )
+
+        ClearPedSecondaryTask(
+            playerPed
+        )
+    end,
+    false
+)

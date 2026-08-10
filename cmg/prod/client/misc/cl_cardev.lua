@@ -1,7528 +1,7052 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_cardev.lua
+    =============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_garages"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = RMenu
-SHX1_1 = SHX1_1.Add
-SHX2_1 = "cardev"
-SHX3_1 = "mainmenu"
-SHX4_1 = RageUI
-SHX4_1 = SHX4_1.CreateMenu
-SHX5_1 = ""
-SHX6_1 = ""
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.getRageUIMenuWidth
-SHX7_1 = SHX7_1()
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuHeight
-SHX8_1 = SHX8_1()
-SHX9_1 = "cmg_adminui"
-SHX10_1 = "cmg_adminui"
-SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX1_1(SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1 = RMenu
-SHX2_1 = SHX1_1
-SHX1_1 = SHX1_1.Get
-SHX3_1 = "cardev"
-SHX4_1 = "mainmenu"
-SHX1_1 = SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX2_1 = SHX1_1
-SHX1_1 = SHX1_1.SetSubtitle
-SHX3_1 = "~b~Car Dev Menu"
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = RMenu
-SHX1_1 = SHX1_1.Add
-SHX2_1 = "cardev"
-SHX3_1 = "vehiclemods"
-SHX4_1 = RageUI
-SHX4_1 = SHX4_1.CreateSubMenu
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cardev"
-SHX8_1 = "mainmenu"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = ""
-SHX7_1 = "~b~Vehicle Mods"
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX9_1()
-SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1(SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1 = RMenu
-SHX1_1 = SHX1_1.Add
-SHX2_1 = "cardev"
-SHX3_1 = "vehiclemodindexes"
-SHX4_1 = RageUI
-SHX4_1 = SHX4_1.CreateSubMenu
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cardev"
-SHX8_1 = "vehiclemods"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = ""
-SHX7_1 = "~b~Vehicle Mod Indexes"
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX9_1()
-SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1(SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1 = RMenu
-SHX1_1 = SHX1_1.Add
-SHX2_1 = "cardev"
-SHX3_1 = "extras"
-SHX4_1 = RageUI
-SHX4_1 = SHX4_1.CreateSubMenu
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cardev"
-SHX8_1 = "mainmenu"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = ""
-SHX7_1 = "~b~Extras"
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX9_1()
-SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1(SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1 = RMenu
-SHX1_1 = SHX1_1.Add
-SHX2_1 = "cardev"
-SHX3_1 = "colours"
-SHX4_1 = RageUI
-SHX4_1 = SHX4_1.CreateSubMenu
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cardev"
-SHX8_1 = "mainmenu"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = ""
-SHX7_1 = "~b~Colours"
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX9_1()
-SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1(SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1 = RMenu
-SHX1_1 = SHX1_1.Add
-SHX2_1 = "cardev"
-SHX3_1 = "automatedhandling"
-SHX4_1 = RageUI
-SHX4_1 = SHX4_1.CreateSubMenu
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cardev"
-SHX8_1 = "mainmenu"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = ""
-SHX7_1 = "~b~Automated Handling"
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.getRageUIMenuWidth
-SHX8_1 = SHX8_1()
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.getRageUIMenuHeight
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX9_1()
-SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1(SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1)
-SHX1_1 = false
-SHX2_1 = {}
-SHX3_1 = "speed"
-SHX4_1 = "drift"
-SHX5_1 = "handling"
-SHX6_1 = "city"
-SHX7_1 = "airport"
-SHX8_1 = "track"
-SHX2_1[1] = SHX3_1
-SHX2_1[2] = SHX4_1
-SHX2_1[3] = SHX5_1
-SHX2_1[4] = SHX6_1
-SHX2_1[5] = SHX7_1
-SHX2_1[6] = SHX8_1
-SHX3_1 = {}
-SHX4_1 = vector3
-SHX5_1 = 2370.8
-SHX6_1 = 2856.58
-SHX7_1 = 40.46
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = vector3
-SHX6_1 = 974.58
-SHX7_1 = -3006.6
-SHX8_1 = 5.9
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = vector3
-SHX7_1 = 1894.57
-SHX8_1 = 3823.71
-SHX9_1 = 31.98
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX7_1 = vector3
-SHX8_1 = -482.63
-SHX9_1 = -664.24
-SHX10_1 = 32.74
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX8_1 = vector3
-SHX9_1 = -1728.25
-SHX10_1 = -2894.99
-SHX11_1 = 13.94
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX9_1 = vector3
-SHX10_1 = 2120.2548828125
-SHX11_1 = 2433.7978515625
-SHX12_1 = 152.661499023438
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX3_1[5] = SHX8_1
-SHX3_1[6] = SHX9_1
-SHX3_1[7] = SHX10_1
-SHX3_1[8] = SHX11_1
-SHX3_1[9] = SHX12_1
-SHX3_1[10] = SHX13_1
-SHX3_1[11] = SHX14_1
-SHX3_1[12] = SHX15_1
-SHX3_1[13] = SHX16_1
-SHX3_1[14] = SHX17_1
-SHX3_1[15] = SHX18_1
-SHX3_1[16] = SHX19_1
-SHX3_1[17] = SHX20_1
-SHX3_1[18] = SHX21_1
-SHX3_1[19] = SHX22_1
-SHX3_1[20] = SHX23_1
-SHX3_1[21] = SHX24_1
-SHX3_1[22] = SHX25_1
-SHX3_1[23] = SHX26_1
-SHX3_1[24] = SHX27_1
-SHX3_1[25] = SHX28_1
-SHX3_1[26] = SHX29_1
-SHX3_1[27] = SHX30_1
-SHX3_1[28] = SHX31_1
-SHX3_1[29] = SHX32_1
-SHX3_1[30] = SHX33_1
-SHX3_1[31] = SHX34_1
-SHX3_1[32] = SHX35_1
-SHX3_1[33] = SHX36_1
-SHX3_1[34] = SHX37_1
-SHX3_1[35] = SHX38_1
-SHX3_1[36] = SHX39_1
-SHX3_1[37] = SHX40_1
-SHX3_1[38] = SHX41_1
-SHX3_1[39] = SHX42_1
-SHX3_1[40] = SHX43_1
-SHX3_1[41] = SHX44_1
-SHX3_1[42] = SHX45_1
-SHX3_1[43] = SHX46_1
-SHX3_1[44] = SHX47_1
-SHX3_1[45] = SHX48_1
-SHX3_1[46] = SHX49_1
-SHX3_1[47] = SHX50_1
-SHX3_1[48] = SHX51_1
-SHX3_1[49] = SHX52_1
-SHX3_1[50] = SHX53_1
-SHX3_1[51] = SHX54_1
-SHX3_1[52] = SHX55_1
-SHX3_1[53] = SHX56_1
-SHX3_1[54] = SHX57_1
-SHX3_1[55] = SHX58_1
-SHX3_1[56] = SHX59_1
-SHX3_1[57] = SHX60_1
-SHX3_1[58] = SHX61_1
-SHX3_1[59] = SHX62_1
-SHX3_1[60] = SHX63_1
-SHX3_1[61] = SHX64_1
-SHX3_1[62] = SHX65_1
-SHX3_1[63] = SHX66_1
-SHX3_1[64] = SHX67_1
-SHX3_1[65] = SHX68_1
-SHX3_1[66] = SHX69_1
-SHX3_1[67] = SHX70_1
-SHX3_1[68] = SHX71_1
-SHX3_1[69] = SHX72_1
-SHX3_1[70] = SHX73_1
-SHX3_1[71] = SHX74_1
-SHX3_1[72] = SHX75_1
-SHX3_1[73] = SHX76_1
-SHX3_1[74] = SHX77_1
-SHX3_1[75] = SHX78_1
-SHX3_1[76] = SHX79_1
-SHX3_1[77] = SHX80_1
-SHX3_1[78] = SHX81_1
-SHX3_1[79] = SHX82_1
-SHX3_1[80] = SHX83_1
-SHX3_1[81] = SHX84_1
-SHX3_1[82] = SHX85_1
-SHX3_1[83] = SHX86_1
-SHX3_1[84] = SHX87_1
-SHX3_1[85] = SHX88_1
-SHX3_1[86] = SHX89_1
-SHX3_1[87] = SHX90_1
-SHX3_1[88] = SHX91_1
-SHX3_1[89] = SHX92_1
-SHX3_1[90] = SHX93_1
-SHX3_1[91] = SHX94_1
-SHX3_1[92] = SHX95_1
-SHX3_1[93] = SHX96_1
-SHX3_1[94] = SHX97_1
-SHX3_1[95] = SHX98_1
-SHX3_1[96] = SHX99_1
-SHX3_1[97] = SHX100_1
-SHX3_1[98] = SHX101_1
-SHX3_1[99] = SHX102_1
-SHX3_1[100] = SHX103_1
-SHX3_1[101] = SHX104_1
-SHX4_1 = 1
-SHX5_1 = {}
-SHX6_1 = "0%"
-SHX7_1 = "10%"
-SHX8_1 = "20%"
-SHX9_1 = "30%"
-SHX10_1 = "40%"
-SHX11_1 = "50%"
-SHX12_1 = "60%"
-SHX13_1 = "70%"
-SHX14_1 = "80%"
-SHX15_1 = "90%"
-SHX16_1 = "100%"
-SHX5_1[1] = SHX6_1
-SHX5_1[2] = SHX7_1
-SHX5_1[3] = SHX8_1
-SHX5_1[4] = SHX9_1
-SHX5_1[5] = SHX10_1
-SHX5_1[6] = SHX11_1
-SHX5_1[7] = SHX12_1
-SHX5_1[8] = SHX13_1
-SHX5_1[9] = SHX14_1
-SHX5_1[10] = SHX15_1
-SHX5_1[11] = SHX16_1
-SHX6_1 = {}
-SHX7_1 = 0.0
-SHX8_1 = 0.1
-SHX9_1 = 0.2
-SHX10_1 = 0.3
-SHX11_1 = 0.4
-SHX12_1 = 0.5
-SHX13_1 = 0.6
-SHX14_1 = 0.7
-SHX15_1 = 0.8
-SHX16_1 = 0.9
-SHX17_1 = 1.0
-SHX6_1[1] = SHX7_1
-SHX6_1[2] = SHX8_1
-SHX6_1[3] = SHX9_1
-SHX6_1[4] = SHX10_1
-SHX6_1[5] = SHX11_1
-SHX6_1[6] = SHX12_1
-SHX6_1[7] = SHX13_1
-SHX6_1[8] = SHX14_1
-SHX6_1[9] = SHX15_1
-SHX6_1[10] = SHX16_1
-SHX6_1[11] = SHX17_1
-SHX7_1 = 1
-SHX8_1 = 1
-SHX9_1 = {}
-SHX10_1 = false
-SHX11_1 = false
-SHX12_1 = {}
-SHX13_1 = true
-SHX14_1 = false
-SHX15_1 = CMG
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX9_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX1_2 = true
-    if SHX1_2 then
-      goto SHX_LABEL_9
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Commands:
+      * /
+dataTable38 = dataTable38[dataTable39]
+dataTable39 = 
+      * /
+textValue34 = textValue34[textValue35]
+textValue35 = 
+
+    Important events used:
+      * 
+dataTable38 = dataTable38[dataTable39]
+dataTable39 = 
+      * 
+textValue35 = textValue35[textValue36]
+textValue36 = 
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Cardev
+    =======================
+
+    File: cmg/prod/client/misc/cl_cardev.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_garages
+
+    Commands/command-like entries found:
+      * /cardev
+      * RegisterCommand
+      * hidecardevdraws
+
+    Network/hash identifiers found: 9
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * ~b~Car Dev Menu
+      * ~b~Vehicle Mods
+      * ~b~Vehicle Mod Indexes
+      * ~r~You are not in a vehicle.
+      * applyMaxDefaultModsToVehicle
+
+]]
+local cmgCall, textValue14, textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+textValue14 = "cfg/cfg_garages"
+-- Beginner: result below is config.
+cmgCall = cmgCall(textValue14)
+textValue14 = RMenu
+textValue14 = textValue14.Add
+textValue15 = "cardev"
+textValue16 = "mainmenu"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue20 = ""
+textValue29 = ""
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuWidth
+rageUiCall3 = rageUiCall3()
+rageUiCall4 = CMG
+rageUiCall4 = rageUiCall4.getRageUIMenuHeight
+rageUiCall4 = rageUiCall4()
+rageUiCall5 = "cmg_adminui"
+textValue6 = "cmg_adminui"
+rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall(textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6)
+textValue14(textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14 = RMenu
+textValue15 = textValue14
+textValue14 = textValue14.Get
+textValue16 = "cardev"
+rageUiCall = "mainmenu"
+-- Beginner: result below is menu.
+textValue14 = textValue14(textValue15, textValue16, rageUiCall)
+textValue15 = textValue14
+textValue14 = textValue14.SetSubtitle
+textValue16 = "~b~Car Dev Menu"
+textValue14(textValue15, textValue16)
+textValue14 = RMenu
+textValue14 = textValue14.Add
+textValue15 = "cardev"
+textValue16 = "vehiclemods"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateSubMenu
+textValue20 = RMenu
+textValue29 = textValue20
+textValue20 = textValue20.Get
+rageUiCall3 = "cardev"
+rageUiCall4 = "mainmenu"
+-- Beginner: result below is menu.
+textValue20 = textValue20(textValue29, rageUiCall3, rageUiCall4)
+textValue29 = ""
+rageUiCall3 = "~b~Vehicle Mods"
+rageUiCall4 = CMG
+rageUiCall4 = rageUiCall4.getRageUIMenuWidth
+rageUiCall4 = rageUiCall4()
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuHeight
+rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall5()
+rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall(textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14(textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14 = RMenu
+textValue14 = textValue14.Add
+textValue15 = "cardev"
+textValue16 = "vehiclemodindexes"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateSubMenu
+textValue20 = RMenu
+textValue29 = textValue20
+textValue20 = textValue20.Get
+rageUiCall3 = "cardev"
+rageUiCall4 = "vehiclemods"
+-- Beginner: result below is menu.
+textValue20 = textValue20(textValue29, rageUiCall3, rageUiCall4)
+textValue29 = ""
+rageUiCall3 = "~b~Vehicle Mod Indexes"
+rageUiCall4 = CMG
+rageUiCall4 = rageUiCall4.getRageUIMenuWidth
+rageUiCall4 = rageUiCall4()
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuHeight
+rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall5()
+rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall(textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14(textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14 = RMenu
+textValue14 = textValue14.Add
+textValue15 = "cardev"
+textValue16 = "extras"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateSubMenu
+textValue20 = RMenu
+textValue29 = textValue20
+textValue20 = textValue20.Get
+rageUiCall3 = "cardev"
+rageUiCall4 = "mainmenu"
+-- Beginner: result below is menu.
+textValue20 = textValue20(textValue29, rageUiCall3, rageUiCall4)
+textValue29 = ""
+rageUiCall3 = "~b~Extras"
+rageUiCall4 = CMG
+rageUiCall4 = rageUiCall4.getRageUIMenuWidth
+rageUiCall4 = rageUiCall4()
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuHeight
+rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall5()
+rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall(textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14(textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14 = RMenu
+textValue14 = textValue14.Add
+textValue15 = "cardev"
+textValue16 = "colours"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateSubMenu
+textValue20 = RMenu
+textValue29 = textValue20
+textValue20 = textValue20.Get
+rageUiCall3 = "cardev"
+rageUiCall4 = "mainmenu"
+-- Beginner: result below is menu.
+textValue20 = textValue20(textValue29, rageUiCall3, rageUiCall4)
+textValue29 = ""
+rageUiCall3 = "~b~Colours"
+rageUiCall4 = CMG
+rageUiCall4 = rageUiCall4.getRageUIMenuWidth
+rageUiCall4 = rageUiCall4()
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuHeight
+rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall5()
+rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall(textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14(textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14 = RMenu
+textValue14 = textValue14.Add
+textValue15 = "cardev"
+textValue16 = "automatedhandling"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateSubMenu
+textValue20 = RMenu
+textValue29 = textValue20
+textValue20 = textValue20.Get
+rageUiCall3 = "cardev"
+rageUiCall4 = "mainmenu"
+-- Beginner: result below is menu.
+textValue20 = textValue20(textValue29, rageUiCall3, rageUiCall4)
+textValue29 = ""
+rageUiCall3 = "~b~Automated Handling"
+rageUiCall4 = CMG
+rageUiCall4 = rageUiCall4.getRageUIMenuWidth
+rageUiCall4 = rageUiCall4()
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuHeight
+rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall5()
+rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall(textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14(textValue15, textValue16, rageUiCall, textValue20, textValue29, rageUiCall3, rageUiCall4, rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5)
+textValue14 = false
+textValue15 = {}
+textValue16 = "speed"
+rageUiCall = "drift"
+textValue20 = "handling"
+textValue29 = "city"
+rageUiCall3 = "airport"
+rageUiCall4 = "track"
+textValue15[1] = textValue16
+textValue15[2] = rageUiCall
+textValue15[3] = textValue20
+textValue15[4] = textValue29
+textValue15[5] = rageUiCall3
+textValue15[6] = rageUiCall4
+textValue16 = {}
+rageUiCall = vector3
+textValue20 = 2370.8
+textValue29 = 2856.58
+rageUiCall3 = 40.46
+rageUiCall = rageUiCall(textValue20, textValue29, rageUiCall3)
+textValue20 = vector3
+textValue29 = 974.58
+rageUiCall3 = -3006.6
+rageUiCall4 = 5.9
+textValue20 = textValue20(textValue29, rageUiCall3, rageUiCall4)
+textValue29 = vector3
+rageUiCall3 = 1894.57
+rageUiCall4 = 3823.71
+rageUiCall5 = 31.98
+textValue29 = textValue29(rageUiCall3, rageUiCall4, rageUiCall5)
+rageUiCall3 = vector3
+rageUiCall4 = -482.63
+rageUiCall5 = -664.24
+textValue6 = 32.74
+rageUiCall3 = rageUiCall3(rageUiCall4, rageUiCall5, textValue6)
+rageUiCall4 = vector3
+rageUiCall5 = -1728.25
+textValue6 = -2894.99
+textValue7 = 13.94
+rageUiCall4 = rageUiCall4(rageUiCall5, textValue6, textValue7)
+rageUiCall5 = vector3
+textValue6 = 2120.2548828125
+textValue7 = 2433.7978515625
+textValue9 = 152.661499023438
+rageUiCall5, textValue6, textValue7, textValue9, flag5, flag6, cmgCall2, dataTable, dataTable2, dataTable3, dataTable4, dataTable6, dataTable7, dataTable8, iterator, dataTable9, dataTable10, dataTable11, dataTable12, tableHelper, dataTable13, dataTable14, vector3Builder, vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = rageUiCall5(textValue6, textValue7, textValue9)
+textValue16[1] = rageUiCall
+textValue16[2] = textValue20
+textValue16[3] = textValue29
+textValue16[4] = rageUiCall3
+textValue16[5] = rageUiCall4
+textValue16[6] = rageUiCall5
+textValue16[7] = textValue6
+textValue16[8] = textValue7
+textValue16[9] = textValue9
+textValue16[10] = flag5
+textValue16[11] = flag6
+textValue16[12] = cmgCall2
+textValue16[13] = dataTable
+textValue16[14] = dataTable2
+textValue16[15] = dataTable3
+textValue16[16] = dataTable4
+textValue16[17] = dataTable6
+textValue16[18] = dataTable7
+textValue16[19] = dataTable8
+textValue16[20] = iterator
+textValue16[21] = dataTable9
+textValue16[22] = dataTable10
+textValue16[23] = dataTable11
+textValue16[24] = dataTable12
+textValue16[25] = tableHelper
+textValue16[26] = dataTable13
+textValue16[27] = dataTable14
+textValue16[28] = vector3Builder
+textValue16[29] = vector3Builder2
+textValue16[30] = dataTable15
+textValue16[31] = dataTable16
+textValue16[32] = dataTable17
+textValue16[33] = dataTable18
+textValue16[34] = dataTable19
+textValue16[35] = dataTable20
+textValue16[36] = tableHelper2
+textValue16[37] = dataTable21
+textValue16[38] = dataTable22
+textValue16[39] = vector3Builder3
+textValue16[40] = dataTable23
+textValue16[41] = dataTable24
+textValue16[42] = dataTable25
+textValue16[43] = dataTable26
+textValue16[44] = dataTable27
+textValue16[45] = dataTable28
+textValue16[46] = dataTable29
+textValue16[47] = dataTable30
+textValue16[48] = dataTable31
+textValue16[49] = dataTable32
+textValue16[50] = dataTable33
+textValue16[51] = dataTable34
+textValue16[52] = dataTable35
+textValue16[53] = dataTable36
+textValue16[54] = dataTable37
+textValue16[55] = rageUiCall2
+textValue16[56] = dataTable38
+textValue16[57] = dataTable39
+textValue16[58] = dataTable40
+textValue16[59] = dataTable41
+textValue16[60] = textValue22
+textValue16[61] = textValue23
+textValue16[62] = textValue24
+textValue16[63] = textValue25
+textValue16[64] = textValue26
+textValue16[65] = textValue27
+textValue16[66] = textValue28
+textValue16[67] = textValue30
+textValue16[68] = textValue31
+textValue16[69] = textValue32
+textValue16[70] = textValue33
+textValue16[71] = textValue34
+textValue16[72] = textValue35
+textValue16[73] = textValue36
+textValue16[74] = textValue37
+textValue16[75] = textValue38
+textValue16[76] = textValue39
+textValue16[77] = textValue40
+textValue16[78] = textValue41
+textValue16[79] = textValue42
+textValue16[80] = textValue43
+textValue16[81] = textValue44
+textValue16[82] = textValue45
+textValue16[83] = textValue46
+textValue16[84] = textValue47
+textValue16[85] = textValue48
+textValue16[86] = textValue49
+textValue16[87] = textValue50
+textValue16[88] = textValue51
+textValue16[89] = textValue52
+textValue16[90] = textValue53
+textValue16[91] = textValue54
+textValue16[92] = textValue55
+textValue16[93] = textValue56
+textValue16[94] = textValue57
+textValue16[95] = textValue58
+textValue16[96] = textValue59
+textValue16[97] = textValue
+textValue16[98] = textValue2
+textValue16[99] = textValue3
+textValue16[100] = textValue4
+textValue16[101] = textValue5
+rageUiCall = 1
+textValue20 = {}
+textValue29 = "0%"
+rageUiCall3 = "10%"
+rageUiCall4 = "20%"
+rageUiCall5 = "30%"
+textValue6 = "40%"
+textValue7 = "50%"
+textValue9 = "60%"
+flag5 = "70%"
+flag6 = "80%"
+cmgCall2 = "90%"
+dataTable = "100%"
+textValue20[1] = textValue29
+textValue20[2] = rageUiCall3
+textValue20[3] = rageUiCall4
+textValue20[4] = rageUiCall5
+textValue20[5] = textValue6
+textValue20[6] = textValue7
+textValue20[7] = textValue9
+textValue20[8] = flag5
+textValue20[9] = flag6
+textValue20[10] = cmgCall2
+textValue20[11] = dataTable
+textValue29 = {}
+rageUiCall3 = 0.0
+rageUiCall4 = 0.1
+rageUiCall5 = 0.2
+textValue6 = 0.3
+textValue7 = 0.4
+textValue9 = 0.5
+flag5 = 0.6
+flag6 = 0.7
+cmgCall2 = 0.8
+dataTable = 0.9
+dataTable2 = 1.0
+textValue29[1] = rageUiCall3
+textValue29[2] = rageUiCall4
+textValue29[3] = rageUiCall5
+textValue29[4] = textValue6
+textValue29[5] = textValue7
+textValue29[6] = textValue9
+textValue29[7] = flag5
+textValue29[8] = flag6
+textValue29[9] = cmgCall2
+textValue29[10] = dataTable
+textValue29[11] = dataTable2
+rageUiCall3 = 1
+rageUiCall4 = 1
+rageUiCall5 = {}
+textValue6 = false
+textValue7 = false
+textValue9 = {}
+flag5 = true
+flag6 = false
+cmgCall2 = CMG
+function dataTable(arg1)
+  local arg2
+  arg2 = rageUiCall5
+  arg2 = arg2[arg1]
+  if arg2 then
+    arg2 = true
+    if arg2 then
+      goto flow_label_9
     end
   end
-  SHX1_2 = false
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  return SHX1_2
+  arg2 = false
+  ::flow_label_9::
+  return arg2
 end
-SHX15_1.isVehicleCarDevDamageDisabled = SHX16_1
-SHX15_1 = CMG
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = SHX14_1
+cmgCall2.isVehicleCarDevDamageDisabled = dataTable
+cmgCall2 = CMG
+function dataTable()
+  local arg1, arg2
+  arg1 = textValue14
+  if arg1 then
+    arg1 = flag6
   end
-  return SHX0_2
+  return arg1
 end
-SHX15_1.hasCarDevDisabledSpeedCaps = SHX16_1
-SHX15_1 = {}
-SHX15_1[0] = "VMT_SPOILER"
-SHX15_1[1] = "VMT_BUMPER_F"
-SHX15_1[2] = "VMT_BUMPER_R"
-SHX15_1[3] = "VMT_SKIRT"
-SHX15_1[4] = "VMT_EXHAUST"
-SHX15_1[5] = "VMT_CHASSIS"
-SHX15_1[6] = "VMT_GRILL"
-SHX15_1[7] = "VMT_BONNET"
-SHX15_1[8] = "VMT_WING_L"
-SHX15_1[9] = "VMT_WING_R"
-SHX15_1[10] = "VMT_ROOF"
-SHX15_1[11] = "VMT_ENGINE"
-SHX15_1[12] = "VMT_BRAKES"
-SHX15_1[13] = "VMT_GEARBOX"
-SHX15_1[14] = "VMT_HORN"
-SHX15_1[15] = "VMT_SUSPENSION"
-SHX15_1[16] = "VMT_ARMOUR"
-SHX15_1[17] = "VMT_NITROUS"
-SHX15_1[18] = "VMT_TURBO"
-SHX15_1[19] = "VMT_SUBWOOFER"
-SHX15_1[20] = "VMT_TYRE_SMOKE"
-SHX15_1[21] = "VMT_HYDRAULICS"
-SHX15_1[22] = "VMT_XENON_LIGHTS"
-SHX15_1[23] = "VMT_WHEELS"
-SHX15_1[24] = "VMT_WHEELS_REAR_OR_HYDRAULICS"
-SHX15_1[25] = "VMT_PLTHOLDER"
-SHX15_1[26] = "VMT_PLTVANITY"
-SHX15_1[27] = "VMT_INTERIOR1"
-SHX15_1[28] = "VMT_INTERIOR2"
-SHX15_1[29] = "VMT_INTERIOR3"
-SHX15_1[30] = "VMT_INTERIOR4"
-SHX15_1[31] = "VMT_INTERIOR5"
-SHX15_1[32] = "VMT_SEATS"
-SHX15_1[33] = "VMT_STEERING"
-SHX15_1[34] = "VMT_KNOB"
-SHX15_1[35] = "VMT_PLAQUE"
-SHX15_1[36] = "VMT_ICE"
-SHX15_1[37] = "VMT_TRUNK"
-SHX15_1[38] = "VMT_HYDRO"
-SHX15_1[39] = "VMT_ENGINEBAY1"
-SHX15_1[40] = "VMT_ENGINEBAY2"
-SHX15_1[41] = "VMT_ENGINEBAY3"
-SHX15_1[42] = "VMT_CHASSIS2"
-SHX15_1[43] = "VMT_CHASSIS3"
-SHX15_1[44] = "VMT_CHASSIS4"
-SHX15_1[45] = "VMT_CHASSIS5"
-SHX15_1[46] = "VMT_DOOR_L"
-SHX15_1[47] = "VMT_DOOR_R"
-SHX15_1[48] = "VMT_LIVERY_MOD"
-SHX15_1[49] = "VMT_LIGHTBAR"
-SHX16_1 = {}
-SHX17_1 = {}
-SHX17_1.name = "fMass"
-SHX17_1.type = "float"
-SHX18_1 = {}
-SHX18_1.name = "fInitialDragCoeff"
-SHX18_1.type = "float"
-SHX19_1 = {}
-SHX19_1.name = "fDownforceModifier"
-SHX19_1.type = "float"
-SHX20_1 = {}
-SHX20_1.name = "fPercentSubmerged"
-SHX20_1.type = "float"
-SHX21_1 = {}
-SHX21_1.name = "vecCentreOfMassOffset"
-SHX21_1.type = "vector"
-SHX22_1 = {}
-SHX22_1.name = "vecInertiaMultiplier"
-SHX22_1.type = "vector"
-SHX23_1 = {}
-SHX23_1.name = "fDriveBiasFront"
-SHX23_1.type = "float"
-SHX24_1 = {}
-SHX24_1.name = "nInitialDriveGears"
-SHX24_1.type = "integer"
-SHX25_1 = {}
-SHX25_1.name = "fInitialDriveForce"
-SHX25_1.type = "float"
-SHX26_1 = {}
-SHX26_1.name = "fDriveInertia"
-SHX26_1.type = "float"
-SHX27_1 = {}
-SHX27_1.name = "fClutchChangeRateScaleUpShift"
-SHX27_1.type = "float"
-SHX28_1 = {}
-SHX28_1.name = "fClutchChangeRateScaleDownShift"
-SHX28_1.type = "float"
-SHX29_1 = {}
-SHX29_1.name = "fInitialDriveMaxFlatVel"
-SHX29_1.type = "float"
-SHX30_1 = {}
-SHX30_1.name = "fBrakeForce"
-SHX30_1.type = "float"
-SHX31_1 = {}
-SHX31_1.name = "fBrakeBiasFront"
-SHX31_1.type = "float"
-SHX32_1 = {}
-SHX32_1.name = "fHandBrakeForce"
-SHX32_1.type = "float"
-SHX33_1 = {}
-SHX33_1.name = "fSteeringLock"
-SHX33_1.type = "float"
-SHX34_1 = {}
-SHX34_1.name = "fTractionCurveMax"
-SHX34_1.type = "float"
-SHX35_1 = {}
-SHX35_1.name = "fTractionCurveMin"
-SHX35_1.type = "float"
-SHX36_1 = {}
-SHX36_1.name = "fTractionCurveLateral"
-SHX36_1.type = "float"
-SHX37_1 = {}
-SHX37_1.name = "fTractionSpringDeltaMax"
-SHX37_1.type = "float"
-SHX38_1 = {}
-SHX38_1.name = "fLowSpeedTractionLossMult"
-SHX38_1.type = "float"
-SHX39_1 = {}
-SHX39_1.name = "fCamberStiffnesss"
-SHX39_1.type = "float"
-SHX40_1 = {}
-SHX40_1.name = "fTractionBiasFront"
-SHX40_1.type = "float"
-SHX41_1 = {}
-SHX41_1.name = "fTractionLossMult"
-SHX41_1.type = "float"
-SHX42_1 = {}
-SHX42_1.name = "fSuspensionForce"
-SHX42_1.type = "float"
-SHX43_1 = {}
-SHX43_1.name = "fSuspensionCompDamp"
-SHX43_1.type = "float"
-SHX44_1 = {}
-SHX44_1.name = "fSuspensionReboundDamp"
-SHX44_1.type = "float"
-SHX45_1 = {}
-SHX45_1.name = "fSuspensionUpperLimit"
-SHX45_1.type = "float"
-SHX46_1 = {}
-SHX46_1.name = "fSuspensionLowerLimit"
-SHX46_1.type = "float"
-SHX47_1 = {}
-SHX47_1.name = "fSuspensionRaise"
-SHX47_1.type = "float"
-SHX48_1 = {}
-SHX48_1.name = "fSuspensionBiasFront"
-SHX48_1.type = "float"
-SHX49_1 = {}
-SHX49_1.name = "fAntiRollBarForce"
-SHX49_1.type = "float"
-SHX50_1 = {}
-SHX50_1.name = "fAntiRollBarBiasFront"
-SHX50_1.type = "float"
-SHX51_1 = {}
-SHX51_1.name = "fRollCentreHeightFront"
-SHX51_1.type = "float"
-SHX52_1 = {}
-SHX52_1.name = "fRollCentreHeightRear"
-SHX52_1.type = "float"
-SHX53_1 = {}
-SHX53_1.name = "fCollisionDamageMult"
-SHX53_1.type = "float"
-SHX54_1 = {}
-SHX54_1.name = "fWeaponDamageMult"
-SHX54_1.type = "float"
-SHX55_1 = {}
-SHX55_1.name = "fDeformationDamageMult"
-SHX55_1.type = "float"
-SHX56_1 = {}
-SHX56_1.name = "fEngineDamageMult"
-SHX56_1.type = "float"
-SHX57_1 = {}
-SHX57_1.name = "fPetrolTankVolume"
-SHX57_1.type = "float"
-SHX58_1 = {}
-SHX58_1.name = "fOilVolume"
-SHX58_1.type = "float"
-SHX59_1 = {}
-SHX59_1.name = "fSeatOffsetDistX"
-SHX59_1.type = "float"
-SHX60_1 = {}
-SHX60_1.name = "fSeatOffsetDistY"
-SHX60_1.type = "float"
-SHX61_1 = {}
-SHX61_1.name = "fSeatOffsetDistZ"
-SHX61_1.type = "float"
-SHX62_1 = {}
-SHX62_1.name = "nMonetaryValue"
-SHX62_1.type = "integer"
-SHX16_1[1] = SHX17_1
-SHX16_1[2] = SHX18_1
-SHX16_1[3] = SHX19_1
-SHX16_1[4] = SHX20_1
-SHX16_1[5] = SHX21_1
-SHX16_1[6] = SHX22_1
-SHX16_1[7] = SHX23_1
-SHX16_1[8] = SHX24_1
-SHX16_1[9] = SHX25_1
-SHX16_1[10] = SHX26_1
-SHX16_1[11] = SHX27_1
-SHX16_1[12] = SHX28_1
-SHX16_1[13] = SHX29_1
-SHX16_1[14] = SHX30_1
-SHX16_1[15] = SHX31_1
-SHX16_1[16] = SHX32_1
-SHX16_1[17] = SHX33_1
-SHX16_1[18] = SHX34_1
-SHX16_1[19] = SHX35_1
-SHX16_1[20] = SHX36_1
-SHX16_1[21] = SHX37_1
-SHX16_1[22] = SHX38_1
-SHX16_1[23] = SHX39_1
-SHX16_1[24] = SHX40_1
-SHX16_1[25] = SHX41_1
-SHX16_1[26] = SHX42_1
-SHX16_1[27] = SHX43_1
-SHX16_1[28] = SHX44_1
-SHX16_1[29] = SHX45_1
-SHX16_1[30] = SHX46_1
-SHX16_1[31] = SHX47_1
-SHX16_1[32] = SHX48_1
-SHX16_1[33] = SHX49_1
-SHX16_1[34] = SHX50_1
-SHX16_1[35] = SHX51_1
-SHX16_1[36] = SHX52_1
-SHX16_1[37] = SHX53_1
-SHX16_1[38] = SHX54_1
-SHX16_1[39] = SHX55_1
-SHX16_1[40] = SHX56_1
-SHX16_1[41] = SHX57_1
-SHX16_1[42] = SHX58_1
-SHX16_1[43] = SHX59_1
-SHX16_1[44] = SHX60_1
-SHX16_1[45] = SHX61_1
-SHX16_1[46] = SHX62_1
-SHX17_1 = {}
-SHX18_1 = {}
-SHX18_1.fMass = 1600.0
-SHX18_1.fInitialDragCoeff = 2.0
-SHX18_1.fInitialDriveForce = 0.5
-SHX18_1.fInitialDriveMaxFlatVel = 400.0
-SHX18_1.fBrakeForce = 1.5
-SHX18_1.fHandBrakeForce = 1.5
-SHX18_1.fCollisionDamageMult = 0.8
-SHX18_1.fWeaponDamageMult = 1.0
-SHX18_1.fDeformationDamageMult = 0.8
-SHX18_1.fEngineDamageMult = 1.0
-SHX17_1["Super Sport"] = SHX18_1
-SHX18_1 = {}
-SHX18_1.fMass = 1700.0
-SHX18_1.fInitialDragCoeff = 1.8
-SHX18_1.fInitialDriveForce = 0.45
-SHX18_1.fInitialDriveMaxFlatVel = 400.0
-SHX18_1.fBrakeForce = 1.5
-SHX18_1.fHandBrakeForce = 1.5
-SHX18_1.fCollisionDamageMult = 0.7
-SHX18_1.fWeaponDamageMult = 1.0
-SHX18_1.fDeformationDamageMult = 0.7
-SHX18_1.fEngineDamageMult = 1.0
-SHX17_1["Police Sport"] = SHX18_1
-SHX18_1 = {}
-SHX18_1.fMass = 1700.0
-SHX18_1.fInitialDragCoeff = 4.2
-SHX18_1.fInitialDriveForce = 0.45
-SHX18_1.fInitialDriveMaxFlatVel = 350.0
-SHX18_1.fBrakeForce = 1.5
-SHX18_1.fHandBrakeForce = 1.5
-SHX18_1.fCollisionDamageMult = 0.7
-SHX18_1.fWeaponDamageMult = 1.0
-SHX18_1.fDeformationDamageMult = 0.7
-SHX18_1.fEngineDamageMult = 1.0
-SHX17_1.Sport = SHX18_1
-SHX18_1 = {}
-SHX18_1.fMass = 1800.0
-SHX18_1.fInitialDragCoeff = 4.2
-SHX18_1.fInitialDriveForce = 0.4
-SHX18_1.fInitialDriveMaxFlatVel = 300.0
-SHX18_1.fBrakeForce = 1.5
-SHX18_1.fHandBrakeForce = 1.5
-SHX18_1.fCollisionDamageMult = 0.6
-SHX18_1.fWeaponDamageMult = 1.0
-SHX18_1.fDeformationDamageMult = 0.6
-SHX18_1.fEngineDamageMult = 1.0
-SHX17_1.SUV = SHX18_1
-SHX18_1 = {}
-SHX18_1.fMass = 1800.0
-SHX18_1.fInitialDragCoeff = 3.0
-SHX18_1.fInitialDriveForce = 0.3
-SHX18_1.fInitialDriveMaxFlatVel = 300.0
-SHX18_1.fBrakeForce = 1.5
-SHX18_1.fHandBrakeForce = 1.5
-SHX18_1.fCollisionDamageMult = 0.5
-SHX18_1.fWeaponDamageMult = 1.0
-SHX18_1.fDeformationDamageMult = 0.5
-SHX18_1.fEngineDamageMult = 1.0
-SHX17_1.Offroader = SHX18_1
-SHX18_1 = {}
-SHX18_1.fMass = 1800.0
-SHX18_1.fInitialDragCoeff = 5.0
-SHX18_1.fInitialDriveForce = 0.375
-SHX18_1.fInitialDriveMaxFlatVel = 320.0
-SHX18_1.fBrakeForce = 1.5
-SHX18_1.fHandBrakeForce = 1.5
-SHX18_1.fCollisionDamageMult = 0.6
-SHX18_1.fWeaponDamageMult = 1.0
-SHX18_1.fDeformationDamageMult = 0.6
-SHX18_1.fEngineDamageMult = 1.0
-SHX18_1.fSuspensionForce = 3.0
-SHX18_1.fSuspensionCompDamp = 1.5
-SHX18_1.fSuspensionReboundDamp = 1.5
-SHX18_1.fSuspensionUpperLimit = 0.1
-SHX18_1.fSuspensionLowerLimit = -0.1
-SHX17_1["300KG"] = SHX18_1
-SHX18_1 = {}
-SHX19_1 = {}
-SHX19_1.fMass = 1400.0
-SHX19_1.fInitialDragCoeff = 7.0
-SHX19_1.fInitialDriveForce = 0.4
-SHX19_1.fInitialDriveMaxFlatVel = 290.0
-SHX19_1.fDriveInertia = 1.0
-SHX19_1.fClutchChangeRateScaleUpShift = 6.0
-SHX19_1.fClutchChangeRateScaleDownShift = 6.0
-SHX19_1.fBrakeForce = 1.2
-SHX19_1.fHandBrakeForce = 0.8
-SHX19_1.fCollisionDamageMult = 0.8
-SHX19_1.fWeaponDamageMult = 1.0
-SHX19_1.fDeformationDamageMult = 0.8
-SHX19_1.fEngineDamageMult = 1.0
-SHX19_1.fSuspensionForce = 3.0
-SHX19_1.fSuspensionCompDamp = 1.5
-SHX19_1.fSuspensionReboundDamp = 1.5
-SHX19_1.fSuspensionUpperLimit = 0.1
-SHX19_1.fSuspensionLowerLimit = -0.1
-SHX19_1.fTractionBiasFront = 0.5
-SHX19_1.fSteeringLock = 40.0
-SHX19_1.fTractionCurveMax = 3.5
-SHX19_1.fTractionCurveMin = 3.5
-SHX19_1.fTractionCurveLateral = 22.5
-SHX19_1.fTractionSpringDeltaMax = 0.15
-SHX19_1.fTractionLossMult = 1.0
-SHX18_1.Super = SHX19_1
-SHX19_1 = {}
-SHX19_1.fMass = 1500.0
-SHX19_1.fInitialDragCoeff = 7.5
-SHX19_1.fInitialDriveForce = 0.35
-SHX19_1.fInitialDriveMaxFlatVel = 260.0
-SHX19_1.fDriveInertia = 1.0
-SHX19_1.fClutchChangeRateScaleUpShift = 6.0
-SHX19_1.fClutchChangeRateScaleDownShift = 6.0
-SHX19_1.fBrakeForce = 1.2
-SHX19_1.fHandBrakeForce = 0.8
-SHX19_1.fCollisionDamageMult = 0.7
-SHX19_1.fWeaponDamageMult = 1.0
-SHX19_1.fDeformationDamageMult = 0.7
-SHX19_1.fEngineDamageMult = 1.0
-SHX19_1.fSuspensionForce = 3.0
-SHX19_1.fSuspensionCompDamp = 1.5
-SHX19_1.fSuspensionReboundDamp = 1.5
-SHX19_1.fSuspensionUpperLimit = 0.1
-SHX19_1.fSuspensionLowerLimit = -0.1
-SHX19_1.fTractionBiasFront = 0.5
-SHX19_1.fSteeringLock = 40.0
-SHX19_1.fTractionCurveMax = 3.5
-SHX19_1.fTractionCurveMin = 3.5
-SHX19_1.fTractionCurveLateral = 22.5
-SHX19_1.fTractionSpringDeltaMax = 0.15
-SHX19_1.fTractionLossMult = 1.0
-SHX18_1["Sport & Sedan"] = SHX19_1
-SHX19_1 = {}
-SHX19_1.fMass = 1600.0
-SHX19_1.fInitialDragCoeff = 7.5
-SHX19_1.fInitialDriveForce = 0.35
-SHX19_1.fInitialDriveMaxFlatVel = 200.0
-SHX19_1.fDriveInertia = 0.7
-SHX19_1.fClutchChangeRateScaleUpShift = 6.0
-SHX19_1.fClutchChangeRateScaleDownShift = 6.0
-SHX19_1.fBrakeForce = 1.2
-SHX19_1.fHandBrakeForce = 0.8
-SHX19_1.fCollisionDamageMult = 0.7
-SHX19_1.fWeaponDamageMult = 1.0
-SHX19_1.fDeformationDamageMult = 0.7
-SHX19_1.fEngineDamageMult = 1.0
-SHX19_1.fSuspensionForce = 3.0
-SHX19_1.fSuspensionCompDamp = 1.5
-SHX19_1.fSuspensionReboundDamp = 1.5
-SHX19_1.fSuspensionUpperLimit = 0.1
-SHX19_1.fSuspensionLowerLimit = -0.1
-SHX19_1.fTractionBiasFront = 0.5
-SHX19_1.fSteeringLock = 40.0
-SHX19_1.fTractionCurveMax = 3.5
-SHX19_1.fTractionCurveMin = 3.5
-SHX19_1.fTractionCurveLateral = 22.5
-SHX19_1.fTractionSpringDeltaMax = 0.15
-SHX19_1.fTractionLossMult = 1.0
-SHX18_1.SUV = SHX19_1
-SHX19_1 = {}
-SHX19_1.fMass = 1600.0
-SHX19_1.fInitialDragCoeff = 12.0
-SHX19_1.fInitialDriveForce = 0.3
-SHX19_1.fInitialDriveMaxFlatVel = 200.0
-SHX19_1.fDriveInertia = 0.5
-SHX19_1.fClutchChangeRateScaleUpShift = 6.0
-SHX19_1.fClutchChangeRateScaleDownShift = 6.0
-SHX19_1.fBrakeForce = 0.8
-SHX19_1.fHandBrakeForce = 0.8
-SHX19_1.fCollisionDamageMult = 0.6
-SHX19_1.fWeaponDamageMult = 1.0
-SHX19_1.fDeformationDamageMult = 0.6
-SHX19_1.fEngineDamageMult = 1.0
-SHX19_1.fSuspensionForce = 3.0
-SHX19_1.fSuspensionCompDamp = 1.5
-SHX19_1.fSuspensionReboundDamp = 1.5
-SHX19_1.fSuspensionUpperLimit = 0.1
-SHX19_1.fSuspensionLowerLimit = -0.1
-SHX19_1.fTractionBiasFront = 0.5
-SHX19_1.fSteeringLock = 40.0
-SHX19_1.fTractionCurveMax = 3.5
-SHX19_1.fTractionCurveMin = 3.5
-SHX19_1.fTractionCurveLateral = 22.5
-SHX19_1.fTractionSpringDeltaMax = 0.15
-SHX19_1.fTractionLossMult = 1.0
-SHX18_1.Truck = SHX19_1
-SHX19_1 = {}
-SHX19_1.fMass = 1600.0
-SHX19_1.fInitialDragCoeff = 6.0
-SHX19_1.fInitialDriveForce = 0.3
-SHX19_1.fInitialDriveMaxFlatVel = 200.0
-SHX19_1.fDriveInertia = 1.0
-SHX19_1.fClutchChangeRateScaleUpShift = 6.0
-SHX19_1.fClutchChangeRateScaleDownShift = 6.0
-SHX19_1.fBrakeForce = 1.2
-SHX19_1.fHandBrakeForce = 0.8
-SHX19_1.fCollisionDamageMult = 0.6
-SHX19_1.fWeaponDamageMult = 1.0
-SHX19_1.fDeformationDamageMult = 0.6
-SHX19_1.fEngineDamageMult = 1.0
-SHX19_1.fSuspensionForce = 3.0
-SHX19_1.fSuspensionCompDamp = 1.5
-SHX19_1.fSuspensionReboundDamp = 1.5
-SHX19_1.fSuspensionUpperLimit = 0.1
-SHX19_1.fSuspensionLowerLimit = -0.1
-SHX19_1.fTractionBiasFront = 0.5
-SHX19_1.fSteeringLock = 40.0
-SHX19_1.fTractionCurveMax = 3.5
-SHX19_1.fTractionCurveMin = 3.5
-SHX19_1.fTractionCurveLateral = 22.5
-SHX19_1.fTractionSpringDeltaMax = 0.15
-SHX19_1.fTractionLossMult = 1.0
-SHX18_1["300KG"] = SHX19_1
-SHX19_1 = {}
-SHX20_1 = 1
-SHX21_1 = {}
-SHX22_1 = 1
-SHX23_1 = pairs
-SHX24_1 = SHX17_1
-SHX23_1, SHX24_1, SHX25_1, SHX26_1 = SHX23_1(SHX24_1)
-for SHX27_1 in SHX23_1, SHX24_1, SHX25_1, SHX26_1 do
-  SHX28_1 = table
-  SHX28_1 = SHX28_1.insert
-  SHX29_1 = SHX19_1
-  SHX30_1 = SHX27_1
-  SHX28_1(SHX29_1, SHX30_1)
+cmgCall2.hasCarDevDisabledSpeedCaps = dataTable
+cmgCall2 = {}
+cmgCall2[0] = "VMT_SPOILER"
+cmgCall2[1] = "VMT_BUMPER_F"
+cmgCall2[2] = "VMT_BUMPER_R"
+cmgCall2[3] = "VMT_SKIRT"
+cmgCall2[4] = "VMT_EXHAUST"
+cmgCall2[5] = "VMT_CHASSIS"
+cmgCall2[6] = "VMT_GRILL"
+cmgCall2[7] = "VMT_BONNET"
+cmgCall2[8] = "VMT_WING_L"
+cmgCall2[9] = "VMT_WING_R"
+cmgCall2[10] = "VMT_ROOF"
+cmgCall2[11] = "VMT_ENGINE"
+cmgCall2[12] = "VMT_BRAKES"
+cmgCall2[13] = "VMT_GEARBOX"
+cmgCall2[14] = "VMT_HORN"
+cmgCall2[15] = "VMT_SUSPENSION"
+cmgCall2[16] = "VMT_ARMOUR"
+cmgCall2[17] = "VMT_NITROUS"
+cmgCall2[18] = "VMT_TURBO"
+cmgCall2[19] = "VMT_SUBWOOFER"
+cmgCall2[20] = "VMT_TYRE_SMOKE"
+cmgCall2[21] = "VMT_HYDRAULICS"
+cmgCall2[22] = "VMT_XENON_LIGHTS"
+cmgCall2[23] = "VMT_WHEELS"
+cmgCall2[24] = "VMT_WHEELS_REAR_OR_HYDRAULICS"
+cmgCall2[25] = "VMT_PLTHOLDER"
+cmgCall2[26] = "VMT_PLTVANITY"
+cmgCall2[27] = "VMT_INTERIOR1"
+cmgCall2[28] = "VMT_INTERIOR2"
+cmgCall2[29] = "VMT_INTERIOR3"
+cmgCall2[30] = "VMT_INTERIOR4"
+cmgCall2[31] = "VMT_INTERIOR5"
+cmgCall2[32] = "VMT_SEATS"
+cmgCall2[33] = "VMT_STEERING"
+cmgCall2[34] = "VMT_KNOB"
+cmgCall2[35] = "VMT_PLAQUE"
+cmgCall2[36] = "VMT_ICE"
+cmgCall2[37] = "VMT_TRUNK"
+cmgCall2[38] = "VMT_HYDRO"
+cmgCall2[39] = "VMT_ENGINEBAY1"
+cmgCall2[40] = "VMT_ENGINEBAY2"
+cmgCall2[41] = "VMT_ENGINEBAY3"
+cmgCall2[42] = "VMT_CHASSIS2"
+cmgCall2[43] = "VMT_CHASSIS3"
+cmgCall2[44] = "VMT_CHASSIS4"
+cmgCall2[45] = "VMT_CHASSIS5"
+cmgCall2[46] = "VMT_DOOR_L"
+cmgCall2[47] = "VMT_DOOR_R"
+cmgCall2[48] = "VMT_LIVERY_MOD"
+cmgCall2[49] = "VMT_LIGHTBAR"
+dataTable = {}
+dataTable2 = {}
+dataTable2.name = "fMass"
+dataTable2.type = "float"
+dataTable3 = {}
+dataTable3.name = "fInitialDragCoeff"
+dataTable3.type = "float"
+dataTable4 = {}
+dataTable4.name = "fDownforceModifier"
+dataTable4.type = "float"
+dataTable6 = {}
+dataTable6.name = "fPercentSubmerged"
+dataTable6.type = "float"
+dataTable7 = {}
+dataTable7.name = "vecCentreOfMassOffset"
+dataTable7.type = "vector"
+dataTable8 = {}
+dataTable8.name = "vecInertiaMultiplier"
+dataTable8.type = "vector"
+iterator = {}
+iterator.name = "fDriveBiasFront"
+iterator.type = "float"
+dataTable9 = {}
+dataTable9.name = "nInitialDriveGears"
+dataTable9.type = "integer"
+dataTable10 = {}
+dataTable10.name = "fInitialDriveForce"
+dataTable10.type = "float"
+dataTable11 = {}
+dataTable11.name = "fDriveInertia"
+dataTable11.type = "float"
+dataTable12 = {}
+dataTable12.name = "fClutchChangeRateScaleUpShift"
+dataTable12.type = "float"
+tableHelper = {}
+tableHelper.name = "fClutchChangeRateScaleDownShift"
+tableHelper.type = "float"
+dataTable13 = {}
+dataTable13.name = "fInitialDriveMaxFlatVel"
+dataTable13.type = "float"
+dataTable14 = {}
+dataTable14.name = "fBrakeForce"
+dataTable14.type = "float"
+vector3Builder = {}
+vector3Builder.name = "fBrakeBiasFront"
+vector3Builder.type = "float"
+vector3Builder2 = {}
+vector3Builder2.name = "fHandBrakeForce"
+vector3Builder2.type = "float"
+dataTable15 = {}
+dataTable15.name = "fSteeringLock"
+dataTable15.type = "float"
+dataTable16 = {}
+dataTable16.name = "fTractionCurveMax"
+dataTable16.type = "float"
+dataTable17 = {}
+dataTable17.name = "fTractionCurveMin"
+dataTable17.type = "float"
+dataTable18 = {}
+dataTable18.name = "fTractionCurveLateral"
+dataTable18.type = "float"
+dataTable19 = {}
+dataTable19.name = "fTractionSpringDeltaMax"
+dataTable19.type = "float"
+dataTable20 = {}
+dataTable20.name = "fLowSpeedTractionLossMult"
+dataTable20.type = "float"
+tableHelper2 = {}
+tableHelper2.name = "fCamberStiffnesss"
+tableHelper2.type = "float"
+dataTable21 = {}
+dataTable21.name = "fTractionBiasFront"
+dataTable21.type = "float"
+dataTable22 = {}
+dataTable22.name = "fTractionLossMult"
+dataTable22.type = "float"
+vector3Builder3 = {}
+vector3Builder3.name = "fSuspensionForce"
+vector3Builder3.type = "float"
+dataTable23 = {}
+dataTable23.name = "fSuspensionCompDamp"
+dataTable23.type = "float"
+dataTable24 = {}
+dataTable24.name = "fSuspensionReboundDamp"
+dataTable24.type = "float"
+dataTable25 = {}
+dataTable25.name = "fSuspensionUpperLimit"
+dataTable25.type = "float"
+dataTable26 = {}
+dataTable26.name = "fSuspensionLowerLimit"
+dataTable26.type = "float"
+dataTable27 = {}
+dataTable27.name = "fSuspensionRaise"
+dataTable27.type = "float"
+dataTable28 = {}
+dataTable28.name = "fSuspensionBiasFront"
+dataTable28.type = "float"
+dataTable29 = {}
+dataTable29.name = "fAntiRollBarForce"
+dataTable29.type = "float"
+dataTable30 = {}
+dataTable30.name = "fAntiRollBarBiasFront"
+dataTable30.type = "float"
+dataTable31 = {}
+dataTable31.name = "fRollCentreHeightFront"
+dataTable31.type = "float"
+dataTable32 = {}
+dataTable32.name = "fRollCentreHeightRear"
+dataTable32.type = "float"
+dataTable33 = {}
+dataTable33.name = "fCollisionDamageMult"
+dataTable33.type = "float"
+dataTable34 = {}
+dataTable34.name = "fWeaponDamageMult"
+dataTable34.type = "float"
+dataTable35 = {}
+dataTable35.name = "fDeformationDamageMult"
+dataTable35.type = "float"
+dataTable36 = {}
+dataTable36.name = "fEngineDamageMult"
+dataTable36.type = "float"
+dataTable37 = {}
+dataTable37.name = "fPetrolTankVolume"
+dataTable37.type = "float"
+rageUiCall2 = {}
+rageUiCall2.name = "fOilVolume"
+rageUiCall2.type = "float"
+dataTable38 = {}
+dataTable38.name = "fSeatOffsetDistX"
+dataTable38.type = "float"
+dataTable39 = {}
+dataTable39.name = "fSeatOffsetDistY"
+dataTable39.type = "float"
+dataTable40 = {}
+dataTable40.name = "fSeatOffsetDistZ"
+dataTable40.type = "float"
+dataTable41 = {}
+dataTable41.name = "nMonetaryValue"
+dataTable41.type = "integer"
+dataTable[1] = dataTable2
+dataTable[2] = dataTable3
+dataTable[3] = dataTable4
+dataTable[4] = dataTable6
+dataTable[5] = dataTable7
+dataTable[6] = dataTable8
+dataTable[7] = iterator
+dataTable[8] = dataTable9
+dataTable[9] = dataTable10
+dataTable[10] = dataTable11
+dataTable[11] = dataTable12
+dataTable[12] = tableHelper
+dataTable[13] = dataTable13
+dataTable[14] = dataTable14
+dataTable[15] = vector3Builder
+dataTable[16] = vector3Builder2
+dataTable[17] = dataTable15
+dataTable[18] = dataTable16
+dataTable[19] = dataTable17
+dataTable[20] = dataTable18
+dataTable[21] = dataTable19
+dataTable[22] = dataTable20
+dataTable[23] = tableHelper2
+dataTable[24] = dataTable21
+dataTable[25] = dataTable22
+dataTable[26] = vector3Builder3
+dataTable[27] = dataTable23
+dataTable[28] = dataTable24
+dataTable[29] = dataTable25
+dataTable[30] = dataTable26
+dataTable[31] = dataTable27
+dataTable[32] = dataTable28
+dataTable[33] = dataTable29
+dataTable[34] = dataTable30
+dataTable[35] = dataTable31
+dataTable[36] = dataTable32
+dataTable[37] = dataTable33
+dataTable[38] = dataTable34
+dataTable[39] = dataTable35
+dataTable[40] = dataTable36
+dataTable[41] = dataTable37
+dataTable[42] = rageUiCall2
+dataTable[43] = dataTable38
+dataTable[44] = dataTable39
+dataTable[45] = dataTable40
+dataTable[46] = dataTable41
+dataTable2 = {}
+dataTable3 = {}
+dataTable3.fMass = 1600.0
+dataTable3.fInitialDragCoeff = 2.0
+dataTable3.fInitialDriveForce = 0.5
+dataTable3.fInitialDriveMaxFlatVel = 400.0
+dataTable3.fBrakeForce = 1.5
+dataTable3.fHandBrakeForce = 1.5
+dataTable3.fCollisionDamageMult = 0.8
+dataTable3.fWeaponDamageMult = 1.0
+dataTable3.fDeformationDamageMult = 0.8
+dataTable3.fEngineDamageMult = 1.0
+dataTable2["Super Sport"] = dataTable3
+dataTable3 = {}
+dataTable3.fMass = 1700.0
+dataTable3.fInitialDragCoeff = 1.8
+dataTable3.fInitialDriveForce = 0.45
+dataTable3.fInitialDriveMaxFlatVel = 400.0
+dataTable3.fBrakeForce = 1.5
+dataTable3.fHandBrakeForce = 1.5
+dataTable3.fCollisionDamageMult = 0.7
+dataTable3.fWeaponDamageMult = 1.0
+dataTable3.fDeformationDamageMult = 0.7
+dataTable3.fEngineDamageMult = 1.0
+dataTable2["Police Sport"] = dataTable3
+dataTable3 = {}
+dataTable3.fMass = 1700.0
+dataTable3.fInitialDragCoeff = 4.2
+dataTable3.fInitialDriveForce = 0.45
+dataTable3.fInitialDriveMaxFlatVel = 350.0
+dataTable3.fBrakeForce = 1.5
+dataTable3.fHandBrakeForce = 1.5
+dataTable3.fCollisionDamageMult = 0.7
+dataTable3.fWeaponDamageMult = 1.0
+dataTable3.fDeformationDamageMult = 0.7
+dataTable3.fEngineDamageMult = 1.0
+dataTable2.Sport = dataTable3
+dataTable3 = {}
+dataTable3.fMass = 1800.0
+dataTable3.fInitialDragCoeff = 4.2
+dataTable3.fInitialDriveForce = 0.4
+dataTable3.fInitialDriveMaxFlatVel = 300.0
+dataTable3.fBrakeForce = 1.5
+dataTable3.fHandBrakeForce = 1.5
+dataTable3.fCollisionDamageMult = 0.6
+dataTable3.fWeaponDamageMult = 1.0
+dataTable3.fDeformationDamageMult = 0.6
+dataTable3.fEngineDamageMult = 1.0
+dataTable2.SUV = dataTable3
+dataTable3 = {}
+dataTable3.fMass = 1800.0
+dataTable3.fInitialDragCoeff = 3.0
+dataTable3.fInitialDriveForce = 0.3
+dataTable3.fInitialDriveMaxFlatVel = 300.0
+dataTable3.fBrakeForce = 1.5
+dataTable3.fHandBrakeForce = 1.5
+dataTable3.fCollisionDamageMult = 0.5
+dataTable3.fWeaponDamageMult = 1.0
+dataTable3.fDeformationDamageMult = 0.5
+dataTable3.fEngineDamageMult = 1.0
+dataTable2.Offroader = dataTable3
+dataTable3 = {}
+dataTable3.fMass = 1800.0
+dataTable3.fInitialDragCoeff = 5.0
+dataTable3.fInitialDriveForce = 0.375
+dataTable3.fInitialDriveMaxFlatVel = 320.0
+dataTable3.fBrakeForce = 1.5
+dataTable3.fHandBrakeForce = 1.5
+dataTable3.fCollisionDamageMult = 0.6
+dataTable3.fWeaponDamageMult = 1.0
+dataTable3.fDeformationDamageMult = 0.6
+dataTable3.fEngineDamageMult = 1.0
+dataTable3.fSuspensionForce = 3.0
+dataTable3.fSuspensionCompDamp = 1.5
+dataTable3.fSuspensionReboundDamp = 1.5
+dataTable3.fSuspensionUpperLimit = 0.1
+dataTable3.fSuspensionLowerLimit = -0.1
+dataTable2["300KG"] = dataTable3
+dataTable3 = {}
+dataTable4 = {}
+dataTable4.fMass = 1400.0
+dataTable4.fInitialDragCoeff = 7.0
+dataTable4.fInitialDriveForce = 0.4
+dataTable4.fInitialDriveMaxFlatVel = 290.0
+dataTable4.fDriveInertia = 1.0
+dataTable4.fClutchChangeRateScaleUpShift = 6.0
+dataTable4.fClutchChangeRateScaleDownShift = 6.0
+dataTable4.fBrakeForce = 1.2
+dataTable4.fHandBrakeForce = 0.8
+dataTable4.fCollisionDamageMult = 0.8
+dataTable4.fWeaponDamageMult = 1.0
+dataTable4.fDeformationDamageMult = 0.8
+dataTable4.fEngineDamageMult = 1.0
+dataTable4.fSuspensionForce = 3.0
+dataTable4.fSuspensionCompDamp = 1.5
+dataTable4.fSuspensionReboundDamp = 1.5
+dataTable4.fSuspensionUpperLimit = 0.1
+dataTable4.fSuspensionLowerLimit = -0.1
+dataTable4.fTractionBiasFront = 0.5
+dataTable4.fSteeringLock = 40.0
+dataTable4.fTractionCurveMax = 3.5
+dataTable4.fTractionCurveMin = 3.5
+dataTable4.fTractionCurveLateral = 22.5
+dataTable4.fTractionSpringDeltaMax = 0.15
+dataTable4.fTractionLossMult = 1.0
+dataTable3.Super = dataTable4
+dataTable4 = {}
+dataTable4.fMass = 1500.0
+dataTable4.fInitialDragCoeff = 7.5
+dataTable4.fInitialDriveForce = 0.35
+dataTable4.fInitialDriveMaxFlatVel = 260.0
+dataTable4.fDriveInertia = 1.0
+dataTable4.fClutchChangeRateScaleUpShift = 6.0
+dataTable4.fClutchChangeRateScaleDownShift = 6.0
+dataTable4.fBrakeForce = 1.2
+dataTable4.fHandBrakeForce = 0.8
+dataTable4.fCollisionDamageMult = 0.7
+dataTable4.fWeaponDamageMult = 1.0
+dataTable4.fDeformationDamageMult = 0.7
+dataTable4.fEngineDamageMult = 1.0
+dataTable4.fSuspensionForce = 3.0
+dataTable4.fSuspensionCompDamp = 1.5
+dataTable4.fSuspensionReboundDamp = 1.5
+dataTable4.fSuspensionUpperLimit = 0.1
+dataTable4.fSuspensionLowerLimit = -0.1
+dataTable4.fTractionBiasFront = 0.5
+dataTable4.fSteeringLock = 40.0
+dataTable4.fTractionCurveMax = 3.5
+dataTable4.fTractionCurveMin = 3.5
+dataTable4.fTractionCurveLateral = 22.5
+dataTable4.fTractionSpringDeltaMax = 0.15
+dataTable4.fTractionLossMult = 1.0
+dataTable3["Sport & Sedan"] = dataTable4
+dataTable4 = {}
+dataTable4.fMass = 1600.0
+dataTable4.fInitialDragCoeff = 7.5
+dataTable4.fInitialDriveForce = 0.35
+dataTable4.fInitialDriveMaxFlatVel = 200.0
+dataTable4.fDriveInertia = 0.7
+dataTable4.fClutchChangeRateScaleUpShift = 6.0
+dataTable4.fClutchChangeRateScaleDownShift = 6.0
+dataTable4.fBrakeForce = 1.2
+dataTable4.fHandBrakeForce = 0.8
+dataTable4.fCollisionDamageMult = 0.7
+dataTable4.fWeaponDamageMult = 1.0
+dataTable4.fDeformationDamageMult = 0.7
+dataTable4.fEngineDamageMult = 1.0
+dataTable4.fSuspensionForce = 3.0
+dataTable4.fSuspensionCompDamp = 1.5
+dataTable4.fSuspensionReboundDamp = 1.5
+dataTable4.fSuspensionUpperLimit = 0.1
+dataTable4.fSuspensionLowerLimit = -0.1
+dataTable4.fTractionBiasFront = 0.5
+dataTable4.fSteeringLock = 40.0
+dataTable4.fTractionCurveMax = 3.5
+dataTable4.fTractionCurveMin = 3.5
+dataTable4.fTractionCurveLateral = 22.5
+dataTable4.fTractionSpringDeltaMax = 0.15
+dataTable4.fTractionLossMult = 1.0
+dataTable3.SUV = dataTable4
+dataTable4 = {}
+dataTable4.fMass = 1600.0
+dataTable4.fInitialDragCoeff = 12.0
+dataTable4.fInitialDriveForce = 0.3
+dataTable4.fInitialDriveMaxFlatVel = 200.0
+dataTable4.fDriveInertia = 0.5
+dataTable4.fClutchChangeRateScaleUpShift = 6.0
+dataTable4.fClutchChangeRateScaleDownShift = 6.0
+dataTable4.fBrakeForce = 0.8
+dataTable4.fHandBrakeForce = 0.8
+dataTable4.fCollisionDamageMult = 0.6
+dataTable4.fWeaponDamageMult = 1.0
+dataTable4.fDeformationDamageMult = 0.6
+dataTable4.fEngineDamageMult = 1.0
+dataTable4.fSuspensionForce = 3.0
+dataTable4.fSuspensionCompDamp = 1.5
+dataTable4.fSuspensionReboundDamp = 1.5
+dataTable4.fSuspensionUpperLimit = 0.1
+dataTable4.fSuspensionLowerLimit = -0.1
+dataTable4.fTractionBiasFront = 0.5
+dataTable4.fSteeringLock = 40.0
+dataTable4.fTractionCurveMax = 3.5
+dataTable4.fTractionCurveMin = 3.5
+dataTable4.fTractionCurveLateral = 22.5
+dataTable4.fTractionSpringDeltaMax = 0.15
+dataTable4.fTractionLossMult = 1.0
+dataTable3.Truck = dataTable4
+dataTable4 = {}
+dataTable4.fMass = 1600.0
+dataTable4.fInitialDragCoeff = 6.0
+dataTable4.fInitialDriveForce = 0.3
+dataTable4.fInitialDriveMaxFlatVel = 200.0
+dataTable4.fDriveInertia = 1.0
+dataTable4.fClutchChangeRateScaleUpShift = 6.0
+dataTable4.fClutchChangeRateScaleDownShift = 6.0
+dataTable4.fBrakeForce = 1.2
+dataTable4.fHandBrakeForce = 0.8
+dataTable4.fCollisionDamageMult = 0.6
+dataTable4.fWeaponDamageMult = 1.0
+dataTable4.fDeformationDamageMult = 0.6
+dataTable4.fEngineDamageMult = 1.0
+dataTable4.fSuspensionForce = 3.0
+dataTable4.fSuspensionCompDamp = 1.5
+dataTable4.fSuspensionReboundDamp = 1.5
+dataTable4.fSuspensionUpperLimit = 0.1
+dataTable4.fSuspensionLowerLimit = -0.1
+dataTable4.fTractionBiasFront = 0.5
+dataTable4.fSteeringLock = 40.0
+dataTable4.fTractionCurveMax = 3.5
+dataTable4.fTractionCurveMin = 3.5
+dataTable4.fTractionCurveLateral = 22.5
+dataTable4.fTractionSpringDeltaMax = 0.15
+dataTable4.fTractionLossMult = 1.0
+dataTable3["300KG"] = dataTable4
+dataTable4 = {}
+dataTable6 = 1
+dataTable7 = {}
+dataTable8 = 1
+iterator = pairs
+dataTable9 = dataTable2
+iterator, dataTable9, dataTable10, dataTable11 = iterator(dataTable9)
+for dataTable12 in iterator, dataTable9, dataTable10, dataTable11 do
+  tableHelper = table
+  tableHelper = tableHelper.insert
+  dataTable13 = dataTable4
+  dataTable14 = dataTable12
+  tableHelper(dataTable13, dataTable14)
 end
-SHX23_1 = pairs
-SHX24_1 = SHX18_1
-SHX23_1, SHX24_1, SHX25_1, SHX26_1 = SHX23_1(SHX24_1)
-for SHX27_1 in SHX23_1, SHX24_1, SHX25_1, SHX26_1 do
-  SHX28_1 = table
-  SHX28_1 = SHX28_1.insert
-  SHX29_1 = SHX21_1
-  SHX30_1 = SHX27_1
-  SHX28_1(SHX29_1, SHX30_1)
+iterator = pairs
+dataTable9 = dataTable3
+iterator, dataTable9, dataTable10, dataTable11 = iterator(dataTable9)
+for dataTable12 in iterator, dataTable9, dataTable10, dataTable11 do
+  tableHelper = table
+  tableHelper = tableHelper.insert
+  dataTable13 = dataTable7
+  dataTable14 = dataTable12
+  tableHelper(dataTable13, dataTable14)
 end
-SHX23_1 = {}
-SHX24_1 = 11
-SHX25_1 = 12
-SHX26_1 = 13
-SHX27_1 = 15
-SHX23_1[1] = SHX24_1
-SHX23_1[2] = SHX25_1
-SHX23_1[3] = SHX26_1
-SHX23_1[4] = SHX27_1
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = {}
-  SHX2_2 = pairs
-  SHX3_2 = SHX23_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = GetVehicleMod
-    SHX9_2 = SHX0_2
-    SHX10_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX1_2[SHX7_2] = SHX8_2
+iterator = {}
+dataTable9 = 11
+dataTable10 = 12
+dataTable11 = 13
+dataTable12 = 15
+iterator[1] = dataTable9
+iterator[2] = dataTable10
+iterator[3] = dataTable11
+iterator[4] = dataTable12
+function dataTable9(arg1)
+  local arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4
+  arg2 = {}
+  arg3 = pairs
+  textValue17 = iterator
+  arg3, textValue17, numberValue24, modelHash = arg3(textValue17)
+  for cmgCall5, workValue18 in arg3, textValue17, numberValue24, modelHash do
+    workValue20 = GetVehicleMod
+    workValue21 = arg1
+    workValue = workValue18
+    workValue20 = workValue20(workValue21, workValue)
+    arg2[workValue18] = workValue20
   end
-  SHX2_2 = ModifyVehicleTopSpeed
-  SHX3_2 = SHX0_2
-  SHX4_2 = 1.0
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getTunableValue
-  SHX3_2 = "reapply_mods_hack"
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = pairs
-    SHX3_2 = SHX1_2
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-    for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-      if SHX7_2 >= 0 then
-        SHX8_2 = SetVehicleMod
-        SHX9_2 = SHX0_2
-        SHX10_2 = SHX6_2
-        SHX11_2 = SHX7_2
-        SHX12_2 = false
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+  arg3 = ModifyVehicleTopSpeed
+  textValue17 = arg1
+  numberValue24 = 1.0
+  arg3(textValue17, numberValue24)
+  arg3 = CMG
+  arg3 = arg3.getTunableValue
+  textValue17 = "reapply_mods_hack"
+  arg3 = arg3(textValue17)
+  if arg3 then
+    arg3 = pairs
+    textValue17 = arg2
+    arg3, textValue17, numberValue24, modelHash = arg3(textValue17)
+    for cmgCall5, workValue18 in arg3, textValue17, numberValue24, modelHash do
+      if workValue18 >= 0 then
+        workValue20 = SetVehicleMod
+        workValue21 = arg1
+        workValue = cmgCall5
+        textValue8 = workValue18
+        flag4 = false
+        workValue20(workValue21, workValue, textValue8, flag4)
       end
     end
   end
 end
-function SHX25_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX2_2 = SHX17_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = type
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    if "number" == SHX9_2 then
-      SHX9_2 = math
-      SHX9_2 = SHX9_2.type
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if "integer" == SHX9_2 then
-        SHX9_2 = SetVehicleHandlingInt
-        SHX10_2 = SHX1_2
-        SHX11_2 = "CHandlingData"
-        SHX12_2 = SHX7_2
-        SHX13_2 = SHX8_2
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+function dataTable10(arg1, arg2)
+  local arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3
+  arg3 = dataTable2
+  arg3 = arg3[arg1]
+  textValue17 = pairs
+  numberValue24 = arg3
+  textValue17, numberValue24, modelHash, cmgCall5 = textValue17(numberValue24)
+  for workValue18, workValue20 in textValue17, numberValue24, modelHash, cmgCall5 do
+    workValue21 = type
+    workValue = workValue20
+    workValue21 = workValue21(workValue)
+    if "number" == workValue21 then
+      workValue21 = math
+      workValue21 = workValue21.type
+      workValue = workValue20
+      workValue21 = workValue21(workValue)
+      if "integer" == workValue21 then
+        workValue21 = SetVehicleHandlingInt
+        workValue = arg2
+        textValue8 = "CHandlingData"
+        flag4 = workValue18
+        workValue3 = workValue20
+        workValue21(workValue, textValue8, flag4, workValue3)
       else
-        SHX9_2 = math
-        SHX9_2 = SHX9_2.type
-        SHX10_2 = SHX8_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        if "float" == SHX9_2 then
-          SHX9_2 = SetVehicleHandlingFloat
-          SHX10_2 = SHX1_2
-          SHX11_2 = "CHandlingData"
-          SHX12_2 = SHX7_2
-          SHX13_2 = SHX8_2
-          SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+        workValue21 = math
+        workValue21 = workValue21.type
+        workValue = workValue20
+        workValue21 = workValue21(workValue)
+        if "float" == workValue21 then
+          workValue21 = SetVehicleHandlingFloat
+          workValue = arg2
+          textValue8 = "CHandlingData"
+          flag4 = workValue18
+          workValue3 = workValue20
+          workValue21(workValue, textValue8, flag4, workValue3)
         end
       end
     else
-      SHX9_2 = type
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if "vector3" == SHX9_2 then
-        SHX9_2 = SetVehicleHandlingVector
-        SHX10_2 = SHX1_2
-        SHX11_2 = "CHandlingData"
-        SHX12_2 = SHX7_2
-        SHX13_2 = SHX8_2
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+      workValue21 = type
+      workValue = workValue20
+      workValue21 = workValue21(workValue)
+      if "vector3" == workValue21 then
+        workValue21 = SetVehicleHandlingVector
+        workValue = arg2
+        textValue8 = "CHandlingData"
+        flag4 = workValue18
+        workValue3 = workValue20
+        workValue21(workValue, textValue8, flag4, workValue3)
       end
     end
   end
-  SHX3_2 = SHX24_1
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = notify
-  SHX4_2 = "~g~Baller Handling template applied to vehicle!"
-  SHX3_2(SHX4_2)
+  textValue17 = dataTable9
+  numberValue24 = arg2
+  textValue17(numberValue24)
+  textValue17 = notify
+  numberValue24 = "~g~Baller Handling template applied to vehicle!"
+  -- Beginner: Show a notification to the player.
+  textValue17(numberValue24)
 end
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = GetVehiclePedIsUsing
-  SHX1_2 = PlayerPedId
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX1_2()
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  if 0 == SHX0_2 then
-    SHX1_2 = notify
-    SHX2_2 = "~r~You are not in a vehicle."
-    SHX1_2(SHX2_2)
+function dataTable11()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3
+  arg1 = GetVehiclePedIsUsing
+  arg2 = PlayerPedId
+  arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3 = arg2()
+  arg1 = arg1(arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3)
+  if 0 == arg1 then
+    arg2 = notify
+    arg3 = "~r~You are not in a vehicle."
+    arg2(arg3)
     return
   end
-  SHX2_2 = SHX22_1
-  SHX1_2 = SHX21_1
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = SHX18_1
-  SHX2_2 = SHX2_2[SHX1_2]
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = type
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    if "number" == SHX9_2 then
-      SHX9_2 = math
-      SHX9_2 = SHX9_2.type
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if "integer" == SHX9_2 then
-        SHX9_2 = SetVehicleHandlingInt
-        SHX10_2 = SHX0_2
-        SHX11_2 = "CHandlingData"
-        SHX12_2 = SHX7_2
-        SHX13_2 = SHX8_2
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+  arg3 = dataTable8
+  arg2 = dataTable7
+  arg2 = arg2[arg3]
+  arg3 = dataTable3
+  arg3 = arg3[arg2]
+  textValue17 = pairs
+  numberValue24 = arg3
+  textValue17, numberValue24, modelHash, cmgCall5 = textValue17(numberValue24)
+  for workValue18, workValue20 in textValue17, numberValue24, modelHash, cmgCall5 do
+    workValue21 = type
+    workValue = workValue20
+    workValue21 = workValue21(workValue)
+    if "number" == workValue21 then
+      workValue21 = math
+      workValue21 = workValue21.type
+      workValue = workValue20
+      workValue21 = workValue21(workValue)
+      if "integer" == workValue21 then
+        workValue21 = SetVehicleHandlingInt
+        workValue = arg1
+        textValue8 = "CHandlingData"
+        flag4 = workValue18
+        workValue3 = workValue20
+        workValue21(workValue, textValue8, flag4, workValue3)
       else
-        SHX9_2 = math
-        SHX9_2 = SHX9_2.type
-        SHX10_2 = SHX8_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        if "float" == SHX9_2 then
-          SHX9_2 = SetVehicleHandlingFloat
-          SHX10_2 = SHX0_2
-          SHX11_2 = "CHandlingData"
-          SHX12_2 = SHX7_2
-          SHX13_2 = SHX8_2
-          SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+        workValue21 = math
+        workValue21 = workValue21.type
+        workValue = workValue20
+        workValue21 = workValue21(workValue)
+        if "float" == workValue21 then
+          workValue21 = SetVehicleHandlingFloat
+          workValue = arg1
+          textValue8 = "CHandlingData"
+          flag4 = workValue18
+          workValue3 = workValue20
+          workValue21(workValue, textValue8, flag4, workValue3)
         end
       end
     else
-      SHX9_2 = type
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if "vector3" == SHX9_2 then
-        SHX9_2 = SetVehicleHandlingVector
-        SHX10_2 = SHX0_2
-        SHX11_2 = "CHandlingData"
-        SHX12_2 = SHX7_2
-        SHX13_2 = SHX8_2
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+      workValue21 = type
+      workValue = workValue20
+      workValue21 = workValue21(workValue)
+      if "vector3" == workValue21 then
+        workValue21 = SetVehicleHandlingVector
+        workValue = arg1
+        textValue8 = "CHandlingData"
+        flag4 = workValue18
+        workValue3 = workValue20
+        workValue21(workValue, textValue8, flag4, workValue3)
       end
     end
   end
-  SHX3_2 = SHX24_1
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = notify
-  SHX4_2 = "~g~Import Handling template applied to vehicle!"
-  SHX3_2(SHX4_2)
+  textValue17 = dataTable9
+  numberValue24 = arg1
+  textValue17(numberValue24)
+  textValue17 = notify
+  numberValue24 = "~g~Import Handling template applied to vehicle!"
+  -- Beginner: Show a notification to the player.
+  textValue17(numberValue24)
 end
-SHX27_1 = {}
-SHX28_1 = {}
-SHX28_1.name = "Black"
-SHX28_1.colorindex = 0
-SHX29_1 = {}
-SHX29_1.name = "White"
-SHX29_1.colorindex = 112
-SHX30_1 = {}
-SHX30_1.name = "Red"
-SHX30_1.colorindex = 27
-SHX31_1 = {}
-SHX31_1.name = "Orange"
-SHX31_1.colorindex = 38
-SHX32_1 = {}
-SHX32_1.name = "Yellow"
-SHX32_1.colorindex = 88
-SHX33_1 = {}
-SHX33_1.name = "Green"
-SHX33_1.colorindex = 92
-SHX34_1 = {}
-SHX34_1.name = "Blue"
-SHX34_1.colorindex = 64
-SHX35_1 = {}
-SHX35_1.name = "Pink"
-SHX35_1.colorindex = 135
-SHX36_1 = {}
-SHX36_1.name = "Purple"
-SHX36_1.colorindex = 142
-SHX27_1[1] = SHX28_1
-SHX27_1[2] = SHX29_1
-SHX27_1[3] = SHX30_1
-SHX27_1[4] = SHX31_1
-SHX27_1[5] = SHX32_1
-SHX27_1[6] = SHX33_1
-SHX27_1[7] = SHX34_1
-SHX27_1[8] = SHX35_1
-SHX27_1[9] = SHX36_1
-SHX28_1 = vector3
-SHX29_1 = 2120.2885742188
-SHX30_1 = 2433.8576660156
-SHX31_1 = 152.3650390625
-SHX28_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1)
-SHX29_1 = {}
-SHX30_1 = {}
-SHX31_1 = vector3
-SHX32_1 = 2859.890625
-SHX33_1 = 3530.3603515625
-SHX34_1 = 54.06075668335
-SHX31_1 = SHX31_1(SHX32_1, SHX33_1, SHX34_1)
-SHX32_1 = vector3
-SHX33_1 = 2901.5375976562
-SHX34_1 = 3662.1921386719
-SHX35_1 = 52.677833557129
-SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX30_1[1] = SHX31_1
-SHX30_1[2] = SHX32_1
-SHX30_1[3] = SHX33_1
-SHX30_1[4] = SHX34_1
-SHX30_1[5] = SHX35_1
-SHX30_1[6] = SHX36_1
-SHX30_1[7] = SHX37_1
-SHX30_1[8] = SHX38_1
-SHX30_1[9] = SHX39_1
-SHX30_1[10] = SHX40_1
-SHX30_1[11] = SHX41_1
-SHX30_1[12] = SHX42_1
-SHX30_1[13] = SHX43_1
-SHX30_1[14] = SHX44_1
-SHX30_1[15] = SHX45_1
-SHX30_1[16] = SHX46_1
-SHX30_1[17] = SHX47_1
-SHX30_1[18] = SHX48_1
-SHX30_1[19] = SHX49_1
-SHX30_1[20] = SHX50_1
-SHX30_1[21] = SHX51_1
-SHX30_1[22] = SHX52_1
-SHX30_1[23] = SHX53_1
-SHX30_1[24] = SHX54_1
-SHX30_1[25] = SHX55_1
-SHX30_1[26] = SHX56_1
-SHX30_1[27] = SHX57_1
-SHX30_1[28] = SHX58_1
-SHX30_1[29] = SHX59_1
-SHX30_1[30] = SHX60_1
-SHX30_1[31] = SHX61_1
-SHX30_1[32] = SHX62_1
-SHX30_1[33] = SHX63_1
-SHX30_1[34] = SHX64_1
-SHX30_1[35] = SHX65_1
-SHX30_1[36] = SHX66_1
-SHX30_1[37] = SHX67_1
-SHX30_1[38] = SHX68_1
-SHX30_1[39] = SHX69_1
-SHX30_1[40] = SHX70_1
-SHX30_1[41] = SHX71_1
-SHX30_1[42] = SHX72_1
-SHX30_1[43] = SHX73_1
-SHX30_1[44] = SHX74_1
-SHX30_1[45] = SHX75_1
-SHX30_1[46] = SHX76_1
-SHX30_1[47] = SHX77_1
-SHX30_1[48] = SHX78_1
-SHX30_1[49] = SHX79_1
-SHX30_1[50] = SHX80_1
-SHX30_1[51] = SHX81_1
-SHX30_1[52] = SHX82_1
-SHX30_1[53] = SHX83_1
-SHX30_1[54] = SHX84_1
-SHX30_1[55] = SHX85_1
-SHX30_1[56] = SHX86_1
-SHX30_1[57] = SHX87_1
-SHX30_1[58] = SHX88_1
-SHX30_1[59] = SHX89_1
-SHX30_1[60] = SHX90_1
-SHX30_1[61] = SHX91_1
-SHX30_1[62] = SHX92_1
-SHX30_1[63] = SHX93_1
-SHX30_1[64] = SHX94_1
-SHX30_1[65] = SHX95_1
-SHX30_1[66] = SHX96_1
-SHX30_1[67] = SHX97_1
-SHX30_1[68] = SHX98_1
-SHX30_1[69] = SHX99_1
-SHX30_1[70] = SHX100_1
-SHX30_1[71] = SHX101_1
-SHX30_1[72] = SHX102_1
-SHX30_1[73] = SHX103_1
-SHX30_1[74] = SHX104_1
-SHX29_1["OLD: Super Sport"] = SHX30_1
-SHX30_1 = {}
-SHX31_1 = vector3
-SHX32_1 = 2907.548828125
-SHX33_1 = 3684.9208984375
-SHX34_1 = 52.677875518799
-SHX31_1 = SHX31_1(SHX32_1, SHX33_1, SHX34_1)
-SHX32_1 = vector3
-SHX33_1 = 2927.6743164062
-SHX34_1 = 3760.1481933594
-SHX35_1 = 52.678119659424
-SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX30_1[1] = SHX31_1
-SHX30_1[2] = SHX32_1
-SHX30_1[3] = SHX33_1
-SHX30_1[4] = SHX34_1
-SHX30_1[5] = SHX35_1
-SHX30_1[6] = SHX36_1
-SHX30_1[7] = SHX37_1
-SHX30_1[8] = SHX38_1
-SHX30_1[9] = SHX39_1
-SHX30_1[10] = SHX40_1
-SHX30_1[11] = SHX41_1
-SHX30_1[12] = SHX42_1
-SHX30_1[13] = SHX43_1
-SHX30_1[14] = SHX44_1
-SHX30_1[15] = SHX45_1
-SHX30_1[16] = SHX46_1
-SHX30_1[17] = SHX47_1
-SHX30_1[18] = SHX48_1
-SHX30_1[19] = SHX49_1
-SHX30_1[20] = SHX50_1
-SHX30_1[21] = SHX51_1
-SHX30_1[22] = SHX52_1
-SHX30_1[23] = SHX53_1
-SHX30_1[24] = SHX54_1
-SHX30_1[25] = SHX55_1
-SHX30_1[26] = SHX56_1
-SHX30_1[27] = SHX57_1
-SHX30_1[28] = SHX58_1
-SHX30_1[29] = SHX59_1
-SHX30_1[30] = SHX60_1
-SHX30_1[31] = SHX61_1
-SHX30_1[32] = SHX62_1
-SHX30_1[33] = SHX63_1
-SHX30_1[34] = SHX64_1
-SHX30_1[35] = SHX65_1
-SHX30_1[36] = SHX66_1
-SHX30_1[37] = SHX67_1
-SHX30_1[38] = SHX68_1
-SHX30_1[39] = SHX69_1
-SHX30_1[40] = SHX70_1
-SHX30_1[41] = SHX71_1
-SHX30_1[42] = SHX72_1
-SHX30_1[43] = SHX73_1
-SHX30_1[44] = SHX74_1
-SHX30_1[45] = SHX75_1
-SHX30_1[46] = SHX76_1
-SHX30_1[47] = SHX77_1
-SHX30_1[48] = SHX78_1
-SHX30_1[49] = SHX79_1
-SHX30_1[50] = SHX80_1
-SHX30_1[51] = SHX81_1
-SHX30_1[52] = SHX82_1
-SHX30_1[53] = SHX83_1
-SHX30_1[54] = SHX84_1
-SHX30_1[55] = SHX85_1
-SHX30_1[56] = SHX86_1
-SHX30_1[57] = SHX87_1
-SHX30_1[58] = SHX88_1
-SHX30_1[59] = SHX89_1
-SHX30_1[60] = SHX90_1
-SHX30_1[61] = SHX91_1
-SHX30_1[62] = SHX92_1
-SHX30_1[63] = SHX93_1
-SHX30_1[64] = SHX94_1
-SHX30_1[65] = SHX95_1
-SHX30_1[66] = SHX96_1
-SHX30_1[67] = SHX97_1
-SHX30_1[68] = SHX98_1
-SHX30_1[69] = SHX99_1
-SHX30_1[70] = SHX100_1
-SHX30_1[71] = SHX101_1
-SHX30_1[72] = SHX102_1
-SHX30_1[73] = SHX103_1
-SHX30_1[74] = SHX104_1
-SHX29_1["OLD: Police Sport"] = SHX30_1
-SHX30_1 = "OLD: Sport"
-SHX31_1 = {}
-SHX32_1 = vector3
-SHX33_1 = 2936.6784667969
-SHX34_1 = 3972.7023925781
-SHX35_1 = 51.692615509033
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = vector3
-SHX34_1 = 2877.8898925781
-SHX35_1 = 4194.3125
-SHX36_1 = 50.136428833008
-SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX33_1(SHX34_1, SHX35_1, SHX36_1)
-SHX31_1[1] = SHX32_1
-SHX31_1[2] = SHX33_1
-SHX31_1[3] = SHX34_1
-SHX31_1[4] = SHX35_1
-SHX31_1[5] = SHX36_1
-SHX31_1[6] = SHX37_1
-SHX31_1[7] = SHX38_1
-SHX31_1[8] = SHX39_1
-SHX31_1[9] = SHX40_1
-SHX31_1[10] = SHX41_1
-SHX31_1[11] = SHX42_1
-SHX31_1[12] = SHX43_1
-SHX31_1[13] = SHX44_1
-SHX31_1[14] = SHX45_1
-SHX31_1[15] = SHX46_1
-SHX31_1[16] = SHX47_1
-SHX31_1[17] = SHX48_1
-SHX31_1[18] = SHX49_1
-SHX31_1[19] = SHX50_1
-SHX31_1[20] = SHX51_1
-SHX31_1[21] = SHX52_1
-SHX31_1[22] = SHX53_1
-SHX31_1[23] = SHX54_1
-SHX31_1[24] = SHX55_1
-SHX31_1[25] = SHX56_1
-SHX31_1[26] = SHX57_1
-SHX31_1[27] = SHX58_1
-SHX31_1[28] = SHX59_1
-SHX31_1[29] = SHX60_1
-SHX31_1[30] = SHX61_1
-SHX31_1[31] = SHX62_1
-SHX31_1[32] = SHX63_1
-SHX31_1[33] = SHX64_1
-SHX31_1[34] = SHX65_1
-SHX31_1[35] = SHX66_1
-SHX31_1[36] = SHX67_1
-SHX31_1[37] = SHX68_1
-SHX31_1[38] = SHX69_1
-SHX31_1[39] = SHX70_1
-SHX31_1[40] = SHX71_1
-SHX31_1[41] = SHX72_1
-SHX31_1[42] = SHX73_1
-SHX31_1[43] = SHX74_1
-SHX31_1[44] = SHX75_1
-SHX31_1[45] = SHX76_1
-SHX31_1[46] = SHX77_1
-SHX31_1[47] = SHX78_1
-SHX31_1[48] = SHX79_1
-SHX31_1[49] = SHX80_1
-SHX31_1[50] = SHX81_1
-SHX31_1[51] = SHX82_1
-SHX31_1[52] = SHX83_1
-SHX31_1[53] = SHX84_1
-SHX31_1[54] = SHX85_1
-SHX31_1[55] = SHX86_1
-SHX31_1[56] = SHX87_1
-SHX31_1[57] = SHX88_1
-SHX31_1[58] = SHX89_1
-SHX31_1[59] = SHX90_1
-SHX31_1[60] = SHX91_1
-SHX31_1[61] = SHX92_1
-SHX31_1[62] = SHX93_1
-SHX31_1[63] = SHX94_1
-SHX31_1[64] = SHX95_1
-SHX31_1[65] = SHX96_1
-SHX31_1[66] = SHX97_1
-SHX31_1[67] = SHX98_1
-SHX31_1[68] = SHX99_1
-SHX31_1[69] = SHX100_1
-SHX31_1[70] = SHX101_1
-SHX31_1[71] = SHX102_1
-SHX31_1[72] = SHX103_1
-SHX31_1[73] = SHX104_1
-SHX29_1[SHX30_1] = SHX31_1
-SHX30_1 = "OLD: SUV"
-SHX31_1 = {}
-SHX32_1 = vector3
-SHX33_1 = 2830.4113769531
-SHX34_1 = 4340.48046875
-SHX35_1 = 49.984191894531
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = vector3
-SHX34_1 = 2783.9580078125
-SHX35_1 = 4498.8803710938
-SHX36_1 = 47.151454925537
-SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX33_1(SHX34_1, SHX35_1, SHX36_1)
-SHX31_1[1] = SHX32_1
-SHX31_1[2] = SHX33_1
-SHX31_1[3] = SHX34_1
-SHX31_1[4] = SHX35_1
-SHX31_1[5] = SHX36_1
-SHX31_1[6] = SHX37_1
-SHX31_1[7] = SHX38_1
-SHX31_1[8] = SHX39_1
-SHX31_1[9] = SHX40_1
-SHX31_1[10] = SHX41_1
-SHX31_1[11] = SHX42_1
-SHX31_1[12] = SHX43_1
-SHX31_1[13] = SHX44_1
-SHX31_1[14] = SHX45_1
-SHX31_1[15] = SHX46_1
-SHX31_1[16] = SHX47_1
-SHX31_1[17] = SHX48_1
-SHX31_1[18] = SHX49_1
-SHX31_1[19] = SHX50_1
-SHX31_1[20] = SHX51_1
-SHX31_1[21] = SHX52_1
-SHX31_1[22] = SHX53_1
-SHX31_1[23] = SHX54_1
-SHX31_1[24] = SHX55_1
-SHX31_1[25] = SHX56_1
-SHX31_1[26] = SHX57_1
-SHX31_1[27] = SHX58_1
-SHX31_1[28] = SHX59_1
-SHX31_1[29] = SHX60_1
-SHX31_1[30] = SHX61_1
-SHX31_1[31] = SHX62_1
-SHX31_1[32] = SHX63_1
-SHX31_1[33] = SHX64_1
-SHX31_1[34] = SHX65_1
-SHX31_1[35] = SHX66_1
-SHX31_1[36] = SHX67_1
-SHX31_1[37] = SHX68_1
-SHX31_1[38] = SHX69_1
-SHX31_1[39] = SHX70_1
-SHX31_1[40] = SHX71_1
-SHX31_1[41] = SHX72_1
-SHX31_1[42] = SHX73_1
-SHX31_1[43] = SHX74_1
-SHX31_1[44] = SHX75_1
-SHX31_1[45] = SHX76_1
-SHX31_1[46] = SHX77_1
-SHX31_1[47] = SHX78_1
-SHX31_1[48] = SHX79_1
-SHX31_1[49] = SHX80_1
-SHX31_1[50] = SHX81_1
-SHX31_1[51] = SHX82_1
-SHX31_1[52] = SHX83_1
-SHX31_1[53] = SHX84_1
-SHX31_1[54] = SHX85_1
-SHX31_1[55] = SHX86_1
-SHX31_1[56] = SHX87_1
-SHX31_1[57] = SHX88_1
-SHX31_1[58] = SHX89_1
-SHX31_1[59] = SHX90_1
-SHX31_1[60] = SHX91_1
-SHX31_1[61] = SHX92_1
-SHX31_1[62] = SHX93_1
-SHX31_1[63] = SHX94_1
-SHX31_1[64] = SHX95_1
-SHX31_1[65] = SHX96_1
-SHX31_1[66] = SHX97_1
-SHX31_1[67] = SHX98_1
-SHX31_1[68] = SHX99_1
-SHX31_1[69] = SHX100_1
-SHX31_1[70] = SHX101_1
-SHX31_1[71] = SHX102_1
-SHX31_1[72] = SHX103_1
-SHX31_1[73] = SHX104_1
-SHX29_1[SHX30_1] = SHX31_1
-SHX30_1 = "OLD: Semi Offroader"
-SHX31_1 = {}
-SHX32_1 = vector3
-SHX33_1 = 2830.4113769531
-SHX34_1 = 4340.48046875
-SHX35_1 = 49.984191894531
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = vector3
-SHX34_1 = 2783.9580078125
-SHX35_1 = 4498.8803710938
-SHX36_1 = 47.151454925537
-SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX33_1(SHX34_1, SHX35_1, SHX36_1)
-SHX31_1[1] = SHX32_1
-SHX31_1[2] = SHX33_1
-SHX31_1[3] = SHX34_1
-SHX31_1[4] = SHX35_1
-SHX31_1[5] = SHX36_1
-SHX31_1[6] = SHX37_1
-SHX31_1[7] = SHX38_1
-SHX31_1[8] = SHX39_1
-SHX31_1[9] = SHX40_1
-SHX31_1[10] = SHX41_1
-SHX31_1[11] = SHX42_1
-SHX31_1[12] = SHX43_1
-SHX31_1[13] = SHX44_1
-SHX31_1[14] = SHX45_1
-SHX31_1[15] = SHX46_1
-SHX31_1[16] = SHX47_1
-SHX31_1[17] = SHX48_1
-SHX31_1[18] = SHX49_1
-SHX31_1[19] = SHX50_1
-SHX31_1[20] = SHX51_1
-SHX31_1[21] = SHX52_1
-SHX31_1[22] = SHX53_1
-SHX31_1[23] = SHX54_1
-SHX31_1[24] = SHX55_1
-SHX31_1[25] = SHX56_1
-SHX31_1[26] = SHX57_1
-SHX31_1[27] = SHX58_1
-SHX31_1[28] = SHX59_1
-SHX31_1[29] = SHX60_1
-SHX31_1[30] = SHX61_1
-SHX31_1[31] = SHX62_1
-SHX31_1[32] = SHX63_1
-SHX31_1[33] = SHX64_1
-SHX31_1[34] = SHX65_1
-SHX31_1[35] = SHX66_1
-SHX31_1[36] = SHX67_1
-SHX31_1[37] = SHX68_1
-SHX31_1[38] = SHX69_1
-SHX31_1[39] = SHX70_1
-SHX31_1[40] = SHX71_1
-SHX31_1[41] = SHX72_1
-SHX31_1[42] = SHX73_1
-SHX31_1[43] = SHX74_1
-SHX31_1[44] = SHX75_1
-SHX31_1[45] = SHX76_1
-SHX31_1[46] = SHX77_1
-SHX31_1[47] = SHX78_1
-SHX31_1[48] = SHX79_1
-SHX31_1[49] = SHX80_1
-SHX31_1[50] = SHX81_1
-SHX31_1[51] = SHX82_1
-SHX31_1[52] = SHX83_1
-SHX31_1[53] = SHX84_1
-SHX31_1[54] = SHX85_1
-SHX31_1[55] = SHX86_1
-SHX31_1[56] = SHX87_1
-SHX31_1[57] = SHX88_1
-SHX31_1[58] = SHX89_1
-SHX31_1[59] = SHX90_1
-SHX31_1[60] = SHX91_1
-SHX31_1[61] = SHX92_1
-SHX31_1[62] = SHX93_1
-SHX31_1[63] = SHX94_1
-SHX31_1[64] = SHX95_1
-SHX31_1[65] = SHX96_1
-SHX31_1[66] = SHX97_1
-SHX31_1[67] = SHX98_1
-SHX31_1[68] = SHX99_1
-SHX31_1[69] = SHX100_1
-SHX31_1[70] = SHX101_1
-SHX31_1[71] = SHX102_1
-SHX31_1[72] = SHX103_1
-SHX31_1[73] = SHX104_1
-SHX29_1[SHX30_1] = SHX31_1
-SHX30_1 = "OLD: Offroader"
-SHX31_1 = {}
-SHX32_1 = vector3
-SHX33_1 = 2934.0314941406
-SHX34_1 = 3990.6062011719
-SHX35_1 = 51.546661376953
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = vector3
-SHX34_1 = 2897.0686035156
-SHX35_1 = 4138.1010742188
-SHX36_1 = 50.389766693115
-SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX33_1(SHX34_1, SHX35_1, SHX36_1)
-SHX31_1[1] = SHX32_1
-SHX31_1[2] = SHX33_1
-SHX31_1[3] = SHX34_1
-SHX31_1[4] = SHX35_1
-SHX31_1[5] = SHX36_1
-SHX31_1[6] = SHX37_1
-SHX31_1[7] = SHX38_1
-SHX31_1[8] = SHX39_1
-SHX31_1[9] = SHX40_1
-SHX31_1[10] = SHX41_1
-SHX31_1[11] = SHX42_1
-SHX31_1[12] = SHX43_1
-SHX31_1[13] = SHX44_1
-SHX31_1[14] = SHX45_1
-SHX31_1[15] = SHX46_1
-SHX31_1[16] = SHX47_1
-SHX31_1[17] = SHX48_1
-SHX31_1[18] = SHX49_1
-SHX31_1[19] = SHX50_1
-SHX31_1[20] = SHX51_1
-SHX31_1[21] = SHX52_1
-SHX31_1[22] = SHX53_1
-SHX31_1[23] = SHX54_1
-SHX31_1[24] = SHX55_1
-SHX31_1[25] = SHX56_1
-SHX31_1[26] = SHX57_1
-SHX31_1[27] = SHX58_1
-SHX31_1[28] = SHX59_1
-SHX31_1[29] = SHX60_1
-SHX31_1[30] = SHX61_1
-SHX31_1[31] = SHX62_1
-SHX31_1[32] = SHX63_1
-SHX31_1[33] = SHX64_1
-SHX31_1[34] = SHX65_1
-SHX31_1[35] = SHX66_1
-SHX31_1[36] = SHX67_1
-SHX31_1[37] = SHX68_1
-SHX31_1[38] = SHX69_1
-SHX31_1[39] = SHX70_1
-SHX31_1[40] = SHX71_1
-SHX31_1[41] = SHX72_1
-SHX31_1[42] = SHX73_1
-SHX31_1[43] = SHX74_1
-SHX31_1[44] = SHX75_1
-SHX31_1[45] = SHX76_1
-SHX31_1[46] = SHX77_1
-SHX31_1[47] = SHX78_1
-SHX31_1[48] = SHX79_1
-SHX31_1[49] = SHX80_1
-SHX31_1[50] = SHX81_1
-SHX31_1[51] = SHX82_1
-SHX31_1[52] = SHX83_1
-SHX31_1[53] = SHX84_1
-SHX31_1[54] = SHX85_1
-SHX31_1[55] = SHX86_1
-SHX31_1[56] = SHX87_1
-SHX31_1[57] = SHX88_1
-SHX31_1[58] = SHX89_1
-SHX31_1[59] = SHX90_1
-SHX31_1[60] = SHX91_1
-SHX31_1[61] = SHX92_1
-SHX31_1[62] = SHX93_1
-SHX31_1[63] = SHX94_1
-SHX31_1[64] = SHX95_1
-SHX31_1[65] = SHX96_1
-SHX31_1[66] = SHX97_1
-SHX31_1[67] = SHX98_1
-SHX31_1[68] = SHX99_1
-SHX31_1[69] = SHX100_1
-SHX31_1[70] = SHX101_1
-SHX31_1[71] = SHX102_1
-SHX31_1[72] = SHX103_1
-SHX31_1[73] = SHX104_1
-SHX29_1[SHX30_1] = SHX31_1
-SHX30_1 = {}
-SHX31_1 = vector3
-SHX32_1 = 2118.296875
-SHX33_1 = 3183.0803222656
-SHX34_1 = 152.139877319336
-SHX31_1 = SHX31_1(SHX32_1, SHX33_1, SHX34_1)
-SHX32_1 = vector3
-SHX33_1 = 2120.1213378906
-SHX34_1 = 3318.7431640625
-SHX35_1 = 152.665840148926
-SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX30_1[1] = SHX31_1
-SHX30_1[2] = SHX32_1
-SHX30_1[3] = SHX33_1
-SHX30_1[4] = SHX34_1
-SHX30_1[5] = SHX35_1
-SHX30_1[6] = SHX36_1
-SHX30_1[7] = SHX37_1
-SHX30_1[8] = SHX38_1
-SHX30_1[9] = SHX39_1
-SHX30_1[10] = SHX40_1
-SHX30_1[11] = SHX41_1
-SHX30_1[12] = SHX42_1
-SHX30_1[13] = SHX43_1
-SHX30_1[14] = SHX44_1
-SHX30_1[15] = SHX45_1
-SHX30_1[16] = SHX46_1
-SHX30_1[17] = SHX47_1
-SHX30_1[18] = SHX48_1
-SHX30_1[19] = SHX49_1
-SHX30_1[20] = SHX50_1
-SHX30_1[21] = SHX51_1
-SHX30_1[22] = SHX52_1
-SHX30_1[23] = SHX53_1
-SHX30_1[24] = SHX54_1
-SHX30_1[25] = SHX55_1
-SHX30_1[26] = SHX56_1
-SHX30_1[27] = SHX57_1
-SHX30_1[28] = SHX58_1
-SHX30_1[29] = SHX59_1
-SHX30_1[30] = SHX60_1
-SHX30_1[31] = SHX61_1
-SHX30_1[32] = SHX62_1
-SHX30_1[33] = SHX63_1
-SHX30_1[34] = SHX64_1
-SHX30_1[35] = SHX65_1
-SHX30_1[36] = SHX66_1
-SHX30_1[37] = SHX67_1
-SHX30_1[38] = SHX68_1
-SHX30_1[39] = SHX69_1
-SHX30_1[40] = SHX70_1
-SHX30_1[41] = SHX71_1
-SHX30_1[42] = SHX72_1
-SHX30_1[43] = SHX73_1
-SHX30_1[44] = SHX74_1
-SHX30_1[45] = SHX75_1
-SHX30_1[46] = SHX76_1
-SHX30_1[47] = SHX77_1
-SHX30_1[48] = SHX78_1
-SHX30_1[49] = SHX79_1
-SHX30_1[50] = SHX80_1
-SHX30_1[51] = SHX81_1
-SHX30_1[52] = SHX82_1
-SHX30_1[53] = SHX83_1
-SHX30_1[54] = SHX84_1
-SHX30_1[55] = SHX85_1
-SHX30_1[56] = SHX86_1
-SHX30_1[57] = SHX87_1
-SHX30_1[58] = SHX88_1
-SHX30_1[59] = SHX89_1
-SHX30_1[60] = SHX90_1
-SHX30_1[61] = SHX91_1
-SHX30_1[62] = SHX92_1
-SHX30_1[63] = SHX93_1
-SHX30_1[64] = SHX94_1
-SHX30_1[65] = SHX95_1
-SHX30_1[66] = SHX96_1
-SHX30_1[67] = SHX97_1
-SHX30_1[68] = SHX98_1
-SHX30_1[69] = SHX99_1
-SHX30_1[70] = SHX100_1
-SHX30_1[71] = SHX101_1
-SHX30_1[72] = SHX102_1
-SHX30_1[73] = SHX103_1
-SHX30_1[74] = SHX104_1
-SHX29_1.Super = SHX30_1
-SHX30_1 = {}
-SHX31_1 = vector3
-SHX32_1 = 2120.2062988281
-SHX33_1 = 3327.2893066406
-SHX34_1 = 152.129135131836
-SHX31_1 = SHX31_1(SHX32_1, SHX33_1, SHX34_1)
-SHX32_1 = vector3
-SHX33_1 = 2120.1062011719
-SHX34_1 = 3507.8864746094
-SHX35_1 = 152.665855407715
-SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX30_1[1] = SHX31_1
-SHX30_1[2] = SHX32_1
-SHX30_1[3] = SHX33_1
-SHX30_1[4] = SHX34_1
-SHX30_1[5] = SHX35_1
-SHX30_1[6] = SHX36_1
-SHX30_1[7] = SHX37_1
-SHX30_1[8] = SHX38_1
-SHX30_1[9] = SHX39_1
-SHX30_1[10] = SHX40_1
-SHX30_1[11] = SHX41_1
-SHX30_1[12] = SHX42_1
-SHX30_1[13] = SHX43_1
-SHX30_1[14] = SHX44_1
-SHX30_1[15] = SHX45_1
-SHX30_1[16] = SHX46_1
-SHX30_1[17] = SHX47_1
-SHX30_1[18] = SHX48_1
-SHX30_1[19] = SHX49_1
-SHX30_1[20] = SHX50_1
-SHX30_1[21] = SHX51_1
-SHX30_1[22] = SHX52_1
-SHX30_1[23] = SHX53_1
-SHX30_1[24] = SHX54_1
-SHX30_1[25] = SHX55_1
-SHX30_1[26] = SHX56_1
-SHX30_1[27] = SHX57_1
-SHX30_1[28] = SHX58_1
-SHX30_1[29] = SHX59_1
-SHX30_1[30] = SHX60_1
-SHX30_1[31] = SHX61_1
-SHX30_1[32] = SHX62_1
-SHX30_1[33] = SHX63_1
-SHX30_1[34] = SHX64_1
-SHX30_1[35] = SHX65_1
-SHX30_1[36] = SHX66_1
-SHX30_1[37] = SHX67_1
-SHX30_1[38] = SHX68_1
-SHX30_1[39] = SHX69_1
-SHX30_1[40] = SHX70_1
-SHX30_1[41] = SHX71_1
-SHX30_1[42] = SHX72_1
-SHX30_1[43] = SHX73_1
-SHX30_1[44] = SHX74_1
-SHX30_1[45] = SHX75_1
-SHX30_1[46] = SHX76_1
-SHX30_1[47] = SHX77_1
-SHX30_1[48] = SHX78_1
-SHX30_1[49] = SHX79_1
-SHX30_1[50] = SHX80_1
-SHX30_1[51] = SHX81_1
-SHX30_1[52] = SHX82_1
-SHX30_1[53] = SHX83_1
-SHX30_1[54] = SHX84_1
-SHX30_1[55] = SHX85_1
-SHX30_1[56] = SHX86_1
-SHX30_1[57] = SHX87_1
-SHX30_1[58] = SHX88_1
-SHX30_1[59] = SHX89_1
-SHX30_1[60] = SHX90_1
-SHX30_1[61] = SHX91_1
-SHX30_1[62] = SHX92_1
-SHX30_1[63] = SHX93_1
-SHX30_1[64] = SHX94_1
-SHX30_1[65] = SHX95_1
-SHX30_1[66] = SHX96_1
-SHX30_1[67] = SHX97_1
-SHX30_1[68] = SHX98_1
-SHX30_1[69] = SHX99_1
-SHX30_1[70] = SHX100_1
-SHX30_1[71] = SHX101_1
-SHX30_1[72] = SHX102_1
-SHX30_1[73] = SHX103_1
-SHX30_1[74] = SHX104_1
-SHX29_1["Police Sport"] = SHX30_1
-SHX30_1 = "Segan/Sport"
-SHX31_1 = {}
-SHX32_1 = vector3
-SHX33_1 = 2120.2668457031
-SHX34_1 = 3520.6560058594
-SHX35_1 = 152.129661560059
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = vector3
-SHX34_1 = 2120.3317871094
-SHX35_1 = 3718.7065429688
-SHX36_1 = 152.66487121582
-SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX33_1(SHX34_1, SHX35_1, SHX36_1)
-SHX31_1[1] = SHX32_1
-SHX31_1[2] = SHX33_1
-SHX31_1[3] = SHX34_1
-SHX31_1[4] = SHX35_1
-SHX31_1[5] = SHX36_1
-SHX31_1[6] = SHX37_1
-SHX31_1[7] = SHX38_1
-SHX31_1[8] = SHX39_1
-SHX31_1[9] = SHX40_1
-SHX31_1[10] = SHX41_1
-SHX31_1[11] = SHX42_1
-SHX31_1[12] = SHX43_1
-SHX31_1[13] = SHX44_1
-SHX31_1[14] = SHX45_1
-SHX31_1[15] = SHX46_1
-SHX31_1[16] = SHX47_1
-SHX31_1[17] = SHX48_1
-SHX31_1[18] = SHX49_1
-SHX31_1[19] = SHX50_1
-SHX31_1[20] = SHX51_1
-SHX31_1[21] = SHX52_1
-SHX31_1[22] = SHX53_1
-SHX31_1[23] = SHX54_1
-SHX31_1[24] = SHX55_1
-SHX31_1[25] = SHX56_1
-SHX31_1[26] = SHX57_1
-SHX31_1[27] = SHX58_1
-SHX31_1[28] = SHX59_1
-SHX31_1[29] = SHX60_1
-SHX31_1[30] = SHX61_1
-SHX31_1[31] = SHX62_1
-SHX31_1[32] = SHX63_1
-SHX31_1[33] = SHX64_1
-SHX31_1[34] = SHX65_1
-SHX31_1[35] = SHX66_1
-SHX31_1[36] = SHX67_1
-SHX31_1[37] = SHX68_1
-SHX31_1[38] = SHX69_1
-SHX31_1[39] = SHX70_1
-SHX31_1[40] = SHX71_1
-SHX31_1[41] = SHX72_1
-SHX31_1[42] = SHX73_1
-SHX31_1[43] = SHX74_1
-SHX31_1[44] = SHX75_1
-SHX31_1[45] = SHX76_1
-SHX31_1[46] = SHX77_1
-SHX31_1[47] = SHX78_1
-SHX31_1[48] = SHX79_1
-SHX31_1[49] = SHX80_1
-SHX31_1[50] = SHX81_1
-SHX31_1[51] = SHX82_1
-SHX31_1[52] = SHX83_1
-SHX31_1[53] = SHX84_1
-SHX31_1[54] = SHX85_1
-SHX31_1[55] = SHX86_1
-SHX31_1[56] = SHX87_1
-SHX31_1[57] = SHX88_1
-SHX31_1[58] = SHX89_1
-SHX31_1[59] = SHX90_1
-SHX31_1[60] = SHX91_1
-SHX31_1[61] = SHX92_1
-SHX31_1[62] = SHX93_1
-SHX31_1[63] = SHX94_1
-SHX31_1[64] = SHX95_1
-SHX31_1[65] = SHX96_1
-SHX31_1[66] = SHX97_1
-SHX31_1[67] = SHX98_1
-SHX31_1[68] = SHX99_1
-SHX31_1[69] = SHX100_1
-SHX31_1[70] = SHX101_1
-SHX31_1[71] = SHX102_1
-SHX31_1[72] = SHX103_1
-SHX31_1[73] = SHX104_1
-SHX29_1[SHX30_1] = SHX31_1
-SHX30_1 = "Semi Offroader"
-SHX31_1 = {}
-SHX32_1 = vector3
-SHX33_1 = 2120.537109375
-SHX34_1 = 3713.6108398438
-SHX35_1 = 152.128982543945
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX33_1 = vector3
-SHX34_1 = 2120.3146972656
-SHX35_1 = 3911.8256835938
-SHX36_1 = 152.664909362793
-SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1, SHX61_1, SHX62_1, SHX63_1, SHX64_1, SHX65_1, SHX66_1, SHX67_1, SHX68_1, SHX69_1, SHX70_1, SHX71_1, SHX72_1, SHX73_1, SHX74_1, SHX75_1, SHX76_1, SHX77_1, SHX78_1, SHX79_1, SHX80_1, SHX81_1, SHX82_1, SHX83_1, SHX84_1, SHX85_1, SHX86_1, SHX87_1, SHX88_1, SHX89_1, SHX90_1, SHX91_1, SHX92_1, SHX93_1, SHX94_1, SHX95_1, SHX96_1, SHX97_1, SHX98_1, SHX99_1, SHX100_1, SHX101_1, SHX102_1, SHX103_1, SHX104_1 = SHX33_1(SHX34_1, SHX35_1, SHX36_1)
-SHX31_1[1] = SHX32_1
-SHX31_1[2] = SHX33_1
-SHX31_1[3] = SHX34_1
-SHX31_1[4] = SHX35_1
-SHX31_1[5] = SHX36_1
-SHX31_1[6] = SHX37_1
-SHX31_1[7] = SHX38_1
-SHX31_1[8] = SHX39_1
-SHX31_1[9] = SHX40_1
-SHX31_1[10] = SHX41_1
-SHX31_1[11] = SHX42_1
-SHX31_1[12] = SHX43_1
-SHX31_1[13] = SHX44_1
-SHX31_1[14] = SHX45_1
-SHX31_1[15] = SHX46_1
-SHX31_1[16] = SHX47_1
-SHX31_1[17] = SHX48_1
-SHX31_1[18] = SHX49_1
-SHX31_1[19] = SHX50_1
-SHX31_1[20] = SHX51_1
-SHX31_1[21] = SHX52_1
-SHX31_1[22] = SHX53_1
-SHX31_1[23] = SHX54_1
-SHX31_1[24] = SHX55_1
-SHX31_1[25] = SHX56_1
-SHX31_1[26] = SHX57_1
-SHX31_1[27] = SHX58_1
-SHX31_1[28] = SHX59_1
-SHX31_1[29] = SHX60_1
-SHX31_1[30] = SHX61_1
-SHX31_1[31] = SHX62_1
-SHX31_1[32] = SHX63_1
-SHX31_1[33] = SHX64_1
-SHX31_1[34] = SHX65_1
-SHX31_1[35] = SHX66_1
-SHX31_1[36] = SHX67_1
-SHX31_1[37] = SHX68_1
-SHX31_1[38] = SHX69_1
-SHX31_1[39] = SHX70_1
-SHX31_1[40] = SHX71_1
-SHX31_1[41] = SHX72_1
-SHX31_1[42] = SHX73_1
-SHX31_1[43] = SHX74_1
-SHX31_1[44] = SHX75_1
-SHX31_1[45] = SHX76_1
-SHX31_1[46] = SHX77_1
-SHX31_1[47] = SHX78_1
-SHX31_1[48] = SHX79_1
-SHX31_1[49] = SHX80_1
-SHX31_1[50] = SHX81_1
-SHX31_1[51] = SHX82_1
-SHX31_1[52] = SHX83_1
-SHX31_1[53] = SHX84_1
-SHX31_1[54] = SHX85_1
-SHX31_1[55] = SHX86_1
-SHX31_1[56] = SHX87_1
-SHX31_1[57] = SHX88_1
-SHX31_1[58] = SHX89_1
-SHX31_1[59] = SHX90_1
-SHX31_1[60] = SHX91_1
-SHX31_1[61] = SHX92_1
-SHX31_1[62] = SHX93_1
-SHX31_1[63] = SHX94_1
-SHX31_1[64] = SHX95_1
-SHX31_1[65] = SHX96_1
-SHX31_1[66] = SHX97_1
-SHX31_1[67] = SHX98_1
-SHX31_1[68] = SHX99_1
-SHX31_1[69] = SHX100_1
-SHX31_1[70] = SHX101_1
-SHX31_1[71] = SHX102_1
-SHX31_1[72] = SHX103_1
-SHX31_1[73] = SHX104_1
-SHX29_1[SHX30_1] = SHX31_1
-SHX30_1 = {}
-SHX31_1 = "startDistance"
-SHX32_1 = vector3
-SHX33_1 = 2120.0769042969
-SHX34_1 = 3538.1611328125
-SHX35_1 = 152.13045501709
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX32_1 = SHX28_1 - SHX32_1
-SHX32_1 = #SHX32_1
-SHX30_1[SHX31_1] = SHX32_1
-SHX31_1 = "endDistance"
-SHX32_1 = vector3
-SHX33_1 = 2120.40234375
-SHX34_1 = 3736.4074707031
-SHX35_1 = 152.664390563965
-SHX32_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1)
-SHX32_1 = SHX28_1 - SHX32_1
-SHX32_1 = #SHX32_1
-SHX30_1[SHX31_1] = SHX32_1
-SHX29_1.Offroader = SHX30_1
-SHX30_1 = {}
-SHX31_1 = nil
-SHX32_1 = 1
-SHX33_1 = {}
-SHX34_1 = table
-SHX34_1 = SHX34_1.insert
-SHX35_1 = SHX33_1
-SHX36_1 = "Display None"
-SHX34_1(SHX35_1, SHX36_1)
-SHX34_1 = _ENV
-SHX35_1 = "pairs"
-SHX34_1 = SHX34_1[SHX35_1]
-SHX35_1 = SHX29_1
-SHX34_1, SHX35_1, SHX36_1, SHX37_1 = SHX34_1(SHX35_1)
-for SHX38_1 in SHX34_1, SHX35_1, SHX36_1, SHX37_1 do
-  SHX39_1 = table
-  SHX39_1 = SHX39_1.insert
-  SHX40_1 = SHX33_1
-  SHX41_1 = SHX38_1
-  SHX39_1(SHX40_1, SHX41_1)
+dataTable12 = {}
+tableHelper = {}
+tableHelper.name = "Black"
+tableHelper.colorindex = 0
+dataTable13 = {}
+dataTable13.name = "White"
+dataTable13.colorindex = 112
+dataTable14 = {}
+dataTable14.name = "Red"
+dataTable14.colorindex = 27
+vector3Builder = {}
+vector3Builder.name = "Orange"
+vector3Builder.colorindex = 38
+vector3Builder2 = {}
+vector3Builder2.name = "Yellow"
+vector3Builder2.colorindex = 88
+dataTable15 = {}
+dataTable15.name = "Green"
+dataTable15.colorindex = 92
+dataTable16 = {}
+dataTable16.name = "Blue"
+dataTable16.colorindex = 64
+dataTable17 = {}
+dataTable17.name = "Pink"
+dataTable17.colorindex = 135
+dataTable18 = {}
+dataTable18.name = "Purple"
+dataTable18.colorindex = 142
+dataTable12[1] = tableHelper
+dataTable12[2] = dataTable13
+dataTable12[3] = dataTable14
+dataTable12[4] = vector3Builder
+dataTable12[5] = vector3Builder2
+dataTable12[6] = dataTable15
+dataTable12[7] = dataTable16
+dataTable12[8] = dataTable17
+dataTable12[9] = dataTable18
+tableHelper = vector3
+dataTable13 = 2120.2885742188
+dataTable14 = 2433.8576660156
+vector3Builder = 152.3650390625
+tableHelper = tableHelper(dataTable13, dataTable14, vector3Builder)
+dataTable13 = {}
+dataTable14 = {}
+vector3Builder = vector3
+vector3Builder2 = 2859.890625
+dataTable15 = 3530.3603515625
+dataTable16 = 54.06075668335
+vector3Builder = vector3Builder(vector3Builder2, dataTable15, dataTable16)
+vector3Builder2 = vector3
+dataTable15 = 2901.5375976562
+dataTable16 = 3662.1921386719
+dataTable17 = 52.677833557129
+vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable14[1] = vector3Builder
+dataTable14[2] = vector3Builder2
+dataTable14[3] = dataTable15
+dataTable14[4] = dataTable16
+dataTable14[5] = dataTable17
+dataTable14[6] = dataTable18
+dataTable14[7] = dataTable19
+dataTable14[8] = dataTable20
+dataTable14[9] = tableHelper2
+dataTable14[10] = dataTable21
+dataTable14[11] = dataTable22
+dataTable14[12] = vector3Builder3
+dataTable14[13] = dataTable23
+dataTable14[14] = dataTable24
+dataTable14[15] = dataTable25
+dataTable14[16] = dataTable26
+dataTable14[17] = dataTable27
+dataTable14[18] = dataTable28
+dataTable14[19] = dataTable29
+dataTable14[20] = dataTable30
+dataTable14[21] = dataTable31
+dataTable14[22] = dataTable32
+dataTable14[23] = dataTable33
+dataTable14[24] = dataTable34
+dataTable14[25] = dataTable35
+dataTable14[26] = dataTable36
+dataTable14[27] = dataTable37
+dataTable14[28] = rageUiCall2
+dataTable14[29] = dataTable38
+dataTable14[30] = dataTable39
+dataTable14[31] = dataTable40
+dataTable14[32] = dataTable41
+dataTable14[33] = textValue22
+dataTable14[34] = textValue23
+dataTable14[35] = textValue24
+dataTable14[36] = textValue25
+dataTable14[37] = textValue26
+dataTable14[38] = textValue27
+dataTable14[39] = textValue28
+dataTable14[40] = textValue30
+dataTable14[41] = textValue31
+dataTable14[42] = textValue32
+dataTable14[43] = textValue33
+dataTable14[44] = textValue34
+dataTable14[45] = textValue35
+dataTable14[46] = textValue36
+dataTable14[47] = textValue37
+dataTable14[48] = textValue38
+dataTable14[49] = textValue39
+dataTable14[50] = textValue40
+dataTable14[51] = textValue41
+dataTable14[52] = textValue42
+dataTable14[53] = textValue43
+dataTable14[54] = textValue44
+dataTable14[55] = textValue45
+dataTable14[56] = textValue46
+dataTable14[57] = textValue47
+dataTable14[58] = textValue48
+dataTable14[59] = textValue49
+dataTable14[60] = textValue50
+dataTable14[61] = textValue51
+dataTable14[62] = textValue52
+dataTable14[63] = textValue53
+dataTable14[64] = textValue54
+dataTable14[65] = textValue55
+dataTable14[66] = textValue56
+dataTable14[67] = textValue57
+dataTable14[68] = textValue58
+dataTable14[69] = textValue59
+dataTable14[70] = textValue
+dataTable14[71] = textValue2
+dataTable14[72] = textValue3
+dataTable14[73] = textValue4
+dataTable14[74] = textValue5
+dataTable13["OLD: Super Sport"] = dataTable14
+dataTable14 = {}
+vector3Builder = vector3
+vector3Builder2 = 2907.548828125
+dataTable15 = 3684.9208984375
+dataTable16 = 52.677875518799
+vector3Builder = vector3Builder(vector3Builder2, dataTable15, dataTable16)
+vector3Builder2 = vector3
+dataTable15 = 2927.6743164062
+dataTable16 = 3760.1481933594
+dataTable17 = 52.678119659424
+vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable14[1] = vector3Builder
+dataTable14[2] = vector3Builder2
+dataTable14[3] = dataTable15
+dataTable14[4] = dataTable16
+dataTable14[5] = dataTable17
+dataTable14[6] = dataTable18
+dataTable14[7] = dataTable19
+dataTable14[8] = dataTable20
+dataTable14[9] = tableHelper2
+dataTable14[10] = dataTable21
+dataTable14[11] = dataTable22
+dataTable14[12] = vector3Builder3
+dataTable14[13] = dataTable23
+dataTable14[14] = dataTable24
+dataTable14[15] = dataTable25
+dataTable14[16] = dataTable26
+dataTable14[17] = dataTable27
+dataTable14[18] = dataTable28
+dataTable14[19] = dataTable29
+dataTable14[20] = dataTable30
+dataTable14[21] = dataTable31
+dataTable14[22] = dataTable32
+dataTable14[23] = dataTable33
+dataTable14[24] = dataTable34
+dataTable14[25] = dataTable35
+dataTable14[26] = dataTable36
+dataTable14[27] = dataTable37
+dataTable14[28] = rageUiCall2
+dataTable14[29] = dataTable38
+dataTable14[30] = dataTable39
+dataTable14[31] = dataTable40
+dataTable14[32] = dataTable41
+dataTable14[33] = textValue22
+dataTable14[34] = textValue23
+dataTable14[35] = textValue24
+dataTable14[36] = textValue25
+dataTable14[37] = textValue26
+dataTable14[38] = textValue27
+dataTable14[39] = textValue28
+dataTable14[40] = textValue30
+dataTable14[41] = textValue31
+dataTable14[42] = textValue32
+dataTable14[43] = textValue33
+dataTable14[44] = textValue34
+dataTable14[45] = textValue35
+dataTable14[46] = textValue36
+dataTable14[47] = textValue37
+dataTable14[48] = textValue38
+dataTable14[49] = textValue39
+dataTable14[50] = textValue40
+dataTable14[51] = textValue41
+dataTable14[52] = textValue42
+dataTable14[53] = textValue43
+dataTable14[54] = textValue44
+dataTable14[55] = textValue45
+dataTable14[56] = textValue46
+dataTable14[57] = textValue47
+dataTable14[58] = textValue48
+dataTable14[59] = textValue49
+dataTable14[60] = textValue50
+dataTable14[61] = textValue51
+dataTable14[62] = textValue52
+dataTable14[63] = textValue53
+dataTable14[64] = textValue54
+dataTable14[65] = textValue55
+dataTable14[66] = textValue56
+dataTable14[67] = textValue57
+dataTable14[68] = textValue58
+dataTable14[69] = textValue59
+dataTable14[70] = textValue
+dataTable14[71] = textValue2
+dataTable14[72] = textValue3
+dataTable14[73] = textValue4
+dataTable14[74] = textValue5
+dataTable13["OLD: Police Sport"] = dataTable14
+dataTable14 = "OLD: Sport"
+vector3Builder = {}
+vector3Builder2 = vector3
+dataTable15 = 2936.6784667969
+dataTable16 = 3972.7023925781
+dataTable17 = 51.692615509033
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable15 = vector3
+dataTable16 = 2877.8898925781
+dataTable17 = 4194.3125
+dataTable18 = 50.136428833008
+dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = dataTable15(dataTable16, dataTable17, dataTable18)
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = dataTable15
+vector3Builder[3] = dataTable16
+vector3Builder[4] = dataTable17
+vector3Builder[5] = dataTable18
+vector3Builder[6] = dataTable19
+vector3Builder[7] = dataTable20
+vector3Builder[8] = tableHelper2
+vector3Builder[9] = dataTable21
+vector3Builder[10] = dataTable22
+vector3Builder[11] = vector3Builder3
+vector3Builder[12] = dataTable23
+vector3Builder[13] = dataTable24
+vector3Builder[14] = dataTable25
+vector3Builder[15] = dataTable26
+vector3Builder[16] = dataTable27
+vector3Builder[17] = dataTable28
+vector3Builder[18] = dataTable29
+vector3Builder[19] = dataTable30
+vector3Builder[20] = dataTable31
+vector3Builder[21] = dataTable32
+vector3Builder[22] = dataTable33
+vector3Builder[23] = dataTable34
+vector3Builder[24] = dataTable35
+vector3Builder[25] = dataTable36
+vector3Builder[26] = dataTable37
+vector3Builder[27] = rageUiCall2
+vector3Builder[28] = dataTable38
+vector3Builder[29] = dataTable39
+vector3Builder[30] = dataTable40
+vector3Builder[31] = dataTable41
+vector3Builder[32] = textValue22
+vector3Builder[33] = textValue23
+vector3Builder[34] = textValue24
+vector3Builder[35] = textValue25
+vector3Builder[36] = textValue26
+vector3Builder[37] = textValue27
+vector3Builder[38] = textValue28
+vector3Builder[39] = textValue30
+vector3Builder[40] = textValue31
+vector3Builder[41] = textValue32
+vector3Builder[42] = textValue33
+vector3Builder[43] = textValue34
+vector3Builder[44] = textValue35
+vector3Builder[45] = textValue36
+vector3Builder[46] = textValue37
+vector3Builder[47] = textValue38
+vector3Builder[48] = textValue39
+vector3Builder[49] = textValue40
+vector3Builder[50] = textValue41
+vector3Builder[51] = textValue42
+vector3Builder[52] = textValue43
+vector3Builder[53] = textValue44
+vector3Builder[54] = textValue45
+vector3Builder[55] = textValue46
+vector3Builder[56] = textValue47
+vector3Builder[57] = textValue48
+vector3Builder[58] = textValue49
+vector3Builder[59] = textValue50
+vector3Builder[60] = textValue51
+vector3Builder[61] = textValue52
+vector3Builder[62] = textValue53
+vector3Builder[63] = textValue54
+vector3Builder[64] = textValue55
+vector3Builder[65] = textValue56
+vector3Builder[66] = textValue57
+vector3Builder[67] = textValue58
+vector3Builder[68] = textValue59
+vector3Builder[69] = textValue
+vector3Builder[70] = textValue2
+vector3Builder[71] = textValue3
+vector3Builder[72] = textValue4
+vector3Builder[73] = textValue5
+dataTable13[dataTable14] = vector3Builder
+dataTable14 = "OLD: SUV"
+vector3Builder = {}
+vector3Builder2 = vector3
+dataTable15 = 2830.4113769531
+dataTable16 = 4340.48046875
+dataTable17 = 49.984191894531
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable15 = vector3
+dataTable16 = 2783.9580078125
+dataTable17 = 4498.8803710938
+dataTable18 = 47.151454925537
+dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = dataTable15(dataTable16, dataTable17, dataTable18)
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = dataTable15
+vector3Builder[3] = dataTable16
+vector3Builder[4] = dataTable17
+vector3Builder[5] = dataTable18
+vector3Builder[6] = dataTable19
+vector3Builder[7] = dataTable20
+vector3Builder[8] = tableHelper2
+vector3Builder[9] = dataTable21
+vector3Builder[10] = dataTable22
+vector3Builder[11] = vector3Builder3
+vector3Builder[12] = dataTable23
+vector3Builder[13] = dataTable24
+vector3Builder[14] = dataTable25
+vector3Builder[15] = dataTable26
+vector3Builder[16] = dataTable27
+vector3Builder[17] = dataTable28
+vector3Builder[18] = dataTable29
+vector3Builder[19] = dataTable30
+vector3Builder[20] = dataTable31
+vector3Builder[21] = dataTable32
+vector3Builder[22] = dataTable33
+vector3Builder[23] = dataTable34
+vector3Builder[24] = dataTable35
+vector3Builder[25] = dataTable36
+vector3Builder[26] = dataTable37
+vector3Builder[27] = rageUiCall2
+vector3Builder[28] = dataTable38
+vector3Builder[29] = dataTable39
+vector3Builder[30] = dataTable40
+vector3Builder[31] = dataTable41
+vector3Builder[32] = textValue22
+vector3Builder[33] = textValue23
+vector3Builder[34] = textValue24
+vector3Builder[35] = textValue25
+vector3Builder[36] = textValue26
+vector3Builder[37] = textValue27
+vector3Builder[38] = textValue28
+vector3Builder[39] = textValue30
+vector3Builder[40] = textValue31
+vector3Builder[41] = textValue32
+vector3Builder[42] = textValue33
+vector3Builder[43] = textValue34
+vector3Builder[44] = textValue35
+vector3Builder[45] = textValue36
+vector3Builder[46] = textValue37
+vector3Builder[47] = textValue38
+vector3Builder[48] = textValue39
+vector3Builder[49] = textValue40
+vector3Builder[50] = textValue41
+vector3Builder[51] = textValue42
+vector3Builder[52] = textValue43
+vector3Builder[53] = textValue44
+vector3Builder[54] = textValue45
+vector3Builder[55] = textValue46
+vector3Builder[56] = textValue47
+vector3Builder[57] = textValue48
+vector3Builder[58] = textValue49
+vector3Builder[59] = textValue50
+vector3Builder[60] = textValue51
+vector3Builder[61] = textValue52
+vector3Builder[62] = textValue53
+vector3Builder[63] = textValue54
+vector3Builder[64] = textValue55
+vector3Builder[65] = textValue56
+vector3Builder[66] = textValue57
+vector3Builder[67] = textValue58
+vector3Builder[68] = textValue59
+vector3Builder[69] = textValue
+vector3Builder[70] = textValue2
+vector3Builder[71] = textValue3
+vector3Builder[72] = textValue4
+vector3Builder[73] = textValue5
+dataTable13[dataTable14] = vector3Builder
+dataTable14 = "OLD: Semi Offroader"
+vector3Builder = {}
+vector3Builder2 = vector3
+dataTable15 = 2830.4113769531
+dataTable16 = 4340.48046875
+dataTable17 = 49.984191894531
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable15 = vector3
+dataTable16 = 2783.9580078125
+dataTable17 = 4498.8803710938
+dataTable18 = 47.151454925537
+dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = dataTable15(dataTable16, dataTable17, dataTable18)
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = dataTable15
+vector3Builder[3] = dataTable16
+vector3Builder[4] = dataTable17
+vector3Builder[5] = dataTable18
+vector3Builder[6] = dataTable19
+vector3Builder[7] = dataTable20
+vector3Builder[8] = tableHelper2
+vector3Builder[9] = dataTable21
+vector3Builder[10] = dataTable22
+vector3Builder[11] = vector3Builder3
+vector3Builder[12] = dataTable23
+vector3Builder[13] = dataTable24
+vector3Builder[14] = dataTable25
+vector3Builder[15] = dataTable26
+vector3Builder[16] = dataTable27
+vector3Builder[17] = dataTable28
+vector3Builder[18] = dataTable29
+vector3Builder[19] = dataTable30
+vector3Builder[20] = dataTable31
+vector3Builder[21] = dataTable32
+vector3Builder[22] = dataTable33
+vector3Builder[23] = dataTable34
+vector3Builder[24] = dataTable35
+vector3Builder[25] = dataTable36
+vector3Builder[26] = dataTable37
+vector3Builder[27] = rageUiCall2
+vector3Builder[28] = dataTable38
+vector3Builder[29] = dataTable39
+vector3Builder[30] = dataTable40
+vector3Builder[31] = dataTable41
+vector3Builder[32] = textValue22
+vector3Builder[33] = textValue23
+vector3Builder[34] = textValue24
+vector3Builder[35] = textValue25
+vector3Builder[36] = textValue26
+vector3Builder[37] = textValue27
+vector3Builder[38] = textValue28
+vector3Builder[39] = textValue30
+vector3Builder[40] = textValue31
+vector3Builder[41] = textValue32
+vector3Builder[42] = textValue33
+vector3Builder[43] = textValue34
+vector3Builder[44] = textValue35
+vector3Builder[45] = textValue36
+vector3Builder[46] = textValue37
+vector3Builder[47] = textValue38
+vector3Builder[48] = textValue39
+vector3Builder[49] = textValue40
+vector3Builder[50] = textValue41
+vector3Builder[51] = textValue42
+vector3Builder[52] = textValue43
+vector3Builder[53] = textValue44
+vector3Builder[54] = textValue45
+vector3Builder[55] = textValue46
+vector3Builder[56] = textValue47
+vector3Builder[57] = textValue48
+vector3Builder[58] = textValue49
+vector3Builder[59] = textValue50
+vector3Builder[60] = textValue51
+vector3Builder[61] = textValue52
+vector3Builder[62] = textValue53
+vector3Builder[63] = textValue54
+vector3Builder[64] = textValue55
+vector3Builder[65] = textValue56
+vector3Builder[66] = textValue57
+vector3Builder[67] = textValue58
+vector3Builder[68] = textValue59
+vector3Builder[69] = textValue
+vector3Builder[70] = textValue2
+vector3Builder[71] = textValue3
+vector3Builder[72] = textValue4
+vector3Builder[73] = textValue5
+dataTable13[dataTable14] = vector3Builder
+dataTable14 = "OLD: Offroader"
+vector3Builder = {}
+vector3Builder2 = vector3
+dataTable15 = 2934.0314941406
+dataTable16 = 3990.6062011719
+dataTable17 = 51.546661376953
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable15 = vector3
+dataTable16 = 2897.0686035156
+dataTable17 = 4138.1010742188
+dataTable18 = 50.389766693115
+dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = dataTable15(dataTable16, dataTable17, dataTable18)
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = dataTable15
+vector3Builder[3] = dataTable16
+vector3Builder[4] = dataTable17
+vector3Builder[5] = dataTable18
+vector3Builder[6] = dataTable19
+vector3Builder[7] = dataTable20
+vector3Builder[8] = tableHelper2
+vector3Builder[9] = dataTable21
+vector3Builder[10] = dataTable22
+vector3Builder[11] = vector3Builder3
+vector3Builder[12] = dataTable23
+vector3Builder[13] = dataTable24
+vector3Builder[14] = dataTable25
+vector3Builder[15] = dataTable26
+vector3Builder[16] = dataTable27
+vector3Builder[17] = dataTable28
+vector3Builder[18] = dataTable29
+vector3Builder[19] = dataTable30
+vector3Builder[20] = dataTable31
+vector3Builder[21] = dataTable32
+vector3Builder[22] = dataTable33
+vector3Builder[23] = dataTable34
+vector3Builder[24] = dataTable35
+vector3Builder[25] = dataTable36
+vector3Builder[26] = dataTable37
+vector3Builder[27] = rageUiCall2
+vector3Builder[28] = dataTable38
+vector3Builder[29] = dataTable39
+vector3Builder[30] = dataTable40
+vector3Builder[31] = dataTable41
+vector3Builder[32] = textValue22
+vector3Builder[33] = textValue23
+vector3Builder[34] = textValue24
+vector3Builder[35] = textValue25
+vector3Builder[36] = textValue26
+vector3Builder[37] = textValue27
+vector3Builder[38] = textValue28
+vector3Builder[39] = textValue30
+vector3Builder[40] = textValue31
+vector3Builder[41] = textValue32
+vector3Builder[42] = textValue33
+vector3Builder[43] = textValue34
+vector3Builder[44] = textValue35
+vector3Builder[45] = textValue36
+vector3Builder[46] = textValue37
+vector3Builder[47] = textValue38
+vector3Builder[48] = textValue39
+vector3Builder[49] = textValue40
+vector3Builder[50] = textValue41
+vector3Builder[51] = textValue42
+vector3Builder[52] = textValue43
+vector3Builder[53] = textValue44
+vector3Builder[54] = textValue45
+vector3Builder[55] = textValue46
+vector3Builder[56] = textValue47
+vector3Builder[57] = textValue48
+vector3Builder[58] = textValue49
+vector3Builder[59] = textValue50
+vector3Builder[60] = textValue51
+vector3Builder[61] = textValue52
+vector3Builder[62] = textValue53
+vector3Builder[63] = textValue54
+vector3Builder[64] = textValue55
+vector3Builder[65] = textValue56
+vector3Builder[66] = textValue57
+vector3Builder[67] = textValue58
+vector3Builder[68] = textValue59
+vector3Builder[69] = textValue
+vector3Builder[70] = textValue2
+vector3Builder[71] = textValue3
+vector3Builder[72] = textValue4
+vector3Builder[73] = textValue5
+dataTable13[dataTable14] = vector3Builder
+dataTable14 = {}
+vector3Builder = vector3
+vector3Builder2 = 2118.296875
+dataTable15 = 3183.0803222656
+dataTable16 = 152.139877319336
+vector3Builder = vector3Builder(vector3Builder2, dataTable15, dataTable16)
+vector3Builder2 = vector3
+dataTable15 = 2120.1213378906
+dataTable16 = 3318.7431640625
+dataTable17 = 152.665840148926
+vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable14[1] = vector3Builder
+dataTable14[2] = vector3Builder2
+dataTable14[3] = dataTable15
+dataTable14[4] = dataTable16
+dataTable14[5] = dataTable17
+dataTable14[6] = dataTable18
+dataTable14[7] = dataTable19
+dataTable14[8] = dataTable20
+dataTable14[9] = tableHelper2
+dataTable14[10] = dataTable21
+dataTable14[11] = dataTable22
+dataTable14[12] = vector3Builder3
+dataTable14[13] = dataTable23
+dataTable14[14] = dataTable24
+dataTable14[15] = dataTable25
+dataTable14[16] = dataTable26
+dataTable14[17] = dataTable27
+dataTable14[18] = dataTable28
+dataTable14[19] = dataTable29
+dataTable14[20] = dataTable30
+dataTable14[21] = dataTable31
+dataTable14[22] = dataTable32
+dataTable14[23] = dataTable33
+dataTable14[24] = dataTable34
+dataTable14[25] = dataTable35
+dataTable14[26] = dataTable36
+dataTable14[27] = dataTable37
+dataTable14[28] = rageUiCall2
+dataTable14[29] = dataTable38
+dataTable14[30] = dataTable39
+dataTable14[31] = dataTable40
+dataTable14[32] = dataTable41
+dataTable14[33] = textValue22
+dataTable14[34] = textValue23
+dataTable14[35] = textValue24
+dataTable14[36] = textValue25
+dataTable14[37] = textValue26
+dataTable14[38] = textValue27
+dataTable14[39] = textValue28
+dataTable14[40] = textValue30
+dataTable14[41] = textValue31
+dataTable14[42] = textValue32
+dataTable14[43] = textValue33
+dataTable14[44] = textValue34
+dataTable14[45] = textValue35
+dataTable14[46] = textValue36
+dataTable14[47] = textValue37
+dataTable14[48] = textValue38
+dataTable14[49] = textValue39
+dataTable14[50] = textValue40
+dataTable14[51] = textValue41
+dataTable14[52] = textValue42
+dataTable14[53] = textValue43
+dataTable14[54] = textValue44
+dataTable14[55] = textValue45
+dataTable14[56] = textValue46
+dataTable14[57] = textValue47
+dataTable14[58] = textValue48
+dataTable14[59] = textValue49
+dataTable14[60] = textValue50
+dataTable14[61] = textValue51
+dataTable14[62] = textValue52
+dataTable14[63] = textValue53
+dataTable14[64] = textValue54
+dataTable14[65] = textValue55
+dataTable14[66] = textValue56
+dataTable14[67] = textValue57
+dataTable14[68] = textValue58
+dataTable14[69] = textValue59
+dataTable14[70] = textValue
+dataTable14[71] = textValue2
+dataTable14[72] = textValue3
+dataTable14[73] = textValue4
+dataTable14[74] = textValue5
+dataTable13.Super = dataTable14
+dataTable14 = {}
+vector3Builder = vector3
+vector3Builder2 = 2120.2062988281
+dataTable15 = 3327.2893066406
+dataTable16 = 152.129135131836
+vector3Builder = vector3Builder(vector3Builder2, dataTable15, dataTable16)
+vector3Builder2 = vector3
+dataTable15 = 2120.1062011719
+dataTable16 = 3507.8864746094
+dataTable17 = 152.665855407715
+vector3Builder2, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable14[1] = vector3Builder
+dataTable14[2] = vector3Builder2
+dataTable14[3] = dataTable15
+dataTable14[4] = dataTable16
+dataTable14[5] = dataTable17
+dataTable14[6] = dataTable18
+dataTable14[7] = dataTable19
+dataTable14[8] = dataTable20
+dataTable14[9] = tableHelper2
+dataTable14[10] = dataTable21
+dataTable14[11] = dataTable22
+dataTable14[12] = vector3Builder3
+dataTable14[13] = dataTable23
+dataTable14[14] = dataTable24
+dataTable14[15] = dataTable25
+dataTable14[16] = dataTable26
+dataTable14[17] = dataTable27
+dataTable14[18] = dataTable28
+dataTable14[19] = dataTable29
+dataTable14[20] = dataTable30
+dataTable14[21] = dataTable31
+dataTable14[22] = dataTable32
+dataTable14[23] = dataTable33
+dataTable14[24] = dataTable34
+dataTable14[25] = dataTable35
+dataTable14[26] = dataTable36
+dataTable14[27] = dataTable37
+dataTable14[28] = rageUiCall2
+dataTable14[29] = dataTable38
+dataTable14[30] = dataTable39
+dataTable14[31] = dataTable40
+dataTable14[32] = dataTable41
+dataTable14[33] = textValue22
+dataTable14[34] = textValue23
+dataTable14[35] = textValue24
+dataTable14[36] = textValue25
+dataTable14[37] = textValue26
+dataTable14[38] = textValue27
+dataTable14[39] = textValue28
+dataTable14[40] = textValue30
+dataTable14[41] = textValue31
+dataTable14[42] = textValue32
+dataTable14[43] = textValue33
+dataTable14[44] = textValue34
+dataTable14[45] = textValue35
+dataTable14[46] = textValue36
+dataTable14[47] = textValue37
+dataTable14[48] = textValue38
+dataTable14[49] = textValue39
+dataTable14[50] = textValue40
+dataTable14[51] = textValue41
+dataTable14[52] = textValue42
+dataTable14[53] = textValue43
+dataTable14[54] = textValue44
+dataTable14[55] = textValue45
+dataTable14[56] = textValue46
+dataTable14[57] = textValue47
+dataTable14[58] = textValue48
+dataTable14[59] = textValue49
+dataTable14[60] = textValue50
+dataTable14[61] = textValue51
+dataTable14[62] = textValue52
+dataTable14[63] = textValue53
+dataTable14[64] = textValue54
+dataTable14[65] = textValue55
+dataTable14[66] = textValue56
+dataTable14[67] = textValue57
+dataTable14[68] = textValue58
+dataTable14[69] = textValue59
+dataTable14[70] = textValue
+dataTable14[71] = textValue2
+dataTable14[72] = textValue3
+dataTable14[73] = textValue4
+dataTable14[74] = textValue5
+dataTable13["Police Sport"] = dataTable14
+dataTable14 = "Segan/Sport"
+vector3Builder = {}
+vector3Builder2 = vector3
+dataTable15 = 2120.2668457031
+dataTable16 = 3520.6560058594
+dataTable17 = 152.129661560059
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable15 = vector3
+dataTable16 = 2120.3317871094
+dataTable17 = 3718.7065429688
+dataTable18 = 152.66487121582
+dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = dataTable15(dataTable16, dataTable17, dataTable18)
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = dataTable15
+vector3Builder[3] = dataTable16
+vector3Builder[4] = dataTable17
+vector3Builder[5] = dataTable18
+vector3Builder[6] = dataTable19
+vector3Builder[7] = dataTable20
+vector3Builder[8] = tableHelper2
+vector3Builder[9] = dataTable21
+vector3Builder[10] = dataTable22
+vector3Builder[11] = vector3Builder3
+vector3Builder[12] = dataTable23
+vector3Builder[13] = dataTable24
+vector3Builder[14] = dataTable25
+vector3Builder[15] = dataTable26
+vector3Builder[16] = dataTable27
+vector3Builder[17] = dataTable28
+vector3Builder[18] = dataTable29
+vector3Builder[19] = dataTable30
+vector3Builder[20] = dataTable31
+vector3Builder[21] = dataTable32
+vector3Builder[22] = dataTable33
+vector3Builder[23] = dataTable34
+vector3Builder[24] = dataTable35
+vector3Builder[25] = dataTable36
+vector3Builder[26] = dataTable37
+vector3Builder[27] = rageUiCall2
+vector3Builder[28] = dataTable38
+vector3Builder[29] = dataTable39
+vector3Builder[30] = dataTable40
+vector3Builder[31] = dataTable41
+vector3Builder[32] = textValue22
+vector3Builder[33] = textValue23
+vector3Builder[34] = textValue24
+vector3Builder[35] = textValue25
+vector3Builder[36] = textValue26
+vector3Builder[37] = textValue27
+vector3Builder[38] = textValue28
+vector3Builder[39] = textValue30
+vector3Builder[40] = textValue31
+vector3Builder[41] = textValue32
+vector3Builder[42] = textValue33
+vector3Builder[43] = textValue34
+vector3Builder[44] = textValue35
+vector3Builder[45] = textValue36
+vector3Builder[46] = textValue37
+vector3Builder[47] = textValue38
+vector3Builder[48] = textValue39
+vector3Builder[49] = textValue40
+vector3Builder[50] = textValue41
+vector3Builder[51] = textValue42
+vector3Builder[52] = textValue43
+vector3Builder[53] = textValue44
+vector3Builder[54] = textValue45
+vector3Builder[55] = textValue46
+vector3Builder[56] = textValue47
+vector3Builder[57] = textValue48
+vector3Builder[58] = textValue49
+vector3Builder[59] = textValue50
+vector3Builder[60] = textValue51
+vector3Builder[61] = textValue52
+vector3Builder[62] = textValue53
+vector3Builder[63] = textValue54
+vector3Builder[64] = textValue55
+vector3Builder[65] = textValue56
+vector3Builder[66] = textValue57
+vector3Builder[67] = textValue58
+vector3Builder[68] = textValue59
+vector3Builder[69] = textValue
+vector3Builder[70] = textValue2
+vector3Builder[71] = textValue3
+vector3Builder[72] = textValue4
+vector3Builder[73] = textValue5
+dataTable13[dataTable14] = vector3Builder
+dataTable14 = "Semi Offroader"
+vector3Builder = {}
+vector3Builder2 = vector3
+dataTable15 = 2120.537109375
+dataTable16 = 3713.6108398438
+dataTable17 = 152.128982543945
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+dataTable15 = vector3
+dataTable16 = 2120.3146972656
+dataTable17 = 3911.8256835938
+dataTable18 = 152.664909362793
+dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, tableHelper2, dataTable21, dataTable22, vector3Builder3, dataTable23, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30, dataTable31, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable37, rageUiCall2, dataTable38, dataTable39, dataTable40, dataTable41, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48, textValue49, textValue50, textValue51, textValue52, textValue53, textValue54, textValue55, textValue56, textValue57, textValue58, textValue59, textValue, textValue2, textValue3, textValue4, textValue5 = dataTable15(dataTable16, dataTable17, dataTable18)
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = dataTable15
+vector3Builder[3] = dataTable16
+vector3Builder[4] = dataTable17
+vector3Builder[5] = dataTable18
+vector3Builder[6] = dataTable19
+vector3Builder[7] = dataTable20
+vector3Builder[8] = tableHelper2
+vector3Builder[9] = dataTable21
+vector3Builder[10] = dataTable22
+vector3Builder[11] = vector3Builder3
+vector3Builder[12] = dataTable23
+vector3Builder[13] = dataTable24
+vector3Builder[14] = dataTable25
+vector3Builder[15] = dataTable26
+vector3Builder[16] = dataTable27
+vector3Builder[17] = dataTable28
+vector3Builder[18] = dataTable29
+vector3Builder[19] = dataTable30
+vector3Builder[20] = dataTable31
+vector3Builder[21] = dataTable32
+vector3Builder[22] = dataTable33
+vector3Builder[23] = dataTable34
+vector3Builder[24] = dataTable35
+vector3Builder[25] = dataTable36
+vector3Builder[26] = dataTable37
+vector3Builder[27] = rageUiCall2
+vector3Builder[28] = dataTable38
+vector3Builder[29] = dataTable39
+vector3Builder[30] = dataTable40
+vector3Builder[31] = dataTable41
+vector3Builder[32] = textValue22
+vector3Builder[33] = textValue23
+vector3Builder[34] = textValue24
+vector3Builder[35] = textValue25
+vector3Builder[36] = textValue26
+vector3Builder[37] = textValue27
+vector3Builder[38] = textValue28
+vector3Builder[39] = textValue30
+vector3Builder[40] = textValue31
+vector3Builder[41] = textValue32
+vector3Builder[42] = textValue33
+vector3Builder[43] = textValue34
+vector3Builder[44] = textValue35
+vector3Builder[45] = textValue36
+vector3Builder[46] = textValue37
+vector3Builder[47] = textValue38
+vector3Builder[48] = textValue39
+vector3Builder[49] = textValue40
+vector3Builder[50] = textValue41
+vector3Builder[51] = textValue42
+vector3Builder[52] = textValue43
+vector3Builder[53] = textValue44
+vector3Builder[54] = textValue45
+vector3Builder[55] = textValue46
+vector3Builder[56] = textValue47
+vector3Builder[57] = textValue48
+vector3Builder[58] = textValue49
+vector3Builder[59] = textValue50
+vector3Builder[60] = textValue51
+vector3Builder[61] = textValue52
+vector3Builder[62] = textValue53
+vector3Builder[63] = textValue54
+vector3Builder[64] = textValue55
+vector3Builder[65] = textValue56
+vector3Builder[66] = textValue57
+vector3Builder[67] = textValue58
+vector3Builder[68] = textValue59
+vector3Builder[69] = textValue
+vector3Builder[70] = textValue2
+vector3Builder[71] = textValue3
+vector3Builder[72] = textValue4
+vector3Builder[73] = textValue5
+dataTable13[dataTable14] = vector3Builder
+dataTable14 = {}
+vector3Builder = "startDistance"
+vector3Builder2 = vector3
+dataTable15 = 2120.0769042969
+dataTable16 = 3538.1611328125
+dataTable17 = 152.13045501709
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+vector3Builder2 = tableHelper - vector3Builder2
+vector3Builder2 = #vector3Builder2
+dataTable14[vector3Builder] = vector3Builder2
+vector3Builder = "endDistance"
+vector3Builder2 = vector3
+dataTable15 = 2120.40234375
+dataTable16 = 3736.4074707031
+dataTable17 = 152.664390563965
+vector3Builder2 = vector3Builder2(dataTable15, dataTable16, dataTable17)
+vector3Builder2 = tableHelper - vector3Builder2
+vector3Builder2 = #vector3Builder2
+dataTable14[vector3Builder] = vector3Builder2
+dataTable13.Offroader = dataTable14
+dataTable14 = {}
+vector3Builder = nil
+vector3Builder2 = 1
+dataTable15 = {}
+dataTable16 = table
+dataTable16 = dataTable16.insert
+dataTable17 = dataTable15
+dataTable18 = "Display None"
+dataTable16(dataTable17, dataTable18)
+dataTable16 = _ENV
+dataTable17 = "pairs"
+dataTable16 = dataTable16[dataTable17]
+dataTable17 = dataTable13
+dataTable16, dataTable17, dataTable18, dataTable19 = dataTable16(dataTable17)
+for dataTable20 in dataTable16, dataTable17, dataTable18, dataTable19 do
+  tableHelper2 = table
+  tableHelper2 = tableHelper2.insert
+  dataTable21 = dataTable15
+  dataTable22 = dataTable20
+  tableHelper2(dataTable21, dataTable22)
 end
-SHX34_1 = table
-SHX34_1 = SHX34_1.insert
-SHX35_1 = SHX33_1
-SHX36_1 = "Display All"
-SHX34_1(SHX35_1, SHX36_1)
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX29_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2[1]
-    if SHX6_2 then
-      SHX6_2 = SHX5_2[2]
-      if SHX6_2 then
-        SHX6_2 = pairs
-        SHX7_2 = SHX5_2
-        SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-        for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-          SHX12_2 = tCMG
-          SHX12_2 = SHX12_2.addBlip
-          SHX13_2 = SHX11_2.x
-          SHX14_2 = SHX11_2.y
-          SHX15_2 = SHX11_2.z
-          SHX16_2 = 1
-          if 2 == SHX10_2 then
-            SHX17_2 = 1
-            if SHX17_2 then
-              goto SHX_LABEL_27
+dataTable16 = table
+dataTable16 = dataTable16.insert
+dataTable17 = dataTable15
+dataTable18 = "Display All"
+dataTable16(dataTable17, dataTable18)
+function dataTable16()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5
+  arg1 = pairs
+  arg2 = dataTable13
+  arg1, arg2, arg3, textValue17 = arg1(arg2)
+  for numberValue24, modelHash in arg1, arg2, arg3, textValue17 do
+    cmgCall5 = modelHash[1]
+    if cmgCall5 then
+      cmgCall5 = modelHash[2]
+      if cmgCall5 then
+        cmgCall5 = pairs
+        workValue18 = modelHash
+        cmgCall5, workValue18, workValue20, workValue21 = cmgCall5(workValue18)
+        for workValue, textValue8 in cmgCall5, workValue18, workValue20, workValue21 do
+          flag4 = tCMG
+          flag4 = flag4.addBlip
+          workValue3 = textValue8.x
+          nameValue = textValue8.y
+          nameValue2 = textValue8.z
+          numberValue5 = 1
+          if 2 == workValue then
+            numberValue7 = 1
+            if numberValue7 then
+              goto flow_label_27
             end
           end
-          SHX17_2 = 5
-          -- [FIX IF ERROR] Move ::SHX_LABEL_27:: outside nested blocks until all 'goto SHX_LABEL_27' can see it
-          ::SHX_LABEL_27::
-          SHX18_2 = nil
-          SHX19_2 = 0.4
-          SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-          SHX13_2 = table
-          SHX13_2 = SHX13_2.insert
-          SHX14_2 = SHX30_1
-          SHX15_2 = SHX12_2
-          SHX13_2(SHX14_2, SHX15_2)
+          numberValue7 = 5
+          ::flow_label_27::
+          workValue8 = nil
+          dataTable5 = 0.4
+          flag4 = flag4(workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5)
+          workValue3 = table
+          workValue3 = workValue3.insert
+          nameValue = dataTable14
+          nameValue2 = flag4
+          workValue3(nameValue, nameValue2)
         end
       end
     end
   end
 end
-function SHX35_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX30_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.removeBlip
-    SHX7_2 = SHX5_2
-    SHX6_2(SHX7_2)
+function dataTable17()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18
+  arg1 = pairs
+  arg2 = dataTable14
+  arg1, arg2, arg3, textValue17 = arg1(arg2)
+  for numberValue24, modelHash in arg1, arg2, arg3, textValue17 do
+    cmgCall5 = tCMG
+    cmgCall5 = cmgCall5.removeBlip
+    workValue18 = modelHash
+    cmgCall5(workValue18)
   end
-  SHX0_2 = RemoveWeaponFromPed
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = -273849285
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = {}
-  SHX30_1 = SHX0_2
+  arg1 = RemoveWeaponFromPed
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = -273849285
+  arg1(arg2, arg3)
+  arg1 = {}
+  dataTable14 = arg1
 end
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerBucket
-    SHX0_2 = SHX0_2()
-    SHX0_2 = 333 == SHX0_2
+function dataTable18()
+  local arg1, arg2
+  arg1 = textValue14
+  if arg1 then
+    arg1 = CMG
+    arg1 = arg1.getPlayerBucket
+    arg1 = arg1()
+    arg1 = 333 == arg1
   end
-  return SHX0_2
+  return arg1
 end
-function SHX37_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityForwardVector
-  SHX3_2 = PlayerPedId
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX3_2()
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = GetEntityHeading
-  SHX4_2 = PlayerPedId
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX4_2()
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = SHX3_2 + 90.0
-  SHX4_2 = pairs
-  SHX5_2 = SHX0_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = Citizen
-    SHX10_2 = SHX10_2.Wait
-    SHX11_2 = 250
-    SHX10_2(SHX11_2)
-    SHX10_2 = SHX36_1
-    SHX10_2 = SHX10_2()
-    if not SHX10_2 then
+function dataTable19(arg1)
+  local arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8
+  arg2 = CMG
+  arg2 = arg2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg2 = arg2()
+  arg3 = GetEntityForwardVector
+  textValue17 = PlayerPedId
+  textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8 = textValue17()
+  arg3 = arg3(textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8)
+  textValue17 = GetEntityHeading
+  numberValue24 = PlayerPedId
+  numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8 = numberValue24()
+  -- Beginner: result below is heading.
+  textValue17 = textValue17(numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8)
+  textValue17 = textValue17 + 90.0
+  numberValue24 = pairs
+  modelHash = arg1
+  numberValue24, modelHash, cmgCall5, workValue18 = numberValue24(modelHash)
+  for workValue20, workValue21 in numberValue24, modelHash, cmgCall5, workValue18 do
+    workValue = Citizen
+    workValue = workValue.Wait
+    textValue8 = 250
+    workValue(textValue8)
+    workValue = dataTable18
+    workValue = workValue()
+    if not workValue then
       return
     end
-    SHX10_2 = Citizen
-    SHX10_2 = SHX10_2.CreateThread
-    function SHX11_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-      SHX0_3 = GetHashKey
-      SHX1_3 = SHX9_2
-      SHX0_3 = SHX0_3(SHX1_3)
-      SHX1_3 = CMG
-      SHX1_3 = SHX1_3.loadModel
-      SHX2_3 = SHX0_3
-      SHX1_3(SHX2_3)
-      SHX1_3 = SHX1_2
-      SHX2_3 = SHX2_2
-      SHX2_3 = SHX2_3 * 8.0
-      SHX3_3 = SHX8_2
-      SHX2_3 = SHX2_3 * SHX3_3
-      SHX1_3 = SHX1_3 + SHX2_3
-      SHX2_3 = CMG
-      SHX2_3 = SHX2_3.requestEntitySpawn
-      SHX3_3 = "cardev_rapid"
-      SHX4_3 = SHX0_3
-      SHX5_3 = SHX1_3
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-      SHX2_3 = CMG
-      SHX2_3 = SHX2_3.spawnVehicle
-      SHX3_3 = SHX0_3
-      SHX4_3 = SHX1_3.x
-      SHX5_3 = SHX1_3.y
-      SHX6_3 = SHX1_3.z
-      SHX7_3 = SHX3_2
-      SHX8_3 = false
-      SHX9_3 = true
-      SHX10_3 = true
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
-      SHX3_3 = SetEntityAsMissionEntity
-      SHX4_3 = SHX2_3
-      SHX5_3 = true
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = SetModelAsNoLongerNeeded
-      SHX4_3 = SHX0_3
-      SHX3_3(SHX4_3)
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.initLocalVehicle
-      SHX4_3 = SHX2_3
-      SHX3_3(SHX4_3)
-      SHX3_3 = SetEntityInvincible
-      SHX4_3 = SHX2_3
-      SHX5_3 = false
-      SHX3_3(SHX4_3, SHX5_3)
-      SHX3_3 = CMG
-      SHX3_3 = SHX3_3.applyMaxDefaultModsToVehicle
-      SHX4_3 = SHX2_3
-      SHX3_3(SHX4_3)
-      SHX3_3 = SetVehRadioStation
-      SHX4_3 = SHX2_3
-      SHX5_3 = "OFF"
-      SHX3_3(SHX4_3, SHX5_3)
-      SHX3_3 = SHX36_1
-      SHX3_3 = SHX3_3()
-      if not SHX3_3 then
-        SHX3_3 = DeleteEntity
-        SHX4_3 = SHX2_3
-        SHX3_3(SHX4_3)
+    workValue = Citizen
+    workValue = workValue.CreateThread
+    function textValue8()
+      local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag
+      arg12 = GetHashKey
+      arg22 = workValue21
+      -- Beginner: result below is hash.
+      arg12 = arg12(arg22)
+      arg22 = CMG
+      arg22 = arg22.loadModel
+      arg32 = arg12
+      -- Beginner: Request/load a GTA model before spawning or applying it.
+      arg22(arg32)
+      arg22 = arg2
+      arg32 = arg3
+      arg32 = arg32 * 8.0
+      textValue18 = workValue20
+      arg32 = arg32 * textValue18
+      arg22 = arg22 + arg32
+      arg32 = CMG
+      arg32 = arg32.requestEntitySpawn
+      textValue18 = "cardev_rapid"
+      workValue17 = arg12
+      flag23 = arg22
+      arg32(textValue18, workValue17, flag23)
+      arg32 = CMG
+      arg32 = arg32.spawnVehicle
+      textValue18 = arg12
+      workValue17 = arg22.x
+      flag23 = arg22.y
+      flag25 = arg22.z
+      workValue19 = textValue17
+      flag28 = false
+      flag29 = true
+      flag = true
+      arg32 = arg32(textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag)
+      textValue18 = SetEntityAsMissionEntity
+      workValue17 = arg32
+      flag23 = true
+      flag25 = true
+      textValue18(workValue17, flag23, flag25)
+      textValue18 = SetModelAsNoLongerNeeded
+      workValue17 = arg12
+      textValue18(workValue17)
+      textValue18 = CMG
+      textValue18 = textValue18.initLocalVehicle
+      workValue17 = arg32
+      textValue18(workValue17)
+      textValue18 = SetEntityInvincible
+      workValue17 = arg32
+      flag23 = false
+      textValue18(workValue17, flag23)
+      textValue18 = CMG
+      textValue18 = textValue18.applyMaxDefaultModsToVehicle
+      workValue17 = arg32
+      textValue18(workValue17)
+      textValue18 = SetVehRadioStation
+      workValue17 = arg32
+      flag23 = "OFF"
+      textValue18(workValue17, flag23)
+      textValue18 = dataTable18
+      textValue18 = textValue18()
+      if not textValue18 then
+        textValue18 = DeleteEntity
+        workValue17 = arg32
+        -- Beginner: Delete a GTA entity.
+        textValue18(workValue17)
         return
       end
     end
-    SHX10_2(SHX11_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    workValue(textValue8)
   end
 end
-SHX38_1 = false
-SHX39_1 = {}
-SHX40_1 = {}
-SHX41_1 = "Offroader"
-SHX40_1[1] = SHX41_1
-SHX41_1 = 1
-SHX42_1 = vector3
-SHX43_1 = 2120.3332519531
-SHX44_1 = 5278.6479492188
-SHX45_1 = 152.3650390625
-SHX42_1 = SHX42_1(SHX43_1, SHX44_1, SHX45_1)
-SHX43_1 = 0
-SHX44_1 = 1
-SHX45_1 = 0
-SHX46_1 = false
-SHX47_1 = false
-SHX48_1 = 0.0
-SHX49_1 = nil
-SHX50_1 = 0
-function SHX51_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX38_1 = SHX0_2
-  SHX0_2 = DeleteEntity
-  SHX1_2 = SHX43_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = 0
-  SHX43_1 = SHX0_2
-  SHX0_2 = 1
-  SHX44_1 = SHX0_2
-  SHX0_2 = 0
-  SHX45_1 = SHX0_2
-  SHX0_2 = 0.0
-  SHX48_1 = SHX0_2
-  SHX0_2 = notify
-  SHX1_2 = "~r~Automated handling disabled."
-  SHX0_2(SHX1_2)
+dataTable20 = false
+tableHelper2 = {}
+dataTable21 = {}
+dataTable22 = "Offroader"
+dataTable21[1] = dataTable22
+dataTable22 = 1
+vector3Builder3 = vector3
+dataTable23 = 2120.3332519531
+dataTable24 = 5278.6479492188
+dataTable25 = 152.3650390625
+vector3Builder3 = vector3Builder3(dataTable23, dataTable24, dataTable25)
+dataTable23 = 0
+dataTable24 = 1
+dataTable25 = 0
+dataTable26 = false
+dataTable27 = false
+dataTable28 = 0.0
+dataTable29 = nil
+dataTable30 = 0
+function dataTable31()
+  local arg1, arg2
+  arg1 = false
+  dataTable20 = arg1
+  arg1 = DeleteEntity
+  arg2 = dataTable23
+  -- Beginner: Delete a GTA entity.
+  arg1(arg2)
+  arg1 = 0
+  dataTable23 = arg1
+  arg1 = 1
+  dataTable24 = arg1
+  arg1 = 0
+  dataTable25 = arg1
+  arg1 = 0.0
+  dataTable28 = arg1
+  arg1 = notify
+  arg2 = "~r~Automated handling disabled."
+  -- Beginner: Show a notification to the player.
+  arg1(arg2)
 end
-function SHX52_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = SHX39_1
-  SHX0_2 = #SHX0_2
-  if 0 == SHX0_2 then
-    SHX0_2 = notify
-    SHX1_2 = "~r~No spawncodes set for automated handling."
-    SHX0_2(SHX1_2)
+function dataTable32()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20
+  arg1 = tableHelper2
+  arg1 = #arg1
+  if 0 == arg1 then
+    arg1 = notify
+    arg2 = "~r~No spawncodes set for automated handling."
+    arg1(arg2)
     return
   end
-  SHX0_2 = false
-  SHX2_2 = SHX41_1
-  SHX1_2 = SHX40_1
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = pairs
-  SHX3_2 = SHX33_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    if SHX7_2 == SHX1_2 then
-      SHX32_1 = SHX6_2
-      SHX31_1 = SHX7_2
-      SHX0_2 = true
+  arg1 = false
+  arg3 = dataTable22
+  arg2 = dataTable21
+  arg2 = arg2[arg3]
+  arg3 = pairs
+  textValue17 = dataTable15
+  arg3, textValue17, numberValue24, modelHash = arg3(textValue17)
+  for cmgCall5, workValue18 in arg3, textValue17, numberValue24, modelHash do
+    if workValue18 == arg2 then
+      vector3Builder2 = cmgCall5
+      vector3Builder = workValue18
+      arg1 = true
       break
     end
   end
-  if not SHX0_2 then
-    SHX2_2 = notify
-    SHX3_2 = string
-    SHX3_2 = SHX3_2.format
-    SHX4_2 = "~r~Unable to find markers for %s. Is this valid?"
-    SHX5_2 = SHX1_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  if not arg1 then
+    arg3 = notify
+    textValue17 = string
+    textValue17 = textValue17.format
+    numberValue24 = "~r~Unable to find markers for %s. Is this valid?"
+    modelHash = arg2
+    textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20 = textValue17(numberValue24, modelHash)
+    -- Beginner: Show a notification to the player.
+    arg3(textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20)
     return
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getTargetSpeedFromVehicleType
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.lower
-  SHX4_2 = SHX1_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX3_2(SHX4_2)
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  if not SHX2_2 then
-    SHX2_2 = 250.0
+  arg3 = CMG
+  arg3 = arg3.getTargetSpeedFromVehicleType
+  textValue17 = string
+  textValue17 = textValue17.lower
+  numberValue24 = arg2
+  textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20 = textValue17(numberValue24)
+  arg3 = arg3(textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20)
+  if not arg3 then
+    arg3 = 250.0
   end
-  SHX3_2 = SHX2_2 * 0.44704
-  SHX48_1 = SHX3_2
-  SHX3_2 = nil
-  SHX49_1 = SHX3_2
-  SHX3_2 = true
-  SHX38_1 = SHX3_2
-  SHX3_2 = notify
-  SHX4_2 = "~g~Automated handling enabled."
-  SHX3_2(SHX4_2)
+  textValue17 = arg3 * 0.44704
+  dataTable28 = textValue17
+  textValue17 = nil
+  dataTable29 = textValue17
+  textValue17 = true
+  dataTable20 = textValue17
+  textValue17 = notify
+  numberValue24 = "~g~Automated handling enabled."
+  textValue17(numberValue24)
 end
-function SHX53_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX0_2 = SHX0_2 * 10000.0
-  SHX1_2 = SHX0_2 % 1.0
-  SHX2_2 = 0.5
-  if SHX1_2 > SHX2_2 then
-    SHX1_2 = math
-    SHX1_2 = SHX1_2.ceil
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      goto SHX_LABEL_18
+function dataTable33(arg1)
+  local arg2, arg3
+  arg1 = arg1 * 10000.0
+  arg2 = arg1 % 1.0
+  arg3 = 0.5
+  if arg2 > arg3 then
+    arg2 = math
+    arg2 = arg2.ceil
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if arg2 then
+      goto flow_label_18
     end
   end
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.floor
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_18:: outside nested blocks until all 'goto SHX_LABEL_18' can see it
-  ::SHX_LABEL_18::
-  SHX1_2 = SHX1_2 / 10000.0
-  return SHX1_2
+  arg2 = math
+  arg2 = arg2.floor
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  ::flow_label_18::
+  arg2 = arg2 / 10000.0
+  return arg2
 end
-function SHX54_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX3_2 = ""
-  function SHX4_2(SHX0_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX1_3, SHX2_3
-    SHX1_3 = SHX3_2
-    if "" ~= SHX1_3 then
-      SHX1_3 = SHX3_2
-      SHX2_3 = [[
+function dataTable34(arg1, arg2, arg3)
+  local textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8
+  textValue17 = ""
+  function numberValue24(arg12)
+    local arg22, arg32
+    arg22 = textValue17
+    if "" ~= arg22 then
+      arg22 = textValue17
+      arg32 = [[
 
 			]]
-      SHX1_3 = SHX1_3 .. SHX2_3
-      SHX3_2 = SHX1_3
+      arg22 = arg22 .. arg32
+      textValue17 = arg22
     end
-    SHX1_3 = SHX3_2
-    SHX2_3 = SHX0_3
-    SHX1_3 = SHX1_3 .. SHX2_3
-    SHX3_2 = SHX1_3
+    arg22 = textValue17
+    arg32 = arg12
+    arg22 = arg22 .. arg32
+    textValue17 = arg22
   end
-  SHX5_2 = pairs
-  SHX6_2 = SHX1_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-  for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-    SHX11_2 = SHX10_2.type
-    if "float" == SHX11_2 then
-      SHX11_2 = GetVehicleHandlingFloat
-      SHX12_2 = SHX0_2
-      SHX13_2 = SHX2_2
-      SHX14_2 = SHX10_2.name
-      SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-      SHX12_2 = SHX4_2
-      SHX13_2 = string
-      SHX13_2 = SHX13_2.format
-      SHX14_2 = "<%s value=\"%s\" />"
-      SHX15_2 = SHX10_2.name
-      SHX16_2 = SHX53_1
-      SHX17_2 = SHX11_2
-      SHX16_2, SHX17_2, SHX18_2 = SHX16_2(SHX17_2)
-      SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+  modelHash = pairs
+  cmgCall5 = arg2
+  modelHash, cmgCall5, workValue18, workValue20 = modelHash(cmgCall5)
+  for workValue21, workValue in modelHash, cmgCall5, workValue18, workValue20 do
+    textValue8 = workValue.type
+    if "float" == textValue8 then
+      textValue8 = GetVehicleHandlingFloat
+      flag4 = arg1
+      workValue3 = arg3
+      nameValue = workValue.name
+      textValue8 = textValue8(flag4, workValue3, nameValue)
+      flag4 = numberValue24
+      workValue3 = string
+      workValue3 = workValue3.format
+      nameValue = "<%s value=\"%s\" />"
+      nameValue2 = workValue.name
+      numberValue5 = dataTable33
+      numberValue7 = textValue8
+      numberValue5, numberValue7, workValue8 = numberValue5(numberValue7)
+      workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8 = workValue3(nameValue, nameValue2, numberValue5, numberValue7, workValue8)
+      flag4(workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8)
     else
-      SHX11_2 = SHX10_2.type
-      if "integer" == SHX11_2 then
-        SHX11_2 = GetVehicleHandlingInt
-        SHX12_2 = SHX0_2
-        SHX13_2 = SHX2_2
-        SHX14_2 = SHX10_2.name
-        SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-        SHX12_2 = SHX4_2
-        SHX13_2 = string
-        SHX13_2 = SHX13_2.format
-        SHX14_2 = "<%s value=\"%s\" />"
-        SHX15_2 = SHX10_2.name
-        SHX16_2 = SHX11_2
-        SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-        SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+      textValue8 = workValue.type
+      if "integer" == textValue8 then
+        textValue8 = GetVehicleHandlingInt
+        flag4 = arg1
+        workValue3 = arg3
+        nameValue = workValue.name
+        textValue8 = textValue8(flag4, workValue3, nameValue)
+        flag4 = numberValue24
+        workValue3 = string
+        workValue3 = workValue3.format
+        nameValue = "<%s value=\"%s\" />"
+        nameValue2 = workValue.name
+        numberValue5 = textValue8
+        workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8 = workValue3(nameValue, nameValue2, numberValue5)
+        flag4(workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8)
       else
-        SHX11_2 = SHX10_2.type
-        if "vector" == SHX11_2 then
-          SHX11_2 = GetVehicleHandlingVector
-          SHX12_2 = SHX0_2
-          SHX13_2 = SHX2_2
-          SHX14_2 = SHX10_2.name
-          SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-          SHX12_2 = SHX4_2
-          SHX13_2 = string
-          SHX13_2 = SHX13_2.format
-          SHX14_2 = "<%s x=\"%s\" y=\"%s\" z=\"%s\" />"
-          SHX15_2 = SHX10_2.name
-          SHX16_2 = SHX11_2.x
-          SHX17_2 = SHX11_2.y
-          SHX18_2 = SHX11_2.z
-          SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-          SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+        textValue8 = workValue.type
+        if "vector" == textValue8 then
+          textValue8 = GetVehicleHandlingVector
+          flag4 = arg1
+          workValue3 = arg3
+          nameValue = workValue.name
+          textValue8 = textValue8(flag4, workValue3, nameValue)
+          flag4 = numberValue24
+          workValue3 = string
+          workValue3 = workValue3.format
+          nameValue = "<%s x=\"%s\" y=\"%s\" z=\"%s\" />"
+          nameValue2 = workValue.name
+          numberValue5 = textValue8.x
+          numberValue7 = textValue8.y
+          workValue8 = textValue8.z
+          workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8 = workValue3(nameValue, nameValue2, numberValue5, numberValue7, workValue8)
+          flag4(workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8)
         end
       end
     end
   end
-  return SHX3_2
+  return textValue17
 end
-function SHX55_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX1_2 = SHX45_1
-  SHX1_2 = SHX0_2 - SHX1_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.drawDebugText
-  SHX3_2 = "Last Spawn Time: %s msec ago"
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = 30000
-  if SHX1_2 < SHX2_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX43_1
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      SHX2_2 = SHX49_1
-      if nil == SHX2_2 then
+function dataTable35(arg1)
+  local arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7
+  arg2 = dataTable25
+  arg2 = arg1 - arg2
+  arg3 = CMG
+  arg3 = arg3.drawDebugText
+  textValue17 = "Last Spawn Time: %s msec ago"
+  numberValue24 = arg2
+  arg3(textValue17, numberValue24)
+  arg3 = 30000
+  if arg2 < arg3 then
+    arg3 = DoesEntityExist
+    textValue17 = dataTable23
+    arg3 = arg3(textValue17)
+    if arg3 then
+      arg3 = dataTable29
+      if nil == arg3 then
         return
       end
     end
   end
-  SHX3_2 = SHX44_1
-  SHX2_2 = SHX39_1
-  SHX2_2 = SHX2_2[SHX3_2]
-  SHX4_2 = SHX41_1
-  SHX3_2 = SHX40_1
-  SHX3_2 = SHX3_2[SHX4_2]
-  SHX4_2 = SHX49_1
-  if true == SHX4_2 then
-    SHX4_2 = SHX44_1
-    SHX4_2 = SHX4_2 + 1
-    SHX44_1 = SHX4_2
-    SHX4_2 = 0
-    SHX50_1 = SHX4_2
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.getVehicleTypeFromModel
-    SHX5_2 = GetEntityModel
-    SHX6_2 = SHX43_1
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX5_2(SHX6_2)
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX5_2 = SHX54_1
-    SHX6_2 = SHX43_1
-    SHX7_2 = SHX16_1
-    SHX8_2 = "CHandlingData"
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "ffc09bc489"
-    SHX8_2 = SHX2_2
-    SHX9_2 = SHX4_2
-    SHX10_2 = SHX3_2
-    SHX11_2 = SHX5_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+  textValue17 = dataTable24
+  arg3 = tableHelper2
+  arg3 = arg3[textValue17]
+  numberValue24 = dataTable22
+  textValue17 = dataTable21
+  textValue17 = textValue17[numberValue24]
+  numberValue24 = dataTable29
+  if true == numberValue24 then
+    numberValue24 = dataTable24
+    numberValue24 = numberValue24 + 1
+    dataTable24 = numberValue24
+    numberValue24 = 0
+    dataTable30 = numberValue24
+    numberValue24 = CMG
+    numberValue24 = numberValue24.getVehicleTypeFromModel
+    modelHash = GetEntityModel
+    cmgCall5 = dataTable23
+    modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7 = modelHash(cmgCall5)
+    numberValue24 = numberValue24(modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7)
+    modelHash = dataTable34
+    cmgCall5 = dataTable23
+    workValue18 = dataTable
+    workValue20 = "CHandlingData"
+    modelHash = modelHash(cmgCall5, workValue18, workValue20)
+    cmgCall5 = TriggerServerEvent
+    workValue18 = "ffc09bc489"
+    workValue20 = arg3
+    workValue21 = numberValue24
+    workValue = textValue17
+    textValue8 = modelHash
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ffc09bc489".
+    cmgCall5(workValue18, workValue20, workValue21, workValue, textValue8)
   end
-  SHX4_2 = SHX50_1
-  if SHX4_2 > 5 then
-    SHX4_2 = SHX44_1
-    SHX4_2 = SHX4_2 + 1
-    SHX44_1 = SHX4_2
-    SHX4_2 = 0
-    SHX50_1 = SHX4_2
-    SHX4_2 = notify
-    SHX5_2 = string
-    SHX5_2 = SHX5_2.format
-    SHX6_2 = "~r~Failed to adjust vehicle %s, moving to next."
-    SHX7_2 = SHX2_2
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX5_2(SHX6_2, SHX7_2)
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
+  numberValue24 = dataTable30
+  if numberValue24 > 5 then
+    numberValue24 = dataTable24
+    numberValue24 = numberValue24 + 1
+    dataTable24 = numberValue24
+    numberValue24 = 0
+    dataTable30 = numberValue24
+    numberValue24 = notify
+    modelHash = string
+    modelHash = modelHash.format
+    cmgCall5 = "~r~Failed to adjust vehicle %s, moving to next."
+    workValue18 = arg3
+    modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7 = modelHash(cmgCall5, workValue18)
+    -- Beginner: Show a notification to the player.
+    numberValue24(modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7)
   end
-  SHX4_2 = DeleteEntity
-  SHX5_2 = SHX43_1
-  SHX4_2(SHX5_2)
-  SHX4_2 = 0
-  SHX43_1 = SHX4_2
-  SHX5_2 = SHX44_1
-  SHX4_2 = SHX39_1
-  SHX4_2 = SHX4_2[SHX5_2]
-  if not SHX4_2 then
-    SHX5_2 = SHX51_1
-    SHX5_2()
+  numberValue24 = DeleteEntity
+  modelHash = dataTable23
+  -- Beginner: Delete a GTA entity.
+  numberValue24(modelHash)
+  numberValue24 = 0
+  dataTable23 = numberValue24
+  modelHash = dataTable24
+  numberValue24 = tableHelper2
+  numberValue24 = numberValue24[modelHash]
+  if not numberValue24 then
+    modelHash = dataTable31
+    modelHash()
     return
   end
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.loadModel
-  SHX6_2 = SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if not SHX5_2 then
+  modelHash = CMG
+  modelHash = modelHash.loadModel
+  cmgCall5 = numberValue24
+  modelHash = modelHash(cmgCall5)
+  if not modelHash then
     return
   end
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.atan
-  SHX7_2 = SHX42_1.x
-  SHX8_2 = SHX28_1.x
-  SHX7_2 = SHX7_2 - SHX8_2
-  SHX8_2 = SHX42_1.y
-  SHX9_2 = SHX28_1.y
-  SHX8_2 = SHX8_2 - SHX9_2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.spawnVehicle
-  SHX8_2 = SHX5_2
-  SHX9_2 = SHX28_1.x
-  SHX10_2 = SHX28_1.y
-  SHX11_2 = SHX28_1.z
-  SHX12_2 = math
-  SHX12_2 = SHX12_2.deg
-  SHX13_2 = SHX6_2
-  SHX12_2 = SHX12_2(SHX13_2)
-  SHX13_2 = true
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  if 0 == SHX7_2 then
+  cmgCall5 = math
+  cmgCall5 = cmgCall5.atan
+  workValue18 = vector3Builder3.x
+  workValue20 = tableHelper.x
+  workValue18 = workValue18 - workValue20
+  workValue20 = vector3Builder3.y
+  workValue21 = tableHelper.y
+  workValue20 = workValue20 - workValue21
+  cmgCall5 = cmgCall5(workValue18, workValue20)
+  workValue18 = CMG
+  workValue18 = workValue18.spawnVehicle
+  workValue20 = modelHash
+  workValue21 = tableHelper.x
+  workValue = tableHelper.y
+  textValue8 = tableHelper.z
+  flag4 = math
+  flag4 = flag4.deg
+  workValue3 = cmgCall5
+  flag4 = flag4(workValue3)
+  workValue3 = true
+  nameValue = false
+  nameValue2 = false
+  workValue18 = workValue18(workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2)
+  if 0 == workValue18 then
     return
   end
-  SHX8_2 = SHX9_1
-  SHX8_2[SHX7_2] = true
-  SHX8_2 = SetVehicleEngineOn
-  SHX9_2 = SHX7_2
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX12_2 = false
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX8_2 = SetEntityProofs
-  SHX9_2 = SHX7_2
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX14_2 = true
-  SHX15_2 = true
-  SHX16_2 = true
-  SHX17_2 = true
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.applyMaxDefaultModsToVehicle
-  SHX9_2 = SHX7_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = SHX25_1
-  SHX9_2 = SHX3_2
-  SHX10_2 = SHX7_2
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SHX50_1
-  SHX8_2 = SHX8_2 + 1
-  SHX50_1 = SHX8_2
-  SHX8_2 = SHX50_1
-  if SHX8_2 > 1 then
-    SHX8_2 = SHX46_1
-    SHX8_2 = not SHX8_2
-    SHX9_2 = SHX47_1
-    if SHX8_2 or SHX9_2 then
-      SHX10_2 = GetVehicleHandlingFloat
-      SHX11_2 = SHX7_2
-      SHX12_2 = "CHandlingData"
-      SHX13_2 = "fInitialDragCoeff"
-      SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-      SHX11_2 = GetVehicleHandlingFloat
-      SHX12_2 = SHX7_2
-      SHX13_2 = "CHandlingData"
-      SHX14_2 = "fInitialDriveForce"
-      SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-      if SHX8_2 then
-        SHX12_2 = -0.05
-        if SHX12_2 then
-          goto SHX_LABEL_175
+  workValue20 = rageUiCall5
+  workValue20[workValue18] = true
+  workValue20 = SetVehicleEngineOn
+  workValue21 = workValue18
+  workValue = true
+  textValue8 = true
+  flag4 = false
+  workValue20(workValue21, workValue, textValue8, flag4)
+  workValue20 = SetEntityProofs
+  workValue21 = workValue18
+  workValue = true
+  textValue8 = true
+  flag4 = true
+  workValue3 = true
+  nameValue = true
+  nameValue2 = true
+  numberValue5 = true
+  numberValue7 = true
+  workValue20(workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7)
+  workValue20 = CMG
+  workValue20 = workValue20.applyMaxDefaultModsToVehicle
+  workValue21 = workValue18
+  workValue20(workValue21)
+  workValue20 = dataTable10
+  workValue21 = textValue17
+  workValue = workValue18
+  workValue20(workValue21, workValue)
+  workValue20 = dataTable30
+  workValue20 = workValue20 + 1
+  dataTable30 = workValue20
+  workValue20 = dataTable30
+  if workValue20 > 1 then
+    workValue20 = dataTable26
+    workValue20 = not workValue20
+    workValue21 = dataTable27
+    if workValue20 or workValue21 then
+      workValue = GetVehicleHandlingFloat
+      textValue8 = workValue18
+      flag4 = "CHandlingData"
+      workValue3 = "fInitialDragCoeff"
+      workValue = workValue(textValue8, flag4, workValue3)
+      textValue8 = GetVehicleHandlingFloat
+      flag4 = workValue18
+      workValue3 = "CHandlingData"
+      nameValue = "fInitialDriveForce"
+      textValue8 = textValue8(flag4, workValue3, nameValue)
+      if workValue20 then
+        flag4 = -0.05
+        if flag4 then
+          goto flow_label_175
         end
       end
-      SHX12_2 = 0.05
-      -- [FIX IF ERROR] Move ::SHX_LABEL_175:: outside nested blocks until all 'goto SHX_LABEL_175' can see it
-      ::SHX_LABEL_175::
-      SHX13_2 = SHX50_1
-      SHX12_2 = SHX12_2 * SHX13_2
-      SHX10_2 = SHX10_2 + SHX12_2
-      if SHX8_2 then
-        SHX12_2 = -0.01
-        if SHX12_2 then
-          goto SHX_LABEL_186
+      flag4 = 0.05
+      ::flow_label_175::
+      workValue3 = dataTable30
+      flag4 = flag4 * workValue3
+      workValue = workValue + flag4
+      if workValue20 then
+        flag4 = -0.01
+        if flag4 then
+          goto flow_label_186
         end
       end
-      SHX12_2 = 0.01
-      -- [FIX IF ERROR] Move ::SHX_LABEL_186:: outside nested blocks until all 'goto SHX_LABEL_186' can see it
-      ::SHX_LABEL_186::
-      SHX13_2 = SHX50_1
-      SHX12_2 = SHX12_2 * SHX13_2
-      SHX11_2 = SHX11_2 + SHX12_2
-      SHX12_2 = SetVehicleHandlingFloat
-      SHX13_2 = SHX7_2
-      SHX14_2 = "CHandlingData"
-      SHX15_2 = "fInitialDragCoeff"
-      SHX16_2 = SHX10_2
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-      SHX12_2 = SetVehicleHandlingFloat
-      SHX13_2 = SHX7_2
-      SHX14_2 = "CHandlingData"
-      SHX15_2 = "fInitialDriveForce"
-      SHX16_2 = SHX11_2
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-      SHX12_2 = SHX24_1
-      SHX13_2 = SHX7_2
-      SHX12_2(SHX13_2)
+      flag4 = 0.01
+      ::flow_label_186::
+      workValue3 = dataTable30
+      flag4 = flag4 * workValue3
+      textValue8 = textValue8 + flag4
+      flag4 = SetVehicleHandlingFloat
+      workValue3 = workValue18
+      nameValue = "CHandlingData"
+      nameValue2 = "fInitialDragCoeff"
+      numberValue5 = workValue
+      flag4(workValue3, nameValue, nameValue2, numberValue5)
+      flag4 = SetVehicleHandlingFloat
+      workValue3 = workValue18
+      nameValue = "CHandlingData"
+      nameValue2 = "fInitialDriveForce"
+      numberValue5 = textValue8
+      flag4(workValue3, nameValue, nameValue2, numberValue5)
+      flag4 = dataTable9
+      workValue3 = workValue18
+      flag4(workValue3)
     end
   end
-  SHX43_1 = SHX7_2
-  SHX45_1 = SHX0_2
-  SHX8_2 = false
-  SHX46_1 = SHX8_2
-  SHX8_2 = false
-  SHX47_1 = SHX8_2
-  SHX8_2 = nil
-  SHX49_1 = SHX8_2
+  dataTable23 = workValue18
+  dataTable25 = arg1
+  workValue20 = false
+  dataTable26 = workValue20
+  workValue20 = false
+  dataTable27 = workValue20
+  workValue20 = nil
+  dataTable29 = workValue20
 end
-function SHX56_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX31_1
-  SHX0_2 = SHX29_1
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX43_1
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX28_1
-  SHX2_2 = SHX1_2 - SHX2_2
-  SHX2_2 = #SHX2_2
-  SHX3_2 = SHX0_2.startDistance
-  if SHX2_2 > SHX3_2 then
-    SHX2_2 = true
-    SHX46_1 = SHX2_2
+function dataTable36()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18
+  arg2 = vector3Builder
+  arg1 = dataTable13
+  arg1 = arg1[arg2]
+  arg2 = GetEntityCoords
+  arg3 = dataTable23
+  -- Beginner: result below is entityCoords.
+  arg2 = arg2(arg3)
+  arg3 = tableHelper
+  arg3 = arg2 - arg3
+  arg3 = #arg3
+  textValue17 = arg1.startDistance
+  if arg3 > textValue17 then
+    arg3 = true
+    dataTable26 = arg3
   end
-  SHX2_2 = GetEntitySpeed
-  SHX3_2 = SHX43_1
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX48_1
-  SHX3_2 = SHX3_2 - 1.0
-  if SHX2_2 >= SHX3_2 then
-    SHX3_2 = SHX49_1
-    if nil == SHX3_2 then
-      SHX3_2 = SHX46_1
-      if SHX3_2 then
-        SHX3_2 = SHX47_1
-        SHX3_2 = not SHX3_2
+  arg3 = GetEntitySpeed
+  textValue17 = dataTable23
+  -- Beginner: result below is speed.
+  arg3 = arg3(textValue17)
+  textValue17 = dataTable28
+  textValue17 = textValue17 - 1.0
+  if arg3 >= textValue17 then
+    textValue17 = dataTable29
+    if nil == textValue17 then
+      textValue17 = dataTable26
+      if textValue17 then
+        textValue17 = dataTable27
+        textValue17 = not textValue17
       end
-      SHX49_1 = SHX3_2
+      dataTable29 = textValue17
     end
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.drawDebugText
-  SHX4_2 = "Speed: %s Target: %s"
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.floor
-  SHX6_2 = SHX2_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.floor
-  SHX7_2 = SHX48_1
-  SHX6_2, SHX7_2 = SHX6_2(SHX7_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SHX28_1
-  SHX3_2 = SHX1_2 - SHX3_2
-  SHX3_2 = #SHX3_2
-  SHX4_2 = SHX0_2.endDistance
-  if SHX3_2 > SHX4_2 then
-    SHX3_2 = true
-    SHX47_1 = SHX3_2
+  textValue17 = CMG
+  textValue17 = textValue17.drawDebugText
+  numberValue24 = "Speed: %s Target: %s"
+  modelHash = math
+  modelHash = modelHash.floor
+  cmgCall5 = arg3
+  modelHash = modelHash(cmgCall5)
+  cmgCall5 = math
+  cmgCall5 = cmgCall5.floor
+  workValue18 = dataTable28
+  cmgCall5, workValue18 = cmgCall5(workValue18)
+  textValue17(numberValue24, modelHash, cmgCall5, workValue18)
+  textValue17 = tableHelper
+  textValue17 = arg2 - textValue17
+  textValue17 = #textValue17
+  numberValue24 = arg1.endDistance
+  if textValue17 > numberValue24 then
+    textValue17 = true
+    dataTable27 = textValue17
   end
-  SHX3_2 = SHX47_1
-  if SHX3_2 then
-    SHX3_2 = false
-    SHX49_1 = SHX3_2
+  textValue17 = dataTable27
+  if textValue17 then
+    textValue17 = false
+    dataTable29 = textValue17
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.drawDebugText
-  SHX4_2 = "Hit Start: %s"
-  SHX5_2 = SHX46_1
-  if SHX5_2 then
-    SHX5_2 = "Yes"
-    if SHX5_2 then
-      goto SHX_LABEL_69
+  textValue17 = CMG
+  textValue17 = textValue17.drawDebugText
+  numberValue24 = "Hit Start: %s"
+  modelHash = dataTable26
+  if modelHash then
+    modelHash = "Yes"
+    if modelHash then
+      goto flow_label_69
     end
   end
-  SHX5_2 = "No"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_69:: outside nested blocks until all 'goto SHX_LABEL_69' can see it
-  ::SHX_LABEL_69::
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.drawDebugText
-  SHX4_2 = "Hit End: %s"
-  SHX5_2 = SHX47_1
-  if SHX5_2 then
-    SHX5_2 = "Yes"
-    if SHX5_2 then
-      goto SHX_LABEL_80
+  modelHash = "No"
+  ::flow_label_69::
+  textValue17(numberValue24, modelHash)
+  textValue17 = CMG
+  textValue17 = textValue17.drawDebugText
+  numberValue24 = "Hit End: %s"
+  modelHash = dataTable27
+  if modelHash then
+    modelHash = "Yes"
+    if modelHash then
+      goto flow_label_80
     end
   end
-  SHX5_2 = "No"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_80:: outside nested blocks until all 'goto SHX_LABEL_80' can see it
-  ::SHX_LABEL_80::
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = "Pending"
-  SHX4_2 = SHX49_1
-  if true == SHX4_2 then
-    SHX3_2 = "Success"
+  modelHash = "No"
+  ::flow_label_80::
+  textValue17(numberValue24, modelHash)
+  textValue17 = "Pending"
+  numberValue24 = dataTable29
+  if true == numberValue24 then
+    textValue17 = "Success"
   else
-    SHX4_2 = SHX49_1
-    if false == SHX4_2 then
-      SHX3_2 = "Failed"
+    numberValue24 = dataTable29
+    if false == numberValue24 then
+      textValue17 = "Failed"
     end
   end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.drawDebugText
-  SHX5_2 = "Has Done: %s"
-  SHX6_2 = SHX3_2
-  SHX4_2(SHX5_2, SHX6_2)
+  numberValue24 = CMG
+  numberValue24 = numberValue24.drawDebugText
+  modelHash = "Has Done: %s"
+  cmgCall5 = textValue17
+  numberValue24(modelHash, cmgCall5)
 end
-function SHX57_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.drawDebugText
-  SHX1_2 = "----------Automated Handling ----------"
-  SHX0_2(SHX1_2)
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX55_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX43_1
-  if 0 == SHX1_2 then
+function dataTable37()
+  local arg1, arg2, arg3, textValue17, numberValue24
+  arg1 = CMG
+  arg1 = arg1.drawDebugText
+  arg2 = "----------Automated Handling ----------"
+  arg1(arg2)
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
+  arg2 = dataTable35
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = dataTable23
+  if 0 == arg2 then
     return
   end
-  SHX1_2 = SetControlNormal
-  SHX2_2 = 0
-  SHX3_2 = 71
-  SHX4_2 = 1.0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SHX56_1
-  SHX1_2()
+  arg2 = SetControlNormal
+  arg3 = 0
+  textValue17 = 71
+  numberValue24 = 1.0
+  arg2(arg3, textValue17, numberValue24)
+  arg2 = dataTable36
+  arg2()
 end
-SHX58_1 = CMG
-SHX59_1 = "applyMaxDefaultModsToVehicle"
-function SHX60_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SetVehicleModKit
-  SHX2_2 = SHX0_2
-  SHX3_2 = 0
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setVehicleMod
-  SHX2_2 = SHX0_2
-  SHX3_2 = 11
-  SHX4_2 = 2
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setVehicleMod
-  SHX2_2 = SHX0_2
-  SHX3_2 = 13
-  SHX4_2 = 2
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setVehicleMod
-  SHX2_2 = SHX0_2
-  SHX3_2 = 12
-  SHX4_2 = 2
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setVehicleMod
-  SHX2_2 = SHX0_2
-  SHX3_2 = 15
-  SHX4_2 = 3
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = ToggleVehicleMod
-  SHX2_2 = SHX0_2
-  SHX3_2 = 18
-  SHX4_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+rageUiCall2 = CMG
+dataTable38 = "applyMaxDefaultModsToVehicle"
+function dataTable39(arg1)
+  local arg2, arg3, textValue17, numberValue24, modelHash
+  arg2 = SetVehicleModKit
+  arg3 = arg1
+  textValue17 = 0
+  arg2(arg3, textValue17)
+  arg2 = CMG
+  arg2 = arg2.setVehicleMod
+  arg3 = arg1
+  textValue17 = 11
+  numberValue24 = 2
+  modelHash = false
+  arg2(arg3, textValue17, numberValue24, modelHash)
+  arg2 = CMG
+  arg2 = arg2.setVehicleMod
+  arg3 = arg1
+  textValue17 = 13
+  numberValue24 = 2
+  modelHash = false
+  arg2(arg3, textValue17, numberValue24, modelHash)
+  arg2 = CMG
+  arg2 = arg2.setVehicleMod
+  arg3 = arg1
+  textValue17 = 12
+  numberValue24 = 2
+  modelHash = false
+  arg2(arg3, textValue17, numberValue24, modelHash)
+  arg2 = CMG
+  arg2 = arg2.setVehicleMod
+  arg3 = arg1
+  textValue17 = 15
+  numberValue24 = 3
+  modelHash = false
+  arg2(arg3, textValue17, numberValue24, modelHash)
+  arg2 = ToggleVehicleMod
+  arg3 = arg1
+  textValue17 = 18
+  numberValue24 = true
+  arg2(arg3, textValue17, numberValue24)
 end
-SHX58_1[SHX59_1] = SHX60_1
-SHX58_1 = RageUI
-SHX59_1 = "CreateWhile"
-SHX58_1 = SHX58_1[SHX59_1]
-SHX59_1 = 1.0
-SHX60_1 = RMenu
-SHX61_1 = SHX60_1
-SHX60_1 = SHX60_1.Get
-SHX62_1 = "cardev"
-SHX63_1 = "mainmenu"
-SHX60_1 = SHX60_1(SHX61_1, SHX62_1, SHX63_1)
-SHX61_1 = nil
-function SHX62_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
-    SHX0_3 = SHX36_1
-    SHX0_3 = SHX0_3()
-    if SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Spawn Vehicle (No Mods)"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.clientPrompt
-          SHX4_4 = "Spawncode:"
-          SHX5_4 = ""
-          function SHX6_4(SHX0_5)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5
-            SHX1_5 = SHX36_1
-            SHX1_5 = SHX1_5()
-            if not SHX1_5 then
+rageUiCall2[dataTable38] = dataTable39
+rageUiCall2 = RageUI
+dataTable38 = "CreateWhile"
+rageUiCall2 = rageUiCall2[dataTable38]
+dataTable38 = 1.0
+dataTable39 = RMenu
+dataTable40 = dataTable39
+dataTable39 = dataTable39.Get
+dataTable41 = "cardev"
+textValue22 = "mainmenu"
+-- Beginner: result below is menu.
+dataTable39 = dataTable39(dataTable40, dataTable41, textValue22)
+dataTable40 = nil
+function dataTable41()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "mainmenu"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = true
+  textValue17 = true
+  numberValue24 = true
+  function modelHash()
+    local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29
+    arg12 = dataTable18
+    arg12 = arg12()
+    if arg12 then
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Spawn Vehicle (No Mods)"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.clientPrompt
+          cmgCall4 = "Spawncode:"
+          flag24 = ""
+          function flag26(arg14)
+            local stringHelper3, workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3
+            stringHelper3 = dataTable18
+            stringHelper3 = stringHelper3()
+            if not stringHelper3 then
               return
             end
-            SHX1_5 = string
-            SHX1_5 = SHX1_5.gsub
-            SHX2_5 = SHX0_5
-            SHX3_5 = "%s+"
-            SHX4_5 = ""
-            SHX1_5 = SHX1_5(SHX2_5, SHX3_5, SHX4_5)
-            SHX0_5 = SHX1_5
-            if "" ~= SHX0_5 then
-              SHX1_5 = CMG
-              SHX1_5 = SHX1_5.getPlayerBucket
-              SHX1_5 = SHX1_5()
-              if 333 == SHX1_5 then
-                SHX1_5 = CMG
-                SHX1_5 = SHX1_5.loadModel
-                SHX2_5 = SHX0_5
-                SHX1_5 = SHX1_5(SHX2_5)
-                if SHX1_5 then
-                  SHX2_5 = SHX36_1
-                  SHX2_5 = SHX2_5()
-                  if SHX2_5 then
-                    goto SHX_LABEL_31
+            stringHelper3 = string
+            stringHelper3 = stringHelper3.gsub
+            workValue14 = arg14
+            cmgCall3 = "%s+"
+            textValue19 = ""
+            stringHelper3 = stringHelper3(workValue14, cmgCall3, textValue19)
+            arg14 = stringHelper3
+            if "" ~= arg14 then
+              stringHelper3 = CMG
+              stringHelper3 = stringHelper3.getPlayerBucket
+              stringHelper3 = stringHelper3()
+              if 333 == stringHelper3 then
+                stringHelper3 = CMG
+                stringHelper3 = stringHelper3.loadModel
+                workValue14 = arg14
+                stringHelper3 = stringHelper3(workValue14)
+                if stringHelper3 then
+                  workValue14 = dataTable18
+                  workValue14 = workValue14()
+                  if workValue14 then
+                    goto flow_label_31
                   end
                 end
                 return
-                -- [FIX IF ERROR] Move ::SHX_LABEL_31:: outside nested blocks until all 'goto SHX_LABEL_31' can see it
-                ::SHX_LABEL_31::
-                SHX2_5 = TriggerServerEvent
-                SHX3_5 = "1e0bbaf6cd"
-                SHX4_5 = SHX0_5
-                SHX5_5 = "/cardev"
-                SHX2_5(SHX3_5, SHX4_5, SHX5_5)
-                SHX2_5 = CMG
-                SHX2_5 = SHX2_5.getPlayerCoords
-                SHX2_5 = SHX2_5()
-                SHX3_5 = CMG
-                SHX3_5 = SHX3_5.requestEntitySpawn
-                SHX4_5 = "cardev"
-                SHX5_5 = SHX1_5
-                SHX3_5(SHX4_5, SHX5_5)
-                SHX3_5 = CMG
-                SHX3_5 = SHX3_5.spawnVehicle
-                SHX4_5 = SHX1_5
-                SHX5_5 = SHX2_5.x
-                SHX6_5 = SHX2_5.y
-                SHX7_5 = SHX2_5.z
-                SHX8_5 = GetEntityHeading
-                SHX9_5 = CMG
-                SHX9_5 = SHX9_5.getPlayerPed
-                SHX9_5, SHX10_5, SHX11_5 = SHX9_5()
-                SHX8_5 = SHX8_5(SHX9_5, SHX10_5, SHX11_5)
-                SHX9_5 = true
-                SHX10_5 = true
-                SHX11_5 = true
-                SHX3_5 = SHX3_5(SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5)
-                SHX4_5 = CMG
-                SHX4_5 = SHX4_5.initLocalVehicle
-                SHX5_5 = SHX3_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SHX9_1
-                SHX4_5[SHX3_5] = true
-                SHX4_5 = SetVehicleOnGroundProperly
-                SHX5_5 = SHX3_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetEntityInvincible
-                SHX5_5 = SHX3_5
-                SHX6_5 = false
-                SHX4_5(SHX5_5, SHX6_5)
-                SHX4_5 = SetPedIntoVehicle
-                SHX5_5 = CMG
-                SHX5_5 = SHX5_5.getPlayerPed
-                SHX5_5 = SHX5_5()
-                SHX6_5 = SHX3_5
-                SHX7_5 = -1
-                SHX4_5(SHX5_5, SHX6_5, SHX7_5)
-                SHX4_5 = SetModelAsNoLongerNeeded
-                SHX5_5 = SHX1_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetVehRadioStation
-                SHX5_5 = SHX3_5
-                SHX6_5 = "OFF"
-                SHX4_5(SHX5_5, SHX6_5)
-                SHX4_5 = Wait
-                SHX5_5 = 500
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetVehRadioStation
-                SHX5_5 = SHX3_5
-                SHX6_5 = "OFF"
-                SHX4_5(SHX5_5, SHX6_5)
-                SHX4_5 = SHX36_1
-                SHX4_5 = SHX4_5()
-                if not SHX4_5 then
-                  SHX4_5 = DeleteEntity
-                  SHX5_5 = SHX3_5
-                  SHX4_5(SHX5_5)
+                ::flow_label_31::
+                workValue14 = TriggerServerEvent
+                cmgCall3 = "1e0bbaf6cd"
+                textValue19 = arg14
+                textValue21 = "/cardev"
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e0bbaf6cd".
+                workValue14(cmgCall3, textValue19, textValue21)
+                workValue14 = CMG
+                workValue14 = workValue14.getPlayerCoords
+                -- Beginner: result below is playerCoords.
+                workValue14 = workValue14()
+                cmgCall3 = CMG
+                cmgCall3 = cmgCall3.requestEntitySpawn
+                textValue19 = "cardev"
+                textValue21 = stringHelper3
+                cmgCall3(textValue19, textValue21)
+                cmgCall3 = CMG
+                cmgCall3 = cmgCall3.spawnVehicle
+                textValue19 = stringHelper3
+                textValue21 = workValue14.x
+                flag27 = workValue14.y
+                numberValue26 = workValue14.z
+                heading = GetEntityHeading
+                cmgCall6 = CMG
+                cmgCall6 = cmgCall6.getPlayerPed
+                cmgCall6, flag2, flag3 = cmgCall6()
+                -- Beginner: result below is heading.
+                heading = heading(cmgCall6, flag2, flag3)
+                cmgCall6 = true
+                flag2 = true
+                flag3 = true
+                cmgCall3 = cmgCall3(textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3)
+                textValue19 = CMG
+                textValue19 = textValue19.initLocalVehicle
+                textValue21 = cmgCall3
+                textValue19(textValue21)
+                textValue19 = rageUiCall5
+                textValue19[cmgCall3] = true
+                textValue19 = SetVehicleOnGroundProperly
+                textValue21 = cmgCall3
+                textValue19(textValue21)
+                textValue19 = SetEntityInvincible
+                textValue21 = cmgCall3
+                flag27 = false
+                textValue19(textValue21, flag27)
+                textValue19 = SetPedIntoVehicle
+                textValue21 = CMG
+                textValue21 = textValue21.getPlayerPed
+                -- Beginner: result below is localPlayerPed.
+                textValue21 = textValue21()
+                flag27 = cmgCall3
+                numberValue26 = -1
+                textValue19(textValue21, flag27, numberValue26)
+                textValue19 = SetModelAsNoLongerNeeded
+                textValue21 = stringHelper3
+                textValue19(textValue21)
+                textValue19 = SetVehRadioStation
+                textValue21 = cmgCall3
+                flag27 = "OFF"
+                textValue19(textValue21, flag27)
+                textValue19 = Wait
+                textValue21 = 500
+                textValue19(textValue21)
+                textValue19 = SetVehRadioStation
+                textValue21 = cmgCall3
+                flag27 = "OFF"
+                textValue19(textValue21, flag27)
+                textValue19 = dataTable18
+                textValue19 = textValue19()
+                if not textValue19 then
+                  textValue19 = DeleteEntity
+                  textValue21 = cmgCall3
+                  -- Beginner: Delete a GTA entity.
+                  textValue19(textValue21)
                 end
               end
             end
           end
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+          arg4(cmgCall4, flag24, flag26)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Spawn Vehicle (Full Mods)"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.clientPrompt
-          SHX4_4 = "Spawncode:"
-          SHX5_4 = ""
-          function SHX6_4(SHX0_5)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5
-            SHX1_5 = SHX36_1
-            SHX1_5 = SHX1_5()
-            if not SHX1_5 then
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Spawn Vehicle (Full Mods)"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.clientPrompt
+          cmgCall4 = "Spawncode:"
+          flag24 = ""
+          function flag26(arg14)
+            local stringHelper3, workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3
+            stringHelper3 = dataTable18
+            stringHelper3 = stringHelper3()
+            if not stringHelper3 then
               return
             end
-            SHX1_5 = string
-            SHX1_5 = SHX1_5.gsub
-            SHX2_5 = SHX0_5
-            SHX3_5 = "%s+"
-            SHX4_5 = ""
-            SHX1_5 = SHX1_5(SHX2_5, SHX3_5, SHX4_5)
-            SHX0_5 = SHX1_5
-            if "" ~= SHX0_5 then
-              SHX1_5 = CMG
-              SHX1_5 = SHX1_5.getPlayerBucket
-              SHX1_5 = SHX1_5()
-              if 333 == SHX1_5 then
-                SHX1_5 = CMG
-                SHX1_5 = SHX1_5.loadModel
-                SHX2_5 = SHX0_5
-                SHX1_5 = SHX1_5(SHX2_5)
-                if SHX1_5 then
-                  SHX2_5 = SHX36_1
-                  SHX2_5 = SHX2_5()
-                  if SHX2_5 then
-                    goto SHX_LABEL_31
+            stringHelper3 = string
+            stringHelper3 = stringHelper3.gsub
+            workValue14 = arg14
+            cmgCall3 = "%s+"
+            textValue19 = ""
+            stringHelper3 = stringHelper3(workValue14, cmgCall3, textValue19)
+            arg14 = stringHelper3
+            if "" ~= arg14 then
+              stringHelper3 = CMG
+              stringHelper3 = stringHelper3.getPlayerBucket
+              stringHelper3 = stringHelper3()
+              if 333 == stringHelper3 then
+                stringHelper3 = CMG
+                stringHelper3 = stringHelper3.loadModel
+                workValue14 = arg14
+                stringHelper3 = stringHelper3(workValue14)
+                if stringHelper3 then
+                  workValue14 = dataTable18
+                  workValue14 = workValue14()
+                  if workValue14 then
+                    goto flow_label_31
                   end
                 end
                 return
-                -- [FIX IF ERROR] Move ::SHX_LABEL_31:: outside nested blocks until all 'goto SHX_LABEL_31' can see it
-                ::SHX_LABEL_31::
-                SHX2_5 = TriggerServerEvent
-                SHX3_5 = "1e0bbaf6cd"
-                SHX4_5 = SHX0_5
-                SHX5_5 = "/cardev"
-                SHX2_5(SHX3_5, SHX4_5, SHX5_5)
-                SHX2_5 = CMG
-                SHX2_5 = SHX2_5.getPlayerCoords
-                SHX2_5 = SHX2_5()
-                SHX3_5 = CMG
-                SHX3_5 = SHX3_5.requestEntitySpawn
-                SHX4_5 = "cardev"
-                SHX5_5 = SHX1_5
-                SHX3_5(SHX4_5, SHX5_5)
-                SHX3_5 = CMG
-                SHX3_5 = SHX3_5.spawnVehicle
-                SHX4_5 = SHX1_5
-                SHX5_5 = SHX2_5.x
-                SHX6_5 = SHX2_5.y
-                SHX7_5 = SHX2_5.z
-                SHX8_5 = GetEntityHeading
-                SHX9_5 = CMG
-                SHX9_5 = SHX9_5.getPlayerPed
-                SHX9_5, SHX10_5, SHX11_5 = SHX9_5()
-                SHX8_5 = SHX8_5(SHX9_5, SHX10_5, SHX11_5)
-                SHX9_5 = true
-                SHX10_5 = true
-                SHX11_5 = true
-                SHX3_5 = SHX3_5(SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5)
-                SHX4_5 = CMG
-                SHX4_5 = SHX4_5.initLocalVehicle
-                SHX5_5 = SHX3_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SHX9_1
-                SHX4_5[SHX3_5] = true
-                SHX4_5 = SetVehicleOnGroundProperly
-                SHX5_5 = SHX3_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetEntityInvincible
-                SHX5_5 = SHX3_5
-                SHX6_5 = false
-                SHX4_5(SHX5_5, SHX6_5)
-                SHX4_5 = CMG
-                SHX4_5 = SHX4_5.applyMaxDefaultModsToVehicle
-                SHX5_5 = SHX3_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetPedIntoVehicle
-                SHX5_5 = CMG
-                SHX5_5 = SHX5_5.getPlayerPed
-                SHX5_5 = SHX5_5()
-                SHX6_5 = SHX3_5
-                SHX7_5 = -1
-                SHX4_5(SHX5_5, SHX6_5, SHX7_5)
-                SHX4_5 = SetModelAsNoLongerNeeded
-                SHX5_5 = SHX1_5
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetVehRadioStation
-                SHX5_5 = SHX3_5
-                SHX6_5 = "OFF"
-                SHX4_5(SHX5_5, SHX6_5)
-                SHX4_5 = Wait
-                SHX5_5 = 500
-                SHX4_5(SHX5_5)
-                SHX4_5 = SetVehRadioStation
-                SHX5_5 = SHX3_5
-                SHX6_5 = "OFF"
-                SHX4_5(SHX5_5, SHX6_5)
-                SHX4_5 = SHX36_1
-                SHX4_5 = SHX4_5()
-                if not SHX4_5 then
-                  SHX4_5 = DeleteEntity
-                  SHX5_5 = SHX3_5
-                  SHX4_5(SHX5_5)
+                ::flow_label_31::
+                workValue14 = TriggerServerEvent
+                cmgCall3 = "1e0bbaf6cd"
+                textValue19 = arg14
+                textValue21 = "/cardev"
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e0bbaf6cd".
+                workValue14(cmgCall3, textValue19, textValue21)
+                workValue14 = CMG
+                workValue14 = workValue14.getPlayerCoords
+                -- Beginner: result below is playerCoords.
+                workValue14 = workValue14()
+                cmgCall3 = CMG
+                cmgCall3 = cmgCall3.requestEntitySpawn
+                textValue19 = "cardev"
+                textValue21 = stringHelper3
+                cmgCall3(textValue19, textValue21)
+                cmgCall3 = CMG
+                cmgCall3 = cmgCall3.spawnVehicle
+                textValue19 = stringHelper3
+                textValue21 = workValue14.x
+                flag27 = workValue14.y
+                numberValue26 = workValue14.z
+                heading = GetEntityHeading
+                cmgCall6 = CMG
+                cmgCall6 = cmgCall6.getPlayerPed
+                cmgCall6, flag2, flag3 = cmgCall6()
+                -- Beginner: result below is heading.
+                heading = heading(cmgCall6, flag2, flag3)
+                cmgCall6 = true
+                flag2 = true
+                flag3 = true
+                cmgCall3 = cmgCall3(textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3)
+                textValue19 = CMG
+                textValue19 = textValue19.initLocalVehicle
+                textValue21 = cmgCall3
+                textValue19(textValue21)
+                textValue19 = rageUiCall5
+                textValue19[cmgCall3] = true
+                textValue19 = SetVehicleOnGroundProperly
+                textValue21 = cmgCall3
+                textValue19(textValue21)
+                textValue19 = SetEntityInvincible
+                textValue21 = cmgCall3
+                flag27 = false
+                textValue19(textValue21, flag27)
+                textValue19 = CMG
+                textValue19 = textValue19.applyMaxDefaultModsToVehicle
+                textValue21 = cmgCall3
+                textValue19(textValue21)
+                textValue19 = SetPedIntoVehicle
+                textValue21 = CMG
+                textValue21 = textValue21.getPlayerPed
+                -- Beginner: result below is localPlayerPed.
+                textValue21 = textValue21()
+                flag27 = cmgCall3
+                numberValue26 = -1
+                textValue19(textValue21, flag27, numberValue26)
+                textValue19 = SetModelAsNoLongerNeeded
+                textValue21 = stringHelper3
+                textValue19(textValue21)
+                textValue19 = SetVehRadioStation
+                textValue21 = cmgCall3
+                flag27 = "OFF"
+                textValue19(textValue21, flag27)
+                textValue19 = Wait
+                textValue21 = 500
+                textValue19(textValue21)
+                textValue19 = SetVehRadioStation
+                textValue21 = cmgCall3
+                flag27 = "OFF"
+                textValue19(textValue21, flag27)
+                textValue19 = dataTable18
+                textValue19 = textValue19()
+                if not textValue19 then
+                  textValue19 = DeleteEntity
+                  textValue21 = cmgCall3
+                  -- Beginner: Delete a GTA entity.
+                  textValue19(textValue21)
                 end
               end
             end
           end
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+          arg4(cmgCall4, flag24, flag26)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Delete Vehicle"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-        if SHX2_4 then
-          SHX3_4 = GetVehiclePedIsIn
-          SHX4_4 = CMG
-          SHX4_4 = SHX4_4.getPlayerPed
-          SHX4_4 = SHX4_4()
-          SHX5_4 = false
-          SHX3_4 = SHX3_4(SHX4_4, SHX5_4)
-          SHX4_4 = NetworkGetEntityIsNetworked
-          SHX5_4 = SHX3_4
-          SHX4_4 = SHX4_4(SHX5_4)
-          if SHX4_4 then
-            SHX4_4 = NetworkGetNetworkIdFromEntity
-            SHX5_4 = SHX3_4
-            SHX4_4 = SHX4_4(SHX5_4)
-            if 0 ~= SHX4_4 then
-              SHX5_4 = TriggerServerEvent
-              SHX6_4 = "8d97d3c809"
-              SHX7_4 = SHX4_4
-              SHX5_4(SHX6_4, SHX7_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Delete Vehicle"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26, numberValue25
+        if arg33 then
+          arg4 = GetVehiclePedIsIn
+          cmgCall4 = CMG
+          cmgCall4 = cmgCall4.getPlayerPed
+          -- Beginner: result below is localPlayerPed.
+          cmgCall4 = cmgCall4()
+          flag24 = false
+          -- Beginner: result below is currentVehicle.
+          arg4 = arg4(cmgCall4, flag24)
+          cmgCall4 = NetworkGetEntityIsNetworked
+          flag24 = arg4
+          cmgCall4 = cmgCall4(flag24)
+          if cmgCall4 then
+            cmgCall4 = NetworkGetNetworkIdFromEntity
+            flag24 = arg4
+            cmgCall4 = cmgCall4(flag24)
+            if 0 ~= cmgCall4 then
+              flag24 = TriggerServerEvent
+              flag26 = "8d97d3c809"
+              numberValue25 = cmgCall4
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8d97d3c809".
+              flag24(flag26, numberValue25)
             end
           else
-            SHX4_4 = DeleteEntity
-            SHX5_4 = SHX3_4
-            SHX4_4(SHX5_4)
+            cmgCall4 = DeleteEntity
+            flag24 = arg4
+            -- Beginner: Delete a GTA entity.
+            cmgCall4(flag24)
           end
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Fix Vehicle"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.getPlayerPed
-          SHX3_4 = SHX3_4()
-          SHX4_4 = IsPedInAnyVehicle
-          SHX5_4 = SHX3_4
-          SHX6_4 = true
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-          if SHX4_4 then
-            SHX4_4 = GetVehiclePedIsIn
-            SHX5_4 = SHX3_4
-            SHX6_4 = false
-            SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-            SHX5_4 = SetVehicleEngineHealth
-            SHX6_4 = SHX4_4
-            SHX7_4 = 9999
-            SHX5_4(SHX6_4, SHX7_4)
-            SHX5_4 = SetVehiclePetrolTankHealth
-            SHX6_4 = SHX4_4
-            SHX7_4 = 9999
-            SHX5_4(SHX6_4, SHX7_4)
-            SHX5_4 = SetVehicleFixed
-            SHX6_4 = SHX4_4
-            SHX5_4(SHX6_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Fix Vehicle"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26, numberValue25
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.getPlayerPed
+          -- Beginner: result below is localPlayerPed.
+          arg4 = arg4()
+          cmgCall4 = IsPedInAnyVehicle
+          flag24 = arg4
+          flag26 = true
+          cmgCall4 = cmgCall4(flag24, flag26)
+          if cmgCall4 then
+            cmgCall4 = GetVehiclePedIsIn
+            flag24 = arg4
+            flag26 = false
+            -- Beginner: result below is currentVehicle.
+            cmgCall4 = cmgCall4(flag24, flag26)
+            flag24 = SetVehicleEngineHealth
+            flag26 = cmgCall4
+            numberValue25 = 9999
+            flag24(flag26, numberValue25)
+            flag24 = SetVehiclePetrolTankHealth
+            flag26 = cmgCall4
+            numberValue25 = 9999
+            flag24(flag26, numberValue25)
+            flag24 = SetVehicleFixed
+            flag26 = cmgCall4
+            flag24(flag26)
           end
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.List
-      SHX1_3 = "Teleport"
-      SHX2_3 = SHX2_1
-      SHX3_3 = SHX4_1
-      SHX4_3 = nil
-      SHX5_3 = {}
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX4_4, SHX5_4, SHX6_4
-        SHX4_1 = SHX3_4
-        if SHX2_4 then
-          SHX4_4 = CMG
-          SHX4_4 = SHX4_4.teleport
-          SHX6_4 = SHX4_1
-          SHX5_4 = SHX3_1
-          SHX5_4 = SHX5_4[SHX6_4]
-          SHX6_4 = true
-          SHX4_4(SHX5_4, SHX6_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.List
+      arg22 = "Teleport"
+      arg32 = textValue15
+      textValue18 = rageUiCall
+      workValue17 = nil
+      flag23 = {}
+      flag25 = true
+      function workValue19(arg13, arg23, arg33, arg4)
+        local cmgCall4, flag24, flag26
+        rageUiCall = arg4
+        if arg33 then
+          cmgCall4 = CMG
+          cmgCall4 = cmgCall4.teleport
+          flag26 = rageUiCall
+          flag24 = textValue16
+          flag24 = flag24[flag26]
+          flag26 = true
+          cmgCall4(flag24, flag26)
         end
       end
-      function SHX8_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function flag28()
+        local arg13, arg23
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-      SHX0_3 = CMG
-      SHX0_3 = SHX0_3.hasClientPermission
-      SHX1_3 = "cardev.whitelisted"
-      SHX0_3 = SHX0_3(SHX1_3)
-      if SHX0_3 then
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.List
-        SHX1_3 = "Marker Display"
-        SHX2_3 = SHX33_1
-        SHX3_3 = SHX32_1
-        SHX4_3 = nil
-        SHX5_3 = {}
-        SHX6_3 = true
-        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX4_4
-          SHX4_4 = SHX32_1
-          if SHX3_4 ~= SHX4_4 then
-            if 1 == SHX3_4 then
-              SHX4_4 = nil
-              SHX31_1 = SHX4_4
+      -- Beginner: Draw a RageUI list selector.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28)
+      arg12 = CMG
+      arg12 = arg12.hasClientPermission
+      arg22 = "cardev.whitelisted"
+      arg12 = arg12(arg22)
+      if arg12 then
+        arg12 = RageUI
+        arg12 = arg12.List
+        arg22 = "Marker Display"
+        arg32 = dataTable15
+        textValue18 = vector3Builder2
+        workValue17 = nil
+        flag23 = {}
+        flag25 = true
+        function workValue19(arg13, arg23, arg33, arg4)
+          local cmgCall4
+          cmgCall4 = vector3Builder2
+          if arg4 ~= cmgCall4 then
+            if 1 == arg4 then
+              cmgCall4 = nil
+              vector3Builder = cmgCall4
             else
-              SHX4_4 = SHX33_1
-              SHX4_4 = SHX4_4[SHX3_4]
-              if SHX4_4 then
-                SHX4_4 = SHX33_1
-                SHX4_4 = SHX4_4[SHX3_4]
-                SHX31_1 = SHX4_4
+              cmgCall4 = dataTable15
+              cmgCall4 = cmgCall4[arg4]
+              if cmgCall4 then
+                cmgCall4 = dataTable15
+                cmgCall4 = cmgCall4[arg4]
+                vector3Builder = cmgCall4
               end
             end
-            SHX32_1 = SHX3_4
+            vector3Builder2 = arg4
           end
         end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.List
-        SHX1_3 = "Apply Baller Template"
-        SHX2_3 = SHX19_1
-        SHX3_3 = SHX20_1
-        SHX4_3 = nil
-        SHX5_3 = {}
-        SHX6_3 = true
-        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
-          SHX4_4 = SHX20_1
-          if SHX3_4 ~= SHX4_4 then
-            SHX20_1 = SHX3_4
+        arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+        arg12 = RageUI
+        arg12 = arg12.List
+        arg22 = "Apply Baller Template"
+        arg32 = dataTable4
+        textValue18 = dataTable6
+        workValue17 = nil
+        flag23 = {}
+        flag25 = true
+        function workValue19(arg13, arg23, arg33, arg4)
+          local cmgCall4, flag24, flag26, numberValue25, numberValue27
+          cmgCall4 = dataTable6
+          if arg4 ~= cmgCall4 then
+            dataTable6 = arg4
           end
-          if SHX2_4 then
-            SHX5_4 = SHX20_1
-            SHX4_4 = SHX19_1
-            SHX4_4 = SHX4_4[SHX5_4]
-            SHX5_4 = CMG
-            SHX5_4 = SHX5_4.getPlayerVehicle
-            SHX5_4 = SHX5_4()
-            if 0 == SHX5_4 then
-              SHX6_4 = notify
-              SHX7_4 = "~r~You are not in a vehicle."
-              SHX6_4(SHX7_4)
+          if arg33 then
+            flag24 = dataTable6
+            cmgCall4 = dataTable4
+            cmgCall4 = cmgCall4[flag24]
+            flag24 = CMG
+            flag24 = flag24.getPlayerVehicle
+            -- Beginner: result below is currentVehicle.
+            flag24 = flag24()
+            if 0 == flag24 then
+              flag26 = notify
+              numberValue25 = "~r~You are not in a vehicle."
+              -- Beginner: Show a notification to the player.
+              flag26(numberValue25)
               return
             end
-            SHX6_4 = SHX25_1
-            SHX7_4 = SHX4_4
-            SHX8_4 = SHX5_4
-            SHX6_4(SHX7_4, SHX8_4)
+            flag26 = dataTable10
+            numberValue25 = cmgCall4
+            numberValue27 = flag24
+            flag26(numberValue25, numberValue27)
           end
         end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.List
-        SHX1_3 = "Apply Import Template"
-        SHX2_3 = SHX21_1
-        SHX3_3 = SHX22_1
-        SHX4_3 = nil
-        SHX5_3 = {}
-        SHX6_3 = true
-        function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX4_4
-          SHX4_4 = SHX22_1
-          if SHX3_4 ~= SHX4_4 then
-            SHX22_1 = SHX3_4
+        -- Beginner: Draw a RageUI list selector.
+        arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+        arg12 = RageUI
+        arg12 = arg12.List
+        arg22 = "Apply Import Template"
+        arg32 = dataTable7
+        textValue18 = dataTable8
+        workValue17 = nil
+        flag23 = {}
+        flag25 = true
+        function workValue19(arg13, arg23, arg33, arg4)
+          local cmgCall4
+          cmgCall4 = dataTable8
+          if arg4 ~= cmgCall4 then
+            dataTable8 = arg4
           end
-          if SHX2_4 then
-            SHX4_4 = SHX26_1
-            SHX4_4()
+          if arg33 then
+            cmgCall4 = dataTable11
+            cmgCall4()
           end
         end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+        -- Beginner: Draw a RageUI list selector.
+        arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
       end
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Cycle through seats"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.getPlayerPed
-          SHX3_4 = SHX3_4()
-          SHX4_4 = IsPedInAnyVehicle
-          SHX5_4 = SHX3_4
-          SHX6_4 = true
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-          if SHX4_4 then
-            SHX4_4 = GetVehiclePedIsIn
-            SHX5_4 = SHX3_4
-            SHX6_4 = false
-            SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-            SHX5_4 = GetVehicleModelNumberOfSeats
-            SHX6_4 = GetEntityModel
-            SHX7_4 = SHX4_4
-            SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4 = SHX6_4(SHX7_4)
-            SHX5_4 = SHX5_4(SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4)
-            SHX6_4 = -1
-            SHX7_4 = SHX5_4 - 2
-            SHX8_4 = 1
-            for SHX9_4 = SHX6_4, SHX7_4, SHX8_4 do
-              SHX10_4 = IsVehicleSeatFree
-              SHX11_4 = SHX4_4
-              SHX12_4 = SHX9_4
-              SHX10_4 = SHX10_4(SHX11_4, SHX12_4)
-              if SHX10_4 then
-                SHX10_4 = TaskWarpPedIntoVehicle
-                SHX11_4 = SHX3_4
-                SHX12_4 = SHX4_4
-                SHX13_4 = SHX9_4
-                SHX10_4(SHX11_4, SHX12_4, SHX13_4)
-                SHX10_4 = Wait
-                SHX11_4 = 2000
-                SHX10_4(SHX11_4)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Cycle through seats"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3, workValue4
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.getPlayerPed
+          -- Beginner: result below is localPlayerPed.
+          arg4 = arg4()
+          cmgCall4 = IsPedInAnyVehicle
+          flag24 = arg4
+          flag26 = true
+          cmgCall4 = cmgCall4(flag24, flag26)
+          if cmgCall4 then
+            cmgCall4 = GetVehiclePedIsIn
+            flag24 = arg4
+            flag26 = false
+            -- Beginner: result below is currentVehicle.
+            cmgCall4 = cmgCall4(flag24, flag26)
+            flag24 = GetVehicleModelNumberOfSeats
+            flag26 = GetEntityModel
+            numberValue25 = cmgCall4
+            flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3, workValue4 = flag26(numberValue25)
+            flag24 = flag24(flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3, workValue4)
+            flag26 = -1
+            numberValue25 = flag24 - 2
+            numberValue27 = 1
+            for dataTable42 = flag26, numberValue25, numberValue27 do
+              waitCall = IsVehicleSeatFree
+              numberValue2 = cmgCall4
+              numberValue3 = dataTable42
+              waitCall = waitCall(numberValue2, numberValue3)
+              if waitCall then
+                waitCall = TaskWarpPedIntoVehicle
+                numberValue2 = arg4
+                numberValue3 = cmgCall4
+                workValue4 = dataTable42
+                waitCall(numberValue2, numberValue3, workValue4)
+                waitCall = Wait
+                numberValue2 = 2000
+                waitCall(numberValue2)
               end
             end
           else
-            SHX4_4 = tCMG
-            SHX4_4 = SHX4_4.notify
-            SHX5_4 = "~r~Not in a vehicle."
-            SHX4_4(SHX5_4)
+            cmgCall4 = tCMG
+            cmgCall4 = cmgCall4.notify
+            flag24 = "~r~Not in a vehicle."
+            -- Beginner: Show a notification to the player.
+            cmgCall4(flag24)
           end
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Get API Key"
-      SHX2_3 = "Gets your API key to be used in localhost. Do not share this key."
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4
-        if SHX2_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "ff5e215cf8"
-          SHX3_4(SHX4_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Get API Key"
+      arg32 = "Gets your API key to be used in localhost. Do not share this key."
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4
+        if arg33 then
+          arg4 = TriggerServerEvent
+          cmgCall4 = "ff5e215cf8"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ff5e215cf8".
+          arg4(cmgCall4)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Vehicle Mods"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.getPlayerPed
-          SHX3_4 = SHX3_4()
-          SHX4_4 = IsPedInAnyVehicle
-          SHX5_4 = SHX3_4
-          SHX6_4 = true
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-          if not SHX4_4 then
-            SHX4_4 = tCMG
-            SHX4_4 = SHX4_4.notify
-            SHX5_4 = "~r~Not in a vehicle."
-            SHX4_4(SHX5_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Vehicle Mods"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.getPlayerPed
+          -- Beginner: result below is localPlayerPed.
+          arg4 = arg4()
+          cmgCall4 = IsPedInAnyVehicle
+          flag24 = arg4
+          flag26 = true
+          cmgCall4 = cmgCall4(flag24, flag26)
+          if not cmgCall4 then
+            cmgCall4 = tCMG
+            cmgCall4 = cmgCall4.notify
+            flag24 = "~r~Not in a vehicle."
+            -- Beginner: Show a notification to the player.
+            cmgCall4(flag24)
           end
         end
       end
-      SHX6_3 = RMenu
-      SHX7_3 = SHX6_3
-      SHX6_3 = SHX6_3.Get
-      SHX8_3 = "cardev"
-      SHX9_3 = "vehiclemods"
-      SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Vehicle Extras"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      flag25 = RMenu
+      workValue19 = flag25
+      flag25 = flag25.Get
+      flag28 = "cardev"
+      flag29 = "vehiclemods"
+      flag25, workValue19, flag28, flag29 = flag25(workValue19, flag28, flag29)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Vehicle Extras"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23()
+        local arg13, arg23
       end
-      SHX6_3 = RMenu
-      SHX7_3 = SHX6_3
-      SHX6_3 = SHX6_3.Get
-      SHX8_3 = "cardev"
-      SHX9_3 = "extras"
-      SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Vehicle Colours"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      flag25 = RMenu
+      workValue19 = flag25
+      flag25 = flag25.Get
+      flag28 = "cardev"
+      flag29 = "extras"
+      flag25, workValue19, flag28, flag29 = flag25(workValue19, flag28, flag29)
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Vehicle Colours"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23()
+        local arg13, arg23
       end
-      SHX6_3 = RMenu
-      SHX7_3 = SHX6_3
-      SHX6_3 = SHX6_3.Get
-      SHX8_3 = "cardev"
-      SHX9_3 = "colours"
-      SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.List
-      SHX1_3 = "Dirt Level"
-      SHX2_3 = SHX5_1
-      SHX3_3 = SHX7_1
-      SHX4_3 = ""
-      SHX5_3 = {}
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX4_4, SHX5_4, SHX6_4, SHX7_4
-        SHX4_4 = SHX7_1
-        if SHX3_4 ~= SHX4_4 then
-          SHX7_1 = SHX3_4
-          SHX4_4 = CMG
-          SHX4_4 = SHX4_4.getPlayerVehicle
-          SHX4_4 = SHX4_4()
-          if 0 ~= SHX4_4 then
-            SHX5_4 = SetVehicleDirtLevel
-            SHX6_4 = SHX4_4
-            SHX7_4 = SHX6_1
-            SHX7_4 = SHX7_4[SHX3_4]
-            SHX7_4 = SHX7_4 * 15.0
-            SHX5_4(SHX6_4, SHX7_4)
+      flag25 = RMenu
+      workValue19 = flag25
+      flag25 = flag25.Get
+      flag28 = "cardev"
+      flag29 = "colours"
+      flag25, workValue19, flag28, flag29 = flag25(workValue19, flag28, flag29)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29)
+      arg12 = RageUI
+      arg12 = arg12.List
+      arg22 = "Dirt Level"
+      arg32 = textValue20
+      textValue18 = rageUiCall3
+      workValue17 = ""
+      flag23 = {}
+      flag25 = true
+      function workValue19(arg13, arg23, arg33, arg4)
+        local cmgCall4, flag24, flag26, numberValue25
+        cmgCall4 = rageUiCall3
+        if arg4 ~= cmgCall4 then
+          rageUiCall3 = arg4
+          cmgCall4 = CMG
+          cmgCall4 = cmgCall4.getPlayerVehicle
+          -- Beginner: result below is currentVehicle.
+          cmgCall4 = cmgCall4()
+          if 0 ~= cmgCall4 then
+            flag24 = SetVehicleDirtLevel
+            flag26 = cmgCall4
+            numberValue25 = textValue29
+            numberValue25 = numberValue25[arg4]
+            numberValue25 = numberValue25 * 15.0
+            flag24(flag26, numberValue25)
           else
-            SHX5_4 = tCMG
-            SHX5_4 = SHX5_4.notify
-            SHX6_4 = "~r~Not in a vehicle."
-            SHX5_4(SHX6_4)
+            flag24 = tCMG
+            flag24 = flag24.notify
+            flag26 = "~r~Not in a vehicle."
+            -- Beginner: Show a notification to the player.
+            flag24(flag26)
           end
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Fill Last Vehicle"
-      SHX2_3 = "Fills the last vehicle you was in."
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4, SHX18_4, SHX19_4, SHX20_4, SHX21_4, SHX22_4, SHX23_4, SHX24_4, SHX25_4
-        if SHX2_4 then
-          SHX3_4 = GetVehiclePedIsIn
-          SHX4_4 = PlayerPedId
-          SHX4_4 = SHX4_4()
-          SHX5_4 = true
-          SHX3_4 = SHX3_4(SHX4_4, SHX5_4)
-          if 0 == SHX3_4 then
-            SHX4_4 = notify
-            SHX5_4 = "~r~Can not find the last vehicle."
-            SHX4_4(SHX5_4)
+      -- Beginner: Draw a RageUI list selector.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Fill Last Vehicle"
+      arg32 = "Fills the last vehicle you was in."
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3, workValue4, workValue6, numberValue4, workValue7, flag7, playerPed, flag8, flag9, flag10, flag11, flag12, flag14, flag16
+        if arg33 then
+          arg4 = GetVehiclePedIsIn
+          cmgCall4 = PlayerPedId
+          -- Beginner: result below is localPlayerPed.
+          cmgCall4 = cmgCall4()
+          flag24 = true
+          -- Beginner: result below is currentVehicle.
+          arg4 = arg4(cmgCall4, flag24)
+          if 0 == arg4 then
+            cmgCall4 = notify
+            flag24 = "~r~Can not find the last vehicle."
+            -- Beginner: Show a notification to the player.
+            cmgCall4(flag24)
             return
           end
-          SHX4_4 = CMG
-          SHX4_4 = SHX4_4.loadModel
-          SHX5_4 = -598109171
-          SHX4_4 = SHX4_4(SHX5_4)
-          if not SHX4_4 then
+          cmgCall4 = CMG
+          cmgCall4 = cmgCall4.loadModel
+          flag24 = -598109171
+          cmgCall4 = cmgCall4(flag24)
+          if not cmgCall4 then
             return
           end
-          SHX5_4 = CMG
-          SHX5_4 = SHX5_4.getPlayerCoords
-          SHX5_4 = SHX5_4()
-          SHX6_4 = GetEntityHeading
-          SHX7_4 = PlayerPedId
-          SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4, SHX18_4, SHX19_4, SHX20_4, SHX21_4, SHX22_4, SHX23_4, SHX24_4, SHX25_4 = SHX7_4()
-          SHX6_4 = SHX6_4(SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4, SHX18_4, SHX19_4, SHX20_4, SHX21_4, SHX22_4, SHX23_4, SHX24_4, SHX25_4)
-          SHX7_4 = GetEntityModel
-          SHX8_4 = SHX3_4
-          SHX7_4 = SHX7_4(SHX8_4)
-          SHX8_4 = GetVehicleModelNumberOfSeats
-          SHX9_4 = SHX7_4
-          SHX8_4 = SHX8_4(SHX9_4)
-          SHX9_4 = {}
-          SHX10_4 = 1
-          SHX11_4 = SHX8_4
-          SHX12_4 = 1
-          for SHX13_4 = SHX10_4, SHX11_4, SHX12_4 do
-            SHX14_4 = CreatePed
-            SHX15_4 = 0
-            SHX16_4 = SHX4_4
-            SHX17_4 = SHX5_4.x
-            SHX18_4 = SHX5_4.y
-            SHX19_4 = SHX5_4.z
-            SHX20_4 = SHX6_4
-            SHX21_4 = false
-            SHX22_4 = false
-            SHX14_4 = SHX14_4(SHX15_4, SHX16_4, SHX17_4, SHX18_4, SHX19_4, SHX20_4, SHX21_4, SHX22_4)
-            SHX15_4 = SetPedCanRagdoll
-            SHX16_4 = SHX14_4
-            SHX17_4 = false
-            SHX15_4(SHX16_4, SHX17_4)
-            SHX15_4 = SetEntityProofs
-            SHX16_4 = SHX14_4
-            SHX17_4 = true
-            SHX18_4 = true
-            SHX19_4 = true
-            SHX20_4 = true
-            SHX21_4 = true
-            SHX22_4 = true
-            SHX23_4 = true
-            SHX24_4 = true
-            SHX15_4(SHX16_4, SHX17_4, SHX18_4, SHX19_4, SHX20_4, SHX21_4, SHX22_4, SHX23_4, SHX24_4)
-            SHX15_4 = SetEntityCanBeDamaged
-            SHX16_4 = SHX14_4
-            SHX17_4 = false
-            SHX15_4(SHX16_4, SHX17_4)
-            SHX15_4 = SetBlockingOfNonTemporaryEvents
-            SHX16_4 = SHX14_4
-            SHX17_4 = true
-            SHX15_4(SHX16_4, SHX17_4)
-            SHX15_4 = table
-            SHX15_4 = SHX15_4.insert
-            SHX16_4 = SHX9_4
-            SHX17_4 = SHX14_4
-            SHX15_4(SHX16_4, SHX17_4)
+          flag24 = CMG
+          flag24 = flag24.getPlayerCoords
+          -- Beginner: result below is playerCoords.
+          flag24 = flag24()
+          flag26 = GetEntityHeading
+          numberValue25 = PlayerPedId
+          numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3, workValue4, workValue6, numberValue4, workValue7, flag7, playerPed, flag8, flag9, flag10, flag11, flag12, flag14, flag16 = numberValue25()
+          -- Beginner: result below is heading.
+          flag26 = flag26(numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3, workValue4, workValue6, numberValue4, workValue7, flag7, playerPed, flag8, flag9, flag10, flag11, flag12, flag14, flag16)
+          numberValue25 = GetEntityModel
+          numberValue27 = arg4
+          -- Beginner: result below is modelHash.
+          numberValue25 = numberValue25(numberValue27)
+          numberValue27 = GetVehicleModelNumberOfSeats
+          dataTable42 = numberValue25
+          numberValue27 = numberValue27(dataTable42)
+          dataTable42 = {}
+          waitCall = 1
+          numberValue2 = numberValue27
+          numberValue3 = 1
+          for workValue4 = waitCall, numberValue2, numberValue3 do
+            workValue6 = CreatePed
+            numberValue4 = 0
+            workValue7 = cmgCall4
+            flag7 = flag24.x
+            playerPed = flag24.y
+            flag8 = flag24.z
+            flag9 = flag26
+            flag10 = false
+            flag11 = false
+            -- Beginner: result below is pedEntity.
+            workValue6 = workValue6(numberValue4, workValue7, flag7, playerPed, flag8, flag9, flag10, flag11)
+            numberValue4 = SetPedCanRagdoll
+            workValue7 = workValue6
+            flag7 = false
+            numberValue4(workValue7, flag7)
+            numberValue4 = SetEntityProofs
+            workValue7 = workValue6
+            flag7 = true
+            playerPed = true
+            flag8 = true
+            flag9 = true
+            flag10 = true
+            flag11 = true
+            flag12 = true
+            flag14 = true
+            numberValue4(workValue7, flag7, playerPed, flag8, flag9, flag10, flag11, flag12, flag14)
+            numberValue4 = SetEntityCanBeDamaged
+            workValue7 = workValue6
+            flag7 = false
+            numberValue4(workValue7, flag7)
+            numberValue4 = SetBlockingOfNonTemporaryEvents
+            workValue7 = workValue6
+            flag7 = true
+            numberValue4(workValue7, flag7)
+            numberValue4 = table
+            numberValue4 = numberValue4.insert
+            workValue7 = dataTable42
+            flag7 = workValue6
+            numberValue4(workValue7, flag7)
           end
-          SHX10_4 = pairs
-          SHX11_4 = SHX9_4
-          SHX10_4, SHX11_4, SHX12_4, SHX13_4 = SHX10_4(SHX11_4)
-          for SHX14_4, SHX15_4 in SHX10_4, SHX11_4, SHX12_4, SHX13_4 do
-            SHX16_4 = pairs
-            SHX17_4 = SHX9_4
-            SHX16_4, SHX17_4, SHX18_4, SHX19_4 = SHX16_4(SHX17_4)
-            for SHX20_4, SHX21_4 in SHX16_4, SHX17_4, SHX18_4, SHX19_4 do
-              if SHX15_4 ~= SHX21_4 then
-                SHX22_4 = SetEntityNoCollisionEntity
-                SHX23_4 = SHX15_4
-                SHX24_4 = SHX21_4
-                SHX25_4 = false
-                SHX22_4(SHX23_4, SHX24_4, SHX25_4)
-                SHX22_4 = SetEntityNoCollisionEntity
-                SHX23_4 = SHX21_4
-                SHX24_4 = SHX15_4
-                SHX25_4 = false
-                SHX22_4(SHX23_4, SHX24_4, SHX25_4)
+          waitCall = pairs
+          numberValue2 = dataTable42
+          waitCall, numberValue2, numberValue3, workValue4 = waitCall(numberValue2)
+          for workValue6, numberValue4 in waitCall, numberValue2, numberValue3, workValue4 do
+            workValue7 = pairs
+            flag7 = dataTable42
+            workValue7, flag7, playerPed, flag8 = workValue7(flag7)
+            for flag9, flag10 in workValue7, flag7, playerPed, flag8 do
+              if numberValue4 ~= flag10 then
+                flag11 = SetEntityNoCollisionEntity
+                flag12 = numberValue4
+                flag14 = flag10
+                flag16 = false
+                flag11(flag12, flag14, flag16)
+                flag11 = SetEntityNoCollisionEntity
+                flag12 = flag10
+                flag14 = numberValue4
+                flag16 = false
+                flag11(flag12, flag14, flag16)
               end
             end
-            SHX16_4 = SetEntityNoCollisionEntity
-            SHX17_4 = SHX15_4
-            SHX18_4 = PlayerPedId
-            SHX18_4 = SHX18_4()
-            SHX19_4 = false
-            SHX16_4(SHX17_4, SHX18_4, SHX19_4)
-            SHX16_4 = TaskEnterVehicle
-            SHX17_4 = SHX15_4
-            SHX18_4 = SHX3_4
-            SHX19_4 = -1
-            SHX20_4 = SHX14_4 - 2
-            SHX21_4 = 2.0
-            SHX22_4 = 1
-            SHX23_4 = false
-            SHX16_4(SHX17_4, SHX18_4, SHX19_4, SHX20_4, SHX21_4, SHX22_4, SHX23_4)
+            workValue7 = SetEntityNoCollisionEntity
+            flag7 = numberValue4
+            playerPed = PlayerPedId
+            -- Beginner: result below is localPlayerPed.
+            playerPed = playerPed()
+            flag8 = false
+            workValue7(flag7, playerPed, flag8)
+            workValue7 = TaskEnterVehicle
+            flag7 = numberValue4
+            playerPed = arg4
+            flag8 = -1
+            flag9 = workValue6 - 2
+            flag10 = 2.0
+            flag11 = 1
+            flag12 = false
+            workValue7(flag7, playerPed, flag8, flag9, flag10, flag11, flag12)
           end
-          SHX10_4 = SetTimeout
-          SHX11_4 = 30000
-          function SHX12_4()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_5, SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5
-            SHX0_5 = pairs
-            SHX1_5 = SHX9_4
-            SHX0_5, SHX1_5, SHX2_5, SHX3_5 = SHX0_5(SHX1_5)
-            for SHX4_5, SHX5_5 in SHX0_5, SHX1_5, SHX2_5, SHX3_5 do
-              SHX6_5 = DeleteEntity
-              SHX7_5 = SHX5_5
-              SHX6_5(SHX7_5)
+          waitCall = SetTimeout
+          numberValue2 = 30000
+          function numberValue3()
+            local arg14, stringHelper3, workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26
+            arg14 = pairs
+            stringHelper3 = dataTable42
+            arg14, stringHelper3, workValue14, cmgCall3 = arg14(stringHelper3)
+            for textValue19, textValue21 in arg14, stringHelper3, workValue14, cmgCall3 do
+              flag27 = DeleteEntity
+              numberValue26 = textValue21
+              -- Beginner: Delete a GTA entity.
+              flag27(numberValue26)
             end
           end
-          SHX10_4(SHX11_4, SHX12_4)
+          waitCall(numberValue2, numberValue3)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Give Testing Weapons"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.giveWeapons
-          SHX4_4 = {}
-          SHX5_4 = {}
-          SHX5_4.ammo = 250
-          SHX4_4.WEAPON_GLOCKCMG = SHX5_4
-          SHX5_4 = {}
-          SHX5_4.ammo = 250
-          SHX4_4.WEAPON_REMINGTON700CMG = SHX5_4
-          SHX3_4(SHX4_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Give Testing Weapons"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.giveWeapons
+          cmgCall4 = {}
+          flag24 = {}
+          flag24.ammo = 250
+          cmgCall4.WEAPON_GLOCKCMG = flag24
+          flag24 = {}
+          flag24.ammo = 250
+          cmgCall4.WEAPON_REMINGTON700CMG = flag24
+          arg4(cmgCall4)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Delete All Cars"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4
-        if SHX2_4 then
-          SHX3_4 = 0
-          SHX4_4 = 0
-          SHX5_4 = pairs
-          SHX6_4 = CMG
-          SHX6_4 = SHX6_4.getAllVehicles
-          SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4 = SHX6_4()
-          SHX5_4, SHX6_4, SHX7_4, SHX8_4 = SHX5_4(SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4)
-          for SHX9_4, SHX10_4 in SHX5_4, SHX6_4, SHX7_4, SHX8_4 do
-            SHX11_4 = NetworkGetEntityIsNetworked
-            SHX12_4 = SHX10_4
-            SHX11_4 = SHX11_4(SHX12_4)
-            if SHX11_4 then
-              SHX11_4 = NetworkHasControlOfEntity
-              SHX12_4 = SHX10_4
-              SHX11_4 = SHX11_4(SHX12_4)
-              if SHX11_4 then
-                SHX11_4 = DeleteEntity
-                SHX12_4 = SHX10_4
-                SHX11_4(SHX12_4)
-                SHX3_4 = SHX3_4 + 1
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Delete All Cars"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3
+        if arg33 then
+          arg4 = 0
+          cmgCall4 = 0
+          flag24 = pairs
+          flag26 = CMG
+          flag26 = flag26.getAllVehicles
+          flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3 = flag26()
+          flag24, flag26, numberValue25, numberValue27 = flag24(flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3)
+          for dataTable42, waitCall in flag24, flag26, numberValue25, numberValue27 do
+            numberValue2 = NetworkGetEntityIsNetworked
+            numberValue3 = waitCall
+            numberValue2 = numberValue2(numberValue3)
+            if numberValue2 then
+              numberValue2 = NetworkHasControlOfEntity
+              numberValue3 = waitCall
+              numberValue2 = numberValue2(numberValue3)
+              if numberValue2 then
+                numberValue2 = DeleteEntity
+                numberValue3 = waitCall
+                -- Beginner: Delete a GTA entity.
+                numberValue2(numberValue3)
+                arg4 = arg4 + 1
               else
-                SHX4_4 = SHX4_4 + 1
+                cmgCall4 = cmgCall4 + 1
               end
             end
           end
-          SHX5_4 = notify
-          SHX6_4 = string
-          SHX6_4 = SHX6_4.format
-          SHX7_4 = "~g~Deleted %d vehicles."
-          SHX8_4 = SHX3_4
-          SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4 = SHX6_4(SHX7_4, SHX8_4)
-          SHX5_4(SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4)
-          if SHX4_4 > 0 then
-            SHX5_4 = notify
-            SHX6_4 = string
-            SHX6_4 = SHX6_4.format
-            SHX7_4 = "~r~Unable to delete %d other vehicles due to lack of ownership."
-            SHX8_4 = SHX4_4
-            SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4 = SHX6_4(SHX7_4, SHX8_4)
-            SHX5_4(SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4)
+          flag24 = notify
+          flag26 = string
+          flag26 = flag26.format
+          numberValue25 = "~g~Deleted %d vehicles."
+          numberValue27 = arg4
+          flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3 = flag26(numberValue25, numberValue27)
+          -- Beginner: Show a notification to the player.
+          flag24(flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3)
+          if cmgCall4 > 0 then
+            flag24 = notify
+            flag26 = string
+            flag26 = flag26.format
+            numberValue25 = "~r~Unable to delete %d other vehicles due to lack of ownership."
+            numberValue27 = cmgCall4
+            flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3 = flag26(numberValue25, numberValue27)
+            flag24(flag26, numberValue25, numberValue27, dataTable42, waitCall, numberValue2, numberValue3)
           end
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Spawn By Partial Vehicle Name"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.clientPrompt
-          SHX4_4 = "Enter Partial Spawncode"
-          SHX5_4 = ""
-          function SHX6_4(SHX0_5)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5, SHX12_5, SHX13_5, SHX14_5, SHX15_5, SHX16_5, SHX17_5
-            SHX1_5 = SHX36_1
-            SHX1_5 = SHX1_5()
-            if not SHX1_5 then
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Spawn By Partial Vehicle Name"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.clientPrompt
+          cmgCall4 = "Enter Partial Spawncode"
+          flag24 = ""
+          function flag26(arg14)
+            local stringHelper3, workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3, workValue2, workValue5, stringHelper, stringHelper2, hashValue, nameValue3
+            stringHelper3 = dataTable18
+            stringHelper3 = stringHelper3()
+            if not stringHelper3 then
               return
             end
-            SHX1_5 = string
-            SHX1_5 = SHX1_5.lower
-            SHX2_5 = SHX0_5
-            SHX1_5 = SHX1_5(SHX2_5)
-            SHX2_5 = #SHX1_5
-            if SHX2_5 <= 1 then
-              SHX2_5 = notify
-              SHX3_5 = "~r~Enter at last 2 characters for the partial spawncode."
-              SHX2_5(SHX3_5)
+            stringHelper3 = string
+            stringHelper3 = stringHelper3.lower
+            workValue14 = arg14
+            stringHelper3 = stringHelper3(workValue14)
+            workValue14 = #stringHelper3
+            if workValue14 <= 1 then
+              workValue14 = notify
+              cmgCall3 = "~r~Enter at last 2 characters for the partial spawncode."
+              -- Beginner: Show a notification to the player.
+              workValue14(cmgCall3)
               return
             end
-            SHX2_5 = {}
-            SHX3_5 = pairs
-            SHX4_5 = SHX0_1.garages
-            SHX3_5, SHX4_5, SHX5_5, SHX6_5 = SHX3_5(SHX4_5)
-            for SHX7_5, SHX8_5 in SHX3_5, SHX4_5, SHX5_5, SHX6_5 do
-              SHX9_5 = pairs
-              SHX10_5 = SHX8_5
-              SHX9_5, SHX10_5, SHX11_5, SHX12_5 = SHX9_5(SHX10_5)
-              for SHX13_5, SHX14_5 in SHX9_5, SHX10_5, SHX11_5, SHX12_5 do
-                if "_config" ~= SHX13_5 then
-                  SHX15_5 = string
-                  SHX15_5 = SHX15_5.match
-                  SHX16_5 = string
-                  SHX16_5 = SHX16_5.lower
-                  SHX17_5 = SHX14_5.name
-                  SHX16_5 = SHX16_5(SHX17_5)
-                  SHX17_5 = SHX1_5
-                  SHX15_5 = SHX15_5(SHX16_5, SHX17_5)
-                  if SHX15_5 then
-                    SHX15_5 = IsModelValid
-                    SHX16_5 = GetHashKey
-                    SHX17_5 = SHX13_5
-                    SHX16_5, SHX17_5 = SHX16_5(SHX17_5)
-                    SHX15_5 = SHX15_5(SHX16_5, SHX17_5)
-                    if SHX15_5 then
-                      SHX15_5 = table
-                      SHX15_5 = SHX15_5.insert
-                      SHX16_5 = SHX2_5
-                      SHX17_5 = SHX13_5
-                      SHX15_5(SHX16_5, SHX17_5)
+            workValue14 = {}
+            cmgCall3 = pairs
+            textValue19 = cmgCall.garages
+            cmgCall3, textValue19, textValue21, flag27 = cmgCall3(textValue19)
+            for numberValue26, heading in cmgCall3, textValue19, textValue21, flag27 do
+              cmgCall6 = pairs
+              flag2 = heading
+              cmgCall6, flag2, flag3, workValue2 = cmgCall6(flag2)
+              for workValue5, stringHelper in cmgCall6, flag2, flag3, workValue2 do
+                if "_config" ~= workValue5 then
+                  stringHelper2 = string
+                  stringHelper2 = stringHelper2.match
+                  hashValue = string
+                  hashValue = hashValue.lower
+                  nameValue3 = stringHelper.name
+                  hashValue = hashValue(nameValue3)
+                  nameValue3 = stringHelper3
+                  stringHelper2 = stringHelper2(hashValue, nameValue3)
+                  if stringHelper2 then
+                    stringHelper2 = IsModelValid
+                    hashValue = GetHashKey
+                    nameValue3 = workValue5
+                    hashValue, nameValue3 = hashValue(nameValue3)
+                    stringHelper2 = stringHelper2(hashValue, nameValue3)
+                    if stringHelper2 then
+                      stringHelper2 = table
+                      stringHelper2 = stringHelper2.insert
+                      hashValue = workValue14
+                      nameValue3 = workValue5
+                      stringHelper2(hashValue, nameValue3)
                     end
                   end
                 end
               end
             end
-            SHX3_5 = #SHX2_5
-            if 0 == SHX3_5 then
-              SHX3_5 = notify
-              SHX4_5 = "~r~No vehicle names match the provided string."
-              SHX3_5(SHX4_5)
+            cmgCall3 = #workValue14
+            if 0 == cmgCall3 then
+              cmgCall3 = notify
+              textValue19 = "~r~No vehicle names match the provided string."
+              -- Beginner: Show a notification to the player.
+              cmgCall3(textValue19)
               return
             else
-              SHX3_5 = #SHX2_5
-              if SHX3_5 > 100 then
-                SHX3_5 = CMG
-                SHX3_5 = SHX3_5.getServerNum
-                SHX3_5 = SHX3_5()
-                if 3 ~= SHX3_5 then
-                  SHX3_5 = notify
-                  SHX4_5 = "~r~Unable to spawn over 100 vehicle name matches."
-                  SHX3_5(SHX4_5)
+              cmgCall3 = #workValue14
+              if cmgCall3 > 100 then
+                cmgCall3 = CMG
+                cmgCall3 = cmgCall3.getServerNum
+                cmgCall3 = cmgCall3()
+                if 3 ~= cmgCall3 then
+                  cmgCall3 = notify
+                  textValue19 = "~r~Unable to spawn over 100 vehicle name matches."
+                  cmgCall3(textValue19)
                   return
               end
               else
-                SHX3_5 = notify
-                SHX4_5 = "~y~Spawning "
-                SHX5_5 = tostring
-                SHX6_5 = #SHX2_5
-                SHX5_5 = SHX5_5(SHX6_5)
-                SHX6_5 = " vehicle name matches."
-                SHX4_5 = SHX4_5 .. SHX5_5 .. SHX6_5
-                SHX3_5(SHX4_5)
+                cmgCall3 = notify
+                textValue19 = "~y~Spawning "
+                textValue21 = tostring
+                flag27 = #workValue14
+                textValue21 = textValue21(flag27)
+                flag27 = " vehicle name matches."
+                textValue19 = textValue19 .. textValue21 .. flag27
+                -- Beginner: Show a notification to the player.
+                cmgCall3(textValue19)
               end
             end
-            SHX3_5 = SHX37_1
-            SHX4_5 = SHX2_5
-            SHX3_5(SHX4_5)
+            cmgCall3 = dataTable19
+            textValue19 = workValue14
+            cmgCall3(textValue19)
           end
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+          arg4(cmgCall4, flag24, flag26)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Spawn By Partial Spawncode"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.clientPrompt
-          SHX4_4 = "Enter Partial Spawncode"
-          SHX5_4 = ""
-          function SHX6_4(SHX0_5)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5, SHX12_5, SHX13_5, SHX14_5, SHX15_5, SHX16_5
-            SHX1_5 = SHX36_1
-            SHX1_5 = SHX1_5()
-            if not SHX1_5 then
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Spawn By Partial Spawncode"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26
+        if arg33 then
+          arg4 = CMG
+          arg4 = arg4.clientPrompt
+          cmgCall4 = "Enter Partial Spawncode"
+          flag24 = ""
+          function flag26(arg14)
+            local stringHelper3, workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3, workValue2, workValue5, stringHelper, stringHelper2, hashValue
+            stringHelper3 = dataTable18
+            stringHelper3 = stringHelper3()
+            if not stringHelper3 then
               return
             end
-            SHX1_5 = string
-            SHX1_5 = SHX1_5.lower
-            SHX2_5 = SHX0_5
-            SHX1_5 = SHX1_5(SHX2_5)
-            SHX2_5 = #SHX1_5
-            if SHX2_5 <= 1 then
-              SHX2_5 = notify
-              SHX3_5 = "~r~Enter at last 2 characters for the partial spawncode."
-              SHX2_5(SHX3_5)
+            stringHelper3 = string
+            stringHelper3 = stringHelper3.lower
+            workValue14 = arg14
+            stringHelper3 = stringHelper3(workValue14)
+            workValue14 = #stringHelper3
+            if workValue14 <= 1 then
+              workValue14 = notify
+              cmgCall3 = "~r~Enter at last 2 characters for the partial spawncode."
+              -- Beginner: Show a notification to the player.
+              workValue14(cmgCall3)
               return
             end
-            SHX2_5 = {}
-            SHX3_5 = pairs
-            SHX4_5 = SHX0_1.garages
-            SHX3_5, SHX4_5, SHX5_5, SHX6_5 = SHX3_5(SHX4_5)
-            for SHX7_5, SHX8_5 in SHX3_5, SHX4_5, SHX5_5, SHX6_5 do
-              SHX9_5 = pairs
-              SHX10_5 = SHX8_5
-              SHX9_5, SHX10_5, SHX11_5, SHX12_5 = SHX9_5(SHX10_5)
-              for SHX13_5 in SHX9_5, SHX10_5, SHX11_5, SHX12_5 do
-                if "_config" ~= SHX13_5 then
-                  SHX14_5 = string
-                  SHX14_5 = SHX14_5.match
-                  SHX15_5 = string
-                  SHX15_5 = SHX15_5.lower
-                  SHX16_5 = SHX13_5
-                  SHX15_5 = SHX15_5(SHX16_5)
-                  SHX16_5 = SHX1_5
-                  SHX14_5 = SHX14_5(SHX15_5, SHX16_5)
-                  if SHX14_5 then
-                    SHX14_5 = IsModelValid
-                    SHX15_5 = GetHashKey
-                    SHX16_5 = SHX13_5
-                    SHX15_5, SHX16_5 = SHX15_5(SHX16_5)
-                    SHX14_5 = SHX14_5(SHX15_5, SHX16_5)
-                    if SHX14_5 then
-                      SHX14_5 = table
-                      SHX14_5 = SHX14_5.insert
-                      SHX15_5 = SHX2_5
-                      SHX16_5 = SHX13_5
-                      SHX14_5(SHX15_5, SHX16_5)
+            workValue14 = {}
+            cmgCall3 = pairs
+            textValue19 = cmgCall.garages
+            cmgCall3, textValue19, textValue21, flag27 = cmgCall3(textValue19)
+            for numberValue26, heading in cmgCall3, textValue19, textValue21, flag27 do
+              cmgCall6 = pairs
+              flag2 = heading
+              cmgCall6, flag2, flag3, workValue2 = cmgCall6(flag2)
+              for workValue5 in cmgCall6, flag2, flag3, workValue2 do
+                if "_config" ~= workValue5 then
+                  stringHelper = string
+                  stringHelper = stringHelper.match
+                  stringHelper2 = string
+                  stringHelper2 = stringHelper2.lower
+                  hashValue = workValue5
+                  stringHelper2 = stringHelper2(hashValue)
+                  hashValue = stringHelper3
+                  stringHelper = stringHelper(stringHelper2, hashValue)
+                  if stringHelper then
+                    stringHelper = IsModelValid
+                    stringHelper2 = GetHashKey
+                    hashValue = workValue5
+                    stringHelper2, hashValue = stringHelper2(hashValue)
+                    stringHelper = stringHelper(stringHelper2, hashValue)
+                    if stringHelper then
+                      stringHelper = table
+                      stringHelper = stringHelper.insert
+                      stringHelper2 = workValue14
+                      hashValue = workValue5
+                      stringHelper(stringHelper2, hashValue)
                     end
                   end
                 end
               end
             end
-            SHX3_5 = #SHX2_5
-            if 0 == SHX3_5 then
-              SHX3_5 = notify
-              SHX4_5 = "~r~No spawncodes match the provided string."
-              SHX3_5(SHX4_5)
+            cmgCall3 = #workValue14
+            if 0 == cmgCall3 then
+              cmgCall3 = notify
+              textValue19 = "~r~No spawncodes match the provided string."
+              -- Beginner: Show a notification to the player.
+              cmgCall3(textValue19)
               return
             else
-              SHX3_5 = #SHX2_5
-              if SHX3_5 > 100 then
-                SHX3_5 = CMG
-                SHX3_5 = SHX3_5.getServerNum
-                SHX3_5 = SHX3_5()
-                if 3 ~= SHX3_5 then
-                  SHX3_5 = notify
-                  SHX4_5 = "~r~Unable to spawn over 100 spawncode matches."
-                  SHX3_5(SHX4_5)
+              cmgCall3 = #workValue14
+              if cmgCall3 > 100 then
+                cmgCall3 = CMG
+                cmgCall3 = cmgCall3.getServerNum
+                cmgCall3 = cmgCall3()
+                if 3 ~= cmgCall3 then
+                  cmgCall3 = notify
+                  textValue19 = "~r~Unable to spawn over 100 spawncode matches."
+                  cmgCall3(textValue19)
                   return
               end
               else
-                SHX3_5 = notify
-                SHX4_5 = "~y~Spawning "
-                SHX5_5 = tostring
-                SHX6_5 = #SHX2_5
-                SHX5_5 = SHX5_5(SHX6_5)
-                SHX6_5 = " spawncodes matches."
-                SHX4_5 = SHX4_5 .. SHX5_5 .. SHX6_5
-                SHX3_5(SHX4_5)
+                cmgCall3 = notify
+                textValue19 = "~y~Spawning "
+                textValue21 = tostring
+                flag27 = #workValue14
+                textValue21 = textValue21(flag27)
+                flag27 = " spawncodes matches."
+                textValue19 = textValue19 .. textValue21 .. flag27
+                -- Beginner: Show a notification to the player.
+                cmgCall3(textValue19)
               end
             end
-            SHX3_5 = SHX37_1
-            SHX4_5 = SHX2_5
-            SHX3_5(SHX4_5)
+            cmgCall3 = dataTable19
+            textValue19 = workValue14
+            cmgCall3(textValue19)
           end
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+          arg4(cmgCall4, flag24, flag26)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Checkbox
-      SHX1_3 = "Show Spawncodes"
-      SHX2_3 = "Whether to display spawncodes above each vehicle entity."
-      SHX3_3 = SHX10_1
-      SHX4_3 = {}
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX4_4
-        SHX4_4 = SHX10_1
-        if SHX4_4 ~= SHX3_4 then
-          SHX10_1 = SHX3_4
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23)
+      arg12 = RageUI
+      arg12 = arg12.Checkbox
+      arg22 = "Show Spawncodes"
+      arg32 = "Whether to display spawncodes above each vehicle entity."
+      textValue18 = textValue6
+      workValue17 = {}
+      function flag23(arg13, arg23, arg33, arg4)
+        local cmgCall4
+        cmgCall4 = textValue6
+        if cmgCall4 ~= arg4 then
+          textValue6 = arg4
         end
       end
-      function SHX6_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function flag25()
+        local arg13, arg23
       end
-      function SHX7_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function workValue19()
+        local arg13, arg23
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Checkbox
-      SHX1_3 = "Disable Caps"
-      SHX2_3 = "Whether to disable the speed caps for vehicles in cardev world."
-      SHX3_3 = SHX14_1
-      SHX4_3 = {}
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX4_4
-        SHX4_4 = SHX14_1
-        if SHX4_4 ~= SHX3_4 then
-          SHX14_1 = SHX3_4
+      -- Beginner: Draw a RageUI checkbox.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+      arg12 = RageUI
+      arg12 = arg12.Checkbox
+      arg22 = "Disable Caps"
+      arg32 = "Whether to disable the speed caps for vehicles in cardev world."
+      textValue18 = flag6
+      workValue17 = {}
+      function flag23(arg13, arg23, arg33, arg4)
+        local cmgCall4
+        cmgCall4 = flag6
+        if cmgCall4 ~= arg4 then
+          flag6 = arg4
         end
       end
-      function SHX6_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function flag25()
+        local arg13, arg23
       end
-      function SHX7_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function workValue19()
+        local arg13, arg23
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Checkbox
-      SHX1_3 = "Show 250 Markers"
-      SHX2_3 = "Draws a marker every time the car hits 250 MPH."
-      SHX3_3 = SHX11_1
-      SHX4_3 = {}
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX4_4, SHX5_4
-        SHX4_4 = SHX11_1
-        if SHX4_4 ~= SHX3_4 then
-          SHX4_4 = true
-          SHX13_1 = SHX4_4
-          if not SHX3_4 then
-            SHX4_4 = table
-            SHX4_4 = SHX4_4.clear
-            SHX5_4 = SHX12_1
-            SHX4_4(SHX5_4)
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+      arg12 = RageUI
+      arg12 = arg12.Checkbox
+      arg22 = "Show 250 Markers"
+      arg32 = "Draws a marker every time the car hits 250 MPH."
+      textValue18 = textValue7
+      workValue17 = {}
+      function flag23(arg13, arg23, arg33, arg4)
+        local cmgCall4, flag24
+        cmgCall4 = textValue7
+        if cmgCall4 ~= arg4 then
+          cmgCall4 = true
+          flag5 = cmgCall4
+          if not arg4 then
+            cmgCall4 = table
+            cmgCall4 = cmgCall4.clear
+            flag24 = textValue9
+            cmgCall4(flag24)
           end
-          SHX11_1 = SHX3_4
+          textValue7 = arg4
         end
       end
-      function SHX6_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function flag25()
+        local arg13, arg23
       end
-      function SHX7_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      function workValue19()
+        local arg13, arg23
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Automated Handling"
-      SHX2_3 = ""
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      -- Beginner: Draw a RageUI checkbox.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Automated Handling"
+      arg32 = ""
+      textValue18 = {}
+      textValue18.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      workValue17 = true
+      function flag23()
+        local arg13, arg23
       end
-      SHX6_3 = RMenu
-      SHX7_3 = SHX6_3
-      SHX6_3 = SHX6_3.Get
-      SHX8_3 = "cardev"
-      SHX9_3 = "automatedhandling"
-      SHX6_3, SHX7_3, SHX8_3, SHX9_3 = SHX6_3(SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Checkbox
-      SHX1_3 = "Return to normal Universe"
-      SHX2_3 = ""
-      SHX3_3 = SHX1_1
-      SHX4_3 = {}
-      function SHX5_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      flag25 = RMenu
+      workValue19 = flag25
+      flag25 = flag25.Get
+      flag28 = "cardev"
+      flag29 = "automatedhandling"
+      flag25, workValue19, flag28, flag29 = flag25(workValue19, flag28, flag29)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29)
+      arg12 = RageUI
+      arg12 = arg12.Checkbox
+      arg22 = "Return to normal Universe"
+      arg32 = ""
+      textValue18 = textValue14
+      workValue17 = {}
+      function flag23()
+        local arg13, arg23
       end
-      function SHX6_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4, SHX2_4
-        SHX0_4 = SHX1_1
-        if not SHX0_4 then
-          SHX0_4 = SHX34_1
-          SHX0_4()
+      function flag25()
+        local arg13, arg23, arg33
+        arg13 = textValue14
+        if not arg13 then
+          arg13 = dataTable16
+          arg13()
         end
-        SHX0_4 = true
-        SHX1_1 = SHX0_4
-        SHX0_4 = TriggerServerEvent
-        SHX1_4 = "d33b8da01f"
-        SHX2_4 = SHX1_1
-        SHX0_4(SHX1_4, SHX2_4)
+        arg13 = true
+        textValue14 = arg13
+        arg13 = TriggerServerEvent
+        arg23 = "d33b8da01f"
+        arg33 = textValue14
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d33b8da01f".
+        arg13(arg23, arg33)
       end
-      function SHX7_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4, SHX2_4
-        SHX0_4 = SHX1_1
-        if SHX0_4 then
-          SHX0_4 = SHX35_1
-          SHX0_4()
+      function workValue19()
+        local arg13, arg23, arg33
+        arg13 = textValue14
+        if arg13 then
+          arg13 = dataTable17
+          arg13()
         end
-        SHX0_4 = false
-        SHX1_1 = SHX0_4
-        SHX0_4 = TriggerServerEvent
-        SHX1_4 = "d33b8da01f"
-        SHX2_4 = SHX1_1
-        SHX0_4(SHX1_4, SHX2_4)
+        arg13 = false
+        textValue14 = arg13
+        arg13 = TriggerServerEvent
+        arg23 = "d33b8da01f"
+        arg33 = textValue14
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d33b8da01f".
+        arg13(arg23, arg33)
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+      -- Beginner: Draw a RageUI checkbox.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
     else
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Checkbox
-      SHX1_3 = "Teleport to Car Dev Universe"
-      SHX2_3 = ""
-      SHX3_3 = SHX1_1
-      SHX4_3 = {}
-      function SHX5_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      arg12 = RageUI
+      arg12 = arg12.Checkbox
+      arg22 = "Teleport to Car Dev Universe"
+      arg32 = ""
+      textValue18 = textValue14
+      workValue17 = {}
+      function flag23()
+        local arg13, arg23
       end
-      function SHX6_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4, SHX2_4
-        SHX0_4 = SHX1_1
-        if not SHX0_4 then
-          SHX0_4 = SHX34_1
-          SHX0_4()
+      function flag25()
+        local arg13, arg23, arg33
+        arg13 = textValue14
+        if not arg13 then
+          arg13 = dataTable16
+          arg13()
         end
-        SHX0_4 = true
-        SHX1_1 = SHX0_4
-        SHX0_4 = TriggerServerEvent
-        SHX1_4 = "d33b8da01f"
-        SHX2_4 = SHX1_1
-        SHX0_4(SHX1_4, SHX2_4)
+        arg13 = true
+        textValue14 = arg13
+        arg13 = TriggerServerEvent
+        arg23 = "d33b8da01f"
+        arg33 = textValue14
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d33b8da01f".
+        arg13(arg23, arg33)
       end
-      function SHX7_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4, SHX2_4
-        SHX0_4 = SHX1_1
-        if SHX0_4 then
-          SHX0_4 = SHX35_1
-          SHX0_4()
+      function workValue19()
+        local arg13, arg23, arg33
+        arg13 = textValue14
+        if arg13 then
+          arg13 = dataTable17
+          arg13()
         end
-        SHX0_4 = false
-        SHX1_1 = SHX0_4
-        SHX0_4 = TriggerServerEvent
-        SHX1_4 = "d33b8da01f"
-        SHX2_4 = SHX1_1
-        SHX0_4(SHX1_4, SHX2_4)
+        arg13 = false
+        textValue14 = arg13
+        arg13 = TriggerServerEvent
+        arg23 = "d33b8da01f"
+        arg33 = textValue14
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d33b8da01f".
+        arg13(arg23, arg33)
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Separator
-      SHX1_3 = "~g~Enter the Car Dev Universe to see more menu options."
-      SHX0_3(SHX1_3)
+      -- Beginner: Draw a RageUI checkbox.
+      arg12(arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19)
+      arg12 = RageUI
+      arg12 = arg12.Separator
+      arg22 = "~g~Enter the Car Dev Universe to see more menu options."
+      arg12(arg22)
     end
   end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function cmgCall5()
+    local arg12, arg22
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "automatedhandling"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
-    SHX0_3 = ""
-    SHX1_3 = pairs
-    SHX2_3 = SHX39_1
-    SHX1_3, SHX2_3, SHX3_3, SHX4_3 = SHX1_3(SHX2_3)
-    for SHX5_3, SHX6_3 in SHX1_3, SHX2_3, SHX3_3, SHX4_3 do
-      SHX7_3 = SHX0_3
-      SHX8_3 = SHX6_3
-      SHX9_3 = ", "
-      SHX7_3 = SHX7_3 .. SHX8_3 .. SHX9_3
-      SHX0_3 = SHX7_3
+  arg1(arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "automatedhandling"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = true
+  textValue17 = true
+  numberValue24 = true
+  function modelHash()
+    local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29
+    arg12 = ""
+    arg22 = pairs
+    arg32 = tableHelper2
+    arg22, arg32, textValue18, workValue17 = arg22(arg32)
+    for flag23, flag25 in arg22, arg32, textValue18, workValue17 do
+      workValue19 = arg12
+      flag28 = flag25
+      flag29 = ", "
+      workValue19 = workValue19 .. flag28 .. flag29
+      arg12 = workValue19
     end
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.ButtonWithStyle
-    SHX2_3 = "Set Spawncodes"
-    SHX3_3 = string
-    SHX3_3 = SHX3_3.format
-    SHX4_3 = [[
+    arg22 = RageUI
+    arg22 = arg22.ButtonWithStyle
+    arg32 = "Set Spawncodes"
+    textValue18 = string
+    textValue18 = textValue18.format
+    workValue17 = [[
 Current Spawncodes:
 %s]]
-    SHX5_3 = SHX0_3
-    SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-    SHX4_3 = {}
-    SHX5_3 = string
-    SHX5_3 = SHX5_3.format
-    SHX6_3 = "%s configured"
-    SHX7_3 = SHX39_1
-    SHX7_3 = #SHX7_3
-    SHX5_3 = SHX5_3(SHX6_3, SHX7_3)
-    SHX4_3.RightLabel = SHX5_3
-    SHX5_3 = SHX38_1
-    SHX5_3 = not SHX5_3
-    function SHX6_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-      if SHX2_4 then
-        SHX3_4 = CMG
-        SHX3_4 = SHX3_4.clientPrompt
-        SHX4_4 = "Enter Spawncodes (seperated by comma)"
-        SHX5_4 = ""
-        function SHX6_4(SHX0_5)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5
-          SHX1_5 = string
-          SHX1_5 = SHX1_5.gsub
-          SHX2_5 = SHX0_5
-          SHX3_5 = "%s+"
-          SHX4_5 = ""
-          SHX1_5 = SHX1_5(SHX2_5, SHX3_5, SHX4_5)
-          SHX0_5 = SHX1_5
-          SHX1_5 = string
-          SHX1_5 = SHX1_5.lower
-          SHX2_5 = SHX0_5
-          SHX1_5 = SHX1_5(SHX2_5)
-          SHX0_5 = SHX1_5
-          SHX1_5 = {}
-          SHX39_1 = SHX1_5
-          SHX1_5 = pairs
-          SHX2_5 = stringsplit
-          SHX3_5 = SHX0_5
-          SHX4_5 = ","
-          SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5 = SHX2_5(SHX3_5, SHX4_5)
-          SHX1_5, SHX2_5, SHX3_5, SHX4_5 = SHX1_5(SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5, SHX7_5, SHX8_5, SHX9_5, SHX10_5, SHX11_5)
-          for SHX5_5, SHX6_5 in SHX1_5, SHX2_5, SHX3_5, SHX4_5 do
-            SHX7_5 = GetHashKey
-            SHX8_5 = SHX6_5
-            SHX7_5 = SHX7_5(SHX8_5)
-            SHX8_5 = IsModelValid
-            SHX9_5 = SHX7_5
-            SHX8_5 = SHX8_5(SHX9_5)
-            if not SHX8_5 then
-              SHX8_5 = notify
-              SHX9_5 = string
-              SHX9_5 = SHX9_5.format
-              SHX10_5 = "~r~Skipping %s due to being an invalid or inactive spawncode."
-              SHX11_5 = SHX6_5
-              SHX9_5, SHX10_5, SHX11_5 = SHX9_5(SHX10_5, SHX11_5)
-              SHX8_5(SHX9_5, SHX10_5, SHX11_5)
+    flag23 = arg12
+    textValue18 = textValue18(workValue17, flag23)
+    workValue17 = {}
+    flag23 = string
+    flag23 = flag23.format
+    flag25 = "%s configured"
+    workValue19 = tableHelper2
+    workValue19 = #workValue19
+    flag23 = flag23(flag25, workValue19)
+    workValue17.RightLabel = flag23
+    flag23 = dataTable20
+    flag23 = not flag23
+    function flag25(arg13, arg23, arg33)
+      local arg4, cmgCall4, flag24, flag26
+      if arg33 then
+        arg4 = CMG
+        arg4 = arg4.clientPrompt
+        cmgCall4 = "Enter Spawncodes (seperated by comma)"
+        flag24 = ""
+        function flag26(arg14)
+          local stringHelper3, workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3
+          stringHelper3 = string
+          stringHelper3 = stringHelper3.gsub
+          workValue14 = arg14
+          cmgCall3 = "%s+"
+          textValue19 = ""
+          stringHelper3 = stringHelper3(workValue14, cmgCall3, textValue19)
+          arg14 = stringHelper3
+          stringHelper3 = string
+          stringHelper3 = stringHelper3.lower
+          workValue14 = arg14
+          stringHelper3 = stringHelper3(workValue14)
+          arg14 = stringHelper3
+          stringHelper3 = {}
+          tableHelper2 = stringHelper3
+          stringHelper3 = pairs
+          workValue14 = stringsplit
+          cmgCall3 = arg14
+          textValue19 = ","
+          workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3 = workValue14(cmgCall3, textValue19)
+          stringHelper3, workValue14, cmgCall3, textValue19 = stringHelper3(workValue14, cmgCall3, textValue19, textValue21, flag27, numberValue26, heading, cmgCall6, flag2, flag3)
+          for textValue21, flag27 in stringHelper3, workValue14, cmgCall3, textValue19 do
+            numberValue26 = GetHashKey
+            heading = flag27
+            -- Beginner: result below is hash.
+            numberValue26 = numberValue26(heading)
+            heading = IsModelValid
+            cmgCall6 = numberValue26
+            heading = heading(cmgCall6)
+            if not heading then
+              heading = notify
+              cmgCall6 = string
+              cmgCall6 = cmgCall6.format
+              flag2 = "~r~Skipping %s due to being an invalid or inactive spawncode."
+              flag3 = flag27
+              cmgCall6, flag2, flag3 = cmgCall6(flag2, flag3)
+              -- Beginner: Show a notification to the player.
+              heading(cmgCall6, flag2, flag3)
             else
-              SHX8_5 = table
-              SHX8_5 = SHX8_5.insert
-              SHX9_5 = SHX39_1
-              SHX10_5 = SHX6_5
-              SHX8_5(SHX9_5, SHX10_5)
+              heading = table
+              heading = heading.insert
+              cmgCall6 = tableHelper2
+              flag2 = flag27
+              heading(cmgCall6, flag2)
             end
           end
         end
-        SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+        arg4(cmgCall4, flag24, flag26)
       end
     end
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.List
-    SHX2_3 = "Target Class"
-    SHX3_3 = SHX40_1
-    SHX4_3 = SHX41_1
-    SHX5_3 = "The class the provided spawncodes should be changed to"
-    SHX6_3 = {}
-    SHX7_3 = SHX38_1
-    SHX7_3 = not SHX7_3
-    function SHX8_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX4_4
-      SHX4_4 = SHX41_1
-      if SHX3_4 ~= SHX4_4 then
-        SHX41_1 = SHX3_4
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg22(arg32, textValue18, workValue17, flag23, flag25)
+    arg22 = RageUI
+    arg22 = arg22.List
+    arg32 = "Target Class"
+    textValue18 = dataTable21
+    workValue17 = dataTable22
+    flag23 = "The class the provided spawncodes should be changed to"
+    flag25 = {}
+    workValue19 = dataTable20
+    workValue19 = not workValue19
+    function flag28(arg13, arg23, arg33, arg4)
+      local cmgCall4
+      cmgCall4 = dataTable22
+      if arg4 ~= cmgCall4 then
+        dataTable22 = arg4
       end
     end
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-    SHX1_3 = SHX38_1
-    if SHX1_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.Button
-      SHX2_3 = "~r~Stop Automated Handling"
-      SHX3_3 = ""
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4
-        if SHX2_4 then
-          SHX3_4 = SHX51_1
-          SHX3_4()
+    -- Beginner: Draw a RageUI list selector.
+    arg22(arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28)
+    arg22 = dataTable20
+    if arg22 then
+      arg22 = RageUI
+      arg22 = arg22.Button
+      arg32 = "~r~Stop Automated Handling"
+      textValue18 = ""
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4
+        if arg33 then
+          arg4 = dataTable31
+          arg4()
         end
       end
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg22(arg32, textValue18, workValue17, flag23)
     else
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.Button
-      SHX2_3 = "~g~Start Automated Handling"
-      SHX3_3 = ""
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4
-        if SHX2_4 then
-          SHX3_4 = SHX52_1
-          SHX3_4()
+      arg22 = RageUI
+      arg22 = arg22.Button
+      arg32 = "~g~Start Automated Handling"
+      textValue18 = ""
+      workValue17 = true
+      function flag23(arg13, arg23, arg33)
+        local arg4
+        if arg33 then
+          arg4 = dataTable32
+          arg4()
         end
       end
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg22(arg32, textValue18, workValue17, flag23)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "vehiclemods"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3
-    SHX0_3 = pairs
-    SHX1_3 = SHX15_1
-    SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-    for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-      SHX6_3 = GetNumVehicleMods
-      SHX7_3 = CMG
-      SHX7_3 = SHX7_3.getPlayerVehicle
-      SHX7_3 = SHX7_3()
-      SHX8_3 = SHX4_3
-      SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-      if SHX6_3 > 0 then
-        SHX6_3 = RageUI
-        SHX6_3 = SHX6_3.ButtonWithStyle
-        SHX7_3 = SHX5_3
-        SHX8_3 = ""
-        SHX9_3 = {}
-        SHX9_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        SHX10_3 = true
-        function SHX11_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4
-          if SHX2_4 then
-            SHX3_4 = SHX4_3
-            SHX8_1 = SHX3_4
+  arg1(arg2, arg3, textValue17, numberValue24, modelHash)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "vehiclemods"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = true
+  textValue17 = true
+  numberValue24 = true
+  function modelHash()
+    local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag, numberValue, textValue10, textValue11, textValue12, textValue13
+    arg12 = pairs
+    arg22 = cmgCall2
+    arg12, arg22, arg32, textValue18 = arg12(arg22)
+    for workValue17, flag23 in arg12, arg22, arg32, textValue18 do
+      flag25 = GetNumVehicleMods
+      workValue19 = CMG
+      workValue19 = workValue19.getPlayerVehicle
+      -- Beginner: result below is currentVehicle.
+      workValue19 = workValue19()
+      flag28 = workValue17
+      flag25 = flag25(workValue19, flag28)
+      if flag25 > 0 then
+        flag25 = RageUI
+        flag25 = flag25.ButtonWithStyle
+        workValue19 = flag23
+        flag28 = ""
+        flag29 = {}
+        flag29.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        flag = true
+        function numberValue(arg13, arg23, arg33)
+          local arg4
+          if arg33 then
+            arg4 = workValue17
+            rageUiCall4 = arg4
           end
         end
-        SHX12_3 = RMenu
-        SHX13_3 = SHX12_3
-        SHX12_3 = SHX12_3.Get
-        SHX14_3 = "cardev"
-        SHX15_3 = "vehiclemodindexes"
-        SHX12_3, SHX13_3, SHX14_3, SHX15_3 = SHX12_3(SHX13_3, SHX14_3, SHX15_3)
-        SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
+        textValue10 = RMenu
+        textValue11 = textValue10
+        textValue10 = textValue10.Get
+        textValue12 = "cardev"
+        textValue13 = "vehiclemodindexes"
+        textValue10, textValue11, textValue12, textValue13 = textValue10(textValue11, textValue12, textValue13)
+        -- Beginner: Draw a selectable RageUI menu button.
+        flag25(workValue19, flag28, flag29, flag, numberValue, textValue10, textValue11, textValue12, textValue13)
       end
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "vehiclemodindexes"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3
-    SHX0_3 = GetNumVehicleMods
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.getPlayerVehicle
-    SHX1_3 = SHX1_3()
-    SHX2_3 = SHX8_1
-    SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-    if 0 == SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Text
-      SHX1_3 = {}
-      SHX1_3.message = "~r~No available mod indexes for this mod type for this vehicle."
-      SHX0_3(SHX1_3)
+  arg1(arg2, arg3, textValue17, numberValue24, modelHash)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "vehiclemodindexes"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = true
+  textValue17 = true
+  numberValue24 = true
+  function modelHash()
+    local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag, numberValue, textValue10, textValue11
+    arg12 = GetNumVehicleMods
+    arg22 = CMG
+    arg22 = arg22.getPlayerVehicle
+    -- Beginner: result below is currentVehicle.
+    arg22 = arg22()
+    arg32 = rageUiCall4
+    arg12 = arg12(arg22, arg32)
+    if 0 == arg12 then
+      arg12 = RageUI
+      arg12 = arg12.Text
+      arg22 = {}
+      arg22.message = "~r~No available mod indexes for this mod type for this vehicle."
+      arg12(arg22)
     else
-      SHX0_3 = 0
-      SHX1_3 = GetNumVehicleMods
-      SHX2_3 = CMG
-      SHX2_3 = SHX2_3.getPlayerVehicle
-      SHX2_3 = SHX2_3()
-      SHX3_3 = SHX8_1
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      SHX2_3 = 1
-      for SHX3_3 = SHX0_3, SHX1_3, SHX2_3 do
-        SHX4_3 = RageUI
-        SHX4_3 = SHX4_3.ButtonWithStyle
-        SHX5_3 = "Mod "
-        SHX6_3 = SHX3_3
-        SHX5_3 = SHX5_3 .. SHX6_3
-        SHX6_3 = ""
-        SHX7_3 = {}
-        SHX7_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        SHX8_3 = true
-        function SHX9_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-          if SHX2_4 then
-            SHX3_4 = SetVehicleModKit
-            SHX4_4 = CMG
-            SHX4_4 = SHX4_4.getPlayerVehicle
-            SHX4_4 = SHX4_4()
-            SHX5_4 = 0
-            SHX3_4(SHX4_4, SHX5_4)
-            SHX3_4 = CMG
-            SHX3_4 = SHX3_4.setVehicleMod
-            SHX4_4 = CMG
-            SHX4_4 = SHX4_4.getPlayerVehicle
-            SHX4_4 = SHX4_4()
-            SHX5_4 = SHX8_1
-            SHX6_4 = SHX3_3
-            SHX7_4 = false
-            SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4)
+      arg12 = 0
+      arg22 = GetNumVehicleMods
+      arg32 = CMG
+      arg32 = arg32.getPlayerVehicle
+      -- Beginner: result below is currentVehicle.
+      arg32 = arg32()
+      textValue18 = rageUiCall4
+      arg22 = arg22(arg32, textValue18)
+      arg32 = 1
+      for textValue18 = arg12, arg22, arg32 do
+        workValue17 = RageUI
+        workValue17 = workValue17.ButtonWithStyle
+        flag23 = "Mod "
+        flag25 = textValue18
+        flag23 = flag23 .. flag25
+        flag25 = ""
+        workValue19 = {}
+        workValue19.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        flag28 = true
+        function flag29(arg13, arg23, arg33)
+          local arg4, cmgCall4, flag24, flag26, numberValue25
+          if arg33 then
+            arg4 = SetVehicleModKit
+            cmgCall4 = CMG
+            cmgCall4 = cmgCall4.getPlayerVehicle
+            -- Beginner: result below is currentVehicle.
+            cmgCall4 = cmgCall4()
+            flag24 = 0
+            arg4(cmgCall4, flag24)
+            arg4 = CMG
+            arg4 = arg4.setVehicleMod
+            cmgCall4 = CMG
+            cmgCall4 = cmgCall4.getPlayerVehicle
+            -- Beginner: result below is currentVehicle.
+            cmgCall4 = cmgCall4()
+            flag24 = rageUiCall4
+            flag26 = textValue18
+            numberValue25 = false
+            arg4(cmgCall4, flag24, flag26, numberValue25)
           end
         end
-        SHX10_3 = RMenu
-        SHX11_3 = SHX10_3
-        SHX10_3 = SHX10_3.Get
-        SHX12_3 = "cardev"
-        SHX13_3 = "vehiclemodindexes"
-        SHX10_3, SHX11_3, SHX12_3, SHX13_3 = SHX10_3(SHX11_3, SHX12_3, SHX13_3)
-        SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
+        flag = RMenu
+        numberValue = flag
+        flag = flag.Get
+        textValue10 = "cardev"
+        textValue11 = "vehiclemodindexes"
+        flag, numberValue, textValue10, textValue11 = flag(numberValue, textValue10, textValue11)
+        -- Beginner: Draw a selectable RageUI menu button.
+        workValue17(flag23, flag25, workValue19, flag28, flag29, flag, numberValue, textValue10, textValue11)
       end
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "extras"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getPlayerVehicle
-    SHX0_3 = SHX0_3()
-    SHX1_3 = false
-    if 0 ~= SHX0_3 then
-      SHX2_3 = 1
-      SHX3_3 = 12
-      SHX4_3 = 1
-      for SHX5_3 = SHX2_3, SHX3_3, SHX4_3 do
-        SHX6_3 = DoesExtraExist
-        SHX7_3 = SHX0_3
-        SHX8_3 = SHX5_3
-        SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-        if SHX6_3 then
-          SHX1_3 = true
-          SHX6_3 = IsVehicleExtraTurnedOn
-          SHX7_3 = SHX0_3
-          SHX8_3 = SHX5_3
-          SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-          if SHX6_3 then
-            SHX6_3 = RageUI
-            SHX6_3 = SHX6_3.Button
-            SHX7_3 = "Disable Extra "
-            SHX8_3 = SHX5_3
-            SHX7_3 = SHX7_3 .. SHX8_3
-            SHX8_3 = nil
-            SHX9_3 = true
-            function SHX10_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-              if SHX2_4 then
-                SHX3_4 = SetVehicleExtra
-                SHX4_4 = SHX0_3
-                SHX5_4 = SHX5_3
-                SHX6_4 = true
-                SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+  arg1(arg2, arg3, textValue17, numberValue24, modelHash)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "extras"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = true
+  textValue17 = true
+  numberValue24 = true
+  function modelHash()
+    local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag
+    arg12 = CMG
+    arg12 = arg12.getPlayerVehicle
+    -- Beginner: result below is currentVehicle.
+    arg12 = arg12()
+    arg22 = false
+    if 0 ~= arg12 then
+      arg32 = 1
+      textValue18 = 12
+      workValue17 = 1
+      for flag23 = arg32, textValue18, workValue17 do
+        flag25 = DoesExtraExist
+        workValue19 = arg12
+        flag28 = flag23
+        flag25 = flag25(workValue19, flag28)
+        if flag25 then
+          arg22 = true
+          flag25 = IsVehicleExtraTurnedOn
+          workValue19 = arg12
+          flag28 = flag23
+          flag25 = flag25(workValue19, flag28)
+          if flag25 then
+            flag25 = RageUI
+            flag25 = flag25.Button
+            workValue19 = "Disable Extra "
+            flag28 = flag23
+            workValue19 = workValue19 .. flag28
+            flag28 = nil
+            flag29 = true
+            function flag(arg13, arg23, arg33)
+              local arg4, cmgCall4, flag24, flag26
+              if arg33 then
+                arg4 = SetVehicleExtra
+                cmgCall4 = arg12
+                flag24 = flag23
+                flag26 = true
+                arg4(cmgCall4, flag24, flag26)
               end
             end
-            SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+            -- Beginner: Draw a selectable RageUI menu button.
+            flag25(workValue19, flag28, flag29, flag)
           else
-            SHX6_3 = RageUI
-            SHX6_3 = SHX6_3.Button
-            SHX7_3 = "Enable Extra "
-            SHX8_3 = SHX5_3
-            SHX7_3 = SHX7_3 .. SHX8_3
-            SHX8_3 = nil
-            SHX9_3 = true
-            function SHX10_3(SHX0_4, SHX1_4, SHX2_4)
-              -- [AI CLEANUP] Decompiled Lua - Fix these:
-              -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-              -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-              -- 3. Replace goto/label with while/repeat-until where possible
-              -- 4. Remove decompiler comments, add meaningful ones
-              -- 5. Fix indentation and formatting
-              
-              local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-              if SHX2_4 then
-                SHX3_4 = SetVehicleExtra
-                SHX4_4 = SHX0_3
-                SHX5_4 = SHX5_3
-                SHX6_4 = false
-                SHX3_4(SHX4_4, SHX5_4, SHX6_4)
-                SHX3_4 = TriggerEvent
-                SHX4_4 = "53092b8739"
-                SHX3_4(SHX4_4)
+            flag25 = RageUI
+            flag25 = flag25.Button
+            workValue19 = "Enable Extra "
+            flag28 = flag23
+            workValue19 = workValue19 .. flag28
+            flag28 = nil
+            flag29 = true
+            function flag(arg13, arg23, arg33)
+              local arg4, cmgCall4, flag24, flag26
+              if arg33 then
+                arg4 = SetVehicleExtra
+                cmgCall4 = arg12
+                flag24 = flag23
+                flag26 = false
+                arg4(cmgCall4, flag24, flag26)
+                arg4 = TriggerEvent
+                cmgCall4 = "53092b8739"
+                -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "53092b8739".
+                arg4(cmgCall4)
               end
             end
-            SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+            -- Beginner: Draw a selectable RageUI menu button.
+            flag25(workValue19, flag28, flag29, flag)
           end
         end
       end
     end
-    if not SHX1_3 then
-      SHX2_3 = RageUI
-      SHX2_3 = SHX2_3.Text
-      SHX3_3 = {}
-      SHX3_3.message = "~r~No available extras for this vehicle."
-      SHX2_3(SHX3_3)
+    if not arg22 then
+      arg32 = RageUI
+      arg32 = arg32.Text
+      textValue18 = {}
+      textValue18.message = "~r~No available extras for this vehicle."
+      arg32(textValue18)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "colours"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = pairs
-    SHX1_3 = SHX27_1
-    SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-    for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-      SHX6_3 = RageUI
-      SHX6_3 = SHX6_3.Button
-      SHX7_3 = SHX5_3.name
-      SHX8_3 = nil
-      SHX9_3 = true
-      function SHX10_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = SetVehicleColours
-          SHX4_4 = CMG
-          SHX4_4 = SHX4_4.getPlayerVehicle
-          SHX4_4 = SHX4_4()
-          SHX5_4 = SHX5_3.colorindex
-          SHX6_4 = SHX5_3.colorindex
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+  arg1(arg2, arg3, textValue17, numberValue24, modelHash)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "colours"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = true
+  textValue17 = true
+  numberValue24 = true
+  function modelHash()
+    local arg12, arg22, arg32, textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag
+    arg12 = pairs
+    arg22 = dataTable12
+    arg12, arg22, arg32, textValue18 = arg12(arg22)
+    for workValue17, flag23 in arg12, arg22, arg32, textValue18 do
+      flag25 = RageUI
+      flag25 = flag25.Button
+      workValue19 = flag23.name
+      flag28 = nil
+      flag29 = true
+      function flag(arg13, arg23, arg33)
+        local arg4, cmgCall4, flag24, flag26
+        if arg33 then
+          arg4 = SetVehicleColours
+          cmgCall4 = CMG
+          cmgCall4 = cmgCall4.getPlayerVehicle
+          -- Beginner: result below is currentVehicle.
+          cmgCall4 = cmgCall4()
+          flag24 = flag23.colorindex
+          flag26 = flag23.colorindex
+          arg4(cmgCall4, flag24, flag26)
         end
       end
-      SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      flag25(workValue19, flag28, flag29, flag)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  arg1(arg2, arg3, textValue17, numberValue24, modelHash)
 end
-SHX58_1(SHX59_1, SHX60_1, SHX61_1, SHX62_1)
-function SHX58_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cardev"
-  SHX4_2 = "mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Visible
-  SHX3_2 = RMenu
-  SHX4_2 = SHX3_2
-  SHX3_2 = SHX3_2.Get
-  SHX5_2 = "cardev"
-  SHX6_2 = "mainmenu"
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = not SHX2_2
-  SHX0_2(SHX1_2, SHX2_2)
+rageUiCall2(dataTable38, dataTable39, dataTable40, dataTable41)
+function rageUiCall2()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5
+  arg1 = RageUI
+  arg1 = arg1.Visible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  textValue17 = "cardev"
+  numberValue24 = "mainmenu"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, textValue17, numberValue24)
+  arg3 = RageUI
+  arg3 = arg3.Visible
+  textValue17 = RMenu
+  numberValue24 = textValue17
+  textValue17 = textValue17.Get
+  modelHash = "cardev"
+  cmgCall5 = "mainmenu"
+  textValue17, numberValue24, modelHash, cmgCall5 = textValue17(numberValue24, modelHash, cmgCall5)
+  -- Beginner: result below is menuVisible.
+  arg3 = arg3(textValue17, numberValue24, modelHash, cmgCall5)
+  arg3 = not arg3
+  arg1(arg2, arg3)
 end
-SHX59_1 = _ENV
-SHX60_1 = "RegisterCommand"
-SHX59_1 = SHX59_1[SHX60_1]
-SHX60_1 = "cardev"
-function SHX61_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "carworld.whitelisted"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.isPurge
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = SHX58_1
-      SHX0_2()
+dataTable38 = _ENV
+dataTable39 = "RegisterCommand"
+dataTable38 = dataTable38[dataTable39]
+dataTable39 = "cardev"
+function dataTable40()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.hasClientPermission
+  arg2 = "carworld.whitelisted"
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = CMG
+    arg1 = arg1.isPurge
+    arg1 = arg1()
+    if not arg1 then
+      arg1 = rageUiCall2
+      arg1()
     end
   end
 end
-SHX62_1 = false
-SHX59_1(SHX60_1, SHX61_1, SHX62_1)
-SHX59_1 = _ENV
-SHX60_1 = "AddEventHandler"
-SHX59_1 = SHX59_1[SHX60_1]
-SHX60_1 = "919aefda0c"
-function SHX61_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  if 333 ~= SHX0_2 then
-    SHX1_2 = SHX1_1
-    if SHX1_2 then
-      SHX1_2 = RageUI
-      SHX1_2 = SHX1_2.CloseAll
-      SHX1_2()
-      SHX1_2 = SHX35_1
-      SHX1_2()
-      SHX1_2 = false
-      SHX1_1 = SHX1_2
+dataTable41 = false
+dataTable38(dataTable39, dataTable40, dataTable41)
+dataTable38 = _ENV
+dataTable39 = "AddEventHandler"
+dataTable38 = dataTable38[dataTable39]
+dataTable39 = "919aefda0c"
+function dataTable40(arg1)
+  local arg2
+  if 333 ~= arg1 then
+    arg2 = textValue14
+    if arg2 then
+      arg2 = RageUI
+      arg2 = arg2.CloseAll
+      arg2()
+      arg2 = dataTable17
+      arg2()
+      arg2 = false
+      textValue14 = arg2
     end
   end
 end
-SHX59_1(SHX60_1, SHX61_1)
-SHX59_1 = {}
-SHX60_1 = "CCarHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "fBackEndPopUpCarImpulseMult"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "float"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fBackEndPopUpBuildingImpulseMult"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "float"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fBackEndPopUpMaxDeltaSpeed"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fToeFront"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fToeRear"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fCamberFront"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fCamberRear"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fCastor"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fEngineResistance"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = {}
-SHX72_1 = "name"
-SHX73_1 = "fMaxDriveBiasTransfer"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = "type"
-SHX73_1 = "float"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = {}
-SHX73_1 = "name"
-SHX74_1 = "fJumpForceScale"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = "type"
-SHX74_1 = "float"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = {}
-SHX74_1 = "name"
-SHX75_1 = "fIncreasedRammingForceScale"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "type"
-SHX75_1 = "float"
-SHX73_1[SHX74_1] = SHX75_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX61_1[10] = SHX71_1
-SHX61_1[11] = SHX72_1
-SHX61_1[12] = SHX73_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CTrailerHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "fAttachLimitPitch"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "float"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fAttachLimitRoll"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "float"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fAttachLimitYaw"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fUprightSpringConstant"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fUprightDampingConstant"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fAttachedMaxDistance"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fAttachedMaxPenetration"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fAttachRaiseZ"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fPosConstraintMassRatio"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CBoatHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "fBoxFrontMult"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "float"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fBoxRearMult"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "float"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fBoxSideMult"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fSampleTop"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fSampleBottom"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fSampleBottomTestCorrection"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fAquaplaneForce"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fAquaplanePushWaterMult"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fAquaplanePushWaterCap"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = {}
-SHX72_1 = "name"
-SHX73_1 = "fAquaplanePushWaterApply"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = "type"
-SHX73_1 = "float"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = {}
-SHX73_1 = "name"
-SHX74_1 = "fRudderForce"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = "type"
-SHX74_1 = "float"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = {}
-SHX74_1 = "name"
-SHX75_1 = "fRudderOffsetSubmerge"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "type"
-SHX75_1 = "float"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = {}
-SHX75_1 = "name"
-SHX76_1 = "fRudderOffsetForce"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = "type"
-SHX76_1 = "float"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = {}
-SHX76_1 = "name"
-SHX77_1 = "fRudderOffsetForceZMult"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = "type"
-SHX77_1 = "float"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = {}
-SHX77_1 = "name"
-SHX78_1 = "fWaveAudioMult"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = "type"
-SHX78_1 = "float"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = {}
-SHX78_1 = "name"
-SHX79_1 = "vecMoveResistance"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = "type"
-SHX79_1 = "vector"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = {}
-SHX79_1 = "name"
-SHX80_1 = "vecTurnResistance"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = "type"
-SHX80_1 = "vector"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = {}
-SHX80_1 = "name"
-SHX81_1 = "fLook_L_R_CamHeight"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = "type"
-SHX81_1 = "float"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = {}
-SHX81_1 = "name"
-SHX82_1 = "fDragCoefficient"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = "type"
-SHX82_1 = "float"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = {}
-SHX82_1 = "name"
-SHX83_1 = "fKeelSphereSize"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = "type"
-SHX83_1 = "float"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = {}
-SHX83_1 = "name"
-SHX84_1 = "fPropRadius"
-SHX82_1[SHX83_1] = SHX84_1
-SHX83_1 = "type"
-SHX84_1 = "float"
-SHX82_1[SHX83_1] = SHX84_1
-SHX83_1 = {}
-SHX84_1 = "name"
-SHX85_1 = "fLowLodAngOffset"
-SHX83_1[SHX84_1] = SHX85_1
-SHX84_1 = "type"
-SHX85_1 = "float"
-SHX83_1[SHX84_1] = SHX85_1
-SHX84_1 = {}
-SHX85_1 = "name"
-SHX86_1 = "fLowLodDraughtOffset"
-SHX84_1[SHX85_1] = SHX86_1
-SHX85_1 = "type"
-SHX86_1 = "float"
-SHX84_1[SHX85_1] = SHX86_1
-SHX85_1 = {}
-SHX86_1 = "name"
-SHX87_1 = "fImpellerOffset"
-SHX85_1[SHX86_1] = SHX87_1
-SHX86_1 = "type"
-SHX87_1 = "float"
-SHX85_1[SHX86_1] = SHX87_1
-SHX86_1 = {}
-SHX87_1 = "name"
-SHX88_1 = "fImpellerForceMult"
-SHX86_1[SHX87_1] = SHX88_1
-SHX87_1 = "type"
-SHX88_1 = "float"
-SHX86_1[SHX87_1] = SHX88_1
-SHX87_1 = {}
-SHX88_1 = "name"
-SHX89_1 = "fDinghySphereBuoyConst"
-SHX87_1[SHX88_1] = SHX89_1
-SHX88_1 = "type"
-SHX89_1 = "float"
-SHX87_1[SHX88_1] = SHX89_1
-SHX88_1 = {}
-SHX89_1 = "name"
-SHX90_1 = "fProwRaiseMult"
-SHX88_1[SHX89_1] = SHX90_1
-SHX89_1 = "type"
-SHX90_1 = "float"
-SHX88_1[SHX89_1] = SHX90_1
-SHX89_1 = {}
-SHX90_1 = "name"
-SHX91_1 = "fDeepWaterSampleBuoyancyMult"
-SHX89_1[SHX90_1] = SHX91_1
-SHX90_1 = "type"
-SHX91_1 = "float"
-SHX89_1[SHX90_1] = SHX91_1
-SHX90_1 = {}
-SHX91_1 = "name"
-SHX92_1 = "fTransmissionMultiplier"
-SHX90_1[SHX91_1] = SHX92_1
-SHX91_1 = "type"
-SHX92_1 = "float"
-SHX90_1[SHX91_1] = SHX92_1
-SHX91_1 = {}
-SHX92_1 = "name"
-SHX93_1 = "fTractionMultiplier"
-SHX91_1[SHX92_1] = SHX93_1
-SHX92_1 = "type"
-SHX93_1 = "float"
-SHX91_1[SHX92_1] = SHX93_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX61_1[10] = SHX71_1
-SHX61_1[11] = SHX72_1
-SHX61_1[12] = SHX73_1
-SHX61_1[13] = SHX74_1
-SHX61_1[14] = SHX75_1
-SHX61_1[15] = SHX76_1
-SHX61_1[16] = SHX77_1
-SHX61_1[17] = SHX78_1
-SHX61_1[18] = SHX79_1
-SHX61_1[19] = SHX80_1
-SHX61_1[20] = SHX81_1
-SHX61_1[21] = SHX82_1
-SHX61_1[22] = SHX83_1
-SHX61_1[23] = SHX84_1
-SHX61_1[24] = SHX85_1
-SHX61_1[25] = SHX86_1
-SHX61_1[26] = SHX87_1
-SHX61_1[27] = SHX88_1
-SHX61_1[28] = SHX89_1
-SHX61_1[29] = SHX90_1
-SHX61_1[30] = SHX91_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CBikeHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "fLeanFwdCOMMult"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "float"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fLeanFwdForceMult"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "float"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fLeanBakCOMMult"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fLeanBakForceMult"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fMaxBankAngle"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fFullAnimAngle"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fDesLeanReturnFrac"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fStickLeanMult"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fBrakingStabilityMult"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = {}
-SHX72_1 = "name"
-SHX73_1 = "fInAirSteerMult"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = "type"
-SHX73_1 = "float"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = {}
-SHX73_1 = "name"
-SHX74_1 = "fWheelieBalancePoint"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = "type"
-SHX74_1 = "float"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = {}
-SHX74_1 = "name"
-SHX75_1 = "fStoppieBalancePoint"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "type"
-SHX75_1 = "float"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = {}
-SHX75_1 = "name"
-SHX76_1 = "fWheelieSteerMult"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = "type"
-SHX76_1 = "float"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = {}
-SHX76_1 = "name"
-SHX77_1 = "fRearBalanceMult"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = "type"
-SHX77_1 = "float"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = {}
-SHX77_1 = "name"
-SHX78_1 = "fFrontBalanceMult"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = "type"
-SHX78_1 = "float"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = {}
-SHX78_1 = "name"
-SHX79_1 = "fBikeGroundSideFrictionMult"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = "type"
-SHX79_1 = "float"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = {}
-SHX79_1 = "name"
-SHX80_1 = "fBikeWheelGroundSideFrictionMult"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = "type"
-SHX80_1 = "float"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = {}
-SHX80_1 = "name"
-SHX81_1 = "fBikeOnStandLeanAngle"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = "type"
-SHX81_1 = "float"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = {}
-SHX81_1 = "name"
-SHX82_1 = "fBikeOnStandSteerAngle"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = "type"
-SHX82_1 = "float"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = {}
-SHX82_1 = "name"
-SHX83_1 = "fJumpForce"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = "type"
-SHX83_1 = "float"
-SHX81_1[SHX82_1] = SHX83_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX61_1[10] = SHX71_1
-SHX61_1[11] = SHX72_1
-SHX61_1[12] = SHX73_1
-SHX61_1[13] = SHX74_1
-SHX61_1[14] = SHX75_1
-SHX61_1[15] = SHX76_1
-SHX61_1[16] = SHX77_1
-SHX61_1[17] = SHX78_1
-SHX61_1[18] = SHX79_1
-SHX61_1[19] = SHX80_1
-SHX61_1[20] = SHX81_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CSubmarineHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "vTurnRes"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "vector"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fMoveResXY"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "float"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fMoveResZ"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fPitchMult"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fPitchAngle"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fYawMult"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fDiveSpeed"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fRollMult"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fRollStab"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CSpecialFlightHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "vecAngularDamping"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "vector"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "vecAngularDampingMin"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "vector"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "vecLinearDamping"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "vector"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "vecLinearDampingMin"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "vector"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fLiftCoefficient"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fCriticalLiftAngle"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fInitialLiftAngle"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fMaxLiftAngle"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fDragCoefficient"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = {}
-SHX72_1 = "name"
-SHX73_1 = "fBrakingDrag"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = "type"
-SHX73_1 = "float"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = {}
-SHX73_1 = "name"
-SHX74_1 = "fMaxLiftVelocity"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = "type"
-SHX74_1 = "float"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = {}
-SHX74_1 = "name"
-SHX75_1 = "fMinLiftVelocity"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "type"
-SHX75_1 = "float"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = {}
-SHX75_1 = "name"
-SHX76_1 = "fRollTorqueScale"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = "type"
-SHX76_1 = "float"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = {}
-SHX76_1 = "name"
-SHX77_1 = "fMaxTorqueVelocity"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = "type"
-SHX77_1 = "float"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = {}
-SHX77_1 = "name"
-SHX78_1 = "fMinTorqueVelocity"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = "type"
-SHX78_1 = "float"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = {}
-SHX78_1 = "name"
-SHX79_1 = "fYawTorqueScale"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = "type"
-SHX79_1 = "float"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = {}
-SHX79_1 = "name"
-SHX80_1 = "fSelfLevelingPitchTorqueScale"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = "type"
-SHX80_1 = "float"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = {}
-SHX80_1 = "name"
-SHX81_1 = "fInitalOverheadAssist"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = "type"
-SHX81_1 = "float"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = {}
-SHX81_1 = "name"
-SHX82_1 = "fMaxPitchTorque"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = "type"
-SHX82_1 = "float"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = {}
-SHX82_1 = "name"
-SHX83_1 = "fMaxSteeringRollTorque"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = "type"
-SHX83_1 = "float"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = {}
-SHX83_1 = "name"
-SHX84_1 = "fPitchTorqueScale"
-SHX82_1[SHX83_1] = SHX84_1
-SHX83_1 = "type"
-SHX84_1 = "float"
-SHX82_1[SHX83_1] = SHX84_1
-SHX83_1 = {}
-SHX84_1 = "name"
-SHX85_1 = "fSteeringTorqueScale"
-SHX83_1[SHX84_1] = SHX85_1
-SHX84_1 = "type"
-SHX85_1 = "float"
-SHX83_1[SHX84_1] = SHX85_1
-SHX84_1 = {}
-SHX85_1 = "name"
-SHX86_1 = "fMaxThrust"
-SHX84_1[SHX85_1] = SHX86_1
-SHX85_1 = "type"
-SHX86_1 = "float"
-SHX84_1[SHX85_1] = SHX86_1
-SHX85_1 = {}
-SHX86_1 = "name"
-SHX87_1 = "fTransitionDuration"
-SHX85_1[SHX86_1] = SHX87_1
-SHX86_1 = "type"
-SHX87_1 = "float"
-SHX85_1[SHX86_1] = SHX87_1
-SHX86_1 = {}
-SHX87_1 = "name"
-SHX88_1 = "fHoverVelocityScale"
-SHX86_1[SHX87_1] = SHX88_1
-SHX87_1 = "type"
-SHX88_1 = "float"
-SHX86_1[SHX87_1] = SHX88_1
-SHX87_1 = {}
-SHX88_1 = "name"
-SHX89_1 = "fStabilityAssist"
-SHX87_1[SHX88_1] = SHX89_1
-SHX88_1 = "type"
-SHX89_1 = "float"
-SHX87_1[SHX88_1] = SHX89_1
-SHX88_1 = {}
-SHX89_1 = "name"
-SHX90_1 = "fMinSpeedForThrustFalloff"
-SHX88_1[SHX89_1] = SHX90_1
-SHX89_1 = "type"
-SHX90_1 = "float"
-SHX88_1[SHX89_1] = SHX90_1
-SHX89_1 = {}
-SHX90_1 = "name"
-SHX91_1 = "fBrakingThrustScale"
-SHX89_1[SHX90_1] = SHX91_1
-SHX90_1 = "type"
-SHX91_1 = "float"
-SHX89_1[SHX90_1] = SHX91_1
-SHX90_1 = {}
-SHX91_1 = "name"
-SHX92_1 = "mode"
-SHX90_1[SHX91_1] = SHX92_1
-SHX91_1 = "type"
-SHX92_1 = "integer"
-SHX90_1[SHX91_1] = SHX92_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX61_1[10] = SHX71_1
-SHX61_1[11] = SHX72_1
-SHX61_1[12] = SHX73_1
-SHX61_1[13] = SHX74_1
-SHX61_1[14] = SHX75_1
-SHX61_1[15] = SHX76_1
-SHX61_1[16] = SHX77_1
-SHX61_1[17] = SHX78_1
-SHX61_1[18] = SHX79_1
-SHX61_1[19] = SHX80_1
-SHX61_1[20] = SHX81_1
-SHX61_1[21] = SHX82_1
-SHX61_1[22] = SHX83_1
-SHX61_1[23] = SHX84_1
-SHX61_1[24] = SHX85_1
-SHX61_1[25] = SHX86_1
-SHX61_1[26] = SHX87_1
-SHX61_1[27] = SHX88_1
-SHX61_1[28] = SHX89_1
-SHX61_1[29] = SHX90_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CFlyingHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "fThrust"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "float"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fThrustFallOff"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "float"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fThrustVectoring"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fInitialThrust"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fInitialThrustFallOff"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fYawMult"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fYawStabilise"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fSideSlipMult"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fInitialYawMult"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = {}
-SHX72_1 = "name"
-SHX73_1 = "fRollMult"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = "type"
-SHX73_1 = "float"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = {}
-SHX73_1 = "name"
-SHX74_1 = "fRollStabilise"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = "type"
-SHX74_1 = "float"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = {}
-SHX74_1 = "name"
-SHX75_1 = "fInitialRollMult"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = "type"
-SHX75_1 = "float"
-SHX73_1[SHX74_1] = SHX75_1
-SHX74_1 = {}
-SHX75_1 = "name"
-SHX76_1 = "fPitchMult"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = "type"
-SHX76_1 = "float"
-SHX74_1[SHX75_1] = SHX76_1
-SHX75_1 = {}
-SHX76_1 = "name"
-SHX77_1 = "fPitchStabilise"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = "type"
-SHX77_1 = "float"
-SHX75_1[SHX76_1] = SHX77_1
-SHX76_1 = {}
-SHX77_1 = "name"
-SHX78_1 = "fFormLiftMult"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = "type"
-SHX78_1 = "float"
-SHX76_1[SHX77_1] = SHX78_1
-SHX77_1 = {}
-SHX78_1 = "name"
-SHX79_1 = "fAttackLiftMult"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = "type"
-SHX79_1 = "float"
-SHX77_1[SHX78_1] = SHX79_1
-SHX78_1 = {}
-SHX79_1 = "name"
-SHX80_1 = "fAttackDiveMult"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = "type"
-SHX80_1 = "float"
-SHX78_1[SHX79_1] = SHX80_1
-SHX79_1 = {}
-SHX80_1 = "name"
-SHX81_1 = "fGearDownDragV"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = "type"
-SHX81_1 = "float"
-SHX79_1[SHX80_1] = SHX81_1
-SHX80_1 = {}
-SHX81_1 = "name"
-SHX82_1 = "fGearDownLiftMult"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = "type"
-SHX82_1 = "float"
-SHX80_1[SHX81_1] = SHX82_1
-SHX81_1 = {}
-SHX82_1 = "name"
-SHX83_1 = "fWindMult"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = "type"
-SHX83_1 = "float"
-SHX81_1[SHX82_1] = SHX83_1
-SHX82_1 = {}
-SHX83_1 = "name"
-SHX84_1 = "fMoveRes"
-SHX82_1[SHX83_1] = SHX84_1
-SHX83_1 = "type"
-SHX84_1 = "float"
-SHX82_1[SHX83_1] = SHX84_1
-SHX83_1 = {}
-SHX84_1 = "name"
-SHX85_1 = "vecTurnRes"
-SHX83_1[SHX84_1] = SHX85_1
-SHX84_1 = "type"
-SHX85_1 = "vector"
-SHX83_1[SHX84_1] = SHX85_1
-SHX84_1 = {}
-SHX85_1 = "name"
-SHX86_1 = "vecSpeedRes"
-SHX84_1[SHX85_1] = SHX86_1
-SHX85_1 = "type"
-SHX86_1 = "vector"
-SHX84_1[SHX85_1] = SHX86_1
-SHX85_1 = {}
-SHX86_1 = "name"
-SHX87_1 = "fGearDoorFrontOpen"
-SHX85_1[SHX86_1] = SHX87_1
-SHX86_1 = "type"
-SHX87_1 = "float"
-SHX85_1[SHX86_1] = SHX87_1
-SHX86_1 = {}
-SHX87_1 = "name"
-SHX88_1 = "fGearDoorRearOpen"
-SHX86_1[SHX87_1] = SHX88_1
-SHX87_1 = "type"
-SHX88_1 = "float"
-SHX86_1[SHX87_1] = SHX88_1
-SHX87_1 = {}
-SHX88_1 = "name"
-SHX89_1 = "fGearDoorRearOpen2"
-SHX87_1[SHX88_1] = SHX89_1
-SHX88_1 = "type"
-SHX89_1 = "float"
-SHX87_1[SHX88_1] = SHX89_1
-SHX88_1 = {}
-SHX89_1 = "name"
-SHX90_1 = "fGearDoorRearMOpen"
-SHX88_1[SHX89_1] = SHX90_1
-SHX89_1 = "type"
-SHX90_1 = "float"
-SHX88_1[SHX89_1] = SHX90_1
-SHX89_1 = {}
-SHX90_1 = "name"
-SHX91_1 = "fTurublenceMagnitudeMax"
-SHX89_1[SHX90_1] = SHX91_1
-SHX90_1 = "type"
-SHX91_1 = "float"
-SHX89_1[SHX90_1] = SHX91_1
-SHX90_1 = {}
-SHX91_1 = "name"
-SHX92_1 = "fTurublenceForceMulti"
-SHX90_1[SHX91_1] = SHX92_1
-SHX91_1 = "type"
-SHX92_1 = "float"
-SHX90_1[SHX91_1] = SHX92_1
-SHX91_1 = {}
-SHX92_1 = "name"
-SHX93_1 = "fTurublenceRollTorqueMulti"
-SHX91_1[SHX92_1] = SHX93_1
-SHX92_1 = "type"
-SHX93_1 = "float"
-SHX91_1[SHX92_1] = SHX93_1
-SHX92_1 = {}
-SHX93_1 = "name"
-SHX94_1 = "fTurublencePitchTorqueMulti"
-SHX92_1[SHX93_1] = SHX94_1
-SHX93_1 = "type"
-SHX94_1 = "float"
-SHX92_1[SHX93_1] = SHX94_1
-SHX93_1 = {}
-SHX94_1 = "name"
-SHX95_1 = "fBodyDamageControlEffectMult"
-SHX93_1[SHX94_1] = SHX95_1
-SHX94_1 = "type"
-SHX95_1 = "float"
-SHX93_1[SHX94_1] = SHX95_1
-SHX94_1 = {}
-SHX95_1 = "name"
-SHX96_1 = "fInputSensitivityForDifficulty"
-SHX94_1[SHX95_1] = SHX96_1
-SHX95_1 = "type"
-SHX96_1 = "float"
-SHX94_1[SHX95_1] = SHX96_1
-SHX95_1 = {}
-SHX96_1 = "name"
-SHX97_1 = "fOnGroundYawBoostSpeedPeak"
-SHX95_1[SHX96_1] = SHX97_1
-SHX96_1 = "type"
-SHX97_1 = "float"
-SHX95_1[SHX96_1] = SHX97_1
-SHX96_1 = {}
-SHX97_1 = "name"
-SHX98_1 = "fOnGroundYawBoostSpeedCap"
-SHX96_1[SHX97_1] = SHX98_1
-SHX97_1 = "type"
-SHX98_1 = "float"
-SHX96_1[SHX97_1] = SHX98_1
-SHX97_1 = {}
-SHX98_1 = "name"
-SHX99_1 = "fEngineOffGlideMulti"
-SHX97_1[SHX98_1] = SHX99_1
-SHX98_1 = "type"
-SHX99_1 = "float"
-SHX97_1[SHX98_1] = SHX99_1
-SHX98_1 = {}
-SHX99_1 = "name"
-SHX100_1 = "fAfterburnerEffectRadius"
-SHX98_1[SHX99_1] = SHX100_1
-SHX99_1 = "type"
-SHX100_1 = "float"
-SHX98_1[SHX99_1] = SHX100_1
-SHX99_1 = {}
-SHX100_1 = "name"
-SHX101_1 = "fAfterburnerEffectDistance"
-SHX99_1[SHX100_1] = SHX101_1
-SHX100_1 = "type"
-SHX101_1 = "float"
-SHX99_1[SHX100_1] = SHX101_1
-SHX100_1 = {}
-SHX101_1 = "name"
-SHX102_1 = "fAfterburnerEffectForceMulti"
-SHX100_1[SHX101_1] = SHX102_1
-SHX101_1 = "type"
-SHX102_1 = "float"
-SHX100_1[SHX101_1] = SHX102_1
-SHX101_1 = {}
-SHX102_1 = "name"
-SHX103_1 = "fSubmergeLevelToPullHeliUnderwater"
-SHX101_1[SHX102_1] = SHX103_1
-SHX102_1 = "type"
-SHX103_1 = "float"
-SHX101_1[SHX102_1] = SHX103_1
-SHX102_1 = {}
-SHX103_1 = "name"
-SHX104_1 = "fExtraLiftWithRoll"
-SHX102_1[SHX103_1] = SHX104_1
-SHX103_1 = "type"
-SHX104_1 = "float"
-SHX102_1[SHX103_1] = SHX104_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX61_1[10] = SHX71_1
-SHX61_1[11] = SHX72_1
-SHX61_1[12] = SHX73_1
-SHX61_1[13] = SHX74_1
-SHX61_1[14] = SHX75_1
-SHX61_1[15] = SHX76_1
-SHX61_1[16] = SHX77_1
-SHX61_1[17] = SHX78_1
-SHX61_1[18] = SHX79_1
-SHX61_1[19] = SHX80_1
-SHX61_1[20] = SHX81_1
-SHX61_1[21] = SHX82_1
-SHX61_1[22] = SHX83_1
-SHX61_1[23] = SHX84_1
-SHX61_1[24] = SHX85_1
-SHX61_1[25] = SHX86_1
-SHX61_1[26] = SHX87_1
-SHX61_1[27] = SHX88_1
-SHX61_1[28] = SHX89_1
-SHX61_1[29] = SHX90_1
-SHX61_1[30] = SHX91_1
-SHX61_1[31] = SHX92_1
-SHX61_1[32] = SHX93_1
-SHX61_1[33] = SHX94_1
-SHX61_1[34] = SHX95_1
-SHX61_1[35] = SHX96_1
-SHX61_1[36] = SHX97_1
-SHX61_1[37] = SHX98_1
-SHX61_1[38] = SHX99_1
-SHX61_1[39] = SHX100_1
-SHX61_1[40] = SHX101_1
-SHX61_1[41] = SHX102_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = "CSeaPlaneHandlingData"
-SHX61_1 = {}
-SHX62_1 = {}
-SHX63_1 = "name"
-SHX64_1 = "fLeftPontoonComponentId"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = "type"
-SHX64_1 = "integer"
-SHX62_1[SHX63_1] = SHX64_1
-SHX63_1 = {}
-SHX64_1 = "name"
-SHX65_1 = "fRightPontoonComponentId"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = "type"
-SHX65_1 = "integer"
-SHX63_1[SHX64_1] = SHX65_1
-SHX64_1 = {}
-SHX65_1 = "name"
-SHX66_1 = "fPontoonBuoyConst"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = "type"
-SHX66_1 = "float"
-SHX64_1[SHX65_1] = SHX66_1
-SHX65_1 = {}
-SHX66_1 = "name"
-SHX67_1 = "fPontoonSampleSizeFront"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = "type"
-SHX67_1 = "float"
-SHX65_1[SHX66_1] = SHX67_1
-SHX66_1 = {}
-SHX67_1 = "name"
-SHX68_1 = "fPontoonSampleSizeMiddle"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = "type"
-SHX68_1 = "float"
-SHX66_1[SHX67_1] = SHX68_1
-SHX67_1 = {}
-SHX68_1 = "name"
-SHX69_1 = "fPontoonSampleSizeRear"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = "type"
-SHX69_1 = "float"
-SHX67_1[SHX68_1] = SHX69_1
-SHX68_1 = {}
-SHX69_1 = "name"
-SHX70_1 = "fPontoonLengthFractionForSamples"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = "type"
-SHX70_1 = "float"
-SHX68_1[SHX69_1] = SHX70_1
-SHX69_1 = {}
-SHX70_1 = "name"
-SHX71_1 = "fPontoonDragCoefficient"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = "type"
-SHX71_1 = "float"
-SHX69_1[SHX70_1] = SHX71_1
-SHX70_1 = {}
-SHX71_1 = "name"
-SHX72_1 = "fPontoonVerticalDampingCoefficientUp"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = "type"
-SHX72_1 = "float"
-SHX70_1[SHX71_1] = SHX72_1
-SHX71_1 = {}
-SHX72_1 = "name"
-SHX73_1 = "fPontoonVerticalDampingCoefficientDown"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = "type"
-SHX73_1 = "float"
-SHX71_1[SHX72_1] = SHX73_1
-SHX72_1 = {}
-SHX73_1 = "name"
-SHX74_1 = "fKeelSphereSize"
-SHX72_1[SHX73_1] = SHX74_1
-SHX73_1 = "type"
-SHX74_1 = "float"
-SHX72_1[SHX73_1] = SHX74_1
-SHX61_1[1] = SHX62_1
-SHX61_1[2] = SHX63_1
-SHX61_1[3] = SHX64_1
-SHX61_1[4] = SHX65_1
-SHX61_1[5] = SHX66_1
-SHX61_1[6] = SHX67_1
-SHX61_1[7] = SHX68_1
-SHX61_1[8] = SHX69_1
-SHX61_1[9] = SHX70_1
-SHX61_1[10] = SHX71_1
-SHX61_1[11] = SHX72_1
-SHX59_1[SHX60_1] = SHX61_1
-SHX60_1 = SHX16_1
-SHX61_1 = "CHandlingData"
-function SHX62_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = {}
-  SHX1_2 = {}
-  SHX0_2.speedBuffer = SHX1_2
-  SHX0_2.speed = 0.0
-  SHX0_2.speedDisplay = 0.0
-  SHX0_2.accel = 0.0
-  SHX0_2.accelDisplay = 0.0
-  SHX0_2.decel = 0.0
-  SHX0_2.decelDisplay = 0.0
-  return SHX0_2
+dataTable38(dataTable39, dataTable40)
+dataTable38 = {}
+dataTable39 = "CCarHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "fBackEndPopUpCarImpulseMult"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "float"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fBackEndPopUpBuildingImpulseMult"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "float"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fBackEndPopUpMaxDeltaSpeed"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fToeFront"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fToeRear"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fCamberFront"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fCamberRear"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fCastor"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fEngineResistance"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+textValue31 = {}
+textValue32 = "name"
+textValue33 = "fMaxDriveBiasTransfer"
+textValue31[textValue32] = textValue33
+textValue32 = "type"
+textValue33 = "float"
+textValue31[textValue32] = textValue33
+textValue32 = {}
+textValue33 = "name"
+textValue34 = "fJumpForceScale"
+textValue32[textValue33] = textValue34
+textValue33 = "type"
+textValue34 = "float"
+textValue32[textValue33] = textValue34
+textValue33 = {}
+textValue34 = "name"
+textValue35 = "fIncreasedRammingForceScale"
+textValue33[textValue34] = textValue35
+textValue34 = "type"
+textValue35 = "float"
+textValue33[textValue34] = textValue35
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable40[10] = textValue31
+dataTable40[11] = textValue32
+dataTable40[12] = textValue33
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CTrailerHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "fAttachLimitPitch"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "float"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fAttachLimitRoll"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "float"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fAttachLimitYaw"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fUprightSpringConstant"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fUprightDampingConstant"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fAttachedMaxDistance"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fAttachedMaxPenetration"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fAttachRaiseZ"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fPosConstraintMassRatio"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CBoatHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "fBoxFrontMult"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "float"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fBoxRearMult"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "float"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fBoxSideMult"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fSampleTop"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fSampleBottom"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fSampleBottomTestCorrection"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fAquaplaneForce"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fAquaplanePushWaterMult"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fAquaplanePushWaterCap"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+textValue31 = {}
+textValue32 = "name"
+textValue33 = "fAquaplanePushWaterApply"
+textValue31[textValue32] = textValue33
+textValue32 = "type"
+textValue33 = "float"
+textValue31[textValue32] = textValue33
+textValue32 = {}
+textValue33 = "name"
+textValue34 = "fRudderForce"
+textValue32[textValue33] = textValue34
+textValue33 = "type"
+textValue34 = "float"
+textValue32[textValue33] = textValue34
+textValue33 = {}
+textValue34 = "name"
+textValue35 = "fRudderOffsetSubmerge"
+textValue33[textValue34] = textValue35
+textValue34 = "type"
+textValue35 = "float"
+textValue33[textValue34] = textValue35
+textValue34 = {}
+textValue35 = "name"
+textValue36 = "fRudderOffsetForce"
+textValue34[textValue35] = textValue36
+textValue35 = "type"
+textValue36 = "float"
+textValue34[textValue35] = textValue36
+textValue35 = {}
+textValue36 = "name"
+textValue37 = "fRudderOffsetForceZMult"
+textValue35[textValue36] = textValue37
+textValue36 = "type"
+textValue37 = "float"
+textValue35[textValue36] = textValue37
+textValue36 = {}
+textValue37 = "name"
+textValue38 = "fWaveAudioMult"
+textValue36[textValue37] = textValue38
+textValue37 = "type"
+textValue38 = "float"
+textValue36[textValue37] = textValue38
+textValue37 = {}
+textValue38 = "name"
+textValue39 = "vecMoveResistance"
+textValue37[textValue38] = textValue39
+textValue38 = "type"
+textValue39 = "vector"
+textValue37[textValue38] = textValue39
+textValue38 = {}
+textValue39 = "name"
+textValue40 = "vecTurnResistance"
+textValue38[textValue39] = textValue40
+textValue39 = "type"
+textValue40 = "vector"
+textValue38[textValue39] = textValue40
+textValue39 = {}
+textValue40 = "name"
+textValue41 = "fLook_L_R_CamHeight"
+textValue39[textValue40] = textValue41
+textValue40 = "type"
+textValue41 = "float"
+textValue39[textValue40] = textValue41
+textValue40 = {}
+textValue41 = "name"
+textValue42 = "fDragCoefficient"
+textValue40[textValue41] = textValue42
+textValue41 = "type"
+textValue42 = "float"
+textValue40[textValue41] = textValue42
+textValue41 = {}
+textValue42 = "name"
+textValue43 = "fKeelSphereSize"
+textValue41[textValue42] = textValue43
+textValue42 = "type"
+textValue43 = "float"
+textValue41[textValue42] = textValue43
+textValue42 = {}
+textValue43 = "name"
+textValue44 = "fPropRadius"
+textValue42[textValue43] = textValue44
+textValue43 = "type"
+textValue44 = "float"
+textValue42[textValue43] = textValue44
+textValue43 = {}
+textValue44 = "name"
+textValue45 = "fLowLodAngOffset"
+textValue43[textValue44] = textValue45
+textValue44 = "type"
+textValue45 = "float"
+textValue43[textValue44] = textValue45
+textValue44 = {}
+textValue45 = "name"
+textValue46 = "fLowLodDraughtOffset"
+textValue44[textValue45] = textValue46
+textValue45 = "type"
+textValue46 = "float"
+textValue44[textValue45] = textValue46
+textValue45 = {}
+textValue46 = "name"
+textValue47 = "fImpellerOffset"
+textValue45[textValue46] = textValue47
+textValue46 = "type"
+textValue47 = "float"
+textValue45[textValue46] = textValue47
+textValue46 = {}
+textValue47 = "name"
+textValue48 = "fImpellerForceMult"
+textValue46[textValue47] = textValue48
+textValue47 = "type"
+textValue48 = "float"
+textValue46[textValue47] = textValue48
+textValue47 = {}
+textValue48 = "name"
+textValue49 = "fDinghySphereBuoyConst"
+textValue47[textValue48] = textValue49
+textValue48 = "type"
+textValue49 = "float"
+textValue47[textValue48] = textValue49
+textValue48 = {}
+textValue49 = "name"
+textValue50 = "fProwRaiseMult"
+textValue48[textValue49] = textValue50
+textValue49 = "type"
+textValue50 = "float"
+textValue48[textValue49] = textValue50
+textValue49 = {}
+textValue50 = "name"
+textValue51 = "fDeepWaterSampleBuoyancyMult"
+textValue49[textValue50] = textValue51
+textValue50 = "type"
+textValue51 = "float"
+textValue49[textValue50] = textValue51
+textValue50 = {}
+textValue51 = "name"
+textValue52 = "fTransmissionMultiplier"
+textValue50[textValue51] = textValue52
+textValue51 = "type"
+textValue52 = "float"
+textValue50[textValue51] = textValue52
+textValue51 = {}
+textValue52 = "name"
+textValue53 = "fTractionMultiplier"
+textValue51[textValue52] = textValue53
+textValue52 = "type"
+textValue53 = "float"
+textValue51[textValue52] = textValue53
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable40[10] = textValue31
+dataTable40[11] = textValue32
+dataTable40[12] = textValue33
+dataTable40[13] = textValue34
+dataTable40[14] = textValue35
+dataTable40[15] = textValue36
+dataTable40[16] = textValue37
+dataTable40[17] = textValue38
+dataTable40[18] = textValue39
+dataTable40[19] = textValue40
+dataTable40[20] = textValue41
+dataTable40[21] = textValue42
+dataTable40[22] = textValue43
+dataTable40[23] = textValue44
+dataTable40[24] = textValue45
+dataTable40[25] = textValue46
+dataTable40[26] = textValue47
+dataTable40[27] = textValue48
+dataTable40[28] = textValue49
+dataTable40[29] = textValue50
+dataTable40[30] = textValue51
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CBikeHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "fLeanFwdCOMMult"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "float"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fLeanFwdForceMult"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "float"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fLeanBakCOMMult"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fLeanBakForceMult"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fMaxBankAngle"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fFullAnimAngle"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fDesLeanReturnFrac"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fStickLeanMult"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fBrakingStabilityMult"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+textValue31 = {}
+textValue32 = "name"
+textValue33 = "fInAirSteerMult"
+textValue31[textValue32] = textValue33
+textValue32 = "type"
+textValue33 = "float"
+textValue31[textValue32] = textValue33
+textValue32 = {}
+textValue33 = "name"
+textValue34 = "fWheelieBalancePoint"
+textValue32[textValue33] = textValue34
+textValue33 = "type"
+textValue34 = "float"
+textValue32[textValue33] = textValue34
+textValue33 = {}
+textValue34 = "name"
+textValue35 = "fStoppieBalancePoint"
+textValue33[textValue34] = textValue35
+textValue34 = "type"
+textValue35 = "float"
+textValue33[textValue34] = textValue35
+textValue34 = {}
+textValue35 = "name"
+textValue36 = "fWheelieSteerMult"
+textValue34[textValue35] = textValue36
+textValue35 = "type"
+textValue36 = "float"
+textValue34[textValue35] = textValue36
+textValue35 = {}
+textValue36 = "name"
+textValue37 = "fRearBalanceMult"
+textValue35[textValue36] = textValue37
+textValue36 = "type"
+textValue37 = "float"
+textValue35[textValue36] = textValue37
+textValue36 = {}
+textValue37 = "name"
+textValue38 = "fFrontBalanceMult"
+textValue36[textValue37] = textValue38
+textValue37 = "type"
+textValue38 = "float"
+textValue36[textValue37] = textValue38
+textValue37 = {}
+textValue38 = "name"
+textValue39 = "fBikeGroundSideFrictionMult"
+textValue37[textValue38] = textValue39
+textValue38 = "type"
+textValue39 = "float"
+textValue37[textValue38] = textValue39
+textValue38 = {}
+textValue39 = "name"
+textValue40 = "fBikeWheelGroundSideFrictionMult"
+textValue38[textValue39] = textValue40
+textValue39 = "type"
+textValue40 = "float"
+textValue38[textValue39] = textValue40
+textValue39 = {}
+textValue40 = "name"
+textValue41 = "fBikeOnStandLeanAngle"
+textValue39[textValue40] = textValue41
+textValue40 = "type"
+textValue41 = "float"
+textValue39[textValue40] = textValue41
+textValue40 = {}
+textValue41 = "name"
+textValue42 = "fBikeOnStandSteerAngle"
+textValue40[textValue41] = textValue42
+textValue41 = "type"
+textValue42 = "float"
+textValue40[textValue41] = textValue42
+textValue41 = {}
+textValue42 = "name"
+textValue43 = "fJumpForce"
+textValue41[textValue42] = textValue43
+textValue42 = "type"
+textValue43 = "float"
+textValue41[textValue42] = textValue43
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable40[10] = textValue31
+dataTable40[11] = textValue32
+dataTable40[12] = textValue33
+dataTable40[13] = textValue34
+dataTable40[14] = textValue35
+dataTable40[15] = textValue36
+dataTable40[16] = textValue37
+dataTable40[17] = textValue38
+dataTable40[18] = textValue39
+dataTable40[19] = textValue40
+dataTable40[20] = textValue41
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CSubmarineHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "vTurnRes"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "vector"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fMoveResXY"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "float"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fMoveResZ"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fPitchMult"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fPitchAngle"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fYawMult"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fDiveSpeed"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fRollMult"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fRollStab"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CSpecialFlightHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "vecAngularDamping"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "vector"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "vecAngularDampingMin"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "vector"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "vecLinearDamping"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "vector"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "vecLinearDampingMin"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "vector"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fLiftCoefficient"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fCriticalLiftAngle"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fInitialLiftAngle"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fMaxLiftAngle"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fDragCoefficient"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+textValue31 = {}
+textValue32 = "name"
+textValue33 = "fBrakingDrag"
+textValue31[textValue32] = textValue33
+textValue32 = "type"
+textValue33 = "float"
+textValue31[textValue32] = textValue33
+textValue32 = {}
+textValue33 = "name"
+textValue34 = "fMaxLiftVelocity"
+textValue32[textValue33] = textValue34
+textValue33 = "type"
+textValue34 = "float"
+textValue32[textValue33] = textValue34
+textValue33 = {}
+textValue34 = "name"
+textValue35 = "fMinLiftVelocity"
+textValue33[textValue34] = textValue35
+textValue34 = "type"
+textValue35 = "float"
+textValue33[textValue34] = textValue35
+textValue34 = {}
+textValue35 = "name"
+textValue36 = "fRollTorqueScale"
+textValue34[textValue35] = textValue36
+textValue35 = "type"
+textValue36 = "float"
+textValue34[textValue35] = textValue36
+textValue35 = {}
+textValue36 = "name"
+textValue37 = "fMaxTorqueVelocity"
+textValue35[textValue36] = textValue37
+textValue36 = "type"
+textValue37 = "float"
+textValue35[textValue36] = textValue37
+textValue36 = {}
+textValue37 = "name"
+textValue38 = "fMinTorqueVelocity"
+textValue36[textValue37] = textValue38
+textValue37 = "type"
+textValue38 = "float"
+textValue36[textValue37] = textValue38
+textValue37 = {}
+textValue38 = "name"
+textValue39 = "fYawTorqueScale"
+textValue37[textValue38] = textValue39
+textValue38 = "type"
+textValue39 = "float"
+textValue37[textValue38] = textValue39
+textValue38 = {}
+textValue39 = "name"
+textValue40 = "fSelfLevelingPitchTorqueScale"
+textValue38[textValue39] = textValue40
+textValue39 = "type"
+textValue40 = "float"
+textValue38[textValue39] = textValue40
+textValue39 = {}
+textValue40 = "name"
+textValue41 = "fInitalOverheadAssist"
+textValue39[textValue40] = textValue41
+textValue40 = "type"
+textValue41 = "float"
+textValue39[textValue40] = textValue41
+textValue40 = {}
+textValue41 = "name"
+textValue42 = "fMaxPitchTorque"
+textValue40[textValue41] = textValue42
+textValue41 = "type"
+textValue42 = "float"
+textValue40[textValue41] = textValue42
+textValue41 = {}
+textValue42 = "name"
+textValue43 = "fMaxSteeringRollTorque"
+textValue41[textValue42] = textValue43
+textValue42 = "type"
+textValue43 = "float"
+textValue41[textValue42] = textValue43
+textValue42 = {}
+textValue43 = "name"
+textValue44 = "fPitchTorqueScale"
+textValue42[textValue43] = textValue44
+textValue43 = "type"
+textValue44 = "float"
+textValue42[textValue43] = textValue44
+textValue43 = {}
+textValue44 = "name"
+textValue45 = "fSteeringTorqueScale"
+textValue43[textValue44] = textValue45
+textValue44 = "type"
+textValue45 = "float"
+textValue43[textValue44] = textValue45
+textValue44 = {}
+textValue45 = "name"
+textValue46 = "fMaxThrust"
+textValue44[textValue45] = textValue46
+textValue45 = "type"
+textValue46 = "float"
+textValue44[textValue45] = textValue46
+textValue45 = {}
+textValue46 = "name"
+textValue47 = "fTransitionDuration"
+textValue45[textValue46] = textValue47
+textValue46 = "type"
+textValue47 = "float"
+textValue45[textValue46] = textValue47
+textValue46 = {}
+textValue47 = "name"
+textValue48 = "fHoverVelocityScale"
+textValue46[textValue47] = textValue48
+textValue47 = "type"
+textValue48 = "float"
+textValue46[textValue47] = textValue48
+textValue47 = {}
+textValue48 = "name"
+textValue49 = "fStabilityAssist"
+textValue47[textValue48] = textValue49
+textValue48 = "type"
+textValue49 = "float"
+textValue47[textValue48] = textValue49
+textValue48 = {}
+textValue49 = "name"
+textValue50 = "fMinSpeedForThrustFalloff"
+textValue48[textValue49] = textValue50
+textValue49 = "type"
+textValue50 = "float"
+textValue48[textValue49] = textValue50
+textValue49 = {}
+textValue50 = "name"
+textValue51 = "fBrakingThrustScale"
+textValue49[textValue50] = textValue51
+textValue50 = "type"
+textValue51 = "float"
+textValue49[textValue50] = textValue51
+textValue50 = {}
+textValue51 = "name"
+textValue52 = "mode"
+textValue50[textValue51] = textValue52
+textValue51 = "type"
+textValue52 = "integer"
+textValue50[textValue51] = textValue52
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable40[10] = textValue31
+dataTable40[11] = textValue32
+dataTable40[12] = textValue33
+dataTable40[13] = textValue34
+dataTable40[14] = textValue35
+dataTable40[15] = textValue36
+dataTable40[16] = textValue37
+dataTable40[17] = textValue38
+dataTable40[18] = textValue39
+dataTable40[19] = textValue40
+dataTable40[20] = textValue41
+dataTable40[21] = textValue42
+dataTable40[22] = textValue43
+dataTable40[23] = textValue44
+dataTable40[24] = textValue45
+dataTable40[25] = textValue46
+dataTable40[26] = textValue47
+dataTable40[27] = textValue48
+dataTable40[28] = textValue49
+dataTable40[29] = textValue50
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CFlyingHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "fThrust"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "float"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fThrustFallOff"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "float"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fThrustVectoring"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fInitialThrust"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fInitialThrustFallOff"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fYawMult"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fYawStabilise"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fSideSlipMult"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fInitialYawMult"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+textValue31 = {}
+textValue32 = "name"
+textValue33 = "fRollMult"
+textValue31[textValue32] = textValue33
+textValue32 = "type"
+textValue33 = "float"
+textValue31[textValue32] = textValue33
+textValue32 = {}
+textValue33 = "name"
+textValue34 = "fRollStabilise"
+textValue32[textValue33] = textValue34
+textValue33 = "type"
+textValue34 = "float"
+textValue32[textValue33] = textValue34
+textValue33 = {}
+textValue34 = "name"
+textValue35 = "fInitialRollMult"
+textValue33[textValue34] = textValue35
+textValue34 = "type"
+textValue35 = "float"
+textValue33[textValue34] = textValue35
+textValue34 = {}
+textValue35 = "name"
+textValue36 = "fPitchMult"
+textValue34[textValue35] = textValue36
+textValue35 = "type"
+textValue36 = "float"
+textValue34[textValue35] = textValue36
+textValue35 = {}
+textValue36 = "name"
+textValue37 = "fPitchStabilise"
+textValue35[textValue36] = textValue37
+textValue36 = "type"
+textValue37 = "float"
+textValue35[textValue36] = textValue37
+textValue36 = {}
+textValue37 = "name"
+textValue38 = "fFormLiftMult"
+textValue36[textValue37] = textValue38
+textValue37 = "type"
+textValue38 = "float"
+textValue36[textValue37] = textValue38
+textValue37 = {}
+textValue38 = "name"
+textValue39 = "fAttackLiftMult"
+textValue37[textValue38] = textValue39
+textValue38 = "type"
+textValue39 = "float"
+textValue37[textValue38] = textValue39
+textValue38 = {}
+textValue39 = "name"
+textValue40 = "fAttackDiveMult"
+textValue38[textValue39] = textValue40
+textValue39 = "type"
+textValue40 = "float"
+textValue38[textValue39] = textValue40
+textValue39 = {}
+textValue40 = "name"
+textValue41 = "fGearDownDragV"
+textValue39[textValue40] = textValue41
+textValue40 = "type"
+textValue41 = "float"
+textValue39[textValue40] = textValue41
+textValue40 = {}
+textValue41 = "name"
+textValue42 = "fGearDownLiftMult"
+textValue40[textValue41] = textValue42
+textValue41 = "type"
+textValue42 = "float"
+textValue40[textValue41] = textValue42
+textValue41 = {}
+textValue42 = "name"
+textValue43 = "fWindMult"
+textValue41[textValue42] = textValue43
+textValue42 = "type"
+textValue43 = "float"
+textValue41[textValue42] = textValue43
+textValue42 = {}
+textValue43 = "name"
+textValue44 = "fMoveRes"
+textValue42[textValue43] = textValue44
+textValue43 = "type"
+textValue44 = "float"
+textValue42[textValue43] = textValue44
+textValue43 = {}
+textValue44 = "name"
+textValue45 = "vecTurnRes"
+textValue43[textValue44] = textValue45
+textValue44 = "type"
+textValue45 = "vector"
+textValue43[textValue44] = textValue45
+textValue44 = {}
+textValue45 = "name"
+textValue46 = "vecSpeedRes"
+textValue44[textValue45] = textValue46
+textValue45 = "type"
+textValue46 = "vector"
+textValue44[textValue45] = textValue46
+textValue45 = {}
+textValue46 = "name"
+textValue47 = "fGearDoorFrontOpen"
+textValue45[textValue46] = textValue47
+textValue46 = "type"
+textValue47 = "float"
+textValue45[textValue46] = textValue47
+textValue46 = {}
+textValue47 = "name"
+textValue48 = "fGearDoorRearOpen"
+textValue46[textValue47] = textValue48
+textValue47 = "type"
+textValue48 = "float"
+textValue46[textValue47] = textValue48
+textValue47 = {}
+textValue48 = "name"
+textValue49 = "fGearDoorRearOpen2"
+textValue47[textValue48] = textValue49
+textValue48 = "type"
+textValue49 = "float"
+textValue47[textValue48] = textValue49
+textValue48 = {}
+textValue49 = "name"
+textValue50 = "fGearDoorRearMOpen"
+textValue48[textValue49] = textValue50
+textValue49 = "type"
+textValue50 = "float"
+textValue48[textValue49] = textValue50
+textValue49 = {}
+textValue50 = "name"
+textValue51 = "fTurublenceMagnitudeMax"
+textValue49[textValue50] = textValue51
+textValue50 = "type"
+textValue51 = "float"
+textValue49[textValue50] = textValue51
+textValue50 = {}
+textValue51 = "name"
+textValue52 = "fTurublenceForceMulti"
+textValue50[textValue51] = textValue52
+textValue51 = "type"
+textValue52 = "float"
+textValue50[textValue51] = textValue52
+textValue51 = {}
+textValue52 = "name"
+textValue53 = "fTurublenceRollTorqueMulti"
+textValue51[textValue52] = textValue53
+textValue52 = "type"
+textValue53 = "float"
+textValue51[textValue52] = textValue53
+textValue52 = {}
+textValue53 = "name"
+textValue54 = "fTurublencePitchTorqueMulti"
+textValue52[textValue53] = textValue54
+textValue53 = "type"
+textValue54 = "float"
+textValue52[textValue53] = textValue54
+textValue53 = {}
+textValue54 = "name"
+textValue55 = "fBodyDamageControlEffectMult"
+textValue53[textValue54] = textValue55
+textValue54 = "type"
+textValue55 = "float"
+textValue53[textValue54] = textValue55
+textValue54 = {}
+textValue55 = "name"
+textValue56 = "fInputSensitivityForDifficulty"
+textValue54[textValue55] = textValue56
+textValue55 = "type"
+textValue56 = "float"
+textValue54[textValue55] = textValue56
+textValue55 = {}
+textValue56 = "name"
+textValue57 = "fOnGroundYawBoostSpeedPeak"
+textValue55[textValue56] = textValue57
+textValue56 = "type"
+textValue57 = "float"
+textValue55[textValue56] = textValue57
+textValue56 = {}
+textValue57 = "name"
+textValue58 = "fOnGroundYawBoostSpeedCap"
+textValue56[textValue57] = textValue58
+textValue57 = "type"
+textValue58 = "float"
+textValue56[textValue57] = textValue58
+textValue57 = {}
+textValue58 = "name"
+textValue59 = "fEngineOffGlideMulti"
+textValue57[textValue58] = textValue59
+textValue58 = "type"
+textValue59 = "float"
+textValue57[textValue58] = textValue59
+textValue58 = {}
+textValue59 = "name"
+textValue = "fAfterburnerEffectRadius"
+textValue58[textValue59] = textValue
+textValue59 = "type"
+textValue = "float"
+textValue58[textValue59] = textValue
+textValue59 = {}
+textValue = "name"
+textValue2 = "fAfterburnerEffectDistance"
+textValue59[textValue] = textValue2
+textValue = "type"
+textValue2 = "float"
+textValue59[textValue] = textValue2
+textValue = {}
+textValue2 = "name"
+textValue3 = "fAfterburnerEffectForceMulti"
+textValue[textValue2] = textValue3
+textValue2 = "type"
+textValue3 = "float"
+textValue[textValue2] = textValue3
+textValue2 = {}
+textValue3 = "name"
+textValue4 = "fSubmergeLevelToPullHeliUnderwater"
+textValue2[textValue3] = textValue4
+textValue3 = "type"
+textValue4 = "float"
+textValue2[textValue3] = textValue4
+textValue3 = {}
+textValue4 = "name"
+textValue5 = "fExtraLiftWithRoll"
+textValue3[textValue4] = textValue5
+textValue4 = "type"
+textValue5 = "float"
+textValue3[textValue4] = textValue5
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable40[10] = textValue31
+dataTable40[11] = textValue32
+dataTable40[12] = textValue33
+dataTable40[13] = textValue34
+dataTable40[14] = textValue35
+dataTable40[15] = textValue36
+dataTable40[16] = textValue37
+dataTable40[17] = textValue38
+dataTable40[18] = textValue39
+dataTable40[19] = textValue40
+dataTable40[20] = textValue41
+dataTable40[21] = textValue42
+dataTable40[22] = textValue43
+dataTable40[23] = textValue44
+dataTable40[24] = textValue45
+dataTable40[25] = textValue46
+dataTable40[26] = textValue47
+dataTable40[27] = textValue48
+dataTable40[28] = textValue49
+dataTable40[29] = textValue50
+dataTable40[30] = textValue51
+dataTable40[31] = textValue52
+dataTable40[32] = textValue53
+dataTable40[33] = textValue54
+dataTable40[34] = textValue55
+dataTable40[35] = textValue56
+dataTable40[36] = textValue57
+dataTable40[37] = textValue58
+dataTable40[38] = textValue59
+dataTable40[39] = textValue
+dataTable40[40] = textValue2
+dataTable40[41] = textValue3
+dataTable38[dataTable39] = dataTable40
+dataTable39 = "CSeaPlaneHandlingData"
+dataTable40 = {}
+dataTable41 = {}
+textValue22 = "name"
+textValue23 = "fLeftPontoonComponentId"
+dataTable41[textValue22] = textValue23
+textValue22 = "type"
+textValue23 = "integer"
+dataTable41[textValue22] = textValue23
+textValue22 = {}
+textValue23 = "name"
+textValue24 = "fRightPontoonComponentId"
+textValue22[textValue23] = textValue24
+textValue23 = "type"
+textValue24 = "integer"
+textValue22[textValue23] = textValue24
+textValue23 = {}
+textValue24 = "name"
+textValue25 = "fPontoonBuoyConst"
+textValue23[textValue24] = textValue25
+textValue24 = "type"
+textValue25 = "float"
+textValue23[textValue24] = textValue25
+textValue24 = {}
+textValue25 = "name"
+textValue26 = "fPontoonSampleSizeFront"
+textValue24[textValue25] = textValue26
+textValue25 = "type"
+textValue26 = "float"
+textValue24[textValue25] = textValue26
+textValue25 = {}
+textValue26 = "name"
+textValue27 = "fPontoonSampleSizeMiddle"
+textValue25[textValue26] = textValue27
+textValue26 = "type"
+textValue27 = "float"
+textValue25[textValue26] = textValue27
+textValue26 = {}
+textValue27 = "name"
+textValue28 = "fPontoonSampleSizeRear"
+textValue26[textValue27] = textValue28
+textValue27 = "type"
+textValue28 = "float"
+textValue26[textValue27] = textValue28
+textValue27 = {}
+textValue28 = "name"
+textValue30 = "fPontoonLengthFractionForSamples"
+textValue27[textValue28] = textValue30
+textValue28 = "type"
+textValue30 = "float"
+textValue27[textValue28] = textValue30
+textValue28 = {}
+textValue30 = "name"
+textValue31 = "fPontoonDragCoefficient"
+textValue28[textValue30] = textValue31
+textValue30 = "type"
+textValue31 = "float"
+textValue28[textValue30] = textValue31
+textValue30 = {}
+textValue31 = "name"
+textValue32 = "fPontoonVerticalDampingCoefficientUp"
+textValue30[textValue31] = textValue32
+textValue31 = "type"
+textValue32 = "float"
+textValue30[textValue31] = textValue32
+textValue31 = {}
+textValue32 = "name"
+textValue33 = "fPontoonVerticalDampingCoefficientDown"
+textValue31[textValue32] = textValue33
+textValue32 = "type"
+textValue33 = "float"
+textValue31[textValue32] = textValue33
+textValue32 = {}
+textValue33 = "name"
+textValue34 = "fKeelSphereSize"
+textValue32[textValue33] = textValue34
+textValue33 = "type"
+textValue34 = "float"
+textValue32[textValue33] = textValue34
+dataTable40[1] = dataTable41
+dataTable40[2] = textValue22
+dataTable40[3] = textValue23
+dataTable40[4] = textValue24
+dataTable40[5] = textValue25
+dataTable40[6] = textValue26
+dataTable40[7] = textValue27
+dataTable40[8] = textValue28
+dataTable40[9] = textValue30
+dataTable40[10] = textValue31
+dataTable40[11] = textValue32
+dataTable38[dataTable39] = dataTable40
+dataTable39 = dataTable
+dataTable40 = "CHandlingData"
+function dataTable41()
+  local arg1, arg2
+  arg1 = {}
+  arg2 = {}
+  arg1.speedBuffer = arg2
+  arg1.speed = 0.0
+  arg1.speedDisplay = 0.0
+  arg1.accel = 0.0
+  arg1.accelDisplay = 0.0
+  arg1.decel = 0.0
+  arg1.decelDisplay = 0.0
+  return arg1
 end
-SHX63_1 = false
-SHX64_1 = SHX62_1
-SHX64_1 = SHX64_1()
-function SHX65_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetEntitySpeed
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.insert
-  SHX3_2 = SHX64_1.speedBuffer
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SHX64_1.speedBuffer
-  SHX2_2 = #SHX2_2
-  if SHX2_2 > 100 then
-    SHX2_2 = table
-    SHX2_2 = SHX2_2.remove
-    SHX3_2 = SHX64_1.speedBuffer
-    SHX4_2 = 1
-    SHX2_2(SHX3_2, SHX4_2)
+textValue22 = false
+textValue23 = dataTable41
+textValue23 = textValue23()
+function textValue24()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3
+  arg1 = CMG
+  arg1 = arg1.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg1 = arg1()
+  arg2 = GetEntitySpeed
+  arg3 = arg1
+  -- Beginner: result below is speed.
+  arg2 = arg2(arg3)
+  arg3 = table
+  arg3 = arg3.insert
+  textValue17 = textValue23.speedBuffer
+  numberValue24 = arg2
+  arg3(textValue17, numberValue24)
+  arg3 = textValue23.speedBuffer
+  arg3 = #arg3
+  if arg3 > 100 then
+    arg3 = table
+    arg3 = arg3.remove
+    textValue17 = textValue23.speedBuffer
+    numberValue24 = 1
+    arg3(textValue17, numberValue24)
   end
-  SHX2_2 = 0.0
-  SHX3_2 = 0.0
-  SHX4_2 = 0
-  SHX5_2 = 0
-  SHX6_2 = ipairs
-  SHX7_2 = SHX64_1.speedBuffer
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-  for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-    if SHX10_2 > 1 then
-      SHX12_2 = SHX64_1.speedBuffer
-      SHX13_2 = SHX10_2 - 1
-      SHX12_2 = SHX12_2[SHX13_2]
-      SHX12_2 = SHX11_2 - SHX12_2
-      if SHX12_2 > 0.0 then
-        SHX2_2 = SHX2_2 + SHX12_2
-        SHX4_2 = SHX4_2 + 1
+  arg3 = 0.0
+  textValue17 = 0.0
+  numberValue24 = 0
+  modelHash = 0
+  cmgCall5 = ipairs
+  workValue18 = textValue23.speedBuffer
+  cmgCall5, workValue18, workValue20, workValue21 = cmgCall5(workValue18)
+  for workValue, textValue8 in cmgCall5, workValue18, workValue20, workValue21 do
+    if workValue > 1 then
+      flag4 = textValue23.speedBuffer
+      workValue3 = workValue - 1
+      flag4 = flag4[workValue3]
+      flag4 = textValue8 - flag4
+      if flag4 > 0.0 then
+        arg3 = arg3 + flag4
+        numberValue24 = numberValue24 + 1
       else
-        SHX3_2 = SHX2_2 + SHX12_2
-        SHX5_2 = SHX5_2 + 1
+        textValue17 = arg3 + flag4
+        modelHash = modelHash + 1
       end
     end
   end
-  SHX2_2 = SHX2_2 / SHX4_2
-  SHX3_2 = SHX3_2 / SHX5_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.max
-  SHX7_2 = SHX64_1.speed
-  SHX8_2 = SHX1_2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX64_1.speed = SHX6_2
-  SHX6_2 = SHX64_1.speed
-  SHX6_2 = SHX6_2 * 2.236936
-  SHX64_1.speedDisplay = SHX6_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.max
-  SHX7_2 = SHX64_1.accel
-  SHX8_2 = SHX2_2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX64_1.accel = SHX6_2
-  SHX6_2 = SHX64_1.accel
-  SHX6_2 = SHX6_2 * 60.0
-  SHX6_2 = SHX6_2 * 2.236936
-  SHX64_1.accelDisplay = SHX6_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.min
-  SHX7_2 = SHX64_1.decel
-  SHX8_2 = SHX3_2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX64_1.decel = SHX6_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.abs
-  SHX7_2 = SHX64_1.decel
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX6_2 = SHX6_2 * 60.0
-  SHX6_2 = SHX6_2 * 2.236936
-  SHX64_1.decelDisplay = SHX6_2
+  arg3 = arg3 / numberValue24
+  textValue17 = textValue17 / modelHash
+  cmgCall5 = math
+  cmgCall5 = cmgCall5.max
+  workValue18 = textValue23.speed
+  workValue20 = arg2
+  cmgCall5 = cmgCall5(workValue18, workValue20)
+  textValue23.speed = cmgCall5
+  cmgCall5 = textValue23.speed
+  cmgCall5 = cmgCall5 * 2.236936
+  textValue23.speedDisplay = cmgCall5
+  cmgCall5 = math
+  cmgCall5 = cmgCall5.max
+  workValue18 = textValue23.accel
+  workValue20 = arg3
+  cmgCall5 = cmgCall5(workValue18, workValue20)
+  textValue23.accel = cmgCall5
+  cmgCall5 = textValue23.accel
+  cmgCall5 = cmgCall5 * 60.0
+  cmgCall5 = cmgCall5 * 2.236936
+  textValue23.accelDisplay = cmgCall5
+  cmgCall5 = math
+  cmgCall5 = cmgCall5.min
+  workValue18 = textValue23.decel
+  workValue20 = textValue17
+  cmgCall5 = cmgCall5(workValue18, workValue20)
+  textValue23.decel = cmgCall5
+  cmgCall5 = math
+  cmgCall5 = cmgCall5.abs
+  workValue18 = textValue23.decel
+  cmgCall5 = cmgCall5(workValue18)
+  cmgCall5 = cmgCall5 * 60.0
+  cmgCall5 = cmgCall5 * 2.236936
+  textValue23.decelDisplay = cmgCall5
 end
-function SHX66_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerVehicle
-  SHX1_2 = SHX1_2()
-  if 0 == SHX1_2 then
-    SHX2_2 = "0.0"
-    return SHX2_2
+function textValue25(arg1)
+  local arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18
+  arg2 = CMG
+  arg2 = arg2.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg2 = arg2()
+  if 0 == arg2 then
+    arg3 = "0.0"
+    return arg3
   end
-  SHX2_2 = SHX0_2.type
-  if "float" == SHX2_2 then
-    SHX2_2 = GetVehicleHandlingFloat
-    SHX3_2 = SHX1_2
-    SHX4_2 = SHX61_1
-    SHX5_2 = SHX0_2.name
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX3_2 = string
-    SHX3_2 = SHX3_2.format
-    SHX4_2 = "%.5f"
-    SHX5_2 = SHX2_2
-    return SHX3_2(SHX4_2, SHX5_2)
+  arg3 = arg1.type
+  if "float" == arg3 then
+    arg3 = GetVehicleHandlingFloat
+    textValue17 = arg2
+    numberValue24 = dataTable40
+    modelHash = arg1.name
+    arg3 = arg3(textValue17, numberValue24, modelHash)
+    textValue17 = string
+    textValue17 = textValue17.format
+    numberValue24 = "%.5f"
+    modelHash = arg3
+    return textValue17(numberValue24, modelHash)
   else
-    SHX2_2 = SHX0_2.type
-    if "integer" == SHX2_2 then
-      SHX2_2 = GetVehicleHandlingInt
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX61_1
-      SHX5_2 = SHX0_2.name
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX3_2 = tostring
-      SHX4_2 = SHX2_2
-      return SHX3_2(SHX4_2)
+    arg3 = arg1.type
+    if "integer" == arg3 then
+      arg3 = GetVehicleHandlingInt
+      textValue17 = arg2
+      numberValue24 = dataTable40
+      modelHash = arg1.name
+      arg3 = arg3(textValue17, numberValue24, modelHash)
+      textValue17 = tostring
+      numberValue24 = arg3
+      return textValue17(numberValue24)
     else
-      SHX2_2 = SHX0_2.type
-      if "vector" == SHX2_2 then
-        SHX2_2 = GetVehicleHandlingVector
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX61_1
-        SHX5_2 = SHX0_2.name
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-        SHX3_2 = string
-        SHX3_2 = SHX3_2.format
-        SHX4_2 = "%.3f %.3f %.3f"
-        SHX5_2 = SHX2_2.x
-        SHX6_2 = SHX2_2.y
-        SHX7_2 = SHX2_2.z
-        return SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
+      arg3 = arg1.type
+      if "vector" == arg3 then
+        arg3 = GetVehicleHandlingVector
+        textValue17 = arg2
+        numberValue24 = dataTable40
+        modelHash = arg1.name
+        arg3 = arg3(textValue17, numberValue24, modelHash)
+        textValue17 = string
+        textValue17 = textValue17.format
+        numberValue24 = "%.3f %.3f %.3f"
+        modelHash = arg3.x
+        cmgCall5 = arg3.y
+        workValue18 = arg3.z
+        return textValue17(numberValue24, modelHash, cmgCall5, workValue18)
       end
     end
   end
-  SHX2_2 = "INVALID"
-  return SHX2_2
+  arg3 = "INVALID"
+  return arg3
 end
-function SHX67_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.GetRageInputText
-  SHX2_2 = "Enter Value"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX2_2 = notify
-    SHX3_2 = "~r~Input cancelled."
-    SHX2_2(SHX3_2)
+function textValue26(arg1)
+  local arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue
+  arg2 = CMG
+  arg2 = arg2.GetRageInputText
+  arg3 = "Enter Value"
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg3 = notify
+    textValue17 = "~r~Input cancelled."
+    -- Beginner: Show a notification to the player.
+    arg3(textValue17)
     return
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerVehicle
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2.type
-  if "float" == SHX3_2 then
-    SHX3_2 = tonumber
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      SHX4_2 = SetVehicleHandlingFloat
-      SHX5_2 = SHX2_2
-      SHX6_2 = SHX61_1
-      SHX7_2 = SHX0_2.name
-      SHX8_2 = SHX3_2 + 0.0
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  arg3 = CMG
+  arg3 = arg3.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg3 = arg3()
+  textValue17 = arg1.type
+  if "float" == textValue17 then
+    textValue17 = tonumber
+    numberValue24 = arg2
+    textValue17 = textValue17(numberValue24)
+    if textValue17 then
+      numberValue24 = SetVehicleHandlingFloat
+      modelHash = arg3
+      cmgCall5 = dataTable40
+      workValue18 = arg1.name
+      workValue20 = textValue17 + 0.0
+      numberValue24(modelHash, cmgCall5, workValue18, workValue20)
     else
-      SHX4_2 = notify
-      SHX5_2 = "~r~Can not parse float."
-      SHX4_2(SHX5_2)
+      numberValue24 = notify
+      modelHash = "~r~Can not parse float."
+      -- Beginner: Show a notification to the player.
+      numberValue24(modelHash)
     end
   else
-    SHX3_2 = SHX0_2.type
-    if "integer" == SHX3_2 then
-      SHX3_2 = tonumber
-      SHX4_2 = SHX1_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        SHX4_2 = SetVehicleHandlingInt
-        SHX5_2 = SHX2_2
-        SHX6_2 = SHX61_1
-        SHX7_2 = SHX0_2.name
-        SHX8_2 = math
-        SHX8_2 = SHX8_2.floor
-        SHX9_2 = SHX3_2
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX8_2(SHX9_2)
-        SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+    textValue17 = arg1.type
+    if "integer" == textValue17 then
+      textValue17 = tonumber
+      numberValue24 = arg2
+      textValue17 = textValue17(numberValue24)
+      if textValue17 then
+        numberValue24 = SetVehicleHandlingInt
+        modelHash = arg3
+        cmgCall5 = dataTable40
+        workValue18 = arg1.name
+        workValue20 = math
+        workValue20 = workValue20.floor
+        workValue21 = textValue17
+        workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue = workValue20(workValue21)
+        numberValue24(modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue)
       else
-        SHX4_2 = notify
-        SHX5_2 = "~r~Can not parse integer."
-        SHX4_2(SHX5_2)
+        numberValue24 = notify
+        modelHash = "~r~Can not parse integer."
+        -- Beginner: Show a notification to the player.
+        numberValue24(modelHash)
       end
     else
-      SHX3_2 = SHX0_2.type
-      if "vector" == SHX3_2 then
-        SHX3_2 = stringsplit
-        SHX4_2 = SHX1_2
-        SHX5_2 = " "
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX4_2 = #SHX3_2
-          if SHX4_2 >= 3 then
-            SHX4_2 = tonumber
-            SHX5_2 = SHX3_2[1]
-            SHX4_2 = SHX4_2(SHX5_2)
-            SHX5_2 = tonumber
-            SHX6_2 = SHX3_2[2]
-            SHX5_2 = SHX5_2(SHX6_2)
-            SHX6_2 = tonumber
-            SHX7_2 = SHX3_2[3]
-            SHX6_2 = SHX6_2(SHX7_2)
-            if SHX4_2 and SHX5_2 and SHX6_2 then
-              SHX7_2 = SetVehicleHandlingVector
-              SHX8_2 = SHX2_2
-              SHX9_2 = SHX61_1
-              SHX10_2 = SHX0_2.name
-              SHX11_2 = vector3
-              SHX12_2 = SHX4_2 + 0.0
-              SHX13_2 = SHX5_2 + 0.0
-              SHX14_2 = SHX6_2 + 0.0
-              SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-              SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+      textValue17 = arg1.type
+      if "vector" == textValue17 then
+        textValue17 = stringsplit
+        numberValue24 = arg2
+        modelHash = " "
+        textValue17 = textValue17(numberValue24, modelHash)
+        if textValue17 then
+          numberValue24 = #textValue17
+          if numberValue24 >= 3 then
+            numberValue24 = tonumber
+            modelHash = textValue17[1]
+            numberValue24 = numberValue24(modelHash)
+            modelHash = tonumber
+            cmgCall5 = textValue17[2]
+            modelHash = modelHash(cmgCall5)
+            cmgCall5 = tonumber
+            workValue18 = textValue17[3]
+            cmgCall5 = cmgCall5(workValue18)
+            if numberValue24 and modelHash and cmgCall5 then
+              workValue18 = SetVehicleHandlingVector
+              workValue20 = arg3
+              workValue21 = dataTable40
+              workValue = arg1.name
+              textValue8 = vector3
+              flag4 = numberValue24 + 0.0
+              workValue3 = modelHash + 0.0
+              nameValue = cmgCall5 + 0.0
+              textValue8, flag4, workValue3, nameValue = textValue8(flag4, workValue3, nameValue)
+              workValue18(workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue)
             else
-              SHX7_2 = notify
-              SHX8_2 = "~r~Can not parse vector."
-              SHX7_2(SHX8_2)
+              workValue18 = notify
+              workValue20 = "~r~Can not parse vector."
+              -- Beginner: Show a notification to the player.
+              workValue18(workValue20)
             end
         end
         else
-          SHX4_2 = notify
-          SHX5_2 = "~r~Expected 3 floats."
-          SHX4_2(SHX5_2)
+          numberValue24 = notify
+          modelHash = "~r~Expected 3 floats."
+          numberValue24(modelHash)
         end
       end
     end
   end
-  SHX3_2 = SHX24_1
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
+  textValue17 = dataTable9
+  numberValue24 = arg3
+  textValue17(numberValue24)
 end
-function SHX68_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX54_1
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerVehicle
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX60_1
-  SHX3_2 = SHX61_1
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.clientPrompt
-  SHX2_2 = "Output (CTRL+A, CTRL+C)"
-  SHX3_2 = SHX0_2
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+function textValue27()
+  local arg1, arg2, arg3, textValue17, numberValue24
+  arg1 = dataTable34
+  arg2 = CMG
+  arg2 = arg2.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg2 = arg2()
+  arg3 = dataTable39
+  textValue17 = dataTable40
+  arg1 = arg1(arg2, arg3, textValue17)
+  arg2 = CMG
+  arg2 = arg2.clientPrompt
+  arg3 = "Output (CTRL+A, CTRL+C)"
+  textValue17 = arg1
+  function numberValue24()
+    local arg12, arg22
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  arg2(arg3, textValue17, numberValue24)
 end
-function SHX69_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX63_1 = SHX0_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setCursor
-  if SHX0_2 then
-    SHX2_2 = 1
-    if SHX2_2 then
-      goto SHX_LABEL_10
+function textValue28(arg1)
+  local arg2, arg3
+  textValue22 = arg1
+  arg2 = CMG
+  arg2 = arg2.setCursor
+  if arg1 then
+    arg3 = 1
+    if arg3 then
+      goto flow_label_10
     end
   end
-  SHX2_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setInGUI
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+  arg3 = 0
+  ::flow_label_10::
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.setInGUI
+  arg3 = arg1
+  arg2(arg3)
 end
-SHX70_1 = false
-SHX71_1 = false
-SHX72_1 = 0
-SHX73_1 = false
-SHX74_1 = _ENV
-SHX75_1 = "RegisterCommand"
-SHX74_1 = SHX74_1[SHX75_1]
-SHX75_1 = "hidecardevdraws"
-function SHX76_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX73_1
-  SHX0_2 = not SHX0_2
-  SHX73_1 = SHX0_2
+textValue30 = false
+textValue31 = false
+textValue32 = 0
+textValue33 = false
+textValue34 = _ENV
+textValue35 = "RegisterCommand"
+textValue34 = textValue34[textValue35]
+textValue35 = "hidecardevdraws"
+function textValue36()
+  local arg1, arg2
+  arg1 = textValue33
+  arg1 = not arg1
+  textValue33 = arg1
 end
-SHX77_1 = false
-SHX74_1(SHX75_1, SHX76_1, SHX77_1)
-function SHX74_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2
-  SHX0_2 = SHX38_1
-  if SHX0_2 then
-    SHX0_2 = SHX57_1
-    SHX0_2()
+textValue37 = false
+textValue34(textValue35, textValue36, textValue37)
+function textValue34()
+  local arg1, arg2, arg3, textValue17, numberValue24, modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, flag18, flag20, numberValue23, flag21, workValue15, workValue16, flag22
+  arg1 = dataTable20
+  if arg1 then
+    arg1 = dataTable37
+    arg1()
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2, SHX1_2 = SHX0_2()
-  if 0 ~= SHX0_2 then
-    if SHX1_2 then
-      SHX2_2 = SHX70_1
-      if not SHX2_2 then
-        SHX72_1 = SHX0_2
-        SHX2_2 = true
-        SHX70_1 = SHX2_2
+  arg1 = CMG
+  arg1 = arg1.getPlayerVehicle
+  arg1, arg2 = arg1()
+  if 0 ~= arg1 then
+    if arg2 then
+      arg3 = textValue30
+      if not arg3 then
+        textValue32 = arg1
+        arg3 = true
+        textValue30 = arg3
       end
-      SHX2_2 = SHX71_1
-      if not SHX2_2 then
-        SHX2_2 = GetIsTaskActive
-        SHX3_2 = PlayerPedId
-        SHX3_2 = SHX3_2()
-        SHX4_2 = 2
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        if SHX2_2 then
-          SHX2_2 = true
-          SHX71_1 = SHX2_2
+      arg3 = textValue31
+      if not arg3 then
+        arg3 = GetIsTaskActive
+        textValue17 = PlayerPedId
+        -- Beginner: result below is localPlayerPed.
+        textValue17 = textValue17()
+        numberValue24 = 2
+        arg3 = arg3(textValue17, numberValue24)
+        if arg3 then
+          arg3 = true
+          textValue31 = arg3
         end
       end
     end
   else
-    SHX2_2 = SHX70_1
-    if SHX2_2 then
-      SHX2_2 = SHX71_1
-      if not SHX2_2 then
-        SHX2_2 = DoesEntityExist
-        SHX3_2 = SHX72_1
-        SHX2_2 = SHX2_2(SHX3_2)
-        if SHX2_2 then
-          SHX2_2 = GetEntityModel
-          SHX3_2 = SHX72_1
-          SHX2_2 = SHX2_2(SHX3_2)
-          if 0 ~= SHX2_2 then
-            SHX3_2 = IsThisModelACar
-            SHX4_2 = SHX2_2
-            SHX3_2 = SHX3_2(SHX4_2)
-            if not SHX3_2 then
-              SHX3_2 = IsThisModelABike
-              SHX4_2 = SHX2_2
-              SHX3_2 = SHX3_2(SHX4_2)
-              if not SHX3_2 then
-                goto SHX_LABEL_68
+    arg3 = textValue30
+    if arg3 then
+      arg3 = textValue31
+      if not arg3 then
+        arg3 = DoesEntityExist
+        textValue17 = textValue32
+        arg3 = arg3(textValue17)
+        if arg3 then
+          arg3 = GetEntityModel
+          textValue17 = textValue32
+          -- Beginner: result below is modelHash.
+          arg3 = arg3(textValue17)
+          if 0 ~= arg3 then
+            textValue17 = IsThisModelACar
+            numberValue24 = arg3
+            textValue17 = textValue17(numberValue24)
+            if not textValue17 then
+              textValue17 = IsThisModelABike
+              numberValue24 = arg3
+              textValue17 = textValue17(numberValue24)
+              if not textValue17 then
+                goto flow_label_68
               end
             end
-            SHX3_2 = CMG
-            SHX3_2 = SHX3_2.getVehicleIdFromModel
-            SHX4_2 = SHX2_2
-            SHX3_2 = SHX3_2(SHX4_2)
-            if SHX3_2 then
-              SHX4_2 = TriggerServerEvent
-              SHX5_2 = "eb0c2e0a14"
-              SHX6_2 = SHX3_2
-              SHX4_2(SHX5_2, SHX6_2)
+            textValue17 = CMG
+            textValue17 = textValue17.getVehicleIdFromModel
+            numberValue24 = arg3
+            textValue17 = textValue17(numberValue24)
+            if textValue17 then
+              numberValue24 = TriggerServerEvent
+              modelHash = "eb0c2e0a14"
+              cmgCall5 = textValue17
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "eb0c2e0a14".
+              numberValue24(modelHash, cmgCall5)
             end
           end
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_68:: outside nested blocks until all 'goto SHX_LABEL_68' can see it
-      ::SHX_LABEL_68::
-      SHX2_2 = false
-      SHX70_1 = SHX2_2
-      SHX2_2 = false
-      SHX71_1 = SHX2_2
-      SHX2_2 = 0
-      SHX72_1 = SHX2_2
+      ::flow_label_68::
+      arg3 = false
+      textValue30 = arg3
+      arg3 = false
+      textValue31 = arg3
+      arg3 = 0
+      textValue32 = arg3
     end
   end
-  SHX2_2 = SHX1_1
-  if SHX2_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getPlayerBucket
-    SHX2_2 = SHX2_2()
-    if 333 == SHX2_2 then
-      goto SHX_LABEL_89
+  arg3 = textValue14
+  if arg3 then
+    arg3 = CMG
+    arg3 = arg3.getPlayerBucket
+    arg3 = arg3()
+    if 333 == arg3 then
+      goto flow_label_89
     end
   end
-  SHX2_2 = SHX63_1
-  if SHX2_2 then
-    SHX2_2 = SHX69_1
-    SHX3_2 = false
-    SHX2_2(SHX3_2)
+  arg3 = textValue22
+  if arg3 then
+    arg3 = textValue28
+    textValue17 = false
+    arg3(textValue17)
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_89:: outside nested blocks until all 'goto SHX_LABEL_89' can see it
-  ::SHX_LABEL_89::
-  SHX2_2 = SHX65_1
-  SHX2_2()
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getFontId
-  SHX3_2 = "Akrobat-ExtraBold"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX73_1
-  if not SHX3_2 then
-    SHX3_2 = SHX63_1
-    if SHX3_2 then
-      SHX3_2 = 0.345
-      if SHX3_2 then
-        goto SHX_LABEL_105
+  ::flow_label_89::
+  arg3 = textValue24
+  arg3()
+  arg3 = CMG
+  arg3 = arg3.getFontId
+  textValue17 = "Akrobat-ExtraBold"
+  arg3 = arg3(textValue17)
+  textValue17 = textValue33
+  if not textValue17 then
+    textValue17 = textValue22
+    if textValue17 then
+      textValue17 = 0.345
+      if textValue17 then
+        goto flow_label_105
       end
     end
-    SHX3_2 = 0.505
-    -- [FIX IF ERROR] Move ::SHX_LABEL_105:: outside nested blocks until all 'goto SHX_LABEL_105' can see it
-    ::SHX_LABEL_105::
-    SHX4_2 = DrawAdvancedTextNoOutline
-    SHX5_2 = SHX3_2
-    SHX6_2 = 0.055
-    SHX7_2 = 0.005
-    SHX8_2 = 0.02
-    SHX9_2 = 0.35
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.format
-    SHX11_2 = "Top Speed: %.5f"
-    SHX12_2 = SHX64_1.speedDisplay
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 255
-    SHX14_2 = 255
-    SHX15_2 = SHX2_2
-    SHX16_2 = 1
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX4_2 = DrawAdvancedTextNoOutline
-    SHX5_2 = SHX3_2
-    SHX6_2 = 0.075
-    SHX7_2 = 0.005
-    SHX8_2 = 0.02
-    SHX9_2 = 0.35
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.format
-    SHX11_2 = "Top Acceleration: %.5f"
-    SHX12_2 = SHX64_1.accelDisplay
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 255
-    SHX14_2 = 255
-    SHX15_2 = SHX2_2
-    SHX16_2 = 1
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX4_2 = DrawAdvancedTextNoOutline
-    SHX5_2 = SHX3_2
-    SHX6_2 = 0.095
-    SHX7_2 = 0.005
-    SHX8_2 = 0.02
-    SHX9_2 = 0.35
-    SHX10_2 = string
-    SHX10_2 = SHX10_2.format
-    SHX11_2 = "Top Deacceleration: %.5f"
-    SHX12_2 = SHX64_1.decelDisplay
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 255
-    SHX14_2 = 255
-    SHX15_2 = SHX2_2
-    SHX16_2 = 1
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+    textValue17 = 0.505
+    ::flow_label_105::
+    numberValue24 = DrawAdvancedTextNoOutline
+    modelHash = textValue17
+    cmgCall5 = 0.055
+    workValue18 = 0.005
+    workValue20 = 0.02
+    workValue21 = 0.35
+    workValue = string
+    workValue = workValue.format
+    textValue8 = "Top Speed: %.5f"
+    flag4 = textValue23.speedDisplay
+    workValue = workValue(textValue8, flag4)
+    textValue8 = 255
+    flag4 = 255
+    workValue3 = 255
+    nameValue = 255
+    nameValue2 = arg3
+    numberValue5 = 1
+    numberValue24(modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5)
+    numberValue24 = DrawAdvancedTextNoOutline
+    modelHash = textValue17
+    cmgCall5 = 0.075
+    workValue18 = 0.005
+    workValue20 = 0.02
+    workValue21 = 0.35
+    workValue = string
+    workValue = workValue.format
+    textValue8 = "Top Acceleration: %.5f"
+    flag4 = textValue23.accelDisplay
+    workValue = workValue(textValue8, flag4)
+    textValue8 = 255
+    flag4 = 255
+    workValue3 = 255
+    nameValue = 255
+    nameValue2 = arg3
+    numberValue5 = 1
+    numberValue24(modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5)
+    numberValue24 = DrawAdvancedTextNoOutline
+    modelHash = textValue17
+    cmgCall5 = 0.095
+    workValue18 = 0.005
+    workValue20 = 0.02
+    workValue21 = 0.35
+    workValue = string
+    workValue = workValue.format
+    textValue8 = "Top Deacceleration: %.5f"
+    flag4 = textValue23.decelDisplay
+    workValue = workValue(textValue8, flag4)
+    textValue8 = 255
+    flag4 = 255
+    workValue3 = 255
+    nameValue = 255
+    nameValue2 = arg3
+    numberValue5 = 1
+    numberValue24(modelHash, cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5)
   end
-  SHX3_2 = DisableControlAction
-  SHX4_2 = 0
-  SHX5_2 = 19
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  if 0 ~= SHX0_2 then
-    SHX3_2 = IsDisabledControlJustPressed
-    SHX4_2 = 0
-    SHX5_2 = 19
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if SHX3_2 then
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.hasClientPermission
-      SHX4_2 = "cardev.whitelisted"
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        SHX3_2 = SHX69_1
-        SHX4_2 = SHX63_1
-        SHX4_2 = not SHX4_2
-        SHX3_2(SHX4_2)
+  textValue17 = DisableControlAction
+  numberValue24 = 0
+  modelHash = 19
+  cmgCall5 = true
+  textValue17(numberValue24, modelHash, cmgCall5)
+  if 0 ~= arg1 then
+    textValue17 = IsDisabledControlJustPressed
+    numberValue24 = 0
+    modelHash = 19
+    textValue17 = textValue17(numberValue24, modelHash)
+    if textValue17 then
+      textValue17 = CMG
+      textValue17 = textValue17.hasClientPermission
+      numberValue24 = "cardev.whitelisted"
+      textValue17 = textValue17(numberValue24)
+      if textValue17 then
+        textValue17 = textValue28
+        numberValue24 = textValue22
+        numberValue24 = not numberValue24
+        textValue17(numberValue24)
       end
     end
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3, SHX30_3
-    SHX3_3 = {}
-    SHX4_3 = 255
-    SHX5_3 = 255
-    SHX6_3 = 0
-    SHX3_3[1] = SHX4_3
-    SHX3_3[2] = SHX5_3
-    SHX3_3[3] = SHX6_3
-    SHX4_3 = SHX0_3
-    SHX5_3 = " Start"
-    SHX4_3 = SHX4_3 .. SHX5_3
-    if 2 == SHX1_3 then
-      SHX5_3 = {}
-      SHX6_3 = 255
-      SHX7_3 = 0
-      SHX8_3 = 0
-      SHX5_3[1] = SHX6_3
-      SHX5_3[2] = SHX7_3
-      SHX5_3[3] = SHX8_3
-      SHX3_3 = SHX5_3
-      SHX5_3 = SHX0_3
-      SHX6_3 = " End"
-      SHX5_3 = SHX5_3 .. SHX6_3
-      SHX4_3 = SHX5_3
+  textValue17 = CMG
+  textValue17 = textValue17.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  textValue17 = textValue17()
+  function numberValue24(arg12, arg22, arg32)
+    local textValue18, workValue17, flag23, flag25, workValue19, flag28, flag29, flag, numberValue, textValue10, textValue11, textValue12, textValue13, numberValue6, numberValue8, numberValue9, numberValue10, workValue9, workValue10, workValue11, numberValue15, flag13, flag15, numberValue19, flag17, workValue12, workValue13, flag19
+    textValue18 = {}
+    workValue17 = 255
+    flag23 = 255
+    flag25 = 0
+    textValue18[1] = workValue17
+    textValue18[2] = flag23
+    textValue18[3] = flag25
+    workValue17 = arg12
+    flag23 = " Start"
+    workValue17 = workValue17 .. flag23
+    if 2 == arg22 then
+      flag23 = {}
+      flag25 = 255
+      workValue19 = 0
+      flag28 = 0
+      flag23[1] = flag25
+      flag23[2] = workValue19
+      flag23[3] = flag28
+      textValue18 = flag23
+      flag23 = arg12
+      flag25 = " End"
+      flag23 = flag23 .. flag25
+      workValue17 = flag23
     end
-    SHX5_3 = CMG
-    SHX5_3 = SHX5_3.getPlayerCoords
-    SHX5_3 = SHX5_3()
-    SHX5_3 = SHX5_3 - SHX2_3
-    SHX5_3 = #SHX5_3
-    SHX6_3 = 150.0
-    if SHX5_3 < SHX6_3 then
-      SHX6_3 = CMG
-      SHX6_3 = SHX6_3.DrawText3D
-      SHX7_3 = vector3
-      SHX8_3 = 0.0
-      SHX9_3 = 0.0
-      SHX10_3 = 1.0
-      SHX7_3 = SHX7_3(SHX8_3, SHX9_3, SHX10_3)
-      SHX7_3 = SHX2_3 + SHX7_3
-      SHX8_3 = SHX4_3
-      SHX9_3 = 0.2
-      SHX6_3(SHX7_3, SHX8_3, SHX9_3)
+    flag23 = CMG
+    flag23 = flag23.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    flag23 = flag23()
+    flag23 = flag23 - arg32
+    flag23 = #flag23
+    flag25 = 150.0
+    if flag23 < flag25 then
+      flag25 = CMG
+      flag25 = flag25.DrawText3D
+      workValue19 = vector3
+      flag28 = 0.0
+      flag29 = 0.0
+      flag = 1.0
+      workValue19 = workValue19(flag28, flag29, flag)
+      workValue19 = arg32 + workValue19
+      flag28 = workValue17
+      flag29 = 0.2
+      flag25(workValue19, flag28, flag29)
     end
-    SHX6_3 = DrawMarker
-    SHX7_3 = 1
-    SHX8_3 = SHX2_3.x
-    SHX9_3 = SHX2_3.y
-    SHX10_3 = SHX2_3.z
-    SHX10_3 = SHX10_3 - 1.5
-    SHX11_3 = 0.0
-    SHX12_3 = 0.0
-    SHX13_3 = 0.0
-    SHX14_3 = 0.0
-    SHX15_3 = 0.0
-    SHX16_3 = 0.0
-    SHX17_3 = 1.0
-    SHX18_3 = 1.0
-    SHX19_3 = 15.0
-    SHX20_3 = SHX3_3[1]
-    SHX21_3 = SHX3_3[2]
-    SHX22_3 = SHX3_3[3]
-    SHX23_3 = 100
-    SHX24_3 = false
-    SHX25_3 = false
-    SHX26_3 = 2
-    SHX27_3 = false
-    SHX28_3 = nil
-    SHX29_3 = nil
-    SHX30_3 = false
-    SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3, SHX30_3)
+    flag25 = DrawMarker
+    workValue19 = 1
+    flag28 = arg32.x
+    flag29 = arg32.y
+    flag = arg32.z
+    flag = flag - 1.5
+    numberValue = 0.0
+    textValue10 = 0.0
+    textValue11 = 0.0
+    textValue12 = 0.0
+    textValue13 = 0.0
+    numberValue6 = 0.0
+    numberValue8 = 1.0
+    numberValue9 = 1.0
+    numberValue10 = 15.0
+    workValue9 = textValue18[1]
+    workValue10 = textValue18[2]
+    workValue11 = textValue18[3]
+    numberValue15 = 100
+    flag13 = false
+    flag15 = false
+    numberValue19 = 2
+    flag17 = false
+    workValue12 = nil
+    workValue13 = nil
+    flag19 = false
+    flag25(workValue19, flag28, flag29, flag, numberValue, textValue10, textValue11, textValue12, textValue13, numberValue6, numberValue8, numberValue9, numberValue10, workValue9, workValue10, workValue11, numberValue15, flag13, flag15, numberValue19, flag17, workValue12, workValue13, flag19)
   end
-  SHX5_2 = pairs
-  SHX6_2 = SHX29_1
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-  for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-    SHX11_2 = SHX31_1
-    if SHX11_2 then
-      SHX11_2 = SHX31_1
-      if "Display All" ~= SHX11_2 then
-        SHX11_2 = SHX31_1
-        if SHX11_2 ~= SHX9_2 then
-          goto SHX_LABEL_254
+  modelHash = pairs
+  cmgCall5 = dataTable13
+  modelHash, cmgCall5, workValue18, workValue20 = modelHash(cmgCall5)
+  for workValue21, workValue in modelHash, cmgCall5, workValue18, workValue20 do
+    textValue8 = vector3Builder
+    if textValue8 then
+      textValue8 = vector3Builder
+      if "Display All" ~= textValue8 then
+        textValue8 = vector3Builder
+        if textValue8 ~= workValue21 then
+          goto flow_label_254
         end
       end
-      SHX11_2 = SHX10_2[1]
-      if SHX11_2 then
-        SHX11_2 = SHX10_2[2]
-        if SHX11_2 then
-          SHX11_2 = pairs
-          SHX12_2 = SHX10_2
-          SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-          for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-            SHX17_2 = SHX4_2
-            SHX18_2 = SHX9_2
-            SHX19_2 = SHX15_2
-            SHX20_2 = SHX16_2
-            SHX17_2(SHX18_2, SHX19_2, SHX20_2)
+      textValue8 = workValue[1]
+      if textValue8 then
+        textValue8 = workValue[2]
+        if textValue8 then
+          textValue8 = pairs
+          flag4 = workValue
+          textValue8, flag4, workValue3, nameValue = textValue8(flag4)
+          for nameValue2, numberValue5 in textValue8, flag4, workValue3, nameValue do
+            numberValue7 = numberValue24
+            workValue8 = workValue21
+            dataTable5 = nameValue2
+            numberValue11 = numberValue5
+            numberValue7(workValue8, dataTable5, numberValue11)
           end
       end
       else
-        SHX11_2 = DoesEntityExist
-        SHX12_2 = SHX0_2
-        SHX11_2 = SHX11_2(SHX12_2)
-        if SHX11_2 then
-          SHX11_2 = GetEntityForwardVector
-          SHX12_2 = SHX0_2
-          SHX11_2 = SHX11_2(SHX12_2)
-          SHX12_2 = SHX28_1
-          SHX12_2 = SHX3_2 - SHX12_2
-          SHX12_2 = #SHX12_2
-          SHX13_2 = SHX10_2.startDistance
-          SHX13_2 = SHX13_2 - SHX12_2
-          SHX13_2 = SHX11_2 * SHX13_2
-          SHX13_2 = SHX3_2 + SHX13_2
-          SHX14_2 = SHX4_2
-          SHX15_2 = SHX9_2
-          SHX16_2 = 1
-          SHX17_2 = SHX13_2
-          SHX14_2(SHX15_2, SHX16_2, SHX17_2)
-          SHX14_2 = SHX10_2.endDistance
-          SHX14_2 = SHX14_2 - SHX12_2
-          SHX14_2 = SHX11_2 * SHX14_2
-          SHX14_2 = SHX3_2 + SHX14_2
-          SHX15_2 = SHX4_2
-          SHX16_2 = SHX9_2
-          SHX17_2 = 2
-          SHX18_2 = SHX14_2
-          SHX15_2(SHX16_2, SHX17_2, SHX18_2)
+        textValue8 = DoesEntityExist
+        flag4 = arg1
+        textValue8 = textValue8(flag4)
+        if textValue8 then
+          textValue8 = GetEntityForwardVector
+          flag4 = arg1
+          textValue8 = textValue8(flag4)
+          flag4 = tableHelper
+          flag4 = textValue17 - flag4
+          flag4 = #flag4
+          workValue3 = workValue.startDistance
+          workValue3 = workValue3 - flag4
+          workValue3 = textValue8 * workValue3
+          workValue3 = textValue17 + workValue3
+          nameValue = numberValue24
+          nameValue2 = workValue21
+          numberValue5 = 1
+          numberValue7 = workValue3
+          nameValue(nameValue2, numberValue5, numberValue7)
+          nameValue = workValue.endDistance
+          nameValue = nameValue - flag4
+          nameValue = textValue8 * nameValue
+          nameValue = textValue17 + nameValue
+          nameValue2 = numberValue24
+          numberValue5 = workValue21
+          numberValue7 = 2
+          workValue8 = nameValue
+          nameValue2(numberValue5, numberValue7, workValue8)
         end
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_254:: outside nested blocks until all 'goto SHX_LABEL_254' can see it
-    ::SHX_LABEL_254::
+    ::flow_label_254::
   end
-  SHX5_2 = SHX10_1
-  if SHX5_2 then
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getPlayerCoords
-    SHX5_2 = SHX5_2()
-    SHX6_2 = {}
-    SHX7_2 = pairs
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.getAllVehicles
-    SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX8_2()
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-    for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-      SHX13_2 = GetEntityModel
-      SHX14_2 = SHX12_2
-      SHX13_2 = SHX13_2(SHX14_2)
-      SHX14_2 = CMG
-      SHX14_2 = SHX14_2.getVehicleIdFromModel
-      SHX15_2 = SHX13_2
-      SHX14_2 = SHX14_2(SHX15_2)
-      SHX15_2 = GetEntityCoords
-      SHX16_2 = SHX12_2
-      SHX17_2 = true
-      SHX15_2 = SHX15_2(SHX16_2, SHX17_2)
-      SHX16_2 = SHX5_2 - SHX15_2
-      SHX16_2 = #SHX16_2
-      SHX17_2 = 250.0
-      if SHX16_2 < SHX17_2 then
-        SHX17_2 = table
-        SHX17_2 = SHX17_2.insert
-        SHX18_2 = SHX6_2
-        SHX19_2 = {}
-        SHX20_2 = SHX14_2
-        SHX21_2 = SHX15_2
-        SHX22_2 = SHX16_2
-        SHX19_2[1] = SHX20_2
-        SHX19_2[2] = SHX21_2
-        SHX19_2[3] = SHX22_2
-        SHX17_2(SHX18_2, SHX19_2)
+  modelHash = textValue6
+  if modelHash then
+    modelHash = CMG
+    modelHash = modelHash.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    modelHash = modelHash()
+    cmgCall5 = {}
+    workValue18 = pairs
+    workValue20 = CMG
+    workValue20 = workValue20.getAllVehicles
+    workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, flag18, flag20, numberValue23, flag21, workValue15, workValue16, flag22 = workValue20()
+    workValue18, workValue20, workValue21, workValue = workValue18(workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, flag18, flag20, numberValue23, flag21, workValue15, workValue16, flag22)
+    for textValue8, flag4 in workValue18, workValue20, workValue21, workValue do
+      workValue3 = GetEntityModel
+      nameValue = flag4
+      -- Beginner: result below is modelHash.
+      workValue3 = workValue3(nameValue)
+      nameValue = CMG
+      nameValue = nameValue.getVehicleIdFromModel
+      nameValue2 = workValue3
+      nameValue = nameValue(nameValue2)
+      nameValue2 = GetEntityCoords
+      numberValue5 = flag4
+      numberValue7 = true
+      -- Beginner: result below is entityCoords.
+      nameValue2 = nameValue2(numberValue5, numberValue7)
+      numberValue5 = modelHash - nameValue2
+      numberValue5 = #numberValue5
+      numberValue7 = 250.0
+      if numberValue5 < numberValue7 then
+        numberValue7 = table
+        numberValue7 = numberValue7.insert
+        workValue8 = cmgCall5
+        dataTable5 = {}
+        numberValue11 = nameValue
+        numberValue12 = nameValue2
+        numberValue13 = numberValue5
+        dataTable5[1] = numberValue11
+        dataTable5[2] = numberValue12
+        dataTable5[3] = numberValue13
+        numberValue7(workValue8, dataTable5)
       end
     end
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.sort
-    SHX8_2 = SHX6_2
-    function SHX9_2(SHX0_3, SHX1_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX2_3, SHX3_3
-      SHX2_3 = SHX0_3[3]
-      SHX3_3 = SHX1_3[3]
-      SHX2_3 = SHX2_3 < SHX3_3
-      return SHX2_3
+    workValue18 = table
+    workValue18 = workValue18.sort
+    workValue20 = cmgCall5
+    function workValue21(arg12, arg22)
+      local arg32, textValue18
+      arg32 = arg12[3]
+      textValue18 = arg22[3]
+      arg32 = arg32 < textValue18
+      return arg32
     end
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = pairs
-    SHX8_2 = SHX6_2
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-    for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-      if SHX11_2 > 20 then
+    workValue18(workValue20, workValue21)
+    workValue18 = pairs
+    workValue20 = cmgCall5
+    workValue18, workValue20, workValue21, workValue = workValue18(workValue20)
+    for textValue8, flag4 in workValue18, workValue20, workValue21, workValue do
+      if textValue8 > 20 then
         break
       end
-      SHX13_2 = CMG
-      SHX13_2 = SHX13_2.DrawText3D
-      SHX14_2 = SHX12_2[2]
-      SHX15_2 = SHX12_2[1]
-      if not SHX15_2 then
-        SHX15_2 = "N/A"
+      workValue3 = CMG
+      workValue3 = workValue3.DrawText3D
+      nameValue = flag4[2]
+      nameValue2 = flag4[1]
+      if not nameValue2 then
+        nameValue2 = "N/A"
       end
-      SHX16_2 = 0.2
-      SHX17_2 = nil
-      SHX18_2 = true
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+      numberValue5 = 0.2
+      numberValue7 = nil
+      workValue8 = true
+      workValue3(nameValue, nameValue2, numberValue5, numberValue7, workValue8)
     end
   end
-  SHX5_2 = SHX11_1
-  if SHX5_2 then
-    SHX5_2 = GetEntitySpeed
-    SHX6_2 = SHX0_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX5_2 = SHX5_2 * 2.236936
-    SHX6_2 = 249.0
-    if SHX5_2 >= SHX6_2 then
-      SHX6_2 = SHX13_1
-      if SHX6_2 then
-        SHX6_2 = table
-        SHX6_2 = SHX6_2.insert
-        SHX7_2 = SHX12_1
-        SHX8_2 = GetEntityCoords
-        SHX9_2 = SHX0_2
-        SHX10_2 = true
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX8_2(SHX9_2, SHX10_2)
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-        SHX6_2 = false
-        SHX13_1 = SHX6_2
+  modelHash = textValue7
+  if modelHash then
+    modelHash = GetEntitySpeed
+    cmgCall5 = arg1
+    -- Beginner: result below is speed.
+    modelHash = modelHash(cmgCall5)
+    modelHash = modelHash * 2.236936
+    cmgCall5 = 249.0
+    if modelHash >= cmgCall5 then
+      cmgCall5 = flag5
+      if cmgCall5 then
+        cmgCall5 = table
+        cmgCall5 = cmgCall5.insert
+        workValue18 = textValue9
+        workValue20 = GetEntityCoords
+        workValue21 = arg1
+        workValue = true
+        workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, flag18, flag20, numberValue23, flag21, workValue15, workValue16, flag22 = workValue20(workValue21, workValue)
+        cmgCall5(workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, flag18, flag20, numberValue23, flag21, workValue15, workValue16, flag22)
+        cmgCall5 = false
+        flag5 = cmgCall5
     end
     else
-      SHX6_2 = 240.0
-      if SHX5_2 < SHX6_2 then
-        SHX6_2 = true
-        SHX13_1 = SHX6_2
+      cmgCall5 = 240.0
+      if modelHash < cmgCall5 then
+        cmgCall5 = true
+        flag5 = cmgCall5
       end
     end
-    SHX6_2 = pairs
-    SHX7_2 = SHX12_1
-    SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-    for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-      SHX12_2 = DrawMarker
-      SHX13_2 = 28
-      SHX14_2 = SHX11_2.x
-      SHX15_2 = SHX11_2.y
-      SHX16_2 = SHX11_2.z
-      SHX17_2 = 0.0
-      SHX18_2 = 0.0
-      SHX19_2 = 0.0
-      SHX20_2 = 0.0
-      SHX21_2 = 0.0
-      SHX22_2 = 0.0
-      SHX23_2 = 1.0
-      SHX24_2 = 1.0
-      SHX25_2 = 1.0
-      SHX26_2 = 255
-      SHX27_2 = 0
-      SHX28_2 = 0
-      SHX29_2 = 200
-      SHX30_2 = false
-      SHX31_2 = false
-      SHX32_2 = 2
-      SHX33_2 = false
-      SHX34_2 = nil
-      SHX35_2 = nil
-      SHX36_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-      SHX12_2 = CMG
-      SHX12_2 = SHX12_2.getPlayerCoords
-      SHX12_2 = SHX12_2()
-      SHX12_2 = SHX12_2 - SHX11_2
-      SHX12_2 = #SHX12_2
-      if SHX12_2 < 75.0 then
-        SHX12_2 = CMG
-        SHX12_2 = SHX12_2.DrawText3D
-        SHX13_2 = SHX11_2
-        SHX14_2 = tostring
-        SHX15_2 = SHX10_2
-        SHX14_2 = SHX14_2(SHX15_2)
-        SHX15_2 = 0.5
-        SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+    cmgCall5 = pairs
+    workValue18 = textValue9
+    cmgCall5, workValue18, workValue20, workValue21 = cmgCall5(workValue18)
+    for workValue, textValue8 in cmgCall5, workValue18, workValue20, workValue21 do
+      flag4 = DrawMarker
+      workValue3 = 28
+      nameValue = textValue8.x
+      nameValue2 = textValue8.y
+      numberValue5 = textValue8.z
+      numberValue7 = 0.0
+      workValue8 = 0.0
+      dataTable5 = 0.0
+      numberValue11 = 0.0
+      numberValue12 = 0.0
+      numberValue13 = 0.0
+      numberValue14 = 1.0
+      numberValue16 = 1.0
+      numberValue17 = 1.0
+      numberValue18 = 255
+      numberValue20 = 0
+      numberValue21 = 0
+      numberValue22 = 200
+      flag18 = false
+      flag20 = false
+      numberValue23 = 2
+      flag21 = false
+      workValue15 = nil
+      workValue16 = nil
+      flag22 = false
+      flag4(workValue3, nameValue, nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, flag18, flag20, numberValue23, flag21, workValue15, workValue16, flag22)
+      flag4 = CMG
+      flag4 = flag4.getPlayerCoords
+      -- Beginner: result below is playerCoords.
+      flag4 = flag4()
+      flag4 = flag4 - textValue8
+      flag4 = #flag4
+      if flag4 < 75.0 then
+        flag4 = CMG
+        flag4 = flag4.DrawText3D
+        workValue3 = textValue8
+        nameValue = tostring
+        nameValue2 = workValue
+        nameValue = nameValue(nameValue2)
+        nameValue2 = 0.5
+        flag4(workValue3, nameValue, nameValue2)
       end
     end
   end
-  SHX5_2 = SHX63_1
-  if SHX5_2 then
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.hasClientPermission
-    SHX6_2 = "cardev.whitelisted"
-    SHX5_2 = SHX5_2(SHX6_2)
-    if SHX5_2 then
-      goto SHX_LABEL_415
+  modelHash = textValue22
+  if modelHash then
+    modelHash = CMG
+    modelHash = modelHash.hasClientPermission
+    cmgCall5 = "cardev.whitelisted"
+    modelHash = modelHash(cmgCall5)
+    if modelHash then
+      goto flow_label_415
     end
   end
   return
-  goto SHX_LABEL_420
-  -- [FIX IF ERROR] Move ::SHX_LABEL_415:: outside nested blocks until all 'goto SHX_LABEL_415' can see it
-  ::SHX_LABEL_415::
-  if 0 == SHX0_2 then
-    SHX5_2 = SHX69_1
-    SHX6_2 = false
-    SHX5_2(SHX6_2)
+  goto flow_label_420
+  ::flow_label_415::
+  if 0 == arg1 then
+    modelHash = textValue28
+    cmgCall5 = false
+    modelHash(cmgCall5)
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_420:: outside nested blocks until all 'goto SHX_LABEL_420' can see it
-  ::SHX_LABEL_420::
-  SHX5_2 = pairs
-  SHX6_2 = SHX60_1
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-  for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-    if SHX9_2 > 23 then
-      SHX11_2 = 1
-      if SHX11_2 then
-        goto SHX_LABEL_430
+  ::flow_label_420::
+  modelHash = pairs
+  cmgCall5 = dataTable39
+  modelHash, cmgCall5, workValue18, workValue20 = modelHash(cmgCall5)
+  for workValue21, workValue in modelHash, cmgCall5, workValue18, workValue20 do
+    if workValue21 > 23 then
+      textValue8 = 1
+      if textValue8 then
+        goto flow_label_430
       end
     end
-    SHX11_2 = 0
-    -- [FIX IF ERROR] Move ::SHX_LABEL_430:: outside nested blocks until all 'goto SHX_LABEL_430' can see it
-    ::SHX_LABEL_430::
-    SHX12_2 = SHX11_2 * 23
-    SHX12_2 = SHX9_2 - SHX12_2
-    SHX12_2 = SHX12_2 * 0.0215
-    SHX12_2 = 0.14 + SHX12_2
-    SHX13_2 = CursorInArea
-    SHX14_2 = SHX11_2 * 0.27
-    SHX14_2 = 0.25 + SHX14_2
-    SHX15_2 = SHX11_2 * 0.27
-    SHX15_2 = 0.5 + SHX15_2
-    SHX16_2 = SHX12_2
-    SHX17_2 = SHX12_2 + 0.0215
-    SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    if SHX13_2 then
-      SHX14_2 = 100
-      if SHX14_2 then
-        goto SHX_LABEL_457
+    textValue8 = 0
+    ::flow_label_430::
+    flag4 = textValue8 * 23
+    flag4 = workValue21 - flag4
+    flag4 = flag4 * 0.0215
+    flag4 = 0.14 + flag4
+    workValue3 = CursorInArea
+    nameValue = textValue8 * 0.27
+    nameValue = 0.25 + nameValue
+    nameValue2 = textValue8 * 0.27
+    nameValue2 = 0.5 + nameValue2
+    numberValue5 = flag4
+    numberValue7 = flag4 + 0.0215
+    workValue3 = workValue3(nameValue, nameValue2, numberValue5, numberValue7)
+    if workValue3 then
+      nameValue = 100
+      if nameValue then
+        goto flow_label_457
       end
     end
-    SHX14_2 = 255
-    -- [FIX IF ERROR] Move ::SHX_LABEL_457:: outside nested blocks until all 'goto SHX_LABEL_457' can see it
-    ::SHX_LABEL_457::
-    SHX15_2 = DrawAdvancedTextNoOutline
-    SHX16_2 = SHX11_2 * 0.27
-    SHX16_2 = 0.345 + SHX16_2
-    SHX17_2 = SHX12_2
-    SHX18_2 = 0.005
-    SHX19_2 = 0.02
-    SHX20_2 = 0.35
-    SHX21_2 = SHX10_2.name
-    SHX22_2 = SHX14_2
-    SHX23_2 = SHX14_2
-    SHX24_2 = 255
-    SHX25_2 = 255
-    SHX26_2 = SHX2_2
-    SHX27_2 = 1
-    SHX15_2(SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-    SHX15_2 = DrawAdvancedTextNoOutline
-    SHX16_2 = SHX11_2 * 0.231
-    SHX16_2 = 0.516 + SHX16_2
-    SHX17_2 = SHX12_2 + 0.001
-    SHX18_2 = 0.005
-    SHX19_2 = 0.02
-    SHX20_2 = 0.35
-    SHX21_2 = SHX66_1
-    SHX22_2 = SHX10_2
-    SHX21_2 = SHX21_2(SHX22_2)
-    SHX22_2 = SHX14_2
-    SHX23_2 = SHX14_2
-    SHX24_2 = 255
-    SHX25_2 = 255
-    SHX26_2 = SHX2_2
-    SHX27_2 = 1
-    SHX15_2(SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-    if SHX13_2 then
-      SHX15_2 = IsDisabledControlJustPressed
-      SHX16_2 = 0
-      SHX17_2 = 24
-      SHX15_2 = SHX15_2(SHX16_2, SHX17_2)
-      if SHX15_2 then
-        SHX15_2 = Citizen
-        SHX15_2 = SHX15_2.CreateThreadNow
-        function SHX16_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3
-          SHX0_3 = SHX67_1
-          SHX1_3 = SHX10_2
-          SHX0_3(SHX1_3)
+    nameValue = 255
+    ::flow_label_457::
+    nameValue2 = DrawAdvancedTextNoOutline
+    numberValue5 = textValue8 * 0.27
+    numberValue5 = 0.345 + numberValue5
+    numberValue7 = flag4
+    workValue8 = 0.005
+    dataTable5 = 0.02
+    numberValue11 = 0.35
+    numberValue12 = workValue.name
+    numberValue13 = nameValue
+    numberValue14 = nameValue
+    numberValue16 = 255
+    numberValue17 = 255
+    numberValue18 = arg3
+    numberValue20 = 1
+    nameValue2(numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20)
+    nameValue2 = DrawAdvancedTextNoOutline
+    numberValue5 = textValue8 * 0.231
+    numberValue5 = 0.516 + numberValue5
+    numberValue7 = flag4 + 0.001
+    workValue8 = 0.005
+    dataTable5 = 0.02
+    numberValue11 = 0.35
+    numberValue12 = textValue25
+    numberValue13 = workValue
+    numberValue12 = numberValue12(numberValue13)
+    numberValue13 = nameValue
+    numberValue14 = nameValue
+    numberValue16 = 255
+    numberValue17 = 255
+    numberValue18 = arg3
+    numberValue20 = 1
+    nameValue2(numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20)
+    if workValue3 then
+      nameValue2 = IsDisabledControlJustPressed
+      numberValue5 = 0
+      numberValue7 = 24
+      nameValue2 = nameValue2(numberValue5, numberValue7)
+      if nameValue2 then
+        nameValue2 = Citizen
+        nameValue2 = nameValue2.CreateThreadNow
+        function numberValue5()
+          local arg12, arg22
+          arg12 = textValue26
+          arg22 = workValue
+          arg12(arg22)
         end
-        SHX15_2(SHX16_2)
+        nameValue2(numberValue5)
       end
     end
   end
-  SHX5_2 = DrawRect
-  SHX6_2 = 0.465
-  SHX7_2 = 0.415
-  SHX8_2 = 0.09
-  SHX9_2 = 0.495
-  SHX10_2 = 0
-  SHX11_2 = 0
-  SHX12_2 = 0
-  SHX13_2 = 100
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = DrawRect
-  SHX6_2 = 0.695
-  SHX7_2 = 0.415
-  SHX8_2 = 0.09
-  SHX9_2 = 0.495
-  SHX10_2 = 0
-  SHX11_2 = 0
-  SHX12_2 = 0
-  SHX13_2 = 100
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = DrawRect
-  SHX6_2 = 0.278
-  SHX7_2 = 0.14
-  SHX8_2 = 0.055
-  SHX9_2 = 0.02
-  SHX10_2 = 255
-  SHX11_2 = 255
-  SHX12_2 = 255
-  SHX13_2 = 230
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = DrawAdvancedTextNoOutline
-  SHX6_2 = 0.346
-  SHX7_2 = 0.129
-  SHX8_2 = 0.005
-  SHX9_2 = 0.02
-  SHX10_2 = 0.24
-  SHX11_2 = "Copy Handling"
-  SHX12_2 = 0
-  SHX13_2 = 0
-  SHX14_2 = 0
-  SHX15_2 = 255
-  SHX16_2 = 0
-  SHX17_2 = 1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX5_2 = CursorInArea
-  SHX6_2 = 0.25
-  SHX7_2 = 0.31
-  SHX8_2 = 0.12
-  SHX9_2 = 0.15
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  if SHX5_2 then
-    SHX5_2 = IsDisabledControlJustPressed
-    SHX6_2 = 0
-    SHX7_2 = 24
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    if SHX5_2 then
-      SHX5_2 = SHX68_1
-      SHX5_2()
+  modelHash = DrawRect
+  cmgCall5 = 0.465
+  workValue18 = 0.415
+  workValue20 = 0.09
+  workValue21 = 0.495
+  workValue = 0
+  textValue8 = 0
+  flag4 = 0
+  workValue3 = 100
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3)
+  modelHash = DrawRect
+  cmgCall5 = 0.695
+  workValue18 = 0.415
+  workValue20 = 0.09
+  workValue21 = 0.495
+  workValue = 0
+  textValue8 = 0
+  flag4 = 0
+  workValue3 = 100
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3)
+  modelHash = DrawRect
+  cmgCall5 = 0.278
+  workValue18 = 0.14
+  workValue20 = 0.055
+  workValue21 = 0.02
+  workValue = 255
+  textValue8 = 255
+  flag4 = 255
+  workValue3 = 230
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3)
+  modelHash = DrawAdvancedTextNoOutline
+  cmgCall5 = 0.346
+  workValue18 = 0.129
+  workValue20 = 0.005
+  workValue21 = 0.02
+  workValue = 0.24
+  textValue8 = "Copy Handling"
+  flag4 = 0
+  workValue3 = 0
+  nameValue = 0
+  nameValue2 = 255
+  numberValue5 = 0
+  numberValue7 = 1
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7)
+  modelHash = CursorInArea
+  cmgCall5 = 0.25
+  workValue18 = 0.31
+  workValue20 = 0.12
+  workValue21 = 0.15
+  modelHash = modelHash(cmgCall5, workValue18, workValue20, workValue21)
+  if modelHash then
+    modelHash = IsDisabledControlJustPressed
+    cmgCall5 = 0
+    workValue18 = 24
+    modelHash = modelHash(cmgCall5, workValue18)
+    if modelHash then
+      modelHash = textValue27
+      modelHash()
     end
   end
-  SHX5_2 = DrawRect
-  SHX6_2 = 0.338
-  SHX7_2 = 0.14
-  SHX8_2 = 0.055
-  SHX9_2 = 0.02
-  SHX10_2 = 255
-  SHX11_2 = 255
-  SHX12_2 = 255
-  SHX13_2 = 230
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = DrawAdvancedTextNoOutline
-  SHX6_2 = 0.41
-  SHX7_2 = 0.129
-  SHX8_2 = 0.005
-  SHX9_2 = 0.02
-  SHX10_2 = 0.24
-  SHX11_2 = "Reset Stats"
-  SHX12_2 = 0
-  SHX13_2 = 0
-  SHX14_2 = 0
-  SHX15_2 = 255
-  SHX16_2 = 0
-  SHX17_2 = 1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX5_2 = CursorInArea
-  SHX6_2 = 0.31
-  SHX7_2 = 0.37
-  SHX8_2 = 0.12
-  SHX9_2 = 0.15
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  if SHX5_2 then
-    SHX5_2 = IsDisabledControlJustPressed
-    SHX6_2 = 0
-    SHX7_2 = 24
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    if SHX5_2 then
-      SHX5_2 = SHX62_1
-      SHX5_2 = SHX5_2()
-      SHX64_1 = SHX5_2
-      SHX5_2 = SHX16_1
-      SHX60_1 = SHX5_2
-      SHX5_2 = "CHandlingData"
-      SHX61_1 = SHX5_2
+  modelHash = DrawRect
+  cmgCall5 = 0.338
+  workValue18 = 0.14
+  workValue20 = 0.055
+  workValue21 = 0.02
+  workValue = 255
+  textValue8 = 255
+  flag4 = 255
+  workValue3 = 230
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3)
+  modelHash = DrawAdvancedTextNoOutline
+  cmgCall5 = 0.41
+  workValue18 = 0.129
+  workValue20 = 0.005
+  workValue21 = 0.02
+  workValue = 0.24
+  textValue8 = "Reset Stats"
+  flag4 = 0
+  workValue3 = 0
+  nameValue = 0
+  nameValue2 = 255
+  numberValue5 = 0
+  numberValue7 = 1
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7)
+  modelHash = CursorInArea
+  cmgCall5 = 0.31
+  workValue18 = 0.37
+  workValue20 = 0.12
+  workValue21 = 0.15
+  modelHash = modelHash(cmgCall5, workValue18, workValue20, workValue21)
+  if modelHash then
+    modelHash = IsDisabledControlJustPressed
+    cmgCall5 = 0
+    workValue18 = 24
+    modelHash = modelHash(cmgCall5, workValue18)
+    if modelHash then
+      modelHash = dataTable41
+      modelHash = modelHash()
+      textValue23 = modelHash
+      modelHash = dataTable
+      dataTable39 = modelHash
+      modelHash = "CHandlingData"
+      dataTable40 = modelHash
     end
   end
-  SHX5_2 = DrawRect
-  SHX6_2 = 0.438
-  SHX7_2 = 0.14
-  SHX8_2 = 0.095
-  SHX9_2 = 0.02
-  SHX10_2 = 255
-  SHX11_2 = 255
-  SHX12_2 = 255
-  SHX13_2 = 230
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = DrawAdvancedTextNoOutline
-  SHX6_2 = 0.488
-  SHX7_2 = 0.129
-  SHX8_2 = 0.005
-  SHX9_2 = 0.02
-  SHX10_2 = 0.24
-  SHX11_2 = string
-  SHX11_2 = SHX11_2.format
-  SHX12_2 = "CMG Damage: %s"
-  SHX13_2 = SHX9_1
-  SHX13_2 = SHX13_2[SHX0_2]
-  if SHX13_2 then
-    SHX13_2 = "Disabled"
-    if SHX13_2 then
-      goto SHX_LABEL_642
+  modelHash = DrawRect
+  cmgCall5 = 0.438
+  workValue18 = 0.14
+  workValue20 = 0.095
+  workValue21 = 0.02
+  workValue = 255
+  textValue8 = 255
+  flag4 = 255
+  workValue3 = 230
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3)
+  modelHash = DrawAdvancedTextNoOutline
+  cmgCall5 = 0.488
+  workValue18 = 0.129
+  workValue20 = 0.005
+  workValue21 = 0.02
+  workValue = 0.24
+  textValue8 = string
+  textValue8 = textValue8.format
+  flag4 = "CMG Damage: %s"
+  workValue3 = rageUiCall5
+  workValue3 = workValue3[arg1]
+  if workValue3 then
+    workValue3 = "Disabled"
+    if workValue3 then
+      goto flow_label_642
     end
   end
-  SHX13_2 = "Enabled"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_642:: outside nested blocks until all 'goto SHX_LABEL_642' can see it
-  ::SHX_LABEL_642::
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX12_2 = 0
-  SHX13_2 = 0
-  SHX14_2 = 0
-  SHX15_2 = 255
-  SHX16_2 = 0
-  SHX17_2 = 1
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX5_2 = CursorInAreaRect
-  SHX6_2 = 0.438
-  SHX7_2 = 0.14
-  SHX8_2 = 0.095
-  SHX9_2 = 0.02
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  if SHX5_2 then
-    SHX5_2 = IsDisabledControlJustPressed
-    SHX6_2 = 0
-    SHX7_2 = 24
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    if SHX5_2 then
-      SHX5_2 = SHX9_1
-      SHX6_2 = SHX9_1
-      SHX6_2 = SHX6_2[SHX0_2]
-      SHX6_2 = not SHX6_2
-      SHX5_2[SHX0_2] = SHX6_2
+  workValue3 = "Enabled"
+  ::flow_label_642::
+  textValue8 = textValue8(flag4, workValue3)
+  flag4 = 0
+  workValue3 = 0
+  nameValue = 0
+  nameValue2 = 255
+  numberValue5 = 0
+  numberValue7 = 1
+  modelHash(cmgCall5, workValue18, workValue20, workValue21, workValue, textValue8, flag4, workValue3, nameValue, nameValue2, numberValue5, numberValue7)
+  modelHash = CursorInAreaRect
+  cmgCall5 = 0.438
+  workValue18 = 0.14
+  workValue20 = 0.095
+  workValue21 = 0.02
+  modelHash = modelHash(cmgCall5, workValue18, workValue20, workValue21)
+  if modelHash then
+    modelHash = IsDisabledControlJustPressed
+    cmgCall5 = 0
+    workValue18 = 24
+    modelHash = modelHash(cmgCall5, workValue18)
+    if modelHash then
+      modelHash = rageUiCall5
+      cmgCall5 = rageUiCall5
+      cmgCall5 = cmgCall5[arg1]
+      cmgCall5 = not cmgCall5
+      modelHash[arg1] = cmgCall5
     end
   end
-  SHX5_2 = 0
-  SHX6_2 = pairs
-  SHX7_2 = SHX59_1
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-  for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-    if SHX5_2 >= 4 then
-      SHX12_2 = 1
-      if SHX12_2 then
-        goto SHX_LABEL_680
+  modelHash = 0
+  cmgCall5 = pairs
+  workValue18 = dataTable38
+  cmgCall5, workValue18, workValue20, workValue21 = cmgCall5(workValue18)
+  for workValue, textValue8 in cmgCall5, workValue18, workValue20, workValue21 do
+    if modelHash >= 4 then
+      flag4 = 1
+      if flag4 then
+        goto flow_label_680
       end
     end
-    SHX12_2 = 0
-    -- [FIX IF ERROR] Move ::SHX_LABEL_680:: outside nested blocks until all 'goto SHX_LABEL_680' can see it
-    ::SHX_LABEL_680::
-    SHX13_2 = SHX12_2 * 4
-    SHX13_2 = SHX5_2 - SHX13_2
-    SHX13_2 = SHX13_2 * 0.125
-    SHX14_2 = DrawRect
-    SHX15_2 = 0.308 + SHX13_2
-    SHX16_2 = 0.05 * SHX12_2
-    SHX16_2 = 0.685 + SHX16_2
-    SHX17_2 = 0.115
-    SHX18_2 = 0.02
-    SHX19_2 = 255
-    SHX20_2 = 255
-    SHX21_2 = 255
-    SHX22_2 = 230
-    SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-    SHX14_2 = DrawAdvancedTextNoOutline
-    SHX15_2 = 0.403 + SHX13_2
-    SHX16_2 = 0.05 * SHX12_2
-    SHX16_2 = 0.675 + SHX16_2
-    SHX17_2 = 0.005
-    SHX18_2 = 0.02
-    SHX19_2 = 0.24
-    SHX20_2 = SHX10_2
-    SHX21_2 = 0
-    SHX22_2 = 0
-    SHX23_2 = 0
-    SHX24_2 = 255
-    SHX25_2 = 0
-    SHX26_2 = 0
-    SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-    SHX14_2 = CursorInArea
-    SHX15_2 = 0.2505 + SHX13_2
-    SHX16_2 = 0.3655 + SHX13_2
-    SHX17_2 = SHX12_2 * 0.05
-    SHX17_2 = 0.665 + SHX17_2
-    SHX18_2 = SHX12_2 * 0.05
-    SHX18_2 = 0.705 + SHX18_2
-    SHX14_2 = SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    if SHX14_2 then
-      SHX14_2 = IsDisabledControlJustPressed
-      SHX15_2 = 0
-      SHX16_2 = 24
-      SHX14_2 = SHX14_2(SHX15_2, SHX16_2)
-      if SHX14_2 then
-        SHX60_1 = SHX11_2
-        SHX61_1 = SHX10_2
+    flag4 = 0
+    ::flow_label_680::
+    workValue3 = flag4 * 4
+    workValue3 = modelHash - workValue3
+    workValue3 = workValue3 * 0.125
+    nameValue = DrawRect
+    nameValue2 = 0.308 + workValue3
+    numberValue5 = 0.05 * flag4
+    numberValue5 = 0.685 + numberValue5
+    numberValue7 = 0.115
+    workValue8 = 0.02
+    dataTable5 = 255
+    numberValue11 = 255
+    numberValue12 = 255
+    numberValue13 = 230
+    nameValue(nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13)
+    nameValue = DrawAdvancedTextNoOutline
+    nameValue2 = 0.403 + workValue3
+    numberValue5 = 0.05 * flag4
+    numberValue5 = 0.675 + numberValue5
+    numberValue7 = 0.005
+    workValue8 = 0.02
+    dataTable5 = 0.24
+    numberValue11 = workValue
+    numberValue12 = 0
+    numberValue13 = 0
+    numberValue14 = 0
+    numberValue16 = 255
+    numberValue17 = 0
+    numberValue18 = 0
+    nameValue(nameValue2, numberValue5, numberValue7, workValue8, dataTable5, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18)
+    nameValue = CursorInArea
+    nameValue2 = 0.2505 + workValue3
+    numberValue5 = 0.3655 + workValue3
+    numberValue7 = flag4 * 0.05
+    numberValue7 = 0.665 + numberValue7
+    workValue8 = flag4 * 0.05
+    workValue8 = 0.705 + workValue8
+    nameValue = nameValue(nameValue2, numberValue5, numberValue7, workValue8)
+    if nameValue then
+      nameValue = IsDisabledControlJustPressed
+      nameValue2 = 0
+      numberValue5 = 24
+      nameValue = nameValue(nameValue2, numberValue5)
+      if nameValue then
+        dataTable39 = textValue8
+        dataTable40 = workValue
       end
     end
-    SHX5_2 = SHX5_2 + 1
+    modelHash = modelHash + 1
   end
 end
-SHX75_1 = _ENV
-SHX76_1 = "CMG"
-SHX75_1 = SHX75_1[SHX76_1]
-SHX76_1 = "createThreadOnTick"
-SHX75_1 = SHX75_1[SHX76_1]
-SHX76_1 = SHX74_1
-SHX77_1 = "Car Dev"
-SHX75_1(SHX76_1, SHX77_1)
-SHX75_1 = _ENV
-SHX76_1 = "RegisterNetEvent"
-SHX75_1 = SHX75_1[SHX76_1]
-SHX76_1 = "9f1be64859"
-function SHX77_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.clientPrompt
-  SHX2_2 = "Car Dev API Key (CTRL+A & CTRL+C)"
-  SHX3_2 = SHX0_2
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+textValue35 = _ENV
+textValue36 = "CMG"
+textValue35 = textValue35[textValue36]
+textValue36 = "createThreadOnTick"
+textValue35 = textValue35[textValue36]
+textValue36 = textValue34
+textValue37 = "Car Dev"
+textValue35(textValue36, textValue37)
+textValue35 = _ENV
+textValue36 = "RegisterNetEvent"
+textValue35 = textValue35[textValue36]
+textValue36 = "9f1be64859"
+function textValue37(arg1)
+  local arg2, arg3, textValue17, numberValue24
+  arg2 = CMG
+  arg2 = arg2.clientPrompt
+  arg3 = "Car Dev API Key (CTRL+A & CTRL+C)"
+  textValue17 = arg1
+  function numberValue24()
+    local arg12, arg22
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  arg2(arg3, textValue17, numberValue24)
 end
-SHX75_1(SHX76_1, SHX77_1)
+textValue35(textValue36, textValue37)

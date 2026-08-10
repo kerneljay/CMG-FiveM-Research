@@ -1,4 +1,29 @@
 --[[
+    BEGINNER GUIDE — Quickcharges
+    =============================
+
+    File: cmg/prod/client/ui/cl_quickcharges.lua
+    Purpose: This file contains menu/UI logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_pnc
+
+    Network/hash identifiers found: 3
+      They are intentionally left unchanged because matching server code may use them.
+      * 61172cd221
+      * c08019918f
+      * 9276adb44e
+
+]]
+--[[
     Quick Charges - beginner-friendly rewrite
     =========================================
 

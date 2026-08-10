@@ -1,200 +1,234 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_weaponsonback.lua
+    ====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_weaponsonback"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = CMG
-SHX1_1 = SHX1_1.loadModule
-SHX2_1 = "cfg/weapons"
-SHX1_1 = SHX1_1(SHX2_1)
-SHX2_1 = "cmg_chain_on_back"
-SHX3_1 = {}
-SHX4_1 = {}
-SHX5_1 = ipairs
-SHX6_1 = SHX0_1.chainOnBackWeaponNames
-if not SHX6_1 then
-  SHX6_1 = {}
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Weaponsonback
+    ==============================
+
+    File: cmg/prod/client/misc/cl_weaponsonback.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_weaponsonback
+      * cfg/weapons
+
+    Network/hash identifiers found: 6
+      They are intentionally left unchanged because matching server code may use them.
+      * 2d7bd9be41
+      * 311dece672
+      * c4b3821d33
+      * 45968dd649
+      * b6b9f5a6b2
+      * 21f52e326d
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+    Example player-facing text in this file:
+      * onPlayerDropped
+
+]]
+local cmgCall, cmgCall3, textValue3, dataTable, dataTable2, iterator, dataTable3, workValue16, workValue17, cmgCall6, cmgCall2, hashValue, numberValue, numberValue2, workValue5, workValue7, workValue9, workValue11, workValue13, numberValue3, eventRegistration, textValue, workValue14, cmgCall4, cmgCall5, textValue2, workValue15, flag6
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+cmgCall3 = "cfg/cfg_weaponsonback"
+-- Beginner: result below is config.
+cmgCall = cmgCall(cmgCall3)
+cmgCall3 = CMG
+cmgCall3 = cmgCall3.loadModule
+textValue3 = "cfg/weapons"
+-- Beginner: result below is config.
+cmgCall3 = cmgCall3(textValue3)
+textValue3 = "cmg_chain_on_back"
+dataTable = {}
+dataTable2 = {}
+iterator = ipairs
+dataTable3 = cmgCall.chainOnBackWeaponNames
+if not dataTable3 then
+  dataTable3 = {}
 end
-SHX5_1, SHX6_1, SHX7_1, SHX8_1 = SHX5_1(SHX6_1)
-for SHX9_1, SHX10_1 in SHX5_1, SHX6_1, SHX7_1, SHX8_1 do
-  SHX11_1 = GetHashKey
-  SHX12_1 = SHX10_1
-  SHX11_1 = SHX11_1(SHX12_1)
-  SHX4_1[SHX11_1] = SHX10_1
+iterator, dataTable3, workValue16, workValue17 = iterator(dataTable3)
+for cmgCall6, cmgCall2 in iterator, dataTable3, workValue16, workValue17 do
+  hashValue = GetHashKey
+  numberValue = cmgCall2
+  -- Beginner: result below is hash.
+  hashValue = hashValue(numberValue)
+  dataTable2[hashValue] = cmgCall2
 end
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = {}
-  SHX1_2 = pairs
-  SHX2_2 = SHX3_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = {}
-    SHX8_2 = SHX6_2[1]
-    SHX9_2 = SHX6_2[2]
-    SHX10_2 = SHX6_2[3]
-    SHX11_2 = SHX6_2[4]
-    SHX12_2 = SHX6_2[5]
-    SHX13_2 = SHX6_2[6]
-    SHX7_2[1] = SHX8_2
-    SHX7_2[2] = SHX9_2
-    SHX7_2[3] = SHX10_2
-    SHX7_2[4] = SHX11_2
-    SHX7_2[5] = SHX12_2
-    SHX7_2[6] = SHX13_2
-    SHX0_2[SHX5_2] = SHX7_2
+function iterator()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
+  arg1 = {}
+  arg2 = pairs
+  arg3 = dataTable
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    dataTable4 = {}
+    workValue18 = arg7[1]
+    workValue19 = arg7[2]
+    workValue = arg7[3]
+    workValue2 = arg7[4]
+    workValue3 = arg7[5]
+    workValue4 = arg7[6]
+    dataTable4[1] = workValue18
+    dataTable4[2] = workValue19
+    dataTable4[3] = workValue
+    dataTable4[4] = workValue2
+    dataTable4[5] = workValue3
+    dataTable4[6] = workValue4
+    arg1[arg6] = dataTable4
   end
-  return SHX0_2
+  return arg1
 end
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SetResourceKvp
-  SHX1_2 = SHX2_1
-  SHX2_2 = json
-  SHX2_2 = SHX2_2.encode
-  SHX3_2 = SHX3_1
-  SHX2_2, SHX3_2, SHX4_2 = SHX2_2(SHX3_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = LocalPlayer
-  if SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    if SHX0_2 then
-      SHX0_2 = LocalPlayer
-      SHX0_2 = SHX0_2.state
-      SHX1_2 = SHX0_2
-      SHX0_2 = SHX0_2.set
-      SHX2_2 = "chainOnBack"
-      SHX3_2 = SHX5_1
-      SHX3_2 = SHX3_2()
-      SHX4_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+function dataTable3()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = SetResourceKvp
+  arg2 = textValue3
+  arg3 = json
+  arg3 = arg3.encode
+  arg4 = dataTable
+  arg3, arg4, arg5 = arg3(arg4)
+  arg1(arg2, arg3, arg4, arg5)
+  arg1 = LocalPlayer
+  if arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    if arg1 then
+      arg1 = LocalPlayer
+      arg1 = arg1.state
+      arg2 = arg1
+      arg1 = arg1.set
+      arg3 = "chainOnBack"
+      arg4 = iterator
+      arg4 = arg4()
+      arg5 = true
+      arg1(arg2, arg3, arg4, arg5)
     end
   end
 end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX0_2 = {}
-  SHX3_1 = SHX0_2
-  SHX0_2 = GetResourceKvpString
-  SHX1_2 = SHX2_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 or "" == SHX0_2 then
+function workValue16()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12
+  arg1 = {}
+  dataTable = arg1
+  arg1 = GetResourceKvpString
+  arg2 = textValue3
+  arg1 = arg1(arg2)
+  if not arg1 or "" == arg1 then
     return
   end
-  SHX1_2 = pcall
-  SHX2_2 = json
-  SHX2_2 = SHX2_2.decode
-  SHX3_2 = SHX0_2
-  SHX1_2, SHX2_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 then
-    SHX3_2 = type
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if "table" == SHX3_2 then
-      goto SHX_LABEL_25
+  arg2 = pcall
+  arg3 = json
+  arg3 = arg3.decode
+  arg4 = arg1
+  arg2, arg3 = arg2(arg3, arg4)
+  if arg2 then
+    arg4 = type
+    arg5 = arg3
+    arg4 = arg4(arg5)
+    if "table" == arg4 then
+      goto flow_label_25
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_25:: outside nested blocks until all 'goto SHX_LABEL_25' can see it
-  ::SHX_LABEL_25::
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = type
-    SHX10_2 = SHX7_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    if "string" == SHX9_2 then
-      SHX9_2 = type
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if "table" == SHX9_2 then
-        SHX9_2 = SHX8_2[1]
-        if SHX9_2 then
-          SHX9_2 = SHX8_2[2]
-          if SHX9_2 then
-            SHX9_2 = SHX8_2[3]
-            if SHX9_2 then
-              SHX9_2 = SHX8_2[4]
-              if SHX9_2 then
-                SHX9_2 = SHX8_2[5]
-                if SHX9_2 then
-                  SHX9_2 = SHX8_2[6]
-                  if SHX9_2 then
-                    SHX9_2 = SHX3_1
-                    SHX10_2 = {}
-                    SHX11_2 = tonumber
-                    SHX12_2 = SHX8_2[1]
-                    SHX11_2 = SHX11_2(SHX12_2)
-                    if not SHX11_2 then
-                      SHX11_2 = 0.0
+  ::flow_label_25::
+  arg4 = pairs
+  arg5 = arg3
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for dataTable4, workValue18 in arg4, arg5, arg6, arg7 do
+    workValue19 = type
+    workValue = dataTable4
+    workValue19 = workValue19(workValue)
+    if "string" == workValue19 then
+      workValue19 = type
+      workValue = workValue18
+      workValue19 = workValue19(workValue)
+      if "table" == workValue19 then
+        workValue19 = workValue18[1]
+        if workValue19 then
+          workValue19 = workValue18[2]
+          if workValue19 then
+            workValue19 = workValue18[3]
+            if workValue19 then
+              workValue19 = workValue18[4]
+              if workValue19 then
+                workValue19 = workValue18[5]
+                if workValue19 then
+                  workValue19 = workValue18[6]
+                  if workValue19 then
+                    workValue19 = dataTable
+                    workValue = {}
+                    workValue2 = tonumber
+                    workValue3 = workValue18[1]
+                    workValue2 = workValue2(workValue3)
+                    if not workValue2 then
+                      workValue2 = 0.0
                     end
-                    SHX12_2 = tonumber
-                    SHX13_2 = SHX8_2[2]
-                    SHX12_2 = SHX12_2(SHX13_2)
-                    if not SHX12_2 then
-                      SHX12_2 = 0.0
+                    workValue3 = tonumber
+                    workValue4 = workValue18[2]
+                    workValue3 = workValue3(workValue4)
+                    if not workValue3 then
+                      workValue3 = 0.0
                     end
-                    SHX13_2 = tonumber
-                    SHX14_2 = SHX8_2[3]
-                    SHX13_2 = SHX13_2(SHX14_2)
-                    if not SHX13_2 then
-                      SHX13_2 = 0.0
+                    workValue4 = tonumber
+                    workValue6 = workValue18[3]
+                    workValue4 = workValue4(workValue6)
+                    if not workValue4 then
+                      workValue4 = 0.0
                     end
-                    SHX14_2 = tonumber
-                    SHX15_2 = SHX8_2[4]
-                    SHX14_2 = SHX14_2(SHX15_2)
-                    if not SHX14_2 then
-                      SHX14_2 = 0.0
+                    workValue6 = tonumber
+                    workValue8 = workValue18[4]
+                    workValue6 = workValue6(workValue8)
+                    if not workValue6 then
+                      workValue6 = 0.0
                     end
-                    SHX15_2 = tonumber
-                    SHX16_2 = SHX8_2[5]
-                    SHX15_2 = SHX15_2(SHX16_2)
-                    if not SHX15_2 then
-                      SHX15_2 = 0.0
+                    workValue8 = tonumber
+                    workValue10 = workValue18[5]
+                    workValue8 = workValue8(workValue10)
+                    if not workValue8 then
+                      workValue8 = 0.0
                     end
-                    SHX16_2 = tonumber
-                    SHX17_2 = SHX8_2[6]
-                    SHX16_2 = SHX16_2(SHX17_2)
-                    if not SHX16_2 then
-                      SHX16_2 = 0.0
+                    workValue10 = tonumber
+                    workValue12 = workValue18[6]
+                    workValue10 = workValue10(workValue12)
+                    if not workValue10 then
+                      workValue10 = 0.0
                     end
-                    SHX10_2[1] = SHX11_2
-                    SHX10_2[2] = SHX12_2
-                    SHX10_2[3] = SHX13_2
-                    SHX10_2[4] = SHX14_2
-                    SHX10_2[5] = SHX15_2
-                    SHX10_2[6] = SHX16_2
-                    SHX9_2[SHX7_2] = SHX10_2
+                    workValue[1] = workValue2
+                    workValue[2] = workValue3
+                    workValue[3] = workValue4
+                    workValue[4] = workValue6
+                    workValue[5] = workValue8
+                    workValue[6] = workValue10
+                    workValue19[dataTable4] = workValue
                   end
                 end
               end
@@ -205,317 +239,285 @@ function SHX7_1()
     end
   end
 end
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  if SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    if SHX0_2 then
-      SHX0_2 = LocalPlayer
-      SHX0_2 = SHX0_2.state
-      SHX1_2 = SHX0_2
-      SHX0_2 = SHX0_2.set
-      SHX2_2 = "chainOnBack"
-      SHX3_2 = SHX5_1
-      SHX3_2 = SHX3_2()
-      SHX4_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+function workValue17()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  if arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    if arg1 then
+      arg1 = LocalPlayer
+      arg1 = arg1.state
+      arg2 = arg1
+      arg1 = arg1.set
+      arg3 = "chainOnBack"
+      arg4 = iterator
+      arg4 = arg4()
+      arg5 = true
+      arg1(arg2, arg3, arg4, arg5)
     end
   end
 end
-SHX9_1 = CMG
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = GetHashKey
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX0_1.weapons
-  SHX2_2 = SHX2_2[SHX1_2]
-  if not SHX2_2 then
-    SHX3_2 = vector3
-    SHX4_2 = 0.0
-    SHX5_2 = 0.0
-    SHX6_2 = 0.0
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX4_2 = vector3
-    SHX5_2 = 0.0
-    SHX6_2 = 0.0
-    SHX7_2 = 0.0
-    SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    return SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
+cmgCall6 = CMG
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4
+  arg2 = GetHashKey
+  arg3 = arg1
+  -- Beginner: result below is hash.
+  arg2 = arg2(arg3)
+  arg3 = cmgCall.weapons
+  arg3 = arg3[arg2]
+  if not arg3 then
+    arg4 = vector3
+    arg5 = 0.0
+    arg6 = 0.0
+    arg7 = 0.0
+    arg4 = arg4(arg5, arg6, arg7)
+    arg5 = vector3
+    arg6 = 0.0
+    arg7 = 0.0
+    dataTable4 = 0.0
+    arg5, arg6, arg7, dataTable4 = arg5(arg6, arg7, dataTable4)
+    return arg4, arg5, arg6, arg7, dataTable4
   end
-  SHX3_2 = SHX2_2.offset
-  SHX4_2 = SHX2_2.rotation
-  return SHX3_2, SHX4_2
+  arg4 = arg3.offset
+  arg5 = arg3.rotation
+  return arg4, arg5
 end
-SHX9_1.getChainOnBackCfgTransform = SHX10_1
-SHX9_1 = CMG
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getChainOnBackCfgTransform
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2 = SHX1_2(SHX2_2)
-  SHX3_2 = SHX3_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  if SHX3_2 then
-    SHX4_2 = SHX3_2[1]
-    SHX5_2 = SHX3_2[2]
-    SHX6_2 = SHX3_2[3]
-    SHX7_2 = SHX3_2[4]
-    SHX8_2 = SHX3_2[5]
-    SHX9_2 = SHX3_2[6]
-    return SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
+cmgCall6.getChainOnBackCfgTransform = cmgCall2
+cmgCall6 = CMG
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19
+  arg2 = CMG
+  arg2 = arg2.getChainOnBackCfgTransform
+  arg3 = arg1
+  arg2, arg3 = arg2(arg3)
+  arg4 = dataTable
+  arg4 = arg4[arg1]
+  if arg4 then
+    arg5 = arg4[1]
+    arg6 = arg4[2]
+    arg7 = arg4[3]
+    dataTable4 = arg4[4]
+    workValue18 = arg4[5]
+    workValue19 = arg4[6]
+    return arg5, arg6, arg7, dataTable4, workValue18, workValue19
   end
-  SHX4_2 = SHX1_2.x
-  SHX5_2 = SHX1_2.y
-  SHX6_2 = SHX1_2.z
-  SHX7_2 = SHX2_2.x
-  SHX8_2 = SHX2_2.y
-  SHX9_2 = SHX2_2.z
-  return SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
+  arg5 = arg2.x
+  arg6 = arg2.y
+  arg7 = arg2.z
+  dataTable4 = arg3.x
+  workValue18 = arg3.y
+  workValue19 = arg3.z
+  return arg5, arg6, arg7, dataTable4, workValue18, workValue19
 end
-SHX9_1.getChainOnBackEffectiveNumbers = SHX10_1
-SHX9_1 = Citizen
-SHX9_1 = SHX9_1.CreateThread
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX0_2()
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.Wait
-  SHX1_2 = 1000
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX8_1
-  SHX0_2()
+cmgCall6.getChainOnBackEffectiveNumbers = cmgCall2
+cmgCall6 = Citizen
+cmgCall6 = cmgCall6.CreateThread
+function cmgCall2()
+  local arg1, arg2
+  arg1 = workValue16
+  arg1()
+  arg1 = Citizen
+  arg1 = arg1.Wait
+  arg2 = 1000
+  arg1(arg2)
+  arg1 = workValue17
+  arg1()
 end
-SHX9_1(SHX10_1)
-SHX9_1 = AddEventHandler
-SHX10_1 = "CMG:onClientSpawn"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  SHX0_2()
-  SHX0_2 = SHX8_1
-  SHX0_2()
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall6(cmgCall2)
+cmgCall6 = AddEventHandler
+cmgCall2 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function hashValue()
+  local arg1, arg2
+  arg1 = workValue16
+  arg1()
+  arg1 = workValue17
+  arg1()
 end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = {}
-SHX9_1.enabled = false
-SHX9_1.hash = 313219588
-SHX9_1.bone = 39317
-SHX10_1 = vector3
-SHX11_1 = 0.02
-SHX12_1 = 0.09
-SHX13_1 = 0.01
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.offset = SHX10_1
-SHX10_1 = vector3
-SHX11_1 = 90.0
-SHX12_1 = 0.0
-SHX13_1 = 0.0
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.rotation = SHX10_1
-SHX10_1 = Citizen
-SHX10_1 = SHX10_1.CreateThread
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX1_1.weapons
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX0_1.weapons
-    SHX7_2 = SHX5_2.hash
-    SHX6_2 = SHX6_2[SHX7_2]
-    if not SHX6_2 then
-      SHX6_2 = nil
-      SHX7_2 = SHX5_2.mag
-      if SHX7_2 then
-        SHX7_2 = GetHashKey
-        SHX8_2 = SHX5_2.mag
-        SHX7_2 = SHX7_2(SHX8_2)
-        SHX6_2 = SHX7_2
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+cmgCall6(cmgCall2, hashValue)
+cmgCall6 = {}
+cmgCall6.enabled = false
+cmgCall6.hash = 313219588
+cmgCall6.bone = 39317
+cmgCall2 = vector3
+hashValue = 0.02
+numberValue = 0.09
+numberValue2 = 0.01
+cmgCall2 = cmgCall2(hashValue, numberValue, numberValue2)
+cmgCall6.offset = cmgCall2
+cmgCall2 = vector3
+hashValue = 90.0
+numberValue = 0.0
+numberValue2 = 0.0
+cmgCall2 = cmgCall2(hashValue, numberValue, numberValue2)
+cmgCall6.rotation = cmgCall2
+cmgCall2 = Citizen
+cmgCall2 = cmgCall2.CreateThread
+function hashValue()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
+  arg1 = pairs
+  arg2 = cmgCall3.weapons
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5, arg6 in arg1, arg2, arg3, arg4 do
+    arg7 = cmgCall.weapons
+    dataTable4 = arg6.hash
+    arg7 = arg7[dataTable4]
+    if not arg7 then
+      arg7 = nil
+      dataTable4 = arg6.mag
+      if dataTable4 then
+        dataTable4 = GetHashKey
+        workValue18 = arg6.mag
+        -- Beginner: result below is hash.
+        dataTable4 = dataTable4(workValue18)
+        arg7 = dataTable4
       end
-      SHX7_2 = SHX5_2.dontShowOnBack
-      if not SHX7_2 then
-        SHX7_2 = SHX5_2.class
-        if "SMG" == SHX7_2 then
-          SHX7_2 = SHX0_1.weapons
-          SHX8_2 = SHX5_2.hash
-          SHX9_2 = {}
-          SHX9_2.bone = 58271
-          SHX10_2 = vector3
-          SHX11_2 = -0.01
-          SHX12_2 = 0.1
-          SHX13_2 = -0.07
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_2.offset = SHX10_2
-          SHX10_2 = vector3
-          SHX11_2 = -55.0
-          SHX12_2 = 0.1
-          SHX13_2 = 0.0
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_2.rotation = SHX10_2
-          SHX10_2 = GetHashKey
-          SHX11_2 = SHX5_2.model
-          SHX10_2 = SHX10_2(SHX11_2)
-          SHX9_2.model = SHX10_2
-          SHX9_2.type = "SMG"
-          SHX9_2.magComponent = SHX6_2
-          SHX7_2[SHX8_2] = SHX9_2
+      dataTable4 = arg6.dontShowOnBack
+      if not dataTable4 then
+        dataTable4 = arg6.class
+        if "SMG" == dataTable4 then
+          dataTable4 = cmgCall.weapons
+          workValue18 = arg6.hash
+          workValue19 = {}
+          workValue19.bone = 58271
+          workValue = vector3
+          workValue2 = -0.01
+          workValue3 = 0.1
+          workValue4 = -0.07
+          workValue = workValue(workValue2, workValue3, workValue4)
+          workValue19.offset = workValue
+          workValue = vector3
+          workValue2 = -55.0
+          workValue3 = 0.1
+          workValue4 = 0.0
+          workValue = workValue(workValue2, workValue3, workValue4)
+          workValue19.rotation = workValue
+          workValue = GetHashKey
+          workValue2 = arg6.model
+          -- Beginner: result below is hash.
+          workValue = workValue(workValue2)
+          workValue19.model = workValue
+          workValue19.type = "SMG"
+          workValue19.magComponent = arg7
+          dataTable4[workValue18] = workValue19
         else
-          SHX7_2 = SHX5_2.class
-          if "AR" == SHX7_2 then
-            SHX7_2 = SHX0_1.weapons
-            SHX8_2 = SHX5_2.hash
-            SHX9_2 = {}
-            SHX9_2.bone = 24818
-            SHX10_2 = vector3
-            SHX11_2 = -0.12
-            SHX12_2 = -0.12
-            SHX13_2 = -0.13
-            SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-            SHX9_2.offset = SHX10_2
-            SHX10_2 = vector3
-            SHX11_2 = 100.0
-            SHX12_2 = -3.0
-            SHX13_2 = 5.0
-            SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-            SHX9_2.rotation = SHX10_2
-            SHX10_2 = GetHashKey
-            SHX11_2 = SHX5_2.model
-            SHX10_2 = SHX10_2(SHX11_2)
-            SHX9_2.model = SHX10_2
-            SHX9_2.type = "AR"
-            SHX9_2.magComponent = SHX6_2
-            SHX7_2[SHX8_2] = SHX9_2
+          dataTable4 = arg6.class
+          if "AR" == dataTable4 then
+            dataTable4 = cmgCall.weapons
+            workValue18 = arg6.hash
+            workValue19 = {}
+            workValue19.bone = 24818
+            workValue = vector3
+            workValue2 = -0.12
+            workValue3 = -0.12
+            workValue4 = -0.13
+            workValue = workValue(workValue2, workValue3, workValue4)
+            workValue19.offset = workValue
+            workValue = vector3
+            workValue2 = 100.0
+            workValue3 = -3.0
+            workValue4 = 5.0
+            workValue = workValue(workValue2, workValue3, workValue4)
+            workValue19.rotation = workValue
+            workValue = GetHashKey
+            workValue2 = arg6.model
+            -- Beginner: result below is hash.
+            workValue = workValue(workValue2)
+            workValue19.model = workValue
+            workValue19.type = "AR"
+            workValue19.magComponent = arg7
+            dataTable4[workValue18] = workValue19
           else
-            SHX7_2 = SHX5_2.class
-            if "Heavy" == SHX7_2 then
-              SHX7_2 = SHX0_1.weapons
-              SHX8_2 = SHX5_2.hash
-              SHX9_2 = {}
-              SHX9_2.bone = 24818
-              SHX10_2 = vector3
-              SHX11_2 = -0.12
-              SHX12_2 = -0.12
-              SHX13_2 = -0.13
-              SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-              SHX9_2.offset = SHX10_2
-              SHX10_2 = vector3
-              SHX11_2 = 100.0
-              SHX12_2 = -3.0
-              SHX13_2 = 5.0
-              SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-              SHX9_2.rotation = SHX10_2
-              SHX10_2 = GetHashKey
-              SHX11_2 = SHX5_2.model
-              SHX10_2 = SHX10_2(SHX11_2)
-              SHX9_2.model = SHX10_2
-              SHX9_2.type = "Heavy"
-              SHX9_2.magComponent = SHX6_2
-              SHX7_2[SHX8_2] = SHX9_2
+            dataTable4 = arg6.class
+            if "Heavy" == dataTable4 then
+              dataTable4 = cmgCall.weapons
+              workValue18 = arg6.hash
+              workValue19 = {}
+              workValue19.bone = 24818
+              workValue = vector3
+              workValue2 = -0.12
+              workValue3 = -0.12
+              workValue4 = -0.13
+              workValue = workValue(workValue2, workValue3, workValue4)
+              workValue19.offset = workValue
+              workValue = vector3
+              workValue2 = 100.0
+              workValue3 = -3.0
+              workValue4 = 5.0
+              workValue = workValue(workValue2, workValue3, workValue4)
+              workValue19.rotation = workValue
+              workValue = GetHashKey
+              workValue2 = arg6.model
+              -- Beginner: result below is hash.
+              workValue = workValue(workValue2)
+              workValue19.model = workValue
+              workValue19.type = "Heavy"
+              workValue19.magComponent = arg7
+              dataTable4[workValue18] = workValue19
             else
-              SHX7_2 = SHX5_2.class
-              if "Melee" == SHX7_2 then
-                SHX7_2 = SHX5_2.subType
-                if "knuckle" ~= SHX7_2 then
-                  SHX7_2 = SHX5_2.subType
-                  if "stungun" ~= SHX7_2 then
-                    SHX7_2 = SHX0_1.weapons
-                    SHX8_2 = SHX5_2.hash
-                    SHX9_2 = {}
-                    SHX9_2.bone = 24818
-                    SHX10_2 = vector3
-                    SHX11_2 = 0.32
-                    SHX12_2 = -0.15
-                    SHX13_2 = 0.13
-                    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-                    SHX9_2.offset = SHX10_2
-                    SHX10_2 = vector3
-                    SHX11_2 = 0.0
-                    SHX12_2 = -90.0
-                    SHX13_2 = 0.0
-                    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-                    SHX9_2.rotation = SHX10_2
-                    SHX10_2 = GetHashKey
-                    SHX11_2 = SHX5_2.model
-                    SHX10_2 = SHX10_2(SHX11_2)
-                    SHX9_2.model = SHX10_2
-                    SHX9_2.type = "Melee"
-                    SHX9_2.magComponent = SHX6_2
-                    SHX7_2[SHX8_2] = SHX9_2
+              dataTable4 = arg6.class
+              if "Melee" == dataTable4 then
+                dataTable4 = arg6.subType
+                if "knuckle" ~= dataTable4 then
+                  dataTable4 = arg6.subType
+                  if "stungun" ~= dataTable4 then
+                    dataTable4 = cmgCall.weapons
+                    workValue18 = arg6.hash
+                    workValue19 = {}
+                    workValue19.bone = 24818
+                    workValue = vector3
+                    workValue2 = 0.32
+                    workValue3 = -0.15
+                    workValue4 = 0.13
+                    workValue = workValue(workValue2, workValue3, workValue4)
+                    workValue19.offset = workValue
+                    workValue = vector3
+                    workValue2 = 0.0
+                    workValue3 = -90.0
+                    workValue4 = 0.0
+                    workValue = workValue(workValue2, workValue3, workValue4)
+                    workValue19.rotation = workValue
+                    workValue = GetHashKey
+                    workValue2 = arg6.model
+                    -- Beginner: result below is hash.
+                    workValue = workValue(workValue2)
+                    workValue19.model = workValue
+                    workValue19.type = "Melee"
+                    workValue19.magComponent = arg7
+                    dataTable4[workValue18] = workValue19
                 end
               end
               else
-                SHX7_2 = SHX5_2.class
-                if "Shotgun" == SHX7_2 then
-                  SHX7_2 = SHX0_1.weapons
-                  SHX8_2 = SHX5_2.hash
-                  SHX9_2 = {}
-                  SHX9_2.bone = 24818
-                  SHX10_2 = vector3
-                  SHX11_2 = -0.12
-                  SHX12_2 = -0.12
-                  SHX13_2 = -0.13
-                  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-                  SHX9_2.offset = SHX10_2
-                  SHX10_2 = vector3
-                  SHX11_2 = 100.0
-                  SHX12_2 = -3.0
-                  SHX13_2 = 5.0
-                  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-                  SHX9_2.rotation = SHX10_2
-                  SHX10_2 = GetHashKey
-                  SHX11_2 = SHX5_2.model
-                  SHX10_2 = SHX10_2(SHX11_2)
-                  SHX9_2.model = SHX10_2
-                  SHX9_2.type = "Shotgun"
-                  SHX9_2.magComponent = SHX6_2
-                  SHX7_2[SHX8_2] = SHX9_2
+                dataTable4 = arg6.class
+                if "Shotgun" == dataTable4 then
+                  dataTable4 = cmgCall.weapons
+                  workValue18 = arg6.hash
+                  workValue19 = {}
+                  workValue19.bone = 24818
+                  workValue = vector3
+                  workValue2 = -0.12
+                  workValue3 = -0.12
+                  workValue4 = -0.13
+                  workValue = workValue(workValue2, workValue3, workValue4)
+                  workValue19.offset = workValue
+                  workValue = vector3
+                  workValue2 = 100.0
+                  workValue3 = -3.0
+                  workValue4 = 5.0
+                  workValue = workValue(workValue2, workValue3, workValue4)
+                  workValue19.rotation = workValue
+                  workValue = GetHashKey
+                  workValue2 = arg6.model
+                  -- Beginner: result below is hash.
+                  workValue = workValue(workValue2)
+                  workValue19.model = workValue
+                  workValue19.type = "Shotgun"
+                  workValue19.magComponent = arg7
+                  dataTable4[workValue18] = workValue19
                 end
               end
             end
@@ -525,1662 +527,1506 @@ function SHX11_1()
     end
   end
 end
-SHX10_1(SHX11_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "2d7bd9be41"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  SHX0_2 = SHX0_2.state
-  SHX0_2 = SHX0_2.weaponsDiagonal
-  if not SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    SHX1_2 = SHX0_2
-    SHX0_2 = SHX0_2.set
-    SHX2_2 = "weaponsDiagonal"
-    SHX3_2 = true
-    SHX4_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall2(hashValue)
+cmgCall2 = AddEventHandler
+hashValue = "2d7bd9be41"
+-- Beginner: this function runs when client event "2d7bd9be41" fires.
+function numberValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  arg1 = arg1.state
+  arg1 = arg1.weaponsDiagonal
+  if not arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    arg2 = arg1
+    arg1 = arg1.set
+    arg3 = "weaponsDiagonal"
+    arg4 = true
+    arg5 = true
+    arg1(arg2, arg3, arg4, arg5)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "311dece672"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  SHX0_2 = SHX0_2.state
-  SHX0_2 = SHX0_2.weaponsDiagonal
-  if SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    SHX1_2 = SHX0_2
-    SHX0_2 = SHX0_2.set
-    SHX2_2 = "weaponsDiagonal"
-    SHX3_2 = nil
-    SHX4_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a client-side event handler. Event/command: "2d7bd9be41".
+cmgCall2(hashValue, numberValue)
+cmgCall2 = AddEventHandler
+hashValue = "311dece672"
+-- Beginner: this function runs when client event "311dece672" fires.
+function numberValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  arg1 = arg1.state
+  arg1 = arg1.weaponsDiagonal
+  if arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    arg2 = arg1
+    arg1 = arg1.set
+    arg3 = "weaponsDiagonal"
+    arg4 = nil
+    arg5 = true
+    arg1(arg2, arg3, arg4, arg5)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "c4b3821d33"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  SHX0_2 = SHX0_2.state
-  SHX0_2 = SHX0_2.frontAR
-  if not SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    SHX1_2 = SHX0_2
-    SHX0_2 = SHX0_2.set
-    SHX2_2 = "frontAR"
-    SHX3_2 = true
-    SHX4_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a client-side event handler. Event/command: "311dece672".
+cmgCall2(hashValue, numberValue)
+cmgCall2 = AddEventHandler
+hashValue = "c4b3821d33"
+-- Beginner: this function runs when client event "c4b3821d33" fires.
+function numberValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  arg1 = arg1.state
+  arg1 = arg1.frontAR
+  if not arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    arg2 = arg1
+    arg1 = arg1.set
+    arg3 = "frontAR"
+    arg4 = true
+    arg5 = true
+    arg1(arg2, arg3, arg4, arg5)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "45968dd649"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  SHX0_2 = SHX0_2.state
-  SHX0_2 = SHX0_2.frontAR
-  if SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    SHX1_2 = SHX0_2
-    SHX0_2 = SHX0_2.set
-    SHX2_2 = "frontAR"
-    SHX3_2 = nil
-    SHX4_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a client-side event handler. Event/command: "c4b3821d33".
+cmgCall2(hashValue, numberValue)
+cmgCall2 = AddEventHandler
+hashValue = "45968dd649"
+-- Beginner: this function runs when client event "45968dd649" fires.
+function numberValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  arg1 = arg1.state
+  arg1 = arg1.frontAR
+  if arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    arg2 = arg1
+    arg1 = arg1.set
+    arg3 = "frontAR"
+    arg4 = nil
+    arg5 = true
+    arg1(arg2, arg3, arg4, arg5)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "b6b9f5a6b2"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  SHX0_2 = SHX0_2.state
-  SHX0_2 = SHX0_2.frontSMG
-  if not SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    SHX1_2 = SHX0_2
-    SHX0_2 = SHX0_2.set
-    SHX2_2 = "frontSMG"
-    SHX3_2 = true
-    SHX4_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a client-side event handler. Event/command: "45968dd649".
+cmgCall2(hashValue, numberValue)
+cmgCall2 = AddEventHandler
+hashValue = "b6b9f5a6b2"
+-- Beginner: this function runs when client event "b6b9f5a6b2" fires.
+function numberValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  arg1 = arg1.state
+  arg1 = arg1.frontSMG
+  if not arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    arg2 = arg1
+    arg1 = arg1.set
+    arg3 = "frontSMG"
+    arg4 = true
+    arg5 = true
+    arg1(arg2, arg3, arg4, arg5)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "21f52e326d"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = LocalPlayer
-  SHX0_2 = SHX0_2.state
-  SHX0_2 = SHX0_2.frontSMG
-  if SHX0_2 then
-    SHX0_2 = LocalPlayer
-    SHX0_2 = SHX0_2.state
-    SHX1_2 = SHX0_2
-    SHX0_2 = SHX0_2.set
-    SHX2_2 = "frontSMG"
-    SHX3_2 = nil
-    SHX4_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a client-side event handler. Event/command: "b6b9f5a6b2".
+cmgCall2(hashValue, numberValue)
+cmgCall2 = AddEventHandler
+hashValue = "21f52e326d"
+-- Beginner: this function runs when client event "21f52e326d" fires.
+function numberValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = LocalPlayer
+  arg1 = arg1.state
+  arg1 = arg1.frontSMG
+  if arg1 then
+    arg1 = LocalPlayer
+    arg1 = arg1.state
+    arg2 = arg1
+    arg1 = arg1.set
+    arg3 = "frontSMG"
+    arg4 = nil
+    arg5 = true
+    arg1(arg2, arg3, arg4, arg5)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = {}
-SHX11_1 = {}
-SHX12_1 = {}
-SHX13_1 = 0
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = GetSelectedPedWeapon
-  SHX1_2 = PlayerPedId
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX1_2()
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getCachedWeaponStore
-  SHX1_2 = SHX1_2()
-  SHX2_2 = false
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.hasClientPermission
-  SHX4_2 = "police.onduty.permission"
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getPlayerVehicle
-    SHX3_2 = SHX3_2()
-    SHX3_2 = 0 ~= SHX3_2
+-- Beginner: Register a client-side event handler. Event/command: "21f52e326d".
+cmgCall2(hashValue, numberValue)
+cmgCall2 = {}
+hashValue = {}
+numberValue = {}
+numberValue2 = 0
+function workValue5()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3
+  arg1 = GetSelectedPedWeapon
+  arg2 = PlayerPedId
+  arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3 = arg2()
+  -- Beginner: result below is weaponHash.
+  arg1 = arg1(arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3)
+  arg2 = CMG
+  arg2 = arg2.getCachedWeaponStore
+  arg2 = arg2()
+  arg3 = false
+  arg4 = CMG
+  arg4 = arg4.hasClientPermission
+  arg5 = "police.onduty.permission"
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = CMG
+    arg4 = arg4.getPlayerVehicle
+    -- Beginner: result below is currentVehicle.
+    arg4 = arg4()
+    arg4 = 0 ~= arg4
   end
-  SHX4_2 = pairs
-  SHX5_2 = SHX1_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX9_2 = GetHashKey
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX10_2 = SHX0_1.weapons
-    SHX10_2 = SHX10_2[SHX9_2]
-    if SHX10_2 then
-      if SHX3_2 then
-        SHX11_2 = SHX10_2.type
+  arg5 = pairs
+  arg6 = arg2
+  arg5, arg6, arg7, dataTable4 = arg5(arg6)
+  for workValue18 in arg5, arg6, arg7, dataTable4 do
+    workValue19 = GetHashKey
+    workValue = workValue18
+    -- Beginner: result below is hash.
+    workValue19 = workValue19(workValue)
+    workValue = cmgCall.weapons
+    workValue = workValue[workValue19]
+    if workValue then
+      if arg4 then
+        workValue2 = workValue.type
       end
-      SHX11_2 = CMG
-      SHX11_2 = SHX11_2.isEmergencyService
-      SHX11_2 = SHX11_2()
-      if not SHX11_2 then
-        SHX11_2 = tCMG
-        SHX11_2 = SHX11_2.isInGreenzone
-        SHX12_2 = false
-        SHX11_2 = SHX11_2(SHX12_2)
-        SHX11_2 = "Heavy" ~= SHX11_2 and SHX11_2
+      workValue2 = CMG
+      workValue2 = workValue2.isEmergencyService
+      workValue2 = workValue2()
+      if not workValue2 then
+        workValue2 = tCMG
+        workValue2 = workValue2.isInGreenzone
+        workValue3 = false
+        workValue2 = workValue2(workValue3)
+        workValue2 = "Heavy" ~= workValue2 and workValue2
       end
-      SHX12_2 = SHX10_1
-      SHX12_2 = SHX12_2[SHX9_2]
-      if SHX12_2 and not SHX11_2 then
-        SHX12_2 = SHX10_1
-        SHX12_2[SHX9_2] = nil
-        SHX2_2 = true
+      workValue3 = cmgCall2
+      workValue3 = workValue3[workValue19]
+      if workValue3 and not workValue2 then
+        workValue3 = cmgCall2
+        workValue3[workValue19] = nil
+        arg3 = true
       else
-        SHX12_2 = SHX10_1
-        SHX12_2 = SHX12_2[SHX9_2]
-        if not SHX12_2 and SHX9_2 ~= SHX0_2 and SHX11_2 then
-          SHX12_2 = SHX10_1
-          SHX12_2[SHX9_2] = SHX8_2
-          SHX2_2 = true
+        workValue3 = cmgCall2
+        workValue3 = workValue3[workValue19]
+        if not workValue3 and workValue19 ~= arg1 and workValue2 then
+          workValue3 = cmgCall2
+          workValue3[workValue19] = workValue18
+          arg3 = true
         end
       end
     end
   end
-  SHX4_2 = pairs
-  SHX5_2 = SHX10_1
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = SHX1_2[SHX9_2]
-    if not SHX10_2 or SHX8_2 == SHX0_2 then
-      SHX10_2 = SHX10_1
-      SHX10_2[SHX8_2] = nil
-      SHX2_2 = true
+  arg5 = pairs
+  arg6 = cmgCall2
+  arg5, arg6, arg7, dataTable4 = arg5(arg6)
+  for workValue18, workValue19 in arg5, arg6, arg7, dataTable4 do
+    workValue = arg2[workValue19]
+    if not workValue or workValue18 == arg1 then
+      workValue = cmgCall2
+      workValue[workValue18] = nil
+      arg3 = true
     end
   end
-  if SHX2_2 then
-    SHX4_2 = {}
-    SHX5_2 = pairs
-    SHX6_2 = SHX10_1
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX10_2 = table
-      SHX10_2 = SHX10_2.insert
-      SHX11_2 = SHX4_2
-      SHX12_2 = SHX9_2
-      SHX10_2(SHX11_2, SHX12_2)
+  if arg3 then
+    arg5 = {}
+    arg6 = pairs
+    arg7 = cmgCall2
+    arg6, arg7, dataTable4, workValue18 = arg6(arg7)
+    for workValue19 in arg6, arg7, dataTable4, workValue18 do
+      workValue = table
+      workValue = workValue.insert
+      workValue2 = arg5
+      workValue3 = workValue19
+      workValue(workValue2, workValue3)
     end
-    SHX5_2 = #SHX4_2
-    if SHX5_2 > 0 then
-      SHX5_2 = LocalPlayer
-      SHX5_2 = SHX5_2.state
-      SHX6_2 = SHX5_2
-      SHX5_2 = SHX5_2.set
-      SHX7_2 = "weapons"
-      SHX8_2 = SHX4_2
-      SHX9_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+    arg6 = #arg5
+    if arg6 > 0 then
+      arg6 = LocalPlayer
+      arg6 = arg6.state
+      arg7 = arg6
+      arg6 = arg6.set
+      dataTable4 = "weapons"
+      workValue18 = arg5
+      workValue19 = true
+      arg6(arg7, dataTable4, workValue18, workValue19)
     else
-      SHX5_2 = LocalPlayer
-      SHX5_2 = SHX5_2.state
-      SHX6_2 = SHX5_2
-      SHX5_2 = SHX5_2.set
-      SHX7_2 = "weapons"
-      SHX8_2 = nil
-      SHX9_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+      arg6 = LocalPlayer
+      arg6 = arg6.state
+      arg7 = arg6
+      arg6 = arg6.set
+      dataTable4 = "weapons"
+      workValue18 = nil
+      workValue19 = true
+      arg6(arg7, dataTable4, workValue18, workValue19)
     end
   end
 end
-function SHX15_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2
-  SHX2_2 = SHX0_1.weapons
-  SHX2_2 = SHX2_2[SHX0_2]
-  if not SHX2_2 then
-    SHX3_2 = 0
-    return SHX3_2
+function workValue7(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5
+  arg3 = cmgCall.weapons
+  arg3 = arg3[arg1]
+  if not arg3 then
+    arg4 = 0
+    return arg4
   end
-  SHX3_2 = SHX2_2.bone
-  SHX4_2 = SHX2_2.offset
-  SHX5_2 = SHX2_2.rotation
-  SHX6_2 = SHX4_1
-  SHX6_2 = SHX6_2[SHX0_2]
-  if SHX6_2 then
-    SHX7_2 = nil
-    SHX8_2 = SHX1_2.ped
-    SHX9_2 = PlayerPedId
-    SHX9_2 = SHX9_2()
-    if SHX8_2 == SHX9_2 then
-      SHX8_2 = SHX3_1
-      SHX7_2 = SHX8_2[SHX6_2]
+  arg4 = arg3.bone
+  arg5 = arg3.offset
+  arg6 = arg3.rotation
+  arg7 = dataTable2
+  arg7 = arg7[arg1]
+  if arg7 then
+    dataTable4 = nil
+    workValue18 = arg2.ped
+    workValue19 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    workValue19 = workValue19()
+    if workValue18 == workValue19 then
+      workValue18 = dataTable
+      dataTable4 = workValue18[arg7]
     else
-      SHX8_2 = type
-      SHX9_2 = SHX1_2.chainOnBack
-      SHX8_2 = SHX8_2(SHX9_2)
-      if "table" == SHX8_2 then
-        SHX8_2 = SHX1_2.chainOnBack
-        SHX7_2 = SHX8_2[SHX6_2]
+      workValue18 = type
+      workValue19 = arg2.chainOnBack
+      workValue18 = workValue18(workValue19)
+      if "table" == workValue18 then
+        workValue18 = arg2.chainOnBack
+        dataTable4 = workValue18[arg7]
       end
     end
-    if SHX7_2 then
-      SHX8_2 = vector3
-      SHX9_2 = SHX7_2[1]
-      SHX10_2 = SHX7_2[2]
-      SHX11_2 = SHX7_2[3]
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX4_2 = SHX8_2
-      SHX8_2 = vector3
-      SHX9_2 = SHX7_2[4]
-      SHX10_2 = SHX7_2[5]
-      SHX11_2 = SHX7_2[6]
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX5_2 = SHX8_2
+    if dataTable4 then
+      workValue18 = vector3
+      workValue19 = dataTable4[1]
+      workValue = dataTable4[2]
+      workValue2 = dataTable4[3]
+      workValue18 = workValue18(workValue19, workValue, workValue2)
+      arg5 = workValue18
+      workValue18 = vector3
+      workValue19 = dataTable4[4]
+      workValue = dataTable4[5]
+      workValue2 = dataTable4[6]
+      workValue18 = workValue18(workValue19, workValue, workValue2)
+      arg6 = workValue18
     end
   end
-  SHX7_2 = SHX9_1.enabled
-  if SHX7_2 then
-    SHX7_2 = SHX9_1.hash
-    if SHX0_2 == SHX7_2 then
-      SHX7_2 = SHX1_2.ped
-      SHX8_2 = PlayerPedId
-      SHX8_2 = SHX8_2()
-      if SHX7_2 == SHX8_2 then
-        SHX3_2 = SHX9_1.bone
-        SHX4_2 = SHX9_1.offset
-        SHX5_2 = SHX9_1.rotation
+  dataTable4 = cmgCall6.enabled
+  if dataTable4 then
+    dataTable4 = cmgCall6.hash
+    if arg1 == dataTable4 then
+      dataTable4 = arg2.ped
+      workValue18 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      workValue18 = workValue18()
+      if dataTable4 == workValue18 then
+        arg4 = cmgCall6.bone
+        arg5 = cmgCall6.offset
+        arg6 = cmgCall6.rotation
       end
     end
   end
-  SHX7_2 = SHX1_2.diagonal
-  if SHX7_2 then
-    SHX7_2 = vector3
-    SHX8_2 = -0.12
-    SHX9_2 = -0.12
-    SHX10_2 = -0.13
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    if SHX4_2 == SHX7_2 then
-      SHX7_2 = vector3
-      SHX8_2 = 0.0
-      SHX9_2 = -0.2
-      SHX10_2 = 0.0
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX4_2 = SHX7_2
-      SHX7_2 = vector3
-      SHX8_2 = 0.0
-      SHX9_2 = 45.0
-      SHX10_2 = SHX5_2.z
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX5_2 = SHX7_2
+  dataTable4 = arg2.diagonal
+  if dataTable4 then
+    dataTable4 = vector3
+    workValue18 = -0.12
+    workValue19 = -0.12
+    workValue = -0.13
+    dataTable4 = dataTable4(workValue18, workValue19, workValue)
+    if arg5 == dataTable4 then
+      dataTable4 = vector3
+      workValue18 = 0.0
+      workValue19 = -0.2
+      workValue = 0.0
+      dataTable4 = dataTable4(workValue18, workValue19, workValue)
+      arg5 = dataTable4
+      dataTable4 = vector3
+      workValue18 = 0.0
+      workValue19 = 45.0
+      workValue = arg6.z
+      dataTable4 = dataTable4(workValue18, workValue19, workValue)
+      arg6 = dataTable4
     end
   end
-  SHX7_2 = SHX1_2.frontAR
-  if SHX7_2 then
-    SHX7_2 = SHX2_2.type
-    if "AR" == SHX7_2 then
-      SHX7_2 = vector3
-      SHX8_2 = 0.0
-      SHX9_2 = 0.18
-      SHX10_2 = 0.0
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX4_2 = SHX7_2
-      SHX7_2 = vector3
-      SHX8_2 = 180.0
-      SHX9_2 = 148.0
-      SHX10_2 = 0.0
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX5_2 = SHX7_2
+  dataTable4 = arg2.frontAR
+  if dataTable4 then
+    dataTable4 = arg3.type
+    if "AR" == dataTable4 then
+      dataTable4 = vector3
+      workValue18 = 0.0
+      workValue19 = 0.18
+      workValue = 0.0
+      dataTable4 = dataTable4(workValue18, workValue19, workValue)
+      arg5 = dataTable4
+      dataTable4 = vector3
+      workValue18 = 180.0
+      workValue19 = 148.0
+      workValue = 0.0
+      dataTable4 = dataTable4(workValue18, workValue19, workValue)
+      arg6 = dataTable4
     end
   end
-  SHX7_2 = SHX1_2.frontSMG
-  if SHX7_2 then
-    SHX7_2 = SHX2_2.type
-    if "SMG" == SHX7_2 then
-      SHX3_2 = 24818
-      SHX7_2 = vector3
-      SHX8_2 = 0.0
-      SHX9_2 = 0.18
-      SHX10_2 = 0.0
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX4_2 = SHX7_2
-      SHX7_2 = vector3
-      SHX8_2 = 180.0
-      SHX9_2 = 148.0
-      SHX10_2 = 0.0
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX5_2 = SHX7_2
+  dataTable4 = arg2.frontSMG
+  if dataTable4 then
+    dataTable4 = arg3.type
+    if "SMG" == dataTable4 then
+      arg4 = 24818
+      dataTable4 = vector3
+      workValue18 = 0.0
+      workValue19 = 0.18
+      workValue = 0.0
+      dataTable4 = dataTable4(workValue18, workValue19, workValue)
+      arg5 = dataTable4
+      dataTable4 = vector3
+      workValue18 = 180.0
+      workValue19 = 148.0
+      workValue = 0.0
+      dataTable4 = dataTable4(workValue18, workValue19, workValue)
+      arg6 = dataTable4
     end
   end
-  SHX7_2 = HasModelLoaded
-  SHX8_2 = SHX2_2.model
-  SHX7_2 = SHX7_2(SHX8_2)
-  if not SHX7_2 then
-    SHX7_2 = RequestModel
-    SHX8_2 = SHX2_2.model
-    SHX7_2(SHX8_2)
-    SHX7_2 = 0
-    return SHX7_2
+  dataTable4 = HasModelLoaded
+  workValue18 = arg3.model
+  dataTable4 = dataTable4(workValue18)
+  if not dataTable4 then
+    dataTable4 = RequestModel
+    workValue18 = arg3.model
+    dataTable4(workValue18)
+    dataTable4 = 0
+    return dataTable4
   end
-  SHX7_2 = SHX2_2.components
-  if not SHX7_2 then
-    SHX7_2 = SHX2_2.magComponent
-    if not SHX7_2 then
-      goto SHX_LABEL_145
+  dataTable4 = arg3.components
+  if not dataTable4 then
+    dataTable4 = arg3.magComponent
+    if not dataTable4 then
+      goto flow_label_145
     end
   end
-  SHX7_2 = HasWeaponAssetLoaded
-  SHX8_2 = SHX0_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  if not SHX7_2 then
-    SHX7_2 = RequestWeaponAsset
-    SHX8_2 = SHX0_2
-    SHX9_2 = 4294967295
-    SHX10_2 = 4294967295
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    SHX7_2 = 0
-    return SHX7_2
+  dataTable4 = HasWeaponAssetLoaded
+  workValue18 = arg1
+  dataTable4 = dataTable4(workValue18)
+  if not dataTable4 then
+    dataTable4 = RequestWeaponAsset
+    workValue18 = arg1
+    workValue19 = 4294967295
+    workValue = 4294967295
+    dataTable4(workValue18, workValue19, workValue)
+    dataTable4 = 0
+    return dataTable4
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_145:: outside nested blocks until all 'goto SHX_LABEL_145' can see it
-  ::SHX_LABEL_145::
-  SHX7_2 = 0
-  SHX8_2 = SHX2_2.components
-  if SHX8_2 then
-    SHX8_2 = CreateWeaponObject
-    SHX9_2 = SHX0_2
-    SHX10_2 = 0
-    SHX11_2 = 0.0
-    SHX12_2 = 0.0
-    SHX13_2 = 0.0
-    SHX14_2 = true
-    SHX15_2 = 1.0
-    SHX16_2 = false
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX7_2 = SHX8_2
-    SHX8_2 = pairs
-    SHX9_2 = SHX2_2.components
-    SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2)
-    for SHX12_2, SHX13_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-      SHX14_2 = GiveWeaponComponentToWeaponObject
-      SHX15_2 = SHX7_2
-      SHX16_2 = SHX13_2
-      SHX14_2(SHX15_2, SHX16_2)
+  ::flow_label_145::
+  dataTable4 = 0
+  workValue18 = arg3.components
+  if workValue18 then
+    workValue18 = CreateWeaponObject
+    workValue19 = arg1
+    workValue = 0
+    workValue2 = 0.0
+    workValue3 = 0.0
+    workValue4 = 0.0
+    workValue6 = true
+    workValue8 = 1.0
+    workValue10 = false
+    workValue18 = workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10)
+    dataTable4 = workValue18
+    workValue18 = pairs
+    workValue19 = arg3.components
+    workValue18, workValue19, workValue, workValue2 = workValue18(workValue19)
+    for workValue3, workValue4 in workValue18, workValue19, workValue, workValue2 do
+      workValue6 = GiveWeaponComponentToWeaponObject
+      workValue8 = dataTable4
+      workValue10 = workValue4
+      workValue6(workValue8, workValue10)
     end
-    SHX8_2 = SHX2_2.removeComponents
-    if SHX8_2 then
-      SHX8_2 = pairs
-      SHX9_2 = SHX2_2.removeComponents
-      SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2)
-      for SHX12_2, SHX13_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-        SHX14_2 = RemoveWeaponComponentFromWeaponObject
-        SHX15_2 = SHX7_2
-        SHX16_2 = SHX13_2
-        SHX14_2(SHX15_2, SHX16_2)
+    workValue18 = arg3.removeComponents
+    if workValue18 then
+      workValue18 = pairs
+      workValue19 = arg3.removeComponents
+      workValue18, workValue19, workValue, workValue2 = workValue18(workValue19)
+      for workValue3, workValue4 in workValue18, workValue19, workValue, workValue2 do
+        workValue6 = RemoveWeaponComponentFromWeaponObject
+        workValue8 = dataTable4
+        workValue10 = workValue4
+        workValue6(workValue8, workValue10)
       end
     end
   else
-    SHX8_2 = SHX2_2.magComponent
-    if SHX8_2 then
-      SHX8_2 = CreateWeaponObject
-      SHX9_2 = SHX0_2
-      SHX10_2 = 0
-      SHX11_2 = 0.0
-      SHX12_2 = 0.0
-      SHX13_2 = 0.0
-      SHX14_2 = true
-      SHX15_2 = 1.0
-      SHX16_2 = false
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-      SHX7_2 = SHX8_2
-      SHX8_2 = GiveWeaponComponentToWeaponObject
-      SHX9_2 = SHX7_2
-      SHX10_2 = SHX2_2.magComponent
-      SHX8_2(SHX9_2, SHX10_2)
+    workValue18 = arg3.magComponent
+    if workValue18 then
+      workValue18 = CreateWeaponObject
+      workValue19 = arg1
+      workValue = 0
+      workValue2 = 0.0
+      workValue3 = 0.0
+      workValue4 = 0.0
+      workValue6 = true
+      workValue8 = 1.0
+      workValue10 = false
+      workValue18 = workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10)
+      dataTable4 = workValue18
+      workValue18 = GiveWeaponComponentToWeaponObject
+      workValue19 = dataTable4
+      workValue = arg3.magComponent
+      workValue18(workValue19, workValue)
     else
-      SHX8_2 = CreateObject
-      SHX9_2 = SHX2_2.model
-      SHX10_2 = 0.0
-      SHX11_2 = 0.0
-      SHX12_2 = 0.0
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX15_2 = false
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-      SHX7_2 = SHX8_2
+      workValue18 = CreateObject
+      workValue19 = arg3.model
+      workValue = 0.0
+      workValue2 = 0.0
+      workValue3 = 0.0
+      workValue4 = false
+      workValue6 = false
+      workValue8 = false
+      -- Beginner: result below is objectEntity.
+      workValue18 = workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8)
+      dataTable4 = workValue18
     end
   end
-  SHX8_2 = AttachEntityToEntity
-  SHX9_2 = SHX7_2
-  SHX10_2 = SHX1_2.ped
-  SHX11_2 = GetPedBoneIndex
-  SHX12_2 = SHX1_2.ped
-  SHX13_2 = SHX3_2
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX12_2 = SHX4_2.x
-  SHX13_2 = SHX4_2.y
-  SHX14_2 = SHX4_2.z
-  SHX15_2 = SHX5_2.x
-  SHX16_2 = SHX5_2.y
-  SHX17_2 = SHX5_2.z
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX20_2 = false
-  SHX21_2 = false
-  SHX22_2 = 2
-  SHX23_2 = true
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX8_2 = SetModelAsNoLongerNeeded
-  SHX9_2 = SHX2_2.model
-  SHX8_2(SHX9_2)
-  return SHX7_2
+  workValue18 = AttachEntityToEntity
+  workValue19 = dataTable4
+  workValue = arg2.ped
+  workValue2 = GetPedBoneIndex
+  workValue3 = arg2.ped
+  workValue4 = arg4
+  workValue2 = workValue2(workValue3, workValue4)
+  workValue3 = arg5.x
+  workValue4 = arg5.y
+  workValue6 = arg5.z
+  workValue8 = arg6.x
+  workValue10 = arg6.y
+  workValue12 = arg6.z
+  flag = false
+  flag2 = false
+  flag3 = false
+  flag4 = false
+  numberValue4 = 2
+  flag5 = true
+  -- Beginner: Attach one entity to another entity.
+  workValue18(workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5)
+  workValue18 = SetModelAsNoLongerNeeded
+  workValue19 = arg3.model
+  workValue18(workValue19)
+  return dataTable4
 end
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.weapons
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    if 0 ~= SHX6_2 then
-      SHX7_2 = DeleteEntity
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
-      SHX7_2 = SHX0_2.weapons
-      SHX7_2[SHX5_2] = 0
+function workValue9(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18
+  arg2 = pairs
+  arg3 = arg1.weapons
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    if 0 ~= arg7 then
+      dataTable4 = DeleteEntity
+      workValue18 = arg7
+      -- Beginner: Delete a GTA entity.
+      dataTable4(workValue18)
+      dataTable4 = arg1.weapons
+      dataTable4[arg6] = 0
     end
   end
 end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = SHX0_2.ped
-  if 0 == SHX1_2 then
+function workValue11(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue
+  arg2 = arg1.ped
+  if 0 == arg2 then
     return
   end
-  SHX1_2 = IsEntityVisible
-  SHX2_2 = SHX0_2.ped
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = SHX16_1
-    SHX2_2 = SHX0_2
-    SHX1_2(SHX2_2)
+  arg2 = IsEntityVisible
+  arg3 = arg1.ped
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = workValue9
+    arg3 = arg1
+    arg2(arg3)
     return
   end
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.weapons
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    if 0 == SHX6_2 then
-      SHX7_2 = SHX0_2.weapons
-      SHX8_2 = SHX15_1
-      SHX9_2 = SHX5_2
-      SHX10_2 = SHX0_2
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX7_2[SHX5_2] = SHX8_2
+  arg2 = pairs
+  arg3 = arg1.weapons
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    if 0 == arg7 then
+      dataTable4 = arg1.weapons
+      workValue18 = workValue7
+      workValue19 = arg6
+      workValue = arg1
+      workValue18 = workValue18(workValue19, workValue)
+      dataTable4[arg6] = workValue18
     end
   end
 end
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX11_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2.playerIndex
-    if -1 == SHX6_2 then
-      SHX6_2 = GetPlayerFromServerId
-      SHX7_2 = SHX4_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      SHX5_2.playerIndex = SHX6_2
+function workValue13()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
+  arg1 = pairs
+  arg2 = hashValue
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5, arg6 in arg1, arg2, arg3, arg4 do
+    arg7 = arg6.playerIndex
+    if -1 == arg7 then
+      arg7 = GetPlayerFromServerId
+      dataTable4 = arg5
+      -- Beginner: result below is playerIndex.
+      arg7 = arg7(dataTable4)
+      arg6.playerIndex = arg7
     end
-    SHX6_2 = SHX5_2.playerIndex
-    if -1 ~= SHX6_2 then
-      SHX6_2 = pairs
-      SHX7_2 = SHX5_2.weapons
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-      for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-        if 0 ~= SHX11_2 then
-          SHX12_2 = IsEntityAttached
-          SHX13_2 = SHX11_2
-          SHX12_2 = SHX12_2(SHX13_2)
-          if not SHX12_2 then
-            SHX12_2 = DeleteEntity
-            SHX13_2 = SHX11_2
-            SHX12_2(SHX13_2)
-            SHX12_2 = SHX5_2.weapons
-            SHX12_2[SHX10_2] = 0
+    arg7 = arg6.playerIndex
+    if -1 ~= arg7 then
+      arg7 = pairs
+      dataTable4 = arg6.weapons
+      arg7, dataTable4, workValue18, workValue19 = arg7(dataTable4)
+      for workValue, workValue2 in arg7, dataTable4, workValue18, workValue19 do
+        if 0 ~= workValue2 then
+          workValue3 = IsEntityAttached
+          workValue4 = workValue2
+          workValue3 = workValue3(workValue4)
+          if not workValue3 then
+            workValue3 = DeleteEntity
+            workValue4 = workValue2
+            -- Beginner: Delete a GTA entity.
+            workValue3(workValue4)
+            workValue3 = arg6.weapons
+            workValue3[workValue] = 0
           end
         end
       end
-      SHX6_2 = SHX5_2.ped
-      if 0 ~= SHX6_2 then
-        SHX6_2 = DoesEntityExist
-        SHX7_2 = SHX5_2.ped
-        SHX6_2 = SHX6_2(SHX7_2)
-        if SHX6_2 then
-          goto SHX_LABEL_46
+      arg7 = arg6.ped
+      if 0 ~= arg7 then
+        arg7 = DoesEntityExist
+        dataTable4 = arg6.ped
+        arg7 = arg7(dataTable4)
+        if arg7 then
+          goto flow_label_46
         end
       end
-      SHX6_2 = GetPlayerPed
-      SHX7_2 = SHX5_2.playerIndex
-      SHX6_2 = SHX6_2(SHX7_2)
-      SHX5_2.ped = SHX6_2
-      -- [FIX IF ERROR] Move ::SHX_LABEL_46:: outside nested blocks until all 'goto SHX_LABEL_46' can see it
-      ::SHX_LABEL_46::
-      SHX6_2 = SHX17_1
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+      arg7 = GetPlayerPed
+      dataTable4 = arg6.playerIndex
+      -- Beginner: result below is playerPed.
+      arg7 = arg7(dataTable4)
+      arg6.ped = arg7
+      ::flow_label_46::
+      arg7 = workValue11
+      dataTable4 = arg6
+      arg7(dataTable4)
     end
   end
 end
-SHX19_1 = 0
-SHX20_1 = Citizen
-SHX20_1 = SHX20_1.CreateThread
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+numberValue3 = 0
+eventRegistration = Citizen
+eventRegistration = eventRegistration.CreateThread
+function textValue()
+  local arg1, arg2
   while true do
-    SHX0_2 = SHX14_1
-    SHX0_2()
-    SHX0_2 = SHX19_1
-    SHX0_2 = SHX0_2 % 3
-    if 0 == SHX0_2 then
-      SHX0_2 = SHX18_1
-      SHX0_2()
+    arg1 = workValue5
+    arg1()
+    arg1 = numberValue3
+    arg1 = arg1 % 3
+    if 0 == arg1 then
+      arg1 = workValue13
+      arg1()
     end
-    SHX0_2 = SHX19_1
-    SHX0_2 = SHX0_2 + 1
-    SHX19_1 = SHX0_2
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
+    arg1 = numberValue3
+    arg1 = arg1 + 1
+    numberValue3 = arg1
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 1000
+    arg1(arg2)
   end
 end
-SHX20_1(SHX21_1)
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "onPlayerDropped"
-function SHX22_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX11_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX2_2 = SHX16_1
-    SHX3_2 = SHX1_2
-    SHX2_2(SHX3_2)
-    SHX2_2 = SHX11_1
-    SHX2_2[SHX0_2] = nil
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+eventRegistration(textValue)
+eventRegistration = RegisterNetEvent
+textValue = "onPlayerDropped"
+-- Beginner: this function handles network event "onPlayerDropped".
+function workValue14(arg1)
+  local arg2, arg3, arg4
+  arg2 = hashValue
+  arg2 = arg2[arg1]
+  if arg2 then
+    arg3 = workValue9
+    arg4 = arg2
+    arg3(arg4)
+    arg3 = hashValue
+    arg3[arg1] = nil
   end
-  SHX2_2 = SHX12_1
-  SHX2_2[SHX0_2] = nil
+  arg3 = numberValue
+  arg3[arg1] = nil
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = AddStateBagChangeHandler
-SHX21_1 = "weapons"
-SHX22_1 = nil
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "onPlayerDropped".
+eventRegistration(textValue, workValue14)
+eventRegistration = AddStateBagChangeHandler
+textValue = "weapons"
+workValue14 = nil
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4
+  arg4 = tonumber
+  arg5 = stringsplit
+  arg6 = arg1
+  arg7 = ":"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  if not arg4 then
     return
   end
-  SHX4_2 = SHX11_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if nil == SHX2_2 then
-    if SHX4_2 then
-      SHX5_2 = SHX16_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
-      SHX5_2 = SHX11_1
-      SHX5_2[SHX3_2] = nil
+  arg5 = hashValue
+  arg5 = arg5[arg4]
+  if nil == arg3 then
+    if arg5 then
+      arg6 = workValue9
+      arg7 = arg5
+      arg6(arg7)
+      arg6 = hashValue
+      arg6[arg4] = nil
     end
     return
   end
-  if SHX4_2 then
-    SHX5_2 = Player
-    SHX6_2 = SHX3_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX5_2 = SHX5_2.state
-    SHX5_2 = SHX5_2.chainOnBack
-    SHX4_2.chainOnBack = SHX5_2
-    SHX5_2 = pairs
-    SHX6_2 = SHX4_2.weapons
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX11_2 = table
-      SHX11_2 = SHX11_2.has
-      SHX12_2 = SHX2_2
-      SHX13_2 = SHX9_2
-      SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-      if not SHX11_2 then
-        if 0 ~= SHX10_2 then
-          SHX11_2 = DeleteEntity
-          SHX12_2 = SHX10_2
-          SHX11_2(SHX12_2)
+  if arg5 then
+    arg6 = Player
+    arg7 = arg4
+    arg6 = arg6(arg7)
+    arg6 = arg6.state
+    arg6 = arg6.chainOnBack
+    arg5.chainOnBack = arg6
+    arg6 = pairs
+    arg7 = arg5.weapons
+    arg6, arg7, dataTable4, workValue18 = arg6(arg7)
+    for workValue19, workValue in arg6, arg7, dataTable4, workValue18 do
+      workValue2 = table
+      workValue2 = workValue2.has
+      workValue3 = arg3
+      workValue4 = workValue19
+      workValue2 = workValue2(workValue3, workValue4)
+      if not workValue2 then
+        if 0 ~= workValue then
+          workValue2 = DeleteEntity
+          workValue3 = workValue
+          -- Beginner: Delete a GTA entity.
+          workValue2(workValue3)
         end
-        SHX11_2 = SHX4_2.weapons
-        SHX11_2[SHX9_2] = nil
-        SHX11_2 = SHX0_1.weapons
-        SHX11_2 = SHX11_2[SHX9_2]
-        if SHX11_2 then
-          SHX12_2 = SetModelAsNoLongerNeeded
-          SHX13_2 = SHX11_2.model
-          SHX12_2(SHX13_2)
+        workValue2 = arg5.weapons
+        workValue2[workValue19] = nil
+        workValue2 = cmgCall.weapons
+        workValue2 = workValue2[workValue19]
+        if workValue2 then
+          workValue3 = SetModelAsNoLongerNeeded
+          workValue4 = workValue2.model
+          workValue3(workValue4)
         end
       end
     end
-    SHX5_2 = pairs
-    SHX6_2 = SHX2_2
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX11_2 = SHX4_2.weapons
-      SHX11_2 = SHX11_2[SHX10_2]
-      if not SHX11_2 then
-        SHX11_2 = SHX4_2.weapons
-        SHX11_2[SHX10_2] = 0
+    arg6 = pairs
+    arg7 = arg3
+    arg6, arg7, dataTable4, workValue18 = arg6(arg7)
+    for workValue19, workValue in arg6, arg7, dataTable4, workValue18 do
+      workValue2 = arg5.weapons
+      workValue2 = workValue2[workValue]
+      if not workValue2 then
+        workValue2 = arg5.weapons
+        workValue2[workValue] = 0
       end
     end
-    SHX5_2 = SHX17_1
-    SHX6_2 = SHX4_2
-    SHX5_2(SHX6_2)
+    arg6 = workValue11
+    arg7 = arg5
+    arg6(arg7)
   else
-    SHX5_2 = {}
-    SHX6_2 = pairs
-    SHX7_2 = SHX2_2
-    SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-    for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-      SHX5_2[SHX11_2] = 0
+    arg6 = {}
+    arg7 = pairs
+    dataTable4 = arg3
+    arg7, dataTable4, workValue18, workValue19 = arg7(dataTable4)
+    for workValue, workValue2 in arg7, dataTable4, workValue18, workValue19 do
+      arg6[workValue2] = 0
     end
-    SHX6_2 = SHX11_1
-    SHX7_2 = {}
-    SHX7_2.ped = 0
-    SHX7_2.playerIndex = -1
-    SHX7_2.weapons = SHX5_2
-    SHX8_2 = Player
-    SHX9_2 = SHX3_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX8_2 = SHX8_2.state
-    SHX8_2 = SHX8_2.weaponsDiagonal
-    SHX7_2.diagonal = SHX8_2
-    SHX8_2 = Player
-    SHX9_2 = SHX3_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX8_2 = SHX8_2.state
-    SHX8_2 = SHX8_2.frontAR
-    SHX7_2.frontAR = SHX8_2
-    SHX8_2 = Player
-    SHX9_2 = SHX3_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX8_2 = SHX8_2.state
-    SHX8_2 = SHX8_2.frontSMG
-    SHX7_2.frontSMG = SHX8_2
-    SHX8_2 = Player
-    SHX9_2 = SHX3_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX8_2 = SHX8_2.state
-    SHX8_2 = SHX8_2.chainOnBack
-    SHX7_2.chainOnBack = SHX8_2
-    SHX6_2[SHX3_2] = SHX7_2
+    arg7 = hashValue
+    dataTable4 = {}
+    dataTable4.ped = 0
+    dataTable4.playerIndex = -1
+    dataTable4.weapons = arg6
+    workValue18 = Player
+    workValue19 = arg4
+    workValue18 = workValue18(workValue19)
+    workValue18 = workValue18.state
+    workValue18 = workValue18.weaponsDiagonal
+    dataTable4.diagonal = workValue18
+    workValue18 = Player
+    workValue19 = arg4
+    workValue18 = workValue18(workValue19)
+    workValue18 = workValue18.state
+    workValue18 = workValue18.frontAR
+    dataTable4.frontAR = workValue18
+    workValue18 = Player
+    workValue19 = arg4
+    workValue18 = workValue18(workValue19)
+    workValue18 = workValue18.state
+    workValue18 = workValue18.frontSMG
+    dataTable4.frontSMG = workValue18
+    workValue18 = Player
+    workValue19 = arg4
+    workValue18 = workValue18(workValue19)
+    workValue18 = workValue18.state
+    workValue18 = workValue18.chainOnBack
+    dataTable4.chainOnBack = workValue18
+    arg7[arg4] = dataTable4
   end
 end
-SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX20_1 = AddStateBagChangeHandler
-SHX21_1 = "weaponsDiagonal"
-SHX22_1 = nil
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX11_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if SHX4_2 then
-    SHX5_2 = SHX4_2.diagonal
-    if SHX5_2 ~= SHX2_2 then
-      SHX4_2.diagonal = SHX2_2
-      SHX5_2 = SHX16_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
-      SHX5_2 = SHX17_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
+eventRegistration(textValue, workValue14, cmgCall4)
+eventRegistration = AddStateBagChangeHandler
+textValue = "weaponsDiagonal"
+workValue14 = nil
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7
+  arg4 = tonumber
+  arg5 = stringsplit
+  arg6 = arg1
+  arg7 = ":"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  arg5 = hashValue
+  arg5 = arg5[arg4]
+  if arg5 then
+    arg6 = arg5.diagonal
+    if arg6 ~= arg3 then
+      arg5.diagonal = arg3
+      arg6 = workValue9
+      arg7 = arg5
+      arg6(arg7)
+      arg6 = workValue11
+      arg7 = arg5
+      arg6(arg7)
     end
   end
 end
-SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX20_1 = AddStateBagChangeHandler
-SHX21_1 = "frontAR"
-SHX22_1 = nil
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX11_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if SHX4_2 then
-    SHX5_2 = SHX4_2.frontAR
-    if SHX5_2 ~= SHX2_2 then
-      SHX4_2.frontAR = SHX2_2
-      SHX5_2 = SHX16_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
-      SHX5_2 = SHX17_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
+eventRegistration(textValue, workValue14, cmgCall4)
+eventRegistration = AddStateBagChangeHandler
+textValue = "frontAR"
+workValue14 = nil
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7
+  arg4 = tonumber
+  arg5 = stringsplit
+  arg6 = arg1
+  arg7 = ":"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  arg5 = hashValue
+  arg5 = arg5[arg4]
+  if arg5 then
+    arg6 = arg5.frontAR
+    if arg6 ~= arg3 then
+      arg5.frontAR = arg3
+      arg6 = workValue9
+      arg7 = arg5
+      arg6(arg7)
+      arg6 = workValue11
+      arg7 = arg5
+      arg6(arg7)
     end
   end
 end
-SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX20_1 = AddStateBagChangeHandler
-SHX21_1 = "frontSMG"
-SHX22_1 = nil
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX11_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if SHX4_2 then
-    SHX5_2 = SHX4_2.frontSMG
-    if SHX5_2 ~= SHX2_2 then
-      SHX4_2.frontSMG = SHX2_2
-      SHX5_2 = SHX16_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
-      SHX5_2 = SHX17_1
-      SHX6_2 = SHX4_2
-      SHX5_2(SHX6_2)
+eventRegistration(textValue, workValue14, cmgCall4)
+eventRegistration = AddStateBagChangeHandler
+textValue = "frontSMG"
+workValue14 = nil
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7
+  arg4 = tonumber
+  arg5 = stringsplit
+  arg6 = arg1
+  arg7 = ":"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  arg5 = hashValue
+  arg5 = arg5[arg4]
+  if arg5 then
+    arg6 = arg5.frontSMG
+    if arg6 ~= arg3 then
+      arg5.frontSMG = arg3
+      arg6 = workValue9
+      arg7 = arg5
+      arg6(arg7)
+      arg6 = workValue11
+      arg7 = arg5
+      arg6(arg7)
     end
   end
 end
-SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX20_1 = AddStateBagChangeHandler
-SHX21_1 = "chainOnBack"
-SHX22_1 = nil
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
+eventRegistration(textValue, workValue14, cmgCall4)
+eventRegistration = AddStateBagChangeHandler
+textValue = "chainOnBack"
+workValue14 = nil
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7
+  arg4 = tonumber
+  arg5 = stringsplit
+  arg6 = arg1
+  arg7 = ":"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  if not arg4 then
     return
   end
-  SHX4_2 = SHX11_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if not SHX4_2 then
+  arg5 = hashValue
+  arg5 = arg5[arg4]
+  if not arg5 then
     return
   end
-  SHX4_2.chainOnBack = SHX2_2
-  SHX5_2 = SHX16_1
-  SHX6_2 = SHX4_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = SHX17_1
-  SHX6_2 = SHX4_2
-  SHX5_2(SHX6_2)
+  arg5.chainOnBack = arg3
+  arg6 = workValue9
+  arg7 = arg5
+  arg6(arg7)
+  arg6 = workValue11
+  arg7 = arg5
+  arg6(arg7)
 end
-SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX20_1 = AddStateBagChangeHandler
-SHX21_1 = "redDot"
-SHX22_1 = nil
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX4_2 = SHX12_1
-    SHX4_2[SHX3_2] = SHX2_2
+eventRegistration(textValue, workValue14, cmgCall4)
+eventRegistration = AddStateBagChangeHandler
+textValue = "redDot"
+workValue14 = nil
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7
+  arg4 = tonumber
+  arg5 = stringsplit
+  arg6 = arg1
+  arg7 = ":"
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg5 = numberValue
+    arg5[arg4] = arg3
   end
 end
-SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX20_1 = 0
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetSelectedPedWeapon
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX0_1.redDotWeapons
-  SHX2_2 = SHX2_2[SHX1_2]
-  if SHX2_2 then
-    SHX2_2 = IsPlayerFreeAiming
-    SHX3_2 = PlayerId
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX3_2()
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-    if SHX2_2 then
-      SHX2_2 = GetGameTimer
-      SHX2_2 = SHX2_2()
-      SHX3_2 = SHX20_1
-      SHX2_2 = SHX2_2 - SHX3_2
-      SHX3_2 = 200
-      if SHX2_2 > SHX3_2 then
-        SHX2_2 = LocalPlayer
-        SHX2_2 = SHX2_2.state
-        SHX3_2 = SHX2_2
-        SHX2_2 = SHX2_2.set
-        SHX4_2 = "redDot"
-        SHX5_2 = {}
-        SHX6_2 = GetGameplayCamCoord
-        SHX6_2 = SHX6_2()
-        SHX7_2 = CMG
-        SHX7_2 = SHX7_2.rotationToDirection
-        SHX8_2 = GetGameplayCamRot
-        SHX9_2 = 2
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX8_2(SHX9_2)
-        SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-        SHX5_2[1] = SHX6_2
-        SHX5_2[2] = SHX7_2
-        SHX5_2[3] = SHX8_2
-        SHX5_2[4] = SHX9_2
-        SHX5_2[5] = SHX10_2
-        SHX5_2[6] = SHX11_2
-        SHX5_2[7] = SHX12_2
-        SHX5_2[8] = SHX13_2
-        SHX5_2[9] = SHX14_2
-        SHX5_2[10] = SHX15_2
-        SHX5_2[11] = SHX16_2
-        SHX5_2[12] = SHX17_2
-        SHX5_2[13] = SHX18_2
-        SHX5_2[14] = SHX19_2
-        SHX5_2[15] = SHX20_2
-        SHX5_2[16] = SHX21_2
-        SHX5_2[17] = SHX22_2
-        SHX5_2[18] = SHX23_2
-        SHX5_2[19] = SHX24_2
-        SHX5_2[20] = SHX25_2
-        SHX5_2[21] = SHX26_2
-        SHX5_2[22] = SHX27_2
-        SHX5_2[23] = SHX28_2
-        SHX6_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX2_2 = GetGameTimer
-        SHX2_2 = SHX2_2()
-        SHX20_1 = SHX2_2
+eventRegistration(textValue, workValue14, cmgCall4)
+eventRegistration = 0
+function textValue()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetSelectedPedWeapon
+  arg3 = arg1
+  -- Beginner: result below is weaponHash.
+  arg2 = arg2(arg3)
+  arg3 = cmgCall.redDotWeapons
+  arg3 = arg3[arg2]
+  if arg3 then
+    arg3 = IsPlayerFreeAiming
+    arg4 = PlayerId
+    arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = arg4()
+    arg3 = arg3(arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
+    if arg3 then
+      arg3 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      arg3 = arg3()
+      arg4 = eventRegistration
+      arg3 = arg3 - arg4
+      arg4 = 200
+      if arg3 > arg4 then
+        arg3 = LocalPlayer
+        arg3 = arg3.state
+        arg4 = arg3
+        arg3 = arg3.set
+        arg5 = "redDot"
+        arg6 = {}
+        arg7 = GetGameplayCamCoord
+        arg7 = arg7()
+        dataTable4 = CMG
+        dataTable4 = dataTable4.rotationToDirection
+        workValue18 = GetGameplayCamRot
+        workValue19 = 2
+        workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = workValue18(workValue19)
+        dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = dataTable4(workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
+        arg6[1] = arg7
+        arg6[2] = dataTable4
+        arg6[3] = workValue18
+        arg6[4] = workValue19
+        arg6[5] = workValue
+        arg6[6] = workValue2
+        arg6[7] = workValue3
+        arg6[8] = workValue4
+        arg6[9] = workValue6
+        arg6[10] = workValue8
+        arg6[11] = workValue10
+        arg6[12] = workValue12
+        arg6[13] = flag
+        arg6[14] = flag2
+        arg6[15] = flag3
+        arg6[16] = flag4
+        arg6[17] = numberValue4
+        arg6[18] = flag5
+        arg6[19] = numberValue5
+        arg6[20] = numberValue6
+        arg6[21] = numberValue7
+        arg6[22] = numberValue8
+        arg6[23] = numberValue9
+        arg7 = true
+        arg3(arg4, arg5, arg6, arg7)
+        arg3 = GetGameTimer
+        -- Beginner: result below is gameTimeMs.
+        arg3 = arg3()
+        eventRegistration = arg3
       end
-      SHX2_2 = 2
-      SHX13_1 = SHX2_2
+      arg3 = 2
+      numberValue2 = arg3
     else
-      SHX2_2 = SHX13_1
-      if 1 ~= SHX2_2 then
-        SHX2_2 = LocalPlayer
-        SHX2_2 = SHX2_2.state
-        SHX3_2 = SHX2_2
-        SHX2_2 = SHX2_2.set
-        SHX4_2 = "redDot"
-        SHX5_2 = true
-        SHX6_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX2_2 = 1
-        SHX13_1 = SHX2_2
+      arg3 = numberValue2
+      if 1 ~= arg3 then
+        arg3 = LocalPlayer
+        arg3 = arg3.state
+        arg4 = arg3
+        arg3 = arg3.set
+        arg5 = "redDot"
+        arg6 = true
+        arg7 = true
+        arg3(arg4, arg5, arg6, arg7)
+        arg3 = 1
+        numberValue2 = arg3
       end
     end
   else
-    SHX2_2 = SHX13_1
-    if 0 ~= SHX2_2 then
-      SHX2_2 = LocalPlayer
-      SHX2_2 = SHX2_2.state
-      SHX3_2 = SHX2_2
-      SHX2_2 = SHX2_2.set
-      SHX4_2 = "redDot"
-      SHX5_2 = nil
-      SHX6_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      SHX2_2 = 0
-      SHX13_1 = SHX2_2
+    arg3 = numberValue2
+    if 0 ~= arg3 then
+      arg3 = LocalPlayer
+      arg3 = arg3.state
+      arg4 = arg3
+      arg3 = arg3.set
+      arg5 = "redDot"
+      arg6 = nil
+      arg7 = true
+      arg3(arg4, arg5, arg6, arg7)
+      arg3 = 0
+      numberValue2 = arg3
     end
   end
-  SHX2_2 = pairs
-  SHX3_2 = SHX12_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = GetPlayerFromServerId
-    SHX9_2 = SHX6_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    if SHX8_2 >= 0 then
-      SHX9_2 = GetPlayerPed
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if 0 ~= SHX9_2 then
-        SHX10_2 = GetCurrentPedWeaponEntityIndex
-        SHX11_2 = SHX9_2
-        SHX10_2 = SHX10_2(SHX11_2)
-        if 0 ~= SHX10_2 then
-          SHX11_2 = nil
-          SHX12_2 = nil
-          SHX13_2 = true == SHX7_2
-          if SHX13_2 then
-            SHX14_2 = GetEntityCoords
-            SHX15_2 = SHX10_2
-            SHX14_2 = SHX14_2(SHX15_2)
-            SHX11_2 = SHX14_2
-            SHX14_2 = select
-            SHX15_2 = 2
-            SHX16_2 = GetEntityMatrix
-            SHX17_2 = SHX10_2
-            SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX16_2(SHX17_2)
-            SHX14_2 = SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-            SHX12_2 = SHX14_2
+  arg3 = pairs
+  arg4 = numberValue
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, dataTable4 in arg3, arg4, arg5, arg6 do
+    workValue18 = GetPlayerFromServerId
+    workValue19 = arg7
+    -- Beginner: result below is playerIndex.
+    workValue18 = workValue18(workValue19)
+    if workValue18 >= 0 then
+      workValue19 = GetPlayerPed
+      workValue = workValue18
+      -- Beginner: result below is playerPed.
+      workValue19 = workValue19(workValue)
+      if 0 ~= workValue19 then
+        workValue = GetCurrentPedWeaponEntityIndex
+        workValue2 = workValue19
+        workValue = workValue(workValue2)
+        if 0 ~= workValue then
+          workValue2 = nil
+          workValue3 = nil
+          workValue4 = true == dataTable4
+          if workValue4 then
+            workValue6 = GetEntityCoords
+            workValue8 = workValue
+            -- Beginner: result below is entityCoords.
+            workValue6 = workValue6(workValue8)
+            workValue2 = workValue6
+            workValue6 = select
+            workValue8 = 2
+            workValue10 = GetEntityMatrix
+            workValue12 = workValue
+            workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9 = workValue10(workValue12)
+            workValue6 = workValue6(workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
+            workValue3 = workValue6
           else
-            SHX11_2 = SHX7_2[1]
-            SHX12_2 = SHX7_2[2]
+            workValue2 = dataTable4[1]
+            workValue3 = dataTable4[2]
           end
-          SHX14_2 = DrawSpotLight
-          SHX15_2 = SHX11_2.x
-          SHX16_2 = SHX11_2.y
-          SHX17_2 = SHX11_2.z
-          SHX18_2 = SHX12_2.x
-          SHX19_2 = SHX12_2.y
-          SHX20_2 = SHX12_2.z
-          SHX21_2 = 255
-          SHX22_2 = 0
-          SHX23_2 = 0
-          if SHX13_2 then
-            SHX24_2 = 5.0
-            if SHX24_2 then
-              goto SHX_LABEL_128
+          workValue6 = DrawSpotLight
+          workValue8 = workValue2.x
+          workValue10 = workValue2.y
+          workValue12 = workValue2.z
+          flag = workValue3.x
+          flag2 = workValue3.y
+          flag3 = workValue3.z
+          flag4 = 255
+          numberValue4 = 0
+          flag5 = 0
+          if workValue4 then
+            numberValue5 = 5.0
+            if numberValue5 then
+              goto flow_label_128
             end
           end
-          SHX24_2 = 15.0
-          -- [FIX IF ERROR] Move ::SHX_LABEL_128:: outside nested blocks until all 'goto SHX_LABEL_128' can see it
-          ::SHX_LABEL_128::
-          SHX25_2 = 20.0
-          SHX26_2 = 100.0
-          SHX27_2 = 0.0
-          SHX28_2 = 10.0
-          SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+          numberValue5 = 15.0
+          ::flow_label_128::
+          numberValue6 = 20.0
+          numberValue7 = 100.0
+          numberValue8 = 0.0
+          numberValue9 = 10.0
+          workValue6(workValue8, workValue10, workValue12, flag, flag2, flag3, flag4, numberValue4, flag5, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9)
         end
       end
     end
   end
 end
-SHX22_1 = CMG
-SHX22_1 = SHX22_1.createThreadOnTick
-SHX23_1 = SHX21_1
-SHX24_1 = "Taser Red Dot"
-SHX22_1(SHX23_1, SHX24_1)
-SHX22_1 = AddEventHandler
-SHX23_1 = "onResourceStop"
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX11_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = SHX16_1
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
+workValue14 = CMG
+workValue14 = workValue14.createThreadOnTick
+cmgCall4 = textValue
+cmgCall5 = "Taser Red Dot"
+-- Beginner: Run a helper every game frame while this script is active.
+workValue14(cmgCall4, cmgCall5)
+workValue14 = AddEventHandler
+cmgCall4 = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function cmgCall5(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg2 == arg1 then
+    arg2 = pairs
+    arg3 = hashValue
+    arg2, arg3, arg4, arg5 = arg2(arg3)
+    for arg6, arg7 in arg2, arg3, arg4, arg5 do
+      dataTable4 = workValue9
+      workValue18 = arg7
+      dataTable4(workValue18)
     end
   end
 end
-SHX22_1(SHX23_1, SHX24_1)
-function SHX22_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = GetPlayerServerId
-  SHX1_2 = PlayerId
-  SHX1_2, SHX2_2, SHX3_2 = SHX1_2()
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX1_2 = SHX11_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX2_2 = SHX16_1
-    SHX3_2 = SHX1_2
-    SHX2_2(SHX3_2)
-    SHX2_2 = SHX17_1
-    SHX3_2 = SHX1_2
-    SHX2_2(SHX3_2)
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+workValue14(cmgCall4, cmgCall5)
+function workValue14()
+  local arg1, arg2, arg3, arg4
+  arg1 = GetPlayerServerId
+  arg2 = PlayerId
+  arg2, arg3, arg4 = arg2()
+  -- Beginner: result below is serverId.
+  arg1 = arg1(arg2, arg3, arg4)
+  arg2 = hashValue
+  arg2 = arg2[arg1]
+  if arg2 then
+    arg3 = workValue9
+    arg4 = arg2
+    arg3(arg4)
+    arg3 = workValue11
+    arg4 = arg2
+    arg3(arg4)
   end
 end
-SHX23_1 = CMG
-function SHX24_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX7_2 = SHX3_1
-  SHX8_2 = {}
-  SHX9_2 = SHX1_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2
-  SHX12_2 = SHX4_2
-  SHX13_2 = SHX5_2
-  SHX14_2 = SHX6_2
-  SHX8_2[1] = SHX9_2
-  SHX8_2[2] = SHX10_2
-  SHX8_2[3] = SHX11_2
-  SHX8_2[4] = SHX12_2
-  SHX8_2[5] = SHX13_2
-  SHX8_2[6] = SHX14_2
-  SHX7_2[SHX0_2] = SHX8_2
-  SHX7_2 = SHX6_1
-  SHX7_2()
-  SHX7_2 = SHX22_1
-  SHX7_2()
+cmgCall4 = CMG
+function cmgCall5(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+  local dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6
+  dataTable4 = dataTable
+  workValue18 = {}
+  workValue19 = arg2
+  workValue = arg3
+  workValue2 = arg4
+  workValue3 = arg5
+  workValue4 = arg6
+  workValue6 = arg7
+  workValue18[1] = workValue19
+  workValue18[2] = workValue
+  workValue18[3] = workValue2
+  workValue18[4] = workValue3
+  workValue18[5] = workValue4
+  workValue18[6] = workValue6
+  dataTable4[arg1] = workValue18
+  dataTable4 = dataTable3
+  dataTable4()
+  dataTable4 = workValue14
+  -- Beginner: Register a client-side event handler.
+  dataTable4()
 end
-SHX23_1.setChainOnBackOverrideNumbers = SHX24_1
-SHX23_1 = CMG
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX3_1
-  SHX1_2[SHX0_2] = nil
-  SHX1_2 = SHX6_1
-  SHX1_2()
-  SHX1_2 = SHX22_1
-  SHX1_2()
+cmgCall4.setChainOnBackOverrideNumbers = cmgCall5
+cmgCall4 = CMG
+function cmgCall5(arg1)
+  local arg2
+  arg2 = dataTable
+  arg2[arg1] = nil
+  arg2 = dataTable3
+  arg2()
+  arg2 = workValue14
+  -- Beginner: Register a client-side event handler.
+  arg2()
 end
-SHX23_1.clearChainOnBackOverride = SHX24_1
-function SHX23_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX3_2 = SetTextFont
-  SHX4_2 = 4
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetTextScale
-  SHX4_2 = 0.35
-  SHX5_2 = 0.35
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetTextColour
-  SHX4_2 = 255
-  SHX5_2 = 255
-  SHX6_2 = 255
-  SHX7_2 = 215
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SetTextOutline
-  SHX3_2()
-  SHX3_2 = SetTextCentre
-  SHX4_2 = false
-  SHX3_2(SHX4_2)
-  SHX3_2 = BeginTextCommandDisplayText
-  SHX4_2 = "STRING"
-  SHX3_2(SHX4_2)
-  SHX3_2 = AddTextComponentSubstringPlayerName
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = EndTextCommandDisplayText
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
+cmgCall4.clearChainOnBackOverride = cmgCall5
+function cmgCall4(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, dataTable4
+  arg4 = SetTextFont
+  arg5 = 4
+  arg4(arg5)
+  arg4 = SetTextScale
+  arg5 = 0.35
+  arg6 = 0.35
+  arg4(arg5, arg6)
+  arg4 = SetTextColour
+  arg5 = 255
+  arg6 = 255
+  arg7 = 255
+  dataTable4 = 215
+  arg4(arg5, arg6, arg7, dataTable4)
+  arg4 = SetTextOutline
+  arg4()
+  arg4 = SetTextCentre
+  arg5 = false
+  arg4(arg5)
+  arg4 = BeginTextCommandDisplayText
+  arg5 = "STRING"
+  arg4(arg5)
+  arg4 = AddTextComponentSubstringPlayerName
+  arg5 = arg3
+  arg4(arg5)
+  arg4 = EndTextCommandDisplayText
+  arg5 = arg1
+  arg6 = arg2
+  arg4(arg5, arg6)
 end
-SHX24_1 = CMG
-SHX24_1 = SHX24_1.registerCommand
-SHX25_1 = "chainedit"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isDevMode
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
+cmgCall5 = CMG
+cmgCall5 = cmgCall5.registerCommand
+textValue2 = "chainedit"
+function workValue15()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.isDevMode
+  arg1 = arg1()
+  if not arg1 then
     return
   end
-  SHX0_2 = SHX9_1.enabled
-  SHX0_2 = not SHX0_2
-  SHX9_1.enabled = SHX0_2
-  SHX0_2 = SHX22_1
-  SHX0_2()
+  arg1 = cmgCall6.enabled
+  arg1 = not arg1
+  cmgCall6.enabled = arg1
+  arg1 = workValue14
+  -- Beginner: Register a client-side event handler.
+  arg1()
 end
-SHX27_1 = true
-SHX24_1(SHX25_1, SHX26_1, SHX27_1)
-SHX24_1 = CMG
-SHX24_1 = SHX24_1.registerCommand
-SHX25_1 = "chainprint"
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isDevMode
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
+flag6 = true
+cmgCall5(textValue2, workValue15, flag6)
+cmgCall5 = CMG
+cmgCall5 = cmgCall5.registerCommand
+textValue2 = "chainprint"
+function workValue15()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19
+  arg1 = CMG
+  arg1 = arg1.isDevMode
+  arg1 = arg1()
+  if not arg1 then
     return
   end
-  SHX0_2 = print
-  SHX1_2 = "CHAIN CFG => bone=%d, offset=vector3(%.4f, %.4f, %.4f), rotation=vector3(%.2f, %.2f, %.2f)"
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.format
-  SHX3_2 = SHX9_1.bone
-  SHX4_2 = SHX9_1.offset
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX9_1.offset
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX9_1.offset
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = SHX9_1.rotation
-  SHX7_2 = SHX7_2.x
-  SHX8_2 = SHX9_1.rotation
-  SHX8_2 = SHX8_2.y
-  SHX9_2 = SHX9_1.rotation
-  SHX9_2 = SHX9_2.z
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+  arg1 = print
+  arg2 = "CHAIN CFG => bone=%d, offset=vector3(%.4f, %.4f, %.4f), rotation=vector3(%.2f, %.2f, %.2f)"
+  arg3 = arg2
+  arg2 = arg2.format
+  arg4 = cmgCall6.bone
+  arg5 = cmgCall6.offset
+  arg5 = arg5.x
+  arg6 = cmgCall6.offset
+  arg6 = arg6.y
+  arg7 = cmgCall6.offset
+  arg7 = arg7.z
+  dataTable4 = cmgCall6.rotation
+  dataTable4 = dataTable4.x
+  workValue18 = cmgCall6.rotation
+  workValue18 = workValue18.y
+  workValue19 = cmgCall6.rotation
+  workValue19 = workValue19.z
+  arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19 = arg2(arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19)
+  arg1(arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19)
 end
-SHX27_1 = true
-SHX24_1(SHX25_1, SHX26_1, SHX27_1)
-SHX24_1 = Citizen
-SHX24_1 = SHX24_1.CreateThread
-function SHX25_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isDevMode
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
+flag6 = true
+cmgCall5(textValue2, workValue15, flag6)
+cmgCall5 = Citizen
+cmgCall5 = cmgCall5.CreateThread
+function textValue2()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, dataTable4, workValue18, workValue19, workValue, workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12
+  arg1 = CMG
+  arg1 = arg1.isDevMode
+  arg1 = arg1()
+  if not arg1 then
     return
   end
   while true do
-    SHX0_2 = SHX9_1.enabled
-    if not SHX0_2 then
-      SHX0_2 = Citizen
-      SHX0_2 = SHX0_2.Wait
-      SHX1_2 = 500
-      SHX0_2(SHX1_2)
+    arg1 = cmgCall6.enabled
+    if not arg1 then
+      arg1 = Citizen
+      arg1 = arg1.Wait
+      arg2 = 500
+      arg1(arg2)
     else
-      SHX0_2 = Citizen
-      SHX0_2 = SHX0_2.Wait
-      SHX1_2 = 0
-      SHX0_2(SHX1_2)
-      SHX0_2 = 0.005
-      SHX1_2 = 1.0
-      SHX2_2 = IsControlPressed
-      SHX3_2 = 0
-      SHX4_2 = 21
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if SHX2_2 then
-        SHX0_2 = 0.02
-        SHX1_2 = 5.0
+      arg1 = Citizen
+      arg1 = arg1.Wait
+      arg2 = 0
+      arg1(arg2)
+      arg1 = 0.005
+      arg2 = 1.0
+      arg3 = IsControlPressed
+      arg4 = 0
+      arg5 = 21
+      arg3 = arg3(arg4, arg5)
+      if arg3 then
+        arg1 = 0.02
+        arg2 = 5.0
       else
-        SHX2_2 = IsControlPressed
-        SHX3_2 = 0
-        SHX4_2 = 36
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        if SHX2_2 then
-          SHX0_2 = 0.001
-          SHX1_2 = 0.2
+        arg3 = IsControlPressed
+        arg4 = 0
+        arg5 = 36
+        arg3 = arg3(arg4, arg5)
+        if arg3 then
+          arg1 = 0.001
+          arg2 = 0.2
         end
       end
-      SHX2_2 = IsControlPressed
-      SHX3_2 = 0
-      SHX4_2 = 19
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = 172
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      SHX4_2 = IsControlJustPressed
-      SHX5_2 = 0
-      SHX6_2 = 173
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-      SHX5_2 = IsControlJustPressed
-      SHX6_2 = 0
-      SHX7_2 = 174
-      SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-      SHX6_2 = IsControlJustPressed
-      SHX7_2 = 0
-      SHX8_2 = 175
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-      SHX7_2 = IsControlJustPressed
-      SHX8_2 = 0
-      SHX9_2 = 44
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-      SHX8_2 = IsControlJustPressed
-      SHX9_2 = 0
-      SHX10_2 = 38
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX9_2 = false
-      if not SHX2_2 then
-        if SHX5_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.offset
-          SHX11_2 = SHX11_2.x
-          SHX11_2 = SHX11_2 - SHX0_2
-          SHX12_2 = SHX9_1.offset
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.offset
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.offset = SHX10_2
-          SHX9_2 = true
+      arg3 = IsControlPressed
+      arg4 = 0
+      arg5 = 19
+      arg3 = arg3(arg4, arg5)
+      arg4 = IsControlJustPressed
+      arg5 = 0
+      arg6 = 172
+      arg4 = arg4(arg5, arg6)
+      arg5 = IsControlJustPressed
+      arg6 = 0
+      arg7 = 173
+      arg5 = arg5(arg6, arg7)
+      arg6 = IsControlJustPressed
+      arg7 = 0
+      dataTable4 = 174
+      arg6 = arg6(arg7, dataTable4)
+      arg7 = IsControlJustPressed
+      dataTable4 = 0
+      workValue18 = 175
+      arg7 = arg7(dataTable4, workValue18)
+      dataTable4 = IsControlJustPressed
+      workValue18 = 0
+      workValue19 = 44
+      dataTable4 = dataTable4(workValue18, workValue19)
+      workValue18 = IsControlJustPressed
+      workValue19 = 0
+      workValue = 38
+      workValue18 = workValue18(workValue19, workValue)
+      workValue19 = false
+      if not arg3 then
+        if arg6 then
+          workValue = vector3
+          workValue2 = cmgCall6.offset
+          workValue2 = workValue2.x
+          workValue2 = workValue2 - arg1
+          workValue3 = cmgCall6.offset
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.offset
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.offset = workValue
+          workValue19 = true
         end
-        if SHX6_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.offset
-          SHX11_2 = SHX11_2.x
-          SHX11_2 = SHX11_2 + SHX0_2
-          SHX12_2 = SHX9_1.offset
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.offset
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.offset = SHX10_2
-          SHX9_2 = true
+        if arg7 then
+          workValue = vector3
+          workValue2 = cmgCall6.offset
+          workValue2 = workValue2.x
+          workValue2 = workValue2 + arg1
+          workValue3 = cmgCall6.offset
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.offset
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.offset = workValue
+          workValue19 = true
         end
-        if SHX3_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.offset
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.offset
-          SHX12_2 = SHX12_2.y
-          SHX12_2 = SHX12_2 + SHX0_2
-          SHX13_2 = SHX9_1.offset
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.offset = SHX10_2
-          SHX9_2 = true
+        if arg4 then
+          workValue = vector3
+          workValue2 = cmgCall6.offset
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.offset
+          workValue3 = workValue3.y
+          workValue3 = workValue3 + arg1
+          workValue4 = cmgCall6.offset
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.offset = workValue
+          workValue19 = true
         end
-        if SHX4_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.offset
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.offset
-          SHX12_2 = SHX12_2.y
-          SHX12_2 = SHX12_2 - SHX0_2
-          SHX13_2 = SHX9_1.offset
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.offset = SHX10_2
-          SHX9_2 = true
+        if arg5 then
+          workValue = vector3
+          workValue2 = cmgCall6.offset
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.offset
+          workValue3 = workValue3.y
+          workValue3 = workValue3 - arg1
+          workValue4 = cmgCall6.offset
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.offset = workValue
+          workValue19 = true
         end
-        if SHX7_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.offset
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.offset
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.offset
-          SHX13_2 = SHX13_2.z
-          SHX13_2 = SHX13_2 + SHX0_2
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.offset = SHX10_2
-          SHX9_2 = true
+        if dataTable4 then
+          workValue = vector3
+          workValue2 = cmgCall6.offset
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.offset
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.offset
+          workValue4 = workValue4.z
+          workValue4 = workValue4 + arg1
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.offset = workValue
+          workValue19 = true
         end
-        if SHX8_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.offset
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.offset
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.offset
-          SHX13_2 = SHX13_2.z
-          SHX13_2 = SHX13_2 - SHX0_2
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.offset = SHX10_2
-          SHX9_2 = true
+        if workValue18 then
+          workValue = vector3
+          workValue2 = cmgCall6.offset
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.offset
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.offset
+          workValue4 = workValue4.z
+          workValue4 = workValue4 - arg1
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.offset = workValue
+          workValue19 = true
         end
       else
-        if SHX5_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.rotation
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.rotation
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.rotation
-          SHX13_2 = SHX13_2.z
-          SHX13_2 = SHX13_2 - SHX1_2
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.rotation = SHX10_2
-          SHX9_2 = true
+        if arg6 then
+          workValue = vector3
+          workValue2 = cmgCall6.rotation
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.rotation
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.rotation
+          workValue4 = workValue4.z
+          workValue4 = workValue4 - arg2
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.rotation = workValue
+          workValue19 = true
         end
-        if SHX6_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.rotation
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.rotation
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.rotation
-          SHX13_2 = SHX13_2.z
-          SHX13_2 = SHX13_2 + SHX1_2
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.rotation = SHX10_2
-          SHX9_2 = true
+        if arg7 then
+          workValue = vector3
+          workValue2 = cmgCall6.rotation
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.rotation
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.rotation
+          workValue4 = workValue4.z
+          workValue4 = workValue4 + arg2
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.rotation = workValue
+          workValue19 = true
         end
-        if SHX3_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.rotation
-          SHX11_2 = SHX11_2.x
-          SHX11_2 = SHX11_2 - SHX1_2
-          SHX12_2 = SHX9_1.rotation
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.rotation
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.rotation = SHX10_2
-          SHX9_2 = true
+        if arg4 then
+          workValue = vector3
+          workValue2 = cmgCall6.rotation
+          workValue2 = workValue2.x
+          workValue2 = workValue2 - arg2
+          workValue3 = cmgCall6.rotation
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.rotation
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.rotation = workValue
+          workValue19 = true
         end
-        if SHX4_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.rotation
-          SHX11_2 = SHX11_2.x
-          SHX11_2 = SHX11_2 + SHX1_2
-          SHX12_2 = SHX9_1.rotation
-          SHX12_2 = SHX12_2.y
-          SHX13_2 = SHX9_1.rotation
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.rotation = SHX10_2
-          SHX9_2 = true
+        if arg5 then
+          workValue = vector3
+          workValue2 = cmgCall6.rotation
+          workValue2 = workValue2.x
+          workValue2 = workValue2 + arg2
+          workValue3 = cmgCall6.rotation
+          workValue3 = workValue3.y
+          workValue4 = cmgCall6.rotation
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.rotation = workValue
+          workValue19 = true
         end
-        if SHX7_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.rotation
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.rotation
-          SHX12_2 = SHX12_2.y
-          SHX12_2 = SHX12_2 - SHX1_2
-          SHX13_2 = SHX9_1.rotation
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.rotation = SHX10_2
-          SHX9_2 = true
+        if dataTable4 then
+          workValue = vector3
+          workValue2 = cmgCall6.rotation
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.rotation
+          workValue3 = workValue3.y
+          workValue3 = workValue3 - arg2
+          workValue4 = cmgCall6.rotation
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.rotation = workValue
+          workValue19 = true
         end
-        if SHX8_2 then
-          SHX10_2 = vector3
-          SHX11_2 = SHX9_1.rotation
-          SHX11_2 = SHX11_2.x
-          SHX12_2 = SHX9_1.rotation
-          SHX12_2 = SHX12_2.y
-          SHX12_2 = SHX12_2 + SHX1_2
-          SHX13_2 = SHX9_1.rotation
-          SHX13_2 = SHX13_2.z
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-          SHX9_1.rotation = SHX10_2
-          SHX9_2 = true
-        end
-      end
-      if SHX9_2 then
-        SHX10_2 = SHX22_1
-        SHX10_2()
-      end
-      SHX10_2 = SHX23_1
-      SHX11_2 = 0.015
-      SHX12_2 = 0.65
-      SHX13_2 = "~y~CHAIN EDIT~w~ (%s)  /chainprint to copy"
-      SHX14_2 = SHX13_2
-      SHX13_2 = SHX13_2.format
-      if SHX2_2 then
-        SHX15_2 = "ROT"
-        if SHX15_2 then
-          goto SHX_LABEL_253
+        if workValue18 then
+          workValue = vector3
+          workValue2 = cmgCall6.rotation
+          workValue2 = workValue2.x
+          workValue3 = cmgCall6.rotation
+          workValue3 = workValue3.y
+          workValue3 = workValue3 + arg2
+          workValue4 = cmgCall6.rotation
+          workValue4 = workValue4.z
+          workValue = workValue(workValue2, workValue3, workValue4)
+          cmgCall6.rotation = workValue
+          workValue19 = true
         end
       end
-      SHX15_2 = "POS"
-      -- [FIX IF ERROR] Move ::SHX_LABEL_253:: outside nested blocks until all 'goto SHX_LABEL_253' can see it
-      ::SHX_LABEL_253::
-      SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX13_2(SHX14_2, SHX15_2)
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX10_2 = SHX23_1
-      SHX11_2 = 0.015
-      SHX12_2 = 0.675
-      SHX13_2 = "bone=%d"
-      SHX14_2 = SHX13_2
-      SHX13_2 = SHX13_2.format
-      SHX15_2 = SHX9_1.bone
-      SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX13_2(SHX14_2, SHX15_2)
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX10_2 = SHX23_1
-      SHX11_2 = 0.015
-      SHX12_2 = 0.7
-      SHX13_2 = "off:  x=%.4f y=%.4f z=%.4f"
-      SHX14_2 = SHX13_2
-      SHX13_2 = SHX13_2.format
-      SHX15_2 = SHX9_1.offset
-      SHX15_2 = SHX15_2.x
-      SHX16_2 = SHX9_1.offset
-      SHX16_2 = SHX16_2.y
-      SHX17_2 = SHX9_1.offset
-      SHX17_2 = SHX17_2.z
-      SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX10_2 = SHX23_1
-      SHX11_2 = 0.015
-      SHX12_2 = 0.725
-      SHX13_2 = "rot:  x=%.2f y=%.2f z=%.2f"
-      SHX14_2 = SHX13_2
-      SHX13_2 = SHX13_2.format
-      SHX15_2 = SHX9_1.rotation
-      SHX15_2 = SHX15_2.x
-      SHX16_2 = SHX9_1.rotation
-      SHX16_2 = SHX16_2.y
-      SHX17_2 = SHX9_1.rotation
-      SHX17_2 = SHX17_2.z
-      SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX10_2 = SHX23_1
-      SHX11_2 = 0.015
-      SHX12_2 = 0.75
-      SHX13_2 = "Move: Arrows + Q/E | Rotate: hold ALT | SHIFT big | CTRL fine | /chainedit toggle"
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2)
+      if workValue19 then
+        workValue = workValue14
+        -- Beginner: Register a client-side event handler.
+        workValue()
+      end
+      workValue = cmgCall4
+      workValue2 = 0.015
+      workValue3 = 0.65
+      workValue4 = "~y~CHAIN EDIT~w~ (%s)  /chainprint to copy"
+      workValue6 = workValue4
+      workValue4 = workValue4.format
+      if arg3 then
+        workValue8 = "ROT"
+        if workValue8 then
+          goto flow_label_253
+        end
+      end
+      workValue8 = "POS"
+      ::flow_label_253::
+      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8)
+      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
+      workValue = cmgCall4
+      workValue2 = 0.015
+      workValue3 = 0.675
+      workValue4 = "bone=%d"
+      workValue6 = workValue4
+      workValue4 = workValue4.format
+      workValue8 = cmgCall6.bone
+      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8)
+      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
+      workValue = cmgCall4
+      workValue2 = 0.015
+      workValue3 = 0.7
+      workValue4 = "off:  x=%.4f y=%.4f z=%.4f"
+      workValue6 = workValue4
+      workValue4 = workValue4.format
+      workValue8 = cmgCall6.offset
+      workValue8 = workValue8.x
+      workValue10 = cmgCall6.offset
+      workValue10 = workValue10.y
+      workValue12 = cmgCall6.offset
+      workValue12 = workValue12.z
+      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8, workValue10, workValue12)
+      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
+      workValue = cmgCall4
+      workValue2 = 0.015
+      workValue3 = 0.725
+      workValue4 = "rot:  x=%.2f y=%.2f z=%.2f"
+      workValue6 = workValue4
+      workValue4 = workValue4.format
+      workValue8 = cmgCall6.rotation
+      workValue8 = workValue8.x
+      workValue10 = cmgCall6.rotation
+      workValue10 = workValue10.y
+      workValue12 = cmgCall6.rotation
+      workValue12 = workValue12.z
+      workValue4, workValue6, workValue8, workValue10, workValue12 = workValue4(workValue6, workValue8, workValue10, workValue12)
+      workValue(workValue2, workValue3, workValue4, workValue6, workValue8, workValue10, workValue12)
+      workValue = cmgCall4
+      workValue2 = 0.015
+      workValue3 = 0.75
+      workValue4 = "Move: Arrows + Q/E | Rotate: hold ALT | SHIFT big | CTRL fine | /chainedit toggle"
+      workValue(workValue2, workValue3, workValue4)
     end
   end
 end
-SHX24_1(SHX25_1)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall5(textValue2)

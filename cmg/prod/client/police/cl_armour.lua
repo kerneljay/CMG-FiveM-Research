@@ -1,804 +1,795 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_armour.lua
+    =============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = vector3
-SHX3_1 = 459.33172607422
-SHX4_1 = -979.49810791016
-SHX5_1 = 30.689582824708
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX1_1.permission = "cop.whitelisted"
-SHX2_1 = {}
-SHX3_1 = vector3
-SHX4_1 = 1841.6328125
-SHX5_1 = 3690.603515625
-SHX6_1 = 34.26708984375
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.position = SHX3_1
-SHX2_1.permission = "cop.whitelisted"
-SHX3_1 = {}
-SHX4_1 = vector3
-SHX5_1 = -1106.9595947266
-SHX6_1 = -824.35784912109
-SHX7_1 = 14.282789230347
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.position = SHX4_1
-SHX3_1.permission = "cop.whitelisted"
-SHX4_1 = {}
-SHX5_1 = vector3
-SHX6_1 = -447.70739746094
-SHX7_1 = 6013.6123046875
-SHX8_1 = 31.716396331787
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.position = SHX5_1
-SHX4_1.permission = "cop.whitelisted"
-SHX5_1 = {}
-SHX6_1 = vector3
-SHX7_1 = 1539.0798339844
-SHX8_1 = 795.29608154297
-SHX9_1 = 78.693008422852
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.position = SHX6_1
-SHX5_1.permission = "cop.whitelisted"
-SHX6_1 = {}
-SHX7_1 = vector3
-SHX8_1 = 1764.9135742188
-SHX9_1 = 2587.9736328125
-SHX10_1 = 46.001010894775
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.position = SHX7_1
-SHX6_1.permission = "prisonguard.whitelisted"
-SHX7_1 = {}
-SHX8_1 = vector3
-SHX9_1 = -2438.9677734375
-SHX10_1 = -249.46469116211
-SHX11_1 = 16.358680725098
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX7_1.position = SHX8_1
-SHX7_1.permission = "borderforce.whitelisted"
-SHX8_1 = {}
-SHX9_1 = vector3
-SHX10_1 = 1302.6427001953
-SHX11_1 = 616.08892822266
-SHX12_1 = 80.330574035645
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.position = SHX9_1
-SHX8_1.permission = "borderforce.whitelisted"
-SHX9_1 = {}
-SHX10_1 = vector3
-SHX11_1 = 2418.9753417969
-SHX12_1 = -184.60707092285
-SHX13_1 = 87.478393554688
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.position = SHX10_1
-SHX9_1.permission = "borderforce.whitelisted"
-SHX10_1 = {}
-SHX11_1 = vector3
-SHX12_1 = -433.68515014648
-SHX13_1 = -319.22576904297
-SHX14_1 = 34.910751342773
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1.position = SHX11_1
-SHX10_1.permission = "nhs.onduty.permission"
-SHX11_1 = {}
-SHX12_1 = vector3
-SHX13_1 = 257.38790893555
-SHX14_1 = 6333.384765625
-SHX15_1 = 32.427223205566
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX11_1.position = SHX12_1
-SHX11_1.permission = "nhs.onduty.permission"
-SHX12_1 = {}
-SHX13_1 = vector3
-SHX14_1 = 314.72796630859
-SHX15_1 = -566.34704589844
-SHX16_1 = 75.724975585938
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX12_1.position = SHX13_1
-SHX12_1.permission = "nhs.onduty.permission"
-SHX13_1 = {}
-SHX14_1 = vector3
-SHX15_1 = 1838.9287109375
-SHX16_1 = 3682.7348632812
-SHX17_1 = 34.270023345947
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX13_1.position = SHX14_1
-SHX13_1.permission = "nhs.onduty.permission"
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX0_1[5] = SHX5_1
-SHX0_1[6] = SHX6_1
-SHX0_1[7] = SHX7_1
-SHX0_1[8] = SHX8_1
-SHX0_1[9] = SHX9_1
-SHX0_1[10] = SHX10_1
-SHX0_1[11] = SHX11_1
-SHX0_1[12] = SHX12_1
-SHX0_1[13] = SHX13_1
-SHX1_1 = {}
-SHX2_1 = vector3
-SHX3_1 = 454.01052856445
-SHX4_1 = -1024.8431396484
-SHX5_1 = 28.496109008789
-SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1[1] = SHX2_1
-SHX1_1[2] = SHX3_1
-SHX1_1[3] = SHX4_1
-SHX1_1[4] = SHX5_1
-SHX1_1[5] = SHX6_1
-SHX1_1[6] = SHX7_1
-SHX1_1[7] = SHX8_1
-SHX1_1[8] = SHX9_1
-SHX1_1[9] = SHX10_1
-SHX1_1[10] = SHX11_1
-SHX1_1[11] = SHX12_1
-SHX1_1[12] = SHX13_1
-SHX1_1[13] = SHX14_1
-SHX1_1[14] = SHX15_1
-SHX1_1[15] = SHX16_1
-SHX1_1[16] = SHX17_1
-SHX2_1 = AddEventHandler
-SHX3_1 = "CMG:onClientSpawn"
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  if SHX1_2 then
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_PICKUP~ to Pickup Armour"
-      SHX0_3(SHX1_3)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Armour
+    =======================
+
+    File: cmg/prod/client/police/cl_armour.lua
+    Purpose: This file contains police gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Commands/command-like entries found:
+      * policehorse
+
+    Network/hash identifiers found: 1
+      They are intentionally left unchanged because matching server code may use them.
+      * 53d18271be
+
+    Named framework/network events found:
+      * CMG:onClientSpawn
+
+    Example player-facing text in this file:
+      * Press ~INPUT_PICKUP~ to Pickup Armour
+      * ~r~You shouldn
+      * ~r~You can not get a horse out at this time.
+      * ~s~~INPUT_JUMP~ to exit horse
+      * Press ~INPUT_PICKUP~ to spawn police horse!
+
+]]
+local dataTable, dataTable2, vector3Builder6, vector3Builder7, vector3Builder8, vector3Builder9, vector3Builder10, vector3Builder11, vector3Builder12, vector3Builder13, vector3Builder, vector3Builder2, vector3Builder3, vector3Builder4, vector3Builder5, numberValue2, numberValue4, numberValue6
+dataTable = {}
+dataTable2 = {}
+vector3Builder6 = vector3
+vector3Builder7 = 459.33172607422
+vector3Builder8 = -979.49810791016
+vector3Builder9 = 30.689582824708
+vector3Builder6 = vector3Builder6(vector3Builder7, vector3Builder8, vector3Builder9)
+dataTable2.position = vector3Builder6
+dataTable2.permission = "cop.whitelisted"
+vector3Builder6 = {}
+vector3Builder7 = vector3
+vector3Builder8 = 1841.6328125
+vector3Builder9 = 3690.603515625
+vector3Builder10 = 34.26708984375
+vector3Builder7 = vector3Builder7(vector3Builder8, vector3Builder9, vector3Builder10)
+vector3Builder6.position = vector3Builder7
+vector3Builder6.permission = "cop.whitelisted"
+vector3Builder7 = {}
+vector3Builder8 = vector3
+vector3Builder9 = -1106.9595947266
+vector3Builder10 = -824.35784912109
+vector3Builder11 = 14.282789230347
+vector3Builder8 = vector3Builder8(vector3Builder9, vector3Builder10, vector3Builder11)
+vector3Builder7.position = vector3Builder8
+vector3Builder7.permission = "cop.whitelisted"
+vector3Builder8 = {}
+vector3Builder9 = vector3
+vector3Builder10 = -447.70739746094
+vector3Builder11 = 6013.6123046875
+vector3Builder12 = 31.716396331787
+vector3Builder9 = vector3Builder9(vector3Builder10, vector3Builder11, vector3Builder12)
+vector3Builder8.position = vector3Builder9
+vector3Builder8.permission = "cop.whitelisted"
+vector3Builder9 = {}
+vector3Builder10 = vector3
+vector3Builder11 = 1539.0798339844
+vector3Builder12 = 795.29608154297
+vector3Builder13 = 78.693008422852
+vector3Builder10 = vector3Builder10(vector3Builder11, vector3Builder12, vector3Builder13)
+vector3Builder9.position = vector3Builder10
+vector3Builder9.permission = "cop.whitelisted"
+vector3Builder10 = {}
+vector3Builder11 = vector3
+vector3Builder12 = 1764.9135742188
+vector3Builder13 = 2587.9736328125
+vector3Builder = 46.001010894775
+vector3Builder11 = vector3Builder11(vector3Builder12, vector3Builder13, vector3Builder)
+vector3Builder10.position = vector3Builder11
+vector3Builder10.permission = "prisonguard.whitelisted"
+vector3Builder11 = {}
+vector3Builder12 = vector3
+vector3Builder13 = -2438.9677734375
+vector3Builder = -249.46469116211
+vector3Builder2 = 16.358680725098
+vector3Builder12 = vector3Builder12(vector3Builder13, vector3Builder, vector3Builder2)
+vector3Builder11.position = vector3Builder12
+vector3Builder11.permission = "borderforce.whitelisted"
+vector3Builder12 = {}
+vector3Builder13 = vector3
+vector3Builder = 1302.6427001953
+vector3Builder2 = 616.08892822266
+vector3Builder3 = 80.330574035645
+vector3Builder13 = vector3Builder13(vector3Builder, vector3Builder2, vector3Builder3)
+vector3Builder12.position = vector3Builder13
+vector3Builder12.permission = "borderforce.whitelisted"
+vector3Builder13 = {}
+vector3Builder = vector3
+vector3Builder2 = 2418.9753417969
+vector3Builder3 = -184.60707092285
+vector3Builder4 = 87.478393554688
+vector3Builder = vector3Builder(vector3Builder2, vector3Builder3, vector3Builder4)
+vector3Builder13.position = vector3Builder
+vector3Builder13.permission = "borderforce.whitelisted"
+vector3Builder = {}
+vector3Builder2 = vector3
+vector3Builder3 = -433.68515014648
+vector3Builder4 = -319.22576904297
+vector3Builder5 = 34.910751342773
+vector3Builder2 = vector3Builder2(vector3Builder3, vector3Builder4, vector3Builder5)
+vector3Builder.position = vector3Builder2
+vector3Builder.permission = "nhs.onduty.permission"
+vector3Builder2 = {}
+vector3Builder3 = vector3
+vector3Builder4 = 257.38790893555
+vector3Builder5 = 6333.384765625
+numberValue2 = 32.427223205566
+vector3Builder3 = vector3Builder3(vector3Builder4, vector3Builder5, numberValue2)
+vector3Builder2.position = vector3Builder3
+vector3Builder2.permission = "nhs.onduty.permission"
+vector3Builder3 = {}
+vector3Builder4 = vector3
+vector3Builder5 = 314.72796630859
+numberValue2 = -566.34704589844
+numberValue4 = 75.724975585938
+vector3Builder4 = vector3Builder4(vector3Builder5, numberValue2, numberValue4)
+vector3Builder3.position = vector3Builder4
+vector3Builder3.permission = "nhs.onduty.permission"
+vector3Builder4 = {}
+vector3Builder5 = vector3
+numberValue2 = 1838.9287109375
+numberValue4 = 3682.7348632812
+numberValue6 = 34.270023345947
+vector3Builder5 = vector3Builder5(numberValue2, numberValue4, numberValue6)
+vector3Builder4.position = vector3Builder5
+vector3Builder4.permission = "nhs.onduty.permission"
+dataTable[1] = dataTable2
+dataTable[2] = vector3Builder6
+dataTable[3] = vector3Builder7
+dataTable[4] = vector3Builder8
+dataTable[5] = vector3Builder9
+dataTable[6] = vector3Builder10
+dataTable[7] = vector3Builder11
+dataTable[8] = vector3Builder12
+dataTable[9] = vector3Builder13
+dataTable[10] = vector3Builder
+dataTable[11] = vector3Builder2
+dataTable[12] = vector3Builder3
+dataTable[13] = vector3Builder4
+dataTable2 = {}
+vector3Builder6 = vector3
+vector3Builder7 = 454.01052856445
+vector3Builder8 = -1024.8431396484
+vector3Builder9 = 28.496109008789
+vector3Builder6, vector3Builder7, vector3Builder8, vector3Builder9, vector3Builder10, vector3Builder11, vector3Builder12, vector3Builder13, vector3Builder, vector3Builder2, vector3Builder3, vector3Builder4, vector3Builder5, numberValue2, numberValue4, numberValue6 = vector3Builder6(vector3Builder7, vector3Builder8, vector3Builder9)
+dataTable2[1] = vector3Builder6
+dataTable2[2] = vector3Builder7
+dataTable2[3] = vector3Builder8
+dataTable2[4] = vector3Builder9
+dataTable2[5] = vector3Builder10
+dataTable2[6] = vector3Builder11
+dataTable2[7] = vector3Builder12
+dataTable2[8] = vector3Builder13
+dataTable2[9] = vector3Builder
+dataTable2[10] = vector3Builder2
+dataTable2[11] = vector3Builder3
+dataTable2[12] = vector3Builder4
+dataTable2[13] = vector3Builder5
+dataTable2[14] = numberValue2
+dataTable2[15] = numberValue4
+dataTable2[16] = numberValue6
+vector3Builder6 = AddEventHandler
+vector3Builder7 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function vector3Builder8(arg1, arg2)
+  local workValue, cmgCall3, playerPed2, playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2
+  if arg2 then
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function workValue()
+      local cmgCall, textValue2
+      cmgCall = drawNativeNotification
+      textValue2 = "Press ~INPUT_PICKUP~ to Pickup Armour"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      cmgCall(textValue2)
     end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function cmgCall3()
+      local cmgCall, textValue2
     end
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 1
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.hasClientPermission
-        SHX1_3 = "police.onduty.permission"
-        SHX0_3 = SHX0_3(SHX1_3)
-        if not SHX0_3 then
-          SHX0_3 = CMG
-          SHX0_3 = SHX0_3.hasClientPermission
-          SHX1_3 = "prisonguard.onduty.permission"
-          SHX0_3 = SHX0_3(SHX1_3)
-          if not SHX0_3 then
-            SHX0_3 = CMG
-            SHX0_3 = SHX0_3.hasClientPermission
-            SHX1_3 = "nhs.onduty.permission"
-            SHX0_3 = SHX0_3(SHX1_3)
-            if not SHX0_3 then
-              goto SHX_LABEL_40
+    function playerPed2()
+      local cmgCall, textValue2, numberValue8, textValue3, textValue4, flag10
+      cmgCall = IsControlJustPressed
+      textValue2 = 1
+      numberValue8 = 51
+      cmgCall = cmgCall(textValue2, numberValue8)
+      if cmgCall then
+        cmgCall = CMG
+        cmgCall = cmgCall.hasClientPermission
+        textValue2 = "police.onduty.permission"
+        cmgCall = cmgCall(textValue2)
+        if not cmgCall then
+          cmgCall = CMG
+          cmgCall = cmgCall.hasClientPermission
+          textValue2 = "prisonguard.onduty.permission"
+          cmgCall = cmgCall(textValue2)
+          if not cmgCall then
+            cmgCall = CMG
+            cmgCall = cmgCall.hasClientPermission
+            textValue2 = "nhs.onduty.permission"
+            cmgCall = cmgCall(textValue2)
+            if not cmgCall then
+              goto flow_label_40
             end
           end
         end
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "53d18271be"
-        SHX0_3(SHX1_3)
-        SHX0_3 = GetSoundId
-        SHX0_3 = SHX0_3()
-        SHX1_3 = PlaySoundFrontend
-        SHX2_3 = SHX0_3
-        SHX3_3 = "Armour_On"
-        SHX4_3 = "DLC_GR_Steal_Miniguns_Sounds"
-        SHX5_3 = true
-        SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-        SHX1_3 = ReleaseSoundId
-        SHX2_3 = SHX0_3
-        SHX1_3(SHX2_3)
-        goto SHX_LABEL_44
-        -- [FIX IF ERROR] Move ::SHX_LABEL_40:: outside nested blocks until all 'goto SHX_LABEL_40' can see it
-        ::SHX_LABEL_40::
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.notify
-        SHX1_3 = "~r~You shouldn't be here...Engaging defenses in 3..2..1..."
-        SHX0_3(SHX1_3)
+        cmgCall = TriggerServerEvent
+        textValue2 = "53d18271be"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "53d18271be".
+        cmgCall(textValue2)
+        cmgCall = GetSoundId
+        -- Beginner: result below is soundHandle.
+        cmgCall = cmgCall()
+        textValue2 = PlaySoundFrontend
+        numberValue8 = cmgCall
+        textValue3 = "Armour_On"
+        textValue4 = "DLC_GR_Steal_Miniguns_Sounds"
+        flag10 = true
+        textValue2(numberValue8, textValue3, textValue4, flag10)
+        textValue2 = ReleaseSoundId
+        numberValue8 = cmgCall
+        textValue2(numberValue8)
+        goto flow_label_44
+        ::flow_label_40::
+        cmgCall = tCMG
+        cmgCall = cmgCall.notify
+        textValue2 = "~r~You shouldn't be here...Engaging defenses in 3..2..1..."
+        -- Beginner: Show a notification to the player.
+        cmgCall(textValue2)
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_44:: outside nested blocks until all 'goto SHX_LABEL_44' can see it
-      ::SHX_LABEL_44::
+      ::flow_label_44::
     end
-    SHX5_2 = pairs
-    SHX6_2 = SHX0_1
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX11_2 = CMG
-      SHX11_2 = SHX11_2.hasClientPermission
-      SHX12_2 = SHX10_2.permission
-      SHX11_2 = SHX11_2(SHX12_2)
-      if SHX11_2 then
-        SHX11_2 = CMG
-        SHX11_2 = SHX11_2.createArea
-        SHX12_2 = "armour_"
-        SHX13_2 = SHX9_2
-        SHX12_2 = SHX12_2 .. SHX13_2
-        SHX13_2 = SHX10_2.position
-        SHX14_2 = 1.5
-        SHX15_2 = 6
-        SHX16_2 = SHX2_2
-        SHX17_2 = SHX3_2
-        SHX18_2 = SHX4_2
-        SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-        SHX11_2 = tCMG
-        SHX11_2 = SHX11_2.addPropMarker
-        SHX12_2 = "bzzz_marker_mask_blue_anim"
-        SHX13_2 = SHX10_2.position
-        SHX13_2 = SHX13_2.x
-        SHX14_2 = SHX10_2.position
-        SHX14_2 = SHX14_2.y
-        SHX15_2 = SHX10_2.position
-        SHX15_2 = SHX15_2.z
-        SHX16_2 = 20.0
-        SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+    playerPed3 = pairs
+    cmgCall4 = dataTable
+    playerPed3, cmgCall4, dataTable3, cmgCall5 = playerPed3(cmgCall4)
+    for textValue5, playerPed in playerPed3, cmgCall4, dataTable3, cmgCall5 do
+      cmgCall2 = CMG
+      cmgCall2 = cmgCall2.hasClientPermission
+      textValue = playerPed.permission
+      cmgCall2 = cmgCall2(textValue)
+      if cmgCall2 then
+        cmgCall2 = CMG
+        cmgCall2 = cmgCall2.createArea
+        textValue = "armour_"
+        position = textValue5
+        textValue = textValue .. position
+        position = playerPed.position
+        numberValue = 1.5
+        numberValue3 = 6
+        numberValue5 = workValue
+        flag = cmgCall3
+        flag2 = playerPed2
+        -- Beginner: Create an interaction area around a world position.
+        cmgCall2(textValue, position, numberValue, numberValue3, numberValue5, flag, flag2)
+        cmgCall2 = tCMG
+        cmgCall2 = cmgCall2.addPropMarker
+        textValue = "bzzz_marker_mask_blue_anim"
+        position = playerPed.position
+        position = position.x
+        numberValue = playerPed.position
+        numberValue = numberValue.y
+        numberValue3 = playerPed.position
+        numberValue3 = numberValue3.z
+        numberValue5 = 20.0
+        -- Beginner: Create a prop-style world marker.
+        cmgCall2(textValue, position, numberValue, numberValue3, numberValue5)
       end
     end
   end
 end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = false
-SHX3_1 = false
-SHX4_1 = 0
-SHX5_1 = CMG
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if not SHX0_2 then
-    SHX0_2 = GetPedType
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX0_2 = SHX0_2(SHX1_2)
-    SHX0_2 = 28 == SHX0_2
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+vector3Builder6(vector3Builder7, vector3Builder8)
+vector3Builder6 = false
+vector3Builder7 = false
+vector3Builder8 = 0
+vector3Builder9 = CMG
+function vector3Builder10()
+  local arg1, arg2
+  arg1 = vector3Builder6
+  if not arg1 then
+    arg1 = GetPedType
+    arg2 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg2 = arg2()
+    arg1 = arg1(arg2)
+    arg1 = 28 == arg1
   end
-  return SHX0_2
+  return arg1
 end
-SHX5_1.isPlayerInAnimalForm = SHX6_1
-SHX5_1 = CMG
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX3_1
-  return SHX0_2
+vector3Builder9.isPlayerInAnimalForm = vector3Builder10
+vector3Builder9 = CMG
+function vector3Builder10()
+  local arg1, arg2
+  arg1 = vector3Builder7
+  return arg1
 end
-SHX5_1.isPoliceHorse = SHX6_1
-SHX5_1 = CMG
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX3_1 = SHX0_2
+vector3Builder9.isPoliceHorse = vector3Builder10
+vector3Builder9 = CMG
+function vector3Builder10(arg1)
+  local arg2
+  vector3Builder7 = arg1
 end
-SHX5_1.setInPoliceHorseDelayed = SHX6_1
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = IsPedFalling
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = IsPedRagdoll
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      SHX1_2 = GetEntityHealth
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if not (SHX1_2 <= 102) then
-        SHX1_2 = IsPedInParachuteFreeFall
-        SHX2_2 = SHX0_2
-        SHX1_2 = SHX1_2(SHX2_2)
-        if not SHX1_2 then
-          goto SHX_LABEL_27
+vector3Builder9.setInPoliceHorseDelayed = vector3Builder10
+function vector3Builder9()
+  local arg1, arg2, workValue, cmgCall3, playerPed2, playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = IsPedFalling
+  workValue = arg1
+  arg2 = arg2(workValue)
+  if not arg2 then
+    arg2 = IsPedRagdoll
+    workValue = arg1
+    arg2 = arg2(workValue)
+    if not arg2 then
+      arg2 = GetEntityHealth
+      workValue = arg1
+      -- Beginner: result below is health.
+      arg2 = arg2(workValue)
+      if not (arg2 <= 102) then
+        arg2 = IsPedInParachuteFreeFall
+        workValue = arg1
+        arg2 = arg2(workValue)
+        if not arg2 then
+          goto flow_label_27
         end
       end
     end
   end
-  SHX1_2 = notify
-  SHX2_2 = "~r~You can not get a horse out at this time."
-  SHX1_2(SHX2_2)
+  arg2 = notify
+  workValue = "~r~You can not get a horse out at this time."
+  -- Beginner: Show a notification to the player.
+  arg2(workValue)
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_27:: outside nested blocks until all 'goto SHX_LABEL_27' can see it
-  ::SHX_LABEL_27::
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX4_1
-  SHX1_2 = SHX1_2 - SHX2_2
-  SHX2_2 = 10000
-  if SHX1_2 < SHX2_2 then
-    SHX1_2 = notify
-    SHX2_2 = "~r~Please wait at least 10 seconds before going on the horse again."
-    SHX1_2(SHX2_2)
+  ::flow_label_27::
+  arg2 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg2 = arg2()
+  workValue = vector3Builder8
+  arg2 = arg2 - workValue
+  workValue = 10000
+  if arg2 < workValue then
+    arg2 = notify
+    workValue = "~r~Please wait at least 10 seconds before going on the horse again."
+    arg2(workValue)
     return
   end
-  SHX1_2 = GetEntityModel
-  SHX2_2 = PlayerPedId
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX2_2()
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  if 1885233650 == SHX1_2 or -1667301416 == SHX1_2 then
-    SHX2_2 = true
-    SHX2_1 = SHX2_2
-    SHX2_2 = true
-    SHX3_1 = SHX2_2
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX4_1 = SHX2_2
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.loadModel
-    SHX3_2 = "a_c_deer"
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
+  arg2 = GetEntityModel
+  workValue = PlayerPedId
+  workValue, cmgCall3, playerPed2, playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6 = workValue()
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(workValue, cmgCall3, playerPed2, playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6)
+  if 1885233650 == arg2 or -1667301416 == arg2 then
+    workValue = true
+    vector3Builder6 = workValue
+    workValue = true
+    vector3Builder7 = workValue
+    workValue = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    workValue = workValue()
+    vector3Builder8 = workValue
+    workValue = CMG
+    workValue = workValue.loadModel
+    cmgCall3 = "a_c_deer"
+    workValue = workValue(cmgCall3)
+    if not workValue then
       return
     end
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.requestEntitySpawn
-    SHX4_2 = "police_horse_ped"
-    SHX5_2 = SHX1_2
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX3_2 = ClonePed
-    SHX4_2 = PlayerPedId
-    SHX4_2 = SHX4_2()
-    SHX5_2 = true
-    SHX6_2 = true
-    SHX7_2 = true
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = GetEntityHealth
-    SHX5_2 = PlayerPedId
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX5_2()
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-    SHX5_2 = tCMG
-    SHX5_2 = SHX5_2.getCustomization
-    SHX5_2 = SHX5_2()
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.setCustomization
-    SHX7_2 = {}
-    SHX7_2.modelhash = -664053099
-    SHX6_2(SHX7_2)
-    SHX6_2 = SetModelAsNoLongerNeeded
-    SHX7_2 = SHX2_2
-    SHX6_2(SHX7_2)
-    SHX6_2 = Citizen
-    SHX6_2 = SHX6_2.CreateThread
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 200
-      SHX0_3(SHX1_3)
-      SHX0_3 = SetEntityHealth
-      SHX1_3 = PlayerPedId
-      SHX1_3 = SHX1_3()
-      SHX2_3 = SHX4_2
-      SHX0_3(SHX1_3, SHX2_3)
+    cmgCall3 = CMG
+    cmgCall3 = cmgCall3.requestEntitySpawn
+    playerPed2 = "police_horse_ped"
+    playerPed3 = arg2
+    cmgCall3(playerPed2, playerPed3)
+    cmgCall3 = ClonePed
+    playerPed2 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    playerPed2 = playerPed2()
+    playerPed3 = true
+    cmgCall4 = true
+    dataTable3 = true
+    cmgCall3 = cmgCall3(playerPed2, playerPed3, cmgCall4, dataTable3)
+    playerPed2 = GetEntityHealth
+    playerPed3 = PlayerPedId
+    playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6 = playerPed3()
+    -- Beginner: result below is health.
+    playerPed2 = playerPed2(playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6)
+    playerPed3 = tCMG
+    playerPed3 = playerPed3.getCustomization
+    playerPed3 = playerPed3()
+    cmgCall4 = tCMG
+    cmgCall4 = cmgCall4.setCustomization
+    dataTable3 = {}
+    dataTable3.modelhash = -664053099
+    cmgCall4(dataTable3)
+    cmgCall4 = SetModelAsNoLongerNeeded
+    dataTable3 = workValue
+    cmgCall4(dataTable3)
+    cmgCall4 = Citizen
+    cmgCall4 = cmgCall4.CreateThread
+    function dataTable3()
+      local cmgCall, textValue2, numberValue8
+      cmgCall = Citizen
+      cmgCall = cmgCall.Wait
+      textValue2 = 200
+      cmgCall(textValue2)
+      cmgCall = SetEntityHealth
+      textValue2 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      textValue2 = textValue2()
+      numberValue8 = playerPed2
+      cmgCall(textValue2, numberValue8)
     end
-    SHX6_2(SHX7_2)
-    SHX6_2 = 0.12
-    SHX7_2 = -0.2
-    SHX8_2 = AttachEntityToEntity
-    SHX9_2 = SHX3_2
-    SHX10_2 = PlayerPedId
-    SHX10_2 = SHX10_2()
-    SHX11_2 = GetPedBoneIndex
-    SHX12_2 = PlayerPedId
-    SHX12_2 = SHX12_2()
-    SHX13_2 = 24816
-    SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-    SHX12_2 = SHX7_2
-    SHX13_2 = 0.0
-    SHX14_2 = SHX6_2
-    SHX15_2 = 0.0
-    SHX16_2 = 0.0
-    SHX17_2 = -90.0
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX20_2 = false
-    SHX21_2 = true
-    SHX22_2 = 2
-    SHX23_2 = true
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.loadAnimDict
-    SHX9_2 = "amb@prop_human_seat_chair@male@generic@base"
-    SHX8_2(SHX9_2)
-    SHX8_2 = TaskPlayAnim
-    SHX9_2 = SHX3_2
-    SHX10_2 = "amb@prop_human_seat_chair@male@generic@base"
-    SHX11_2 = "base"
-    SHX12_2 = 8.0
-    SHX13_2 = 1
-    SHX14_2 = -1
-    SHX15_2 = 1
-    SHX16_2 = 1.0
-    SHX17_2 = false
-    SHX18_2 = false
-    SHX19_2 = false
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX8_2 = RemoveAnimDict
-    SHX9_2 = "amb@prop_human_seat_chair@male@generic@base"
-    SHX8_2(SHX9_2)
-    SHX8_2 = FreezeEntityPosition
-    SHX9_2 = PlayerPedId
-    SHX9_2 = SHX9_2()
-    SHX10_2 = false
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = FreezeEntityPosition
-    SHX9_2 = SHX3_2
-    SHX10_2 = false
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = SetPedComponentVariation
-    SHX9_2 = PlayerPedId
-    SHX9_2 = SHX9_2()
-    SHX10_2 = 0
-    SHX11_2 = 0
-    SHX12_2 = 0
-    SHX13_2 = 0
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX8_2 = SetBlockingOfNonTemporaryEvents
-    SHX9_2 = SHX3_2
-    SHX10_2 = true
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = SetPedFleeAttributes
-    SHX9_2 = SHX3_2
-    SHX10_2 = 0
-    SHX11_2 = false
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = SetPedRelationshipGroupHash
-    SHX9_2 = SHX3_2
-    SHX10_2 = 1191392768
-    SHX8_2(SHX9_2, SHX10_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    cmgCall4(dataTable3)
+    cmgCall4 = 0.12
+    dataTable3 = -0.2
+    cmgCall5 = AttachEntityToEntity
+    textValue5 = cmgCall3
+    playerPed = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    playerPed = playerPed()
+    cmgCall2 = GetPedBoneIndex
+    textValue = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    textValue = textValue()
+    position = 24816
+    cmgCall2 = cmgCall2(textValue, position)
+    textValue = dataTable3
+    position = 0.0
+    numberValue = cmgCall4
+    numberValue3 = 0.0
+    numberValue5 = 0.0
+    flag = -90.0
+    flag2 = false
+    flag3 = false
+    flag4 = false
+    flag5 = true
+    numberValue7 = 2
+    flag6 = true
+    -- Beginner: Attach one entity to another entity.
+    cmgCall5(textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6)
+    cmgCall5 = CMG
+    cmgCall5 = cmgCall5.loadAnimDict
+    textValue5 = "amb@prop_human_seat_chair@male@generic@base"
+    -- Beginner: Load a GTA animation dictionary before using it.
+    cmgCall5(textValue5)
+    cmgCall5 = TaskPlayAnim
+    textValue5 = cmgCall3
+    playerPed = "amb@prop_human_seat_chair@male@generic@base"
+    cmgCall2 = "base"
+    textValue = 8.0
+    position = 1
+    numberValue = -1
+    numberValue3 = 1
+    numberValue5 = 1.0
+    flag = false
+    flag2 = false
+    flag3 = false
+    -- Beginner: Play an animation on a ped.
+    cmgCall5(textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3)
+    cmgCall5 = RemoveAnimDict
+    textValue5 = "amb@prop_human_seat_chair@male@generic@base"
+    cmgCall5(textValue5)
+    cmgCall5 = FreezeEntityPosition
+    textValue5 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    textValue5 = textValue5()
+    playerPed = false
+    -- Beginner: Freeze or unfreeze an entity in place.
+    cmgCall5(textValue5, playerPed)
+    cmgCall5 = FreezeEntityPosition
+    textValue5 = cmgCall3
+    playerPed = false
+    cmgCall5(textValue5, playerPed)
+    cmgCall5 = SetPedComponentVariation
+    textValue5 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    textValue5 = textValue5()
+    playerPed = 0
+    cmgCall2 = 0
+    textValue = 0
+    position = 0
+    cmgCall5(textValue5, playerPed, cmgCall2, textValue, position)
+    cmgCall5 = SetBlockingOfNonTemporaryEvents
+    textValue5 = cmgCall3
+    playerPed = true
+    cmgCall5(textValue5, playerPed)
+    cmgCall5 = SetPedFleeAttributes
+    textValue5 = cmgCall3
+    playerPed = 0
+    cmgCall2 = false
+    cmgCall5(textValue5, playerPed, cmgCall2)
+    cmgCall5 = SetPedRelationshipGroupHash
+    textValue5 = cmgCall3
+    playerPed = 1191392768
+    cmgCall5(textValue5, playerPed)
     while true do
-      SHX8_2 = SHX2_1
-      if not SHX8_2 then
+      cmgCall5 = vector3Builder6
+      if not cmgCall5 then
         break
       end
-      SHX8_2 = Wait
-      SHX9_2 = 0
-      SHX8_2(SHX9_2)
-      SHX8_2 = drawNativeNotification
-      SHX9_2 = "~s~~INPUT_JUMP~ to exit horse"
-      SHX8_2(SHX9_2)
-      SHX8_2 = CMG
-      SHX8_2 = SHX8_2.setWeapon
-      SHX9_2 = PlayerPedId
-      SHX9_2 = SHX9_2()
-      SHX10_2 = "weapon_unarmed"
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 263
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 264
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 257
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 140
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 141
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 142
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 143
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 24
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = DisableControlAction
-      SHX9_2 = 0
-      SHX10_2 = 25
-      SHX11_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-      SHX8_2 = SetPedDropsWeaponsWhenDead
-      SHX9_2 = SHX3_2
-      SHX10_2 = false
-      SHX8_2(SHX9_2, SHX10_2)
-      SHX8_2 = IsDisabledControlPressed
-      SHX9_2 = 0
-      SHX10_2 = 22
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      if SHX8_2 then
-        SHX8_2 = false
-        SHX2_1 = SHX8_2
+      cmgCall5 = Wait
+      textValue5 = 0
+      cmgCall5(textValue5)
+      cmgCall5 = drawNativeNotification
+      textValue5 = "~s~~INPUT_JUMP~ to exit horse"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      cmgCall5(textValue5)
+      cmgCall5 = CMG
+      cmgCall5 = cmgCall5.setWeapon
+      textValue5 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      textValue5 = textValue5()
+      playerPed = "weapon_unarmed"
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 263
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 264
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 257
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 140
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 141
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 142
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 143
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 24
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = DisableControlAction
+      textValue5 = 0
+      playerPed = 25
+      cmgCall2 = true
+      cmgCall5(textValue5, playerPed, cmgCall2)
+      cmgCall5 = SetPedDropsWeaponsWhenDead
+      textValue5 = cmgCall3
+      playerPed = false
+      cmgCall5(textValue5, playerPed)
+      cmgCall5 = IsDisabledControlPressed
+      textValue5 = 0
+      playerPed = 22
+      cmgCall5 = cmgCall5(textValue5, playerPed)
+      if cmgCall5 then
+        cmgCall5 = false
+        vector3Builder6 = cmgCall5
       end
     end
-    SHX8_2 = DeleteEntity
-    SHX9_2 = SHX3_2
-    SHX8_2(SHX9_2)
-    SHX8_2 = DetachEntity
-    SHX9_2 = PlayerPedId
-    SHX9_2 = SHX9_2()
-    SHX10_2 = false
-    SHX11_2 = false
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = GetEntityHealth
-    SHX9_2 = PlayerPedId
-    SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX9_2()
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-    SHX9_2 = tCMG
-    SHX9_2 = SHX9_2.setCustomization
-    SHX10_2 = SHX5_2
-    SHX9_2(SHX10_2)
-    SHX9_2 = Citizen
-    SHX9_2 = SHX9_2.CreateThread
-    function SHX10_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 200
-      SHX0_3(SHX1_3)
-      SHX0_3 = SetEntityHealth
-      SHX1_3 = PlayerPedId
-      SHX1_3 = SHX1_3()
-      SHX2_3 = SHX8_2
-      SHX0_3(SHX1_3, SHX2_3)
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 1000
-      SHX0_3(SHX1_3)
-      SHX0_3 = false
-      SHX3_1 = SHX0_3
+    cmgCall5 = DeleteEntity
+    textValue5 = cmgCall3
+    -- Beginner: Delete a GTA entity.
+    cmgCall5(textValue5)
+    cmgCall5 = DetachEntity
+    textValue5 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    textValue5 = textValue5()
+    playerPed = false
+    cmgCall2 = false
+    cmgCall5(textValue5, playerPed, cmgCall2)
+    cmgCall5 = GetEntityHealth
+    textValue5 = PlayerPedId
+    textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6 = textValue5()
+    -- Beginner: result below is health.
+    cmgCall5 = cmgCall5(textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6)
+    textValue5 = tCMG
+    textValue5 = textValue5.setCustomization
+    playerPed = playerPed3
+    textValue5(playerPed)
+    textValue5 = Citizen
+    textValue5 = textValue5.CreateThread
+    function playerPed()
+      local cmgCall, textValue2, numberValue8
+      cmgCall = Citizen
+      cmgCall = cmgCall.Wait
+      textValue2 = 200
+      cmgCall(textValue2)
+      cmgCall = SetEntityHealth
+      textValue2 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      textValue2 = textValue2()
+      numberValue8 = cmgCall5
+      cmgCall(textValue2, numberValue8)
+      cmgCall = Citizen
+      cmgCall = cmgCall.Wait
+      textValue2 = 1000
+      cmgCall(textValue2)
+      cmgCall = false
+      vector3Builder7 = cmgCall
     end
-    SHX9_2(SHX10_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    textValue5(playerPed)
   else
-    SHX2_2 = tCMG
-    SHX2_2 = SHX2_2.notify
-    SHX3_2 = "~r~Custom peds cannot be used with horses."
-    SHX2_2(SHX3_2)
+    workValue = tCMG
+    workValue = workValue.notify
+    cmgCall3 = "~r~Custom peds cannot be used with horses."
+    -- Beginner: Show a notification to the player.
+    workValue(cmgCall3)
   end
 end
-SHX6_1 = AddEventHandler
-SHX7_1 = "CMG:onClientSpawn"
-function SHX8_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2
-  if SHX1_2 then
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_PICKUP~ to spawn police horse!"
-      SHX0_3(SHX1_3)
+vector3Builder10 = AddEventHandler
+vector3Builder11 = "CMG:onClientSpawn"
+-- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+function vector3Builder12(arg1, arg2)
+  local workValue, cmgCall3, playerPed2, playerPed3, cmgCall4, dataTable3, cmgCall5, textValue5, playerPed, cmgCall2, textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6, flag7, flag8, flag9
+  if arg2 then
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function workValue()
+      local cmgCall, textValue2
+      cmgCall = drawNativeNotification
+      textValue2 = "Press ~INPUT_PICKUP~ to spawn police horse!"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      cmgCall(textValue2)
     end
-    function SHX3_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+    function cmgCall3()
+      local cmgCall, textValue2
     end
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 1
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = SHX2_1
-        if not SHX0_3 then
-          SHX0_3 = CMG
-          SHX0_3 = SHX0_3.hasClientPermission
-          SHX1_3 = "police.onduty.permission"
-          SHX0_3 = SHX0_3(SHX1_3)
-          if SHX0_3 then
-            SHX0_3 = CMG
-            SHX0_3 = SHX0_3.inOrganHesit
-            SHX0_3 = SHX0_3()
-            if not SHX0_3 then
-              SHX0_3 = SHX5_1
-              SHX0_3()
+    function playerPed2()
+      local cmgCall, textValue2, numberValue8
+      cmgCall = IsControlJustPressed
+      textValue2 = 1
+      numberValue8 = 51
+      cmgCall = cmgCall(textValue2, numberValue8)
+      if cmgCall then
+        cmgCall = vector3Builder6
+        if not cmgCall then
+          cmgCall = CMG
+          cmgCall = cmgCall.hasClientPermission
+          textValue2 = "police.onduty.permission"
+          cmgCall = cmgCall(textValue2)
+          if cmgCall then
+            cmgCall = CMG
+            cmgCall = cmgCall.inOrganHesit
+            cmgCall = cmgCall()
+            if not cmgCall then
+              cmgCall = vector3Builder9
+              cmgCall()
           end
           else
-            SHX0_3 = tCMG
-            SHX0_3 = SHX0_3.notify
-            SHX1_3 = "~r~This is only available to the MET Police only."
-            SHX0_3(SHX1_3)
+            cmgCall = tCMG
+            cmgCall = cmgCall.notify
+            textValue2 = "~r~This is only available to the MET Police only."
+            -- Beginner: Show a notification to the player.
+            cmgCall(textValue2)
           end
         end
       end
     end
-    SHX5_2 = pairs
-    SHX6_2 = SHX1_1
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX11_2 = CMG
-      SHX11_2 = SHX11_2.createArea
-      SHX12_2 = "horse_"
-      SHX13_2 = SHX9_2
-      SHX12_2 = SHX12_2 .. SHX13_2
-      SHX13_2 = SHX10_2
-      SHX14_2 = 1.5
-      SHX15_2 = 6
-      SHX16_2 = SHX2_2
-      SHX17_2 = SHX3_2
-      SHX18_2 = SHX4_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      SHX11_2 = tCMG
-      SHX11_2 = SHX11_2.addMarker
-      SHX12_2 = SHX10_2.x
-      SHX13_2 = SHX10_2.y
-      SHX14_2 = SHX10_2.z
-      SHX15_2 = 1.0
-      SHX16_2 = 1.0
-      SHX17_2 = 1.0
-      SHX18_2 = 0
-      SHX19_2 = 50
-      SHX20_2 = 255
-      SHX21_2 = 170
-      SHX22_2 = 50
-      SHX23_2 = 42
-      SHX24_2 = false
-      SHX25_2 = false
-      SHX26_2 = true
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
+    playerPed3 = pairs
+    cmgCall4 = dataTable2
+    playerPed3, cmgCall4, dataTable3, cmgCall5 = playerPed3(cmgCall4)
+    for textValue5, playerPed in playerPed3, cmgCall4, dataTable3, cmgCall5 do
+      cmgCall2 = CMG
+      cmgCall2 = cmgCall2.createArea
+      textValue = "horse_"
+      position = textValue5
+      textValue = textValue .. position
+      position = playerPed
+      numberValue = 1.5
+      numberValue3 = 6
+      numberValue5 = workValue
+      flag = cmgCall3
+      flag2 = playerPed2
+      -- Beginner: Create an interaction area around a world position.
+      cmgCall2(textValue, position, numberValue, numberValue3, numberValue5, flag, flag2)
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.addMarker
+      textValue = playerPed.x
+      position = playerPed.y
+      numberValue = playerPed.z
+      numberValue3 = 1.0
+      numberValue5 = 1.0
+      flag = 1.0
+      flag2 = 0
+      flag3 = 50
+      flag4 = 255
+      flag5 = 170
+      numberValue7 = 50
+      flag6 = 42
+      flag7 = false
+      flag8 = false
+      flag9 = true
+      -- Beginner: Create a world marker.
+      cmgCall2(textValue, position, numberValue, numberValue3, numberValue5, flag, flag2, flag3, flag4, flag5, numberValue7, flag6, flag7, flag8, flag9)
     end
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterCommand
-SHX7_1 = "policehorse"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.inOrganHesit
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.hasClientPermission
-      SHX1_2 = "police.onduty.permission"
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.hasClientPermission
-        SHX1_2 = "horsetrained.whitelisted"
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 then
-          SHX0_2 = SHX5_1
-          SHX0_2()
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
+vector3Builder10(vector3Builder11, vector3Builder12)
+vector3Builder10 = RegisterCommand
+vector3Builder11 = "policehorse"
+-- Beginner: this function is the command handler for "policehorse".
+function vector3Builder12()
+  local arg1, arg2
+  arg1 = vector3Builder6
+  if not arg1 then
+    arg1 = CMG
+    arg1 = arg1.inOrganHesit
+    arg1 = arg1()
+    if not arg1 then
+      arg1 = CMG
+      arg1 = arg1.hasClientPermission
+      arg2 = "police.onduty.permission"
+      arg1 = arg1(arg2)
+      if arg1 then
+        arg1 = CMG
+        arg1 = arg1.hasClientPermission
+        arg2 = "horsetrained.whitelisted"
+        arg1 = arg1(arg2)
+        if arg1 then
+          arg1 = vector3Builder9
+          arg1()
         else
-          SHX0_2 = tCMG
-          SHX0_2 = SHX0_2.notify
-          SHX1_2 = "~r~You do not have the [Horse Trained] whitelist."
-          SHX0_2(SHX1_2)
+          arg1 = tCMG
+          arg1 = arg1.notify
+          arg2 = "~r~You do not have the [Horse Trained] whitelist."
+          -- Beginner: Show a notification to the player.
+          arg1(arg2)
         end
       else
-        SHX0_2 = tCMG
-        SHX0_2 = SHX0_2.notify
-        SHX1_2 = "~r~This is only available to the MET Police only."
-        SHX0_2(SHX1_2)
+        arg1 = tCMG
+        arg1 = arg1.notify
+        arg2 = "~r~This is only available to the MET Police only."
+        arg1(arg2)
       end
     end
   end
 end
-SHX9_1 = false
-SHX6_1(SHX7_1, SHX8_1, SHX9_1)
+vector3Builder13 = false
+-- Beginner: Register a chat/console command. Event/command: "policehorse".
+vector3Builder10(vector3Builder11, vector3Builder12, vector3Builder13)

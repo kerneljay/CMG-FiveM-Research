@@ -1,4 +1,72 @@
 --[[
+    Beginner Guide: cl_adminmenu.lua
+    ================================
+
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Config/modules used:
+      * cfg/cfg_adminmenu
+      * cfg/weapons
+
+    Important events used:
+      * 27c1cbc184
+      * 418b9bdc25
+      * 50fa0a0852
+      * 58a4f99038
+      * 6086032737
+      * 663d6aaba9
+      * 71d244f7c0
+      * 875a695765
+      * b27c8066ac
+      * b4de17ed21
+      * b69c3d95fb
+      * b935d6126d
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Adminmenu
+    ==========================
+
+    File: cmg/prod/client/staff/cl_adminmenu.lua
+    Purpose: This file contains staff/admin tools.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Config/data used:
+      * cfg/cfg_adminmenu
+      * cfg/weapons
+
+    Network/hash identifiers found: 91
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * ~b~Players
+      * ~b~Admin Player Interaction Menu
+      * ~b~Admin Functions Menu
+      * ~b~Admin Compensation Menu
+      * ~b~Admin Compensation Users Menu
+
+]]
+--[[
     CMG ADMIN MENU - BEGINNER READABLE REWRITE
     ===========================================
 
@@ -6,9 +74,9 @@
     --------------------
     The supplied file was a decompiler output. It used names such as:
 
-        SHX2_1
-        SHX18_1
-        SHX68_1
+        workValue2
+        workValue
+        workValue3
 
     Those names tell you NOTHING about what the code means.
 
@@ -574,6 +642,7 @@ local function promptNumber(title, callback)
         if number then
             callback(number)
         else
+            -- Beginner: Show a notification to the player.
             notify("~r~Invalid number.")
         end
     end)
@@ -649,6 +718,7 @@ function CMG.drawEventJoinAndInviteButtons(shouldCloseAfterInvite)
             "",
             function(_, _, selected)
                 if selected then
+                    -- Beginner: Tell the server that something happened or request a server-side action.
                     TriggerServerEvent(EVENTS.ENTER_EVENT_BUCKET)
                 end
             end
@@ -872,6 +942,7 @@ addPlayerAction(
             selectedPlayerDescription(),
             function()
                 if selectedPlayer.permId == CMG.getClientUserId() then
+                    -- Beginner: Show a notification to the player.
                     notify("~r~You can not spectate yourself")
                     return
                 end
@@ -1371,6 +1442,7 @@ addPlayerAction(
                             tonumber(value)
 
                         if not destinationPermId then
+                            -- Beginner: Show a notification to the player.
                             notify("~r~Invalid Perm ID")
                             return
                         end
@@ -1482,6 +1554,7 @@ local teleportActions = {
 -- 19. SELECTED-PLAYER STATE NETWORK EVENTS
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_VIDEO_QUEUE_COUNT)
 AddEventHandler(
     EVENTS.UPDATE_VIDEO_QUEUE_COUNT,
@@ -1492,6 +1565,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_EVENT_STATUS)
 AddEventHandler(
     EVENTS.UPDATE_EVENT_STATUS,
@@ -1503,6 +1577,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_KD)
 AddEventHandler(
     EVENTS.UPDATE_KD,
@@ -1514,6 +1589,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_BUCKET)
 AddEventHandler(
     EVENTS.UPDATE_BUCKET,
@@ -1524,6 +1600,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_ADMIN_ISLAND_STATUS)
 AddEventHandler(
     EVENTS.UPDATE_ADMIN_ISLAND_STATUS,
@@ -1535,6 +1612,7 @@ AddEventHandler(
     end
 )
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.UPDATE_CHAT_MUTE_STATUS)
 AddEventHandler(
     EVENTS.UPDATE_CHAT_MUTE_STATUS,
@@ -1608,6 +1686,7 @@ end
 
 local function drawDisconnectedPlayerMarkers()
     local origin =
+        -- Beginner: Read an entity's world coordinates.
         GetEntityCoords(CMG.getPlayerPed())
 
     if CMG.isInSpectate() then
@@ -1664,6 +1743,7 @@ local function getNearbyPermIds()
     local nearbyPermIds = {}
 
     local origin =
+        -- Beginner: Read an entity's world coordinates.
         GetEntityCoords(CMG.getPlayerPed())
 
     if CMG.isInSpectate() then
@@ -1676,6 +1756,7 @@ local function getNearbyPermIds()
         then
             local tempId = getPlayerTempId(permId)
             local playerIndex =
+                -- Beginner: Convert a server ID/source into a local player index.
                 GetPlayerFromServerId(tempId)
 
             if playerIndex ~= -1 then
@@ -1723,6 +1804,7 @@ local function drawNearbyPlayers()
             function(_, active, selected)
                 if active then
                     local playerIndex =
+                        -- Beginner: Convert a server ID/source into a local player index.
                         GetPlayerFromServerId(tempId)
 
                     if playerIndex ~= -1 then
@@ -3660,6 +3742,7 @@ CMG.createThreadOnTick(
 -- 38. DATA EVENTS FROM THE SERVER
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b4de17ed21".
 RegisterNetEvent("b4de17ed21")
 AddEventHandler(
     "b4de17ed21",
@@ -3670,6 +3753,7 @@ AddEventHandler(
 )
 
 -- Recently disconnected players.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "58a4f99038".
 RegisterNetEvent("58a4f99038")
 AddEventHandler(
     "58a4f99038",
@@ -3682,6 +3766,7 @@ AddEventHandler(
 -- Player notes returned by server.
 local currentPlayerNotes = nil
 
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "27c1cbc184".
 RegisterNetEvent("27c1cbc184")
 AddEventHandler(
     "27c1cbc184",
@@ -3696,6 +3781,7 @@ AddEventHandler(
 )
 
 -- Generated ban information.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b27c8066ac".
 RegisterNetEvent("b27c8066ac")
 AddEventHandler(
     "b27c8066ac",
@@ -3706,6 +3792,7 @@ AddEventHandler(
 )
 
 -- Criteria-search results.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "418b9bdc25".
 RegisterNetEvent("418b9bdc25")
 AddEventHandler(
     "418b9bdc25",
@@ -3721,6 +3808,7 @@ AddEventHandler(
 )
 
 -- K/D-search results.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "875a695765".
 RegisterNetEvent("875a695765")
 AddEventHandler(
     "875a695765",
@@ -3736,6 +3824,7 @@ AddEventHandler(
 )
 
 -- Hardware/GPU-search results.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b935d6126d".
 RegisterNetEvent("b935d6126d")
 AddEventHandler(
     "b935d6126d",
@@ -3751,6 +3840,7 @@ AddEventHandler(
 )
 
 -- Bucket-search results.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "663d6aaba9".
 RegisterNetEvent("663d6aaba9")
 AddEventHandler(
     "663d6aaba9",
@@ -3766,6 +3856,7 @@ AddEventHandler(
 )
 
 -- Selected player's watchlist state.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b69c3d95fb".
 RegisterNetEvent("b69c3d95fb")
 AddEventHandler(
     "b69c3d95fb",
@@ -3776,6 +3867,7 @@ AddEventHandler(
 )
 
 -- Current admin's full watchlist.
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6086032737".
 RegisterNetEvent("6086032737")
 AddEventHandler(
     "6086032737",
@@ -3789,6 +3881,7 @@ AddEventHandler(
 -- 39. VEHICLE TELEPORT HELPER EVENT
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "71d244f7c0".
 RegisterNetEvent("71d244f7c0")
 AddEventHandler(
     "71d244f7c0",
@@ -3843,6 +3936,7 @@ AddEventHandler(
 -- 40. ADMIN UPLOAD-DEBUG UI
 ---------------------------------------------------------------------
 
+-- Beginner: Register a network event handler that the server/other clients can trigger.
 RegisterNetEvent(EVENTS.VIDEO_UPLOAD_DEBUG)
 AddEventHandler(
     EVENTS.VIDEO_UPLOAD_DEBUG,

@@ -1,69 +1,56 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    GTA Animation Flags
+    ===================
 
-local SHX0_1, SHX1_1, SHX2_1
-SHX0_1 = {}
-SHX0_1.AF_DEFAULT = 0
-SHX0_1.AF_LOOPING = 1
-SHX0_1.AF_HOLD_LAST_FRAME = 2
-SHX0_1.AF_REPOSITION_WHEN_FINISHED = 4
-SHX0_1.AF_NOT_INTERRUPTABLE = 8
-SHX0_1.AF_UPPERBODY = 16
-SHX0_1.AF_SECONDARY = 32
-SHX0_1.AF_REORIENT_WHEN_FINISHED = 64
-SHX0_1.AF_ABORT_ON_PED_MOVEMENT = 128
-SHX0_1.AF_ADDITIVE = 256
-SHX0_1.AF_TURN_OFF_COLLISION = 512
-SHX0_1.AF_OVERRIDE_PHYSICS = 1024
-SHX0_1.AF_IGNORE_GRAVITY = 2048
-SHX0_1.AF_EXTRACT_INITIAL_OFFSET = 4096
-SHX0_1.AF_EXIT_AFTER_INTERRUPTED = 8192
-SHX0_1.AF_TAG_SYNC_IN = 16384
-SHX0_1.AF_TAG_SYNC_OUT = 32768
-SHX0_1.AF_TAG_SYNC_CONTINUOUS = 65536
-SHX0_1.AF_FORCE_START = 131072
-SHX0_1.AF_USE_KINEMATIC_PHYSICS = 262144
-SHX0_1.AF_USE_MOVER_EXTRACTION = 524288
-SHX0_1.AF_HIDE_WEAPON = 1048576
-SHX0_1.AF_ENDS_IN_DEAD_POSE = 2097152
-SHX0_1.AF_ACTIVATE_RAGDOLL_ON_COLLISION = 4194304
-SHX0_1.AF_DONT_EXIT_ON_DEATH = 8388608
-SHX0_1.AF_ABORT_ON_WEAPON_DAMAGE = 16777216
-SHX0_1.AF_DISABLE_FORCED_PHYSICS_UPDATE = 33554432
-SHX0_1.AF_PROCESS_ATTACHMENTS_ON_START = 67108864
-SHX0_1.AF_EXPAND_PED_CAPSULE_FROM_SKELETON = 134217728
-SHX0_1.AF_USE_ALTERNATIVE_FP_ANIM = 268435456
-SHX0_1.AF_BLENDOUT_WRT_LAST_FRAME = 536870912
-SHX0_1.AF_USE_FULL_BLENDING = 1073741824
-SHX1_1 = CMG
-function SHX2_1(...)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = 0
-  SHX1_2 = pairs
-  SHX2_2 = {}
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2 = ...
-  SHX2_2[1] = SHX3_2
-  SHX2_2[2] = SHX4_2
-  SHX2_2[3] = SHX5_2
-  SHX2_2[4] = SHX6_2
-  SHX2_2[5] = SHX7_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX0_1
-    SHX7_2 = SHX7_2[SHX6_2]
-    SHX0_2 = SHX0_2 + SHX7_2
-  end
-  return SHX0_2
+    GTA's TaskPlayAnim uses a bit-field called an animation flag.
+
+    CMG.getFlags("AF_LOOPING", "AF_UPPERBODY")
+    adds the numeric values together and returns the combined flag.
+]]
+
+local animationFlags = {
+    AF_DEFAULT = 0,
+    AF_LOOPING = 1,
+    AF_HOLD_LAST_FRAME = 2,
+    AF_REPOSITION_WHEN_FINISHED = 4,
+    AF_NOT_INTERRUPTABLE = 8,
+    AF_UPPERBODY = 16,
+    AF_SECONDARY = 32,
+    AF_REORIENT_WHEN_FINISHED = 64,
+    AF_ABORT_ON_PED_MOVEMENT = 128,
+    AF_ADDITIVE = 256,
+    AF_TURN_OFF_COLLISION = 512,
+    AF_OVERRIDE_PHYSICS = 1024,
+    AF_IGNORE_GRAVITY = 2048,
+    AF_EXTRACT_INITIAL_OFFSET = 4096,
+    AF_EXIT_AFTER_INTERRUPTED = 8192,
+    AF_TAG_SYNC_IN = 16384,
+    AF_TAG_SYNC_OUT = 32768,
+    AF_TAG_SYNC_CONTINUOUS = 65536,
+    AF_FORCE_START = 131072,
+    AF_USE_KINEMATIC_PHYSICS = 262144,
+    AF_USE_MOVER_EXTRACTION = 524288,
+    AF_HIDE_WEAPON = 1048576,
+    AF_ENDS_IN_DEAD_POSE = 2097152,
+    AF_ACTIVATE_RAGDOLL_ON_COLLISION = 4194304,
+    AF_DONT_EXIT_ON_DEATH = 8388608,
+    AF_ABORT_ON_WEAPON_DAMAGE = 16777216,
+    AF_DISABLE_FORCED_PHYSICS_UPDATE = 33554432,
+    AF_PROCESS_ATTACHMENTS_ON_START = 67108864,
+    AF_EXPAND_PED_CAPSULE_FROM_SKELETON = 134217728,
+    AF_USE_ALTERNATIVE_FP_ANIM = 268435456,
+    AF_BLENDOUT_WRT_LAST_FRAME = 536870912,
+    AF_USE_FULL_BLENDING = 1073741824
+}
+
+function CMG.getFlags(...)
+    local combinedFlags = 0
+
+    for _, flagName in pairs({...}) do
+        combinedFlags =
+            combinedFlags
+            + animationFlags[flagName]
+    end
+
+    return combinedFlags
 end
-SHX1_1.getFlags = SHX2_1

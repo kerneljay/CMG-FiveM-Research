@@ -1,692 +1,715 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: UIProgress.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX1_1.Y = 0
-SHX1_1.Width = 431
-SHX1_1.Height = 38
-SHX0_1.Rectangle = SHX1_1
-SHX1_1 = {}
-SHX1_1.X = 8
-SHX1_1.Y = 3
-SHX1_1.Scale = 0.33
-SHX0_1.Text = SHX1_1
-SHX1_1 = {}
-SHX1_1.Y = -2
-SHX1_1.Width = 40
-SHX1_1.Height = 40
-SHX0_1.LeftBadge = SHX1_1
-SHX1_1 = {}
-SHX1_1.X = 385
-SHX1_1.Y = -2
-SHX1_1.Width = 40
-SHX1_1.Height = 40
-SHX0_1.RightBadge = SHX1_1
-SHX1_1 = {}
-SHX1_1.X = 420
-SHX1_1.Y = 4
-SHX1_1.Scale = 0.35
-SHX0_1.RightText = SHX1_1
-SHX1_1 = {}
-SHX1_1.Dictionary = "commonmenu"
-SHX1_1.Texture = "gradient_nav"
-SHX1_1.Y = 0
-SHX1_1.Width = 431
-SHX1_1.Height = 38
-SHX0_1.SelectedSprite = SHX1_1
-SHX1_1 = {}
-SHX2_1 = {}
-SHX2_1.X = 8
-SHX2_1.Y = 33
-SHX2_1.Width = 415
-SHX2_1.Height = 20
-SHX1_1.Background = SHX2_1
-SHX2_1 = {}
-SHX2_1.X = 11.75
-SHX2_1.Y = 36.75
-SHX2_1.Width = 407.5
-SHX2_1.Height = 12.5
-SHX1_1.Bar = SHX2_1
-SHX1_1.Height = 60
-SHX2_1 = RageUI
-function SHX3_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX7_2 = RageUI
-  SHX7_2 = SHX7_2.CurrentMenu
-  if nil ~= SHX7_2 then
-    SHX8_2 = SHX7_2
-    SHX8_2 = SHX8_2()
-    if SHX8_2 then
-      SHX8_2 = {}
-      SHX9_2 = 1
-      SHX10_2 = SHX2_2
-      SHX11_2 = 1
-      for SHX12_2 = SHX9_2, SHX10_2, SHX11_2 do
-        SHX13_2 = table
-        SHX13_2 = SHX13_2.insert
-        SHX14_2 = SHX8_2
-        SHX15_2 = SHX12_2
-        SHX13_2(SHX14_2, SHX15_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Uiprogress
+    ===========================
+
+    File: cmg/prod/client/rageui/menu/items/UIProgress.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+]]
+local dataTable, dataTable2, rageUiCall4, workValue6
+dataTable = {}
+dataTable2 = {}
+dataTable2.Y = 0
+dataTable2.Width = 431
+dataTable2.Height = 38
+dataTable.Rectangle = dataTable2
+dataTable2 = {}
+dataTable2.X = 8
+dataTable2.Y = 3
+dataTable2.Scale = 0.33
+dataTable.Text = dataTable2
+dataTable2 = {}
+dataTable2.Y = -2
+dataTable2.Width = 40
+dataTable2.Height = 40
+dataTable.LeftBadge = dataTable2
+dataTable2 = {}
+dataTable2.X = 385
+dataTable2.Y = -2
+dataTable2.Width = 40
+dataTable2.Height = 40
+dataTable.RightBadge = dataTable2
+dataTable2 = {}
+dataTable2.X = 420
+dataTable2.Y = 4
+dataTable2.Scale = 0.35
+dataTable.RightText = dataTable2
+dataTable2 = {}
+dataTable2.Dictionary = "commonmenu"
+dataTable2.Texture = "gradient_nav"
+dataTable2.Y = 0
+dataTable2.Width = 431
+dataTable2.Height = 38
+dataTable.SelectedSprite = dataTable2
+dataTable2 = {}
+rageUiCall4 = {}
+rageUiCall4.X = 8
+rageUiCall4.Y = 33
+rageUiCall4.Width = 415
+rageUiCall4.Height = 20
+dataTable2.Background = rageUiCall4
+rageUiCall4 = {}
+rageUiCall4.X = 11.75
+rageUiCall4.Y = 36.75
+rageUiCall4.Width = 407.5
+rageUiCall4.Height = 12.5
+dataTable2.Bar = rageUiCall4
+dataTable2.Height = 60
+rageUiCall4 = RageUI
+function workValue6(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+  local rageUiCall5, dataTable3, rageUiCall6, workValue, rageUiCall, rageUiCall2, tableHelper, textValue, workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5
+  rageUiCall5 = RageUI
+  rageUiCall5 = rageUiCall5.CurrentMenu
+  if nil ~= rageUiCall5 then
+    dataTable3 = rageUiCall5
+    dataTable3 = dataTable3()
+    if dataTable3 then
+      dataTable3 = {}
+      rageUiCall6 = 1
+      workValue = arg3
+      rageUiCall = 1
+      for rageUiCall2 = rageUiCall6, workValue, rageUiCall do
+        tableHelper = table
+        tableHelper = tableHelper.insert
+        textValue = dataTable3
+        workValue2 = rageUiCall2
+        tableHelper(textValue, workValue2)
       end
-      SHX9_2 = RageUI
-      SHX9_2 = SHX9_2.Options
-      SHX9_2 = SHX9_2 + 1
-      SHX10_2 = SHX7_2.Pagination
-      SHX10_2 = SHX10_2.Minimum
-      if SHX9_2 >= SHX10_2 then
-        SHX10_2 = SHX7_2.Pagination
-        SHX10_2 = SHX10_2.Maximum
-        if SHX9_2 <= SHX10_2 then
-          SHX10_2 = SHX7_2.Index
-          SHX10_2 = SHX10_2 == SHX9_2
-          SHX11_2 = false
-          SHX12_2 = RageUI
-          SHX12_2 = SHX12_2.ItemsSafeZone
-          SHX13_2 = SHX7_2
-          SHX12_2(SHX13_2)
-          SHX12_2 = false
-          SHX13_2 = SHX7_2.EnableMouse
-          if true == SHX13_2 then
-            SHX13_2 = SHX7_2.CursorStyle
-            if 0 == SHX13_2 then
-              goto SHX_LABEL_53
+      rageUiCall6 = RageUI
+      rageUiCall6 = rageUiCall6.Options
+      rageUiCall6 = rageUiCall6 + 1
+      workValue = rageUiCall5.Pagination
+      workValue = workValue.Minimum
+      if rageUiCall6 >= workValue then
+        workValue = rageUiCall5.Pagination
+        workValue = workValue.Maximum
+        if rageUiCall6 <= workValue then
+          workValue = rageUiCall5.Index
+          workValue = workValue == rageUiCall6
+          rageUiCall = false
+          rageUiCall2 = RageUI
+          rageUiCall2 = rageUiCall2.ItemsSafeZone
+          tableHelper = rageUiCall5
+          rageUiCall2(tableHelper)
+          rageUiCall2 = false
+          tableHelper = rageUiCall5.EnableMouse
+          if true == tableHelper then
+            tableHelper = rageUiCall5.CursorStyle
+            if 0 == tableHelper then
+              goto flow_label_53
             end
           end
-          SHX13_2 = SHX7_2.CursorStyle
-          -- [FIX IF ERROR] Move ::SHX_LABEL_53:: outside nested blocks until all 'goto SHX_LABEL_53' can see it
-          ::SHX_LABEL_53::
-          if 1 == SHX13_2 then
-            SHX13_2 = RageUI
-            SHX13_2 = SHX13_2.ItemsMouseBounds
-            SHX14_2 = SHX7_2
-            SHX15_2 = SHX10_2
-            SHX16_2 = SHX9_2
-            SHX17_2 = SHX0_1
-            SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-            SHX12_2 = SHX13_2
+          tableHelper = rageUiCall5.CursorStyle
+          ::flow_label_53::
+          if 1 == tableHelper then
+            tableHelper = RageUI
+            tableHelper = tableHelper.ItemsMouseBounds
+            textValue = rageUiCall5
+            workValue2 = workValue
+            workValue3 = rageUiCall6
+            workValue4 = dataTable
+            tableHelper = tableHelper(textValue, workValue2, workValue3, workValue4)
+            rageUiCall2 = tableHelper
           end
-          if SHX4_2 then
-            SHX13_2 = SHX1_2
-            SHX14_2 = "/"
-            SHX15_2 = #SHX8_2
-            SHX13_2 = SHX13_2 .. SHX14_2 .. SHX15_2
-            if SHX13_2 then
-              goto SHX_LABEL_83
+          if arg5 then
+            tableHelper = arg2
+            textValue = "/"
+            workValue2 = #dataTable3
+            tableHelper = tableHelper .. textValue .. workValue2
+            if tableHelper then
+              goto flow_label_83
             end
           end
-          SHX13_2 = type
-          SHX14_2 = SHX8_2[SHX1_2]
-          SHX13_2 = SHX13_2(SHX14_2)
-          if "table" == SHX13_2 then
-            SHX13_2 = tostring
-            SHX14_2 = SHX8_2[SHX1_2]
-            SHX14_2 = SHX14_2.Name
-            SHX13_2 = SHX13_2(SHX14_2)
-            if SHX13_2 then
-              goto SHX_LABEL_83
+          tableHelper = type
+          textValue = dataTable3[arg2]
+          tableHelper = tableHelper(textValue)
+          if "table" == tableHelper then
+            tableHelper = tostring
+            textValue = dataTable3[arg2]
+            textValue = textValue.Name
+            tableHelper = tableHelper(textValue)
+            if tableHelper then
+              goto flow_label_83
             end
           end
-          SHX13_2 = tostring
-          SHX14_2 = SHX8_2[SHX1_2]
-          SHX13_2 = SHX13_2(SHX14_2)
-          -- [FIX IF ERROR] Move ::SHX_LABEL_83:: outside nested blocks until all 'goto SHX_LABEL_83' can see it
-          ::SHX_LABEL_83::
-          if SHX10_2 then
-            SHX14_2 = RenderSprite
-            SHX15_2 = SHX0_1.SelectedSprite
-            SHX15_2 = SHX15_2.Dictionary
-            SHX16_2 = SHX0_1.SelectedSprite
-            SHX16_2 = SHX16_2.Texture
-            SHX17_2 = SHX7_2.X
-            SHX18_2 = SHX7_2.Y
-            SHX19_2 = SHX0_1.SelectedSprite
-            SHX19_2 = SHX19_2.Y
-            SHX18_2 = SHX18_2 + SHX19_2
-            SHX19_2 = SHX7_2.SubtitleHeight
-            SHX18_2 = SHX18_2 + SHX19_2
-            SHX19_2 = RageUI
-            SHX19_2 = SHX19_2.ItemOffset
-            SHX18_2 = SHX18_2 + SHX19_2
-            SHX19_2 = SHX0_1.SelectedSprite
-            SHX19_2 = SHX19_2.Width
-            SHX20_2 = SHX7_2.WidthOffset
-            SHX19_2 = SHX19_2 + SHX20_2
-            SHX20_2 = SHX1_1.Height
-            SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-            SHX14_2 = RageUI
-            SHX14_2 = SHX14_2.IsMouseInBounds
-            SHX15_2 = SHX7_2.X
-            SHX16_2 = SHX1_1.Bar
-            SHX16_2 = SHX16_2.X
-            SHX15_2 = SHX15_2 + SHX16_2
-            SHX16_2 = SHX7_2.SafeZoneSize
-            SHX16_2 = SHX16_2.X
-            SHX15_2 = SHX15_2 + SHX16_2
-            SHX16_2 = SHX7_2.Y
-            SHX17_2 = SHX1_1.Bar
-            SHX17_2 = SHX17_2.Y
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX17_2 = SHX7_2.SafeZoneSize
-            SHX17_2 = SHX17_2.Y
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX17_2 = SHX7_2.SubtitleHeight
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX17_2 = RageUI
-            SHX17_2 = SHX17_2.ItemOffset
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX16_2 = SHX16_2 - 12
-            SHX17_2 = SHX1_1.Bar
-            SHX17_2 = SHX17_2.Width
-            SHX18_2 = SHX7_2.WidthOffset
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = SHX1_1.Bar
-            SHX18_2 = SHX18_2.Height
-            SHX18_2 = SHX18_2 + 24
-            SHX14_2 = SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-            SHX11_2 = SHX14_2
+          tableHelper = tostring
+          textValue = dataTable3[arg2]
+          tableHelper = tableHelper(textValue)
+          ::flow_label_83::
+          if workValue then
+            textValue = RenderSprite
+            workValue2 = dataTable.SelectedSprite
+            workValue2 = workValue2.Dictionary
+            workValue3 = dataTable.SelectedSprite
+            workValue3 = workValue3.Texture
+            workValue4 = rageUiCall5.X
+            workValue5 = rageUiCall5.Y
+            rageUiCall3 = dataTable.SelectedSprite
+            rageUiCall3 = rageUiCall3.Y
+            workValue5 = workValue5 + rageUiCall3
+            rageUiCall3 = rageUiCall5.SubtitleHeight
+            workValue5 = workValue5 + rageUiCall3
+            rageUiCall3 = RageUI
+            rageUiCall3 = rageUiCall3.ItemOffset
+            workValue5 = workValue5 + rageUiCall3
+            rageUiCall3 = dataTable.SelectedSprite
+            rageUiCall3 = rageUiCall3.Width
+            numberValue = rageUiCall5.WidthOffset
+            rageUiCall3 = rageUiCall3 + numberValue
+            numberValue = dataTable2.Height
+            textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue)
+            textValue = RageUI
+            textValue = textValue.IsMouseInBounds
+            workValue2 = rageUiCall5.X
+            workValue3 = dataTable2.Bar
+            workValue3 = workValue3.X
+            workValue2 = workValue2 + workValue3
+            workValue3 = rageUiCall5.SafeZoneSize
+            workValue3 = workValue3.X
+            workValue2 = workValue2 + workValue3
+            workValue3 = rageUiCall5.Y
+            workValue4 = dataTable2.Bar
+            workValue4 = workValue4.Y
+            workValue3 = workValue3 + workValue4
+            workValue4 = rageUiCall5.SafeZoneSize
+            workValue4 = workValue4.Y
+            workValue3 = workValue3 + workValue4
+            workValue4 = rageUiCall5.SubtitleHeight
+            workValue3 = workValue3 + workValue4
+            workValue4 = RageUI
+            workValue4 = workValue4.ItemOffset
+            workValue3 = workValue3 + workValue4
+            workValue3 = workValue3 - 12
+            workValue4 = dataTable2.Bar
+            workValue4 = workValue4.Width
+            workValue5 = rageUiCall5.WidthOffset
+            workValue4 = workValue4 + workValue5
+            workValue5 = dataTable2.Bar
+            workValue5 = workValue5.Height
+            workValue5 = workValue5 + 24
+            textValue = textValue(workValue2, workValue3, workValue4, workValue5)
+            rageUiCall = textValue
           end
-          if true == SHX5_2 or nil == SHX5_2 then
-            if SHX10_2 then
-              SHX14_2 = RenderText
-              SHX15_2 = SHX13_2
-              SHX16_2 = SHX7_2.X
-              SHX17_2 = SHX0_1.RightText
-              SHX17_2 = SHX17_2.X
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.WidthOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.Y
-              SHX18_2 = SHX0_1.RightText
-              SHX18_2 = SHX18_2.Y
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX7_2.SubtitleHeight
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = RageUI
-              SHX18_2 = SHX18_2.ItemOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = 0
-              SHX19_2 = SHX0_1.RightText
-              SHX19_2 = SHX19_2.Scale
-              SHX20_2 = 0
-              SHX21_2 = 0
-              SHX22_2 = 0
-              SHX23_2 = 255
-              SHX24_2 = 2
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-              SHX14_2 = RenderText
-              SHX15_2 = SHX0_2
-              SHX16_2 = SHX7_2.X
-              SHX17_2 = SHX0_1.Text
-              SHX17_2 = SHX17_2.X
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.Y
-              SHX18_2 = SHX0_1.Text
-              SHX18_2 = SHX18_2.Y
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX7_2.SubtitleHeight
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = RageUI
-              SHX18_2 = SHX18_2.ItemOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = 0
-              SHX19_2 = SHX0_1.Text
-              SHX19_2 = SHX19_2.Scale
-              SHX20_2 = 0
-              SHX21_2 = 0
-              SHX22_2 = 0
-              SHX23_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-              SHX14_2 = RenderRectangle
-              SHX15_2 = SHX7_2.X
-              SHX16_2 = SHX1_1.Background
-              SHX16_2 = SHX16_2.X
-              SHX15_2 = SHX15_2 + SHX16_2
-              SHX16_2 = SHX7_2.Y
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Y
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.SubtitleHeight
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = RageUI
-              SHX17_2 = SHX17_2.ItemOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Width
-              SHX18_2 = SHX7_2.WidthOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX1_1.Background
-              SHX18_2 = SHX18_2.Height
-              SHX19_2 = 0
-              SHX20_2 = 0
-              SHX21_2 = 0
-              SHX22_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-              SHX14_2 = RenderRectangle
-              SHX15_2 = SHX7_2.X
-              SHX16_2 = SHX1_1.Bar
-              SHX16_2 = SHX16_2.X
-              SHX15_2 = SHX15_2 + SHX16_2
-              SHX16_2 = SHX7_2.Y
-              SHX17_2 = SHX1_1.Bar
-              SHX17_2 = SHX17_2.Y
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.SubtitleHeight
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = RageUI
-              SHX17_2 = SHX17_2.ItemOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = #SHX8_2
-              SHX17_2 = SHX1_2 / SHX17_2
-              SHX18_2 = SHX1_1.Bar
-              SHX18_2 = SHX18_2.Width
-              SHX19_2 = SHX7_2.WidthOffset
-              SHX18_2 = SHX18_2 + SHX19_2
-              SHX17_2 = SHX17_2 * SHX18_2
-              SHX18_2 = SHX1_1.Bar
-              SHX18_2 = SHX18_2.Height
-              SHX19_2 = 240
-              SHX20_2 = 240
-              SHX21_2 = 240
-              SHX22_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+          if true == arg6 or nil == arg6 then
+            if workValue then
+              textValue = RenderText
+              workValue2 = tableHelper
+              workValue3 = rageUiCall5.X
+              workValue4 = dataTable.RightText
+              workValue4 = workValue4.X
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.WidthOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.Y
+              workValue5 = dataTable.RightText
+              workValue5 = workValue5.Y
+              workValue4 = workValue4 + workValue5
+              workValue5 = rageUiCall5.SubtitleHeight
+              workValue4 = workValue4 + workValue5
+              workValue5 = RageUI
+              workValue5 = workValue5.ItemOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = 0
+              rageUiCall3 = dataTable.RightText
+              rageUiCall3 = rageUiCall3.Scale
+              numberValue = 0
+              numberValue2 = 0
+              numberValue3 = 0
+              numberValue4 = 255
+              numberValue5 = 2
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5)
+              textValue = RenderText
+              workValue2 = arg1
+              workValue3 = rageUiCall5.X
+              workValue4 = dataTable.Text
+              workValue4 = workValue4.X
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.Y
+              workValue5 = dataTable.Text
+              workValue5 = workValue5.Y
+              workValue4 = workValue4 + workValue5
+              workValue5 = rageUiCall5.SubtitleHeight
+              workValue4 = workValue4 + workValue5
+              workValue5 = RageUI
+              workValue5 = workValue5.ItemOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = 0
+              rageUiCall3 = dataTable.Text
+              rageUiCall3 = rageUiCall3.Scale
+              numberValue = 0
+              numberValue2 = 0
+              numberValue3 = 0
+              numberValue4 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4)
+              textValue = RenderRectangle
+              workValue2 = rageUiCall5.X
+              workValue3 = dataTable2.Background
+              workValue3 = workValue3.X
+              workValue2 = workValue2 + workValue3
+              workValue3 = rageUiCall5.Y
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Y
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.SubtitleHeight
+              workValue3 = workValue3 + workValue4
+              workValue4 = RageUI
+              workValue4 = workValue4.ItemOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Width
+              workValue5 = rageUiCall5.WidthOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = dataTable2.Background
+              workValue5 = workValue5.Height
+              rageUiCall3 = 0
+              numberValue = 0
+              numberValue2 = 0
+              numberValue3 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3)
+              textValue = RenderRectangle
+              workValue2 = rageUiCall5.X
+              workValue3 = dataTable2.Bar
+              workValue3 = workValue3.X
+              workValue2 = workValue2 + workValue3
+              workValue3 = rageUiCall5.Y
+              workValue4 = dataTable2.Bar
+              workValue4 = workValue4.Y
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.SubtitleHeight
+              workValue3 = workValue3 + workValue4
+              workValue4 = RageUI
+              workValue4 = workValue4.ItemOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = #dataTable3
+              workValue4 = arg2 / workValue4
+              workValue5 = dataTable2.Bar
+              workValue5 = workValue5.Width
+              rageUiCall3 = rageUiCall5.WidthOffset
+              workValue5 = workValue5 + rageUiCall3
+              workValue4 = workValue4 * workValue5
+              workValue5 = dataTable2.Bar
+              workValue5 = workValue5.Height
+              rageUiCall3 = 240
+              numberValue = 240
+              numberValue2 = 240
+              numberValue3 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3)
             else
-              SHX14_2 = RenderText
-              SHX15_2 = SHX13_2
-              SHX16_2 = SHX7_2.X
-              SHX17_2 = SHX0_1.RightText
-              SHX17_2 = SHX17_2.X
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.WidthOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.Y
-              SHX18_2 = SHX0_1.RightText
-              SHX18_2 = SHX18_2.Y
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX7_2.SubtitleHeight
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = RageUI
-              SHX18_2 = SHX18_2.ItemOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = 0
-              SHX19_2 = SHX0_1.RightText
-              SHX19_2 = SHX19_2.Scale
-              SHX20_2 = 245
-              SHX21_2 = 245
-              SHX22_2 = 245
-              SHX23_2 = 255
-              SHX24_2 = 2
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-              SHX14_2 = RenderText
-              SHX15_2 = SHX0_2
-              SHX16_2 = SHX7_2.X
-              SHX17_2 = SHX0_1.Text
-              SHX17_2 = SHX17_2.X
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.Y
-              SHX18_2 = SHX0_1.Text
-              SHX18_2 = SHX18_2.Y
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX7_2.SubtitleHeight
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = RageUI
-              SHX18_2 = SHX18_2.ItemOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = 0
-              SHX19_2 = SHX0_1.Text
-              SHX19_2 = SHX19_2.Scale
-              SHX20_2 = 245
-              SHX21_2 = 245
-              SHX22_2 = 245
-              SHX23_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-              SHX14_2 = RenderRectangle
-              SHX15_2 = SHX7_2.X
-              SHX16_2 = SHX1_1.Background
-              SHX16_2 = SHX16_2.X
-              SHX15_2 = SHX15_2 + SHX16_2
-              SHX16_2 = SHX7_2.Y
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Y
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.SubtitleHeight
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = RageUI
-              SHX17_2 = SHX17_2.ItemOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Width
-              SHX18_2 = SHX7_2.WidthOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX1_1.Background
-              SHX18_2 = SHX18_2.Height
-              SHX19_2 = 240
-              SHX20_2 = 240
-              SHX21_2 = 240
-              SHX22_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-              SHX14_2 = RenderRectangle
-              SHX15_2 = SHX7_2.X
-              SHX16_2 = SHX1_1.Bar
-              SHX16_2 = SHX16_2.X
-              SHX15_2 = SHX15_2 + SHX16_2
-              SHX16_2 = SHX7_2.Y
-              SHX17_2 = SHX1_1.Bar
-              SHX17_2 = SHX17_2.Y
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.SubtitleHeight
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = RageUI
-              SHX17_2 = SHX17_2.ItemOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = #SHX8_2
-              SHX17_2 = SHX1_2 / SHX17_2
-              SHX18_2 = SHX1_1.Bar
-              SHX18_2 = SHX18_2.Width
-              SHX19_2 = SHX7_2.WidthOffset
-              SHX18_2 = SHX18_2 + SHX19_2
-              SHX17_2 = SHX17_2 * SHX18_2
-              SHX18_2 = SHX1_1.Bar
-              SHX18_2 = SHX18_2.Height
-              SHX19_2 = 0
-              SHX20_2 = 0
-              SHX21_2 = 0
-              SHX22_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+              textValue = RenderText
+              workValue2 = tableHelper
+              workValue3 = rageUiCall5.X
+              workValue4 = dataTable.RightText
+              workValue4 = workValue4.X
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.WidthOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.Y
+              workValue5 = dataTable.RightText
+              workValue5 = workValue5.Y
+              workValue4 = workValue4 + workValue5
+              workValue5 = rageUiCall5.SubtitleHeight
+              workValue4 = workValue4 + workValue5
+              workValue5 = RageUI
+              workValue5 = workValue5.ItemOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = 0
+              rageUiCall3 = dataTable.RightText
+              rageUiCall3 = rageUiCall3.Scale
+              numberValue = 245
+              numberValue2 = 245
+              numberValue3 = 245
+              numberValue4 = 255
+              numberValue5 = 2
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5)
+              textValue = RenderText
+              workValue2 = arg1
+              workValue3 = rageUiCall5.X
+              workValue4 = dataTable.Text
+              workValue4 = workValue4.X
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.Y
+              workValue5 = dataTable.Text
+              workValue5 = workValue5.Y
+              workValue4 = workValue4 + workValue5
+              workValue5 = rageUiCall5.SubtitleHeight
+              workValue4 = workValue4 + workValue5
+              workValue5 = RageUI
+              workValue5 = workValue5.ItemOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = 0
+              rageUiCall3 = dataTable.Text
+              rageUiCall3 = rageUiCall3.Scale
+              numberValue = 245
+              numberValue2 = 245
+              numberValue3 = 245
+              numberValue4 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4)
+              textValue = RenderRectangle
+              workValue2 = rageUiCall5.X
+              workValue3 = dataTable2.Background
+              workValue3 = workValue3.X
+              workValue2 = workValue2 + workValue3
+              workValue3 = rageUiCall5.Y
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Y
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.SubtitleHeight
+              workValue3 = workValue3 + workValue4
+              workValue4 = RageUI
+              workValue4 = workValue4.ItemOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Width
+              workValue5 = rageUiCall5.WidthOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = dataTable2.Background
+              workValue5 = workValue5.Height
+              rageUiCall3 = 240
+              numberValue = 240
+              numberValue2 = 240
+              numberValue3 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3)
+              textValue = RenderRectangle
+              workValue2 = rageUiCall5.X
+              workValue3 = dataTable2.Bar
+              workValue3 = workValue3.X
+              workValue2 = workValue2 + workValue3
+              workValue3 = rageUiCall5.Y
+              workValue4 = dataTable2.Bar
+              workValue4 = workValue4.Y
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.SubtitleHeight
+              workValue3 = workValue3 + workValue4
+              workValue4 = RageUI
+              workValue4 = workValue4.ItemOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = #dataTable3
+              workValue4 = arg2 / workValue4
+              workValue5 = dataTable2.Bar
+              workValue5 = workValue5.Width
+              rageUiCall3 = rageUiCall5.WidthOffset
+              workValue5 = workValue5 + rageUiCall3
+              workValue4 = workValue4 * workValue5
+              workValue5 = dataTable2.Bar
+              workValue5 = workValue5.Height
+              rageUiCall3 = 0
+              numberValue = 0
+              numberValue2 = 0
+              numberValue3 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3)
             end
           else
-            SHX14_2 = RenderText
-            SHX15_2 = SHX13_2
-            SHX16_2 = SHX7_2.X
-            SHX17_2 = SHX0_1.RightText
-            SHX17_2 = SHX17_2.X
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX17_2 = SHX7_2.WidthOffset
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX17_2 = SHX7_2.Y
-            SHX18_2 = SHX0_1.RightText
-            SHX18_2 = SHX18_2.Y
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = SHX7_2.SubtitleHeight
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = RageUI
-            SHX18_2 = SHX18_2.ItemOffset
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = 0
-            SHX19_2 = SHX0_1.RightText
-            SHX19_2 = SHX19_2.Scale
-            SHX20_2 = 163
-            SHX21_2 = 159
-            SHX22_2 = 148
-            SHX23_2 = 255
-            SHX24_2 = 2
-            SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-            SHX14_2 = RenderText
-            SHX15_2 = SHX0_2
-            SHX16_2 = SHX7_2.X
-            SHX17_2 = SHX0_1.Text
-            SHX17_2 = SHX17_2.X
-            SHX16_2 = SHX16_2 + SHX17_2
-            SHX17_2 = SHX7_2.Y
-            SHX18_2 = SHX0_1.Text
-            SHX18_2 = SHX18_2.Y
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = SHX7_2.SubtitleHeight
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = RageUI
-            SHX18_2 = SHX18_2.ItemOffset
-            SHX17_2 = SHX17_2 + SHX18_2
-            SHX18_2 = 0
-            SHX19_2 = SHX0_1.Text
-            SHX19_2 = SHX19_2.Scale
-            SHX20_2 = 163
-            SHX21_2 = 159
-            SHX22_2 = 148
-            SHX23_2 = 255
-            SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-            if SHX10_2 then
-              SHX14_2 = RenderRectangle
-              SHX15_2 = SHX7_2.X
-              SHX16_2 = SHX1_1.Background
-              SHX16_2 = SHX16_2.X
-              SHX15_2 = SHX15_2 + SHX16_2
-              SHX16_2 = SHX7_2.Y
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Y
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.SubtitleHeight
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = RageUI
-              SHX17_2 = SHX17_2.ItemOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Width
-              SHX18_2 = SHX7_2.WidthOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX1_1.Background
-              SHX18_2 = SHX18_2.Height
-              SHX19_2 = 0
-              SHX20_2 = 0
-              SHX21_2 = 0
-              SHX22_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+            textValue = RenderText
+            workValue2 = tableHelper
+            workValue3 = rageUiCall5.X
+            workValue4 = dataTable.RightText
+            workValue4 = workValue4.X
+            workValue3 = workValue3 + workValue4
+            workValue4 = rageUiCall5.WidthOffset
+            workValue3 = workValue3 + workValue4
+            workValue4 = rageUiCall5.Y
+            workValue5 = dataTable.RightText
+            workValue5 = workValue5.Y
+            workValue4 = workValue4 + workValue5
+            workValue5 = rageUiCall5.SubtitleHeight
+            workValue4 = workValue4 + workValue5
+            workValue5 = RageUI
+            workValue5 = workValue5.ItemOffset
+            workValue4 = workValue4 + workValue5
+            workValue5 = 0
+            rageUiCall3 = dataTable.RightText
+            rageUiCall3 = rageUiCall3.Scale
+            numberValue = 163
+            numberValue2 = 159
+            numberValue3 = 148
+            numberValue4 = 255
+            numberValue5 = 2
+            textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4, numberValue5)
+            textValue = RenderText
+            workValue2 = arg1
+            workValue3 = rageUiCall5.X
+            workValue4 = dataTable.Text
+            workValue4 = workValue4.X
+            workValue3 = workValue3 + workValue4
+            workValue4 = rageUiCall5.Y
+            workValue5 = dataTable.Text
+            workValue5 = workValue5.Y
+            workValue4 = workValue4 + workValue5
+            workValue5 = rageUiCall5.SubtitleHeight
+            workValue4 = workValue4 + workValue5
+            workValue5 = RageUI
+            workValue5 = workValue5.ItemOffset
+            workValue4 = workValue4 + workValue5
+            workValue5 = 0
+            rageUiCall3 = dataTable.Text
+            rageUiCall3 = rageUiCall3.Scale
+            numberValue = 163
+            numberValue2 = 159
+            numberValue3 = 148
+            numberValue4 = 255
+            textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3, numberValue4)
+            if workValue then
+              textValue = RenderRectangle
+              workValue2 = rageUiCall5.X
+              workValue3 = dataTable2.Background
+              workValue3 = workValue3.X
+              workValue2 = workValue2 + workValue3
+              workValue3 = rageUiCall5.Y
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Y
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.SubtitleHeight
+              workValue3 = workValue3 + workValue4
+              workValue4 = RageUI
+              workValue4 = workValue4.ItemOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Width
+              workValue5 = rageUiCall5.WidthOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = dataTable2.Background
+              workValue5 = workValue5.Height
+              rageUiCall3 = 0
+              numberValue = 0
+              numberValue2 = 0
+              numberValue3 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3)
             else
-              SHX14_2 = RenderRectangle
-              SHX15_2 = SHX7_2.X
-              SHX16_2 = SHX1_1.Background
-              SHX16_2 = SHX16_2.X
-              SHX15_2 = SHX15_2 + SHX16_2
-              SHX16_2 = SHX7_2.Y
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Y
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX7_2.SubtitleHeight
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = RageUI
-              SHX17_2 = SHX17_2.ItemOffset
-              SHX16_2 = SHX16_2 + SHX17_2
-              SHX17_2 = SHX1_1.Background
-              SHX17_2 = SHX17_2.Width
-              SHX18_2 = SHX7_2.WidthOffset
-              SHX17_2 = SHX17_2 + SHX18_2
-              SHX18_2 = SHX1_1.Background
-              SHX18_2 = SHX18_2.Height
-              SHX19_2 = 240
-              SHX20_2 = 240
-              SHX21_2 = 240
-              SHX22_2 = 255
-              SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+              textValue = RenderRectangle
+              workValue2 = rageUiCall5.X
+              workValue3 = dataTable2.Background
+              workValue3 = workValue3.X
+              workValue2 = workValue2 + workValue3
+              workValue3 = rageUiCall5.Y
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Y
+              workValue3 = workValue3 + workValue4
+              workValue4 = rageUiCall5.SubtitleHeight
+              workValue3 = workValue3 + workValue4
+              workValue4 = RageUI
+              workValue4 = workValue4.ItemOffset
+              workValue3 = workValue3 + workValue4
+              workValue4 = dataTable2.Background
+              workValue4 = workValue4.Width
+              workValue5 = rageUiCall5.WidthOffset
+              workValue4 = workValue4 + workValue5
+              workValue5 = dataTable2.Background
+              workValue5 = workValue5.Height
+              rageUiCall3 = 240
+              numberValue = 240
+              numberValue2 = 240
+              numberValue3 = 255
+              textValue(workValue2, workValue3, workValue4, workValue5, rageUiCall3, numberValue, numberValue2, numberValue3)
             end
           end
-          SHX14_2 = RageUI
-          SHX15_2 = RageUI
-          SHX15_2 = SHX15_2.ItemOffset
-          SHX16_2 = SHX1_1.Height
-          SHX15_2 = SHX15_2 + SHX16_2
-          SHX14_2.ItemOffset = SHX15_2
-          SHX14_2 = RageUI
-          SHX14_2 = SHX14_2.ItemsDescription
-          SHX15_2 = SHX7_2
-          SHX16_2 = SHX3_2
-          SHX17_2 = SHX10_2
-          SHX14_2(SHX15_2, SHX16_2, SHX17_2)
-          if SHX10_2 then
-            SHX14_2 = SHX7_2.Controls
-            SHX14_2 = SHX14_2.Left
-            SHX14_2 = SHX14_2.Active
-            if SHX14_2 then
-              SHX14_2 = SHX7_2.Controls
-              SHX14_2 = SHX14_2.Right
-              SHX14_2 = SHX14_2.Active
-              if not SHX14_2 then
-                SHX1_2 = SHX1_2 - 1
-                if SHX1_2 < 0 then
-                  SHX1_2 = #SHX8_2
+          textValue = RageUI
+          workValue2 = RageUI
+          workValue2 = workValue2.ItemOffset
+          workValue3 = dataTable2.Height
+          workValue2 = workValue2 + workValue3
+          textValue.ItemOffset = workValue2
+          textValue = RageUI
+          textValue = textValue.ItemsDescription
+          workValue2 = rageUiCall5
+          workValue3 = arg4
+          workValue4 = workValue
+          textValue(workValue2, workValue3, workValue4)
+          if workValue then
+            textValue = rageUiCall5.Controls
+            textValue = textValue.Left
+            textValue = textValue.Active
+            if textValue then
+              textValue = rageUiCall5.Controls
+              textValue = textValue.Right
+              textValue = textValue.Active
+              if not textValue then
+                arg2 = arg2 - 1
+                if arg2 < 0 then
+                  arg2 = #dataTable3
                 end
-                SHX14_2 = RageUI
-                SHX14_2 = SHX14_2.Settings
-                SHX14_2 = SHX14_2.Audio
-                SHX15_2 = RageUI
-                SHX15_2 = SHX15_2.PlaySound
-                SHX16_2 = SHX14_2.Use
-                SHX16_2 = SHX14_2[SHX16_2]
-                SHX16_2 = SHX16_2.LeftRight
-                SHX16_2 = SHX16_2.audioName
-                SHX17_2 = SHX14_2.Use
-                SHX17_2 = SHX14_2[SHX17_2]
-                SHX17_2 = SHX17_2.LeftRight
-                SHX17_2 = SHX17_2.audioRef
-                SHX15_2(SHX16_2, SHX17_2)
+                textValue = RageUI
+                textValue = textValue.Settings
+                textValue = textValue.Audio
+                workValue2 = RageUI
+                workValue2 = workValue2.PlaySound
+                workValue3 = textValue.Use
+                workValue3 = textValue[workValue3]
+                workValue3 = workValue3.LeftRight
+                workValue3 = workValue3.audioName
+                workValue4 = textValue.Use
+                workValue4 = textValue[workValue4]
+                workValue4 = workValue4.LeftRight
+                workValue4 = workValue4.audioRef
+                workValue2(workValue3, workValue4)
             end
           end
-          elseif SHX10_2 then
-            SHX14_2 = SHX7_2.Controls
-            SHX14_2 = SHX14_2.Right
-            SHX14_2 = SHX14_2.Active
-            if SHX14_2 then
-              SHX14_2 = SHX7_2.Controls
-              SHX14_2 = SHX14_2.Left
-              SHX14_2 = SHX14_2.Active
-              if not SHX14_2 then
-                SHX1_2 = SHX1_2 + 1
-                SHX14_2 = #SHX8_2
-                if SHX1_2 > SHX14_2 then
-                  SHX1_2 = 0
+          elseif workValue then
+            textValue = rageUiCall5.Controls
+            textValue = textValue.Right
+            textValue = textValue.Active
+            if textValue then
+              textValue = rageUiCall5.Controls
+              textValue = textValue.Left
+              textValue = textValue.Active
+              if not textValue then
+                arg2 = arg2 + 1
+                textValue = #dataTable3
+                if arg2 > textValue then
+                  arg2 = 0
                 end
-                SHX14_2 = RageUI
-                SHX14_2 = SHX14_2.Settings
-                SHX14_2 = SHX14_2.Audio
-                SHX15_2 = RageUI
-                SHX15_2 = SHX15_2.PlaySound
-                SHX16_2 = SHX14_2.Use
-                SHX16_2 = SHX14_2[SHX16_2]
-                SHX16_2 = SHX16_2.LeftRight
-                SHX16_2 = SHX16_2.audioName
-                SHX17_2 = SHX14_2.Use
-                SHX17_2 = SHX14_2[SHX17_2]
-                SHX17_2 = SHX17_2.LeftRight
-                SHX17_2 = SHX17_2.audioRef
-                SHX15_2(SHX16_2, SHX17_2)
+                textValue = RageUI
+                textValue = textValue.Settings
+                textValue = textValue.Audio
+                workValue2 = RageUI
+                workValue2 = workValue2.PlaySound
+                workValue3 = textValue.Use
+                workValue3 = textValue[workValue3]
+                workValue3 = workValue3.LeftRight
+                workValue3 = workValue3.audioName
+                workValue4 = textValue.Use
+                workValue4 = textValue[workValue4]
+                workValue4 = workValue4.LeftRight
+                workValue4 = workValue4.audioRef
+                workValue2(workValue3, workValue4)
               end
             end
           end
-          if SHX10_2 then
-            SHX14_2 = SHX7_2.Controls
-            SHX14_2 = SHX14_2.Select
-            SHX14_2 = SHX14_2.Active
-            if not SHX14_2 then
-              if not SHX12_2 then
-                goto SHX_LABEL_633
+          if workValue then
+            textValue = rageUiCall5.Controls
+            textValue = textValue.Select
+            textValue = textValue.Active
+            if not textValue then
+              if not rageUiCall2 then
+                goto flow_label_633
               end
-              SHX14_2 = SHX7_2.Controls
-              SHX14_2 = SHX14_2.Click
-              SHX14_2 = SHX14_2.Active
-              if not SHX14_2 or SHX11_2 then
-                goto SHX_LABEL_633
+              textValue = rageUiCall5.Controls
+              textValue = textValue.Click
+              textValue = textValue.Active
+              if not textValue or rageUiCall then
+                goto flow_label_633
               end
             end
-            SHX14_2 = RageUI
-            SHX14_2 = SHX14_2.Settings
-            SHX14_2 = SHX14_2.Audio
-            SHX15_2 = RageUI
-            SHX15_2 = SHX15_2.PlaySound
-            SHX16_2 = SHX14_2.Use
-            SHX16_2 = SHX14_2[SHX16_2]
-            SHX16_2 = SHX16_2.Select
-            SHX16_2 = SHX16_2.audioName
-            SHX17_2 = SHX14_2.Use
-            SHX17_2 = SHX14_2[SHX17_2]
-            SHX17_2 = SHX17_2.Select
-            SHX17_2 = SHX17_2.audioRef
-            SHX15_2(SHX16_2, SHX17_2)
+            textValue = RageUI
+            textValue = textValue.Settings
+            textValue = textValue.Audio
+            workValue2 = RageUI
+            workValue2 = workValue2.PlaySound
+            workValue3 = textValue.Use
+            workValue3 = textValue[workValue3]
+            workValue3 = workValue3.Select
+            workValue3 = workValue3.audioName
+            workValue4 = textValue.Use
+            workValue4 = textValue[workValue4]
+            workValue4 = workValue4.Select
+            workValue4 = workValue4.audioRef
+            workValue2(workValue3, workValue4)
           else
-            -- [FIX IF ERROR] Move ::SHX_LABEL_633:: outside nested blocks until all 'goto SHX_LABEL_633' can see it
-            ::SHX_LABEL_633::
-            if SHX10_2 and SHX12_2 then
-              SHX14_2 = SHX7_2.Controls
-              SHX14_2 = SHX14_2.Click
-              SHX14_2 = SHX14_2.Active
-              if SHX14_2 and SHX11_2 then
-                SHX14_2 = RageUI
-                SHX14_2 = SHX14_2.round
-                SHX15_2 = GetControlNormal
-                SHX16_2 = 2
-                SHX17_2 = 239
-                SHX15_2 = SHX15_2(SHX16_2, SHX17_2)
-                SHX15_2 = SHX15_2 * 1920
-                SHX14_2 = SHX14_2(SHX15_2)
-                SHX15_2 = SHX7_2.SafeZoneSize
-                SHX15_2 = SHX15_2.X
-                SHX14_2 = SHX14_2 - SHX15_2
-                SHX15_2 = SHX1_1.Bar
-                SHX15_2 = SHX15_2.X
-                SHX14_2 = SHX14_2 - SHX15_2
-                SHX15_2 = SHX1_1.Bar
-                SHX15_2 = SHX15_2.Width
-                SHX16_2 = SHX7_2.WidthOffset
-                SHX15_2 = SHX15_2 + SHX16_2
-                if SHX14_2 > SHX15_2 then
-                  SHX14_2 = SHX15_2
-                elseif SHX14_2 < 0 then
-                  SHX14_2 = 0
+            ::flow_label_633::
+            if workValue and rageUiCall2 then
+              textValue = rageUiCall5.Controls
+              textValue = textValue.Click
+              textValue = textValue.Active
+              if textValue and rageUiCall then
+                textValue = RageUI
+                textValue = textValue.round
+                workValue2 = GetControlNormal
+                workValue3 = 2
+                workValue4 = 239
+                workValue2 = workValue2(workValue3, workValue4)
+                workValue2 = workValue2 * 1920
+                textValue = textValue(workValue2)
+                workValue2 = rageUiCall5.SafeZoneSize
+                workValue2 = workValue2.X
+                textValue = textValue - workValue2
+                workValue2 = dataTable2.Bar
+                workValue2 = workValue2.X
+                textValue = textValue - workValue2
+                workValue2 = dataTable2.Bar
+                workValue2 = workValue2.Width
+                workValue3 = rageUiCall5.WidthOffset
+                workValue2 = workValue2 + workValue3
+                if textValue > workValue2 then
+                  textValue = workValue2
+                elseif textValue < 0 then
+                  textValue = 0
                 end
-                SHX16_2 = RageUI
-                SHX16_2 = SHX16_2.round
-                SHX17_2 = #SHX8_2
-                SHX18_2 = SHX14_2 / SHX15_2
-                SHX17_2 = SHX17_2 * SHX18_2
-                SHX16_2 = SHX16_2(SHX17_2)
-                SHX1_2 = SHX16_2
-                SHX16_2 = #SHX8_2
-                if SHX1_2 > SHX16_2 or SHX1_2 < 0 then
-                  SHX1_2 = 0
+                workValue3 = RageUI
+                workValue3 = workValue3.round
+                workValue4 = #dataTable3
+                workValue5 = textValue / workValue2
+                workValue4 = workValue4 * workValue5
+                workValue3 = workValue3(workValue4)
+                arg2 = workValue3
+                workValue3 = #dataTable3
+                if arg2 > workValue3 or arg2 < 0 then
+                  arg2 = 0
                 end
               end
             end
           end
-          if SHX5_2 then
-            SHX14_2 = SHX6_2
-            SHX15_2 = SHX12_2
-            SHX16_2 = SHX10_2
-            SHX17_2 = SHX7_2.Controls
-            SHX17_2 = SHX17_2.Select
-            SHX17_2 = SHX17_2.Active
-            if not SHX17_2 then
-              if not SHX12_2 then
-                goto SHX_LABEL_711
-                SHX17_2 = SHX12_2 or SHX17_2
+          if arg6 then
+            textValue = arg7
+            workValue2 = rageUiCall2
+            workValue3 = workValue
+            workValue4 = rageUiCall5.Controls
+            workValue4 = workValue4.Select
+            workValue4 = workValue4.Active
+            if not workValue4 then
+              if not rageUiCall2 then
+                goto flow_label_711
+                workValue4 = rageUiCall2 or workValue4
               end
-              SHX17_2 = SHX7_2.Controls
-              SHX17_2 = SHX17_2.Click
-              SHX17_2 = SHX17_2.Active
+              workValue4 = rageUiCall5.Controls
+              workValue4 = workValue4.Click
+              workValue4 = workValue4.Active
             end
-            SHX17_2 = SHX17_2 and not SHX11_2 and SHX17_2
-            -- [FIX IF ERROR] Move ::SHX_LABEL_711:: outside nested blocks until all 'goto SHX_LABEL_711' can see it
-            ::SHX_LABEL_711::
-            SHX18_2 = SHX1_2
-            SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+            workValue4 = workValue4 and not rageUiCall and workValue4
+            ::flow_label_711::
+            workValue5 = arg2
+            textValue(workValue2, workValue3, workValue4, workValue5)
           end
         end
       end
-      SHX10_2 = RageUI
-      SHX11_2 = RageUI
-      SHX11_2 = SHX11_2.Options
-      SHX11_2 = SHX11_2 + 1
-      SHX10_2.Options = SHX11_2
-      SHX8_2 = nil
+      workValue = RageUI
+      rageUiCall = RageUI
+      rageUiCall = rageUiCall.Options
+      rageUiCall = rageUiCall + 1
+      workValue.Options = rageUiCall
+      dataTable3 = nil
     end
   end
 end
-SHX2_1.Progress = SHX3_1
+rageUiCall4.Progress = workValue6

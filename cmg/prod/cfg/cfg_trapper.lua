@@ -1,3 +1,38 @@
+--[[
+    BEGINNER GUIDE — Trapper
+    ========================
+
+    File: cmg/prod/cfg/cfg_trapper.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_xp
+      * cfg/cfg_jobs
+
+    Network/hash identifiers found: 5
+      They are intentionally left unchanged because matching server code may use them.
+      * 020ba07cfc
+      * 770e1455bc
+      * c8a4567418
+      * 75f86594c8
+      * acc4e317a4
+
+    Example player-facing text in this file:
+      * Press [E]
+      * Purchase Drug Den
+      * Purchase Equipment
+      * Purchase 4x Watering Can
+      * Purchase 2x bags of soil
+
+]]
 local cfg = {}
 local cfgXP = CMG.loadModule("cfg/cfg_xp")
 

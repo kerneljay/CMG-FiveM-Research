@@ -1,3 +1,19 @@
+--[[
+    BEGINNER GUIDE — Trader
+    =======================
+
+    File: cmg/prod/cfg/cfg_trader.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+]]
 --1220.6180419922,-2956.4887695313,5.8660659790039
 
 local cfg = {}

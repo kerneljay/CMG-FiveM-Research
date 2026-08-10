@@ -1,418 +1,416 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Police PAVA Spray
+    =================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1
-SHX0_1 = {}
-SHX0_1.intensity = 4.0
-SHX0_1.timeUntilReload = 10.0
-SHX0_1.sprayRange = 2.0
-SHX0_1.sprayEffectTime = 15
-SHX1_1 = false
-SHX2_1 = "weapons@first_person@aim_rng@generic@projectile@shared@core"
-SHX3_1 = "idlerng_med"
-SHX4_1 = "scr_bike_business"
-SHX5_1 = "scr_bike_spraybottle_spray"
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = PlayerId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetPlayerPed
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = GetOffsetFromEntityInWorldCoords
-  SHX4_2 = SHX1_2
-  SHX5_2 = 0.0
-  SHX6_2 = SHX0_1.sprayRange
-  SHX7_2 = 0.0
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = StartShapeTestCapsule
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX8_2 = SHX3_2.x
-  SHX9_2 = SHX3_2.y
-  SHX10_2 = SHX3_2.z
-  SHX11_2 = 1.0
-  SHX12_2 = 12
-  SHX13_2 = SHX1_2
-  SHX14_2 = 7
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX5_2 = GetShapeTestResult
-  SHX6_2 = SHX4_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX5_2(SHX6_2)
-  return SHX9_2
+    PAVA weapon hash:
+      561663666
+
+    Local settings:
+      intensity       = particle size
+      timeUntilReload = how many seconds the spray can be held
+      sprayRange      = capsule/raycast range
+      sprayEffectTime = victim impairment duration
+
+    When PAVA is equipped:
+      * the player is kept in the projectile aiming idle animation
+      * melee/attack controls are disabled
+      * pressing attack starts one spray cycle
+
+    Spray cycle:
+      1. server event 3d1541f44f begins networked spray state
+      2. a short capsule shape test checks what is directly in front
+      3. if another player is hit, their server ID is sent in fa6b8620ec
+      4. while attack remains held, `timeUntilReload` counts down every 0.5 sec
+      5. if the spray becomes invalid the client sends adc0b1e4ab
+      6. releasing/finishing also sends adc0b1e4ab
+
+    Network visual events:
+      44abcb0ccb(serverId) -> start spray particle on that player's weapon
+      2b5ec979de(serverId) -> remove spray particle from weapon
+      2585ce9e7e            -> apply the victim's drunk/disabled-controls effect
+
+    Hash-looking network events are deliberately unchanged.
+]]
+
+local settings = {
+    intensity = 4.0,
+    timeUntilReload = 10.0,
+    sprayRange = 2.0,
+    sprayEffectTime = 15
+}
+
+local pavaEquipped = false
+
+local AIM_ANIM_DICT =
+    "weapons@first_person@aim_rng@generic@projectile@shared@core"
+
+local AIM_ANIM_NAME =
+    "idlerng_med"
+
+local PTFX_DICT =
+    "scr_bike_business"
+
+local PTFX_NAME =
+    "scr_bike_spraybottle_spray"
+
+
+-- ============================================================
+-- FIND ENTITY DIRECTLY IN FRONT
+-- ============================================================
+
+local function getSprayTargetEntity()
+    local ped =
+        PlayerPedId()
+
+    local startCoords =
+        GetEntityCoords(
+            ped,
+            false
+        )
+
+    local endCoords =
+        GetOffsetFromEntityInWorldCoords(
+            ped,
+            0.0,
+            settings.sprayRange,
+            0.0
+        )
+
+    local shapeTest =
+        StartShapeTestCapsule(
+            startCoords.x,
+            startCoords.y,
+            startCoords.z,
+            endCoords.x,
+            endCoords.y,
+            endCoords.z,
+            1.0,
+            12,
+            ped,
+            7
+        )
+
+    local _, _, _, _, entity =
+        GetShapeTestResult(
+            shapeTest
+        )
+
+    return entity
 end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    SHX0_3 = SHX0_1.timeUntilReload
-    SHX1_3 = TriggerServerEvent
-    SHX2_3 = "3d1541f44f"
-    SHX1_3(SHX2_3)
-    SHX1_3 = SHX6_1
-    SHX1_3 = SHX1_3()
-    if 0 ~= SHX1_3 then
-      SHX2_3 = IsPedAPlayer
-      SHX3_3 = SHX1_3
-      SHX2_3 = SHX2_3(SHX3_3)
-      if SHX2_3 then
-        SHX2_3 = NetworkGetPlayerIndexFromPed
-        SHX3_3 = SHX1_3
-        SHX2_3 = SHX2_3(SHX3_3)
-        if -1 ~= SHX2_3 then
-          SHX3_3 = TriggerServerEvent
-          SHX4_3 = "fa6b8620ec"
-          SHX5_3 = GetPlayerServerId
-          SHX6_3 = SHX2_3
-          SHX5_3, SHX6_3 = SHX5_3(SHX6_3)
-          SHX3_3(SHX4_3, SHX5_3, SHX6_3)
+
+
+-- ============================================================
+-- ONE SPRAY CYCLE
+-- ============================================================
+
+local function startSpraying()
+    CreateThread(function()
+        local secondsLeft =
+            settings.timeUntilReload
+
+        TriggerServerEvent(
+            "3d1541f44f"
+        )
+
+        local hitEntity =
+            getSprayTargetEntity()
+
+        if hitEntity ~= 0
+            and IsPedAPlayer(
+                hitEntity
+            ) then
+
+            local playerIndex =
+                NetworkGetPlayerIndexFromPed(
+                    hitEntity
+                )
+
+            if playerIndex ~= -1 then
+                TriggerServerEvent(
+                    "fa6b8620ec",
+                    GetPlayerServerId(
+                        playerIndex
+                    )
+                )
+            end
         end
-      end
-    end
+
+        while IsDisabledControlPressed(
+            0,
+            24
+        )
+            and secondsLeft > 0 do
+
+            if not pavaEquipped then
+                TriggerServerEvent(
+                    "adc0b1e4ab"
+                )
+                return
+            end
+
+            Wait(500)
+
+            secondsLeft =
+                secondsLeft - 0.5
+        end
+
+        TriggerServerEvent(
+            "adc0b1e4ab"
+        )
+    end)
+end
+
+
+-- ============================================================
+-- EQUIPPED-WEAPON CONTROL THREAD
+-- ============================================================
+
+CreateThread(function()
     while true do
-      SHX2_3 = IsDisabledControlPressed
-      SHX3_3 = 0
-      SHX4_3 = 24
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      if not (SHX2_3 and SHX0_3 > 0) then
-        break
-      end
-      SHX2_3 = SHX1_1
-      if not SHX2_3 then
-        SHX2_3 = TriggerServerEvent
-        SHX3_3 = "adc0b1e4ab"
-        SHX2_3(SHX3_3)
-        return
-      end
-      SHX2_3 = Citizen
-      SHX2_3 = SHX2_3.Wait
-      SHX3_3 = 500
-      SHX2_3(SHX3_3)
-      SHX0_3 = SHX0_3 - 0.5
+        local ped =
+            PlayerPedId()
+
+        pavaEquipped =
+            GetSelectedPedWeapon(ped)
+            == 561663666
+
+        local playingAimAnimation =
+            IsEntityPlayingAnim(
+                ped,
+                AIM_ANIM_DICT,
+                AIM_ANIM_NAME,
+                3
+            )
+
+        if pavaEquipped then
+            if not playingAimAnimation then
+                CMG.loadAnimDict(
+                    AIM_ANIM_DICT
+                )
+
+                TaskPlayAnim(
+                    ped,
+                    AIM_ANIM_DICT,
+                    AIM_ANIM_NAME,
+                    1.0,
+                    -1.0,
+                    -1,
+                    50,
+                    0,
+                    false,
+                    false,
+                    false
+                )
+
+                RemoveAnimDict(
+                    AIM_ANIM_DICT
+                )
+            end
+
+            for _, control in ipairs({
+                24,
+                140,
+                141,
+                142,
+                257,
+                263,
+                264
+            }) do
+                DisableControlAction(
+                    0,
+                    control,
+                    true
+                )
+            end
+
+            if IsDisabledControlJustPressed(
+                0,
+                24
+            ) then
+                startSpraying()
+            end
+
+            Wait(0)
+
+        else
+            if playingAimAnimation then
+                StopAnimTask(
+                    ped,
+                    AIM_ANIM_DICT,
+                    AIM_ANIM_NAME,
+                    1.0
+                )
+            end
+
+            Wait(1000)
+        end
     end
-    SHX2_3 = TriggerServerEvent
-    SHX3_3 = "adc0b1e4ab"
-    SHX2_3(SHX3_3)
-  end
-  SHX0_2(SHX1_2)
-end
-SHX8_1 = Citizen
-SHX8_1 = SHX8_1.CreateThread
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  while true do
-    SHX0_2 = PlayerPedId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = GetSelectedPedWeapon
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = 561663666 == SHX1_2
-    SHX1_1 = SHX1_2
-    SHX1_2 = IsEntityPlayingAnim
-    SHX2_2 = SHX0_2
-    SHX3_2 = SHX2_1
-    SHX4_2 = SHX3_1
-    SHX5_2 = 3
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = SHX1_1
-    if SHX2_2 then
-      if not SHX1_2 then
-        SHX2_2 = CMG
-        SHX2_2 = SHX2_2.loadAnimDict
-        SHX3_2 = SHX2_1
-        SHX2_2(SHX3_2)
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = PlayerPedId
-        SHX3_2 = SHX3_2()
-        SHX4_2 = SHX2_1
-        SHX5_2 = SHX3_1
-        SHX6_2 = 1.0
-        SHX7_2 = -1
-        SHX8_2 = -1
-        SHX9_2 = 50
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = RemoveAnimDict
-        SHX3_2 = SHX2_1
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 24
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 140
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 141
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 142
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 257
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 263
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = DisableControlAction
-      SHX3_2 = 0
-      SHX4_2 = 264
-      SHX5_2 = true
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = IsDisabledControlJustPressed
-      SHX3_2 = 0
-      SHX4_2 = 24
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if SHX2_2 then
-        SHX2_2 = SHX7_1
-        SHX2_2()
-      end
-    elseif SHX1_2 then
-      SHX2_2 = StopAnimTask
-      SHX3_2 = SHX0_2
-      SHX4_2 = SHX2_1
-      SHX5_2 = SHX3_1
-      SHX6_2 = 1.0
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+end)
+
+
+-- ============================================================
+-- NETWORKED SPRAY PARTICLE
+-- ============================================================
+
+RegisterNetEvent(
+    "44abcb0ccb",
+    function(serverId)
+        local playerIndex =
+            GetPlayerFromServerId(
+                serverId
+            )
+
+        if playerIndex == -1 then
+            return
+        end
+
+        local ped =
+            GetPlayerPed(
+                playerIndex
+            )
+
+        if ped == 0 then
+            return
+        end
+
+        local weaponEntity =
+            GetCurrentPedWeaponEntityIndex(
+                ped
+            )
+
+        if weaponEntity == 0 then
+            return
+        end
+
+        CMG.loadPtfx(
+            PTFX_DICT
+        )
+
+        StartParticleFxLoopedOnEntity(
+            PTFX_NAME,
+            weaponEntity,
+            -0.2,
+            0.002,
+            0.0,
+            0.0,
+            -95.0,
+            180.0,
+            settings.intensity,
+            false,
+            false,
+            false
+        )
+
+        RemoveNamedPtfxAsset(
+            PTFX_DICT
+        )
     end
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = SHX1_1
-    if SHX3_2 then
-      SHX3_2 = 0
-      if SHX3_2 then
-        goto SHX_LABEL_109
-      end
+)
+
+
+RegisterNetEvent(
+    "2b5ec979de",
+    function(serverId)
+        local playerIndex =
+            GetPlayerFromServerId(
+                serverId
+            )
+
+        if playerIndex == -1 then
+            return
+        end
+
+        local ped =
+            GetPlayerPed(
+                playerIndex
+            )
+
+        if ped == 0 then
+            return
+        end
+
+        local weaponEntity =
+            GetCurrentPedWeaponEntityIndex(
+                ped
+            )
+
+        if weaponEntity ~= 0 then
+            RemoveParticleFxFromEntity(
+                weaponEntity
+            )
+        end
     end
-    SHX3_2 = 1000
-    -- [FIX IF ERROR] Move ::SHX_LABEL_109:: outside nested blocks until all 'goto SHX_LABEL_109' can see it
-    ::SHX_LABEL_109::
-    SHX2_2(SHX3_2)
-  end
-end
-SHX8_1(SHX9_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "44abcb0ccb"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 ~= SHX1_2 then
-    SHX2_2 = GetPlayerPed
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if 0 ~= SHX2_2 then
-      SHX3_2 = GetCurrentPedWeaponEntityIndex
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if 0 ~= SHX3_2 then
-        SHX4_2 = CMG
-        SHX4_2 = SHX4_2.loadPtfx
-        SHX5_2 = SHX4_1
-        SHX4_2(SHX5_2)
-        SHX4_2 = StartParticleFxLoopedOnEntity
-        SHX5_2 = SHX5_1
-        SHX6_2 = SHX3_2
-        SHX7_2 = -0.2
-        SHX8_2 = 0.002
-        SHX9_2 = 0.0
-        SHX10_2 = 0.0
-        SHX11_2 = -95.0
-        SHX12_2 = 180.0
-        SHX13_2 = SHX0_1.intensity
-        SHX14_2 = false
-        SHX15_2 = false
-        SHX16_2 = false
-        SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-        SHX4_2 = RemoveNamedPtfxAsset
-        SHX5_2 = SHX4_1
-        SHX4_2(SHX5_2)
-      end
+)
+
+
+-- ============================================================
+-- VICTIM EFFECT
+-- ============================================================
+
+RegisterNetEvent(
+    "2585ce9e7e",
+    function()
+        SetTimecycleModifier(
+            "drunk"
+        )
+
+        SetTimecycleModifierStrength(
+            2.0
+        )
+
+        local clipSet =
+            "move_m@drunk@verydrunk"
+
+        CMG.loadClipSet(
+            clipSet
+        )
+
+        SetPedMovementClipset(
+            PlayerPedId(),
+            clipSet,
+            1.0
+        )
+
+        RemoveClipSet(
+            clipSet
+        )
+
+        local startedAt =
+            GetGameTimer()
+
+        while GetGameTimer()
+            - startedAt
+            < settings.sprayEffectTime
+                * 1000 do
+
+            DisablePlayerFiring(
+                PlayerId(),
+                true
+            )
+
+            for _, control in ipairs({
+                21,
+                22,
+                23,
+                24,
+                25
+            }) do
+                DisableControlAction(
+                    0,
+                    control,
+                    true
+                )
+            end
+
+            Wait(0)
+        end
+
+        ClearTimecycleModifier()
+        ResetScenarioTypesEnabled()
+
+        ResetPedMovementClipset(
+            PlayerPedId(),
+            0
+        )
     end
-  end
-end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "2b5ec979de"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 ~= SHX1_2 then
-    SHX2_2 = GetPlayerPed
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if 0 ~= SHX2_2 then
-      SHX3_2 = GetCurrentPedWeaponEntityIndex
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if 0 ~= SHX3_2 then
-        SHX4_2 = RemoveParticleFxFromEntity
-        SHX5_2 = SHX3_2
-        SHX4_2(SHX5_2)
-      end
-    end
-  end
-end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = false
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "2585ce9e7e"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX8_1
-  if not SHX0_2 then
-    SHX0_2 = SetTimecycleModifier
-    SHX1_2 = "drunk"
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetTimecycleModifierStrength
-    SHX1_2 = 2.0
-    SHX0_2(SHX1_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.loadClipSet
-    SHX1_2 = "move_m@drunk@verydrunk"
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetPedMovementClipset
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = "move_m@drunk@verydrunk"
-    SHX3_2 = 1.0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = RemoveClipSet
-    SHX1_2 = "move_m@drunk@verydrunk"
-    SHX0_2(SHX1_2)
-    SHX0_2 = GetGameTimer
-    SHX0_2 = SHX0_2()
-    while true do
-      SHX1_2 = GetGameTimer
-      SHX1_2 = SHX1_2()
-      SHX1_2 = SHX1_2 - SHX0_2
-      SHX2_2 = SHX0_1.sprayEffectTime
-      SHX2_2 = SHX2_2 * 1000
-      if not (SHX1_2 < SHX2_2) then
-        break
-      end
-      SHX1_2 = DisablePlayerFiring
-      SHX2_2 = PlayerId
-      SHX2_2 = SHX2_2()
-      SHX3_2 = true
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = DisableControlAction
-      SHX2_2 = 0
-      SHX3_2 = 21
-      SHX4_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = DisableControlAction
-      SHX2_2 = 0
-      SHX3_2 = 22
-      SHX4_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = DisableControlAction
-      SHX2_2 = 0
-      SHX3_2 = 23
-      SHX4_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = DisableControlAction
-      SHX2_2 = 0
-      SHX3_2 = 24
-      SHX4_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = DisableControlAction
-      SHX2_2 = 0
-      SHX3_2 = 25
-      SHX4_2 = true
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX1_2 = Citizen
-      SHX1_2 = SHX1_2.Wait
-      SHX2_2 = 0
-      SHX1_2(SHX2_2)
-    end
-    SHX1_2 = ClearTimecycleModifier
-    SHX1_2()
-    SHX1_2 = ResetScenarioTypesEnabled
-    SHX1_2()
-    SHX1_2 = ResetPedMovementClipset
-    SHX2_2 = PlayerPedId
-    SHX2_2 = SHX2_2()
-    SHX3_2 = 0
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-end
-SHX9_1(SHX10_1, SHX11_1)
+)

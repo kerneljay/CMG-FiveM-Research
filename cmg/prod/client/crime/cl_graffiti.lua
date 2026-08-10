@@ -1,1926 +1,1729 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_graffiti.lua
+    ===============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_graffiti"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = CMG
-SHX1_1 = SHX1_1.loadModule
-SHX2_1 = "cfg/cfg_gang"
-SHX1_1 = SHX1_1(SHX2_1)
-SHX2_1 = CreateCam
-SHX3_1 = "DEFAULT_SCRIPTED_CAMERA"
-SHX4_1 = false
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1)
-SHX3_1 = false
-SHX4_1 = nil
-SHX5_1 = {}
-SHX6_1 = 1
-SHX7_1 = {}
-SHX8_1 = 1
-SHX9_1 = {}
-SHX10_1 = {}
-SHX11_1 = false
-SHX12_1 = false
-SHX13_1 = 0
-SHX14_1 = 5000
-function SHX15_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_2.handle
-  if not SHX1_2 then
-    SHX1_2 = RequestScaleformMovie
-    SHX2_2 = SHX0_2.name
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX0_2.handle = SHX1_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Graffiti
+    =========================
+
+    File: cmg/prod/client/crime/cl_graffiti.lua
+    Purpose: This file contains crime/gang/heist gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_graffiti
+      * cfg/cfg_gang
+
+    Network/hash identifiers found: 10
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * You cannot use the spray on this surface
+      * Press ~INPUT_CONTEXT~ to clean graffiti with a sponge.
+      * Main Menu
+      * Enter Text
+
+]]
+local cmgCall, cmgCall2, textValue4, flag7, flag8, dataTable4, numberValue15, dataTable6, numberValue17, dataTable7, dataTable, flag, flag2, numberValue3, numberValue5, workValue9, workValue12, workValue13, workValue14, workValue15, workValue17, workValue18, threadCall, workValue19, workValue20, workValue21, workValue22, cmgCall3, textValue3, eventRegistration, textValue5, textValue6, rageUiCall, textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+cmgCall2 = "cfg/cfg_graffiti"
+-- Beginner: result below is config.
+cmgCall = cmgCall(cmgCall2)
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.loadModule
+textValue4 = "cfg/cfg_gang"
+-- Beginner: result below is config.
+cmgCall2 = cmgCall2(textValue4)
+textValue4 = CreateCam
+flag7 = "DEFAULT_SCRIPTED_CAMERA"
+flag8 = false
+-- Beginner: result below is cameraHandle.
+textValue4 = textValue4(flag7, flag8)
+flag7 = false
+flag8 = nil
+dataTable4 = {}
+numberValue15 = 1
+dataTable6 = {}
+numberValue17 = 1
+dataTable7 = {}
+dataTable = {}
+flag = false
+flag2 = false
+numberValue3 = 0
+numberValue5 = 5000
+function workValue9(arg1)
+  local arg2, arg3
+  arg2 = arg1.handle
+  if not arg2 then
+    arg2 = RequestScaleformMovie
+    arg3 = arg1.name
+    -- Beginner: result below is scaleformHandle.
+    arg2 = arg2(arg3)
+    arg1.handle = arg2
   end
-  SHX1_2 = SHX0_2.loaded
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.handle
-    return SHX1_2
+  arg2 = arg1.loaded
+  if arg2 then
+    arg2 = arg1.handle
+    return arg2
   else
-    SHX1_2 = HasScaleformMovieLoaded
-    SHX2_2 = SHX0_2.handle
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX0_2.loaded = SHX1_2
-    SHX1_2 = nil
-    return SHX1_2
+    arg2 = HasScaleformMovieLoaded
+    arg3 = arg1.handle
+    arg2 = arg2(arg3)
+    arg1.loaded = arg2
+    arg2 = nil
+    return arg2
   end
 end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX1_2 = SHX6_1
-  SHX0_2 = SHX5_1
-  SHX0_2 = SHX0_2[SHX1_2]
-  if not SHX0_2 then
+function workValue12()
+  local arg1, arg2, arg3
+  arg2 = numberValue15
+  arg1 = dataTable4
+  arg1 = arg1[arg2]
+  if not arg1 then
     return
   end
-  SHX1_2 = SHX6_1
-  SHX1_2 = SHX1_2 + 1
-  SHX6_1 = SHX1_2
-  SHX1_2 = SHX6_1
-  SHX2_2 = SHX5_1
-  SHX2_2 = #SHX2_2
-  if SHX1_2 > SHX2_2 then
-    SHX1_2 = 1
-    SHX6_1 = SHX1_2
+  arg2 = numberValue15
+  arg2 = arg2 + 1
+  numberValue15 = arg2
+  arg2 = numberValue15
+  arg3 = dataTable4
+  arg3 = #arg3
+  if arg2 > arg3 then
+    arg2 = 1
+    numberValue15 = arg2
   end
-  SHX1_2 = SHX15_1
-  SHX2_2 = SHX0_2
-  return SHX1_2(SHX2_2)
+  arg2 = workValue9
+  arg3 = arg1
+  return arg2(arg3)
 end
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX1_2 = SHX8_1
-  SHX0_2 = SHX7_1
-  SHX0_2 = SHX0_2[SHX1_2]
-  if not SHX0_2 then
+function workValue13()
+  local arg1, arg2, arg3
+  arg2 = numberValue17
+  arg1 = dataTable6
+  arg1 = arg1[arg2]
+  if not arg1 then
     return
   end
-  SHX1_2 = SHX8_1
-  SHX1_2 = SHX1_2 + 1
-  SHX8_1 = SHX1_2
-  SHX1_2 = SHX8_1
-  SHX2_2 = SHX7_1
-  SHX2_2 = #SHX2_2
-  if SHX1_2 > SHX2_2 then
-    SHX1_2 = 1
-    SHX8_1 = SHX1_2
+  arg2 = numberValue17
+  arg2 = arg2 + 1
+  numberValue17 = arg2
+  arg2 = numberValue17
+  arg3 = dataTable6
+  arg3 = #arg3
+  if arg2 > arg3 then
+    arg2 = 1
+    numberValue17 = arg2
   end
-  SHX1_2 = SHX15_1
-  SHX2_2 = SHX0_2
-  return SHX1_2(SHX2_2)
+  arg2 = workValue9
+  arg3 = arg1
+  return arg2(arg3)
 end
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = SHX12_1
-  if not SHX0_2 then
+function workValue14()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg1 = flag2
+  if not arg1 then
     return
   end
-  SHX0_2 = ipairs
-  SHX1_2 = SHX5_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2.handle
-    if SHX6_2 then
-      SHX6_2 = SetScaleformMovieAsNoLongerNeeded
-      SHX7_2 = SHX5_2.handle
-      SHX6_2(SHX7_2)
-      SHX5_2.handle = nil
-      SHX5_2.loaded = false
+  arg1 = ipairs
+  arg2 = dataTable4
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5, arg6 in arg1, arg2, arg3, arg4 do
+    arg7 = arg6.handle
+    if arg7 then
+      arg7 = SetScaleformMovieAsNoLongerNeeded
+      arg8 = arg6.handle
+      arg7(arg8)
+      arg6.handle = nil
+      arg6.loaded = false
     end
   end
-  SHX0_2 = ipairs
-  SHX1_2 = SHX7_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = SHX5_2.handle
-    if SHX6_2 then
-      SHX6_2 = SetScaleformMovieAsNoLongerNeeded
-      SHX7_2 = SHX5_2.handle
-      SHX6_2(SHX7_2)
-      SHX5_2.handle = nil
-      SHX5_2.loaded = false
+  arg1 = ipairs
+  arg2 = dataTable6
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5, arg6 in arg1, arg2, arg3, arg4 do
+    arg7 = arg6.handle
+    if arg7 then
+      arg7 = SetScaleformMovieAsNoLongerNeeded
+      arg8 = arg6.handle
+      arg7(arg8)
+      arg6.handle = nil
+      arg6.loaded = false
     end
   end
-  SHX0_2 = HasStreamedTextureDictLoaded
-  SHX1_2 = SHX0_1.gangTextureDictionaryName
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = SetStreamedTextureDictAsNoLongerNeeded
-    SHX1_2 = SHX0_1.gangTextureDictionaryName
-    SHX0_2(SHX1_2)
+  arg1 = HasStreamedTextureDictLoaded
+  arg2 = cmgCall.gangTextureDictionaryName
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = SetStreamedTextureDictAsNoLongerNeeded
+    arg2 = cmgCall.gangTextureDictionaryName
+    arg1(arg2)
   end
-  SHX0_2 = print
-  SHX1_2 = "[CMG] Unloaded all graffiti"
-  SHX0_2(SHX1_2)
-  SHX0_2 = false
-  SHX12_1 = SHX0_2
+  arg1 = print
+  arg2 = "[CMG] Unloaded all graffiti"
+  arg1(arg2)
+  arg1 = false
+  flag2 = arg1
 end
-function SHX19_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = SHX2_2 * 1000.0
-  SHX3_2 = SHX1_2 + SHX3_2
-  SHX4_2 = StartShapeTestRay
-  SHX5_2 = SHX1_2.x
-  SHX6_2 = SHX1_2.y
-  SHX7_2 = SHX1_2.z
-  SHX8_2 = SHX3_2.x
-  SHX9_2 = SHX3_2.y
-  SHX10_2 = SHX3_2.z
-  SHX11_2 = 1
-  SHX12_2 = SHX0_2
-  SHX13_2 = 0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = GetShapeTestResultEx
-  SHX6_2 = SHX4_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX5_2(SHX6_2)
-  SHX10_2 = 1 == SHX6_2
-  SHX11_2 = SHX7_2
-  SHX12_2 = SHX8_2
-  SHX13_2 = SHX9_2
-  return SHX10_2, SHX11_2, SHX12_2, SHX13_2
+function workValue15(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2
+  arg4 = arg3 * 1000.0
+  arg4 = arg2 + arg4
+  arg5 = StartShapeTestRay
+  arg6 = arg2.x
+  arg7 = arg2.y
+  arg8 = arg2.z
+  stringHelper2 = arg4.x
+  textValue13 = arg4.y
+  vector3Builder = arg4.z
+  numberValue = 1
+  numberValue2 = arg1
+  vector3Builder2 = 0
+  arg5 = arg5(arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2)
+  arg6 = GetShapeTestResultEx
+  arg7 = arg5
+  arg6, arg7, arg8, stringHelper2, textValue13 = arg6(arg7)
+  vector3Builder = 1 == arg7
+  numberValue = arg8
+  numberValue2 = stringHelper2
+  vector3Builder2 = textValue13
+  return vector3Builder, numberValue, numberValue2, vector3Builder2
 end
-function SHX20_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.abs
-  SHX3_2 = SHX0_2.x
-  SHX4_2 = SHX1_2.x
-  SHX3_2 = SHX3_2 - SHX4_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.abs
-  SHX4_2 = SHX0_2.y
-  SHX5_2 = SHX1_2.y
-  SHX4_2 = SHX4_2 - SHX5_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.abs
-  SHX5_2 = SHX0_2.z
-  SHX6_2 = SHX1_2.z
-  SHX5_2 = SHX5_2 - SHX6_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = 0.01
-  SHX5_2 = SHX2_2 < SHX5_2
-  return SHX5_2
+function workValue17(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7
+  arg3 = math
+  arg3 = arg3.abs
+  arg4 = arg1.x
+  arg5 = arg2.x
+  arg4 = arg4 - arg5
+  arg3 = arg3(arg4)
+  arg4 = math
+  arg4 = arg4.abs
+  arg5 = arg1.y
+  arg6 = arg2.y
+  arg5 = arg5 - arg6
+  arg4 = arg4(arg5)
+  arg5 = math
+  arg5 = arg5.abs
+  arg6 = arg1.z
+  arg7 = arg2.z
+  arg6 = arg6 - arg7
+  arg5 = arg5(arg6)
+  arg6 = 0.01
+  arg6 = arg3 < arg6
+  return arg6
 end
-function SHX21_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2
-  SHX4_2 = SHX19_1
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX2_2
-  SHX7_2 = SHX3_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX8_2 = SHX19_1
-  SHX9_2 = SHX0_2
-  SHX10_2 = vector3
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = 0.2
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = SHX2_2 + SHX10_2
-  SHX11_2 = SHX3_2
-  SHX8_2, SHX9_2, SHX10_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX11_2 = SHX19_1
-  SHX12_2 = SHX0_2
-  SHX13_2 = vector3
-  SHX14_2 = 1.0
-  SHX15_2 = 0.0
-  SHX16_2 = 0.0
-  SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2)
-  SHX13_2 = SHX2_2 + SHX13_2
-  SHX14_2 = SHX3_2
-  SHX11_2, SHX12_2, SHX13_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-  SHX14_2 = SHX19_1
-  SHX15_2 = SHX0_2
-  SHX16_2 = vector3
-  SHX17_2 = -1.0
-  SHX18_2 = 0.0
-  SHX19_2 = 0.0
-  SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-  SHX16_2 = SHX2_2 + SHX16_2
-  SHX17_2 = SHX3_2
-  SHX14_2, SHX15_2, SHX16_2 = SHX14_2(SHX15_2, SHX16_2, SHX17_2)
-  SHX17_2 = SHX19_1
-  SHX18_2 = SHX0_2
-  SHX19_2 = vector3
-  SHX20_2 = 0.0
-  SHX21_2 = 1.0
-  SHX22_2 = 0.0
-  SHX19_2 = SHX19_2(SHX20_2, SHX21_2, SHX22_2)
-  SHX19_2 = SHX2_2 + SHX19_2
-  SHX20_2 = SHX3_2
-  SHX17_2, SHX18_2, SHX19_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-  SHX20_2 = SHX19_1
-  SHX21_2 = SHX0_2
-  SHX22_2 = vector3
-  SHX23_2 = 0.0
-  SHX24_2 = -1.0
-  SHX25_2 = 0.0
-  SHX22_2 = SHX22_2(SHX23_2, SHX24_2, SHX25_2)
-  SHX22_2 = SHX2_2 + SHX22_2
-  SHX23_2 = SHX3_2
-  SHX20_2, SHX21_2, SHX22_2 = SHX20_2(SHX21_2, SHX22_2, SHX23_2)
-  SHX23_2 = SHX10_2.z
-  SHX24_2 = 0.9
-  SHX23_2 = SHX23_2 > SHX24_2
-  if not (not SHX23_2 and SHX4_2 and SHX8_2 and SHX11_2 and SHX14_2 and SHX17_2) or not SHX20_2 then
-    SHX24_2 = false
-    SHX25_2 = "Point the spray at a flat wall"
-    return SHX24_2, SHX25_2
+function workValue18(arg1, arg2, arg3, arg4)
+  local arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23, textValue2, workValue24, workValue25, workValue27
+  arg5 = workValue15
+  arg6 = arg1
+  arg7 = arg3
+  arg8 = arg4
+  arg5, arg6, arg7, arg8 = arg5(arg6, arg7, arg8)
+  stringHelper2 = workValue15
+  textValue13 = arg1
+  vector3Builder = vector3
+  numberValue = 0.0
+  numberValue2 = 0.0
+  vector3Builder2 = 0.2
+  vector3Builder = vector3Builder(numberValue, numberValue2, vector3Builder2)
+  vector3Builder = arg3 + vector3Builder
+  numberValue = arg4
+  stringHelper2, textValue13, vector3Builder = stringHelper2(textValue13, vector3Builder, numberValue)
+  numberValue = workValue15
+  numberValue2 = arg1
+  vector3Builder2 = vector3
+  numberValue6 = 1.0
+  numberValue8 = 0.0
+  vector3Builder3 = 0.0
+  vector3Builder2 = vector3Builder2(numberValue6, numberValue8, vector3Builder3)
+  vector3Builder2 = arg3 + vector3Builder2
+  numberValue6 = arg4
+  numberValue, numberValue2, vector3Builder2 = numberValue(numberValue2, vector3Builder2, numberValue6)
+  numberValue6 = workValue15
+  numberValue8 = arg1
+  vector3Builder3 = vector3
+  numberValue10 = -1.0
+  numberValue11 = 0.0
+  vector3Builder4 = 0.0
+  vector3Builder3 = vector3Builder3(numberValue10, numberValue11, vector3Builder4)
+  vector3Builder3 = arg3 + vector3Builder3
+  numberValue10 = arg4
+  numberValue6, numberValue8, vector3Builder3 = numberValue6(numberValue8, vector3Builder3, numberValue10)
+  numberValue10 = workValue15
+  numberValue11 = arg1
+  vector3Builder4 = vector3
+  numberValue12 = 0.0
+  numberValue13 = 1.0
+  vector3Builder5 = 0.0
+  vector3Builder4 = vector3Builder4(numberValue12, numberValue13, vector3Builder5)
+  vector3Builder4 = arg3 + vector3Builder4
+  numberValue12 = arg4
+  numberValue10, numberValue11, vector3Builder4 = numberValue10(numberValue11, vector3Builder4, numberValue12)
+  numberValue12 = workValue15
+  numberValue13 = arg1
+  vector3Builder5 = vector3
+  numberValue14 = 0.0
+  flag6 = -1.0
+  textValue = 0.0
+  vector3Builder5 = vector3Builder5(numberValue14, flag6, textValue)
+  vector3Builder5 = arg3 + vector3Builder5
+  numberValue14 = arg4
+  numberValue12, numberValue13, vector3Builder5 = numberValue12(numberValue13, vector3Builder5, numberValue14)
+  numberValue14 = vector3Builder.z
+  flag6 = 0.9
+  numberValue14 = numberValue14 > flag6
+  if not (not numberValue14 and arg5 and stringHelper2 and numberValue and numberValue6 and numberValue10) or not numberValue12 then
+    flag6 = false
+    textValue = "Point the spray at a flat wall"
+    return flag6, textValue
   end
-  SHX24_2 = SHX0_1.disallowedMaterials
-  SHX24_2 = SHX24_2[SHX7_2]
-  if SHX24_2 then
-    SHX24_2 = false
-    SHX25_2 = "You cannot use the spray on this surface"
-    return SHX24_2, SHX25_2
+  flag6 = cmgCall.disallowedMaterials
+  flag6 = flag6[arg8]
+  if flag6 then
+    flag6 = false
+    textValue = "You cannot use the spray on this surface"
+    return flag6, textValue
   end
-  SHX24_2 = SHX1_2 - SHX5_2
-  SHX24_2 = #SHX24_2
-  SHX25_2 = SHX0_1.maxSurfaceDistance
-  if SHX24_2 > SHX25_2 then
-    SHX24_2 = false
-    SHX25_2 = "The surface is too far away"
-    return SHX24_2, SHX25_2
+  flag6 = arg2 - arg6
+  flag6 = #flag6
+  textValue = cmgCall.maxSurfaceDistance
+  if flag6 > textValue then
+    flag6 = false
+    textValue = "The surface is too far away"
+    return flag6, textValue
   end
-  SHX24_2 = SHX20_1
-  SHX25_2 = SHX6_2
-  SHX26_2 = SHX10_2
-  SHX24_2 = SHX24_2(SHX25_2, SHX26_2)
-  if SHX24_2 then
-    SHX24_2 = SHX20_1
-    SHX25_2 = SHX6_2
-    SHX26_2 = SHX13_2
-    SHX24_2 = SHX24_2(SHX25_2, SHX26_2)
-    if SHX24_2 then
-      SHX24_2 = SHX20_1
-      SHX25_2 = SHX6_2
-      SHX26_2 = SHX16_2
-      SHX24_2 = SHX24_2(SHX25_2, SHX26_2)
-      if SHX24_2 then
-        SHX24_2 = SHX20_1
-        SHX25_2 = SHX6_2
-        SHX26_2 = SHX19_2
-        SHX24_2 = SHX24_2(SHX25_2, SHX26_2)
-        if SHX24_2 then
-          SHX24_2 = SHX20_1
-          SHX25_2 = SHX6_2
-          SHX26_2 = SHX22_2
-          SHX24_2 = SHX24_2(SHX25_2, SHX26_2)
-          if SHX24_2 then
-            SHX24_2 = CMG
-            SHX24_2 = SHX24_2.isOnPlane
-            SHX25_2 = SHX5_2
-            SHX26_2 = SHX9_2
-            SHX27_2 = SHX12_2
-            SHX28_2 = SHX15_2
-            SHX29_2 = SHX18_2
-            SHX30_2 = SHX21_2
-            SHX24_2 = SHX24_2(SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2)
-            if SHX24_2 then
-              goto SHX_LABEL_144
+  flag6 = workValue17
+  textValue = arg7
+  workValue23 = vector3Builder
+  flag6 = flag6(textValue, workValue23)
+  if flag6 then
+    flag6 = workValue17
+    textValue = arg7
+    workValue23 = vector3Builder2
+    flag6 = flag6(textValue, workValue23)
+    if flag6 then
+      flag6 = workValue17
+      textValue = arg7
+      workValue23 = vector3Builder3
+      flag6 = flag6(textValue, workValue23)
+      if flag6 then
+        flag6 = workValue17
+        textValue = arg7
+        workValue23 = vector3Builder4
+        flag6 = flag6(textValue, workValue23)
+        if flag6 then
+          flag6 = workValue17
+          textValue = arg7
+          workValue23 = vector3Builder5
+          flag6 = flag6(textValue, workValue23)
+          if flag6 then
+            flag6 = CMG
+            flag6 = flag6.isOnPlane
+            textValue = arg6
+            workValue23 = textValue13
+            textValue2 = numberValue2
+            workValue24 = numberValue8
+            workValue25 = numberValue11
+            workValue27 = numberValue13
+            flag6 = flag6(textValue, workValue23, textValue2, workValue24, workValue25, workValue27)
+            if flag6 then
+              goto flow_label_144
             end
           end
         end
       end
     end
   end
-  SHX24_2 = false
-  SHX25_2 = "The surface is not flat enough"
-  return SHX24_2, SHX25_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_144:: outside nested blocks until all 'goto SHX_LABEL_144' can see it
-  ::SHX_LABEL_144::
-  SHX24_2 = 0.02
-  SHX25_2 = -SHX24_2
-  SHX25_2 = SHX6_2 * SHX25_2
-  SHX25_2 = SHX5_2 + SHX25_2
-  SHX26_2 = true
-  SHX27_2 = ""
-  SHX28_2 = SHX25_2
-  SHX29_2 = SHX6_2
-  SHX30_2 = SHX6_2
-  return SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2
+  flag6 = false
+  textValue = "The surface is not flat enough"
+  return flag6, textValue
+  ::flow_label_144::
+  flag6 = 0.02
+  textValue = -flag6
+  textValue = arg7 * textValue
+  textValue = arg6 + textValue
+  workValue23 = true
+  textValue2 = ""
+  workValue24 = textValue
+  workValue25 = arg7
+  workValue27 = arg7
+  return workValue23, textValue2, workValue24, workValue25, workValue27
 end
-SHX22_1 = Citizen
-SHX22_1 = SHX22_1.CreateThread
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = 1
-  SHX1_2 = 10
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
-    SHX4_2 = "PLAYER_NAME_"
-    if SHX3_2 < 10 then
-      SHX5_2 = SHX4_2
-      SHX6_2 = "0"
-      SHX5_2 = SHX5_2 .. SHX6_2
-      SHX4_2 = SHX5_2
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function workValue19()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
+  arg1 = 1
+  arg2 = 10
+  arg3 = 1
+  for arg4 = arg1, arg2, arg3 do
+    arg5 = "PLAYER_NAME_"
+    if arg4 < 10 then
+      arg6 = arg5
+      arg7 = "0"
+      arg6 = arg6 .. arg7
+      arg5 = arg6
     end
-    SHX5_2 = SHX4_2
-    SHX6_2 = tostring
-    SHX7_2 = SHX3_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX5_2 = SHX5_2 .. SHX6_2
-    SHX4_2 = SHX5_2
-    SHX5_2 = table
-    SHX5_2 = SHX5_2.insert
-    SHX6_2 = SHX5_1
-    SHX7_2 = {}
-    SHX7_2.name = SHX4_2
-    SHX7_2.handle = nil
-    SHX7_2.loaded = false
-    SHX5_2(SHX6_2, SHX7_2)
-    SHX5_2 = table
-    SHX5_2 = SHX5_2.insert
-    SHX6_2 = SHX7_1
-    SHX7_2 = {}
-    SHX8_2 = string
-    SHX8_2 = SHX8_2.format
-    SHX9_2 = "graffiti_renderer_%s"
-    SHX10_2 = SHX3_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX7_2.name = SHX8_2
-    SHX7_2.handle = nil
-    SHX7_2.loaded = false
-    SHX5_2(SHX6_2, SHX7_2)
+    arg6 = arg5
+    arg7 = tostring
+    arg8 = arg4
+    arg7 = arg7(arg8)
+    arg6 = arg6 .. arg7
+    arg5 = arg6
+    arg6 = table
+    arg6 = arg6.insert
+    arg7 = dataTable4
+    arg8 = {}
+    arg8.name = arg5
+    arg8.handle = nil
+    arg8.loaded = false
+    arg6(arg7, arg8)
+    arg6 = table
+    arg6 = arg6.insert
+    arg7 = dataTable6
+    arg8 = {}
+    stringHelper2 = string
+    stringHelper2 = stringHelper2.format
+    textValue13 = "graffiti_renderer_%s"
+    vector3Builder = arg4
+    stringHelper2 = stringHelper2(textValue13, vector3Builder)
+    arg8.name = stringHelper2
+    arg8.handle = nil
+    arg8.loaded = false
+    arg6(arg7, arg8)
   end
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1.fonts
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX5_2 = RegisterFontFile
-    SHX6_2 = SHX4_2
-    SHX5_2(SHX6_2)
-    SHX5_2 = RegisterFontId
-    SHX6_2 = SHX4_2
-    SHX5_2(SHX6_2)
+  arg1 = pairs
+  arg2 = cmgCall.fonts
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5 in arg1, arg2, arg3, arg4 do
+    arg6 = RegisterFontFile
+    arg7 = arg5
+    arg6(arg7)
+    arg6 = RegisterFontId
+    arg7 = arg5
+    arg6(arg7)
   end
 end
-SHX22_1(SHX23_1)
-function SHX22_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2
-  SHX7_2 = true
-  SHX12_1 = SHX7_2
-  SHX7_2 = GetGameTimer
-  SHX7_2 = SHX7_2()
-  SHX13_1 = SHX7_2
-  if SHX6_2 then
-    SHX7_2 = SHX17_1
-    SHX7_2 = SHX7_2()
-    if not SHX7_2 then
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(workValue19)
+function threadCall(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+  local arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23
+  arg8 = true
+  flag2 = arg8
+  arg8 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg8 = arg8()
+  numberValue3 = arg8
+  if arg7 then
+    arg8 = workValue13
+    arg8 = arg8()
+    if not arg8 then
       return
     end
-    SHX8_2 = HasStreamedTextureDictLoaded
-    SHX9_2 = SHX0_1.gangTextureDictionaryName
-    SHX8_2 = SHX8_2(SHX9_2)
-    if not SHX8_2 then
-      SHX8_2 = RequestStreamedTextureDict
-      SHX9_2 = SHX0_1.gangTextureDictionaryName
-      SHX10_2 = false
-      SHX8_2(SHX9_2, SHX10_2)
+    stringHelper2 = HasStreamedTextureDictLoaded
+    textValue13 = cmgCall.gangTextureDictionaryName
+    stringHelper2 = stringHelper2(textValue13)
+    if not stringHelper2 then
+      stringHelper2 = RequestStreamedTextureDict
+      textValue13 = cmgCall.gangTextureDictionaryName
+      vector3Builder = false
+      stringHelper2(textValue13, vector3Builder)
       return
     end
-    SHX8_2 = PushScaleformMovieFunction
-    SHX9_2 = SHX7_2
-    SHX10_2 = "SET_TEXTURE"
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = PushScaleformMovieMethodParameterString
-    SHX9_2 = SHX0_1.gangTextureDictionaryName
-    SHX8_2(SHX9_2)
-    SHX8_2 = PushScaleformMovieMethodParameterString
-    SHX9_2 = SHX6_2
-    SHX8_2(SHX9_2)
-    SHX8_2 = PushScaleformMovieFunctionParameterInt
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
-    SHX8_2 = PushScaleformMovieFunctionParameterInt
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
-    SHX8_2 = PushScaleformMovieFunctionParameterInt
-    SHX9_2 = 1280
-    SHX8_2(SHX9_2)
-    SHX8_2 = PushScaleformMovieFunctionParameterInt
-    SHX9_2 = 720
-    SHX8_2(SHX9_2)
-    SHX8_2 = PopScaleformMovieFunctionVoid
-    SHX8_2()
-    SHX8_2 = DrawScaleformMovie_3d
-    SHX9_2 = SHX7_2
-    SHX10_2 = SHX0_2.x
-    SHX11_2 = SHX0_2.y
-    SHX12_2 = SHX0_2.z
-    SHX13_2 = 180.0
-    SHX14_2 = SHX1_2.y
-    SHX15_2 = SHX1_2.z
-    SHX16_2 = 0.1
-    SHX17_2 = 0.1
-    SHX18_2 = 0.1
-    SHX19_2 = 0.05
-    SHX20_2 = 0.05
-    SHX21_2 = 0.05
-    SHX22_2 = 2
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+    stringHelper2 = PushScaleformMovieFunction
+    textValue13 = arg8
+    vector3Builder = "SET_TEXTURE"
+    stringHelper2(textValue13, vector3Builder)
+    stringHelper2 = PushScaleformMovieMethodParameterString
+    textValue13 = cmgCall.gangTextureDictionaryName
+    stringHelper2(textValue13)
+    stringHelper2 = PushScaleformMovieMethodParameterString
+    textValue13 = arg7
+    stringHelper2(textValue13)
+    stringHelper2 = PushScaleformMovieFunctionParameterInt
+    textValue13 = 0
+    stringHelper2(textValue13)
+    stringHelper2 = PushScaleformMovieFunctionParameterInt
+    textValue13 = 0
+    stringHelper2(textValue13)
+    stringHelper2 = PushScaleformMovieFunctionParameterInt
+    textValue13 = 1280
+    stringHelper2(textValue13)
+    stringHelper2 = PushScaleformMovieFunctionParameterInt
+    textValue13 = 720
+    stringHelper2(textValue13)
+    stringHelper2 = PopScaleformMovieFunctionVoid
+    stringHelper2()
+    stringHelper2 = DrawScaleformMovie_3d
+    textValue13 = arg8
+    vector3Builder = arg1.x
+    numberValue = arg1.y
+    numberValue2 = arg1.z
+    vector3Builder2 = 180.0
+    numberValue6 = arg2.y
+    numberValue8 = arg2.z
+    vector3Builder3 = 0.1
+    numberValue10 = 0.1
+    numberValue11 = 0.1
+    vector3Builder4 = 0.05
+    numberValue12 = 0.05
+    numberValue13 = 0.05
+    vector3Builder5 = 2
+    stringHelper2(textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5)
   else
-    SHX7_2 = SHX16_1
-    SHX7_2 = SHX7_2()
-    if not SHX7_2 then
+    arg8 = workValue12
+    arg8 = arg8()
+    if not arg8 then
       return
     end
-    SHX8_2 = SHX0_1.colours
-    SHX9_2 = SHX0_1.coloursList
-    SHX9_2 = SHX9_2[SHX3_2]
-    SHX8_2 = SHX8_2[SHX9_2]
-    SHX9_2 = SHX0_1.fontDisplayNamesIndexToKey
-    SHX9_2 = SHX9_2[SHX2_2]
-    SHX10_2 = PushScaleformMovieFunction
-    SHX11_2 = SHX7_2
-    SHX12_2 = "SET_PLAYER_NAME"
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = PushScaleformMovieMethodParameterString
-    SHX11_2 = "<FONT color='#"
-    SHX12_2 = SHX8_2
-    SHX13_2 = "' FACE='"
-    SHX14_2 = SHX9_2
-    SHX15_2 = "'>"
-    SHX16_2 = SHX5_2
-    SHX11_2 = SHX11_2 .. SHX12_2 .. SHX13_2 .. SHX14_2 .. SHX15_2 .. SHX16_2
-    SHX10_2(SHX11_2)
-    SHX10_2 = PopScaleformMovieFunctionVoid
-    SHX10_2()
-    SHX10_2 = SHX0_1.fonts
-    SHX10_2 = SHX10_2[SHX9_2]
-    SHX11_2 = SHX4_2 / 10.0
-    SHX12_2 = SHX10_2.scaleMultiplier
-    SHX11_2 = SHX11_2 * SHX12_2
-    SHX12_2 = DrawScaleformMovie_3dNonAdditive
-    SHX13_2 = SHX7_2
-    SHX14_2 = SHX0_2.x
-    SHX15_2 = SHX0_2.y
-    SHX16_2 = SHX0_2.z
-    SHX17_2 = SHX1_2.x
-    SHX18_2 = SHX1_2.y
-    SHX19_2 = SHX1_2.z
-    SHX20_2 = 1.0
-    SHX21_2 = 1.0
-    SHX22_2 = 1.0
-    SHX23_2 = SHX11_2
-    SHX24_2 = SHX11_2
-    SHX25_2 = 1.0
-    SHX26_2 = 2
-    SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
+    stringHelper2 = cmgCall.colours
+    textValue13 = cmgCall.coloursList
+    textValue13 = textValue13[arg4]
+    stringHelper2 = stringHelper2[textValue13]
+    textValue13 = cmgCall.fontDisplayNamesIndexToKey
+    textValue13 = textValue13[arg3]
+    vector3Builder = PushScaleformMovieFunction
+    numberValue = arg8
+    numberValue2 = "SET_PLAYER_NAME"
+    vector3Builder(numberValue, numberValue2)
+    vector3Builder = PushScaleformMovieMethodParameterString
+    numberValue = "<FONT color='#"
+    numberValue2 = stringHelper2
+    vector3Builder2 = "' FACE='"
+    numberValue6 = textValue13
+    numberValue8 = "'>"
+    vector3Builder3 = arg6
+    numberValue = numberValue .. numberValue2 .. vector3Builder2 .. numberValue6 .. numberValue8 .. vector3Builder3
+    vector3Builder(numberValue)
+    vector3Builder = PopScaleformMovieFunctionVoid
+    vector3Builder()
+    vector3Builder = cmgCall.fonts
+    vector3Builder = vector3Builder[textValue13]
+    numberValue = arg5 / 10.0
+    numberValue2 = vector3Builder.scaleMultiplier
+    numberValue = numberValue * numberValue2
+    numberValue2 = DrawScaleformMovie_3dNonAdditive
+    vector3Builder2 = arg8
+    numberValue6 = arg1.x
+    numberValue8 = arg1.y
+    vector3Builder3 = arg1.z
+    numberValue10 = arg2.x
+    numberValue11 = arg2.y
+    vector3Builder4 = arg2.z
+    numberValue12 = 1.0
+    numberValue13 = 1.0
+    vector3Builder5 = 1.0
+    numberValue14 = numberValue
+    flag6 = numberValue
+    textValue = 1.0
+    workValue23 = 2
+    numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23)
   end
 end
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX0_2 = 1
-  SHX6_1 = SHX0_2
-  SHX0_2 = 1
-  SHX8_1 = SHX0_2
-  SHX0_2 = SHX10_1
-  SHX0_2 = #SHX0_2
-  if 0 == SHX0_2 then
-    SHX0_2 = SHX12_1
-    if SHX0_2 then
-      SHX0_2 = GetGameTimer
-      SHX0_2 = SHX0_2()
-      SHX1_2 = SHX13_1
-      SHX0_2 = SHX0_2 - SHX1_2
-      SHX1_2 = SHX14_1
-      if SHX0_2 > SHX1_2 then
-        SHX0_2 = SHX18_1
-        SHX0_2()
+function workValue19()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11
+  arg1 = 1
+  numberValue15 = arg1
+  arg1 = 1
+  numberValue17 = arg1
+  arg1 = dataTable
+  arg1 = #arg1
+  if 0 == arg1 then
+    arg1 = flag2
+    if arg1 then
+      arg1 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      arg1 = arg1()
+      arg2 = numberValue3
+      arg1 = arg1 - arg2
+      arg2 = numberValue5
+      if arg1 > arg2 then
+        arg1 = workValue14
+        arg1()
       end
     end
     return
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientInventoryItem
-  SHX1_2 = "sponge"
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = nil
-  SHX3_2 = pairs
-  SHX4_2 = SHX10_1
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.position
-    SHX9_2 = SHX9_2 - SHX1_2
-    SHX9_2 = #SHX9_2
-    if SHX9_2 < 25.0 then
-      SHX10_2 = nil
-      SHX11_2 = SHX8_2.gangId
-      if SHX11_2 then
-        SHX11_2 = CMG
-        SHX11_2 = SHX11_2.getGangRecognisedTexture
-        SHX12_2 = SHX8_2.gangId
-        SHX11_2 = SHX11_2(SHX12_2)
-        SHX10_2 = SHX11_2
+  arg1 = CMG
+  arg1 = arg1.hasClientInventoryItem
+  arg2 = "sponge"
+  arg1 = arg1(arg2)
+  arg2 = CMG
+  arg2 = arg2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg2 = arg2()
+  arg3 = nil
+  arg4 = pairs
+  arg5 = dataTable
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8, stringHelper2 in arg4, arg5, arg6, arg7 do
+    textValue13 = stringHelper2.position
+    textValue13 = textValue13 - arg2
+    textValue13 = #textValue13
+    if textValue13 < 25.0 then
+      vector3Builder = nil
+      numberValue = stringHelper2.gangId
+      if numberValue then
+        numberValue = CMG
+        numberValue = numberValue.getGangRecognisedTexture
+        numberValue2 = stringHelper2.gangId
+        numberValue = numberValue(numberValue2)
+        vector3Builder = numberValue
       end
-      SHX11_2 = SHX22_1
-      SHX12_2 = SHX8_2.position
-      SHX13_2 = SHX8_2.rotation
-      SHX14_2 = SHX8_2.fontIndex
-      SHX15_2 = SHX8_2.colourIndex
-      SHX16_2 = SHX8_2.scale
-      SHX17_2 = SHX8_2.content
-      SHX18_2 = SHX10_2
-      SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      if SHX0_2 and not SHX2_2 then
-        SHX11_2 = SHX8_2.position
-        SHX11_2 = SHX11_2 - SHX1_2
-        SHX11_2 = #SHX11_2
-        SHX12_2 = SHX0_1.maxSurfaceDistance
-        if SHX11_2 < SHX12_2 then
-          SHX2_2 = SHX8_2
+      numberValue = threadCall
+      numberValue2 = stringHelper2.position
+      vector3Builder2 = stringHelper2.rotation
+      numberValue6 = stringHelper2.fontIndex
+      numberValue8 = stringHelper2.colourIndex
+      vector3Builder3 = stringHelper2.scale
+      numberValue10 = stringHelper2.content
+      numberValue11 = vector3Builder
+      -- Beginner: Start a separate FiveM thread so this code can run independently.
+      numberValue(numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11)
+      if arg1 and not arg3 then
+        numberValue = stringHelper2.position
+        numberValue = numberValue - arg2
+        numberValue = #numberValue
+        numberValue2 = cmgCall.maxSurfaceDistance
+        if numberValue < numberValue2 then
+          arg3 = stringHelper2
         end
       end
     end
   end
-  if SHX2_2 then
-    SHX3_2 = SHX11_1
-    if not SHX3_2 then
-      SHX3_2 = SHX2_2.gangId
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.getGangId
-      SHX4_2 = SHX4_2()
-      if SHX3_2 ~= SHX4_2 then
-        SHX3_2 = drawNativeNotification
-        SHX4_2 = "Press ~INPUT_CONTEXT~ to clean graffiti with a sponge."
-        SHX3_2(SHX4_2)
-        SHX3_2 = IsControlJustPressed
-        SHX4_2 = 0
-        SHX5_2 = 51
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-        if SHX3_2 then
-          SHX3_2 = TriggerEvent
-          SHX4_2 = "10f402facb"
-          SHX3_2(SHX4_2)
+  if arg3 then
+    arg4 = flag
+    if not arg4 then
+      arg4 = arg3.gangId
+      arg5 = CMG
+      arg5 = arg5.getGangId
+      arg5 = arg5()
+      if arg4 ~= arg5 then
+        arg4 = drawNativeNotification
+        arg5 = "Press ~INPUT_CONTEXT~ to clean graffiti with a sponge."
+        -- Beginner: Show a GTA-style notification/help prompt.
+        arg4(arg5)
+        arg4 = IsControlJustPressed
+        arg5 = 0
+        arg6 = 51
+        arg4 = arg4(arg5, arg6)
+        if arg4 then
+          arg4 = TriggerEvent
+          arg5 = "10f402facb"
+          -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "10f402facb".
+          arg4(arg5)
         end
     end
   end
   else
-    if SHX2_2 then
-      SHX3_2 = drawNativeNotification
-      SHX4_2 = "This is your gang graffiti"
-      SHX3_2(SHX4_2)
+    if arg3 then
+      arg4 = drawNativeNotification
+      arg5 = "This is your gang graffiti"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg4(arg5)
     else
     end
   end
 end
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetGameplayCamCoord
-  SHX3_2 = SHX3_2()
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.rotationToDirection
-  SHX5_2 = GetGameplayCamRot
-  SHX6_2 = 0
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX5_2(SHX6_2)
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX5_2 = SHX21_1
-  SHX6_2 = SHX1_2
-  SHX7_2 = SHX2_2
-  SHX8_2 = SHX3_2
-  SHX9_2 = SHX4_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  if not SHX5_2 then
-    if SHX0_2 then
-      SHX9_2 = drawNativeText
-      SHX10_2 = SHX6_2
-      SHX9_2(SHX10_2)
+function workValue20(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = GetEntityCoords
+  arg4 = arg2
+  -- Beginner: result below is entityCoords.
+  arg3 = arg3(arg4)
+  arg4 = GetGameplayCamCoord
+  arg4 = arg4()
+  arg5 = CMG
+  arg5 = arg5.rotationToDirection
+  arg6 = GetGameplayCamRot
+  arg7 = 0
+  arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2 = arg6(arg7)
+  arg5 = arg5(arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2)
+  arg6 = workValue18
+  arg7 = arg2
+  arg8 = arg3
+  stringHelper2 = arg4
+  textValue13 = arg5
+  arg6, arg7, arg8, stringHelper2 = arg6(arg7, arg8, stringHelper2, textValue13)
+  if not arg6 then
+    if arg1 then
+      textValue13 = drawNativeText
+      vector3Builder = arg7
+      -- Beginner: Draw GTA-style text on screen.
+      textValue13(vector3Builder)
     end
-    SHX9_2 = false
-    return SHX9_2
+    textValue13 = false
+    return textValue13
   end
-  if SHX7_2 and SHX8_2 then
-    if not SHX0_2 then
-      SHX9_2 = true
-      return SHX9_2
+  if arg8 and stringHelper2 then
+    if not arg1 then
+      textValue13 = true
+      return textValue13
     end
-    SHX9_2 = SHX0_1.sprayForwardOffset
-    SHX9_2 = SHX8_2 * SHX9_2
-    SHX9_2 = SHX7_2 + SHX9_2
-    SHX4_1.foundPosition = SHX9_2
-    SHX9_2 = vector3
-    SHX10_2 = SHX8_2.x
-    SHX11_2 = SHX8_2.y
-    SHX12_2 = SHX8_2.z
-    SHX12_2 = SHX12_2 + 0.03
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-    SHX4_1.foundNormal = SHX9_2
-    SHX9_2 = SHX4_1
-    if SHX9_2 then
-      SHX9_2 = SHX4_1.useGangTexture
-      if SHX9_2 then
-        SHX9_2 = SHX4_1.foundPosition
-        SHX10_2 = vector3
-        SHX11_2 = 0.0
-        SHX12_2 = 0.0
-        SHX13_2 = 0.6
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-        SHX9_2 = SHX9_2 + SHX10_2
-        SHX4_1.foundPosition = SHX9_2
+    textValue13 = cmgCall.sprayForwardOffset
+    textValue13 = stringHelper2 * textValue13
+    textValue13 = arg8 + textValue13
+    flag8.foundPosition = textValue13
+    textValue13 = vector3
+    vector3Builder = stringHelper2.x
+    numberValue = stringHelper2.y
+    numberValue2 = stringHelper2.z
+    numberValue2 = numberValue2 + 0.03
+    textValue13 = textValue13(vector3Builder, numberValue, numberValue2)
+    flag8.foundNormal = textValue13
+    textValue13 = flag8
+    if textValue13 then
+      textValue13 = flag8.useGangTexture
+      if textValue13 then
+        textValue13 = flag8.foundPosition
+        vector3Builder = vector3
+        numberValue = 0.0
+        numberValue2 = 0.0
+        vector3Builder2 = 0.6
+        vector3Builder = vector3Builder(numberValue, numberValue2, vector3Builder2)
+        textValue13 = textValue13 + vector3Builder
+        flag8.foundPosition = textValue13
       end
     end
-    SHX4_1.isValidPosition = true
-    SHX9_2 = true
-    return SHX9_2
+    flag8.isValidPosition = true
+    textValue13 = true
+    return textValue13
   else
-    SHX9_2 = SHX4_1
-    if SHX9_2 then
-      SHX4_1.isValidPosition = false
+    textValue13 = flag8
+    if textValue13 then
+      flag8.isValidPosition = false
     end
   end
-  SHX9_2 = false
-  return SHX9_2
+  textValue13 = false
+  return textValue13
 end
-function SHX25_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX3_1
-  if SHX1_2 then
-    SHX1_2 = GetCamRot
-    SHX2_2 = SHX2_1
-    SHX3_2 = 2
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    SHX4_1.calculatedRotation = SHX1_2
-    SHX1_2 = SetCamActive
-    SHX2_2 = SHX2_1
-    SHX3_2 = false
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = false
-    SHX3_1 = SHX1_2
+function workValue21(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = flag7
+  if arg2 then
+    arg2 = GetCamRot
+    arg3 = textValue4
+    arg4 = 2
+    arg2 = arg2(arg3, arg4)
+    flag8.calculatedRotation = arg2
+    arg2 = SetCamActive
+    arg3 = textValue4
+    arg4 = false
+    arg2(arg3, arg4)
+    arg2 = false
+    flag7 = arg2
   else
-    SHX1_2 = SHX0_2.foundPosition
-    SHX2_2 = SHX0_2.foundNormal
-    SHX2_2 = SHX2_2 * 10.0
-    SHX1_2 = SHX1_2 - SHX2_2
-    SHX2_2 = SetCamCoord
-    SHX3_2 = SHX2_1
-    SHX4_2 = SHX0_2.foundPosition
-    SHX4_2 = SHX4_2.x
-    SHX5_2 = SHX0_2.foundPosition
-    SHX5_2 = SHX5_2.y
-    SHX6_2 = SHX0_2.foundPosition
-    SHX6_2 = SHX6_2.z
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2 = PointCamAtCoord
-    SHX3_2 = SHX2_1
-    SHX4_2 = SHX1_2.x
-    SHX5_2 = SHX1_2.y
-    SHX6_2 = SHX1_2.z
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2 = SetCamActive
-    SHX3_2 = SHX2_1
-    SHX4_2 = true
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = true
-    SHX3_1 = SHX2_2
+    arg2 = arg1.foundPosition
+    arg3 = arg1.foundNormal
+    arg3 = arg3 * 10.0
+    arg2 = arg2 - arg3
+    arg3 = SetCamCoord
+    arg4 = textValue4
+    arg5 = arg1.foundPosition
+    arg5 = arg5.x
+    arg6 = arg1.foundPosition
+    arg6 = arg6.y
+    arg7 = arg1.foundPosition
+    arg7 = arg7.z
+    arg3(arg4, arg5, arg6, arg7)
+    arg3 = PointCamAtCoord
+    arg4 = textValue4
+    arg5 = arg2.x
+    arg6 = arg2.y
+    arg7 = arg2.z
+    arg3(arg4, arg5, arg6, arg7)
+    arg3 = SetCamActive
+    arg4 = textValue4
+    arg5 = true
+    arg3(arg4, arg5)
+    arg3 = true
+    flag7 = arg3
   end
 end
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = assert
-  SHX1_2 = SHX4_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX4_1
-  if SHX0_2 then
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.IsAnyMenuOfTypeVisible
-    SHX1_2 = "graffiti"
-    SHX0_2 = SHX0_2(SHX1_2)
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.deleteThreadOnTick
-      SHX1_2 = SHX26_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = nil
-      SHX4_1 = SHX0_2
+function workValue22()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2
+  arg1 = assert
+  arg2 = flag8
+  arg1(arg2)
+  arg1 = flag8
+  if arg1 then
+    arg1 = RageUI
+    arg1 = arg1.IsAnyMenuOfTypeVisible
+    arg2 = "graffiti"
+    arg1 = arg1(arg2)
+    if not arg1 then
+      arg1 = CMG
+      arg1 = arg1.deleteThreadOnTick
+      arg2 = workValue22
+      arg1(arg2)
+      arg1 = nil
+      flag8 = arg1
       return
     end
   end
-  SHX0_2 = SHX24_1
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX25_1
-  SHX1_2 = SHX4_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = nil
-  SHX1_2 = SHX4_1.useGangTexture
-  if SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getGangRecognisedTexture
-    SHX1_2 = SHX1_2()
-    SHX0_2 = SHX1_2
+  arg1 = workValue20
+  arg2 = true
+  arg1(arg2)
+  arg1 = workValue21
+  arg2 = flag8
+  arg1(arg2)
+  arg1 = nil
+  arg2 = flag8.useGangTexture
+  if arg2 then
+    arg2 = CMG
+    arg2 = arg2.getGangRecognisedTexture
+    arg2 = arg2()
+    arg1 = arg2
   end
-  SHX1_2 = SHX22_1
-  SHX2_2 = SHX4_1.foundPosition
-  SHX3_2 = SHX4_1.calculatedRotation
-  SHX4_2 = SHX4_1.fontIndex
-  SHX5_2 = SHX4_1.colourIndex
-  SHX6_2 = SHX0_1.sprayScales
-  SHX7_2 = SHX4_1.scaleIndex
-  SHX6_2 = SHX6_2[SHX7_2]
-  SHX7_2 = SHX4_1.content
-  SHX8_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  arg2 = threadCall
+  arg3 = flag8.foundPosition
+  arg4 = flag8.calculatedRotation
+  arg5 = flag8.fontIndex
+  arg6 = flag8.colourIndex
+  arg7 = cmgCall.sprayScales
+  arg8 = flag8.scaleIndex
+  arg7 = arg7[arg8]
+  arg8 = flag8.content
+  stringHelper2 = arg1
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2)
 end
-SHX27_1 = CMG
-SHX27_1 = SHX27_1.createThreadOnTick
-SHX28_1 = SHX23_1
-SHX29_1 = "Graffiti Render"
-SHX27_1(SHX28_1, SHX29_1)
-SHX27_1 = RegisterNetEvent
-SHX28_1 = "2fa07a16b3"
-function SHX29_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SHX4_1
-  if not SHX1_2 then
-    SHX1_2 = SHX11_1
-    if not SHX1_2 then
-      goto SHX_LABEL_8
+cmgCall3 = CMG
+cmgCall3 = cmgCall3.createThreadOnTick
+textValue3 = workValue19
+eventRegistration = "Graffiti Render"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall3(textValue3, eventRegistration)
+cmgCall3 = RegisterNetEvent
+textValue3 = "2fa07a16b3"
+-- Beginner: this function handles network event "2fa07a16b3".
+function eventRegistration(arg1)
+  local arg2, arg3, arg4, arg5, arg6
+  arg2 = flag8
+  if not arg2 then
+    arg2 = flag
+    if not arg2 then
+      goto flow_label_8
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.count
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getNearbyGraffitis
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2()
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  if SHX1_2 > 6 then
-    SHX1_2 = notify
-    SHX2_2 = "~r~Too many graffiti's nearby, please clean them to spray more."
-    SHX1_2(SHX2_2)
+  ::flow_label_8::
+  arg2 = table
+  arg2 = arg2.count
+  arg3 = CMG
+  arg3 = arg3.getNearbyGraffitis
+  arg3, arg4, arg5, arg6 = arg3()
+  -- Beginner: result below is count.
+  arg2 = arg2(arg3, arg4, arg5, arg6)
+  if arg2 > 6 then
+    arg2 = notify
+    arg3 = "~r~Too many graffiti's nearby, please clean them to spray more."
+    -- Beginner: Show a notification to the player.
+    arg2(arg3)
     return
   end
-  SHX1_2 = {}
-  SHX2_2 = vector3
-  SHX3_2 = 0.0
-  SHX4_2 = 0.0
-  SHX5_2 = 0.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2.foundPosition = SHX2_2
-  SHX2_2 = vector3
-  SHX3_2 = 0.0
-  SHX4_2 = 0.0
-  SHX5_2 = 0.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2.foundNormal = SHX2_2
-  SHX2_2 = vector3
-  SHX3_2 = 0.0
-  SHX4_2 = 0.0
-  SHX5_2 = 0.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2.calculatedRotation = SHX2_2
-  SHX1_2.content = "GANG"
-  SHX1_2.fontIndex = 1
-  SHX1_2.colourIndex = 1
-  SHX1_2.scaleIndex = 1
-  SHX1_2.useGangTexture = SHX0_2
-  SHX1_2.isValidPosition = false
-  SHX4_1 = SHX1_2
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Visible
-  SHX2_2 = RMenu
-  SHX3_2 = SHX2_2
-  SHX2_2 = SHX2_2.Get
-  SHX4_2 = "graffiti"
-  SHX5_2 = "mainmenu"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.createThreadOnTick
-  SHX2_2 = SHX26_1
-  SHX3_2 = "Graffiti Selector"
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "72490db2b8"
-  SHX1_2(SHX2_2)
+  arg2 = {}
+  arg3 = vector3
+  arg4 = 0.0
+  arg5 = 0.0
+  arg6 = 0.0
+  arg3 = arg3(arg4, arg5, arg6)
+  arg2.foundPosition = arg3
+  arg3 = vector3
+  arg4 = 0.0
+  arg5 = 0.0
+  arg6 = 0.0
+  arg3 = arg3(arg4, arg5, arg6)
+  arg2.foundNormal = arg3
+  arg3 = vector3
+  arg4 = 0.0
+  arg5 = 0.0
+  arg6 = 0.0
+  arg3 = arg3(arg4, arg5, arg6)
+  arg2.calculatedRotation = arg3
+  arg2.content = "GANG"
+  arg2.fontIndex = 1
+  arg2.colourIndex = 1
+  arg2.scaleIndex = 1
+  arg2.useGangTexture = arg1
+  arg2.isValidPosition = false
+  flag8 = arg2
+  arg2 = RageUI
+  arg2 = arg2.Visible
+  arg3 = RMenu
+  arg4 = arg3
+  arg3 = arg3.Get
+  arg5 = "graffiti"
+  arg6 = "mainmenu"
+  -- Beginner: result below is menu.
+  arg3 = arg3(arg4, arg5, arg6)
+  arg4 = true
+  arg2(arg3, arg4)
+  arg2 = CMG
+  arg2 = arg2.createThreadOnTick
+  arg3 = workValue22
+  arg4 = "Graffiti Selector"
+  -- Beginner: Run a helper every game frame while this script is active.
+  arg2(arg3, arg4)
+  arg2 = TriggerServerEvent
+  arg3 = "72490db2b8"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "72490db2b8".
+  arg2(arg3)
 end
-SHX27_1(SHX28_1, SHX29_1)
-function SHX27_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX0_2.id
-  SHX1_2 = SHX9_1
-  SHX1_2 = SHX1_2[SHX2_2]
-  if SHX1_2 then
-    SHX2_2 = table
-    SHX2_2 = SHX2_2.insert
-    SHX3_2 = SHX10_1
-    SHX4_2 = SHX1_2
-    SHX2_2(SHX3_2, SHX4_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2fa07a16b3".
+cmgCall3(textValue3, eventRegistration)
+function cmgCall3(arg1)
+  local arg2, arg3, arg4, arg5
+  arg3 = arg1.id
+  arg2 = dataTable7
+  arg2 = arg2[arg3]
+  if arg2 then
+    arg3 = table
+    arg3 = arg3.insert
+    arg4 = dataTable
+    arg5 = arg2
+    arg3(arg4, arg5)
   end
 end
-function SHX28_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX0_2.id
-  SHX1_2 = SHX9_1
-  SHX1_2 = SHX1_2[SHX2_2]
-  if SHX1_2 then
-    SHX2_2 = table
-    SHX2_2 = SHX2_2.find
-    SHX3_2 = SHX10_1
-    SHX4_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      SHX3_2 = table
-      SHX3_2 = SHX3_2.remove
-      SHX4_2 = SHX10_1
-      SHX5_2 = SHX2_2
-      SHX3_2(SHX4_2, SHX5_2)
+function textValue3(arg1)
+  local arg2, arg3, arg4, arg5, arg6
+  arg3 = arg1.id
+  arg2 = dataTable7
+  arg2 = arg2[arg3]
+  if arg2 then
+    arg3 = table
+    arg3 = arg3.find
+    arg4 = dataTable
+    arg5 = arg2
+    arg3 = arg3(arg4, arg5)
+    if arg3 then
+      arg4 = table
+      arg4 = arg4.remove
+      arg5 = dataTable
+      arg6 = arg3
+      arg4(arg5, arg6)
     end
   end
 end
-SHX29_1 = RegisterNetEvent
-SHX30_1 = "5ce26fe2dd"
-function SHX31_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX9_1 = SHX0_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX9_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.createArea
-    SHX8_2 = string
-    SHX8_2 = SHX8_2.format
-    SHX9_2 = "graffiti_%s"
-    SHX10_2 = SHX5_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = SHX6_2.position
-    SHX10_2 = 50.0
-    SHX11_2 = 50.0
-    SHX12_2 = SHX27_1
-    SHX13_2 = SHX28_1
-    function SHX14_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+eventRegistration = RegisterNetEvent
+textValue5 = "5ce26fe2dd"
+-- Beginner: this function handles network event "5ce26fe2dd".
+function textValue6(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8
+  dataTable7 = arg1
+  arg2 = pairs
+  arg3 = dataTable7
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    arg8 = CMG
+    arg8 = arg8.createArea
+    stringHelper2 = string
+    stringHelper2 = stringHelper2.format
+    textValue13 = "graffiti_%s"
+    vector3Builder = arg6
+    stringHelper2 = stringHelper2(textValue13, vector3Builder)
+    textValue13 = arg7.position
+    vector3Builder = 50.0
+    numberValue = 50.0
+    numberValue2 = cmgCall3
+    vector3Builder2 = textValue3
+    function numberValue6()
+      local arg12, arg22
     end
-    SHX15_2 = {}
-    SHX15_2.id = SHX5_2
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+    numberValue8 = {}
+    numberValue8.id = arg6
+    -- Beginner: Create an interaction area around a world position.
+    arg8(stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8)
   end
 end
-SHX29_1(SHX30_1, SHX31_1)
-SHX29_1 = RegisterNetEvent
-SHX30_1 = "1190721772"
-function SHX31_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = SHX9_1
-  SHX2_2[SHX0_2] = SHX1_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.createArea
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.format
-  SHX4_2 = "graffiti_%s"
-  SHX5_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = SHX1_2.position
-  SHX5_2 = 50.0
-  SHX6_2 = 50.0
-  SHX7_2 = SHX27_1
-  SHX8_2 = SHX28_1
-  function SHX9_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5ce26fe2dd".
+eventRegistration(textValue5, textValue6)
+eventRegistration = RegisterNetEvent
+textValue5 = "1190721772"
+-- Beginner: this function handles network event "1190721772".
+function textValue6(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
+  arg3 = dataTable7
+  arg3[arg1] = arg2
+  arg3 = CMG
+  arg3 = arg3.createArea
+  arg4 = string
+  arg4 = arg4.format
+  arg5 = "graffiti_%s"
+  arg6 = arg1
+  arg4 = arg4(arg5, arg6)
+  arg5 = arg2.position
+  arg6 = 50.0
+  arg7 = 50.0
+  arg8 = cmgCall3
+  stringHelper2 = textValue3
+  function textValue13()
+    local arg12, arg22
   end
-  SHX10_2 = {}
-  SHX10_2.id = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+  vector3Builder = {}
+  vector3Builder.id = arg1
+  -- Beginner: Create an interaction area around a world position.
+  arg3(arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder)
 end
-SHX29_1(SHX30_1, SHX31_1)
-SHX29_1 = RegisterNetEvent
-SHX30_1 = "5b60cbfbdd"
-function SHX31_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX9_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1190721772".
+eventRegistration(textValue5, textValue6)
+eventRegistration = RegisterNetEvent
+textValue5 = "5b60cbfbdd"
+-- Beginner: this function handles network event "5b60cbfbdd".
+function textValue6(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = dataTable7
+  arg2 = arg2[arg1]
+  if not arg2 then
     return
   end
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.find
-  SHX3_2 = SHX10_1
-  SHX4_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
-    SHX3_2 = table
-    SHX3_2 = SHX3_2.remove
-    SHX4_2 = SHX10_1
-    SHX5_2 = SHX2_2
-    SHX3_2(SHX4_2, SHX5_2)
+  arg3 = table
+  arg3 = arg3.find
+  arg4 = dataTable
+  arg5 = arg2
+  arg3 = arg3(arg4, arg5)
+  if arg3 then
+    arg4 = table
+    arg4 = arg4.remove
+    arg5 = dataTable
+    arg6 = arg3
+    arg4(arg5, arg6)
   end
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.removeArea
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.format
-  SHX5_2 = "graffiti_%s"
-  SHX6_2 = SHX0_2
-  SHX4_2, SHX5_2, SHX6_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SHX9_1
-  SHX3_2[SHX0_2] = nil
+  arg4 = tCMG
+  arg4 = arg4.removeArea
+  arg5 = string
+  arg5 = arg5.format
+  arg6 = "graffiti_%s"
+  arg7 = arg1
+  arg5, arg6, arg7 = arg5(arg6, arg7)
+  arg4(arg5, arg6, arg7)
+  arg4 = dataTable7
+  arg4[arg1] = nil
 end
-SHX29_1(SHX30_1, SHX31_1)
-SHX29_1 = RMenu
-SHX29_1 = SHX29_1.Add
-SHX30_1 = "graffiti"
-SHX31_1 = "mainmenu"
-SHX32_1 = RageUI
-SHX32_1 = SHX32_1.CreateMenu
-SHX33_1 = ""
-SHX34_1 = "Main Menu"
-SHX35_1 = CMG
-SHX35_1 = SHX35_1.getRageUIMenuWidth
-SHX35_1 = SHX35_1()
-SHX36_1 = CMG
-SHX36_1 = SHX36_1.getRageUIMenuHeight
-SHX36_1 = SHX36_1()
-SHX37_1 = "cmg_graffiti"
-SHX38_1 = "menu"
-SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1 = SHX32_1(SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1)
-SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1)
-SHX29_1 = RageUI
-SHX29_1 = SHX29_1.CreateWhile
-SHX30_1 = 1.0
-SHX31_1 = RMenu
-SHX32_1 = SHX31_1
-SHX31_1 = SHX31_1.Get
-SHX33_1 = "graffiti"
-SHX34_1 = "mainmenu"
-SHX31_1 = SHX31_1(SHX32_1, SHX33_1, SHX34_1)
-SHX32_1 = nil
-function SHX33_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "graffiti"
-  SHX4_2 = "mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3
-    SHX0_3 = assert
-    SHX1_3 = SHX4_1
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getGangRecognisedTexture
-    SHX0_3 = SHX0_3()
-    if SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Checkbox
-      SHX1_3 = "Show Gang Texture"
-      SHX2_3 = ""
-      SHX3_3 = SHX4_1.useGangTexture
-      SHX4_3 = {}
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        SHX4_1.useGangTexture = SHX3_4
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5b60cbfbdd".
+eventRegistration(textValue5, textValue6)
+eventRegistration = RMenu
+eventRegistration = eventRegistration.Add
+textValue5 = "graffiti"
+textValue6 = "mainmenu"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue7 = ""
+textValue8 = "Main Menu"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue9 = "cmg_graffiti"
+textValue10 = "menu"
+rageUiCall, textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10 = rageUiCall(textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10)
+eventRegistration(textValue5, textValue6, rageUiCall, textValue7, textValue8, rageUiCall2, rageUiCall3, textValue9, textValue10)
+eventRegistration = RageUI
+eventRegistration = eventRegistration.CreateWhile
+textValue5 = 1.0
+textValue6 = RMenu
+rageUiCall = textValue6
+textValue6 = textValue6.Get
+textValue7 = "graffiti"
+textValue8 = "mainmenu"
+-- Beginner: result below is menu.
+textValue6 = textValue6(rageUiCall, textValue7, textValue8)
+rageUiCall = nil
+function textValue7()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  arg4 = "graffiti"
+  arg5 = "mainmenu"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = true
+  arg4 = false
+  arg5 = true
+  function arg6()
+    local arg12, arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16
+    arg12 = assert
+    arg22 = flag8
+    arg12(arg22)
+    arg12 = CMG
+    arg12 = arg12.getGangRecognisedTexture
+    arg12 = arg12()
+    if arg12 then
+      arg12 = RageUI
+      arg12 = arg12.Checkbox
+      arg22 = "Show Gang Texture"
+      arg32 = ""
+      dataTable2 = flag8.useGangTexture
+      dataTable3 = {}
+      function dataTable5(arg13, arg23, arg33, arg42)
+        flag8.useGangTexture = arg42
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      -- Beginner: Draw a RageUI checkbox.
+      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5)
     end
-    SHX0_3 = SHX4_1.useGangTexture
-    if not SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Text"
-      SHX2_3 = "The text that should display on the graffiti."
-      SHX3_3 = {}
-      SHX4_3 = SHX4_1.content
-      SHX3_3.RightLabel = SHX4_3
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-        if SHX2_4 then
-          SHX3_4 = CMG
-          SHX3_4 = SHX3_4.clientPrompt
-          SHX4_4 = "Enter Text"
-          SHX5_4 = ""
-          function SHX6_4(SHX0_5)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX1_5, SHX2_5, SHX3_5, SHX4_5, SHX5_5, SHX6_5
-            SHX1_5 = #SHX0_5
-            SHX2_5 = SHX0_1.minTextLength
-            if SHX1_5 >= SHX2_5 then
-              SHX1_5 = #SHX0_5
-              SHX2_5 = SHX0_1.maxTextLength
-              if SHX1_5 <= SHX2_5 then
-                SHX1_5 = SHX0_1.fontDisplayNamesIndexToKey
-                SHX2_5 = SHX4_1.fontIndex
-                SHX1_5 = SHX1_5[SHX2_5]
-                SHX2_5 = SHX0_1.fonts
-                SHX2_5 = SHX2_5[SHX1_5]
-                SHX3_5 = SHX2_5.forceUppercase
-                if SHX3_5 then
-                  SHX3_5 = string
-                  SHX3_5 = SHX3_5.upper
-                  SHX4_5 = SHX0_5
-                  SHX3_5 = SHX3_5(SHX4_5)
-                  SHX0_5 = SHX3_5
+    arg12 = flag8.useGangTexture
+    if not arg12 then
+      arg12 = RageUI
+      arg12 = arg12.ButtonWithStyle
+      arg22 = "Text"
+      arg32 = "The text that should display on the graffiti."
+      dataTable2 = {}
+      dataTable3 = flag8.content
+      dataTable2.RightLabel = dataTable3
+      dataTable3 = true
+      function dataTable5(arg13, arg23, arg33)
+        local arg42, cmgCall4, serverEventCall, textValue11
+        if arg33 then
+          arg42 = CMG
+          arg42 = arg42.clientPrompt
+          cmgCall4 = "Enter Text"
+          serverEventCall = ""
+          function textValue11(arg14)
+            local workValue16, workValue26, stringHelper, workValue28, workValue29, textValue12
+            workValue16 = #arg14
+            workValue26 = cmgCall.minTextLength
+            if workValue16 >= workValue26 then
+              workValue16 = #arg14
+              workValue26 = cmgCall.maxTextLength
+              if workValue16 <= workValue26 then
+                workValue16 = cmgCall.fontDisplayNamesIndexToKey
+                workValue26 = flag8.fontIndex
+                workValue16 = workValue16[workValue26]
+                workValue26 = cmgCall.fonts
+                workValue26 = workValue26[workValue16]
+                stringHelper = workValue26.forceUppercase
+                if stringHelper then
+                  stringHelper = string
+                  stringHelper = stringHelper.upper
+                  workValue28 = arg14
+                  stringHelper = stringHelper(workValue28)
+                  arg14 = stringHelper
                 end
-                SHX3_5 = string
-                SHX3_5 = SHX3_5.gsub
-                SHX4_5 = SHX0_5
-                SHX5_5 = SHX2_5.allowedInverse
-                SHX6_5 = ""
-                SHX3_5 = SHX3_5(SHX4_5, SHX5_5, SHX6_5)
-                SHX0_5 = SHX3_5
-                SHX4_1.content = SHX0_5
+                stringHelper = string
+                stringHelper = stringHelper.gsub
+                workValue28 = arg14
+                workValue29 = workValue26.allowedInverse
+                textValue12 = ""
+                stringHelper = stringHelper(workValue28, workValue29, textValue12)
+                arg14 = stringHelper
+                flag8.content = arg14
             end
             else
-              SHX1_5 = notify
-              SHX2_5 = "~r~Text must be between 1 and 10 characters in length."
-              SHX1_5(SHX2_5)
+              workValue16 = notify
+              workValue26 = "~r~Text must be between 1 and 10 characters in length."
+              -- Beginner: Show a notification to the player.
+              workValue16(workValue26)
             end
           end
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4)
+          arg42(cmgCall4, serverEventCall, textValue11)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.List
-      SHX1_3 = "Font"
-      SHX2_3 = SHX0_1.fontDisplayNames
-      SHX3_3 = SHX4_1.fontIndex
-      SHX4_3 = ""
-      SHX5_3 = {}
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        SHX4_1.fontIndex = SHX3_4
+      -- Beginner: Draw a selectable RageUI menu button.
+      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5)
+      arg12 = RageUI
+      arg12 = arg12.List
+      arg22 = "Font"
+      arg32 = cmgCall.fontDisplayNames
+      dataTable2 = flag8.fontIndex
+      dataTable3 = ""
+      dataTable5 = {}
+      coords = true
+      function numberValue16(arg13, arg23, arg33, arg42)
+        flag8.fontIndex = arg42
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.List
-      SHX1_3 = "Colour"
-      SHX2_3 = SHX0_1.coloursList
-      SHX3_3 = SHX4_1.colourIndex
-      SHX4_3 = ""
-      SHX5_3 = {}
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        SHX4_1.colourIndex = SHX3_4
+      -- Beginner: Draw a RageUI list selector.
+      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16)
+      arg12 = RageUI
+      arg12 = arg12.List
+      arg22 = "Colour"
+      arg32 = cmgCall.coloursList
+      dataTable2 = flag8.colourIndex
+      dataTable3 = ""
+      dataTable5 = {}
+      coords = true
+      function numberValue16(arg13, arg23, arg33, arg42)
+        flag8.colourIndex = arg42
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.List
-      SHX1_3 = "Scale"
-      SHX2_3 = SHX0_1.sprayScalesText
-      SHX3_3 = SHX4_1.scaleIndex
-      SHX4_3 = ""
-      SHX5_3 = {}
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        SHX4_1.scaleIndex = SHX3_4
+      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16)
+      arg12 = RageUI
+      arg12 = arg12.List
+      arg22 = "Scale"
+      arg32 = cmgCall.sprayScalesText
+      dataTable2 = flag8.scaleIndex
+      dataTable3 = ""
+      dataTable5 = {}
+      coords = true
+      function numberValue16(arg13, arg23, arg33, arg42)
+        flag8.scaleIndex = arg42
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+      -- Beginner: Draw a RageUI list selector.
+      arg12(arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16)
     end
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.Button
-    SHX1_3 = "~b~Place Graffiti"
-    SHX2_3 = "Places the graffiti as is currently previewed."
-    SHX3_3 = true
-    function SHX4_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4
-      if SHX2_4 then
-        SHX3_4 = GetStreetNameFromHashKey
-        SHX4_4 = GetStreetNameAtCoord
-        SHX5_4 = SHX4_1.foundPosition
-        SHX5_4 = SHX5_4.x
-        SHX6_4 = SHX4_1.foundPosition
-        SHX6_4 = SHX6_4.y
-        SHX7_4 = SHX4_1.foundPosition
-        SHX7_4 = SHX7_4.z
-        SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4 = SHX4_4(SHX5_4, SHX6_4, SHX7_4)
-        SHX3_4 = SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4)
-        SHX4_4 = CMG
-        SHX4_4 = SHX4_4.getModelGender
-        SHX4_4 = SHX4_4()
-        SHX5_4 = TriggerServerEvent
-        SHX6_4 = "e7f30e33d9"
-        SHX7_4 = SHX4_1.foundPosition
-        SHX8_4 = SHX4_1.calculatedRotation
-        SHX9_4 = SHX4_1.content
-        SHX10_4 = SHX4_1.fontIndex
-        SHX11_4 = SHX4_1.colourIndex
-        SHX12_4 = SHX4_1.scaleIndex
-        SHX13_4 = SHX4_1.useGangTexture
-        SHX14_4 = SHX3_4
-        SHX15_4 = SHX4_4
-        SHX5_4(SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4)
+    arg12 = RageUI
+    arg12 = arg12.Button
+    arg22 = "~b~Place Graffiti"
+    arg32 = "Places the graffiti as is currently previewed."
+    dataTable2 = true
+    function dataTable3(arg13, arg23, arg33)
+      local arg42, cmgCall4, serverEventCall, textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11
+      if arg33 then
+        arg42 = GetStreetNameFromHashKey
+        cmgCall4 = GetStreetNameAtCoord
+        serverEventCall = flag8.foundPosition
+        serverEventCall = serverEventCall.x
+        textValue11 = flag8.foundPosition
+        textValue11 = textValue11.y
+        workValue30 = flag8.foundPosition
+        workValue30 = workValue30.z
+        cmgCall4, serverEventCall, textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11 = cmgCall4(serverEventCall, textValue11, workValue30)
+        arg42 = arg42(cmgCall4, serverEventCall, textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11)
+        cmgCall4 = CMG
+        cmgCall4 = cmgCall4.getModelGender
+        cmgCall4 = cmgCall4()
+        serverEventCall = TriggerServerEvent
+        textValue11 = "e7f30e33d9"
+        workValue30 = flag8.foundPosition
+        workValue31 = flag8.calculatedRotation
+        workValue33 = flag8.content
+        workValue2 = flag8.fontIndex
+        workValue4 = flag8.colourIndex
+        workValue6 = flag8.scaleIndex
+        workValue7 = flag8.useGangTexture
+        workValue8 = arg42
+        workValue11 = cmgCall4
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e7f30e33d9".
+        serverEventCall(textValue11, workValue30, workValue31, workValue33, workValue2, workValue4, workValue6, workValue7, workValue8, workValue11)
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg12(arg22, arg32, dataTable2, dataTable3)
   end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function arg7()
+    local arg12, arg22
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  arg1(arg2, arg3, arg4, arg5, arg6, arg7)
 end
-SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1)
-function SHX29_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2
-  SHX8_2 = true
-  SHX11_1 = SHX8_2
-  SHX8_2 = tCMG
-  SHX8_2 = SHX8_2.setCanAnim
-  SHX9_2 = false
-  SHX8_2(SHX9_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.loadAnimDict
-  SHX9_2 = SHX0_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.loadModel
-  SHX9_2 = SHX2_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.requestEntitySpawn
-  SHX9_2 = SHX7_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = PlayerPedId
-  SHX8_2 = SHX8_2()
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerCoords
-  SHX9_2 = SHX9_2()
-  SHX10_2 = CreateObject
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX9_2.x
-  SHX13_2 = SHX9_2.y
-  SHX14_2 = SHX9_2.z
-  SHX15_2 = true
-  SHX16_2 = true
-  SHX17_2 = false
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX11_2 = AttachEntityToEntity
-  SHX12_2 = SHX10_2
-  SHX13_2 = SHX8_2
-  SHX14_2 = GetPedBoneIndex
-  SHX15_2 = SHX8_2
-  SHX16_2 = SHX3_2
-  SHX14_2 = SHX14_2(SHX15_2, SHX16_2)
-  SHX15_2 = SHX4_2.x
-  SHX16_2 = SHX4_2.y
-  SHX17_2 = SHX4_2.z
-  SHX18_2 = SHX5_2.x
-  SHX19_2 = SHX5_2.y
-  SHX20_2 = SHX5_2.z
-  SHX21_2 = true
-  SHX22_2 = true
-  SHX23_2 = false
-  SHX24_2 = false
-  SHX25_2 = 1
-  SHX26_2 = true
-  SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-  SHX11_2 = GetGameTimer
-  SHX11_2 = SHX11_2()
+eventRegistration(textValue5, textValue6, rageUiCall, textValue7)
+function eventRegistration(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+  local stringHelper2, textValue13, vector3Builder, numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23
+  stringHelper2 = true
+  flag = stringHelper2
+  stringHelper2 = tCMG
+  stringHelper2 = stringHelper2.setCanAnim
+  textValue13 = false
+  stringHelper2(textValue13)
+  stringHelper2 = CMG
+  stringHelper2 = stringHelper2.loadAnimDict
+  textValue13 = arg1
+  -- Beginner: Load a GTA animation dictionary before using it.
+  stringHelper2(textValue13)
+  stringHelper2 = CMG
+  stringHelper2 = stringHelper2.loadModel
+  textValue13 = arg3
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  stringHelper2(textValue13)
+  stringHelper2 = CMG
+  stringHelper2 = stringHelper2.requestEntitySpawn
+  textValue13 = arg8
+  stringHelper2(textValue13)
+  stringHelper2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  stringHelper2 = stringHelper2()
+  textValue13 = CMG
+  textValue13 = textValue13.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  textValue13 = textValue13()
+  vector3Builder = CreateObject
+  numberValue = arg3
+  numberValue2 = textValue13.x
+  vector3Builder2 = textValue13.y
+  numberValue6 = textValue13.z
+  numberValue8 = true
+  vector3Builder3 = true
+  numberValue10 = false
+  -- Beginner: result below is objectEntity.
+  vector3Builder = vector3Builder(numberValue, numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10)
+  numberValue = AttachEntityToEntity
+  numberValue2 = vector3Builder
+  vector3Builder2 = stringHelper2
+  numberValue6 = GetPedBoneIndex
+  numberValue8 = stringHelper2
+  vector3Builder3 = arg4
+  numberValue6 = numberValue6(numberValue8, vector3Builder3)
+  numberValue8 = arg5.x
+  vector3Builder3 = arg5.y
+  numberValue10 = arg5.z
+  numberValue11 = arg6.x
+  vector3Builder4 = arg6.y
+  numberValue12 = arg6.z
+  numberValue13 = true
+  vector3Builder5 = true
+  numberValue14 = false
+  flag6 = false
+  textValue = 1
+  workValue23 = true
+  -- Beginner: Attach one entity to another entity.
+  numberValue(numberValue2, vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14, flag6, textValue, workValue23)
+  numberValue = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  numberValue = numberValue()
   while true do
-    SHX12_2 = GetGameTimer
-    SHX12_2 = SHX12_2()
-    SHX12_2 = SHX12_2 - SHX11_2
-    if SHX6_2 < SHX12_2 then
+    numberValue2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    numberValue2 = numberValue2()
+    numberValue2 = numberValue2 - numberValue
+    if arg7 < numberValue2 then
       break
     end
-    SHX12_2 = IsEntityPlayingAnim
-    SHX13_2 = SHX8_2
-    SHX14_2 = SHX0_2
-    SHX15_2 = SHX1_2
-    SHX16_2 = 3
-    SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    if not SHX12_2 then
-      SHX12_2 = TaskPlayAnim
-      SHX13_2 = SHX8_2
-      SHX14_2 = SHX0_2
-      SHX15_2 = SHX1_2
-      SHX16_2 = 1.0
-      SHX17_2 = 1.0
-      SHX18_2 = -1
-      SHX19_2 = 1
-      SHX20_2 = 0
-      SHX21_2 = false
-      SHX22_2 = false
-      SHX23_2 = false
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
+    numberValue2 = IsEntityPlayingAnim
+    vector3Builder2 = stringHelper2
+    numberValue6 = arg1
+    numberValue8 = arg2
+    vector3Builder3 = 3
+    numberValue2 = numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3)
+    if not numberValue2 then
+      numberValue2 = TaskPlayAnim
+      vector3Builder2 = stringHelper2
+      numberValue6 = arg1
+      numberValue8 = arg2
+      vector3Builder3 = 1.0
+      numberValue10 = 1.0
+      numberValue11 = -1
+      vector3Builder4 = 1
+      numberValue12 = 0
+      numberValue13 = false
+      vector3Builder5 = false
+      numberValue14 = false
+      -- Beginner: Play an animation on a ped.
+      numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3, numberValue10, numberValue11, vector3Builder4, numberValue12, numberValue13, vector3Builder5, numberValue14)
     end
-    SHX12_2 = Wait
-    SHX13_2 = 0
-    SHX12_2(SHX13_2)
+    numberValue2 = Wait
+    vector3Builder2 = 0
+    numberValue2(vector3Builder2)
   end
-  SHX12_2 = SetModelAsNoLongerNeeded
-  SHX13_2 = SHX2_2
-  SHX12_2(SHX13_2)
-  SHX12_2 = RemoveAnimDict
-  SHX13_2 = SHX0_2
-  SHX12_2(SHX13_2)
-  SHX12_2 = StopAnimTask
-  SHX13_2 = SHX8_2
-  SHX14_2 = SHX0_2
-  SHX15_2 = SHX1_2
-  SHX16_2 = 1.0
-  SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX12_2 = DeleteEntity
-  SHX13_2 = SHX10_2
-  SHX12_2(SHX13_2)
-  SHX12_2 = tCMG
-  SHX12_2 = SHX12_2.setCanAnim
-  SHX13_2 = true
-  SHX12_2(SHX13_2)
-  SHX12_2 = false
-  SHX11_1 = SHX12_2
+  numberValue2 = SetModelAsNoLongerNeeded
+  vector3Builder2 = arg3
+  numberValue2(vector3Builder2)
+  numberValue2 = RemoveAnimDict
+  vector3Builder2 = arg1
+  numberValue2(vector3Builder2)
+  numberValue2 = StopAnimTask
+  vector3Builder2 = stringHelper2
+  numberValue6 = arg1
+  numberValue8 = arg2
+  vector3Builder3 = 1.0
+  numberValue2(vector3Builder2, numberValue6, numberValue8, vector3Builder3)
+  numberValue2 = DeleteEntity
+  vector3Builder2 = vector3Builder
+  -- Beginner: Delete a GTA entity.
+  numberValue2(vector3Builder2)
+  numberValue2 = tCMG
+  numberValue2 = numberValue2.setCanAnim
+  vector3Builder2 = true
+  numberValue2(vector3Builder2)
+  numberValue2 = false
+  flag = numberValue2
 end
-SHX30_1 = RegisterNetEvent
-SHX31_1 = "e2e61e9a92"
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.startCircularProgressBar
-    SHX1_3 = ""
-    SHX2_3 = SHX0_1.sprayGraffitiTimeMsec
-    SHX3_3 = nil
-    function SHX4_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
+textValue5 = RegisterNetEvent
+textValue6 = "e2e61e9a92"
+-- Beginner: this function handles network event "e2e61e9a92".
+function rageUiCall(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
+  arg2 = Citizen
+  arg2 = arg2.CreateThread
+  -- Beginner: this function handles network event "e2e61e9a92".
+  function arg3()
+    local arg12, arg22, arg32, dataTable2, dataTable3
+    arg12 = CMG
+    arg12 = arg12.startCircularProgressBar
+    arg22 = ""
+    arg32 = cmgCall.sprayGraffitiTimeMsec
+    dataTable2 = nil
+    function dataTable3()
+      local arg13, arg23
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+    arg12(arg22, arg32, dataTable2, dataTable3)
   end
-  SHX1_2(SHX2_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Visible
-  SHX2_2 = RMenu
-  SHX3_2 = SHX2_2
-  SHX2_2 = SHX2_2.Get
-  SHX4_2 = "graffiti"
-  SHX5_2 = "mainmenu"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = TaskGoStraightToCoord
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2.x
-  SHX4_2 = SHX0_2.y
-  SHX5_2 = SHX0_2.z
-  SHX6_2 = 1.0
-  SHX7_2 = -1
-  SHX8_2 = 0.0
-  SHX9_2 = 0.1
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX1_2 = Wait
-  SHX2_2 = 500
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX29_1
-  SHX2_2 = "anim@amb@business@weed@weed_inspecting_lo_med_hi@"
-  SHX3_2 = "weed_spraybottle_stand_spraying_01_inspector"
-  SHX4_2 = -765160883
-  SHX5_2 = 57005
-  SHX6_2 = vector3
-  SHX7_2 = 0.072
-  SHX8_2 = 0.041
-  SHX9_2 = -0.06
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX7_2 = vector3
-  SHX8_2 = 33.0
-  SHX9_2 = 38.0
-  SHX10_2 = 0.0
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX8_2 = SHX0_1.sprayGraffitiTimeMsec
-  SHX9_2 = "graffiti_can"
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2(arg3)
+  arg2 = RageUI
+  arg2 = arg2.Visible
+  arg3 = RMenu
+  arg4 = arg3
+  arg3 = arg3.Get
+  arg5 = "graffiti"
+  arg6 = "mainmenu"
+  -- Beginner: result below is menu.
+  arg3 = arg3(arg4, arg5, arg6)
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = TaskGoStraightToCoord
+  arg3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = arg1.x
+  arg5 = arg1.y
+  arg6 = arg1.z
+  arg7 = 1.0
+  arg8 = -1
+  stringHelper2 = 0.0
+  textValue13 = 0.1
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13)
+  arg2 = Wait
+  arg3 = 500
+  arg2(arg3)
+  arg2 = eventRegistration
+  arg3 = "anim@amb@business@weed@weed_inspecting_lo_med_hi@"
+  arg4 = "weed_spraybottle_stand_spraying_01_inspector"
+  arg5 = -765160883
+  arg6 = 57005
+  arg7 = vector3
+  arg8 = 0.072
+  stringHelper2 = 0.041
+  textValue13 = -0.06
+  arg7 = arg7(arg8, stringHelper2, textValue13)
+  arg8 = vector3
+  stringHelper2 = 33.0
+  textValue13 = 38.0
+  vector3Builder = 0.0
+  arg8 = arg8(stringHelper2, textValue13, vector3Builder)
+  stringHelper2 = cmgCall.sprayGraffitiTimeMsec
+  textValue13 = "graffiti_can"
+  arg2(arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13)
 end
-SHX30_1(SHX31_1, SHX32_1)
-SHX30_1 = RegisterNetEvent
-SHX31_1 = "03a0c4cf0f"
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.startCircularProgressBar
-    SHX1_3 = ""
-    SHX2_3 = SHX0_1.removeGraffitiTimeMsec
-    SHX3_3 = nil
-    function SHX4_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e2e61e9a92".
+textValue5(textValue6, rageUiCall)
+textValue5 = RegisterNetEvent
+textValue6 = "03a0c4cf0f"
+-- Beginner: this function handles network event "03a0c4cf0f".
+function rageUiCall()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13
+  arg1 = Citizen
+  arg1 = arg1.CreateThread
+  -- Beginner: this function handles network event "03a0c4cf0f".
+  function arg2()
+    local arg12, arg22, arg32, dataTable2, dataTable3
+    arg12 = CMG
+    arg12 = arg12.startCircularProgressBar
+    arg22 = ""
+    arg32 = cmgCall.removeGraffitiTimeMsec
+    dataTable2 = nil
+    function dataTable3()
+      local arg13, arg23
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+    arg12(arg22, arg32, dataTable2, dataTable3)
   end
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX29_1
-  SHX1_2 = "timetable@maid@cleaning_window@idle_a"
-  SHX2_2 = "idle_a"
-  SHX3_2 = 921993182
-  SHX4_2 = 28422
-  SHX5_2 = vector3
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX6_2 = vector3
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX7_2 = SHX0_1.removeGraffitiTimeMsec
-  SHX8_2 = "graffiti_rag"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(arg2)
+  arg1 = eventRegistration
+  arg2 = "timetable@maid@cleaning_window@idle_a"
+  arg3 = "idle_a"
+  arg4 = 921993182
+  arg5 = 28422
+  arg6 = vector3
+  arg7 = 0.0
+  arg8 = 0.0
+  stringHelper2 = 0.0
+  arg6 = arg6(arg7, arg8, stringHelper2)
+  arg7 = vector3
+  arg8 = 0.0
+  stringHelper2 = 0.0
+  textValue13 = 0.0
+  arg7 = arg7(arg8, stringHelper2, textValue13)
+  arg8 = cmgCall.removeGraffitiTimeMsec
+  stringHelper2 = "graffiti_rag"
+  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2)
 end
-SHX30_1(SHX31_1, SHX32_1)
-SHX30_1 = RegisterNetEvent
-SHX31_1 = "266f8c002a"
-function SHX32_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX3_2 = GetPlayerFromServerId
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if -1 == SHX3_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "03a0c4cf0f".
+textValue5(textValue6, rageUiCall)
+textValue5 = RegisterNetEvent
+textValue6 = "266f8c002a"
+-- Beginner: this function handles network event "266f8c002a".
+function rageUiCall(arg1, arg2, arg3)
+  local arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13, vector3Builder
+  arg4 = GetPlayerFromServerId
+  arg5 = arg1
+  -- Beginner: result below is playerIndex.
+  arg4 = arg4(arg5)
+  if -1 == arg4 then
     return
   end
-  SHX4_2 = GetPlayerPed
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if 0 == SHX4_2 then
+  arg5 = GetPlayerPed
+  arg6 = arg4
+  -- Beginner: result below is playerPed.
+  arg5 = arg5(arg6)
+  if 0 == arg5 then
     return
   end
-  SHX5_2 = Wait
-  SHX6_2 = 1000
-  SHX5_2(SHX6_2)
-  SHX5_2 = GetEntityForwardVector
-  SHX6_2 = SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = GetEntityCoords
-  SHX7_2 = SHX4_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = SHX5_2 * 0.5
-  SHX6_2 = SHX6_2 + SHX7_2
-  SHX7_2 = vector3
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = -0.5
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX6_2 = SHX6_2 + SHX7_2
-  SHX7_2 = GetEntityHeading
-  SHX8_2 = SHX4_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.loadPtfx
-  SHX9_2 = "scr_recartheft"
-  SHX8_2(SHX9_2)
-  SHX8_2 = Citizen
-  SHX8_2 = SHX8_2.CreateThread
-  function SHX9_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3
-    SHX0_3 = 1700
-    SHX1_3 = 1
-    SHX2_3 = math
-    SHX2_3 = SHX2_3.floor
-    SHX3_3 = SHX0_1.sprayGraffitiTimeMsec
-    SHX3_3 = SHX3_3 / SHX0_3
-    SHX2_3 = SHX2_3(SHX3_3)
-    SHX3_3 = 1
-    for SHX4_3 = SHX1_3, SHX2_3, SHX3_3 do
-      SHX5_3 = SHX4_3 % 3
-      if 1 == SHX5_3 then
-        SHX5_3 = CMG
-        SHX5_3 = SHX5_3.getPlayerCoords
-        SHX5_3 = SHX5_3()
-        SHX6_3 = GetEntityCoords
-        SHX7_3 = SHX4_2
-        SHX8_3 = true
-        SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-        SHX5_3 = SHX5_3 - SHX6_3
-        SHX5_3 = #SHX5_3
-        if SHX5_3 < 10.0 then
-          SHX5_3 = SendNUIMessage
-          SHX6_3 = {}
-          SHX6_3.transactionType = "spray"
-          SHX5_3(SHX6_3)
+  arg6 = Wait
+  arg7 = 1000
+  arg6(arg7)
+  arg6 = GetEntityForwardVector
+  arg7 = arg5
+  arg6 = arg6(arg7)
+  arg7 = GetEntityCoords
+  arg8 = arg5
+  -- Beginner: result below is entityCoords.
+  arg7 = arg7(arg8)
+  arg8 = arg6 * 0.5
+  arg7 = arg7 + arg8
+  arg8 = vector3
+  stringHelper2 = 0.0
+  textValue13 = 0.0
+  vector3Builder = -0.5
+  arg8 = arg8(stringHelper2, textValue13, vector3Builder)
+  arg7 = arg7 + arg8
+  arg8 = GetEntityHeading
+  stringHelper2 = arg5
+  -- Beginner: result below is heading.
+  arg8 = arg8(stringHelper2)
+  stringHelper2 = CMG
+  stringHelper2 = stringHelper2.loadPtfx
+  textValue13 = "scr_recartheft"
+  stringHelper2(textValue13)
+  stringHelper2 = Citizen
+  stringHelper2 = stringHelper2.CreateThread
+  function textValue13()
+    local arg12, arg22, arg32, dataTable2, dataTable3, dataTable5, coords, numberValue16, flag9, workValue32, workValue, workValue3, workValue5, numberValue4, numberValue7, workValue10, numberValue9, flag3, flag4, flag5
+    arg12 = 1700
+    arg22 = 1
+    arg32 = math
+    arg32 = arg32.floor
+    dataTable2 = cmgCall.sprayGraffitiTimeMsec
+    dataTable2 = dataTable2 / arg12
+    arg32 = arg32(dataTable2)
+    dataTable2 = 1
+    for dataTable3 = arg22, arg32, dataTable2 do
+      dataTable5 = dataTable3 % 3
+      if 1 == dataTable5 then
+        dataTable5 = CMG
+        dataTable5 = dataTable5.getPlayerCoords
+        -- Beginner: result below is playerCoords.
+        dataTable5 = dataTable5()
+        coords = GetEntityCoords
+        numberValue16 = arg5
+        flag9 = true
+        -- Beginner: result below is entityCoords.
+        coords = coords(numberValue16, flag9)
+        dataTable5 = dataTable5 - coords
+        dataTable5 = #dataTable5
+        if dataTable5 < 10.0 then
+          dataTable5 = SendNUIMessage
+          coords = {}
+          coords.transactionType = "spray"
+          -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+          dataTable5(coords)
         end
       end
-      SHX5_3 = UseParticleFxAssetNextCall
-      SHX6_3 = "scr_recartheft"
-      SHX5_3(SHX6_3)
-      SHX5_3 = 0
-      SHX6_3 = 0
-      SHX7_3 = 0
-      SHX8_3 = SHX2_2
-      if SHX8_3 then
-        SHX8_3 = SHX0_1.coloursRGB
-        SHX9_3 = SHX1_2
-        SHX8_3 = SHX8_3[SHX9_3]
-        SHX9_3 = SHX8_3.r
-        SHX10_3 = SHX8_3.g
-        SHX7_3 = SHX8_3.b
-        SHX6_3 = SHX10_3
-        SHX5_3 = SHX9_3
+      dataTable5 = UseParticleFxAssetNextCall
+      coords = "scr_recartheft"
+      dataTable5(coords)
+      dataTable5 = 0
+      coords = 0
+      numberValue16 = 0
+      flag9 = arg3
+      if flag9 then
+        flag9 = cmgCall.coloursRGB
+        workValue32 = arg2
+        flag9 = flag9[workValue32]
+        workValue32 = flag9.r
+        workValue = flag9.g
+        numberValue16 = flag9.b
+        coords = workValue
+        dataTable5 = workValue32
       else
-        SHX8_3 = GetHudColour
-        SHX9_3 = SHX1_1.colourLookup
-        SHX10_3 = SHX1_2
-        SHX9_3 = SHX9_3[SHX10_3]
-        SHX9_3 = SHX9_3.hud
-        SHX8_3, SHX9_3, SHX10_3 = SHX8_3(SHX9_3)
-        SHX7_3 = SHX10_3
-        SHX6_3 = SHX9_3
-        SHX5_3 = SHX8_3
+        flag9 = GetHudColour
+        workValue32 = cmgCall2.colourLookup
+        workValue = arg2
+        workValue32 = workValue32[workValue]
+        workValue32 = workValue32.hud
+        flag9, workValue32, workValue = flag9(workValue32)
+        numberValue16 = workValue
+        coords = workValue32
+        dataTable5 = flag9
       end
-      SHX8_3 = SetParticleFxNonLoopedColour
-      SHX9_3 = SHX5_3 / 255
-      SHX10_3 = SHX6_3 / 255
-      SHX11_3 = SHX7_3 / 255
-      SHX8_3(SHX9_3, SHX10_3, SHX11_3)
-      SHX8_3 = SetParticleFxNonLoopedAlpha
-      SHX9_3 = 1.0
-      SHX8_3(SHX9_3)
-      SHX8_3 = StartParticleFxNonLoopedAtCoord
-      SHX9_3 = "scr_wheel_burnout"
-      SHX10_3 = SHX6_2.x
-      SHX11_3 = SHX6_2.y
-      SHX12_3 = SHX6_2.z
-      SHX12_3 = SHX12_3 + 2.0
-      SHX13_3 = 0.0
-      SHX14_3 = 0.0
-      SHX15_3 = SHX7_2
-      SHX16_3 = 0.7
-      SHX17_3 = false
-      SHX18_3 = false
-      SHX19_3 = false
-      SHX8_3(SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3)
-      SHX8_3 = Wait
-      SHX9_3 = SHX0_3
-      SHX8_3(SHX9_3)
+      flag9 = SetParticleFxNonLoopedColour
+      workValue32 = dataTable5 / 255
+      workValue = coords / 255
+      workValue3 = numberValue16 / 255
+      flag9(workValue32, workValue, workValue3)
+      flag9 = SetParticleFxNonLoopedAlpha
+      workValue32 = 1.0
+      flag9(workValue32)
+      flag9 = StartParticleFxNonLoopedAtCoord
+      workValue32 = "scr_wheel_burnout"
+      workValue = arg7.x
+      workValue3 = arg7.y
+      workValue5 = arg7.z
+      workValue5 = workValue5 + 2.0
+      numberValue4 = 0.0
+      numberValue7 = 0.0
+      workValue10 = arg8
+      numberValue9 = 0.7
+      flag3 = false
+      flag4 = false
+      flag5 = false
+      flag9(workValue32, workValue, workValue3, workValue5, numberValue4, numberValue7, workValue10, numberValue9, flag3, flag4, flag5)
+      flag9 = Wait
+      workValue32 = arg12
+      flag9(workValue32)
     end
-    SHX1_3 = RemoveNamedPtfxAsset
-    SHX2_3 = "scr_recartheft"
-    SHX1_3(SHX2_3)
+    arg22 = RemoveNamedPtfxAsset
+    arg32 = "scr_recartheft"
+    arg22(arg32)
   end
-  SHX8_2(SHX9_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  stringHelper2(textValue13)
 end
-SHX30_1(SHX31_1, SHX32_1)
-SHX30_1 = CMG
-function SHX31_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = {}
-  SHX3_2 = pairs
-  SHX4_2 = SHX10_1
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.position
-    SHX9_2 = SHX9_2 - SHX0_2
-    SHX9_2 = #SHX9_2
-    if SHX1_2 > SHX9_2 then
-      SHX9_2 = SHX8_2.id
-      SHX2_2[SHX9_2] = SHX8_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "266f8c002a".
+textValue5(textValue6, rageUiCall)
+textValue5 = CMG
+function textValue6(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13
+  arg3 = {}
+  arg4 = pairs
+  arg5 = dataTable
+  arg4, arg5, arg6, arg7 = arg4(arg5)
+  for arg8, stringHelper2 in arg4, arg5, arg6, arg7 do
+    textValue13 = stringHelper2.position
+    textValue13 = textValue13 - arg1
+    textValue13 = #textValue13
+    if arg2 > textValue13 then
+      textValue13 = stringHelper2.id
+      arg3[textValue13] = stringHelper2
     end
   end
-  return SHX2_2
+  return arg3
 end
-SHX30_1.getNearbyGraffitisInRangeClient = SHX31_1
-SHX30_1 = RegisterNetEvent
-SHX31_1 = "10f402facb"
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = SHX11_1
-  if SHX0_2 then
+textValue5.getNearbyGraffitisInRangeClient = textValue6
+textValue5 = RegisterNetEvent
+textValue6 = "10f402facb"
+-- Beginner: this function handles network event "10f402facb".
+function rageUiCall()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, stringHelper2, textValue13
+  arg1 = flag
+  if arg1 then
     return
   end
-  SHX0_2 = SHX0_1.maxSurfaceDistance
-  SHX1_2 = nil
-  SHX2_2 = pairs
-  SHX3_2 = SHX10_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX7_2.position
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.getPlayerCoords
-    SHX9_2 = SHX9_2()
-    SHX8_2 = SHX8_2 - SHX9_2
-    SHX8_2 = #SHX8_2
-    if SHX0_2 > SHX8_2 then
-      SHX1_2 = SHX7_2.id
-      SHX0_2 = SHX8_2
+  arg1 = cmgCall.maxSurfaceDistance
+  arg2 = nil
+  arg3 = pairs
+  arg4 = dataTable
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    stringHelper2 = arg8.position
+    textValue13 = CMG
+    textValue13 = textValue13.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    textValue13 = textValue13()
+    stringHelper2 = stringHelper2 - textValue13
+    stringHelper2 = #stringHelper2
+    if arg1 > stringHelper2 then
+      arg2 = arg8.id
+      arg1 = stringHelper2
     end
   end
-  SHX2_2 = SHX10_1
-  if not SHX2_2 then
-    SHX2_2 = notify
-    SHX3_2 = "~r~No nearby graffiti to clean."
-    SHX2_2(SHX3_2)
+  arg3 = dataTable
+  if not arg3 then
+    arg3 = notify
+    arg4 = "~r~No nearby graffiti to clean."
+    -- Beginner: Show a notification to the player.
+    arg3(arg4)
     return
   end
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "5b60cbfbdd"
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
+  arg3 = TriggerServerEvent
+  arg4 = "5b60cbfbdd"
+  arg5 = arg2
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5b60cbfbdd".
+  arg3(arg4, arg5)
 end
-SHX30_1(SHX31_1, SHX32_1)
-SHX30_1 = CMG
-SHX30_1 = SHX30_1.registerDevMenuItems
-SHX31_1 = "Graffiti"
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Play Local Spray"
-  SHX2_2 = ""
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = TriggerEvent
-      SHX4_3 = "e2e61e9a92"
-      SHX3_3(SHX4_3)
-      SHX3_3 = TriggerEvent
-      SHX4_3 = "266f8c002a"
-      SHX5_3 = CMG
-      SHX5_3 = SHX5_3.getLocalPlayerSrc
-      SHX5_3 = SHX5_3()
-      SHX3_3(SHX4_3, SHX5_3)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "10f402facb".
+textValue5(textValue6, rageUiCall)
+textValue5 = CMG
+textValue5 = textValue5.registerDevMenuItems
+textValue6 = "Graffiti"
+function rageUiCall()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = RageUI
+  arg1 = arg1.Button
+  arg2 = "Play Local Spray"
+  arg3 = ""
+  arg4 = true
+  function arg5(arg12, arg22, arg32)
+    local dataTable2, dataTable3, dataTable5
+    if arg32 then
+      dataTable2 = TriggerEvent
+      dataTable3 = "e2e61e9a92"
+      -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e2e61e9a92".
+      dataTable2(dataTable3)
+      dataTable2 = TriggerEvent
+      dataTable3 = "266f8c002a"
+      dataTable5 = CMG
+      dataTable5 = dataTable5.getLocalPlayerSrc
+      dataTable5 = dataTable5()
+      dataTable2(dataTable3, dataTable5)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg1(arg2, arg3, arg4, arg5)
 end
-SHX30_1(SHX31_1, SHX32_1)
-SHX30_1 = CMG
-function SHX31_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX10_1
-  return SHX0_2
+textValue5(textValue6, rageUiCall)
+textValue5 = CMG
+function textValue6()
+  local arg1, arg2
+  arg1 = dataTable
+  return arg1
 end
-SHX30_1.getNearbyGraffitis = SHX31_1
-SHX30_1 = AddEventHandler
-SHX31_1 = "onResourceStop"
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX0_2 ~= SHX1_2 then
+textValue5.getNearbyGraffitis = textValue6
+textValue5 = AddEventHandler
+textValue6 = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function rageUiCall(arg1)
+  local arg2
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg1 ~= arg2 then
     return
   end
-  SHX1_2 = SHX18_1
-  SHX1_2()
+  arg2 = workValue14
+  arg2()
 end
-SHX30_1(SHX31_1, SHX32_1)
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+textValue5(textValue6, rageUiCall)

@@ -1,460 +1,435 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_progress.lua
+    ===============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1
-SHX0_1 = {}
-SHX0_1.From = 0
-SHX0_1.To = 100
-SHX0_1.Async = true
-SHX0_1.Duration = 5000
-SHX0_1.Label = "Loading..."
-SHX0_1.LabelPosition = "bottom"
-SHX0_1.Color = "rgba(255, 255, 255, 1.0)"
-SHX0_1.BGColor = "rgba(0, 0, 0, 0.4)"
-SHX0_1.x = 0.5
-SHX0_1.y = 0.5
-SHX0_1.Rotation = 0
-SHX0_1.MaxAngle = 360
-SHX0_1.Radius = 50
-SHX0_1.Stroke = 10
-SHX0_1.Width = 300
-SHX0_1.Height = 40
-SHX0_1.Cap = "butt"
-SHX0_1.Padding = 0
-SHX0_1.CancelKey = 178
-SHX0_1.ShowTimer = true
-SHX0_1.ShowProgress = false
-SHX0_1.Easing = "easeLinear"
-SHX1_1 = {}
-SHX1_1.Mouse = false
-SHX1_1.Player = false
-SHX1_1.Vehicle = false
-SHX0_1.DisableControls = SHX1_1
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Progress
+    =========================
+
+    File: cmg/prod/client/ui/cl_progress.lua
+    Purpose: This file contains menu/UI logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Named framework/network events found:
+      * rprogress:stop
+      * rprogress:start
+      * rprogress:custom
+      * rprogress:linear
+      * rprogress:minigame
+
+]]
+local dataTable, dataTable4, dataTable5, dataTable6, workValue18, workValue20, workValue22, workValue24, flag3, workValue28, flag, numberValue, workValue2, workValue4, workValue6, workValue7, workValue9, workValue10, workValue12, workValue13, workValue15, textValue2, workValue16
+dataTable = {}
+dataTable.From = 0
+dataTable.To = 100
+dataTable.Async = true
+dataTable.Duration = 5000
+dataTable.Label = "Loading..."
+dataTable.LabelPosition = "bottom"
+dataTable.Color = "rgba(255, 255, 255, 1.0)"
+dataTable.BGColor = "rgba(0, 0, 0, 0.4)"
+dataTable.x = 0.5
+dataTable.y = 0.5
+dataTable.Rotation = 0
+dataTable.MaxAngle = 360
+dataTable.Radius = 50
+dataTable.Stroke = 10
+dataTable.Width = 300
+dataTable.Height = 40
+dataTable.Cap = "butt"
+dataTable.Padding = 0
+dataTable.CancelKey = 178
+dataTable.ShowTimer = true
+dataTable.ShowProgress = false
+dataTable.Easing = "easeLinear"
+dataTable4 = {}
+dataTable4.Mouse = false
+dataTable4.Player = false
+dataTable4.Vehicle = false
+dataTable.DisableControls = dataTable4
+function dataTable4()
+  local arg1, arg2
 end
-SHX0_1.onStart = SHX1_1
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+dataTable.onStart = dataTable4
+function dataTable4()
+  local arg1, arg2
 end
-SHX0_1.onComplete = SHX1_1
-SHX1_1 = {}
-SHX1_1.MaxAngle = 240
-SHX1_1.Rotation = -120
-SHX1_1.Radius = 100
-SHX1_1.Stroke = 30
-SHX2_1 = {}
-SHX3_1 = {}
-SHX3_1.Zone = 40
-SHX3_1.Duration = 1000
-SHX2_1.Custom = SHX3_1
-SHX3_1 = {}
-SHX3_1.Zone = 30
-SHX3_1.Duration = 500
-SHX2_1.Easy = SHX3_1
-SHX3_1 = {}
-SHX3_1.Zone = 20
-SHX3_1.Duration = 500
-SHX2_1.Medium = SHX3_1
-SHX3_1 = {}
-SHX3_1.Zone = 10
-SHX3_1.Duration = 500
-SHX2_1.Hard = SHX3_1
-SHX3_1 = {}
-SHX3_1.Zone = 5
-SHX3_1.Duration = 400
-SHX2_1.VeryHard = SHX3_1
-SHX1_1.Difficulty = SHX2_1
-SHX0_1.MiniGameOptions = SHX1_1
-function SHX1_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = {}
-  function SHX2_2(SHX0_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX1_3 = type
-    SHX2_3 = SHX0_3
-    SHX1_3 = SHX1_3(SHX2_3)
-    if "table" ~= SHX1_3 then
-      return SHX0_3
+dataTable.onComplete = dataTable4
+dataTable4 = {}
+dataTable4.MaxAngle = 240
+dataTable4.Rotation = -120
+dataTable4.Radius = 100
+dataTable4.Stroke = 30
+dataTable5 = {}
+dataTable6 = {}
+dataTable6.Zone = 40
+dataTable6.Duration = 1000
+dataTable5.Custom = dataTable6
+dataTable6 = {}
+dataTable6.Zone = 30
+dataTable6.Duration = 500
+dataTable5.Easy = dataTable6
+dataTable6 = {}
+dataTable6.Zone = 20
+dataTable6.Duration = 500
+dataTable5.Medium = dataTable6
+dataTable6 = {}
+dataTable6.Zone = 10
+dataTable6.Duration = 500
+dataTable5.Hard = dataTable6
+dataTable6 = {}
+dataTable6.Zone = 5
+dataTable6.Duration = 400
+dataTable5.VeryHard = dataTable6
+dataTable4.Difficulty = dataTable5
+dataTable.MiniGameOptions = dataTable4
+function dataTable4(arg1)
+  local arg2, arg3, arg4, workValue19
+  arg2 = {}
+  function arg3(arg12)
+    local workValue14, iterator, workValue17, tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue
+    workValue14 = type
+    iterator = arg12
+    workValue14 = workValue14(iterator)
+    if "table" ~= workValue14 then
+      return arg12
     else
-      SHX1_3 = SHX1_2
-      SHX1_3 = SHX1_3[SHX0_3]
-      if SHX1_3 then
-        SHX1_3 = SHX1_2
-        SHX1_3 = SHX1_3[SHX0_3]
-        return SHX1_3
+      workValue14 = arg2
+      workValue14 = workValue14[arg12]
+      if workValue14 then
+        workValue14 = arg2
+        workValue14 = workValue14[arg12]
+        return workValue14
       end
     end
-    SHX1_3 = {}
-    SHX2_3 = SHX1_2
-    SHX2_3[SHX0_3] = SHX1_3
-    SHX2_3 = pairs
-    SHX3_3 = SHX0_3
-    SHX2_3, SHX3_3, SHX4_3, SHX5_3 = SHX2_3(SHX3_3)
-    for SHX6_3, SHX7_3 in SHX2_3, SHX3_3, SHX4_3, SHX5_3 do
-      SHX8_3 = SHX2_2
-      SHX9_3 = SHX6_3
-      SHX8_3 = SHX8_3(SHX9_3)
-      SHX9_3 = SHX2_2
-      SHX10_3 = SHX7_3
-      SHX9_3 = SHX9_3(SHX10_3)
-      SHX1_3[SHX8_3] = SHX9_3
+    workValue14 = {}
+    iterator = arg2
+    iterator[arg12] = workValue14
+    iterator = pairs
+    workValue17 = arg12
+    iterator, workValue17, tableHelper, workValue21 = iterator(workValue17)
+    for workValue23, workValue26 in iterator, workValue17, tableHelper, workValue21 do
+      workValue27 = arg3
+      workValue30 = workValue23
+      workValue27 = workValue27(workValue30)
+      workValue30 = arg3
+      workValue = workValue26
+      workValue30 = workValue30(workValue)
+      workValue14[workValue27] = workValue30
     end
-    SHX2_3 = setmetatable
-    SHX3_3 = SHX1_3
-    SHX4_3 = getmetatable
-    SHX5_3 = SHX0_3
-    SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3 = SHX4_3(SHX5_3)
-    return SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+    iterator = setmetatable
+    workValue17 = workValue14
+    tableHelper = getmetatable
+    workValue21 = arg12
+    tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue = tableHelper(workValue21)
+    return iterator(workValue17, tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue)
   end
-  SHX3_2 = SHX2_2
-  SHX4_2 = SHX0_2
-  return SHX3_2(SHX4_2)
+  arg4 = arg3
+  workValue19 = arg1
+  return arg4(workValue19)
 end
-function SHX2_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX2_2 = SHX1_1
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = pairs
-  SHX4_2 = SHX1_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = type
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    if "table" == SHX9_2 then
-      SHX9_2 = type
-      SHX10_2 = SHX2_2[SHX7_2]
-      if not SHX10_2 then
-        SHX10_2 = false
+function dataTable5(arg1, arg2)
+  local arg3, arg4, workValue19, stringHelper, dataTable7, workValue25, dataTable8, workValue29, flag2, dataTable2
+  arg3 = dataTable4
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  arg4 = pairs
+  workValue19 = arg2
+  arg4, workValue19, stringHelper, dataTable7 = arg4(workValue19)
+  for workValue25, dataTable8 in arg4, workValue19, stringHelper, dataTable7 do
+    workValue29 = type
+    flag2 = dataTable8
+    workValue29 = workValue29(flag2)
+    if "table" == workValue29 then
+      workValue29 = type
+      flag2 = arg3[workValue25]
+      if not flag2 then
+        flag2 = false
       end
-      SHX9_2 = SHX9_2(SHX10_2)
-      if "table" == SHX9_2 then
-        SHX9_2 = SHX2_1
-        SHX10_2 = SHX2_2[SHX7_2]
-        if not SHX10_2 then
-          SHX10_2 = {}
+      workValue29 = workValue29(flag2)
+      if "table" == workValue29 then
+        workValue29 = dataTable5
+        flag2 = arg3[workValue25]
+        if not flag2 then
+          flag2 = {}
         end
-        SHX11_2 = SHX1_2[SHX7_2]
-        if not SHX11_2 then
-          SHX11_2 = {}
+        dataTable2 = arg2[workValue25]
+        if not dataTable2 then
+          dataTable2 = {}
         end
-        SHX9_2(SHX10_2, SHX11_2)
+        workValue29(flag2, dataTable2)
       else
-        SHX2_2[SHX7_2] = SHX8_2
+        arg3[workValue25] = dataTable8
       end
     else
-      SHX2_2[SHX7_2] = SHX8_2
+      arg3[workValue25] = dataTable8
     end
   end
-  return SHX2_2
+  return arg3
 end
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = "======== RPROGRESS ERROR: "
-  SHX2_2 = SHX0_2
-  SHX3_2 = " ========"
-  SHX1_2 = SHX1_2 .. SHX2_2 .. SHX3_2
-  SHX0_2 = SHX1_2
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.rep
-  SHX2_2 = "="
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.len
-  SHX4_2 = SHX0_2
-  SHX3_2, SHX4_2 = SHX3_2(SHX4_2)
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = print
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = print
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = print
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
+function dataTable6(arg1)
+  local arg2, arg3, arg4, workValue19
+  arg2 = "======== RPROGRESS ERROR: "
+  arg3 = arg1
+  arg4 = " ========"
+  arg2 = arg2 .. arg3 .. arg4
+  arg1 = arg2
+  arg2 = string
+  arg2 = arg2.rep
+  arg3 = "="
+  arg4 = string
+  arg4 = arg4.len
+  workValue19 = arg1
+  arg4, workValue19 = arg4(workValue19)
+  arg2 = arg2(arg3, arg4, workValue19)
+  arg3 = print
+  arg4 = arg2
+  arg3(arg4)
+  arg3 = print
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = print
+  arg4 = arg2
+  arg3(arg4)
 end
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "table" ~= SHX1_2 then
-    SHX1_2 = SHX3_1
-    SHX2_2 = "options must be type:table"
-    SHX1_2(SHX2_2)
-    SHX1_2 = true
-    return SHX1_2
+function workValue18(arg1)
+  local arg2, arg3, arg4, workValue19, stringHelper, dataTable7, workValue25, dataTable8, workValue29, flag2, dataTable2, workValue3, workValue5, dataTable3, workValue8, textValue, workValue11
+  arg2 = type
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if "table" ~= arg2 then
+    arg2 = dataTable6
+    arg3 = "options must be type:table"
+    arg2(arg3)
+    arg2 = true
+    return arg2
   end
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = nil
-    if "onStart" ~= SHX5_2 and "onComplete" ~= SHX5_2 and "onTimeout" ~= SHX5_2 then
-      if "ShowTimer" == SHX5_2 or "ShowProgress" == SHX5_2 or "Async" == SHX5_2 or "MiniGame" == SHX5_2 or "Loop" == SHX5_2 or "canCancel" == SHX5_2 then
-        SHX8_2 = type
-        SHX9_2 = SHX6_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        if "boolean" ~= SHX8_2 then
-          SHX8_2 = {}
-          SHX8_2.prop = SHX5_2
-          SHX8_2.type = "boolean"
-          SHX7_2 = SHX8_2
+  arg2 = pairs
+  arg3 = arg1
+  arg2, arg3, arg4, workValue19 = arg2(arg3)
+  for stringHelper, dataTable7 in arg2, arg3, arg4, workValue19 do
+    workValue25 = nil
+    if "onStart" ~= stringHelper and "onComplete" ~= stringHelper and "onTimeout" ~= stringHelper then
+      if "ShowTimer" == stringHelper or "ShowProgress" == stringHelper or "Async" == stringHelper or "MiniGame" == stringHelper or "Loop" == stringHelper or "canCancel" == stringHelper then
+        dataTable8 = type
+        workValue29 = dataTable7
+        dataTable8 = dataTable8(workValue29)
+        if "boolean" ~= dataTable8 then
+          dataTable8 = {}
+          dataTable8.prop = stringHelper
+          dataTable8.type = "boolean"
+          workValue25 = dataTable8
         end
-      elseif "Label" == SHX5_2 or "Color" == SHX5_2 or "BGColor" == SHX5_2 or "LabelPosition" == SHX5_2 or "Easing" == SHX5_2 or "Cap" == SHX5_2 or "Type" == SHX5_2 then
-        SHX8_2 = type
-        SHX9_2 = SHX6_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        if "string" ~= SHX8_2 then
-          SHX8_2 = {}
-          SHX8_2.prop = SHX5_2
-          SHX8_2.type = "string"
-          SHX7_2 = SHX8_2
+      elseif "Label" == stringHelper or "Color" == stringHelper or "BGColor" == stringHelper or "LabelPosition" == stringHelper or "Easing" == stringHelper or "Cap" == stringHelper or "Type" == stringHelper then
+        dataTable8 = type
+        workValue29 = dataTable7
+        dataTable8 = dataTable8(workValue29)
+        if "string" ~= dataTable8 then
+          dataTable8 = {}
+          dataTable8.prop = stringHelper
+          dataTable8.type = "string"
+          workValue25 = dataTable8
         end
-      elseif "DisableControls" == SHX5_2 then
-        SHX8_2 = pairs
-        SHX9_2 = SHX6_2
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2)
-        for SHX12_2, SHX13_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-          SHX14_2 = type
-          SHX15_2 = SHX13_2
-          SHX14_2 = SHX14_2(SHX15_2)
-          if "boolean" ~= SHX14_2 then
-            SHX14_2 = {}
-            SHX15_2 = SHX5_2
-            SHX16_2 = "."
-            SHX17_2 = SHX12_2
-            SHX15_2 = SHX15_2 .. SHX16_2 .. SHX17_2
-            SHX14_2.prop = SHX15_2
-            SHX14_2.type = "boolean"
-            SHX7_2 = SHX14_2
+      elseif "DisableControls" == stringHelper then
+        dataTable8 = pairs
+        workValue29 = dataTable7
+        dataTable8, workValue29, flag2, dataTable2 = dataTable8(workValue29)
+        for workValue3, workValue5 in dataTable8, workValue29, flag2, dataTable2 do
+          dataTable3 = type
+          workValue8 = workValue5
+          dataTable3 = dataTable3(workValue8)
+          if "boolean" ~= dataTable3 then
+            dataTable3 = {}
+            workValue8 = stringHelper
+            textValue = "."
+            workValue11 = workValue3
+            workValue8 = workValue8 .. textValue .. workValue11
+            dataTable3.prop = workValue8
+            dataTable3.type = "boolean"
+            workValue25 = dataTable3
           end
         end
-      elseif "Animation" == SHX5_2 then
-        SHX8_2 = pairs
-        SHX9_2 = SHX6_2
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2)
-        for SHX12_2, SHX13_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-          if "flag" == SHX12_2 then
-            SHX14_2 = tonumber
-            SHX15_2 = SHX13_2
-            SHX14_2 = SHX14_2(SHX15_2)
-            if nil == SHX14_2 then
-              SHX14_2 = {}
-              SHX14_2.prop = SHX5_2
-              SHX14_2.type = "number"
-              SHX7_2 = SHX14_2
+      elseif "Animation" == stringHelper then
+        dataTable8 = pairs
+        workValue29 = dataTable7
+        dataTable8, workValue29, flag2, dataTable2 = dataTable8(workValue29)
+        for workValue3, workValue5 in dataTable8, workValue29, flag2, dataTable2 do
+          if "flag" == workValue3 then
+            dataTable3 = tonumber
+            workValue8 = workValue5
+            dataTable3 = dataTable3(workValue8)
+            if nil == dataTable3 then
+              dataTable3 = {}
+              dataTable3.prop = stringHelper
+              dataTable3.type = "number"
+              workValue25 = dataTable3
             end
           else
-            SHX14_2 = type
-            SHX15_2 = SHX13_2
-            SHX14_2 = SHX14_2(SHX15_2)
-            if "string" ~= SHX14_2 then
-              SHX14_2 = {}
-              SHX15_2 = SHX5_2
-              SHX16_2 = "."
-              SHX17_2 = SHX12_2
-              SHX15_2 = SHX15_2 .. SHX16_2 .. SHX17_2
-              SHX14_2.prop = SHX15_2
-              SHX14_2.type = "string"
-              SHX7_2 = SHX14_2
+            dataTable3 = type
+            workValue8 = workValue5
+            dataTable3 = dataTable3(workValue8)
+            if "string" ~= dataTable3 then
+              dataTable3 = {}
+              workValue8 = stringHelper
+              textValue = "."
+              workValue11 = workValue3
+              workValue8 = workValue8 .. textValue .. workValue11
+              dataTable3.prop = workValue8
+              dataTable3.type = "string"
+              workValue25 = dataTable3
             end
           end
         end
       else
-        SHX8_2 = tonumber
-        SHX9_2 = SHX6_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        if nil == SHX8_2 then
-          SHX8_2 = {}
-          SHX8_2.prop = SHX5_2
-          SHX8_2.type = "number"
-          SHX7_2 = SHX8_2
+        dataTable8 = tonumber
+        workValue29 = dataTable7
+        dataTable8 = dataTable8(workValue29)
+        if nil == dataTable8 then
+          dataTable8 = {}
+          dataTable8.prop = stringHelper
+          dataTable8.type = "number"
+          workValue25 = dataTable8
         end
       end
-      if nil ~= SHX7_2 then
-        SHX8_2 = SHX3_1
-        SHX9_2 = "param '"
-        SHX10_2 = SHX7_2.prop
-        SHX11_2 = "' must be type:"
-        SHX12_2 = SHX7_2.type
-        SHX9_2 = SHX9_2 .. SHX10_2 .. SHX11_2 .. SHX12_2
-        SHX8_2(SHX9_2)
-        SHX8_2 = true
-        return SHX8_2
+      if nil ~= workValue25 then
+        dataTable8 = dataTable6
+        workValue29 = "param '"
+        flag2 = workValue25.prop
+        dataTable2 = "' must be type:"
+        workValue3 = workValue25.type
+        workValue29 = workValue29 .. flag2 .. dataTable2 .. workValue3
+        dataTable8(workValue29)
+        dataTable8 = true
+        return dataTable8
       end
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-SHX5_1 = nil
-SHX6_1 = nil
-SHX7_1 = nil
-SHX8_1 = false
-SHX9_1 = nil
-SHX10_1 = false
-SHX11_1 = 0
-function SHX12_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX4_2 = type
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if "string" ~= SHX4_2 then
-    SHX4_2 = SHX3_1
-    SHX5_2 = "param 'text' must be type:string"
-    SHX4_2(SHX5_2)
+workValue20 = nil
+workValue22 = nil
+workValue24 = nil
+flag3 = false
+workValue28 = nil
+flag = false
+numberValue = 0
+function workValue2(arg1, arg2, arg3, arg4)
+  local workValue19, stringHelper, dataTable7, workValue25
+  workValue19 = type
+  stringHelper = arg1
+  workValue19 = workValue19(stringHelper)
+  if "string" ~= workValue19 then
+    workValue19 = dataTable6
+    stringHelper = "param 'text' must be type:string"
+    workValue19(stringHelper)
     return
   end
-  if SHX3_2 then
-    SHX6_1 = SHX3_2
+  if arg4 then
+    workValue22 = arg4
   end
-  SHX4_2 = tonumber
-  SHX5_2 = SHX1_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if nil == SHX4_2 then
-    SHX4_2 = SHX3_1
-    SHX5_2 = "param 'duration' must be type:number"
-    SHX4_2(SHX5_2)
+  workValue19 = tonumber
+  stringHelper = arg2
+  workValue19 = workValue19(stringHelper)
+  if nil == workValue19 then
+    workValue19 = dataTable6
+    stringHelper = "param 'duration' must be type:number"
+    workValue19(stringHelper)
     return
   end
-  SHX4_2 = SHX2_1
-  SHX5_2 = SHX0_1
-  SHX6_2 = {}
-  SHX6_2.display = true
-  SHX6_2.Duration = SHX1_2
-  SHX6_2.Label = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  if nil ~= SHX2_2 then
-    SHX4_2.Type = "linear"
+  workValue19 = dataTable5
+  stringHelper = dataTable
+  dataTable7 = {}
+  dataTable7.display = true
+  dataTable7.Duration = arg2
+  dataTable7.Label = arg1
+  workValue19 = workValue19(stringHelper, dataTable7)
+  if nil ~= arg3 then
+    workValue19.Type = "linear"
   end
-  SHX4_2.Async = false
-  SHX4_2.MiniGame = false
-  SHX4_2.onStart = nil
-  SHX4_2.onComplete = nil
-  SHX5_2 = SendNUIMessage
-  SHX6_2 = SHX4_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = assert
-  SHX6_2 = SHX8_1
-  SHX6_2 = not SHX6_2
-  SHX7_2 = "Can not start progress bar whilst an existing bar is still running"
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = true
-  SHX8_1 = SHX5_2
+  workValue19.Async = false
+  workValue19.MiniGame = false
+  workValue19.onStart = nil
+  workValue19.onComplete = nil
+  stringHelper = SendNUIMessage
+  dataTable7 = workValue19
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  stringHelper(dataTable7)
+  stringHelper = assert
+  dataTable7 = flag3
+  dataTable7 = not dataTable7
+  workValue25 = "Can not start progress bar whilst an existing bar is still running"
+  stringHelper(dataTable7, workValue25)
+  stringHelper = true
+  flag3 = stringHelper
   while true do
-    SHX5_2 = SHX8_1
-    if not SHX5_2 then
+    stringHelper = flag3
+    if not stringHelper then
       break
     end
-    SHX5_2 = DisableControls
-    SHX6_2 = SHX4_2
-    SHX5_2(SHX6_2)
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 1
-    SHX5_2(SHX6_2)
+    stringHelper = DisableControls
+    dataTable7 = workValue19
+    stringHelper(dataTable7)
+    stringHelper = Citizen
+    stringHelper = stringHelper.Wait
+    dataTable7 = 1
+    stringHelper(dataTable7)
   end
 end
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX9_1
-  if nil ~= SHX0_2 then
-    SHX0_2 = PlayerPedId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = DoesEntityExist
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = IsEntityDead
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if not SHX1_2 then
-        SHX1_2 = SHX9_1.scenario
-        if nil ~= SHX1_2 then
-          SHX1_2 = ClearPedTasks
-          SHX2_2 = SHX0_2
-          SHX1_2(SHX2_2)
+function workValue4()
+  local arg1, arg2, arg3, arg4, workValue19, stringHelper
+  arg1 = workValue28
+  if nil ~= arg1 then
+    arg1 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg1 = arg1()
+    arg2 = DoesEntityExist
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = IsEntityDead
+      arg3 = arg1
+      arg2 = arg2(arg3)
+      if not arg2 then
+        arg2 = workValue28.scenario
+        if nil ~= arg2 then
+          arg2 = ClearPedTasks
+          arg3 = arg1
+          arg2(arg3)
         else
-          SHX1_2 = SHX9_1.animationDictionary
-          if nil ~= SHX1_2 then
-            SHX1_2 = SHX9_1.animationName
-            if nil ~= SHX1_2 then
-              SHX1_2 = StopAnimTask
-              SHX2_2 = SHX0_2
-              SHX3_2 = SHX9_1.animationDictionary
-              SHX4_2 = SHX9_1.animationName
-              SHX5_2 = 1.0
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+          arg2 = workValue28.animationDictionary
+          if nil ~= arg2 then
+            arg2 = workValue28.animationName
+            if nil ~= arg2 then
+              arg2 = StopAnimTask
+              arg3 = arg1
+              arg4 = workValue28.animationDictionary
+              workValue19 = workValue28.animationName
+              stringHelper = 1.0
+              arg2(arg3, arg4, workValue19, stringHelper)
             end
           end
         end
@@ -462,682 +437,558 @@ function SHX13_1()
     end
   end
 end
-function SHX14_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX4_1
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
+function workValue6(arg1, arg2)
+  local arg3, arg4, workValue19, stringHelper
+  arg3 = workValue18
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  if arg3 then
     return
   end
-  SHX2_2 = {}
-  SHX3_2 = SHX0_1.DisableControls
-  SHX3_2 = SHX3_2.Mouse
-  SHX2_2.Mouse = SHX3_2
-  SHX3_2 = SHX0_1.DisableControls
-  SHX3_2 = SHX3_2.Player
-  SHX2_2.Player = SHX3_2
-  SHX3_2 = SHX0_1.DisableControls
-  SHX3_2 = SHX3_2.Vehicle
-  SHX2_2.Vehicle = SHX3_2
-  SHX3_2 = SHX0_2.DisableControls
-  if nil ~= SHX3_2 then
-    SHX2_2 = SHX0_2.DisableControls
+  arg3 = {}
+  arg4 = dataTable.DisableControls
+  arg4 = arg4.Mouse
+  arg3.Mouse = arg4
+  arg4 = dataTable.DisableControls
+  arg4 = arg4.Player
+  arg3.Player = arg4
+  arg4 = dataTable.DisableControls
+  arg4 = arg4.Vehicle
+  arg3.Vehicle = arg4
+  arg4 = arg1.DisableControls
+  if nil ~= arg4 then
+    arg3 = arg1.DisableControls
   end
-  SHX3_2 = SHX2_1
-  SHX4_2 = SHX0_1
-  SHX5_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX0_2 = SHX3_2
-  SHX3_2 = SHX2_1
-  SHX4_2 = SHX0_1.DisableControls
-  SHX5_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX0_2.DisableControls = SHX3_2
-  SHX0_2.display = true
-  SHX3_2 = SHX0_2.ShowProgress
-  if true == SHX3_2 then
-    SHX0_2.ShowTimer = false
+  arg4 = dataTable5
+  workValue19 = dataTable
+  stringHelper = arg1
+  arg4 = arg4(workValue19, stringHelper)
+  arg1 = arg4
+  arg4 = dataTable5
+  workValue19 = dataTable.DisableControls
+  stringHelper = arg3
+  arg4 = arg4(workValue19, stringHelper)
+  arg1.DisableControls = arg4
+  arg1.display = true
+  arg4 = arg1.ShowProgress
+  if true == arg4 then
+    arg1.ShowTimer = false
   end
-  SHX3_2 = SHX0_2.onStart
-  SHX5_1 = SHX3_2
-  SHX3_2 = SHX0_2.onComplete
-  SHX6_1 = SHX3_2
-  SHX3_2 = SHX0_2.onTimeout
-  SHX7_1 = SHX3_2
-  SHX3_2 = nil
-  SHX9_1 = SHX3_2
-  SHX3_2 = SHX0_2.Animation
-  if nil ~= SHX3_2 then
-    SHX3_2 = SHX0_2.Animation
-    SHX9_1 = SHX3_2
+  arg4 = arg1.onStart
+  workValue20 = arg4
+  arg4 = arg1.onComplete
+  workValue22 = arg4
+  arg4 = arg1.onTimeout
+  workValue24 = arg4
+  arg4 = nil
+  workValue28 = arg4
+  arg4 = arg1.Animation
+  if nil ~= arg4 then
+    arg4 = arg1.Animation
+    workValue28 = arg4
   end
-  SHX0_2.onStart = nil
-  SHX0_2.onComplete = nil
-  SHX0_2.onTimeout = nil
-  if true == SHX1_2 then
-    return SHX0_2
+  arg1.onStart = nil
+  arg1.onComplete = nil
+  arg1.onTimeout = nil
+  if true == arg2 then
+    return arg1
   end
-  SHX3_2 = SHX0_2.MiniGame
-  if SHX3_2 then
-    SHX3_2 = SetNuiFocus
-    SHX4_2 = true
-    SHX5_2 = true
-    SHX3_2(SHX4_2, SHX5_2)
+  arg4 = arg1.MiniGame
+  if arg4 then
+    arg4 = SetNuiFocus
+    workValue19 = true
+    stringHelper = true
+    -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+    arg4(workValue19, stringHelper)
   end
-  SHX3_2 = SendNUIMessage
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = assert
-  SHX4_2 = SHX8_1
-  SHX4_2 = not SHX4_2
-  SHX5_2 = "Can not start progress bar whilst an existing bar is still running"
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = true
-  SHX8_1 = SHX3_2
-  SHX3_2 = SHX0_2.Async
-  if false == SHX3_2 then
+  arg4 = SendNUIMessage
+  workValue19 = arg1
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  arg4(workValue19)
+  arg4 = assert
+  workValue19 = flag3
+  workValue19 = not workValue19
+  stringHelper = "Can not start progress bar whilst an existing bar is still running"
+  arg4(workValue19, stringHelper)
+  arg4 = true
+  flag3 = arg4
+  arg4 = arg1.Async
+  if false == arg4 then
     while true do
-      SHX3_2 = SHX8_1
-      if not SHX3_2 then
+      arg4 = flag3
+      if not arg4 then
         break
       end
-      SHX3_2 = IsControlJustPressed
-      SHX4_2 = 0
-      SHX5_2 = SHX0_1.CancelKey
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 then
-        SHX3_2 = SHX0_2.canCancel
-        if SHX3_2 then
-          SHX3_2 = SHX6_1
-          SHX4_2 = true
-          SHX3_2(SHX4_2)
-          SHX3_2 = TriggerEvent
-          SHX4_2 = "rprogress:stop"
-          SHX3_2(SHX4_2)
+      arg4 = IsControlJustPressed
+      workValue19 = 0
+      stringHelper = dataTable.CancelKey
+      arg4 = arg4(workValue19, stringHelper)
+      if arg4 then
+        arg4 = arg1.canCancel
+        if arg4 then
+          arg4 = workValue22
+          workValue19 = true
+          arg4(workValue19)
+          arg4 = TriggerEvent
+          workValue19 = "rprogress:stop"
+          -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "rprogress:stop".
+          arg4(workValue19)
         end
       end
-      SHX3_2 = DisableControls
-      SHX4_2 = SHX0_2
-      SHX3_2(SHX4_2)
-      SHX3_2 = Citizen
-      SHX3_2 = SHX3_2.Wait
-      SHX4_2 = 1
-      SHX3_2(SHX4_2)
+      arg4 = DisableControls
+      workValue19 = arg1
+      arg4(workValue19)
+      arg4 = Citizen
+      arg4 = arg4.Wait
+      workValue19 = 1
+      arg4(workValue19)
     end
-    SHX3_2 = SHX13_1
-    SHX3_2()
+    arg4 = workValue4
+    arg4()
   else
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.CreateThread
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
+    arg4 = Citizen
+    arg4 = arg4.CreateThread
+    function workValue19()
+      local arg12, workValue14, iterator
       while true do
-        SHX0_3 = SHX8_1
-        if not SHX0_3 then
+        arg12 = flag3
+        if not arg12 then
           break
         end
-        SHX0_3 = IsControlJustPressed
-        SHX1_3 = 0
-        SHX2_3 = SHX0_1.CancelKey
-        SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-        if SHX0_3 then
-          SHX0_3 = SHX0_2.canCancel
-          if SHX0_3 then
-            SHX0_3 = SHX6_1
-            SHX1_3 = true
-            SHX0_3(SHX1_3)
-            SHX0_3 = TriggerEvent
-            SHX1_3 = "rprogress:stop"
-            SHX0_3(SHX1_3)
+        arg12 = IsControlJustPressed
+        workValue14 = 0
+        iterator = dataTable.CancelKey
+        arg12 = arg12(workValue14, iterator)
+        if arg12 then
+          arg12 = arg1.canCancel
+          if arg12 then
+            arg12 = workValue22
+            workValue14 = true
+            arg12(workValue14)
+            arg12 = TriggerEvent
+            workValue14 = "rprogress:stop"
+            -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "rprogress:stop".
+            arg12(workValue14)
           end
         end
-        SHX0_3 = DisableControls
-        SHX1_3 = SHX0_2
-        SHX0_3(SHX1_3)
-        SHX0_3 = Citizen
-        SHX0_3 = SHX0_3.Wait
-        SHX1_3 = 0
-        SHX0_3(SHX1_3)
+        arg12 = DisableControls
+        workValue14 = arg1
+        arg12(workValue14)
+        arg12 = Citizen
+        arg12 = arg12.Wait
+        workValue14 = 0
+        arg12(workValue14)
       end
     end
-    SHX3_2(SHX4_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    arg4(workValue19)
   end
 end
-function SHX15_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX12_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = true
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+function workValue7(arg1, arg2)
+  local arg3, arg4, workValue19, stringHelper
+  arg3 = workValue2
+  arg4 = arg1
+  workValue19 = arg2
+  stringHelper = true
+  arg3(arg4, workValue19, stringHelper)
 end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SendNUIMessage
-  SHX1_2 = {}
-  SHX1_2.stop = true
-  SHX0_2(SHX1_2)
+function workValue9()
+  local arg1, arg2
+  arg1 = SendNUIMessage
+  arg2 = {}
+  arg2.stop = true
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  arg1(arg2)
 end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX14_1
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 then
+function workValue10(arg1)
+  local arg2, arg3, arg4
+  arg2 = workValue6
+  arg3 = arg1
+  arg4 = true
+  arg2 = arg2(arg3, arg4)
+  if not arg2 then
     return
   end
-  SHX1_2.display = false
-  SHX1_2.static = true
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = {}
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX1_2.hide = false
-    SHX1_2.show = true
-    SHX1_2.progress = false
-    SHX0_3 = SendNUIMessage
-    SHX1_3 = SHX1_2
-    SHX0_3(SHX1_3)
+  arg2.display = false
+  arg2.static = true
+  arg3 = SendNUIMessage
+  arg4 = arg2
+  arg3(arg4)
+  arg3 = {}
+  function arg4()
+    local arg12, workValue14
+    arg2.hide = false
+    arg2.show = true
+    arg2.progress = false
+    arg12 = SendNUIMessage
+    workValue14 = arg2
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    arg12(workValue14)
   end
-  SHX2_2.Show = SHX3_2
-  function SHX3_2(SHX0_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX1_3, SHX2_3
-    SHX1_2.hide = false
-    SHX1_2.show = true
-    SHX1_3 = tonumber
-    SHX2_3 = SHX0_3
-    SHX1_3 = SHX1_3(SHX2_3)
-    SHX1_2.progress = SHX1_3
-    SHX1_3 = SHX1_2.progress
-    if SHX1_3 < 0 then
-      SHX1_2.progress = 0
+  arg3.Show = arg4
+  function arg4(arg12)
+    local workValue14, iterator
+    arg2.hide = false
+    arg2.show = true
+    workValue14 = tonumber
+    iterator = arg12
+    workValue14 = workValue14(iterator)
+    arg2.progress = workValue14
+    workValue14 = arg2.progress
+    if workValue14 < 0 then
+      arg2.progress = 0
     else
-      SHX1_3 = SHX1_2.progress
-      if SHX1_3 > 100 then
-        SHX1_2.progress = 100
+      workValue14 = arg2.progress
+      if workValue14 > 100 then
+        arg2.progress = 100
       end
     end
-    SHX1_3 = SendNUIMessage
-    SHX2_3 = SHX1_2
-    SHX1_3(SHX2_3)
+    workValue14 = SendNUIMessage
+    iterator = arg2
+    workValue14(iterator)
   end
-  SHX2_2.SetProgress = SHX3_2
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX1_2.show = false
-    SHX1_2.hide = true
-    SHX1_2.progress = false
-    SHX0_3 = SendNUIMessage
-    SHX1_3 = SHX1_2
-    SHX0_3(SHX1_3)
+  arg3.SetProgress = arg4
+  function arg4()
+    local arg12, workValue14
+    arg2.show = false
+    arg2.hide = true
+    arg2.progress = false
+    arg12 = SendNUIMessage
+    workValue14 = arg2
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    arg12(workValue14)
   end
-  SHX2_2.Hide = SHX3_2
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX1_2.show = false
-    SHX1_2.hide = false
-    SHX1_2.progress = false
-    SHX1_2.destroy = true
-    SHX0_3 = SendNUIMessage
-    SHX1_3 = SHX1_2
-    SHX0_3(SHX1_3)
+  arg3.Hide = arg4
+  function arg4()
+    local arg12, workValue14
+    arg2.show = false
+    arg2.hide = false
+    arg2.progress = false
+    arg2.destroy = true
+    arg12 = SendNUIMessage
+    workValue14 = arg2
+    arg12(workValue14)
   end
-  SHX2_2.Destroy = SHX3_2
-  return SHX2_2
+  arg3.Destroy = arg4
+  return arg3
 end
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX8_1
-  if SHX1_2 then
+function workValue12(arg1)
+  local arg2, arg3, arg4, workValue19
+  arg2 = flag3
+  if arg2 then
     return
   end
-  SHX1_2 = false
-  SHX10_1 = SHX1_2
-  SHX1_2 = SHX2_1
-  SHX2_2 = SHX0_1.MiniGameOptions
-  SHX3_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX0_2 = SHX1_2
-  SHX1_2 = SHX0_2.Zone
-  if nil == SHX1_2 then
-    SHX1_2 = SHX0_2.Duration
-    if nil == SHX1_2 then
-      SHX1_2 = "Easy"
-      SHX2_2 = SHX0_2.Difficulty
-      if nil ~= SHX2_2 then
-        SHX1_2 = SHX0_2.Difficulty
+  arg2 = false
+  flag = arg2
+  arg2 = dataTable5
+  arg3 = dataTable.MiniGameOptions
+  arg4 = arg1
+  arg2 = arg2(arg3, arg4)
+  arg1 = arg2
+  arg2 = arg1.Zone
+  if nil == arg2 then
+    arg2 = arg1.Duration
+    if nil == arg2 then
+      arg2 = "Easy"
+      arg3 = arg1.Difficulty
+      if nil ~= arg3 then
+        arg2 = arg1.Difficulty
       end
-      SHX2_2 = SHX0_1.MiniGameOptions
-      SHX2_2 = SHX2_2.Difficulty
-      SHX2_2 = SHX2_2[SHX1_2]
-      SHX2_2 = SHX2_2.Zone
-      SHX0_2.Zone = SHX2_2
-      SHX2_2 = SHX0_1.MiniGameOptions
-      SHX2_2 = SHX2_2.Difficulty
-      SHX2_2 = SHX2_2[SHX1_2]
-      SHX2_2 = SHX2_2.Duration
-      SHX0_2.Duration = SHX2_2
+      arg3 = dataTable.MiniGameOptions
+      arg3 = arg3.Difficulty
+      arg3 = arg3[arg2]
+      arg3 = arg3.Zone
+      arg1.Zone = arg3
+      arg3 = dataTable.MiniGameOptions
+      arg3 = arg3.Difficulty
+      arg3 = arg3[arg2]
+      arg3 = arg3.Duration
+      arg1.Duration = arg3
     end
   end
-  SHX0_2.Difficulty = nil
-  SHX0_2.MiniGame = true
-  SHX1_2 = SHX14_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = SHX0_2.Timeout
-  if nil ~= SHX1_2 then
-    SHX1_2 = SHX0_2.Timeout
-    if SHX1_2 > 0 then
-      SHX1_2 = SHX11_1
-      SHX1_2 = SHX1_2 + 1
-      SHX11_1 = SHX1_2
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.SetTimeout
-      SHX3_2 = SHX0_2.Timeout
-      function SHX4_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3
-        SHX0_3 = SHX7_1
-        if nil ~= SHX0_3 then
-          SHX0_3 = type
-          SHX1_3 = SHX7_1
-          SHX0_3 = SHX0_3(SHX1_3)
-          if "function" == SHX0_3 then
-            SHX0_3 = SHX10_1
-            if not SHX0_3 then
-              SHX0_3 = SHX11_1
-              SHX1_3 = SHX1_2
-              if SHX0_3 == SHX1_3 then
-                SHX0_3 = SHX16_1
-                SHX0_3()
-                SHX0_3 = SHX7_1
-                SHX0_3()
+  arg1.Difficulty = nil
+  arg1.MiniGame = true
+  arg2 = workValue6
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = arg1.Timeout
+  if nil ~= arg2 then
+    arg2 = arg1.Timeout
+    if arg2 > 0 then
+      arg2 = numberValue
+      arg2 = arg2 + 1
+      numberValue = arg2
+      arg3 = Citizen
+      arg3 = arg3.SetTimeout
+      arg4 = arg1.Timeout
+      function workValue19()
+        local arg12, workValue14
+        arg12 = workValue24
+        if nil ~= arg12 then
+          arg12 = type
+          workValue14 = workValue24
+          arg12 = arg12(workValue14)
+          if "function" == arg12 then
+            arg12 = flag
+            if not arg12 then
+              arg12 = numberValue
+              workValue14 = arg2
+              if arg12 == workValue14 then
+                arg12 = workValue9
+                arg12()
+                arg12 = workValue24
+                arg12()
               end
             end
           end
         end
       end
-      SHX2_2(SHX3_2, SHX4_2)
+      arg3(arg4, workValue19)
     end
   end
 end
-function SHX19_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.DisableControls
-  SHX1_2 = SHX1_2.Mouse
-  if SHX1_2 then
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 1
-    SHX3_2 = 1
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 1
-    SHX3_2 = 2
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 1
-    SHX3_2 = 106
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+function workValue13(arg1)
+  local arg2, arg3, arg4, workValue19
+  arg2 = arg1.DisableControls
+  arg2 = arg2.Mouse
+  if arg2 then
+    arg2 = DisableControlAction
+    arg3 = 1
+    arg4 = 1
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 1
+    arg4 = 2
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 1
+    arg4 = 106
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
   end
-  SHX1_2 = SHX0_2.DisableControls
-  SHX1_2 = SHX1_2.Player
-  if SHX1_2 then
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 21
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 30
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 31
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 36
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  arg2 = arg1.DisableControls
+  arg2 = arg2.Player
+  if arg2 then
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 21
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 30
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 31
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 36
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
   end
-  SHX1_2 = SHX0_2.DisableControls
-  SHX1_2 = SHX1_2.Vehicle
-  if SHX1_2 then
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 71
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 72
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 75
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+  arg2 = arg1.DisableControls
+  arg2 = arg2.Vehicle
+  if arg2 then
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 71
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 72
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 75
+    workValue19 = true
+    arg2(arg3, arg4, workValue19)
   end
 end
-DisableControls = SHX19_1
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = false
-  SHX8_1 = SHX0_2
-  SHX0_2 = SetNuiFocus
-  SHX1_2 = false
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
+DisableControls = workValue13
+function workValue13()
+  local arg1, arg2, arg3
+  arg1 = false
+  flag3 = arg1
+  arg1 = SetNuiFocus
+  arg2 = false
+  arg3 = false
+  -- Beginner: Give or remove mouse/keyboard focus from an NUI interface.
+  arg1(arg2, arg3)
 end
-SHX20_1 = RegisterNUICallback
-SHX21_1 = "progress_start"
-function SHX22_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX5_1
-  if nil ~= SHX2_2 then
-    SHX2_2 = SHX5_1
-    SHX2_2()
+workValue15 = RegisterNUICallback
+textValue2 = "progress_start"
+function workValue16(arg1, arg2)
+  local arg3, arg4
+  arg3 = workValue20
+  if nil ~= arg3 then
+    arg3 = workValue20
+    arg3()
   end
-  SHX2_2 = SHX1_2
-  SHX3_2 = "ok"
-  SHX2_2(SHX3_2)
+  arg3 = arg2
+  arg4 = "ok"
+  arg3(arg4)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = RegisterNUICallback
-SHX21_1 = "progress_complete"
-function SHX22_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX19_1
-  SHX2_2()
-  SHX2_2 = SHX6_1
-  if nil ~= SHX2_2 then
-    SHX2_2 = SHX6_1
-    SHX2_2()
-    SHX2_2 = SHX13_1
-    SHX2_2()
+workValue15(textValue2, workValue16)
+workValue15 = RegisterNUICallback
+textValue2 = "progress_complete"
+function workValue16(arg1, arg2)
+  local arg3, arg4
+  arg3 = workValue13
+  arg3()
+  arg3 = workValue22
+  if nil ~= arg3 then
+    arg3 = workValue22
+    arg3()
+    arg3 = workValue4
+    arg3()
   end
-  SHX2_2 = SHX1_2
-  SHX3_2 = "ok"
-  SHX2_2(SHX3_2)
+  arg3 = arg2
+  arg4 = "ok"
+  arg3(arg4)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = RegisterNUICallback
-SHX21_1 = "progress_stop"
-function SHX22_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX19_1
-  SHX2_2()
-  SHX2_2 = SHX13_1
-  SHX2_2()
-  SHX2_2 = SHX1_2
-  SHX3_2 = "ok"
-  SHX2_2(SHX3_2)
+workValue15(textValue2, workValue16)
+workValue15 = RegisterNUICallback
+textValue2 = "progress_stop"
+function workValue16(arg1, arg2)
+  local arg3, arg4
+  arg3 = workValue13
+  arg3()
+  arg3 = workValue4
+  arg3()
+  arg3 = arg2
+  arg4 = "ok"
+  arg3(arg4)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = RegisterNUICallback
-SHX21_1 = "progress_minigame_input"
-function SHX22_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = true
-  SHX10_1 = SHX2_2
-  SHX2_2 = SHX6_1
-  if nil ~= SHX2_2 then
-    SHX2_2 = SHX6_1
-    SHX3_2 = SHX0_2.success
-    SHX3_2 = true == SHX3_2
-    SHX2_2(SHX3_2)
+workValue15(textValue2, workValue16)
+workValue15 = RegisterNUICallback
+textValue2 = "progress_minigame_input"
+function workValue16(arg1, arg2)
+  local arg3, arg4
+  arg3 = true
+  flag = arg3
+  arg3 = workValue22
+  if nil ~= arg3 then
+    arg3 = workValue22
+    arg4 = arg1.success
+    arg4 = true == arg4
+    arg3(arg4)
   end
-  SHX2_2 = SHX13_1
-  SHX2_2()
-  SHX2_2 = SHX1_2
-  SHX3_2 = "ok"
-  SHX2_2(SHX3_2)
+  arg3 = workValue4
+  arg3()
+  arg3 = arg2
+  arg4 = "ok"
+  arg3(arg4)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = RegisterNUICallback
-SHX21_1 = "progress_minigame_complete"
-function SHX22_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX19_1
-  SHX2_2()
-  SHX2_2 = SHX1_2
-  SHX3_2 = "ok"
-  SHX2_2(SHX3_2)
+workValue15(textValue2, workValue16)
+workValue15 = RegisterNUICallback
+textValue2 = "progress_minigame_complete"
+function workValue16(arg1, arg2)
+  local arg3, arg4
+  arg3 = workValue13
+  arg3()
+  arg3 = arg2
+  arg4 = "ok"
+  arg3(arg4)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "rprogress:start"
-SHX20_1(SHX21_1)
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "rprogress:stop"
-SHX20_1(SHX21_1)
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "rprogress:custom"
-SHX20_1(SHX21_1)
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "rprogress:linear"
-SHX20_1(SHX21_1)
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "rprogress:minigame"
-SHX20_1(SHX21_1)
-SHX20_1 = AddEventHandler
-SHX21_1 = "rprogress:start"
-SHX22_1 = SHX12_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = AddEventHandler
-SHX21_1 = "rprogress:stop"
-SHX22_1 = SHX16_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = AddEventHandler
-SHX21_1 = "rprogress:custom"
-function SHX22_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX0_2.Async = false
-  SHX0_2.onStart = nil
-  SHX0_2.onComplete = nil
-  SHX1_2 = SHX14_1
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+workValue15(textValue2, workValue16)
+workValue15 = RegisterNetEvent
+textValue2 = "rprogress:start"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rprogress:start".
+workValue15(textValue2)
+workValue15 = RegisterNetEvent
+textValue2 = "rprogress:stop"
+workValue15(textValue2)
+workValue15 = RegisterNetEvent
+textValue2 = "rprogress:custom"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rprogress:custom".
+workValue15(textValue2)
+workValue15 = RegisterNetEvent
+textValue2 = "rprogress:linear"
+workValue15(textValue2)
+workValue15 = RegisterNetEvent
+textValue2 = "rprogress:minigame"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rprogress:minigame".
+workValue15(textValue2)
+workValue15 = AddEventHandler
+textValue2 = "rprogress:start"
+workValue16 = workValue2
+-- Beginner: Register a client-side event handler. Event/command: "rprogress:start".
+workValue15(textValue2, workValue16)
+workValue15 = AddEventHandler
+textValue2 = "rprogress:stop"
+workValue16 = workValue9
+workValue15(textValue2, workValue16)
+workValue15 = AddEventHandler
+textValue2 = "rprogress:custom"
+-- Beginner: this function runs when client event "rprogress:custom" fires.
+function workValue16(arg1)
+  local arg2, arg3
+  arg1.Async = false
+  arg1.onStart = nil
+  arg1.onComplete = nil
+  arg2 = workValue6
+  arg3 = arg1
+  arg2(arg3)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = AddEventHandler
-SHX21_1 = "rprogress:linear"
-SHX22_1 = SHX15_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = AddEventHandler
-SHX21_1 = "rprogress:minigame"
-SHX22_1 = SHX18_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = exports
-SHX21_1 = "progressStart"
-SHX22_1 = SHX12_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = exports
-SHX21_1 = "progressCustom"
-SHX22_1 = SHX14_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = exports
-SHX21_1 = "progressStop"
-SHX22_1 = SHX16_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = exports
-SHX21_1 = "progressStatic"
-SHX22_1 = SHX17_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = exports
-SHX21_1 = "progressLinear"
-SHX22_1 = SHX15_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = exports
-SHX21_1 = "progressMiniGame"
-SHX22_1 = SHX18_1
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = CMG
-SHX20_1.startCircularProgressBar = SHX12_1
-SHX20_1 = CMG
-SHX20_1.customCircularProgressBar = SHX14_1
-SHX20_1 = CMG
-SHX20_1.stopCircularProgressBar = SHX16_1
-SHX20_1 = CMG
-SHX20_1.staticCircularProgressBar = SHX17_1
-SHX20_1 = CMG
-SHX20_1.linerCircularProgressBar = SHX15_1
-SHX20_1 = CMG
-SHX20_1.minigameCircularProgressBar = SHX18_1
-SHX20_1 = CMG
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX8_1
-  return SHX0_2
+-- Beginner: Register a client-side event handler. Event/command: "rprogress:custom".
+workValue15(textValue2, workValue16)
+workValue15 = AddEventHandler
+textValue2 = "rprogress:linear"
+workValue16 = workValue7
+workValue15(textValue2, workValue16)
+workValue15 = AddEventHandler
+textValue2 = "rprogress:minigame"
+workValue16 = workValue12
+-- Beginner: Register a client-side event handler. Event/command: "rprogress:minigame".
+workValue15(textValue2, workValue16)
+workValue15 = exports
+textValue2 = "progressStart"
+workValue16 = workValue2
+workValue15(textValue2, workValue16)
+workValue15 = exports
+textValue2 = "progressCustom"
+workValue16 = workValue6
+workValue15(textValue2, workValue16)
+workValue15 = exports
+textValue2 = "progressStop"
+workValue16 = workValue9
+workValue15(textValue2, workValue16)
+workValue15 = exports
+textValue2 = "progressStatic"
+workValue16 = workValue10
+workValue15(textValue2, workValue16)
+workValue15 = exports
+textValue2 = "progressLinear"
+workValue16 = workValue7
+workValue15(textValue2, workValue16)
+workValue15 = exports
+textValue2 = "progressMiniGame"
+workValue16 = workValue12
+workValue15(textValue2, workValue16)
+workValue15 = CMG
+workValue15.startCircularProgressBar = workValue2
+workValue15 = CMG
+workValue15.customCircularProgressBar = workValue6
+workValue15 = CMG
+workValue15.stopCircularProgressBar = workValue9
+workValue15 = CMG
+workValue15.staticCircularProgressBar = workValue10
+workValue15 = CMG
+workValue15.linerCircularProgressBar = workValue7
+workValue15 = CMG
+workValue15.minigameCircularProgressBar = workValue12
+workValue15 = CMG
+function textValue2()
+  local arg1, arg2
+  arg1 = flag3
+  return arg1
 end
-SHX20_1.isProgressBarRunning = SHX21_1
+workValue15.isProgressBarRunning = textValue2

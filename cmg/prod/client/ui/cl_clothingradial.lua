@@ -1,4 +1,40 @@
 --[[
+    BEGINNER GUIDE — Clothingradial
+    ===============================
+
+    File: cmg/prod/client/ui/cl_clothingradial.lua
+    Purpose: This file contains menu/UI logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/ped_cfg/clothingradial
+
+    Commands/command-like entries found:
+      * chat:addSuggestion
+
+    Named framework/network events found:
+      * dpc:EquipLast
+      * dpc:ResetClothing
+      * dpc:ToggleMenu
+      * dpc:Menu
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * You are already wearing that.
+      * You dont appear to have anything to remove.
+      * You cannot do this without your shirt on.
+      * dpc:ToggleMenu
+      * dpc:Menu
+
+]]
+--[[
     Clothing Radial Menu - beginner-friendly rewrite
     ------------------------------------------------
     This file is a readable rewrite of the supplied decompiled Lua.

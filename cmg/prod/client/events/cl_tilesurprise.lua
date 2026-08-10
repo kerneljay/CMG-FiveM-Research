@@ -1,3 +1,36 @@
+--[[
+    BEGINNER GUIDE — Tilesurprise
+    =============================
+
+    File: cmg/prod/client/events/cl_tilesurprise.lua
+    Purpose: This file contains event/minigame logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/events/cfg_tilesurprise
+
+    Network/hash identifiers found: 8
+      They are intentionally left unchanged because matching server code may use them.
+      * cba023ac32
+      * 22086f3ac9
+      * 460d7ee179
+      * bb0fad16db
+      * 6d6db403a1
+      * b328b55f35
+      * 0c97107a0d
+      * 70a0b3cccd
+
+    Example player-facing text in this file:
+      * Enter Spawncode
+
+]]
 -- Tile Surprise
 -- Cleaned/reconstructed from decompiled FiveM Lua.
 --

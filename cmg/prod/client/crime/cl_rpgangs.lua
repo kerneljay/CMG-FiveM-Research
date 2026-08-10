@@ -1,655 +1,606 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_rpgangs.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = vector3
-SHX3_1 = 127.98108673096
-SHX4_1 = 290.15972900391
-SHX5_1 = 110.05869293213
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX3_1 = 50.0
-SHX4_1 = 189
-SHX5_1 = "Usual Suspect Gang"
-SHX1_1[1] = SHX2_1
-SHX1_1[2] = SHX3_1
-SHX1_1[3] = SHX4_1
-SHX1_1[4] = SHX5_1
-SHX2_1 = {}
-SHX3_1 = vector3
-SHX4_1 = -287.86434936523
-SHX5_1 = -927.96563720703
-SHX6_1 = 30.989921569824
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX4_1 = 50.0
-SHX5_1 = 187
-SHX6_1 = "Marketplace"
-SHX7_1 = 161
-SHX8_1 = 141.0
-SHX9_1 = 112.0
-SHX2_1[1] = SHX3_1
-SHX2_1[2] = SHX4_1
-SHX2_1[3] = SHX5_1
-SHX2_1[4] = SHX6_1
-SHX2_1[5] = SHX7_1
-SHX2_1[6] = SHX8_1
-SHX2_1[7] = SHX9_1
-SHX3_1 = {}
-SHX4_1 = vector3
-SHX5_1 = 2057.8974609375
-SHX6_1 = 5107.5805664062
-SHX7_1 = 41.957500457764
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = 42.0
-SHX6_1 = 205
-SHX7_1 = "Lost MC"
-SHX8_1 = 130
-SHX9_1 = 140.0
-SHX10_1 = 95.0
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX3_1[5] = SHX8_1
-SHX3_1[6] = SHX9_1
-SHX3_1[7] = SHX10_1
-SHX4_1 = {}
-SHX5_1 = vector3
-SHX6_1 = -199.15863037109
-SHX7_1 = -1305.1937255859
-SHX8_1 = 30.882265090942
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = 58.0
-SHX7_1 = 188
-SHX8_1 = "Hood Community"
-SHX4_1[1] = SHX5_1
-SHX4_1[2] = SHX6_1
-SHX4_1[3] = SHX7_1
-SHX4_1[4] = SHX8_1
-SHX5_1 = {}
-SHX6_1 = vector3
-SHX7_1 = -49.460006713867
-SHX8_1 = 346.0344543457
-SHX9_1 = 114.64958953857
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX7_1 = 50.0
-SHX8_1 = 197
-SHX9_1 = "Sixth Sense Mob"
-SHX10_1 = 155
-SHX11_1 = 170.0
-SHX12_1 = 80.0
-SHX5_1[1] = SHX6_1
-SHX5_1[2] = SHX7_1
-SHX5_1[3] = SHX8_1
-SHX5_1[4] = SHX9_1
-SHX5_1[5] = SHX10_1
-SHX5_1[6] = SHX11_1
-SHX5_1[7] = SHX12_1
-SHX6_1 = {}
-SHX7_1 = vector3
-SHX8_1 = -1039.9621582031
-SHX9_1 = -1386.79296875
-SHX10_1 = 5.3323001862
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX8_1 = 86.0
-SHX9_1 = 181
-SHX10_1 = "LCF"
-SHX11_1 = 167
-SHX12_1 = 47.26
-SHX13_1 = 157.07
-SHX6_1[1] = SHX7_1
-SHX6_1[2] = SHX8_1
-SHX6_1[3] = SHX9_1
-SHX6_1[4] = SHX10_1
-SHX6_1[5] = SHX11_1
-SHX6_1[6] = SHX12_1
-SHX6_1[7] = SHX13_1
-SHX7_1 = {}
-SHX8_1 = vector3
-SHX9_1 = 2445.666015625
-SHX10_1 = 4975.6484375
-SHX11_1 = 52.111328125
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX9_1 = 50.0
-SHX10_1 = 184
-SHX11_1 = "Redline"
-SHX12_1 = 133
-SHX13_1 = 100.0
-SHX14_1 = 100.0
-SHX7_1[1] = SHX8_1
-SHX7_1[2] = SHX9_1
-SHX7_1[3] = SHX10_1
-SHX7_1[4] = SHX11_1
-SHX7_1[5] = SHX12_1
-SHX7_1[6] = SHX13_1
-SHX7_1[7] = SHX14_1
-SHX8_1 = {}
-SHX9_1 = vector3
-SHX10_1 = 2402.9499511719
-SHX11_1 = 3088.978515625
-SHX12_1 = 48.78178024292
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX10_1 = 80.0
-SHX11_1 = 685
-SHX12_1 = "Roleplay Zone"
-SHX8_1[1] = SHX9_1
-SHX8_1[2] = SHX10_1
-SHX8_1[3] = SHX11_1
-SHX8_1[4] = SHX12_1
-SHX9_1 = {}
-SHX10_1 = vector3
-SHX11_1 = 3321.3889160156
-SHX12_1 = 5156.1772460938
-SHX13_1 = 18.380844116211
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX11_1 = 80.0
-SHX12_1 = 685
-SHX13_1 = "Roleplay Zone"
-SHX9_1[1] = SHX10_1
-SHX9_1[2] = SHX11_1
-SHX9_1[3] = SHX12_1
-SHX9_1[4] = SHX13_1
-SHX10_1 = {}
-SHX11_1 = vector3
-SHX12_1 = -1086.5549316406
-SHX13_1 = -827.99389648438
-SHX14_1 = 19.511960983276
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX12_1 = 80.0
-SHX13_1 = 685
-SHX14_1 = "Roleplay Zone"
-SHX10_1[1] = SHX11_1
-SHX10_1[2] = SHX12_1
-SHX10_1[3] = SHX13_1
-SHX10_1[4] = SHX14_1
-SHX11_1 = {}
-SHX12_1 = vector3
-SHX13_1 = -1661.9858398438
-SHX14_1 = -3154.4782714844
-SHX15_1 = 13.502897262573
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX13_1 = 80.0
-SHX14_1 = 685
-SHX15_1 = "Roleplay Zone"
-SHX11_1[1] = SHX12_1
-SHX11_1[2] = SHX13_1
-SHX11_1[3] = SHX14_1
-SHX11_1[4] = SHX15_1
-SHX12_1 = {}
-SHX13_1 = vector3
-SHX14_1 = -1686.3610839844
-SHX15_1 = -293.0182800293
-SHX16_1 = 51.891357421875
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX14_1 = 80.0
-SHX15_1 = 685
-SHX16_1 = "Roleplay Zone"
-SHX12_1[1] = SHX13_1
-SHX12_1[2] = SHX14_1
-SHX12_1[3] = SHX15_1
-SHX12_1[4] = SHX16_1
-SHX13_1 = {}
-SHX14_1 = vector3
-SHX15_1 = -457.80532836914
-SHX16_1 = -1709.3931884766
-SHX17_1 = 19.815269470215
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX15_1 = 80.0
-SHX16_1 = 685
-SHX17_1 = "Roleplay Zone"
-SHX13_1[1] = SHX14_1
-SHX13_1[2] = SHX15_1
-SHX13_1[3] = SHX16_1
-SHX13_1[4] = SHX17_1
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX0_1[5] = SHX5_1
-SHX0_1[6] = SHX6_1
-SHX0_1[7] = SHX7_1
-SHX0_1[8] = SHX8_1
-SHX0_1[9] = SHX9_1
-SHX0_1[10] = SHX10_1
-SHX0_1[11] = SHX11_1
-SHX0_1[12] = SHX12_1
-SHX0_1[13] = SHX13_1
-SHX1_1 = {}
-SHX2_1 = {}
-SHX2_1.name = 934417225
-SHX3_1 = vector3
-SHX4_1 = -290.36880493164
-SHX5_1 = -922.52156982422
-SHX6_1 = 33.551481246948
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.position = SHX3_1
-SHX2_1.heading = 160.39868164062
-SHX2_1.distance = 400.0
-SHX1_1[1] = SHX2_1
-SHX2_1 = {}
-SHX3_1 = {}
-SHX4_1 = vector3
-SHX5_1 = 2069.1391601562
-SHX6_1 = 5117.2578125
-SHX7_1 = 50.99206161499
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.position = SHX4_1
-SHX3_1.radius = 8.8
-SHX2_1[1] = SHX3_1
-SHX3_1 = false
-SHX4_1 = {}
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = true
-  SHX3_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = GetGameTimer
-    SHX0_3 = SHX0_3()
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Rpgangs
+    ========================
+
+    File: cmg/prod/client/crime/cl_rpgangs.lua
+    Purpose: This file contains crime/gang/heist gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+]]
+local dataTable, dataTable2, vector3Builder, vector3Builder2, numberValue7, textValue5, textValue6, textValue7, numberValue8, numberValue9, numberValue, numberValue2, numberValue3, numberValue4, textValue, textValue2, textValue3, textValue4, workValue, workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3, dataTable4
+dataTable = {}
+dataTable2 = {}
+vector3Builder = vector3
+vector3Builder2 = 127.98108673096
+numberValue7 = 290.15972900391
+textValue5 = 110.05869293213
+vector3Builder = vector3Builder(vector3Builder2, numberValue7, textValue5)
+vector3Builder2 = 50.0
+numberValue7 = 189
+textValue5 = "Usual Suspect Gang"
+dataTable2[1] = vector3Builder
+dataTable2[2] = vector3Builder2
+dataTable2[3] = numberValue7
+dataTable2[4] = textValue5
+vector3Builder = {}
+vector3Builder2 = vector3
+numberValue7 = -287.86434936523
+textValue5 = -927.96563720703
+textValue6 = 30.989921569824
+vector3Builder2 = vector3Builder2(numberValue7, textValue5, textValue6)
+numberValue7 = 50.0
+textValue5 = 187
+textValue6 = "Marketplace"
+textValue7 = 161
+numberValue8 = 141.0
+numberValue9 = 112.0
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = numberValue7
+vector3Builder[3] = textValue5
+vector3Builder[4] = textValue6
+vector3Builder[5] = textValue7
+vector3Builder[6] = numberValue8
+vector3Builder[7] = numberValue9
+vector3Builder2 = {}
+numberValue7 = vector3
+textValue5 = 2057.8974609375
+textValue6 = 5107.5805664062
+textValue7 = 41.957500457764
+numberValue7 = numberValue7(textValue5, textValue6, textValue7)
+textValue5 = 42.0
+textValue6 = 205
+textValue7 = "Lost MC"
+numberValue8 = 130
+numberValue9 = 140.0
+numberValue = 95.0
+vector3Builder2[1] = numberValue7
+vector3Builder2[2] = textValue5
+vector3Builder2[3] = textValue6
+vector3Builder2[4] = textValue7
+vector3Builder2[5] = numberValue8
+vector3Builder2[6] = numberValue9
+vector3Builder2[7] = numberValue
+numberValue7 = {}
+textValue5 = vector3
+textValue6 = -199.15863037109
+textValue7 = -1305.1937255859
+numberValue8 = 30.882265090942
+textValue5 = textValue5(textValue6, textValue7, numberValue8)
+textValue6 = 58.0
+textValue7 = 188
+numberValue8 = "Hood Community"
+numberValue7[1] = textValue5
+numberValue7[2] = textValue6
+numberValue7[3] = textValue7
+numberValue7[4] = numberValue8
+textValue5 = {}
+textValue6 = vector3
+textValue7 = -49.460006713867
+numberValue8 = 346.0344543457
+numberValue9 = 114.64958953857
+textValue6 = textValue6(textValue7, numberValue8, numberValue9)
+textValue7 = 50.0
+numberValue8 = 197
+numberValue9 = "Sixth Sense Mob"
+numberValue = 155
+numberValue2 = 170.0
+numberValue3 = 80.0
+textValue5[1] = textValue6
+textValue5[2] = textValue7
+textValue5[3] = numberValue8
+textValue5[4] = numberValue9
+textValue5[5] = numberValue
+textValue5[6] = numberValue2
+textValue5[7] = numberValue3
+textValue6 = {}
+textValue7 = vector3
+numberValue8 = -1039.9621582031
+numberValue9 = -1386.79296875
+numberValue = 5.3323001862
+textValue7 = textValue7(numberValue8, numberValue9, numberValue)
+numberValue8 = 86.0
+numberValue9 = 181
+numberValue = "LCF"
+numberValue2 = 167
+numberValue3 = 47.26
+numberValue4 = 157.07
+textValue6[1] = textValue7
+textValue6[2] = numberValue8
+textValue6[3] = numberValue9
+textValue6[4] = numberValue
+textValue6[5] = numberValue2
+textValue6[6] = numberValue3
+textValue6[7] = numberValue4
+textValue7 = {}
+numberValue8 = vector3
+numberValue9 = 2445.666015625
+numberValue = 4975.6484375
+numberValue2 = 52.111328125
+numberValue8 = numberValue8(numberValue9, numberValue, numberValue2)
+numberValue9 = 50.0
+numberValue = 184
+numberValue2 = "Redline"
+numberValue3 = 133
+numberValue4 = 100.0
+textValue = 100.0
+textValue7[1] = numberValue8
+textValue7[2] = numberValue9
+textValue7[3] = numberValue
+textValue7[4] = numberValue2
+textValue7[5] = numberValue3
+textValue7[6] = numberValue4
+textValue7[7] = textValue
+numberValue8 = {}
+numberValue9 = vector3
+numberValue = 2402.9499511719
+numberValue2 = 3088.978515625
+numberValue3 = 48.78178024292
+numberValue9 = numberValue9(numberValue, numberValue2, numberValue3)
+numberValue = 80.0
+numberValue2 = 685
+numberValue3 = "Roleplay Zone"
+numberValue8[1] = numberValue9
+numberValue8[2] = numberValue
+numberValue8[3] = numberValue2
+numberValue8[4] = numberValue3
+numberValue9 = {}
+numberValue = vector3
+numberValue2 = 3321.3889160156
+numberValue3 = 5156.1772460938
+numberValue4 = 18.380844116211
+numberValue = numberValue(numberValue2, numberValue3, numberValue4)
+numberValue2 = 80.0
+numberValue3 = 685
+numberValue4 = "Roleplay Zone"
+numberValue9[1] = numberValue
+numberValue9[2] = numberValue2
+numberValue9[3] = numberValue3
+numberValue9[4] = numberValue4
+numberValue = {}
+numberValue2 = vector3
+numberValue3 = -1086.5549316406
+numberValue4 = -827.99389648438
+textValue = 19.511960983276
+numberValue2 = numberValue2(numberValue3, numberValue4, textValue)
+numberValue3 = 80.0
+numberValue4 = 685
+textValue = "Roleplay Zone"
+numberValue[1] = numberValue2
+numberValue[2] = numberValue3
+numberValue[3] = numberValue4
+numberValue[4] = textValue
+numberValue2 = {}
+numberValue3 = vector3
+numberValue4 = -1661.9858398438
+textValue = -3154.4782714844
+textValue2 = 13.502897262573
+numberValue3 = numberValue3(numberValue4, textValue, textValue2)
+numberValue4 = 80.0
+textValue = 685
+textValue2 = "Roleplay Zone"
+numberValue2[1] = numberValue3
+numberValue2[2] = numberValue4
+numberValue2[3] = textValue
+numberValue2[4] = textValue2
+numberValue3 = {}
+numberValue4 = vector3
+textValue = -1686.3610839844
+textValue2 = -293.0182800293
+textValue3 = 51.891357421875
+numberValue4 = numberValue4(textValue, textValue2, textValue3)
+textValue = 80.0
+textValue2 = 685
+textValue3 = "Roleplay Zone"
+numberValue3[1] = numberValue4
+numberValue3[2] = textValue
+numberValue3[3] = textValue2
+numberValue3[4] = textValue3
+numberValue4 = {}
+textValue = vector3
+textValue2 = -457.80532836914
+textValue3 = -1709.3931884766
+textValue4 = 19.815269470215
+textValue = textValue(textValue2, textValue3, textValue4)
+textValue2 = 80.0
+textValue3 = 685
+textValue4 = "Roleplay Zone"
+numberValue4[1] = textValue
+numberValue4[2] = textValue2
+numberValue4[3] = textValue3
+numberValue4[4] = textValue4
+dataTable[1] = dataTable2
+dataTable[2] = vector3Builder
+dataTable[3] = vector3Builder2
+dataTable[4] = numberValue7
+dataTable[5] = textValue5
+dataTable[6] = textValue6
+dataTable[7] = textValue7
+dataTable[8] = numberValue8
+dataTable[9] = numberValue9
+dataTable[10] = numberValue
+dataTable[11] = numberValue2
+dataTable[12] = numberValue3
+dataTable[13] = numberValue4
+dataTable2 = {}
+vector3Builder = {}
+vector3Builder.name = 934417225
+vector3Builder2 = vector3
+numberValue7 = -290.36880493164
+textValue5 = -922.52156982422
+textValue6 = 33.551481246948
+vector3Builder2 = vector3Builder2(numberValue7, textValue5, textValue6)
+vector3Builder.position = vector3Builder2
+vector3Builder.heading = 160.39868164062
+vector3Builder.distance = 400.0
+dataTable2[1] = vector3Builder
+vector3Builder = {}
+vector3Builder2 = {}
+numberValue7 = vector3
+textValue5 = 2069.1391601562
+textValue6 = 5117.2578125
+textValue7 = 50.99206161499
+numberValue7 = numberValue7(textValue5, textValue6, textValue7)
+vector3Builder2.position = numberValue7
+vector3Builder2.radius = 8.8
+vector3Builder[1] = vector3Builder2
+vector3Builder2 = false
+numberValue7 = {}
+function textValue5()
+  local arg1, cmgCall
+  arg1 = true
+  vector3Builder2 = arg1
+  arg1 = Citizen
+  arg1 = arg1.CreateThread
+  function cmgCall()
+    local gameTime, gameTime2, tableHelper
+    gameTime = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    gameTime = gameTime()
     while true do
-      SHX1_3 = GetGameTimer
-      SHX1_3 = SHX1_3()
-      SHX1_3 = SHX1_3 - SHX0_3
-      SHX2_3 = 5000
-      if not (SHX1_3 < SHX2_3) then
+      gameTime2 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      gameTime2 = gameTime2()
+      gameTime2 = gameTime2 - gameTime
+      tableHelper = 5000
+      if not (gameTime2 < tableHelper) then
         break
       end
-      SHX1_3 = SHX3_1
-      if not SHX1_3 then
+      gameTime2 = vector3Builder2
+      if not gameTime2 then
         break
       end
-      SHX1_3 = drawNativeText
-      SHX2_3 = "~q~Entered a Notable zone"
-      SHX1_3(SHX2_3)
-      SHX1_3 = Citizen
-      SHX1_3 = SHX1_3.Wait
-      SHX2_3 = 0
-      SHX1_3(SHX2_3)
+      gameTime2 = drawNativeText
+      tableHelper = "~q~Entered a Notable zone"
+      -- Beginner: Draw GTA-style text on screen.
+      gameTime2(tableHelper)
+      gameTime2 = Citizen
+      gameTime2 = gameTime2.Wait
+      tableHelper = 0
+      gameTime2(tableHelper)
     end
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(cmgCall)
 end
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX3_1 = SHX0_2
+function textValue6()
+  local arg1, cmgCall
+  arg1 = false
+  vector3Builder2 = arg1
 end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = true
-  SHX3_1 = SHX0_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = GetGameTimer
-    SHX0_3 = SHX0_3()
+function textValue7()
+  local arg1, cmgCall
+  arg1 = true
+  vector3Builder2 = arg1
+  arg1 = Citizen
+  arg1 = arg1.CreateThread
+  function cmgCall()
+    local gameTime, gameTime2, tableHelper
+    gameTime = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    gameTime = gameTime()
     while true do
-      SHX1_3 = GetGameTimer
-      SHX1_3 = SHX1_3()
-      SHX1_3 = SHX1_3 - SHX0_3
-      SHX2_3 = 5000
-      if not (SHX1_3 < SHX2_3) then
+      gameTime2 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      gameTime2 = gameTime2()
+      gameTime2 = gameTime2 - gameTime
+      tableHelper = 5000
+      if not (gameTime2 < tableHelper) then
         break
       end
-      SHX1_3 = SHX3_1
-      if not SHX1_3 then
+      gameTime2 = vector3Builder2
+      if not gameTime2 then
         break
       end
-      SHX1_3 = drawNativeText
-      SHX2_3 = "~q~Entered a Roleplay zone"
-      SHX1_3(SHX2_3)
-      SHX1_3 = Citizen
-      SHX1_3 = SHX1_3.Wait
-      SHX2_3 = 0
-      SHX1_3(SHX2_3)
+      gameTime2 = drawNativeText
+      tableHelper = "~q~Entered a Roleplay zone"
+      -- Beginner: Draw GTA-style text on screen.
+      gameTime2(tableHelper)
+      gameTime2 = Citizen
+      gameTime2 = gameTime2.Wait
+      tableHelper = 0
+      gameTime2(tableHelper)
     end
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(cmgCall)
 end
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX3_1 = SHX0_2
+function numberValue8()
+  local arg1, cmgCall
+  arg1 = false
+  vector3Builder2 = arg1
 end
-SHX9_1 = pairs
-SHX10_1 = SHX0_1
-SHX9_1, SHX10_1, SHX11_1, SHX12_1 = SHX9_1(SHX10_1)
-for SHX13_1, SHX14_1 in SHX9_1, SHX10_1, SHX11_1, SHX12_1 do
-  SHX15_1 = 0
-  SHX16_1 = SHX14_1[5]
-  if SHX16_1 then
-    SHX16_1 = SHX14_1[6]
-    if SHX16_1 then
-      SHX16_1 = SHX14_1[7]
-      if SHX16_1 then
-        SHX16_1 = AddBlipForArea
-        SHX17_1 = SHX14_1[1]
-        SHX17_1 = SHX17_1.x
-        SHX18_1 = SHX14_1[1]
-        SHX18_1 = SHX18_1.y
-        SHX19_1 = SHX14_1[1]
-        SHX19_1 = SHX19_1.z
-        SHX20_1 = SHX14_1[6]
-        SHX21_1 = SHX14_1[7]
-        SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1)
-        SHX15_1 = SHX16_1
-        SHX16_1 = SetBlipRotation
-        SHX17_1 = SHX15_1
-        SHX18_1 = SHX14_1[5]
-        SHX16_1(SHX17_1, SHX18_1)
-        SHX16_1 = SetBlipSprite
-        SHX17_1 = SHX15_1
-        SHX18_1 = 608
-        SHX16_1(SHX17_1, SHX18_1)
+numberValue9 = pairs
+numberValue = dataTable
+numberValue9, numberValue, numberValue2, numberValue3 = numberValue9(numberValue)
+for numberValue4, textValue in numberValue9, numberValue, numberValue2, numberValue3 do
+  textValue2 = 0
+  textValue3 = textValue[5]
+  if textValue3 then
+    textValue3 = textValue[6]
+    if textValue3 then
+      textValue3 = textValue[7]
+      if textValue3 then
+        textValue3 = AddBlipForArea
+        textValue4 = textValue[1]
+        textValue4 = textValue4.x
+        workValue = textValue[1]
+        workValue = workValue.y
+        workValue2 = textValue[1]
+        workValue2 = workValue2.z
+        workValue3 = textValue[6]
+        numberValue5 = textValue[7]
+        textValue3 = textValue3(textValue4, workValue, workValue2, workValue3, numberValue5)
+        textValue2 = textValue3
+        textValue3 = SetBlipRotation
+        textValue4 = textValue2
+        workValue = textValue[5]
+        textValue3(textValue4, workValue)
+        textValue3 = SetBlipSprite
+        textValue4 = textValue2
+        workValue = 608
+        textValue3(textValue4, workValue)
     end
   end
   else
-    SHX16_1 = AddBlipForRadius
-    SHX17_1 = SHX14_1[1]
-    SHX17_1 = SHX17_1.x
-    SHX18_1 = SHX14_1[1]
-    SHX18_1 = SHX18_1.y
-    SHX19_1 = SHX14_1[1]
-    SHX19_1 = SHX19_1.z
-    SHX20_1 = SHX14_1[2]
-    SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1)
-    SHX15_1 = SHX16_1
+    textValue3 = AddBlipForRadius
+    textValue4 = textValue[1]
+    textValue4 = textValue4.x
+    workValue = textValue[1]
+    workValue = workValue.y
+    workValue2 = textValue[1]
+    workValue2 = workValue2.z
+    workValue3 = textValue[2]
+    -- Beginner: result below is blipHandle.
+    textValue3 = textValue3(textValue4, workValue, workValue2, workValue3)
+    textValue2 = textValue3
   end
-  SHX16_1 = SetBlipColour
-  SHX17_1 = SHX15_1
-  SHX18_1 = 27
-  SHX16_1(SHX17_1, SHX18_1)
-  SHX16_1 = SetBlipAlpha
-  SHX17_1 = SHX15_1
-  SHX18_1 = 180
-  SHX16_1(SHX17_1, SHX18_1)
-  SHX16_1 = SHX14_1[4]
-  if "Roleplay Zone" == SHX16_1 then
-    SHX16_1 = tCMG
-    SHX16_1 = SHX16_1.addBlip
-    SHX17_1 = SHX14_1[1]
-    SHX17_1 = SHX17_1.x
-    SHX18_1 = SHX14_1[1]
-    SHX18_1 = SHX18_1.y
-    SHX19_1 = SHX14_1[1]
-    SHX19_1 = SHX19_1.z
-    SHX20_1 = SHX14_1[3]
-    SHX21_1 = 1
-    SHX22_1 = SHX14_1[4]
-    SHX23_1 = 1.0
-    SHX24_1 = false
-    SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1)
-    SHX16_1 = CMG
-    SHX16_1 = SHX16_1.createArea
-    SHX17_1 = "notable_zone_"
-    SHX18_1 = tostring
-    SHX19_1 = SHX13_1
-    SHX18_1 = SHX18_1(SHX19_1)
-    SHX17_1 = SHX17_1 .. SHX18_1
-    SHX18_1 = SHX14_1[1]
-    SHX19_1 = SHX14_1[2]
-    SHX20_1 = 100.0
-    SHX21_1 = SHX7_1
-    SHX22_1 = SHX8_1
-    function SHX23_1()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_2, SHX1_2
+  textValue3 = SetBlipColour
+  textValue4 = textValue2
+  workValue = 27
+  textValue3(textValue4, workValue)
+  textValue3 = SetBlipAlpha
+  textValue4 = textValue2
+  workValue = 180
+  textValue3(textValue4, workValue)
+  textValue3 = textValue[4]
+  if "Roleplay Zone" == textValue3 then
+    textValue3 = tCMG
+    textValue3 = textValue3.addBlip
+    textValue4 = textValue[1]
+    textValue4 = textValue4.x
+    workValue = textValue[1]
+    workValue = workValue.y
+    workValue2 = textValue[1]
+    workValue2 = workValue2.z
+    workValue3 = textValue[3]
+    numberValue5 = 1
+    workValue4 = textValue[4]
+    numberValue6 = 1.0
+    dataTable3 = false
+    -- Beginner: Create a minimap blip.
+    textValue3(textValue4, workValue, workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3)
+    textValue3 = CMG
+    textValue3 = textValue3.createArea
+    textValue4 = "notable_zone_"
+    workValue = tostring
+    workValue2 = numberValue4
+    workValue = workValue(workValue2)
+    textValue4 = textValue4 .. workValue
+    workValue = textValue[1]
+    workValue2 = textValue[2]
+    workValue3 = 100.0
+    numberValue5 = textValue7
+    workValue4 = numberValue8
+    function numberValue6()
+      local arg1, cmgCall
     end
-    SHX24_1 = {}
-    SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1)
+    dataTable3 = {}
+    -- Beginner: Create an interaction area around a world position.
+    textValue3(textValue4, workValue, workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3)
   else
-    SHX16_1 = tCMG
-    SHX16_1 = SHX16_1.addBlip
-    SHX17_1 = SHX14_1[1]
-    SHX17_1 = SHX17_1.x
-    SHX18_1 = SHX14_1[1]
-    SHX18_1 = SHX18_1.y
-    SHX19_1 = SHX14_1[1]
-    SHX19_1 = SHX19_1.z
-    SHX20_1 = SHX14_1[3]
-    SHX21_1 = 0
-    SHX22_1 = SHX14_1[4]
-    SHX23_1 = 1.0
-    SHX24_1 = false
-    SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1)
-    SHX16_1 = CMG
-    SHX16_1 = SHX16_1.createArea
-    SHX17_1 = "notable_zone_"
-    SHX18_1 = tostring
-    SHX19_1 = SHX13_1
-    SHX18_1 = SHX18_1(SHX19_1)
-    SHX17_1 = SHX17_1 .. SHX18_1
-    SHX18_1 = SHX14_1[1]
-    SHX19_1 = SHX14_1[2]
-    SHX20_1 = 100.0
-    SHX21_1 = SHX5_1
-    SHX22_1 = SHX6_1
-    function SHX23_1()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_2, SHX1_2
+    textValue3 = tCMG
+    textValue3 = textValue3.addBlip
+    textValue4 = textValue[1]
+    textValue4 = textValue4.x
+    workValue = textValue[1]
+    workValue = workValue.y
+    workValue2 = textValue[1]
+    workValue2 = workValue2.z
+    workValue3 = textValue[3]
+    numberValue5 = 0
+    workValue4 = textValue[4]
+    numberValue6 = 1.0
+    dataTable3 = false
+    -- Beginner: Create a minimap blip.
+    textValue3(textValue4, workValue, workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3)
+    textValue3 = CMG
+    textValue3 = textValue3.createArea
+    textValue4 = "notable_zone_"
+    workValue = tostring
+    workValue2 = numberValue4
+    workValue = workValue(workValue2)
+    textValue4 = textValue4 .. workValue
+    workValue = textValue[1]
+    workValue2 = textValue[2]
+    workValue3 = 100.0
+    numberValue5 = textValue5
+    workValue4 = textValue6
+    function numberValue6()
+      local arg1, cmgCall
     end
-    SHX24_1 = {}
-    SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1)
+    dataTable3 = {}
+    -- Beginner: Create an interaction area around a world position.
+    textValue3(textValue4, workValue, workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3)
   end
 end
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadModel
-  SHX2_2 = SHX0_2.info
-  SHX2_2 = SHX2_2.name
-  SHX1_2(SHX2_2)
-  SHX1_2 = CreateObjectNoOffset
-  SHX2_2 = SHX0_2.info
-  SHX2_2 = SHX2_2.name
-  SHX3_2 = SHX0_2.info
-  SHX3_2 = SHX3_2.position
-  SHX3_2 = SHX3_2.x
-  SHX4_2 = SHX0_2.info
-  SHX4_2 = SHX4_2.position
-  SHX4_2 = SHX4_2.y
-  SHX5_2 = SHX0_2.info
-  SHX5_2 = SHX5_2.position
-  SHX5_2 = SHX5_2.z
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX2_2 = SetEntityHeading
-  SHX3_2 = SHX1_2
-  SHX4_2 = SHX0_2.info
-  SHX4_2 = SHX4_2.heading
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = FreezeEntityPosition
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetModelAsNoLongerNeeded
-  SHX3_2 = SHX0_2.info
-  SHX3_2 = SHX3_2.name
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetEntityLodDist
-  SHX3_2 = SHX1_2
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.floor
-  SHX5_2 = SHX0_2.info
-  SHX5_2 = SHX5_2.distance
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX4_2(SHX5_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2 = SHX0_2.index
-  SHX2_2 = SHX4_1
-  SHX2_2[SHX3_2] = SHX1_2
+function numberValue9(arg1)
+  local cmgCall, nameValue, position, position2, position3, flag, flag2, flag3
+  cmgCall = CMG
+  cmgCall = cmgCall.loadModel
+  nameValue = arg1.info
+  nameValue = nameValue.name
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  cmgCall(nameValue)
+  cmgCall = CreateObjectNoOffset
+  nameValue = arg1.info
+  nameValue = nameValue.name
+  position = arg1.info
+  position = position.position
+  position = position.x
+  position2 = arg1.info
+  position2 = position2.position
+  position2 = position2.y
+  position3 = arg1.info
+  position3 = position3.position
+  position3 = position3.z
+  flag = false
+  flag2 = false
+  flag3 = false
+  -- Beginner: result below is objectEntity.
+  cmgCall = cmgCall(nameValue, position, position2, position3, flag, flag2, flag3)
+  nameValue = SetEntityHeading
+  position = cmgCall
+  position2 = arg1.info
+  position2 = position2.heading
+  -- Beginner: Change the direction an entity is facing.
+  nameValue(position, position2)
+  nameValue = FreezeEntityPosition
+  position = cmgCall
+  position2 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  nameValue(position, position2)
+  nameValue = SetModelAsNoLongerNeeded
+  position = arg1.info
+  position = position.name
+  nameValue(position)
+  nameValue = SetEntityLodDist
+  position = cmgCall
+  position2 = math
+  position2 = position2.floor
+  position3 = arg1.info
+  position3 = position3.distance
+  position2, position3, flag, flag2, flag3 = position2(position3)
+  nameValue(position, position2, position3, flag, flag2, flag3)
+  position = arg1.index
+  nameValue = numberValue7
+  nameValue[position] = cmgCall
 end
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX2_2 = SHX0_2.index
-  SHX1_2 = SHX4_1
-  SHX1_2 = SHX1_2[SHX2_2]
-  if SHX1_2 then
-    SHX2_2 = DeleteEntity
-    SHX3_2 = SHX1_2
-    SHX2_2(SHX3_2)
-    SHX3_2 = SHX0_2.index
-    SHX2_2 = SHX4_1
-    SHX2_2[SHX3_2] = nil
+function numberValue(arg1)
+  local cmgCall, nameValue, position
+  nameValue = arg1.index
+  cmgCall = numberValue7
+  cmgCall = cmgCall[nameValue]
+  if cmgCall then
+    nameValue = DeleteEntity
+    position = cmgCall
+    -- Beginner: Delete a GTA entity.
+    nameValue(position)
+    position = arg1.index
+    nameValue = numberValue7
+    nameValue[position] = nil
   end
 end
-SHX11_1 = pairs
-SHX12_1 = SHX1_1
-SHX11_1, SHX12_1, SHX13_1, SHX14_1 = SHX11_1(SHX12_1)
-for SHX15_1, SHX16_1 in SHX11_1, SHX12_1, SHX13_1, SHX14_1 do
-  SHX17_1 = CMG
-  SHX17_1 = SHX17_1.createArea
-  SHX18_1 = "gang_model_"
-  SHX19_1 = tostring
-  SHX20_1 = SHX15_1
-  SHX19_1 = SHX19_1(SHX20_1)
-  SHX18_1 = SHX18_1 .. SHX19_1
-  SHX19_1 = SHX16_1.position
-  SHX20_1 = SHX16_1.distance
-  SHX21_1 = SHX16_1.distance
-  SHX22_1 = SHX9_1
-  SHX23_1 = SHX10_1
-  function SHX24_1()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_2, SHX1_2
+numberValue2 = pairs
+numberValue3 = dataTable2
+numberValue2, numberValue3, numberValue4, textValue = numberValue2(numberValue3)
+for textValue2, textValue3 in numberValue2, numberValue3, numberValue4, textValue do
+  textValue4 = CMG
+  textValue4 = textValue4.createArea
+  workValue = "gang_model_"
+  workValue2 = tostring
+  workValue3 = textValue2
+  workValue2 = workValue2(workValue3)
+  workValue = workValue .. workValue2
+  workValue2 = textValue3.position
+  workValue3 = textValue3.distance
+  numberValue5 = textValue3.distance
+  workValue4 = numberValue9
+  numberValue6 = numberValue
+  function dataTable3()
+    local arg1, cmgCall
   end
-  SHX25_1 = {}
-  SHX25_1.index = SHX15_1
-  SHX25_1.info = SHX16_1
-  SHX17_1(SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1)
+  dataTable4 = {}
+  dataTable4.index = textValue2
+  dataTable4.info = textValue3
+  -- Beginner: Create an interaction area around a world position.
+  textValue4(workValue, workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3, dataTable4)
 end
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 22
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+function numberValue2()
+  local arg1, cmgCall, nameValue, position
+  arg1 = DisableControlAction
+  cmgCall = 0
+  nameValue = 22
+  position = true
+  arg1(cmgCall, nameValue, position)
 end
-SHX12_1 = pairs
-SHX13_1 = SHX2_1
-SHX12_1, SHX13_1, SHX14_1, SHX15_1 = SHX12_1(SHX13_1)
-for SHX16_1, SHX17_1 in SHX12_1, SHX13_1, SHX14_1, SHX15_1 do
-  SHX18_1 = CMG
-  SHX18_1 = SHX18_1.createArea
-  SHX19_1 = "no_climb_"
-  SHX20_1 = tostring
-  SHX21_1 = SHX16_1
-  SHX20_1 = SHX20_1(SHX21_1)
-  SHX19_1 = SHX19_1 .. SHX20_1
-  SHX20_1 = SHX17_1.position
-  SHX21_1 = SHX17_1.radius
-  SHX22_1 = SHX17_1.radius
-  function SHX23_1()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_2, SHX1_2
+numberValue3 = pairs
+numberValue4 = vector3Builder
+numberValue3, numberValue4, textValue, textValue2 = numberValue3(numberValue4)
+for textValue3, textValue4 in numberValue3, numberValue4, textValue, textValue2 do
+  workValue = CMG
+  workValue = workValue.createArea
+  workValue2 = "no_climb_"
+  workValue3 = tostring
+  numberValue5 = textValue3
+  workValue3 = workValue3(numberValue5)
+  workValue2 = workValue2 .. workValue3
+  workValue3 = textValue4.position
+  numberValue5 = textValue4.radius
+  workValue4 = textValue4.radius
+  function numberValue6()
+    local arg1, cmgCall
   end
-  function SHX24_1()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_2, SHX1_2
+  function dataTable3()
+    local arg1, cmgCall
   end
-  SHX25_1 = SHX11_1
-  SHX18_1(SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1)
+  dataTable4 = numberValue2
+  -- Beginner: Create an interaction area around a world position.
+  workValue(workValue2, workValue3, numberValue5, workValue4, numberValue6, dataTable3, dataTable4)
 end

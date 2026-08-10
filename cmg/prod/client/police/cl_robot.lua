@@ -1,896 +1,876 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_robot.lua
+    ============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1
-SHX0_1 = 0
-SHX1_1 = 0
-SHX2_1 = -1
-SHX3_1 = -1
-SHX4_1 = false
-SHX5_1 = nil
-SHX6_1 = 0
-SHX7_1 = CMG
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX0_1
-  SHX0_2 = 0 ~= SHX0_2
-  return SHX0_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Robot
+    ======================
+
+    File: cmg/prod/client/police/cl_robot.lua
+    Purpose: This file contains police gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 3
+      They are intentionally left unchanged because matching server code may use them.
+      * b1b3d23e07
+      * b7edeadea5
+      * 71c20e82b7
+
+    Example player-facing text in this file:
+      * ScaleformMovieMethodAddParamPlayerNameString
+
+]]
+local numberValue, numberValue2, numberValue3, numberValue4, flag3, workValue2, numberValue7, cmgCall2, workValue3, workValue4, eventRegistration, eventRegistration2, textValue, eventRegistration3, cmgCall, workValue, textValue2
+numberValue = 0
+numberValue2 = 0
+numberValue3 = -1
+numberValue4 = -1
+flag3 = false
+workValue2 = nil
+numberValue7 = 0
+cmgCall2 = CMG
+function workValue3()
+  local arg1, arg2
+  arg1 = numberValue
+  arg1 = 0 ~= arg1
+  return arg1
 end
-SHX7_1.isUsingPoliceRobot = SHX8_1
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = _ENV
-  SHX2_2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+cmgCall2.isUsingPoliceRobot = workValue3
+function cmgCall2(arg1)
+  local arg2, arg3
+  arg2 = _ENV
+  arg3 = "ScaleformMovieMethodAddParamPlayerNameString"
+  arg2 = arg2[arg3]
+  arg3 = arg1
+  arg2(arg3)
 end
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = BeginTextCommandScaleformString
-  SHX2_2 = "STRING"
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddTextComponentSubstringKeyboardDisplay
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = EndTextCommandScaleformString
-  SHX1_2()
+function workValue3(arg1)
+  local arg2, arg3
+  arg2 = BeginTextCommandScaleformString
+  arg3 = "STRING"
+  arg2(arg3)
+  arg2 = AddTextComponentSubstringKeyboardDisplay
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = EndTextCommandScaleformString
+  arg2()
 end
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RequestScaleformMovie
-  SHX1_2 = "instructional_buttons"
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX3_1 = SHX0_2
+function workValue4()
+  local arg1, arg2, arg3, numberValue5, flag4
+  arg1 = RequestScaleformMovie
+  arg2 = "instructional_buttons"
+  -- Beginner: result below is scaleformHandle.
+  arg1 = arg1(arg2)
+  numberValue4 = arg1
   while true do
-    SHX0_2 = HasScaleformMovieLoaded
-    SHX1_2 = SHX3_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
+    arg1 = HasScaleformMovieLoaded
+    arg2 = numberValue4
+    arg1 = arg1(arg2)
+    if arg1 then
       break
     end
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 0
+    arg1(arg2)
   end
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "CLEAR_ALL"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_CLEAR_SPACE"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 200
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_DATA_SLOT"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX7_1
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 0
-  SHX3_2 = 121
-  SHX4_2 = true
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Camera Stream"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_DATA_SLOT"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 2
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX7_1
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 0
-  SHX3_2 = 178
-  SHX4_2 = true
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Thermal Vision"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_DATA_SLOT"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 3
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX7_1
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 0
-  SHX3_2 = 175
-  SHX4_2 = true
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Right"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_DATA_SLOT"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 4
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX7_1
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 0
-  SHX3_2 = 174
-  SHX4_2 = true
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Left"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_DATA_SLOT"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 5
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX7_1
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 0
-  SHX3_2 = 173
-  SHX4_2 = true
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Backwards"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_DATA_SLOT"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 6
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX7_1
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 0
-  SHX3_2 = 172
-  SHX4_2 = true
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX8_1
-  SHX1_2 = "Forward"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
-  SHX0_2 = BeginScaleformMovieMethod
-  SHX1_2 = SHX3_1
-  SHX2_2 = "SET_BACKGROUND_COLOUR"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 0
-  SHX0_2(SHX1_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 0
-  SHX0_2(SHX1_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 0
-  SHX0_2(SHX1_2)
-  SHX0_2 = ScaleformMovieMethodAddParamInt
-  SHX1_2 = 80
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndScaleformMovieMethod
-  SHX0_2()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "CLEAR_ALL"
+  arg1(arg2, arg3)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_CLEAR_SPACE"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 200
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_DATA_SLOT"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 1
+  arg1(arg2)
+  arg1 = cmgCall2
+  arg2 = GetControlInstructionalButton
+  arg3 = 0
+  numberValue5 = 121
+  flag4 = true
+  arg2, arg3, numberValue5, flag4 = arg2(arg3, numberValue5, flag4)
+  arg1(arg2, arg3, numberValue5, flag4)
+  arg1 = workValue3
+  arg2 = "Camera Stream"
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_DATA_SLOT"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 2
+  arg1(arg2)
+  arg1 = cmgCall2
+  arg2 = GetControlInstructionalButton
+  arg3 = 0
+  numberValue5 = 178
+  flag4 = true
+  arg2, arg3, numberValue5, flag4 = arg2(arg3, numberValue5, flag4)
+  arg1(arg2, arg3, numberValue5, flag4)
+  arg1 = workValue3
+  arg2 = "Thermal Vision"
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_DATA_SLOT"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 3
+  arg1(arg2)
+  arg1 = cmgCall2
+  arg2 = GetControlInstructionalButton
+  arg3 = 0
+  numberValue5 = 175
+  flag4 = true
+  arg2, arg3, numberValue5, flag4 = arg2(arg3, numberValue5, flag4)
+  arg1(arg2, arg3, numberValue5, flag4)
+  arg1 = workValue3
+  arg2 = "Right"
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_DATA_SLOT"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 4
+  arg1(arg2)
+  arg1 = cmgCall2
+  arg2 = GetControlInstructionalButton
+  arg3 = 0
+  numberValue5 = 174
+  flag4 = true
+  arg2, arg3, numberValue5, flag4 = arg2(arg3, numberValue5, flag4)
+  arg1(arg2, arg3, numberValue5, flag4)
+  arg1 = workValue3
+  arg2 = "Left"
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_DATA_SLOT"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 5
+  arg1(arg2)
+  arg1 = cmgCall2
+  arg2 = GetControlInstructionalButton
+  arg3 = 0
+  numberValue5 = 173
+  flag4 = true
+  arg2, arg3, numberValue5, flag4 = arg2(arg3, numberValue5, flag4)
+  arg1(arg2, arg3, numberValue5, flag4)
+  arg1 = workValue3
+  arg2 = "Backwards"
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_DATA_SLOT"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 6
+  arg1(arg2)
+  arg1 = cmgCall2
+  arg2 = GetControlInstructionalButton
+  arg3 = 0
+  numberValue5 = 172
+  flag4 = true
+  arg2, arg3, numberValue5, flag4 = arg2(arg3, numberValue5, flag4)
+  arg1(arg2, arg3, numberValue5, flag4)
+  arg1 = workValue3
+  arg2 = "Forward"
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  arg1(arg2, arg3)
+  arg1 = EndScaleformMovieMethod
+  arg1()
+  arg1 = BeginScaleformMovieMethod
+  arg2 = numberValue4
+  arg3 = "SET_BACKGROUND_COLOUR"
+  arg1(arg2, arg3)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 0
+  arg1(arg2)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 0
+  arg1(arg2)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 0
+  arg1(arg2)
+  arg1 = ScaleformMovieMethodAddParamInt
+  arg2 = 80
+  arg1(arg2)
+  arg1 = EndScaleformMovieMethod
+  arg1()
 end
-SHX10_1 = RegisterNetEvent
-SHX11_1 = "b1b3d23e07"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = GetEntityForwardVector
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX2_2 = SHX2_2 * 2.0
-  SHX1_2 = SHX1_2 + SHX2_2
-  SHX2_2 = GetEntityHeading
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "policerobot"
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.spawnVehicle
-  SHX4_2 = 1376629136
-  SHX5_2 = SHX1_2.x
-  SHX6_2 = SHX1_2.y
-  SHX7_2 = SHX1_2.z
-  SHX8_2 = SHX2_2
-  SHX9_2 = false
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX0_1 = SHX3_2
-  SHX3_2 = SetVehicleDoorsLocked
-  SHX4_2 = SHX0_1
-  SHX5_2 = 2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetVehicleDoorsLockedForAllPlayers
-  SHX4_2 = SHX0_1
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadModel
-  SHX4_2 = -1613485779
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "policerobot_ped"
-  SHX5_2 = SHX1_2
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = CreatePedInsideVehicle
-  SHX4_2 = SHX0_1
-  SHX5_2 = 0
-  SHX6_2 = -1613485779
-  SHX7_2 = -1
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX4_2 = SetModelAsNoLongerNeeded
-  SHX5_2 = -1613485779
-  SHX4_2(SHX5_2)
-  SHX4_2 = SetEntityCanBeDamaged
-  SHX5_2 = SHX3_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityInvincible
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityVisible
-  SHX5_2 = SHX3_2
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetPedAlertness
-  SHX5_2 = SHX3_2
-  SHX6_2 = 0.0
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetBlockingOfNonTemporaryEvents
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX9_1
-  SHX4_2()
+eventRegistration = RegisterNetEvent
+eventRegistration2 = "b1b3d23e07"
+-- Beginner: this function handles network event "b1b3d23e07".
+function textValue()
+  local arg1, arg2, arg3, numberValue5, flag4, numberValue6, flag5, flag6, flag7, flag8, flag, flag2
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetEntityCoords
+  arg3 = arg1
+  numberValue5 = true
+  -- Beginner: result below is entityCoords.
+  arg2 = arg2(arg3, numberValue5)
+  arg3 = GetEntityForwardVector
+  numberValue5 = arg1
+  arg3 = arg3(numberValue5)
+  arg3 = arg3 * 2.0
+  arg2 = arg2 + arg3
+  arg3 = GetEntityHeading
+  numberValue5 = arg1
+  -- Beginner: result below is heading.
+  arg3 = arg3(numberValue5)
+  numberValue5 = CMG
+  numberValue5 = numberValue5.requestEntitySpawn
+  flag4 = "policerobot"
+  numberValue6 = arg2
+  numberValue5(flag4, numberValue6)
+  numberValue5 = CMG
+  numberValue5 = numberValue5.spawnVehicle
+  flag4 = 1376629136
+  numberValue6 = arg2.x
+  flag5 = arg2.y
+  flag6 = arg2.z
+  flag7 = arg3
+  flag8 = false
+  flag = true
+  flag2 = true
+  numberValue5 = numberValue5(flag4, numberValue6, flag5, flag6, flag7, flag8, flag, flag2)
+  numberValue = numberValue5
+  numberValue5 = SetVehicleDoorsLocked
+  flag4 = numberValue
+  numberValue6 = 2
+  numberValue5(flag4, numberValue6)
+  numberValue5 = SetVehicleDoorsLockedForAllPlayers
+  flag4 = numberValue
+  numberValue6 = true
+  numberValue5(flag4, numberValue6)
+  numberValue5 = CMG
+  numberValue5 = numberValue5.loadModel
+  flag4 = -1613485779
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  numberValue5(flag4)
+  numberValue5 = CMG
+  numberValue5 = numberValue5.requestEntitySpawn
+  flag4 = "policerobot_ped"
+  numberValue6 = arg2
+  numberValue5(flag4, numberValue6)
+  numberValue5 = CreatePedInsideVehicle
+  flag4 = numberValue
+  numberValue6 = 0
+  flag5 = -1613485779
+  flag6 = -1
+  flag7 = true
+  flag8 = true
+  numberValue5 = numberValue5(flag4, numberValue6, flag5, flag6, flag7, flag8)
+  flag4 = SetModelAsNoLongerNeeded
+  numberValue6 = -1613485779
+  flag4(numberValue6)
+  flag4 = SetEntityCanBeDamaged
+  numberValue6 = numberValue5
+  flag5 = false
+  flag4(numberValue6, flag5)
+  flag4 = SetEntityInvincible
+  numberValue6 = numberValue5
+  flag5 = true
+  flag4(numberValue6, flag5)
+  flag4 = SetEntityVisible
+  numberValue6 = numberValue5
+  flag5 = false
+  flag6 = false
+  flag4(numberValue6, flag5, flag6)
+  flag4 = FreezeEntityPosition
+  numberValue6 = numberValue5
+  flag5 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  flag4(numberValue6, flag5)
+  flag4 = SetPedAlertness
+  numberValue6 = numberValue5
+  flag5 = 0.0
+  flag4(numberValue6, flag5)
+  flag4 = SetBlockingOfNonTemporaryEvents
+  numberValue6 = numberValue5
+  flag5 = true
+  flag4(numberValue6, flag5)
+  flag4 = workValue4
+  flag4()
   while true do
-    SHX4_2 = NetworkGetEntityIsNetworked
-    SHX5_2 = SHX0_1
-    SHX4_2 = SHX4_2(SHX5_2)
-    if SHX4_2 then
-      SHX4_2 = NetworkGetNetworkIdFromEntity
-      SHX5_2 = SHX0_1
-      SHX4_2 = SHX4_2(SHX5_2)
-      if 0 ~= SHX4_2 then
+    flag4 = NetworkGetEntityIsNetworked
+    numberValue6 = numberValue
+    flag4 = flag4(numberValue6)
+    if flag4 then
+      flag4 = NetworkGetNetworkIdFromEntity
+      numberValue6 = numberValue
+      flag4 = flag4(numberValue6)
+      if 0 ~= flag4 then
         break
       end
     end
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
+    flag4 = Citizen
+    flag4 = flag4.Wait
+    numberValue6 = 0
+    flag4(numberValue6)
   end
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.Wait
-  SHX5_2 = 1000
-  SHX4_2(SHX5_2)
-  SHX4_2 = NetworkGetNetworkIdFromEntity
-  SHX5_2 = SHX0_1
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX1_1 = SHX4_2
-  SHX4_2 = TriggerServerEvent
-  SHX5_2 = "b1b3d23e07"
-  SHX6_2 = SHX1_1
-  SHX4_2(SHX5_2, SHX6_2)
+  flag4 = Citizen
+  flag4 = flag4.Wait
+  numberValue6 = 1000
+  flag4(numberValue6)
+  flag4 = NetworkGetNetworkIdFromEntity
+  numberValue6 = numberValue
+  flag4 = flag4(numberValue6)
+  numberValue2 = flag4
+  flag4 = TriggerServerEvent
+  numberValue6 = "b1b3d23e07"
+  flag5 = numberValue2
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b1b3d23e07".
+  flag4(numberValue6, flag5)
 end
-SHX10_1(SHX11_1, SHX12_1)
-function SHX10_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  if SHX2_2 then
-    SHX3_2 = 200
-    if SHX3_2 then
-      goto SHX_LABEL_7
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b1b3d23e07".
+eventRegistration(eventRegistration2, textValue)
+function eventRegistration(arg1, arg2, arg3)
+  local numberValue5, flag4, numberValue6, flag5, flag6, flag7, flag8
+  if arg3 then
+    numberValue5 = 200
+    if numberValue5 then
+      goto flow_label_7
     end
   end
-  SHX3_2 = 1
-  -- [FIX IF ERROR] Move ::SHX_LABEL_7:: outside nested blocks until all 'goto SHX_LABEL_7' can see it
-  ::SHX_LABEL_7::
-  SHX4_2 = GetPedInVehicleSeat
-  SHX5_2 = SHX1_2
-  SHX6_2 = -1
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  if "forward" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 9
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "brake" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 6
-    SHX9_2 = 2500
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "reverse" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 22
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "rightReverse" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 13
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "leftReverse" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 14
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "burnout" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 30
-    if SHX2_2 then
-      SHX9_2 = 200
-      if SHX9_2 then
-        goto SHX_LABEL_68
+  numberValue5 = 1
+  ::flow_label_7::
+  flag4 = GetPedInVehicleSeat
+  numberValue6 = arg2
+  flag5 = -1
+  flag4 = flag4(numberValue6, flag5)
+  if "forward" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 9
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "brake" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 6
+    flag8 = 2500
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "reverse" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 22
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "rightReverse" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 13
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "leftReverse" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 14
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "burnout" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 30
+    if arg3 then
+      flag8 = 200
+      if flag8 then
+        goto flow_label_68
       end
     end
-    SHX9_2 = 100
-    -- [FIX IF ERROR] Move ::SHX_LABEL_68:: outside nested blocks until all 'goto SHX_LABEL_68' can see it
-    ::SHX_LABEL_68::
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "leftForward" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 7
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "rightForward" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 8
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "rotateLeft" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 4
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  elseif "rotateRight" == SHX0_2 then
-    SHX5_2 = TaskVehicleTempAction
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX1_2
-    SHX8_2 = 5
-    SHX9_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+    flag8 = 100
+    ::flow_label_68::
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "leftForward" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 7
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "rightForward" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 8
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "rotateLeft" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 4
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
+  elseif "rotateRight" == arg1 then
+    numberValue6 = TaskVehicleTempAction
+    flag5 = flag4
+    flag6 = arg2
+    flag7 = 5
+    flag8 = numberValue5
+    numberValue6(flag5, flag6, flag7, flag8)
   end
 end
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "b7edeadea5"
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = NetworkDoesEntityExistWithNetworkId
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = NetworkGetEntityFromNetworkId
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if 0 ~= SHX2_2 then
-      SHX3_2 = NetworkHasControlOfEntity
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        SHX3_2 = SHX10_1
-        SHX4_2 = SHX0_2
-        SHX5_2 = SHX2_2
-        SHX6_2 = true
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+eventRegistration2 = RegisterNetEvent
+textValue = "b7edeadea5"
+-- Beginner: this function handles network event "b7edeadea5".
+function eventRegistration3(arg1, arg2)
+  local arg3, numberValue5, flag4, numberValue6, flag5
+  arg3 = NetworkDoesEntityExistWithNetworkId
+  numberValue5 = arg2
+  arg3 = arg3(numberValue5)
+  if arg3 then
+    arg3 = NetworkGetEntityFromNetworkId
+    numberValue5 = arg2
+    arg3 = arg3(numberValue5)
+    if 0 ~= arg3 then
+      numberValue5 = NetworkHasControlOfEntity
+      flag4 = arg3
+      numberValue5 = numberValue5(flag4)
+      if numberValue5 then
+        numberValue5 = eventRegistration
+        flag4 = arg1
+        numberValue6 = arg3
+        flag5 = true
+        -- Beginner: Register a network event handler that the server/other clients can trigger.
+        numberValue5(flag4, numberValue6, flag5)
       end
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = NetworkHasControlOfEntity
-  SHX2_2 = SHX0_1
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = SHX10_1
-    SHX2_2 = SHX0_2
-    SHX3_2 = SHX0_1
-    SHX4_2 = false
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+eventRegistration2(textValue, eventRegistration3)
+function eventRegistration2(arg1)
+  local arg2, arg3, numberValue5, flag4
+  arg2 = NetworkHasControlOfEntity
+  arg3 = numberValue
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = eventRegistration
+    arg3 = arg1
+    numberValue5 = numberValue
+    flag4 = false
+    -- Beginner: Register a network event handler that the server/other clients can trigger.
+    arg2(arg3, numberValue5, flag4)
   else
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX2_2 = SHX6_1
-    SHX2_2 = SHX1_2 - SHX2_2
-    SHX3_2 = 150
-    if not (SHX2_2 > SHX3_2) then
-      SHX2_2 = SHX5_1
-      if SHX2_2 == SHX0_2 then
-        goto SHX_LABEL_29
+    arg2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg2 = arg2()
+    arg3 = numberValue7
+    arg3 = arg2 - arg3
+    numberValue5 = 150
+    if not (arg3 > numberValue5) then
+      arg3 = workValue2
+      if arg3 == arg1 then
+        goto flow_label_29
       end
     end
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "b7edeadea5"
-    SHX4_2 = SHX0_2
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX5_1 = SHX0_2
-    SHX6_1 = SHX1_2
+    arg3 = TriggerServerEvent
+    numberValue5 = "b7edeadea5"
+    flag4 = arg1
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b7edeadea5".
+    arg3(numberValue5, flag4)
+    workValue2 = arg1
+    numberValue7 = arg2
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_29:: outside nested blocks until all 'goto SHX_LABEL_29' can see it
-  ::SHX_LABEL_29::
+  ::flow_label_29::
 end
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = SHX2_1
-  if -1 == SHX0_2 then
-    SHX0_2 = CreateCam
-    SHX1_2 = "DEFAULT_SCRIPTED_CAMERA"
-    SHX2_2 = true
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    SHX2_1 = SHX0_2
-    SHX0_2 = AttachCamToEntity
-    SHX1_2 = SHX2_1
-    SHX2_2 = SHX0_1
-    SHX3_2 = -0.3
-    SHX4_2 = 0.0
-    SHX5_2 = 0.5
-    SHX6_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX0_2 = SetCamActive
-    SHX1_2 = SHX2_1
-    SHX2_2 = true
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = RenderScriptCams
-    SHX1_2 = true
-    SHX2_2 = true
-    SHX3_2 = 0
-    SHX4_2 = true
-    SHX5_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = SetTimecycleModifier
-    SHX1_2 = "scanline_cam_cheap"
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetTimecycleModifierStrength
-    SHX1_2 = 1.0
-    SHX0_2(SHX1_2)
+function textValue()
+  local arg1, arg2, arg3, numberValue5, flag4, numberValue6, flag5
+  arg1 = numberValue3
+  if -1 == arg1 then
+    arg1 = CreateCam
+    arg2 = "DEFAULT_SCRIPTED_CAMERA"
+    arg3 = true
+    -- Beginner: result below is cameraHandle.
+    arg1 = arg1(arg2, arg3)
+    numberValue3 = arg1
+    arg1 = AttachCamToEntity
+    arg2 = numberValue3
+    arg3 = numberValue
+    numberValue5 = -0.3
+    flag4 = 0.0
+    numberValue6 = 0.5
+    flag5 = true
+    arg1(arg2, arg3, numberValue5, flag4, numberValue6, flag5)
+    arg1 = SetCamActive
+    arg2 = numberValue3
+    arg3 = true
+    arg1(arg2, arg3)
+    arg1 = RenderScriptCams
+    arg2 = true
+    arg3 = true
+    numberValue5 = 0
+    flag4 = true
+    numberValue6 = true
+    arg1(arg2, arg3, numberValue5, flag4, numberValue6)
+    arg1 = SetTimecycleModifier
+    arg2 = "scanline_cam_cheap"
+    arg1(arg2)
+    arg1 = SetTimecycleModifierStrength
+    arg2 = 1.0
+    arg1(arg2)
   else
-    SHX0_2 = ClearTimecycleModifier
-    SHX0_2()
-    SHX0_2 = SetSeethrough
-    SHX1_2 = false
-    SHX0_2(SHX1_2)
-    SHX0_2 = RenderScriptCams
-    SHX1_2 = false
-    SHX2_2 = false
-    SHX3_2 = 0
-    SHX4_2 = false
-    SHX5_2 = false
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = SetCamActive
-    SHX1_2 = SHX2_1
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = DestroyCam
-    SHX1_2 = SHX2_1
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = -1
-    SHX2_1 = SHX0_2
-    SHX0_2 = false
-    SHX4_1 = SHX0_2
+    arg1 = ClearTimecycleModifier
+    arg1()
+    arg1 = SetSeethrough
+    arg2 = false
+    arg1(arg2)
+    arg1 = RenderScriptCams
+    arg2 = false
+    arg3 = false
+    numberValue5 = 0
+    flag4 = false
+    numberValue6 = false
+    arg1(arg2, arg3, numberValue5, flag4, numberValue6)
+    arg1 = SetCamActive
+    arg2 = numberValue3
+    arg3 = false
+    arg1(arg2, arg3)
+    arg1 = DestroyCam
+    arg2 = numberValue3
+    arg3 = false
+    arg1(arg2, arg3)
+    arg1 = -1
+    numberValue3 = arg1
+    arg1 = false
+    flag3 = arg1
   end
 end
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "71c20e82b7"
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if -1 ~= SHX0_2 then
-    SHX0_2 = SHX12_1
-    SHX0_2()
+eventRegistration3 = RegisterNetEvent
+cmgCall = "71c20e82b7"
+-- Beginner: this function handles network event "71c20e82b7".
+function workValue()
+  local arg1, arg2
+  arg1 = numberValue3
+  if -1 ~= arg1 then
+    arg1 = textValue
+    arg1()
   end
-  SHX0_2 = SHX3_1
-  if -1 ~= SHX0_2 then
-    SHX0_2 = SetScaleformMovieAsNoLongerNeeded
-    SHX1_2 = SHX3_1
-    SHX0_2(SHX1_2)
-    SHX0_2 = -1
-    SHX3_1 = SHX0_2
+  arg1 = numberValue4
+  if -1 ~= arg1 then
+    arg1 = SetScaleformMovieAsNoLongerNeeded
+    arg2 = numberValue4
+    arg1(arg2)
+    arg1 = -1
+    numberValue4 = arg1
   end
-  SHX0_2 = 0
-  SHX0_1 = SHX0_2
-  SHX0_2 = 0
-  SHX1_1 = SHX0_2
+  arg1 = 0
+  numberValue = arg1
+  arg1 = 0
+  numberValue2 = arg1
 end
-SHX13_1(SHX14_1, SHX15_1)
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = SHX0_1
-  if 0 == SHX0_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "71c20e82b7".
+eventRegistration3(cmgCall, workValue)
+function eventRegistration3()
+  local arg1, arg2, arg3, numberValue5, flag4, numberValue6, flag5
+  arg1 = numberValue
+  if 0 == arg1 then
     return
   end
-  SHX0_2 = DoesEntityExist
-  SHX1_2 = SHX0_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = SHX2_1
-    if -1 ~= SHX0_2 then
-      SHX0_2 = SHX12_1
-      SHX0_2()
+  arg1 = DoesEntityExist
+  arg2 = numberValue
+  arg1 = arg1(arg2)
+  if not arg1 then
+    arg1 = numberValue3
+    if -1 ~= arg1 then
+      arg1 = textValue
+      arg1()
     else
-      SHX0_2 = NetworkDoesEntityExistWithNetworkId
-      SHX1_2 = SHX1_1
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = NetworkGetEntityFromNetworkId
-        SHX1_2 = SHX1_1
-        SHX0_2 = SHX0_2(SHX1_2)
-        SHX0_1 = SHX0_2
+      arg1 = NetworkDoesEntityExistWithNetworkId
+      arg2 = numberValue2
+      arg1 = arg1(arg2)
+      if arg1 then
+        arg1 = NetworkGetEntityFromNetworkId
+        arg2 = numberValue2
+        arg1 = arg1(arg2)
+        numberValue = arg1
       end
     end
     return
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 172
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 173
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "forward"
-      SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 172
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 173
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = eventRegistration2
+      arg2 = "forward"
+      -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "forward".
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlJustReleased
-  SHX1_2 = 0
-  SHX2_2 = 172
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if not SHX0_2 then
-    SHX0_2 = IsControlJustReleased
-    SHX1_2 = 0
-    SHX2_2 = 173
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      goto SHX_LABEL_56
+  arg1 = IsControlJustReleased
+  arg2 = 0
+  arg3 = 172
+  arg1 = arg1(arg2, arg3)
+  if not arg1 then
+    arg1 = IsControlJustReleased
+    arg2 = 0
+    arg3 = 173
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      goto flow_label_56
     end
   end
-  SHX0_2 = SHX11_1
-  SHX1_2 = "brake"
-  SHX0_2(SHX1_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_56:: outside nested blocks until all 'goto SHX_LABEL_56' can see it
-  ::SHX_LABEL_56::
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 173
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 172
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "reverse"
-      SHX0_2(SHX1_2)
+  arg1 = eventRegistration2
+  arg2 = "brake"
+  arg1(arg2)
+  ::flow_label_56::
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 173
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 172
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = eventRegistration2
+      arg2 = "reverse"
+      -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "reverse".
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 174
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 173
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "rightReverse"
-      SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 174
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 173
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = eventRegistration2
+      arg2 = "rightReverse"
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 175
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 173
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "rightReverse"
-      SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 175
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 173
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = eventRegistration2
+      arg2 = "rightReverse"
+      -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rightReverse".
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 172
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 173
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "burnout"
-      SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 172
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 173
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = eventRegistration2
+      arg2 = "burnout"
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 174
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 172
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "leftForward"
-      SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 174
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 172
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = eventRegistration2
+      arg2 = "leftForward"
+      -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "leftForward".
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 175
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 172
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = SHX11_1
-      SHX1_2 = "rightForward"
-      SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 175
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 172
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = eventRegistration2
+      arg2 = "rightForward"
+      arg1(arg2)
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 174
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 172
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = IsControlPressed
-      SHX1_2 = 0
-      SHX2_2 = 173
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = SHX11_1
-        SHX1_2 = "rotateLeft"
-        SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 174
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 172
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = IsControlPressed
+      arg2 = 0
+      arg3 = 173
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        arg1 = eventRegistration2
+        arg2 = "rotateLeft"
+        -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "rotateLeft".
+        arg1(arg2)
       end
     end
   end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 0
-  SHX2_2 = 175
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlPressed
-    SHX1_2 = 0
-    SHX2_2 = 172
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = IsControlPressed
-      SHX1_2 = 0
-      SHX2_2 = 173
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = SHX11_1
-        SHX1_2 = "rotateRight"
-        SHX0_2(SHX1_2)
+  arg1 = IsControlPressed
+  arg2 = 0
+  arg3 = 175
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = IsControlPressed
+    arg2 = 0
+    arg3 = 172
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = IsControlPressed
+      arg2 = 0
+      arg3 = 173
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        arg1 = eventRegistration2
+        arg2 = "rotateRight"
+        arg1(arg2)
       end
     end
   end
-  SHX0_2 = IsControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 121
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = SHX12_1
-    SHX0_2()
+  arg1 = IsControlJustPressed
+  arg2 = 0
+  arg3 = 121
+  arg1 = arg1(arg2, arg3)
+  if arg1 then
+    arg1 = textValue
+    arg1()
   end
-  SHX0_2 = SHX2_1
-  if -1 ~= SHX0_2 then
-    SHX0_2 = GetEntityRotation
-    SHX1_2 = SHX0_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    SHX1_2 = SetCamRot
-    SHX2_2 = SHX2_1
-    SHX3_2 = SHX0_2.x
-    SHX4_2 = SHX0_2.y
-    SHX5_2 = SHX0_2.z
-    SHX6_2 = 2
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX1_2 = IsControlJustPressed
-    SHX2_2 = 0
-    SHX3_2 = 178
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX1_2 = SHX4_1
-      SHX1_2 = not SHX1_2
-      SHX4_1 = SHX1_2
-      SHX1_2 = SHX4_1
-      if SHX1_2 then
-        SHX1_2 = SetSeethrough
-        SHX2_2 = true
-        SHX1_2(SHX2_2)
+  arg1 = numberValue3
+  if -1 ~= arg1 then
+    arg1 = GetEntityRotation
+    arg2 = numberValue
+    arg1 = arg1(arg2)
+    arg2 = SetCamRot
+    arg3 = numberValue3
+    numberValue5 = arg1.x
+    flag4 = arg1.y
+    numberValue6 = arg1.z
+    flag5 = 2
+    arg2(arg3, numberValue5, flag4, numberValue6, flag5)
+    arg2 = IsControlJustPressed
+    arg3 = 0
+    numberValue5 = 178
+    arg2 = arg2(arg3, numberValue5)
+    if arg2 then
+      arg2 = flag3
+      arg2 = not arg2
+      flag3 = arg2
+      arg2 = flag3
+      if arg2 then
+        arg2 = SetSeethrough
+        arg3 = true
+        arg2(arg3)
       else
-        SHX1_2 = SetSeethrough
-        SHX2_2 = false
-        SHX1_2(SHX2_2)
+        arg2 = SetSeethrough
+        arg3 = false
+        arg2(arg3)
       end
     end
   end
-  SHX0_2 = DrawScaleformMovieFullscreen
-  SHX1_2 = SHX3_1
-  SHX2_2 = 255
-  SHX3_2 = 255
-  SHX4_2 = 255
-  SHX5_2 = 255
-  SHX6_2 = 0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  arg1 = DrawScaleformMovieFullscreen
+  arg2 = numberValue4
+  arg3 = 255
+  numberValue5 = 255
+  flag4 = 255
+  numberValue6 = 255
+  flag5 = 0
+  arg1(arg2, arg3, numberValue5, flag4, numberValue6, flag5)
 end
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.createThreadOnTick
-SHX15_1 = SHX13_1
-SHX16_1 = "Robot Controls"
-SHX14_1(SHX15_1, SHX16_1)
+cmgCall = CMG
+cmgCall = cmgCall.createThreadOnTick
+workValue = eventRegistration3
+textValue2 = "Robot Controls"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall(workValue, textValue2)

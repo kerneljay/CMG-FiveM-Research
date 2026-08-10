@@ -1,3 +1,28 @@
+--[[
+    BEGINNER GUIDE — Ffa
+    ====================
+
+    File: cmg/prod/cfg/events/cfg_ffa.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/rockstarmaps/uD0quPgN_0GibsuXc-vHCQ.json
+      * cfg/rockstarmaps/JVpo9ed5Gku01nsF-AFYsw.json
+      * cfg/rockstarmaps/iJfXEtpe7EebvGx0I6yEWg.json
+      * cfg/rockstarmaps/GAk_mipJLEOyJ89p3YWuww.json
+      * cfg/rockstarmaps/ZQzGpChbwkG27IL2a7-Giw.json
+      * cfg/rockstarmaps/wIXfIjik5UOhPD-zkXxDKQ.json
+      * cfg/rockstarmaps/cZDFK2musUa994jkD5v9pw.json
+
+]]
 local cfg = {}
 
 cfg.locations = {

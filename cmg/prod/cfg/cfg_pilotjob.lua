@@ -1,3 +1,29 @@
+--[[
+    BEGINNER GUIDE — Pilotjob
+    =========================
+
+    File: cmg/prod/cfg/cfg_pilotjob.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_garages
+
+    Example player-facing text in this file:
+      * pilotJobLine1
+      * CMG15433 - You have clearance for taxi to runway one for departure. Advise when complete.
+      * pilotJobLine2
+      * pilotJobLine3
+      * CMG15433 -  You are cleared for takeoff.
+
+]]
 local cfgGarages = CMG.loadModule("cfg/cfg_garages")
 
 local cfg = {}

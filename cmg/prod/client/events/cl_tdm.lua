@@ -1,4 +1,36 @@
 --[[
+    BEGINNER GUIDE — Tdm
+    ====================
+
+    File: cmg/prod/client/events/cl_tdm.lua
+    Purpose: This file contains event/minigame logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/events/cfg_tdm
+
+    Commands/command-like entries found:
+      * /50
+
+    Network/hash identifiers found: 15
+      They are intentionally left unchanged because matching server code may use them.
+
+    Named framework/network events found:
+      * tdm:matchStarted
+
+    Example player-facing text in this file:
+      * Press ~g~SPACE~w~ to explode RC-XD
+      * ~b~Press [B] to open the buy menu
+
+]]
+--[[
     Team Deathmatch (TDM) minigame - client script
     Cleaned up from a decompiled build.
  

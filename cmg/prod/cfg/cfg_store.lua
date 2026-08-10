@@ -1,3 +1,26 @@
+--[[
+    BEGINNER GUIDE — Store
+    ======================
+
+    File: cmg/prod/cfg/cfg_store.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Example player-facing text in this file:
+      * VIP Vehicle
+      * For Pistols, Shotguns, Snipers, and Mosins. Open a Weapon Ticket in the CMG Support Tickets Discord with this UUID.
+      * For SMGs, Rifles, and LMGs. Open a Weapon Ticket in the CMG Support Tickets Discord with this UUID.
+      * Pfister Mission-E
+      * Police Vehicles
+
+]]
 local cfg = {}
 
 cfg.items = {

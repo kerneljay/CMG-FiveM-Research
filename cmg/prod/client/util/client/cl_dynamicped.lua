@@ -1,276 +1,321 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Dynamic Ped Spawner
+    ===================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = {}
-SHX1_1 = 1
-SHX2_1 = CMG
-function SHX3_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX9_2 = 0
-  if not SHX7_2 then
-    SHX11_2 = SHX1_1
-    SHX10_2 = SHX0_1
-    SHX12_2 = {}
-    SHX12_2.entity = SHX9_2
-    SHX12_2.modelHash = SHX0_2
-    SHX12_2.position = SHX1_2
-    SHX12_2.heading = SHX2_2
-    SHX12_2.static = SHX3_2
-    SHX12_2.animDict = SHX4_2
-    SHX12_2.animName = SHX5_2
-    SHX12_2.minDistance = SHX6_2
-    SHX12_2.distanceToPlayer = 0.0
-    SHX12_2.cb = SHX8_2
-    SHX12_2.created = false
-    SHX10_2[SHX11_2] = SHX12_2
-    SHX10_2 = SHX1_1
-    SHX10_2 = SHX10_2 + 1
-    SHX1_1 = SHX10_2
-  else
-    SHX10_2 = CMG
-    SHX10_2 = SHX10_2.loadModel
-    SHX11_2 = SHX0_2
-    SHX10_2 = SHX10_2(SHX11_2)
-    SHX0_2 = SHX10_2 or SHX0_2
-    if not SHX10_2 then
-      SHX0_2 = 0
+    CMG.createDynamicPed(...) is used all over the resource for shopkeepers,
+    guards and ambient NPCs.
+
+    The clever part is DISTANCE STREAMING:
+      Calling createDynamicPed normally does NOT immediately spawn the ped.
+      It saves a small definition in `dynamicPeds`.
+
+      A background thread checks the player's distance every second:
+        close enough -> spawn the ped
+        too far away -> delete the ped
+
+    Function arguments:
+      modelHash
+      position
+      heading
+      isStatic
+      animDict
+      animName
+      spawnDistance
+      internalEntryId   -- normally nil; used by this file when spawning
+      callback(ped)     -- optional function called after creation
+
+    If isStatic is true, the ped is:
+      * invulnerable
+      * non-hostile
+      * blocked from ambient AI events
+      * frozen
+      * non-colliding
+      * resistant to ragdoll/evasive behaviour
+
+    This keeps distant NPCs from wasting client resources.
+]]
+
+local dynamicPeds = {}
+local nextDynamicPedId = 1
+
+
+-- ============================================================
+-- CREATE OR REGISTER A DYNAMIC PED
+-- ============================================================
+
+function CMG.createDynamicPed(
+    modelHash,
+    position,
+    heading,
+    isStatic,
+    animDict,
+    animName,
+    spawnDistance,
+    internalEntryId,
+    callback
+)
+    local ped = 0
+
+    -- Normal calls register a definition for the streaming thread.
+    if not internalEntryId then
+        local entryId =
+            nextDynamicPedId
+
+        dynamicPeds[entryId] = {
+            entity = 0,
+            modelHash = modelHash,
+            position = position,
+            heading = heading,
+            static = isStatic,
+            animDict = animDict,
+            animName = animName,
+            minDistance = spawnDistance,
+            distanceToPlayer = 0.0,
+            cb = callback,
+            created = false
+        }
+
+        nextDynamicPedId =
+            nextDynamicPedId + 1
+
+        return ped
     end
-    if not SHX0_2 or 0 == SHX0_2 then
-      SHX10_2 = print
-      SHX11_2 = "failed to spawn dynamic ped, invalid model"
-      SHX10_2(SHX11_2)
-      return
+
+    -- Internal calls actually spawn an already-registered entry.
+    local loadedModel =
+        CMG.loadModel(
+            modelHash
+        )
+
+    modelHash =
+        loadedModel or modelHash
+
+    if not loadedModel then
+        modelHash = 0
     end
-    SHX10_2 = CreatePed
-    SHX11_2 = 26
-    SHX12_2 = SHX0_2
-    SHX13_2 = SHX1_2.x
-    SHX14_2 = SHX1_2.y
-    SHX15_2 = SHX1_2.z
-    SHX16_2 = SHX2_2
-    SHX17_2 = false
-    SHX18_2 = false
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    SHX9_2 = SHX10_2
-    SHX10_2 = SHX0_1
-    SHX10_2 = SHX10_2[SHX7_2]
-    SHX10_2.entity = SHX9_2
-  end
-  SHX10_2 = SetModelAsNoLongerNeeded
-  SHX11_2 = SHX0_2
-  SHX10_2(SHX11_2)
-  if SHX3_2 then
-    SHX10_2 = SetEntityCanBeDamaged
-    SHX11_2 = SHX9_2
-    SHX12_2 = false
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetPedAsEnemy
-    SHX11_2 = SHX9_2
-    SHX12_2 = false
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetEntityHeading
-    SHX11_2 = SHX9_2
-    SHX12_2 = SHX2_2
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetBlockingOfNonTemporaryEvents
-    SHX11_2 = SHX9_2
-    SHX12_2 = true
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetPedResetFlag
-    SHX11_2 = SHX9_2
-    SHX12_2 = 249
-    SHX13_2 = true
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX10_2 = SetPedConfigFlag
-    SHX11_2 = SHX9_2
-    SHX12_2 = 185
-    SHX13_2 = true
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX10_2 = SetPedConfigFlag
-    SHX11_2 = SHX9_2
-    SHX12_2 = 108
-    SHX13_2 = true
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX10_2 = SetPedCanEvasiveDive
-    SHX11_2 = SHX9_2
-    SHX12_2 = false
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetPedCanRagdollFromPlayerImpact
-    SHX11_2 = SHX9_2
-    SHX12_2 = false
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetPedConfigFlag
-    SHX11_2 = SHX9_2
-    SHX12_2 = 208
-    SHX13_2 = true
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX10_2 = SetEntityCollision
-    SHX11_2 = SHX9_2
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX10_2 = FreezeEntityPosition
-    SHX11_2 = SHX9_2
-    SHX12_2 = true
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = SetEntityCoordsNoOffset
-    SHX11_2 = SHX9_2
-    SHX12_2 = SHX1_2.x
-    SHX13_2 = SHX1_2.y
-    SHX14_2 = SHX1_2.z
-    SHX15_2 = false
-    SHX16_2 = false
-    SHX17_2 = false
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  end
-  if SHX4_2 and SHX5_2 then
-    SHX10_2 = CMG
-    SHX10_2 = SHX10_2.loadAnimDict
-    SHX11_2 = SHX4_2
-    SHX10_2(SHX11_2)
-    SHX10_2 = TaskPlayAnim
-    SHX11_2 = SHX9_2
-    SHX12_2 = SHX4_2
-    SHX13_2 = SHX5_2
-    SHX14_2 = 8.0
-    SHX15_2 = 0.0
-    SHX16_2 = -1
-    SHX17_2 = 1
-    SHX18_2 = 0
-    SHX19_2 = false
-    SHX20_2 = false
-    SHX21_2 = false
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX10_2 = RemoveAnimDict
-    SHX11_2 = SHX4_2
-    SHX10_2(SHX11_2)
-  end
-  SHX10_2 = type
-  SHX11_2 = SHX8_2
-  SHX10_2 = SHX10_2(SHX11_2)
-  if "function" == SHX10_2 and 0 ~= SHX9_2 then
-    SHX10_2 = SHX8_2
-    SHX11_2 = SHX9_2
-    SHX10_2(SHX11_2)
-  end
-  return SHX9_2
+
+    if not modelHash
+        or modelHash == 0 then
+
+        print(
+            "failed to spawn dynamic ped, invalid model"
+        )
+
+        return
+    end
+
+    ped =
+        CreatePed(
+            26,
+            modelHash,
+            position.x,
+            position.y,
+            position.z,
+            heading,
+            false,
+            false
+        )
+
+    dynamicPeds[
+        internalEntryId
+    ].entity = ped
+
+    SetModelAsNoLongerNeeded(
+        modelHash
+    )
+
+    if isStatic then
+        SetEntityCanBeDamaged(
+            ped,
+            false
+        )
+
+        SetPedAsEnemy(
+            ped,
+            false
+        )
+
+        SetEntityHeading(
+            ped,
+            heading
+        )
+
+        SetBlockingOfNonTemporaryEvents(
+            ped,
+            true
+        )
+
+        SetPedResetFlag(
+            ped,
+            249,
+            true
+        )
+
+        SetPedConfigFlag(
+            ped,
+            185,
+            true
+        )
+
+        SetPedConfigFlag(
+            ped,
+            108,
+            true
+        )
+
+        SetPedCanEvasiveDive(
+            ped,
+            false
+        )
+
+        SetPedCanRagdollFromPlayerImpact(
+            ped,
+            false
+        )
+
+        SetPedConfigFlag(
+            ped,
+            208,
+            true
+        )
+
+        SetEntityCollision(
+            ped,
+            false,
+            false
+        )
+
+        FreezeEntityPosition(
+            ped,
+            true
+        )
+
+        SetEntityCoordsNoOffset(
+            ped,
+            position.x,
+            position.y,
+            position.z,
+            false,
+            false,
+            false
+        )
+    end
+
+    if animDict and animName then
+        CMG.loadAnimDict(
+            animDict
+        )
+
+        TaskPlayAnim(
+            ped,
+            animDict,
+            animName,
+            8.0,
+            0.0,
+            -1,
+            1,
+            0,
+            false,
+            false,
+            false
+        )
+
+        RemoveAnimDict(
+            animDict
+        )
+    end
+
+    if type(callback) == "function"
+        and ped ~= 0 then
+
+        callback(ped)
+    end
+
+    return ped
 end
-SHX2_1.createDynamicPed = SHX3_1
-SHX2_1 = Citizen
-SHX2_1 = SHX2_1.CreateThread
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX0_2 = Wait
-  SHX1_2 = 5000
-  SHX0_2(SHX1_2)
-  while true do
-    SHX0_2 = GetEntityCoords
-    SHX1_2 = PlayerPedId
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2 = SHX1_2()
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX1_2 = pairs
-    SHX2_2 = SHX0_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX8_2 = SHX6_2.position
-      SHX8_2 = SHX8_2 - SHX0_2
-      SHX8_2 = #SHX8_2
-      SHX7_2.distanceToPlayer = SHX8_2
-      SHX7_2 = SHX0_1
-      SHX7_2 = SHX7_2[SHX5_2]
-      SHX7_2 = SHX7_2.distanceToPlayer
-      SHX8_2 = SHX6_2.minDistance
-      if SHX7_2 <= SHX8_2 then
-        SHX7_2 = SHX6_2.created
-        if not SHX7_2 then
-          SHX7_2 = CMG
-          SHX7_2 = SHX7_2.createDynamicPed
-          SHX8_2 = SHX6_2.modelHash
-          SHX9_2 = SHX6_2.position
-          SHX10_2 = SHX6_2.heading
-          SHX11_2 = SHX6_2.static
-          SHX12_2 = SHX6_2.animDict
-          SHX13_2 = SHX6_2.animName
-          SHX14_2 = SHX6_2.minDistance
-          SHX15_2 = SHX5_2
-          SHX16_2 = SHX6_2.cb
-          SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-          SHX7_2 = SHX0_1
-          SHX7_2 = SHX7_2[SHX5_2]
-          SHX7_2.created = true
+
+
+-- ============================================================
+-- DISTANCE STREAMING
+-- ============================================================
+
+CreateThread(function()
+    Wait(5000)
+
+    while true do
+        local playerCoords =
+            GetEntityCoords(
+                PlayerPedId()
+            )
+
+        for entryId, entry
+            in pairs(dynamicPeds) do
+
+            entry.distanceToPlayer =
+                #(entry.position - playerCoords)
+
+            if entry.distanceToPlayer
+                <= entry.minDistance then
+
+                if not entry.created then
+                    CMG.createDynamicPed(
+                        entry.modelHash,
+                        entry.position,
+                        entry.heading,
+                        entry.static,
+                        entry.animDict,
+                        entry.animName,
+                        entry.minDistance,
+                        entryId,
+                        entry.cb
+                    )
+
+                    entry.created = true
+                end
+
+            elseif entry.created then
+                if DoesEntityExist(
+                    entry.entity
+                ) then
+
+                    DeleteEntity(
+                        entry.entity
+                    )
+
+                    entry.created =
+                        false
+                end
+            end
         end
-      else
-        SHX7_2 = SHX6_2.created
-        if SHX7_2 then
-          SHX7_2 = DoesEntityExist
-          SHX8_2 = SHX6_2.entity
-          SHX7_2 = SHX7_2(SHX8_2)
-          if SHX7_2 then
-            SHX7_2 = DeleteEntity
-            SHX8_2 = SHX6_2.entity
-            SHX7_2(SHX8_2)
-            SHX7_2 = SHX0_1
-            SHX7_2 = SHX7_2[SHX5_2]
-            SHX7_2.created = false
-          end
+
+        Citizen.Wait(1000)
+    end
+end)
+
+
+-- ============================================================
+-- RESOURCE CLEANUP
+-- ============================================================
+
+AddEventHandler(
+    "onResourceStop",
+    function(resourceName)
+        if GetCurrentResourceName()
+            ~= resourceName then
+            return
         end
-      end
+
+        for _, entry
+            in pairs(dynamicPeds) do
+
+            if DoesEntityExist(
+                entry.entity
+            ) then
+
+                DeleteEntity(
+                    entry.entity
+                )
+            end
+        end
     end
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 1000
-    SHX1_2(SHX2_2)
-  end
-end
-SHX2_1(SHX3_1)
-SHX2_1 = AddEventHandler
-SHX3_1 = "onResourceStop"
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX0_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = DoesEntityExist
-      SHX8_2 = SHX6_2.entity
-      SHX7_2 = SHX7_2(SHX8_2)
-      if SHX7_2 then
-        SHX7_2 = DeleteEntity
-        SHX8_2 = SHX6_2.entity
-        SHX7_2(SHX8_2)
-      end
-    end
-  end
-end
-SHX2_1(SHX3_1, SHX4_1)
+)

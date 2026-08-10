@@ -1,1065 +1,1091 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_stretcher.lua
+    ================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_stretcher"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = false
-SHX2_1 = 0
-SHX3_1 = nil
-SHX4_1 = 1
-SHX5_1 = nil
-function SHX6_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerCoords
-  SHX2_2 = SHX2_2()
-  SHX3_2 = 0
-  SHX4_2 = SHX0_2
-  SHX5_2 = pairs
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getAllVehicles
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX6_2()
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-    SHX11_2 = GetEntityModel
-    SHX12_2 = SHX10_2
-    SHX11_2 = SHX11_2(SHX12_2)
-    SHX12_2 = SHX1_2[SHX11_2]
-    if SHX12_2 then
-      SHX12_2 = GetEntityCoords
-      SHX13_2 = SHX10_2
-      SHX12_2 = SHX12_2(SHX13_2)
-      SHX13_2 = SHX2_2 - SHX12_2
-      SHX13_2 = #SHX13_2
-      if SHX4_2 > SHX13_2 then
-        SHX4_2 = SHX13_2
-        SHX3_2 = SHX10_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Stretcher
+    ==========================
+
+    File: cmg/prod/client/nhs/cl_stretcher.lua
+    Purpose: This file contains NHS/medical gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Config/data used:
+      * cfg/cfg_stretcher
+
+    Commands/command-like entries found:
+      * stretcher
+      * removestretcher
+
+    Network/hash identifiers found: 11
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * ~INPUT_FRONTEND_RDOWN~ Change position  ~INPUT_CELLPHONE_CANCEL~ Get up
+      * ~INPUT_COVER~ Push  ~INPUT_FRONTEND_RDOWN~ Use
+      * ~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop pushing
+      * ~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop  ~INPUT_CELLPHONE_CAMERA_GRID~ Place player
+      * ~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out
+
+]]
+local cmgCall, flag17, numberValue9, workValue10, numberValue11, workValue11, workValue12, workValue13, workValue14, threadCall, workValue, workValue2, workValue3, cmgCall2, numberValue2, textValue, workValue5, flag11
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+flag17 = "cfg/cfg_stretcher"
+-- Beginner: result below is config.
+cmgCall = cmgCall(flag17)
+flag17 = false
+numberValue9 = 0
+workValue10 = nil
+numberValue11 = 1
+workValue11 = nil
+function workValue12(arg1, arg2)
+  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4
+  cmgCall3 = CMG
+  cmgCall3 = cmgCall3.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  cmgCall3 = cmgCall3()
+  numberValue10 = 0
+  textValue3 = arg1
+  iterator = pairs
+  cmgCall4 = CMG
+  cmgCall4 = cmgCall4.getAllVehicles
+  cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4 = cmgCall4()
+  iterator, cmgCall4, playerPed2, flag28 = iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4)
+  for flag29, flag in iterator, cmgCall4, playerPed2, flag28 do
+    modelHash = GetEntityModel
+    coords = flag
+    -- Beginner: result below is modelHash.
+    modelHash = modelHash(coords)
+    coords = arg2[modelHash]
+    if coords then
+      coords = GetEntityCoords
+      workValue4 = flag
+      -- Beginner: result below is entityCoords.
+      coords = coords(workValue4)
+      workValue4 = cmgCall3 - coords
+      workValue4 = #workValue4
+      if textValue3 > workValue4 then
+        textValue3 = workValue4
+        numberValue10 = flag
       end
     end
   end
-  return SHX3_2
+  return numberValue10
 end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = IsControlJustReleased
-  SHX1_2 = 0
-  SHX2_2 = 299
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = NetworkHasControlOfEntity
-    SHX1_2 = SHX2_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "5afe1684a7"
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.getNetId
-      SHX3_2 = SHX2_1
-      SHX4_2 = "Stretchers"
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2, SHX4_2)
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+function workValue13()
+  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator
+  arg1 = IsControlJustReleased
+  arg2 = 0
+  cmgCall3 = 299
+  arg1 = arg1(arg2, cmgCall3)
+  if arg1 then
+    arg1 = NetworkHasControlOfEntity
+    arg2 = numberValue9
+    arg1 = arg1(arg2)
+    if arg1 then
+      arg1 = TriggerServerEvent
+      arg2 = "5afe1684a7"
+      cmgCall3 = CMG
+      cmgCall3 = cmgCall3.getNetId
+      numberValue10 = numberValue9
+      textValue3 = "Stretchers"
+      cmgCall3, numberValue10, textValue3, iterator = cmgCall3(numberValue10, textValue3)
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5afe1684a7".
+      arg1(arg2, cmgCall3, numberValue10, textValue3, iterator)
     else
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.hasClientPermission
-      SHX1_2 = "nhs.onduty.permission"
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = SHX2_1
-        if 0 ~= SHX0_2 then
-          SHX0_2 = GetVehicleDoorAngleRatio
-          SHX1_2 = SHX2_1
-          SHX2_2 = 4
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          SHX0_2 = 0 ~= SHX0_2
-          if SHX0_2 then
-            SHX1_2 = SetVehicleDoorShut
-            SHX2_2 = SHX2_1
-            SHX3_2 = 3
-            SHX4_2 = false
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-            SHX1_2 = Wait
-            SHX2_2 = 500
-            SHX1_2(SHX2_2)
-            SHX1_2 = SetVehicleDoorShut
-            SHX2_2 = SHX2_1
-            SHX3_2 = 4
-            SHX4_2 = false
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "Door closed."
-            SHX1_2(SHX2_2)
+      arg1 = CMG
+      arg1 = arg1.hasClientPermission
+      arg2 = "nhs.onduty.permission"
+      arg1 = arg1(arg2)
+      if arg1 then
+        arg1 = numberValue9
+        if 0 ~= arg1 then
+          arg1 = GetVehicleDoorAngleRatio
+          arg2 = numberValue9
+          cmgCall3 = 4
+          arg1 = arg1(arg2, cmgCall3)
+          arg1 = 0 ~= arg1
+          if arg1 then
+            arg2 = SetVehicleDoorShut
+            cmgCall3 = numberValue9
+            numberValue10 = 3
+            textValue3 = false
+            arg2(cmgCall3, numberValue10, textValue3)
+            arg2 = Wait
+            cmgCall3 = 500
+            arg2(cmgCall3)
+            arg2 = SetVehicleDoorShut
+            cmgCall3 = numberValue9
+            numberValue10 = 4
+            textValue3 = false
+            arg2(cmgCall3, numberValue10, textValue3)
+            arg2 = tCMG
+            arg2 = arg2.notify
+            cmgCall3 = "Door closed."
+            -- Beginner: Show a notification to the player.
+            arg2(cmgCall3)
           else
-            SHX1_2 = SetVehicleDoorOpen
-            SHX2_2 = SHX2_1
-            SHX3_2 = 4
-            SHX4_2 = false
-            SHX5_2 = false
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            SHX1_2 = Wait
-            SHX2_2 = 500
-            SHX1_2(SHX2_2)
-            SHX1_2 = SetVehicleDoorOpen
-            SHX2_2 = SHX2_1
-            SHX3_2 = 3
-            SHX4_2 = false
-            SHX5_2 = false
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "Door opened."
-            SHX1_2(SHX2_2)
+            arg2 = SetVehicleDoorOpen
+            cmgCall3 = numberValue9
+            numberValue10 = 4
+            textValue3 = false
+            iterator = false
+            arg2(cmgCall3, numberValue10, textValue3, iterator)
+            arg2 = Wait
+            cmgCall3 = 500
+            arg2(cmgCall3)
+            arg2 = SetVehicleDoorOpen
+            cmgCall3 = numberValue9
+            numberValue10 = 3
+            textValue3 = false
+            iterator = false
+            arg2(cmgCall3, numberValue10, textValue3, iterator)
+            arg2 = tCMG
+            arg2 = arg2.notify
+            cmgCall3 = "Door opened."
+            -- Beginner: Show a notification to the player.
+            arg2(cmgCall3)
           end
         end
       end
     end
   end
 end
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = BeginTextCommandDisplayHelp
-  SHX2_2 = "STRING"
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddTextEntry
-  SHX2_2 = "STRETCHER_HELP_TEXT"
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = AddTextComponentSubstringTextLabel
-  SHX2_2 = "STRETCHER_HELP_TEXT"
-  SHX1_2(SHX2_2)
-  SHX1_2 = EndTextCommandDisplayHelp
-  SHX2_2 = 0
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX5_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+function workValue14(arg1)
+  local arg2, cmgCall3, numberValue10, textValue3, iterator
+  arg2 = BeginTextCommandDisplayHelp
+  cmgCall3 = "STRING"
+  arg2(cmgCall3)
+  arg2 = AddTextEntry
+  cmgCall3 = "STRETCHER_HELP_TEXT"
+  numberValue10 = arg1
+  arg2(cmgCall3, numberValue10)
+  arg2 = AddTextComponentSubstringTextLabel
+  cmgCall3 = "STRETCHER_HELP_TEXT"
+  arg2(cmgCall3)
+  arg2 = EndTextCommandDisplayHelp
+  cmgCall3 = 0
+  numberValue10 = false
+  textValue3 = false
+  iterator = 0
+  arg2(cmgCall3, numberValue10, textValue3, iterator)
 end
-SHX9_1 = Citizen
-SHX9_1 = SHX9_1.CreateThread
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function workValue()
+  local arg1, arg2, cmgCall3
   while true do
-    SHX0_2 = Wait
-    SHX1_2 = 750
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX6_1
-    SHX1_2 = 2.0
-    SHX2_2 = SHX0_1.stretcherModels
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    SHX3_1 = SHX0_2
+    arg1 = Wait
+    arg2 = 750
+    arg1(arg2)
+    arg1 = workValue12
+    arg2 = 2.0
+    cmgCall3 = cmgCall.stretcherModels
+    arg1 = arg1(arg2, cmgCall3)
+    workValue10 = arg1
   end
 end
-SHX9_1(SHX10_1)
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = GetEntityAttachedTo
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = DetachEntity
-  SHX3_2 = SHX0_2
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = false
-  SHX1_1 = SHX2_2
-  SHX2_2 = 1
-  SHX4_1 = SHX2_2
-  if SHX1_2 and 0 ~= SHX1_2 then
-    SHX2_2 = SetVehicleEngineOn
-    SHX3_2 = SHX1_2
-    SHX4_2 = false
-    SHX5_2 = true
-    SHX6_2 = true
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2 = GetEntityCoords
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX3_2 = DecorGetInt
-    SHX4_2 = SHX1_2
-    SHX5_2 = "58fe205294"
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if 0 ~= SHX3_2 then
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.getObjectId
-      SHX4_2 = DecorGetInt
-      SHX5_2 = SHX1_2
-      SHX6_2 = "58fe205294"
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-      SHX5_2 = "exitStretcher"
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      if SHX3_2 and 0 ~= SHX3_2 then
-        SHX4_2 = GetWorldPositionOfEntityBone
-        SHX5_2 = SHX3_2
-        SHX6_2 = GetEntityBoneIndexByName
-        SHX7_2 = SHX3_2
-        SHX8_2 = "bonnet"
-        SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX6_2(SHX7_2, SHX8_2)
-        SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-        SHX5_2 = vector3
-        SHX6_2 = 0.0
-        SHX7_2 = -2.0
-        SHX8_2 = 0.0
-        SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-        SHX2_2 = SHX4_2 + SHX5_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(workValue)
+function threadCall(arg1)
+  local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash
+  arg2 = GetEntityAttachedTo
+  cmgCall3 = arg1
+  arg2 = arg2(cmgCall3)
+  cmgCall3 = DetachEntity
+  numberValue10 = arg1
+  textValue3 = false
+  iterator = false
+  cmgCall3(numberValue10, textValue3, iterator)
+  cmgCall3 = false
+  flag17 = cmgCall3
+  cmgCall3 = 1
+  numberValue11 = cmgCall3
+  if arg2 and 0 ~= arg2 then
+    cmgCall3 = SetVehicleEngineOn
+    numberValue10 = arg2
+    textValue3 = false
+    iterator = true
+    cmgCall4 = true
+    cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+    cmgCall3 = GetEntityCoords
+    numberValue10 = arg2
+    -- Beginner: result below is entityCoords.
+    cmgCall3 = cmgCall3(numberValue10)
+    numberValue10 = DecorGetInt
+    textValue3 = arg2
+    iterator = "58fe205294"
+    numberValue10 = numberValue10(textValue3, iterator)
+    if 0 ~= numberValue10 then
+      numberValue10 = CMG
+      numberValue10 = numberValue10.getObjectId
+      textValue3 = DecorGetInt
+      iterator = arg2
+      cmgCall4 = "58fe205294"
+      textValue3 = textValue3(iterator, cmgCall4)
+      iterator = "exitStretcher"
+      numberValue10 = numberValue10(textValue3, iterator)
+      if numberValue10 and 0 ~= numberValue10 then
+        textValue3 = GetWorldPositionOfEntityBone
+        iterator = numberValue10
+        cmgCall4 = GetEntityBoneIndexByName
+        playerPed2 = numberValue10
+        flag28 = "bonnet"
+        cmgCall4, playerPed2, flag28, flag29, flag, modelHash = cmgCall4(playerPed2, flag28)
+        textValue3 = textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash)
+        iterator = vector3
+        cmgCall4 = 0.0
+        playerPed2 = -2.0
+        flag28 = 0.0
+        iterator = iterator(cmgCall4, playerPed2, flag28)
+        cmgCall3 = textValue3 + iterator
       end
     end
-    SHX3_2 = SetEntityCoords
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX2_2.x
-    SHX6_2 = SHX2_2.y
-    SHX7_2 = SHX2_2.z
-    SHX8_2 = false
-    SHX9_2 = false
-    SHX10_2 = false
-    SHX11_2 = false
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX3_2 = PlaceObjectOnGroundProperly
-    SHX4_2 = SHX0_2
-    SHX3_2(SHX4_2)
+    numberValue10 = SetEntityCoords
+    textValue3 = arg1
+    iterator = cmgCall3.x
+    cmgCall4 = cmgCall3.y
+    playerPed2 = cmgCall3.z
+    flag28 = false
+    flag29 = false
+    flag = false
+    modelHash = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash)
+    numberValue10 = PlaceObjectOnGroundProperly
+    textValue3 = arg1
+    numberValue10(textValue3)
   end
-  SHX2_2 = ClearPedTasksImmediately
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
+  cmgCall3 = ClearPedTasksImmediately
+  numberValue10 = arg1
+  cmgCall3(numberValue10)
 end
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = pairs
-  SHX2_2 = GetActivePlayers
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX2_2()
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = GetPlayerPed
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = GetEntityAttachedTo
-    SHX9_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    if SHX8_2 == SHX0_2 then
-      SHX8_2 = true
-      return SHX8_2
+function workValue(arg1)
+  local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29
+  arg2 = pairs
+  cmgCall3 = GetActivePlayers
+  cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29 = cmgCall3()
+  arg2, cmgCall3, numberValue10, textValue3 = arg2(cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29)
+  for iterator, cmgCall4 in arg2, cmgCall3, numberValue10, textValue3 do
+    playerPed2 = GetPlayerPed
+    flag28 = cmgCall4
+    -- Beginner: result below is playerPed.
+    playerPed2 = playerPed2(flag28)
+    flag28 = GetEntityAttachedTo
+    flag29 = playerPed2
+    flag28 = flag28(flag29)
+    if flag28 == arg1 then
+      flag28 = true
+      return flag28
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-function SHX11_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX10_1
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = SHX1_1
-    if not SHX3_2 then
-      goto SHX_LABEL_81
+function workValue2(arg1, arg2)
+  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15
+  cmgCall3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  cmgCall3 = cmgCall3()
+  numberValue10 = workValue
+  textValue3 = arg1
+  numberValue10 = numberValue10(textValue3)
+  if numberValue10 then
+    numberValue10 = flag17
+    if not numberValue10 then
+      goto flow_label_81
     end
   end
-  SHX3_2 = true
-  SHX1_1 = SHX3_2
-  SHX3_2 = SetVehicleEngineOn
-  SHX4_2 = SHX0_2
-  SHX5_2 = true
-  SHX6_2 = true
-  SHX7_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  if SHX1_2 then
-    SHX4_1 = SHX1_2
+  numberValue10 = true
+  flag17 = numberValue10
+  numberValue10 = SetVehicleEngineOn
+  textValue3 = arg1
+  iterator = true
+  cmgCall4 = true
+  playerPed2 = true
+  numberValue10(textValue3, iterator, cmgCall4, playerPed2)
+  if arg2 then
+    numberValue11 = arg2
   end
-  SHX3_2 = SHX0_1.positions
-  SHX4_2 = SHX4_1
-  SHX3_2 = SHX3_2[SHX4_2]
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadAnimDict
-  SHX5_2 = SHX3_2.animDict
-  SHX4_2(SHX5_2)
-  SHX4_2 = DetachEntity
-  SHX5_2 = SHX2_2
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = AttachEntityToEntity
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX2_2
-  SHX8_2 = SHX3_2.offset
-  SHX8_2 = SHX8_2.x
-  SHX9_2 = SHX3_2.offset
-  SHX9_2 = SHX9_2.y
-  SHX10_2 = SHX3_2.offset
-  SHX10_2 = SHX10_2.z
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = SHX3_2.offset
-  SHX13_2 = SHX13_2.heading
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = 0
-  SHX19_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  SHX4_2 = TaskPlayAnim
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX3_2.animDict
-  SHX7_2 = SHX3_2.animName
-  SHX8_2 = 8.0
-  SHX9_2 = 8.0
-  SHX10_2 = -1
-  SHX11_2 = 1
-  SHX12_2 = 0
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2 = RemoveAnimDict
-  SHX5_2 = SHX3_2.animDict
-  SHX4_2(SHX5_2)
-  SHX4_2 = SHX4_1
-  if 3 == SHX4_2 then
-    SHX4_2 = 1
-    SHX4_1 = SHX4_2
+  numberValue10 = cmgCall.positions
+  textValue3 = numberValue11
+  numberValue10 = numberValue10[textValue3]
+  textValue3 = CMG
+  textValue3 = textValue3.loadAnimDict
+  iterator = numberValue10.animDict
+  -- Beginner: Load a GTA animation dictionary before using it.
+  textValue3(iterator)
+  textValue3 = DetachEntity
+  iterator = cmgCall3
+  cmgCall4 = false
+  playerPed2 = false
+  textValue3(iterator, cmgCall4, playerPed2)
+  textValue3 = AttachEntityToEntity
+  iterator = cmgCall3
+  cmgCall4 = arg1
+  playerPed2 = cmgCall3
+  flag28 = numberValue10.offset
+  flag28 = flag28.x
+  flag29 = numberValue10.offset
+  flag29 = flag29.y
+  flag = numberValue10.offset
+  flag = flag.z
+  modelHash = 0.0
+  coords = 0.0
+  workValue4 = numberValue10.offset
+  workValue4 = workValue4.heading
+  flag5 = false
+  flag7 = false
+  flag9 = false
+  flag12 = false
+  flag14 = 0
+  flag15 = false
+  -- Beginner: Attach one entity to another entity.
+  textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15)
+  textValue3 = TaskPlayAnim
+  iterator = cmgCall3
+  cmgCall4 = numberValue10.animDict
+  playerPed2 = numberValue10.animName
+  flag28 = 8.0
+  flag29 = 8.0
+  flag = -1
+  modelHash = 1
+  coords = 0
+  workValue4 = false
+  flag5 = false
+  flag7 = false
+  -- Beginner: Play an animation on a ped.
+  textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7)
+  textValue3 = RemoveAnimDict
+  iterator = numberValue10.animDict
+  textValue3(iterator)
+  textValue3 = numberValue11
+  if 3 == textValue3 then
+    textValue3 = 1
+    numberValue11 = textValue3
   else
-    SHX4_2 = SHX4_1
-    SHX4_2 = SHX4_2 + 1
-    SHX4_1 = SHX4_2
+    textValue3 = numberValue11
+    textValue3 = textValue3 + 1
+    numberValue11 = textValue3
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_81:: outside nested blocks until all 'goto SHX_LABEL_81' can see it
-  ::SHX_LABEL_81::
+  ::flow_label_81::
 end
-SHX12_1 = DecorRegister
-SHX13_1 = "ddf749d1be"
-SHX14_1 = 2
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = DecorRegister
-SHX13_1 = "58fe205294"
-SHX14_1 = 3
-SHX12_1(SHX13_1, SHX14_1)
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 24
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 25
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = GetEntityAttachedTo
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if 0 == SHX1_2 then
-      SHX1_2 = SHX9_1
-      SHX2_2 = SHX0_2
-      SHX1_2(SHX2_2)
+workValue3 = DecorRegister
+cmgCall2 = "ddf749d1be"
+numberValue2 = 2
+workValue3(cmgCall2, numberValue2)
+workValue3 = DecorRegister
+cmgCall2 = "58fe205294"
+numberValue2 = 3
+workValue3(cmgCall2, numberValue2)
+function workValue3()
+  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = flag17
+  if arg2 then
+    arg2 = DisableControlAction
+    cmgCall3 = 0
+    numberValue10 = 24
+    textValue3 = true
+    arg2(cmgCall3, numberValue10, textValue3)
+    arg2 = DisableControlAction
+    cmgCall3 = 0
+    numberValue10 = 25
+    textValue3 = true
+    arg2(cmgCall3, numberValue10, textValue3)
+    arg2 = GetEntityAttachedTo
+    cmgCall3 = arg1
+    arg2 = arg2(cmgCall3)
+    if 0 == arg2 then
+      arg2 = threadCall
+      cmgCall3 = arg1
+      -- Beginner: Start a separate FiveM thread so this code can run independently.
+      arg2(cmgCall3)
     else
-      SHX1_2 = SHX8_1
-      SHX2_2 = "~INPUT_FRONTEND_RDOWN~ Change position  ~INPUT_CELLPHONE_CANCEL~ Get up"
-      SHX1_2(SHX2_2)
-      SHX1_2 = IsControlJustReleased
-      SHX2_2 = 0
-      SHX3_2 = 202
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      if SHX1_2 then
-        SHX1_2 = SHX9_1
-        SHX2_2 = SHX0_2
-        SHX1_2(SHX2_2)
+      arg2 = workValue14
+      cmgCall3 = "~INPUT_FRONTEND_RDOWN~ Change position  ~INPUT_CELLPHONE_CANCEL~ Get up"
+      arg2(cmgCall3)
+      arg2 = IsControlJustReleased
+      cmgCall3 = 0
+      numberValue10 = 202
+      arg2 = arg2(cmgCall3, numberValue10)
+      if arg2 then
+        arg2 = threadCall
+        cmgCall3 = arg1
+        -- Beginner: Start a separate FiveM thread so this code can run independently.
+        arg2(cmgCall3)
       end
     end
   end
-  SHX1_2 = SHX3_1
-  if nil ~= SHX1_2 then
-    SHX1_2 = SHX3_1
-    if 0 ~= SHX1_2 then
-      SHX1_2 = DecorGetInt
-      SHX2_2 = SHX3_1
-      SHX3_2 = "58fe205294"
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      if 0 ~= SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.getObjectId
-        SHX2_2 = DecorGetInt
-        SHX3_2 = SHX3_1
-        SHX4_2 = "58fe205294"
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        SHX3_2 = "Stretcher tick"
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = 0
+  arg2 = workValue10
+  if nil ~= arg2 then
+    arg2 = workValue10
+    if 0 ~= arg2 then
+      arg2 = DecorGetInt
+      cmgCall3 = workValue10
+      numberValue10 = "58fe205294"
+      arg2 = arg2(cmgCall3, numberValue10)
+      if 0 ~= arg2 then
+        arg2 = CMG
+        arg2 = arg2.getObjectId
+        cmgCall3 = DecorGetInt
+        numberValue10 = workValue10
+        textValue3 = "58fe205294"
+        cmgCall3 = cmgCall3(numberValue10, textValue3)
+        numberValue10 = "Stretcher tick"
+        arg2 = arg2(cmgCall3, numberValue10)
+        if not arg2 then
+          arg2 = 0
         end
-        SHX2_1 = SHX1_2
+        numberValue9 = arg2
       else
-        SHX1_2 = SHX6_1
-        SHX2_2 = 15.0
-        SHX3_2 = SHX0_1.ambulanceModels
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        SHX2_1 = SHX1_2
+        arg2 = workValue12
+        cmgCall3 = 15.0
+        numberValue10 = cmgCall.ambulanceModels
+        arg2 = arg2(cmgCall3, numberValue10)
+        numberValue9 = arg2
       end
-      SHX1_2 = GetEntityCoords
-      SHX2_2 = SHX3_1
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX2_2 = SHX1_1
-      if not SHX2_2 then
-        SHX2_2 = IsEntityPlayingAnim
-        SHX3_2 = SHX0_2
-        SHX4_2 = "anim@heists@box_carry@"
-        SHX5_2 = "idle"
-        SHX6_2 = 3
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        if not SHX2_2 then
-          SHX2_2 = CMG
-          SHX2_2 = SHX2_2.getPlayerVehicle
-          SHX2_2 = SHX2_2()
-          if 0 == SHX2_2 then
-            SHX2_2 = true
-            SHX3_2 = DecorGetInt
-            SHX4_2 = SHX3_1
-            SHX5_2 = "58fe205294"
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            if 0 ~= SHX3_2 then
-              SHX3_2 = SHX2_1
-              SHX2_2 = 0 ~= SHX3_2
+      arg2 = GetEntityCoords
+      cmgCall3 = workValue10
+      -- Beginner: result below is entityCoords.
+      arg2 = arg2(cmgCall3)
+      cmgCall3 = flag17
+      if not cmgCall3 then
+        cmgCall3 = IsEntityPlayingAnim
+        numberValue10 = arg1
+        textValue3 = "anim@heists@box_carry@"
+        iterator = "idle"
+        cmgCall4 = 3
+        cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+        if not cmgCall3 then
+          cmgCall3 = CMG
+          cmgCall3 = cmgCall3.getPlayerVehicle
+          -- Beginner: result below is currentVehicle.
+          cmgCall3 = cmgCall3()
+          if 0 == cmgCall3 then
+            cmgCall3 = true
+            numberValue10 = DecorGetInt
+            textValue3 = workValue10
+            iterator = "58fe205294"
+            numberValue10 = numberValue10(textValue3, iterator)
+            if 0 ~= numberValue10 then
+              numberValue10 = numberValue9
+              cmgCall3 = 0 ~= numberValue10
             end
-            if SHX2_2 then
-              SHX3_2 = SHX8_1
-              SHX4_2 = "~INPUT_COVER~ Push  ~INPUT_FRONTEND_RDOWN~ Use"
-              SHX3_2(SHX4_2)
+            if cmgCall3 then
+              numberValue10 = workValue14
+              textValue3 = "~INPUT_COVER~ Push  ~INPUT_FRONTEND_RDOWN~ Use"
+              numberValue10(textValue3)
             end
           end
         end
       end
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX0_2
-      SHX4_2 = "anim@heists@box_carry@"
-      SHX5_2 = "idle"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = SHX2_1
-        if 0 == SHX2_2 then
-          SHX2_2 = -1
-          SHX3_2 = 5.0
-          SHX4_2 = pairs
-          SHX5_2 = GetActivePlayers
-          SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX5_2()
-          SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-          for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-            SHX10_2 = GetPlayerPed
-            SHX11_2 = SHX9_2
-            SHX10_2 = SHX10_2(SHX11_2)
-            if 0 ~= SHX10_2 then
-              SHX11_2 = GetEntityHealth
-              SHX12_2 = SHX10_2
-              SHX11_2 = SHX11_2(SHX12_2)
-              if SHX11_2 >= 100 and SHX11_2 <= 102 then
-                SHX12_2 = GetEntityAttachedTo
-                SHX13_2 = SHX10_2
-                SHX12_2 = SHX12_2(SHX13_2)
-                if 0 == SHX12_2 then
-                  SHX12_2 = GetEntityCoords
-                  SHX13_2 = SHX10_2
-                  SHX14_2 = true
-                  SHX12_2 = SHX12_2(SHX13_2, SHX14_2)
-                  SHX12_2 = SHX12_2 - SHX1_2
-                  SHX12_2 = #SHX12_2
-                  if SHX3_2 > SHX12_2 then
-                    SHX2_2 = SHX9_2
-                    SHX3_2 = SHX12_2
+      cmgCall3 = IsEntityPlayingAnim
+      numberValue10 = arg1
+      textValue3 = "anim@heists@box_carry@"
+      iterator = "idle"
+      cmgCall4 = 3
+      cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+      if cmgCall3 then
+        cmgCall3 = numberValue9
+        if 0 == cmgCall3 then
+          cmgCall3 = -1
+          numberValue10 = 5.0
+          textValue3 = pairs
+          iterator = GetActivePlayers
+          iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = iterator()
+          textValue3, iterator, cmgCall4, playerPed2 = textValue3(iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+          for flag28, flag29 in textValue3, iterator, cmgCall4, playerPed2 do
+            flag = GetPlayerPed
+            modelHash = flag29
+            -- Beginner: result below is playerPed.
+            flag = flag(modelHash)
+            if 0 ~= flag then
+              modelHash = GetEntityHealth
+              coords = flag
+              -- Beginner: result below is health.
+              modelHash = modelHash(coords)
+              if modelHash >= 100 and modelHash <= 102 then
+                coords = GetEntityAttachedTo
+                workValue4 = flag
+                coords = coords(workValue4)
+                if 0 == coords then
+                  coords = GetEntityCoords
+                  workValue4 = flag
+                  flag5 = true
+                  -- Beginner: result below is entityCoords.
+                  coords = coords(workValue4, flag5)
+                  coords = coords - arg2
+                  coords = #coords
+                  if numberValue10 > coords then
+                    cmgCall3 = flag29
+                    numberValue10 = coords
                   end
                 end
               end
             end
           end
-          SHX4_2 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop pushing"
-          if -1 ~= SHX2_2 then
-            SHX5_2 = CMG
-            SHX5_2 = SHX5_2.hasClientPermission
-            SHX6_2 = "nhs.onduty.permission"
-            SHX5_2 = SHX5_2(SHX6_2)
-            if SHX5_2 then
-              SHX4_2 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop  ~INPUT_CELLPHONE_CAMERA_GRID~ Place player"
-              SHX5_2 = IsControlJustPressed
-              SHX6_2 = 0
-              SHX7_2 = 183
-              SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-              if SHX5_2 then
-                SHX5_2 = GetPlayerServerId
-                SHX6_2 = SHX2_2
-                SHX5_2 = SHX5_2(SHX6_2)
-                SHX6_2 = NetworkGetNetworkIdFromEntity
-                SHX7_2 = SHX3_1
-                SHX6_2 = SHX6_2(SHX7_2)
-                if SHX5_2 > 0 and 0 ~= SHX6_2 then
-                  SHX7_2 = TriggerServerEvent
-                  SHX8_2 = "2d2aca0333"
-                  SHX9_2 = SHX5_2
-                  SHX10_2 = SHX6_2
-                  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
+          textValue3 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop pushing"
+          if -1 ~= cmgCall3 then
+            iterator = CMG
+            iterator = iterator.hasClientPermission
+            cmgCall4 = "nhs.onduty.permission"
+            iterator = iterator(cmgCall4)
+            if iterator then
+              textValue3 = "~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop  ~INPUT_CELLPHONE_CAMERA_GRID~ Place player"
+              iterator = IsControlJustPressed
+              cmgCall4 = 0
+              playerPed2 = 183
+              iterator = iterator(cmgCall4, playerPed2)
+              if iterator then
+                iterator = GetPlayerServerId
+                cmgCall4 = cmgCall3
+                -- Beginner: result below is serverId.
+                iterator = iterator(cmgCall4)
+                cmgCall4 = NetworkGetNetworkIdFromEntity
+                playerPed2 = workValue10
+                cmgCall4 = cmgCall4(playerPed2)
+                if iterator > 0 and 0 ~= cmgCall4 then
+                  playerPed2 = TriggerServerEvent
+                  flag28 = "2d2aca0333"
+                  flag29 = iterator
+                  flag = cmgCall4
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2d2aca0333".
+                  playerPed2(flag28, flag29, flag)
                 end
               end
             end
           end
-          SHX5_2 = SHX8_1
-          SHX6_2 = SHX4_2
-          SHX5_2(SHX6_2)
+          iterator = workValue14
+          cmgCall4 = textValue3
+          iterator(cmgCall4)
         end
       end
-      SHX2_2 = SHX2_1
-      if 0 ~= SHX2_2 then
-        SHX2_2 = DecorGetBool
-        SHX3_2 = SHX2_1
-        SHX4_2 = "ddf749d1be"
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        if SHX2_2 then
-          SHX2_2 = CMG
-          SHX2_2 = SHX2_2.hasClientPermission
-          SHX3_2 = "nhs.onduty.permission"
-          SHX2_2 = SHX2_2(SHX3_2)
-          if SHX2_2 then
-            SHX2_2 = IsPedInVehicle
-            SHX3_2 = SHX0_2
-            SHX4_2 = SHX2_1
-            SHX5_2 = false
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-            if not SHX2_2 then
-              SHX2_2 = SHX1_1
-              if not SHX2_2 then
-                SHX2_2 = GetWorldPositionOfEntityBone
-                SHX3_2 = SHX2_1
-                SHX4_2 = GetEntityBoneIndexByName
-                SHX5_2 = SHX2_1
-                SHX6_2 = "bonnet"
-                SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX4_2(SHX5_2, SHX6_2)
-                SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-                SHX3_2 = DrawMarker
-                SHX4_2 = 1
-                SHX5_2 = SHX2_2.x
-                SHX6_2 = SHX2_2.y
-                SHX7_2 = SHX2_2.z
-                SHX7_2 = SHX7_2 - 1.75
-                SHX8_2 = 0.0
-                SHX9_2 = 0.0
-                SHX10_2 = 0.0
-                SHX11_2 = 0
-                SHX12_2 = 0.0
-                SHX13_2 = 0.0
-                SHX14_2 = 1.5
-                SHX15_2 = 1.5
-                SHX16_2 = 1.5
-                SHX17_2 = 0
-                SHX18_2 = 48
-                SHX19_2 = 135
-                SHX20_2 = 235
-                SHX21_2 = false
-                SHX22_2 = true
-                SHX23_2 = 2
-                SHX24_2 = false
-                SHX25_2 = nil
-                SHX26_2 = nil
-                SHX27_2 = false
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-                SHX3_2 = SHX7_1
-                SHX3_2()
-                SHX3_2 = GetVehicleDoorAngleRatio
-                SHX4_2 = SHX2_1
-                SHX5_2 = 4
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-                SHX3_2 = 0 ~= SHX3_2
-                if SHX3_2 then
-                  SHX4_2 = SHX8_1
-                  SHX5_2 = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out"
-                  SHX4_2(SHX5_2)
-                  SHX4_2 = IsControlJustReleased
-                  SHX5_2 = 0
-                  SHX6_2 = 300
-                  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-                  if SHX4_2 then
-                    SHX4_2 = CMG
-                    SHX4_2 = SHX4_2.getNetId
-                    SHX5_2 = SHX2_1
-                    SHX6_2 = "Stretchers"
-                    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-                    SHX5_2 = pairs
-                    SHX6_2 = CMG
-                    SHX6_2 = SHX6_2.getAllVehicles
-                    SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX6_2()
-                    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-                    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-                      SHX11_2 = SHX0_1.stretcherModels
-                      SHX12_2 = GetEntityModel
-                      SHX13_2 = SHX10_2
-                      SHX12_2 = SHX12_2(SHX13_2)
-                      SHX11_2 = SHX11_2[SHX12_2]
-                      if SHX11_2 then
-                        SHX11_2 = DecorGetInt
-                        SHX12_2 = SHX10_2
-                        SHX13_2 = "58fe205294"
-                        SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-                        if SHX11_2 == SHX4_2 then
-                          SHX11_2 = DetachEntity
-                          SHX12_2 = SHX10_2
-                          SHX13_2 = true
-                          SHX14_2 = false
-                          SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-                          SHX11_2 = FreezeEntityPosition
-                          SHX12_2 = SHX10_2
-                          SHX13_2 = false
-                          SHX11_2(SHX12_2, SHX13_2)
-                          SHX11_2 = vector3
-                          SHX12_2 = 0.0
-                          SHX13_2 = -2.0
-                          SHX14_2 = 0.0
-                          SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-                          SHX11_2 = SHX2_2 + SHX11_2
-                          SHX12_2 = SetEntityCoords
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = SHX11_2.x
-                          SHX15_2 = SHX11_2.y
-                          SHX16_2 = SHX11_2.z
-                          SHX17_2 = false
-                          SHX18_2 = false
-                          SHX19_2 = false
-                          SHX20_2 = false
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-                          SHX12_2 = SetVehicleOnGroundProperly
-                          SHX13_2 = SHX10_2
-                          SHX12_2(SHX13_2)
-                          SHX12_2 = SetVehicleExtra
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = 1
-                          SHX15_2 = true
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-                          SHX12_2 = SetVehicleExtra
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = 2
-                          SHX15_2 = false
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-                          SHX12_2 = DecorSetInt
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = "58fe205294"
-                          SHX15_2 = 0
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-                          SHX12_2 = NetworkHasControlOfEntity
-                          SHX13_2 = SHX2_1
-                          SHX12_2 = SHX12_2(SHX13_2)
-                          if SHX12_2 then
-                            SHX12_2 = DecorSetBool
-                            SHX13_2 = SHX2_1
-                            SHX14_2 = "ddf749d1be"
-                            SHX15_2 = false
-                            SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+      cmgCall3 = numberValue9
+      if 0 ~= cmgCall3 then
+        cmgCall3 = DecorGetBool
+        numberValue10 = numberValue9
+        textValue3 = "ddf749d1be"
+        cmgCall3 = cmgCall3(numberValue10, textValue3)
+        if cmgCall3 then
+          cmgCall3 = CMG
+          cmgCall3 = cmgCall3.hasClientPermission
+          numberValue10 = "nhs.onduty.permission"
+          cmgCall3 = cmgCall3(numberValue10)
+          if cmgCall3 then
+            cmgCall3 = IsPedInVehicle
+            numberValue10 = arg1
+            textValue3 = numberValue9
+            iterator = false
+            cmgCall3 = cmgCall3(numberValue10, textValue3, iterator)
+            if not cmgCall3 then
+              cmgCall3 = flag17
+              if not cmgCall3 then
+                cmgCall3 = GetWorldPositionOfEntityBone
+                numberValue10 = numberValue9
+                textValue3 = GetEntityBoneIndexByName
+                iterator = numberValue9
+                cmgCall4 = "bonnet"
+                textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator, cmgCall4)
+                cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+                numberValue10 = DrawMarker
+                textValue3 = 1
+                iterator = cmgCall3.x
+                cmgCall4 = cmgCall3.y
+                playerPed2 = cmgCall3.z
+                playerPed2 = playerPed2 - 1.75
+                flag28 = 0.0
+                flag29 = 0.0
+                flag = 0.0
+                modelHash = 0
+                coords = 0.0
+                workValue4 = 0.0
+                flag5 = 1.5
+                flag7 = 1.5
+                flag9 = 1.5
+                flag12 = 0
+                flag14 = 48
+                flag15 = 135
+                flag18 = 235
+                flag19 = false
+                flag20 = true
+                numberValue7 = 2
+                flag22 = false
+                workValue6 = nil
+                workValue7 = nil
+                flag25 = false
+                numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+                numberValue10 = workValue13
+                numberValue10()
+                numberValue10 = GetVehicleDoorAngleRatio
+                textValue3 = numberValue9
+                iterator = 4
+                numberValue10 = numberValue10(textValue3, iterator)
+                numberValue10 = 0 ~= numberValue10
+                if numberValue10 then
+                  textValue3 = workValue14
+                  iterator = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out"
+                  textValue3(iterator)
+                  textValue3 = IsControlJustReleased
+                  iterator = 0
+                  cmgCall4 = 300
+                  textValue3 = textValue3(iterator, cmgCall4)
+                  if textValue3 then
+                    textValue3 = CMG
+                    textValue3 = textValue3.getNetId
+                    iterator = numberValue9
+                    cmgCall4 = "Stretchers"
+                    textValue3 = textValue3(iterator, cmgCall4)
+                    iterator = pairs
+                    cmgCall4 = CMG
+                    cmgCall4 = cmgCall4.getAllVehicles
+                    cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = cmgCall4()
+                    iterator, cmgCall4, playerPed2, flag28 = iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+                    for flag29, flag in iterator, cmgCall4, playerPed2, flag28 do
+                      modelHash = cmgCall.stretcherModels
+                      coords = GetEntityModel
+                      workValue4 = flag
+                      -- Beginner: result below is modelHash.
+                      coords = coords(workValue4)
+                      modelHash = modelHash[coords]
+                      if modelHash then
+                        modelHash = DecorGetInt
+                        coords = flag
+                        workValue4 = "58fe205294"
+                        modelHash = modelHash(coords, workValue4)
+                        if modelHash == textValue3 then
+                          modelHash = DetachEntity
+                          coords = flag
+                          workValue4 = true
+                          flag5 = false
+                          modelHash(coords, workValue4, flag5)
+                          modelHash = FreezeEntityPosition
+                          coords = flag
+                          workValue4 = false
+                          -- Beginner: Freeze or unfreeze an entity in place.
+                          modelHash(coords, workValue4)
+                          modelHash = vector3
+                          coords = 0.0
+                          workValue4 = -2.0
+                          flag5 = 0.0
+                          modelHash = modelHash(coords, workValue4, flag5)
+                          modelHash = cmgCall3 + modelHash
+                          coords = SetEntityCoords
+                          workValue4 = flag
+                          flag5 = modelHash.x
+                          flag7 = modelHash.y
+                          flag9 = modelHash.z
+                          flag12 = false
+                          flag14 = false
+                          flag15 = false
+                          flag18 = false
+                          -- Beginner: Move/teleport an entity to new coordinates.
+                          coords(workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18)
+                          coords = SetVehicleOnGroundProperly
+                          workValue4 = flag
+                          coords(workValue4)
+                          coords = SetVehicleExtra
+                          workValue4 = flag
+                          flag5 = 1
+                          flag7 = true
+                          coords(workValue4, flag5, flag7)
+                          coords = SetVehicleExtra
+                          workValue4 = flag
+                          flag5 = 2
+                          flag7 = false
+                          coords(workValue4, flag5, flag7)
+                          coords = DecorSetInt
+                          workValue4 = flag
+                          flag5 = "58fe205294"
+                          flag7 = 0
+                          coords(workValue4, flag5, flag7)
+                          coords = NetworkHasControlOfEntity
+                          workValue4 = numberValue9
+                          coords = coords(workValue4)
+                          if coords then
+                            coords = DecorSetBool
+                            workValue4 = numberValue9
+                            flag5 = "ddf749d1be"
+                            flag7 = false
+                            coords(workValue4, flag5, flag7)
                           else
-                            SHX12_2 = TriggerServerEvent
-                            SHX13_2 = "c15aeb9b9f"
-                            SHX14_2 = CMG
-                            SHX14_2 = SHX14_2.getNetId
-                            SHX15_2 = SHX2_1
-                            SHX16_2 = "Stretcher"
-                            SHX14_2 = SHX14_2(SHX15_2, SHX16_2)
-                            SHX15_2 = false
-                            SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+                            coords = TriggerServerEvent
+                            workValue4 = "c15aeb9b9f"
+                            flag5 = CMG
+                            flag5 = flag5.getNetId
+                            flag7 = numberValue9
+                            flag9 = "Stretcher"
+                            flag5 = flag5(flag7, flag9)
+                            flag7 = false
+                            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
+                            coords(workValue4, flag5, flag7)
                           end
-                          SHX12_2 = tCMG
-                          SHX12_2 = SHX12_2.notify
-                          SHX13_2 = "Stretcher taken out."
-                          SHX12_2(SHX13_2)
+                          coords = tCMG
+                          coords = coords.notify
+                          workValue4 = "Stretcher taken out."
+                          -- Beginner: Show a notification to the player.
+                          coords(workValue4)
                           break
                         end
                       end
                     end
                   end
                 else
-                  SHX4_2 = SHX8_1
-                  SHX5_2 = "~INPUT_REPLAY_REWIND~ Open/close rear door"
-                  SHX4_2(SHX5_2)
+                  textValue3 = workValue14
+                  iterator = "~INPUT_REPLAY_REWIND~ Open/close rear door"
+                  textValue3(iterator)
                 end
               end
             end
           end
         end
       end
-      SHX2_2 = IsControlJustReleased
-      SHX3_2 = 0
-      SHX4_2 = 44
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if SHX2_2 then
-        SHX2_2 = IsEntityPlayingAnim
-        SHX3_2 = SHX0_2
-        SHX4_2 = "anim@heists@box_carry@"
-        SHX5_2 = "idle"
-        SHX6_2 = 3
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        if not SHX2_2 then
-          SHX2_2 = SHX1_1
-          if not SHX2_2 then
-            SHX2_2 = DecorGetInt
-            SHX3_2 = SHX3_1
-            SHX4_2 = "58fe205294"
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-            if 0 ~= SHX2_2 then
-              SHX2_2 = SHX2_1
-              if nil == SHX2_2 then
-                SHX2_2 = 0
+      cmgCall3 = IsControlJustReleased
+      numberValue10 = 0
+      textValue3 = 44
+      cmgCall3 = cmgCall3(numberValue10, textValue3)
+      if cmgCall3 then
+        cmgCall3 = IsEntityPlayingAnim
+        numberValue10 = arg1
+        textValue3 = "anim@heists@box_carry@"
+        iterator = "idle"
+        cmgCall4 = 3
+        cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+        if not cmgCall3 then
+          cmgCall3 = flag17
+          if not cmgCall3 then
+            cmgCall3 = DecorGetInt
+            numberValue10 = workValue10
+            textValue3 = "58fe205294"
+            cmgCall3 = cmgCall3(numberValue10, textValue3)
+            if 0 ~= cmgCall3 then
+              cmgCall3 = numberValue9
+              if nil == cmgCall3 then
+                cmgCall3 = 0
               end
-              if 0 ~= SHX2_2 then
-                SHX3_2 = GetVehicleDoorAngleRatio
-                SHX4_2 = SHX2_2
-                SHX5_2 = 4
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-                if 0 == SHX3_2 then
-                  SHX3_2 = IsThisModelAHeli
-                  SHX4_2 = GetEntityModel
-                  SHX5_2 = SHX2_2
-                  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX4_2(SHX5_2)
-                  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
+              if 0 ~= cmgCall3 then
+                numberValue10 = GetVehicleDoorAngleRatio
+                textValue3 = cmgCall3
+                iterator = 4
+                numberValue10 = numberValue10(textValue3, iterator)
+                if 0 == numberValue10 then
+                  numberValue10 = IsThisModelAHeli
+                  textValue3 = GetEntityModel
+                  iterator = cmgCall3
+                  textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator)
+                  numberValue10 = numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
                 end
-                if SHX3_2 then
-                  SHX3_2 = SHX5_1
-                  SHX4_2 = SHX0_2
-                  SHX5_2 = SHX3_1
-                  SHX3_2(SHX4_2, SHX5_2)
+                if numberValue10 then
+                  numberValue10 = workValue11
+                  textValue3 = arg1
+                  iterator = workValue10
+                  numberValue10(textValue3, iterator)
                 end
               end
             else
-              SHX2_2 = SHX5_1
-              SHX3_2 = SHX0_2
-              SHX4_2 = SHX3_1
-              SHX2_2(SHX3_2, SHX4_2)
+              cmgCall3 = workValue11
+              numberValue10 = arg1
+              textValue3 = workValue10
+              cmgCall3(numberValue10, textValue3)
             end
           end
         end
       end
-      SHX2_2 = SHX2_1
-      if 0 ~= SHX2_2 then
-        SHX2_2 = DecorGetBool
-        SHX3_2 = SHX2_1
-        SHX4_2 = "ddf749d1be"
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        if not SHX2_2 then
-          SHX2_2 = IsEntityPlayingAnim
-          SHX3_2 = SHX0_2
-          SHX4_2 = "anim@heists@box_carry@"
-          SHX5_2 = "idle"
-          SHX6_2 = 3
-          SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          if SHX2_2 then
-            SHX2_2 = IsPedInVehicle
-            SHX3_2 = SHX0_2
-            SHX4_2 = SHX2_1
-            SHX5_2 = false
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-            if not SHX2_2 then
-              SHX2_2 = GetWorldPositionOfEntityBone
-              SHX3_2 = SHX2_1
-              SHX4_2 = GetEntityBoneIndexByName
-              SHX5_2 = SHX2_1
-              SHX6_2 = "bonnet"
-              SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX4_2(SHX5_2, SHX6_2)
-              SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-              SHX3_2 = DrawMarker
-              SHX4_2 = 1
-              SHX5_2 = SHX2_2.x
-              SHX6_2 = SHX2_2.y
-              SHX7_2 = SHX2_2.z
-              SHX7_2 = SHX7_2 - 1.75
-              SHX8_2 = 0.0
-              SHX9_2 = 0.0
-              SHX10_2 = 0.0
-              SHX11_2 = 0
-              SHX12_2 = 0.0
-              SHX13_2 = 0.0
-              SHX14_2 = 1.5
-              SHX15_2 = 1.5
-              SHX16_2 = 1.5
-              SHX17_2 = 0
-              SHX18_2 = 48
-              SHX19_2 = 135
-              SHX20_2 = 235
-              SHX21_2 = false
-              SHX22_2 = true
-              SHX23_2 = 2
-              SHX24_2 = false
-              SHX25_2 = nil
-              SHX26_2 = nil
-              SHX27_2 = false
-              SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-              SHX3_2 = SHX7_1
-              SHX3_2()
+      cmgCall3 = numberValue9
+      if 0 ~= cmgCall3 then
+        cmgCall3 = DecorGetBool
+        numberValue10 = numberValue9
+        textValue3 = "ddf749d1be"
+        cmgCall3 = cmgCall3(numberValue10, textValue3)
+        if not cmgCall3 then
+          cmgCall3 = IsEntityPlayingAnim
+          numberValue10 = arg1
+          textValue3 = "anim@heists@box_carry@"
+          iterator = "idle"
+          cmgCall4 = 3
+          cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+          if cmgCall3 then
+            cmgCall3 = IsPedInVehicle
+            numberValue10 = arg1
+            textValue3 = numberValue9
+            iterator = false
+            cmgCall3 = cmgCall3(numberValue10, textValue3, iterator)
+            if not cmgCall3 then
+              cmgCall3 = GetWorldPositionOfEntityBone
+              numberValue10 = numberValue9
+              textValue3 = GetEntityBoneIndexByName
+              iterator = numberValue9
+              cmgCall4 = "bonnet"
+              textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator, cmgCall4)
+              cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+              numberValue10 = DrawMarker
+              textValue3 = 1
+              iterator = cmgCall3.x
+              cmgCall4 = cmgCall3.y
+              playerPed2 = cmgCall3.z
+              playerPed2 = playerPed2 - 1.75
+              flag28 = 0.0
+              flag29 = 0.0
+              flag = 0.0
+              modelHash = 0
+              coords = 0.0
+              workValue4 = 0.0
+              flag5 = 1.5
+              flag7 = 1.5
+              flag9 = 1.5
+              flag12 = 0
+              flag14 = 48
+              flag15 = 135
+              flag18 = 235
+              flag19 = false
+              flag20 = true
+              numberValue7 = 2
+              flag22 = false
+              workValue6 = nil
+              workValue7 = nil
+              flag25 = false
+              numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+              numberValue10 = workValue13
+              numberValue10()
             end
           end
         end
       end
-      SHX2_2 = IsControlJustReleased
-      SHX3_2 = 0
-      SHX4_2 = 191
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if SHX2_2 then
-        SHX2_2 = IsEntityPlayingAnim
-        SHX3_2 = SHX0_2
-        SHX4_2 = "anim@heists@box_carry@"
-        SHX5_2 = "idle"
-        SHX6_2 = 3
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        if not SHX2_2 then
-          SHX2_2 = SHX11_1
-          SHX3_2 = SHX3_1
-          SHX2_2(SHX3_2)
+      cmgCall3 = IsControlJustReleased
+      numberValue10 = 0
+      textValue3 = 191
+      cmgCall3 = cmgCall3(numberValue10, textValue3)
+      if cmgCall3 then
+        cmgCall3 = IsEntityPlayingAnim
+        numberValue10 = arg1
+        textValue3 = "anim@heists@box_carry@"
+        iterator = "idle"
+        cmgCall4 = 3
+        cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+        if not cmgCall3 then
+          cmgCall3 = workValue2
+          numberValue10 = workValue10
+          cmgCall3(numberValue10)
         end
       end
     end
   end
-  SHX1_2 = SHX1_1
-  if not SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerVehicle
-    SHX1_2 = SHX1_2()
-    if 0 == SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.hasClientPermission
-      SHX2_2 = "nhs.onduty.permission"
-      SHX1_2 = SHX1_2(SHX2_2)
-      if SHX1_2 then
-        SHX1_2 = SHX6_1
-        SHX2_2 = 5.0
-        SHX3_2 = SHX0_1.ambulanceModels
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if SHX1_2 and 0 ~= SHX1_2 then
-          SHX2_2 = DecorGetBool
-          SHX3_2 = SHX1_2
-          SHX4_2 = "ddf749d1be"
-          SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-          if SHX2_2 then
-            SHX2_2 = IsPedInVehicle
-            SHX3_2 = SHX0_2
-            SHX4_2 = SHX1_2
-            SHX5_2 = false
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-            if not SHX2_2 then
-              SHX2_2 = GetWorldPositionOfEntityBone
-              SHX3_2 = SHX1_2
-              SHX4_2 = GetEntityBoneIndexByName
-              SHX5_2 = SHX1_2
-              SHX6_2 = "bonnet"
-              SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX4_2(SHX5_2, SHX6_2)
-              SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-              SHX3_2 = GetEntityCoords
-              SHX4_2 = SHX0_2
-              SHX3_2 = SHX3_2(SHX4_2)
-              SHX3_2 = SHX3_2 - SHX2_2
-              SHX3_2 = #SHX3_2
-              if SHX3_2 < 4.0 then
-                SHX3_2 = DrawMarker
-                SHX4_2 = 1
-                SHX5_2 = SHX2_2.x
-                SHX6_2 = SHX2_2.y
-                SHX7_2 = SHX2_2.z
-                SHX7_2 = SHX7_2 - 1.75
-                SHX8_2 = 0.0
-                SHX9_2 = 0.0
-                SHX10_2 = 0.0
-                SHX11_2 = 0
-                SHX12_2 = 0.0
-                SHX13_2 = 0.0
-                SHX14_2 = 1.5
-                SHX15_2 = 1.5
-                SHX16_2 = 1.5
-                SHX17_2 = 0
-                SHX18_2 = 48
-                SHX19_2 = 135
-                SHX20_2 = 235
-                SHX21_2 = false
-                SHX22_2 = true
-                SHX23_2 = 2
-                SHX24_2 = false
-                SHX25_2 = nil
-                SHX26_2 = nil
-                SHX27_2 = false
-                SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-                SHX2_1 = SHX1_2
-                SHX3_2 = SHX7_1
-                SHX3_2()
-                SHX3_2 = GetVehicleDoorAngleRatio
-                SHX4_2 = SHX1_2
-                SHX5_2 = 4
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-                SHX3_2 = 0 ~= SHX3_2
-                if SHX3_2 then
-                  SHX4_2 = SHX8_1
-                  SHX5_2 = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out"
-                  SHX4_2(SHX5_2)
-                  SHX4_2 = IsControlJustReleased
-                  SHX5_2 = 0
-                  SHX6_2 = 300
-                  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-                  if SHX4_2 then
-                    SHX4_2 = CMG
-                    SHX4_2 = SHX4_2.getNetId
-                    SHX5_2 = SHX1_2
-                    SHX6_2 = "Stretchers"
-                    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-                    SHX5_2 = pairs
-                    SHX6_2 = CMG
-                    SHX6_2 = SHX6_2.getAllVehicles
-                    SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2 = SHX6_2()
-                    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-                    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-                      SHX11_2 = SHX0_1.stretcherModels
-                      SHX12_2 = GetEntityModel
-                      SHX13_2 = SHX10_2
-                      SHX12_2 = SHX12_2(SHX13_2)
-                      SHX11_2 = SHX11_2[SHX12_2]
-                      if SHX11_2 then
-                        SHX11_2 = DecorGetInt
-                        SHX12_2 = SHX10_2
-                        SHX13_2 = "58fe205294"
-                        SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-                        if SHX11_2 == SHX4_2 then
-                          SHX11_2 = DetachEntity
-                          SHX12_2 = SHX10_2
-                          SHX13_2 = true
-                          SHX14_2 = false
-                          SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-                          SHX11_2 = FreezeEntityPosition
-                          SHX12_2 = SHX10_2
-                          SHX13_2 = false
-                          SHX11_2(SHX12_2, SHX13_2)
-                          SHX11_2 = vector3
-                          SHX12_2 = 0.0
-                          SHX13_2 = -2.0
-                          SHX14_2 = 0.0
-                          SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-                          SHX11_2 = SHX2_2 + SHX11_2
-                          SHX12_2 = SetEntityCoords
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = SHX11_2.x
-                          SHX15_2 = SHX11_2.y
-                          SHX16_2 = SHX11_2.z
-                          SHX17_2 = false
-                          SHX18_2 = false
-                          SHX19_2 = false
-                          SHX20_2 = false
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-                          SHX12_2 = SetVehicleOnGroundProperly
-                          SHX13_2 = SHX10_2
-                          SHX12_2(SHX13_2)
-                          SHX12_2 = SetVehicleExtra
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = 1
-                          SHX15_2 = true
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-                          SHX12_2 = SetVehicleExtra
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = 2
-                          SHX15_2 = false
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-                          SHX12_2 = DecorSetInt
-                          SHX13_2 = SHX10_2
-                          SHX14_2 = "58fe205294"
-                          SHX15_2 = 0
-                          SHX12_2(SHX13_2, SHX14_2, SHX15_2)
-                          SHX12_2 = NetworkHasControlOfEntity
-                          SHX13_2 = SHX1_2
-                          SHX12_2 = SHX12_2(SHX13_2)
-                          if SHX12_2 then
-                            SHX12_2 = DecorSetBool
-                            SHX13_2 = SHX1_2
-                            SHX14_2 = "ddf749d1be"
-                            SHX15_2 = false
-                            SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+  arg2 = flag17
+  if not arg2 then
+    arg2 = CMG
+    arg2 = arg2.getPlayerVehicle
+    -- Beginner: result below is currentVehicle.
+    arg2 = arg2()
+    if 0 == arg2 then
+      arg2 = CMG
+      arg2 = arg2.hasClientPermission
+      cmgCall3 = "nhs.onduty.permission"
+      arg2 = arg2(cmgCall3)
+      if arg2 then
+        arg2 = workValue12
+        cmgCall3 = 5.0
+        numberValue10 = cmgCall.ambulanceModels
+        arg2 = arg2(cmgCall3, numberValue10)
+        if arg2 and 0 ~= arg2 then
+          cmgCall3 = DecorGetBool
+          numberValue10 = arg2
+          textValue3 = "ddf749d1be"
+          cmgCall3 = cmgCall3(numberValue10, textValue3)
+          if cmgCall3 then
+            cmgCall3 = IsPedInVehicle
+            numberValue10 = arg1
+            textValue3 = arg2
+            iterator = false
+            cmgCall3 = cmgCall3(numberValue10, textValue3, iterator)
+            if not cmgCall3 then
+              cmgCall3 = GetWorldPositionOfEntityBone
+              numberValue10 = arg2
+              textValue3 = GetEntityBoneIndexByName
+              iterator = arg2
+              cmgCall4 = "bonnet"
+              textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = textValue3(iterator, cmgCall4)
+              cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+              numberValue10 = GetEntityCoords
+              textValue3 = arg1
+              -- Beginner: result below is entityCoords.
+              numberValue10 = numberValue10(textValue3)
+              numberValue10 = numberValue10 - cmgCall3
+              numberValue10 = #numberValue10
+              if numberValue10 < 4.0 then
+                numberValue10 = DrawMarker
+                textValue3 = 1
+                iterator = cmgCall3.x
+                cmgCall4 = cmgCall3.y
+                playerPed2 = cmgCall3.z
+                playerPed2 = playerPed2 - 1.75
+                flag28 = 0.0
+                flag29 = 0.0
+                flag = 0.0
+                modelHash = 0
+                coords = 0.0
+                workValue4 = 0.0
+                flag5 = 1.5
+                flag7 = 1.5
+                flag9 = 1.5
+                flag12 = 0
+                flag14 = 48
+                flag15 = 135
+                flag18 = 235
+                flag19 = false
+                flag20 = true
+                numberValue7 = 2
+                flag22 = false
+                workValue6 = nil
+                workValue7 = nil
+                flag25 = false
+                numberValue10(textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+                numberValue9 = arg2
+                numberValue10 = workValue13
+                numberValue10()
+                numberValue10 = GetVehicleDoorAngleRatio
+                textValue3 = arg2
+                iterator = 4
+                numberValue10 = numberValue10(textValue3, iterator)
+                numberValue10 = 0 ~= numberValue10
+                if numberValue10 then
+                  textValue3 = workValue14
+                  iterator = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out"
+                  textValue3(iterator)
+                  textValue3 = IsControlJustReleased
+                  iterator = 0
+                  cmgCall4 = 300
+                  textValue3 = textValue3(iterator, cmgCall4)
+                  if textValue3 then
+                    textValue3 = CMG
+                    textValue3 = textValue3.getNetId
+                    iterator = arg2
+                    cmgCall4 = "Stretchers"
+                    textValue3 = textValue3(iterator, cmgCall4)
+                    iterator = pairs
+                    cmgCall4 = CMG
+                    cmgCall4 = cmgCall4.getAllVehicles
+                    cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25 = cmgCall4()
+                    iterator, cmgCall4, playerPed2, flag28 = iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25)
+                    for flag29, flag in iterator, cmgCall4, playerPed2, flag28 do
+                      modelHash = cmgCall.stretcherModels
+                      coords = GetEntityModel
+                      workValue4 = flag
+                      -- Beginner: result below is modelHash.
+                      coords = coords(workValue4)
+                      modelHash = modelHash[coords]
+                      if modelHash then
+                        modelHash = DecorGetInt
+                        coords = flag
+                        workValue4 = "58fe205294"
+                        modelHash = modelHash(coords, workValue4)
+                        if modelHash == textValue3 then
+                          modelHash = DetachEntity
+                          coords = flag
+                          workValue4 = true
+                          flag5 = false
+                          modelHash(coords, workValue4, flag5)
+                          modelHash = FreezeEntityPosition
+                          coords = flag
+                          workValue4 = false
+                          -- Beginner: Freeze or unfreeze an entity in place.
+                          modelHash(coords, workValue4)
+                          modelHash = vector3
+                          coords = 0.0
+                          workValue4 = -2.0
+                          flag5 = 0.0
+                          modelHash = modelHash(coords, workValue4, flag5)
+                          modelHash = cmgCall3 + modelHash
+                          coords = SetEntityCoords
+                          workValue4 = flag
+                          flag5 = modelHash.x
+                          flag7 = modelHash.y
+                          flag9 = modelHash.z
+                          flag12 = false
+                          flag14 = false
+                          flag15 = false
+                          flag18 = false
+                          -- Beginner: Move/teleport an entity to new coordinates.
+                          coords(workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18)
+                          coords = SetVehicleOnGroundProperly
+                          workValue4 = flag
+                          coords(workValue4)
+                          coords = SetVehicleExtra
+                          workValue4 = flag
+                          flag5 = 1
+                          flag7 = true
+                          coords(workValue4, flag5, flag7)
+                          coords = SetVehicleExtra
+                          workValue4 = flag
+                          flag5 = 2
+                          flag7 = false
+                          coords(workValue4, flag5, flag7)
+                          coords = DecorSetInt
+                          workValue4 = flag
+                          flag5 = "58fe205294"
+                          flag7 = 0
+                          coords(workValue4, flag5, flag7)
+                          coords = NetworkHasControlOfEntity
+                          workValue4 = arg2
+                          coords = coords(workValue4)
+                          if coords then
+                            coords = DecorSetBool
+                            workValue4 = arg2
+                            flag5 = "ddf749d1be"
+                            flag7 = false
+                            coords(workValue4, flag5, flag7)
                           else
-                            SHX12_2 = TriggerServerEvent
-                            SHX13_2 = "c15aeb9b9f"
-                            SHX14_2 = CMG
-                            SHX14_2 = SHX14_2.getNetId
-                            SHX15_2 = SHX1_2
-                            SHX16_2 = "Stretcher"
-                            SHX14_2 = SHX14_2(SHX15_2, SHX16_2)
-                            SHX15_2 = false
-                            SHX12_2(SHX13_2, SHX14_2, SHX15_2)
+                            coords = TriggerServerEvent
+                            workValue4 = "c15aeb9b9f"
+                            flag5 = CMG
+                            flag5 = flag5.getNetId
+                            flag7 = arg2
+                            flag9 = "Stretcher"
+                            flag5 = flag5(flag7, flag9)
+                            flag7 = false
+                            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
+                            coords(workValue4, flag5, flag7)
                           end
-                          SHX12_2 = tCMG
-                          SHX12_2 = SHX12_2.notify
-                          SHX13_2 = "Stretcher taken out."
-                          SHX12_2(SHX13_2)
+                          coords = tCMG
+                          coords = coords.notify
+                          workValue4 = "Stretcher taken out."
+                          -- Beginner: Show a notification to the player.
+                          coords(workValue4)
                           break
                         end
                       end
                     end
                   end
                 else
-                  SHX4_2 = SHX8_1
-                  SHX5_2 = "~INPUT_REPLAY_REWIND~ Open rear door"
-                  SHX4_2(SHX5_2)
+                  textValue3 = workValue14
+                  iterator = "~INPUT_REPLAY_REWIND~ Open rear door"
+                  textValue3(iterator)
                 end
               end
             end
@@ -1069,781 +1095,748 @@ function SHX12_1()
     end
   end
 end
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.createThreadOnTick
-SHX14_1 = SHX12_1
-SHX15_1 = "NHS Stretcher"
-SHX13_1(SHX14_1, SHX15_1)
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.CreateThread
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3
-    SHX0_3 = NetworkGetNetworkIdFromEntity
-    SHX1_3 = SHX1_2
-    SHX0_3 = SHX0_3(SHX1_3)
-    if 0 == SHX0_3 then
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.createThreadOnTick
+numberValue2 = workValue3
+textValue = "NHS Stretcher"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall2(numberValue2, textValue)
+function cmgCall2(arg1, arg2)
+  local cmgCall3, numberValue10
+  cmgCall3 = Citizen
+  cmgCall3 = cmgCall3.CreateThread
+  function numberValue10()
+    local networkId, serverEventCall, textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26
+    networkId = NetworkGetNetworkIdFromEntity
+    serverEventCall = arg2
+    networkId = networkId(serverEventCall)
+    if 0 == networkId then
       return
     end
-    SHX1_3 = TriggerServerEvent
-    SHX2_3 = "5672bd2d03"
-    SHX3_3 = SHX0_3
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = AttachEntityToEntity
-    SHX2_3 = SHX1_2
-    SHX3_3 = PlayerPedId
-    SHX3_3 = SHX3_3()
-    SHX4_3 = -1
-    SHX5_3 = -0.05
-    SHX6_3 = 1.3
-    SHX7_3 = -0.345
-    SHX8_3 = 180.0
-    SHX9_3 = 180.0
-    SHX10_3 = 180.0
-    SHX11_3 = false
-    SHX12_3 = false
-    SHX13_3 = false
-    SHX14_3 = true
-    SHX15_3 = 0
-    SHX16_3 = true
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3)
+    serverEventCall = TriggerServerEvent
+    textValue2 = "5672bd2d03"
+    playerPed = networkId
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5672bd2d03".
+    serverEventCall(textValue2, playerPed)
+    serverEventCall = AttachEntityToEntity
+    textValue2 = arg2
+    playerPed = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    playerPed = playerPed()
+    flag27 = -1
+    textValue4 = -0.05
+    numberValue12 = 1.3
+    textValue5 = -0.345
+    textValue6 = 180.0
+    numberValue13 = 180.0
+    numberValue = 180.0
+    flag2 = false
+    flag3 = false
+    flag4 = false
+    flag6 = true
+    flag8 = 0
+    flag10 = true
+    -- Beginner: Attach one entity to another entity.
+    serverEventCall(textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10)
     while true do
-      SHX1_3 = NetworkHasControlOfEntity
-      SHX2_3 = SHX1_2
-      SHX1_3 = SHX1_3(SHX2_3)
-      if SHX1_3 then
-        SHX1_3 = IsEntityAttachedToEntity
-        SHX2_3 = SHX1_2
-        SHX3_3 = SHX0_2
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-        if SHX1_3 then
+      serverEventCall = NetworkHasControlOfEntity
+      textValue2 = arg2
+      serverEventCall = serverEventCall(textValue2)
+      if serverEventCall then
+        serverEventCall = IsEntityAttachedToEntity
+        textValue2 = arg2
+        playerPed = arg1
+        serverEventCall = serverEventCall(textValue2, playerPed)
+        if serverEventCall then
           break
         end
       end
-      SHX1_3 = Wait
-      SHX2_3 = 0
-      SHX1_3(SHX2_3)
+      serverEventCall = Wait
+      textValue2 = 0
+      serverEventCall(textValue2)
     end
-    SHX1_3 = SetEntityHeading
-    SHX2_3 = SHX0_2
-    SHX3_3 = GetEntityHeading
-    SHX4_3 = SHX1_2
-    SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3 = SHX3_3(SHX4_3)
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
-    SHX1_3 = SetVehicleExtra
-    SHX2_3 = SHX1_2
-    SHX3_3 = 1
-    SHX4_3 = false
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-    SHX1_3 = SetVehicleExtra
-    SHX2_3 = SHX1_2
-    SHX3_3 = 2
-    SHX4_3 = true
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-    SHX1_3 = CMG
-    SHX1_3 = SHX1_3.loadAnimDict
-    SHX2_3 = "anim@heists@box_carry@"
-    SHX1_3(SHX2_3)
-    SHX1_3 = 0
+    serverEventCall = SetEntityHeading
+    textValue2 = arg1
+    playerPed = GetEntityHeading
+    flag27 = arg2
+    playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = playerPed(flag27)
+    -- Beginner: Change the direction an entity is facing.
+    serverEventCall(textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+    serverEventCall = SetVehicleExtra
+    textValue2 = arg2
+    playerPed = 1
+    flag27 = false
+    serverEventCall(textValue2, playerPed, flag27)
+    serverEventCall = SetVehicleExtra
+    textValue2 = arg2
+    playerPed = 2
+    flag27 = true
+    serverEventCall(textValue2, playerPed, flag27)
+    serverEventCall = CMG
+    serverEventCall = serverEventCall.loadAnimDict
+    textValue2 = "anim@heists@box_carry@"
+    -- Beginner: Load a GTA animation dictionary before using it.
+    serverEventCall(textValue2)
+    serverEventCall = 0
     while true do
-      SHX2_3 = IsEntityAttachedToEntity
-      SHX3_3 = SHX1_2
-      SHX4_3 = SHX0_2
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      if not SHX2_3 then
+      textValue2 = IsEntityAttachedToEntity
+      playerPed = arg2
+      flag27 = arg1
+      textValue2 = textValue2(playerPed, flag27)
+      if not textValue2 then
         break
       end
-      SHX2_3 = Citizen
-      SHX2_3 = SHX2_3.Wait
-      SHX3_3 = 0
-      SHX2_3(SHX3_3)
-      SHX2_3 = IsEntityPlayingAnim
-      SHX3_3 = SHX0_2
-      SHX4_3 = "anim@heists@box_carry@"
-      SHX5_3 = "idle"
-      SHX6_3 = 3
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      if not SHX2_3 then
-        SHX2_3 = TaskPlayAnim
-        SHX3_3 = SHX0_2
-        SHX4_3 = "anim@heists@box_carry@"
-        SHX5_3 = "idle"
-        SHX6_3 = 8.0
-        SHX7_3 = 8.0
-        SHX8_3 = -1
-        SHX9_3 = 50
-        SHX10_3 = 0
-        SHX11_3 = false
-        SHX12_3 = false
-        SHX13_3 = false
-        SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3)
+      textValue2 = Citizen
+      textValue2 = textValue2.Wait
+      playerPed = 0
+      textValue2(playerPed)
+      textValue2 = IsEntityPlayingAnim
+      playerPed = arg1
+      flag27 = "anim@heists@box_carry@"
+      textValue4 = "idle"
+      numberValue12 = 3
+      textValue2 = textValue2(playerPed, flag27, textValue4, numberValue12)
+      if not textValue2 then
+        textValue2 = TaskPlayAnim
+        playerPed = arg1
+        flag27 = "anim@heists@box_carry@"
+        textValue4 = "idle"
+        numberValue12 = 8.0
+        textValue5 = 8.0
+        textValue6 = -1
+        numberValue13 = 50
+        numberValue = 0
+        flag2 = false
+        flag3 = false
+        flag4 = false
+        -- Beginner: Play an animation on a ped.
+        textValue2(playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4)
       end
-      SHX2_3 = IsControlJustReleased
-      SHX3_3 = 0
-      SHX4_3 = 73
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      if not SHX2_3 then
-        SHX2_3 = IsPedDeadOrDying
-        SHX3_3 = SHX0_2
-        SHX4_3 = false
-        SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-        if not SHX2_3 then
-          goto SHX_LABEL_129
+      textValue2 = IsControlJustReleased
+      playerPed = 0
+      flag27 = 73
+      textValue2 = textValue2(playerPed, flag27)
+      if not textValue2 then
+        textValue2 = IsPedDeadOrDying
+        playerPed = arg1
+        flag27 = false
+        textValue2 = textValue2(playerPed, flag27)
+        if not textValue2 then
+          goto flow_label_129
         end
       end
-      SHX2_3 = ClearPedTasksImmediately
-      SHX3_3 = SHX0_2
-      SHX2_3(SHX3_3)
-      SHX2_3 = SetVehicleExtra
-      SHX3_3 = SHX1_2
-      SHX4_3 = 1
-      SHX5_3 = true
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-      SHX2_3 = SetVehicleExtra
-      SHX3_3 = SHX1_2
-      SHX4_3 = 2
-      SHX5_3 = false
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-      SHX2_3 = DetachEntity
-      SHX3_3 = SHX1_2
-      SHX4_3 = true
-      SHX5_3 = false
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3)
-      SHX2_3 = SetVehicleOnGroundProperly
-      SHX3_3 = SHX1_2
-      SHX2_3(SHX3_3)
-      -- [FIX IF ERROR] Move ::SHX_LABEL_129:: outside nested blocks until all 'goto SHX_LABEL_129' can see it
-      ::SHX_LABEL_129::
-      SHX2_3 = DecorGetInt
-      SHX3_3 = SHX1_2
-      SHX4_3 = "58fe205294"
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      if 0 ~= SHX2_3 then
-        SHX2_3 = CMG
-        SHX2_3 = SHX2_3.getObjectId
-        SHX3_3 = DecorGetInt
-        SHX4_3 = SHX1_2
-        SHX5_3 = "58fe205294"
-        SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-        SHX4_3 = "pushStretcher(ped, nearbyStretcher)"
-        SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-        if SHX2_3 then
-          SHX3_3 = DecorGetBool
-          SHX4_3 = SHX2_3
-          SHX5_3 = "ddf749d1be"
-          SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-          if SHX3_3 then
-            SHX3_3 = NetworkHasControlOfEntity
-            SHX4_3 = SHX2_3
-            SHX3_3 = SHX3_3(SHX4_3)
-            if not SHX3_3 then
-              SHX3_3 = GetGameTimer
-              SHX3_3 = SHX3_3()
-              SHX3_3 = SHX3_3 - SHX1_3
-              SHX4_3 = 200
-              if SHX3_3 > SHX4_3 then
-                SHX3_3 = TriggerServerEvent
-                SHX4_3 = "c15aeb9b9f"
-                SHX5_3 = CMG
-                SHX5_3 = SHX5_3.getNetId
-                SHX6_3 = SHX2_3
-                SHX7_3 = "Stretchers"
-                SHX5_3 = SHX5_3(SHX6_3, SHX7_3)
-                SHX6_3 = false
-                SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-                SHX3_3 = GetGameTimer
-                SHX3_3 = SHX3_3()
-                SHX1_3 = SHX3_3
+      textValue2 = ClearPedTasksImmediately
+      playerPed = arg1
+      textValue2(playerPed)
+      textValue2 = SetVehicleExtra
+      playerPed = arg2
+      flag27 = 1
+      textValue4 = true
+      textValue2(playerPed, flag27, textValue4)
+      textValue2 = SetVehicleExtra
+      playerPed = arg2
+      flag27 = 2
+      textValue4 = false
+      textValue2(playerPed, flag27, textValue4)
+      textValue2 = DetachEntity
+      playerPed = arg2
+      flag27 = true
+      textValue4 = false
+      textValue2(playerPed, flag27, textValue4)
+      textValue2 = SetVehicleOnGroundProperly
+      playerPed = arg2
+      textValue2(playerPed)
+      ::flow_label_129::
+      textValue2 = DecorGetInt
+      playerPed = arg2
+      flag27 = "58fe205294"
+      textValue2 = textValue2(playerPed, flag27)
+      if 0 ~= textValue2 then
+        textValue2 = CMG
+        textValue2 = textValue2.getObjectId
+        playerPed = DecorGetInt
+        flag27 = arg2
+        textValue4 = "58fe205294"
+        playerPed = playerPed(flag27, textValue4)
+        flag27 = "pushStretcher(ped, nearbyStretcher)"
+        textValue2 = textValue2(playerPed, flag27)
+        if textValue2 then
+          playerPed = DecorGetBool
+          flag27 = textValue2
+          textValue4 = "ddf749d1be"
+          playerPed = playerPed(flag27, textValue4)
+          if playerPed then
+            playerPed = NetworkHasControlOfEntity
+            flag27 = textValue2
+            playerPed = playerPed(flag27)
+            if not playerPed then
+              playerPed = GetGameTimer
+              -- Beginner: result below is gameTimeMs.
+              playerPed = playerPed()
+              playerPed = playerPed - serverEventCall
+              flag27 = 200
+              if playerPed > flag27 then
+                playerPed = TriggerServerEvent
+                flag27 = "c15aeb9b9f"
+                textValue4 = CMG
+                textValue4 = textValue4.getNetId
+                numberValue12 = textValue2
+                textValue5 = "Stretchers"
+                textValue4 = textValue4(numberValue12, textValue5)
+                numberValue12 = false
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
+                playerPed(flag27, textValue4, numberValue12)
+                playerPed = GetGameTimer
+                -- Beginner: result below is gameTimeMs.
+                playerPed = playerPed()
+                serverEventCall = playerPed
               end
             else
-              SHX3_3 = DecorSetBool
-              SHX4_3 = SHX2_3
-              SHX5_3 = "ddf749d1be"
-              SHX6_3 = false
-              SHX3_3(SHX4_3, SHX5_3, SHX6_3)
+              playerPed = DecorSetBool
+              flag27 = textValue2
+              textValue4 = "ddf749d1be"
+              numberValue12 = false
+              playerPed(flag27, textValue4, numberValue12)
             end
           end
         end
       end
-      SHX2_3 = SHX6_1
-      SHX3_3 = 15.0
-      SHX4_3 = SHX0_1.ambulanceModels
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-      SHX2_1 = SHX2_3
-      SHX2_3 = SHX2_1
-      if nil ~= SHX2_3 then
-        SHX2_3 = SHX2_1
-        if 0 ~= SHX2_3 then
-          SHX2_3 = GetVehicleDoorAngleRatio
-          SHX3_3 = SHX2_1
-          SHX4_3 = 4
-          SHX2_3 = SHX2_3(SHX3_3, SHX4_3)
-          SHX2_3 = 0 ~= SHX2_3
-          if not SHX2_3 then
-            SHX3_3 = SHX8_1
-            SHX4_3 = "~INPUT_REPLAY_REWIND~ Open rear door"
-            SHX3_3(SHX4_3)
+      textValue2 = workValue12
+      playerPed = 15.0
+      flag27 = cmgCall.ambulanceModels
+      textValue2 = textValue2(playerPed, flag27)
+      numberValue9 = textValue2
+      textValue2 = numberValue9
+      if nil ~= textValue2 then
+        textValue2 = numberValue9
+        if 0 ~= textValue2 then
+          textValue2 = GetVehicleDoorAngleRatio
+          playerPed = numberValue9
+          flag27 = 4
+          textValue2 = textValue2(playerPed, flag27)
+          textValue2 = 0 ~= textValue2
+          if not textValue2 then
+            playerPed = workValue14
+            flag27 = "~INPUT_REPLAY_REWIND~ Open rear door"
+            playerPed(flag27)
           else
-            SHX3_3 = SHX8_1
-            SHX4_3 = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Put stretcher in"
-            SHX3_3(SHX4_3)
+            playerPed = workValue14
+            flag27 = "~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Put stretcher in"
+            playerPed(flag27)
           end
-          SHX3_3 = DecorGetBool
-          SHX4_3 = SHX2_1
-          SHX5_3 = "ddf749d1be"
-          SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-          if not SHX3_3 then
-            SHX4_3 = GetWorldPositionOfEntityBone
-            SHX5_3 = SHX2_1
-            SHX6_3 = GetEntityBoneIndexByName
-            SHX7_3 = SHX2_1
-            SHX8_3 = "bonnet"
-            SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3 = SHX6_3(SHX7_3, SHX8_3)
-            SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
-            SHX5_3 = DrawMarker
-            SHX6_3 = 1
-            SHX7_3 = SHX4_3.x
-            SHX8_3 = SHX4_3.y
-            SHX9_3 = SHX4_3.z
-            SHX9_3 = SHX9_3 - 1.75
-            SHX10_3 = 0.0
-            SHX11_3 = 0.0
-            SHX12_3 = 0.0
-            SHX13_3 = 0
-            SHX14_3 = 0.0
-            SHX15_3 = 0.0
-            SHX16_3 = 1.5
-            SHX17_3 = 1.5
-            SHX18_3 = 1.5
-            SHX19_3 = 0
-            SHX20_3 = 48
-            SHX21_3 = 135
-            SHX22_3 = 235
-            SHX23_3 = false
-            SHX24_3 = true
-            SHX25_3 = 2
-            SHX26_3 = false
-            SHX27_3 = nil
-            SHX28_3 = nil
-            SHX29_3 = false
-            SHX5_3(SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
+          playerPed = DecorGetBool
+          flag27 = numberValue9
+          textValue4 = "ddf749d1be"
+          playerPed = playerPed(flag27, textValue4)
+          if not playerPed then
+            flag27 = GetWorldPositionOfEntityBone
+            textValue4 = numberValue9
+            numberValue12 = GetEntityBoneIndexByName
+            textValue5 = numberValue9
+            textValue6 = "bonnet"
+            numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = numberValue12(textValue5, textValue6)
+            flag27 = flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+            textValue4 = DrawMarker
+            numberValue12 = 1
+            textValue5 = flag27.x
+            textValue6 = flag27.y
+            numberValue13 = flag27.z
+            numberValue13 = numberValue13 - 1.75
+            numberValue = 0.0
+            flag2 = 0.0
+            flag3 = 0.0
+            flag4 = 0
+            flag6 = 0.0
+            flag8 = 0.0
+            flag10 = 1.5
+            flag13 = 1.5
+            numberValue3 = 1.5
+            flag16 = 0
+            numberValue4 = 48
+            numberValue5 = 135
+            numberValue6 = 235
+            flag21 = false
+            flag23 = true
+            numberValue8 = 2
+            flag24 = false
+            workValue8 = nil
+            workValue9 = nil
+            flag26 = false
+            textValue4(numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
           end
-          SHX4_3 = IsControlJustReleased
-          SHX5_3 = 0
-          SHX6_3 = 300
-          SHX4_3 = SHX4_3(SHX5_3, SHX6_3)
-          if SHX4_3 then
-            if not SHX2_3 then
-              SHX4_3 = IsThisModelAHeli
-              SHX5_3 = GetEntityModel
-              SHX6_3 = SHX2_1
-              SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3 = SHX5_3(SHX6_3)
-              SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
+          flag27 = IsControlJustReleased
+          textValue4 = 0
+          numberValue12 = 300
+          flag27 = flag27(textValue4, numberValue12)
+          if flag27 then
+            if not textValue2 then
+              flag27 = IsThisModelAHeli
+              textValue4 = GetEntityModel
+              numberValue12 = numberValue9
+              textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue4(numberValue12)
+              flag27 = flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
             end
-            if SHX4_3 and not SHX3_3 then
-              SHX4_3 = ClearPedTasksImmediately
-              SHX5_3 = SHX0_2
-              SHX4_3(SHX5_3)
-              SHX4_3 = SetVehicleExtra
-              SHX5_3 = SHX1_2
-              SHX6_3 = 1
-              SHX7_3 = true
-              SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-              SHX4_3 = SetVehicleExtra
-              SHX5_3 = SHX1_2
-              SHX6_3 = 2
-              SHX7_3 = false
-              SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-              SHX4_3 = DetachEntity
-              SHX5_3 = SHX1_2
-              SHX6_3 = true
-              SHX7_3 = false
-              SHX4_3(SHX5_3, SHX6_3, SHX7_3)
-              SHX4_3 = SetVehicleOnGroundProperly
-              SHX5_3 = SHX1_2
-              SHX4_3(SHX5_3)
-              SHX4_3 = IsThisModelAHeli
-              SHX5_3 = GetEntityModel
-              SHX6_3 = SHX2_1
-              SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3 = SHX5_3(SHX6_3)
-              SHX4_3 = SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
-              if SHX4_3 then
-                SHX4_3 = AttachEntityToEntity
-                SHX5_3 = SHX1_2
-                SHX6_3 = SHX2_1
-                SHX7_3 = -1
-                SHX8_3 = 0.0
-                SHX9_3 = 0.0
-                SHX10_3 = 0.0
-                SHX11_3 = 0.0
-                SHX12_3 = 0.0
-                SHX13_3 = 0.0
-                SHX14_3 = false
-                SHX15_3 = false
-                SHX16_3 = false
-                SHX17_3 = false
-                SHX18_3 = 0.0
-                SHX19_3 = true
-                SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3)
+            if flag27 and not playerPed then
+              flag27 = ClearPedTasksImmediately
+              textValue4 = arg1
+              flag27(textValue4)
+              flag27 = SetVehicleExtra
+              textValue4 = arg2
+              numberValue12 = 1
+              textValue5 = true
+              flag27(textValue4, numberValue12, textValue5)
+              flag27 = SetVehicleExtra
+              textValue4 = arg2
+              numberValue12 = 2
+              textValue5 = false
+              flag27(textValue4, numberValue12, textValue5)
+              flag27 = DetachEntity
+              textValue4 = arg2
+              numberValue12 = true
+              textValue5 = false
+              flag27(textValue4, numberValue12, textValue5)
+              flag27 = SetVehicleOnGroundProperly
+              textValue4 = arg2
+              flag27(textValue4)
+              flag27 = IsThisModelAHeli
+              textValue4 = GetEntityModel
+              numberValue12 = numberValue9
+              textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue4(numberValue12)
+              flag27 = flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
+              if flag27 then
+                flag27 = AttachEntityToEntity
+                textValue4 = arg2
+                numberValue12 = numberValue9
+                textValue5 = -1
+                textValue6 = 0.0
+                numberValue13 = 0.0
+                numberValue = 0.0
+                flag2 = 0.0
+                flag3 = 0.0
+                flag4 = 0.0
+                flag6 = false
+                flag8 = false
+                flag10 = false
+                flag13 = false
+                numberValue3 = 0.0
+                flag16 = true
+                -- Beginner: Attach one entity to another entity.
+                flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16)
               else
-                SHX4_3 = AttachEntityToEntity
-                SHX5_3 = SHX1_2
-                SHX6_3 = SHX2_1
-                SHX7_3 = GetEntityBoneIndexByName
-                SHX8_3 = SHX2_1
-                SHX9_3 = "engine"
-                SHX7_3 = SHX7_3(SHX8_3, SHX9_3)
-                SHX8_3 = 0.0
-                SHX9_3 = -3.0
-                SHX10_3 = -1.0
-                SHX11_3 = 0.0
-                SHX12_3 = 0.0
-                SHX13_3 = 0.0
-                SHX14_3 = false
-                SHX15_3 = false
-                SHX16_3 = false
-                SHX17_3 = false
-                SHX18_3 = 0.0
-                SHX19_3 = true
-                SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3)
+                flag27 = AttachEntityToEntity
+                textValue4 = arg2
+                numberValue12 = numberValue9
+                textValue5 = GetEntityBoneIndexByName
+                textValue6 = numberValue9
+                numberValue13 = "engine"
+                textValue5 = textValue5(textValue6, numberValue13)
+                textValue6 = 0.0
+                numberValue13 = -3.0
+                numberValue = -1.0
+                flag2 = 0.0
+                flag3 = 0.0
+                flag4 = 0.0
+                flag6 = false
+                flag8 = false
+                flag10 = false
+                flag13 = false
+                numberValue3 = 0.0
+                flag16 = true
+                flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16)
               end
-              SHX4_3 = NetworkHasControlOfEntity
-              SHX5_3 = SHX2_1
-              SHX4_3 = SHX4_3(SHX5_3)
-              if not SHX4_3 then
-                SHX4_3 = TriggerServerEvent
-                SHX5_3 = "c15aeb9b9f"
-                SHX6_3 = CMG
-                SHX6_3 = SHX6_3.getNetId
-                SHX7_3 = SHX2_1
-                SHX8_3 = "Stretcher"
-                SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-                SHX7_3 = true
-                SHX4_3(SHX5_3, SHX6_3, SHX7_3)
+              flag27 = NetworkHasControlOfEntity
+              textValue4 = numberValue9
+              flag27 = flag27(textValue4)
+              if not flag27 then
+                flag27 = TriggerServerEvent
+                textValue4 = "c15aeb9b9f"
+                numberValue12 = CMG
+                numberValue12 = numberValue12.getNetId
+                textValue5 = numberValue9
+                textValue6 = "Stretcher"
+                numberValue12 = numberValue12(textValue5, textValue6)
+                textValue5 = true
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "c15aeb9b9f".
+                flag27(textValue4, numberValue12, textValue5)
               else
-                SHX4_3 = DecorSetBool
-                SHX5_3 = SHX2_1
-                SHX6_3 = "ddf749d1be"
-                SHX7_3 = true
-                SHX4_3(SHX5_3, SHX6_3, SHX7_3)
+                flag27 = DecorSetBool
+                textValue4 = numberValue9
+                numberValue12 = "ddf749d1be"
+                textValue5 = true
+                flag27(textValue4, numberValue12, textValue5)
               end
-              SHX4_3 = NetworkHasControlOfEntity
-              SHX5_3 = SHX1_2
-              SHX4_3 = SHX4_3(SHX5_3)
-              if not SHX4_3 then
-                SHX4_3 = SHX3_1
-                if SHX4_3 then
-                  SHX4_3 = TriggerServerEvent
-                  SHX5_3 = "91ad572dcd"
-                  SHX6_3 = CMG
-                  SHX6_3 = SHX6_3.getNetId
-                  SHX7_3 = SHX3_1
-                  SHX8_3 = "Stretchers"
-                  SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-                  SHX7_3 = CMG
-                  SHX7_3 = SHX7_3.getNetId
-                  SHX8_3 = SHX2_1
-                  SHX9_3 = "Stretchers"
-                  SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3 = SHX7_3(SHX8_3, SHX9_3)
-                  SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
+              flag27 = NetworkHasControlOfEntity
+              textValue4 = arg2
+              flag27 = flag27(textValue4)
+              if not flag27 then
+                flag27 = workValue10
+                if flag27 then
+                  flag27 = TriggerServerEvent
+                  textValue4 = "91ad572dcd"
+                  numberValue12 = CMG
+                  numberValue12 = numberValue12.getNetId
+                  textValue5 = workValue10
+                  textValue6 = "Stretchers"
+                  numberValue12 = numberValue12(textValue5, textValue6)
+                  textValue5 = CMG
+                  textValue5 = textValue5.getNetId
+                  textValue6 = numberValue9
+                  numberValue13 = "Stretchers"
+                  textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue5(textValue6, numberValue13)
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "91ad572dcd".
+                  flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
                 end
               else
-                SHX4_3 = DecorSetInt
-                SHX5_3 = SHX1_2
-                SHX6_3 = "58fe205294"
-                SHX7_3 = CMG
-                SHX7_3 = SHX7_3.getNetId
-                SHX8_3 = SHX2_1
-                SHX9_3 = "Stretchers"
-                SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3 = SHX7_3(SHX8_3, SHX9_3)
-                SHX4_3(SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3, SHX23_3, SHX24_3, SHX25_3, SHX26_3, SHX27_3, SHX28_3, SHX29_3)
+                flag27 = DecorSetInt
+                textValue4 = arg2
+                numberValue12 = "58fe205294"
+                textValue5 = CMG
+                textValue5 = textValue5.getNetId
+                textValue6 = numberValue9
+                numberValue13 = "Stretchers"
+                textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26 = textValue5(textValue6, numberValue13)
+                flag27(textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26)
               end
-              SHX4_3 = FreezeEntityPosition
-              SHX5_3 = SHX1_2
-              SHX6_3 = true
-              SHX4_3(SHX5_3, SHX6_3)
+              flag27 = FreezeEntityPosition
+              textValue4 = arg2
+              numberValue12 = true
+              -- Beginner: Freeze or unfreeze an entity in place.
+              flag27(textValue4, numberValue12)
             end
           end
         end
       end
     end
-    SHX2_3 = RemoveAnimDict
-    SHX3_3 = "anim@heists@box_carry@"
-    SHX2_3(SHX3_3)
+    textValue2 = RemoveAnimDict
+    playerPed = "anim@heists@box_carry@"
+    textValue2(playerPed)
   end
-  SHX2_2(SHX3_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  cmgCall3(numberValue10)
 end
-SHX5_1 = SHX13_1
-SHX13_1 = RegisterNetEvent
-SHX14_1 = "5672bd2d03"
-function SHX15_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
+workValue11 = cmgCall2
+cmgCall2 = RegisterNetEvent
+numberValue2 = "5672bd2d03"
+-- Beginner: this function handles network event "5672bd2d03".
+function textValue(arg1, arg2)
+  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18
+  cmgCall3 = NetworkDoesNetworkIdExist
+  numberValue10 = arg1
+  cmgCall3 = cmgCall3(numberValue10)
+  if not cmgCall3 then
     return
   end
-  SHX2_2 = NetworkGetEntityFromNetworkId
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetPlayerFromServerId
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX2_2 or -1 == SHX3_2 then
+  cmgCall3 = NetworkGetEntityFromNetworkId
+  numberValue10 = arg1
+  cmgCall3 = cmgCall3(numberValue10)
+  numberValue10 = GetPlayerFromServerId
+  textValue3 = arg2
+  -- Beginner: result below is playerIndex.
+  numberValue10 = numberValue10(textValue3)
+  if 0 == cmgCall3 or -1 == numberValue10 then
     return
   end
-  SHX4_2 = GetPlayerPed
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if 0 == SHX4_2 then
+  textValue3 = GetPlayerPed
+  iterator = numberValue10
+  -- Beginner: result below is playerPed.
+  textValue3 = textValue3(iterator)
+  if 0 == textValue3 then
     return
   end
-  SHX5_2 = AttachEntityToEntity
-  SHX6_2 = SHX2_2
-  SHX7_2 = SHX4_2
-  SHX8_2 = -1
-  SHX9_2 = -0.05
-  SHX10_2 = 1.3
-  SHX11_2 = -0.345
-  SHX12_2 = 180.0
-  SHX13_2 = 180.0
-  SHX14_2 = 180.0
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = true
-  SHX19_2 = 0
-  SHX20_2 = true
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
+  iterator = AttachEntityToEntity
+  cmgCall4 = cmgCall3
+  playerPed2 = textValue3
+  flag28 = -1
+  flag29 = -0.05
+  flag = 1.3
+  modelHash = -0.345
+  coords = 180.0
+  workValue4 = 180.0
+  flag5 = 180.0
+  flag7 = false
+  flag9 = false
+  flag12 = false
+  flag14 = true
+  flag15 = 0
+  flag18 = true
+  -- Beginner: Attach one entity to another entity.
+  iterator(cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18)
 end
-SHX13_1(SHX14_1, SHX15_1)
-SHX13_1 = 0
-SHX14_1 = RegisterCommand
-SHX15_1 = "stretcher"
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "nhs.onduty.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = GetGameTimer
-    SHX0_2 = SHX0_2()
-    SHX1_2 = SHX13_1
-    SHX0_2 = SHX0_2 - SHX1_2
-    SHX1_2 = 10000
-    if SHX0_2 > SHX1_2 then
-      SHX0_2 = GetGameTimer
-      SHX0_2 = SHX0_2()
-      SHX13_1 = SHX0_2
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.getPlayerPed
-      SHX0_2 = SHX0_2()
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.getPlayerCoords
-      SHX1_2 = SHX1_2()
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadModel
-      SHX3_2 = -665859588
-      SHX2_2(SHX3_2)
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.requestEntitySpawn
-      SHX3_2 = "stretcher"
-      SHX2_2(SHX3_2)
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.spawnVehicle
-      SHX3_2 = -665859588
-      SHX4_2 = SHX1_2.x
-      SHX5_2 = SHX1_2.y
-      SHX6_2 = SHX1_2.z
-      SHX7_2 = GetEntityHeading
-      SHX8_2 = SHX0_2
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX8_2 = false
-      SHX9_2 = true
-      SHX10_2 = true
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      SHX3_2 = SetVehicleDoorsLocked
-      SHX4_2 = SHX2_2
-      SHX5_2 = 2
-      SHX3_2(SHX4_2, SHX5_2)
-      SHX3_2 = SetVehicleOnGroundProperly
-      SHX4_2 = SHX2_2
-      SHX3_2(SHX4_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 7
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 6
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 5
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 3
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 1
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 2
-      SHX6_2 = false
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 11
-      SHX6_2 = false
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetVehicleExtra
-      SHX4_2 = SHX2_2
-      SHX5_2 = 12
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetModelAsNoLongerNeeded
-      SHX4_2 = -665859588
-      SHX3_2(SHX4_2)
-      SHX3_2 = tCMG
-      SHX3_2 = SHX3_2.notify
-      SHX4_2 = "Stretcher created."
-      SHX3_2(SHX4_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5672bd2d03".
+cmgCall2(numberValue2, textValue)
+cmgCall2 = 0
+numberValue2 = RegisterCommand
+textValue = "stretcher"
+-- Beginner: this function is the command handler for "stretcher".
+function workValue5()
+  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag
+  arg1 = CMG
+  arg1 = arg1.hasClientPermission
+  arg2 = "nhs.onduty.permission"
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg1 = arg1()
+    arg2 = cmgCall2
+    arg1 = arg1 - arg2
+    arg2 = 10000
+    if arg1 > arg2 then
+      arg1 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      arg1 = arg1()
+      cmgCall2 = arg1
+      arg1 = CMG
+      arg1 = arg1.getPlayerPed
+      -- Beginner: result below is localPlayerPed.
+      arg1 = arg1()
+      arg2 = CMG
+      arg2 = arg2.getPlayerCoords
+      -- Beginner: result below is playerCoords.
+      arg2 = arg2()
+      cmgCall3 = CMG
+      cmgCall3 = cmgCall3.loadModel
+      numberValue10 = -665859588
+      -- Beginner: Request/load a GTA model before spawning or applying it.
+      cmgCall3(numberValue10)
+      cmgCall3 = CMG
+      cmgCall3 = cmgCall3.requestEntitySpawn
+      numberValue10 = "stretcher"
+      cmgCall3(numberValue10)
+      cmgCall3 = CMG
+      cmgCall3 = cmgCall3.spawnVehicle
+      numberValue10 = -665859588
+      textValue3 = arg2.x
+      iterator = arg2.y
+      cmgCall4 = arg2.z
+      playerPed2 = GetEntityHeading
+      flag28 = arg1
+      -- Beginner: result below is heading.
+      playerPed2 = playerPed2(flag28)
+      flag28 = false
+      flag29 = true
+      flag = true
+      cmgCall3 = cmgCall3(numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag)
+      numberValue10 = SetVehicleDoorsLocked
+      textValue3 = cmgCall3
+      iterator = 2
+      numberValue10(textValue3, iterator)
+      numberValue10 = SetVehicleOnGroundProperly
+      textValue3 = cmgCall3
+      numberValue10(textValue3)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 7
+      cmgCall4 = true
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 6
+      cmgCall4 = true
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 5
+      cmgCall4 = true
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 3
+      cmgCall4 = true
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 1
+      cmgCall4 = true
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 2
+      cmgCall4 = false
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 11
+      cmgCall4 = false
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetVehicleExtra
+      textValue3 = cmgCall3
+      iterator = 12
+      cmgCall4 = true
+      numberValue10(textValue3, iterator, cmgCall4)
+      numberValue10 = SetModelAsNoLongerNeeded
+      textValue3 = -665859588
+      numberValue10(textValue3)
+      numberValue10 = tCMG
+      numberValue10 = numberValue10.notify
+      textValue3 = "Stretcher created."
+      -- Beginner: Show a notification to the player.
+      numberValue10(textValue3)
     end
   end
 end
-SHX17_1 = false
-SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX14_1 = RegisterCommand
-SHX15_1 = "removestretcher"
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "nhs.onduty.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = SHX6_1
-    SHX1_2 = 5.0
-    SHX2_2 = SHX0_1.stretcherModels
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if nil ~= SHX0_2 then
-      SHX1_2 = TriggerServerEvent
-      SHX2_2 = "2bfff324f7"
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.getNetId
-      SHX4_2 = SHX0_2
-      SHX5_2 = "Stretchers"
-      SHX3_2, SHX4_2, SHX5_2 = SHX3_2(SHX4_2, SHX5_2)
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+flag11 = false
+-- Beginner: Register a chat/console command. Event/command: "stretcher".
+numberValue2(textValue, workValue5, flag11)
+numberValue2 = RegisterCommand
+textValue = "removestretcher"
+-- Beginner: this function is the command handler for "removestretcher".
+function workValue5()
+  local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator
+  arg1 = CMG
+  arg1 = arg1.hasClientPermission
+  arg2 = "nhs.onduty.permission"
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = workValue12
+    arg2 = 5.0
+    cmgCall3 = cmgCall.stretcherModels
+    arg1 = arg1(arg2, cmgCall3)
+    if nil ~= arg1 then
+      arg2 = TriggerServerEvent
+      cmgCall3 = "2bfff324f7"
+      numberValue10 = CMG
+      numberValue10 = numberValue10.getNetId
+      textValue3 = arg1
+      iterator = "Stretchers"
+      numberValue10, textValue3, iterator = numberValue10(textValue3, iterator)
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2bfff324f7".
+      arg2(cmgCall3, numberValue10, textValue3, iterator)
     end
   end
 end
-SHX17_1 = false
-SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "0a9884b220"
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getObjectId
-  SHX3_2 = SHX0_2
-  SHX4_2 = "0a9884b220"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
-    SHX3_2 = DecorSetInt
-    SHX4_2 = SHX2_2
-    SHX5_2 = "58fe205294"
-    SHX6_2 = SHX1_2
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+flag11 = false
+-- Beginner: Register a chat/console command. Event/command: "removestretcher".
+numberValue2(textValue, workValue5, flag11)
+numberValue2 = RegisterNetEvent
+textValue = "0a9884b220"
+-- Beginner: this function handles network event "0a9884b220".
+function workValue5(arg1, arg2)
+  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4
+  cmgCall3 = CMG
+  cmgCall3 = cmgCall3.getObjectId
+  numberValue10 = arg1
+  textValue3 = "0a9884b220"
+  cmgCall3 = cmgCall3(numberValue10, textValue3)
+  if cmgCall3 then
+    numberValue10 = DecorSetInt
+    textValue3 = cmgCall3
+    iterator = "58fe205294"
+    cmgCall4 = arg2
+    numberValue10(textValue3, iterator, cmgCall4)
   end
 end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "5f63e7b654"
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getObjectId
-  SHX3_2 = SHX0_2
-  SHX4_2 = "5f63e7b654"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
-    SHX3_2 = DecorSetBool
-    SHX4_2 = SHX2_2
-    SHX5_2 = "ddf749d1be"
-    SHX6_2 = SHX1_2
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0a9884b220".
+numberValue2(textValue, workValue5)
+numberValue2 = RegisterNetEvent
+textValue = "5f63e7b654"
+-- Beginner: this function handles network event "5f63e7b654".
+function workValue5(arg1, arg2)
+  local cmgCall3, numberValue10, textValue3, iterator, cmgCall4
+  cmgCall3 = CMG
+  cmgCall3 = cmgCall3.getObjectId
+  numberValue10 = arg1
+  textValue3 = "5f63e7b654"
+  cmgCall3 = cmgCall3(numberValue10, textValue3)
+  if cmgCall3 then
+    numberValue10 = DecorSetBool
+    textValue3 = cmgCall3
+    iterator = "ddf749d1be"
+    cmgCall4 = arg2
+    numberValue10(textValue3, iterator, cmgCall4)
   end
 end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "48c58592c1"
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getObjectId
-  SHX2_2 = SHX0_2
-  SHX3_2 = "48c58592c1"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = GetVehicleDoorAngleRatio
-  SHX3_2 = SHX1_2
-  SHX4_2 = 4
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if 0 == SHX2_2 then
-    SHX2_2 = GetVehicleDoorAngleRatio
-    SHX3_2 = SHX1_2
-    SHX4_2 = 3
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if 0 == SHX2_2 then
-      goto SHX_LABEL_32
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5f63e7b654".
+numberValue2(textValue, workValue5)
+numberValue2 = RegisterNetEvent
+textValue = "48c58592c1"
+-- Beginner: this function handles network event "48c58592c1".
+function workValue5(arg1)
+  local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4
+  arg2 = CMG
+  arg2 = arg2.getObjectId
+  cmgCall3 = arg1
+  numberValue10 = "48c58592c1"
+  arg2 = arg2(cmgCall3, numberValue10)
+  cmgCall3 = GetVehicleDoorAngleRatio
+  numberValue10 = arg2
+  textValue3 = 4
+  cmgCall3 = cmgCall3(numberValue10, textValue3)
+  if 0 == cmgCall3 then
+    cmgCall3 = GetVehicleDoorAngleRatio
+    numberValue10 = arg2
+    textValue3 = 3
+    cmgCall3 = cmgCall3(numberValue10, textValue3)
+    if 0 == cmgCall3 then
+      goto flow_label_32
     end
   end
-  SHX2_2 = SetVehicleDoorShut
-  SHX3_2 = SHX1_2
-  SHX4_2 = 3
-  SHX5_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = Wait
-  SHX3_2 = 500
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetVehicleDoorShut
-  SHX3_2 = SHX1_2
-  SHX4_2 = 4
-  SHX5_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  goto SHX_LABEL_47
-  -- [FIX IF ERROR] Move ::SHX_LABEL_32:: outside nested blocks until all 'goto SHX_LABEL_32' can see it
-  ::SHX_LABEL_32::
-  SHX2_2 = SetVehicleDoorOpen
-  SHX3_2 = SHX1_2
-  SHX4_2 = 4
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = Wait
-  SHX3_2 = 500
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetVehicleDoorOpen
-  SHX3_2 = SHX1_2
-  SHX4_2 = 3
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_47:: outside nested blocks until all 'goto SHX_LABEL_47' can see it
-  ::SHX_LABEL_47::
+  cmgCall3 = SetVehicleDoorShut
+  numberValue10 = arg2
+  textValue3 = 3
+  iterator = false
+  cmgCall3(numberValue10, textValue3, iterator)
+  cmgCall3 = Wait
+  numberValue10 = 500
+  cmgCall3(numberValue10)
+  cmgCall3 = SetVehicleDoorShut
+  numberValue10 = arg2
+  textValue3 = 4
+  iterator = false
+  cmgCall3(numberValue10, textValue3, iterator)
+  goto flow_label_47
+  ::flow_label_32::
+  cmgCall3 = SetVehicleDoorOpen
+  numberValue10 = arg2
+  textValue3 = 4
+  iterator = false
+  cmgCall4 = false
+  cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+  cmgCall3 = Wait
+  numberValue10 = 500
+  cmgCall3(numberValue10)
+  cmgCall3 = SetVehicleDoorOpen
+  numberValue10 = arg2
+  textValue3 = 3
+  iterator = false
+  cmgCall4 = false
+  cmgCall3(numberValue10, textValue3, iterator, cmgCall4)
+  ::flow_label_47::
 end
-SHX14_1(SHX15_1, SHX16_1)
-SHX14_1 = CMG
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  return SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "48c58592c1".
+numberValue2(textValue, workValue5)
+numberValue2 = CMG
+function textValue()
+  local arg1, arg2
+  arg1 = flag17
+  return arg1
 end
-SHX14_1.isUsingStretcher = SHX15_1
-SHX14_1 = RegisterNetEvent
-SHX15_1 = "2d2aca0333"
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = NetworkDoesNetworkIdExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
+numberValue2.isUsingStretcher = textValue
+numberValue2 = RegisterNetEvent
+textValue = "2d2aca0333"
+-- Beginner: this function handles network event "2d2aca0333".
+function workValue5(arg1)
+  local arg2, cmgCall3, numberValue10, textValue3
+  arg2 = NetworkDoesNetworkIdExist
+  cmgCall3 = arg1
+  arg2 = arg2(cmgCall3)
+  if not arg2 then
     return
   end
-  SHX1_2 = NetworkGetEntityFromNetworkId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      SHX2_2 = SHX11_1
-      SHX3_2 = SHX1_2
-      SHX4_2 = 2
-      SHX2_2(SHX3_2, SHX4_2)
+  arg2 = NetworkGetEntityFromNetworkId
+  cmgCall3 = arg1
+  arg2 = arg2(cmgCall3)
+  if 0 ~= arg2 then
+    cmgCall3 = DoesEntityExist
+    numberValue10 = arg2
+    cmgCall3 = cmgCall3(numberValue10)
+    if cmgCall3 then
+      cmgCall3 = workValue2
+      numberValue10 = arg2
+      textValue3 = 2
+      cmgCall3(numberValue10, textValue3)
     end
   end
 end
-SHX14_1(SHX15_1, SHX16_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2d2aca0333".
+numberValue2(textValue, workValue5)

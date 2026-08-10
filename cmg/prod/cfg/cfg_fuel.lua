@@ -1,3 +1,26 @@
+--[[
+    BEGINNER GUIDE — Fuel
+    =====================
+
+    File: cmg/prod/cfg/cfg_fuel.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Example player-facing text in this file:
+      * Exit the vehicle to refuel
+      * Press ~g~E ~w~to refuel vehicle
+      * Press ~g~E ~w~to purchase a petrol can for ~g~£
+      * Press ~g~E ~w~to cancel the fueling
+      * Press ~g~E ~w~ to refill the petrol can for 
+
+]]
 local cfg = {}
 
 cfg.jerryCanCost = 5000

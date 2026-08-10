@@ -1,3 +1,22 @@
+--[[
+    BEGINNER GUIDE — Combo Zone
+    ===========================
+
+    File: cmg/util/client/polyzone/ComboZone.lua
+    Purpose: This file contains shared utility code.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Named framework/network events found:
+      * polyzone:pzcomboinfo
+
+]]
 ---@diagnostic disable
 
 local mapMinX, mapMinY, mapMaxX, mapMaxY = -3700, -4400, 4500, 8000

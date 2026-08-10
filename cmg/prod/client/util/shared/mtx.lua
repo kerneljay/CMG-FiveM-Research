@@ -1,344 +1,312 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Small Matrix / Geometry Helpers
+    ===============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1
-SHX0_1 = {}
-function SHX1_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = {}
-  SHX2_2 = {}
-  SHX1_2.values = SHX2_2
-  SHX2_2 = {}
-  SHX1_2.positions = SHX2_2
-  SHX2_2 = {}
-  SHX1_2.directions = SHX2_2
-  SHX1_2.sign = 1
-  SHX2_2 = setmetatable
-  SHX3_2 = SHX1_2
-  SHX4_2 = {}
-  SHX5_2 = SHX0_1
-  SHX4_2.__index = SHX5_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = 1
-  SHX3_2 = SHX0_2
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX1_2.values
-    SHX6_2[SHX5_2] = SHX5_2
-    SHX6_2 = SHX1_2.positions
-    SHX6_2[SHX5_2] = SHX5_2
-    SHX6_2 = SHX1_2.directions
-    SHX6_2[SHX5_2] = -1
-  end
-  return SHX1_2
+    This file contains two tiny math utilities used by geometry code:
+
+      JT(size)
+        A Johnson-Trotter permutation iterator. It generates every permutation
+        of 1..size and also tracks whether the next permutation changes sign.
+
+      MTX(rows)
+        Wraps a Lua table-of-rows as a matrix object with:
+          matrix:dump()
+          matrix:perm()
+          matrix:det(sign)
+
+    CMG.isOnPlane(a, b, c, d, e, f)
+      Builds two 4x4 determinant matrices and returns true when the first
+      determinant is very close to zero (< 0.1 absolute value).
+
+    The unusual names JT and MTX are preserved because other scripts may use
+    them directly.
+]]
+
+-- ============================================================
+-- JOHNSON-TROTTER PERMUTATION ITERATOR
+-- ============================================================
+
+local permutationMethods = {}
+
+
+function JT(size)
+    local iterator = {
+        values = {},
+        positions = {},
+        directions = {},
+        sign = 1
+    }
+
+    setmetatable(
+        iterator,
+        {
+            __index =
+                permutationMethods
+        }
+    )
+
+    for index = 1, size do
+        iterator.values[index] =
+            index
+
+        iterator.positions[index] =
+            index
+
+        iterator.directions[index] =
+            -1
+    end
+
+    return iterator
 end
-JT = SHX1_1
-function SHX1_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX0_2.values
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 1
-  SHX3_2 = -1
-  for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-    SHX5_2 = SHX0_2.positions
-    SHX5_2 = SHX5_2[SHX4_2]
-    SHX6_2 = SHX0_2.directions
-    SHX6_2 = SHX6_2[SHX4_2]
-    SHX5_2 = SHX5_2 + SHX6_2
-    if SHX5_2 >= 1 then
-      SHX6_2 = SHX0_2.values
-      SHX6_2 = #SHX6_2
-      if SHX5_2 <= SHX6_2 then
-        SHX6_2 = SHX0_2.values
-        SHX6_2 = SHX6_2[SHX5_2]
-        if SHX4_2 > SHX6_2 then
-          return SHX4_2
+
+
+function permutationMethods:largestMobile()
+    for value = #self.values,
+        1,
+        -1 do
+
+        local currentPosition =
+            self.positions[value]
+
+        local nextPosition =
+            currentPosition
+            + self.directions[value]
+
+        if nextPosition >= 1
+            and nextPosition
+                <= #self.values
+            and value
+                > self.values[
+                    nextPosition
+                ] then
+
+            return value
         end
-      end
     end
-  end
-  SHX1_2 = 0
-  return SHX1_2
+
+    return 0
 end
-SHX0_1.largestMobile = SHX1_1
-function SHX1_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX0_2.largestMobile
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 == SHX1_2 then
-    SHX2_2 = false
-    return SHX2_2
-  end
-  SHX2_2 = SHX0_2.positions
-  SHX2_2 = SHX2_2[SHX1_2]
-  SHX3_2 = SHX0_2.directions
-  SHX3_2 = SHX3_2[SHX1_2]
-  SHX3_2 = SHX2_2 + SHX3_2
-  SHX4_2 = SHX0_2.values
-  SHX4_2 = SHX4_2[SHX3_2]
-  SHX5_2 = SHX0_2.values
-  SHX6_2 = SHX0_2.values
-  SHX7_2 = SHX0_2.values
-  SHX7_2 = SHX7_2[SHX2_2]
-  SHX8_2 = SHX0_2.values
-  SHX8_2 = SHX8_2[SHX3_2]
-  SHX6_2[SHX2_2] = SHX8_2
-  SHX5_2[SHX3_2] = SHX7_2
-  SHX5_2 = SHX0_2.positions
-  SHX6_2 = SHX0_2.positions
-  SHX7_2 = SHX0_2.positions
-  SHX7_2 = SHX7_2[SHX1_2]
-  SHX8_2 = SHX0_2.positions
-  SHX8_2 = SHX8_2[SHX4_2]
-  SHX6_2[SHX1_2] = SHX8_2
-  SHX5_2[SHX4_2] = SHX7_2
-  SHX5_2 = SHX0_2.sign
-  SHX5_2 = -SHX5_2
-  SHX0_2.sign = SHX5_2
-  SHX5_2 = SHX1_2 + 1
-  SHX6_2 = SHX0_2.directions
-  SHX6_2 = #SHX6_2
-  SHX7_2 = 1
-  for SHX8_2 = SHX5_2, SHX6_2, SHX7_2 do
-    SHX9_2 = SHX0_2.directions
-    SHX10_2 = SHX0_2.directions
-    SHX10_2 = SHX10_2[SHX8_2]
-    SHX10_2 = -SHX10_2
-    SHX9_2[SHX8_2] = SHX10_2
-  end
-  SHX5_2 = true
-  return SHX5_2
-end
-SHX0_1.next = SHX1_1
-SHX1_1 = {}
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = setmetatable
-  SHX2_2 = SHX0_2
-  SHX3_2 = {}
-  SHX4_2 = SHX1_1
-  SHX3_2.__index = SHX4_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = #SHX0_2
-  SHX0_2.rows = SHX1_2
-  SHX1_2 = SHX0_2[1]
-  SHX1_2 = #SHX1_2
-  SHX0_2.cols = SHX1_2
-  return SHX0_2
-end
-MTX = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = ipairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = print
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.unpack
-    SHX9_2 = SHX6_2
-    SHX8_2, SHX9_2 = SHX8_2(SHX9_2)
-    SHX7_2(SHX8_2, SHX9_2)
-  end
-end
-SHX1_1.dump = SHX2_1
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX0_2.det
-  SHX3_2 = 1
-  return SHX1_2(SHX2_2, SHX3_2)
-end
-SHX1_1.perm = SHX2_1
-function SHX2_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX2_2 = 0
-  SHX3_2 = JT
-  SHX4_2 = SHX0_2.cols
-  SHX3_2 = SHX3_2(SHX4_2)
-  repeat
-    SHX4_2 = SHX1_2 or SHX4_2
-    if not SHX1_2 then
-      SHX4_2 = SHX3_2.sign
+
+
+function permutationMethods:next()
+    local mobileValue =
+        self:largestMobile()
+
+    if mobileValue == 0 then
+        return false
     end
-    SHX5_2 = ipairs
-    SHX6_2 = SHX3_2.values
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2)
-    for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-      SHX11_2 = SHX0_2[SHX9_2]
-      SHX11_2 = SHX11_2[SHX10_2]
-      SHX4_2 = SHX4_2 * SHX11_2
+
+    local currentPosition =
+        self.positions[
+            mobileValue
+        ]
+
+    local nextPosition =
+        currentPosition
+        + self.directions[
+            mobileValue
+        ]
+
+    local swappedValue =
+        self.values[
+            nextPosition
+        ]
+
+    -- Swap permutation values.
+    self.values[
+        currentPosition
+    ],
+    self.values[
+        nextPosition
+    ] =
+        self.values[
+            nextPosition
+        ],
+        self.values[
+            currentPosition
+        ]
+
+    -- Keep each value's position lookup correct.
+    self.positions[
+        mobileValue
+    ],
+    self.positions[
+        swappedValue
+    ] =
+        self.positions[
+            swappedValue
+        ],
+        self.positions[
+            mobileValue
+        ]
+
+    -- Every swap changes permutation parity.
+    self.sign =
+        -self.sign
+
+    -- Values larger than the moved value reverse direction.
+    for value = mobileValue + 1,
+        #self.directions do
+
+        self.directions[value] =
+            -self.directions[value]
     end
-    SHX2_2 = SHX2_2 + SHX4_2
-    SHX6_2 = SHX3_2
-    SHX5_2 = SHX3_2.next
-    SHX5_2 = SHX5_2(SHX6_2)
-  until not SHX5_2
-  return SHX2_2
+
+    return true
 end
-SHX1_1.det = SHX2_1
-SHX2_1 = CMG
-function SHX3_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX6_2 = MTX
-  SHX7_2 = {}
-  SHX8_2 = {}
-  SHX9_2 = SHX0_2.x
-  SHX10_2 = SHX1_2.x
-  SHX11_2 = SHX2_2.x
-  SHX12_2 = SHX3_2.x
-  SHX8_2[1] = SHX9_2
-  SHX8_2[2] = SHX10_2
-  SHX8_2[3] = SHX11_2
-  SHX8_2[4] = SHX12_2
-  SHX9_2 = {}
-  SHX10_2 = SHX0_2.y
-  SHX11_2 = SHX1_2.y
-  SHX12_2 = SHX2_2.y
-  SHX13_2 = SHX3_2.y
-  SHX9_2[1] = SHX10_2
-  SHX9_2[2] = SHX11_2
-  SHX9_2[3] = SHX12_2
-  SHX9_2[4] = SHX13_2
-  SHX10_2 = {}
-  SHX11_2 = SHX0_2.z
-  SHX12_2 = SHX1_2.z
-  SHX13_2 = SHX2_2.z
-  SHX14_2 = SHX3_2.z
-  SHX10_2[1] = SHX11_2
-  SHX10_2[2] = SHX12_2
-  SHX10_2[3] = SHX13_2
-  SHX10_2[4] = SHX14_2
-  SHX11_2 = {}
-  SHX12_2 = 1
-  SHX13_2 = 1
-  SHX14_2 = 1
-  SHX15_2 = 1
-  SHX16_2 = 1
-  SHX11_2[1] = SHX12_2
-  SHX11_2[2] = SHX13_2
-  SHX11_2[3] = SHX14_2
-  SHX11_2[4] = SHX15_2
-  SHX11_2[5] = SHX16_2
-  SHX7_2[1] = SHX8_2
-  SHX7_2[2] = SHX9_2
-  SHX7_2[3] = SHX10_2
-  SHX7_2[4] = SHX11_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = MTX
-  SHX8_2 = {}
-  SHX9_2 = {}
-  SHX10_2 = SHX0_2.x
-  SHX11_2 = SHX2_2.x
-  SHX12_2 = SHX4_2.x
-  SHX13_2 = SHX5_2.x
-  SHX9_2[1] = SHX10_2
-  SHX9_2[2] = SHX11_2
-  SHX9_2[3] = SHX12_2
-  SHX9_2[4] = SHX13_2
-  SHX10_2 = {}
-  SHX11_2 = SHX0_2.y
-  SHX12_2 = SHX2_2.y
-  SHX13_2 = SHX4_2.y
-  SHX14_2 = SHX5_2.y
-  SHX10_2[1] = SHX11_2
-  SHX10_2[2] = SHX12_2
-  SHX10_2[3] = SHX13_2
-  SHX10_2[4] = SHX14_2
-  SHX11_2 = {}
-  SHX12_2 = SHX0_2.z
-  SHX13_2 = SHX2_2.z
-  SHX14_2 = SHX4_2.z
-  SHX15_2 = SHX5_2.z
-  SHX11_2[1] = SHX12_2
-  SHX11_2[2] = SHX13_2
-  SHX11_2[3] = SHX14_2
-  SHX11_2[4] = SHX15_2
-  SHX12_2 = {}
-  SHX13_2 = 1
-  SHX14_2 = 1
-  SHX15_2 = 1
-  SHX16_2 = 1
-  SHX17_2 = 1
-  SHX12_2[1] = SHX13_2
-  SHX12_2[2] = SHX14_2
-  SHX12_2[3] = SHX15_2
-  SHX12_2[4] = SHX16_2
-  SHX12_2[5] = SHX17_2
-  SHX8_2[1] = SHX9_2
-  SHX8_2[2] = SHX10_2
-  SHX8_2[3] = SHX11_2
-  SHX8_2[4] = SHX12_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = math
-  SHX8_2 = SHX8_2.abs
-  SHX10_2 = SHX6_2
-  SHX9_2 = SHX6_2.det
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX9_2(SHX10_2)
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX9_2 = 0.1
-  SHX8_2 = SHX8_2 < SHX9_2
-  return SHX8_2
+
+
+-- ============================================================
+-- MATRIX
+-- ============================================================
+
+local matrixMethods = {}
+
+
+function MTX(rows)
+    setmetatable(
+        rows,
+        {
+            __index =
+                matrixMethods
+        }
+    )
+
+    rows.rows =
+        #rows
+
+    rows.cols =
+        #rows[1]
+
+    return rows
 end
-SHX2_1.isOnPlane = SHX3_1
+
+
+function matrixMethods:dump()
+    for _, row in ipairs(self) do
+        print(
+            table.unpack(row)
+        )
+    end
+end
+
+
+function matrixMethods:perm()
+    return self:det(1)
+end
+
+
+function matrixMethods:det(
+    forcedSign
+)
+    local determinant = 0
+
+    local permutation =
+        JT(self.cols)
+
+    repeat
+        local productSign =
+            forcedSign
+            or permutation.sign
+
+        for rowIndex, columnIndex
+            in ipairs(
+                permutation.values
+            ) do
+
+            productSign =
+                productSign
+                * self[
+                    rowIndex
+                ][
+                    columnIndex
+                ]
+        end
+
+        determinant =
+            determinant
+            + productSign
+
+    until not permutation:next()
+
+    return determinant
+end
+
+
+-- ============================================================
+-- GEOMETRY TEST
+-- ============================================================
+
+function CMG.isOnPlane(
+    pointA,
+    pointB,
+    pointC,
+    pointD,
+    pointE,
+    pointF
+)
+    local firstMatrix =
+        MTX({
+            {
+                pointA.x,
+                pointB.x,
+                pointC.x,
+                pointD.x
+            },
+
+            {
+                pointA.y,
+                pointB.y,
+                pointC.y,
+                pointD.y
+            },
+
+            {
+                pointA.z,
+                pointB.z,
+                pointC.z,
+                pointD.z
+            },
+
+            {1, 1, 1, 1}
+        })
+
+    -- The original decompiled client also creates a second matrix using
+    -- A/C/E/F. It never uses that matrix afterwards, but creating it is kept
+    -- here to accurately document the source's structure.
+    local secondMatrix =
+        MTX({
+            {
+                pointA.x,
+                pointC.x,
+                pointE.x,
+                pointF.x
+            },
+
+            {
+                pointA.y,
+                pointC.y,
+                pointE.y,
+                pointF.y
+            },
+
+            {
+                pointA.z,
+                pointC.z,
+                pointE.z,
+                pointF.z
+            },
+
+            {1, 1, 1, 1}
+        })
+
+    -- Keep the local so a beginner can see the second matrix is intentionally
+    -- unused rather than accidentally forgotten.
+    local _unusedSecondMatrix =
+        secondMatrix
+
+    return
+        math.abs(
+            firstMatrix:det()
+        ) < 0.1
+end

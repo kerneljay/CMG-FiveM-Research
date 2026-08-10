@@ -1,8 +1,35 @@
 --[[
+    Beginner Guide: cl_emergencycalls.lua
+    =====================================
+
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Commands:
+      * /devfillcalls
+
+    Important events used:
+      * 00e0b9aa86
+      * 16fb6425b4
+      * 1d88d0efdf
+      * 5aef5d0989
+      * a6f59b89aa
+      * e00697b79f
+      * e1c61fbba4
+      * fbf6b45bc8
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
     Call Manager (cleaned/readable version)
 
     This file was reconstructed from a decompiled Lua script.
-    The original used meaningless decompiler-generated temporary variable names.
+    The original used temporary names such as workValue, workValue2, etc.
     Those have been replaced with descriptive names and the decompiler's
     goto/label noise has been removed.
 

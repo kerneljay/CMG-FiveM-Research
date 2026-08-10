@@ -1,67 +1,41 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Random Train Control
+    ====================
 
-local SHX0_1, SHX1_1, SHX2_1
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "63a81df20f"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SwitchTrainTrack
-  SHX1_2 = 0
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SwitchTrainTrack
-  SHX1_2 = 3
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetTrainTrackSpawnFrequency
-  SHX1_2 = 0
-  SHX2_2 = 600000
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetRandomTrains
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = print
-  SHX1_2 = "Starting trains"
-  SHX0_2(SHX1_2)
-end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "cb633fe9c7"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SwitchTrainTrack
-  SHX1_2 = 0
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SwitchTrainTrack
-  SHX1_2 = 3
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetTrainTrackSpawnFrequency
-  SHX1_2 = 0
-  SHX2_2 = 120000
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = print
-  SHX1_2 = "Disabling trains"
-  SHX0_2(SHX1_2)
-end
-SHX0_1(SHX1_1, SHX2_1)
+    Event 63a81df20f
+      Enables random trains on GTA train tracks 0 and 3.
+
+    Event cb633fe9c7
+      Disables those tracks again and changes the spawn frequency.
+
+    The event hashes are kept unchanged because the server probably triggers
+    them directly.
+]]
+
+RegisterNetEvent("63a81df20f", function()
+    SwitchTrainTrack(0, true)
+    SwitchTrainTrack(3, true)
+
+    -- Ten minutes.
+    SetTrainTrackSpawnFrequency(
+        0,
+        600000
+    )
+
+    SetRandomTrains(true)
+
+    print("Starting trains")
+end)
+
+RegisterNetEvent("cb633fe9c7", function()
+    SwitchTrainTrack(0, false)
+    SwitchTrainTrack(3, false)
+
+    -- Two minutes.
+    SetTrainTrackSpawnFrequency(
+        0,
+        120000
+    )
+
+    print("Disabling trains")
+end)

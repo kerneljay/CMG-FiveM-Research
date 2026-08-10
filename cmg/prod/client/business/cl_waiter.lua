@@ -1,1280 +1,1134 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_waiter.lua
+    =============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1
-SHX0_1 = {}
-SHX1_1 = 1
-SHX2_1 = 2
-SHX3_1 = 3
-SHX4_1 = 4
-SHX5_1 = 5
-SHX6_1 = 6
-SHX7_1 = 7
-SHX8_1 = 8
-SHX9_1 = 9
-SHX10_1 = 10
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX0_1[5] = SHX5_1
-SHX0_1[6] = SHX6_1
-SHX0_1[7] = SHX7_1
-SHX0_1[8] = SHX8_1
-SHX0_1[9] = SHX9_1
-SHX0_1[10] = SHX10_1
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.CloseAll
-  SHX0_2()
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Waiter
+    =======================
+
+    File: cmg/prod/client/business/cl_waiter.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Network/hash identifiers found: 7
+      They are intentionally left unchanged because matching server code may use them.
+      * bf3f551598
+      * e76e0858eb
+      * 79eec4ec28
+      * 09b7549346
+      * d5eac1b64e
+      * 9e28ed4893
+      * 7aa155f442
+
+    Example player-facing text in this file:
+      * Press ~INPUT_CONTEXT~ to use the cash register
+
+]]
+local dataTable, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, numberValue13, textValue12, textValue14, rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5
+dataTable = {}
+numberValue8 = 1
+numberValue9 = 2
+numberValue10 = 3
+numberValue11 = 4
+numberValue12 = 5
+numberValue13 = 6
+textValue12 = 7
+textValue14 = 8
+rageUiCall8 = 9
+textValue = 10
+dataTable[1] = numberValue8
+dataTable[2] = numberValue9
+dataTable[3] = numberValue10
+dataTable[4] = numberValue11
+dataTable[5] = numberValue12
+dataTable[6] = numberValue13
+dataTable[7] = textValue12
+dataTable[8] = textValue14
+dataTable[9] = rageUiCall8
+dataTable[10] = textValue
+function numberValue8()
+  local arg1, arg2
+  arg1 = RageUI
+  arg1 = arg1.CloseAll
+  arg1()
 end
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsAnyMenuOfTypeVisible
-  SHX1_2 = "business"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = drawNativeNotification
-    SHX1_2 = "Press ~INPUT_CONTEXT~ to use the cash register"
-    SHX0_2(SHX1_2)
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 0
-    SHX2_2 = 51
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = RageUI
-      SHX0_2 = SHX0_2.Visible
-      SHX1_2 = RMenu
-      SHX2_2 = SHX1_2
-      SHX1_2 = SHX1_2.Get
-      SHX3_2 = "business"
-      SHX4_2 = "waiter_mainmenu"
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      SHX2_2 = true
-      SHX0_2(SHX1_2, SHX2_2)
+function numberValue9()
+  local arg1, arg2, flag4, flag5, flag6
+  arg1 = RageUI
+  arg1 = arg1.IsAnyMenuOfTypeVisible
+  arg2 = "business"
+  arg1 = arg1(arg2)
+  if not arg1 then
+    arg1 = drawNativeNotification
+    arg2 = "Press ~INPUT_CONTEXT~ to use the cash register"
+    -- Beginner: Show a GTA-style notification/help prompt.
+    arg1(arg2)
+    arg1 = IsControlJustPressed
+    arg2 = 0
+    flag4 = 51
+    arg1 = arg1(arg2, flag4)
+    if arg1 then
+      arg1 = RageUI
+      arg1 = arg1.Visible
+      arg2 = RMenu
+      flag4 = arg2
+      arg2 = arg2.Get
+      flag5 = "business"
+      flag6 = "waiter_mainmenu"
+      -- Beginner: result below is menu.
+      arg2 = arg2(flag4, flag5, flag6)
+      flag4 = true
+      arg1(arg2, flag4)
     end
   end
 end
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX1_2 = SHX0_2.jobInfo
-  SHX2_2 = {}
-  SHX1_2.markers = SHX2_2
-  SHX1_2 = SHX0_2.jobInfo
-  SHX2_2 = {}
-  SHX1_2.areas = SHX2_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.jobMetadata
-  SHX2_2 = SHX2_2.cashRegisterPositions
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.addMarker
-    SHX8_2 = SHX6_2.x
-    SHX9_2 = SHX6_2.y
-    SHX10_2 = SHX6_2.z
-    SHX10_2 = SHX10_2 - 0.6
-    SHX11_2 = 0.2
-    SHX12_2 = 0.2
-    SHX13_2 = 0.2
-    SHX14_2 = 255
-    SHX15_2 = 255
-    SHX16_2 = 0
-    SHX17_2 = 150
-    SHX18_2 = 25.0
-    SHX19_2 = 0
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.insert
-    SHX9_2 = SHX0_2.jobInfo
-    SHX9_2 = SHX9_2.markers
-    SHX10_2 = SHX7_2
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.createArea
-    SHX9_2 = "business_waiter_"
-    SHX10_2 = tostring
-    SHX11_2 = SHX5_2
-    SHX10_2 = SHX10_2(SHX11_2)
-    SHX9_2 = SHX9_2 .. SHX10_2
-    SHX10_2 = SHX6_2.xyz
-    SHX11_2 = 1.0
-    SHX12_2 = 1.5
-    function SHX13_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+function numberValue10(arg1)
+  local arg2, flag4, flag5, flag6, textValue11, workValue6, cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4, numberValue2, numberValue3, numberValue4, dataTable4, numberValue5, numberValue6, numberValue7
+  arg2 = arg1.jobInfo
+  flag4 = {}
+  arg2.markers = flag4
+  arg2 = arg1.jobInfo
+  flag4 = {}
+  arg2.areas = flag4
+  arg2 = pairs
+  flag4 = arg1.jobMetadata
+  flag4 = flag4.cashRegisterPositions
+  arg2, flag4, flag5, flag6 = arg2(flag4)
+  for textValue11, workValue6 in arg2, flag4, flag5, flag6 do
+    cmgCall2 = tCMG
+    cmgCall2 = cmgCall2.addMarker
+    cmgCall3 = workValue6.x
+    workValue9 = workValue6.y
+    stringHelper = workValue6.z
+    stringHelper = stringHelper - 0.6
+    numberValue = 0.2
+    rageUiCall4 = 0.2
+    numberValue2 = 0.2
+    numberValue3 = 255
+    numberValue4 = 255
+    dataTable4 = 0
+    numberValue5 = 150
+    numberValue6 = 25.0
+    numberValue7 = 0
+    cmgCall2 = cmgCall2(cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4, numberValue2, numberValue3, numberValue4, dataTable4, numberValue5, numberValue6, numberValue7)
+    cmgCall3 = table
+    cmgCall3 = cmgCall3.insert
+    workValue9 = arg1.jobInfo
+    workValue9 = workValue9.markers
+    stringHelper = cmgCall2
+    cmgCall3(workValue9, stringHelper)
+    cmgCall3 = CMG
+    cmgCall3 = cmgCall3.createArea
+    workValue9 = "business_waiter_"
+    stringHelper = tostring
+    numberValue = textValue11
+    stringHelper = stringHelper(numberValue)
+    workValue9 = workValue9 .. stringHelper
+    stringHelper = workValue6.xyz
+    numberValue = 1.0
+    rageUiCall4 = 1.5
+    function numberValue2()
+      local arg12, arg22
     end
-    SHX14_2 = SHX1_1
-    SHX15_2 = SHX2_1
-    SHX16_2 = {}
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX0_2.jobInfo
-    SHX10_2 = SHX10_2.areas
-    SHX11_2 = SHX8_2
-    SHX9_2(SHX10_2, SHX11_2)
+    numberValue3 = numberValue8
+    numberValue4 = numberValue9
+    dataTable4 = {}
+    cmgCall3 = cmgCall3(workValue9, stringHelper, numberValue, rageUiCall4, numberValue2, numberValue3, numberValue4, dataTable4)
+    workValue9 = table
+    workValue9 = workValue9.insert
+    stringHelper = arg1.jobInfo
+    stringHelper = stringHelper.areas
+    numberValue = cmgCall3
+    workValue9(stringHelper, numberValue)
   end
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "bf3f551598"
-  SHX1_2(SHX2_2)
+  arg2 = TriggerServerEvent
+  flag4 = "bf3f551598"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+  arg2(flag4)
 end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+function numberValue11()
+  local arg1, arg2
 end
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.jobInfo
-  SHX2_2 = SHX2_2.markers
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.removeMarker
-    SHX8_2 = SHX6_2
-    SHX7_2(SHX8_2)
+function numberValue12(arg1)
+  local arg2, flag4, flag5, flag6, textValue11, workValue6, cmgCall2, cmgCall3
+  arg2 = pairs
+  flag4 = arg1.jobInfo
+  flag4 = flag4.markers
+  arg2, flag4, flag5, flag6 = arg2(flag4)
+  for textValue11, workValue6 in arg2, flag4, flag5, flag6 do
+    cmgCall2 = tCMG
+    cmgCall2 = cmgCall2.removeMarker
+    cmgCall3 = workValue6
+    cmgCall2(cmgCall3)
   end
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2.jobInfo
-  SHX2_2 = SHX2_2.areas
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.removeArea
-    SHX8_2 = SHX6_2
-    SHX7_2(SHX8_2)
+  arg2 = pairs
+  flag4 = arg1.jobInfo
+  flag4 = flag4.areas
+  arg2, flag4, flag5, flag6 = arg2(flag4)
+  for textValue11, workValue6 in arg2, flag4, flag5, flag6 do
+    cmgCall2 = tCMG
+    cmgCall2 = cmgCall2.removeArea
+    cmgCall3 = workValue6
+    cmgCall2(cmgCall3)
   end
 end
-SHX6_1 = RMenu
-SHX6_1 = SHX6_1.Add
-SHX7_1 = "business"
-SHX8_1 = "waiter_mainmenu"
-SHX9_1 = RageUI
-SHX9_1 = SHX9_1.CreateMenu
-SHX10_1 = ""
-SHX11_1 = "~b~CMG Business"
-SHX12_1 = CMG
-SHX12_1 = SHX12_1.getRageUIMenuWidth
-SHX12_1 = SHX12_1()
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.getRageUIMenuHeight
-SHX13_1 = SHX13_1()
-SHX14_1 = "cmg_marketui"
-SHX15_1 = "cmg_marketui"
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1)
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX6_1 = RMenu
-SHX6_1 = SHX6_1.Add
-SHX7_1 = "business"
-SHX8_1 = "waiter_placeorder"
-SHX9_1 = RageUI
-SHX9_1 = SHX9_1.CreateSubMenu
-SHX10_1 = RMenu
-SHX11_1 = SHX10_1
-SHX10_1 = SHX10_1.Get
-SHX12_1 = "business"
-SHX13_1 = "waiter_mainmenu"
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX11_1 = ""
-SHX12_1 = "~b~CMG Business"
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.getRageUIMenuWidth
-SHX13_1 = SHX13_1()
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.getRageUIMenuHeight
-SHX14_1 = SHX14_1()
-SHX15_1 = "cmg_marketui"
-SHX16_1 = "cmg_marketui"
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX6_1 = RMenu
-SHX6_1 = SHX6_1.Add
-SHX7_1 = "business"
-SHX8_1 = "waiter_additem"
-SHX9_1 = RageUI
-SHX9_1 = SHX9_1.CreateSubMenu
-SHX10_1 = RMenu
-SHX11_1 = SHX10_1
-SHX10_1 = SHX10_1.Get
-SHX12_1 = "business"
-SHX13_1 = "waiter_placeorder"
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX11_1 = ""
-SHX12_1 = "~b~CMG Business"
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.getRageUIMenuWidth
-SHX13_1 = SHX13_1()
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.getRageUIMenuHeight
-SHX14_1 = SHX14_1()
-SHX15_1 = "cmg_marketui"
-SHX16_1 = "cmg_marketui"
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX6_1 = RMenu
-SHX6_1 = SHX6_1.Add
-SHX7_1 = "business"
-SHX8_1 = "waiter_additemamount"
-SHX9_1 = RageUI
-SHX9_1 = SHX9_1.CreateSubMenu
-SHX10_1 = RMenu
-SHX11_1 = SHX10_1
-SHX10_1 = SHX10_1.Get
-SHX12_1 = "business"
-SHX13_1 = "waiter_additem"
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX11_1 = ""
-SHX12_1 = "~b~CMG Business"
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.getRageUIMenuWidth
-SHX13_1 = SHX13_1()
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.getRageUIMenuHeight
-SHX14_1 = SHX14_1()
-SHX15_1 = "cmg_marketui"
-SHX16_1 = "cmg_marketui"
-SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.sort
-  SHX2_2 = SHX0_2
-  function SHX3_2(SHX0_3, SHX1_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX2_3, SHX3_3
-    SHX2_3 = SHX0_3.orderId
-    SHX3_3 = SHX1_3.orderId
-    SHX2_3 = SHX2_3 > SHX3_3
-    return SHX2_3
+numberValue13 = RMenu
+numberValue13 = numberValue13.Add
+textValue12 = "business"
+textValue14 = "waiter_mainmenu"
+rageUiCall8 = RageUI
+rageUiCall8 = rageUiCall8.CreateMenu
+textValue = ""
+cmgCall = "~b~CMG Business"
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuWidth
+rageUiCall3 = rageUiCall3()
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuHeight
+rageUiCall5 = rageUiCall5()
+rageUiCall6 = "cmg_marketui"
+textValue4 = "cmg_marketui"
+rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5 = rageUiCall8(textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4)
+numberValue13(textValue12, textValue14, rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+numberValue13 = RMenu
+numberValue13 = numberValue13.Add
+textValue12 = "business"
+textValue14 = "waiter_placeorder"
+rageUiCall8 = RageUI
+rageUiCall8 = rageUiCall8.CreateSubMenu
+textValue = RMenu
+cmgCall = textValue
+textValue = textValue.Get
+rageUiCall3 = "business"
+rageUiCall5 = "waiter_mainmenu"
+-- Beginner: result below is menu.
+textValue = textValue(cmgCall, rageUiCall3, rageUiCall5)
+cmgCall = ""
+rageUiCall3 = "~b~CMG Business"
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuWidth
+rageUiCall5 = rageUiCall5()
+rageUiCall6 = CMG
+rageUiCall6 = rageUiCall6.getRageUIMenuHeight
+rageUiCall6 = rageUiCall6()
+textValue4 = "cmg_marketui"
+textValue5 = "cmg_marketui"
+rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5 = rageUiCall8(textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+numberValue13(textValue12, textValue14, rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+numberValue13 = RMenu
+numberValue13 = numberValue13.Add
+textValue12 = "business"
+textValue14 = "waiter_additem"
+rageUiCall8 = RageUI
+rageUiCall8 = rageUiCall8.CreateSubMenu
+textValue = RMenu
+cmgCall = textValue
+textValue = textValue.Get
+rageUiCall3 = "business"
+rageUiCall5 = "waiter_placeorder"
+-- Beginner: result below is menu.
+textValue = textValue(cmgCall, rageUiCall3, rageUiCall5)
+cmgCall = ""
+rageUiCall3 = "~b~CMG Business"
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuWidth
+rageUiCall5 = rageUiCall5()
+rageUiCall6 = CMG
+rageUiCall6 = rageUiCall6.getRageUIMenuHeight
+rageUiCall6 = rageUiCall6()
+textValue4 = "cmg_marketui"
+textValue5 = "cmg_marketui"
+rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5 = rageUiCall8(textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+numberValue13(textValue12, textValue14, rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+numberValue13 = RMenu
+numberValue13 = numberValue13.Add
+textValue12 = "business"
+textValue14 = "waiter_additemamount"
+rageUiCall8 = RageUI
+rageUiCall8 = rageUiCall8.CreateSubMenu
+textValue = RMenu
+cmgCall = textValue
+textValue = textValue.Get
+rageUiCall3 = "business"
+rageUiCall5 = "waiter_additem"
+-- Beginner: result below is menu.
+textValue = textValue(cmgCall, rageUiCall3, rageUiCall5)
+cmgCall = ""
+rageUiCall3 = "~b~CMG Business"
+rageUiCall5 = CMG
+rageUiCall5 = rageUiCall5.getRageUIMenuWidth
+rageUiCall5 = rageUiCall5()
+rageUiCall6 = CMG
+rageUiCall6 = rageUiCall6.getRageUIMenuHeight
+rageUiCall6 = rageUiCall6()
+textValue4 = "cmg_marketui"
+textValue5 = "cmg_marketui"
+rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5 = rageUiCall8(textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+numberValue13(textValue12, textValue14, rageUiCall8, textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6, textValue4, textValue5)
+function numberValue13(arg1)
+  local arg2, flag4, flag5
+  arg2 = table
+  arg2 = arg2.sort
+  flag4 = arg1
+  function flag5(arg12, arg22)
+    local workValue4, textValue9
+    workValue4 = arg12.orderId
+    textValue9 = arg22.orderId
+    workValue4 = workValue4 > textValue9
+    return workValue4
   end
-  SHX1_2(SHX2_2, SHX3_2)
-  return SHX0_2
+  arg2(flag4, flag5)
+  return arg1
 end
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX0_2.locationInfo
-  SHX2_2 = SHX2_2.jobMarker
-  SHX1_2 = SHX1_2 - SHX2_2
-  SHX1_2 = #SHX1_2
-  SHX1_2 = SHX1_2 < 75.0
-  return SHX1_2
+function textValue12(arg1)
+  local arg2, flag4
+  arg2 = CMG
+  arg2 = arg2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg2 = arg2()
+  flag4 = arg1.locationInfo
+  flag4 = flag4.jobMarker
+  arg2 = arg2 - flag4
+  arg2 = #arg2
+  arg2 = arg2 < 75.0
+  return arg2
 end
-SHX8_1 = RageUI
-SHX8_1 = SHX8_1.CreateWhile
-SHX9_1 = 1.0
-SHX10_1 = RMenu
-SHX11_1 = SHX10_1
-SHX10_1 = SHX10_1.Get
-SHX12_1 = "business"
-SHX13_1 = "waiter_mainmenu"
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX11_1 = nil
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "waiter_mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "waiter"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if SHX0_3 then
-      SHX1_3 = SHX7_1
-      SHX2_3 = SHX0_3
-      SHX1_3 = SHX1_3(SHX2_3)
-      if SHX1_3 then
-        goto SHX_LABEL_16
+textValue14 = RageUI
+textValue14 = textValue14.CreateWhile
+rageUiCall8 = 1.0
+textValue = RMenu
+cmgCall = textValue
+textValue = textValue.Get
+rageUiCall3 = "business"
+rageUiCall5 = "waiter_mainmenu"
+-- Beginner: result below is menu.
+textValue = textValue(cmgCall, rageUiCall3, rageUiCall5)
+cmgCall = nil
+function rageUiCall3()
+  local arg1, arg2, flag4, flag5, flag6, textValue11
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  flag4 = arg2
+  arg2 = arg2.Get
+  flag5 = "business"
+  flag6 = "waiter_mainmenu"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag4, flag5, flag6)
+  flag4 = true
+  flag5 = false
+  flag6 = true
+  function textValue11()
+    local arg12, arg22, workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "waiter"
+    arg12 = arg12(arg22)
+    if arg12 then
+      arg22 = textValue12
+      workValue4 = arg12
+      arg22 = arg22(workValue4)
+      if arg22 then
+        goto flow_label_16
       end
     end
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.CloseAll
-    SHX1_3()
+    arg22 = RageUI
+    arg22 = arg22.CloseAll
+    arg22()
     return
-    -- [FIX IF ERROR] Move ::SHX_LABEL_16:: outside nested blocks until all 'goto SHX_LABEL_16' can see it
-    ::SHX_LABEL_16::
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.ButtonWithStyle
-    SHX2_3 = "~g~Place Order"
-    SHX3_3 = ""
-    SHX4_3 = {}
-    SHX4_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX5_3 = true
-    function SHX6_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4
-      if SHX2_4 then
-        SHX3_4 = SHX0_3.jobInfo
-        SHX4_4 = {}
-        SHX3_4.addedItems = SHX4_4
+    ::flow_label_16::
+    arg22 = RageUI
+    arg22 = arg22.ButtonWithStyle
+    workValue4 = "~g~Place Order"
+    textValue9 = ""
+    dataTable5 = {}
+    dataTable5.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    dataTable7 = true
+    function flag7(arg13, arg23, arg3)
+      local arg4, dataTable6
+      if arg3 then
+        arg4 = arg12.jobInfo
+        dataTable6 = {}
+        arg4.addedItems = dataTable6
       end
     end
-    SHX7_3 = RMenu
-    SHX8_3 = SHX7_3
-    SHX7_3 = SHX7_3.Get
-    SHX9_3 = "business"
-    SHX10_3 = "waiter_placeorder"
-    SHX7_3, SHX8_3, SHX9_3, SHX10_3 = SHX7_3(SHX8_3, SHX9_3, SHX10_3)
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.ButtonWithStyle
-    SHX2_3 = "~y~View Orders"
-    SHX3_3 = ""
-    SHX4_3 = {}
-    SHX4_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX5_3 = true
-    function SHX6_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
+    workValue7 = RMenu
+    workValue8 = workValue7
+    workValue7 = workValue7.Get
+    cmgCall4 = "business"
+    textValue2 = "waiter_placeorder"
+    workValue7, workValue8, cmgCall4, textValue2 = workValue7(workValue8, cmgCall4, textValue2)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg22(workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2)
+    arg22 = RageUI
+    arg22 = arg22.ButtonWithStyle
+    workValue4 = "~y~View Orders"
+    textValue9 = ""
+    dataTable5 = {}
+    dataTable5.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    dataTable7 = true
+    function flag7()
+      local arg13, arg23
     end
-    SHX7_3 = RMenu
-    SHX8_3 = SHX7_3
-    SHX7_3 = SHX7_3.Get
-    SHX9_3 = "business"
-    SHX10_3 = "waiter_vieworders"
-    SHX7_3, SHX8_3, SHX9_3, SHX10_3 = SHX7_3(SHX8_3, SHX9_3, SHX10_3)
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+    workValue7 = RMenu
+    workValue8 = workValue7
+    workValue7 = workValue7.Get
+    cmgCall4 = "business"
+    textValue2 = "waiter_vieworders"
+    workValue7, workValue8, cmgCall4, textValue2 = workValue7(workValue8, cmgCall4, textValue2)
+    arg22(workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "waiter_placeorder"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "waiter"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if SHX0_3 then
-      SHX1_3 = SHX7_1
-      SHX2_3 = SHX0_3
-      SHX1_3 = SHX1_3(SHX2_3)
-      if SHX1_3 then
-        goto SHX_LABEL_16
+  arg1(arg2, flag4, flag5, flag6, textValue11)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  flag4 = arg2
+  arg2 = arg2.Get
+  flag5 = "business"
+  flag6 = "waiter_placeorder"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag4, flag5, flag6)
+  flag4 = true
+  flag5 = false
+  flag6 = true
+  function textValue11()
+    local arg12, arg22, workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2, rageUiCall2, stringHelper3, textValue3, dataTable3, flag3, workValue2, textValue7
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "waiter"
+    arg12 = arg12(arg22)
+    if arg12 then
+      arg22 = textValue12
+      workValue4 = arg12
+      arg22 = arg22(workValue4)
+      if arg22 then
+        goto flow_label_16
       end
     end
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.CloseAll
-    SHX1_3()
+    arg22 = RageUI
+    arg22 = arg22.CloseAll
+    arg22()
     return
-    -- [FIX IF ERROR] Move ::SHX_LABEL_16:: outside nested blocks until all 'goto SHX_LABEL_16' can see it
-    ::SHX_LABEL_16::
-    SHX1_3 = 0
-    SHX2_3 = pairs
-    SHX3_3 = SHX0_3.jobInfo
-    SHX3_3 = SHX3_3.addedItems
-    SHX2_3, SHX3_3, SHX4_3, SHX5_3 = SHX2_3(SHX3_3)
-    for SHX6_3, SHX7_3 in SHX2_3, SHX3_3, SHX4_3, SHX5_3 do
-      SHX8_3 = SHX0_3.locationInfo
-      SHX8_3 = SHX8_3.items
-      SHX8_3 = SHX8_3[SHX6_3]
-      SHX9_3 = CMG
-      SHX9_3 = SHX9_3.getBusinessPriceOverrides
-      SHX10_3 = SHX0_3.name
-      SHX9_3 = SHX9_3(SHX10_3)
-      SHX9_3 = SHX9_3[SHX6_3]
-      if not SHX9_3 then
-        SHX9_3 = SHX0_3.jobMetadata
-        SHX9_3 = SHX9_3.sellableItems
-        SHX9_3 = SHX9_3[SHX6_3]
+    ::flow_label_16::
+    arg22 = 0
+    workValue4 = pairs
+    textValue9 = arg12.jobInfo
+    textValue9 = textValue9.addedItems
+    workValue4, textValue9, dataTable5, dataTable7 = workValue4(textValue9)
+    for flag7, workValue7 in workValue4, textValue9, dataTable5, dataTable7 do
+      workValue8 = arg12.locationInfo
+      workValue8 = workValue8.items
+      workValue8 = workValue8[flag7]
+      cmgCall4 = CMG
+      cmgCall4 = cmgCall4.getBusinessPriceOverrides
+      textValue2 = arg12.name
+      cmgCall4 = cmgCall4(textValue2)
+      cmgCall4 = cmgCall4[flag7]
+      if not cmgCall4 then
+        cmgCall4 = arg12.jobMetadata
+        cmgCall4 = cmgCall4.sellableItems
+        cmgCall4 = cmgCall4[flag7]
       end
-      SHX10_3 = SHX9_3 * SHX7_3
-      SHX1_3 = SHX1_3 + SHX10_3
-      SHX11_3 = RageUI
-      SHX11_3 = SHX11_3.ButtonWithStyle
-      SHX12_3 = tostring
-      SHX13_3 = SHX7_3
-      SHX12_3 = SHX12_3(SHX13_3)
-      SHX13_3 = "x "
-      SHX14_3 = SHX8_3[1]
-      SHX12_3 = SHX12_3 .. SHX13_3 .. SHX14_3
-      SHX13_3 = ""
-      SHX14_3 = {}
-      SHX15_3 = "\194\163"
-      SHX16_3 = getMoneyStringFormatted
-      SHX17_3 = SHX10_3
-      SHX16_3 = SHX16_3(SHX17_3)
-      SHX15_3 = SHX15_3 .. SHX16_3
-      SHX14_3.RightLabel = SHX15_3
-      SHX15_3 = true
-      function SHX16_3()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_4, SHX1_4
+      textValue2 = cmgCall4 * workValue7
+      arg22 = arg22 + textValue2
+      rageUiCall2 = RageUI
+      rageUiCall2 = rageUiCall2.ButtonWithStyle
+      stringHelper3 = tostring
+      textValue3 = workValue7
+      stringHelper3 = stringHelper3(textValue3)
+      textValue3 = "x "
+      dataTable3 = workValue8[1]
+      stringHelper3 = stringHelper3 .. textValue3 .. dataTable3
+      textValue3 = ""
+      dataTable3 = {}
+      flag3 = "\194\163"
+      workValue2 = getMoneyStringFormatted
+      textValue7 = textValue2
+      workValue2 = workValue2(textValue7)
+      flag3 = flag3 .. workValue2
+      dataTable3.RightLabel = flag3
+      flag3 = true
+      function workValue2()
+        local arg13, arg23
       end
-      SHX11_3(SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      rageUiCall2(stringHelper3, textValue3, dataTable3, flag3, workValue2)
     end
-    SHX2_3 = RageUI
-    SHX2_3 = SHX2_3.ButtonWithStyle
-    SHX3_3 = "~y~Add Item"
-    SHX4_3 = ""
-    SHX5_3 = {}
-    SHX5_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX6_3 = true
-    function SHX7_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4
-      if SHX2_4 then
-        SHX3_4 = TriggerServerEvent
-        SHX4_4 = "e76e0858eb"
-        SHX5_4 = SHX0_3.name
-        SHX3_4(SHX4_4, SHX5_4)
+    workValue4 = RageUI
+    workValue4 = workValue4.ButtonWithStyle
+    textValue9 = "~y~Add Item"
+    dataTable5 = ""
+    dataTable7 = {}
+    dataTable7.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    flag7 = true
+    function workValue7(arg13, arg23, arg3)
+      local arg4, dataTable6, nameValue
+      if arg3 then
+        arg4 = TriggerServerEvent
+        dataTable6 = "e76e0858eb"
+        nameValue = arg12.name
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e76e0858eb".
+        arg4(dataTable6, nameValue)
       end
     end
-    SHX8_3 = RMenu
-    SHX9_3 = SHX8_3
-    SHX8_3 = SHX8_3.Get
-    SHX10_3 = "business"
-    SHX11_3 = "waiter_additem"
-    SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3 = SHX8_3(SHX9_3, SHX10_3, SHX11_3)
-    SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3)
-    SHX2_3 = table
-    SHX2_3 = SHX2_3.count
-    SHX3_3 = SHX0_3.jobInfo
-    SHX3_3 = SHX3_3.addedItems
-    SHX2_3 = SHX2_3(SHX3_3)
-    if SHX2_3 > 0 then
-      SHX2_3 = RageUI
-      SHX2_3 = SHX2_3.ButtonWithStyle
-      SHX3_3 = "~g~Request Payment Now"
-      SHX4_3 = "This takes payment now, and should be used for customers in the restaurant."
-      SHX5_3 = {}
-      SHX6_3 = "\194\163"
-      SHX7_3 = getMoneyStringFormatted
-      SHX8_3 = SHX1_3
-      SHX7_3 = SHX7_3(SHX8_3)
-      SHX6_3 = SHX6_3 .. SHX7_3
-      SHX5_3.RightLabel = SHX6_3
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4
-        if SHX2_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "79eec4ec28"
-          SHX5_4 = SHX0_3.jobInfo
-          SHX5_4 = SHX5_4.addedItems
-          SHX3_4(SHX4_4, SHX5_4)
+    workValue8 = RMenu
+    cmgCall4 = workValue8
+    workValue8 = workValue8.Get
+    textValue2 = "business"
+    rageUiCall2 = "waiter_additem"
+    workValue8, cmgCall4, textValue2, rageUiCall2, stringHelper3, textValue3, dataTable3, flag3, workValue2, textValue7 = workValue8(cmgCall4, textValue2, rageUiCall2)
+    -- Beginner: Draw a selectable RageUI menu button.
+    workValue4(textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2, rageUiCall2, stringHelper3, textValue3, dataTable3, flag3, workValue2, textValue7)
+    workValue4 = table
+    workValue4 = workValue4.count
+    textValue9 = arg12.jobInfo
+    textValue9 = textValue9.addedItems
+    -- Beginner: result below is count.
+    workValue4 = workValue4(textValue9)
+    if workValue4 > 0 then
+      workValue4 = RageUI
+      workValue4 = workValue4.ButtonWithStyle
+      textValue9 = "~g~Request Payment Now"
+      dataTable5 = "This takes payment now, and should be used for customers in the restaurant."
+      dataTable7 = {}
+      flag7 = "\194\163"
+      workValue7 = getMoneyStringFormatted
+      workValue8 = arg22
+      workValue7 = workValue7(workValue8)
+      flag7 = flag7 .. workValue7
+      dataTable7.RightLabel = flag7
+      flag7 = true
+      function workValue7(arg13, arg23, arg3)
+        local arg4, dataTable6, nameValue
+        if arg3 then
+          arg4 = TriggerServerEvent
+          dataTable6 = "79eec4ec28"
+          nameValue = arg12.jobInfo
+          nameValue = nameValue.addedItems
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "79eec4ec28".
+          arg4(dataTable6, nameValue)
         end
       end
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-      SHX2_3 = RageUI
-      SHX2_3 = SHX2_3.ButtonWithStyle
-      SHX3_3 = "~g~Request Payment Later"
-      SHX4_3 = "This takes payment later, and should be used when delivering to a location outside the complex (takeaways)."
-      SHX5_3 = {}
-      SHX6_3 = "\194\163"
-      SHX7_3 = getMoneyStringFormatted
-      SHX8_3 = SHX1_3
-      SHX7_3 = SHX7_3(SHX8_3)
-      SHX6_3 = SHX6_3 .. SHX7_3
-      SHX5_3.RightLabel = SHX6_3
-      SHX6_3 = true
-      function SHX7_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4
-        if SHX2_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "09b7549346"
-          SHX5_4 = SHX0_3.jobInfo
-          SHX5_4 = SHX5_4.addedItems
-          SHX3_4(SHX4_4, SHX5_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      workValue4(textValue9, dataTable5, dataTable7, flag7, workValue7)
+      workValue4 = RageUI
+      workValue4 = workValue4.ButtonWithStyle
+      textValue9 = "~g~Request Payment Later"
+      dataTable5 = "This takes payment later, and should be used when delivering to a location outside the complex (takeaways)."
+      dataTable7 = {}
+      flag7 = "\194\163"
+      workValue7 = getMoneyStringFormatted
+      workValue8 = arg22
+      workValue7 = workValue7(workValue8)
+      flag7 = flag7 .. workValue7
+      dataTable7.RightLabel = flag7
+      flag7 = true
+      function workValue7(arg13, arg23, arg3)
+        local arg4, dataTable6, nameValue
+        if arg3 then
+          arg4 = TriggerServerEvent
+          dataTable6 = "09b7549346"
+          nameValue = arg12.jobInfo
+          nameValue = nameValue.addedItems
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "09b7549346".
+          arg4(dataTable6, nameValue)
         end
       end
-      SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      workValue4(textValue9, dataTable5, dataTable7, flag7, workValue7)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "waiter_additem"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "waiter"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if SHX0_3 then
-      SHX1_3 = SHX7_1
-      SHX2_3 = SHX0_3
-      SHX1_3 = SHX1_3(SHX2_3)
-      if SHX1_3 then
-        goto SHX_LABEL_16
+  arg1(arg2, flag4, flag5, flag6, textValue11)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  flag4 = arg2
+  arg2 = arg2.Get
+  flag5 = "business"
+  flag6 = "waiter_additem"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag4, flag5, flag6)
+  flag4 = true
+  flag5 = false
+  flag6 = true
+  function textValue11()
+    local arg12, arg22, workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2, rageUiCall2, stringHelper3, textValue3, dataTable3, flag3, workValue2, textValue7, textValue8
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "waiter"
+    arg12 = arg12(arg22)
+    if arg12 then
+      arg22 = textValue12
+      workValue4 = arg12
+      arg22 = arg22(workValue4)
+      if arg22 then
+        goto flow_label_16
       end
     end
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.CloseAll
-    SHX1_3()
+    arg22 = RageUI
+    arg22 = arg22.CloseAll
+    arg22()
     return
-    -- [FIX IF ERROR] Move ::SHX_LABEL_16:: outside nested blocks until all 'goto SHX_LABEL_16' can see it
-    ::SHX_LABEL_16::
-    SHX1_3 = pairs
-    SHX2_3 = SHX0_3.jobMetadata
-    SHX2_3 = SHX2_3.sellableItems
-    SHX1_3, SHX2_3, SHX3_3, SHX4_3 = SHX1_3(SHX2_3)
-    for SHX5_3, SHX6_3 in SHX1_3, SHX2_3, SHX3_3, SHX4_3 do
-      SHX7_3 = SHX0_3.locationInfo
-      SHX7_3 = SHX7_3.items
-      SHX7_3 = SHX7_3[SHX5_3]
-      if SHX7_3 then
-        SHX8_3 = CMG
-        SHX8_3 = SHX8_3.getBusinessPriceOverrides
-        SHX9_3 = SHX0_3.name
-        SHX8_3 = SHX8_3(SHX9_3)
-        SHX8_3 = SHX8_3[SHX5_3]
-        if not SHX8_3 then
-          SHX8_3 = SHX6_3
+    ::flow_label_16::
+    arg22 = pairs
+    workValue4 = arg12.jobMetadata
+    workValue4 = workValue4.sellableItems
+    arg22, workValue4, textValue9, dataTable5 = arg22(workValue4)
+    for dataTable7, flag7 in arg22, workValue4, textValue9, dataTable5 do
+      workValue7 = arg12.locationInfo
+      workValue7 = workValue7.items
+      workValue7 = workValue7[dataTable7]
+      if workValue7 then
+        workValue8 = CMG
+        workValue8 = workValue8.getBusinessPriceOverrides
+        cmgCall4 = arg12.name
+        workValue8 = workValue8(cmgCall4)
+        workValue8 = workValue8[dataTable7]
+        if not workValue8 then
+          workValue8 = flag7
         end
-        SHX9_3 = RageUI
-        SHX9_3 = SHX9_3.ButtonWithStyle
-        SHX10_3 = "Add "
-        SHX11_3 = SHX7_3[1]
-        SHX10_3 = SHX10_3 .. SHX11_3
-        SHX11_3 = ""
-        SHX12_3 = {}
-        SHX13_3 = "\194\163"
-        SHX14_3 = getMoneyStringFormatted
-        SHX15_3 = SHX8_3
-        SHX14_3 = SHX14_3(SHX15_3)
-        SHX13_3 = SHX13_3 .. SHX14_3
-        SHX12_3.RightLabel = SHX13_3
-        SHX13_3 = true
-        function SHX14_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4, SHX4_4
-          if SHX2_4 then
-            SHX3_4 = SHX0_3.jobInfo
-            SHX4_4 = SHX5_3
-            SHX3_4.lastPickedItemId = SHX4_4
-            SHX3_4 = SHX0_3.jobInfo
-            SHX3_4.pickedItemAmount = 1
+        cmgCall4 = RageUI
+        cmgCall4 = cmgCall4.ButtonWithStyle
+        textValue2 = "Add "
+        rageUiCall2 = workValue7[1]
+        textValue2 = textValue2 .. rageUiCall2
+        rageUiCall2 = ""
+        stringHelper3 = {}
+        textValue3 = "\194\163"
+        dataTable3 = getMoneyStringFormatted
+        flag3 = workValue8
+        dataTable3 = dataTable3(flag3)
+        textValue3 = textValue3 .. dataTable3
+        stringHelper3.RightLabel = textValue3
+        textValue3 = true
+        function dataTable3(arg13, arg23, arg3)
+          local arg4, dataTable6
+          if arg3 then
+            arg4 = arg12.jobInfo
+            dataTable6 = dataTable7
+            arg4.lastPickedItemId = dataTable6
+            arg4 = arg12.jobInfo
+            arg4.pickedItemAmount = 1
           end
         end
-        SHX15_3 = RMenu
-        SHX16_3 = SHX15_3
-        SHX15_3 = SHX15_3.Get
-        SHX17_3 = "business"
-        SHX18_3 = "waiter_additemamount"
-        SHX15_3, SHX16_3, SHX17_3, SHX18_3 = SHX15_3(SHX16_3, SHX17_3, SHX18_3)
-        SHX9_3(SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3)
+        flag3 = RMenu
+        workValue2 = flag3
+        flag3 = flag3.Get
+        textValue7 = "business"
+        textValue8 = "waiter_additemamount"
+        flag3, workValue2, textValue7, textValue8 = flag3(workValue2, textValue7, textValue8)
+        -- Beginner: Draw a selectable RageUI menu button.
+        cmgCall4(textValue2, rageUiCall2, stringHelper3, textValue3, dataTable3, flag3, workValue2, textValue7, textValue8)
       end
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "waiter_additemamount"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "waiter"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if SHX0_3 then
-      SHX1_3 = SHX7_1
-      SHX2_3 = SHX0_3
-      SHX1_3 = SHX1_3(SHX2_3)
-      if SHX1_3 then
-        goto SHX_LABEL_16
+  arg1(arg2, flag4, flag5, flag6, textValue11)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  flag4 = arg2
+  arg2 = arg2.Get
+  flag5 = "business"
+  flag6 = "waiter_additemamount"
+  -- Beginner: result below is menu.
+  arg2 = arg2(flag4, flag5, flag6)
+  flag4 = true
+  flag5 = false
+  flag6 = true
+  function textValue11()
+    local arg12, arg22, workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "waiter"
+    arg12 = arg12(arg22)
+    if arg12 then
+      arg22 = textValue12
+      workValue4 = arg12
+      arg22 = arg22(workValue4)
+      if arg22 then
+        goto flow_label_16
       end
     end
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.CloseAll
-    SHX1_3()
+    arg22 = RageUI
+    arg22 = arg22.CloseAll
+    arg22()
     return
-    -- [FIX IF ERROR] Move ::SHX_LABEL_16:: outside nested blocks until all 'goto SHX_LABEL_16' can see it
-    ::SHX_LABEL_16::
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.List
-    SHX2_3 = "Amount To Add"
-    SHX3_3 = SHX0_1
-    SHX4_3 = SHX0_3.jobInfo
-    SHX4_3 = SHX4_3.pickedItemAmount
-    SHX5_3 = ""
-    SHX6_3 = {}
-    SHX7_3 = true
-    function SHX8_3(SHX0_4, SHX1_4, SHX2_4, SHX3_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX4_4
-      SHX4_4 = SHX0_3.jobInfo
-      SHX4_4.pickedItemAmount = SHX3_4
+    ::flow_label_16::
+    arg22 = RageUI
+    arg22 = arg22.List
+    workValue4 = "Amount To Add"
+    textValue9 = dataTable
+    dataTable5 = arg12.jobInfo
+    dataTable5 = dataTable5.pickedItemAmount
+    dataTable7 = ""
+    flag7 = {}
+    workValue7 = true
+    function workValue8(arg13, arg23, arg3, arg4)
+      local dataTable6
+      dataTable6 = arg12.jobInfo
+      dataTable6.pickedItemAmount = arg4
     end
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-    SHX1_3 = RageUI
-    SHX1_3 = SHX1_3.ButtonWithStyle
-    SHX2_3 = "~g~Add Item To Order"
-    SHX3_3 = ""
-    SHX4_3 = {}
-    SHX4_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX5_3 = true
-    function SHX6_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4
-      if SHX2_4 then
-        SHX3_4 = SHX0_3.jobInfo
-        SHX3_4 = SHX3_4.addedItems
-        SHX4_4 = SHX0_3.jobInfo
-        SHX4_4 = SHX4_4.lastPickedItemId
-        SHX5_4 = SHX0_3.jobInfo
-        SHX6_4 = SHX5_4.pickedItemAmount
-        SHX5_4 = SHX0_1
-        SHX5_4 = SHX5_4[SHX6_4]
-        SHX3_4[SHX4_4] = SHX5_4
-        SHX3_4 = TriggerServerEvent
-        SHX4_4 = "e76e0858eb"
-        SHX5_4 = SHX0_3.name
-        SHX3_4(SHX4_4, SHX5_4)
+    -- Beginner: Draw a RageUI list selector.
+    arg22(workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8)
+    arg22 = RageUI
+    arg22 = arg22.ButtonWithStyle
+    workValue4 = "~g~Add Item To Order"
+    textValue9 = ""
+    dataTable5 = {}
+    dataTable5.RightLabel = "\226\134\146\226\134\146\226\134\146"
+    dataTable7 = true
+    function flag7(arg13, arg23, arg3)
+      local arg4, dataTable6, nameValue, stringHelper4
+      if arg3 then
+        arg4 = arg12.jobInfo
+        arg4 = arg4.addedItems
+        dataTable6 = arg12.jobInfo
+        dataTable6 = dataTable6.lastPickedItemId
+        nameValue = arg12.jobInfo
+        stringHelper4 = nameValue.pickedItemAmount
+        nameValue = dataTable
+        nameValue = nameValue[stringHelper4]
+        arg4[dataTable6] = nameValue
+        arg4 = TriggerServerEvent
+        dataTable6 = "e76e0858eb"
+        nameValue = arg12.name
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e76e0858eb".
+        arg4(dataTable6, nameValue)
       end
     end
-    SHX7_3 = RMenu
-    SHX8_3 = SHX7_3
-    SHX7_3 = SHX7_3.Get
-    SHX9_3 = "business"
-    SHX10_3 = "waiter_placeorder"
-    SHX7_3, SHX8_3, SHX9_3, SHX10_3 = SHX7_3(SHX8_3, SHX9_3, SHX10_3)
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+    workValue7 = RMenu
+    workValue8 = workValue7
+    workValue7 = workValue7.Get
+    cmgCall4 = "business"
+    textValue2 = "waiter_placeorder"
+    workValue7, workValue8, cmgCall4, textValue2 = workValue7(workValue8, cmgCall4, textValue2)
+    -- Beginner: Draw a selectable RageUI menu button.
+    arg22(workValue4, textValue9, dataTable5, dataTable7, flag7, workValue7, workValue8, cmgCall4, textValue2)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  arg1(arg2, flag4, flag5, flag6, textValue11)
 end
-SHX8_1(SHX9_1, SHX10_1, SHX11_1, SHX12_1)
-SHX8_1 = CMG
-function SHX9_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX2_2 = SHX0_2
-  SHX3_2 = "_vieworders"
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX3_2 = SHX0_2
-  SHX4_2 = "_vieworder"
-  SHX3_2 = SHX3_2 .. SHX4_2
-  if SHX1_2 then
-    SHX4_2 = RMenu
-    SHX4_2 = SHX4_2.Add
-    SHX5_2 = "business"
-    SHX6_2 = SHX2_2
-    SHX7_2 = RageUI
-    SHX7_2 = SHX7_2.CreateSubMenu
-    SHX8_2 = RMenu
-    SHX9_2 = SHX8_2
-    SHX8_2 = SHX8_2.Get
-    SHX10_2 = "business"
-    SHX11_2 = SHX1_2
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX9_2 = ""
-    SHX10_2 = "~b~CMG Business"
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.getRageUIMenuWidth
-    SHX11_2 = SHX11_2()
-    SHX12_2 = CMG
-    SHX12_2 = SHX12_2.getRageUIMenuHeight
-    SHX12_2 = SHX12_2()
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+textValue14(rageUiCall8, textValue, cmgCall, rageUiCall3)
+textValue14 = CMG
+function rageUiCall8(arg1, arg2)
+  local flag4, flag5, flag6, textValue11, workValue6, cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4
+  flag4 = arg1
+  flag5 = "_vieworders"
+  flag4 = flag4 .. flag5
+  flag5 = arg1
+  flag6 = "_vieworder"
+  flag5 = flag5 .. flag6
+  if arg2 then
+    flag6 = RMenu
+    flag6 = flag6.Add
+    textValue11 = "business"
+    workValue6 = flag4
+    cmgCall2 = RageUI
+    cmgCall2 = cmgCall2.CreateSubMenu
+    cmgCall3 = RMenu
+    workValue9 = cmgCall3
+    cmgCall3 = cmgCall3.Get
+    stringHelper = "business"
+    numberValue = arg2
+    -- Beginner: result below is menu.
+    cmgCall3 = cmgCall3(workValue9, stringHelper, numberValue)
+    workValue9 = ""
+    stringHelper = "~b~CMG Business"
+    numberValue = CMG
+    numberValue = numberValue.getRageUIMenuWidth
+    numberValue = numberValue()
+    rageUiCall4 = CMG
+    rageUiCall4 = rageUiCall4.getRageUIMenuHeight
+    rageUiCall4 = rageUiCall4()
+    cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4 = cmgCall2(cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4)
+    flag6(textValue11, workValue6, cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4)
   else
-    SHX4_2 = RMenu
-    SHX4_2 = SHX4_2.Add
-    SHX5_2 = "business"
-    SHX6_2 = SHX2_2
-    SHX7_2 = RageUI
-    SHX7_2 = SHX7_2.CreateMenu
-    SHX8_2 = ""
-    SHX9_2 = "~b~CMG Business"
-    SHX10_2 = CMG
-    SHX10_2 = SHX10_2.getRageUIMenuWidth
-    SHX10_2 = SHX10_2()
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.getRageUIMenuHeight
-    SHX11_2, SHX12_2 = SHX11_2()
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+    flag6 = RMenu
+    flag6 = flag6.Add
+    textValue11 = "business"
+    workValue6 = flag4
+    cmgCall2 = RageUI
+    cmgCall2 = cmgCall2.CreateMenu
+    cmgCall3 = ""
+    workValue9 = "~b~CMG Business"
+    stringHelper = CMG
+    stringHelper = stringHelper.getRageUIMenuWidth
+    stringHelper = stringHelper()
+    numberValue = CMG
+    numberValue = numberValue.getRageUIMenuHeight
+    numberValue, rageUiCall4 = numberValue()
+    cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4 = cmgCall2(cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4)
+    flag6(textValue11, workValue6, cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4)
   end
-  SHX4_2 = RMenu
-  SHX4_2 = SHX4_2.Add
-  SHX5_2 = "business"
-  SHX6_2 = SHX3_2
-  SHX7_2 = RageUI
-  SHX7_2 = SHX7_2.CreateSubMenu
-  SHX8_2 = RMenu
-  SHX9_2 = SHX8_2
-  SHX8_2 = SHX8_2.Get
-  SHX10_2 = "business"
-  SHX11_2 = SHX2_2
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX9_2 = ""
-  SHX10_2 = "~b~CMG Business"
-  SHX11_2 = CMG
-  SHX11_2 = SHX11_2.getRageUIMenuWidth
-  SHX11_2 = SHX11_2()
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.getRageUIMenuHeight
-  SHX12_2 = SHX12_2()
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX4_2 = RageUI
-  SHX4_2 = SHX4_2.CreateWhile
-  SHX5_2 = 1.0
-  SHX6_2 = RMenu
-  SHX7_2 = SHX6_2
-  SHX6_2 = SHX6_2.Get
-  SHX8_2 = "business"
-  SHX9_2 = SHX2_2
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX7_2 = nil
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.IsVisible
-    SHX1_3 = RMenu
-    SHX2_3 = SHX1_3
-    SHX1_3 = SHX1_3.Get
-    SHX3_3 = "business"
-    SHX4_3 = SHX2_2
-    SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-    SHX2_3 = true
-    SHX3_3 = false
-    SHX4_3 = true
-    function SHX5_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4
-      SHX0_4 = CMG
-      SHX0_4 = SHX0_4.getUserBusinessData
-      SHX1_4 = SHX0_2
-      SHX0_4 = SHX0_4(SHX1_4)
-      if SHX0_4 then
-        SHX1_4 = SHX0_2
-        if "waiter" ~= SHX1_4 then
-          goto SHX_LABEL_19
+  flag6 = RMenu
+  flag6 = flag6.Add
+  textValue11 = "business"
+  workValue6 = flag5
+  cmgCall2 = RageUI
+  cmgCall2 = cmgCall2.CreateSubMenu
+  cmgCall3 = RMenu
+  workValue9 = cmgCall3
+  cmgCall3 = cmgCall3.Get
+  stringHelper = "business"
+  numberValue = flag4
+  -- Beginner: result below is menu.
+  cmgCall3 = cmgCall3(workValue9, stringHelper, numberValue)
+  workValue9 = ""
+  stringHelper = "~b~CMG Business"
+  numberValue = CMG
+  numberValue = numberValue.getRageUIMenuWidth
+  numberValue = numberValue()
+  rageUiCall4 = CMG
+  rageUiCall4 = rageUiCall4.getRageUIMenuHeight
+  rageUiCall4 = rageUiCall4()
+  cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4 = cmgCall2(cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4)
+  flag6(textValue11, workValue6, cmgCall2, cmgCall3, workValue9, stringHelper, numberValue, rageUiCall4)
+  flag6 = RageUI
+  flag6 = flag6.CreateWhile
+  textValue11 = 1.0
+  workValue6 = RMenu
+  cmgCall2 = workValue6
+  workValue6 = workValue6.Get
+  cmgCall3 = "business"
+  workValue9 = flag4
+  -- Beginner: result below is menu.
+  workValue6 = workValue6(cmgCall2, cmgCall3, workValue9)
+  cmgCall2 = nil
+  function cmgCall3()
+    local arg12, arg22, workValue4, textValue9, dataTable5, dataTable7
+    arg12 = RageUI
+    arg12 = arg12.IsVisible
+    arg22 = RMenu
+    workValue4 = arg22
+    arg22 = arg22.Get
+    textValue9 = "business"
+    dataTable5 = flag4
+    -- Beginner: result below is menu.
+    arg22 = arg22(workValue4, textValue9, dataTable5)
+    workValue4 = true
+    textValue9 = false
+    dataTable5 = true
+    function dataTable7()
+      local arg13, arg23, arg3, arg4, dataTable6, nameValue, stringHelper4, textValue13, rageUiCall7, workValue10, rageUiCall, stringHelper2, flag, dataTable2, flag2, workValue, textValue6, workValue3
+      arg13 = CMG
+      arg13 = arg13.getUserBusinessData
+      arg23 = arg1
+      arg13 = arg13(arg23)
+      if arg13 then
+        arg23 = arg1
+        if "waiter" ~= arg23 then
+          goto flow_label_19
         end
-        SHX1_4 = SHX7_1
-        SHX2_4 = SHX0_4
-        SHX1_4 = SHX1_4(SHX2_4)
-        if SHX1_4 then
-          goto SHX_LABEL_19
+        arg23 = textValue12
+        arg3 = arg13
+        arg23 = arg23(arg3)
+        if arg23 then
+          goto flow_label_19
         end
       end
-      SHX1_4 = RageUI
-      SHX1_4 = SHX1_4.CloseAll
-      SHX1_4()
+      arg23 = RageUI
+      arg23 = arg23.CloseAll
+      arg23()
       return
-      -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-      ::SHX_LABEL_19::
-      SHX1_4 = SHX0_4.state
-      SHX1_4 = SHX1_4.orders
-      SHX1_4 = #SHX1_4
-      if 0 == SHX1_4 then
-        SHX1_4 = RageUI
-        SHX1_4 = SHX1_4.Separator
-        SHX2_4 = "~r~No orders to display."
-        SHX1_4(SHX2_4)
+      ::flow_label_19::
+      arg23 = arg13.state
+      arg23 = arg23.orders
+      arg23 = #arg23
+      if 0 == arg23 then
+        arg23 = RageUI
+        arg23 = arg23.Separator
+        arg3 = "~r~No orders to display."
+        arg23(arg3)
       end
-      SHX1_4 = pairs
-      SHX2_4 = SHX6_1
-      SHX3_4 = SHX0_4.state
-      SHX3_4 = SHX3_4.orders
-      SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4 = SHX2_4(SHX3_4)
-      SHX1_4, SHX2_4, SHX3_4, SHX4_4 = SHX1_4(SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4)
-      for SHX5_4, SHX6_4 in SHX1_4, SHX2_4, SHX3_4, SHX4_4 do
-        SHX7_4 = SHX6_4.isCompleted
-        if SHX7_4 then
-          SHX7_4 = "~g~"
-          if SHX7_4 then
-            goto SHX_LABEL_42
+      arg23 = pairs
+      arg3 = numberValue13
+      arg4 = arg13.state
+      arg4 = arg4.orders
+      arg3, arg4, dataTable6, nameValue, stringHelper4, textValue13, rageUiCall7, workValue10, rageUiCall, stringHelper2, flag, dataTable2, flag2, workValue, textValue6, workValue3 = arg3(arg4)
+      arg23, arg3, arg4, dataTable6 = arg23(arg3, arg4, dataTable6, nameValue, stringHelper4, textValue13, rageUiCall7, workValue10, rageUiCall, stringHelper2, flag, dataTable2, flag2, workValue, textValue6, workValue3)
+      for nameValue, stringHelper4 in arg23, arg3, arg4, dataTable6 do
+        textValue13 = stringHelper4.isCompleted
+        if textValue13 then
+          textValue13 = "~g~"
+          if textValue13 then
+            goto flow_label_42
           end
         end
-        SHX7_4 = "~y~"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_42:: outside nested blocks until all 'goto SHX_LABEL_42' can see it
-        ::SHX_LABEL_42::
-        SHX8_4 = RageUI
-        SHX8_4 = SHX8_4.ButtonWithStyle
-        SHX9_4 = SHX7_4
-        SHX10_4 = "View Order #"
-        SHX11_4 = tostring
-        SHX12_4 = SHX6_4.orderId
-        SHX11_4 = SHX11_4(SHX12_4)
-        SHX9_4 = SHX9_4 .. SHX10_4 .. SHX11_4
-        SHX10_4 = ""
-        SHX11_4 = {}
-        SHX11_4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        SHX12_4 = true
-        function SHX13_4(SHX0_5, SHX1_5, SHX2_5)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_5, SHX4_5
-          if SHX2_5 then
-            SHX3_5 = SHX0_4.jobInfo
-            SHX4_5 = SHX6_4
-            SHX3_5.selectedOrderInfo = SHX4_5
+        textValue13 = "~y~"
+        ::flow_label_42::
+        rageUiCall7 = RageUI
+        rageUiCall7 = rageUiCall7.ButtonWithStyle
+        workValue10 = textValue13
+        rageUiCall = "View Order #"
+        stringHelper2 = tostring
+        flag = stringHelper4.orderId
+        stringHelper2 = stringHelper2(flag)
+        workValue10 = workValue10 .. rageUiCall .. stringHelper2
+        rageUiCall = ""
+        stringHelper2 = {}
+        stringHelper2.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        flag = true
+        function dataTable2(arg14, arg24, arg32)
+          local serverEventCall, textValue10
+          if arg32 then
+            serverEventCall = arg13.jobInfo
+            textValue10 = stringHelper4
+            serverEventCall.selectedOrderInfo = textValue10
           end
         end
-        SHX14_4 = RMenu
-        SHX15_4 = SHX14_4
-        SHX14_4 = SHX14_4.Get
-        SHX16_4 = "business"
-        SHX17_4 = SHX3_2
-        SHX14_4, SHX15_4, SHX16_4, SHX17_4 = SHX14_4(SHX15_4, SHX16_4, SHX17_4)
-        SHX8_4(SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4, SHX16_4, SHX17_4)
+        flag2 = RMenu
+        workValue = flag2
+        flag2 = flag2.Get
+        textValue6 = "business"
+        workValue3 = flag5
+        flag2, workValue, textValue6, workValue3 = flag2(workValue, textValue6, workValue3)
+        -- Beginner: Draw a selectable RageUI menu button.
+        rageUiCall7(workValue10, rageUiCall, stringHelper2, flag, dataTable2, flag2, workValue, textValue6, workValue3)
       end
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.IsVisible
-    SHX1_3 = RMenu
-    SHX2_3 = SHX1_3
-    SHX1_3 = SHX1_3.Get
-    SHX3_3 = "business"
-    SHX4_3 = SHX3_2
-    SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-    SHX2_3 = true
-    SHX3_3 = false
-    SHX4_3 = true
-    function SHX5_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4, SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4, SHX10_4, SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4
-      SHX0_4 = CMG
-      SHX0_4 = SHX0_4.getUserBusinessData
-      SHX1_4 = SHX0_2
-      SHX0_4 = SHX0_4(SHX1_4)
-      if SHX0_4 then
-        SHX1_4 = SHX0_2
-        if "waiter" ~= SHX1_4 then
-          goto SHX_LABEL_19
+    arg12(arg22, workValue4, textValue9, dataTable5, dataTable7)
+    arg12 = RageUI
+    arg12 = arg12.IsVisible
+    arg22 = RMenu
+    workValue4 = arg22
+    arg22 = arg22.Get
+    textValue9 = "business"
+    dataTable5 = flag5
+    -- Beginner: result below is menu.
+    arg22 = arg22(workValue4, textValue9, dataTable5)
+    workValue4 = true
+    textValue9 = false
+    dataTable5 = true
+    function dataTable7()
+      local arg13, arg23, arg3, arg4, dataTable6, nameValue, stringHelper4, textValue13, rageUiCall7, workValue10, rageUiCall, stringHelper2, flag, dataTable2, flag2, workValue
+      arg13 = CMG
+      arg13 = arg13.getUserBusinessData
+      arg23 = arg1
+      arg13 = arg13(arg23)
+      if arg13 then
+        arg23 = arg1
+        if "waiter" ~= arg23 then
+          goto flow_label_19
         end
-        SHX1_4 = SHX7_1
-        SHX2_4 = SHX0_4
-        SHX1_4 = SHX1_4(SHX2_4)
-        if SHX1_4 then
-          goto SHX_LABEL_19
+        arg23 = textValue12
+        arg3 = arg13
+        arg23 = arg23(arg3)
+        if arg23 then
+          goto flow_label_19
         end
       end
-      SHX1_4 = RageUI
-      SHX1_4 = SHX1_4.CloseAll
-      SHX1_4()
+      arg23 = RageUI
+      arg23 = arg23.CloseAll
+      arg23()
       return
-      -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-      ::SHX_LABEL_19::
-      SHX1_4 = SHX0_4.jobInfo
-      SHX1_4 = SHX1_4.selectedOrderInfo
-      SHX2_4 = SHX1_4.isCompleted
-      if SHX2_4 then
-        SHX2_4 = "~g~"
-        if SHX2_4 then
-          goto SHX_LABEL_28
+      ::flow_label_19::
+      arg23 = arg13.jobInfo
+      arg23 = arg23.selectedOrderInfo
+      arg3 = arg23.isCompleted
+      if arg3 then
+        arg3 = "~g~"
+        if arg3 then
+          goto flow_label_28
         end
       end
-      SHX2_4 = "~y~"
-      -- [FIX IF ERROR] Move ::SHX_LABEL_28:: outside nested blocks until all 'goto SHX_LABEL_28' can see it
-      ::SHX_LABEL_28::
-      SHX3_4 = RageUI
-      SHX3_4 = SHX3_4.Separator
-      SHX4_4 = SHX2_4
-      SHX5_4 = "Order #"
-      SHX6_4 = tostring
-      SHX7_4 = SHX1_4.orderId
-      SHX6_4 = SHX6_4(SHX7_4)
-      SHX7_4 = " - "
-      SHX8_4 = SHX1_4.timeCreated
-      SHX4_4 = SHX4_4 .. SHX5_4 .. SHX6_4 .. SHX7_4 .. SHX8_4
-      SHX3_4(SHX4_4)
-      SHX3_4 = SHX1_4.hasPaid
-      if SHX3_4 then
-        SHX3_4 = RageUI
-        SHX3_4 = SHX3_4.Separator
-        SHX4_4 = "~g~Payment Paid (Total \194\163"
-        SHX5_4 = getMoneyStringFormatted
-        SHX6_4 = SHX1_4.totalPrice
-        SHX5_4 = SHX5_4(SHX6_4)
-        SHX6_4 = ")"
-        SHX4_4 = SHX4_4 .. SHX5_4 .. SHX6_4
-        SHX3_4(SHX4_4)
+      arg3 = "~y~"
+      ::flow_label_28::
+      arg4 = RageUI
+      arg4 = arg4.Separator
+      dataTable6 = arg3
+      nameValue = "Order #"
+      stringHelper4 = tostring
+      textValue13 = arg23.orderId
+      stringHelper4 = stringHelper4(textValue13)
+      textValue13 = " - "
+      rageUiCall7 = arg23.timeCreated
+      dataTable6 = dataTable6 .. nameValue .. stringHelper4 .. textValue13 .. rageUiCall7
+      arg4(dataTable6)
+      arg4 = arg23.hasPaid
+      if arg4 then
+        arg4 = RageUI
+        arg4 = arg4.Separator
+        dataTable6 = "~g~Payment Paid (Total \194\163"
+        nameValue = getMoneyStringFormatted
+        stringHelper4 = arg23.totalPrice
+        nameValue = nameValue(stringHelper4)
+        stringHelper4 = ")"
+        dataTable6 = dataTable6 .. nameValue .. stringHelper4
+        arg4(dataTable6)
       else
-        SHX3_4 = RageUI
-        SHX3_4 = SHX3_4.Separator
-        SHX4_4 = "~r~Payment Pending (Total \194\163"
-        SHX5_4 = getMoneyStringFormatted
-        SHX6_4 = SHX1_4.totalPrice
-        SHX5_4 = SHX5_4(SHX6_4)
-        SHX6_4 = ")"
-        SHX4_4 = SHX4_4 .. SHX5_4 .. SHX6_4
-        SHX3_4(SHX4_4)
+        arg4 = RageUI
+        arg4 = arg4.Separator
+        dataTable6 = "~r~Payment Pending (Total \194\163"
+        nameValue = getMoneyStringFormatted
+        stringHelper4 = arg23.totalPrice
+        nameValue = nameValue(stringHelper4)
+        stringHelper4 = ")"
+        dataTable6 = dataTable6 .. nameValue .. stringHelper4
+        arg4(dataTable6)
       end
-      SHX3_4 = pairs
-      SHX4_4 = SHX1_4.items
-      SHX3_4, SHX4_4, SHX5_4, SHX6_4 = SHX3_4(SHX4_4)
-      for SHX7_4, SHX8_4 in SHX3_4, SHX4_4, SHX5_4, SHX6_4 do
-        SHX9_4 = SHX0_4.locationInfo
-        SHX9_4 = SHX9_4.items
-        SHX9_4 = SHX9_4[SHX7_4]
-        SHX10_4 = RageUI
-        SHX10_4 = SHX10_4.ButtonWithStyle
-        SHX11_4 = tostring
-        SHX12_4 = SHX8_4
-        SHX11_4 = SHX11_4(SHX12_4)
-        SHX12_4 = "x "
-        SHX13_4 = SHX9_4[1]
-        SHX11_4 = SHX11_4 .. SHX12_4 .. SHX13_4
-        SHX12_4 = ""
-        SHX13_4 = {}
-        SHX14_4 = true
-        function SHX15_4()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_5, SHX1_5
+      arg4 = pairs
+      dataTable6 = arg23.items
+      arg4, dataTable6, nameValue, stringHelper4 = arg4(dataTable6)
+      for textValue13, rageUiCall7 in arg4, dataTable6, nameValue, stringHelper4 do
+        workValue10 = arg13.locationInfo
+        workValue10 = workValue10.items
+        workValue10 = workValue10[textValue13]
+        rageUiCall = RageUI
+        rageUiCall = rageUiCall.ButtonWithStyle
+        stringHelper2 = tostring
+        flag = rageUiCall7
+        stringHelper2 = stringHelper2(flag)
+        flag = "x "
+        dataTable2 = workValue10[1]
+        stringHelper2 = stringHelper2 .. flag .. dataTable2
+        flag = ""
+        dataTable2 = {}
+        flag2 = true
+        function workValue()
+          local arg14, arg24
         end
-        SHX10_4(SHX11_4, SHX12_4, SHX13_4, SHX14_4, SHX15_4)
+        -- Beginner: Draw a selectable RageUI menu button.
+        rageUiCall(stringHelper2, flag, dataTable2, flag2, workValue)
       end
-      SHX3_4 = SHX0_2
-      if "manager" ~= SHX3_4 then
-        SHX3_4 = SHX0_2
-        if "waiter" ~= SHX3_4 then
-          SHX3_4 = SHX0_2
-          if "delivery" ~= SHX3_4 then
-            goto SHX_LABEL_121
+      arg4 = arg1
+      if "manager" ~= arg4 then
+        arg4 = arg1
+        if "waiter" ~= arg4 then
+          arg4 = arg1
+          if "delivery" ~= arg4 then
+            goto flow_label_121
           end
         end
       end
-      SHX3_4 = SHX1_4.hasPaid
-      if not SHX3_4 then
-        SHX3_4 = RageUI
-        SHX3_4 = SHX3_4.ButtonWithStyle
-        SHX4_4 = "~g~Request Nearby Payment"
-        SHX5_4 = ""
-        SHX6_4 = {}
-        SHX6_4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        SHX7_4 = true
-        function SHX8_4(SHX0_5, SHX1_5, SHX2_5)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_5, SHX4_5, SHX5_5
-          if SHX2_5 then
-            SHX3_5 = TriggerServerEvent
-            SHX4_5 = "d5eac1b64e"
-            SHX5_5 = SHX1_4.orderId
-            SHX3_5(SHX4_5, SHX5_5)
+      arg4 = arg23.hasPaid
+      if not arg4 then
+        arg4 = RageUI
+        arg4 = arg4.ButtonWithStyle
+        dataTable6 = "~g~Request Nearby Payment"
+        nameValue = ""
+        stringHelper4 = {}
+        stringHelper4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        textValue13 = true
+        function rageUiCall7(arg14, arg24, arg32)
+          local serverEventCall, textValue10, workValue5
+          if arg32 then
+            serverEventCall = TriggerServerEvent
+            textValue10 = "d5eac1b64e"
+            workValue5 = arg23.orderId
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "d5eac1b64e".
+            serverEventCall(textValue10, workValue5)
           end
         end
-        SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4)
+        -- Beginner: Draw a selectable RageUI menu button.
+        arg4(dataTable6, nameValue, stringHelper4, textValue13, rageUiCall7)
       else
-        SHX3_4 = SHX1_4.isCompleted
-        if not SHX3_4 then
-          SHX3_4 = RageUI
-          SHX3_4 = SHX3_4.ButtonWithStyle
-          SHX4_4 = "~g~Mark As Completed"
-          SHX5_4 = ""
-          SHX6_4 = {}
-          SHX6_4.RightLabel = "\226\134\146\226\134\146\226\134\146"
-          SHX7_4 = true
-          function SHX8_4(SHX0_5, SHX1_5, SHX2_5)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_5, SHX4_5, SHX5_5
-            if SHX2_5 then
-              SHX3_5 = TriggerServerEvent
-              SHX4_5 = "9e28ed4893"
-              SHX5_5 = SHX1_4.orderId
-              SHX3_5(SHX4_5, SHX5_5)
-              SHX1_4.isCompleted = true
+        arg4 = arg23.isCompleted
+        if not arg4 then
+          arg4 = RageUI
+          arg4 = arg4.ButtonWithStyle
+          dataTable6 = "~g~Mark As Completed"
+          nameValue = ""
+          stringHelper4 = {}
+          stringHelper4.RightLabel = "\226\134\146\226\134\146\226\134\146"
+          textValue13 = true
+          function rageUiCall7(arg14, arg24, arg32)
+            local serverEventCall, textValue10, workValue5
+            if arg32 then
+              serverEventCall = TriggerServerEvent
+              textValue10 = "9e28ed4893"
+              workValue5 = arg23.orderId
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9e28ed4893".
+              serverEventCall(textValue10, workValue5)
+              arg23.isCompleted = true
             end
           end
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4)
+          -- Beginner: Draw a selectable RageUI menu button.
+          arg4(dataTable6, nameValue, stringHelper4, textValue13, rageUiCall7)
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_121:: outside nested blocks until all 'goto SHX_LABEL_121' can see it
-      ::SHX_LABEL_121::
+      ::flow_label_121::
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+    arg12(arg22, workValue4, textValue9, dataTable5, dataTable7)
   end
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  flag6(textValue11, workValue6, cmgCall2, cmgCall3)
 end
-SHX8_1.addGenericBusinessOrderView = SHX9_1
-SHX8_1 = CMG
-SHX8_1 = SHX8_1.addGenericBusinessOrderView
-SHX9_1 = "waiter"
-SHX10_1 = "waiter_mainmenu"
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "7aa155f442"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getUserBusinessData
-  SHX1_2 = "waiter"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = ExecuteCommand
-    SHX1_2 = "e notepad"
-    SHX0_2(SHX1_2)
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.Visible
-    SHX1_2 = RMenu
-    SHX2_2 = SHX1_2
-    SHX1_2 = SHX1_2.Get
-    SHX3_2 = "business"
-    SHX4_2 = "waiter_mainmenu"
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX2_2 = true
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = TriggerServerEvent
-    SHX1_2 = "bf3f551598"
-    SHX0_2(SHX1_2)
+textValue14.addGenericBusinessOrderView = rageUiCall8
+textValue14 = CMG
+textValue14 = textValue14.addGenericBusinessOrderView
+rageUiCall8 = "waiter"
+textValue = "waiter_mainmenu"
+textValue14(rageUiCall8, textValue)
+textValue14 = RegisterNetEvent
+rageUiCall8 = "7aa155f442"
+-- Beginner: this function handles network event "7aa155f442".
+function textValue()
+  local arg1, arg2, flag4, flag5, flag6
+  arg1 = CMG
+  arg1 = arg1.getUserBusinessData
+  arg2 = "waiter"
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = ExecuteCommand
+    arg2 = "e notepad"
+    arg1(arg2)
+    arg1 = RageUI
+    arg1 = arg1.Visible
+    arg2 = RMenu
+    flag4 = arg2
+    arg2 = arg2.Get
+    flag5 = "business"
+    flag6 = "waiter_mainmenu"
+    -- Beginner: result below is menu.
+    arg2 = arg2(flag4, flag5, flag6)
+    flag4 = true
+    arg1(arg2, flag4)
+    arg1 = TriggerServerEvent
+    arg2 = "bf3f551598"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+    arg1(arg2)
   end
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = {}
-SHX9_1 = {}
-SHX9_1.init = SHX3_1
-SHX9_1.tick = SHX4_1
-SHX9_1.finish = SHX5_1
-SHX9_1.next = "main"
-SHX8_1.main = SHX9_1
-SHX9_1 = CMG
-SHX9_1 = SHX9_1.registerBusinessJob
-SHX10_1 = "waiter"
-SHX11_1 = nil
-SHX12_1 = "main"
-SHX13_1 = SHX8_1
-SHX14_1 = nil
-SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7aa155f442".
+textValue14(rageUiCall8, textValue)
+textValue14 = {}
+rageUiCall8 = {}
+rageUiCall8.init = numberValue10
+rageUiCall8.tick = numberValue11
+rageUiCall8.finish = numberValue12
+rageUiCall8.next = "main"
+textValue14.main = rageUiCall8
+rageUiCall8 = CMG
+rageUiCall8 = rageUiCall8.registerBusinessJob
+textValue = "waiter"
+cmgCall = nil
+rageUiCall3 = "main"
+rageUiCall5 = textValue14
+rageUiCall6 = nil
+rageUiCall8(textValue, cmgCall, rageUiCall3, rageUiCall5, rageUiCall6)

@@ -1,1366 +1,1331 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_fuel.lua
+    ===========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_fuel"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = Citizen
-SHX1_1 = SHX1_1.CreateThread
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1.stations
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.addBlip
-    SHX7_2 = SHX5_2.x
-    SHX8_2 = SHX5_2.y
-    SHX9_2 = SHX5_2.z
-    SHX10_2 = 361
-    SHX11_2 = 4
-    SHX12_2 = "Petrol Station"
-    SHX13_2 = 0.6
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Fuel
+    =====================
+
+    File: cmg/prod/client/vehicles/cl_fuel.lua
+    Purpose: This file contains vehicle-related gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_fuel
+
+    Network/hash identifiers found: 4
+      They are intentionally left unchanged because matching server code may use them.
+      * 145eb2f935
+      * 49e51ddb66
+      * 0a6cf607ed
+      * 486c23d750
+
+    Named framework/network events found:
+      * fuel:startFuelUpTick
+      * fuel:refuelFromPump
+
+    Example player-facing text in this file:
+      * % | Vehicle: 
+
+]]
+local cmgCall, threadCall, flag7, numberValue2, numberValue3, flag8, cmgCall3, cmgCall5, workValue5, threadCall2, dataTable, eventHandlerRegistration, textValue, cmgCall2, textValue2, textValue3, workValue, workValue2
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+threadCall = "cfg/cfg_fuel"
+-- Beginner: result below is config.
+cmgCall = cmgCall(threadCall)
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function flag7()
+  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2
+  arg1 = pairs
+  arg2 = cmgCall.stations
+  arg1, arg2, arg3, workValue3 = arg1(arg2)
+  for textValue4, numberValue4 in arg1, arg2, arg3, workValue3 do
+    cmgCall4 = tCMG
+    cmgCall4 = cmgCall4.addBlip
+    workValue4 = numberValue4.x
+    modelHash = numberValue4.y
+    workValue6 = numberValue4.z
+    coords = 361
+    numberValue = 4
+    flag = "Petrol Station"
+    flag2 = 0.6
+    -- Beginner: Create a minimap blip.
+    cmgCall4(workValue4, modelHash, workValue6, coords, numberValue, flag, flag2)
   end
 end
-SHX1_1(SHX2_1)
-SHX1_1 = 0
-SHX2_1 = false
-SHX3_1 = 0.0
-SHX4_1 = 0.0
-SHX5_1 = false
-SHX6_1 = CMG
-function SHX7_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = type
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if "number" == SHX2_2 and SHX1_2 >= 0 and SHX1_2 <= 100 then
-    SHX2_2 = SetVehicleFuelLevel
-    SHX3_2 = SHX0_2
-    SHX4_2 = SHX1_2 + 0.0
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = DecorSetFloat
-    SHX3_2 = SHX0_2
-    SHX4_2 = "145eb2f935"
-    SHX5_2 = GetVehicleFuelLevel
-    SHX6_2 = SHX0_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(flag7)
+threadCall = 0
+flag7 = false
+numberValue2 = 0.0
+numberValue3 = 0.0
+flag8 = false
+cmgCall3 = CMG
+function cmgCall5(arg1, arg2)
+  local arg3, workValue3, textValue4, numberValue4, cmgCall4
+  arg3 = type
+  workValue3 = arg2
+  arg3 = arg3(workValue3)
+  if "number" == arg3 and arg2 >= 0 and arg2 <= 100 then
+    arg3 = SetVehicleFuelLevel
+    workValue3 = arg1
+    textValue4 = arg2 + 0.0
+    arg3(workValue3, textValue4)
+    arg3 = DecorSetFloat
+    workValue3 = arg1
+    textValue4 = "145eb2f935"
+    numberValue4 = GetVehicleFuelLevel
+    cmgCall4 = arg1
+    numberValue4, cmgCall4 = numberValue4(cmgCall4)
+    arg3(workValue3, textValue4, numberValue4, cmgCall4)
   end
 end
-SHX6_1.setVehicleFuel = SHX7_1
-SHX6_1 = CMG
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = nil
-  if 0 ~= SHX0_2 then
-    SHX2_2 = DecorExistOn
-    SHX3_2 = SHX0_2
-    SHX4_2 = "145eb2f935"
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.getVehicleFuel
-      SHX3_2 = SHX0_2
-      SHX2_2 = SHX2_2(SHX3_2)
-      SHX1_2 = SHX2_2
+cmgCall3.setVehicleFuel = cmgCall5
+cmgCall3 = CMG
+function cmgCall5(arg1)
+  local arg2, arg3, workValue3, textValue4
+  arg2 = nil
+  if 0 ~= arg1 then
+    arg3 = DecorExistOn
+    workValue3 = arg1
+    textValue4 = "145eb2f935"
+    arg3 = arg3(workValue3, textValue4)
+    if arg3 then
+      arg3 = CMG
+      arg3 = arg3.getVehicleFuel
+      workValue3 = arg1
+      arg3 = arg3(workValue3)
+      arg2 = arg3
     end
   end
-  SHX2_2 = SetVehicleFixed
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  if SHX1_2 then
-    SHX2_2 = type
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if "number" == SHX2_2 and SHX1_2 == SHX1_2 then
-      SHX2_2 = math
-      SHX2_2 = SHX2_2.huge
-      if SHX1_2 ~= SHX2_2 then
-        SHX2_2 = math
-        SHX2_2 = SHX2_2.huge
-        SHX2_2 = -SHX2_2
-        if SHX1_2 ~= SHX2_2 and SHX1_2 >= 0 and SHX1_2 <= 100 then
-          SHX2_2 = CMG
-          SHX2_2 = SHX2_2.setVehicleFuel
-          SHX3_2 = SHX0_2
-          SHX4_2 = SHX1_2
-          SHX2_2(SHX3_2, SHX4_2)
+  arg3 = SetVehicleFixed
+  workValue3 = arg1
+  arg3(workValue3)
+  if arg2 then
+    arg3 = type
+    workValue3 = arg2
+    arg3 = arg3(workValue3)
+    if "number" == arg3 and arg2 == arg2 then
+      arg3 = math
+      arg3 = arg3.huge
+      if arg2 ~= arg3 then
+        arg3 = math
+        arg3 = arg3.huge
+        arg3 = -arg3
+        if arg2 ~= arg3 and arg2 >= 0 and arg2 <= 100 then
+          arg3 = CMG
+          arg3 = arg3.setVehicleFuel
+          workValue3 = arg1
+          textValue4 = arg2
+          arg3(workValue3, textValue4)
         end
       end
     end
   end
 end
-SHX6_1.setVehicleFixedPreservingFuel = SHX7_1
-function SHX6_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX1_2 or nil
-  if not SHX1_2 then
-    SHX2_2 = 0
+cmgCall3.setVehicleFixedPreservingFuel = cmgCall5
+function cmgCall3(arg1, arg2)
+  local arg3, workValue3, textValue4
+  arg3 = arg2 or nil
+  if not arg2 then
+    arg3 = 0
   end
-  SHX3_2 = 10
-  SHX2_2 = SHX3_2 ^ SHX2_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = SHX0_2 * SHX2_2
-  SHX4_2 = SHX4_2 + 0.5
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_2 = SHX3_2 / SHX2_2
-  return SHX3_2
+  workValue3 = 10
+  arg3 = workValue3 ^ arg3
+  workValue3 = math
+  workValue3 = workValue3.floor
+  textValue4 = arg1 * arg3
+  textValue4 = textValue4 + 0.5
+  workValue3 = workValue3(textValue4)
+  workValue3 = workValue3 / arg3
+  return workValue3
 end
-SHX7_1 = CMG
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = DecorGetFloat
-  SHX2_2 = SHX0_2
-  SHX3_2 = "145eb2f935"
-  return SHX1_2(SHX2_2, SHX3_2)
+cmgCall5 = CMG
+function workValue5(arg1)
+  local arg2, arg3, workValue3
+  arg2 = DecorGetFloat
+  arg3 = arg1
+  workValue3 = "145eb2f935"
+  return arg2(arg3, workValue3)
 end
-SHX7_1.getVehicleFuel = SHX8_1
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientDisplayMoney
-  SHX0_2, SHX1_2 = SHX0_2()
-  SHX2_2 = SHX0_2 + SHX1_2
-  return SHX2_2
+cmgCall5.getVehicleFuel = workValue5
+function cmgCall5()
+  local arg1, arg2, arg3
+  arg1 = CMG
+  arg1 = arg1.getClientDisplayMoney
+  arg1, arg2 = arg1()
+  arg3 = arg1 + arg2
+  return arg3
 end
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = DecorExistOn
-  SHX2_2 = SHX0_2
-  SHX3_2 = "145eb2f935"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.setVehicleFuel
-    SHX2_2 = SHX0_2
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.random
-    SHX4_2 = 200
-    SHX5_2 = 800
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX3_2 = SHX3_2 / 10
-    SHX1_2(SHX2_2, SHX3_2)
+function workValue5(arg1)
+  local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4
+  arg2 = DecorExistOn
+  arg3 = arg1
+  workValue3 = "145eb2f935"
+  arg2 = arg2(arg3, workValue3)
+  if not arg2 then
+    arg2 = CMG
+    arg2 = arg2.setVehicleFuel
+    arg3 = arg1
+    workValue3 = math
+    workValue3 = workValue3.random
+    textValue4 = 200
+    numberValue4 = 800
+    workValue3 = workValue3(textValue4, numberValue4)
+    workValue3 = workValue3 / 10
+    arg2(arg3, workValue3)
   else
-    SHX1_2 = SHX5_1
-    if not SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.setVehicleFuel
-      SHX2_2 = SHX0_2
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.getVehicleFuel
-      SHX4_2 = SHX0_2
-      SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX3_2(SHX4_2)
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      SHX1_2 = true
-      SHX5_1 = SHX1_2
+    arg2 = flag8
+    if not arg2 then
+      arg2 = CMG
+      arg2 = arg2.setVehicleFuel
+      arg3 = arg1
+      workValue3 = CMG
+      workValue3 = workValue3.getVehicleFuel
+      textValue4 = arg1
+      workValue3, textValue4, numberValue4, cmgCall4, workValue4 = workValue3(textValue4)
+      arg2(arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4)
+      arg2 = true
+      flag8 = arg2
     end
   end
-  SHX1_2 = GetIsVehicleEngineRunning
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = SHX0_1.fuelUsage
-    SHX2_2 = SHX6_1
-    SHX3_2 = GetVehicleCurrentRpm
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = 1
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    SHX1_2 = SHX1_2[SHX2_2]
-    if not SHX1_2 then
-      SHX1_2 = 1.0
+  arg2 = GetIsVehicleEngineRunning
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = cmgCall.fuelUsage
+    arg3 = cmgCall3
+    workValue3 = GetVehicleCurrentRpm
+    textValue4 = arg1
+    workValue3 = workValue3(textValue4)
+    textValue4 = 1
+    arg3 = arg3(workValue3, textValue4)
+    arg2 = arg2[arg3]
+    if not arg2 then
+      arg2 = 1.0
     end
-    SHX2_2 = SHX0_1.classes
-    SHX3_2 = GetVehicleClass
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX2_2 = SHX2_2[SHX3_2]
-    if not SHX2_2 then
-      SHX2_2 = 1.0
+    arg3 = cmgCall.classes
+    workValue3 = GetVehicleClass
+    textValue4 = arg1
+    workValue3 = workValue3(textValue4)
+    arg3 = arg3[workValue3]
+    if not arg3 then
+      arg3 = 1.0
     end
-    SHX2_2 = SHX1_2 * SHX2_2
-    SHX2_2 = SHX2_2 / 10
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getMechanicFuelUsageReductionPercent
-    SHX3_2 = SHX3_2()
-    SHX4_2 = SHX3_2 / 100
-    SHX5_2 = 1
-    SHX4_2 = SHX5_2 - SHX4_2
-    SHX2_2 = SHX2_2 * SHX4_2
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.setVehicleFuel
-    SHX5_2 = SHX0_2
-    SHX6_2 = GetVehicleFuelLevel
-    SHX7_2 = SHX0_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX6_2 = SHX6_2 - SHX2_2
-    SHX4_2(SHX5_2, SHX6_2)
+    arg3 = arg2 * arg3
+    arg3 = arg3 / 10
+    workValue3 = CMG
+    workValue3 = workValue3.getMechanicFuelUsageReductionPercent
+    workValue3 = workValue3()
+    textValue4 = workValue3 / 100
+    numberValue4 = 1
+    textValue4 = numberValue4 - textValue4
+    arg3 = arg3 * textValue4
+    textValue4 = CMG
+    textValue4 = textValue4.setVehicleFuel
+    numberValue4 = arg1
+    cmgCall4 = GetVehicleFuelLevel
+    workValue4 = arg1
+    cmgCall4 = cmgCall4(workValue4)
+    cmgCall4 = cmgCall4 - arg3
+    textValue4(numberValue4, cmgCall4)
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getVehicleFuel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = type
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if "number" == SHX2_2 and SHX1_2 == SHX1_2 then
-    SHX2_2 = math
-    SHX2_2 = SHX2_2.huge
-    if SHX1_2 ~= SHX2_2 then
-      SHX2_2 = math
-      SHX2_2 = SHX2_2.huge
-      SHX2_2 = -SHX2_2
-      if SHX1_2 ~= SHX2_2 then
-        goto SHX_LABEL_100
+  arg2 = CMG
+  arg2 = arg2.getVehicleFuel
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = type
+  workValue3 = arg2
+  arg3 = arg3(workValue3)
+  if "number" == arg3 and arg2 == arg2 then
+    arg3 = math
+    arg3 = arg3.huge
+    if arg2 ~= arg3 then
+      arg3 = math
+      arg3 = arg3.huge
+      arg3 = -arg3
+      if arg2 ~= arg3 then
+        goto flow_label_100
       end
     end
   end
-  SHX1_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_100:: outside nested blocks until all 'goto SHX_LABEL_100' can see it
-  ::SHX_LABEL_100::
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.showFuel = true
-  SHX3_2.fuel = SHX1_2
-  SHX2_2(SHX3_2)
+  arg2 = 0
+  ::flow_label_100::
+  arg3 = SendNUIMessage
+  workValue3 = {}
+  workValue3.showFuel = true
+  workValue3.fuel = arg2
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  arg3(workValue3)
 end
-SHX9_1 = Citizen
-SHX9_1 = SHX9_1.CreateThread
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = DecorRegister
-  SHX1_2 = "145eb2f935"
-  SHX2_2 = 1
-  SHX0_2(SHX1_2, SHX2_2)
+threadCall2 = Citizen
+threadCall2 = threadCall2.CreateThread
+function dataTable()
+  local arg1, arg2, arg3, workValue3, textValue4
+  arg1 = DecorRegister
+  arg2 = "145eb2f935"
+  arg3 = 1
+  arg1(arg2, arg3)
   while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-    SHX0_2 = PlayerPedId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = IsPedInAnyVehicle
-    SHX2_2 = SHX0_2
-    SHX3_2 = true
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.inEvent
-      SHX1_2 = SHX1_2()
-      if not SHX1_2 then
-        SHX1_2 = GetVehiclePedIsIn
-        SHX2_2 = SHX0_2
-        SHX3_2 = false
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        SHX2_2 = GetPedInVehicleSeat
-        SHX3_2 = SHX1_2
-        SHX4_2 = -1
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-        if SHX2_2 == SHX0_2 then
-          SHX2_2 = SHX8_1
-          SHX3_2 = SHX1_2
-          SHX2_2(SHX3_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 1000
+    arg1(arg2)
+    arg1 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg1 = arg1()
+    arg2 = IsPedInAnyVehicle
+    arg3 = arg1
+    workValue3 = true
+    arg2 = arg2(arg3, workValue3)
+    if arg2 then
+      arg2 = CMG
+      arg2 = arg2.inEvent
+      arg2 = arg2()
+      if not arg2 then
+        arg2 = GetVehiclePedIsIn
+        arg3 = arg1
+        workValue3 = false
+        -- Beginner: result below is currentVehicle.
+        arg2 = arg2(arg3, workValue3)
+        arg3 = GetPedInVehicleSeat
+        workValue3 = arg2
+        textValue4 = -1
+        arg3 = arg3(workValue3, textValue4)
+        if arg3 == arg1 then
+          arg3 = workValue5
+          workValue3 = arg2
+          arg3(workValue3)
         end
     end
     else
-      SHX1_2 = SHX5_1
-      if SHX1_2 then
-        SHX1_2 = false
-        SHX5_1 = SHX1_2
+      arg2 = flag8
+      if arg2 then
+        arg2 = false
+        flag8 = arg2
       end
     end
   end
 end
-SHX9_1(SHX10_1)
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = GetEntityCoords
-  SHX1_2 = PlayerPedId
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX1_2()
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX1_2 = {}
-  SHX2_2 = ipairs
-  SHX3_2 = GetGamePool
-  SHX4_2 = "CObject"
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX3_2(SHX4_2)
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = GetEntityModel
-    SHX9_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX9_2 = SHX0_1.pumpModels
-    SHX9_2 = SHX9_2[SHX8_2]
-    if SHX9_2 then
-      SHX9_2 = table
-      SHX9_2 = SHX9_2.insert
-      SHX10_2 = SHX1_2
-      SHX11_2 = SHX7_2
-      SHX9_2(SHX10_2, SHX11_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall2(dataTable)
+function threadCall2()
+  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue
+  arg1 = GetEntityCoords
+  arg2 = PlayerPedId
+  arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue = arg2()
+  -- Beginner: result below is entityCoords.
+  arg1 = arg1(arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue)
+  arg2 = {}
+  arg3 = ipairs
+  workValue3 = GetGamePool
+  textValue4 = "CObject"
+  workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue = workValue3(textValue4)
+  arg3, workValue3, textValue4, numberValue4 = arg3(workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue)
+  for cmgCall4, workValue4 in arg3, workValue3, textValue4, numberValue4 do
+    modelHash = GetEntityModel
+    workValue6 = workValue4
+    -- Beginner: result below is modelHash.
+    modelHash = modelHash(workValue6)
+    workValue6 = cmgCall.pumpModels
+    workValue6 = workValue6[modelHash]
+    if workValue6 then
+      workValue6 = table
+      workValue6 = workValue6.insert
+      coords = arg2
+      numberValue = workValue4
+      workValue6(coords, numberValue)
     end
   end
-  SHX2_2 = 0
-  SHX3_2 = 1000
-  SHX4_2 = pairs
-  SHX5_2 = SHX1_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-  for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-    SHX10_2 = GetEntityCoords
-    SHX11_2 = SHX9_2
-    SHX10_2 = SHX10_2(SHX11_2)
-    SHX10_2 = SHX0_2 - SHX10_2
-    SHX10_2 = #SHX10_2
-    if SHX3_2 > SHX10_2 then
-      SHX3_2 = SHX10_2
-      SHX2_2 = SHX9_2
+  arg3 = 0
+  workValue3 = 1000
+  textValue4 = pairs
+  numberValue4 = arg2
+  textValue4, numberValue4, cmgCall4, workValue4 = textValue4(numberValue4)
+  for modelHash, workValue6 in textValue4, numberValue4, cmgCall4, workValue4 do
+    coords = GetEntityCoords
+    numberValue = workValue6
+    -- Beginner: result below is entityCoords.
+    coords = coords(numberValue)
+    coords = arg1 - coords
+    coords = #coords
+    if workValue3 > coords then
+      workValue3 = coords
+      arg3 = workValue6
     end
   end
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX3_2
-  return SHX4_2, SHX5_2
+  textValue4 = arg3
+  numberValue4 = workValue3
+  return textValue4, numberValue4
 end
-SHX10_1 = {}
-SHX11_1 = Citizen
-SHX11_1 = SHX11_1.CreateThread
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1.dynamicPumps
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.loadModel
-    SHX7_2 = SHX5_2[1]
-    SHX6_2(SHX7_2)
-    SHX6_2 = SHX5_2[2]
-    SHX7_2 = CreateObject
-    SHX8_2 = SHX5_2[1]
-    SHX9_2 = SHX6_2.x
-    SHX10_2 = SHX6_2.y
-    SHX11_2 = SHX6_2.z
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX14_2 = false
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX8_2 = FreezeEntityPosition
-    SHX9_2 = SHX7_2
-    SHX10_2 = true
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = SetEntityCanBeDamaged
-    SHX9_2 = SHX7_2
-    SHX10_2 = false
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = SetEntityProofs
-    SHX9_2 = SHX7_2
-    SHX10_2 = true
-    SHX11_2 = true
-    SHX12_2 = true
-    SHX13_2 = true
-    SHX14_2 = true
-    SHX15_2 = true
-    SHX16_2 = true
-    SHX17_2 = true
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX8_2 = SetModelAsNoLongerNeeded
-    SHX9_2 = SHX5_2[1]
-    SHX8_2(SHX9_2)
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.insert
-    SHX9_2 = SHX10_1
-    SHX10_2 = SHX7_2
-    SHX8_2(SHX9_2, SHX10_2)
+dataTable = {}
+eventHandlerRegistration = Citizen
+eventHandlerRegistration = eventHandlerRegistration.CreateThread
+function textValue()
+  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4, flag5, flag6
+  arg1 = pairs
+  arg2 = cmgCall.dynamicPumps
+  arg1, arg2, arg3, workValue3 = arg1(arg2)
+  for textValue4, numberValue4 in arg1, arg2, arg3, workValue3 do
+    cmgCall4 = CMG
+    cmgCall4 = cmgCall4.loadModel
+    workValue4 = numberValue4[1]
+    -- Beginner: Request/load a GTA model before spawning or applying it.
+    cmgCall4(workValue4)
+    cmgCall4 = numberValue4[2]
+    workValue4 = CreateObject
+    modelHash = numberValue4[1]
+    workValue6 = cmgCall4.x
+    coords = cmgCall4.y
+    numberValue = cmgCall4.z
+    flag = false
+    flag2 = false
+    flag3 = false
+    -- Beginner: result below is objectEntity.
+    workValue4 = workValue4(modelHash, workValue6, coords, numberValue, flag, flag2, flag3)
+    modelHash = FreezeEntityPosition
+    workValue6 = workValue4
+    coords = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    modelHash(workValue6, coords)
+    modelHash = SetEntityCanBeDamaged
+    workValue6 = workValue4
+    coords = false
+    modelHash(workValue6, coords)
+    modelHash = SetEntityProofs
+    workValue6 = workValue4
+    coords = true
+    numberValue = true
+    flag = true
+    flag2 = true
+    flag3 = true
+    flag4 = true
+    flag5 = true
+    flag6 = true
+    modelHash(workValue6, coords, numberValue, flag, flag2, flag3, flag4, flag5, flag6)
+    modelHash = SetModelAsNoLongerNeeded
+    workValue6 = numberValue4[1]
+    modelHash(workValue6)
+    modelHash = table
+    modelHash = modelHash.insert
+    workValue6 = dataTable
+    coords = workValue4
+    modelHash(workValue6, coords)
   end
   while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 250
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX9_1
-    SHX0_2, SHX1_2 = SHX0_2()
-    SHX2_2 = 2.5
-    if SHX1_2 < SHX2_2 then
-      SHX1_1 = SHX0_2
-    elseif SHX1_2 < 10.0 then
-      SHX2_2 = 0
-      SHX1_1 = SHX2_2
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.Wait
-      SHX3_2 = 500
-      SHX2_2(SHX3_2)
-    elseif SHX1_2 < 50.0 then
-      SHX2_2 = 0
-      SHX1_1 = SHX2_2
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.Wait
-      SHX3_2 = 2500
-      SHX2_2(SHX3_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 250
+    arg1(arg2)
+    arg1 = threadCall2
+    arg1, arg2 = arg1()
+    arg3 = 2.5
+    if arg2 < arg3 then
+      threadCall = arg1
+    elseif arg2 < 10.0 then
+      arg3 = 0
+      threadCall = arg3
+      arg3 = Citizen
+      arg3 = arg3.Wait
+      workValue3 = 500
+      arg3(workValue3)
+    elseif arg2 < 50.0 then
+      arg3 = 0
+      threadCall = arg3
+      arg3 = Citizen
+      arg3 = arg3.Wait
+      workValue3 = 2500
+      arg3(workValue3)
     else
-      SHX2_2 = 0
-      SHX1_1 = SHX2_2
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.Wait
-      SHX3_2 = 5000
-      SHX2_2(SHX3_2)
+      arg3 = 0
+      threadCall = arg3
+      arg3 = Citizen
+      arg3 = arg3.Wait
+      workValue3 = 5000
+      arg3(workValue3)
     end
   end
 end
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "onResourceStop"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = pairs
-    SHX2_2 = SHX10_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = DeleteEntity
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+eventHandlerRegistration(textValue)
+eventHandlerRegistration = AddEventHandler
+textValue = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function cmgCall2(arg1)
+  local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg2 == arg1 then
+    arg2 = pairs
+    arg3 = dataTable
+    arg2, arg3, workValue3, textValue4 = arg2(arg3)
+    for numberValue4, cmgCall4 in arg2, arg3, workValue3, textValue4 do
+      workValue4 = DeleteEntity
+      modelHash = cmgCall4
+      -- Beginner: Delete a GTA entity.
+      workValue4(modelHash)
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "fuel:startFuelUpTick"
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = GetVehicleFuelLevel
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_1 = SHX3_2
-  SHX3_2 = GetVehicleClass
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_2 = 18 == SHX3_2
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+eventHandlerRegistration(textValue, cmgCall2)
+eventHandlerRegistration = AddEventHandler
+textValue = "fuel:startFuelUpTick"
+-- Beginner: this function runs when client event "fuel:startFuelUpTick" fires.
+function cmgCall2(arg1, arg2, arg3)
+  local workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2
+  workValue3 = GetVehicleFuelLevel
+  textValue4 = arg3
+  workValue3 = workValue3(textValue4)
+  numberValue2 = workValue3
+  workValue3 = GetVehicleClass
+  textValue4 = arg3
+  workValue3 = workValue3(textValue4)
+  workValue3 = 18 == workValue3
   while true do
-    SHX4_2 = SHX2_1
-    if not SHX4_2 then
+    textValue4 = flag7
+    if not textValue4 then
       break
     end
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = 500
-    SHX4_2(SHX5_2)
-    SHX4_2 = DecorGetFloat
-    SHX5_2 = SHX2_2
-    SHX6_2 = "145eb2f935"
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    SHX5_2 = math
-    SHX5_2 = SHX5_2.random
-    SHX6_2 = 10
-    SHX7_2 = 20
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    SHX5_2 = SHX5_2 / 10.0
-    SHX6_2 = SHX5_2 * 10
-    if not SHX0_2 then
-      SHX7_2 = GetAmmoInPedWeapon
-      SHX8_2 = SHX1_2
-      SHX9_2 = 883325847
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-      SHX8_2 = SHX5_2 * 100
-      SHX7_2 = SHX7_2 - SHX8_2
-      if SHX7_2 >= 0 then
-        SHX7_2 = SHX4_2 + SHX5_2
-        SHX3_1 = SHX7_2
-        SHX7_2 = SetPedAmmo
-        SHX8_2 = SHX1_2
-        SHX9_2 = 883325847
-        SHX10_2 = math
-        SHX10_2 = SHX10_2.floor
-        SHX11_2 = GetAmmoInPedWeapon
-        SHX12_2 = SHX1_2
-        SHX13_2 = 883325847
-        SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-        SHX12_2 = SHX5_2 * 100
-        SHX11_2 = SHX11_2 - SHX12_2
-        SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+    textValue4 = Citizen
+    textValue4 = textValue4.Wait
+    numberValue4 = 500
+    textValue4(numberValue4)
+    textValue4 = DecorGetFloat
+    numberValue4 = arg3
+    cmgCall4 = "145eb2f935"
+    textValue4 = textValue4(numberValue4, cmgCall4)
+    numberValue4 = math
+    numberValue4 = numberValue4.random
+    cmgCall4 = 10
+    workValue4 = 20
+    numberValue4 = numberValue4(cmgCall4, workValue4)
+    numberValue4 = numberValue4 / 10.0
+    cmgCall4 = numberValue4 * 10
+    if not arg1 then
+      workValue4 = GetAmmoInPedWeapon
+      modelHash = arg2
+      workValue6 = 883325847
+      workValue4 = workValue4(modelHash, workValue6)
+      modelHash = numberValue4 * 100
+      workValue4 = workValue4 - modelHash
+      if workValue4 >= 0 then
+        workValue4 = textValue4 + numberValue4
+        numberValue2 = workValue4
+        workValue4 = SetPedAmmo
+        modelHash = arg2
+        workValue6 = 883325847
+        coords = math
+        coords = coords.floor
+        numberValue = GetAmmoInPedWeapon
+        flag = arg2
+        flag2 = 883325847
+        numberValue = numberValue(flag, flag2)
+        flag = numberValue4 * 100
+        numberValue = numberValue - flag
+        coords, numberValue, flag, flag2 = coords(numberValue)
+        workValue4(modelHash, workValue6, coords, numberValue, flag, flag2)
       else
-        SHX7_2 = false
-        SHX2_1 = SHX7_2
+        workValue4 = false
+        flag7 = workValue4
       end
     else
-      SHX7_2 = SHX4_2 + SHX5_2
-      SHX3_1 = SHX7_2
+      workValue4 = textValue4 + numberValue4
+      numberValue2 = workValue4
     end
-    SHX7_2 = SHX3_1
-    if SHX7_2 > 100.0 then
-      SHX7_2 = 100.0
-      SHX3_1 = SHX7_2
-      SHX7_2 = false
-      SHX2_1 = SHX7_2
+    workValue4 = numberValue2
+    if workValue4 > 100.0 then
+      workValue4 = 100.0
+      numberValue2 = workValue4
+      workValue4 = false
+      flag7 = workValue4
     end
-    if SHX0_2 and not SHX3_2 then
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.TriggerServerCallback
-      SHX8_2 = "49e51ddb66"
-      SHX9_2 = math
-      SHX9_2 = SHX9_2.floor
-      SHX10_2 = SHX6_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      SHX10_2 = "fuel"
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      if SHX7_2 then
-        SHX8_2 = SHX4_1
-        SHX8_2 = SHX8_2 + SHX6_2
-        SHX4_1 = SHX8_2
-        SHX8_2 = CMG
-        SHX8_2 = SHX8_2.setVehicleFuel
-        SHX9_2 = SHX2_2
-        SHX10_2 = SHX3_1
-        SHX8_2(SHX9_2, SHX10_2)
+    if arg1 and not workValue3 then
+      workValue4 = CMG
+      workValue4 = workValue4.TriggerServerCallback
+      modelHash = "49e51ddb66"
+      workValue6 = math
+      workValue6 = workValue6.floor
+      coords = cmgCall4
+      workValue6 = workValue6(coords)
+      coords = "fuel"
+      workValue4 = workValue4(modelHash, workValue6, coords)
+      if workValue4 then
+        modelHash = numberValue3
+        modelHash = modelHash + cmgCall4
+        numberValue3 = modelHash
+        modelHash = CMG
+        modelHash = modelHash.setVehicleFuel
+        workValue6 = arg3
+        coords = numberValue2
+        modelHash(workValue6, coords)
       else
-        SHX8_2 = false
-        SHX2_1 = SHX8_2
+        modelHash = false
+        flag7 = modelHash
       end
     else
-      SHX7_2 = SHX4_1
-      SHX7_2 = SHX7_2 + SHX6_2
-      SHX4_1 = SHX7_2
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.setVehicleFuel
-      SHX8_2 = SHX2_2
-      SHX9_2 = SHX3_1
-      SHX7_2(SHX8_2, SHX9_2)
+      workValue4 = numberValue3
+      workValue4 = workValue4 + cmgCall4
+      numberValue3 = workValue4
+      workValue4 = CMG
+      workValue4 = workValue4.setVehicleFuel
+      modelHash = arg3
+      workValue6 = numberValue2
+      workValue4(modelHash, workValue6)
     end
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.clearBlockingVehicleCounter
-    SHX8_2 = SHX2_2
-    SHX7_2(SHX8_2)
+    workValue4 = CMG
+    workValue4 = workValue4.clearBlockingVehicleCounter
+    modelHash = arg3
+    workValue4(modelHash)
   end
-  SHX4_2 = DecorGetInt
-  SHX5_2 = SHX2_2
-  SHX6_2 = "0a6cf607ed"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  if SHX4_2 > 0 then
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getVehicleFuel
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "486c23d750"
-    SHX8_2 = SHX4_2
-    SHX9_2 = math
-    SHX9_2 = SHX9_2.floor
-    SHX10_2 = SHX5_2 * 1000
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX9_2 = SHX9_2 / 1000
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2)
+  textValue4 = DecorGetInt
+  numberValue4 = arg3
+  cmgCall4 = "0a6cf607ed"
+  textValue4 = textValue4(numberValue4, cmgCall4)
+  if textValue4 > 0 then
+    numberValue4 = CMG
+    numberValue4 = numberValue4.getVehicleFuel
+    cmgCall4 = arg3
+    numberValue4 = numberValue4(cmgCall4)
+    cmgCall4 = TriggerServerEvent
+    workValue4 = "486c23d750"
+    modelHash = textValue4
+    workValue6 = math
+    workValue6 = workValue6.floor
+    coords = numberValue4 * 1000
+    workValue6 = workValue6(coords)
+    workValue6 = workValue6 / 1000
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "486c23d750".
+    cmgCall4(workValue4, modelHash, workValue6)
   end
-  SHX5_2 = 0.0
-  SHX4_1 = SHX5_2
+  numberValue4 = 0.0
+  numberValue3 = numberValue4
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "fuel:refuelFromPump"
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX3_2 = TaskTurnPedToFaceEntity
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX6_2 = 1000
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 1000
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetCurrentPedWeapon
-  SHX4_2 = SHX1_2
-  SHX5_2 = -1569615261
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = "timetable@gardener@filling_can"
-  SHX3_2(SHX4_2)
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX1_2
-  SHX5_2 = "timetable@gardener@filling_can"
-  SHX6_2 = "gar_ig_5_filling_can"
-  SHX7_2 = 2.0
-  SHX8_2 = 8.0
-  SHX9_2 = -1
-  SHX10_2 = 50
-  SHX11_2 = 0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = TriggerEvent
-  SHX4_2 = "fuel:startFuelUpTick"
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX1_2
-  SHX7_2 = SHX2_2
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
+-- Beginner: Register a client-side event handler. Event/command: "fuel:startFuelUpTick".
+eventHandlerRegistration(textValue, cmgCall2)
+eventHandlerRegistration = AddEventHandler
+textValue = "fuel:refuelFromPump"
+-- Beginner: this function runs when client event "fuel:refuelFromPump" fires.
+function cmgCall2(arg1, arg2, arg3)
+  local workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4
+  workValue3 = TaskTurnPedToFaceEntity
+  textValue4 = arg2
+  numberValue4 = arg3
+  cmgCall4 = 1000
+  workValue3(textValue4, numberValue4, cmgCall4)
+  workValue3 = Citizen
+  workValue3 = workValue3.Wait
+  textValue4 = 1000
+  workValue3(textValue4)
+  workValue3 = SetCurrentPedWeapon
+  textValue4 = arg2
+  numberValue4 = -1569615261
+  cmgCall4 = true
+  workValue3(textValue4, numberValue4, cmgCall4)
+  workValue3 = CMG
+  workValue3 = workValue3.loadAnimDict
+  textValue4 = "timetable@gardener@filling_can"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  workValue3(textValue4)
+  workValue3 = TaskPlayAnim
+  textValue4 = arg2
+  numberValue4 = "timetable@gardener@filling_can"
+  cmgCall4 = "gar_ig_5_filling_can"
+  workValue4 = 2.0
+  modelHash = 8.0
+  workValue6 = -1
+  coords = 50
+  numberValue = 0
+  flag = false
+  flag2 = false
+  flag3 = false
+  -- Beginner: Play an animation on a ped.
+  workValue3(textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3)
+  workValue3 = TriggerEvent
+  textValue4 = "fuel:startFuelUpTick"
+  numberValue4 = arg1
+  cmgCall4 = arg2
+  workValue4 = arg3
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "fuel:startFuelUpTick".
+  workValue3(textValue4, numberValue4, cmgCall4, workValue4)
   while true do
-    SHX3_2 = SHX2_1
-    if not SHX3_2 then
+    workValue3 = flag7
+    if not workValue3 then
       break
     end
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 1
-    SHX3_2(SHX4_2)
-    SHX3_2 = pairs
-    SHX4_2 = SHX0_1.disabledKeys
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = DisableControlAction
-      SHX10_2 = 0
-      SHX11_2 = SHX8_2
-      SHX12_2 = true
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2)
+    workValue3 = Citizen
+    workValue3 = workValue3.Wait
+    textValue4 = 1
+    workValue3(textValue4)
+    workValue3 = pairs
+    textValue4 = cmgCall.disabledKeys
+    workValue3, textValue4, numberValue4, cmgCall4 = workValue3(textValue4)
+    for workValue4, modelHash in workValue3, textValue4, numberValue4, cmgCall4 do
+      workValue6 = DisableControlAction
+      coords = 0
+      numberValue = modelHash
+      flag = true
+      workValue6(coords, numberValue, flag)
     end
-    SHX3_2 = GetEntityCoords
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX0_2 then
-      SHX4_2 = GetEntityCoords
-      SHX5_2 = SHX0_2
-      SHX4_2 = SHX4_2(SHX5_2)
-      SHX5_2 = ""
-      SHX6_2 = "\n"
-      SHX7_2 = SHX0_1.translations
-      SHX7_2 = SHX7_2.TotalCost
-      SHX8_2 = ": ~g~\194\163"
-      SHX9_2 = getMoneyStringFormatted
-      SHX10_2 = math
-      SHX10_2 = SHX10_2.floor
-      SHX11_2 = SHX6_1
-      SHX12_2 = SHX4_1
-      SHX13_2 = 1
-      SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX11_2(SHX12_2, SHX13_2)
-      SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-      SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-      SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2 .. SHX9_2
-      SHX5_2 = SHX6_2
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.DrawText3D
-      SHX7_2 = SHX4_2
-      SHX8_2 = SHX0_1.translations
-      SHX8_2 = SHX8_2.CancelFuelingPump
-      SHX9_2 = SHX5_2
-      SHX8_2 = SHX8_2 .. SHX9_2
-      SHX9_2 = 0.35
-      SHX10_2 = 4
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.DrawText3D
-      SHX7_2 = vector3
-      SHX8_2 = 0.0
-      SHX9_2 = 0.0
-      SHX10_2 = 0.5
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX7_2 = SHX3_2 + SHX7_2
-      SHX8_2 = SHX6_1
-      SHX9_2 = SHX3_1
-      SHX10_2 = 1
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX9_2 = "%"
-      SHX8_2 = SHX8_2 .. SHX9_2
-      SHX9_2 = 0.35
-      SHX10_2 = 4
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+    workValue3 = GetEntityCoords
+    textValue4 = arg3
+    -- Beginner: result below is entityCoords.
+    workValue3 = workValue3(textValue4)
+    if arg1 then
+      textValue4 = GetEntityCoords
+      numberValue4 = arg1
+      -- Beginner: result below is entityCoords.
+      textValue4 = textValue4(numberValue4)
+      numberValue4 = ""
+      cmgCall4 = "\n"
+      workValue4 = cmgCall.translations
+      workValue4 = workValue4.TotalCost
+      modelHash = ": ~g~\194\163"
+      workValue6 = getMoneyStringFormatted
+      coords = math
+      coords = coords.floor
+      numberValue = cmgCall3
+      flag = numberValue3
+      flag2 = 1
+      numberValue, flag, flag2, flag3, flag4 = numberValue(flag, flag2)
+      coords, numberValue, flag, flag2, flag3, flag4 = coords(numberValue, flag, flag2, flag3, flag4)
+      workValue6 = workValue6(coords, numberValue, flag, flag2, flag3, flag4)
+      cmgCall4 = cmgCall4 .. workValue4 .. modelHash .. workValue6
+      numberValue4 = cmgCall4
+      cmgCall4 = CMG
+      cmgCall4 = cmgCall4.DrawText3D
+      workValue4 = textValue4
+      modelHash = cmgCall.translations
+      modelHash = modelHash.CancelFuelingPump
+      workValue6 = numberValue4
+      modelHash = modelHash .. workValue6
+      workValue6 = 0.35
+      coords = 4
+      cmgCall4(workValue4, modelHash, workValue6, coords)
+      cmgCall4 = CMG
+      cmgCall4 = cmgCall4.DrawText3D
+      workValue4 = vector3
+      modelHash = 0.0
+      workValue6 = 0.0
+      coords = 0.5
+      workValue4 = workValue4(modelHash, workValue6, coords)
+      workValue4 = workValue3 + workValue4
+      modelHash = cmgCall3
+      workValue6 = numberValue2
+      coords = 1
+      modelHash = modelHash(workValue6, coords)
+      workValue6 = "%"
+      modelHash = modelHash .. workValue6
+      workValue6 = 0.35
+      coords = 4
+      cmgCall4(workValue4, modelHash, workValue6, coords)
     else
-      SHX4_2 = CMG
-      SHX4_2 = SHX4_2.DrawText3D
-      SHX5_2 = vector3
-      SHX6_2 = 0.0
-      SHX7_2 = 0.0
-      SHX8_2 = 0.5
-      SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = SHX3_2 + SHX5_2
-      SHX6_2 = SHX0_1.translations
-      SHX6_2 = SHX6_2.CancelFuelingJerryCan
-      SHX7_2 = [[
+      textValue4 = CMG
+      textValue4 = textValue4.DrawText3D
+      numberValue4 = vector3
+      cmgCall4 = 0.0
+      workValue4 = 0.0
+      modelHash = 0.5
+      numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
+      numberValue4 = workValue3 + numberValue4
+      cmgCall4 = cmgCall.translations
+      cmgCall4 = cmgCall4.CancelFuelingJerryCan
+      workValue4 = [[
 
 Gas can: ~g~]]
-      SHX8_2 = SHX6_1
-      SHX9_2 = GetAmmoInPedWeapon
-      SHX10_2 = SHX1_2
-      SHX11_2 = 883325847
-      SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-      SHX9_2 = SHX9_2 / 4500
-      SHX9_2 = SHX9_2 * 100
-      SHX10_2 = 1
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX9_2 = "% | Vehicle: "
-      SHX10_2 = SHX6_1
-      SHX11_2 = SHX3_1
-      SHX12_2 = 1
-      SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-      SHX11_2 = "%"
-      SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2 .. SHX9_2 .. SHX10_2 .. SHX11_2
-      SHX7_2 = 0.35
-      SHX8_2 = 4
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+      modelHash = cmgCall3
+      workValue6 = GetAmmoInPedWeapon
+      coords = arg2
+      numberValue = 883325847
+      workValue6 = workValue6(coords, numberValue)
+      workValue6 = workValue6 / 4500
+      workValue6 = workValue6 * 100
+      coords = 1
+      modelHash = modelHash(workValue6, coords)
+      workValue6 = "% | Vehicle: "
+      coords = cmgCall3
+      numberValue = numberValue2
+      flag = 1
+      coords = coords(numberValue, flag)
+      numberValue = "%"
+      cmgCall4 = cmgCall4 .. workValue4 .. modelHash .. workValue6 .. coords .. numberValue
+      workValue4 = 0.35
+      modelHash = 4
+      textValue4(numberValue4, cmgCall4, workValue4, modelHash)
     end
-    SHX4_2 = IsEntityPlayingAnim
-    SHX5_2 = SHX1_2
-    SHX6_2 = "timetable@gardener@filling_can"
-    SHX7_2 = "gar_ig_5_filling_can"
-    SHX8_2 = 3
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    if not SHX4_2 then
-      SHX4_2 = TaskPlayAnim
-      SHX5_2 = SHX1_2
-      SHX6_2 = "timetable@gardener@filling_can"
-      SHX7_2 = "gar_ig_5_filling_can"
-      SHX8_2 = 2.0
-      SHX9_2 = 8.0
-      SHX10_2 = -1
-      SHX11_2 = 50
-      SHX12_2 = 0
-      SHX13_2 = false
-      SHX14_2 = false
-      SHX15_2 = false
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+    textValue4 = IsEntityPlayingAnim
+    numberValue4 = arg2
+    cmgCall4 = "timetable@gardener@filling_can"
+    workValue4 = "gar_ig_5_filling_can"
+    modelHash = 3
+    textValue4 = textValue4(numberValue4, cmgCall4, workValue4, modelHash)
+    if not textValue4 then
+      textValue4 = TaskPlayAnim
+      numberValue4 = arg2
+      cmgCall4 = "timetable@gardener@filling_can"
+      workValue4 = "gar_ig_5_filling_can"
+      modelHash = 2.0
+      workValue6 = 8.0
+      coords = -1
+      numberValue = 50
+      flag = 0
+      flag2 = false
+      flag3 = false
+      flag4 = false
+      -- Beginner: Play an animation on a ped.
+      textValue4(numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4)
     end
-    SHX4_2 = IsControlJustReleased
-    SHX5_2 = 0
-    SHX6_2 = 38
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    if not SHX4_2 then
-      SHX4_2 = DoesEntityExist
-      SHX5_2 = GetPedInVehicleSeat
-      SHX6_2 = SHX2_2
-      SHX7_2 = -1
-      SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX5_2(SHX6_2, SHX7_2)
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-      if not SHX4_2 then
-        SHX4_2 = SHX1_1
-        if 0 == SHX4_2 then
-          goto SHX_LABEL_188
+    textValue4 = IsControlJustReleased
+    numberValue4 = 0
+    cmgCall4 = 38
+    textValue4 = textValue4(numberValue4, cmgCall4)
+    if not textValue4 then
+      textValue4 = DoesEntityExist
+      numberValue4 = GetPedInVehicleSeat
+      cmgCall4 = arg3
+      workValue4 = -1
+      numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4 = numberValue4(cmgCall4, workValue4)
+      textValue4 = textValue4(numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4)
+      if not textValue4 then
+        textValue4 = threadCall
+        if 0 == textValue4 then
+          goto flow_label_188
         end
-        SHX4_2 = GetEntityHealth
-        SHX5_2 = SHX0_2
-        SHX4_2 = SHX4_2(SHX5_2)
-        if not (SHX4_2 <= 0) then
-          goto SHX_LABEL_188
+        textValue4 = GetEntityHealth
+        numberValue4 = arg1
+        -- Beginner: result below is health.
+        textValue4 = textValue4(numberValue4)
+        if not (textValue4 <= 0) then
+          goto flow_label_188
         end
       end
     end
-    SHX4_2 = false
-    SHX2_1 = SHX4_2
-    -- [FIX IF ERROR] Move ::SHX_LABEL_188:: outside nested blocks until all 'goto SHX_LABEL_188' can see it
-    ::SHX_LABEL_188::
+    textValue4 = false
+    flag7 = textValue4
+    ::flow_label_188::
   end
-  SHX3_2 = ClearPedTasks
-  SHX4_2 = SHX1_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = RemoveAnimDict
-  SHX4_2 = "timetable@gardener@filling_can"
-  SHX3_2(SHX4_2)
+  workValue3 = ClearPedTasks
+  textValue4 = arg2
+  workValue3(textValue4)
+  workValue3 = RemoveAnimDict
+  textValue4 = "timetable@gardener@filling_can"
+  workValue3(textValue4)
 end
-SHX11_1(SHX12_1, SHX13_1)
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetModelDimensions
-  SHX3_2 = SHX1_2
-  SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-  SHX4_2 = vector3
-  SHX5_2 = 0.0
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SHX4_2 - SHX2_2
-  SHX4_2 = #SHX4_2
-  SHX5_2 = vector3
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = SHX5_2 - SHX3_2
-  SHX5_2 = #SHX5_2
-  SHX6_2 = 2.5
-  if SHX4_2 > SHX6_2 and SHX4_2 < 20.0 then
-    return SHX4_2
+-- Beginner: Register a client-side event handler. Event/command: "fuel:refuelFromPump".
+eventHandlerRegistration(textValue, cmgCall2)
+function eventHandlerRegistration(arg1)
+  local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = GetModelDimensions
+  workValue3 = arg2
+  arg3, workValue3 = arg3(workValue3)
+  textValue4 = vector3
+  numberValue4 = 0.0
+  cmgCall4 = 0.0
+  workValue4 = 0.0
+  textValue4 = textValue4(numberValue4, cmgCall4, workValue4)
+  textValue4 = textValue4 - arg3
+  textValue4 = #textValue4
+  numberValue4 = vector3
+  cmgCall4 = 0.0
+  workValue4 = 0.0
+  modelHash = 0.0
+  numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
+  numberValue4 = numberValue4 - workValue3
+  numberValue4 = #numberValue4
+  cmgCall4 = 2.5
+  if textValue4 > cmgCall4 and textValue4 < 20.0 then
+    return textValue4
   else
-    SHX6_2 = 2.5
-    if SHX5_2 > SHX6_2 and SHX5_2 < 20.0 then
-      return SHX5_2
+    cmgCall4 = 2.5
+    if numberValue4 > cmgCall4 and numberValue4 < 20.0 then
+      return numberValue4
     end
   end
-  SHX6_2 = 2.5
-  return SHX6_2
+  cmgCall4 = 2.5
+  return cmgCall4
 end
-SHX12_1 = Citizen
-SHX12_1 = SHX12_1.CreateThread
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
+textValue = Citizen
+textValue = textValue.CreateThread
+function cmgCall2()
+  local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue
   while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 1
-    SHX0_2(SHX1_2)
-    SHX0_2 = PlayerPedId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = SHX2_1
-    if not SHX1_2 then
-      SHX1_2 = SHX1_1
-      if 0 ~= SHX1_2 then
-        SHX1_2 = GetEntityHealth
-        SHX2_2 = SHX1_1
-        SHX1_2 = SHX1_2(SHX2_2)
-        if SHX1_2 > 0 then
-          goto SHX_LABEL_26
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 1
+    arg1(arg2)
+    arg1 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg1 = arg1()
+    arg2 = flag7
+    if not arg2 then
+      arg2 = threadCall
+      if 0 ~= arg2 then
+        arg2 = GetEntityHealth
+        arg3 = threadCall
+        -- Beginner: result below is health.
+        arg2 = arg2(arg3)
+        if arg2 > 0 then
+          goto flow_label_26
         end
       end
-      SHX1_2 = GetSelectedPedWeapon
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if 883325847 == SHX1_2 then
-        SHX1_2 = SHX1_1
-        if 0 == SHX1_2 then
-          -- [FIX IF ERROR] Move ::SHX_LABEL_26:: outside nested blocks until all 'goto SHX_LABEL_26' can see it
-          ::SHX_LABEL_26::
-          SHX1_2 = IsPedInAnyVehicle
-          SHX2_2 = SHX0_2
-          SHX3_2 = true
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if SHX1_2 then
-            SHX1_2 = GetPedInVehicleSeat
-            SHX2_2 = GetVehiclePedIsIn
-            SHX3_2 = SHX0_2
-            SHX4_2 = false
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-            SHX3_2 = -1
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-            if SHX1_2 == SHX0_2 then
-              SHX1_2 = GetEntityCoords
-              SHX2_2 = SHX1_1
-              SHX1_2 = SHX1_2(SHX2_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.DrawText3D
-              SHX3_2 = vector3
-              SHX4_2 = 0.0
-              SHX5_2 = 0.0
-              SHX6_2 = 1.2
-              SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-              SHX3_2 = SHX1_2 + SHX3_2
-              SHX4_2 = SHX0_1.translations
-              SHX4_2 = SHX4_2.ExitVehicle
-              SHX5_2 = 0.35
-              SHX6_2 = 4
-              SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+      arg2 = GetSelectedPedWeapon
+      arg3 = arg1
+      -- Beginner: result below is weaponHash.
+      arg2 = arg2(arg3)
+      if 883325847 == arg2 then
+        arg2 = threadCall
+        if 0 == arg2 then
+          ::flow_label_26::
+          arg2 = IsPedInAnyVehicle
+          arg3 = arg1
+          workValue3 = true
+          arg2 = arg2(arg3, workValue3)
+          if arg2 then
+            arg2 = GetPedInVehicleSeat
+            arg3 = GetVehiclePedIsIn
+            workValue3 = arg1
+            textValue4 = false
+            -- Beginner: result below is currentVehicle.
+            arg3 = arg3(workValue3, textValue4)
+            workValue3 = -1
+            arg2 = arg2(arg3, workValue3)
+            if arg2 == arg1 then
+              arg2 = GetEntityCoords
+              arg3 = threadCall
+              -- Beginner: result below is entityCoords.
+              arg2 = arg2(arg3)
+              arg3 = CMG
+              arg3 = arg3.DrawText3D
+              workValue3 = vector3
+              textValue4 = 0.0
+              numberValue4 = 0.0
+              cmgCall4 = 1.2
+              workValue3 = workValue3(textValue4, numberValue4, cmgCall4)
+              workValue3 = arg2 + workValue3
+              textValue4 = cmgCall.translations
+              textValue4 = textValue4.ExitVehicle
+              numberValue4 = 0.35
+              cmgCall4 = 4
+              arg3(workValue3, textValue4, numberValue4, cmgCall4)
           end
           else
-            SHX1_2 = GetPlayersLastVehicle
-            SHX1_2 = SHX1_2()
-            SHX2_2 = GetEntityCoords
-            SHX3_2 = SHX1_2
-            SHX2_2 = SHX2_2(SHX3_2)
-            SHX3_2 = DoesEntityExist
-            SHX4_2 = SHX1_2
-            SHX3_2 = SHX3_2(SHX4_2)
-            if SHX3_2 then
-              SHX3_2 = GetEntityCoords
-              SHX4_2 = SHX0_2
-              SHX3_2 = SHX3_2(SHX4_2)
-              SHX3_2 = SHX3_2 - SHX2_2
-              SHX3_2 = #SHX3_2
-              SHX4_2 = SHX11_1
-              SHX5_2 = SHX1_2
-              SHX4_2 = SHX4_2(SHX5_2)
-              if SHX3_2 < SHX4_2 then
-                SHX3_2 = DoesEntityExist
-                SHX4_2 = GetPedInVehicleSeat
-                SHX5_2 = SHX1_2
-                SHX6_2 = -1
-                SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX4_2(SHX5_2, SHX6_2)
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-                if not SHX3_2 then
-                  SHX3_2 = GetEntityCoords
-                  SHX4_2 = SHX1_1
-                  SHX3_2 = SHX3_2(SHX4_2)
-                  SHX4_2 = true
-                  SHX5_2 = GetSelectedPedWeapon
-                  SHX6_2 = SHX0_2
-                  SHX5_2 = SHX5_2(SHX6_2)
-                  if 883325847 == SHX5_2 then
-                    SHX3_2 = SHX2_2
-                    SHX5_2 = GetAmmoInPedWeapon
-                    SHX6_2 = SHX0_2
-                    SHX7_2 = 883325847
-                    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-                    if SHX5_2 < 100 then
-                      SHX4_2 = false
+            arg2 = GetPlayersLastVehicle
+            arg2 = arg2()
+            arg3 = GetEntityCoords
+            workValue3 = arg2
+            -- Beginner: result below is entityCoords.
+            arg3 = arg3(workValue3)
+            workValue3 = DoesEntityExist
+            textValue4 = arg2
+            workValue3 = workValue3(textValue4)
+            if workValue3 then
+              workValue3 = GetEntityCoords
+              textValue4 = arg1
+              -- Beginner: result below is entityCoords.
+              workValue3 = workValue3(textValue4)
+              workValue3 = workValue3 - arg3
+              workValue3 = #workValue3
+              textValue4 = eventHandlerRegistration
+              numberValue4 = arg2
+              textValue4 = textValue4(numberValue4)
+              if workValue3 < textValue4 then
+                workValue3 = DoesEntityExist
+                textValue4 = GetPedInVehicleSeat
+                numberValue4 = arg2
+                cmgCall4 = -1
+                textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue = textValue4(numberValue4, cmgCall4)
+                workValue3 = workValue3(textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue)
+                if not workValue3 then
+                  workValue3 = GetEntityCoords
+                  textValue4 = threadCall
+                  -- Beginner: result below is entityCoords.
+                  workValue3 = workValue3(textValue4)
+                  textValue4 = true
+                  numberValue4 = GetSelectedPedWeapon
+                  cmgCall4 = arg1
+                  -- Beginner: result below is weaponHash.
+                  numberValue4 = numberValue4(cmgCall4)
+                  if 883325847 == numberValue4 then
+                    workValue3 = arg3
+                    numberValue4 = GetAmmoInPedWeapon
+                    cmgCall4 = arg1
+                    workValue4 = 883325847
+                    numberValue4 = numberValue4(cmgCall4, workValue4)
+                    if numberValue4 < 100 then
+                      textValue4 = false
                     end
                   end
-                  SHX5_2 = GetVehicleFuelLevel
-                  SHX6_2 = SHX1_2
-                  SHX5_2 = SHX5_2(SHX6_2)
-                  if SHX5_2 < 95 and SHX4_2 then
-                    SHX5_2 = SHX7_1
-                    SHX5_2 = SHX5_2()
-                    if SHX5_2 > 0 then
-                      SHX6_2 = CMG
-                      SHX6_2 = SHX6_2.DrawText3D
-                      SHX7_2 = vector3
-                      SHX8_2 = 0.0
-                      SHX9_2 = 0.0
-                      SHX10_2 = 1.2
-                      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-                      SHX7_2 = SHX3_2 + SHX7_2
-                      SHX8_2 = SHX0_1.translations
-                      SHX8_2 = SHX8_2.EToRefuel
-                      SHX9_2 = 0.35
-                      SHX10_2 = 4
-                      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-                      SHX6_2 = IsControlJustReleased
-                      SHX7_2 = 0
-                      SHX8_2 = 38
-                      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-                      if SHX6_2 then
-                        SHX6_2 = true
-                        SHX2_1 = SHX6_2
-                        SHX6_2 = TriggerEvent
-                        SHX7_2 = "fuel:refuelFromPump"
-                        SHX8_2 = SHX1_1
-                        SHX9_2 = SHX0_2
-                        SHX10_2 = SHX1_2
-                        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+                  numberValue4 = GetVehicleFuelLevel
+                  cmgCall4 = arg2
+                  numberValue4 = numberValue4(cmgCall4)
+                  if numberValue4 < 95 and textValue4 then
+                    numberValue4 = cmgCall5
+                    numberValue4 = numberValue4()
+                    if numberValue4 > 0 then
+                      cmgCall4 = CMG
+                      cmgCall4 = cmgCall4.DrawText3D
+                      workValue4 = vector3
+                      modelHash = 0.0
+                      workValue6 = 0.0
+                      coords = 1.2
+                      workValue4 = workValue4(modelHash, workValue6, coords)
+                      workValue4 = workValue3 + workValue4
+                      modelHash = cmgCall.translations
+                      modelHash = modelHash.EToRefuel
+                      workValue6 = 0.35
+                      coords = 4
+                      cmgCall4(workValue4, modelHash, workValue6, coords)
+                      cmgCall4 = IsControlJustReleased
+                      workValue4 = 0
+                      modelHash = 38
+                      cmgCall4 = cmgCall4(workValue4, modelHash)
+                      if cmgCall4 then
+                        cmgCall4 = true
+                        flag7 = cmgCall4
+                        cmgCall4 = TriggerEvent
+                        workValue4 = "fuel:refuelFromPump"
+                        modelHash = threadCall
+                        workValue6 = arg1
+                        coords = arg2
+                        -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "fuel:refuelFromPump".
+                        cmgCall4(workValue4, modelHash, workValue6, coords)
                       end
                     else
-                      SHX6_2 = CMG
-                      SHX6_2 = SHX6_2.DrawText3D
-                      SHX7_2 = vector3
-                      SHX8_2 = 0.0
-                      SHX9_2 = 0.0
-                      SHX10_2 = 1.2
-                      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-                      SHX7_2 = SHX3_2 + SHX7_2
-                      SHX8_2 = SHX0_1.translations
-                      SHX8_2 = SHX8_2.NotEnoughCash
-                      SHX9_2 = 0.35
-                      SHX10_2 = 4
-                      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+                      cmgCall4 = CMG
+                      cmgCall4 = cmgCall4.DrawText3D
+                      workValue4 = vector3
+                      modelHash = 0.0
+                      workValue6 = 0.0
+                      coords = 1.2
+                      workValue4 = workValue4(modelHash, workValue6, coords)
+                      workValue4 = workValue3 + workValue4
+                      modelHash = cmgCall.translations
+                      modelHash = modelHash.NotEnoughCash
+                      workValue6 = 0.35
+                      coords = 4
+                      cmgCall4(workValue4, modelHash, workValue6, coords)
                     end
-                  elseif not SHX4_2 then
-                    SHX5_2 = CMG
-                    SHX5_2 = SHX5_2.DrawText3D
-                    SHX6_2 = vector3
-                    SHX7_2 = 0.0
-                    SHX8_2 = 0.0
-                    SHX9_2 = 1.2
-                    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                    SHX6_2 = SHX3_2 + SHX6_2
-                    SHX7_2 = SHX0_1.translations
-                    SHX7_2 = SHX7_2.JerryCanEmpty
-                    SHX8_2 = 0.35
-                    SHX9_2 = 4
-                    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+                  elseif not textValue4 then
+                    numberValue4 = CMG
+                    numberValue4 = numberValue4.DrawText3D
+                    cmgCall4 = vector3
+                    workValue4 = 0.0
+                    modelHash = 0.0
+                    workValue6 = 1.2
+                    cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
+                    cmgCall4 = workValue3 + cmgCall4
+                    workValue4 = cmgCall.translations
+                    workValue4 = workValue4.JerryCanEmpty
+                    modelHash = 0.35
+                    workValue6 = 4
+                    numberValue4(cmgCall4, workValue4, modelHash, workValue6)
                   else
-                    SHX5_2 = CMG
-                    SHX5_2 = SHX5_2.DrawText3D
-                    SHX6_2 = vector3
-                    SHX7_2 = 0.0
-                    SHX8_2 = 0.0
-                    SHX9_2 = 1.2
-                    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                    SHX6_2 = SHX3_2 + SHX6_2
-                    SHX7_2 = SHX0_1.translations
-                    SHX7_2 = SHX7_2.FullTank
-                    SHX8_2 = 0.35
-                    SHX9_2 = 4
-                    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+                    numberValue4 = CMG
+                    numberValue4 = numberValue4.DrawText3D
+                    cmgCall4 = vector3
+                    workValue4 = 0.0
+                    modelHash = 0.0
+                    workValue6 = 1.2
+                    cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
+                    cmgCall4 = workValue3 + cmgCall4
+                    workValue4 = cmgCall.translations
+                    workValue4 = workValue4.FullTank
+                    modelHash = 0.35
+                    workValue6 = 4
+                    numberValue4(cmgCall4, workValue4, modelHash, workValue6)
                   end
                 end
             end
             else
-              SHX3_2 = SHX1_1
-              if 0 ~= SHX3_2 then
-                SHX3_2 = GetEntityCoords
-                SHX4_2 = SHX1_1
-                SHX3_2 = SHX3_2(SHX4_2)
-                SHX4_2 = SHX7_1
-                SHX4_2 = SHX4_2()
-                SHX5_2 = SHX0_1.jerryCanCost
-                if SHX4_2 >= SHX5_2 then
-                  SHX5_2 = HasPedGotWeapon
-                  SHX6_2 = SHX0_2
-                  SHX7_2 = 883325847
-                  SHX8_2 = false
-                  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-                  if not SHX5_2 then
-                    SHX5_2 = CMG
-                    SHX5_2 = SHX5_2.DrawText3D
-                    SHX6_2 = vector3
-                    SHX7_2 = 0.0
-                    SHX8_2 = 0.0
-                    SHX9_2 = 1.2
-                    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                    SHX6_2 = SHX3_2 + SHX6_2
-                    SHX7_2 = SHX0_1.translations
-                    SHX7_2 = SHX7_2.PurchaseJerryCan
-                    SHX8_2 = 0.35
-                    SHX9_2 = 4
-                    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-                    SHX5_2 = IsControlJustReleased
-                    SHX6_2 = 0
-                    SHX7_2 = 38
-                    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-                    if SHX5_2 then
-                      SHX5_2 = CMG
-                      SHX5_2 = SHX5_2.TriggerServerCallback
-                      SHX6_2 = "49e51ddb66"
-                      SHX7_2 = SHX0_1.jerryCanCost
-                      SHX8_2 = "fuel"
-                      SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-                      if SHX5_2 then
-                        SHX6_2 = GiveWeaponToPed
-                        SHX7_2 = SHX0_2
-                        SHX8_2 = 883325847
-                        SHX9_2 = 4500
-                        SHX10_2 = false
-                        SHX11_2 = true
-                        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+              workValue3 = threadCall
+              if 0 ~= workValue3 then
+                workValue3 = GetEntityCoords
+                textValue4 = threadCall
+                -- Beginner: result below is entityCoords.
+                workValue3 = workValue3(textValue4)
+                textValue4 = cmgCall5
+                textValue4 = textValue4()
+                numberValue4 = cmgCall.jerryCanCost
+                if textValue4 >= numberValue4 then
+                  numberValue4 = HasPedGotWeapon
+                  cmgCall4 = arg1
+                  workValue4 = 883325847
+                  modelHash = false
+                  numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
+                  if not numberValue4 then
+                    numberValue4 = CMG
+                    numberValue4 = numberValue4.DrawText3D
+                    cmgCall4 = vector3
+                    workValue4 = 0.0
+                    modelHash = 0.0
+                    workValue6 = 1.2
+                    cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
+                    cmgCall4 = workValue3 + cmgCall4
+                    workValue4 = cmgCall.translations
+                    workValue4 = workValue4.PurchaseJerryCan
+                    modelHash = 0.35
+                    workValue6 = 4
+                    numberValue4(cmgCall4, workValue4, modelHash, workValue6)
+                    numberValue4 = IsControlJustReleased
+                    cmgCall4 = 0
+                    workValue4 = 38
+                    numberValue4 = numberValue4(cmgCall4, workValue4)
+                    if numberValue4 then
+                      numberValue4 = CMG
+                      numberValue4 = numberValue4.TriggerServerCallback
+                      cmgCall4 = "49e51ddb66"
+                      workValue4 = cmgCall.jerryCanCost
+                      modelHash = "fuel"
+                      numberValue4 = numberValue4(cmgCall4, workValue4, modelHash)
+                      if numberValue4 then
+                        cmgCall4 = GiveWeaponToPed
+                        workValue4 = arg1
+                        modelHash = 883325847
+                        workValue6 = 4500
+                        coords = false
+                        numberValue = true
+                        cmgCall4(workValue4, modelHash, workValue6, coords, numberValue)
                       end
                     end
                   else
-                    SHX5_2 = SHX6_1
-                    SHX6_2 = SHX0_1.fuelCost
-                    SHX7_2 = GetAmmoInPedWeapon
-                    SHX8_2 = SHX0_2
-                    SHX9_2 = 883325847
-                    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-                    SHX7_2 = SHX7_2 / 4500
-                    SHX8_2 = 1
-                    SHX7_2 = SHX8_2 - SHX7_2
-                    SHX6_2 = SHX6_2 * SHX7_2
-                    SHX5_2 = SHX5_2(SHX6_2)
-                    if SHX5_2 > 0 then
-                      SHX6_2 = CMG
-                      SHX6_2 = SHX6_2.DrawText3D
-                      SHX7_2 = vector3
-                      SHX8_2 = 0.0
-                      SHX9_2 = 0.0
-                      SHX10_2 = 1.2
-                      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-                      SHX7_2 = SHX3_2 + SHX7_2
-                      SHX8_2 = SHX0_1.translations
-                      SHX8_2 = SHX8_2.RefillJerryCan
-                      SHX9_2 = SHX5_2
-                      SHX8_2 = SHX8_2 .. SHX9_2
-                      SHX9_2 = 0.35
-                      SHX10_2 = 4
-                      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-                      SHX6_2 = IsControlJustReleased
-                      SHX7_2 = 0
-                      SHX8_2 = 38
-                      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-                      if SHX6_2 then
-                        SHX6_2 = CMG
-                        SHX6_2 = SHX6_2.TriggerServerCallback
-                        SHX7_2 = "49e51ddb66"
-                        SHX8_2 = math
-                        SHX8_2 = SHX8_2.floor
-                        SHX9_2 = SHX5_2
-                        SHX8_2 = SHX8_2(SHX9_2)
-                        SHX9_2 = "fuel"
-                        SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                        if SHX6_2 then
-                          SHX7_2 = SetPedAmmo
-                          SHX8_2 = SHX0_2
-                          SHX9_2 = 883325847
-                          SHX10_2 = 4500
-                          SHX7_2(SHX8_2, SHX9_2, SHX10_2)
+                    numberValue4 = cmgCall3
+                    cmgCall4 = cmgCall.fuelCost
+                    workValue4 = GetAmmoInPedWeapon
+                    modelHash = arg1
+                    workValue6 = 883325847
+                    workValue4 = workValue4(modelHash, workValue6)
+                    workValue4 = workValue4 / 4500
+                    modelHash = 1
+                    workValue4 = modelHash - workValue4
+                    cmgCall4 = cmgCall4 * workValue4
+                    numberValue4 = numberValue4(cmgCall4)
+                    if numberValue4 > 0 then
+                      cmgCall4 = CMG
+                      cmgCall4 = cmgCall4.DrawText3D
+                      workValue4 = vector3
+                      modelHash = 0.0
+                      workValue6 = 0.0
+                      coords = 1.2
+                      workValue4 = workValue4(modelHash, workValue6, coords)
+                      workValue4 = workValue3 + workValue4
+                      modelHash = cmgCall.translations
+                      modelHash = modelHash.RefillJerryCan
+                      workValue6 = numberValue4
+                      modelHash = modelHash .. workValue6
+                      workValue6 = 0.35
+                      coords = 4
+                      cmgCall4(workValue4, modelHash, workValue6, coords)
+                      cmgCall4 = IsControlJustReleased
+                      workValue4 = 0
+                      modelHash = 38
+                      cmgCall4 = cmgCall4(workValue4, modelHash)
+                      if cmgCall4 then
+                        cmgCall4 = CMG
+                        cmgCall4 = cmgCall4.TriggerServerCallback
+                        workValue4 = "49e51ddb66"
+                        modelHash = math
+                        modelHash = modelHash.floor
+                        workValue6 = numberValue4
+                        modelHash = modelHash(workValue6)
+                        workValue6 = "fuel"
+                        cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
+                        if cmgCall4 then
+                          workValue4 = SetPedAmmo
+                          modelHash = arg1
+                          workValue6 = 883325847
+                          coords = 4500
+                          workValue4(modelHash, workValue6, coords)
                         end
                       end
                     else
-                      SHX6_2 = CMG
-                      SHX6_2 = SHX6_2.DrawText3D
-                      SHX7_2 = vector3
-                      SHX8_2 = 0.0
-                      SHX9_2 = 0.0
-                      SHX10_2 = 1.2
-                      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-                      SHX7_2 = SHX3_2 + SHX7_2
-                      SHX8_2 = SHX0_1.translations
-                      SHX8_2 = SHX8_2.JerryCanFull
-                      SHX9_2 = 0.35
-                      SHX10_2 = 4
-                      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+                      cmgCall4 = CMG
+                      cmgCall4 = cmgCall4.DrawText3D
+                      workValue4 = vector3
+                      modelHash = 0.0
+                      workValue6 = 0.0
+                      coords = 1.2
+                      workValue4 = workValue4(modelHash, workValue6, coords)
+                      workValue4 = workValue3 + workValue4
+                      modelHash = cmgCall.translations
+                      modelHash = modelHash.JerryCanFull
+                      workValue6 = 0.35
+                      coords = 4
+                      cmgCall4(workValue4, modelHash, workValue6, coords)
                     end
                   end
                 else
-                  SHX5_2 = CMG
-                  SHX5_2 = SHX5_2.DrawText3D
-                  SHX6_2 = vector3
-                  SHX7_2 = 0.0
-                  SHX8_2 = 0.0
-                  SHX9_2 = 1.2
-                  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                  SHX6_2 = SHX3_2 + SHX6_2
-                  SHX7_2 = SHX0_1.translations
-                  SHX7_2 = SHX7_2.NotEnoughCash
-                  SHX8_2 = 0.35
-                  SHX9_2 = 4
-                  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+                  numberValue4 = CMG
+                  numberValue4 = numberValue4.DrawText3D
+                  cmgCall4 = vector3
+                  workValue4 = 0.0
+                  modelHash = 0.0
+                  workValue6 = 1.2
+                  cmgCall4 = cmgCall4(workValue4, modelHash, workValue6)
+                  cmgCall4 = workValue3 + cmgCall4
+                  workValue4 = cmgCall.translations
+                  workValue4 = workValue4.NotEnoughCash
+                  modelHash = 0.35
+                  workValue6 = 4
+                  numberValue4(cmgCall4, workValue4, modelHash, workValue6)
                 end
               else
-                SHX3_2 = Citizen
-                SHX3_2 = SHX3_2.Wait
-                SHX4_2 = 250
-                SHX3_2(SHX4_2)
+                workValue3 = Citizen
+                workValue3 = workValue3.Wait
+                textValue4 = 250
+                workValue3(textValue4)
               end
             end
           end
       end
     end
     else
-      SHX1_2 = Citizen
-      SHX1_2 = SHX1_2.Wait
-      SHX2_2 = 250
-      SHX1_2(SHX2_2)
+      arg2 = Citizen
+      arg2 = arg2.Wait
+      arg3 = 250
+      arg2(arg3)
     end
   end
 end
-SHX12_1(SHX13_1)
-SHX12_1 = Citizen
-SHX12_1 = SHX12_1.CreateThread
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RequestStreamedTextureDict
-  SHX1_2 = "regplates"
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+textValue(cmgCall2)
+textValue = Citizen
+textValue = textValue.CreateThread
+function cmgCall2()
+  local arg1, arg2, arg3, workValue3, textValue4
+  arg1 = RequestStreamedTextureDict
+  arg2 = "regplates"
+  arg3 = false
+  arg1(arg2, arg3)
   while true do
-    SHX0_2 = HasStreamedTextureDictLoaded
-    SHX1_2 = "regplates"
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
+    arg1 = HasStreamedTextureDictLoaded
+    arg2 = "regplates"
+    arg1 = arg1(arg2)
+    if arg1 then
       break
     end
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 1
-    SHX0_2(SHX1_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 1
+    arg1(arg2)
   end
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate01"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate01"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate01_n"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate01_n"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate02"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate02"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate02_n"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate02_n"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate03"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate03"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate03_n"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate03_n"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate04"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate04"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate04_n"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate04_n"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate05"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate05"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = AddReplaceTexture
-  SHX1_2 = "vehshare"
-  SHX2_2 = "plate05_n"
-  SHX3_2 = "regplates"
-  SHX4_2 = "plate05_n"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate01"
+  workValue3 = "regplates"
+  textValue4 = "plate01"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate01_n"
+  workValue3 = "regplates"
+  textValue4 = "plate01_n"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate02"
+  workValue3 = "regplates"
+  textValue4 = "plate02"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate02_n"
+  workValue3 = "regplates"
+  textValue4 = "plate02_n"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate03"
+  workValue3 = "regplates"
+  textValue4 = "plate03"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate03_n"
+  workValue3 = "regplates"
+  textValue4 = "plate03_n"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate04"
+  workValue3 = "regplates"
+  textValue4 = "plate04"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate04_n"
+  workValue3 = "regplates"
+  textValue4 = "plate04_n"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate05"
+  workValue3 = "regplates"
+  textValue4 = "plate05"
+  arg1(arg2, arg3, workValue3, textValue4)
+  arg1 = AddReplaceTexture
+  arg2 = "vehshare"
+  arg3 = "plate05_n"
+  workValue3 = "regplates"
+  textValue4 = "plate05_n"
+  arg1(arg2, arg3, workValue3, textValue4)
 end
-SHX12_1(SHX13_1)
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.format
-  SHX2_2 = "Fuel Amount: %s%%"
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.round
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getVehicleFuel
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = 1
-  SHX3_2, SHX4_2, SHX5_2 = SHX3_2(SHX4_2, SHX5_2)
-  return SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+textValue(cmgCall2)
+function textValue(arg1)
+  local arg2, arg3, workValue3, textValue4, numberValue4
+  arg2 = string
+  arg2 = arg2.format
+  arg3 = "Fuel Amount: %s%%"
+  workValue3 = math
+  workValue3 = workValue3.round
+  textValue4 = CMG
+  textValue4 = textValue4.getVehicleFuel
+  numberValue4 = arg1
+  textValue4 = textValue4(numberValue4)
+  numberValue4 = 1
+  workValue3, textValue4, numberValue4 = workValue3(textValue4, numberValue4)
+  return arg2(arg3, workValue3, textValue4, numberValue4)
 end
-SHX13_1 = CMG
-SHX13_1 = SHX13_1.registerDevMenuEntityEditor
-SHX14_1 = "Fuel"
-SHX15_1 = "vehicle"
-SHX16_1 = SHX12_1
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.registerDevMenuEntityEditor
+textValue2 = "Fuel"
+textValue3 = "vehicle"
+workValue = textValue
+function workValue2()
+  local arg1, arg2
 end
-SHX13_1(SHX14_1, SHX15_1, SHX16_1, SHX17_1)
+cmgCall2(textValue2, textValue3, workValue, workValue2)

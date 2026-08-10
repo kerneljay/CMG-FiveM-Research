@@ -1,413 +1,421 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_aa.lua
+    =========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_garages"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = CMG
-SHX1_1 = SHX1_1.loadModule
-SHX2_1 = "cfg/cfg_mechanic"
-SHX1_1 = SHX1_1(SHX2_1)
-SHX2_1 = {}
-SHX3_1 = 52945046
-SHX4_1 = {}
-SHX4_1.type = "tow"
-SHX5_1 = {}
-SHX6_1 = {}
-SHX7_1 = vector3
-SHX8_1 = 0.1
-SHX9_1 = -3.42
-SHX10_1 = 1.13
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX8_1 = true
-SHX6_1[1] = SHX7_1
-SHX6_1[2] = SHX8_1
-SHX7_1 = {}
-SHX8_1 = vector3
-SHX9_1 = -0.1
-SHX10_1 = -3.42
-SHX11_1 = 1.13
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX9_1 = true
-SHX7_1[1] = SHX8_1
-SHX7_1[2] = SHX9_1
-SHX8_1 = {}
-SHX9_1 = vector3
-SHX10_1 = 0.0
-SHX11_1 = -2.6
-SHX12_1 = 0.2
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX10_1 = false
-SHX8_1[1] = SHX9_1
-SHX8_1[2] = SHX10_1
-SHX5_1[1] = SHX6_1
-SHX5_1[2] = SHX7_1
-SHX5_1[3] = SHX8_1
-SHX4_1.offsets = SHX5_1
-SHX2_1[SHX3_1] = SHX4_1
-SHX3_1 = 1355922771
-SHX4_1 = {}
-SHX4_1.type = "flatbed"
-SHX4_1.bone = 20
-SHX5_1 = vector3
-SHX6_1 = -0.7
-SHX7_1 = -6.0
-SHX8_1 = -0.46
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.offset = SHX5_1
-SHX4_1.heading = -10.0
-SHX2_1[SHX3_1] = SHX4_1
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = {}
-  SHX1_2.type = "flatbed"
-  SHX2_2 = SHX0_2.bone
-  SHX1_2.bone = SHX2_2
-  SHX2_2 = vector3
-  SHX3_2 = SHX0_2.offset
-  SHX3_2 = SHX3_2.x
-  SHX4_2 = SHX0_2.offset
-  SHX4_2 = SHX4_2.y
-  SHX5_2 = SHX0_2.offset
-  SHX5_2 = SHX5_2.z
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2.offset = SHX2_2
-  SHX2_2 = SHX0_2.heading
-  SHX1_2.heading = SHX2_2
-  return SHX1_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Aa
+    ===================
+
+    File: cmg/prod/client/jobs/cl_aa.lua
+    Purpose: This file contains job gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_garages
+      * cfg/cfg_mechanic
+
+    Network/hash identifiers found: 7
+      They are intentionally left unchanged because matching server code may use them.
+      * 53b5afb511
+      * 3853938b46
+      * af80ba4ef6
+      * 0caaa03da5
+      * 6b6dade745
+      * e3a2b4bde0
+      * 0f93bb7bac
+
+    Example player-facing text in this file:
+      * ~r~You can not tow vehicles near a grinding area.
+      * towPlayer
+      * towVehicle
+      * Press ~INPUT_CONTEXT~ to purchase mechanic flatbed
+      * ~r~You must be in a flatbed.
+
+]]
+local cmgCall, cmgCall2, dataTable2, numberValue18, dataTable3, vector3Builder4, iterator2, vector3Builder5, vector3Builder6, vector3Builder7, numberValue, dataTable, numberValue2, workValue2, vector3Builder2, numberValue3, numberValue4, numberValue5, workValue6, workValue8, workValue10, workValue11, cmgCall3, workValue12, cmgCall4, textValue2, workValue13, threadCall, vector3Builder3, cmgCall5, textValue3, numberValue10, numberValue11, numberValue12, iterator, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue19, stringHelper, flag11, flag12, flag13, workValue15, workValue16, workValue17, workValue18, workValue19
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+cmgCall2 = "cfg/cfg_garages"
+-- Beginner: result below is config.
+cmgCall = cmgCall(cmgCall2)
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.loadModule
+dataTable2 = "cfg/cfg_mechanic"
+-- Beginner: result below is config.
+cmgCall2 = cmgCall2(dataTable2)
+dataTable2 = {}
+numberValue18 = 52945046
+dataTable3 = {}
+dataTable3.type = "tow"
+vector3Builder4 = {}
+iterator2 = {}
+vector3Builder5 = vector3
+vector3Builder6 = 0.1
+vector3Builder7 = -3.42
+numberValue = 1.13
+vector3Builder5 = vector3Builder5(vector3Builder6, vector3Builder7, numberValue)
+vector3Builder6 = true
+iterator2[1] = vector3Builder5
+iterator2[2] = vector3Builder6
+vector3Builder5 = {}
+vector3Builder6 = vector3
+vector3Builder7 = -0.1
+numberValue = -3.42
+dataTable = 1.13
+vector3Builder6 = vector3Builder6(vector3Builder7, numberValue, dataTable)
+vector3Builder7 = true
+vector3Builder5[1] = vector3Builder6
+vector3Builder5[2] = vector3Builder7
+vector3Builder6 = {}
+vector3Builder7 = vector3
+numberValue = 0.0
+dataTable = -2.6
+numberValue2 = 0.2
+vector3Builder7 = vector3Builder7(numberValue, dataTable, numberValue2)
+numberValue = false
+vector3Builder6[1] = vector3Builder7
+vector3Builder6[2] = numberValue
+vector3Builder4[1] = iterator2
+vector3Builder4[2] = vector3Builder5
+vector3Builder4[3] = vector3Builder6
+dataTable3.offsets = vector3Builder4
+dataTable2[numberValue18] = dataTable3
+numberValue18 = 1355922771
+dataTable3 = {}
+dataTable3.type = "flatbed"
+dataTable3.bone = 20
+vector3Builder4 = vector3
+iterator2 = -0.7
+vector3Builder5 = -6.0
+vector3Builder6 = -0.46
+vector3Builder4 = vector3Builder4(iterator2, vector3Builder5, vector3Builder6)
+dataTable3.offset = vector3Builder4
+dataTable3.heading = -10.0
+dataTable2[numberValue18] = dataTable3
+function numberValue18(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20
+  arg2 = {}
+  arg2.type = "flatbed"
+  arg3 = arg1.bone
+  arg2.bone = arg3
+  arg3 = vector3
+  workValue14 = arg1.offset
+  workValue14 = workValue14.x
+  workValue20 = arg1.offset
+  workValue20 = workValue20.y
+  numberValue20 = arg1.offset
+  numberValue20 = numberValue20.z
+  arg3 = arg3(workValue14, workValue20, numberValue20)
+  arg2.offset = arg3
+  arg3 = arg1.heading
+  arg2.heading = arg3
+  return arg2
 end
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = {}
-  SHX2_2 = ipairs
-  SHX3_2 = SHX0_2.offsets
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX7_2[1]
-    SHX9_2 = {}
-    SHX10_2 = vector3
-    SHX11_2 = SHX8_2.x
-    SHX12_2 = SHX8_2.y
-    SHX13_2 = SHX8_2.z
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-    SHX11_2 = SHX7_2[2]
-    SHX9_2[1] = SHX10_2
-    SHX9_2[2] = SHX11_2
-    SHX1_2[SHX6_2] = SHX9_2
+function dataTable3(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3
+  arg2 = {}
+  arg3 = ipairs
+  workValue14 = arg1.offsets
+  arg3, workValue14, workValue20, numberValue20 = arg3(workValue14)
+  for workValue21, flag14 in arg3, workValue14, workValue20, numberValue20 do
+    cmgCall6 = flag14[1]
+    stringHelper2 = {}
+    vector3Builder = vector3
+    textValue = cmgCall6.x
+    workValue = cmgCall6.y
+    workValue3 = cmgCall6.z
+    vector3Builder = vector3Builder(textValue, workValue, workValue3)
+    textValue = flag14[2]
+    stringHelper2[1] = vector3Builder
+    stringHelper2[2] = textValue
+    arg2[workValue21] = stringHelper2
   end
-  SHX2_2 = {}
-  SHX2_2.type = "tow"
-  SHX2_2.offsets = SHX1_2
-  return SHX2_2
+  arg3 = {}
+  arg3.type = "tow"
+  arg3.offsets = arg2
+  return arg3
 end
-SHX5_1 = {}
-SHX6_1 = pairs
-SHX7_1 = SHX2_1
-SHX6_1, SHX7_1, SHX8_1, SHX9_1 = SHX6_1(SHX7_1)
-for SHX10_1, SHX11_1 in SHX6_1, SHX7_1, SHX8_1, SHX9_1 do
-  SHX5_1[SHX10_1] = SHX11_1
+vector3Builder4 = {}
+iterator2 = pairs
+vector3Builder5 = dataTable2
+iterator2, vector3Builder5, vector3Builder6, vector3Builder7 = iterator2(vector3Builder5)
+for numberValue, dataTable in iterator2, vector3Builder5, vector3Builder6, vector3Builder7 do
+  vector3Builder4[numberValue] = dataTable
 end
-SHX6_1 = 1355922771
-SHX6_1 = SHX2_1[SHX6_1]
-SHX7_1 = 52945046
-SHX7_1 = SHX2_1[SHX7_1]
-SHX8_1 = pairs
-SHX9_1 = SHX1_1.mechanicFlatbedModelHashes
-SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX8_1(SHX9_1)
-for SHX12_1 in SHX8_1, SHX9_1, SHX10_1, SHX11_1 do
-  SHX13_1 = SHX5_1[SHX12_1]
-  if not SHX13_1 then
-    SHX13_1 = SHX3_1
-    SHX14_1 = SHX6_1
-    SHX13_1 = SHX13_1(SHX14_1)
-    SHX5_1[SHX12_1] = SHX13_1
+iterator2 = 1355922771
+iterator2 = dataTable2[iterator2]
+vector3Builder5 = 52945046
+vector3Builder5 = dataTable2[vector3Builder5]
+vector3Builder6 = pairs
+vector3Builder7 = cmgCall2.mechanicFlatbedModelHashes
+vector3Builder6, vector3Builder7, numberValue, dataTable = vector3Builder6(vector3Builder7)
+for numberValue2 in vector3Builder6, vector3Builder7, numberValue, dataTable do
+  workValue2 = vector3Builder4[numberValue2]
+  if not workValue2 then
+    workValue2 = numberValue18
+    vector3Builder2 = iterator2
+    workValue2 = workValue2(vector3Builder2)
+    vector3Builder4[numberValue2] = workValue2
   end
 end
-SHX8_1 = pairs
-SHX9_1 = SHX1_1.mechanicTowTruckModelHashes
-SHX8_1, SHX9_1, SHX10_1, SHX11_1 = SHX8_1(SHX9_1)
-for SHX12_1 in SHX8_1, SHX9_1, SHX10_1, SHX11_1 do
-  SHX13_1 = SHX5_1[SHX12_1]
-  if not SHX13_1 then
-    SHX13_1 = SHX4_1
-    SHX14_1 = SHX7_1
-    SHX13_1 = SHX13_1(SHX14_1)
-    SHX5_1[SHX12_1] = SHX13_1
+vector3Builder6 = pairs
+vector3Builder7 = cmgCall2.mechanicTowTruckModelHashes
+vector3Builder6, vector3Builder7, numberValue, dataTable = vector3Builder6(vector3Builder7)
+for numberValue2 in vector3Builder6, vector3Builder7, numberValue, dataTable do
+  workValue2 = vector3Builder4[numberValue2]
+  if not workValue2 then
+    workValue2 = dataTable3
+    vector3Builder2 = vector3Builder5
+    workValue2 = workValue2(vector3Builder2)
+    vector3Builder4[numberValue2] = workValue2
   end
 end
-SHX8_1 = {}
-SHX8_1[13] = true
-SHX8_1[14] = true
-SHX8_1[15] = true
-SHX8_1[16] = true
-SHX8_1[21] = true
-SHX9_1 = {}
-SHX10_1 = {}
-SHX11_1 = {}
-SHX12_1 = 0
-SHX13_1 = 0
-SHX14_1 = vector3
-SHX15_1 = 389.40829467773
-SHX16_1 = -1622.1922607422
-SHX17_1 = 29.28772354126
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX15_1 = 0
-function SHX16_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX2_2 = GetVehicleClass
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX8_1
-  SHX3_2 = SHX3_2[SHX2_2]
-  if SHX3_2 then
-    SHX3_2 = false
-    return SHX3_2
+vector3Builder6 = {}
+vector3Builder6[13] = true
+vector3Builder6[14] = true
+vector3Builder6[15] = true
+vector3Builder6[16] = true
+vector3Builder6[21] = true
+vector3Builder7 = {}
+numberValue = {}
+dataTable = {}
+numberValue2 = 0
+workValue2 = 0
+vector3Builder2 = vector3
+numberValue3 = 389.40829467773
+numberValue4 = -1622.1922607422
+numberValue5 = 29.28772354126
+vector3Builder2 = vector3Builder2(numberValue3, numberValue4, numberValue5)
+numberValue3 = 0
+function numberValue4(arg1, arg2)
+  local arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue
+  arg3 = GetVehicleClass
+  workValue14 = arg1
+  arg3 = arg3(workValue14)
+  workValue14 = vector3Builder6
+  workValue14 = workValue14[arg3]
+  if workValue14 then
+    workValue14 = false
+    return workValue14
   end
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_1.garages
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2[SHX1_2]
-    if SHX9_2 then
-      SHX9_2 = string
-      SHX9_2 = SHX9_2.match
-      SHX10_2 = SHX7_2
-      SHX11_2 = "Aircraft"
-      SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-      if not SHX9_2 then
-        SHX9_2 = string
-        SHX9_2 = SHX9_2.match
-        SHX10_2 = SHX7_2
-        SHX11_2 = "Helicopters"
-        SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-        if not SHX9_2 then
-          SHX9_2 = string
-          SHX9_2 = SHX9_2.match
-          SHX10_2 = SHX7_2
-          SHX11_2 = "Boats"
-          SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-          if not SHX9_2 then
-            goto SHX_LABEL_40
+  workValue14 = pairs
+  workValue20 = cmgCall.garages
+  workValue14, workValue20, numberValue20, workValue21 = workValue14(workValue20)
+  for flag14, cmgCall6 in workValue14, workValue20, numberValue20, workValue21 do
+    stringHelper2 = cmgCall6[arg2]
+    if stringHelper2 then
+      stringHelper2 = string
+      stringHelper2 = stringHelper2.match
+      vector3Builder = flag14
+      textValue = "Aircraft"
+      stringHelper2 = stringHelper2(vector3Builder, textValue)
+      if not stringHelper2 then
+        stringHelper2 = string
+        stringHelper2 = stringHelper2.match
+        vector3Builder = flag14
+        textValue = "Helicopters"
+        stringHelper2 = stringHelper2(vector3Builder, textValue)
+        if not stringHelper2 then
+          stringHelper2 = string
+          stringHelper2 = stringHelper2.match
+          vector3Builder = flag14
+          textValue = "Boats"
+          stringHelper2 = stringHelper2(vector3Builder, textValue)
+          if not stringHelper2 then
+            goto flow_label_40
           end
         end
       end
-      SHX9_2 = false
-      return SHX9_2
+      stringHelper2 = false
+      return stringHelper2
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_40:: outside nested blocks until all 'goto SHX_LABEL_40' can see it
-    ::SHX_LABEL_40::
+    ::flow_label_40::
   end
-  SHX3_2 = true
-  return SHX3_2
+  workValue14 = true
+  return workValue14
 end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetModelDimensions
-  SHX3_2 = SHX1_2
-  SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-  SHX4_2 = SHX2_2 - SHX3_2
-  SHX4_2 = #SHX4_2
-  SHX4_2 = SHX4_2 > 10.0
-  return SHX4_2
+function numberValue5(arg1)
+  local arg2, arg3, workValue14, workValue20
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = GetModelDimensions
+  workValue14 = arg2
+  arg3, workValue14 = arg3(workValue14)
+  workValue20 = arg3 - workValue14
+  workValue20 = #workValue20
+  workValue20 = workValue20 > 10.0
+  return workValue20
 end
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetVehicleModelNumberOfSeats
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 > 0 then
-    SHX3_2 = 1
-    SHX4_2 = SHX2_2
-    SHX5_2 = 1
-    for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-      SHX7_2 = GetPedInVehicleSeat
-      SHX8_2 = SHX0_2
-      SHX9_2 = SHX6_2 - 2
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-      if 0 ~= SHX7_2 then
-        SHX7_2 = false
-        return SHX7_2
+function workValue6(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = GetVehicleModelNumberOfSeats
+  workValue14 = arg2
+  arg3 = arg3(workValue14)
+  if arg3 > 0 then
+    workValue14 = 1
+    workValue20 = arg3
+    numberValue20 = 1
+    for workValue21 = workValue14, workValue20, numberValue20 do
+      flag14 = GetPedInVehicleSeat
+      cmgCall6 = arg1
+      stringHelper2 = workValue21 - 2
+      flag14 = flag14(cmgCall6, stringHelper2)
+      if 0 ~= flag14 then
+        flag14 = false
+        return flag14
       end
     end
   end
-  SHX3_2 = true
-  return SHX3_2
+  workValue14 = true
+  return workValue14
 end
-function SHX19_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getGrindingAreas
-  SHX2_2 = SHX2_2()
-  SHX3_2 = pairs
-  SHX4_2 = SHX2_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX8_2.position
-    SHX9_2 = SHX1_2 - SHX9_2
-    SHX9_2 = #SHX9_2
-    SHX10_2 = SHX8_2.radius
-    if SHX9_2 < SHX10_2 then
-      SHX9_2 = true
-      return SHX9_2
+function workValue8(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder
+  arg2 = GetEntityCoords
+  arg3 = arg1
+  workValue14 = true
+  -- Beginner: result below is entityCoords.
+  arg2 = arg2(arg3, workValue14)
+  arg3 = CMG
+  arg3 = arg3.getGrindingAreas
+  arg3 = arg3()
+  workValue14 = pairs
+  workValue20 = arg3
+  workValue14, workValue20, numberValue20, workValue21 = workValue14(workValue20)
+  for flag14, cmgCall6 in workValue14, workValue20, numberValue20, workValue21 do
+    stringHelper2 = cmgCall6.position
+    stringHelper2 = arg2 - stringHelper2
+    stringHelper2 = #stringHelper2
+    vector3Builder = cmgCall6.radius
+    if stringHelper2 < vector3Builder then
+      stringHelper2 = true
+      return stringHelper2
     end
   end
-  SHX3_2 = false
-  return SHX3_2
+  workValue14 = false
+  return workValue14
 end
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = pairs
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getAllVehicles
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX2_2()
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = GetEntityAttachedTo
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 == SHX0_2 then
-      return SHX6_2
+function workValue10(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6
+  arg2 = pairs
+  arg3 = CMG
+  arg3 = arg3.getAllVehicles
+  arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6 = arg3()
+  arg2, arg3, workValue14, workValue20 = arg2(arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6)
+  for numberValue20, workValue21 in arg2, arg3, workValue14, workValue20 do
+    flag14 = GetEntityAttachedTo
+    cmgCall6 = workValue21
+    flag14 = flag14(cmgCall6)
+    if flag14 == arg1 then
+      return workValue21
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
+  arg2 = 0
+  return arg2
 end
-function SHX21_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX0_2
-  SHX4_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = GetEntityCoords
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = 18.0
-  SHX5_2 = 0
-  SHX6_2 = SHX1_2 + 0.01
-  SHX7_2 = pairs
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getAllVehicles
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2 = SHX8_2()
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-    if SHX12_2 ~= SHX0_2 then
-      SHX13_2 = DoesEntityExist
-      SHX14_2 = SHX12_2
-      SHX13_2 = SHX13_2(SHX14_2)
-      if SHX13_2 then
-        SHX13_2 = IsEntityAVehicle
-        SHX14_2 = SHX12_2
-        SHX13_2 = SHX13_2(SHX14_2)
-        if SHX13_2 then
-          SHX13_2 = GetEntityModel
-          SHX14_2 = SHX12_2
-          SHX13_2 = SHX13_2(SHX14_2)
-          SHX14_2 = SHX5_1
-          SHX14_2 = SHX14_2[SHX13_2]
-          if SHX14_2 then
-            SHX15_2 = GetEntityCoords
-            SHX16_2 = SHX12_2
-            SHX17_2 = true
-            SHX15_2 = SHX15_2(SHX16_2, SHX17_2)
-            SHX16_2 = SHX15_2 - SHX3_2
-            SHX16_2 = #SHX16_2
-            if SHX4_2 >= SHX16_2 then
-              SHX16_2 = SHX15_2 - SHX2_2
-              SHX16_2 = #SHX16_2
-              if SHX6_2 > SHX16_2 then
-                SHX17_2 = false
-                SHX18_2 = SHX14_2.type
-                if "flatbed" == SHX18_2 then
-                  SHX18_2 = SHX20_1
-                  SHX19_2 = SHX12_2
-                  SHX18_2 = SHX18_2(SHX19_2)
-                  SHX17_2 = 0 == SHX18_2
+function workValue11(arg1, arg2)
+  local arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9
+  arg3 = GetEntityCoords
+  workValue14 = arg1
+  workValue20 = true
+  -- Beginner: result below is entityCoords.
+  arg3 = arg3(workValue14, workValue20)
+  workValue14 = GetEntityCoords
+  workValue20 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  workValue20 = workValue20()
+  numberValue20 = true
+  -- Beginner: result below is entityCoords.
+  workValue14 = workValue14(workValue20, numberValue20)
+  workValue20 = 18.0
+  numberValue20 = 0
+  workValue21 = arg2 + 0.01
+  flag14 = pairs
+  cmgCall6 = CMG
+  cmgCall6 = cmgCall6.getAllVehicles
+  cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9 = cmgCall6()
+  flag14, cmgCall6, stringHelper2, vector3Builder = flag14(cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9)
+  for textValue, workValue in flag14, cmgCall6, stringHelper2, vector3Builder do
+    if workValue ~= arg1 then
+      workValue3 = DoesEntityExist
+      workValue4 = workValue
+      workValue3 = workValue3(workValue4)
+      if workValue3 then
+        workValue3 = IsEntityAVehicle
+        workValue4 = workValue
+        workValue3 = workValue3(workValue4)
+        if workValue3 then
+          workValue3 = GetEntityModel
+          workValue4 = workValue
+          -- Beginner: result below is modelHash.
+          workValue3 = workValue3(workValue4)
+          workValue4 = vector3Builder4
+          workValue4 = workValue4[workValue3]
+          if workValue4 then
+            coords = GetEntityCoords
+            workValue5 = workValue
+            flag = true
+            -- Beginner: result below is entityCoords.
+            coords = coords(workValue5, flag)
+            workValue5 = coords - workValue14
+            workValue5 = #workValue5
+            if workValue20 >= workValue5 then
+              workValue5 = coords - arg3
+              workValue5 = #workValue5
+              if workValue21 > workValue5 then
+                flag = false
+                workValue7 = workValue4.type
+                if "flatbed" == workValue7 then
+                  workValue7 = workValue10
+                  workValue9 = workValue
+                  workValue7 = workValue7(workValue9)
+                  flag = 0 == workValue7
                 else
-                  SHX18_2 = Entity
-                  SHX19_2 = SHX12_2
-                  SHX18_2 = SHX18_2(SHX19_2)
-                  SHX18_2 = SHX18_2.state
-                  SHX19_2 = SHX18_2.towPlayer
-                  SHX19_2 = SHX18_2.towVehicle
-                  SHX17_2 = not SHX19_2 and SHX17_2
+                  workValue7 = Entity
+                  workValue9 = workValue
+                  workValue7 = workValue7(workValue9)
+                  workValue7 = workValue7.state
+                  workValue9 = workValue7.towPlayer
+                  workValue9 = workValue7.towVehicle
+                  flag = not workValue9 and flag
                 end
-                if SHX17_2 then
-                  SHX6_2 = SHX16_2
-                  SHX5_2 = SHX12_2
+                if flag then
+                  workValue21 = workValue5
+                  numberValue20 = workValue
                 end
               end
             end
@@ -416,2009 +424,1791 @@ function SHX21_1(SHX0_2, SHX1_2)
       end
     end
   end
-  return SHX5_2
+  return numberValue20
 end
-SHX22_1 = CMG
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasClientPermission
-  SHX2_2 = "aa.onduty.permission"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = notify
-    SHX2_2 = "~r~Clock on as mechanic first."
-    SHX1_2(SHX2_2)
+cmgCall3 = CMG
+function workValue12(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue
+  arg2 = CMG
+  arg2 = arg2.hasClientPermission
+  arg3 = "aa.onduty.permission"
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = notify
+    arg3 = "~r~Clock on as mechanic first."
+    -- Beginner: Show a notification to the player.
+    arg2(arg3)
     return
   end
-  if SHX0_2 and 0 ~= SHX0_2 then
-    SHX1_2 = DoesEntityExist
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = IsEntityAVehicle
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if SHX1_2 then
-        goto SHX_LABEL_26
+  if arg1 and 0 ~= arg1 then
+    arg2 = DoesEntityExist
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = IsEntityAVehicle
+      arg3 = arg1
+      arg2 = arg2(arg3)
+      if arg2 then
+        goto flow_label_26
       end
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_26:: outside nested blocks until all 'goto SHX_LABEL_26' can see it
-  ::SHX_LABEL_26::
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX5_1
-  SHX1_2 = SHX2_2[SHX1_2]
-  if SHX1_2 then
-    SHX1_2 = notify
-    SHX2_2 = "~b~Use this on the vehicle you want to tow, not on your flatbed or tow truck."
-    SHX1_2(SHX2_2)
+  ::flow_label_26::
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = vector3Builder4
+  arg2 = arg3[arg2]
+  if arg2 then
+    arg2 = notify
+    arg3 = "~b~Use this on the vehicle you want to tow, not on your flatbed or tow truck."
+    arg2(arg3)
     return
   end
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getVehicleIdFromModel
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX16_1
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if SHX3_2 then
-    SHX3_2 = SHX18_1
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      SHX3_2 = SHX17_1
-      SHX4_2 = SHX0_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        goto SHX_LABEL_64
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = CMG
+  arg3 = arg3.getVehicleIdFromModel
+  workValue14 = arg2
+  arg3 = arg3(workValue14)
+  workValue14 = numberValue4
+  workValue20 = arg1
+  numberValue20 = arg3
+  workValue14 = workValue14(workValue20, numberValue20)
+  if workValue14 then
+    workValue14 = workValue6
+    workValue20 = arg1
+    workValue14 = workValue14(workValue20)
+    if workValue14 then
+      workValue14 = numberValue5
+      workValue20 = arg1
+      workValue14 = workValue14(workValue20)
+      if not workValue14 then
+        goto flow_label_64
       end
     end
   end
-  SHX3_2 = notify
-  SHX4_2 = "~r~This vehicle cannot be towed."
-  SHX3_2(SHX4_2)
+  workValue14 = notify
+  workValue20 = "~r~This vehicle cannot be towed."
+  -- Beginner: Show a notification to the player.
+  workValue14(workValue20)
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_64:: outside nested blocks until all 'goto SHX_LABEL_64' can see it
-  ::SHX_LABEL_64::
-  SHX3_2 = SHX19_1
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = notify
-    SHX4_2 = "~r~You can not tow vehicles near a grinding area."
-    SHX3_2(SHX4_2)
+  ::flow_label_64::
+  workValue14 = workValue8
+  workValue20 = arg1
+  workValue14 = workValue14(workValue20)
+  if workValue14 then
+    workValue14 = notify
+    workValue20 = "~r~You can not tow vehicles near a grinding area."
+    workValue14(workValue20)
     return
   end
-  SHX3_2 = GetVehicleEngineHealth
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = 925.0
-  if SHX3_2 >= SHX4_2 then
-    SHX3_2 = GetVehicleBodyHealth
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = 925.0
-    if SHX3_2 >= SHX4_2 then
-      SHX3_2 = notify
-      SHX4_2 = "~r~Only vehicles which are damaged can be towed."
-      SHX3_2(SHX4_2)
+  workValue14 = GetVehicleEngineHealth
+  workValue20 = arg1
+  workValue14 = workValue14(workValue20)
+  workValue20 = 925.0
+  if workValue14 >= workValue20 then
+    workValue14 = GetVehicleBodyHealth
+    workValue20 = arg1
+    workValue14 = workValue14(workValue20)
+    workValue20 = 925.0
+    if workValue14 >= workValue20 then
+      workValue14 = notify
+      workValue20 = "~r~Only vehicles which are damaged can be towed."
+      -- Beginner: Show a notification to the player.
+      workValue14(workValue20)
       return
     end
   end
-  SHX3_2 = SHX21_1
-  SHX4_2 = SHX0_2
-  SHX5_2 = 10.0
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if 0 == SHX3_2 then
-    SHX4_2 = notify
-    SHX5_2 = "~r~No free flatbed/tow truck found. Park yours within ~10m of this car and stand near your rig."
-    SHX4_2(SHX5_2)
+  workValue14 = workValue11
+  workValue20 = arg1
+  numberValue20 = 10.0
+  workValue14 = workValue14(workValue20, numberValue20)
+  if 0 == workValue14 then
+    workValue20 = notify
+    numberValue20 = "~r~No free flatbed/tow truck found. Park yours within ~10m of this car and stand near your rig."
+    workValue20(numberValue20)
     return
   end
-  SHX4_2 = NetworkGetNetworkIdFromEntity
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = NetworkGetNetworkIdFromEntity
-  SHX6_2 = SHX0_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if 0 == SHX4_2 or 0 == SHX5_2 then
-    SHX6_2 = notify
-    SHX7_2 = "~r~Couldn't sync the hook. Try again."
-    SHX6_2(SHX7_2)
+  workValue20 = NetworkGetNetworkIdFromEntity
+  numberValue20 = workValue14
+  workValue20 = workValue20(numberValue20)
+  numberValue20 = NetworkGetNetworkIdFromEntity
+  workValue21 = arg1
+  numberValue20 = numberValue20(workValue21)
+  if 0 == workValue20 or 0 == numberValue20 then
+    workValue21 = notify
+    flag14 = "~r~Couldn't sync the hook. Try again."
+    -- Beginner: Show a notification to the player.
+    workValue21(flag14)
     return
   end
-  SHX6_2 = GetEntityModel
-  SHX7_2 = SHX3_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = SHX5_1
-  SHX7_2 = SHX7_2[SHX6_2]
-  SHX8_2 = TriggerServerEvent
-  SHX9_2 = "53b5afb511"
-  SHX8_2(SHX9_2)
-  SHX8_2 = SHX7_2.type
-  if "flatbed" == SHX8_2 then
-    SHX8_2 = TriggerServerEvent
-    SHX9_2 = "3853938b46"
-    SHX10_2 = SHX4_2
-    SHX11_2 = SHX5_2
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX8_2 = notify
-    SHX9_2 = "~g~On the bed."
-    SHX8_2(SHX9_2)
+  workValue21 = GetEntityModel
+  flag14 = workValue14
+  -- Beginner: result below is modelHash.
+  workValue21 = workValue21(flag14)
+  flag14 = vector3Builder4
+  flag14 = flag14[workValue21]
+  cmgCall6 = TriggerServerEvent
+  stringHelper2 = "53b5afb511"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "53b5afb511".
+  cmgCall6(stringHelper2)
+  cmgCall6 = flag14.type
+  if "flatbed" == cmgCall6 then
+    cmgCall6 = TriggerServerEvent
+    stringHelper2 = "3853938b46"
+    vector3Builder = workValue20
+    textValue = numberValue20
+    cmgCall6(stringHelper2, vector3Builder, textValue)
+    cmgCall6 = notify
+    stringHelper2 = "~g~On the bed."
+    -- Beginner: Show a notification to the player.
+    cmgCall6(stringHelper2)
   else
-    SHX8_2 = notify
-    SHX9_2 = "This requires a flat bed truck, not a tow truck"
-    SHX8_2(SHX9_2)
+    cmgCall6 = notify
+    stringHelper2 = "This requires a flat bed truck, not a tow truck"
+    cmgCall6(stringHelper2)
   end
 end
-SHX22_1.tryMechanicAttachFromTargetVehicle = SHX23_1
-function SHX22_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SHX20_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 == SHX1_2 then
-    SHX2_2 = notify
-    SHX3_2 = "~r~Bed's empty."
-    SHX2_2(SHX3_2)
+cmgCall3.tryMechanicAttachFromTargetVehicle = workValue12
+function cmgCall3(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20
+  arg2 = workValue10
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if 0 == arg2 then
+    arg3 = notify
+    workValue14 = "~r~Bed's empty."
+    -- Beginner: Show a notification to the player.
+    arg3(workValue14)
     return
   end
-  SHX2_2 = NetworkGetNetworkIdFromEntity
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 ~= SHX2_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "af80ba4ef6"
-    SHX5_2 = SHX2_2
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "53b5afb511"
-    SHX3_2(SHX4_2)
-    SHX3_2 = notify
-    SHX4_2 = "~g~Off the bed."
-    SHX3_2(SHX4_2)
+  arg3 = NetworkGetNetworkIdFromEntity
+  workValue14 = arg2
+  arg3 = arg3(workValue14)
+  if 0 ~= arg3 then
+    workValue14 = TriggerServerEvent
+    workValue20 = "af80ba4ef6"
+    numberValue20 = arg3
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "af80ba4ef6".
+    workValue14(workValue20, numberValue20)
+    workValue14 = TriggerServerEvent
+    workValue20 = "53b5afb511"
+    workValue14(workValue20)
+    workValue14 = notify
+    workValue20 = "~g~Off the bed."
+    -- Beginner: Show a notification to the player.
+    workValue14(workValue20)
   end
 end
-function SHX23_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = Entity
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = SHX1_2.state
-  SHX1_2 = SHX1_2.towVehicle
-  if not SHX1_2 then
-    SHX1_2 = notify
-    SHX2_2 = "~r~Nothing on the hook."
-    SHX1_2(SHX2_2)
+function workValue12(arg1)
+  local arg2, arg3, workValue14, workValue20
+  arg2 = Entity
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = arg2.state
+  arg2 = arg2.towVehicle
+  if not arg2 then
+    arg2 = notify
+    arg3 = "~r~Nothing on the hook."
+    arg2(arg3)
     return
   end
-  SHX1_2 = NetworkGetNetworkIdFromEntity
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "0caaa03da5"
-    SHX4_2 = SHX1_2
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = TriggerServerEvent
-    SHX3_2 = "53b5afb511"
-    SHX2_2(SHX3_2)
-    SHX2_2 = notify
-    SHX3_2 = "~g~Off the hook."
-    SHX2_2(SHX3_2)
+  arg2 = NetworkGetNetworkIdFromEntity
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if 0 ~= arg2 then
+    arg3 = TriggerServerEvent
+    workValue14 = "0caaa03da5"
+    workValue20 = arg2
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0caaa03da5".
+    arg3(workValue14, workValue20)
+    arg3 = TriggerServerEvent
+    workValue14 = "53b5afb511"
+    arg3(workValue14)
+    arg3 = notify
+    workValue14 = "~g~Off the hook."
+    -- Beginner: Show a notification to the player.
+    arg3(workValue14)
   end
 end
-SHX24_1 = CMG
-function SHX25_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasClientPermission
-  SHX2_2 = "aa.onduty.permission"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = notify
-    SHX2_2 = "~r~Clock on as mechanic first."
-    SHX1_2(SHX2_2)
+cmgCall4 = CMG
+function textValue2(arg1)
+  local arg2, arg3, workValue14, workValue20
+  arg2 = CMG
+  arg2 = arg2.hasClientPermission
+  arg3 = "aa.onduty.permission"
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = notify
+    arg3 = "~r~Clock on as mechanic first."
+    arg2(arg3)
     return
   end
-  SHX1_2 = GetEntityModel
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX5_1
-  SHX2_2 = SHX2_2[SHX1_2]
-  if not SHX2_2 then
-    SHX3_2 = notify
-    SHX4_2 = "~r~That's not a job tow rig."
-    SHX3_2(SHX4_2)
+  arg2 = GetEntityModel
+  arg3 = arg1
+  -- Beginner: result below is modelHash.
+  arg2 = arg2(arg3)
+  arg3 = vector3Builder4
+  arg3 = arg3[arg2]
+  if not arg3 then
+    workValue14 = notify
+    workValue20 = "~r~That's not a job tow rig."
+    -- Beginner: Show a notification to the player.
+    workValue14(workValue20)
     return
   end
-  SHX3_2 = SHX2_2.type
-  if "tow" == SHX3_2 then
-    SHX3_2 = SHX23_1
-    SHX4_2 = SHX0_2
-    SHX3_2(SHX4_2)
+  workValue14 = arg3.type
+  if "tow" == workValue14 then
+    workValue14 = workValue12
+    workValue20 = arg1
+    workValue14(workValue20)
   else
-    SHX3_2 = SHX22_1
-    SHX4_2 = SHX0_2
-    SHX3_2(SHX4_2)
+    workValue14 = cmgCall3
+    workValue20 = arg1
+    workValue14(workValue20)
   end
 end
-SHX24_1.detachTowedVehicle = SHX25_1
-SHX24_1 = RegisterNetEvent
-SHX25_1 = "3853938b46"
-function SHX26_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = NetworkDoesNetworkIdExist
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_12
+cmgCall4.detachTowedVehicle = textValue2
+cmgCall4 = RegisterNetEvent
+textValue2 = "3853938b46"
+-- Beginner: this function handles network event "3853938b46".
+function workValue13(arg1, arg2)
+  local arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4
+  arg3 = NetworkDoesNetworkIdExist
+  workValue14 = arg1
+  arg3 = arg3(workValue14)
+  if arg3 then
+    arg3 = NetworkDoesNetworkIdExist
+    workValue14 = arg2
+    arg3 = arg3(workValue14)
+    if arg3 then
+      goto flow_label_12
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX2_2 = NetworkGetEntityFromNetworkId
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = NetworkGetEntityFromNetworkId
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX2_2 or 0 == SHX3_2 then
+  ::flow_label_12::
+  arg3 = NetworkGetEntityFromNetworkId
+  workValue14 = arg1
+  arg3 = arg3(workValue14)
+  workValue14 = NetworkGetEntityFromNetworkId
+  workValue20 = arg2
+  workValue14 = workValue14(workValue20)
+  if 0 == arg3 or 0 == workValue14 then
     return
   end
-  SHX4_2 = GetEntityModel
-  SHX5_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = SHX5_1
-  SHX5_2 = SHX5_2[SHX4_2]
-  if not SHX5_2 then
+  workValue20 = GetEntityModel
+  numberValue20 = arg3
+  -- Beginner: result below is modelHash.
+  workValue20 = workValue20(numberValue20)
+  numberValue20 = vector3Builder4
+  numberValue20 = numberValue20[workValue20]
+  if not numberValue20 then
     return
   end
-  SHX6_2 = NetworkHasControlOfEntity
-  SHX7_2 = SHX3_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  if SHX6_2 then
-    SHX6_2 = GetEntityAttachedTo
-    SHX7_2 = SHX3_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if SHX6_2 ~= SHX2_2 then
-      SHX6_2 = DecorSetBool
-      SHX7_2 = SHX3_2
-      SHX8_2 = "6b6dade745"
-      SHX9_2 = true
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-      SHX6_2 = GetModelDimensions
-      SHX7_2 = SHX4_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      SHX7_2 = SHX5_2.heading
-      if not SHX7_2 then
-        SHX7_2 = 0.0
+  workValue21 = NetworkHasControlOfEntity
+  flag14 = workValue14
+  workValue21 = workValue21(flag14)
+  if workValue21 then
+    workValue21 = GetEntityAttachedTo
+    flag14 = workValue14
+    workValue21 = workValue21(flag14)
+    if workValue21 ~= arg3 then
+      workValue21 = DecorSetBool
+      flag14 = workValue14
+      cmgCall6 = "6b6dade745"
+      stringHelper2 = true
+      workValue21(flag14, cmgCall6, stringHelper2)
+      workValue21 = GetModelDimensions
+      flag14 = workValue20
+      workValue21 = workValue21(flag14)
+      flag14 = numberValue20.heading
+      if not flag14 then
+        flag14 = 0.0
       end
-      SHX8_2 = AttachEntityToEntity
-      SHX9_2 = SHX3_2
-      SHX10_2 = SHX2_2
-      SHX11_2 = SHX5_2.bone
-      SHX12_2 = SHX5_2.offset
-      SHX12_2 = SHX12_2.x
-      SHX13_2 = SHX5_2.offset
-      SHX13_2 = SHX13_2.y
-      SHX14_2 = math
-      SHX14_2 = SHX14_2.abs
-      SHX15_2 = SHX6_2.z
-      SHX14_2 = SHX14_2(SHX15_2)
-      SHX15_2 = SHX5_2.offset
-      SHX15_2 = SHX15_2.z
-      SHX14_2 = SHX14_2 + SHX15_2
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = SHX7_2
-      SHX18_2 = false
-      SHX19_2 = false
-      SHX20_2 = false
-      SHX21_2 = false
-      SHX22_2 = 0
-      SHX23_2 = true
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
+      cmgCall6 = AttachEntityToEntity
+      stringHelper2 = workValue14
+      vector3Builder = arg3
+      textValue = numberValue20.bone
+      workValue = numberValue20.offset
+      workValue = workValue.x
+      workValue3 = numberValue20.offset
+      workValue3 = workValue3.y
+      workValue4 = math
+      workValue4 = workValue4.abs
+      coords = workValue21.z
+      workValue4 = workValue4(coords)
+      coords = numberValue20.offset
+      coords = coords.z
+      workValue4 = workValue4 + coords
+      coords = 0.0
+      workValue5 = 0.0
+      flag = flag14
+      workValue7 = false
+      workValue9 = false
+      flag2 = false
+      flag3 = false
+      numberValue6 = 0
+      flag4 = true
+      -- Beginner: Attach one entity to another entity.
+      cmgCall6(stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4)
     end
   end
 end
-SHX24_1(SHX25_1, SHX26_1)
-SHX24_1 = RegisterNetEvent
-SHX25_1 = "af80ba4ef6"
-function SHX26_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = NetworkDoesNetworkIdExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3853938b46".
+cmgCall4(textValue2, workValue13)
+cmgCall4 = RegisterNetEvent
+textValue2 = "af80ba4ef6"
+-- Beginner: this function handles network event "af80ba4ef6".
+function workValue13(arg1)
+  local arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue
+  arg2 = NetworkDoesNetworkIdExist
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if not arg2 then
     return
   end
-  SHX1_2 = NetworkGetEntityFromNetworkId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 == SHX1_2 then
+  arg2 = NetworkGetEntityFromNetworkId
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if 0 == arg2 then
     return
   end
-  SHX2_2 = GetEntityAttachedTo
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
+  arg3 = GetEntityAttachedTo
+  workValue14 = arg2
+  arg3 = arg3(workValue14)
+  if 0 == arg3 then
     return
   end
-  SHX3_2 = GetOffsetFromEntityInWorldCoords
-  SHX4_2 = SHX2_2
-  SHX5_2 = 3.5
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = DetachEntity
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX7_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SetEntityCoordsNoOffset
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX3_2.x
-  SHX7_2 = SHX3_2.y
-  SHX8_2 = SHX3_2.z
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX4_2 = SetVehicleOnGroundProperly
-  SHX5_2 = SHX1_2
-  SHX4_2(SHX5_2)
+  workValue14 = GetOffsetFromEntityInWorldCoords
+  workValue20 = arg3
+  numberValue20 = 3.5
+  workValue21 = 0.0
+  flag14 = 0.0
+  workValue14 = workValue14(workValue20, numberValue20, workValue21, flag14)
+  workValue20 = DetachEntity
+  numberValue20 = arg2
+  workValue21 = true
+  flag14 = true
+  workValue20(numberValue20, workValue21, flag14)
+  workValue20 = SetEntityCoordsNoOffset
+  numberValue20 = arg2
+  workValue21 = workValue14.x
+  flag14 = workValue14.y
+  cmgCall6 = workValue14.z
+  stringHelper2 = false
+  vector3Builder = false
+  textValue = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  workValue20(numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue)
+  workValue20 = SetVehicleOnGroundProperly
+  numberValue20 = arg2
+  workValue20(numberValue20)
 end
-SHX24_1(SHX25_1, SHX26_1)
-function SHX24_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2
-  SHX3_2 = SHX9_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  if SHX3_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "af80ba4ef6".
+cmgCall4(textValue2, workValue13)
+function cmgCall4(arg1, arg2, arg3)
+  local workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9, flag10
+  workValue14 = vector3Builder7
+  workValue14 = workValue14[arg1]
+  if workValue14 then
     return
   end
-  SHX3_2 = GetEntityModel
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX5_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if not SHX4_2 then
+  workValue14 = GetEntityModel
+  workValue20 = arg1
+  -- Beginner: result below is modelHash.
+  workValue14 = workValue14(workValue20)
+  workValue20 = vector3Builder4
+  workValue20 = workValue20[workValue14]
+  if not workValue20 then
     return
   end
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.clientGetUserIdFromSource
-  SHX6_2 = SHX1_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if not SHX5_2 then
+  numberValue20 = CMG
+  numberValue20 = numberValue20.clientGetUserIdFromSource
+  workValue21 = arg2
+  -- Beginner: result below is userId.
+  numberValue20 = numberValue20(workValue21)
+  if not numberValue20 then
     return
   end
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getJobType
-  SHX7_2 = SHX5_2
-  SHX6_2, SHX7_2 = SHX6_2(SHX7_2)
-  if "Mechanic" ~= SHX7_2 then
+  workValue21 = CMG
+  workValue21 = workValue21.getJobType
+  flag14 = numberValue20
+  workValue21, flag14 = workValue21(flag14)
+  if "Mechanic" ~= flag14 then
     return
   end
-  SHX8_2 = {}
-  SHX9_2 = pairs
-  SHX10_2 = SHX4_2.offsets
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-  for SHX13_2, SHX14_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-    SHX15_2 = AddRope
-    SHX16_2 = 0.0
-    SHX17_2 = 0.0
-    SHX18_2 = 0.0
-    SHX19_2 = 0.0
-    SHX20_2 = 0.0
-    SHX21_2 = 0.0
-    SHX22_2 = 4.0
-    SHX23_2 = 1
-    SHX24_2 = 20.0
-    SHX25_2 = 0.0
-    SHX26_2 = 0.0
-    SHX27_2 = false
-    SHX28_2 = true
-    SHX29_2 = false
-    SHX30_2 = 1.0
-    SHX31_2 = false
-    SHX15_2 = SHX15_2(SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2)
-    SHX16_2 = SHX14_2[2]
-    if not SHX16_2 then
-      SHX16_2 = Citizen
-      SHX16_2 = SHX16_2.InvokeNative
-      SHX17_2 = 4253485061045133164
-      SHX18_2 = Citizen
-      SHX18_2 = SHX18_2.PointerValueIntInitialized
-      SHX19_2 = SHX15_2
-      SHX18_2 = SHX18_2(SHX19_2)
-      SHX19_2 = false
-      SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-      SHX16_2 = RopeDrawShadowEnabled
-      SHX17_2 = SHX15_2
-      SHX18_2 = false
-      SHX16_2(SHX17_2, SHX18_2)
+  cmgCall6 = {}
+  stringHelper2 = pairs
+  vector3Builder = workValue20.offsets
+  stringHelper2, vector3Builder, textValue, workValue = stringHelper2(vector3Builder)
+  for workValue3, workValue4 in stringHelper2, vector3Builder, textValue, workValue do
+    coords = AddRope
+    workValue5 = 0.0
+    flag = 0.0
+    workValue7 = 0.0
+    workValue9 = 0.0
+    flag2 = 0.0
+    flag3 = 0.0
+    numberValue6 = 4.0
+    flag4 = 1
+    numberValue7 = 20.0
+    numberValue8 = 0.0
+    numberValue9 = 0.0
+    flag5 = false
+    flag6 = true
+    flag7 = false
+    flag8 = 1.0
+    flag9 = false
+    coords = coords(workValue5, flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9)
+    workValue5 = workValue4[2]
+    if not workValue5 then
+      workValue5 = Citizen
+      workValue5 = workValue5.InvokeNative
+      flag = 4253485061045133164
+      workValue7 = Citizen
+      workValue7 = workValue7.PointerValueIntInitialized
+      workValue9 = coords
+      workValue7 = workValue7(workValue9)
+      workValue9 = false
+      workValue5(flag, workValue7, workValue9)
+      workValue5 = RopeDrawShadowEnabled
+      flag = coords
+      workValue7 = false
+      workValue5(flag, workValue7)
     end
-    SHX16_2 = GetWorldPositionOfEntityBone
-    SHX17_2 = SHX2_2
-    SHX18_2 = GetPedBoneIndex
-    SHX19_2 = SHX2_2
-    SHX20_2 = 57005
-    SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2 = SHX18_2(SHX19_2, SHX20_2)
-    SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2)
-    SHX17_2 = GetOffsetFromEntityInWorldCoords
-    SHX18_2 = SHX0_2
-    SHX19_2 = SHX14_2[1]
-    SHX19_2 = SHX19_2.x
-    SHX20_2 = SHX14_2[1]
-    SHX20_2 = SHX20_2.y
-    SHX21_2 = SHX14_2[1]
-    SHX21_2 = SHX21_2.z
-    SHX17_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX18_2 = AttachEntitiesToRope
-    SHX19_2 = SHX15_2
-    SHX20_2 = SHX2_2
-    SHX21_2 = SHX0_2
-    SHX22_2 = SHX16_2.x
-    SHX23_2 = SHX16_2.y
-    SHX24_2 = SHX16_2.z
-    SHX25_2 = SHX17_2.x
-    SHX26_2 = SHX17_2.y
-    SHX27_2 = SHX17_2.z
-    SHX28_2 = 20.0
-    SHX29_2 = true
-    SHX30_2 = true
-    SHX31_2 = nil
-    SHX32_2 = nil
-    SHX18_2(SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2)
-    SHX18_2 = table
-    SHX18_2 = SHX18_2.insert
-    SHX19_2 = SHX8_2
-    SHX20_2 = SHX15_2
-    SHX18_2(SHX19_2, SHX20_2)
+    workValue5 = GetWorldPositionOfEntityBone
+    flag = arg3
+    workValue7 = GetPedBoneIndex
+    workValue9 = arg3
+    flag2 = 57005
+    workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9, flag10 = workValue7(workValue9, flag2)
+    workValue5 = workValue5(flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9, flag10)
+    flag = GetOffsetFromEntityInWorldCoords
+    workValue7 = arg1
+    workValue9 = workValue4[1]
+    workValue9 = workValue9.x
+    flag2 = workValue4[1]
+    flag2 = flag2.y
+    flag3 = workValue4[1]
+    flag3 = flag3.z
+    flag = flag(workValue7, workValue9, flag2, flag3)
+    workValue7 = AttachEntitiesToRope
+    workValue9 = coords
+    flag2 = arg3
+    flag3 = arg1
+    numberValue6 = workValue5.x
+    flag4 = workValue5.y
+    numberValue7 = workValue5.z
+    numberValue8 = flag.x
+    numberValue9 = flag.y
+    flag5 = flag.z
+    flag6 = 20.0
+    flag7 = true
+    flag8 = true
+    flag9 = nil
+    flag10 = nil
+    workValue7(workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9, flag10)
+    workValue7 = table
+    workValue7 = workValue7.insert
+    workValue9 = cmgCall6
+    flag2 = coords
+    workValue7(workValue9, flag2)
   end
-  SHX9_2 = SHX9_1
-  SHX9_2[SHX0_2] = SHX8_2
+  stringHelper2 = vector3Builder7
+  stringHelper2[arg1] = cmgCall6
 end
-function SHX25_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2
-  SHX3_2 = SHX10_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  if SHX3_2 then
+function textValue2(arg1, arg2, arg3)
+  local workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9, flag10
+  workValue14 = numberValue
+  workValue14 = workValue14[arg1]
+  if workValue14 then
     return
   end
-  SHX3_2 = GetEntityModel
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SHX5_1
-  SHX4_2 = SHX4_2[SHX3_2]
-  if not SHX4_2 then
+  workValue14 = GetEntityModel
+  workValue20 = arg1
+  -- Beginner: result below is modelHash.
+  workValue14 = workValue14(workValue20)
+  workValue20 = vector3Builder4
+  workValue20 = workValue20[workValue14]
+  if not workValue20 then
     return
   end
-  SHX5_2 = DecorExistOn
-  SHX6_2 = SHX1_2
-  SHX7_2 = "6b6dade745"
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  if not SHX5_2 then
-    SHX5_2 = NetworkHasControlOfEntity
-    SHX6_2 = SHX1_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if SHX5_2 then
-      SHX5_2 = DecorSetBool
-      SHX6_2 = SHX1_2
-      SHX7_2 = "6b6dade745"
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+  numberValue20 = DecorExistOn
+  workValue21 = arg2
+  flag14 = "6b6dade745"
+  numberValue20 = numberValue20(workValue21, flag14)
+  if not numberValue20 then
+    numberValue20 = NetworkHasControlOfEntity
+    workValue21 = arg2
+    numberValue20 = numberValue20(workValue21)
+    if numberValue20 then
+      numberValue20 = DecorSetBool
+      workValue21 = arg2
+      flag14 = "6b6dade745"
+      cmgCall6 = true
+      numberValue20(workValue21, flag14, cmgCall6)
     end
   end
-  SHX5_2 = {}
-  SHX6_2 = pairs
-  SHX7_2 = SHX4_2.offsets
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-  for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-    SHX12_2 = GetOffsetFromEntityInWorldCoords
-    SHX13_2 = SHX1_2
-    SHX14_2 = SHX2_2.x
-    SHX15_2 = SHX2_2.y
-    SHX16_2 = SHX2_2.z
-    SHX12_2 = SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX13_2 = GetOffsetFromEntityInWorldCoords
-    SHX14_2 = SHX0_2
-    SHX15_2 = SHX11_2[1]
-    SHX15_2 = SHX15_2.x
-    SHX16_2 = SHX11_2[1]
-    SHX16_2 = SHX16_2.y
-    SHX17_2 = SHX11_2[1]
-    SHX17_2 = SHX17_2.z
-    SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX14_2 = SHX12_2 - SHX13_2
-    SHX14_2 = #SHX14_2
-    SHX15_2 = SHX11_2[2]
-    if SHX15_2 then
-      SHX15_2 = 0.6
-      if SHX15_2 then
-        goto SHX_LABEL_61
+  numberValue20 = {}
+  workValue21 = pairs
+  flag14 = workValue20.offsets
+  workValue21, flag14, cmgCall6, stringHelper2 = workValue21(flag14)
+  for vector3Builder, textValue in workValue21, flag14, cmgCall6, stringHelper2 do
+    workValue = GetOffsetFromEntityInWorldCoords
+    workValue3 = arg2
+    workValue4 = arg3.x
+    coords = arg3.y
+    workValue5 = arg3.z
+    workValue = workValue(workValue3, workValue4, coords, workValue5)
+    workValue3 = GetOffsetFromEntityInWorldCoords
+    workValue4 = arg1
+    coords = textValue[1]
+    coords = coords.x
+    workValue5 = textValue[1]
+    workValue5 = workValue5.y
+    flag = textValue[1]
+    flag = flag.z
+    workValue3 = workValue3(workValue4, coords, workValue5, flag)
+    workValue4 = workValue - workValue3
+    workValue4 = #workValue4
+    coords = textValue[2]
+    if coords then
+      coords = 0.6
+      if coords then
+        goto flow_label_61
       end
     end
-    SHX15_2 = 1.2
-    -- [FIX IF ERROR] Move ::SHX_LABEL_61:: outside nested blocks until all 'goto SHX_LABEL_61' can see it
-    ::SHX_LABEL_61::
-    SHX16_2 = AddRope
-    SHX17_2 = 0.0
-    SHX18_2 = 0.0
-    SHX19_2 = 0.0
-    SHX20_2 = 0.0
-    SHX21_2 = 0.0
-    SHX22_2 = 0.0
-    SHX23_2 = 4.0
-    SHX24_2 = 1
-    SHX25_2 = SHX14_2
-    SHX26_2 = SHX15_2
-    SHX27_2 = 0.2
-    SHX28_2 = false
-    SHX29_2 = true
-    SHX30_2 = false
-    SHX31_2 = 1.0
-    SHX32_2 = false
-    SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2)
-    SHX17_2 = Citizen
-    SHX17_2 = SHX17_2.InvokeNative
-    SHX18_2 = 8620873403488097103
-    SHX19_2 = SHX16_2
-    SHX20_2 = true
-    SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-    SHX17_2 = SHX11_2[2]
-    if not SHX17_2 then
-      SHX17_2 = Citizen
-      SHX17_2 = SHX17_2.InvokeNative
-      SHX18_2 = 4253485061045133164
-      SHX19_2 = Citizen
-      SHX19_2 = SHX19_2.PointerValueIntInitialized
-      SHX20_2 = SHX16_2
-      SHX19_2 = SHX19_2(SHX20_2)
-      SHX20_2 = false
-      SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-      SHX17_2 = RopeDrawShadowEnabled
-      SHX18_2 = SHX16_2
-      SHX19_2 = false
-      SHX17_2(SHX18_2, SHX19_2)
+    coords = 1.2
+    ::flow_label_61::
+    workValue5 = AddRope
+    flag = 0.0
+    workValue7 = 0.0
+    workValue9 = 0.0
+    flag2 = 0.0
+    flag3 = 0.0
+    numberValue6 = 0.0
+    flag4 = 4.0
+    numberValue7 = 1
+    numberValue8 = workValue4
+    numberValue9 = coords
+    flag5 = 0.2
+    flag6 = false
+    flag7 = true
+    flag8 = false
+    flag9 = 1.0
+    flag10 = false
+    workValue5 = workValue5(flag, workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9, flag10)
+    flag = Citizen
+    flag = flag.InvokeNative
+    workValue7 = 8620873403488097103
+    workValue9 = workValue5
+    flag2 = true
+    flag(workValue7, workValue9, flag2)
+    flag = textValue[2]
+    if not flag then
+      flag = Citizen
+      flag = flag.InvokeNative
+      workValue7 = 4253485061045133164
+      workValue9 = Citizen
+      workValue9 = workValue9.PointerValueIntInitialized
+      flag2 = workValue5
+      workValue9 = workValue9(flag2)
+      flag2 = false
+      flag(workValue7, workValue9, flag2)
+      flag = RopeDrawShadowEnabled
+      workValue7 = workValue5
+      workValue9 = false
+      flag(workValue7, workValue9)
     end
-    SHX17_2 = AttachEntitiesToRope
-    SHX18_2 = SHX16_2
-    SHX19_2 = SHX1_2
-    SHX20_2 = SHX0_2
-    SHX21_2 = SHX12_2.x
-    SHX22_2 = SHX12_2.y
-    SHX23_2 = SHX12_2.z
-    SHX24_2 = SHX13_2.x
-    SHX25_2 = SHX13_2.y
-    SHX26_2 = SHX13_2.z
-    SHX27_2 = SHX14_2
-    SHX28_2 = true
-    SHX29_2 = true
-    SHX30_2 = nil
-    SHX31_2 = nil
-    SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2)
-    SHX17_2 = StartRopeWinding
-    SHX18_2 = SHX16_2
-    SHX17_2(SHX18_2)
-    SHX17_2 = table
-    SHX17_2 = SHX17_2.insert
-    SHX18_2 = SHX5_2
-    SHX19_2 = SHX16_2
-    SHX17_2(SHX18_2, SHX19_2)
+    flag = AttachEntitiesToRope
+    workValue7 = workValue5
+    workValue9 = arg2
+    flag2 = arg1
+    flag3 = workValue.x
+    numberValue6 = workValue.y
+    flag4 = workValue.z
+    numberValue7 = workValue3.x
+    numberValue8 = workValue3.y
+    numberValue9 = workValue3.z
+    flag5 = workValue4
+    flag6 = true
+    flag7 = true
+    flag8 = nil
+    flag9 = nil
+    flag(workValue7, workValue9, flag2, flag3, numberValue6, flag4, numberValue7, numberValue8, numberValue9, flag5, flag6, flag7, flag8, flag9)
+    flag = StartRopeWinding
+    workValue7 = workValue5
+    flag(workValue7)
+    flag = table
+    flag = flag.insert
+    workValue7 = numberValue20
+    workValue9 = workValue5
+    flag(workValue7, workValue9)
   end
-  SHX6_2 = SHX10_1
-  SHX6_2[SHX0_2] = SHX5_2
+  workValue21 = numberValue
+  workValue21[arg1] = numberValue20
 end
-function SHX26_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX12_1
-  SHX3_2 = SHX11_1
-  SHX3_2[SHX1_2] = SHX2_2
-  SHX3_2 = SHX12_1
-  SHX3_2 = SHX3_2 + 1
-  SHX12_1 = SHX3_2
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 0
-  SHX3_2(SHX4_2)
+function workValue13(arg1, arg2)
+  local arg3, workValue14, workValue20, numberValue20
+  arg3 = numberValue2
+  workValue14 = dataTable
+  workValue14[arg2] = arg3
+  workValue14 = numberValue2
+  workValue14 = workValue14 + 1
+  numberValue2 = workValue14
+  workValue14 = Citizen
+  workValue14 = workValue14.Wait
+  workValue20 = 0
+  workValue14(workValue20)
   while true do
-    SHX3_2 = SHX11_1
-    SHX3_2 = SHX3_2[SHX1_2]
-    if SHX3_2 ~= SHX2_2 then
+    workValue14 = dataTable
+    workValue14 = workValue14[arg2]
+    if workValue14 ~= arg3 then
       break
     end
-    SHX3_2 = DoesEntityExist
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      SHX3_2 = Entity
-      SHX4_2 = SHX1_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      SHX3_2 = SHX3_2.state
-      SHX3_2 = SHX3_2[SHX0_2]
-      if SHX3_2 then
-        goto SHX_LABEL_31
+    workValue14 = DoesEntityExist
+    workValue20 = arg2
+    workValue14 = workValue14(workValue20)
+    if workValue14 then
+      workValue14 = Entity
+      workValue20 = arg2
+      workValue14 = workValue14(workValue20)
+      workValue14 = workValue14.state
+      workValue14 = workValue14[arg1]
+      if workValue14 then
+        goto flow_label_31
       end
     end
-    SHX3_2 = false
-    return SHX3_2
-    goto SHX_LABEL_50
-    -- [FIX IF ERROR] Move ::SHX_LABEL_31:: outside nested blocks until all 'goto SHX_LABEL_31' can see it
-    ::SHX_LABEL_31::
-    SHX3_2 = GetEntityCoords
-    SHX4_2 = SHX1_2
-    SHX5_2 = true
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.getPlayerCoords
-    SHX4_2 = SHX4_2()
-    SHX3_2 = SHX3_2 - SHX4_2
-    SHX3_2 = #SHX3_2
-    if SHX3_2 < 50.0 then
-      SHX3_2 = HasCollisionLoadedAroundEntity
-      SHX4_2 = SHX1_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        SHX3_2 = true
-        return SHX3_2
+    workValue14 = false
+    return workValue14
+    goto flow_label_50
+    ::flow_label_31::
+    workValue14 = GetEntityCoords
+    workValue20 = arg2
+    numberValue20 = true
+    -- Beginner: result below is entityCoords.
+    workValue14 = workValue14(workValue20, numberValue20)
+    workValue20 = CMG
+    workValue20 = workValue20.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    workValue20 = workValue20()
+    workValue14 = workValue14 - workValue20
+    workValue14 = #workValue14
+    if workValue14 < 50.0 then
+      workValue14 = HasCollisionLoadedAroundEntity
+      workValue20 = arg2
+      workValue14 = workValue14(workValue20)
+      if workValue14 then
+        workValue14 = true
+        return workValue14
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_50:: outside nested blocks until all 'goto SHX_LABEL_50' can see it
-    ::SHX_LABEL_50::
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
+    ::flow_label_50::
+    workValue14 = Citizen
+    workValue14 = workValue14.Wait
+    workValue20 = 0
+    workValue14(workValue20)
   end
-  SHX3_2 = false
-  return SHX3_2
+  workValue14 = false
+  return workValue14
 end
-SHX27_1 = AddStateBagChangeHandler
-SHX28_1 = "towPlayer"
-SHX29_1 = nil
-function SHX30_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
+threadCall = AddStateBagChangeHandler
+vector3Builder3 = "towPlayer"
+cmgCall5 = nil
+function textValue3(arg1, arg2, arg3)
+  local workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3
+  workValue14 = tonumber
+  workValue20 = stringsplit
+  numberValue20 = arg1
+  workValue21 = ":"
+  workValue20 = workValue20(numberValue20, workValue21)
+  workValue20 = workValue20[2]
+  workValue14 = workValue14(workValue20)
+  if not workValue14 then
     return
   end
-  SHX4_2 = 0
+  workValue20 = 0
   while true do
-    if SHX4_2 > 25 then
+    if workValue20 > 25 then
       return
     else
-      SHX5_2 = NetworkDoesEntityExistWithNetworkId
-      SHX6_2 = SHX3_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      if SHX5_2 then
-        SHX5_2 = NetworkGetEntityFromNetworkId
-        SHX6_2 = SHX3_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        if 0 ~= SHX5_2 then
-          if SHX2_2 then
-            SHX6_2 = GetPlayerFromServerId
-            SHX7_2 = SHX2_2
-            SHX6_2 = SHX6_2(SHX7_2)
-            if -1 == SHX6_2 then
-              goto SHX_LABEL_68
+      numberValue20 = NetworkDoesEntityExistWithNetworkId
+      workValue21 = workValue14
+      numberValue20 = numberValue20(workValue21)
+      if numberValue20 then
+        numberValue20 = NetworkGetEntityFromNetworkId
+        workValue21 = workValue14
+        numberValue20 = numberValue20(workValue21)
+        if 0 ~= numberValue20 then
+          if arg3 then
+            workValue21 = GetPlayerFromServerId
+            flag14 = arg3
+            -- Beginner: result below is playerIndex.
+            workValue21 = workValue21(flag14)
+            if -1 == workValue21 then
+              goto flow_label_68
             end
-            SHX7_2 = GetPlayerPed
-            SHX8_2 = SHX6_2
-            SHX7_2 = SHX7_2(SHX8_2)
-            if 0 == SHX7_2 then
-              goto SHX_LABEL_68
+            flag14 = GetPlayerPed
+            cmgCall6 = workValue21
+            -- Beginner: result below is playerPed.
+            flag14 = flag14(cmgCall6)
+            if 0 == flag14 then
+              goto flow_label_68
             end
-            SHX8_2 = SHX26_1
-            SHX9_2 = "towPlayer"
-            SHX10_2 = SHX5_2
-            SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-            if SHX8_2 then
-              SHX8_2 = SHX24_1
-              SHX9_2 = SHX5_2
-              SHX10_2 = SHX2_2
-              SHX11_2 = SHX7_2
-              SHX8_2(SHX9_2, SHX10_2, SHX11_2)
+            cmgCall6 = workValue13
+            stringHelper2 = "towPlayer"
+            vector3Builder = numberValue20
+            cmgCall6 = cmgCall6(stringHelper2, vector3Builder)
+            if cmgCall6 then
+              cmgCall6 = cmgCall4
+              stringHelper2 = numberValue20
+              vector3Builder = arg3
+              textValue = flag14
+              -- Beginner: Register a network event handler that the server/other clients can trigger.
+              cmgCall6(stringHelper2, vector3Builder, textValue)
             end
             break
           else
-            SHX6_2 = SHX9_1
-            SHX6_2 = SHX6_2[SHX5_2]
-            if SHX6_2 then
-              SHX6_2 = pairs
-              SHX7_2 = SHX9_1
-              SHX7_2 = SHX7_2[SHX5_2]
-              SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-              for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-                SHX12_2 = DeleteRope
-                SHX13_2 = SHX11_2
-                SHX12_2(SHX13_2)
+            workValue21 = vector3Builder7
+            workValue21 = workValue21[numberValue20]
+            if workValue21 then
+              workValue21 = pairs
+              flag14 = vector3Builder7
+              flag14 = flag14[numberValue20]
+              workValue21, flag14, cmgCall6, stringHelper2 = workValue21(flag14)
+              for vector3Builder, textValue in workValue21, flag14, cmgCall6, stringHelper2 do
+                workValue = DeleteRope
+                workValue3 = textValue
+                workValue(workValue3)
               end
-              SHX6_2 = SHX9_1
-              SHX6_2[SHX5_2] = nil
+              workValue21 = vector3Builder7
+              workValue21[numberValue20] = nil
             end
           end
         end
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_68:: outside nested blocks until all 'goto SHX_LABEL_68' can see it
-    ::SHX_LABEL_68::
-    SHX4_2 = SHX4_2 + 1
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 200
-    SHX5_2(SHX6_2)
+    ::flow_label_68::
+    workValue20 = workValue20 + 1
+    numberValue20 = Citizen
+    numberValue20 = numberValue20.Wait
+    workValue21 = 200
+    numberValue20(workValue21)
   end
 end
-SHX27_1(SHX28_1, SHX29_1, SHX30_1)
-SHX27_1 = AddStateBagChangeHandler
-SHX28_1 = "towVehicle"
-SHX29_1 = nil
-function SHX30_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  if not SHX3_2 then
+threadCall(vector3Builder3, cmgCall5, textValue3)
+threadCall = AddStateBagChangeHandler
+vector3Builder3 = "towVehicle"
+cmgCall5 = nil
+function textValue3(arg1, arg2, arg3)
+  local workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3
+  workValue14 = tonumber
+  workValue20 = stringsplit
+  numberValue20 = arg1
+  workValue21 = ":"
+  workValue20 = workValue20(numberValue20, workValue21)
+  workValue20 = workValue20[2]
+  workValue14 = workValue14(workValue20)
+  if not workValue14 then
     return
   end
-  SHX4_2 = 0
+  workValue20 = 0
   while true do
-    if SHX4_2 > 25 then
+    if workValue20 > 25 then
       return
     else
-      SHX5_2 = NetworkDoesEntityExistWithNetworkId
-      SHX6_2 = SHX3_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      if SHX5_2 then
-        SHX5_2 = NetworkGetEntityFromNetworkId
-        SHX6_2 = SHX3_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        if 0 ~= SHX5_2 then
-          if SHX2_2 then
-            SHX6_2 = SHX9_1
-            SHX6_2 = SHX6_2[SHX5_2]
-            if SHX6_2 then
-              SHX6_2 = pairs
-              SHX7_2 = SHX9_1
-              SHX7_2 = SHX7_2[SHX5_2]
-              SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-              for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-                SHX12_2 = DeleteRope
-                SHX13_2 = SHX11_2
-                SHX12_2(SHX13_2)
+      numberValue20 = NetworkDoesEntityExistWithNetworkId
+      workValue21 = workValue14
+      numberValue20 = numberValue20(workValue21)
+      if numberValue20 then
+        numberValue20 = NetworkGetEntityFromNetworkId
+        workValue21 = workValue14
+        numberValue20 = numberValue20(workValue21)
+        if 0 ~= numberValue20 then
+          if arg3 then
+            workValue21 = vector3Builder7
+            workValue21 = workValue21[numberValue20]
+            if workValue21 then
+              workValue21 = pairs
+              flag14 = vector3Builder7
+              flag14 = flag14[numberValue20]
+              workValue21, flag14, cmgCall6, stringHelper2 = workValue21(flag14)
+              for vector3Builder, textValue in workValue21, flag14, cmgCall6, stringHelper2 do
+                workValue = DeleteRope
+                workValue3 = textValue
+                workValue(workValue3)
               end
-              SHX6_2 = SHX9_1
-              SHX6_2[SHX5_2] = nil
+              workValue21 = vector3Builder7
+              workValue21[numberValue20] = nil
             end
-            SHX6_2 = NetworkDoesNetworkIdExist
-            SHX7_2 = SHX2_2.targetNetId
-            SHX6_2 = SHX6_2(SHX7_2)
-            if not SHX6_2 then
-              goto SHX_LABEL_85
+            workValue21 = NetworkDoesNetworkIdExist
+            flag14 = arg3.targetNetId
+            workValue21 = workValue21(flag14)
+            if not workValue21 then
+              goto flow_label_85
             end
-            SHX6_2 = NetworkGetEntityFromNetworkId
-            SHX7_2 = SHX2_2.targetNetId
-            SHX6_2 = SHX6_2(SHX7_2)
-            if 0 == SHX6_2 then
-              goto SHX_LABEL_85
+            workValue21 = NetworkGetEntityFromNetworkId
+            flag14 = arg3.targetNetId
+            workValue21 = workValue21(flag14)
+            if 0 == workValue21 then
+              goto flow_label_85
             end
-            SHX7_2 = SHX26_1
-            SHX8_2 = "towVehicle"
-            SHX9_2 = SHX5_2
-            SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-            if SHX7_2 then
-              SHX7_2 = SHX25_1
-              SHX8_2 = SHX5_2
-              SHX9_2 = SHX6_2
-              SHX10_2 = SHX2_2.targetOffset
-              SHX7_2(SHX8_2, SHX9_2, SHX10_2)
+            flag14 = workValue13
+            cmgCall6 = "towVehicle"
+            stringHelper2 = numberValue20
+            flag14 = flag14(cmgCall6, stringHelper2)
+            if flag14 then
+              flag14 = textValue2
+              cmgCall6 = numberValue20
+              stringHelper2 = workValue21
+              vector3Builder = arg3.targetOffset
+              flag14(cmgCall6, stringHelper2, vector3Builder)
             end
             break
           else
-            SHX6_2 = SHX10_1
-            SHX6_2 = SHX6_2[SHX5_2]
-            if SHX6_2 then
-              SHX6_2 = pairs
-              SHX7_2 = SHX10_1
-              SHX7_2 = SHX7_2[SHX5_2]
-              SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-              for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-                SHX12_2 = DeleteRope
-                SHX13_2 = SHX11_2
-                SHX12_2(SHX13_2)
+            workValue21 = numberValue
+            workValue21 = workValue21[numberValue20]
+            if workValue21 then
+              workValue21 = pairs
+              flag14 = numberValue
+              flag14 = flag14[numberValue20]
+              workValue21, flag14, cmgCall6, stringHelper2 = workValue21(flag14)
+              for vector3Builder, textValue in workValue21, flag14, cmgCall6, stringHelper2 do
+                workValue = DeleteRope
+                workValue3 = textValue
+                workValue(workValue3)
               end
-              SHX6_2 = SHX10_1
-              SHX6_2[SHX5_2] = nil
+              workValue21 = numberValue
+              workValue21[numberValue20] = nil
             end
           end
         end
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_85:: outside nested blocks until all 'goto SHX_LABEL_85' can see it
-    ::SHX_LABEL_85::
-    SHX4_2 = SHX4_2 + 1
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 200
-    SHX5_2(SHX6_2)
+    ::flow_label_85::
+    workValue20 = workValue20 + 1
+    numberValue20 = Citizen
+    numberValue20 = numberValue20.Wait
+    workValue21 = 200
+    numberValue20(workValue21)
   end
 end
-SHX27_1(SHX28_1, SHX29_1, SHX30_1)
-SHX27_1 = Citizen
-SHX27_1 = SHX27_1.CreateThread
-function SHX28_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = DecorRegister
-  SHX1_2 = "6b6dade745"
-  SHX2_2 = 2
-  SHX0_2(SHX1_2, SHX2_2)
+threadCall(vector3Builder3, cmgCall5, textValue3)
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function vector3Builder3()
+  local arg1, arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3
+  arg1 = DecorRegister
+  arg2 = "6b6dade745"
+  arg3 = 2
+  arg1(arg2, arg3)
   while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hasClientPermission
-    SHX1_2 = "aa.onduty.permission"
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = false
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.getPlayerVehicle
-      SHX1_2 = SHX1_2()
-      if 0 ~= SHX1_2 then
-        SHX2_2 = GetEntityModel
-        SHX3_2 = SHX1_2
-        SHX2_2 = SHX2_2(SHX3_2)
-        SHX3_2 = SHX5_1
-        SHX3_2 = SHX3_2[SHX2_2]
-        if SHX3_2 then
-          SHX3_2 = GetGameTimer
-          SHX3_2 = SHX3_2()
-          SHX4_2 = SHX15_1
-          SHX3_2 = SHX3_2 - SHX4_2
-          SHX4_2 = 60000
-          if SHX3_2 > SHX4_2 then
-            SHX3_2 = GetEntitySpeed
-            SHX4_2 = SHX1_2
-            SHX3_2 = SHX3_2(SHX4_2)
-            SHX4_2 = 2.5
-            if SHX3_2 > SHX4_2 then
-              SHX3_2 = TriggerServerEvent
-              SHX4_2 = "53b5afb511"
-              SHX3_2(SHX4_2)
-              SHX3_2 = GetGameTimer
-              SHX3_2 = SHX3_2()
-              SHX15_1 = SHX3_2
+    arg1 = CMG
+    arg1 = arg1.hasClientPermission
+    arg2 = "aa.onduty.permission"
+    arg1 = arg1(arg2)
+    if arg1 then
+      arg1 = false
+      arg2 = CMG
+      arg2 = arg2.getPlayerVehicle
+      -- Beginner: result below is currentVehicle.
+      arg2 = arg2()
+      if 0 ~= arg2 then
+        arg3 = GetEntityModel
+        workValue14 = arg2
+        -- Beginner: result below is modelHash.
+        arg3 = arg3(workValue14)
+        workValue14 = vector3Builder4
+        workValue14 = workValue14[arg3]
+        if workValue14 then
+          workValue14 = GetGameTimer
+          -- Beginner: result below is gameTimeMs.
+          workValue14 = workValue14()
+          workValue20 = numberValue3
+          workValue14 = workValue14 - workValue20
+          workValue20 = 60000
+          if workValue14 > workValue20 then
+            workValue14 = GetEntitySpeed
+            workValue20 = arg2
+            -- Beginner: result below is speed.
+            workValue14 = workValue14(workValue20)
+            workValue20 = 2.5
+            if workValue14 > workValue20 then
+              workValue14 = TriggerServerEvent
+              workValue20 = "53b5afb511"
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "53b5afb511".
+              workValue14(workValue20)
+              workValue14 = GetGameTimer
+              -- Beginner: result below is gameTimeMs.
+              workValue14 = workValue14()
+              numberValue3 = workValue14
             end
           end
-          SHX3_2 = SHX20_1
-          SHX4_2 = SHX1_2
-          SHX3_2 = SHX3_2(SHX4_2)
-          if 0 == SHX3_2 then
-            SHX3_2 = Entity
-            SHX4_2 = SHX1_2
-            SHX3_2 = SHX3_2(SHX4_2)
-            SHX3_2 = SHX3_2.state
-            SHX3_2 = SHX3_2.towVehicle
-            if not SHX3_2 then
-              goto SHX_LABEL_57
+          workValue14 = workValue10
+          workValue20 = arg2
+          workValue14 = workValue14(workValue20)
+          if 0 == workValue14 then
+            workValue14 = Entity
+            workValue20 = arg2
+            workValue14 = workValue14(workValue20)
+            workValue14 = workValue14.state
+            workValue14 = workValue14.towVehicle
+            if not workValue14 then
+              goto flow_label_57
             end
           end
-          SHX0_2 = true
+          arg1 = true
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_57:: outside nested blocks until all 'goto SHX_LABEL_57' can see it
-      ::SHX_LABEL_57::
-      if SHX0_2 then
-        SHX2_2 = SHX13_1
-        if 0 == SHX2_2 then
-          SHX2_2 = TriggerServerEvent
-          SHX3_2 = "53b5afb511"
-          SHX2_2(SHX3_2)
-          SHX2_2 = AddBlipForCoord
-          SHX3_2 = SHX14_1.x
-          SHX4_2 = SHX14_1.y
-          SHX5_2 = SHX14_1.z
-          SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-          SHX13_1 = SHX2_2
-          SHX2_2 = SetBlipRoute
-          SHX3_2 = SHX13_1
-          SHX4_2 = true
-          SHX2_2(SHX3_2, SHX4_2)
+      ::flow_label_57::
+      if arg1 then
+        arg3 = workValue2
+        if 0 == arg3 then
+          arg3 = TriggerServerEvent
+          workValue14 = "53b5afb511"
+          arg3(workValue14)
+          arg3 = AddBlipForCoord
+          workValue14 = vector3Builder2.x
+          workValue20 = vector3Builder2.y
+          numberValue20 = vector3Builder2.z
+          -- Beginner: result below is blipHandle.
+          arg3 = arg3(workValue14, workValue20, numberValue20)
+          workValue2 = arg3
+          arg3 = SetBlipRoute
+          workValue14 = workValue2
+          workValue20 = true
+          arg3(workValue14, workValue20)
       end
-      elseif not SHX0_2 then
-        SHX2_2 = SHX13_1
-        if 0 ~= SHX2_2 then
-          SHX2_2 = TriggerServerEvent
-          SHX3_2 = "53b5afb511"
-          SHX2_2(SHX3_2)
-          SHX2_2 = RemoveBlip
-          SHX3_2 = SHX13_1
-          SHX2_2(SHX3_2)
-          SHX2_2 = 0
-          SHX13_1 = SHX2_2
+      elseif not arg1 then
+        arg3 = workValue2
+        if 0 ~= arg3 then
+          arg3 = TriggerServerEvent
+          workValue14 = "53b5afb511"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "53b5afb511".
+          arg3(workValue14)
+          arg3 = RemoveBlip
+          workValue14 = workValue2
+          arg3(workValue14)
+          arg3 = 0
+          workValue2 = arg3
         end
       end
     end
-    SHX0_2 = pairs
-    SHX1_2 = SHX9_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DoesEntityExist
-      SHX7_2 = SHX4_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      if not SHX6_2 then
-        SHX6_2 = pairs
-        SHX7_2 = SHX5_2
-        SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-        for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-          SHX12_2 = DeleteRope
-          SHX13_2 = SHX11_2
-          SHX12_2(SHX13_2)
+    arg1 = pairs
+    arg2 = vector3Builder7
+    arg1, arg2, arg3, workValue14 = arg1(arg2)
+    for workValue20, numberValue20 in arg1, arg2, arg3, workValue14 do
+      workValue21 = DoesEntityExist
+      flag14 = workValue20
+      workValue21 = workValue21(flag14)
+      if not workValue21 then
+        workValue21 = pairs
+        flag14 = numberValue20
+        workValue21, flag14, cmgCall6, stringHelper2 = workValue21(flag14)
+        for vector3Builder, textValue in workValue21, flag14, cmgCall6, stringHelper2 do
+          workValue = DeleteRope
+          workValue3 = textValue
+          workValue(workValue3)
         end
-        SHX6_2 = SHX9_1
-        SHX6_2[SHX4_2] = nil
+        workValue21 = vector3Builder7
+        workValue21[workValue20] = nil
       end
     end
-    SHX0_2 = pairs
-    SHX1_2 = SHX10_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DoesEntityExist
-      SHX7_2 = SHX4_2
-      SHX6_2 = SHX6_2(SHX7_2)
-      if not SHX6_2 then
-        SHX6_2 = pairs
-        SHX7_2 = SHX5_2
-        SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2)
-        for SHX10_2, SHX11_2 in SHX6_2, SHX7_2, SHX8_2, SHX9_2 do
-          SHX12_2 = DeleteRope
-          SHX13_2 = SHX11_2
-          SHX12_2(SHX13_2)
+    arg1 = pairs
+    arg2 = numberValue
+    arg1, arg2, arg3, workValue14 = arg1(arg2)
+    for workValue20, numberValue20 in arg1, arg2, arg3, workValue14 do
+      workValue21 = DoesEntityExist
+      flag14 = workValue20
+      workValue21 = workValue21(flag14)
+      if not workValue21 then
+        workValue21 = pairs
+        flag14 = numberValue20
+        workValue21, flag14, cmgCall6, stringHelper2 = workValue21(flag14)
+        for vector3Builder, textValue in workValue21, flag14, cmgCall6, stringHelper2 do
+          workValue = DeleteRope
+          workValue3 = textValue
+          workValue(workValue3)
         end
-        SHX6_2 = SHX10_1
-        SHX6_2[SHX4_2] = nil
+        workValue21 = numberValue
+        workValue21[workValue20] = nil
       end
     end
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 5000
-    SHX0_2(SHX1_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 5000
+    arg1(arg2)
   end
 end
-SHX27_1(SHX28_1)
-SHX27_1 = RegisterNetEvent
-SHX28_1 = "e3a2b4bde0"
-function SHX29_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  if "AA" ~= SHX0_2 then
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(vector3Builder3)
+threadCall = RegisterNetEvent
+vector3Builder3 = "e3a2b4bde0"
+-- Beginner: this function handles network event "e3a2b4bde0".
+function cmgCall5(arg1)
+  local arg2
+  if "AA" ~= arg1 then
     return
   end
 end
-SHX27_1(SHX28_1, SHX29_1)
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "aa.onduty.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = drawNativeNotification
-    SHX1_2 = "Press ~INPUT_CONTEXT~ to purchase mechanic flatbed"
-    SHX0_2(SHX1_2)
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 0
-    SHX2_2 = 51
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "0f93bb7bac"
-      SHX2_2 = "Mechanics"
-      SHX3_2 = "caracaraptorfb"
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e3a2b4bde0".
+threadCall(vector3Builder3, cmgCall5)
+-- Beginner: this function handles network event "e3a2b4bde0".
+function threadCall()
+  local arg1, arg2, arg3, workValue14
+  arg1 = CMG
+  arg1 = arg1.hasClientPermission
+  arg2 = "aa.onduty.permission"
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = drawNativeNotification
+    arg2 = "Press ~INPUT_CONTEXT~ to purchase mechanic flatbed"
+    -- Beginner: Show a GTA-style notification/help prompt.
+    arg1(arg2)
+    arg1 = IsControlJustPressed
+    arg2 = 0
+    arg3 = 51
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = TriggerServerEvent
+      arg2 = "0f93bb7bac"
+      arg3 = "Mechanics"
+      workValue14 = "caracaraptorfb"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "0f93bb7bac".
+      arg1(arg2, arg3, workValue14)
     end
   end
 end
-SHX28_1 = vector3
-SHX29_1 = 485.83279418945
-SHX30_1 = -1329.8332519531
-SHX31_1 = 29.22008895874
-SHX28_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1)
-SHX29_1 = tCMG
-SHX29_1 = SHX29_1.addMarker
-SHX30_1 = SHX28_1.x
-SHX31_1 = SHX28_1.y
-SHX32_1 = SHX28_1.z
-SHX32_1 = SHX32_1 - 1.0
-SHX33_1 = 0.7
-SHX34_1 = 0.7
-SHX35_1 = 0.5
-SHX36_1 = 255
-SHX37_1 = 255
-SHX38_1 = 0
-SHX39_1 = 180
-SHX40_1 = 10.0
-SHX41_1 = 1
-SHX42_1 = false
-SHX43_1 = false
-SHX44_1 = false
-SHX45_1 = nil
-SHX46_1 = nil
-SHX47_1 = nil
-SHX48_1 = nil
-SHX49_1 = nil
-SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1)
-SHX29_1 = CMG
-SHX29_1 = SHX29_1.createArea
-SHX30_1 = "aa_buy_vehicle"
-SHX31_1 = SHX28_1
-SHX32_1 = 2.0
-SHX33_1 = 2.0
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+vector3Builder3 = vector3
+cmgCall5 = 485.83279418945
+textValue3 = -1329.8332519531
+numberValue10 = 29.22008895874
+vector3Builder3 = vector3Builder3(cmgCall5, textValue3, numberValue10)
+cmgCall5 = tCMG
+cmgCall5 = cmgCall5.addMarker
+textValue3 = vector3Builder3.x
+numberValue10 = vector3Builder3.y
+numberValue11 = vector3Builder3.z
+numberValue11 = numberValue11 - 1.0
+numberValue12 = 0.7
+iterator = 0.7
+numberValue13 = 0.5
+numberValue14 = 255
+numberValue15 = 255
+numberValue16 = 0
+numberValue17 = 180
+numberValue19 = 10.0
+stringHelper = 1
+flag11 = false
+flag12 = false
+flag13 = false
+workValue15 = nil
+workValue16 = nil
+workValue17 = nil
+workValue18 = nil
+workValue19 = nil
+-- Beginner: Create a world marker.
+cmgCall5(textValue3, numberValue10, numberValue11, numberValue12, iterator, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue19, stringHelper, flag11, flag12, flag13, workValue15, workValue16, workValue17, workValue18, workValue19)
+cmgCall5 = CMG
+cmgCall5 = cmgCall5.createArea
+textValue3 = "aa_buy_vehicle"
+numberValue10 = vector3Builder3
+numberValue11 = 2.0
+numberValue12 = 2.0
+function iterator()
+  local arg1, arg2
 end
-function SHX35_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+function numberValue13()
+  local arg1, arg2
 end
-SHX36_1 = SHX27_1
-SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1)
-SHX29_1 = CMG
-SHX29_1 = SHX29_1.registerDevMenuState
-SHX30_1 = "Mechanic/Flatbed attach"
-SHX31_1 = {}
-SHX31_1.ox = 0.0
-SHX31_1.oy = -6.0
-SHX31_1.oz = -0.36
-SHX31_1.rx = 0.0
-SHX31_1.ry = 0.0
-SHX31_1.rz = 0.0
-SHX31_1.nudgeStepIdx = 3
-SHX29_1 = SHX29_1(SHX30_1, SHX31_1)
-SHX30_1 = 0
-SHX31_1 = 0
-SHX32_1 = {}
-SHX33_1 = 0.02
-SHX34_1 = 0.05
-SHX35_1 = 0.1
-SHX36_1 = 0.25
-SHX37_1 = 0.5
-SHX38_1 = 1.0
-SHX39_1 = 5.0
-SHX40_1 = 10.0
-SHX32_1[1] = SHX33_1
-SHX32_1[2] = SHX34_1
-SHX32_1[3] = SHX35_1
-SHX32_1[4] = SHX36_1
-SHX32_1[5] = SHX37_1
-SHX32_1[6] = SHX38_1
-SHX32_1[7] = SHX39_1
-SHX32_1[8] = SHX40_1
-SHX33_1 = {}
-SHX34_1 = ipairs
-SHX35_1 = SHX32_1
-SHX34_1, SHX35_1, SHX36_1, SHX37_1 = SHX34_1(SHX35_1)
-for SHX38_1, SHX39_1 in SHX34_1, SHX35_1, SHX36_1, SHX37_1 do
-  SHX40_1 = #SHX33_1
-  SHX40_1 = SHX40_1 + 1
-  SHX41_1 = tostring
-  SHX42_1 = SHX39_1
-  SHX41_1 = SHX41_1(SHX42_1)
-  SHX33_1[SHX40_1] = SHX41_1
+numberValue14 = threadCall
+-- Beginner: Create an interaction area around a world position.
+cmgCall5(textValue3, numberValue10, numberValue11, numberValue12, iterator, numberValue13, numberValue14)
+cmgCall5 = CMG
+cmgCall5 = cmgCall5.registerDevMenuState
+textValue3 = "Mechanic/Flatbed attach"
+numberValue10 = {}
+numberValue10.ox = 0.0
+numberValue10.oy = -6.0
+numberValue10.oz = -0.36
+numberValue10.rx = 0.0
+numberValue10.ry = 0.0
+numberValue10.rz = 0.0
+numberValue10.nudgeStepIdx = 3
+cmgCall5 = cmgCall5(textValue3, numberValue10)
+textValue3 = 0
+numberValue10 = 0
+numberValue11 = {}
+numberValue12 = 0.02
+iterator = 0.05
+numberValue13 = 0.1
+numberValue14 = 0.25
+numberValue15 = 0.5
+numberValue16 = 1.0
+numberValue17 = 5.0
+numberValue19 = 10.0
+numberValue11[1] = numberValue12
+numberValue11[2] = iterator
+numberValue11[3] = numberValue13
+numberValue11[4] = numberValue14
+numberValue11[5] = numberValue15
+numberValue11[6] = numberValue16
+numberValue11[7] = numberValue17
+numberValue11[8] = numberValue19
+numberValue12 = {}
+iterator = ipairs
+numberValue13 = numberValue11
+iterator, numberValue13, numberValue14, numberValue15 = iterator(numberValue13)
+for numberValue16, numberValue17 in iterator, numberValue13, numberValue14, numberValue15 do
+  numberValue19 = #numberValue12
+  numberValue19 = numberValue19 + 1
+  stringHelper = tostring
+  flag11 = numberValue17
+  stringHelper = stringHelper(flag11)
+  numberValue12[numberValue19] = stringHelper
 end
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientUserId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX0_2 or SHX1_2
-  if SHX0_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isDeveloper
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
+function iterator()
+  local arg1, arg2, arg3
+  arg1 = CMG
+  arg1 = arg1.getClientUserId
+  -- Beginner: result below is userId.
+  arg1 = arg1()
+  arg2 = arg1 or arg2
+  if arg1 then
+    arg2 = CMG
+    arg2 = arg2.isDeveloper
+    arg3 = arg1
+    arg2 = arg2(arg3)
   end
-  return SHX1_2
+  return arg2
 end
-function SHX35_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = SHX31_1
-  SHX1_2 = SHX30_1
-  if 0 ~= SHX0_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 and 0 ~= SHX1_2 then
-      SHX2_2 = DoesEntityExist
-      SHX3_2 = SHX1_2
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 then
-        goto SHX_LABEL_18
+function numberValue13()
+  local arg1, arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9
+  arg1 = numberValue10
+  arg2 = textValue3
+  if 0 ~= arg1 then
+    arg3 = DoesEntityExist
+    workValue14 = arg1
+    arg3 = arg3(workValue14)
+    if arg3 and 0 ~= arg2 then
+      arg3 = DoesEntityExist
+      workValue14 = arg2
+      arg3 = arg3(workValue14)
+      if arg3 then
+        goto flow_label_18
       end
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_18:: outside nested blocks until all 'goto SHX_LABEL_18' can see it
-  ::SHX_LABEL_18::
-  SHX2_2 = DetachEntity
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX5_2 = true
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = GetEntityModel
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetModelDimensions
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = AttachEntityToEntity
-  SHX5_2 = SHX1_2
-  SHX6_2 = SHX0_2
-  SHX7_2 = 20
-  SHX8_2 = SHX29_1.ox
-  SHX9_2 = SHX29_1.oy
-  SHX10_2 = math
-  SHX10_2 = SHX10_2.abs
-  SHX11_2 = SHX3_2.z
-  SHX10_2 = SHX10_2(SHX11_2)
-  SHX11_2 = SHX29_1.oz
-  SHX10_2 = SHX10_2 + SHX11_2
-  SHX11_2 = SHX29_1.rx
-  SHX12_2 = SHX29_1.ry
-  SHX13_2 = SHX29_1.rz
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = 0
-  SHX19_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  SHX4_2 = print
-  SHX5_2 = "entity"
-  SHX6_2 = SHX1_2
-  SHX4_2(SHX5_2, SHX6_2)
+  ::flow_label_18::
+  arg3 = DetachEntity
+  workValue14 = arg2
+  workValue20 = true
+  numberValue20 = true
+  arg3(workValue14, workValue20, numberValue20)
+  arg3 = GetEntityModel
+  workValue14 = arg1
+  -- Beginner: result below is modelHash.
+  arg3 = arg3(workValue14)
+  workValue14 = GetModelDimensions
+  workValue20 = arg3
+  workValue14 = workValue14(workValue20)
+  workValue20 = AttachEntityToEntity
+  numberValue20 = arg2
+  workValue21 = arg1
+  flag14 = 20
+  cmgCall6 = cmgCall5.ox
+  stringHelper2 = cmgCall5.oy
+  vector3Builder = math
+  vector3Builder = vector3Builder.abs
+  textValue = workValue14.z
+  vector3Builder = vector3Builder(textValue)
+  textValue = cmgCall5.oz
+  vector3Builder = vector3Builder + textValue
+  textValue = cmgCall5.rx
+  workValue = cmgCall5.ry
+  workValue3 = cmgCall5.rz
+  workValue4 = false
+  coords = false
+  workValue5 = false
+  flag = false
+  workValue7 = 0
+  workValue9 = true
+  -- Beginner: Attach one entity to another entity.
+  workValue20(numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3, workValue4, coords, workValue5, flag, workValue7, workValue9)
+  workValue20 = print
+  numberValue20 = "entity"
+  workValue21 = arg2
+  workValue20(numberValue20, workValue21)
 end
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = SHX34_1
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
+function numberValue14()
+  local arg1, arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3
+  arg1 = iterator
+  arg1 = arg1()
+  if not arg1 then
     return
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetVehiclePedIsIn
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = DoesEntityExist
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
-      goto SHX_LABEL_25
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetVehiclePedIsIn
+  arg3 = arg1
+  workValue14 = false
+  -- Beginner: result below is currentVehicle.
+  arg2 = arg2(arg3, workValue14)
+  if 0 ~= arg2 then
+    arg3 = DoesEntityExist
+    workValue14 = arg2
+    arg3 = arg3(workValue14)
+    if arg3 then
+      goto flow_label_25
     end
   end
-  SHX2_2 = tCMG
-  SHX2_2 = SHX2_2.notify
-  SHX3_2 = "~r~Sit in the flatbed driver seat first."
-  SHX2_2(SHX3_2)
+  arg3 = tCMG
+  arg3 = arg3.notify
+  workValue14 = "~r~Sit in the flatbed driver seat first."
+  -- Beginner: Show a notification to the player.
+  arg3(workValue14)
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_25:: outside nested blocks until all 'goto SHX_LABEL_25' can see it
-  ::SHX_LABEL_25::
-  SHX2_2 = GetEntityModel
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX5_1
-  SHX3_2 = SHX3_2[SHX2_2]
-  if SHX3_2 then
-    SHX3_2 = SHX5_1
-    SHX3_2 = SHX3_2[SHX2_2]
-    SHX3_2 = SHX3_2.type
-    if "flatbed" == SHX3_2 then
-      goto SHX_LABEL_42
+  ::flow_label_25::
+  arg3 = GetEntityModel
+  workValue14 = arg2
+  -- Beginner: result below is modelHash.
+  arg3 = arg3(workValue14)
+  workValue14 = vector3Builder4
+  workValue14 = workValue14[arg3]
+  if workValue14 then
+    workValue14 = vector3Builder4
+    workValue14 = workValue14[arg3]
+    workValue14 = workValue14.type
+    if "flatbed" == workValue14 then
+      goto flow_label_42
     end
   end
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.notify
-  SHX4_2 = "~r~You must be in a flatbed."
-  SHX3_2(SHX4_2)
+  workValue14 = tCMG
+  workValue14 = workValue14.notify
+  workValue20 = "~r~You must be in a flatbed."
+  workValue14(workValue20)
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_42:: outside nested blocks until all 'goto SHX_LABEL_42' can see it
-  ::SHX_LABEL_42::
-  SHX3_2 = SHX30_1
-  if 0 ~= SHX3_2 then
-    SHX3_2 = DoesEntityExist
-    SHX4_2 = SHX30_1
-    SHX3_2 = SHX3_2(SHX4_2)
-    if SHX3_2 then
-      SHX3_2 = DetachEntity
-      SHX4_2 = SHX30_1
-      SHX5_2 = true
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = SetEntityAsMissionEntity
-      SHX4_2 = SHX30_1
-      SHX5_2 = true
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DeleteEntity
-      SHX4_2 = SHX30_1
-      SHX3_2(SHX4_2)
+  ::flow_label_42::
+  workValue14 = textValue3
+  if 0 ~= workValue14 then
+    workValue14 = DoesEntityExist
+    workValue20 = textValue3
+    workValue14 = workValue14(workValue20)
+    if workValue14 then
+      workValue14 = DetachEntity
+      workValue20 = textValue3
+      numberValue20 = true
+      workValue21 = true
+      workValue14(workValue20, numberValue20, workValue21)
+      workValue14 = SetEntityAsMissionEntity
+      workValue20 = textValue3
+      numberValue20 = true
+      workValue21 = true
+      workValue14(workValue20, numberValue20, workValue21)
+      workValue14 = DeleteEntity
+      workValue20 = textValue3
+      -- Beginner: Delete a GTA entity.
+      workValue14(workValue20)
     end
   end
-  SHX3_2 = 0
-  SHX30_1 = SHX3_2
-  SHX31_1 = SHX1_2
-  SHX3_2 = SHX5_1
-  SHX3_2 = SHX3_2[SHX2_2]
-  SHX4_2 = SHX3_2.offset
-  SHX4_2 = SHX4_2.x
-  SHX29_1.ox = SHX4_2
-  SHX4_2 = SHX3_2.offset
-  SHX4_2 = SHX4_2.y
-  SHX29_1.oy = SHX4_2
-  SHX4_2 = SHX3_2.offset
-  SHX4_2 = SHX4_2.z
-  SHX29_1.oz = SHX4_2
-  SHX29_1.rx = 0.0
-  SHX29_1.ry = 0.0
-  SHX4_2 = SHX3_2.heading
-  if not SHX4_2 then
-    SHX4_2 = 0.0
+  workValue14 = 0
+  textValue3 = workValue14
+  numberValue10 = arg2
+  workValue14 = vector3Builder4
+  workValue14 = workValue14[arg3]
+  workValue20 = workValue14.offset
+  workValue20 = workValue20.x
+  cmgCall5.ox = workValue20
+  workValue20 = workValue14.offset
+  workValue20 = workValue20.y
+  cmgCall5.oy = workValue20
+  workValue20 = workValue14.offset
+  workValue20 = workValue20.z
+  cmgCall5.oz = workValue20
+  cmgCall5.rx = 0.0
+  cmgCall5.ry = 0.0
+  workValue20 = workValue14.heading
+  if not workValue20 then
+    workValue20 = 0.0
   end
-  SHX29_1.rz = SHX4_2
-  SHX4_2 = GetHashKey
-  SHX5_2 = "premier"
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.loadModel
-  SHX6_2 = SHX4_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = GetEntityCoords
-  SHX6_2 = SHX1_2
-  SHX7_2 = true
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX6_2 = CreateVehicle
-  SHX7_2 = SHX4_2
-  SHX8_2 = SHX5_2.x
-  SHX9_2 = SHX5_2.y
-  SHX10_2 = SHX5_2.z
-  SHX10_2 = SHX10_2 + 2.0
-  SHX11_2 = 0.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  if 0 ~= SHX6_2 then
-    SHX7_2 = DoesEntityExist
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 then
-      SHX7_2 = SetEntityAsMissionEntity
-      SHX8_2 = SHX6_2
-      SHX9_2 = true
-      SHX10_2 = true
-      SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.initLocalVehicle
-      SHX8_2 = SHX6_2
-      SHX7_2(SHX8_2)
-      SHX30_1 = SHX6_2
-      SHX7_2 = SHX35_1
-      SHX7_2()
+  cmgCall5.rz = workValue20
+  workValue20 = GetHashKey
+  numberValue20 = "premier"
+  -- Beginner: result below is hash.
+  workValue20 = workValue20(numberValue20)
+  numberValue20 = CMG
+  numberValue20 = numberValue20.loadModel
+  workValue21 = workValue20
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  numberValue20(workValue21)
+  numberValue20 = GetEntityCoords
+  workValue21 = arg2
+  flag14 = true
+  -- Beginner: result below is entityCoords.
+  numberValue20 = numberValue20(workValue21, flag14)
+  workValue21 = CreateVehicle
+  flag14 = workValue20
+  cmgCall6 = numberValue20.x
+  stringHelper2 = numberValue20.y
+  vector3Builder = numberValue20.z
+  vector3Builder = vector3Builder + 2.0
+  textValue = 0.0
+  workValue = false
+  workValue3 = false
+  -- Beginner: result below is vehicleEntity.
+  workValue21 = workValue21(flag14, cmgCall6, stringHelper2, vector3Builder, textValue, workValue, workValue3)
+  if 0 ~= workValue21 then
+    flag14 = DoesEntityExist
+    cmgCall6 = workValue21
+    flag14 = flag14(cmgCall6)
+    if flag14 then
+      flag14 = SetEntityAsMissionEntity
+      cmgCall6 = workValue21
+      stringHelper2 = true
+      vector3Builder = true
+      flag14(cmgCall6, stringHelper2, vector3Builder)
+      flag14 = CMG
+      flag14 = flag14.initLocalVehicle
+      cmgCall6 = workValue21
+      flag14(cmgCall6)
+      textValue3 = workValue21
+      flag14 = numberValue13
+      flag14()
     end
   end
-  SHX7_2 = SetModelAsNoLongerNeeded
-  SHX8_2 = SHX4_2
-  SHX7_2(SHX8_2)
-  SHX7_2 = tCMG
-  SHX7_2 = SHX7_2.notify
-  SHX8_2 = "~g~Test vehicle spawned on flatbed. Nudge to tune."
-  SHX7_2(SHX8_2)
+  flag14 = SetModelAsNoLongerNeeded
+  cmgCall6 = workValue20
+  flag14(cmgCall6)
+  flag14 = tCMG
+  flag14 = flag14.notify
+  cmgCall6 = "~g~Test vehicle spawned on flatbed. Nudge to tune."
+  -- Beginner: Show a notification to the player.
+  flag14(cmgCall6)
 end
-function SHX37_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX30_1
-  if 0 ~= SHX0_2 then
-    SHX0_2 = DoesEntityExist
-    SHX1_2 = SHX30_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = DetachEntity
-      SHX1_2 = SHX30_1
-      SHX2_2 = true
-      SHX3_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      SHX0_2 = SetEntityAsMissionEntity
-      SHX1_2 = SHX30_1
-      SHX2_2 = true
-      SHX3_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      SHX0_2 = DeleteEntity
-      SHX1_2 = SHX30_1
-      SHX0_2(SHX1_2)
+function numberValue15()
+  local arg1, arg2, arg3, workValue14
+  arg1 = textValue3
+  if 0 ~= arg1 then
+    arg1 = DoesEntityExist
+    arg2 = textValue3
+    arg1 = arg1(arg2)
+    if arg1 then
+      arg1 = DetachEntity
+      arg2 = textValue3
+      arg3 = true
+      workValue14 = true
+      arg1(arg2, arg3, workValue14)
+      arg1 = SetEntityAsMissionEntity
+      arg2 = textValue3
+      arg3 = true
+      workValue14 = true
+      arg1(arg2, arg3, workValue14)
+      arg1 = DeleteEntity
+      arg2 = textValue3
+      -- Beginner: Delete a GTA entity.
+      arg1(arg2)
     end
   end
-  SHX0_2 = 0
-  SHX30_1 = SHX0_2
-  SHX0_2 = 0
-  SHX31_1 = SHX0_2
+  arg1 = 0
+  textValue3 = arg1
+  arg1 = 0
+  numberValue10 = arg1
 end
-function SHX38_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.max
-  SHX3_2 = 1
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.min
-  SHX5_2 = SHX32_1
-  SHX5_2 = #SHX5_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.floor
-  SHX7_2 = tonumber
-  SHX8_2 = SHX29_1.nudgeStepIdx
-  SHX7_2 = SHX7_2(SHX8_2)
-  if not SHX7_2 then
-    SHX7_2 = 3
+function numberValue16(arg1, arg2)
+  local arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6
+  arg3 = math
+  arg3 = arg3.max
+  workValue14 = 1
+  workValue20 = math
+  workValue20 = workValue20.min
+  numberValue20 = numberValue11
+  numberValue20 = #numberValue20
+  workValue21 = math
+  workValue21 = workValue21.floor
+  flag14 = tonumber
+  cmgCall6 = cmgCall5.nudgeStepIdx
+  flag14 = flag14(cmgCall6)
+  if not flag14 then
+    flag14 = 3
   end
-  SHX6_2, SHX7_2, SHX8_2 = SHX6_2(SHX7_2)
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX3_2 = SHX32_1
-  SHX3_2 = SHX3_2[SHX2_2]
-  SHX4_2 = SHX29_1
-  SHX5_2 = SHX29_1
-  SHX5_2 = SHX5_2[SHX0_2]
-  if not SHX5_2 then
-    SHX5_2 = 0.0
+  workValue21, flag14, cmgCall6 = workValue21(flag14)
+  workValue20, numberValue20, workValue21, flag14, cmgCall6 = workValue20(numberValue20, workValue21, flag14, cmgCall6)
+  arg3 = arg3(workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6)
+  workValue14 = numberValue11
+  workValue14 = workValue14[arg3]
+  workValue20 = cmgCall5
+  numberValue20 = cmgCall5
+  numberValue20 = numberValue20[arg1]
+  if not numberValue20 then
+    numberValue20 = 0.0
   end
-  SHX6_2 = SHX1_2 * SHX3_2
-  SHX5_2 = SHX5_2 + SHX6_2
-  SHX4_2[SHX0_2] = SHX5_2
-  SHX4_2 = SHX35_1
-  SHX4_2()
+  workValue21 = arg2 * workValue14
+  numberValue20 = numberValue20 + workValue21
+  workValue20[arg1] = numberValue20
+  workValue20 = numberValue13
+  workValue20()
 end
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = string
-  SHX0_2 = SHX0_2.format
-  SHX1_2 = [[
+function numberValue17()
+  local arg1, arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6
+  arg1 = string
+  arg1 = arg1.format
+  arg2 = [[
 offset = vector3(%.4f, %.4f, %.4f),
         heading = %.2f
         -- rx=%.4f ry=%.4f rz=%.4f]]
-  SHX2_2 = SHX29_1.ox
-  SHX3_2 = SHX29_1.oy
-  SHX4_2 = SHX29_1.oz
-  SHX5_2 = SHX29_1.rz
-  SHX6_2 = SHX29_1.rx
-  SHX7_2 = SHX29_1.ry
-  SHX8_2 = SHX29_1.rz
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX1_2 = print
-  SHX2_2 = "[flatbed-dev] aaVehicles[`caracaraptorfb`]:"
-  SHX1_2(SHX2_2)
-  SHX1_2 = print
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.notify
-  SHX2_2 = "~g~Printed to F8 console."
-  SHX1_2(SHX2_2)
+  arg3 = cmgCall5.ox
+  workValue14 = cmgCall5.oy
+  workValue20 = cmgCall5.oz
+  numberValue20 = cmgCall5.rz
+  workValue21 = cmgCall5.rx
+  flag14 = cmgCall5.ry
+  cmgCall6 = cmgCall5.rz
+  arg1 = arg1(arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6)
+  arg2 = print
+  arg3 = "[flatbed-dev] aaVehicles[`caracaraptorfb`]:"
+  arg2(arg3)
+  arg2 = print
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = tCMG
+  arg2 = arg2.notify
+  arg3 = "~g~Printed to F8 console."
+  -- Beginner: Show a notification to the player.
+  arg2(arg3)
 end
-SHX40_1 = CMG
-SHX40_1 = SHX40_1.registerDevMenuItems
-SHX41_1 = "Mechanic/Flatbed attach"
-function SHX42_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Separator
-  SHX1_2 = "Flatbed vehicle attach tuning"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX30_1
-  SHX0_2 = DoesEntityExist
-  SHX1_2 = SHX30_1
-  SHX0_2 = 0 ~= SHX0_2 and SHX0_2
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Button
-  SHX2_2 = "Spawn test vehicle on flatbed"
-  SHX3_2 = "Sit in flatbed driver seat first. Spawns a premier."
-  SHX4_2 = true
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3
-    if SHX2_3 then
-      SHX3_3 = SHX36_1
-      SHX3_3()
+numberValue19 = CMG
+numberValue19 = numberValue19.registerDevMenuItems
+stringHelper = "Mechanic/Flatbed attach"
+function flag11()
+  local arg1, arg2, arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder
+  arg1 = RageUI
+  arg1 = arg1.Separator
+  arg2 = "Flatbed vehicle attach tuning"
+  arg1(arg2)
+  arg1 = textValue3
+  arg1 = DoesEntityExist
+  arg2 = textValue3
+  arg1 = 0 ~= arg1 and arg1
+  arg2 = RageUI
+  arg2 = arg2.Button
+  arg3 = "Spawn test vehicle on flatbed"
+  workValue14 = "Sit in flatbed driver seat first. Spawns a premier."
+  workValue20 = true
+  function numberValue20(arg12, arg22, arg32)
+    local arg4
+    if arg32 then
+      arg4 = numberValue14
+      arg4()
     end
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = RageUI
-  SHX1_2 = SHX1_2.Button
-  SHX2_2 = "Delete test vehicle"
-  SHX3_2 = ""
-  SHX4_2 = SHX0_2
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3
-    if SHX2_3 then
-      SHX3_3 = SHX37_1
-      SHX3_3()
-      SHX3_3 = tCMG
-      SHX3_3 = SHX3_3.notify
-      SHX4_3 = "~y~Cleaned up."
-      SHX3_3(SHX4_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg2(arg3, workValue14, workValue20, numberValue20)
+  arg2 = RageUI
+  arg2 = arg2.Button
+  arg3 = "Delete test vehicle"
+  workValue14 = ""
+  workValue20 = arg1
+  function numberValue20(arg12, arg22, arg32)
+    local arg4, textValue4
+    if arg32 then
+      arg4 = numberValue15
+      arg4()
+      arg4 = tCMG
+      arg4 = arg4.notify
+      textValue4 = "~y~Cleaned up."
+      -- Beginner: Show a notification to the player.
+      arg4(textValue4)
     end
   end
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.max
-  SHX2_2 = 1
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.min
-  SHX4_2 = SHX32_1
-  SHX4_2 = #SHX4_2
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.floor
-  SHX6_2 = tonumber
-  SHX7_2 = SHX29_1.nudgeStepIdx
-  SHX6_2 = SHX6_2(SHX7_2)
-  if not SHX6_2 then
-    SHX6_2 = 3
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg2(arg3, workValue14, workValue20, numberValue20)
+  arg2 = math
+  arg2 = arg2.max
+  arg3 = 1
+  workValue14 = math
+  workValue14 = workValue14.min
+  workValue20 = numberValue11
+  workValue20 = #workValue20
+  numberValue20 = math
+  numberValue20 = numberValue20.floor
+  workValue21 = tonumber
+  flag14 = cmgCall5.nudgeStepIdx
+  workValue21 = workValue21(flag14)
+  if not workValue21 then
+    workValue21 = 3
   end
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX5_2(SHX6_2)
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX29_1.nudgeStepIdx = SHX1_2
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.List
-  SHX3_2 = "Nudge step"
-  SHX4_2 = SHX33_1
-  SHX5_2 = SHX1_2
-  SHX6_2 = "Step size per nudge."
-  SHX7_2 = {}
-  SHX8_2 = true
-  function SHX9_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    SHX29_1.nudgeStepIdx = SHX3_3
+  numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder = numberValue20(workValue21)
+  workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder = workValue14(workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder)
+  arg2 = arg2(arg3, workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder)
+  cmgCall5.nudgeStepIdx = arg2
+  arg3 = RageUI
+  arg3 = arg3.List
+  workValue14 = "Nudge step"
+  workValue20 = numberValue12
+  numberValue20 = arg2
+  workValue21 = "Step size per nudge."
+  flag14 = {}
+  cmgCall6 = true
+  function stringHelper2(arg12, arg22, arg32, arg4)
+    cmgCall5.nudgeStepIdx = arg4
   end
-  function SHX10_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function vector3Builder()
+    local arg12, arg22
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Separator
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.format
-  SHX4_2 = "Position: ox=%.3f oy=%.3f oz=%.3f"
-  SHX5_2 = SHX29_1.ox
-  SHX6_2 = SHX29_1.oy
-  SHX7_2 = SHX29_1.oz
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "ox + (right)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "ox"
-      SHX5_3 = 1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a RageUI list selector.
+  arg3(workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder)
+  arg3 = RageUI
+  arg3 = arg3.Separator
+  workValue14 = string
+  workValue14 = workValue14.format
+  workValue20 = "Position: ox=%.3f oy=%.3f oz=%.3f"
+  numberValue20 = cmgCall5.ox
+  workValue21 = cmgCall5.oy
+  flag14 = cmgCall5.oz
+  workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder = workValue14(workValue20, numberValue20, workValue21, flag14)
+  arg3(workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "ox + (right)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "ox"
+      numberValue21 = 1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "ox - (left)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "ox"
-      SHX5_3 = -1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "ox - (left)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "ox"
+      numberValue21 = -1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "oy + (forward)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "oy"
-      SHX5_3 = 1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "oy + (forward)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "oy"
+      numberValue21 = 1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "oy - (back)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "oy"
-      SHX5_3 = -1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "oy - (back)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "oy"
+      numberValue21 = -1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "oz + (up)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "oz"
-      SHX5_3 = 1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "oz + (up)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "oz"
+      numberValue21 = 1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "oz - (down)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "oz"
-      SHX5_3 = -1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "oz - (down)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "oz"
+      numberValue21 = -1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Separator
-  SHX3_2 = string
-  SHX3_2 = SHX3_2.format
-  SHX4_2 = "Rotation: rx=%.2f ry=%.2f rz=%.2f"
-  SHX5_2 = SHX29_1.rx
-  SHX6_2 = SHX29_1.ry
-  SHX7_2 = SHX29_1.rz
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "rz + (heading CW)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "rz"
-      SHX5_3 = 1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Separator
+  workValue14 = string
+  workValue14 = workValue14.format
+  workValue20 = "Rotation: rx=%.2f ry=%.2f rz=%.2f"
+  numberValue20 = cmgCall5.rx
+  workValue21 = cmgCall5.ry
+  flag14 = cmgCall5.rz
+  workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder = workValue14(workValue20, numberValue20, workValue21, flag14)
+  arg3(workValue14, workValue20, numberValue20, workValue21, flag14, cmgCall6, stringHelper2, vector3Builder)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "rz + (heading CW)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "rz"
+      numberValue21 = 1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "rz - (heading CCW)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "rz"
-      SHX5_3 = -1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "rz - (heading CCW)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "rz"
+      numberValue21 = -1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "rx +"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "rx"
-      SHX5_3 = 1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "rx +"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "rx"
+      numberValue21 = 1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "rx -"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "rx"
-      SHX5_3 = -1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "rx -"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "rx"
+      numberValue21 = -1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "ry +"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "ry"
-      SHX5_3 = 1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "ry +"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "ry"
+      numberValue21 = 1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "ry -"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3
-    if SHX2_3 then
-      SHX3_3 = SHX38_1
-      SHX4_3 = "ry"
-      SHX5_3 = -1
-      SHX3_3(SHX4_3, SHX5_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "ry -"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4, textValue4, numberValue21
+    if arg32 then
+      arg4 = numberValue16
+      textValue4 = "ry"
+      numberValue21 = -1
+      arg4(textValue4, numberValue21)
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Separator
-  SHX3_2 = ""
-  SHX2_2(SHX3_2)
-  SHX2_2 = RageUI
-  SHX2_2 = SHX2_2.Button
-  SHX3_2 = "Print cfg snippet (F8)"
-  SHX4_2 = ""
-  SHX5_2 = SHX0_2
-  function SHX6_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3
-    if SHX2_3 then
-      SHX3_3 = SHX39_1
-      SHX3_3()
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
+  arg3 = RageUI
+  arg3 = arg3.Separator
+  workValue14 = ""
+  arg3(workValue14)
+  arg3 = RageUI
+  arg3 = arg3.Button
+  workValue14 = "Print cfg snippet (F8)"
+  workValue20 = ""
+  numberValue20 = arg1
+  function workValue21(arg12, arg22, arg32)
+    local arg4
+    if arg32 then
+      arg4 = numberValue17
+      arg4()
     end
   end
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg3(workValue14, workValue20, numberValue20, workValue21)
 end
-SHX40_1(SHX41_1, SHX42_1)
-SHX40_1 = AddEventHandler
-SHX41_1 = "onResourceStop"
-function SHX42_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX0_2 ~= SHX1_2 then
+numberValue19(stringHelper, flag11)
+numberValue19 = AddEventHandler
+stringHelper = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function flag11(arg1)
+  local arg2
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg1 ~= arg2 then
     return
   end
-  SHX1_2 = SHX37_1
-  SHX1_2()
+  arg2 = numberValue15
+  arg2()
 end
-SHX40_1(SHX41_1, SHX42_1)
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+numberValue19(stringHelper, flag11)

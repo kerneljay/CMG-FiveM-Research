@@ -1,4 +1,40 @@
 --[[
+    BEGINNER GUIDE — Eod
+    ====================
+
+    File: cmg/prod/client/misc/cl_eod.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Commands/command-like entries found:
+      * eodvisorup
+      * eodvisordown
+      * /eod
+
+    Network/hash identifiers found: 6
+      They are intentionally left unchanged because matching server code may use them.
+      * 6303abd345
+      * a2c6350ee0
+      * baeeded899
+      * 620bb841c2
+      * c8662fcaa0
+      * 879e33c266
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * Press ~INPUT_FRONTEND_LT~ to cancel.
+
+]]
+--[[
     CMG EOD Robot - Beginner-Friendly Rewrite
     ==========================================
 

@@ -1,1638 +1,1481 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_cleaner.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1
-SHX0_1 = nil
-SHX1_1 = nil
-SHX2_1 = nil
-SHX3_1 = nil
-SHX4_1 = nil
-SHX5_1 = false
-SHX6_1 = 0
-SHX7_1 = nil
-SHX8_1 = false
-SHX9_1 = 0
-SHX10_1 = nil
-SHX11_1 = nil
-SHX12_1 = nil
-SHX13_1 = nil
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.registerHudTimerBarProvider
-SHX15_1 = "businessCleanerJob"
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX12_1
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.push
-    SHX2_2 = SHX12_1
-    SHX3_2 = SHX13_1
-    SHX1_2(SHX2_2, SHX3_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Cleaner
+    ========================
+
+    File: cmg/prod/client/business/cl_cleaner.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 1
+      They are intentionally left unchanged because matching server code may use them.
+      * bf3f551598
+
+    Example player-facing text in this file:
+      * businessCleanerJob
+      * Press ~INPUT_CONTEXT~ to pick up the trash
+      * Press ~INPUT_CONTEXT~ to clean the table
+      * Press ~INPUT_CONTEXT~ to mop the floor
+      * Press ~INPUT_CONTEXT~ to plunge the toilet
+
+]]
+local workValue, workValue12, workValue21, workValue25, workValue26, flag12, numberValue9, workValue28, flag14, numberValue10, workValue3, workValue5, workValue6, workValue7, cmgCall, textValue, workValue8, workValue9, workValue10, workValue11, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, dataTable3, dataTable4, textValue4, workValue22, textValue6, workValue23, workValue24
+workValue = nil
+workValue12 = nil
+workValue21 = nil
+workValue25 = nil
+workValue26 = nil
+flag12 = false
+numberValue9 = 0
+workValue28 = nil
+flag14 = false
+numberValue10 = 0
+workValue3 = nil
+workValue5 = nil
+workValue6 = nil
+workValue7 = nil
+cmgCall = CMG
+cmgCall = cmgCall.registerHudTimerBarProvider
+textValue = "businessCleanerJob"
+function workValue8(arg1)
+  local workValue13, textValue5, flag11
+  workValue13 = workValue6
+  if workValue13 then
+    workValue13 = arg1.push
+    textValue5 = workValue6
+    flag11 = workValue7
+    workValue13(textValue5, flag11)
   end
 end
-SHX14_1(SHX15_1, SHX16_1)
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX0_2.jobMetadata
-  SHX0_1 = SHX1_2
+cmgCall(textValue, workValue8)
+function cmgCall(arg1)
+  local workValue13
+  workValue13 = arg1.jobMetadata
+  workValue = workValue13
 end
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2
-  SHX0_2 = {}
-  SHX1_1 = SHX0_2
-  SHX0_2 = {}
-  SHX2_1 = SHX0_2
-  SHX0_2 = {}
-  SHX3_1 = SHX0_2
-  SHX0_2 = assert
-  SHX1_2 = SHX0_1
-  SHX2_2 = "initGround nil metadata"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = false
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_1.groundPoints
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX0_1.groundModels
-    SHX8_2 = SHX0_1.groundModels
-    SHX8_2 = #SHX8_2
-    SHX8_2 = SHX5_2 % SHX8_2
-    SHX8_2 = SHX8_2 + 1
-    SHX7_2 = SHX7_2[SHX8_2]
-    SHX8_2 = CMG
-    SHX8_2 = SHX8_2.loadModel
-    SHX9_2 = SHX7_2
-    SHX8_2(SHX9_2)
-    SHX8_2 = CreateObject
-    SHX9_2 = SHX7_2
-    SHX10_2 = SHX6_2.x
-    SHX11_2 = SHX6_2.y
-    SHX12_2 = SHX6_2.z
-    SHX12_2 = SHX12_2 - 1.0
-    SHX13_2 = false
-    SHX14_2 = false
-    SHX15_2 = false
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    SHX9_2 = SetEntityHeading
-    SHX10_2 = SHX8_2
-    SHX11_2 = math
-    SHX11_2 = SHX11_2.random
-    SHX12_2 = 1
-    SHX13_2 = 360
-    SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2 = SHX11_2(SHX12_2, SHX13_2)
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX9_2 = SetModelAsNoLongerNeeded
-    SHX10_2 = SHX7_2
-    SHX9_2(SHX10_2)
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX1_1
-    SHX11_2 = SHX8_2
-    SHX9_2(SHX10_2, SHX11_2)
-    SHX9_2 = tCMG
-    SHX9_2 = SHX9_2.addMarker
-    SHX10_2 = SHX6_2.x
-    SHX11_2 = SHX6_2.y
-    SHX12_2 = SHX6_2.z
-    SHX12_2 = SHX12_2 - 0.6
-    SHX13_2 = 0.2
-    SHX14_2 = 0.2
-    SHX15_2 = 0.2
-    SHX16_2 = 255
-    SHX17_2 = 255
-    SHX18_2 = 0
-    SHX19_2 = 150
-    SHX20_2 = 25.0
-    SHX21_2 = 0
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-    SHX10_2 = table
-    SHX10_2 = SHX10_2.insert
-    SHX11_2 = SHX2_1
-    SHX12_2 = SHX9_2
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = "business_job_"
-    SHX11_2 = tostring
-    SHX12_2 = SHX5_2
-    SHX11_2 = SHX11_2(SHX12_2)
-    SHX10_2 = SHX10_2 .. SHX11_2
-    SHX11_2 = CMG
-    SHX11_2 = SHX11_2.createArea
-    SHX12_2 = SHX10_2
-    SHX13_2 = SHX6_2
-    SHX14_2 = 1.0
-    SHX15_2 = 1.5
-    function SHX16_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+function textValue()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7
+  arg1 = {}
+  workValue12 = arg1
+  arg1 = {}
+  workValue21 = arg1
+  arg1 = {}
+  workValue25 = arg1
+  arg1 = assert
+  workValue13 = workValue
+  textValue5 = "initGround nil metadata"
+  arg1(workValue13, textValue5)
+  arg1 = false
+  workValue13 = pairs
+  textValue5 = workValue.groundPoints
+  workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
+  for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
+    workValue29 = workValue.groundModels
+    workValue30 = workValue.groundModels
+    workValue30 = #workValue30
+    workValue30 = numberValue8 % workValue30
+    workValue30 = workValue30 + 1
+    workValue29 = workValue29[workValue30]
+    workValue30 = CMG
+    workValue30 = workValue30.loadModel
+    workValue31 = workValue29
+    -- Beginner: Request/load a GTA model before spawning or applying it.
+    workValue30(workValue31)
+    workValue30 = CreateObject
+    workValue31 = workValue29
+    workValue4 = cmgCall2.x
+    mathHelper = cmgCall2.y
+    numberValue3 = cmgCall2.z
+    numberValue3 = numberValue3 - 1.0
+    flag2 = false
+    flag4 = false
+    flag6 = false
+    -- Beginner: result below is objectEntity.
+    workValue30 = workValue30(workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6)
+    workValue31 = SetEntityHeading
+    workValue4 = workValue30
+    mathHelper = math
+    mathHelper = mathHelper.random
+    numberValue3 = 1
+    flag2 = 360
+    mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7 = mathHelper(numberValue3, flag2)
+    -- Beginner: Change the direction an entity is facing.
+    workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7)
+    workValue31 = SetModelAsNoLongerNeeded
+    workValue4 = workValue29
+    workValue31(workValue4)
+    workValue31 = table
+    workValue31 = workValue31.insert
+    workValue4 = workValue12
+    mathHelper = workValue30
+    workValue31(workValue4, mathHelper)
+    workValue31 = tCMG
+    workValue31 = workValue31.addMarker
+    workValue4 = cmgCall2.x
+    mathHelper = cmgCall2.y
+    numberValue3 = cmgCall2.z
+    numberValue3 = numberValue3 - 0.6
+    flag2 = 0.2
+    flag4 = 0.2
+    flag6 = 0.2
+    numberValue4 = 255
+    dataTable = 255
+    numberValue5 = 0
+    dataTable2 = 150
+    numberValue6 = 25.0
+    numberValue7 = 0
+    workValue31 = workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7)
+    workValue4 = table
+    workValue4 = workValue4.insert
+    mathHelper = workValue21
+    numberValue3 = workValue31
+    workValue4(mathHelper, numberValue3)
+    workValue4 = "business_job_"
+    mathHelper = tostring
+    numberValue3 = numberValue8
+    mathHelper = mathHelper(numberValue3)
+    workValue4 = workValue4 .. mathHelper
+    mathHelper = CMG
+    mathHelper = mathHelper.createArea
+    numberValue3 = workValue4
+    flag2 = cmgCall2
+    flag4 = 1.0
+    flag6 = 1.5
+    function numberValue4()
+      local workValue2, textValue2
     end
-    function SHX17_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function dataTable()
+      local workValue2, textValue2
     end
-    function SHX18_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-      SHX0_3 = SHX0_2
-      if not SHX0_3 then
-        SHX0_3 = SHX3_1
-        if SHX0_3 then
-          SHX1_3 = SHX5_2
-          SHX0_3 = SHX3_1
-          SHX0_3 = SHX0_3[SHX1_3]
-          if SHX0_3 then
-            SHX0_3 = drawNativeNotification
-            SHX1_3 = "Press ~INPUT_CONTEXT~ to pick up the trash"
-            SHX0_3(SHX1_3)
-            SHX0_3 = IsControlJustPressed
-            SHX1_3 = 0
-            SHX2_3 = 51
-            SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-            if SHX0_3 then
-              SHX0_3 = CMG
-              SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-              SHX0_3()
-              SHX0_3 = tCMG
-              SHX0_3 = SHX0_3.setCanAnim
-              SHX1_3 = false
-              SHX0_3(SHX1_3)
-              SHX0_3 = true
-              SHX0_2 = SHX0_3
-              SHX0_3 = tCMG
-              SHX0_3 = SHX0_3.playAnim
-              SHX1_3 = true
-              SHX2_3 = {}
-              SHX3_3 = {}
-              SHX4_3 = "pickup_object"
-              SHX5_3 = "pickup_low"
-              SHX6_3 = 1
-              SHX3_3[1] = SHX4_3
-              SHX3_3[2] = SHX5_3
-              SHX3_3[3] = SHX6_3
-              SHX2_3[1] = SHX3_3
-              SHX3_3 = false
-              SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-              SHX0_3 = Citizen
-              SHX0_3 = SHX0_3.CreateThread
-              function SHX1_3()
-                -- [AI CLEANUP] Decompiled Lua - Fix these:
-                -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                -- 3. Replace goto/label with while/repeat-until where possible
-                -- 4. Remove decompiler comments, add meaningful ones
-                -- 5. Fix indentation and formatting
-                
-                local SHX0_4, SHX1_4
-                SHX0_4 = Citizen
-                SHX0_4 = SHX0_4.Wait
-                SHX1_4 = 1500
-                SHX0_4(SHX1_4)
-                SHX0_4 = TriggerServerEvent
-                SHX1_4 = "bf3f551598"
-                SHX0_4(SHX1_4)
-                SHX0_4 = DeleteEntity
-                SHX1_4 = SHX8_2
-                SHX0_4(SHX1_4)
-                SHX0_4 = tCMG
-                SHX0_4 = SHX0_4.removeMarker
-                SHX1_4 = SHX9_2
-                SHX0_4(SHX1_4)
-                SHX0_4 = tCMG
-                SHX0_4 = SHX0_4.removeArea
-                SHX1_4 = SHX10_2
-                SHX0_4(SHX1_4)
-                SHX1_4 = SHX5_2
-                SHX0_4 = SHX3_1
-                SHX0_4[SHX1_4] = nil
-                SHX0_4 = false
-                SHX0_2 = SHX0_4
-                SHX0_4 = tCMG
-                SHX0_4 = SHX0_4.setCanAnim
-                SHX1_4 = true
-                SHX0_4(SHX1_4)
+    function numberValue5()
+      local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
+      workValue2 = arg1
+      if not workValue2 then
+        workValue2 = workValue25
+        if workValue2 then
+          textValue2 = numberValue8
+          workValue2 = workValue25
+          workValue2 = workValue2[textValue2]
+          if workValue2 then
+            workValue2 = drawNativeNotification
+            textValue2 = "Press ~INPUT_CONTEXT~ to pick up the trash"
+            -- Beginner: Show a GTA-style notification/help prompt.
+            workValue2(textValue2)
+            workValue2 = IsControlJustPressed
+            textValue2 = 0
+            dataTable5 = 51
+            workValue2 = workValue2(textValue2, dataTable5)
+            if workValue2 then
+              workValue2 = CMG
+              workValue2 = workValue2.disableSittingOnChairThisFrame
+              workValue2()
+              workValue2 = tCMG
+              workValue2 = workValue2.setCanAnim
+              textValue2 = false
+              workValue2(textValue2)
+              workValue2 = true
+              arg1 = workValue2
+              workValue2 = tCMG
+              workValue2 = workValue2.playAnim
+              textValue2 = true
+              dataTable5 = {}
+              dataTable6 = {}
+              dataTable7 = "pickup_object"
+              tableHelper = "pickup_low"
+              textValue7 = 1
+              dataTable6[1] = dataTable7
+              dataTable6[2] = tableHelper
+              dataTable6[3] = textValue7
+              dataTable5[1] = dataTable6
+              dataTable6 = false
+              workValue2(textValue2, dataTable5, dataTable6)
+              workValue2 = Citizen
+              workValue2 = workValue2.CreateThread
+              function textValue2()
+                local serverEventCall, textValue3
+                serverEventCall = Citizen
+                serverEventCall = serverEventCall.Wait
+                textValue3 = 1500
+                serverEventCall(textValue3)
+                serverEventCall = TriggerServerEvent
+                textValue3 = "bf3f551598"
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+                serverEventCall(textValue3)
+                serverEventCall = DeleteEntity
+                textValue3 = workValue30
+                -- Beginner: Delete a GTA entity.
+                serverEventCall(textValue3)
+                serverEventCall = tCMG
+                serverEventCall = serverEventCall.removeMarker
+                textValue3 = workValue31
+                serverEventCall(textValue3)
+                serverEventCall = tCMG
+                serverEventCall = serverEventCall.removeArea
+                textValue3 = workValue4
+                serverEventCall(textValue3)
+                textValue3 = numberValue8
+                serverEventCall = workValue25
+                serverEventCall[textValue3] = nil
+                serverEventCall = false
+                arg1 = serverEventCall
+                serverEventCall = tCMG
+                serverEventCall = serverEventCall.setCanAnim
+                textValue3 = true
+                serverEventCall(textValue3)
               end
-              SHX0_3(SHX1_3)
+              -- Beginner: Start a separate FiveM thread so this code can run independently.
+              workValue2(textValue2)
             end
           end
         end
       end
     end
-    SHX19_2 = {}
-    SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX11_2 = table
-    SHX11_2 = SHX11_2.insert
-    SHX12_2 = SHX3_1
-    SHX13_2 = SHX10_2
-    SHX11_2(SHX12_2, SHX13_2)
+    dataTable2 = {}
+    -- Beginner: Create an interaction area around a world position.
+    mathHelper(numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
+    mathHelper = table
+    mathHelper = mathHelper.insert
+    numberValue3 = workValue25
+    flag2 = workValue4
+    mathHelper(numberValue3, flag2)
   end
 end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = drawNativeText
-  SHX1_2 = "Locate the ~y~trash~w~ and clean it up"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = table
-    SHX0_2 = SHX0_2.count
-    SHX1_2 = SHX3_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      goto SHX_LABEL_14
+function workValue8()
+  local arg1, workValue13, textValue5, flag11
+  arg1 = drawNativeText
+  workValue13 = "Locate the ~y~trash~w~ and clean it up"
+  -- Beginner: Draw GTA-style text on screen.
+  arg1(workValue13)
+  arg1 = workValue25
+  if arg1 then
+    arg1 = table
+    arg1 = arg1.count
+    workValue13 = workValue25
+    -- Beginner: result below is count.
+    arg1 = arg1(workValue13)
+    if arg1 then
+      goto flow_label_14
     end
   end
-  SHX0_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_14:: outside nested blocks until all 'goto SHX_LABEL_14' can see it
-  ::SHX_LABEL_14::
-  SHX1_2 = "~y~TRASH REMAINING"
-  SHX12_1 = SHX1_2
-  SHX1_2 = tostring
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX13_1 = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setHudTimerBarProviderActive
-  SHX2_2 = "businessCleanerJob"
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = 0 == SHX0_2
-  return SHX1_2
+  arg1 = 0
+  ::flow_label_14::
+  workValue13 = "~y~TRASH REMAINING"
+  workValue6 = workValue13
+  workValue13 = tostring
+  textValue5 = arg1
+  workValue13 = workValue13(textValue5)
+  workValue7 = workValue13
+  workValue13 = CMG
+  workValue13 = workValue13.setHudTimerBarProviderActive
+  textValue5 = "businessCleanerJob"
+  flag11 = true
+  workValue13(textValue5, flag11)
+  workValue13 = 0 == arg1
+  return workValue13
 end
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = nil
-  SHX12_1 = SHX0_2
-  SHX0_2 = nil
-  SHX13_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setHudTimerBarProviderActive
-  SHX1_2 = "businessCleanerJob"
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX1_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DeleteEntity
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+function workValue9()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
+  arg1 = nil
+  workValue6 = arg1
+  arg1 = nil
+  workValue7 = arg1
+  arg1 = CMG
+  arg1 = arg1.setHudTimerBarProviderActive
+  workValue13 = "businessCleanerJob"
+  textValue5 = false
+  arg1(workValue13, textValue5)
+  arg1 = workValue12
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue12
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = DeleteEntity
+      workValue29 = numberValue8
+      -- Beginner: Delete a GTA entity.
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX2_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeMarker
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+  arg1 = workValue21
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue21
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeMarker
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX3_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeArea
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+  arg1 = workValue25
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue25
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeArea
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = nil
-  SHX1_1 = SHX0_2
-  SHX0_2 = nil
-  SHX2_1 = SHX0_2
-  SHX0_2 = nil
-  SHX3_1 = SHX0_2
+  arg1 = nil
+  workValue12 = arg1
+  arg1 = nil
+  workValue21 = arg1
+  arg1 = nil
+  workValue25 = arg1
 end
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = {}
-  SHX2_1 = SHX0_2
-  SHX0_2 = {}
-  SHX3_1 = SHX0_2
-  SHX0_2 = assert
-  SHX1_2 = SHX0_1
-  SHX2_2 = "initSurface nil metadata"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = false
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_1.surfacePoints
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.addMarker
-    SHX8_2 = SHX6_2.x
-    SHX9_2 = SHX6_2.y
-    SHX10_2 = SHX6_2.z
-    SHX10_2 = SHX10_2 - 0.6
-    SHX11_2 = 0.2
-    SHX12_2 = 0.2
-    SHX13_2 = 0.2
-    SHX14_2 = 255
-    SHX15_2 = 255
-    SHX16_2 = 0
-    SHX17_2 = 150
-    SHX18_2 = 25.0
-    SHX19_2 = 0
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.insert
-    SHX9_2 = SHX2_1
-    SHX10_2 = SHX7_2
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = "business_job_"
-    SHX9_2 = tostring
-    SHX10_2 = SHX5_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX8_2 = SHX8_2 .. SHX9_2
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.createArea
-    SHX10_2 = SHX8_2
-    SHX11_2 = SHX6_2
-    SHX12_2 = 2.0
-    SHX13_2 = 1.5
-    function SHX14_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+function workValue10()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
+  arg1 = {}
+  workValue21 = arg1
+  arg1 = {}
+  workValue25 = arg1
+  arg1 = assert
+  workValue13 = workValue
+  textValue5 = "initSurface nil metadata"
+  arg1(workValue13, textValue5)
+  arg1 = false
+  workValue13 = pairs
+  textValue5 = workValue.surfacePoints
+  workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
+  for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
+    workValue29 = tCMG
+    workValue29 = workValue29.addMarker
+    workValue30 = cmgCall2.x
+    workValue31 = cmgCall2.y
+    workValue4 = cmgCall2.z
+    workValue4 = workValue4 - 0.6
+    mathHelper = 0.2
+    numberValue3 = 0.2
+    flag2 = 0.2
+    flag4 = 255
+    flag6 = 255
+    numberValue4 = 0
+    dataTable = 150
+    numberValue5 = 25.0
+    dataTable2 = 0
+    workValue29 = workValue29(workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
+    workValue30 = table
+    workValue30 = workValue30.insert
+    workValue31 = workValue21
+    workValue4 = workValue29
+    workValue30(workValue31, workValue4)
+    workValue30 = "business_job_"
+    workValue31 = tostring
+    workValue4 = numberValue8
+    workValue31 = workValue31(workValue4)
+    workValue30 = workValue30 .. workValue31
+    workValue31 = CMG
+    workValue31 = workValue31.createArea
+    workValue4 = workValue30
+    mathHelper = cmgCall2
+    numberValue3 = 2.0
+    flag2 = 1.5
+    function flag4()
+      local workValue2, textValue2
     end
-    function SHX15_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function flag6()
+      local workValue2, textValue2
     end
-    function SHX16_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3
-      SHX0_3 = SHX0_2
-      if not SHX0_3 then
-        SHX0_3 = SHX3_1
-        if SHX0_3 then
-          SHX0_3 = SHX3_1
-          if SHX0_3 then
-            SHX1_3 = SHX5_2
-            SHX0_3 = SHX3_1
-            SHX0_3 = SHX0_3[SHX1_3]
-            if SHX0_3 then
-              SHX0_3 = drawNativeNotification
-              SHX1_3 = "Press ~INPUT_CONTEXT~ to clean the table"
-              SHX0_3(SHX1_3)
-              SHX0_3 = IsControlJustPressed
-              SHX1_3 = 0
-              SHX2_3 = 51
-              SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-              if SHX0_3 then
-                SHX0_3 = CMG
-                SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-                SHX0_3()
-                SHX0_3 = tCMG
-                SHX0_3 = SHX0_3.setCanAnim
-                SHX1_3 = false
-                SHX0_3(SHX1_3)
-                SHX0_3 = true
-                SHX0_2 = SHX0_3
-                SHX0_3 = PlayerPedId
-                SHX0_3 = SHX0_3()
-                SHX1_3 = tCMG
-                SHX1_3 = SHX1_3.playAnim
-                SHX2_3 = true
-                SHX3_3 = {}
-                SHX4_3 = {}
-                SHX5_3 = "timetable@floyd@clean_kitchen@base"
-                SHX6_3 = "base"
-                SHX7_3 = 1
-                SHX4_3[1] = SHX5_3
-                SHX4_3[2] = SHX6_3
-                SHX4_3[3] = SHX7_3
-                SHX3_3[1] = SHX4_3
-                SHX4_3 = false
-                SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-                SHX1_3 = Citizen
-                SHX1_3 = SHX1_3.CreateThread
-                function SHX2_3()
-                  -- [AI CLEANUP] Decompiled Lua - Fix these:
-                  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                  -- 3. Replace goto/label with while/repeat-until where possible
-                  -- 4. Remove decompiler comments, add meaningful ones
-                  -- 5. Fix indentation and formatting
-                  
-                  local SHX0_4, SHX1_4
-                  SHX0_4 = Citizen
-                  SHX0_4 = SHX0_4.Wait
-                  SHX1_4 = 6000
-                  SHX0_4(SHX1_4)
-                  SHX0_4 = ClearPedSecondaryTask
-                  SHX1_4 = SHX0_3
-                  SHX0_4(SHX1_4)
-                  SHX0_4 = ClearPedTasks
-                  SHX1_4 = SHX0_3
-                  SHX0_4(SHX1_4)
-                  SHX0_4 = TriggerServerEvent
-                  SHX1_4 = "bf3f551598"
-                  SHX0_4(SHX1_4)
-                  SHX0_4 = tCMG
-                  SHX0_4 = SHX0_4.removeMarker
-                  SHX1_4 = SHX7_2
-                  SHX0_4(SHX1_4)
-                  SHX0_4 = tCMG
-                  SHX0_4 = SHX0_4.removeArea
-                  SHX1_4 = SHX8_2
-                  SHX0_4(SHX1_4)
-                  SHX1_4 = SHX5_2
-                  SHX0_4 = SHX3_1
-                  SHX0_4[SHX1_4] = nil
-                  SHX0_4 = false
-                  SHX0_2 = SHX0_4
-                  SHX0_4 = tCMG
-                  SHX0_4 = SHX0_4.setCanAnim
-                  SHX1_4 = true
-                  SHX0_4(SHX1_4)
+    function numberValue4()
+      local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13
+      workValue2 = arg1
+      if not workValue2 then
+        workValue2 = workValue25
+        if workValue2 then
+          workValue2 = workValue25
+          if workValue2 then
+            textValue2 = numberValue8
+            workValue2 = workValue25
+            workValue2 = workValue2[textValue2]
+            if workValue2 then
+              workValue2 = drawNativeNotification
+              textValue2 = "Press ~INPUT_CONTEXT~ to clean the table"
+              -- Beginner: Show a GTA-style notification/help prompt.
+              workValue2(textValue2)
+              workValue2 = IsControlJustPressed
+              textValue2 = 0
+              dataTable5 = 51
+              workValue2 = workValue2(textValue2, dataTable5)
+              if workValue2 then
+                workValue2 = CMG
+                workValue2 = workValue2.disableSittingOnChairThisFrame
+                workValue2()
+                workValue2 = tCMG
+                workValue2 = workValue2.setCanAnim
+                textValue2 = false
+                workValue2(textValue2)
+                workValue2 = true
+                arg1 = workValue2
+                workValue2 = PlayerPedId
+                -- Beginner: result below is localPlayerPed.
+                workValue2 = workValue2()
+                textValue2 = tCMG
+                textValue2 = textValue2.playAnim
+                dataTable5 = true
+                dataTable6 = {}
+                dataTable7 = {}
+                tableHelper = "timetable@floyd@clean_kitchen@base"
+                textValue7 = "base"
+                flag13 = 1
+                dataTable7[1] = tableHelper
+                dataTable7[2] = textValue7
+                dataTable7[3] = flag13
+                dataTable6[1] = dataTable7
+                dataTable7 = false
+                textValue2(dataTable5, dataTable6, dataTable7)
+                textValue2 = Citizen
+                textValue2 = textValue2.CreateThread
+                function dataTable5()
+                  local serverEventCall, textValue3
+                  serverEventCall = Citizen
+                  serverEventCall = serverEventCall.Wait
+                  textValue3 = 6000
+                  serverEventCall(textValue3)
+                  serverEventCall = ClearPedSecondaryTask
+                  textValue3 = workValue2
+                  serverEventCall(textValue3)
+                  serverEventCall = ClearPedTasks
+                  textValue3 = workValue2
+                  serverEventCall(textValue3)
+                  serverEventCall = TriggerServerEvent
+                  textValue3 = "bf3f551598"
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+                  serverEventCall(textValue3)
+                  serverEventCall = tCMG
+                  serverEventCall = serverEventCall.removeMarker
+                  textValue3 = workValue29
+                  serverEventCall(textValue3)
+                  serverEventCall = tCMG
+                  serverEventCall = serverEventCall.removeArea
+                  textValue3 = workValue30
+                  serverEventCall(textValue3)
+                  textValue3 = numberValue8
+                  serverEventCall = workValue25
+                  serverEventCall[textValue3] = nil
+                  serverEventCall = false
+                  arg1 = serverEventCall
+                  serverEventCall = tCMG
+                  serverEventCall = serverEventCall.setCanAnim
+                  textValue3 = true
+                  serverEventCall(textValue3)
                 end
-                SHX1_3(SHX2_3)
+                -- Beginner: Start a separate FiveM thread so this code can run independently.
+                textValue2(dataTable5)
               end
             end
           end
         end
       end
     end
-    SHX17_2 = {}
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX3_1
-    SHX11_2 = SHX8_2
-    SHX9_2(SHX10_2, SHX11_2)
+    dataTable = {}
+    -- Beginner: Create an interaction area around a world position.
+    workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable)
+    workValue31 = table
+    workValue31 = workValue31.insert
+    workValue4 = workValue25
+    mathHelper = workValue30
+    workValue31(workValue4, mathHelper)
   end
 end
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = drawNativeText
-  SHX1_2 = "Clean the dirty ~y~tables~w~ and prepare for customers"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = table
-    SHX0_2 = SHX0_2.count
-    SHX1_2 = SHX3_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      goto SHX_LABEL_14
+function workValue11()
+  local arg1, workValue13, textValue5, flag11
+  arg1 = drawNativeText
+  workValue13 = "Clean the dirty ~y~tables~w~ and prepare for customers"
+  -- Beginner: Draw GTA-style text on screen.
+  arg1(workValue13)
+  arg1 = workValue25
+  if arg1 then
+    arg1 = table
+    arg1 = arg1.count
+    workValue13 = workValue25
+    -- Beginner: result below is count.
+    arg1 = arg1(workValue13)
+    if arg1 then
+      goto flow_label_14
     end
   end
-  SHX0_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_14:: outside nested blocks until all 'goto SHX_LABEL_14' can see it
-  ::SHX_LABEL_14::
-  SHX1_2 = "~y~TABLES REMAINING"
-  SHX12_1 = SHX1_2
-  SHX1_2 = tostring
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX13_1 = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setHudTimerBarProviderActive
-  SHX2_2 = "businessCleanerJob"
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = 0 == SHX0_2
-  return SHX1_2
+  arg1 = 0
+  ::flow_label_14::
+  workValue13 = "~y~TABLES REMAINING"
+  workValue6 = workValue13
+  workValue13 = tostring
+  textValue5 = arg1
+  workValue13 = workValue13(textValue5)
+  workValue7 = workValue13
+  workValue13 = CMG
+  workValue13 = workValue13.setHudTimerBarProviderActive
+  textValue5 = "businessCleanerJob"
+  flag11 = true
+  workValue13(textValue5, flag11)
+  workValue13 = 0 == arg1
+  return workValue13
 end
-function SHX20_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = nil
-  SHX12_1 = SHX0_2
-  SHX0_2 = nil
-  SHX13_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setHudTimerBarProviderActive
-  SHX1_2 = "businessCleanerJob"
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX2_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeMarker
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+function workValue14()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
+  arg1 = nil
+  workValue6 = arg1
+  arg1 = nil
+  workValue7 = arg1
+  arg1 = CMG
+  arg1 = arg1.setHudTimerBarProviderActive
+  workValue13 = "businessCleanerJob"
+  textValue5 = false
+  arg1(workValue13, textValue5)
+  arg1 = workValue21
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue21
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeMarker
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX3_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeArea
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+  arg1 = workValue25
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue25
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeArea
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = nil
-  SHX2_1 = SHX0_2
-  SHX0_2 = nil
-  SHX3_1 = SHX0_2
+  arg1 = nil
+  workValue21 = arg1
+  arg1 = nil
+  workValue25 = arg1
 end
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = "floor"
-  SHX4_1 = SHX0_2
-  SHX0_2 = false
-  SHX5_1 = SHX0_2
-  SHX0_2 = 1
-  SHX6_1 = SHX0_2
-  SHX0_2 = SHX0_1
-  if SHX0_2 then
-    SHX0_2 = SHX0_1.toiletPoints
-    SHX1_2 = SHX6_1
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX7_1 = SHX0_2
+function workValue15()
+  local arg1, workValue13
+  arg1 = "floor"
+  workValue26 = arg1
+  arg1 = false
+  flag12 = arg1
+  arg1 = 1
+  numberValue9 = arg1
+  arg1 = workValue
+  if arg1 then
+    arg1 = workValue.toiletPoints
+    workValue13 = numberValue9
+    arg1 = arg1[workValue13]
+    workValue28 = arg1
   end
 end
-function SHX22_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = SHX4_1
-  if "floor" == SHX0_2 then
-    SHX0_2 = SHX5_1
-    if not SHX0_2 then
-      SHX0_2 = {}
-      SHX2_1 = SHX0_2
-      SHX0_2 = {}
-      SHX3_1 = SHX0_2
-      SHX0_2 = assert
-      SHX1_2 = SHX7_1
-      SHX2_2 = "tickToilet nil metadata (floor)"
-      SHX0_2(SHX1_2, SHX2_2)
-      SHX0_2 = false
-      SHX1_2 = pairs
-      SHX2_2 = SHX7_1.liquidPoints
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = tCMG
-        SHX7_2 = SHX7_2.addMarker
-        SHX8_2 = SHX6_2.x
-        SHX9_2 = SHX6_2.y
-        SHX10_2 = SHX6_2.z
-        SHX10_2 = SHX10_2 - 0.6
-        SHX11_2 = 0.2
-        SHX12_2 = 0.2
-        SHX13_2 = 0.2
-        SHX14_2 = 255
-        SHX15_2 = 255
-        SHX16_2 = 0
-        SHX17_2 = 150
-        SHX18_2 = 25.0
-        SHX19_2 = 0
-        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-        SHX8_2 = table
-        SHX8_2 = SHX8_2.insert
-        SHX9_2 = SHX2_1
-        SHX10_2 = SHX7_2
-        SHX8_2(SHX9_2, SHX10_2)
-        SHX8_2 = "business_job_"
-        SHX9_2 = tostring
-        SHX10_2 = SHX5_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        SHX8_2 = SHX8_2 .. SHX9_2
-        SHX9_2 = CMG
-        SHX9_2 = SHX9_2.createArea
-        SHX10_2 = SHX8_2
-        SHX11_2 = SHX6_2
-        SHX12_2 = 1.0
-        SHX13_2 = 1.5
-        function SHX14_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3
+function workValue16()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
+  arg1 = workValue26
+  if "floor" == arg1 then
+    arg1 = flag12
+    if not arg1 then
+      arg1 = {}
+      workValue21 = arg1
+      arg1 = {}
+      workValue25 = arg1
+      arg1 = assert
+      workValue13 = workValue28
+      textValue5 = "tickToilet nil metadata (floor)"
+      arg1(workValue13, textValue5)
+      arg1 = false
+      workValue13 = pairs
+      textValue5 = workValue28.liquidPoints
+      workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
+      for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
+        workValue29 = tCMG
+        workValue29 = workValue29.addMarker
+        workValue30 = cmgCall2.x
+        workValue31 = cmgCall2.y
+        workValue4 = cmgCall2.z
+        workValue4 = workValue4 - 0.6
+        mathHelper = 0.2
+        numberValue3 = 0.2
+        flag2 = 0.2
+        flag4 = 255
+        flag6 = 255
+        numberValue4 = 0
+        dataTable = 150
+        numberValue5 = 25.0
+        dataTable2 = 0
+        workValue29 = workValue29(workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
+        workValue30 = table
+        workValue30 = workValue30.insert
+        workValue31 = workValue21
+        workValue4 = workValue29
+        workValue30(workValue31, workValue4)
+        workValue30 = "business_job_"
+        workValue31 = tostring
+        workValue4 = numberValue8
+        workValue31 = workValue31(workValue4)
+        workValue30 = workValue30 .. workValue31
+        workValue31 = CMG
+        workValue31 = workValue31.createArea
+        workValue4 = workValue30
+        mathHelper = cmgCall2
+        numberValue3 = 1.0
+        flag2 = 1.5
+        function flag4()
+          local workValue2, textValue2
         end
-        function SHX15_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3
+        function flag6()
+          local workValue2, textValue2
         end
-        function SHX16_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3
-          SHX0_3 = SHX0_2
-          if not SHX0_3 then
-            SHX0_3 = SHX3_1
-            if SHX0_3 then
-              SHX1_3 = SHX5_2
-              SHX0_3 = SHX3_1
-              SHX0_3 = SHX0_3[SHX1_3]
-              if SHX0_3 then
-                SHX0_3 = drawNativeNotification
-                SHX1_3 = "Press ~INPUT_CONTEXT~ to mop the floor"
-                SHX0_3(SHX1_3)
-                SHX0_3 = IsControlJustPressed
-                SHX1_3 = 0
-                SHX2_3 = 51
-                SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                if SHX0_3 then
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-                  SHX0_3()
-                  SHX0_3 = tCMG
-                  SHX0_3 = SHX0_3.setCanAnim
-                  SHX1_3 = false
-                  SHX0_3(SHX1_3)
-                  SHX0_3 = true
-                  SHX0_2 = SHX0_3
-                  SHX0_3 = tCMG
-                  SHX0_3 = SHX0_3.playAnim
-                  SHX1_3 = true
-                  SHX2_3 = {}
-                  SHX3_3 = {}
-                  SHX4_3 = "move_mop"
-                  SHX5_3 = "idle_scrub_small_player"
-                  SHX6_3 = 1
-                  SHX3_3[1] = SHX4_3
-                  SHX3_3[2] = SHX5_3
-                  SHX3_3[3] = SHX6_3
-                  SHX2_3[1] = SHX3_3
-                  SHX3_3 = false
-                  SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.loadModel
-                  SHX1_3 = -320848029
-                  SHX0_3(SHX1_3)
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.getPlayerCoords
-                  SHX0_3 = SHX0_3()
-                  SHX1_3 = CMG
-                  SHX1_3 = SHX1_3.requestEntitySpawn
-                  SHX2_3 = "business_cleaner_mop"
-                  SHX1_3(SHX2_3)
-                  SHX1_3 = CreateObject
-                  SHX2_3 = -320848029
-                  SHX3_3 = SHX0_3.x
-                  SHX4_3 = SHX0_3.y
-                  SHX5_3 = SHX0_3.z
-                  SHX6_3 = true
-                  SHX7_3 = false
-                  SHX8_3 = false
-                  SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-                  SHX2_3 = PlayerPedId
-                  SHX2_3 = SHX2_3()
-                  SHX3_3 = AttachEntityToEntity
-                  SHX4_3 = SHX1_3
-                  SHX5_3 = SHX2_3
-                  SHX6_3 = GetPedBoneIndex
-                  SHX7_3 = SHX2_3
-                  SHX8_3 = 28422
-                  SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-                  SHX7_3 = 0.0
-                  SHX8_3 = 0.0
-                  SHX9_3 = 0.12
-                  SHX10_3 = 0.0
-                  SHX11_3 = 0.0
-                  SHX12_3 = 0.0
-                  SHX13_3 = true
-                  SHX14_3 = true
-                  SHX15_3 = false
-                  SHX16_3 = true
-                  SHX17_3 = 1
-                  SHX18_3 = true
-                  SHX3_3(SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3)
-                  SHX3_3 = SetModelAsNoLongerNeeded
-                  SHX4_3 = -320848029
-                  SHX3_3(SHX4_3)
-                  SHX3_3 = Citizen
-                  SHX3_3 = SHX3_3.CreateThread
-                  function SHX4_3()
-                    -- [AI CLEANUP] Decompiled Lua - Fix these:
-                    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                    -- 3. Replace goto/label with while/repeat-until where possible
-                    -- 4. Remove decompiler comments, add meaningful ones
-                    -- 5. Fix indentation and formatting
-                    
-                    local SHX0_4, SHX1_4
-                    SHX0_4 = Citizen
-                    SHX0_4 = SHX0_4.Wait
-                    SHX1_4 = 4000
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = DeleteEntity
-                    SHX1_4 = SHX1_3
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = TriggerServerEvent
-                    SHX1_4 = "bf3f551598"
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = tCMG
-                    SHX0_4 = SHX0_4.removeMarker
-                    SHX1_4 = SHX7_2
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = tCMG
-                    SHX0_4 = SHX0_4.removeArea
-                    SHX1_4 = SHX8_2
-                    SHX0_4(SHX1_4)
-                    SHX1_4 = SHX5_2
-                    SHX0_4 = SHX3_1
-                    SHX0_4[SHX1_4] = nil
-                    SHX0_4 = false
-                    SHX0_2 = SHX0_4
-                    SHX0_4 = tCMG
-                    SHX0_4 = SHX0_4.setCanAnim
-                    SHX1_4 = true
-                    SHX0_4(SHX1_4)
+        function numberValue4()
+          local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9, flag10
+          workValue2 = arg1
+          if not workValue2 then
+            workValue2 = workValue25
+            if workValue2 then
+              textValue2 = numberValue8
+              workValue2 = workValue25
+              workValue2 = workValue2[textValue2]
+              if workValue2 then
+                workValue2 = drawNativeNotification
+                textValue2 = "Press ~INPUT_CONTEXT~ to mop the floor"
+                -- Beginner: Show a GTA-style notification/help prompt.
+                workValue2(textValue2)
+                workValue2 = IsControlJustPressed
+                textValue2 = 0
+                dataTable5 = 51
+                workValue2 = workValue2(textValue2, dataTable5)
+                if workValue2 then
+                  workValue2 = CMG
+                  workValue2 = workValue2.disableSittingOnChairThisFrame
+                  workValue2()
+                  workValue2 = tCMG
+                  workValue2 = workValue2.setCanAnim
+                  textValue2 = false
+                  workValue2(textValue2)
+                  workValue2 = true
+                  arg1 = workValue2
+                  workValue2 = tCMG
+                  workValue2 = workValue2.playAnim
+                  textValue2 = true
+                  dataTable5 = {}
+                  dataTable6 = {}
+                  dataTable7 = "move_mop"
+                  tableHelper = "idle_scrub_small_player"
+                  textValue7 = 1
+                  dataTable6[1] = dataTable7
+                  dataTable6[2] = tableHelper
+                  dataTable6[3] = textValue7
+                  dataTable5[1] = dataTable6
+                  dataTable6 = false
+                  workValue2(textValue2, dataTable5, dataTable6)
+                  workValue2 = CMG
+                  workValue2 = workValue2.loadModel
+                  textValue2 = -320848029
+                  -- Beginner: Request/load a GTA model before spawning or applying it.
+                  workValue2(textValue2)
+                  workValue2 = CMG
+                  workValue2 = workValue2.getPlayerCoords
+                  -- Beginner: result below is playerCoords.
+                  workValue2 = workValue2()
+                  textValue2 = CMG
+                  textValue2 = textValue2.requestEntitySpawn
+                  dataTable5 = "business_cleaner_mop"
+                  textValue2(dataTable5)
+                  textValue2 = CreateObject
+                  dataTable5 = -320848029
+                  dataTable6 = workValue2.x
+                  dataTable7 = workValue2.y
+                  tableHelper = workValue2.z
+                  textValue7 = true
+                  flag13 = false
+                  flag15 = false
+                  -- Beginner: result below is objectEntity.
+                  textValue2 = textValue2(dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15)
+                  dataTable5 = PlayerPedId
+                  -- Beginner: result below is localPlayerPed.
+                  dataTable5 = dataTable5()
+                  dataTable6 = AttachEntityToEntity
+                  dataTable7 = textValue2
+                  tableHelper = dataTable5
+                  textValue7 = GetPedBoneIndex
+                  flag13 = dataTable5
+                  flag15 = 28422
+                  textValue7 = textValue7(flag13, flag15)
+                  flag13 = 0.0
+                  flag15 = 0.0
+                  numberValue11 = 0.12
+                  numberValue = 0.0
+                  numberValue2 = 0.0
+                  flag = 0.0
+                  flag3 = true
+                  flag5 = true
+                  flag7 = false
+                  flag8 = true
+                  flag9 = 1
+                  flag10 = true
+                  -- Beginner: Attach one entity to another entity.
+                  dataTable6(dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9, flag10)
+                  dataTable6 = SetModelAsNoLongerNeeded
+                  dataTable7 = -320848029
+                  dataTable6(dataTable7)
+                  dataTable6 = Citizen
+                  dataTable6 = dataTable6.CreateThread
+                  function dataTable7()
+                    local serverEventCall, textValue3
+                    serverEventCall = Citizen
+                    serverEventCall = serverEventCall.Wait
+                    textValue3 = 4000
+                    serverEventCall(textValue3)
+                    serverEventCall = DeleteEntity
+                    textValue3 = textValue2
+                    -- Beginner: Delete a GTA entity.
+                    serverEventCall(textValue3)
+                    serverEventCall = TriggerServerEvent
+                    textValue3 = "bf3f551598"
+                    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+                    serverEventCall(textValue3)
+                    serverEventCall = tCMG
+                    serverEventCall = serverEventCall.removeMarker
+                    textValue3 = workValue29
+                    serverEventCall(textValue3)
+                    serverEventCall = tCMG
+                    serverEventCall = serverEventCall.removeArea
+                    textValue3 = workValue30
+                    serverEventCall(textValue3)
+                    textValue3 = numberValue8
+                    serverEventCall = workValue25
+                    serverEventCall[textValue3] = nil
+                    serverEventCall = false
+                    arg1 = serverEventCall
+                    serverEventCall = tCMG
+                    serverEventCall = serverEventCall.setCanAnim
+                    textValue3 = true
+                    serverEventCall(textValue3)
                   end
-                  SHX3_3(SHX4_3)
+                  -- Beginner: Start a separate FiveM thread so this code can run independently.
+                  dataTable6(dataTable7)
                 end
               end
             end
           end
         end
-        SHX17_2 = {}
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-        SHX9_2 = table
-        SHX9_2 = SHX9_2.insert
-        SHX10_2 = SHX3_1
-        SHX11_2 = SHX8_2
-        SHX9_2(SHX10_2, SHX11_2)
+        dataTable = {}
+        -- Beginner: Create an interaction area around a world position.
+        workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable)
+        workValue31 = table
+        workValue31 = workValue31.insert
+        workValue4 = workValue25
+        mathHelper = workValue30
+        workValue31(workValue4, mathHelper)
       end
-      SHX1_2 = true
-      SHX5_1 = SHX1_2
+      workValue13 = true
+      flag12 = workValue13
     end
-    SHX0_2 = drawNativeText
-    SHX1_2 = "Mop the ~y~pee~w~ on the toilet floor"
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX3_1
-    if SHX0_2 then
-      SHX0_2 = table
-      SHX0_2 = SHX0_2.count
-      SHX1_2 = SHX3_1
-      SHX0_2 = SHX0_2(SHX1_2)
+    arg1 = drawNativeText
+    workValue13 = "Mop the ~y~pee~w~ on the toilet floor"
+    -- Beginner: Draw GTA-style text on screen.
+    arg1(workValue13)
+    arg1 = workValue25
+    if arg1 then
+      arg1 = table
+      arg1 = arg1.count
+      workValue13 = workValue25
+      -- Beginner: result below is count.
+      arg1 = arg1(workValue13)
     end
-    if 0 == SHX0_2 then
-      SHX0_2 = SHX2_1
-      if SHX0_2 then
-        SHX0_2 = pairs
-        SHX1_2 = SHX2_1
-        SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-        for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-          SHX6_2 = tCMG
-          SHX6_2 = SHX6_2.removeMarker
-          SHX7_2 = SHX5_2
-          SHX6_2(SHX7_2)
+    if 0 == arg1 then
+      arg1 = workValue21
+      if arg1 then
+        arg1 = pairs
+        workValue13 = workValue21
+        arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+        for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+          cmgCall2 = tCMG
+          cmgCall2 = cmgCall2.removeMarker
+          workValue29 = numberValue8
+          cmgCall2(workValue29)
         end
       end
-      SHX0_2 = SHX3_1
-      if SHX0_2 then
-        SHX0_2 = pairs
-        SHX1_2 = SHX3_1
-        SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-        for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-          SHX6_2 = tCMG
-          SHX6_2 = SHX6_2.removeArea
-          SHX7_2 = SHX5_2
-          SHX6_2(SHX7_2)
+      arg1 = workValue25
+      if arg1 then
+        arg1 = pairs
+        workValue13 = workValue25
+        arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+        for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+          cmgCall2 = tCMG
+          cmgCall2 = cmgCall2.removeArea
+          workValue29 = numberValue8
+          cmgCall2(workValue29)
         end
       end
-      SHX0_2 = nil
-      SHX2_1 = SHX0_2
-      SHX0_2 = nil
-      SHX3_1 = SHX0_2
-      SHX0_2 = "scrub"
-      SHX4_1 = SHX0_2
-      SHX0_2 = false
-      SHX5_1 = SHX0_2
+      arg1 = nil
+      workValue21 = arg1
+      arg1 = nil
+      workValue25 = arg1
+      arg1 = "scrub"
+      workValue26 = arg1
+      arg1 = false
+      flag12 = arg1
     end
   else
-    SHX0_2 = SHX4_1
-    if "scrub" == SHX0_2 then
-      SHX0_2 = SHX5_1
-      if not SHX0_2 then
-        SHX0_2 = {}
-        SHX2_1 = SHX0_2
-        SHX0_2 = {}
-        SHX3_1 = SHX0_2
-        SHX0_2 = assert
-        SHX1_2 = SHX7_1
-        SHX2_2 = "tickToilet nil metadata (scrub)"
-        SHX0_2(SHX1_2, SHX2_2)
-        SHX0_2 = false
-        SHX1_2 = tCMG
-        SHX1_2 = SHX1_2.addMarker
-        SHX2_2 = SHX7_1.scrub
-        SHX2_2 = SHX2_2.x
-        SHX3_2 = SHX7_1.scrub
-        SHX3_2 = SHX3_2.y
-        SHX4_2 = SHX7_1.scrub
-        SHX4_2 = SHX4_2.z
-        SHX4_2 = SHX4_2 - 0.6
-        SHX5_2 = 0.2
-        SHX6_2 = 0.2
-        SHX7_2 = 0.2
-        SHX8_2 = 255
-        SHX9_2 = 255
-        SHX10_2 = 0
-        SHX11_2 = 150
-        SHX12_2 = 25.0
-        SHX13_2 = 0
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = table
-        SHX2_2 = SHX2_2.insert
-        SHX3_2 = SHX2_1
-        SHX4_2 = SHX1_2
-        SHX2_2(SHX3_2, SHX4_2)
-        SHX2_2 = "business_job_"
-        SHX3_2 = tostring
-        SHX4_2 = 1
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX2_2 = SHX2_2 .. SHX3_2
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.createArea
-        SHX4_2 = SHX2_2
-        SHX5_2 = SHX7_1.scrub
-        SHX5_2 = SHX5_2.xyz
-        SHX6_2 = 1.0
-        SHX7_2 = 1.5
-        function SHX8_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3
+    arg1 = workValue26
+    if "scrub" == arg1 then
+      arg1 = flag12
+      if not arg1 then
+        arg1 = {}
+        workValue21 = arg1
+        arg1 = {}
+        workValue25 = arg1
+        arg1 = assert
+        workValue13 = workValue28
+        textValue5 = "tickToilet nil metadata (scrub)"
+        arg1(workValue13, textValue5)
+        arg1 = false
+        workValue13 = tCMG
+        workValue13 = workValue13.addMarker
+        textValue5 = workValue28.scrub
+        textValue5 = textValue5.x
+        flag11 = workValue28.scrub
+        flag11 = flag11.y
+        workValue27 = workValue28.scrub
+        workValue27 = workValue27.z
+        workValue27 = workValue27 - 0.6
+        numberValue8 = 0.2
+        cmgCall2 = 0.2
+        workValue29 = 0.2
+        workValue30 = 255
+        workValue31 = 255
+        workValue4 = 0
+        mathHelper = 150
+        numberValue3 = 25.0
+        flag2 = 0
+        workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
+        textValue5 = table
+        textValue5 = textValue5.insert
+        flag11 = workValue21
+        workValue27 = workValue13
+        textValue5(flag11, workValue27)
+        textValue5 = "business_job_"
+        flag11 = tostring
+        workValue27 = 1
+        flag11 = flag11(workValue27)
+        textValue5 = textValue5 .. flag11
+        flag11 = CMG
+        flag11 = flag11.createArea
+        workValue27 = textValue5
+        numberValue8 = workValue28.scrub
+        numberValue8 = numberValue8.xyz
+        cmgCall2 = 1.0
+        workValue29 = 1.5
+        function workValue30()
+          local workValue2, textValue2
         end
-        function SHX9_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3
+        function workValue31()
+          local workValue2, textValue2
         end
-        function SHX10_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-          SHX0_3 = SHX0_2
-          if not SHX0_3 then
-            SHX0_3 = SHX3_1
-            if SHX0_3 then
-              SHX0_3 = SHX3_1
-              SHX0_3 = SHX0_3[1]
-              if SHX0_3 then
-                SHX0_3 = drawNativeNotification
-                SHX1_3 = "Press ~INPUT_CONTEXT~ to plunge the toilet"
-                SHX0_3(SHX1_3)
-                SHX0_3 = IsControlJustPressed
-                SHX1_3 = 0
-                SHX2_3 = 51
-                SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                if SHX0_3 then
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-                  SHX0_3()
-                  SHX0_3 = tCMG
-                  SHX0_3 = SHX0_3.setCanAnim
-                  SHX1_3 = false
-                  SHX0_3(SHX1_3)
-                  SHX0_3 = true
-                  SHX0_2 = SHX0_3
-                  SHX0_3 = tCMG
-                  SHX0_3 = SHX0_3.playAnim
-                  SHX1_3 = true
-                  SHX2_3 = {}
-                  SHX3_3 = {}
-                  SHX4_3 = "switch@trevor@on_toilet"
-                  SHX5_3 = "trev_on_toilet_loop"
-                  SHX6_3 = 1
-                  SHX3_3[1] = SHX4_3
-                  SHX3_3[2] = SHX5_3
-                  SHX3_3[3] = SHX6_3
-                  SHX2_3[1] = SHX3_3
-                  SHX3_3 = false
-                  SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-                  SHX0_3 = Citizen
-                  SHX0_3 = SHX0_3.CreateThread
-                  function SHX1_3()
-                    -- [AI CLEANUP] Decompiled Lua - Fix these:
-                    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                    -- 3. Replace goto/label with while/repeat-until where possible
-                    -- 4. Remove decompiler comments, add meaningful ones
-                    -- 5. Fix indentation and formatting
-                    
-                    local SHX0_4, SHX1_4
-                    SHX0_4 = Citizen
-                    SHX0_4 = SHX0_4.Wait
-                    SHX1_4 = 7500
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = TriggerServerEvent
-                    SHX1_4 = "bf3f551598"
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = tCMG
-                    SHX0_4 = SHX0_4.removeMarker
-                    SHX1_4 = SHX1_2
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = tCMG
-                    SHX0_4 = SHX0_4.removeArea
-                    SHX1_4 = SHX2_2
-                    SHX0_4(SHX1_4)
-                    SHX0_4 = SHX3_1
-                    SHX0_4[1] = nil
-                    SHX0_4 = false
-                    SHX0_2 = SHX0_4
-                    SHX0_4 = tCMG
-                    SHX0_4 = SHX0_4.setCanAnim
-                    SHX1_4 = true
-                    SHX0_4(SHX1_4)
+        function workValue4()
+          local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
+          workValue2 = arg1
+          if not workValue2 then
+            workValue2 = workValue25
+            if workValue2 then
+              workValue2 = workValue25
+              workValue2 = workValue2[1]
+              if workValue2 then
+                workValue2 = drawNativeNotification
+                textValue2 = "Press ~INPUT_CONTEXT~ to plunge the toilet"
+                -- Beginner: Show a GTA-style notification/help prompt.
+                workValue2(textValue2)
+                workValue2 = IsControlJustPressed
+                textValue2 = 0
+                dataTable5 = 51
+                workValue2 = workValue2(textValue2, dataTable5)
+                if workValue2 then
+                  workValue2 = CMG
+                  workValue2 = workValue2.disableSittingOnChairThisFrame
+                  workValue2()
+                  workValue2 = tCMG
+                  workValue2 = workValue2.setCanAnim
+                  textValue2 = false
+                  workValue2(textValue2)
+                  workValue2 = true
+                  arg1 = workValue2
+                  workValue2 = tCMG
+                  workValue2 = workValue2.playAnim
+                  textValue2 = true
+                  dataTable5 = {}
+                  dataTable6 = {}
+                  dataTable7 = "switch@trevor@on_toilet"
+                  tableHelper = "trev_on_toilet_loop"
+                  textValue7 = 1
+                  dataTable6[1] = dataTable7
+                  dataTable6[2] = tableHelper
+                  dataTable6[3] = textValue7
+                  dataTable5[1] = dataTable6
+                  dataTable6 = false
+                  workValue2(textValue2, dataTable5, dataTable6)
+                  workValue2 = Citizen
+                  workValue2 = workValue2.CreateThread
+                  function textValue2()
+                    local serverEventCall, textValue3
+                    serverEventCall = Citizen
+                    serverEventCall = serverEventCall.Wait
+                    textValue3 = 7500
+                    serverEventCall(textValue3)
+                    serverEventCall = TriggerServerEvent
+                    textValue3 = "bf3f551598"
+                    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+                    serverEventCall(textValue3)
+                    serverEventCall = tCMG
+                    serverEventCall = serverEventCall.removeMarker
+                    textValue3 = workValue13
+                    serverEventCall(textValue3)
+                    serverEventCall = tCMG
+                    serverEventCall = serverEventCall.removeArea
+                    textValue3 = textValue5
+                    serverEventCall(textValue3)
+                    serverEventCall = workValue25
+                    serverEventCall[1] = nil
+                    serverEventCall = false
+                    arg1 = serverEventCall
+                    serverEventCall = tCMG
+                    serverEventCall = serverEventCall.setCanAnim
+                    textValue3 = true
+                    serverEventCall(textValue3)
                   end
-                  SHX0_3(SHX1_3)
+                  -- Beginner: Start a separate FiveM thread so this code can run independently.
+                  workValue2(textValue2)
                 end
               end
             end
           end
         end
-        SHX11_2 = {}
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-        SHX3_2 = table
-        SHX3_2 = SHX3_2.insert
-        SHX4_2 = SHX3_1
-        SHX5_2 = SHX2_2
-        SHX3_2(SHX4_2, SHX5_2)
-        SHX3_2 = true
-        SHX5_1 = SHX3_2
+        mathHelper = {}
+        -- Beginner: Create an interaction area around a world position.
+        flag11(workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper)
+        flag11 = table
+        flag11 = flag11.insert
+        workValue27 = workValue25
+        numberValue8 = textValue5
+        flag11(workValue27, numberValue8)
+        flag11 = true
+        flag12 = flag11
       end
-      SHX0_2 = drawNativeText
-      SHX1_2 = "Plunge the ~y~toilet~w~ to remove blockages"
-      SHX0_2(SHX1_2)
-      SHX0_2 = SHX3_1
-      if SHX0_2 then
-        SHX0_2 = table
-        SHX0_2 = SHX0_2.count
-        SHX1_2 = SHX3_1
-        SHX0_2 = SHX0_2(SHX1_2)
+      arg1 = drawNativeText
+      workValue13 = "Plunge the ~y~toilet~w~ to remove blockages"
+      -- Beginner: Draw GTA-style text on screen.
+      arg1(workValue13)
+      arg1 = workValue25
+      if arg1 then
+        arg1 = table
+        arg1 = arg1.count
+        workValue13 = workValue25
+        -- Beginner: result below is count.
+        arg1 = arg1(workValue13)
       end
-      if 0 == SHX0_2 then
-        SHX0_2 = SHX2_1
-        if SHX0_2 then
-          SHX0_2 = pairs
-          SHX1_2 = SHX2_1
-          SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-          for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-            SHX6_2 = tCMG
-            SHX6_2 = SHX6_2.removeMarker
-            SHX7_2 = SHX5_2
-            SHX6_2(SHX7_2)
+      if 0 == arg1 then
+        arg1 = workValue21
+        if arg1 then
+          arg1 = pairs
+          workValue13 = workValue21
+          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+            cmgCall2 = tCMG
+            cmgCall2 = cmgCall2.removeMarker
+            workValue29 = numberValue8
+            cmgCall2(workValue29)
           end
         end
-        SHX0_2 = SHX3_1
-        if SHX0_2 then
-          SHX0_2 = pairs
-          SHX1_2 = SHX3_1
-          SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-          for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-            SHX6_2 = tCMG
-            SHX6_2 = SHX6_2.removeArea
-            SHX7_2 = SHX5_2
-            SHX6_2(SHX7_2)
+        arg1 = workValue25
+        if arg1 then
+          arg1 = pairs
+          workValue13 = workValue25
+          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+            cmgCall2 = tCMG
+            cmgCall2 = cmgCall2.removeArea
+            workValue29 = numberValue8
+            cmgCall2(workValue29)
           end
         end
-        SHX0_2 = nil
-        SHX2_1 = SHX0_2
-        SHX0_2 = nil
-        SHX3_1 = SHX0_2
-        SHX0_2 = "hands"
-        SHX4_1 = SHX0_2
-        SHX0_2 = false
-        SHX5_1 = SHX0_2
+        arg1 = nil
+        workValue21 = arg1
+        arg1 = nil
+        workValue25 = arg1
+        arg1 = "hands"
+        workValue26 = arg1
+        arg1 = false
+        flag12 = arg1
       end
     else
-      SHX0_2 = SHX4_1
-      if "hands" == SHX0_2 then
-        SHX0_2 = SHX5_1
-        if not SHX0_2 then
-          SHX0_2 = {}
-          SHX2_1 = SHX0_2
-          SHX0_2 = {}
-          SHX3_1 = SHX0_2
-          SHX0_2 = assert
-          SHX1_2 = SHX7_1
-          SHX2_2 = "tickToilet nil metadata (hands)"
-          SHX0_2(SHX1_2, SHX2_2)
-          SHX0_2 = false
-          SHX1_2 = tCMG
-          SHX1_2 = SHX1_2.addMarker
-          SHX2_2 = SHX7_1.hands
-          SHX2_2 = SHX2_2.x
-          SHX3_2 = SHX7_1.hands
-          SHX3_2 = SHX3_2.y
-          SHX4_2 = SHX7_1.hands
-          SHX4_2 = SHX4_2.z
-          SHX4_2 = SHX4_2 - 0.6
-          SHX5_2 = 0.2
-          SHX6_2 = 0.2
-          SHX7_2 = 0.2
-          SHX8_2 = 255
-          SHX9_2 = 255
-          SHX10_2 = 0
-          SHX11_2 = 150
-          SHX12_2 = 25.0
-          SHX13_2 = 0
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-          SHX2_2 = table
-          SHX2_2 = SHX2_2.insert
-          SHX3_2 = SHX2_1
-          SHX4_2 = SHX1_2
-          SHX2_2(SHX3_2, SHX4_2)
-          SHX2_2 = "business_job_"
-          SHX3_2 = tostring
-          SHX4_2 = 1
-          SHX3_2 = SHX3_2(SHX4_2)
-          SHX2_2 = SHX2_2 .. SHX3_2
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.createArea
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX7_1.hands
-          SHX5_2 = SHX5_2.xyz
-          SHX6_2 = 1.0
-          SHX7_2 = 1.5
-          function SHX8_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3
+      arg1 = workValue26
+      if "hands" == arg1 then
+        arg1 = flag12
+        if not arg1 then
+          arg1 = {}
+          workValue21 = arg1
+          arg1 = {}
+          workValue25 = arg1
+          arg1 = assert
+          workValue13 = workValue28
+          textValue5 = "tickToilet nil metadata (hands)"
+          arg1(workValue13, textValue5)
+          arg1 = false
+          workValue13 = tCMG
+          workValue13 = workValue13.addMarker
+          textValue5 = workValue28.hands
+          textValue5 = textValue5.x
+          flag11 = workValue28.hands
+          flag11 = flag11.y
+          workValue27 = workValue28.hands
+          workValue27 = workValue27.z
+          workValue27 = workValue27 - 0.6
+          numberValue8 = 0.2
+          cmgCall2 = 0.2
+          workValue29 = 0.2
+          workValue30 = 255
+          workValue31 = 255
+          workValue4 = 0
+          mathHelper = 150
+          numberValue3 = 25.0
+          flag2 = 0
+          workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
+          textValue5 = table
+          textValue5 = textValue5.insert
+          flag11 = workValue21
+          workValue27 = workValue13
+          textValue5(flag11, workValue27)
+          textValue5 = "business_job_"
+          flag11 = tostring
+          workValue27 = 1
+          flag11 = flag11(workValue27)
+          textValue5 = textValue5 .. flag11
+          flag11 = CMG
+          flag11 = flag11.createArea
+          workValue27 = textValue5
+          numberValue8 = workValue28.hands
+          numberValue8 = numberValue8.xyz
+          cmgCall2 = 1.0
+          workValue29 = 1.5
+          function workValue30()
+            local workValue2, textValue2
           end
-          function SHX9_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3
+          function workValue31()
+            local workValue2, textValue2
           end
-          function SHX10_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-            SHX0_3 = SHX0_2
-            if not SHX0_3 then
-              SHX0_3 = SHX3_1
-              if SHX0_3 then
-                SHX0_3 = SHX3_1
-                SHX0_3 = SHX0_3[1]
-                if SHX0_3 then
-                  SHX0_3 = drawNativeNotification
-                  SHX1_3 = "Press ~INPUT_CONTEXT~ to wash your hands"
-                  SHX0_3(SHX1_3)
-                  SHX0_3 = IsControlJustPressed
-                  SHX1_3 = 0
-                  SHX2_3 = 51
-                  SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                  if SHX0_3 then
-                    SHX0_3 = CMG
-                    SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-                    SHX0_3()
-                    SHX0_3 = tCMG
-                    SHX0_3 = SHX0_3.setCanAnim
-                    SHX1_3 = false
-                    SHX0_3(SHX1_3)
-                    SHX0_3 = true
-                    SHX0_2 = SHX0_3
-                    SHX0_3 = tCMG
-                    SHX0_3 = SHX0_3.playAnim
-                    SHX1_3 = true
-                    SHX2_3 = {}
-                    SHX3_3 = {}
-                    SHX4_3 = "switch@michael@wash_face"
-                    SHX5_3 = "loop_michael"
-                    SHX6_3 = 1
-                    SHX3_3[1] = SHX4_3
-                    SHX3_3[2] = SHX5_3
-                    SHX3_3[3] = SHX6_3
-                    SHX2_3[1] = SHX3_3
-                    SHX3_3 = false
-                    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-                    SHX0_3 = Citizen
-                    SHX0_3 = SHX0_3.CreateThread
-                    function SHX1_3()
-                      -- [AI CLEANUP] Decompiled Lua - Fix these:
-                      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                      -- 3. Replace goto/label with while/repeat-until where possible
-                      -- 4. Remove decompiler comments, add meaningful ones
-                      -- 5. Fix indentation and formatting
-                      
-                      local SHX0_4, SHX1_4
-                      SHX0_4 = Citizen
-                      SHX0_4 = SHX0_4.Wait
-                      SHX1_4 = 3800
-                      SHX0_4(SHX1_4)
-                      SHX0_4 = TriggerServerEvent
-                      SHX1_4 = "bf3f551598"
-                      SHX0_4(SHX1_4)
-                      SHX0_4 = tCMG
-                      SHX0_4 = SHX0_4.removeMarker
-                      SHX1_4 = SHX1_2
-                      SHX0_4(SHX1_4)
-                      SHX0_4 = tCMG
-                      SHX0_4 = SHX0_4.removeArea
-                      SHX1_4 = SHX2_2
-                      SHX0_4(SHX1_4)
-                      SHX0_4 = SHX3_1
-                      SHX0_4[1] = nil
-                      SHX0_4 = false
-                      SHX0_2 = SHX0_4
-                      SHX0_4 = tCMG
-                      SHX0_4 = SHX0_4.setCanAnim
-                      SHX1_4 = true
-                      SHX0_4(SHX1_4)
+          function workValue4()
+            local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
+            workValue2 = arg1
+            if not workValue2 then
+              workValue2 = workValue25
+              if workValue2 then
+                workValue2 = workValue25
+                workValue2 = workValue2[1]
+                if workValue2 then
+                  workValue2 = drawNativeNotification
+                  textValue2 = "Press ~INPUT_CONTEXT~ to wash your hands"
+                  -- Beginner: Show a GTA-style notification/help prompt.
+                  workValue2(textValue2)
+                  workValue2 = IsControlJustPressed
+                  textValue2 = 0
+                  dataTable5 = 51
+                  workValue2 = workValue2(textValue2, dataTable5)
+                  if workValue2 then
+                    workValue2 = CMG
+                    workValue2 = workValue2.disableSittingOnChairThisFrame
+                    workValue2()
+                    workValue2 = tCMG
+                    workValue2 = workValue2.setCanAnim
+                    textValue2 = false
+                    workValue2(textValue2)
+                    workValue2 = true
+                    arg1 = workValue2
+                    workValue2 = tCMG
+                    workValue2 = workValue2.playAnim
+                    textValue2 = true
+                    dataTable5 = {}
+                    dataTable6 = {}
+                    dataTable7 = "switch@michael@wash_face"
+                    tableHelper = "loop_michael"
+                    textValue7 = 1
+                    dataTable6[1] = dataTable7
+                    dataTable6[2] = tableHelper
+                    dataTable6[3] = textValue7
+                    dataTable5[1] = dataTable6
+                    dataTable6 = false
+                    workValue2(textValue2, dataTable5, dataTable6)
+                    workValue2 = Citizen
+                    workValue2 = workValue2.CreateThread
+                    function textValue2()
+                      local serverEventCall, textValue3
+                      serverEventCall = Citizen
+                      serverEventCall = serverEventCall.Wait
+                      textValue3 = 3800
+                      serverEventCall(textValue3)
+                      serverEventCall = TriggerServerEvent
+                      textValue3 = "bf3f551598"
+                      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+                      serverEventCall(textValue3)
+                      serverEventCall = tCMG
+                      serverEventCall = serverEventCall.removeMarker
+                      textValue3 = workValue13
+                      serverEventCall(textValue3)
+                      serverEventCall = tCMG
+                      serverEventCall = serverEventCall.removeArea
+                      textValue3 = textValue5
+                      serverEventCall(textValue3)
+                      serverEventCall = workValue25
+                      serverEventCall[1] = nil
+                      serverEventCall = false
+                      arg1 = serverEventCall
+                      serverEventCall = tCMG
+                      serverEventCall = serverEventCall.setCanAnim
+                      textValue3 = true
+                      serverEventCall(textValue3)
                     end
-                    SHX0_3(SHX1_3)
+                    -- Beginner: Start a separate FiveM thread so this code can run independently.
+                    workValue2(textValue2)
                   end
                 end
               end
             end
           end
-          SHX11_2 = {}
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-          SHX3_2 = table
-          SHX3_2 = SHX3_2.insert
-          SHX4_2 = SHX3_1
-          SHX5_2 = SHX2_2
-          SHX3_2(SHX4_2, SHX5_2)
-          SHX3_2 = true
-          SHX5_1 = SHX3_2
+          mathHelper = {}
+          -- Beginner: Create an interaction area around a world position.
+          flag11(workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper)
+          flag11 = table
+          flag11 = flag11.insert
+          workValue27 = workValue25
+          numberValue8 = textValue5
+          flag11(workValue27, numberValue8)
+          flag11 = true
+          flag12 = flag11
         end
-        SHX0_2 = drawNativeText
-        SHX1_2 = "Wash your hands and face at the ~y~sink~w~ thoroughly"
-        SHX0_2(SHX1_2)
-        SHX0_2 = SHX3_1
-        if SHX0_2 then
-          SHX0_2 = table
-          SHX0_2 = SHX0_2.count
-          SHX1_2 = SHX3_1
-          SHX0_2 = SHX0_2(SHX1_2)
-          if 0 ~= SHX0_2 then
-            goto SHX_LABEL_380
+        arg1 = drawNativeText
+        workValue13 = "Wash your hands and face at the ~y~sink~w~ thoroughly"
+        -- Beginner: Draw GTA-style text on screen.
+        arg1(workValue13)
+        arg1 = workValue25
+        if arg1 then
+          arg1 = table
+          arg1 = arg1.count
+          workValue13 = workValue25
+          -- Beginner: result below is count.
+          arg1 = arg1(workValue13)
+          if 0 ~= arg1 then
+            goto flow_label_380
           end
         end
-        SHX0_2 = SHX2_1
-        if SHX0_2 then
-          SHX0_2 = pairs
-          SHX1_2 = SHX2_1
-          SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-          for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-            SHX6_2 = tCMG
-            SHX6_2 = SHX6_2.removeMarker
-            SHX7_2 = SHX5_2
-            SHX6_2(SHX7_2)
+        arg1 = workValue21
+        if arg1 then
+          arg1 = pairs
+          workValue13 = workValue21
+          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+            cmgCall2 = tCMG
+            cmgCall2 = cmgCall2.removeMarker
+            workValue29 = numberValue8
+            cmgCall2(workValue29)
           end
         end
-        SHX0_2 = SHX3_1
-        if SHX0_2 then
-          SHX0_2 = pairs
-          SHX1_2 = SHX3_1
-          SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-          for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-            SHX6_2 = tCMG
-            SHX6_2 = SHX6_2.removeArea
-            SHX7_2 = SHX5_2
-            SHX6_2(SHX7_2)
+        arg1 = workValue25
+        if arg1 then
+          arg1 = pairs
+          workValue13 = workValue25
+          arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+          for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+            cmgCall2 = tCMG
+            cmgCall2 = cmgCall2.removeArea
+            workValue29 = numberValue8
+            cmgCall2(workValue29)
           end
         end
-        SHX0_2 = nil
-        SHX2_1 = SHX0_2
-        SHX0_2 = nil
-        SHX3_1 = SHX0_2
-        SHX0_2 = SHX0_1
-        if SHX0_2 then
-          SHX0_2 = SHX6_1
-          SHX1_2 = table
-          SHX1_2 = SHX1_2.count
-          SHX2_2 = SHX0_1.toiletPoints
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX0_2 == SHX1_2 then
-            SHX0_2 = true
-            return SHX0_2
+        arg1 = nil
+        workValue21 = arg1
+        arg1 = nil
+        workValue25 = arg1
+        arg1 = workValue
+        if arg1 then
+          arg1 = numberValue9
+          workValue13 = table
+          workValue13 = workValue13.count
+          textValue5 = workValue.toiletPoints
+          -- Beginner: result below is count.
+          workValue13 = workValue13(textValue5)
+          if arg1 == workValue13 then
+            arg1 = true
+            return arg1
         end
         else
-          SHX0_2 = "floor"
-          SHX4_1 = SHX0_2
-          SHX0_2 = false
-          SHX5_1 = SHX0_2
-          SHX0_2 = SHX6_1
-          SHX0_2 = SHX0_2 + 1
-          SHX6_1 = SHX0_2
-          SHX0_2 = SHX0_1
-          if SHX0_2 then
-            SHX0_2 = SHX0_1.toiletPoints
-            SHX1_2 = SHX6_1
-            SHX0_2 = SHX0_2[SHX1_2]
-            SHX7_1 = SHX0_2
+          arg1 = "floor"
+          workValue26 = arg1
+          arg1 = false
+          flag12 = arg1
+          arg1 = numberValue9
+          arg1 = arg1 + 1
+          numberValue9 = arg1
+          arg1 = workValue
+          if arg1 then
+            arg1 = workValue.toiletPoints
+            workValue13 = numberValue9
+            arg1 = arg1[workValue13]
+            workValue28 = arg1
           end
         end
       end
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_380:: outside nested blocks until all 'goto SHX_LABEL_380' can see it
-  ::SHX_LABEL_380::
-  SHX0_2 = false
-  return SHX0_2
+  ::flow_label_380::
+  arg1 = false
+  return arg1
 end
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX2_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeMarker
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+function workValue17()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
+  arg1 = workValue21
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue21
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeMarker
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX3_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeArea
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+  arg1 = workValue25
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue25
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeArea
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = nil
-  SHX2_1 = SHX0_2
-  SHX0_2 = nil
-  SHX3_1 = SHX0_2
-  SHX0_2 = 0
-  SHX6_1 = SHX0_2
-  SHX0_2 = nil
-  SHX7_1 = SHX0_2
-  SHX0_2 = false
-  SHX5_1 = SHX0_2
-  SHX0_2 = nil
-  SHX4_1 = SHX0_2
+  arg1 = nil
+  workValue21 = arg1
+  arg1 = nil
+  workValue25 = arg1
+  arg1 = 0
+  numberValue9 = arg1
+  arg1 = nil
+  workValue28 = arg1
+  arg1 = false
+  flag12 = arg1
+  arg1 = nil
+  workValue26 = arg1
 end
-function SHX24_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = {}
-  SHX2_1 = SHX0_2
-  SHX0_2 = {}
-  SHX3_1 = SHX0_2
-  SHX0_2 = false
-  SHX8_1 = SHX0_2
-  SHX0_2 = 0
-  SHX9_1 = SHX0_2
-  SHX0_2 = assert
-  SHX1_2 = SHX0_1
-  SHX2_2 = "initBin nil metadata"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = false
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_1.binPoints
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.addMarker
-    SHX8_2 = SHX6_2.x
-    SHX9_2 = SHX6_2.y
-    SHX10_2 = SHX6_2.z
-    SHX10_2 = SHX10_2 - 1.0
-    SHX11_2 = 0.4
-    SHX12_2 = 0.4
-    SHX13_2 = 0.4
-    SHX14_2 = 255
-    SHX15_2 = 255
-    SHX16_2 = 0
-    SHX17_2 = 150
-    SHX18_2 = 25.0
-    SHX19_2 = 1
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.insert
-    SHX9_2 = SHX2_1
-    SHX10_2 = SHX7_2
-    SHX8_2(SHX9_2, SHX10_2)
-    SHX8_2 = "business_job_"
-    SHX9_2 = tostring
-    SHX10_2 = SHX5_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX8_2 = SHX8_2 .. SHX9_2
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.createArea
-    SHX10_2 = SHX8_2
-    SHX11_2 = SHX6_2.xyz
-    SHX12_2 = 1.0
-    SHX13_2 = 1.5
-    function SHX14_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+function workValue18()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
+  arg1 = {}
+  workValue21 = arg1
+  arg1 = {}
+  workValue25 = arg1
+  arg1 = false
+  flag14 = arg1
+  arg1 = 0
+  numberValue10 = arg1
+  arg1 = assert
+  workValue13 = workValue
+  textValue5 = "initBin nil metadata"
+  arg1(workValue13, textValue5)
+  arg1 = false
+  workValue13 = pairs
+  textValue5 = workValue.binPoints
+  workValue13, textValue5, flag11, workValue27 = workValue13(textValue5)
+  for numberValue8, cmgCall2 in workValue13, textValue5, flag11, workValue27 do
+    workValue29 = tCMG
+    workValue29 = workValue29.addMarker
+    workValue30 = cmgCall2.x
+    workValue31 = cmgCall2.y
+    workValue4 = cmgCall2.z
+    workValue4 = workValue4 - 1.0
+    mathHelper = 0.4
+    numberValue3 = 0.4
+    flag2 = 0.4
+    flag4 = 255
+    flag6 = 255
+    numberValue4 = 0
+    dataTable = 150
+    numberValue5 = 25.0
+    dataTable2 = 1
+    workValue29 = workValue29(workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2)
+    workValue30 = table
+    workValue30 = workValue30.insert
+    workValue31 = workValue21
+    workValue4 = workValue29
+    workValue30(workValue31, workValue4)
+    workValue30 = "business_job_"
+    workValue31 = tostring
+    workValue4 = numberValue8
+    workValue31 = workValue31(workValue4)
+    workValue30 = workValue30 .. workValue31
+    workValue31 = CMG
+    workValue31 = workValue31.createArea
+    workValue4 = workValue30
+    mathHelper = cmgCall2.xyz
+    numberValue3 = 1.0
+    flag2 = 1.5
+    function flag4()
+      local workValue2, textValue2
     end
-    function SHX15_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function flag6()
+      local workValue2, textValue2
     end
-    function SHX16_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3
-      SHX0_3 = SHX0_2
-      if not SHX0_3 then
-        SHX0_3 = SHX3_1
-        if SHX0_3 then
-          SHX0_3 = SHX3_1
-          if SHX0_3 then
-            SHX1_3 = SHX5_2
-            SHX0_3 = SHX3_1
-            SHX0_3 = SHX0_3[SHX1_3]
-            if SHX0_3 then
-              SHX0_3 = SHX8_1
-              if not SHX0_3 then
-                SHX0_3 = drawNativeNotification
-                SHX1_3 = "Press ~INPUT_CONTEXT~ to replace the bin ban"
-                SHX0_3(SHX1_3)
-                SHX0_3 = IsControlJustPressed
-                SHX1_3 = 0
-                SHX2_3 = 51
-                SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-                if SHX0_3 then
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-                  SHX0_3()
-                  SHX0_3 = tCMG
-                  SHX0_3 = SHX0_3.setCanAnim
-                  SHX1_3 = false
-                  SHX0_3(SHX1_3)
-                  SHX0_3 = true
-                  SHX0_2 = SHX0_3
-                  SHX0_3 = tCMG
-                  SHX0_3 = SHX0_3.playAnim
-                  SHX1_3 = true
-                  SHX2_3 = {}
-                  SHX3_3 = {}
-                  SHX4_3 = "anim@heists@narcotics@trash"
-                  SHX5_3 = "walk"
-                  SHX6_3 = 1
-                  SHX3_3[1] = SHX4_3
-                  SHX3_3[2] = SHX5_3
-                  SHX3_3[3] = SHX6_3
-                  SHX2_3[1] = SHX3_3
-                  SHX3_3 = true
-                  SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.loadModel
-                  SHX1_3 = 1138881502
-                  SHX0_3(SHX1_3)
-                  SHX0_3 = CMG
-                  SHX0_3 = SHX0_3.getPlayerCoords
-                  SHX0_3 = SHX0_3()
-                  SHX1_3 = CMG
-                  SHX1_3 = SHX1_3.requestEntitySpawn
-                  SHX2_3 = "business_cleaner_binbag"
-                  SHX1_3(SHX2_3)
-                  SHX1_3 = CreateObject
-                  SHX2_3 = 1138881502
-                  SHX3_3 = SHX0_3.x
-                  SHX4_3 = SHX0_3.y
-                  SHX5_3 = SHX0_3.z
-                  SHX6_3 = true
-                  SHX7_3 = false
-                  SHX8_3 = false
-                  SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-                  SHX9_1 = SHX1_3
-                  SHX1_3 = PlayerPedId
-                  SHX1_3 = SHX1_3()
-                  SHX2_3 = AttachEntityToEntity
-                  SHX3_3 = SHX9_1
-                  SHX4_3 = SHX1_3
-                  SHX5_3 = GetPedBoneIndex
-                  SHX6_3 = SHX1_3
-                  SHX7_3 = 57005
-                  SHX5_3 = SHX5_3(SHX6_3, SHX7_3)
-                  SHX6_3 = 0.12
-                  SHX7_3 = 0.0
-                  SHX8_3 = 0.0
-                  SHX9_3 = 25.0
-                  SHX10_3 = 270.0
-                  SHX11_3 = 180.0
-                  SHX12_3 = true
-                  SHX13_3 = true
-                  SHX14_3 = false
-                  SHX15_3 = true
-                  SHX16_3 = 1
-                  SHX17_3 = true
-                  SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3)
-                  SHX2_3 = SetModelAsNoLongerNeeded
-                  SHX3_3 = 1138881502
-                  SHX2_3(SHX3_3)
-                  SHX2_3 = TriggerServerEvent
-                  SHX3_3 = "bf3f551598"
-                  SHX2_3(SHX3_3)
-                  SHX2_3 = true
-                  SHX8_1 = SHX2_3
-                  SHX2_3 = tCMG
-                  SHX2_3 = SHX2_3.removeMarker
-                  SHX3_3 = SHX7_2
-                  SHX2_3(SHX3_3)
-                  SHX2_3 = tCMG
-                  SHX2_3 = SHX2_3.removeArea
-                  SHX3_3 = SHX8_2
-                  SHX2_3(SHX3_3)
-                  SHX3_3 = SHX5_2
-                  SHX2_3 = SHX3_1
-                  SHX2_3[SHX3_3] = nil
-                  SHX2_3 = false
-                  SHX0_2 = SHX2_3
-                  SHX2_3 = tCMG
-                  SHX2_3 = SHX2_3.setCanAnim
-                  SHX3_3 = true
-                  SHX2_3(SHX3_3)
-                  SHX2_3 = notify
-                  SHX3_3 = "~g~Picked up bin bag!"
-                  SHX2_3(SHX3_3)
+    function numberValue4()
+      local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9
+      workValue2 = arg1
+      if not workValue2 then
+        workValue2 = workValue25
+        if workValue2 then
+          workValue2 = workValue25
+          if workValue2 then
+            textValue2 = numberValue8
+            workValue2 = workValue25
+            workValue2 = workValue2[textValue2]
+            if workValue2 then
+              workValue2 = flag14
+              if not workValue2 then
+                workValue2 = drawNativeNotification
+                textValue2 = "Press ~INPUT_CONTEXT~ to replace the bin ban"
+                -- Beginner: Show a GTA-style notification/help prompt.
+                workValue2(textValue2)
+                workValue2 = IsControlJustPressed
+                textValue2 = 0
+                dataTable5 = 51
+                workValue2 = workValue2(textValue2, dataTable5)
+                if workValue2 then
+                  workValue2 = CMG
+                  workValue2 = workValue2.disableSittingOnChairThisFrame
+                  workValue2()
+                  workValue2 = tCMG
+                  workValue2 = workValue2.setCanAnim
+                  textValue2 = false
+                  workValue2(textValue2)
+                  workValue2 = true
+                  arg1 = workValue2
+                  workValue2 = tCMG
+                  workValue2 = workValue2.playAnim
+                  textValue2 = true
+                  dataTable5 = {}
+                  dataTable6 = {}
+                  dataTable7 = "anim@heists@narcotics@trash"
+                  tableHelper = "walk"
+                  textValue7 = 1
+                  dataTable6[1] = dataTable7
+                  dataTable6[2] = tableHelper
+                  dataTable6[3] = textValue7
+                  dataTable5[1] = dataTable6
+                  dataTable6 = true
+                  workValue2(textValue2, dataTable5, dataTable6)
+                  workValue2 = CMG
+                  workValue2 = workValue2.loadModel
+                  textValue2 = 1138881502
+                  -- Beginner: Request/load a GTA model before spawning or applying it.
+                  workValue2(textValue2)
+                  workValue2 = CMG
+                  workValue2 = workValue2.getPlayerCoords
+                  -- Beginner: result below is playerCoords.
+                  workValue2 = workValue2()
+                  textValue2 = CMG
+                  textValue2 = textValue2.requestEntitySpawn
+                  dataTable5 = "business_cleaner_binbag"
+                  textValue2(dataTable5)
+                  textValue2 = CreateObject
+                  dataTable5 = 1138881502
+                  dataTable6 = workValue2.x
+                  dataTable7 = workValue2.y
+                  tableHelper = workValue2.z
+                  textValue7 = true
+                  flag13 = false
+                  flag15 = false
+                  -- Beginner: result below is objectEntity.
+                  textValue2 = textValue2(dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15)
+                  numberValue10 = textValue2
+                  textValue2 = PlayerPedId
+                  -- Beginner: result below is localPlayerPed.
+                  textValue2 = textValue2()
+                  dataTable5 = AttachEntityToEntity
+                  dataTable6 = numberValue10
+                  dataTable7 = textValue2
+                  tableHelper = GetPedBoneIndex
+                  textValue7 = textValue2
+                  flag13 = 57005
+                  tableHelper = tableHelper(textValue7, flag13)
+                  textValue7 = 0.12
+                  flag13 = 0.0
+                  flag15 = 0.0
+                  numberValue11 = 25.0
+                  numberValue = 270.0
+                  numberValue2 = 180.0
+                  flag = true
+                  flag3 = true
+                  flag5 = false
+                  flag7 = true
+                  flag8 = 1
+                  flag9 = true
+                  -- Beginner: Attach one entity to another entity.
+                  dataTable5(dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9)
+                  dataTable5 = SetModelAsNoLongerNeeded
+                  dataTable6 = 1138881502
+                  dataTable5(dataTable6)
+                  dataTable5 = TriggerServerEvent
+                  dataTable6 = "bf3f551598"
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+                  dataTable5(dataTable6)
+                  dataTable5 = true
+                  flag14 = dataTable5
+                  dataTable5 = tCMG
+                  dataTable5 = dataTable5.removeMarker
+                  dataTable6 = workValue29
+                  dataTable5(dataTable6)
+                  dataTable5 = tCMG
+                  dataTable5 = dataTable5.removeArea
+                  dataTable6 = workValue30
+                  dataTable5(dataTable6)
+                  dataTable6 = numberValue8
+                  dataTable5 = workValue25
+                  dataTable5[dataTable6] = nil
+                  dataTable5 = false
+                  arg1 = dataTable5
+                  dataTable5 = tCMG
+                  dataTable5 = dataTable5.setCanAnim
+                  dataTable6 = true
+                  dataTable5(dataTable6)
+                  dataTable5 = notify
+                  dataTable6 = "~g~Picked up bin bag!"
+                  -- Beginner: Show a notification to the player.
+                  dataTable5(dataTable6)
                 end
               end
             end
@@ -1640,266 +1483,238 @@ function SHX24_1()
         end
       end
     end
-    SHX17_2 = {}
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX3_1
-    SHX11_2 = SHX8_2
-    SHX9_2(SHX10_2, SHX11_2)
+    dataTable = {}
+    -- Beginner: Create an interaction area around a world position.
+    workValue31(workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable)
+    workValue31 = table
+    workValue31 = workValue31.insert
+    workValue4 = workValue25
+    mathHelper = workValue30
+    workValue31(workValue4, mathHelper)
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.createArea
-  SHX2_2 = "business_job_bin"
-  SHX3_2 = SHX0_1.binDeliveryPoint
-  SHX4_2 = 1.0
-  SHX5_2 = 1.5
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  workValue13 = CMG
+  workValue13 = workValue13.createArea
+  textValue5 = "business_job_bin"
+  flag11 = workValue.binDeliveryPoint
+  workValue27 = 1.0
+  numberValue8 = 1.5
+  function cmgCall2()
+    local workValue2, textValue2
   end
-  function SHX7_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+  function workValue29()
+    local workValue2, textValue2
   end
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = SHX8_1
-    if SHX0_3 then
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to dispose of the bin bag"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.setCanAnim
-        SHX1_3 = false
-        SHX0_3(SHX1_3)
-        SHX0_3 = true
-        SHX0_2 = SHX0_3
-        SHX0_3 = DeleteEntity
-        SHX1_3 = SHX9_1
-        SHX0_3(SHX1_3)
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.stopAnim
-        SHX1_3 = false
-        SHX0_3(SHX1_3)
-        SHX0_3 = notify
-        SHX1_3 = "~r~Thrown away bin bag."
-        SHX0_3(SHX1_3)
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = false
-        SHX8_1 = SHX0_3
-        SHX0_3 = false
-        SHX0_2 = SHX0_3
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.setCanAnim
-        SHX1_3 = true
-        SHX0_3(SHX1_3)
+  function workValue30()
+    local workValue2, textValue2, dataTable5
+    workValue2 = flag14
+    if workValue2 then
+      workValue2 = drawNativeNotification
+      textValue2 = "Press ~INPUT_CONTEXT~ to dispose of the bin bag"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      workValue2(textValue2)
+      workValue2 = IsControlJustPressed
+      textValue2 = 0
+      dataTable5 = 51
+      workValue2 = workValue2(textValue2, dataTable5)
+      if workValue2 then
+        workValue2 = CMG
+        workValue2 = workValue2.disableSittingOnChairThisFrame
+        workValue2()
+        workValue2 = tCMG
+        workValue2 = workValue2.setCanAnim
+        textValue2 = false
+        workValue2(textValue2)
+        workValue2 = true
+        arg1 = workValue2
+        workValue2 = DeleteEntity
+        textValue2 = numberValue10
+        -- Beginner: Delete a GTA entity.
+        workValue2(textValue2)
+        workValue2 = tCMG
+        workValue2 = workValue2.stopAnim
+        textValue2 = false
+        workValue2(textValue2)
+        workValue2 = notify
+        textValue2 = "~r~Thrown away bin bag."
+        -- Beginner: Show a notification to the player.
+        workValue2(textValue2)
+        workValue2 = TriggerServerEvent
+        textValue2 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        workValue2(textValue2)
+        workValue2 = false
+        flag14 = workValue2
+        workValue2 = false
+        arg1 = workValue2
+        workValue2 = tCMG
+        workValue2 = workValue2.setCanAnim
+        textValue2 = true
+        workValue2(textValue2)
       end
     end
   end
-  SHX9_2 = {}
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX10_1 = SHX1_2
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.addMarker
-  SHX2_2 = SHX0_1.binDeliveryPoint
-  SHX2_2 = SHX2_2.x
-  SHX3_2 = SHX0_1.binDeliveryPoint
-  SHX3_2 = SHX3_2.y
-  SHX4_2 = SHX0_1.binDeliveryPoint
-  SHX4_2 = SHX4_2.z
-  SHX4_2 = SHX4_2 - 1.0
-  SHX5_2 = 0.4
-  SHX6_2 = 0.4
-  SHX7_2 = 0.4
-  SHX8_2 = 255
-  SHX9_2 = 255
-  SHX10_2 = 0
-  SHX11_2 = 150
-  SHX12_2 = 25.0
-  SHX13_2 = 1
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX11_1 = SHX1_2
+  workValue31 = {}
+  workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31)
+  workValue3 = workValue13
+  workValue13 = tCMG
+  workValue13 = workValue13.addMarker
+  textValue5 = workValue.binDeliveryPoint
+  textValue5 = textValue5.x
+  flag11 = workValue.binDeliveryPoint
+  flag11 = flag11.y
+  workValue27 = workValue.binDeliveryPoint
+  workValue27 = workValue27.z
+  workValue27 = workValue27 - 1.0
+  numberValue8 = 0.4
+  cmgCall2 = 0.4
+  workValue29 = 0.4
+  workValue30 = 255
+  workValue31 = 255
+  workValue4 = 0
+  mathHelper = 150
+  numberValue3 = 25.0
+  flag2 = 1
+  workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
+  workValue5 = workValue13
 end
-function SHX25_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX8_1
-  if SHX0_2 then
-    SHX0_2 = drawNativeText
-    SHX1_2 = "Take the bin bag ~y~outside~w~ to the tip"
-    SHX0_2(SHX1_2)
+function workValue19()
+  local arg1, workValue13, textValue5, flag11
+  arg1 = flag14
+  if arg1 then
+    arg1 = drawNativeText
+    workValue13 = "Take the bin bag ~y~outside~w~ to the tip"
+    -- Beginner: Draw GTA-style text on screen.
+    arg1(workValue13)
   else
-    SHX0_2 = drawNativeText
-    SHX1_2 = "Locate the nearest ~y~bin~w~ and empty it"
-    SHX0_2(SHX1_2)
+    arg1 = drawNativeText
+    workValue13 = "Locate the nearest ~y~bin~w~ and empty it"
+    arg1(workValue13)
   end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = table
-    SHX0_2 = SHX0_2.count
-    SHX1_2 = SHX3_1
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      goto SHX_LABEL_21
+  arg1 = workValue25
+  if arg1 then
+    arg1 = table
+    arg1 = arg1.count
+    workValue13 = workValue25
+    -- Beginner: result below is count.
+    arg1 = arg1(workValue13)
+    if arg1 then
+      goto flow_label_21
     end
   end
-  SHX0_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_21:: outside nested blocks until all 'goto SHX_LABEL_21' can see it
-  ::SHX_LABEL_21::
-  SHX1_2 = "~y~BINS REMAINING"
-  SHX12_1 = SHX1_2
-  SHX1_2 = tostring
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX13_1 = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setHudTimerBarProviderActive
-  SHX2_2 = "businessCleanerJob"
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = 0 == SHX0_2
-  return SHX1_2
+  arg1 = 0
+  ::flow_label_21::
+  workValue13 = "~y~BINS REMAINING"
+  workValue6 = workValue13
+  workValue13 = tostring
+  textValue5 = arg1
+  workValue13 = workValue13(textValue5)
+  workValue7 = workValue13
+  workValue13 = CMG
+  workValue13 = workValue13.setHudTimerBarProviderActive
+  textValue5 = "businessCleanerJob"
+  flag11 = true
+  workValue13(textValue5, flag11)
+  workValue13 = 0 == arg1
+  return workValue13
 end
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = nil
-  SHX12_1 = SHX0_2
-  SHX0_2 = nil
-  SHX13_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setHudTimerBarProviderActive
-  SHX1_2 = "businessCleanerJob"
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX2_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeMarker
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+function workValue20()
+  local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
+  arg1 = nil
+  workValue6 = arg1
+  arg1 = nil
+  workValue7 = arg1
+  arg1 = CMG
+  arg1 = arg1.setHudTimerBarProviderActive
+  workValue13 = "businessCleanerJob"
+  textValue5 = false
+  arg1(workValue13, textValue5)
+  arg1 = workValue21
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue21
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeMarker
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = pairs
-    SHX1_2 = SHX3_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = tCMG
-      SHX6_2 = SHX6_2.removeArea
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+  arg1 = workValue25
+  if arg1 then
+    arg1 = pairs
+    workValue13 = workValue25
+    arg1, workValue13, textValue5, flag11 = arg1(workValue13)
+    for workValue27, numberValue8 in arg1, workValue13, textValue5, flag11 do
+      cmgCall2 = tCMG
+      cmgCall2 = cmgCall2.removeArea
+      workValue29 = numberValue8
+      cmgCall2(workValue29)
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.removeArea
-    SHX1_2 = SHX10_1
-    SHX0_2(SHX1_2)
+  arg1 = workValue3
+  if arg1 then
+    arg1 = tCMG
+    arg1 = arg1.removeArea
+    workValue13 = workValue3
+    arg1(workValue13)
   end
-  SHX0_2 = DeleteEntity
-  SHX1_2 = SHX9_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX11_1
-  if SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.removeMarker
-    SHX1_2 = SHX11_1
-    SHX0_2(SHX1_2)
+  arg1 = DeleteEntity
+  workValue13 = numberValue10
+  -- Beginner: Delete a GTA entity.
+  arg1(workValue13)
+  arg1 = workValue5
+  if arg1 then
+    arg1 = tCMG
+    arg1 = arg1.removeMarker
+    workValue13 = workValue5
+    arg1(workValue13)
   end
-  SHX0_2 = nil
-  SHX11_1 = SHX0_2
-  SHX0_2 = 0
-  SHX9_1 = SHX0_2
-  SHX0_2 = nil
-  SHX10_1 = SHX0_2
-  SHX0_2 = false
-  SHX8_1 = SHX0_2
-  SHX0_2 = nil
-  SHX2_1 = SHX0_2
-  SHX0_2 = nil
-  SHX3_1 = SHX0_2
-  SHX0_2 = nil
-  SHX0_1 = SHX0_2
+  arg1 = nil
+  workValue5 = arg1
+  arg1 = 0
+  numberValue10 = arg1
+  arg1 = nil
+  workValue3 = arg1
+  arg1 = false
+  flag14 = arg1
+  arg1 = nil
+  workValue21 = arg1
+  arg1 = nil
+  workValue25 = arg1
+  arg1 = nil
+  workValue = arg1
 end
-SHX27_1 = {}
-SHX28_1 = {}
-SHX28_1.init = SHX15_1
-SHX28_1.tick = SHX16_1
-SHX28_1.finish = SHX17_1
-SHX28_1.next = "surface"
-SHX27_1.ground = SHX28_1
-SHX28_1 = {}
-SHX28_1.init = SHX18_1
-SHX28_1.tick = SHX19_1
-SHX28_1.finish = SHX20_1
-SHX28_1.next = "toilet"
-SHX27_1.surface = SHX28_1
-SHX28_1 = {}
-SHX28_1.init = SHX21_1
-SHX28_1.tick = SHX22_1
-SHX28_1.finish = SHX23_1
-SHX28_1.next = "bin"
-SHX27_1.toilet = SHX28_1
-SHX28_1 = {}
-SHX28_1.init = SHX24_1
-SHX28_1.tick = SHX25_1
-SHX28_1.finish = SHX26_1
-SHX28_1.next = "ground"
-SHX27_1.bin = SHX28_1
-SHX28_1 = CMG
-SHX28_1 = SHX28_1.registerBusinessJob
-SHX29_1 = "cleaner"
-SHX30_1 = SHX14_1
-SHX31_1 = "ground"
-SHX32_1 = SHX27_1
-SHX33_1 = nil
-SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1)
+dataTable3 = {}
+dataTable4 = {}
+dataTable4.init = textValue
+dataTable4.tick = workValue8
+dataTable4.finish = workValue9
+dataTable4.next = "surface"
+dataTable3.ground = dataTable4
+dataTable4 = {}
+dataTable4.init = workValue10
+dataTable4.tick = workValue11
+dataTable4.finish = workValue14
+dataTable4.next = "toilet"
+dataTable3.surface = dataTable4
+dataTable4 = {}
+dataTable4.init = workValue15
+dataTable4.tick = workValue16
+dataTable4.finish = workValue17
+dataTable4.next = "bin"
+dataTable3.toilet = dataTable4
+dataTable4 = {}
+dataTable4.init = workValue18
+dataTable4.tick = workValue19
+dataTable4.finish = workValue20
+dataTable4.next = "ground"
+dataTable3.bin = dataTable4
+dataTable4 = CMG
+dataTable4 = dataTable4.registerBusinessJob
+textValue4 = "cleaner"
+workValue22 = cmgCall
+textValue6 = "ground"
+workValue23 = dataTable3
+workValue24 = nil
+dataTable4(textValue4, workValue22, textValue6, workValue23, workValue24)

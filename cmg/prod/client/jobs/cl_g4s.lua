@@ -1,1828 +1,1783 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_g4s.lua
+    ==========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1
-SHX0_1 = false
-SHX1_1 = 0
-SHX2_1 = 0
-SHX3_1 = vector3
-SHX4_1 = -710.4659
-SHX5_1 = 269.6835
-SHX6_1 = 83.13184
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX4_1 = false
-SHX5_1 = 0
-SHX6_1 = false
-SHX7_1 = false
-SHX8_1 = nil
-SHX9_1 = nil
-SHX10_1 = {}
-SHX11_1 = "g4svan"
-SHX12_1 = {}
-SHX13_1 = false
-SHX14_1 = {}
-SHX15_1 = false
-SHX16_1 = false
-SHX17_1 = 0
-SHX18_1 = 0
-SHX19_1 = ""
-SHX20_1 = {}
-SHX20_1.hackingEngaged = false
-SHX20_1.netId = 0
-SHX20_1.entity = 0
-SHX20_1.src = 0
-SHX20_1.successful = false
-SHX20_1.hackingCooldown = false
-SHX20_1.awaitingResponse = false
-SHX21_1 = {}
-SHX21_1.x = -709.134
-SHX21_1.y = 277.1604
-SHX21_1.z = 83.89014
-SHX21_1.heading = 288.89
-SHX22_1 = {}
-SHX22_1.active = false
-SHX22_1.handle = 0
-SHX23_1 = 0
-function SHX24_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.ceil
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityCoords
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX1_2 = SHX1_2 - SHX2_2
-  SHX1_2 = #SHX1_2
-  SHX1_2 = SHX1_2 / 10
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX0_2 = 500 * SHX0_2
-  SHX1_2 = SHX7_1
-  if SHX1_2 then
-    SHX1_2 = RenderScriptCams
-    SHX2_2 = false
-    SHX3_2 = true
-    SHX4_2 = SHX0_2
-    SHX5_2 = true
-    SHX6_2 = false
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX1_2 = ClearTimecycleModifier
-    SHX1_2()
-    SHX1_2 = DoesCamExist
-    SHX2_2 = SHX23_1
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = DestroyCam
-      SHX2_2 = SHX23_1
-      SHX3_2 = false
-      SHX1_2(SHX2_2, SHX3_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — G4s
+    ====================
+
+    File: cmg/prod/client/jobs/cl_g4s.lua
+    Purpose: This file contains job gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Commands/command-like entries found:
+      * /securejob
+
+    Network/hash identifiers found: 21
+      They are intentionally left unchanged because matching server code may use them.
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * Job Number: 
+      * Current Job: 
+      * ~b~Cash Driver~w~: Press ENTER to hack.
+      * SET_INPUT_EVENT_SELECT
+      * SET_INPUT_EVENT_BACK
+
+]]
+local flag, numberValue5, numberValue10, vector3Builder, flag23, numberValue16, flag27, flag29, workValue11, workValue12, dataTable, textValue2, dataTable2, flag3, dataTable3, flag6, flag8, numberValue2, numberValue4, textValue3, dataTable4, dataTable5, dataTable6, numberValue7, workValue3, workValue4, textValue4, textValue5, rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall, numberValue12, numberValue13, flag21, flag22, rageUiCall4, rageUiCall5, workValue7, workValue8, textValue11, eventRegistration, textValue12, workValue9, workValue10
+flag = false
+numberValue5 = 0
+numberValue10 = 0
+vector3Builder = vector3
+flag23 = -710.4659
+numberValue16 = 269.6835
+flag27 = 83.13184
+vector3Builder = vector3Builder(flag23, numberValue16, flag27)
+flag23 = false
+numberValue16 = 0
+flag27 = false
+flag29 = false
+workValue11 = nil
+workValue12 = nil
+dataTable = {}
+textValue2 = "g4svan"
+dataTable2 = {}
+flag3 = false
+dataTable3 = {}
+flag6 = false
+flag8 = false
+numberValue2 = 0
+numberValue4 = 0
+textValue3 = ""
+dataTable4 = {}
+dataTable4.hackingEngaged = false
+dataTable4.netId = 0
+dataTable4.entity = 0
+dataTable4.src = 0
+dataTable4.successful = false
+dataTable4.hackingCooldown = false
+dataTable4.awaitingResponse = false
+dataTable5 = {}
+dataTable5.x = -709.134
+dataTable5.y = 277.1604
+dataTable5.z = 83.89014
+dataTable5.heading = 288.89
+dataTable6 = {}
+dataTable6.active = false
+dataTable6.handle = 0
+numberValue7 = 0
+function workValue3()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30
+  arg1 = math
+  arg1 = arg1.ceil
+  arg2 = CMG
+  arg2 = arg2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg2 = arg2()
+  arg3 = GetEntityCoords
+  arg4 = numberValue5
+  -- Beginner: result below is entityCoords.
+  arg3 = arg3(arg4)
+  arg2 = arg2 - arg3
+  arg2 = #arg2
+  arg2 = arg2 / 10
+  arg1 = arg1(arg2)
+  arg1 = 500 * arg1
+  arg2 = flag29
+  if arg2 then
+    arg2 = RenderScriptCams
+    arg3 = false
+    arg4 = true
+    arg5 = arg1
+    flag25 = true
+    flag28 = false
+    arg2(arg3, arg4, arg5, flag25, flag28)
+    arg2 = ClearTimecycleModifier
+    arg2()
+    arg2 = DoesCamExist
+    arg3 = numberValue7
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = DestroyCam
+      arg3 = numberValue7
+      arg4 = false
+      arg2(arg3, arg4)
     end
-    SHX1_2 = false
-    SHX7_1 = SHX1_2
+    arg2 = false
+    flag29 = arg2
   else
-    SHX1_2 = CreateCam
-    SHX2_2 = "DEFAULT_SCRIPTED_CAMERA"
-    SHX3_2 = true
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    SHX23_1 = SHX1_2
-    SHX1_2 = AttachCamToEntity
-    SHX2_2 = SHX23_1
-    SHX3_2 = SHX1_1
-    SHX4_2 = 2.5
-    SHX5_2 = 5.0
-    SHX6_2 = 2.0
-    SHX7_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX1_2 = PointCamAtEntity
-    SHX2_2 = SHX23_1
-    SHX3_2 = SHX1_1
-    SHX4_2 = 1
-    SHX5_2 = 1
-    SHX6_2 = 1
-    SHX7_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX1_2 = RenderScriptCams
-    SHX2_2 = true
-    SHX3_2 = true
-    SHX4_2 = SHX0_2
-    SHX5_2 = true
-    SHX6_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX1_2 = Wait
-    SHX2_2 = SHX0_2
-    SHX1_2(SHX2_2)
-    SHX1_2 = SetTimecycleModifier
-    SHX2_2 = "scanline_cam_cheap"
-    SHX1_2(SHX2_2)
-    SHX1_2 = SetTimecycleModifierStrength
-    SHX2_2 = 3.0
-    SHX1_2(SHX2_2)
-    SHX1_2 = true
-    SHX7_1 = SHX1_2
+    arg2 = CreateCam
+    arg3 = "DEFAULT_SCRIPTED_CAMERA"
+    arg4 = true
+    -- Beginner: result below is cameraHandle.
+    arg2 = arg2(arg3, arg4)
+    numberValue7 = arg2
+    arg2 = AttachCamToEntity
+    arg3 = numberValue7
+    arg4 = numberValue5
+    arg5 = 2.5
+    flag25 = 5.0
+    flag28 = 2.0
+    flag30 = true
+    arg2(arg3, arg4, arg5, flag25, flag28, flag30)
+    arg2 = PointCamAtEntity
+    arg3 = numberValue7
+    arg4 = numberValue5
+    arg5 = 1
+    flag25 = 1
+    flag28 = 1
+    flag30 = true
+    arg2(arg3, arg4, arg5, flag25, flag28, flag30)
+    arg2 = RenderScriptCams
+    arg3 = true
+    arg4 = true
+    arg5 = arg1
+    flag25 = true
+    flag28 = true
+    arg2(arg3, arg4, arg5, flag25, flag28)
+    arg2 = Wait
+    arg3 = arg1
+    arg2(arg3)
+    arg2 = SetTimecycleModifier
+    arg3 = "scanline_cam_cheap"
+    arg2(arg3)
+    arg2 = SetTimecycleModifierStrength
+    arg3 = 3.0
+    arg2(arg3)
+    arg2 = true
+    flag29 = arg2
   end
 end
-SHX25_1 = RMenu
-SHX25_1 = SHX25_1.Add
-SHX26_1 = "g4s"
-SHX27_1 = "shiftHandler"
-SHX28_1 = RageUI
-SHX28_1 = SHX28_1.CreateMenu
-SHX29_1 = ""
-SHX30_1 = "Security Company"
-SHX31_1 = CMG
-SHX31_1 = SHX31_1.getRageUIMenuWidth
-SHX31_1 = SHX31_1()
-SHX32_1 = CMG
-SHX32_1 = SHX32_1.getRageUIMenuHeight
-SHX32_1 = SHX32_1()
-SHX33_1 = "cmg_g4sjob"
-SHX34_1 = "cmg_g4sjob"
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1)
-SHX25_1(SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1)
-SHX25_1 = RMenu
-SHX26_1 = SHX25_1
-SHX25_1 = SHX25_1.Get
-SHX27_1 = "g4s"
-SHX28_1 = "shiftHandler"
-SHX25_1 = SHX25_1(SHX26_1, SHX27_1, SHX28_1)
-SHX26_1 = SHX25_1
-SHX25_1 = SHX25_1.SetSubtitle
-SHX27_1 = "Security Company"
-SHX25_1(SHX26_1, SHX27_1)
-SHX25_1 = RMenu
-SHX26_1 = SHX25_1
-SHX25_1 = SHX25_1.Get
-SHX27_1 = "g4s"
-SHX28_1 = "shiftHandler"
-SHX25_1 = SHX25_1(SHX26_1, SHX27_1, SHX28_1)
-SHX25_1.Closable = true
-SHX25_1 = RMenu
-SHX25_1 = SHX25_1.Add
-SHX26_1 = "g4s"
-SHX27_1 = "main"
-SHX28_1 = RageUI
-SHX28_1 = SHX28_1.CreateMenu
-SHX29_1 = ""
-SHX30_1 = "Security Company"
-SHX31_1 = CMG
-SHX31_1 = SHX31_1.getRageUIMenuWidth
-SHX31_1 = SHX31_1()
-SHX32_1 = CMG
-SHX32_1 = SHX32_1.getRageUIMenuHeight
-SHX32_1 = SHX32_1()
-SHX33_1 = "cmg_g4sjob"
-SHX34_1 = "cmg_g4sjob"
-SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1 = SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1)
-SHX25_1(SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1)
-SHX25_1 = RMenu
-SHX26_1 = SHX25_1
-SHX25_1 = SHX25_1.Get
-SHX27_1 = "g4s"
-SHX28_1 = "main"
-SHX25_1 = SHX25_1(SHX26_1, SHX27_1, SHX28_1)
-SHX26_1 = SHX25_1
-SHX25_1 = SHX25_1.SetSubtitle
-SHX27_1 = "Security Company"
-SHX25_1(SHX26_1, SHX27_1)
-SHX25_1 = RMenu
-SHX26_1 = SHX25_1
-SHX25_1 = SHX25_1.Get
-SHX27_1 = "g4s"
-SHX28_1 = "main"
-SHX25_1 = SHX25_1(SHX26_1, SHX27_1, SHX28_1)
-SHX25_1.Closable = true
-SHX25_1 = TriggerEvent
-SHX26_1 = "chat:addSuggestion"
-SHX27_1 = "/securejob"
-SHX28_1 = "Toggles your Cash Driver menu."
-SHX25_1(SHX26_1, SHX27_1, SHX28_1)
-SHX25_1 = tCMG
-SHX25_1 = SHX25_1.addMarker
-SHX26_1 = SHX3_1.x
-SHX27_1 = SHX3_1.y
-SHX28_1 = SHX3_1.z
-SHX29_1 = 1.2
-SHX30_1 = 1.2
-SHX31_1 = 1.2
-SHX32_1 = 0
-SHX33_1 = 255
-SHX34_1 = 125
-SHX35_1 = 125
-SHX36_1 = 50
-SHX37_1 = 0
-SHX38_1 = true
-SHX39_1 = true
-SHX25_1(SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1)
-SHX25_1 = tCMG
-SHX25_1 = SHX25_1.addBlip
-SHX26_1 = SHX3_1.x
-SHX27_1 = SHX3_1.y
-SHX28_1 = SHX3_1.z
-SHX29_1 = 457
-SHX30_1 = 18
-SHX31_1 = "Cash Driver Depot"
-SHX32_1 = 1.0
-SHX33_1 = false
-SHX25_1(SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1)
-function SHX25_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "g4s"
-  SHX4_2 = "shiftHandler"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
+workValue4 = RMenu
+workValue4 = workValue4.Add
+textValue4 = "g4s"
+textValue5 = "shiftHandler"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue6 = ""
+textValue7 = "Security Company"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue8 = "cmg_g4sjob"
+textValue9 = "cmg_g4sjob"
+rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall, numberValue12, numberValue13, flag21, flag22, rageUiCall4, rageUiCall5, workValue7, workValue8, textValue11, eventRegistration, textValue12, workValue9, workValue10 = rageUiCall(textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9)
+workValue4(textValue4, textValue5, rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall, numberValue12, numberValue13, flag21, flag22, rageUiCall4, rageUiCall5, workValue7, workValue8, textValue11, eventRegistration, textValue12, workValue9, workValue10)
+workValue4 = RMenu
+textValue4 = workValue4
+workValue4 = workValue4.Get
+textValue5 = "g4s"
+rageUiCall = "shiftHandler"
+-- Beginner: result below is menu.
+workValue4 = workValue4(textValue4, textValue5, rageUiCall)
+textValue4 = workValue4
+workValue4 = workValue4.SetSubtitle
+textValue5 = "Security Company"
+workValue4(textValue4, textValue5)
+workValue4 = RMenu
+textValue4 = workValue4
+workValue4 = workValue4.Get
+textValue5 = "g4s"
+rageUiCall = "shiftHandler"
+-- Beginner: result below is menu.
+workValue4 = workValue4(textValue4, textValue5, rageUiCall)
+workValue4.Closable = true
+workValue4 = RMenu
+workValue4 = workValue4.Add
+textValue4 = "g4s"
+textValue5 = "main"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue6 = ""
+textValue7 = "Security Company"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue8 = "cmg_g4sjob"
+textValue9 = "cmg_g4sjob"
+rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall, numberValue12, numberValue13, flag21, flag22, rageUiCall4, rageUiCall5, workValue7, workValue8, textValue11, eventRegistration, textValue12, workValue9, workValue10 = rageUiCall(textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9)
+workValue4(textValue4, textValue5, rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall, numberValue12, numberValue13, flag21, flag22, rageUiCall4, rageUiCall5, workValue7, workValue8, textValue11, eventRegistration, textValue12, workValue9, workValue10)
+workValue4 = RMenu
+textValue4 = workValue4
+workValue4 = workValue4.Get
+textValue5 = "g4s"
+rageUiCall = "main"
+-- Beginner: result below is menu.
+workValue4 = workValue4(textValue4, textValue5, rageUiCall)
+textValue4 = workValue4
+workValue4 = workValue4.SetSubtitle
+textValue5 = "Security Company"
+workValue4(textValue4, textValue5)
+workValue4 = RMenu
+textValue4 = workValue4
+workValue4 = workValue4.Get
+textValue5 = "g4s"
+rageUiCall = "main"
+-- Beginner: result below is menu.
+workValue4 = workValue4(textValue4, textValue5, rageUiCall)
+workValue4.Closable = true
+workValue4 = TriggerEvent
+textValue4 = "chat:addSuggestion"
+textValue5 = "/securejob"
+rageUiCall = "Toggles your Cash Driver menu."
+-- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+workValue4(textValue4, textValue5, rageUiCall)
+workValue4 = tCMG
+workValue4 = workValue4.addMarker
+textValue4 = vector3Builder.x
+textValue5 = vector3Builder.y
+rageUiCall = vector3Builder.z
+textValue6 = 1.2
+textValue7 = 1.2
+rageUiCall2 = 1.2
+rageUiCall3 = 0
+textValue8 = 255
+textValue9 = 125
+threadCall = 125
+numberValue12 = 50
+numberValue13 = 0
+flag21 = true
+flag22 = true
+-- Beginner: Create a world marker.
+workValue4(textValue4, textValue5, rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall, numberValue12, numberValue13, flag21, flag22)
+workValue4 = tCMG
+workValue4 = workValue4.addBlip
+textValue4 = vector3Builder.x
+textValue5 = vector3Builder.y
+rageUiCall = vector3Builder.z
+textValue6 = 457
+textValue7 = 18
+rageUiCall2 = "Cash Driver Depot"
+rageUiCall3 = 1.0
+textValue8 = false
+-- Beginner: Create a minimap blip.
+workValue4(textValue4, textValue5, rageUiCall, textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8)
+function workValue4()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = RageUI
+  arg1 = arg1.Visible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  arg4 = "g4s"
+  arg5 = "shiftHandler"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = true
+  arg1(arg2, arg3)
 end
-function SHX26_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "g4s"
-  SHX4_2 = "shiftHandler"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = RageUI
+  arg1 = arg1.Visible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  arg4 = "g4s"
+  arg5 = "shiftHandler"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = false
+  arg1(arg2, arg3)
 end
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+function textValue5()
+  local arg1, arg2
 end
-SHX28_1 = CMG
-SHX28_1 = SHX28_1.createArea
-SHX29_1 = "g4sDepot_"
-SHX30_1 = SHX3_1
-SHX31_1 = 1.5
-SHX32_1 = 6
-SHX33_1 = SHX25_1
-SHX34_1 = SHX26_1
-SHX35_1 = SHX27_1
-SHX28_1(SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1)
-function SHX28_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.DrawText
-  SHX1_2 = 0.011
-  SHX2_2 = 0.55
-  SHX3_2 = "Job Number: "
-  SHX4_2 = SHX10_1.totalJobs
-  SHX4_2 = SHX4_2 + 1
-  SHX3_2 = SHX3_2 .. SHX4_2
-  SHX4_2 = 0.5
-  SHX5_2 = 6
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = DrawRect
-  SHX1_2 = 0.175
-  SHX2_2 = 0.51
-  SHX3_2 = 0.005
-  SHX4_2 = 0.17
-  SHX5_2 = 0
-  SHX6_2 = 121
-  SHX7_2 = 235
-  SHX8_2 = 255
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+rageUiCall = CMG
+rageUiCall = rageUiCall.createArea
+textValue6 = "g4sDepot_"
+textValue7 = vector3Builder
+rageUiCall2 = 1.5
+rageUiCall3 = 6
+textValue8 = workValue4
+textValue9 = textValue4
+threadCall = textValue5
+-- Beginner: Create an interaction area around a world position.
+rageUiCall(textValue6, textValue7, rageUiCall2, rageUiCall3, textValue8, textValue9, threadCall)
+function rageUiCall()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31
+  arg1 = CMG
+  arg1 = arg1.DrawText
+  arg2 = 0.011
+  arg3 = 0.55
+  arg4 = "Job Number: "
+  arg5 = dataTable.totalJobs
+  arg5 = arg5 + 1
+  arg4 = arg4 .. arg5
+  arg5 = 0.5
+  flag25 = 6
+  arg1(arg2, arg3, arg4, arg5, flag25)
+  arg1 = DrawRect
+  arg2 = 0.175
+  arg3 = 0.51
+  arg4 = 0.005
+  arg5 = 0.17
+  flag25 = 0
+  flag28 = 121
+  flag30 = 235
+  flag31 = 255
+  arg1(arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31)
 end
-function SHX29_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX10_1.jobActive
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.DrawText
-    SHX1_2 = 0.011
-    SHX2_2 = 0.51
-    SHX3_2 = "Destination: "
-    SHX4_2 = SHX10_1.depositName
-    SHX3_2 = SHX3_2 .. SHX4_2
-    SHX4_2 = 0.5
-    SHX5_2 = 4
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = SHX28_1
-    SHX0_2()
+function textValue6()
+  local arg1, arg2, arg3, arg4, arg5, flag25
+  arg1 = dataTable.jobActive
+  if arg1 then
+    arg1 = CMG
+    arg1 = arg1.DrawText
+    arg2 = 0.011
+    arg3 = 0.51
+    arg4 = "Destination: "
+    arg5 = dataTable.depositName
+    arg4 = arg4 .. arg5
+    arg5 = 0.5
+    flag25 = 4
+    arg1(arg2, arg3, arg4, arg5, flag25)
+    arg1 = rageUiCall
+    -- Beginner: Create an interaction area around a world position.
+    arg1()
   end
 end
-function SHX30_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = SHX10_1.jobActive
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.DrawText
-    SHX1_2 = 0.011
-    SHX2_2 = 0.47
-    SHX3_2 = "Current Job: "
-    SHX4_2 = SHX10_1.collectionName
-    SHX3_2 = SHX3_2 .. SHX4_2
-    SHX4_2 = 0.5
-    SHX5_2 = 4
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2 = AddTextComponentSubstringPlayerName
-    SHX1_2 = "Current Job: "
-    SHX2_2 = SHX10_1.collectionName
-    SHX1_2 = SHX1_2 .. SHX2_2
-    SHX0_2(SHX1_2)
+function textValue7()
+  local arg1, arg2, arg3, arg4, arg5, flag25
+  arg1 = dataTable.jobActive
+  if arg1 then
+    arg1 = CMG
+    arg1 = arg1.DrawText
+    arg2 = 0.011
+    arg3 = 0.47
+    arg4 = "Current Job: "
+    arg5 = dataTable.collectionName
+    arg4 = arg4 .. arg5
+    arg5 = 0.5
+    flag25 = 4
+    arg1(arg2, arg3, arg4, arg5, flag25)
+    arg1 = AddTextComponentSubstringPlayerName
+    arg2 = "Current Job: "
+    arg3 = dataTable.collectionName
+    arg2 = arg2 .. arg3
+    arg1(arg2)
   else
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.DrawText
-    SHX1_2 = 0.011
-    SHX2_2 = 0.47
-    SHX3_2 = "Pending"
-    SHX4_2 = 4
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+    arg1 = CMG
+    arg1 = arg1.DrawText
+    arg2 = 0.011
+    arg3 = 0.47
+    arg4 = "Pending"
+    arg5 = 4
+    arg1(arg2, arg3, arg4, arg5)
   end
-  SHX0_2 = SHX29_1
-  SHX0_2()
+  arg1 = textValue6
+  arg1()
 end
-function SHX31_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.DrawText
-  SHX1_2 = 0.011
-  SHX2_2 = 0.43
-  SHX3_2 = "Cash Driver"
-  SHX4_2 = 0.7
-  SHX5_2 = 4
-  SHX6_2 = 1
-  SHX7_2 = {}
-  SHX8_2 = 0
-  SHX9_2 = 121
-  SHX10_2 = 235
-  SHX11_2 = 255
-  SHX7_2[1] = SHX8_2
-  SHX7_2[2] = SHX9_2
-  SHX7_2[3] = SHX10_2
-  SHX7_2[4] = SHX11_2
-  SHX8_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = DrawRect
-  SHX1_2 = 0.0
-  SHX2_2 = 0.51
-  SHX3_2 = 0.35
-  SHX4_2 = 0.17
-  SHX5_2 = 0
-  SHX6_2 = 0
-  SHX7_2 = 0
-  SHX8_2 = 150
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX0_2 = SHX30_1
-  SHX0_2()
+function rageUiCall2()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2
+  arg1 = CMG
+  arg1 = arg1.DrawText
+  arg2 = 0.011
+  arg3 = 0.43
+  arg4 = "Cash Driver"
+  arg5 = 0.7
+  flag25 = 4
+  flag28 = 1
+  flag30 = {}
+  flag31 = 0
+  numberValue19 = 121
+  textValue = 235
+  flag2 = 255
+  flag30[1] = flag31
+  flag30[2] = numberValue19
+  flag30[3] = textValue
+  flag30[4] = flag2
+  flag31 = true
+  arg1(arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31)
+  arg1 = DrawRect
+  arg2 = 0.0
+  arg3 = 0.51
+  arg4 = 0.35
+  arg5 = 0.17
+  flag25 = 0
+  flag28 = 0
+  flag30 = 0
+  flag31 = 150
+  arg1(arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31)
+  arg1 = textValue7
+  arg1()
 end
-function SHX32_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  if "g4slogo" == SHX0_2 then
-    SHX5_2 = HasStreamedTextureDictLoaded
-    SHX6_2 = "g4slogo"
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = RequestStreamedTextureDict
-      SHX6_2 = "g4slogo"
-      SHX7_2 = true
-      SHX5_2(SHX6_2, SHX7_2)
+function rageUiCall3(arg1, arg2, arg3, arg4, arg5)
+  local flag25, flag28, flag30, flag31, numberValue19, textValue, flag2
+  if "g4slogo" == arg1 then
+    flag25 = HasStreamedTextureDictLoaded
+    flag28 = "g4slogo"
+    flag25 = flag25(flag28)
+    if not flag25 then
+      flag25 = RequestStreamedTextureDict
+      flag28 = "g4slogo"
+      flag30 = true
+      flag25(flag28, flag30)
       while true do
-        SHX5_2 = HasStreamedTextureDictLoaded
-        SHX6_2 = "g4slogo"
-        SHX5_2 = SHX5_2(SHX6_2)
-        if SHX5_2 then
+        flag25 = HasStreamedTextureDictLoaded
+        flag28 = "g4slogo"
+        flag25 = flag25(flag28)
+        if flag25 then
           break
         end
-        SHX5_2 = Wait
-        SHX6_2 = 0
-        SHX5_2(SHX6_2)
+        flag25 = Wait
+        flag28 = 0
+        flag25(flag28)
       end
     end
   end
-  SHX5_2 = BeginTextCommandThefeedPost
-  SHX6_2 = "STRING"
-  SHX5_2(SHX6_2)
-  SHX5_2 = AddTextComponentSubstringPlayerName
-  SHX6_2 = SHX2_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = EndTextCommandThefeedPostMessagetext
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX1_2
-  SHX8_2 = false
-  SHX9_2 = 0
-  SHX10_2 = SHX3_2
-  SHX11_2 = SHX4_2
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX5_2 = true
-  SHX6_2 = false
-  SHX7_2 = EndTextCommandThefeedPostTicker
-  SHX8_2 = SHX6_2
-  SHX9_2 = SHX5_2
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = PlaySoundFrontend
-  SHX8_2 = -1
-  SHX9_2 = "CHECKPOINT_NORMAL"
-  SHX10_2 = "HUD_MINI_GAME_SOUNDSET"
-  SHX11_2 = true
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+  flag25 = BeginTextCommandThefeedPost
+  flag28 = "STRING"
+  flag25(flag28)
+  flag25 = AddTextComponentSubstringPlayerName
+  flag28 = arg3
+  flag25(flag28)
+  flag25 = EndTextCommandThefeedPostMessagetext
+  flag28 = arg1
+  flag30 = arg2
+  flag31 = false
+  numberValue19 = 0
+  textValue = arg4
+  flag2 = arg5
+  flag25(flag28, flag30, flag31, numberValue19, textValue, flag2)
+  flag25 = true
+  flag28 = false
+  flag30 = EndTextCommandThefeedPostTicker
+  flag31 = flag28
+  numberValue19 = flag25
+  flag30(flag31, numberValue19)
+  flag30 = PlaySoundFrontend
+  flag31 = -1
+  numberValue19 = "CHECKPOINT_NORMAL"
+  textValue = "HUD_MINI_GAME_SOUNDSET"
+  flag2 = true
+  flag30(flag31, numberValue19, textValue, flag2)
 end
-function SHX33_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX0_2 = SHX22_1.active
-  if SHX0_2 then
-    SHX0_2 = DeleteObject
-    SHX1_2 = SHX22_1.handle
-    SHX0_2(SHX1_2)
-    SHX22_1.active = false
+function textValue8()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10
+  arg1 = dataTable6.active
+  if arg1 then
+    arg1 = DeleteObject
+    arg2 = dataTable6.handle
+    arg1(arg2)
+    dataTable6.active = false
   else
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.loadModel
-    SHX1_2 = 355444045
-    SHX0_2 = SHX0_2(SHX1_2)
-    if not SHX0_2 then
+    arg1 = CMG
+    arg1 = arg1.loadModel
+    arg2 = 355444045
+    arg1 = arg1(arg2)
+    if not arg1 then
       return
     end
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerPed
-    SHX1_2 = SHX1_2()
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.requestEntitySpawn
-    SHX3_2 = "g4s_cashbox"
-    SHX2_2(SHX3_2)
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getPlayerCoords
-    SHX2_2 = SHX2_2()
-    SHX3_2 = CreateObject
-    SHX4_2 = SHX0_2
-    SHX5_2 = SHX2_2.x
-    SHX6_2 = SHX2_2.y
-    SHX7_2 = SHX2_2.z
-    SHX8_2 = true
-    SHX9_2 = true
-    SHX10_2 = true
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX22_1.handle = SHX3_2
+    arg2 = CMG
+    arg2 = arg2.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    arg2 = arg2()
+    arg3 = CMG
+    arg3 = arg3.requestEntitySpawn
+    arg4 = "g4s_cashbox"
+    arg3(arg4)
+    arg3 = CMG
+    arg3 = arg3.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    arg3 = arg3()
+    arg4 = CreateObject
+    arg5 = arg1
+    flag25 = arg3.x
+    flag28 = arg3.y
+    flag30 = arg3.z
+    flag31 = true
+    numberValue19 = true
+    textValue = true
+    -- Beginner: result below is objectEntity.
+    arg4 = arg4(arg5, flag25, flag28, flag30, flag31, numberValue19, textValue)
+    dataTable6.handle = arg4
     while true do
-      SHX3_2 = DoesEntityExist
-      SHX4_2 = SHX22_1.handle
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
+      arg4 = DoesEntityExist
+      arg5 = dataTable6.handle
+      arg4 = arg4(arg5)
+      if arg4 then
         break
       end
-      SHX3_2 = Wait
-      SHX4_2 = 0
-      SHX3_2(SHX4_2)
+      arg4 = Wait
+      arg5 = 0
+      arg4(arg5)
     end
-    SHX22_1.active = true
-    SHX3_2 = AttachEntityToEntity
-    SHX4_2 = SHX22_1.handle
-    SHX5_2 = SHX1_2
-    SHX6_2 = GetPedBoneIndex
-    SHX7_2 = SHX1_2
-    SHX8_2 = 57005
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    SHX7_2 = 0.5
-    SHX8_2 = 0
-    SHX9_2 = 0.03
-    SHX10_2 = -95.0
-    SHX11_2 = 0
-    SHX12_2 = 90.0
-    SHX13_2 = true
-    SHX14_2 = true
-    SHX15_2 = false
-    SHX16_2 = true
-    SHX17_2 = 1
-    SHX18_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    SHX3_2 = SetModelAsNoLongerNeeded
-    SHX4_2 = SHX0_2
-    SHX3_2(SHX4_2)
+    dataTable6.active = true
+    arg4 = AttachEntityToEntity
+    arg5 = dataTable6.handle
+    flag25 = arg2
+    flag28 = GetPedBoneIndex
+    flag30 = arg2
+    flag31 = 57005
+    flag28 = flag28(flag30, flag31)
+    flag30 = 0.5
+    flag31 = 0
+    numberValue19 = 0.03
+    textValue = -95.0
+    flag2 = 0
+    numberValue = 90.0
+    flag4 = true
+    flag5 = true
+    flag7 = false
+    flag9 = true
+    numberValue3 = 1
+    flag10 = true
+    -- Beginner: Attach one entity to another entity.
+    arg4(arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10)
+    arg4 = SetModelAsNoLongerNeeded
+    arg5 = arg1
+    arg4(arg5)
   end
 end
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2 = SHX0_2()
-  if 0 ~= SHX0_2 and nil ~= SHX0_2 then
-    SHX1_2 = SHX1_1
-    if nil ~= SHX1_2 then
-      SHX1_2 = SHX1_1
-      if 0 ~= SHX1_2 then
-        SHX1_2 = SHX1_1
-        if SHX0_2 ~= SHX1_2 then
-          SHX1_2 = true
-          SHX13_1 = SHX1_2
-          SHX1_2 = SHX32_1
-          SHX2_2 = "g4slogo"
-          SHX3_2 = "g4slogo"
-          SHX4_2 = "Please ensure you are in your private security vehicle."
-          SHX5_2 = "Cash Driver Security"
-          SHX6_2 = "Human Resources"
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX1_2 = SetTimeout
-          SHX2_2 = 15000
-          function SHX3_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3, SHX2_3
-            SHX0_3 = GetVehiclePedIsIn
-            SHX1_3 = CMG
-            SHX1_3 = SHX1_3.getPlayerPed
-            SHX1_3 = SHX1_3()
-            SHX2_3 = false
-            SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-            SHX0_2 = SHX0_3
-            SHX0_3 = SHX0_2
-            if 0 ~= SHX0_3 then
-              SHX0_3 = SHX0_2
-              SHX1_3 = SHX1_1
-              if SHX0_3 ~= SHX1_3 then
-                SHX0_3 = TriggerServerEvent
-                SHX1_3 = "2ee6b18cbd"
-                SHX2_3 = false
-                SHX0_3(SHX1_3, SHX2_3)
-                SHX0_3 = tCMG
-                SHX0_3 = SHX0_3.removeBlip
-                SHX1_3 = SHX8_1
-                SHX0_3(SHX1_3)
-                SHX0_3 = tCMG
-                SHX0_3 = SHX0_3.removeBlip
-                SHX1_3 = SHX9_1
-                SHX0_3(SHX1_3)
-                SHX0_3 = ClearGpsPlayerWaypoint
-                SHX0_3()
+function textValue9()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28
+  arg1 = CMG
+  arg1 = arg1.getPlayerVehicle
+  -- Beginner: result below is currentVehicle.
+  arg1 = arg1()
+  if 0 ~= arg1 and nil ~= arg1 then
+    arg2 = numberValue5
+    if nil ~= arg2 then
+      arg2 = numberValue5
+      if 0 ~= arg2 then
+        arg2 = numberValue5
+        if arg1 ~= arg2 then
+          arg2 = true
+          flag3 = arg2
+          arg2 = rageUiCall3
+          arg3 = "g4slogo"
+          arg4 = "g4slogo"
+          arg5 = "Please ensure you are in your private security vehicle."
+          flag25 = "Cash Driver Security"
+          flag28 = "Human Resources"
+          arg2(arg3, arg4, arg5, flag25, flag28)
+          arg2 = SetTimeout
+          arg3 = 15000
+          function arg4()
+            local vehicle, cmgCall, flag17
+            vehicle = GetVehiclePedIsIn
+            cmgCall = CMG
+            cmgCall = cmgCall.getPlayerPed
+            -- Beginner: result below is localPlayerPed.
+            cmgCall = cmgCall()
+            flag17 = false
+            -- Beginner: result below is currentVehicle.
+            vehicle = vehicle(cmgCall, flag17)
+            arg1 = vehicle
+            vehicle = arg1
+            if 0 ~= vehicle then
+              vehicle = arg1
+              cmgCall = numberValue5
+              if vehicle ~= cmgCall then
+                vehicle = TriggerServerEvent
+                cmgCall = "2ee6b18cbd"
+                flag17 = false
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2ee6b18cbd".
+                vehicle(cmgCall, flag17)
+                vehicle = tCMG
+                vehicle = vehicle.removeBlip
+                cmgCall = workValue11
+                vehicle(cmgCall)
+                vehicle = tCMG
+                vehicle = vehicle.removeBlip
+                cmgCall = workValue12
+                vehicle(cmgCall)
+                vehicle = ClearGpsPlayerWaypoint
+                vehicle()
               end
             end
-            SHX0_3 = false
-            SHX13_1 = SHX0_3
+            vehicle = false
+            flag3 = vehicle
           end
-          SHX1_2(SHX2_2, SHX3_2)
+          arg2(arg3, arg4)
         end
       end
     end
   end
 end
-SHX35_1 = Citizen
-SHX35_1 = SHX35_1.CreateThread
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function numberValue12()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13
   while true do
-    SHX0_2 = SHX0_1
-    if SHX0_2 then
-      SHX0_2 = SHX16_1
-      if not SHX0_2 then
-        SHX0_2 = SHX31_1
-        SHX0_2()
+    arg1 = flag
+    if arg1 then
+      arg1 = flag8
+      if not arg1 then
+        arg1 = rageUiCall2
+        arg1()
       end
-      SHX0_2 = SHX10_1.jobActive
-      if SHX0_2 then
-        SHX0_2 = SHX10_1.collected
-        if not SHX0_2 then
-          SHX0_2 = SHX15_1
-          if SHX0_2 then
-            SHX0_2 = DrawMarker
-            SHX1_2 = 29
-            SHX2_2 = SHX10_1.collectionCoords
-            SHX2_2 = SHX2_2.x
-            SHX3_2 = SHX10_1.collectionCoords
-            SHX3_2 = SHX3_2.y
-            SHX4_2 = SHX10_1.collectionCoords
-            SHX4_2 = SHX4_2.z
-            SHX5_2 = 0.0
-            SHX6_2 = 0.0
-            SHX7_2 = 0.0
-            SHX8_2 = 0.0
-            SHX9_2 = 0.0
-            SHX10_2 = 0.0
-            SHX11_2 = 1.5
-            SHX12_2 = 1.5
-            SHX13_2 = 1.5
-            SHX14_2 = 0
-            SHX15_2 = 221
-            SHX16_2 = 255
-            SHX17_2 = 36
-            SHX18_2 = false
-            SHX19_2 = true
-            SHX20_2 = 0
-            SHX21_2 = false
-            SHX22_2 = nil
-            SHX23_2 = nil
-            SHX24_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+      arg1 = dataTable.jobActive
+      if arg1 then
+        arg1 = dataTable.collected
+        if not arg1 then
+          arg1 = flag6
+          if arg1 then
+            arg1 = DrawMarker
+            arg2 = 29
+            arg3 = dataTable.collectionCoords
+            arg3 = arg3.x
+            arg4 = dataTable.collectionCoords
+            arg4 = arg4.y
+            arg5 = dataTable.collectionCoords
+            arg5 = arg5.z
+            flag25 = 0.0
+            flag28 = 0.0
+            flag30 = 0.0
+            flag31 = 0.0
+            numberValue19 = 0.0
+            textValue = 0.0
+            flag2 = 1.5
+            numberValue = 1.5
+            flag4 = 1.5
+            flag5 = 0
+            flag7 = 221
+            flag9 = 255
+            numberValue3 = 36
+            flag10 = false
+            flag11 = true
+            numberValue6 = 0
+            flag12 = false
+            workValue = nil
+            workValue2 = nil
+            flag13 = false
+            arg1(arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13)
           else
-            SHX0_2 = DrawMarker
-            SHX1_2 = 29
-            SHX2_2 = SHX10_1.collectionCoords
-            SHX2_2 = SHX2_2.x
-            SHX3_2 = SHX10_1.collectionCoords
-            SHX3_2 = SHX3_2.y
-            SHX4_2 = SHX10_1.collectionCoords
-            SHX4_2 = SHX4_2.z
-            SHX5_2 = 0.0
-            SHX6_2 = 0.0
-            SHX7_2 = 0.0
-            SHX8_2 = 0.0
-            SHX9_2 = 0.0
-            SHX10_2 = 0.0
-            SHX11_2 = 1.5
-            SHX12_2 = 1.5
-            SHX13_2 = 1.5
-            SHX14_2 = 0
-            SHX15_2 = 255
-            SHX16_2 = 36
-            SHX17_2 = 36
-            SHX18_2 = false
-            SHX19_2 = true
-            SHX20_2 = 0
-            SHX21_2 = false
-            SHX22_2 = nil
-            SHX23_2 = nil
-            SHX24_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+            arg1 = DrawMarker
+            arg2 = 29
+            arg3 = dataTable.collectionCoords
+            arg3 = arg3.x
+            arg4 = dataTable.collectionCoords
+            arg4 = arg4.y
+            arg5 = dataTable.collectionCoords
+            arg5 = arg5.z
+            flag25 = 0.0
+            flag28 = 0.0
+            flag30 = 0.0
+            flag31 = 0.0
+            numberValue19 = 0.0
+            textValue = 0.0
+            flag2 = 1.5
+            numberValue = 1.5
+            flag4 = 1.5
+            flag5 = 0
+            flag7 = 255
+            flag9 = 36
+            numberValue3 = 36
+            flag10 = false
+            flag11 = true
+            numberValue6 = 0
+            flag12 = false
+            workValue = nil
+            workValue2 = nil
+            flag13 = false
+            arg1(arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13)
           end
-          SHX0_2 = SHX10_1.collecting
-          if SHX0_2 then
-            SHX0_2 = SHX22_1.active
-            if not SHX0_2 then
-              SHX0_2 = SHX33_1
-              SHX0_2()
+          arg1 = dataTable.collecting
+          if arg1 then
+            arg1 = dataTable6.active
+            if not arg1 then
+              arg1 = textValue8
+              -- Beginner: Create a minimap blip.
+              arg1()
             end
           else
-            SHX0_2 = RageUI
-            SHX0_2 = SHX0_2.Text
-            SHX1_2 = {}
-            SHX2_2 = "Drive to ~b~"
-            SHX3_2 = SHX10_1.collectionName
-            SHX2_2 = SHX2_2 .. SHX3_2
-            SHX1_2.message = SHX2_2
-            SHX0_2(SHX1_2)
-            SHX0_2 = SHX13_1
-            if not SHX0_2 then
-              SHX0_2 = SHX34_1
-              SHX0_2()
+            arg1 = RageUI
+            arg1 = arg1.Text
+            arg2 = {}
+            arg3 = "Drive to ~b~"
+            arg4 = dataTable.collectionName
+            arg3 = arg3 .. arg4
+            arg2.message = arg3
+            arg1(arg2)
+            arg1 = flag3
+            if not arg1 then
+              arg1 = textValue9
+              arg1()
             end
           end
         else
-          SHX0_2 = SHX10_1.deposited
-          if not SHX0_2 then
-            SHX0_2 = SHX10_1.depositing
-            if SHX0_2 then
-              SHX0_2 = SHX22_1.active
-              if not SHX0_2 then
-                SHX0_2 = SHX33_1
-                SHX0_2()
+          arg1 = dataTable.deposited
+          if not arg1 then
+            arg1 = dataTable.depositing
+            if arg1 then
+              arg1 = dataTable6.active
+              if not arg1 then
+                arg1 = textValue8
+                -- Beginner: Create a minimap blip.
+                arg1()
               end
             else
-              SHX0_2 = RageUI
-              SHX0_2 = SHX0_2.Text
-              SHX1_2 = {}
-              SHX2_2 = "Drive to ~b~"
-              SHX3_2 = SHX10_1.depositName
-              SHX2_2 = SHX2_2 .. SHX3_2
-              SHX1_2.message = SHX2_2
-              SHX0_2(SHX1_2)
-              SHX0_2 = SHX13_1
-              if not SHX0_2 then
-                SHX0_2 = SHX34_1
-                SHX0_2()
+              arg1 = RageUI
+              arg1 = arg1.Text
+              arg2 = {}
+              arg3 = "Drive to ~b~"
+              arg4 = dataTable.depositName
+              arg3 = arg3 .. arg4
+              arg2.message = arg3
+              arg1(arg2)
+              arg1 = flag3
+              if not arg1 then
+                arg1 = textValue9
+                arg1()
               end
             end
-            SHX0_2 = DrawMarker
-            SHX1_2 = 29
-            SHX2_2 = SHX10_1.depositCoords
-            SHX2_2 = SHX2_2.x
-            SHX3_2 = SHX10_1.depositCoords
-            SHX3_2 = SHX3_2.y
-            SHX4_2 = SHX10_1.depositCoords
-            SHX4_2 = SHX4_2.z
-            SHX5_2 = 0.0
-            SHX6_2 = 0.0
-            SHX7_2 = 0.0
-            SHX8_2 = 0.0
-            SHX9_2 = 0.0
-            SHX10_2 = 0.0
-            SHX11_2 = 1.5
-            SHX12_2 = 1.5
-            SHX13_2 = 1.5
-            SHX14_2 = 255
-            SHX15_2 = 36
-            SHX16_2 = 36
-            SHX17_2 = 50
-            SHX18_2 = true
-            SHX19_2 = true
-            SHX20_2 = 2
-            SHX21_2 = false
-            SHX22_2 = nil
-            SHX23_2 = nil
-            SHX24_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+            arg1 = DrawMarker
+            arg2 = 29
+            arg3 = dataTable.depositCoords
+            arg3 = arg3.x
+            arg4 = dataTable.depositCoords
+            arg4 = arg4.y
+            arg5 = dataTable.depositCoords
+            arg5 = arg5.z
+            flag25 = 0.0
+            flag28 = 0.0
+            flag30 = 0.0
+            flag31 = 0.0
+            numberValue19 = 0.0
+            textValue = 0.0
+            flag2 = 1.5
+            numberValue = 1.5
+            flag4 = 1.5
+            flag5 = 255
+            flag7 = 36
+            flag9 = 36
+            numberValue3 = 50
+            flag10 = true
+            flag11 = true
+            numberValue6 = 2
+            flag12 = false
+            workValue = nil
+            workValue2 = nil
+            flag13 = false
+            arg1(arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13)
           end
         end
       end
-      SHX0_2 = SHX7_1
-      if SHX0_2 then
-        SHX0_2 = RageUI
-        SHX0_2 = SHX0_2.Visible
-        SHX1_2 = RMenu
-        SHX2_2 = SHX1_2
-        SHX1_2 = SHX1_2.Get
-        SHX3_2 = "g4s"
-        SHX4_2 = "shiftHandler"
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-        SHX2_2 = true
-        SHX0_2(SHX1_2, SHX2_2)
+      arg1 = flag29
+      if arg1 then
+        arg1 = RageUI
+        arg1 = arg1.Visible
+        arg2 = RMenu
+        arg3 = arg2
+        arg2 = arg2.Get
+        arg4 = "g4s"
+        arg5 = "shiftHandler"
+        -- Beginner: result below is menu.
+        arg2 = arg2(arg3, arg4, arg5)
+        arg3 = true
+        arg1(arg2, arg3)
       else
       end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 0
+    arg1(arg2)
   end
 end
-SHX35_1(SHX36_1)
-SHX35_1 = Citizen
-SHX35_1 = SHX35_1.CreateThread
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(numberValue12)
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function numberValue12()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9, flag15, flag16, flag18, numberValue11, flag19, workValue5, workValue6, flag20
   while true do
-    SHX0_2 = SHX20_1.hackingEngaged
-    if not SHX0_2 then
-      SHX0_2 = SHX0_1
-      if not SHX0_2 then
-        SHX0_2 = SHX20_1.awaitingResponse
-        if not SHX0_2 then
-          SHX0_2 = table
-          SHX0_2 = SHX0_2.count
-          SHX1_2 = SHX14_1
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 > 0 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.getPlayerVehicle
-            SHX0_2 = SHX0_2()
-            if 0 == SHX0_2 then
-              SHX0_2 = pairs
-              SHX1_2 = SHX14_1
-              SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-              for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-                SHX6_2 = SHX5_2[3]
-                SHX7_2 = SHX5_2[2]
-                SHX8_2 = SHX5_2[1]
-                SHX9_2 = table
-                SHX9_2 = SHX9_2.has
-                SHX10_2 = SHX12_1
-                SHX11_2 = SHX8_2
-                SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-                if not SHX9_2 then
-                  SHX9_2 = DoesEntityExist
-                  SHX10_2 = SHX7_2
-                  SHX9_2 = SHX9_2(SHX10_2)
-                  if SHX9_2 then
-                    goto SHX_LABEL_43
+    arg1 = dataTable4.hackingEngaged
+    if not arg1 then
+      arg1 = flag
+      if not arg1 then
+        arg1 = dataTable4.awaitingResponse
+        if not arg1 then
+          arg1 = table
+          arg1 = arg1.count
+          arg2 = dataTable3
+          -- Beginner: result below is count.
+          arg1 = arg1(arg2)
+          if arg1 > 0 then
+            arg1 = CMG
+            arg1 = arg1.getPlayerVehicle
+            -- Beginner: result below is currentVehicle.
+            arg1 = arg1()
+            if 0 == arg1 then
+              arg1 = pairs
+              arg2 = dataTable3
+              arg1, arg2, arg3, arg4 = arg1(arg2)
+              for arg5, flag25 in arg1, arg2, arg3, arg4 do
+                flag28 = flag25[3]
+                flag30 = flag25[2]
+                flag31 = flag25[1]
+                numberValue19 = table
+                numberValue19 = numberValue19.has
+                textValue = dataTable2
+                flag2 = flag31
+                numberValue19 = numberValue19(textValue, flag2)
+                if not numberValue19 then
+                  numberValue19 = DoesEntityExist
+                  textValue = flag30
+                  numberValue19 = numberValue19(textValue)
+                  if numberValue19 then
+                    goto flow_label_43
                   end
                 end
-                SHX9_2 = SHX14_1
-                SHX9_2[SHX4_2] = nil
-                goto SHX_LABEL_144
-                -- [FIX IF ERROR] Move ::SHX_LABEL_43:: outside nested blocks until all 'goto SHX_LABEL_43' can see it
-                ::SHX_LABEL_43::
-                SHX9_2 = IsVehicleStopped
-                SHX10_2 = SHX7_2
-                SHX9_2 = SHX9_2(SHX10_2)
-                if SHX9_2 then
-                  SHX9_2 = CMG
-                  SHX9_2 = SHX9_2.getPlayerCoords
-                  SHX9_2 = SHX9_2()
-                  SHX10_2 = GetEntityCoords
-                  SHX11_2 = SHX7_2
-                  SHX10_2 = SHX10_2(SHX11_2)
-                  SHX9_2 = SHX9_2 - SHX10_2
-                  SHX9_2 = #SHX9_2
-                  SHX10_2 = GetOffsetFromEntityInWorldCoords
-                  SHX11_2 = SHX1_1
-                  SHX12_2 = 0.0
-                  SHX13_2 = -6.0
-                  SHX14_2 = 0.0
-                  SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-                  if SHX9_2 <= 11.0 then
-                    SHX11_2 = DrawMarker
-                    SHX12_2 = 29
-                    SHX13_2 = SHX10_2.x
-                    SHX14_2 = SHX10_2.y
-                    SHX15_2 = SHX10_2.z
-                    SHX15_2 = SHX15_2 + 0.5
-                    SHX16_2 = 0.0
-                    SHX17_2 = 0.0
-                    SHX18_2 = 0.0
-                    SHX19_2 = 0.0
-                    SHX20_2 = 0.0
-                    SHX21_2 = 0.0
-                    SHX22_2 = 1.5
-                    SHX23_2 = 1.5
-                    SHX24_2 = 1.5
-                    SHX25_2 = 255
-                    SHX26_2 = 36
-                    SHX27_2 = 36
-                    SHX28_2 = 50
-                    SHX29_2 = true
-                    SHX30_2 = false
-                    SHX31_2 = 2
-                    SHX32_2 = false
-                    SHX33_2 = nil
-                    SHX34_2 = nil
-                    SHX35_2 = false
-                    SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2)
-                    SHX11_2 = RageUI
-                    SHX11_2 = SHX11_2.Text
-                    SHX12_2 = {}
-                    SHX12_2.message = "~b~Cash Driver~w~: Press ENTER to hack."
-                    SHX11_2(SHX12_2)
-                    SHX11_2 = IsControlJustPressed
-                    SHX12_2 = 1
-                    SHX13_2 = 18
-                    SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-                    if SHX11_2 then
-                      SHX20_1.netId = SHX6_2
-                      SHX20_1.entity = SHX7_2
-                      SHX20_1.src = SHX8_2
-                      SHX11_2 = TriggerServerEvent
-                      SHX12_2 = "370aa47158"
-                      SHX13_2 = SHX6_2
-                      SHX14_2 = SHX8_2
-                      SHX11_2(SHX12_2, SHX13_2, SHX14_2)
-                      SHX20_1.awaitingResponse = true
+                numberValue19 = dataTable3
+                numberValue19[arg5] = nil
+                goto flow_label_144
+                ::flow_label_43::
+                numberValue19 = IsVehicleStopped
+                textValue = flag30
+                numberValue19 = numberValue19(textValue)
+                if numberValue19 then
+                  numberValue19 = CMG
+                  numberValue19 = numberValue19.getPlayerCoords
+                  -- Beginner: result below is playerCoords.
+                  numberValue19 = numberValue19()
+                  textValue = GetEntityCoords
+                  flag2 = flag30
+                  -- Beginner: result below is entityCoords.
+                  textValue = textValue(flag2)
+                  numberValue19 = numberValue19 - textValue
+                  numberValue19 = #numberValue19
+                  textValue = GetOffsetFromEntityInWorldCoords
+                  flag2 = numberValue5
+                  numberValue = 0.0
+                  flag4 = -6.0
+                  flag5 = 0.0
+                  textValue = textValue(flag2, numberValue, flag4, flag5)
+                  if numberValue19 <= 11.0 then
+                    flag2 = DrawMarker
+                    numberValue = 29
+                    flag4 = textValue.x
+                    flag5 = textValue.y
+                    flag7 = textValue.z
+                    flag7 = flag7 + 0.5
+                    flag9 = 0.0
+                    numberValue3 = 0.0
+                    flag10 = 0.0
+                    flag11 = 0.0
+                    numberValue6 = 0.0
+                    flag12 = 0.0
+                    workValue = 1.5
+                    workValue2 = 1.5
+                    flag13 = 1.5
+                    flag14 = 255
+                    numberValue8 = 36
+                    numberValue9 = 36
+                    flag15 = 50
+                    flag16 = true
+                    flag18 = false
+                    numberValue11 = 2
+                    flag19 = false
+                    workValue5 = nil
+                    workValue6 = nil
+                    flag20 = false
+                    flag2(numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9, flag15, flag16, flag18, numberValue11, flag19, workValue5, workValue6, flag20)
+                    flag2 = RageUI
+                    flag2 = flag2.Text
+                    numberValue = {}
+                    numberValue.message = "~b~Cash Driver~w~: Press ENTER to hack."
+                    flag2(numberValue)
+                    flag2 = IsControlJustPressed
+                    numberValue = 1
+                    flag4 = 18
+                    flag2 = flag2(numberValue, flag4)
+                    if flag2 then
+                      dataTable4.netId = flag28
+                      dataTable4.entity = flag30
+                      dataTable4.src = flag31
+                      flag2 = TriggerServerEvent
+                      numberValue = "370aa47158"
+                      flag4 = flag28
+                      flag5 = flag31
+                      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "370aa47158".
+                      flag2(numberValue, flag4, flag5)
+                      dataTable4.awaitingResponse = true
                       break
                     end
-                  elseif SHX9_2 <= 35.0 then
-                    SHX11_2 = DrawMarker
-                    SHX12_2 = 29
-                    SHX13_2 = SHX10_2.x
-                    SHX14_2 = SHX10_2.y
-                    SHX15_2 = SHX10_2.z
-                    SHX15_2 = SHX15_2 + 0.5
-                    SHX16_2 = 0.0
-                    SHX17_2 = 0.0
-                    SHX18_2 = 0.0
-                    SHX19_2 = 0.0
-                    SHX20_2 = 0.0
-                    SHX21_2 = 0.0
-                    SHX22_2 = 1.5
-                    SHX23_2 = 1.5
-                    SHX24_2 = 1.5
-                    SHX25_2 = 255
-                    SHX26_2 = 36
-                    SHX27_2 = 36
-                    SHX28_2 = 50
-                    SHX29_2 = true
-                    SHX30_2 = false
-                    SHX31_2 = 2
-                    SHX32_2 = false
-                    SHX33_2 = nil
-                    SHX34_2 = nil
-                    SHX35_2 = false
-                    SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2)
+                  elseif numberValue19 <= 35.0 then
+                    flag2 = DrawMarker
+                    numberValue = 29
+                    flag4 = textValue.x
+                    flag5 = textValue.y
+                    flag7 = textValue.z
+                    flag7 = flag7 + 0.5
+                    flag9 = 0.0
+                    numberValue3 = 0.0
+                    flag10 = 0.0
+                    flag11 = 0.0
+                    numberValue6 = 0.0
+                    flag12 = 0.0
+                    workValue = 1.5
+                    workValue2 = 1.5
+                    flag13 = 1.5
+                    flag14 = 255
+                    numberValue8 = 36
+                    numberValue9 = 36
+                    flag15 = 50
+                    flag16 = true
+                    flag18 = false
+                    numberValue11 = 2
+                    flag19 = false
+                    workValue5 = nil
+                    workValue6 = nil
+                    flag20 = false
+                    flag2(numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9, flag15, flag16, flag18, numberValue11, flag19, workValue5, workValue6, flag20)
                   end
                 end
-                -- [FIX IF ERROR] Move ::SHX_LABEL_144:: outside nested blocks until all 'goto SHX_LABEL_144' can see it
-                ::SHX_LABEL_144::
+                ::flow_label_144::
               end
             end
           end
         end
       end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 0
+    arg1(arg2)
   end
 end
-SHX35_1(SHX36_1)
-SHX35_1 = nil
-SHX36_1 = nil
-SHX37_1 = 2
-SHX38_1 = "HONGKONG"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    function SHX0_3(SHX0_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_4, SHX2_4, SHX3_4, SHX4_4
-      SHX1_4 = RequestScaleformMovieInteractive
-      SHX2_4 = SHX0_4
-      SHX1_4 = SHX1_4(SHX2_4)
-      SHX35_1 = SHX1_4
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(numberValue12)
+threadCall = nil
+numberValue12 = nil
+numberValue13 = 2
+flag21 = "HONGKONG"
+function flag22()
+  local arg1, arg2
+  arg1 = Citizen
+  arg1 = arg1.CreateThread
+  function arg2()
+    local vehicle, cmgCall, flag17, numberValue14, flag24, numberValue17, numberValue18
+    function vehicle(arg12)
+      local arg22, arg32, textValue10, numberValue15
+      arg22 = RequestScaleformMovieInteractive
+      arg32 = arg12
+      arg22 = arg22(arg32)
+      threadCall = arg22
       while true do
-        SHX1_4 = HasScaleformMovieLoaded
-        SHX2_4 = SHX35_1
-        SHX1_4 = SHX1_4(SHX2_4)
-        if SHX1_4 then
+        arg22 = HasScaleformMovieLoaded
+        arg32 = threadCall
+        arg22 = arg22(arg32)
+        if arg22 then
           break
         end
-        SHX1_4 = Citizen
-        SHX1_4 = SHX1_4.Wait
-        SHX2_4 = 0
-        SHX1_4(SHX2_4)
+        arg22 = Citizen
+        arg22 = arg22.Wait
+        arg32 = 0
+        arg22(arg32)
       end
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_LABELS"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "Local Disk (C:)"
-      SHX1_4(SHX2_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "Cash Driver Network"
-      SHX1_4(SHX2_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "External Device (E:)"
-      SHX1_4(SHX2_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "HackConnect.exe"
-      SHX1_4(SHX2_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "DriverHack.exe"
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_BACKGROUND"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = math
-      SHX2_4 = SHX2_4.random
-      SHX3_4 = 1
-      SHX4_4 = 6
-      SHX2_4, SHX3_4, SHX4_4 = SHX2_4(SHX3_4, SHX4_4)
-      SHX1_4(SHX2_4, SHX3_4, SHX4_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "ADD_PROGRAM"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamFloat
-      SHX2_4 = 1.0
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamFloat
-      SHX2_4 = 4.0
-      SHX1_4(SHX2_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "Cash Driver Control Panel"
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "ADD_PROGRAM"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamFloat
-      SHX2_4 = 6.0
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamFloat
-      SHX2_4 = 6.0
-      SHX1_4(SHX2_4)
-      SHX1_4 = _ENV
-      SHX2_4 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX1_4 = SHX1_4[SHX2_4]
-      SHX2_4 = "Power Off"
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 0
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 1
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 2
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 3
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 4
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 5
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 6
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = BeginScaleformMovieMethod
-      SHX2_4 = SHX35_1
-      SHX3_4 = "SET_COLUMN_SPEED"
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 7
-      SHX1_4(SHX2_4)
-      SHX1_4 = ScaleformMovieMethodAddParamInt
-      SHX2_4 = 255
-      SHX1_4(SHX2_4)
-      SHX1_4 = EndScaleformMovieMethod
-      SHX1_4()
-      SHX1_4 = SHX35_1
-      return SHX1_4
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_LABELS"
+      arg22(arg32, textValue10)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "Local Disk (C:)"
+      arg22(arg32)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "Cash Driver Network"
+      arg22(arg32)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "External Device (E:)"
+      arg22(arg32)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "HackConnect.exe"
+      arg22(arg32)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "DriverHack.exe"
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_BACKGROUND"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = math
+      arg32 = arg32.random
+      textValue10 = 1
+      numberValue15 = 6
+      arg32, textValue10, numberValue15 = arg32(textValue10, numberValue15)
+      arg22(arg32, textValue10, numberValue15)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "ADD_PROGRAM"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamFloat
+      arg32 = 1.0
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamFloat
+      arg32 = 4.0
+      arg22(arg32)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "Cash Driver Control Panel"
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "ADD_PROGRAM"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamFloat
+      arg32 = 6.0
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamFloat
+      arg32 = 6.0
+      arg22(arg32)
+      arg22 = _ENV
+      arg32 = "ScaleformMovieMethodAddParamTextureNameString"
+      arg22 = arg22[arg32]
+      arg32 = "Power Off"
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 0
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 1
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 2
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 3
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 4
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 5
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 6
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = BeginScaleformMovieMethod
+      arg32 = threadCall
+      textValue10 = "SET_COLUMN_SPEED"
+      arg22(arg32, textValue10)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 7
+      arg22(arg32)
+      arg22 = ScaleformMovieMethodAddParamInt
+      arg32 = 255
+      arg22(arg32)
+      arg22 = EndScaleformMovieMethod
+      arg22()
+      arg22 = threadCall
+      return arg22
     end
-    Initialize = SHX0_3
-    SHX0_3 = Initialize
-    SHX1_3 = "HACKING_PC"
-    SHX0_3 = SHX0_3(SHX1_3)
-    SHX35_1 = SHX0_3
+    Initialize = vehicle
+    vehicle = Initialize
+    cmgCall = "HACKING_PC"
+    vehicle = vehicle(cmgCall)
+    threadCall = vehicle
     while true do
-      SHX0_3 = DrawScaleformMovieFullscreen
-      SHX1_3 = SHX35_1
-      SHX2_3 = 255
-      SHX3_3 = 255
-      SHX4_3 = 255
-      SHX5_3 = 255
-      SHX6_3 = 0
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      SHX0_3 = BeginScaleformMovieMethod
-      SHX1_3 = SHX35_1
-      SHX2_3 = "SET_CURSOR"
-      SHX0_3(SHX1_3, SHX2_3)
-      SHX0_3 = ScaleformMovieMethodAddParamFloat
-      SHX1_3 = GetControlNormal
-      SHX2_3 = 0
-      SHX3_3 = 239
-      SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3 = SHX1_3(SHX2_3, SHX3_3)
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      SHX0_3 = ScaleformMovieMethodAddParamFloat
-      SHX1_3 = GetControlNormal
-      SHX2_3 = 0
-      SHX3_3 = 240
-      SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3 = SHX1_3(SHX2_3, SHX3_3)
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-      SHX0_3 = EndScaleformMovieMethod
-      SHX0_3()
-      SHX0_3 = IsDisabledControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 24
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = BeginScaleformMovieMethod
-        SHX1_3 = SHX35_1
-        SHX2_3 = "SET_INPUT_EVENT_SELECT"
-        SHX0_3(SHX1_3, SHX2_3)
-        SHX0_3 = EndScaleformMovieMethodReturnValue
-        SHX0_3 = SHX0_3()
-        SHX36_1 = SHX0_3
-        SHX0_3 = PlaySoundFrontend
-        SHX1_3 = -1
-        SHX2_3 = "HACKING_CLICK"
-        SHX3_3 = ""
-        SHX4_3 = true
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+      vehicle = DrawScaleformMovieFullscreen
+      cmgCall = threadCall
+      flag17 = 255
+      numberValue14 = 255
+      flag24 = 255
+      numberValue17 = 255
+      numberValue18 = 0
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17, numberValue18)
+      vehicle = BeginScaleformMovieMethod
+      cmgCall = threadCall
+      flag17 = "SET_CURSOR"
+      vehicle(cmgCall, flag17)
+      vehicle = ScaleformMovieMethodAddParamFloat
+      cmgCall = GetControlNormal
+      flag17 = 0
+      numberValue14 = 239
+      cmgCall, flag17, numberValue14, flag24, numberValue17, numberValue18 = cmgCall(flag17, numberValue14)
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17, numberValue18)
+      vehicle = ScaleformMovieMethodAddParamFloat
+      cmgCall = GetControlNormal
+      flag17 = 0
+      numberValue14 = 240
+      cmgCall, flag17, numberValue14, flag24, numberValue17, numberValue18 = cmgCall(flag17, numberValue14)
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17, numberValue18)
+      vehicle = EndScaleformMovieMethod
+      vehicle()
+      vehicle = IsDisabledControlJustPressed
+      cmgCall = 0
+      flag17 = 24
+      vehicle = vehicle(cmgCall, flag17)
+      if vehicle then
+        vehicle = BeginScaleformMovieMethod
+        cmgCall = threadCall
+        flag17 = "SET_INPUT_EVENT_SELECT"
+        vehicle(cmgCall, flag17)
+        vehicle = EndScaleformMovieMethodReturnValue
+        vehicle = vehicle()
+        numberValue12 = vehicle
+        vehicle = PlaySoundFrontend
+        cmgCall = -1
+        flag17 = "HACKING_CLICK"
+        numberValue14 = ""
+        flag24 = true
+        vehicle(cmgCall, flag17, numberValue14, flag24)
       else
-        SHX0_3 = IsDisabledControlJustPressed
-        SHX1_3 = 0
-        SHX2_3 = 25
-        SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-        if SHX0_3 then
-          SHX0_3 = BeginScaleformMovieMethod
-          SHX1_3 = SHX35_1
-          SHX2_3 = "SET_INPUT_EVENT_BACK"
-          SHX0_3(SHX1_3, SHX2_3)
-          SHX0_3 = EndScaleformMovieMethod
-          SHX0_3()
-          SHX0_3 = PlaySoundFrontend
-          SHX1_3 = -1
-          SHX2_3 = "HACKING_CLICK"
-          SHX3_3 = ""
-          SHX4_3 = true
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+        vehicle = IsDisabledControlJustPressed
+        cmgCall = 0
+        flag17 = 25
+        vehicle = vehicle(cmgCall, flag17)
+        if vehicle then
+          vehicle = BeginScaleformMovieMethod
+          cmgCall = threadCall
+          flag17 = "SET_INPUT_EVENT_BACK"
+          vehicle(cmgCall, flag17)
+          vehicle = EndScaleformMovieMethod
+          vehicle()
+          vehicle = PlaySoundFrontend
+          cmgCall = -1
+          flag17 = "HACKING_CLICK"
+          numberValue14 = ""
+          flag24 = true
+          vehicle(cmgCall, flag17, numberValue14, flag24)
         end
       end
-      SHX1_3 = SHX20_1.netId
-      SHX0_3 = SHX14_1
-      SHX0_3 = SHX0_3[SHX1_3]
-      if nil ~= SHX0_3 then
-        SHX0_3 = SHX20_1.hackingEngaged
-        if SHX0_3 then
-          goto SHX_LABEL_88
+      cmgCall = dataTable4.netId
+      vehicle = dataTable3
+      vehicle = vehicle[cmgCall]
+      if nil ~= vehicle then
+        vehicle = dataTable4.hackingEngaged
+        if vehicle then
+          goto flow_label_88
         end
       end
-      SHX0_3 = SetScaleformMovieAsNoLongerNeeded
-      SHX1_3 = SHX35_1
-      SHX0_3(SHX1_3)
-      SHX0_3 = 0
-      SHX37_1 = SHX0_3
-      SHX0_3 = Wait
-      SHX1_3 = 2000
-      SHX0_3(SHX1_3)
+      vehicle = SetScaleformMovieAsNoLongerNeeded
+      cmgCall = threadCall
+      vehicle(cmgCall)
+      vehicle = 0
+      numberValue13 = vehicle
+      vehicle = Wait
+      cmgCall = 2000
+      vehicle(cmgCall)
       do break end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_88:: outside nested blocks until all 'goto SHX_LABEL_88' can see it
-      ::SHX_LABEL_88::
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
+      ::flow_label_88::
+      vehicle = Citizen
+      vehicle = vehicle.Wait
+      cmgCall = 0
+      vehicle(cmgCall)
     end
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(arg2)
 end
-SHX40_1 = RegisterNetEvent
-SHX41_1 = "c508e140c0"
-function SHX42_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  if SHX3_2 then
-    SHX20_1.hackingEngaged = true
-    SHX20_1.awaitingResponse = false
-    SHX38_1 = SHX2_2
-    SHX4_2 = 2
-    SHX37_1 = SHX4_2
-    SHX4_2 = PlaySoundFrontend
-    SHX5_2 = -1
-    SHX6_2 = "5s_To_Event_Start_Countdown"
-    SHX7_2 = "GTAO_FM_Events_Soundset"
-    SHX8_2 = true
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX4_2 = SHX39_1
-    SHX4_2()
-    SHX4_2 = FreezeEntityPosition
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getPlayerPed
-    SHX5_2 = SHX5_2()
-    SHX6_2 = true
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.setWeapon
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.getPlayerPed
-    SHX5_2 = SHX5_2()
-    SHX6_2 = -1569615261
-    SHX7_2 = true
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.loadModel
-    SHX5_2 = -1585232418
-    SHX4_2 = SHX4_2(SHX5_2)
-    if not SHX4_2 then
+rageUiCall4 = RegisterNetEvent
+rageUiCall5 = "c508e140c0"
+-- Beginner: this function handles network event "c508e140c0".
+function workValue7(arg1, arg2, arg3, arg4)
+  local arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6
+  if arg4 then
+    dataTable4.hackingEngaged = true
+    dataTable4.awaitingResponse = false
+    flag21 = arg3
+    arg5 = 2
+    numberValue13 = arg5
+    arg5 = PlaySoundFrontend
+    flag25 = -1
+    flag28 = "5s_To_Event_Start_Countdown"
+    flag30 = "GTAO_FM_Events_Soundset"
+    flag31 = true
+    arg5(flag25, flag28, flag30, flag31)
+    arg5 = flag22
+    arg5()
+    arg5 = FreezeEntityPosition
+    flag25 = CMG
+    flag25 = flag25.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    flag25 = flag25()
+    flag28 = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    arg5(flag25, flag28)
+    arg5 = CMG
+    arg5 = arg5.setWeapon
+    flag25 = CMG
+    flag25 = flag25.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    flag25 = flag25()
+    flag28 = -1569615261
+    flag30 = true
+    arg5(flag25, flag28, flag30)
+    arg5 = CMG
+    arg5 = arg5.loadModel
+    flag25 = -1585232418
+    arg5 = arg5(flag25)
+    if not arg5 then
       return
     end
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.requestEntitySpawn
-    SHX6_2 = "g4s_hack_tablet"
-    SHX5_2(SHX6_2)
-    SHX5_2 = CreateObject
-    SHX6_2 = SHX4_2
-    SHX7_2 = 0
-    SHX8_2 = 0
-    SHX9_2 = 0
-    SHX10_2 = true
-    SHX11_2 = true
-    SHX12_2 = true
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX17_1 = SHX5_2
-    SHX5_2 = AttachEntityToEntity
-    SHX6_2 = SHX17_1
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.getPlayerPed
-    SHX7_2 = SHX7_2()
-    SHX8_2 = GetPedBoneIndex
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.getPlayerPed
-    SHX9_2 = SHX9_2()
-    SHX10_2 = 57005
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = 0.17
-    SHX10_2 = 0.1
-    SHX11_2 = -0.13
-    SHX12_2 = 24.0
-    SHX13_2 = 180.0
-    SHX14_2 = 0.0
-    SHX15_2 = true
-    SHX16_2 = true
-    SHX17_2 = false
-    SHX18_2 = true
-    SHX19_2 = 1
-    SHX20_2 = true
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-    SHX5_2 = SetModelAsNoLongerNeeded
-    SHX6_2 = SHX4_2
-    SHX5_2(SHX6_2)
+    flag25 = CMG
+    flag25 = flag25.requestEntitySpawn
+    flag28 = "g4s_hack_tablet"
+    flag25(flag28)
+    flag25 = CreateObject
+    flag28 = arg5
+    flag30 = 0
+    flag31 = 0
+    numberValue19 = 0
+    textValue = true
+    flag2 = true
+    numberValue = true
+    -- Beginner: result below is objectEntity.
+    flag25 = flag25(flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue)
+    numberValue2 = flag25
+    flag25 = AttachEntityToEntity
+    flag28 = numberValue2
+    flag30 = CMG
+    flag30 = flag30.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    flag30 = flag30()
+    flag31 = GetPedBoneIndex
+    numberValue19 = CMG
+    numberValue19 = numberValue19.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    numberValue19 = numberValue19()
+    textValue = 57005
+    flag31 = flag31(numberValue19, textValue)
+    numberValue19 = 0.17
+    textValue = 0.1
+    flag2 = -0.13
+    numberValue = 24.0
+    flag4 = 180.0
+    flag5 = 0.0
+    flag7 = true
+    flag9 = true
+    numberValue3 = false
+    flag10 = true
+    flag11 = 1
+    numberValue6 = true
+    -- Beginner: Attach one entity to another entity.
+    flag25(flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6)
+    flag25 = SetModelAsNoLongerNeeded
+    flag28 = arg5
+    flag25(flag28)
   else
-    SHX20_1.awaitingResponse = false
+    dataTable4.awaitingResponse = false
   end
 end
-SHX40_1(SHX41_1, SHX42_1)
-SHX40_1 = Citizen
-SHX40_1 = SHX40_1.CreateThread
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c508e140c0".
+rageUiCall4(rageUiCall5, workValue7)
+rageUiCall4 = Citizen
+rageUiCall4 = rageUiCall4.CreateThread
+function rageUiCall5()
+  local arg1, arg2, arg3, arg4, arg5, flag25
   while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX35_1
-    if SHX0_2 then
-      SHX0_2 = HasScaleformMovieLoaded
-      SHX1_2 = SHX35_1
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = DisableControlAction
-        SHX1_2 = 0
-        SHX2_2 = 24
-        SHX3_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-        SHX0_2 = DisableControlAction
-        SHX1_2 = 0
-        SHX2_2 = 25
-        SHX3_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-        SHX0_2 = IsScaleformMovieMethodReturnValueReady
-        SHX1_2 = SHX36_1
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 then
-          SHX0_2 = GetScaleformMovieMethodReturnValueInt
-          SHX1_2 = SHX36_1
-          SHX0_2 = SHX0_2(SHX1_2)
-          ProgramID = SHX0_2
-          SHX0_2 = ProgramID
-          if 82 == SHX0_2 then
-            SHX0_2 = PlaySoundFrontend
-            SHX1_2 = -1
-            SHX2_2 = "HACKING_CLICK_BAD"
-            SHX3_2 = ""
-            SHX4_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 0
+    arg1(arg2)
+    arg1 = threadCall
+    if arg1 then
+      arg1 = HasScaleformMovieLoaded
+      arg2 = threadCall
+      arg1 = arg1(arg2)
+      if arg1 then
+        arg1 = DisableControlAction
+        arg2 = 0
+        arg3 = 24
+        arg4 = true
+        arg1(arg2, arg3, arg4)
+        arg1 = DisableControlAction
+        arg2 = 0
+        arg3 = 25
+        arg4 = true
+        arg1(arg2, arg3, arg4)
+        arg1 = IsScaleformMovieMethodReturnValueReady
+        arg2 = numberValue12
+        arg1 = arg1(arg2)
+        if arg1 then
+          arg1 = GetScaleformMovieMethodReturnValueInt
+          arg2 = numberValue12
+          arg1 = arg1(arg2)
+          ProgramID = arg1
+          arg1 = ProgramID
+          if 82 == arg1 then
+            arg1 = PlaySoundFrontend
+            arg2 = -1
+            arg3 = "HACKING_CLICK_BAD"
+            arg4 = ""
+            arg5 = false
+            arg1(arg2, arg3, arg4, arg5)
           else
-            SHX0_2 = ProgramID
-            if 83 == SHX0_2 then
-              SHX0_2 = BeginScaleformMovieMethod
-              SHX1_2 = SHX35_1
-              SHX2_2 = "RUN_PROGRAM"
-              SHX0_2(SHX1_2, SHX2_2)
-              SHX0_2 = ScaleformMovieMethodAddParamFloat
-              SHX1_2 = 83.0
-              SHX0_2(SHX1_2)
-              SHX0_2 = EndScaleformMovieMethod
-              SHX0_2()
-              SHX0_2 = BeginScaleformMovieMethod
-              SHX1_2 = SHX35_1
-              SHX2_2 = "SET_ROULETTE_WORD"
-              SHX0_2(SHX1_2, SHX2_2)
-              SHX0_2 = _ENV
-              SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-              SHX0_2 = SHX0_2[SHX1_2]
-              SHX1_2 = SHX38_1
-              SHX0_2(SHX1_2)
-              SHX0_2 = EndScaleformMovieMethod
-              SHX0_2()
+            arg1 = ProgramID
+            if 83 == arg1 then
+              arg1 = BeginScaleformMovieMethod
+              arg2 = threadCall
+              arg3 = "RUN_PROGRAM"
+              arg1(arg2, arg3)
+              arg1 = ScaleformMovieMethodAddParamFloat
+              arg2 = 83.0
+              arg1(arg2)
+              arg1 = EndScaleformMovieMethod
+              arg1()
+              arg1 = BeginScaleformMovieMethod
+              arg2 = threadCall
+              arg3 = "SET_ROULETTE_WORD"
+              arg1(arg2, arg3)
+              arg1 = _ENV
+              arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+              arg1 = arg1[arg2]
+              arg2 = flag21
+              arg1(arg2)
+              arg1 = EndScaleformMovieMethod
+              arg1()
             else
-              SHX0_2 = ProgramID
-              if 87 == SHX0_2 then
-                SHX0_2 = 0
-                SHX37_1 = SHX0_2
-                SHX0_2 = BeginScaleformMovieMethod
-                SHX1_2 = SHX35_1
-                SHX2_2 = "SET_ROULETTE_WORD"
-                SHX0_2(SHX1_2, SHX2_2)
-                SHX0_2 = _ENV
-                SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-                SHX0_2 = SHX0_2[SHX1_2]
-                SHX1_2 = SHX38_1
-                SHX0_2(SHX1_2)
-                SHX0_2 = EndScaleformMovieMethod
-                SHX0_2()
-                SHX0_2 = Wait
-                SHX1_2 = 100
-                SHX0_2(SHX1_2)
-                SHX0_2 = BeginScaleformMovieMethod
-                SHX1_2 = SHX35_1
-                SHX2_2 = "OPEN_ERROR_POPUP"
-                SHX0_2(SHX1_2, SHX2_2)
-                SHX0_2 = ScaleformMovieMethodAddParamBool
-                SHX1_2 = true
-                SHX0_2(SHX1_2)
-                SHX0_2 = _ENV
-                SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-                SHX0_2 = SHX0_2[SHX1_2]
-                SHX1_2 = "MET POLICE AWARE, DEVICE SHUTTING DOWN"
-                SHX0_2(SHX1_2)
-                SHX0_2 = EndScaleformMovieMethod
-                SHX0_2()
-                SHX0_2 = Wait
-                SHX1_2 = 100
-                SHX0_2(SHX1_2)
-                SHX0_2 = SetScaleformMovieAsNoLongerNeeded
-                SHX1_2 = SHX35_1
-                SHX0_2(SHX1_2)
-                SHX0_2 = EndScaleformMovieMethod
-                SHX0_2()
-                SHX0_2 = SHX32_1
-                SHX1_2 = "g4slogo"
-                SHX2_2 = "g4slogo"
-                SHX3_2 = "Our security team have activated the panic for this vehicle."
-                SHX4_2 = "Cash Driver Security"
-                SHX5_2 = "Police Notified"
-                SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-                SHX0_2 = SHX32_1
-                SHX1_2 = "g4slogo"
-                SHX2_2 = "g4slogo"
-                SHX3_2 = "You have failed to hack this vehicle."
-                SHX4_2 = "Cash Driver Security"
-                SHX5_2 = "Police Notified"
-                SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-                SHX0_2 = TriggerServerEvent
-                SHX1_2 = "58c97cecd8"
-                SHX2_2 = SHX20_1.netId
-                SHX3_2 = SHX20_1.src
-                SHX4_2 = SHX38_1
-                SHX5_2 = false
-                SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-                SHX0_2 = DeleteObject
-                SHX1_2 = SHX17_1
-                SHX0_2(SHX1_2)
+              arg1 = ProgramID
+              if 87 == arg1 then
+                arg1 = 0
+                numberValue13 = arg1
+                arg1 = BeginScaleformMovieMethod
+                arg2 = threadCall
+                arg3 = "SET_ROULETTE_WORD"
+                arg1(arg2, arg3)
+                arg1 = _ENV
+                arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+                arg1 = arg1[arg2]
+                arg2 = flag21
+                arg1(arg2)
+                arg1 = EndScaleformMovieMethod
+                arg1()
+                arg1 = Wait
+                arg2 = 100
+                arg1(arg2)
+                arg1 = BeginScaleformMovieMethod
+                arg2 = threadCall
+                arg3 = "OPEN_ERROR_POPUP"
+                arg1(arg2, arg3)
+                arg1 = ScaleformMovieMethodAddParamBool
+                arg2 = true
+                arg1(arg2)
+                arg1 = _ENV
+                arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+                arg1 = arg1[arg2]
+                arg2 = "MET POLICE AWARE, DEVICE SHUTTING DOWN"
+                arg1(arg2)
+                arg1 = EndScaleformMovieMethod
+                arg1()
+                arg1 = Wait
+                arg2 = 100
+                arg1(arg2)
+                arg1 = SetScaleformMovieAsNoLongerNeeded
+                arg2 = threadCall
+                arg1(arg2)
+                arg1 = EndScaleformMovieMethod
+                arg1()
+                arg1 = rageUiCall3
+                arg2 = "g4slogo"
+                arg3 = "g4slogo"
+                arg4 = "Our security team have activated the panic for this vehicle."
+                arg5 = "Cash Driver Security"
+                flag25 = "Police Notified"
+                arg1(arg2, arg3, arg4, arg5, flag25)
+                arg1 = rageUiCall3
+                arg2 = "g4slogo"
+                arg3 = "g4slogo"
+                arg4 = "You have failed to hack this vehicle."
+                arg5 = "Cash Driver Security"
+                flag25 = "Police Notified"
+                arg1(arg2, arg3, arg4, arg5, flag25)
+                arg1 = TriggerServerEvent
+                arg2 = "58c97cecd8"
+                arg3 = dataTable4.netId
+                arg4 = dataTable4.src
+                arg5 = flag21
+                flag25 = false
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "58c97cecd8".
+                arg1(arg2, arg3, arg4, arg5, flag25)
+                arg1 = DeleteObject
+                arg2 = numberValue2
+                arg1(arg2)
                 break
               else
-                SHX0_2 = ProgramID
-                if 92 == SHX0_2 then
-                  SHX0_2 = PlaySoundFrontend
-                  SHX1_2 = -1
-                  SHX2_2 = "HACKING_CLICK_GOOD"
-                  SHX3_2 = ""
-                  SHX4_2 = false
-                  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+                arg1 = ProgramID
+                if 92 == arg1 then
+                  arg1 = PlaySoundFrontend
+                  arg2 = -1
+                  arg3 = "HACKING_CLICK_GOOD"
+                  arg4 = ""
+                  arg5 = false
+                  arg1(arg2, arg3, arg4, arg5)
                 else
-                  SHX0_2 = ProgramID
-                  if 86 == SHX0_2 then
-                    SHX0_2 = PlaySoundFrontend
-                    SHX1_2 = -1
-                    SHX2_2 = "HACKING_SUCCESS"
-                    SHX3_2 = ""
-                    SHX4_2 = true
-                    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_ROULETTE_OUTCOME"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamBool
-                    SHX1_2 = true
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = _ENV
-                    SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-                    SHX0_2 = SHX0_2[SHX1_2]
-                    SHX1_2 = "Cash Driver HACK SUCCESSFUL!"
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = Wait
-                    SHX1_2 = 3800
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "CLOSE_APP"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "OPEN_LOADING_PROGRESS"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamBool
-                    SHX1_2 = true
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_LOADING_PROGRESS"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamInt
-                    SHX1_2 = 35
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_LOADING_TIME"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamInt
-                    SHX1_2 = 35
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_LOADING_MESSAGE"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = _ENV
-                    SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-                    SHX0_2 = SHX0_2[SHX1_2]
-                    SHX1_2 = "Writing data to hack.."
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamFloat
-                    SHX1_2 = 4.0
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = Wait
-                    SHX1_2 = 1500
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_LOADING_MESSAGE"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = _ENV
-                    SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-                    SHX0_2 = SHX0_2[SHX1_2]
-                    SHX1_2 = "Executing DriverInjection, accessing money.."
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamFloat
-                    SHX1_2 = 2.0
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_LOADING_TIME"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamInt
-                    SHX1_2 = 15
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "SET_LOADING_PROGRESS"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamInt
-                    SHX1_2 = 75
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = Wait
-                    SHX1_2 = 1500
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "OPEN_LOADING_PROGRESS"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamBool
-                    SHX1_2 = false
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = BeginScaleformMovieMethod
-                    SHX1_2 = SHX35_1
-                    SHX2_2 = "OPEN_ERROR_POPUP"
-                    SHX0_2(SHX1_2, SHX2_2)
-                    SHX0_2 = ScaleformMovieMethodAddParamBool
-                    SHX1_2 = true
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = _ENV
-                    SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-                    SHX0_2 = SHX0_2[SHX1_2]
-                    SHX1_2 = "MET POLICE AWARE - DEVICE SHUTTING DOWN"
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = Wait
-                    SHX1_2 = 3500
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = SetScaleformMovieAsNoLongerNeeded
-                    SHX1_2 = SHX35_1
-                    SHX0_2(SHX1_2)
-                    SHX0_2 = EndScaleformMovieMethod
-                    SHX0_2()
-                    SHX0_2 = SHX32_1
-                    SHX1_2 = "g4slogo"
-                    SHX2_2 = "g4slogo"
-                    SHX3_2 = "We have notified the Metropolitan Police service. You are on CCTV."
-                    SHX4_2 = "Cash Driver Security"
-                    SHX5_2 = "Police Notified"
-                    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-                    SHX0_2 = TriggerServerEvent
-                    SHX1_2 = "58c97cecd8"
-                    SHX2_2 = SHX20_1.netId
-                    SHX3_2 = SHX20_1.src
-                    SHX4_2 = SHX38_1
-                    SHX5_2 = true
-                    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-                    SHX0_2 = DeleteObject
-                    SHX1_2 = SHX17_1
-                    SHX0_2(SHX1_2)
+                  arg1 = ProgramID
+                  if 86 == arg1 then
+                    arg1 = PlaySoundFrontend
+                    arg2 = -1
+                    arg3 = "HACKING_SUCCESS"
+                    arg4 = ""
+                    arg5 = true
+                    arg1(arg2, arg3, arg4, arg5)
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_ROULETTE_OUTCOME"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamBool
+                    arg2 = true
+                    arg1(arg2)
+                    arg1 = _ENV
+                    arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+                    arg1 = arg1[arg2]
+                    arg2 = "Cash Driver HACK SUCCESSFUL!"
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = Wait
+                    arg2 = 3800
+                    arg1(arg2)
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "CLOSE_APP"
+                    arg1(arg2, arg3)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "OPEN_LOADING_PROGRESS"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamBool
+                    arg2 = true
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_LOADING_PROGRESS"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamInt
+                    arg2 = 35
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_LOADING_TIME"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamInt
+                    arg2 = 35
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_LOADING_MESSAGE"
+                    arg1(arg2, arg3)
+                    arg1 = _ENV
+                    arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+                    arg1 = arg1[arg2]
+                    arg2 = "Writing data to hack.."
+                    arg1(arg2)
+                    arg1 = ScaleformMovieMethodAddParamFloat
+                    arg2 = 4.0
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = Wait
+                    arg2 = 1500
+                    arg1(arg2)
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_LOADING_MESSAGE"
+                    arg1(arg2, arg3)
+                    arg1 = _ENV
+                    arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+                    arg1 = arg1[arg2]
+                    arg2 = "Executing DriverInjection, accessing money.."
+                    arg1(arg2)
+                    arg1 = ScaleformMovieMethodAddParamFloat
+                    arg2 = 2.0
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_LOADING_TIME"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamInt
+                    arg2 = 15
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "SET_LOADING_PROGRESS"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamInt
+                    arg2 = 75
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = Wait
+                    arg2 = 1500
+                    arg1(arg2)
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "OPEN_LOADING_PROGRESS"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamBool
+                    arg2 = false
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = BeginScaleformMovieMethod
+                    arg2 = threadCall
+                    arg3 = "OPEN_ERROR_POPUP"
+                    arg1(arg2, arg3)
+                    arg1 = ScaleformMovieMethodAddParamBool
+                    arg2 = true
+                    arg1(arg2)
+                    arg1 = _ENV
+                    arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+                    arg1 = arg1[arg2]
+                    arg2 = "MET POLICE AWARE - DEVICE SHUTTING DOWN"
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = Wait
+                    arg2 = 3500
+                    arg1(arg2)
+                    arg1 = SetScaleformMovieAsNoLongerNeeded
+                    arg2 = threadCall
+                    arg1(arg2)
+                    arg1 = EndScaleformMovieMethod
+                    arg1()
+                    arg1 = rageUiCall3
+                    arg2 = "g4slogo"
+                    arg3 = "g4slogo"
+                    arg4 = "We have notified the Metropolitan Police service. You are on CCTV."
+                    arg5 = "Cash Driver Security"
+                    flag25 = "Police Notified"
+                    arg1(arg2, arg3, arg4, arg5, flag25)
+                    arg1 = TriggerServerEvent
+                    arg2 = "58c97cecd8"
+                    arg3 = dataTable4.netId
+                    arg4 = dataTable4.src
+                    arg5 = flag21
+                    flag25 = true
+                    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "58c97cecd8".
+                    arg1(arg2, arg3, arg4, arg5, flag25)
+                    arg1 = DeleteObject
+                    arg2 = numberValue2
+                    arg1(arg2)
                     break
                   else
-                    SHX0_2 = ProgramID
-                    if 6 == SHX0_2 then
-                      SHX0_2 = Wait
-                      SHX1_2 = 500
-                      SHX0_2(SHX1_2)
-                      SHX0_2 = SetScaleformMovieAsNoLongerNeeded
-                      SHX1_2 = SHX35_1
-                      SHX0_2(SHX1_2)
-                      SHX0_2 = DisableControlAction
-                      SHX1_2 = 0
-                      SHX2_2 = 24
-                      SHX3_2 = false
-                      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-                      SHX0_2 = DisableControlAction
-                      SHX1_2 = 0
-                      SHX2_2 = 25
-                      SHX3_2 = false
-                      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+                    arg1 = ProgramID
+                    if 6 == arg1 then
+                      arg1 = Wait
+                      arg2 = 500
+                      arg1(arg2)
+                      arg1 = SetScaleformMovieAsNoLongerNeeded
+                      arg2 = threadCall
+                      arg1(arg2)
+                      arg1 = DisableControlAction
+                      arg2 = 0
+                      arg3 = 24
+                      arg4 = false
+                      arg1(arg2, arg3, arg4)
+                      arg1 = DisableControlAction
+                      arg2 = 0
+                      arg3 = 25
+                      arg4 = false
+                      arg1(arg2, arg3, arg4)
                     end
                   end
                 end
               end
             end
           end
-          SHX0_2 = SHX37_1
-          if 0 == SHX0_2 then
-            SHX0_2 = PlaySoundFrontend
-            SHX1_2 = -1
-            SHX2_2 = "HACKING_FAILURE"
-            SHX3_2 = ""
-            SHX4_2 = true
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-            SHX0_2 = BeginScaleformMovieMethod
-            SHX1_2 = SHX35_1
-            SHX2_2 = "SET_ROULETTE_OUTCOME"
-            SHX0_2(SHX1_2, SHX2_2)
-            SHX0_2 = ScaleformMovieMethodAddParamBool
-            SHX1_2 = false
-            SHX0_2(SHX1_2)
-            SHX0_2 = _ENV
-            SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-            SHX0_2 = SHX0_2[SHX1_2]
-            SHX1_2 = "DRIVERINJECT - HACK FAILED!"
-            SHX0_2(SHX1_2)
-            SHX0_2 = EndScaleformMovieMethod
-            SHX0_2()
-            SHX0_2 = Wait
-            SHX1_2 = 3500
-            SHX0_2(SHX1_2)
-            SHX0_2 = BeginScaleformMovieMethod
-            SHX1_2 = SHX35_1
-            SHX2_2 = "CLOSE_APP"
-            SHX0_2(SHX1_2, SHX2_2)
-            SHX0_2 = EndScaleformMovieMethod
-            SHX0_2()
-            SHX0_2 = BeginScaleformMovieMethod
-            SHX1_2 = SHX35_1
-            SHX2_2 = "OPEN_ERROR_POPUP"
-            SHX0_2(SHX1_2, SHX2_2)
-            SHX0_2 = ScaleformMovieMethodAddParamBool
-            SHX1_2 = true
-            SHX0_2(SHX1_2)
-            SHX0_2 = _ENV
-            SHX1_2 = "ScaleformMovieMethodAddParamTextureNameString"
-            SHX0_2 = SHX0_2[SHX1_2]
-            SHX1_2 = "POLICE AWARE OF HACK ATTEMPT, DEVICE SHUTTING DOWN"
-            SHX0_2(SHX1_2)
-            SHX0_2 = EndScaleformMovieMethod
-            SHX0_2()
-            SHX0_2 = Wait
-            SHX1_2 = 2500
-            SHX0_2(SHX1_2)
-            SHX0_2 = SetScaleformMovieAsNoLongerNeeded
-            SHX1_2 = SHX35_1
-            SHX0_2(SHX1_2)
-            SHX0_2 = EndScaleformMovieMethod
-            SHX0_2()
-            SHX0_2 = DisableControlAction
-            SHX1_2 = 0
-            SHX2_2 = 24
-            SHX3_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-            SHX0_2 = DisableControlAction
-            SHX1_2 = 0
-            SHX2_2 = 25
-            SHX3_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-            SHX0_2 = notify
-            SHX1_2 = "Hacking Unsuccessful"
-            SHX0_2(SHX1_2)
-            SHX0_2 = SHX32_1
-            SHX1_2 = "g4slogo"
-            SHX2_2 = "g4slogo"
-            SHX3_2 = "Please note: The police have been notified."
-            SHX4_2 = "Cash Driver Security"
-            SHX5_2 = "Police Notified"
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            SHX0_2 = TriggerServerEvent
-            SHX1_2 = "58c97cecd8"
-            SHX2_2 = SHX20_1.netId
-            SHX3_2 = SHX20_1.src
-            SHX4_2 = SHX38_1
-            SHX5_2 = false
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            SHX0_2 = DeleteObject
-            SHX1_2 = SHX17_1
-            SHX0_2(SHX1_2)
+          arg1 = numberValue13
+          if 0 == arg1 then
+            arg1 = PlaySoundFrontend
+            arg2 = -1
+            arg3 = "HACKING_FAILURE"
+            arg4 = ""
+            arg5 = true
+            arg1(arg2, arg3, arg4, arg5)
+            arg1 = BeginScaleformMovieMethod
+            arg2 = threadCall
+            arg3 = "SET_ROULETTE_OUTCOME"
+            arg1(arg2, arg3)
+            arg1 = ScaleformMovieMethodAddParamBool
+            arg2 = false
+            arg1(arg2)
+            arg1 = _ENV
+            arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+            arg1 = arg1[arg2]
+            arg2 = "DRIVERINJECT - HACK FAILED!"
+            arg1(arg2)
+            arg1 = EndScaleformMovieMethod
+            arg1()
+            arg1 = Wait
+            arg2 = 3500
+            arg1(arg2)
+            arg1 = BeginScaleformMovieMethod
+            arg2 = threadCall
+            arg3 = "CLOSE_APP"
+            arg1(arg2, arg3)
+            arg1 = EndScaleformMovieMethod
+            arg1()
+            arg1 = BeginScaleformMovieMethod
+            arg2 = threadCall
+            arg3 = "OPEN_ERROR_POPUP"
+            arg1(arg2, arg3)
+            arg1 = ScaleformMovieMethodAddParamBool
+            arg2 = true
+            arg1(arg2)
+            arg1 = _ENV
+            arg2 = "ScaleformMovieMethodAddParamTextureNameString"
+            arg1 = arg1[arg2]
+            arg2 = "POLICE AWARE OF HACK ATTEMPT, DEVICE SHUTTING DOWN"
+            arg1(arg2)
+            arg1 = EndScaleformMovieMethod
+            arg1()
+            arg1 = Wait
+            arg2 = 2500
+            arg1(arg2)
+            arg1 = SetScaleformMovieAsNoLongerNeeded
+            arg2 = threadCall
+            arg1(arg2)
+            arg1 = EndScaleformMovieMethod
+            arg1()
+            arg1 = DisableControlAction
+            arg2 = 0
+            arg3 = 24
+            arg4 = false
+            arg1(arg2, arg3, arg4)
+            arg1 = DisableControlAction
+            arg2 = 0
+            arg3 = 25
+            arg4 = false
+            arg1(arg2, arg3, arg4)
+            arg1 = notify
+            arg2 = "Hacking Unsuccessful"
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
+            arg1 = rageUiCall3
+            arg2 = "g4slogo"
+            arg3 = "g4slogo"
+            arg4 = "Please note: The police have been notified."
+            arg5 = "Cash Driver Security"
+            flag25 = "Police Notified"
+            arg1(arg2, arg3, arg4, arg5, flag25)
+            arg1 = TriggerServerEvent
+            arg2 = "58c97cecd8"
+            arg3 = dataTable4.netId
+            arg4 = dataTable4.src
+            arg5 = flag21
+            flag25 = false
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "58c97cecd8".
+            arg1(arg2, arg3, arg4, arg5, flag25)
+            arg1 = DeleteObject
+            arg2 = numberValue2
+            arg1(arg2)
             break
           end
         end
@@ -1830,1572 +1785,1423 @@ function SHX41_1()
     end
   end
 end
-SHX40_1(SHX41_1)
-SHX40_1 = RageUI
-SHX40_1 = SHX40_1.CreateWhile
-SHX41_1 = 1
-SHX42_1 = RMenu
-SHX43_1 = SHX42_1
-SHX42_1 = SHX42_1.Get
-SHX44_1 = "g4s"
-SHX45_1 = "shiftHandler"
-SHX42_1 = SHX42_1(SHX43_1, SHX44_1, SHX45_1)
-SHX43_1 = nil
-function SHX44_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "g4s"
-  SHX4_2 = "shiftHandler"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = SHX0_1
-    if not SHX0_3 then
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Start Shift"
-      SHX2_3 = "Start your shift working for Private Security."
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "Cash Driver"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-        if SHX2_4 then
-          SHX3_4 = RageUI
-          SHX3_4 = SHX3_4.Visible
-          SHX4_4 = RMenu
-          SHX5_4 = SHX4_4
-          SHX4_4 = SHX4_4.Get
-          SHX6_4 = "g4s"
-          SHX7_4 = "shiftHandler"
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4, SHX7_4)
-          SHX5_4 = false
-          SHX3_4(SHX4_4, SHX5_4)
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "2ee6b18cbd"
-          SHX5_4 = true
-          SHX3_4(SHX4_4, SHX5_4)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+rageUiCall4(rageUiCall5)
+rageUiCall4 = RageUI
+rageUiCall4 = rageUiCall4.CreateWhile
+rageUiCall5 = 1
+workValue7 = RMenu
+workValue8 = workValue7
+workValue7 = workValue7.Get
+textValue11 = "g4s"
+eventRegistration = "shiftHandler"
+-- Beginner: result below is menu.
+workValue7 = workValue7(workValue8, textValue11, eventRegistration)
+workValue8 = nil
+function textValue11()
+  local arg1, arg2, arg3, arg4, arg5, flag25
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  arg4 = "g4s"
+  arg5 = "shiftHandler"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = true
+  arg4 = false
+  arg5 = true
+  function flag25()
+    local vehicle, cmgCall, flag17, numberValue14, flag24, numberValue17
+    vehicle = flag
+    if not vehicle then
+      vehicle = RageUI
+      vehicle = vehicle.ButtonWithStyle
+      cmgCall = "Start Shift"
+      flag17 = "Start your shift working for Private Security."
+      numberValue14 = {}
+      numberValue14.RightLabel = "Cash Driver"
+      flag24 = true
+      function numberValue17(arg12, arg22, arg32)
+        local textValue10, numberValue15, flag26, textValue13, textValue14
+        if arg32 then
+          textValue10 = RageUI
+          textValue10 = textValue10.Visible
+          numberValue15 = RMenu
+          flag26 = numberValue15
+          numberValue15 = numberValue15.Get
+          textValue13 = "g4s"
+          textValue14 = "shiftHandler"
+          -- Beginner: result below is menu.
+          numberValue15 = numberValue15(flag26, textValue13, textValue14)
+          flag26 = false
+          textValue10(numberValue15, flag26)
+          textValue10 = TriggerServerEvent
+          numberValue15 = "2ee6b18cbd"
+          flag26 = true
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2ee6b18cbd".
+          textValue10(numberValue15, flag26)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17)
     else
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "End Shift"
-      SHX2_3 = "End your shift working for Private Security"
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "Cash Driver"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-        if SHX2_4 then
-          SHX3_4 = RageUI
-          SHX3_4 = SHX3_4.Visible
-          SHX4_4 = RMenu
-          SHX5_4 = SHX4_4
-          SHX4_4 = SHX4_4.Get
-          SHX6_4 = "g4s"
-          SHX7_4 = "shiftHandler"
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4, SHX7_4)
-          SHX5_4 = false
-          SHX3_4(SHX4_4, SHX5_4)
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "2ee6b18cbd"
-          SHX5_4 = false
-          SHX3_4(SHX4_4, SHX5_4)
-          SHX3_4 = false
-          SHX0_1 = SHX3_4
+      vehicle = RageUI
+      vehicle = vehicle.ButtonWithStyle
+      cmgCall = "End Shift"
+      flag17 = "End your shift working for Private Security"
+      numberValue14 = {}
+      numberValue14.RightLabel = "Cash Driver"
+      flag24 = true
+      function numberValue17(arg12, arg22, arg32)
+        local textValue10, numberValue15, flag26, textValue13, textValue14
+        if arg32 then
+          textValue10 = RageUI
+          textValue10 = textValue10.Visible
+          numberValue15 = RMenu
+          flag26 = numberValue15
+          numberValue15 = numberValue15.Get
+          textValue13 = "g4s"
+          textValue14 = "shiftHandler"
+          -- Beginner: result below is menu.
+          numberValue15 = numberValue15(flag26, textValue13, textValue14)
+          flag26 = false
+          textValue10(numberValue15, flag26)
+          textValue10 = TriggerServerEvent
+          numberValue15 = "2ee6b18cbd"
+          flag26 = false
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2ee6b18cbd".
+          textValue10(numberValue15, flag26)
+          textValue10 = false
+          flag = textValue10
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+      -- Beginner: Draw a selectable RageUI menu button.
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  arg1(arg2, arg3, arg4, arg5, flag25)
 end
-SHX40_1(SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-function SHX40_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX1_1
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = IsVehicleDriveable
-    SHX2_2 = SHX1_1
-    SHX3_2 = true
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if not SHX1_2 then
-      SHX1_2 = DeleteEntity
-      SHX2_2 = SHX1_1
-      SHX1_2(SHX2_2)
-      SHX1_2 = GetOffsetFromEntityInWorldCoords
-      SHX2_2 = SHX0_2
-      SHX3_2 = 0.0
-      SHX4_2 = 5.0
-      SHX5_2 = 0.0
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.requestEntitySpawn
-      SHX3_2 = "g4s"
-      SHX4_2 = SHX1_2
-      SHX2_2(SHX3_2, SHX4_2)
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.spawnVehicle
-      SHX3_2 = SHX11_1
-      SHX4_2 = SHX1_2.x
-      SHX5_2 = SHX1_2.y
-      SHX6_2 = SHX1_2.z
-      SHX7_2 = GetEntityHeading
-      SHX8_2 = SHX0_2
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX8_2 = true
-      SHX9_2 = true
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-      SHX1_1 = SHX2_2
-      SHX2_2 = VehToNet
-      SHX3_2 = SHX1_1
-      SHX2_2 = SHX2_2(SHX3_2)
-      SHX2_1 = SHX2_2
-      SHX2_2 = TriggerServerEvent
-      SHX3_2 = "be91a889a5"
-      SHX4_2 = SHX2_1
-      SHX2_2(SHX3_2, SHX4_2)
-      SHX2_2 = SHX18_1
-      SHX2_2 = SHX2_2 + 1
-      SHX18_1 = SHX2_2
+rageUiCall4(rageUiCall5, workValue7, workValue8, textValue11)
+function rageUiCall4()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = DoesEntityExist
+  arg3 = numberValue5
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = IsVehicleDriveable
+    arg3 = numberValue5
+    arg4 = true
+    arg2 = arg2(arg3, arg4)
+    if not arg2 then
+      arg2 = DeleteEntity
+      arg3 = numberValue5
+      -- Beginner: Delete a GTA entity.
+      arg2(arg3)
+      arg2 = GetOffsetFromEntityInWorldCoords
+      arg3 = arg1
+      arg4 = 0.0
+      arg5 = 5.0
+      flag25 = 0.0
+      arg2 = arg2(arg3, arg4, arg5, flag25)
+      arg3 = CMG
+      arg3 = arg3.requestEntitySpawn
+      arg4 = "g4s"
+      arg5 = arg2
+      arg3(arg4, arg5)
+      arg3 = CMG
+      arg3 = arg3.spawnVehicle
+      arg4 = textValue2
+      arg5 = arg2.x
+      flag25 = arg2.y
+      flag28 = arg2.z
+      flag30 = GetEntityHeading
+      flag31 = arg1
+      -- Beginner: result below is heading.
+      flag30 = flag30(flag31)
+      flag31 = true
+      numberValue19 = true
+      arg3 = arg3(arg4, arg5, flag25, flag28, flag30, flag31, numberValue19)
+      numberValue5 = arg3
+      arg3 = VehToNet
+      arg4 = numberValue5
+      arg3 = arg3(arg4)
+      numberValue10 = arg3
+      arg3 = TriggerServerEvent
+      arg4 = "be91a889a5"
+      arg5 = numberValue10
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "be91a889a5".
+      arg3(arg4, arg5)
+      arg3 = numberValue4
+      arg3 = arg3 + 1
+      numberValue4 = arg3
     end
   end
 end
-SHX41_1 = RageUI
-SHX41_1 = SHX41_1.CreateWhile
-SHX42_1 = 1
-SHX43_1 = RMenu
-SHX44_1 = SHX43_1
-SHX43_1 = SHX43_1.Get
-SHX45_1 = "g4s"
-SHX46_1 = "main"
-SHX43_1 = SHX43_1(SHX44_1, SHX45_1, SHX46_1)
-SHX44_1 = nil
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "g4s"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = SHX7_1
-    if not SHX0_3 then
-      SHX0_3 = CMG
-      SHX0_3 = SHX0_3.getPlayerVehicle
-      SHX0_3 = SHX0_3()
-      if 0 == SHX0_3 then
-        SHX0_3 = SHX18_1
-        if SHX0_3 < 4 then
-          SHX0_3 = RageUI
-          SHX0_3 = SHX0_3.ButtonWithStyle
-          SHX1_3 = "New Vehicle"
-          SHX2_3 = "Get a new vehicle"
-          SHX3_3 = {}
-          SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-          SHX4_3 = true
-          function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX3_4
-            if SHX2_4 then
-              SHX3_4 = SHX40_1
-              SHX3_4()
+rageUiCall5 = RageUI
+rageUiCall5 = rageUiCall5.CreateWhile
+workValue7 = 1
+workValue8 = RMenu
+textValue11 = workValue8
+workValue8 = workValue8.Get
+eventRegistration = "g4s"
+textValue12 = "main"
+-- Beginner: result below is menu.
+workValue8 = workValue8(textValue11, eventRegistration, textValue12)
+textValue11 = nil
+function eventRegistration()
+  local arg1, arg2, arg3, arg4, arg5, flag25
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  arg4 = "g4s"
+  arg5 = "main"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = true
+  arg4 = false
+  arg5 = true
+  function flag25()
+    local vehicle, cmgCall, flag17, numberValue14, flag24, numberValue17
+    vehicle = flag29
+    if not vehicle then
+      vehicle = CMG
+      vehicle = vehicle.getPlayerVehicle
+      -- Beginner: result below is currentVehicle.
+      vehicle = vehicle()
+      if 0 == vehicle then
+        vehicle = numberValue4
+        if vehicle < 4 then
+          vehicle = RageUI
+          vehicle = vehicle.ButtonWithStyle
+          cmgCall = "New Vehicle"
+          flag17 = "Get a new vehicle"
+          numberValue14 = {}
+          numberValue14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+          flag24 = true
+          function numberValue17(arg12, arg22, arg32)
+            local textValue10
+            if arg32 then
+              textValue10 = rageUiCall4
+              textValue10()
             end
           end
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+          -- Beginner: Draw a selectable RageUI menu button.
+          vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17)
         end
       end
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "End Shift"
-      SHX2_3 = "End your shift"
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4
-        if SHX2_4 then
-          SHX3_4 = TriggerServerEvent
-          SHX4_4 = "2ee6b18cbd"
-          SHX5_4 = false
-          SHX3_4(SHX4_4, SHX5_4)
-          SHX3_4 = false
-          SHX0_1 = SHX3_4
+      vehicle = RageUI
+      vehicle = vehicle.ButtonWithStyle
+      cmgCall = "End Shift"
+      flag17 = "End your shift"
+      numberValue14 = {}
+      numberValue14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      flag24 = true
+      function numberValue17(arg12, arg22, arg32)
+        local textValue10, numberValue15, flag26
+        if arg32 then
+          textValue10 = TriggerServerEvent
+          numberValue15 = "2ee6b18cbd"
+          flag26 = false
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2ee6b18cbd".
+          textValue10(numberValue15, flag26)
+          textValue10 = false
+          flag = textValue10
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.ButtonWithStyle
-      SHX1_3 = "Forgot Pin"
-      SHX2_3 = "Get a pin reminder"
-      SHX3_3 = {}
-      SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX4_3 = true
-      function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
-        if SHX2_4 then
-          SHX3_4 = SHX32_1
-          SHX4_4 = "CHAR_MP_MEX_DOCKS"
-          SHX5_4 = "CHAR_MP_MEX_DOCKS"
-          SHX6_4 = "Hey mate, I've got you. Your pin is "
-          SHX7_4 = SHX5_1
-          SHX8_4 = "."
-          SHX6_4 = SHX6_4 .. SHX7_4 .. SHX8_4
-          SHX7_4 = "Arthur"
-          SHX8_4 = "07925065325"
-          SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4)
+      -- Beginner: Draw a selectable RageUI menu button.
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17)
+      vehicle = RageUI
+      vehicle = vehicle.ButtonWithStyle
+      cmgCall = "Forgot Pin"
+      flag17 = "Get a pin reminder"
+      numberValue14 = {}
+      numberValue14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      flag24 = true
+      function numberValue17(arg12, arg22, arg32)
+        local textValue10, numberValue15, flag26, textValue13, textValue14, textValue15
+        if arg32 then
+          textValue10 = rageUiCall3
+          numberValue15 = "CHAR_MP_MEX_DOCKS"
+          flag26 = "CHAR_MP_MEX_DOCKS"
+          textValue13 = "Hey mate, I've got you. Your pin is "
+          textValue14 = numberValue16
+          textValue15 = "."
+          textValue13 = textValue13 .. textValue14 .. textValue15
+          textValue14 = "Arthur"
+          textValue15 = "07925065325"
+          textValue10(numberValue15, flag26, textValue13, textValue14, textValue15)
         end
       end
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-      SHX0_3 = SHX6_1
-      if not SHX0_3 then
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.ButtonWithStyle
-        SHX1_3 = "Activate Panic"
-        SHX2_3 = "Activate your panic alarm"
-        SHX3_3 = {}
-        SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-        SHX4_3 = true
-        function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
-          if SHX2_4 then
-            SHX3_4 = TriggerServerEvent
-            SHX4_4 = "81fb012b91"
-            SHX5_4 = SHX2_1
-            SHX3_4(SHX4_4, SHX5_4)
-            SHX3_4 = SHX32_1
-            SHX4_4 = "g4slogo"
-            SHX5_4 = "g4slogo"
-            SHX6_4 = "You have activated your panic alarm."
-            SHX7_4 = "Cash Driver Security"
-            SHX8_4 = "Panic Activated"
-            SHX3_4(SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4)
-            SHX3_4 = true
-            SHX6_1 = SHX3_4
+      -- Beginner: Draw a selectable RageUI menu button.
+      vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17)
+      vehicle = flag27
+      if not vehicle then
+        vehicle = RageUI
+        vehicle = vehicle.ButtonWithStyle
+        cmgCall = "Activate Panic"
+        flag17 = "Activate your panic alarm"
+        numberValue14 = {}
+        numberValue14.RightLabel = "\226\134\146\226\134\146\226\134\146"
+        flag24 = true
+        function numberValue17(arg12, arg22, arg32)
+          local textValue10, numberValue15, flag26, textValue13, textValue14, textValue15
+          if arg32 then
+            textValue10 = TriggerServerEvent
+            numberValue15 = "81fb012b91"
+            flag26 = numberValue10
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "81fb012b91".
+            textValue10(numberValue15, flag26)
+            textValue10 = rageUiCall3
+            numberValue15 = "g4slogo"
+            flag26 = "g4slogo"
+            textValue13 = "You have activated your panic alarm."
+            textValue14 = "Cash Driver Security"
+            textValue15 = "Panic Activated"
+            textValue10(numberValue15, flag26, textValue13, textValue14, textValue15)
+            textValue10 = true
+            flag27 = textValue10
           end
         end
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+        -- Beginner: Draw a selectable RageUI menu button.
+        vehicle(cmgCall, flag17, numberValue14, flag24, numberValue17)
       else
       end
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  arg1(arg2, arg3, arg4, arg5, flag25)
 end
-SHX41_1(SHX42_1, SHX43_1, SHX44_1, SHX45_1)
-SHX41_1 = RegisterNetEvent
-SHX42_1 = "c67322d45d"
-function SHX43_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX6_1 = SHX0_2
+rageUiCall5(workValue7, workValue8, textValue11, eventRegistration)
+rageUiCall5 = RegisterNetEvent
+workValue7 = "c67322d45d"
+-- Beginner: this function handles network event "c67322d45d".
+function workValue8()
+  local arg1, arg2
+  arg1 = false
+  flag27 = arg1
 end
-SHX41_1(SHX42_1, SHX43_1)
-SHX41_1 = RegisterNetEvent
-SHX42_1 = "ad7978cf26"
-function SHX43_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = SHX9_1
-  if 0 ~= SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.removeBlip
-    SHX2_2 = SHX9_1
-    SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c67322d45d".
+rageUiCall5(workValue7, workValue8)
+rageUiCall5 = RegisterNetEvent
+workValue7 = "ad7978cf26"
+-- Beginner: this function handles network event "ad7978cf26".
+function workValue8(arg1)
+  local arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19
+  arg2 = workValue12
+  if 0 ~= arg2 then
+    arg2 = tCMG
+    arg2 = arg2.removeBlip
+    arg3 = workValue12
+    arg2(arg3)
   end
-  SHX1_2 = SHX0_2.jobActive
-  if SHX1_2 then
-    SHX1_2 = SHX0_2.collected
-    if not SHX1_2 then
-      SHX1_2 = SHX8_1
-      if 0 ~= SHX1_2 then
-        SHX1_2 = tCMG
-        SHX1_2 = SHX1_2.removeBlip
-        SHX2_2 = SHX8_1
-        SHX1_2(SHX2_2)
+  arg2 = arg1.jobActive
+  if arg2 then
+    arg2 = arg1.collected
+    if not arg2 then
+      arg2 = workValue11
+      if 0 ~= arg2 then
+        arg2 = tCMG
+        arg2 = arg2.removeBlip
+        arg3 = workValue11
+        arg2(arg3)
       end
-      SHX1_2 = tCMG
-      SHX1_2 = SHX1_2.addBlip
-      SHX2_2 = SHX0_2.collectionCoords
-      SHX2_2 = SHX2_2.x
-      SHX3_2 = SHX0_2.collectionCoords
-      SHX3_2 = SHX3_2.y
-      SHX4_2 = SHX0_2.collectionCoords
-      SHX4_2 = SHX4_2.z
-      SHX5_2 = 500
-      SHX6_2 = 18
-      SHX7_2 = "Cash Driver Collection"
-      SHX8_2 = 1.0
-      SHX9_2 = false
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-      SHX8_1 = SHX1_2
-      SHX1_2 = SetBlipRoute
-      SHX2_2 = SHX8_1
-      SHX3_2 = true
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = SetBlipRouteColour
-      SHX2_2 = SHX8_1
-      SHX3_2 = 18
-      SHX1_2(SHX2_2, SHX3_2)
+      arg2 = tCMG
+      arg2 = arg2.addBlip
+      arg3 = arg1.collectionCoords
+      arg3 = arg3.x
+      arg4 = arg1.collectionCoords
+      arg4 = arg4.y
+      arg5 = arg1.collectionCoords
+      arg5 = arg5.z
+      flag25 = 500
+      flag28 = 18
+      flag30 = "Cash Driver Collection"
+      flag31 = 1.0
+      numberValue19 = false
+      arg2 = arg2(arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19)
+      workValue11 = arg2
+      arg2 = SetBlipRoute
+      arg3 = workValue11
+      arg4 = true
+      arg2(arg3, arg4)
+      arg2 = SetBlipRouteColour
+      arg3 = workValue11
+      arg4 = 18
+      arg2(arg3, arg4)
     else
-      SHX1_2 = SHX0_2.deposited
-      if not SHX1_2 then
-        SHX1_2 = tCMG
-        SHX1_2 = SHX1_2.removeBlip
-        SHX2_2 = SHX8_1
-        SHX1_2(SHX2_2)
-        SHX1_2 = tCMG
-        SHX1_2 = SHX1_2.addBlip
-        SHX2_2 = SHX0_2.depositCoords
-        SHX2_2 = SHX2_2.x
-        SHX3_2 = SHX0_2.depositCoords
-        SHX3_2 = SHX3_2.y
-        SHX4_2 = SHX0_2.depositCoords
-        SHX4_2 = SHX4_2.z
-        SHX5_2 = 500
-        SHX6_2 = 47
-        SHX7_2 = "Cash Driver Deposit"
-        SHX8_2 = 1.0
-        SHX9_2 = false
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX9_1 = SHX1_2
-        SHX1_2 = SetBlipRoute
-        SHX2_2 = SHX9_1
-        SHX3_2 = true
-        SHX1_2(SHX2_2, SHX3_2)
-        SHX1_2 = SetBlipRouteColour
-        SHX2_2 = SHX9_1
-        SHX3_2 = 47
-        SHX1_2(SHX2_2, SHX3_2)
+      arg2 = arg1.deposited
+      if not arg2 then
+        arg2 = tCMG
+        arg2 = arg2.removeBlip
+        arg3 = workValue11
+        arg2(arg3)
+        arg2 = tCMG
+        arg2 = arg2.addBlip
+        arg3 = arg1.depositCoords
+        arg3 = arg3.x
+        arg4 = arg1.depositCoords
+        arg4 = arg4.y
+        arg5 = arg1.depositCoords
+        arg5 = arg5.z
+        flag25 = 500
+        flag28 = 47
+        flag30 = "Cash Driver Deposit"
+        flag31 = 1.0
+        numberValue19 = false
+        arg2 = arg2(arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19)
+        workValue12 = arg2
+        arg2 = SetBlipRoute
+        arg3 = workValue12
+        arg4 = true
+        arg2(arg3, arg4)
+        arg2 = SetBlipRouteColour
+        arg3 = workValue12
+        arg4 = 47
+        arg2(arg3, arg4)
       end
     end
-    SHX10_1 = SHX0_2
-    SHX1_2 = PlaySoundFrontend
-    SHX2_2 = -1
-    SHX3_2 = "Out_Of_Bounds_Timer"
-    SHX4_2 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-    SHX5_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+    dataTable = arg1
+    arg2 = PlaySoundFrontend
+    arg3 = -1
+    arg4 = "Out_Of_Bounds_Timer"
+    arg5 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
+    flag25 = true
+    arg2(arg3, arg4, arg5, flag25)
   else
-    SHX1_2 = notify
-    SHX2_2 = [[
+    arg2 = notify
+    arg3 = [[
 ~b~New job received:~w~
 Collection: ]]
-    SHX3_2 = SHX0_2.collectionName
-    SHX4_2 = [[
+    arg4 = arg1.collectionName
+    arg5 = [[
 
 Destination: ]]
-    SHX5_2 = SHX0_2.depositName
-    SHX2_2 = SHX2_2 .. SHX3_2 .. SHX4_2 .. SHX5_2
-    SHX1_2(SHX2_2)
-    SHX1_2 = Wait
-    SHX2_2 = 3000
-    SHX1_2(SHX2_2)
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "3c47441080"
-    SHX1_2(SHX2_2)
+    flag25 = arg1.depositName
+    arg3 = arg3 .. arg4 .. arg5 .. flag25
+    -- Beginner: Show a notification to the player.
+    arg2(arg3)
+    arg2 = Wait
+    arg3 = 3000
+    arg2(arg3)
+    arg2 = TriggerServerEvent
+    arg3 = "3c47441080"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3c47441080".
+    arg2(arg3)
   end
 end
-SHX41_1(SHX42_1, SHX43_1)
-SHX41_1 = RegisterNetEvent
-SHX42_1 = "eb54246956"
-function SHX43_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = true
-  SHX0_1 = SHX2_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.requestEntitySpawn
-  SHX3_2 = "g4s"
-  SHX4_2 = vector3
-  SHX5_2 = SHX21_1.x
-  SHX6_2 = SHX21_1.y
-  SHX7_2 = SHX21_1.z
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.spawnVehicle
-  SHX3_2 = SHX11_1
-  SHX4_2 = SHX21_1.x
-  SHX5_2 = SHX21_1.y
-  SHX6_2 = SHX21_1.z
-  SHX7_2 = SHX21_1.heading
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX1_1 = SHX2_2
-  SHX2_2 = VehToNet
-  SHX3_2 = SHX1_1
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX2_1 = SHX2_2
-  SHX2_2 = TaskWarpPedIntoVehicle
-  SHX3_2 = SHX1_2
-  SHX4_2 = SHX1_1
-  SHX5_2 = -1
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX5_1 = SHX0_2
-  SHX2_2 = {}
-  SHX3_2 = "Marcus"
-  SHX4_2 = "Arthur"
-  SHX5_2 = "Rob"
-  SHX6_2 = "Thomas"
-  SHX7_2 = "Despawned"
-  SHX2_2[1] = SHX3_2
-  SHX2_2[2] = SHX4_2
-  SHX2_2[3] = SHX5_2
-  SHX2_2[4] = SHX6_2
-  SHX2_2[5] = SHX7_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.random
-  SHX4_2 = 1
-  SHX5_2 = 5
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = SHX2_2[SHX3_2]
-  SHX5_2 = SHX32_1
-  SHX6_2 = "CHAR_MP_MEX_DOCKS"
-  SHX7_2 = "CHAR_MP_MEX_DOCKS"
-  SHX8_2 = "Hey, I'm "
-  SHX9_2 = SHX4_2
-  SHX10_2 = " , another agent for Private Security. I'll be here giving you some tips along the way."
-  SHX8_2 = SHX8_2 .. SHX9_2 .. SHX10_2
-  SHX9_2 = SHX4_2
-  SHX10_2 = "07925065325"
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX5_2 = TriggerServerEvent
-  SHX6_2 = "be91a889a5"
-  SHX7_2 = SHX2_1
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = false
-  SHX6_2 = GetEntityModel
-  SHX7_2 = SHX1_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  if 1885233650 == SHX6_2 then
-    SHX5_2 = true
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ad7978cf26".
+rageUiCall5(workValue7, workValue8)
+rageUiCall5 = RegisterNetEvent
+workValue7 = "eb54246956"
+-- Beginner: this function handles network event "eb54246956".
+function workValue8(arg1)
+  local arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = true
+  flag = arg3
+  arg3 = CMG
+  arg3 = arg3.requestEntitySpawn
+  arg4 = "g4s"
+  arg5 = vector3
+  flag25 = dataTable5.x
+  flag28 = dataTable5.y
+  flag30 = dataTable5.z
+  arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10 = arg5(flag25, flag28, flag30)
+  arg3(arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10)
+  arg3 = CMG
+  arg3 = arg3.spawnVehicle
+  arg4 = textValue2
+  arg5 = dataTable5.x
+  flag25 = dataTable5.y
+  flag28 = dataTable5.z
+  flag30 = dataTable5.heading
+  flag31 = true
+  numberValue19 = true
+  arg3 = arg3(arg4, arg5, flag25, flag28, flag30, flag31, numberValue19)
+  numberValue5 = arg3
+  arg3 = VehToNet
+  arg4 = numberValue5
+  arg3 = arg3(arg4)
+  numberValue10 = arg3
+  arg3 = TaskWarpPedIntoVehicle
+  arg4 = arg2
+  arg5 = numberValue5
+  flag25 = -1
+  arg3(arg4, arg5, flag25)
+  numberValue16 = arg1
+  arg3 = {}
+  arg4 = "Marcus"
+  arg5 = "Arthur"
+  flag25 = "Rob"
+  flag28 = "Thomas"
+  flag30 = "Despawned"
+  arg3[1] = arg4
+  arg3[2] = arg5
+  arg3[3] = flag25
+  arg3[4] = flag28
+  arg3[5] = flag30
+  arg4 = math
+  arg4 = arg4.random
+  arg5 = 1
+  flag25 = 5
+  arg4 = arg4(arg5, flag25)
+  arg5 = arg3[arg4]
+  flag25 = rageUiCall3
+  flag28 = "CHAR_MP_MEX_DOCKS"
+  flag30 = "CHAR_MP_MEX_DOCKS"
+  flag31 = "Hey, I'm "
+  numberValue19 = arg5
+  textValue = " , another agent for Private Security. I'll be here giving you some tips along the way."
+  flag31 = flag31 .. numberValue19 .. textValue
+  numberValue19 = arg5
+  textValue = "07925065325"
+  flag25(flag28, flag30, flag31, numberValue19, textValue)
+  flag25 = TriggerServerEvent
+  flag28 = "be91a889a5"
+  flag30 = numberValue10
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "be91a889a5".
+  flag25(flag28, flag30)
+  flag25 = false
+  flag28 = GetEntityModel
+  flag30 = arg2
+  -- Beginner: result below is modelHash.
+  flag28 = flag28(flag30)
+  if 1885233650 == flag28 then
+    flag25 = true
   else
-    SHX5_2 = true
-    SHX7_2 = tCMG
-    SHX7_2 = SHX7_2.setCustomization
-    SHX8_2 = {}
-    SHX8_2.modelhash = 1885233650
-    SHX7_2(SHX8_2)
+    flag25 = true
+    flag30 = tCMG
+    flag30 = flag30.setCustomization
+    flag31 = {}
+    flag31.modelhash = 1885233650
+    flag30(flag31)
   end
-  SHX7_2 = json
-  SHX7_2 = SHX7_2.encode
-  SHX8_2 = tCMG
-  SHX8_2 = SHX8_2.getCustomization
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2 = SHX8_2()
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  if not SHX7_2 then
-    SHX7_2 = ""
+  flag30 = json
+  flag30 = flag30.encode
+  flag31 = tCMG
+  flag31 = flag31.getCustomization
+  flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10 = flag31()
+  flag30 = flag30(flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10)
+  if not flag30 then
+    flag30 = ""
   end
-  SHX19_1 = SHX7_2
-  if SHX5_2 then
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.loadCustomisationPreset
-    SHX8_2 = "G4SMale"
-    SHX7_2(SHX8_2)
+  textValue3 = flag30
+  if flag25 then
+    flag30 = CMG
+    flag30 = flag30.loadCustomisationPreset
+    flag31 = "G4SMale"
+    flag30(flag31)
   else
-    SHX7_2 = CMG
-    SHX7_2 = SHX7_2.loadCustomisationPreset
-    SHX8_2 = "G4SFemale"
-    SHX7_2(SHX8_2)
+    flag30 = CMG
+    flag30 = flag30.loadCustomisationPreset
+    flag31 = "G4SFemale"
+    flag30(flag31)
   end
-  SHX7_2 = Wait
-  SHX8_2 = 2000
-  SHX7_2(SHX8_2)
-  SHX7_2 = TaskVehicleDriveToCoord
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = SHX1_1
-  SHX10_2 = -672.356
-  SHX11_2 = 282.3297
-  SHX12_2 = 81.43005
-  SHX13_2 = math
-  SHX13_2 = SHX13_2.rad
-  SHX14_2 = 250.0
-  SHX13_2 = SHX13_2(SHX14_2)
-  SHX14_2 = 1
-  SHX15_2 = GetHashKey
-  SHX16_2 = GetEntityModel
-  SHX17_2 = SHX1_1
-  SHX16_2, SHX17_2, SHX18_2 = SHX16_2(SHX17_2)
-  SHX15_2 = SHX15_2(SHX16_2, SHX17_2, SHX18_2)
-  SHX16_2 = 60
-  SHX17_2 = 5
-  SHX18_2 = 1
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = Wait
-  SHX8_2 = 5000
-  SHX7_2(SHX8_2)
-  SHX7_2 = TaskVehicleTempAction
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = SHX1_1
-  SHX10_2 = 27
-  SHX11_2 = 10.0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX7_2 = Wait
-  SHX8_2 = 2000
-  SHX7_2(SHX8_2)
-  SHX7_2 = SHX32_1
-  SHX8_2 = "CHAR_MP_MEX_DOCKS"
-  SHX9_2 = "CHAR_MP_MEX_DOCKS"
-  SHX10_2 = "Use /securejob to access the Cash Driver menu."
-  SHX11_2 = SHX4_2
-  SHX12_2 = "Cash Driver"
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+  flag30 = Wait
+  flag31 = 2000
+  flag30(flag31)
+  flag30 = TaskVehicleDriveToCoord
+  flag31 = CMG
+  flag31 = flag31.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  flag31 = flag31()
+  numberValue19 = numberValue5
+  textValue = -672.356
+  flag2 = 282.3297
+  numberValue = 81.43005
+  flag4 = math
+  flag4 = flag4.rad
+  flag5 = 250.0
+  flag4 = flag4(flag5)
+  flag5 = 1
+  flag7 = GetHashKey
+  flag9 = GetEntityModel
+  numberValue3 = numberValue5
+  flag9, numberValue3, flag10 = flag9(numberValue3)
+  -- Beginner: result below is hash.
+  flag7 = flag7(flag9, numberValue3, flag10)
+  flag9 = 60
+  numberValue3 = 5
+  flag10 = 1
+  flag30(flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10)
+  flag30 = Wait
+  flag31 = 5000
+  flag30(flag31)
+  flag30 = TaskVehicleTempAction
+  flag31 = CMG
+  flag31 = flag31.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  flag31 = flag31()
+  numberValue19 = numberValue5
+  textValue = 27
+  flag2 = 10.0
+  flag30(flag31, numberValue19, textValue, flag2)
+  flag30 = Wait
+  flag31 = 2000
+  flag30(flag31)
+  flag30 = rageUiCall3
+  flag31 = "CHAR_MP_MEX_DOCKS"
+  numberValue19 = "CHAR_MP_MEX_DOCKS"
+  textValue = "Use /securejob to access the Cash Driver menu."
+  flag2 = arg5
+  numberValue = "Cash Driver"
+  flag30(flag31, numberValue19, textValue, flag2, numberValue)
 end
-SHX41_1(SHX42_1, SHX43_1)
-SHX41_1 = RegisterNetEvent
-SHX42_1 = "273e1a7f10"
-function SHX43_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = DoesEntityExist
-  SHX1_2 = SHX1_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = DeleteEntity
-    SHX1_2 = SHX1_1
-    SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "eb54246956".
+rageUiCall5(workValue7, workValue8)
+rageUiCall5 = RegisterNetEvent
+workValue7 = "273e1a7f10"
+-- Beginner: this function handles network event "273e1a7f10".
+function workValue8()
+  local arg1, arg2, arg3
+  arg1 = DoesEntityExist
+  arg2 = numberValue5
+  arg1 = arg1(arg2)
+  if arg1 then
+    arg1 = DeleteEntity
+    arg2 = numberValue5
+    -- Beginner: Delete a GTA entity.
+    arg1(arg2)
   end
-  SHX10_1.jobActive = false
-  SHX0_2 = false
-  SHX0_1 = SHX0_2
-  SHX0_2 = SHX7_1
-  if SHX0_2 then
-    SHX0_2 = SHX24_1
-    SHX0_2()
+  dataTable.jobActive = false
+  arg1 = false
+  flag = arg1
+  arg1 = flag29
+  if arg1 then
+    arg1 = workValue3
+    arg1()
   end
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.setCustomization
-  SHX1_2 = json
-  SHX1_2 = SHX1_2.decode
-  SHX2_2 = SHX19_1
-  SHX1_2, SHX2_2 = SHX1_2(SHX2_2)
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SHX22_1.active
-  if SHX0_2 then
-    SHX0_2 = SHX33_1
-    SHX0_2()
+  arg1 = tCMG
+  arg1 = arg1.setCustomization
+  arg2 = json
+  arg2 = arg2.decode
+  arg3 = textValue3
+  arg2, arg3 = arg2(arg3)
+  arg1(arg2, arg3)
+  arg1 = dataTable6.active
+  if arg1 then
+    arg1 = textValue8
+    -- Beginner: Create a minimap blip.
+    arg1()
   end
-  SHX0_2 = SHX8_1
-  if 0 ~= SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.removeBlip
-    SHX1_2 = SHX8_1
-    SHX0_2(SHX1_2)
+  arg1 = workValue11
+  if 0 ~= arg1 then
+    arg1 = tCMG
+    arg1 = arg1.removeBlip
+    arg2 = workValue11
+    arg1(arg2)
   end
-  SHX0_2 = SHX9_1
-  if 0 ~= SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.removeBlip
-    SHX1_2 = SHX9_1
-    SHX0_2(SHX1_2)
+  arg1 = workValue12
+  if 0 ~= arg1 then
+    arg1 = tCMG
+    arg1 = arg1.removeBlip
+    arg2 = workValue12
+    arg1(arg2)
   end
-  SHX0_2 = ClearGpsPlayerWaypoint
-  SHX0_2()
+  arg1 = ClearGpsPlayerWaypoint
+  arg1()
 end
-SHX41_1(SHX42_1, SHX43_1)
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = true
-  SHX16_1 = SHX0_2
-  SHX0_2 = SetScaleformMovieAsNoLongerNeeded
-  SHX0_2()
-  SHX0_2 = RequestScaleformMovie
-  SHX1_2 = "ATM"
-  SHX0_2 = SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "273e1a7f10".
+rageUiCall5(workValue7, workValue8)
+function rageUiCall5()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue
+  arg1 = true
+  flag8 = arg1
+  arg1 = SetScaleformMovieAsNoLongerNeeded
+  arg1()
+  arg1 = RequestScaleformMovie
+  arg2 = "ATM"
+  -- Beginner: result below is scaleformHandle.
+  arg1 = arg1(arg2)
   while true do
-    SHX1_2 = HasScaleformMovieLoaded
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
+    arg2 = HasScaleformMovieLoaded
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if arg2 then
       break
     end
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+    arg2 = Citizen
+    arg2 = arg2.Wait
+    arg3 = 0
+    arg2(arg3)
   end
-  SHX1_2 = BeginScaleformMovieMethod
-  SHX2_2 = SHX0_2
-  SHX3_2 = "enterPINanim"
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = EndScaleformMovieMethod
-  SHX1_2()
-  SHX1_2 = true
-  SHX2_2 = SetTimeout
-  SHX3_2 = 3000
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = false
-    SHX1_2 = SHX0_3
+  arg2 = BeginScaleformMovieMethod
+  arg3 = arg1
+  arg4 = "enterPINanim"
+  arg2(arg3, arg4)
+  arg2 = EndScaleformMovieMethod
+  arg2()
+  arg2 = true
+  arg3 = SetTimeout
+  arg4 = 3000
+  function arg5()
+    local vehicle, cmgCall
+    vehicle = false
+    arg2 = vehicle
   end
-  SHX2_2(SHX3_2, SHX4_2)
-  while SHX1_2 do
-    SHX2_2 = DrawScaleformMovie
-    SHX3_2 = SHX0_2
-    SHX4_2 = 0.5
-    SHX5_2 = 0.5
-    SHX6_2 = 0.8
-    SHX7_2 = 0.8
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 0
-    SHX12_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+  arg3(arg4, arg5)
+  while arg2 do
+    arg3 = DrawScaleformMovie
+    arg4 = arg1
+    arg5 = 0.5
+    flag25 = 0.5
+    flag28 = 0.8
+    flag30 = 0.8
+    flag31 = 255
+    numberValue19 = 255
+    textValue = 255
+    flag2 = 0
+    numberValue = 0
+    arg3(arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue)
+    arg3 = Citizen
+    arg3 = arg3.Wait
+    arg4 = 0
+    arg3(arg4)
   end
-  SHX2_2 = SetScaleformMovieAsNoLongerNeeded
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = false
-  SHX16_1 = SHX2_2
+  arg3 = SetScaleformMovieAsNoLongerNeeded
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = false
+  flag8 = arg3
 end
-function SHX42_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = true
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
+function workValue7()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30
+  arg1 = true
+  arg2 = Citizen
+  arg2 = arg2.CreateThread
+  function arg3()
+    local vehicle, cmgCall, flag17, numberValue14
     while true do
-      SHX0_3 = SHX0_2
-      if not SHX0_3 then
+      vehicle = arg1
+      if not vehicle then
         break
       end
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.Text
-      SHX1_3 = {}
-      SHX2_3 = "Your pin is ~b~"
-      SHX3_3 = SHX5_1
-      SHX2_3 = SHX2_3 .. SHX3_3
-      SHX1_3.message = SHX2_3
-      SHX0_3(SHX1_3)
-      SHX0_3 = Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
+      vehicle = RageUI
+      vehicle = vehicle.Text
+      cmgCall = {}
+      flag17 = "Your pin is ~b~"
+      numberValue14 = numberValue16
+      flag17 = flag17 .. numberValue14
+      cmgCall.message = flag17
+      vehicle(cmgCall)
+      vehicle = Wait
+      cmgCall = 0
+      vehicle(cmgCall)
     end
   end
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.GetRageInputText
-  SHX2_2 = "Enter the safe code:"
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX0_2 = false
-  SHX2_2 = SHX41_1
-  SHX2_2()
-  SHX2_2 = tostring
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = tostring
-  SHX4_2 = SHX5_1
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX2_2 == SHX3_2 then
-    SHX2_2 = SHX32_1
-    SHX3_2 = "g4slogo"
-    SHX4_2 = "g4slogo"
-    SHX5_2 = "The safe pin has been entered correctly."
-    SHX6_2 = "Cash Driver Security"
-    SHX7_2 = "Authorised"
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX2_2 = FreezeEntityPosition
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getPlayerPed
-    SHX3_2 = SHX3_2()
-    SHX4_2 = false
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = true
-    return SHX2_2
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.GetRageInputText
+  arg3 = "Enter the safe code:"
+  arg2 = arg2(arg3)
+  arg1 = false
+  arg3 = rageUiCall5
+  -- Beginner: Register a network event handler that the server/other clients can trigger.
+  arg3()
+  arg3 = tostring
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  arg4 = tostring
+  arg5 = numberValue16
+  arg4 = arg4(arg5)
+  if arg3 == arg4 then
+    arg3 = rageUiCall3
+    arg4 = "g4slogo"
+    arg5 = "g4slogo"
+    flag25 = "The safe pin has been entered correctly."
+    flag28 = "Cash Driver Security"
+    flag30 = "Authorised"
+    arg3(arg4, arg5, flag25, flag28, flag30)
+    arg3 = FreezeEntityPosition
+    arg4 = CMG
+    arg4 = arg4.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    arg4 = arg4()
+    arg5 = false
+    -- Beginner: Freeze or unfreeze an entity in place.
+    arg3(arg4, arg5)
+    arg3 = true
+    return arg3
   else
-    SHX2_2 = PlaySoundFrontend
-    SHX3_2 = -1
-    SHX4_2 = "Hack_Failed"
-    SHX5_2 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-    SHX6_2 = true
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2 = Wait
-    SHX3_2 = 2000
-    SHX2_2(SHX3_2)
-    SHX2_2 = FreezeEntityPosition
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getPlayerPed
-    SHX3_2 = SHX3_2()
-    SHX4_2 = false
-    SHX2_2(SHX3_2, SHX4_2)
-    SHX2_2 = false
-    return SHX2_2
+    arg3 = PlaySoundFrontend
+    arg4 = -1
+    arg5 = "Hack_Failed"
+    flag25 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
+    flag28 = true
+    arg3(arg4, arg5, flag25, flag28)
+    arg3 = Wait
+    arg4 = 2000
+    arg3(arg4)
+    arg3 = FreezeEntityPosition
+    arg4 = CMG
+    arg4 = arg4.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    arg4 = arg4()
+    arg5 = false
+    -- Beginner: Freeze or unfreeze an entity in place.
+    arg3(arg4, arg5)
+    arg3 = false
+    return arg3
   end
 end
-SHX43_1 = RegisterNetEvent
-SHX44_1 = "457368e155"
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.random
-  SHX1_2 = 1
-  SHX2_2 = 4
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if 1 == SHX0_2 then
-    SHX1_2 = SHX32_1
-    SHX2_2 = "g4slogo"
-    SHX3_2 = "g4slogo"
-    SHX4_2 = "Use /securejob to access your Cash Driver Menu."
-    SHX5_2 = "Cash Driver Security"
-    SHX6_2 = "Alert"
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+workValue8 = RegisterNetEvent
+textValue11 = "457368e155"
+-- Beginner: this function handles network event "457368e155".
+function eventRegistration()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9, flag15
+  arg1 = math
+  arg1 = arg1.random
+  arg2 = 1
+  arg3 = 4
+  arg1 = arg1(arg2, arg3)
+  if 1 == arg1 then
+    arg2 = rageUiCall3
+    arg3 = "g4slogo"
+    arg4 = "g4slogo"
+    arg5 = "Use /securejob to access your Cash Driver Menu."
+    flag25 = "Cash Driver Security"
+    flag28 = "Alert"
+    arg2(arg3, arg4, arg5, flag25, flag28)
   end
-  SHX1_2 = true
-  SHX15_1 = SHX1_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = IsPedInAnyVehicle
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
+  arg2 = true
+  flag6 = arg2
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = IsPedInAnyVehicle
+  arg4 = arg2
+  arg5 = true
+  arg3 = arg3(arg4, arg5)
+  if arg3 then
     while true do
-      SHX2_2 = IsPedInAnyVehicle
-      SHX3_2 = SHX1_2
-      SHX4_2 = true
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if not SHX2_2 then
+      arg3 = IsPedInAnyVehicle
+      arg4 = arg2
+      arg5 = true
+      arg3 = arg3(arg4, arg5)
+      if not arg3 then
         break
       end
-      SHX2_2 = Wait
-      SHX3_2 = 400
-      SHX2_2(SHX3_2)
+      arg3 = Wait
+      arg4 = 400
+      arg3(arg4)
     end
   end
-  SHX2_2 = SetVehicleDoorOpen
-  SHX3_2 = SHX1_1
-  SHX4_2 = 3
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SetVehicleDoorOpen
-  SHX3_2 = SHX1_1
-  SHX4_2 = 4
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = false
-  SHX3_2 = GetOffsetFromEntityInWorldCoords
-  SHX4_2 = SHX1_1
-  SHX5_2 = 0.0
-  SHX6_2 = -5.0
-  SHX7_2 = 0.0
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
+  arg3 = SetVehicleDoorOpen
+  arg4 = numberValue5
+  arg5 = 3
+  flag25 = false
+  flag28 = false
+  arg3(arg4, arg5, flag25, flag28)
+  arg3 = SetVehicleDoorOpen
+  arg4 = numberValue5
+  arg5 = 4
+  flag25 = false
+  flag28 = false
+  arg3(arg4, arg5, flag25, flag28)
+  arg3 = false
+  arg4 = GetOffsetFromEntityInWorldCoords
+  arg5 = numberValue5
+  flag25 = 0.0
+  flag28 = -5.0
+  flag30 = 0.0
+  arg4 = arg4(arg5, flag25, flag28, flag30)
   while true do
-    SHX4_2 = SHX4_1
-    if SHX4_2 then
+    arg5 = flag23
+    if arg5 then
       break
     end
-    SHX4_2 = DrawMarker
-    SHX5_2 = 29
-    SHX6_2 = SHX3_2.x
-    SHX7_2 = SHX3_2.y
-    SHX8_2 = SHX3_2.z
-    SHX8_2 = SHX8_2 + 0.5
-    SHX9_2 = 0.0
-    SHX10_2 = 0.0
-    SHX11_2 = 0.0
-    SHX12_2 = 0.0
-    SHX13_2 = 0.0
-    SHX14_2 = 0.0
-    SHX15_2 = 1.5
-    SHX16_2 = 1.5
-    SHX17_2 = 1.5
-    SHX18_2 = 255
-    SHX19_2 = 36
-    SHX20_2 = 36
-    SHX21_2 = 50
-    SHX22_2 = true
-    SHX23_2 = false
-    SHX24_2 = 2
-    SHX25_2 = false
-    SHX26_2 = nil
-    SHX27_2 = nil
-    SHX28_2 = false
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.getPlayerCoords
-    SHX4_2 = SHX4_2()
-    SHX4_2 = SHX4_2 - SHX3_2
-    SHX4_2 = #SHX4_2
-    if SHX4_2 <= 1.0 then
-      SHX2_2 = true
-      SHX5_2 = SHX42_1
-      SHX5_2 = SHX5_2()
-      SHX2_2 = false
-      if SHX5_2 then
-        SHX6_2 = true
-        SHX4_1 = SHX6_2
+    arg5 = DrawMarker
+    flag25 = 29
+    flag28 = arg4.x
+    flag30 = arg4.y
+    flag31 = arg4.z
+    flag31 = flag31 + 0.5
+    numberValue19 = 0.0
+    textValue = 0.0
+    flag2 = 0.0
+    numberValue = 0.0
+    flag4 = 0.0
+    flag5 = 0.0
+    flag7 = 1.5
+    flag9 = 1.5
+    numberValue3 = 1.5
+    flag10 = 255
+    flag11 = 36
+    numberValue6 = 36
+    flag12 = 50
+    workValue = true
+    workValue2 = false
+    flag13 = 2
+    flag14 = false
+    numberValue8 = nil
+    numberValue9 = nil
+    flag15 = false
+    arg5(flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9, flag15)
+    arg5 = CMG
+    arg5 = arg5.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    arg5 = arg5()
+    arg5 = arg5 - arg4
+    arg5 = #arg5
+    if arg5 <= 1.0 then
+      arg3 = true
+      flag25 = workValue7
+      flag25 = flag25()
+      arg3 = false
+      if flag25 then
+        flag28 = true
+        flag23 = flag28
       end
-      while SHX2_2 do
-        SHX6_2 = Wait
-        SHX7_2 = 100
-        SHX6_2(SHX7_2)
+      while arg3 do
+        flag28 = Wait
+        flag30 = 100
+        flag28(flag30)
       end
     end
-    SHX5_2 = Wait
-    SHX6_2 = 0
-    SHX5_2(SHX6_2)
+    flag25 = Wait
+    flag28 = 0
+    flag25(flag28)
   end
-  SHX4_2 = SetVehicleDoorShut
-  SHX5_2 = SHX1_1
-  SHX6_2 = 3
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SetVehicleDoorShut
-  SHX5_2 = SHX1_1
-  SHX6_2 = 4
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX10_1.collecting = false
-  SHX4_2 = SHX22_1.active
-  if SHX4_2 then
-    SHX4_2 = SHX33_1
-    SHX4_2()
+  arg5 = SetVehicleDoorShut
+  flag25 = numberValue5
+  flag28 = 3
+  flag30 = false
+  arg5(flag25, flag28, flag30)
+  arg5 = SetVehicleDoorShut
+  flag25 = numberValue5
+  flag28 = 4
+  flag30 = false
+  arg5(flag25, flag28, flag30)
+  dataTable.collecting = false
+  arg5 = dataTable6.active
+  if arg5 then
+    arg5 = textValue8
+    -- Beginner: Create a minimap blip.
+    arg5()
   end
-  SHX4_2 = TriggerServerEvent
-  SHX5_2 = "932a3df12c"
-  SHX4_2(SHX5_2)
-  SHX4_2 = false
-  SHX15_1 = SHX4_2
+  arg5 = TriggerServerEvent
+  flag25 = "932a3df12c"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "932a3df12c".
+  arg5(flag25)
+  arg5 = false
+  flag6 = arg5
 end
-SHX43_1(SHX44_1, SHX45_1)
-SHX43_1 = RegisterNetEvent
-SHX44_1 = "2f71d37526"
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "457368e155".
+workValue8(textValue11, eventRegistration)
+workValue8 = RegisterNetEvent
+textValue11 = "2f71d37526"
+-- Beginner: this function handles network event "2f71d37526".
+function eventRegistration()
+  local arg1, arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
   while true do
-    SHX1_2 = IsPedInAnyVehicle
-    SHX2_2 = SHX0_2
-    SHX3_2 = true
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if not SHX1_2 then
+    arg2 = IsPedInAnyVehicle
+    arg3 = arg1
+    arg4 = true
+    arg2 = arg2(arg3, arg4)
+    if not arg2 then
       break
     end
-    SHX1_2 = Wait
-    SHX2_2 = 400
-    SHX1_2(SHX2_2)
+    arg2 = Wait
+    arg3 = 400
+    arg2(arg3)
   end
-  SHX1_2 = SetVehicleDoorOpen
-  SHX2_2 = SHX1_1
-  SHX3_2 = 3
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SetVehicleDoorOpen
-  SHX2_2 = SHX1_1
-  SHX3_2 = 4
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX10_1.depositing = true
-  SHX1_2 = false
-  SHX2_2 = GetOffsetFromEntityInWorldCoords
-  SHX3_2 = SHX1_1
-  SHX4_2 = 0.0
-  SHX5_2 = -5.0
-  SHX6_2 = 0.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+  arg2 = SetVehicleDoorOpen
+  arg3 = numberValue5
+  arg4 = 3
+  arg5 = false
+  flag25 = false
+  arg2(arg3, arg4, arg5, flag25)
+  arg2 = SetVehicleDoorOpen
+  arg3 = numberValue5
+  arg4 = 4
+  arg5 = false
+  flag25 = false
+  arg2(arg3, arg4, arg5, flag25)
+  dataTable.depositing = true
+  arg2 = false
+  arg3 = GetOffsetFromEntityInWorldCoords
+  arg4 = numberValue5
+  arg5 = 0.0
+  flag25 = -5.0
+  flag28 = 0.0
+  arg3 = arg3(arg4, arg5, flag25, flag28)
   while true do
-    SHX3_2 = SHX4_1
-    if not SHX3_2 then
+    arg4 = flag23
+    if not arg4 then
       break
     end
-    SHX3_2 = DrawMarker
-    SHX4_2 = 29
-    SHX5_2 = SHX2_2.x
-    SHX6_2 = SHX2_2.y
-    SHX7_2 = SHX2_2.z
-    SHX7_2 = SHX7_2 + 0.5
-    SHX8_2 = 0.0
-    SHX9_2 = 0.0
-    SHX10_2 = 0.0
-    SHX11_2 = 0.0
-    SHX12_2 = 0.0
-    SHX13_2 = 0.0
-    SHX14_2 = 1.5
-    SHX15_2 = 1.5
-    SHX16_2 = 1.5
-    SHX17_2 = 255
-    SHX18_2 = 36
-    SHX19_2 = 36
-    SHX20_2 = 50
-    SHX21_2 = true
-    SHX22_2 = false
-    SHX23_2 = 2
-    SHX24_2 = false
-    SHX25_2 = nil
-    SHX26_2 = nil
-    SHX27_2 = false
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2)
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getPlayerCoords
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2 - SHX2_2
-    SHX3_2 = #SHX3_2
-    if SHX3_2 <= 1.0 then
-      SHX1_2 = true
-      SHX4_2 = SHX42_1
-      SHX4_2 = SHX4_2()
-      SHX1_2 = false
-      if SHX4_2 then
-        SHX5_2 = false
-        SHX4_1 = SHX5_2
+    arg4 = DrawMarker
+    arg5 = 29
+    flag25 = arg3.x
+    flag28 = arg3.y
+    flag30 = arg3.z
+    flag30 = flag30 + 0.5
+    flag31 = 0.0
+    numberValue19 = 0.0
+    textValue = 0.0
+    flag2 = 0.0
+    numberValue = 0.0
+    flag4 = 0.0
+    flag5 = 1.5
+    flag7 = 1.5
+    flag9 = 1.5
+    numberValue3 = 255
+    flag10 = 36
+    flag11 = 36
+    numberValue6 = 50
+    flag12 = true
+    workValue = false
+    workValue2 = 2
+    flag13 = false
+    flag14 = nil
+    numberValue8 = nil
+    numberValue9 = false
+    arg4(arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7, flag9, numberValue3, flag10, flag11, numberValue6, flag12, workValue, workValue2, flag13, flag14, numberValue8, numberValue9)
+    arg4 = CMG
+    arg4 = arg4.getPlayerCoords
+    -- Beginner: result below is playerCoords.
+    arg4 = arg4()
+    arg4 = arg4 - arg3
+    arg4 = #arg4
+    if arg4 <= 1.0 then
+      arg2 = true
+      arg5 = workValue7
+      arg5 = arg5()
+      arg2 = false
+      if arg5 then
+        flag25 = false
+        flag23 = flag25
       end
-      while SHX1_2 do
-        SHX5_2 = Wait
-        SHX6_2 = 100
-        SHX5_2(SHX6_2)
+      while arg2 do
+        flag25 = Wait
+        flag28 = 100
+        flag25(flag28)
       end
     end
-    SHX4_2 = Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
+    arg5 = Wait
+    flag25 = 0
+    arg5(flag25)
   end
-  SHX3_2 = SetVehicleDoorShut
-  SHX4_2 = SHX1_1
-  SHX5_2 = 3
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetVehicleDoorShut
-  SHX4_2 = SHX1_1
-  SHX5_2 = 4
-  SHX6_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SHX22_1.active
-  if SHX3_2 then
-    SHX3_2 = SHX33_1
-    SHX3_2()
+  arg4 = SetVehicleDoorShut
+  arg5 = numberValue5
+  flag25 = 3
+  flag28 = false
+  arg4(arg5, flag25, flag28)
+  arg4 = SetVehicleDoorShut
+  arg5 = numberValue5
+  flag25 = 4
+  flag28 = false
+  arg4(arg5, flag25, flag28)
+  arg4 = dataTable6.active
+  if arg4 then
+    arg4 = textValue8
+    -- Beginner: Create a minimap blip.
+    arg4()
   end
-  SHX3_2 = 1
-  SHX18_1 = SHX3_2
-  SHX3_2 = TriggerServerEvent
-  SHX4_2 = "6734eb94a6"
-  SHX3_2(SHX4_2)
+  arg4 = 1
+  numberValue4 = arg4
+  arg4 = TriggerServerEvent
+  arg5 = "6734eb94a6"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6734eb94a6".
+  arg4(arg5)
 end
-SHX43_1(SHX44_1, SHX45_1)
-SHX43_1 = RegisterNetEvent
-SHX44_1 = "5143298b93"
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "g4s"
-  SHX4_2 = "main"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2f71d37526".
+workValue8(textValue11, eventRegistration)
+workValue8 = RegisterNetEvent
+textValue11 = "5143298b93"
+-- Beginner: this function handles network event "5143298b93".
+function eventRegistration()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = RageUI
+  arg1 = arg1.Visible
+  arg2 = RMenu
+  arg3 = arg2
+  arg2 = arg2.Get
+  arg4 = "g4s"
+  arg5 = "main"
+  -- Beginner: result below is menu.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = true
+  arg1(arg2, arg3)
 end
-SHX43_1(SHX44_1, SHX45_1)
-SHX43_1 = RegisterNetEvent
-SHX44_1 = "285fe4d48d"
-function SHX45_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX5_2 = SHX32_1
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX2_2
-  SHX9_2 = SHX3_2
-  SHX10_2 = SHX4_2
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5143298b93".
+workValue8(textValue11, eventRegistration)
+workValue8 = RegisterNetEvent
+textValue11 = "285fe4d48d"
+-- Beginner: this function handles network event "285fe4d48d".
+function eventRegistration(arg1, arg2, arg3, arg4, arg5)
+  local flag25, flag28, flag30, flag31, numberValue19, textValue
+  flag25 = rageUiCall3
+  flag28 = arg1
+  flag30 = arg2
+  flag31 = arg3
+  numberValue19 = arg4
+  textValue = arg5
+  flag25(flag28, flag30, flag31, numberValue19, textValue)
 end
-SHX43_1(SHX44_1, SHX45_1)
-function SHX43_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = _ENV
-  SHX2_2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "285fe4d48d".
+workValue8(textValue11, eventRegistration)
+function workValue8(arg1)
+  local arg2, arg3
+  arg2 = _ENV
+  arg3 = "ScaleformMovieMethodAddParamPlayerNameString"
+  arg2 = arg2[arg3]
+  arg3 = arg1
+  arg2(arg3)
 end
-InstructionButton = SHX43_1
-function SHX43_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = BeginTextCommandScaleformString
-  SHX2_2 = "STRING"
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddTextComponentSubstringKeyboardDisplay
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = EndTextCommandScaleformString
-  SHX1_2()
+InstructionButton = workValue8
+function workValue8(arg1)
+  local arg2, arg3
+  arg2 = BeginTextCommandScaleformString
+  arg3 = "STRING"
+  arg2(arg3)
+  arg2 = AddTextComponentSubstringKeyboardDisplay
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = EndTextCommandScaleformString
+  arg2()
 end
-InstructionButtonMessage = SHX43_1
-function SHX43_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = 0
-  while SHX1_2 > SHX2_2 do
-    SHX3_2 = RageUI
-    SHX3_2 = SHX3_2.Text
-    SHX4_2 = {}
-    SHX4_2.message = SHX0_2
-    SHX3_2(SHX4_2)
-    SHX3_2 = Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
+InstructionButtonMessage = workValue8
+function workValue8(arg1, arg2)
+  local arg3, arg4, arg5
+  arg3 = 0
+  while arg2 > arg3 do
+    arg4 = RageUI
+    arg4 = arg4.Text
+    arg5 = {}
+    arg5.message = arg1
+    arg4(arg5)
+    arg4 = Wait
+    arg5 = 0
+    arg4(arg5)
   end
 end
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "abf15683a3"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX43_1
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX2_2(SHX3_2, SHX4_2)
+textValue11 = RegisterNetEvent
+eventRegistration = "abf15683a3"
+-- Beginner: this function handles network event "abf15683a3".
+function textValue12(arg1, arg2)
+  local arg3, arg4, arg5
+  arg3 = workValue8
+  arg4 = arg1
+  arg5 = arg2
+  -- Beginner: Register a network event handler that the server/other clients can trigger.
+  arg3(arg4, arg5)
 end
-SHX44_1(SHX45_1, SHX46_1)
-function SHX44_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
+textValue11(eventRegistration, textValue12)
+-- Beginner: this function handles network event "abf15683a3".
+function textValue11()
+  local arg1, arg2, arg3, arg4
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
   while true do
-    SHX1_2 = RequestScriptAudioBank
-    SHX2_2 = "DLC_SECURITY\\SIREN_ONE"
-    SHX3_2 = false
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
+    arg2 = RequestScriptAudioBank
+    arg3 = "DLC_SECURITY\\SIREN_ONE"
+    arg4 = false
+    arg2 = arg2(arg3, arg4)
+    if arg2 then
       break
     end
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX1_2 = SHX1_2 - SHX0_2
-    SHX2_2 = 1500
-    if SHX1_2 > SHX2_2 then
-      SHX1_2 = print
-      SHX2_2 = "Failed to load DLC_SECURITY audio bank"
-      SHX1_2(SHX2_2)
-      SHX1_2 = ReleaseNamedScriptAudioBank
-      SHX2_2 = "DLC_SECURITY\\SIREN_ONE"
-      SHX1_2(SHX2_2)
+    arg2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg2 = arg2()
+    arg2 = arg2 - arg1
+    arg3 = 1500
+    if arg2 > arg3 then
+      arg2 = print
+      arg3 = "Failed to load DLC_SECURITY audio bank"
+      arg2(arg3)
+      arg2 = ReleaseNamedScriptAudioBank
+      arg3 = "DLC_SECURITY\\SIREN_ONE"
+      arg2(arg3)
       return
     end
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+    arg2 = Citizen
+    arg2 = arg2.Wait
+    arg3 = 0
+    arg2(arg3)
   end
 end
-SHX45_1 = RegisterNetEvent
-SHX46_1 = "32e875a544"
-function SHX47_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  if 0 ~= SHX0_2 then
-    SHX1_2 = NetworkDoesNetworkIdExist
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = GetSoundId
-      SHX1_2 = SHX1_2()
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.getObjectId
-      SHX3_2 = SHX0_2
-      SHX4_2 = "CMG:activatePanicAll (1)"
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if SHX2_2 then
-        SHX3_2 = DoesEntityExist
-        SHX4_2 = SHX2_2
-        SHX3_2 = SHX3_2(SHX4_2)
-        if SHX3_2 then
-          SHX3_2 = SHX44_1
-          SHX3_2()
-          SHX3_2 = PlaySoundFromEntity
-          SHX4_2 = SHX1_2
-          SHX5_2 = "siren_one"
-          SHX6_2 = SHX2_2
-          SHX7_2 = "dlc_security_soundset"
-          SHX8_2 = false
-          SHX9_2 = 0
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-          SHX3_2 = RequestNamedPtfxAsset
-          SHX4_2 = "core"
-          SHX3_2(SHX4_2)
+eventRegistration = RegisterNetEvent
+textValue12 = "32e875a544"
+-- Beginner: this function handles network event "32e875a544".
+function workValue9(arg1)
+  local arg2, arg3, arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7
+  if 0 ~= arg1 then
+    arg2 = NetworkDoesNetworkIdExist
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = GetSoundId
+      -- Beginner: result below is soundHandle.
+      arg2 = arg2()
+      arg3 = CMG
+      arg3 = arg3.getObjectId
+      arg4 = arg1
+      arg5 = "CMG:activatePanicAll (1)"
+      arg3 = arg3(arg4, arg5)
+      if arg3 then
+        arg4 = DoesEntityExist
+        arg5 = arg3
+        arg4 = arg4(arg5)
+        if arg4 then
+          arg4 = textValue11
+          -- Beginner: Register a network event handler that the server/other clients can trigger.
+          arg4()
+          arg4 = PlaySoundFromEntity
+          arg5 = arg2
+          flag25 = "siren_one"
+          flag28 = arg3
+          flag30 = "dlc_security_soundset"
+          flag31 = false
+          numberValue19 = 0
+          arg4(arg5, flag25, flag28, flag30, flag31, numberValue19)
+          arg4 = RequestNamedPtfxAsset
+          arg5 = "core"
+          arg4(arg5)
           while true do
-            SHX3_2 = HasNamedPtfxAssetLoaded
-            SHX4_2 = "core"
-            SHX3_2 = SHX3_2(SHX4_2)
-            if SHX3_2 then
+            arg4 = HasNamedPtfxAssetLoaded
+            arg5 = "core"
+            arg4 = arg4(arg5)
+            if arg4 then
               break
             end
-            SHX3_2 = RequestNamedPtfxAsset
-            SHX4_2 = "core"
-            SHX3_2(SHX4_2)
-            SHX3_2 = Wait
-            SHX4_2 = 0
-            SHX3_2(SHX4_2)
+            arg4 = RequestNamedPtfxAsset
+            arg5 = "core"
+            arg4(arg5)
+            arg4 = Wait
+            arg5 = 0
+            arg4(arg5)
           end
-          SHX3_2 = SHX20_1.netId
-          if SHX3_2 == SHX0_2 then
-            SHX20_1.hackingEngaged = false
-            SHX20_1.netId = 0
-            SHX20_1.entity = 0
-            SHX3_2 = 0
-            SHX37_1 = SHX3_2
-            SHX3_2 = FreezeEntityPosition
-            SHX4_2 = CMG
-            SHX4_2 = SHX4_2.getPlayerPed
-            SHX4_2 = SHX4_2()
-            SHX5_2 = false
-            SHX3_2(SHX4_2, SHX5_2)
-            SHX3_2 = SHX32_1
-            SHX4_2 = "g4slogo"
-            SHX5_2 = "g4slogo"
-            SHX6_2 = "The alarm has been manually activated."
-            SHX7_2 = "Cash Driver Security"
-            SHX8_2 = "Alarm Activated"
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+          arg4 = dataTable4.netId
+          if arg4 == arg1 then
+            dataTable4.hackingEngaged = false
+            dataTable4.netId = 0
+            dataTable4.entity = 0
+            arg4 = 0
+            numberValue13 = arg4
+            arg4 = FreezeEntityPosition
+            arg5 = CMG
+            arg5 = arg5.getPlayerPed
+            -- Beginner: result below is localPlayerPed.
+            arg5 = arg5()
+            flag25 = false
+            -- Beginner: Freeze or unfreeze an entity in place.
+            arg4(arg5, flag25)
+            arg4 = rageUiCall3
+            arg5 = "g4slogo"
+            flag25 = "g4slogo"
+            flag28 = "The alarm has been manually activated."
+            flag30 = "Cash Driver Security"
+            flag31 = "Alarm Activated"
+            arg4(arg5, flag25, flag28, flag30, flag31)
           end
-          SHX3_2 = UseParticleFxAsset
-          SHX4_2 = "core"
-          SHX3_2(SHX4_2)
-          SHX3_2 = StartParticleFxLoopedOnEntity
-          SHX4_2 = "exp_grd_grenade_smoke"
-          SHX5_2 = CMG
-          SHX5_2 = SHX5_2.getObjectId
-          SHX6_2 = SHX0_2
-          SHX7_2 = "CMG:activatePanicAll (2)"
-          SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-          if not SHX5_2 then
-            SHX5_2 = 0
+          arg4 = UseParticleFxAsset
+          arg5 = "core"
+          arg4(arg5)
+          arg4 = StartParticleFxLoopedOnEntity
+          arg5 = "exp_grd_grenade_smoke"
+          flag25 = CMG
+          flag25 = flag25.getObjectId
+          flag28 = arg1
+          flag30 = "CMG:activatePanicAll (2)"
+          flag25 = flag25(flag28, flag30)
+          if not flag25 then
+            flag25 = 0
           end
-          SHX6_2 = 0.0
-          SHX7_2 = 0.0
-          SHX8_2 = 0.0
-          SHX9_2 = 0.0
-          SHX10_2 = 0.0
-          SHX11_2 = 0.0
-          SHX12_2 = 1.0
-          SHX13_2 = true
-          SHX14_2 = true
-          SHX15_2 = true
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-          SHX4_2 = RemoveNamedPtfxAsset
-          SHX5_2 = "core"
-          SHX4_2(SHX5_2)
-          SHX4_2 = Citizen
-          SHX4_2 = SHX4_2.CreateThread
-          function SHX5_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3, SHX2_3
-            SHX0_3 = Wait
-            SHX1_3 = 100000
-            SHX0_3(SHX1_3)
-            SHX0_3 = StopSound
-            SHX1_3 = SHX1_2
-            SHX0_3(SHX1_3)
-            SHX0_3 = ReleaseSoundId
-            SHX1_3 = SHX1_2
-            SHX0_3(SHX1_3)
-            SHX0_3 = StopParticleFxLooped
-            SHX1_3 = SHX3_2
-            SHX2_3 = true
-            SHX0_3(SHX1_3, SHX2_3)
+          flag28 = 0.0
+          flag30 = 0.0
+          flag31 = 0.0
+          numberValue19 = 0.0
+          textValue = 0.0
+          flag2 = 0.0
+          numberValue = 1.0
+          flag4 = true
+          flag5 = true
+          flag7 = true
+          arg4 = arg4(arg5, flag25, flag28, flag30, flag31, numberValue19, textValue, flag2, numberValue, flag4, flag5, flag7)
+          arg5 = RemoveNamedPtfxAsset
+          flag25 = "core"
+          arg5(flag25)
+          arg5 = Citizen
+          arg5 = arg5.CreateThread
+          function flag25()
+            local vehicle, cmgCall, flag17
+            vehicle = Wait
+            cmgCall = 100000
+            vehicle(cmgCall)
+            vehicle = StopSound
+            cmgCall = arg2
+            vehicle(cmgCall)
+            vehicle = ReleaseSoundId
+            cmgCall = arg2
+            vehicle(cmgCall)
+            vehicle = StopParticleFxLooped
+            cmgCall = arg4
+            flag17 = true
+            vehicle(cmgCall, flag17)
           end
-          SHX4_2(SHX5_2)
-          SHX4_2 = ReleaseNamedScriptAudioBank
-          SHX5_2 = "DLC_SECURITY\\SIREN_ONE"
-          SHX4_2(SHX5_2)
+          -- Beginner: Start a separate FiveM thread so this code can run independently.
+          arg5(flag25)
+          arg5 = ReleaseNamedScriptAudioBank
+          flag25 = "DLC_SECURITY\\SIREN_ONE"
+          arg5(flag25)
         end
       end
     end
   end
 end
-SHX45_1(SHX46_1, SHX47_1)
-SHX45_1 = AddStateBagChangeHandler
-SHX46_1 = "activeG4SVan"
-SHX47_1 = nil
-function SHX48_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = 0
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "32e875a544".
+eventRegistration(textValue12, workValue9)
+eventRegistration = AddStateBagChangeHandler
+textValue12 = "activeG4SVan"
+workValue9 = nil
+function workValue10(arg1, arg2, arg3)
+  local arg4, arg5, flag25, flag28, flag30, flag31, numberValue19, textValue
+  arg4 = tonumber
+  arg5 = stringsplit
+  flag25 = arg1
+  flag28 = ":"
+  arg5 = arg5(flag25, flag28)
+  arg5 = arg5[2]
+  arg4 = arg4(arg5)
+  arg5 = 0
   while true do
-    if SHX4_2 > 25 then
+    if arg5 > 25 then
       return
-    elseif SHX3_2 then
-      SHX5_2 = NetworkDoesEntityExistWithNetworkId
-      SHX6_2 = SHX3_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      if SHX5_2 then
-        SHX5_2 = NetworkGetEntityFromNetworkId
-        SHX6_2 = SHX3_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        if 0 ~= SHX5_2 then
-          if SHX2_2 then
-            SHX6_2 = table
-            SHX6_2 = SHX6_2.has
-            SHX7_2 = SHX14_1
-            SHX8_2 = SHX3_2
-            SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-            if not SHX6_2 then
-              SHX6_2 = SHX14_1
-              SHX7_2 = {}
-              SHX8_2 = SHX2_2
-              SHX9_2 = SHX5_2
-              SHX10_2 = SHX3_2
-              SHX7_2[1] = SHX8_2
-              SHX7_2[2] = SHX9_2
-              SHX7_2[3] = SHX10_2
-              SHX6_2[SHX3_2] = SHX7_2
+    elseif arg4 then
+      flag25 = NetworkDoesEntityExistWithNetworkId
+      flag28 = arg4
+      flag25 = flag25(flag28)
+      if flag25 then
+        flag25 = NetworkGetEntityFromNetworkId
+        flag28 = arg4
+        flag25 = flag25(flag28)
+        if 0 ~= flag25 then
+          if arg3 then
+            flag28 = table
+            flag28 = flag28.has
+            flag30 = dataTable3
+            flag31 = arg4
+            flag28 = flag28(flag30, flag31)
+            if not flag28 then
+              flag28 = dataTable3
+              flag30 = {}
+              flag31 = arg3
+              numberValue19 = flag25
+              textValue = arg4
+              flag30[1] = flag31
+              flag30[2] = numberValue19
+              flag30[3] = textValue
+              flag28[arg4] = flag30
             end
             break
           end
-          SHX6_2 = SHX14_1
-          SHX6_2[SHX3_2] = nil
+          flag28 = dataTable3
+          flag28[arg4] = nil
           break
         end
       end
     end
-    SHX4_2 = SHX4_2 + 1
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 200
-    SHX5_2(SHX6_2)
+    arg5 = arg5 + 1
+    flag25 = Citizen
+    flag25 = flag25.Wait
+    flag28 = 200
+    flag25(flag28)
   end
 end
-SHX45_1(SHX46_1, SHX47_1, SHX48_1)
-SHX45_1 = RegisterNetEvent
-SHX46_1 = "5b2a6e23a5"
-function SHX47_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX3_2 = SHX0_1
-  if not SHX3_2 then
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.getObjectId
-    SHX4_2 = SHX0_2
-    SHX5_2 = "CMG:activeVansUpdate 1"
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if 0 ~= SHX3_2 and nil ~= SHX3_2 then
-      SHX4_2 = DoesEntityExist
-      SHX5_2 = SHX3_2
-      SHX4_2 = SHX4_2(SHX5_2)
-      if SHX4_2 then
-        if SHX2_2 then
-          SHX4_2 = SHX14_1
-          SHX4_2[SHX0_2] = nil
+eventRegistration(textValue12, workValue9, workValue10)
+eventRegistration = RegisterNetEvent
+textValue12 = "5b2a6e23a5"
+-- Beginner: this function handles network event "5b2a6e23a5".
+function workValue9(arg1, arg2, arg3)
+  local arg4, arg5, flag25, flag28, flag30, flag31, numberValue19
+  arg4 = flag
+  if not arg4 then
+    arg4 = CMG
+    arg4 = arg4.getObjectId
+    arg5 = arg1
+    flag25 = "CMG:activeVansUpdate 1"
+    arg4 = arg4(arg5, flag25)
+    if 0 ~= arg4 and nil ~= arg4 then
+      arg5 = DoesEntityExist
+      flag25 = arg4
+      arg5 = arg5(flag25)
+      if arg5 then
+        if arg3 then
+          arg5 = dataTable3
+          arg5[arg1] = nil
         else
-          SHX4_2 = table
-          SHX4_2 = SHX4_2.has
-          SHX5_2 = SHX14_1
-          SHX6_2 = SHX0_2
-          SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-          if not SHX4_2 then
-            SHX4_2 = CMG
-            SHX4_2 = SHX4_2.getObjectId
-            SHX5_2 = SHX0_2
-            SHX6_2 = "5b2a6e23a5"
-            SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-            SHX5_2 = SHX14_1
-            SHX6_2 = {}
-            SHX7_2 = SHX1_2
-            SHX8_2 = SHX4_2
-            SHX9_2 = SHX0_2
-            SHX6_2[1] = SHX7_2
-            SHX6_2[2] = SHX8_2
-            SHX6_2[3] = SHX9_2
-            SHX5_2[SHX0_2] = SHX6_2
+          arg5 = table
+          arg5 = arg5.has
+          flag25 = dataTable3
+          flag28 = arg1
+          arg5 = arg5(flag25, flag28)
+          if not arg5 then
+            arg5 = CMG
+            arg5 = arg5.getObjectId
+            flag25 = arg1
+            flag28 = "5b2a6e23a5"
+            arg5 = arg5(flag25, flag28)
+            flag25 = dataTable3
+            flag28 = {}
+            flag30 = arg2
+            flag31 = arg5
+            numberValue19 = arg1
+            flag28[1] = flag30
+            flag28[2] = flag31
+            flag28[3] = numberValue19
+            flag25[arg1] = flag28
           end
         end
       end
     end
   end
 end
-SHX45_1(SHX46_1, SHX47_1)
-SHX45_1 = RegisterNetEvent
-SHX46_1 = "139a32a44e"
-function SHX47_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = PlaySoundFrontend
-  SHX1_2 = -1
-  SHX2_2 = "FocusIn"
-  SHX3_2 = "HintCamSounds"
-  SHX4_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX20_1.hackingEngaged = false
-  SHX20_1.netId = 0
-  SHX20_1.entity = 0
-  SHX0_2 = 0
-  SHX37_1 = SHX0_2
-  SHX0_2 = FreezeEntityPosition
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5b2a6e23a5".
+eventRegistration(textValue12, workValue9)
+eventRegistration = RegisterNetEvent
+textValue12 = "139a32a44e"
+-- Beginner: this function handles network event "139a32a44e".
+function workValue9()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = PlaySoundFrontend
+  arg2 = -1
+  arg3 = "FocusIn"
+  arg4 = "HintCamSounds"
+  arg5 = true
+  arg1(arg2, arg3, arg4, arg5)
+  dataTable4.hackingEngaged = false
+  dataTable4.netId = 0
+  dataTable4.entity = 0
+  arg1 = 0
+  numberValue13 = arg1
+  arg1 = FreezeEntityPosition
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = false
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg1(arg2, arg3)
 end
-SHX45_1(SHX46_1, SHX47_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "139a32a44e".
+eventRegistration(textValue12, workValue9)

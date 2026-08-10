@@ -1,3 +1,36 @@
+--[[
+    BEGINNER GUIDE — Hackcctv
+    =========================
+
+    File: cmg/prod/cfg/heists/client/cfg_hackcctv.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Network/hash identifiers found: 7
+      They are intentionally left unchanged because matching server code may use them.
+      * 50b70a9edf
+      * e8ecf4fc28
+      * e62667d330
+      * 292e52f985
+      * beeb626586
+      * 57de4057f0
+      * 2d8b0ff1a7
+
+    Example player-facing text in this file:
+      * SET_INPUT_EVENT_SELECT
+      * SET_INPUT_EVENT_BACK
+      * ~INPUT_ATTACK~
+      * Enter the bank through an ~y~entrance~w~
+      * Press ~INPUT_PICKUP~ to hack the computer
+
+]]
 ----------- [[ UTILITIES ]] -----------
 
 local function ensureSecurityHasBlip(ped)

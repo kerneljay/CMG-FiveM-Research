@@ -1,250 +1,226 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Secure KVP Helper
+    =================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1
-SHX0_1 = 4048302200
-SHX1_1 = 20
-SHX2_1 = 10
-SHX3_1 = {}
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = GetHashKey
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX0_1
-  SHX1_2 = SHX1_2 ~ SHX2_2
-  SHX2_2 = SHX1_2 & 4294967295
-  SHX3_2 = tostring
-  SHX4_2 = SHX2_2
-  return SHX3_2(SHX4_2)
+    FiveM KVPs (key/value pairs) are tiny values saved locally on the player's
+    PC. This helper makes those values harder to casually edit by:
+
+      * hashing/obscuring the KVP key
+      * shifting each saved character by a repeating offset
+      * saving a checksum beside the value
+      * checking that checksum when reading
+
+    Public functions:
+      CMG.getSecureKVP(name)
+      CMG.setSecureKVP(name, value)
+
+    IMPORTANT:
+      This is tamper detection/obfuscation, not cryptographic encryption.
+]]
+
+local KEY_XOR = 4048302200
+local SHIFT_MODULUS = 20
+local SHIFT_BASE = 10
+
+-- Prevent reporting the same bad KVP checksum repeatedly in one session.
+local reportedBadChecksums = {}
+
+
+local function secureStorageKey(
+    plainName
+)
+    local hash =
+        GetHashKey(plainName)
+
+    local obscured =
+        (hash ~ KEY_XOR)
+        & 0xFFFFFFFF
+
+    return tostring(obscured)
 end
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX4_1
-  SHX2_2 = "checksum:"
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2 .. SHX3_2
-  return SHX1_2(SHX2_2)
+
+
+local function checksumStorageKey(
+    secureKey
+)
+    return secureStorageKey(
+        "checksum:"
+        .. secureKey
+    )
 end
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = #SHX0_2
-  SHX2_2 = SHX1_2
-  SHX3_2 = 1
-  SHX4_2 = SHX1_2
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = string
-    SHX7_2 = SHX7_2.byte
-    SHX8_2 = SHX0_2
-    SHX9_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-    SHX2_2 = SHX2_2 * SHX7_2
-    SHX2_2 = SHX2_2 ~ SHX7_2
-    SHX2_2 = SHX2_2 & 4294967295
-  end
-  return SHX2_2
-end
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.create
-  SHX2_2 = #SHX0_2
-  SHX3_2 = 0
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = 1
-  SHX3_2 = #SHX0_2
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = string
-    SHX6_2 = SHX6_2.byte
-    SHX7_2 = SHX0_2
-    SHX8_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    SHX7_2 = SHX1_1
-    SHX7_2 = SHX5_2 % SHX7_2
-    SHX8_2 = SHX2_1
-    SHX7_2 = SHX7_2 - SHX8_2
-    SHX8_2 = string
-    SHX8_2 = SHX8_2.char
-    SHX9_2 = SHX6_2 - SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX1_2[SHX5_2] = SHX8_2
-  end
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.concat
-  SHX3_2 = SHX1_2
-  return SHX2_2(SHX3_2)
-end
-SHX8_1 = CMG
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX4_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetResourceKvpString
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetResourceKvpInt
-  SHX4_2 = SHX5_1
-  SHX5_2 = SHX1_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX4_2(SHX5_2)
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX3_2 = SHX3_2 & 4294967295
-  if 0 == SHX3_2 then
-    SHX4_2 = nil
-    return SHX4_2
-  end
-  SHX4_2 = SHX7_1
-  SHX5_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = SHX6_1
-  SHX6_2 = SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if SHX5_2 ~= SHX3_2 then
-    SHX6_2 = SHX3_1
-    SHX6_2 = SHX6_2[SHX0_2]
-    if not SHX6_2 then
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.isDevMode
-      SHX6_2 = SHX6_2()
-      if SHX6_2 then
-        SHX6_2 = print
-        SHX7_2 = "[CMG KVP] Invalid checksum for "
-        SHX8_2 = SHX0_2
-        SHX9_2 = " (saved "
-        SHX10_2 = tostring
-        SHX11_2 = SHX3_2
-        SHX10_2 = SHX10_2(SHX11_2)
-        SHX11_2 = " vs calculated "
-        SHX12_2 = tostring
-        SHX13_2 = SHX5_2
-        SHX12_2 = SHX12_2(SHX13_2)
-        SHX13_2 = ")"
-        SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2 .. SHX10_2 .. SHX11_2 .. SHX12_2 .. SHX13_2
-        SHX6_2(SHX7_2)
-      end
-      SHX6_2 = TriggerServerEvent
-      SHX7_2 = "51b7fcfab1"
-      SHX8_2 = SHX0_2
-      SHX9_2 = SHX3_2
-      SHX10_2 = SHX5_2
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      SHX6_2 = SHX3_1
-      SHX6_2[SHX0_2] = true
+
+
+local function calculateChecksum(
+    value
+)
+    local checksum =
+        #value
+
+    for index = 1, #value do
+        local byte =
+            string.byte(
+                value,
+                index
+            )
+
+        checksum =
+            (checksum * byte)
+            ~ byte
+
+        checksum =
+            checksum
+            & 0xFFFFFFFF
     end
-  end
-  return SHX4_2
+
+    return checksum
 end
-SHX8_1.getSecureKVP = SHX9_1
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.create
-  SHX2_2 = #SHX0_2
-  SHX3_2 = 0
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = 1
-  SHX3_2 = #SHX0_2
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = string
-    SHX6_2 = SHX6_2.byte
-    SHX7_2 = SHX0_2
-    SHX8_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    SHX7_2 = SHX1_1
-    SHX7_2 = SHX5_2 % SHX7_2
-    SHX8_2 = SHX2_1
-    SHX7_2 = SHX7_2 - SHX8_2
-    SHX8_2 = string
-    SHX8_2 = SHX8_2.char
-    SHX9_2 = SHX6_2 + SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX1_2[SHX5_2] = SHX8_2
-  end
-  SHX2_2 = table
-  SHX2_2 = SHX2_2.concat
-  SHX3_2 = SHX1_2
-  return SHX2_2(SHX3_2)
-end
-SHX9_1 = CMG
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if not SHX1_2 then
+
+
+local function characterShift(
+    index
+)
     return
-  end
-  SHX2_2 = SHX4_1
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX8_1
-  SHX4_2 = SHX1_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = SetResourceKvp
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX3_2
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX6_1
-  SHX5_2 = SHX1_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = SetResourceKvpInt
-  SHX6_2 = SHX5_1
-  SHX7_2 = SHX2_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = SHX4_2
-  SHX5_2(SHX6_2, SHX7_2)
+        (index % SHIFT_MODULUS)
+        - SHIFT_BASE
 end
-SHX9_1.setSecureKVP = SHX10_1
+
+
+local function decodeValue(
+    encoded
+)
+    local output =
+        table.create(
+            #encoded,
+            0
+        )
+
+    for index = 1, #encoded do
+        local byte =
+            string.byte(
+                encoded,
+                index
+            )
+
+        output[index] =
+            string.char(
+                byte
+                - characterShift(index)
+            )
+    end
+
+    return
+        table.concat(output)
+end
+
+
+local function encodeValue(
+    plainText
+)
+    local output =
+        table.create(
+            #plainText,
+            0
+        )
+
+    for index = 1, #plainText do
+        local byte =
+            string.byte(
+                plainText,
+                index
+            )
+
+        output[index] =
+            string.char(
+                byte
+                + characterShift(index)
+            )
+    end
+
+    return
+        table.concat(output)
+end
+
+
+function CMG.getSecureKVP(name)
+    local key =
+        secureStorageKey(name)
+
+    local encodedValue =
+        GetResourceKvpString(key)
+
+    local savedChecksum =
+        GetResourceKvpInt(
+            checksumStorageKey(key)
+        )
+        & 0xFFFFFFFF
+
+    -- No checksum means no securely-saved value.
+    if savedChecksum == 0 then
+        return nil
+    end
+
+    local decodedValue =
+        decodeValue(
+            encodedValue
+        )
+
+    local calculatedChecksum =
+        calculateChecksum(
+            decodedValue
+        )
+
+    if calculatedChecksum
+        ~= savedChecksum
+        and not reportedBadChecksums[
+            name
+        ] then
+
+        if CMG.isDevMode() then
+            print(
+                "[CMG KVP] Invalid checksum for "
+                .. name
+                .. " (saved "
+                .. tostring(savedChecksum)
+                .. " vs calculated "
+                .. tostring(calculatedChecksum)
+                .. ")"
+            )
+        end
+
+        TriggerServerEvent(
+            "51b7fcfab1",
+            name,
+            savedChecksum,
+            calculatedChecksum
+        )
+
+        reportedBadChecksums[
+            name
+        ] = true
+    end
+
+    return decodedValue
+end
+
+
+function CMG.setSecureKVP(
+    name,
+    value
+)
+    if not value then
+        return
+    end
+
+    local key =
+        secureStorageKey(name)
+
+    SetResourceKvp(
+        key,
+        encodeValue(value)
+    )
+
+    SetResourceKvpInt(
+        checksumStorageKey(key),
+        calculateChecksum(value)
+    )
+end

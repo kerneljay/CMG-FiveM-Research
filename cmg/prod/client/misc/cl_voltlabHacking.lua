@@ -1,2590 +1,2506 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_voltlabHacking.lua
+    =====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1
-SHX0_1 = DrawSprite
-SHX1_1 = DrawRect
-SHX2_1 = false
-SHX3_1 = false
-SHX4_1 = nil
-SHX5_1 = 1
-SHX6_1 = 0
-SHX7_1 = {}
-SHX8_1 = 0
-SHX9_1 = {}
-SHX10_1 = 0
-SHX11_1 = {}
-SHX12_1 = "0"
-SHX13_1 = "0"
-SHX14_1 = "0"
-SHX11_1[1] = SHX12_1
-SHX11_1[2] = SHX13_1
-SHX11_1[3] = SHX14_1
-SHX12_1 = {}
-SHX13_1 = {}
-SHX14_1 = 6
-SHX15_1 = nil
-SHX16_1 = {}
-SHX17_1 = {}
-SHX18_1 = 250
-SHX19_1 = 172
-SHX20_1 = 54
-SHX17_1[1] = SHX18_1
-SHX17_1[2] = SHX19_1
-SHX17_1[3] = SHX20_1
-SHX18_1 = {}
-SHX19_1 = 247
-SHX20_1 = 49
-SHX21_1 = 49
-SHX18_1[1] = SHX19_1
-SHX18_1[2] = SHX20_1
-SHX18_1[3] = SHX21_1
-SHX19_1 = {}
-SHX20_1 = 58
-SHX21_1 = 53
-SHX22_1 = 212
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-SHX19_1[3] = SHX22_1
-SHX16_1[1] = SHX17_1
-SHX16_1[2] = SHX18_1
-SHX16_1[3] = SHX19_1
-SHX17_1 = {}
-SHX18_1 = {}
-SHX19_1 = 191
-SHX20_1 = 191
-SHX21_1 = 191
-SHX18_1[1] = SHX19_1
-SHX18_1[2] = SHX20_1
-SHX18_1[3] = SHX21_1
-SHX19_1 = {}
-SHX20_1 = 88
-SHX21_1 = 204
-SHX22_1 = 102
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-SHX19_1[3] = SHX22_1
-SHX17_1[1] = SHX18_1
-SHX17_1[2] = SHX19_1
-SHX18_1 = 255
-SHX19_1 = {}
-SHX20_1 = 255
-SHX21_1 = 255
-SHX22_1 = 255
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-SHX19_1[3] = SHX22_1
-SHX20_1 = {}
-SHX21_1 = "Icons__x1"
-SHX22_1 = "Icons__x2"
-SHX23_1 = "Icons__x3"
-SHX24_1 = "Icons__x5"
-SHX25_1 = "Icons__x10"
-SHX26_1 = "Icons__x15"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX20_1[3] = SHX23_1
-SHX20_1[4] = SHX24_1
-SHX20_1[5] = SHX25_1
-SHX20_1[6] = SHX26_1
-SHX21_1 = {}
-SHX22_1 = 1
-SHX23_1 = 10
-SHX24_1 = 50
-SHX21_1[1] = SHX22_1
-SHX21_1[2] = SHX23_1
-SHX21_1[3] = SHX24_1
-SHX22_1 = {}
-SHX23_1 = {}
-SHX24_1 = 0.383
-SHX25_1 = 0.815
-SHX26_1 = 0.0145
-SHX27_1 = 0.05
-SHX23_1[1] = SHX24_1
-SHX23_1[2] = SHX25_1
-SHX23_1[3] = SHX26_1
-SHX23_1[4] = SHX27_1
-SHX24_1 = {}
-SHX25_1 = 0.373
-SHX26_1 = 0.815
-SHX27_1 = 0.0145
-SHX28_1 = 0.05
-SHX24_1[1] = SHX25_1
-SHX24_1[2] = SHX26_1
-SHX24_1[3] = SHX27_1
-SHX24_1[4] = SHX28_1
-SHX25_1 = {}
-SHX26_1 = 0.363
-SHX27_1 = 0.815
-SHX28_1 = 0.0145
-SHX29_1 = 0.05
-SHX25_1[1] = SHX26_1
-SHX25_1[2] = SHX27_1
-SHX25_1[3] = SHX28_1
-SHX25_1[4] = SHX29_1
-SHX26_1 = {}
-SHX27_1 = 0.353
-SHX28_1 = 0.815
-SHX29_1 = 0.0145
-SHX30_1 = 0.05
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX27_1 = {}
-SHX28_1 = 0.343
-SHX29_1 = 0.815
-SHX30_1 = 0.0145
-SHX31_1 = 0.05
-SHX27_1[1] = SHX28_1
-SHX27_1[2] = SHX29_1
-SHX27_1[3] = SHX30_1
-SHX27_1[4] = SHX31_1
-SHX28_1 = {}
-SHX29_1 = 0.333
-SHX30_1 = 0.815
-SHX31_1 = 0.0145
-SHX32_1 = 0.05
-SHX28_1[1] = SHX29_1
-SHX28_1[2] = SHX30_1
-SHX28_1[3] = SHX31_1
-SHX28_1[4] = SHX32_1
-SHX22_1[1] = SHX23_1
-SHX22_1[2] = SHX24_1
-SHX22_1[3] = SHX25_1
-SHX22_1[4] = SHX26_1
-SHX22_1[5] = SHX27_1
-SHX22_1[6] = SHX28_1
-SHX23_1 = {}
-SHX24_1 = {}
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.307
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.658
-SHX28_1 = 0.307
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.307
-SHX29_1 = 0.33
-SHX30_1 = 0.004
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line = SHX26_1
-SHX24_1["1"] = SHX25_1
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.307
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.307
-SHX29_1 = 0.007
-SHX30_1 = 0.0135
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.501
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.657
-SHX28_1 = 0.501
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.407
-SHX28_1 = 0.307
-SHX29_1 = 0.16
-SHX30_1 = 0.004
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.4905
-SHX28_1 = 0.404
-SHX29_1 = 0.002
-SHX30_1 = 0.18
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.574
-SHX28_1 = 0.501
-SHX29_1 = 0.16
-SHX30_1 = 0.004
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line3 = SHX26_1
-SHX24_1["2"] = SHX25_1
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.307
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.397
-SHX28_1 = 0.307
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.397
-SHX28_1 = 0.502
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.square3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.502
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.square4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.square5 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.657
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.0128
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.square6 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.36
-SHX28_1 = 0.307
-SHX29_1 = 0.07
-SHX30_1 = 0.004
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.line1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.3965
-SHX28_1 = 0.404
-SHX29_1 = 0.002
-SHX30_1 = 0.182
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.line2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.445
-SHX28_1 = 0.502
-SHX29_1 = 0.09
-SHX30_1 = 0.004
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.line3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.4905
-SHX28_1 = 0.598
-SHX29_1 = 0.002
-SHX30_1 = 0.182
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.line4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.574
-SHX28_1 = 0.694
-SHX29_1 = 0.16
-SHX30_1 = 0.004
-SHX31_1 = 250
-SHX32_1 = 172
-SHX33_1 = 54
-SHX34_1 = 255
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX26_1[5] = SHX31_1
-SHX26_1[6] = SHX32_1
-SHX26_1[7] = SHX33_1
-SHX26_1[8] = SHX34_1
-SHX25_1.line5 = SHX26_1
-SHX24_1["3"] = SHX25_1
-SHX23_1["1"] = SHX24_1
-SHX24_1 = {}
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.5
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.46
-SHX28_1 = 0.5
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.46
-SHX28_1 = 0.39
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.551
-SHX28_1 = 0.39
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.551
-SHX28_1 = 0.307
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square5 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.658
-SHX28_1 = 0.307
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square6 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.392
-SHX28_1 = 0.5
-SHX29_1 = 0.129
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.46
-SHX28_1 = 0.444
-SHX29_1 = 0.003
-SHX30_1 = 0.1
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.508
-SHX28_1 = 0.39
-SHX29_1 = 0.09
-SHX30_1 = 0.004
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.508
-SHX28_1 = 0.39
-SHX29_1 = 0.09
-SHX30_1 = 0.0025
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.605
-SHX28_1 = 0.307
-SHX29_1 = 0.108
-SHX30_1 = 0.004
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line5 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.551
-SHX28_1 = 0.35
-SHX29_1 = 0.0025
-SHX30_1 = 0.08
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line6 = SHX26_1
-SHX24_1["1"] = SHX25_1
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.5
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.657
-SHX28_1 = 0.5
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.5
-SHX29_1 = 0.33
-SHX30_1 = 0.004
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX24_1["2"] = SHX25_1
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.5
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.429
-SHX28_1 = 0.5
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.429
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.657
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.376
-SHX28_1 = 0.5
-SHX29_1 = 0.1
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.429
-SHX28_1 = 0.6
-SHX29_1 = 0.003
-SHX30_1 = 0.2
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.543
-SHX28_1 = 0.694
-SHX29_1 = 0.22
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line3 = SHX26_1
-SHX24_1["3"] = SHX25_1
-SHX23_1["2"] = SHX24_1
-SHX24_1 = {}
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.694
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.521
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.521
-SHX28_1 = 0.61
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.582
-SHX28_1 = 0.61
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.582
-SHX28_1 = 0.3085
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square5 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.6565
-SHX28_1 = 0.307
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square6 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.421
-SHX28_1 = 0.694
-SHX29_1 = 0.19
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.521
-SHX28_1 = 0.652
-SHX29_1 = 0.00222
-SHX30_1 = 0.074
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.55
-SHX28_1 = 0.61
-SHX29_1 = 0.06
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.582
-SHX28_1 = 0.46
-SHX29_1 = 0.00222
-SHX30_1 = 0.29
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.62
-SHX28_1 = 0.307
-SHX29_1 = 0.07
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line5 = SHX26_1
-SHX24_1["1"] = SHX25_1
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.694
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.521
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.521
-SHX28_1 = 0.61
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.582
-SHX28_1 = 0.61
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.582
-SHX28_1 = 0.5
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure5 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.6565
-SHX28_1 = 0.5
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.sqaure6 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.421
-SHX28_1 = 0.694
-SHX29_1 = 0.19
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.521
-SHX28_1 = 0.652
-SHX29_1 = 0.00222
-SHX30_1 = 0.074
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.55
-SHX28_1 = 0.61
-SHX29_1 = 0.06
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line3 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.582
-SHX28_1 = 0.55
-SHX29_1 = 0.00222
-SHX30_1 = 0.11
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line4 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.62
-SHX28_1 = 0.5
-SHX29_1 = 0.07
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line5 = SHX26_1
-SHX24_1["2"] = SHX25_1
-SHX25_1 = {}
-SHX26_1 = {}
-SHX27_1 = 0.324
-SHX28_1 = 0.694
-SHX29_1 = 0.006
-SHX30_1 = 0.01
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square1 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.6565
-SHX28_1 = 0.694
-SHX29_1 = 0.007
-SHX30_1 = 0.01281
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.square2 = SHX26_1
-SHX26_1 = {}
-SHX27_1 = 0.49
-SHX28_1 = 0.694
-SHX29_1 = 0.33
-SHX30_1 = 0.0035
-SHX26_1[1] = SHX27_1
-SHX26_1[2] = SHX28_1
-SHX26_1[3] = SHX29_1
-SHX26_1[4] = SHX30_1
-SHX25_1.line1 = SHX26_1
-SHX24_1["3"] = SHX25_1
-SHX23_1["3"] = SHX24_1
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = {}
-  SHX2_2 = 1
-  SHX3_2 = #SHX0_2
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX0_2[SHX5_2]
-    SHX1_2[SHX5_2] = SHX6_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Voltlab Hacking
+    ================================
+
+    File: cmg/prod/client/misc/cl_voltlabHacking.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Example player-facing text in this file:
+      * ScaleformMovieMethodAddParamPlayerNameString
+
+]]
+local workValue, workValue16, flag, flag2, workValue27, numberValue23, numberValue26, dataTable10, numberValue29, dataTable11, numberValue, dataTable, dataTable2, dataTable3, textValue, workValue7, dataTable4, dataTable5, dataTable6, dataTable7, numberValue9, numberValue10, numberValue11, dataTable9, textValue2, textValue3, textValue4, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, textValue6, workValue23, workValue24, eventHandlerRegistration, textValue7, workValue26
+workValue = DrawSprite
+workValue16 = DrawRect
+flag = false
+flag2 = false
+workValue27 = nil
+numberValue23 = 1
+numberValue26 = 0
+dataTable10 = {}
+numberValue29 = 0
+dataTable11 = {}
+numberValue = 0
+dataTable = {}
+dataTable2 = "0"
+dataTable3 = "0"
+textValue = "0"
+dataTable[1] = dataTable2
+dataTable[2] = dataTable3
+dataTable[3] = textValue
+dataTable2 = {}
+dataTable3 = {}
+textValue = 6
+workValue7 = nil
+dataTable4 = {}
+dataTable5 = {}
+dataTable6 = 250
+dataTable7 = 172
+numberValue9 = 54
+dataTable5[1] = dataTable6
+dataTable5[2] = dataTable7
+dataTable5[3] = numberValue9
+dataTable6 = {}
+dataTable7 = 247
+numberValue9 = 49
+numberValue10 = 49
+dataTable6[1] = dataTable7
+dataTable6[2] = numberValue9
+dataTable6[3] = numberValue10
+dataTable7 = {}
+numberValue9 = 58
+numberValue10 = 53
+numberValue11 = 212
+dataTable7[1] = numberValue9
+dataTable7[2] = numberValue10
+dataTable7[3] = numberValue11
+dataTable4[1] = dataTable5
+dataTable4[2] = dataTable6
+dataTable4[3] = dataTable7
+dataTable5 = {}
+dataTable6 = {}
+dataTable7 = 191
+numberValue9 = 191
+numberValue10 = 191
+dataTable6[1] = dataTable7
+dataTable6[2] = numberValue9
+dataTable6[3] = numberValue10
+dataTable7 = {}
+numberValue9 = 88
+numberValue10 = 204
+numberValue11 = 102
+dataTable7[1] = numberValue9
+dataTable7[2] = numberValue10
+dataTable7[3] = numberValue11
+dataTable5[1] = dataTable6
+dataTable5[2] = dataTable7
+dataTable6 = 255
+dataTable7 = {}
+numberValue9 = 255
+numberValue10 = 255
+numberValue11 = 255
+dataTable7[1] = numberValue9
+dataTable7[2] = numberValue10
+dataTable7[3] = numberValue11
+numberValue9 = {}
+numberValue10 = "Icons__x1"
+numberValue11 = "Icons__x2"
+dataTable9 = "Icons__x3"
+textValue2 = "Icons__x5"
+textValue3 = "Icons__x10"
+textValue4 = "Icons__x15"
+numberValue9[1] = numberValue10
+numberValue9[2] = numberValue11
+numberValue9[3] = dataTable9
+numberValue9[4] = textValue2
+numberValue9[5] = textValue3
+numberValue9[6] = textValue4
+numberValue10 = {}
+numberValue11 = 1
+dataTable9 = 10
+textValue2 = 50
+numberValue10[1] = numberValue11
+numberValue10[2] = dataTable9
+numberValue10[3] = textValue2
+numberValue11 = {}
+dataTable9 = {}
+textValue2 = 0.383
+textValue3 = 0.815
+textValue4 = 0.0145
+numberValue12 = 0.05
+dataTable9[1] = textValue2
+dataTable9[2] = textValue3
+dataTable9[3] = textValue4
+dataTable9[4] = numberValue12
+textValue2 = {}
+textValue3 = 0.373
+textValue4 = 0.815
+numberValue12 = 0.0145
+numberValue13 = 0.05
+textValue2[1] = textValue3
+textValue2[2] = textValue4
+textValue2[3] = numberValue12
+textValue2[4] = numberValue13
+textValue3 = {}
+textValue4 = 0.363
+numberValue12 = 0.815
+numberValue13 = 0.0145
+numberValue14 = 0.05
+textValue3[1] = textValue4
+textValue3[2] = numberValue12
+textValue3[3] = numberValue13
+textValue3[4] = numberValue14
+textValue4 = {}
+numberValue12 = 0.353
+numberValue13 = 0.815
+numberValue14 = 0.0145
+numberValue16 = 0.05
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+numberValue12 = {}
+numberValue13 = 0.343
+numberValue14 = 0.815
+numberValue16 = 0.0145
+numberValue17 = 0.05
+numberValue12[1] = numberValue13
+numberValue12[2] = numberValue14
+numberValue12[3] = numberValue16
+numberValue12[4] = numberValue17
+numberValue13 = {}
+numberValue14 = 0.333
+numberValue16 = 0.815
+numberValue17 = 0.0145
+numberValue18 = 0.05
+numberValue13[1] = numberValue14
+numberValue13[2] = numberValue16
+numberValue13[3] = numberValue17
+numberValue13[4] = numberValue18
+numberValue11[1] = dataTable9
+numberValue11[2] = textValue2
+numberValue11[3] = textValue3
+numberValue11[4] = textValue4
+numberValue11[5] = numberValue12
+numberValue11[6] = numberValue13
+dataTable9 = {}
+textValue2 = {}
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.307
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.658
+numberValue13 = 0.307
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.307
+numberValue14 = 0.33
+numberValue16 = 0.004
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line = textValue4
+textValue2["1"] = textValue3
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.307
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.307
+numberValue14 = 0.007
+numberValue16 = 0.0135
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure2 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.501
+numberValue14 = 0.007
+numberValue16 = 0.0128
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square3 = textValue4
+textValue4 = {}
+numberValue12 = 0.657
+numberValue13 = 0.501
+numberValue14 = 0.007
+numberValue16 = 0.0128
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square4 = textValue4
+textValue4 = {}
+numberValue12 = 0.407
+numberValue13 = 0.307
+numberValue14 = 0.16
+numberValue16 = 0.004
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue4 = {}
+numberValue12 = 0.4905
+numberValue13 = 0.404
+numberValue14 = 0.002
+numberValue16 = 0.18
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line2 = textValue4
+textValue4 = {}
+numberValue12 = 0.574
+numberValue13 = 0.501
+numberValue14 = 0.16
+numberValue16 = 0.004
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line3 = textValue4
+textValue2["2"] = textValue3
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.307
+numberValue14 = 0.007
+numberValue16 = 0.0128
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.397
+numberValue13 = 0.307
+numberValue14 = 0.007
+numberValue16 = 0.0128
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.397
+numberValue13 = 0.502
+numberValue14 = 0.007
+numberValue16 = 0.0128
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.square3 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.502
+numberValue14 = 0.007
+numberValue16 = 0.0128
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.square4 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.0128
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.square5 = textValue4
+textValue4 = {}
+numberValue12 = 0.657
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.0128
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.square6 = textValue4
+textValue4 = {}
+numberValue12 = 0.36
+numberValue13 = 0.307
+numberValue14 = 0.07
+numberValue16 = 0.004
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.line1 = textValue4
+textValue4 = {}
+numberValue12 = 0.3965
+numberValue13 = 0.404
+numberValue14 = 0.002
+numberValue16 = 0.182
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.line2 = textValue4
+textValue4 = {}
+numberValue12 = 0.445
+numberValue13 = 0.502
+numberValue14 = 0.09
+numberValue16 = 0.004
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.line3 = textValue4
+textValue4 = {}
+numberValue12 = 0.4905
+numberValue13 = 0.598
+numberValue14 = 0.002
+numberValue16 = 0.182
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.line4 = textValue4
+textValue4 = {}
+numberValue12 = 0.574
+numberValue13 = 0.694
+numberValue14 = 0.16
+numberValue16 = 0.004
+numberValue17 = 250
+numberValue18 = 172
+numberValue19 = 54
+numberValue20 = 255
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue4[5] = numberValue17
+textValue4[6] = numberValue18
+textValue4[7] = numberValue19
+textValue4[8] = numberValue20
+textValue3.line5 = textValue4
+textValue2["3"] = textValue3
+dataTable9["1"] = textValue2
+textValue2 = {}
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.5
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.46
+numberValue13 = 0.5
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.46
+numberValue13 = 0.39
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square3 = textValue4
+textValue4 = {}
+numberValue12 = 0.551
+numberValue13 = 0.39
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square4 = textValue4
+textValue4 = {}
+numberValue12 = 0.551
+numberValue13 = 0.307
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square5 = textValue4
+textValue4 = {}
+numberValue12 = 0.658
+numberValue13 = 0.307
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square6 = textValue4
+textValue4 = {}
+numberValue12 = 0.392
+numberValue13 = 0.5
+numberValue14 = 0.129
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue4 = {}
+numberValue12 = 0.46
+numberValue13 = 0.444
+numberValue14 = 0.003
+numberValue16 = 0.1
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line2 = textValue4
+textValue4 = {}
+numberValue12 = 0.508
+numberValue13 = 0.39
+numberValue14 = 0.09
+numberValue16 = 0.004
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line3 = textValue4
+textValue4 = {}
+numberValue12 = 0.508
+numberValue13 = 0.39
+numberValue14 = 0.09
+numberValue16 = 0.0025
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line4 = textValue4
+textValue4 = {}
+numberValue12 = 0.605
+numberValue13 = 0.307
+numberValue14 = 0.108
+numberValue16 = 0.004
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line5 = textValue4
+textValue4 = {}
+numberValue12 = 0.551
+numberValue13 = 0.35
+numberValue14 = 0.0025
+numberValue16 = 0.08
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line6 = textValue4
+textValue2["1"] = textValue3
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.5
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.657
+numberValue13 = 0.5
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.5
+numberValue14 = 0.33
+numberValue16 = 0.004
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue2["2"] = textValue3
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.5
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.429
+numberValue13 = 0.5
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.429
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square3 = textValue4
+textValue4 = {}
+numberValue12 = 0.657
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square4 = textValue4
+textValue4 = {}
+numberValue12 = 0.376
+numberValue13 = 0.5
+numberValue14 = 0.1
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue4 = {}
+numberValue12 = 0.429
+numberValue13 = 0.6
+numberValue14 = 0.003
+numberValue16 = 0.2
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line2 = textValue4
+textValue4 = {}
+numberValue12 = 0.543
+numberValue13 = 0.694
+numberValue14 = 0.22
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line3 = textValue4
+textValue2["3"] = textValue3
+dataTable9["2"] = textValue2
+textValue2 = {}
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.694
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.521
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.521
+numberValue13 = 0.61
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square3 = textValue4
+textValue4 = {}
+numberValue12 = 0.582
+numberValue13 = 0.61
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square4 = textValue4
+textValue4 = {}
+numberValue12 = 0.582
+numberValue13 = 0.3085
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square5 = textValue4
+textValue4 = {}
+numberValue12 = 0.6565
+numberValue13 = 0.307
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square6 = textValue4
+textValue4 = {}
+numberValue12 = 0.421
+numberValue13 = 0.694
+numberValue14 = 0.19
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue4 = {}
+numberValue12 = 0.521
+numberValue13 = 0.652
+numberValue14 = 0.00222
+numberValue16 = 0.074
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line2 = textValue4
+textValue4 = {}
+numberValue12 = 0.55
+numberValue13 = 0.61
+numberValue14 = 0.06
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line3 = textValue4
+textValue4 = {}
+numberValue12 = 0.582
+numberValue13 = 0.46
+numberValue14 = 0.00222
+numberValue16 = 0.29
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line4 = textValue4
+textValue4 = {}
+numberValue12 = 0.62
+numberValue13 = 0.307
+numberValue14 = 0.07
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line5 = textValue4
+textValue2["1"] = textValue3
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.694
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure1 = textValue4
+textValue4 = {}
+numberValue12 = 0.521
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure2 = textValue4
+textValue4 = {}
+numberValue12 = 0.521
+numberValue13 = 0.61
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure3 = textValue4
+textValue4 = {}
+numberValue12 = 0.582
+numberValue13 = 0.61
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure4 = textValue4
+textValue4 = {}
+numberValue12 = 0.582
+numberValue13 = 0.5
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure5 = textValue4
+textValue4 = {}
+numberValue12 = 0.6565
+numberValue13 = 0.5
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.sqaure6 = textValue4
+textValue4 = {}
+numberValue12 = 0.421
+numberValue13 = 0.694
+numberValue14 = 0.19
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue4 = {}
+numberValue12 = 0.521
+numberValue13 = 0.652
+numberValue14 = 0.00222
+numberValue16 = 0.074
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line2 = textValue4
+textValue4 = {}
+numberValue12 = 0.55
+numberValue13 = 0.61
+numberValue14 = 0.06
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line3 = textValue4
+textValue4 = {}
+numberValue12 = 0.582
+numberValue13 = 0.55
+numberValue14 = 0.00222
+numberValue16 = 0.11
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line4 = textValue4
+textValue4 = {}
+numberValue12 = 0.62
+numberValue13 = 0.5
+numberValue14 = 0.07
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line5 = textValue4
+textValue2["2"] = textValue3
+textValue3 = {}
+textValue4 = {}
+numberValue12 = 0.324
+numberValue13 = 0.694
+numberValue14 = 0.006
+numberValue16 = 0.01
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square1 = textValue4
+textValue4 = {}
+numberValue12 = 0.6565
+numberValue13 = 0.694
+numberValue14 = 0.007
+numberValue16 = 0.01281
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.square2 = textValue4
+textValue4 = {}
+numberValue12 = 0.49
+numberValue13 = 0.694
+numberValue14 = 0.33
+numberValue16 = 0.0035
+textValue4[1] = numberValue12
+textValue4[2] = numberValue13
+textValue4[3] = numberValue14
+textValue4[4] = numberValue16
+textValue3.line1 = textValue4
+textValue2["3"] = textValue3
+dataTable9["3"] = textValue2
+function textValue2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg2 = {}
+  arg3 = 1
+  arg4 = #arg1
+  arg5 = 1
+  for arg6 = arg3, arg4, arg5 do
+    arg7 = arg1[arg6]
+    arg2[arg6] = arg7
   end
-  SHX2_2 = #SHX1_2
-  SHX3_2 = 2
-  SHX4_2 = -1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = math
-    SHX6_2 = SHX6_2.random
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX7_2 = SHX1_2[SHX6_2]
-    SHX8_2 = SHX1_2[SHX5_2]
-    SHX1_2[SHX6_2] = SHX8_2
-    SHX1_2[SHX5_2] = SHX7_2
+  arg3 = #arg2
+  arg4 = 2
+  arg5 = -1
+  for arg6 = arg3, arg4, arg5 do
+    arg7 = math
+    arg7 = arg7.random
+    arg8 = arg6
+    arg7 = arg7(arg8)
+    arg8 = arg2[arg7]
+    arg9 = arg2[arg6]
+    arg2[arg7] = arg9
+    arg2[arg6] = arg8
   end
-  return SHX1_2
+  return arg2
 end
-function SHX25_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = 0
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX1_2 = SHX1_2 + 1
+function textValue3(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg2 = 0
+  arg3 = pairs
+  arg4 = arg1
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7 in arg3, arg4, arg5, arg6 do
+    arg2 = arg2 + 1
   end
-  return SHX1_2
+  return arg2
 end
-function SHX26_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = PlaySoundFrontend
-  SHX3_2 = -1
-  SHX4_2 = SHX0_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+function textValue4(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7
+  arg3 = PlaySoundFrontend
+  arg4 = -1
+  arg5 = arg1
+  arg6 = arg2
+  arg7 = true
+  arg3(arg4, arg5, arg6, arg7)
 end
-function SHX27_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = 0
-  SHX8_1 = SHX0_2
-  SHX0_2 = 1
-  SHX1_2 = 3
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
-    SHX4_2 = SHX7_1
-    SHX5_2 = math
-    SHX5_2 = SHX5_2.random
-    SHX6_2 = 1
-    SHX7_2 = 8
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    SHX4_2[SHX3_2] = SHX5_2
+function numberValue12()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg1 = 0
+  numberValue29 = arg1
+  arg1 = 1
+  arg2 = 3
+  arg3 = 1
+  for arg4 = arg1, arg2, arg3 do
+    arg5 = dataTable10
+    arg6 = math
+    arg6 = arg6.random
+    arg7 = 1
+    arg8 = 8
+    arg6 = arg6(arg7, arg8)
+    arg5[arg4] = arg6
   end
-  SHX0_2 = 1
-  SHX1_2 = 3
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
-    SHX4_2 = SHX8_1
-    SHX5_2 = SHX7_1
-    SHX5_2 = SHX5_2[SHX3_2]
-    SHX6_2 = SHX21_1
-    SHX6_2 = SHX6_2[SHX3_2]
-    SHX5_2 = SHX5_2 * SHX6_2
-    SHX4_2 = SHX4_2 + SHX5_2
-    SHX8_1 = SHX4_2
+  arg1 = 1
+  arg2 = 3
+  arg3 = 1
+  for arg4 = arg1, arg2, arg3 do
+    arg5 = numberValue29
+    arg6 = dataTable10
+    arg6 = arg6[arg4]
+    arg7 = numberValue10
+    arg7 = arg7[arg4]
+    arg6 = arg6 * arg7
+    arg5 = arg5 + arg6
+    numberValue29 = arg5
   end
 end
-function SHX28_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  if not SHX0_2 then
-    SHX0_2 = SHX10_1
+function numberValue13(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
+  if not arg1 then
+    arg1 = numberValue
   end
-  SHX1_2 = tostring
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = string
-  SHX2_2 = SHX2_2.len
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 < 3 then
-    SHX2_2 = 1
-    SHX3_2 = string
-    SHX3_2 = SHX3_2.len
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = 3
-    SHX3_2 = SHX4_2 - SHX3_2
-    SHX4_2 = 1
-    for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-      SHX6_2 = "0"
-      SHX7_2 = SHX1_2
-      SHX6_2 = SHX6_2 .. SHX7_2
-      SHX1_2 = SHX6_2
+  arg2 = tostring
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = string
+  arg3 = arg3.len
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  if arg3 < 3 then
+    arg3 = 1
+    arg4 = string
+    arg4 = arg4.len
+    arg5 = arg2
+    arg4 = arg4(arg5)
+    arg5 = 3
+    arg4 = arg5 - arg4
+    arg5 = 1
+    for arg6 = arg3, arg4, arg5 do
+      arg7 = "0"
+      arg8 = arg2
+      arg7 = arg7 .. arg8
+      arg2 = arg7
     end
   end
-  SHX2_2 = 1
-  SHX3_2 = 3
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX11_1
-    SHX8_2 = SHX1_2
-    SHX7_2 = SHX1_2.sub
-    SHX9_2 = SHX5_2
-    SHX10_2 = SHX5_2
-    SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    SHX6_2[SHX5_2] = SHX7_2
+  arg3 = 1
+  arg4 = 3
+  arg5 = 1
+  for arg6 = arg3, arg4, arg5 do
+    arg7 = dataTable
+    arg9 = arg2
+    arg8 = arg2.sub
+    arg10 = arg6
+    arg11 = arg6
+    arg8 = arg8(arg9, arg10, arg11)
+    arg7[arg6] = arg8
   end
 end
-function SHX29_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = tostring
-  SHX1_2 = SHX8_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.len
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 < 3 then
-    SHX1_2 = 1
-    SHX2_2 = string
-    SHX2_2 = SHX2_2.len
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX3_2 = 3
-    SHX2_2 = SHX3_2 - SHX2_2
-    SHX3_2 = 1
-    for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-      SHX5_2 = "0"
-      SHX6_2 = SHX0_2
-      SHX5_2 = SHX5_2 .. SHX6_2
-      SHX0_2 = SHX5_2
+function numberValue14()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+  arg1 = tostring
+  arg2 = numberValue29
+  arg1 = arg1(arg2)
+  arg2 = string
+  arg2 = arg2.len
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 < 3 then
+    arg2 = 1
+    arg3 = string
+    arg3 = arg3.len
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    arg4 = 3
+    arg3 = arg4 - arg3
+    arg4 = 1
+    for arg5 = arg2, arg3, arg4 do
+      arg6 = "0"
+      arg7 = arg1
+      arg6 = arg6 .. arg7
+      arg1 = arg6
     end
   end
-  SHX1_2 = 1
-  SHX2_2 = 3
-  SHX3_2 = 1
-  for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-    SHX5_2 = SHX9_1
-    SHX7_2 = SHX0_2
-    SHX6_2 = SHX0_2.sub
-    SHX8_2 = SHX4_2
-    SHX9_2 = SHX4_2
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-    SHX5_2[SHX4_2] = SHX6_2
+  arg2 = 1
+  arg3 = 3
+  arg4 = 1
+  for arg5 = arg2, arg3, arg4 do
+    arg6 = dataTable11
+    arg8 = arg1
+    arg7 = arg1.sub
+    arg9 = arg5
+    arg10 = arg5
+    arg7 = arg7(arg8, arg9, arg10)
+    arg6[arg5] = arg7
   end
 end
-function SHX30_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX8_2 = SHX1_1
-  SHX9_2 = SHX0_2
-  SHX10_2 = SHX1_2
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = SHX4_2
-  SHX14_2 = SHX5_2
-  SHX15_2 = SHX6_2
-  SHX16_2 = SHX7_2
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+function numberValue16(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+  local arg9, arg10, arg11, workValue2, workValue3, workValue5, workValue6, workValue8, workValue9
+  arg9 = workValue16
+  arg10 = arg1
+  arg11 = arg2
+  workValue2 = arg3
+  workValue3 = arg4
+  workValue5 = arg5
+  workValue6 = arg6
+  workValue8 = arg7
+  workValue9 = arg8
+  arg9(arg10, arg11, workValue2, workValue3, workValue5, workValue6, workValue8, workValue9)
 end
-function SHX31_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX11_2 = SHX0_1
-  SHX12_2 = SHX0_2
-  SHX13_2 = SHX1_2
-  SHX14_2 = SHX2_2
-  SHX15_2 = SHX3_2
-  SHX16_2 = SHX4_2
-  SHX17_2 = SHX5_2
-  SHX18_2 = SHX6_2
-  SHX19_2 = SHX7_2
-  SHX20_2 = SHX8_2
-  SHX21_2 = SHX9_2
-  SHX22_2 = SHX10_2
-  SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+function numberValue17(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+  local workValue2, workValue3, workValue5, workValue6, workValue8, workValue9, workValue10, workValue12, workValue14, workValue17, workValue19, workValue21
+  workValue2 = workValue
+  workValue3 = arg1
+  workValue5 = arg2
+  workValue6 = arg3
+  workValue8 = arg4
+  workValue9 = arg5
+  workValue10 = arg6
+  workValue12 = arg7
+  workValue14 = arg8
+  workValue17 = arg9
+  workValue19 = arg10
+  workValue21 = arg11
+  workValue2(workValue3, workValue5, workValue6, workValue8, workValue9, workValue10, workValue12, workValue14, workValue17, workValue19, workValue21)
 end
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = BeginTextCommandScaleformString
-  SHX2_2 = "STRING"
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddTextComponentSubstringKeyboardDisplay
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = EndTextCommandScaleformString
-  SHX1_2()
+function numberValue18(arg1)
+  local arg2, arg3
+  arg2 = BeginTextCommandScaleformString
+  arg3 = "STRING"
+  arg2(arg3)
+  arg2 = AddTextComponentSubstringKeyboardDisplay
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = EndTextCommandScaleformString
+  arg2()
 end
-ButtonMessage = SHX32_1
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = _ENV
-  SHX2_2 = "ScaleformMovieMethodAddParamPlayerNameString"
-  SHX1_2 = SHX1_2[SHX2_2]
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+ButtonMessage = numberValue18
+function numberValue18(arg1)
+  local arg2, arg3
+  arg2 = _ENV
+  arg3 = "ScaleformMovieMethodAddParamPlayerNameString"
+  arg2 = arg2[arg3]
+  arg3 = arg1
+  arg2(arg3)
 end
-Button = SHX32_1
-function SHX32_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = RequestScaleformMovie
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
+Button = numberValue18
+function numberValue18(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = RequestScaleformMovie
+  arg3 = arg1
+  -- Beginner: result below is scaleformHandle.
+  arg2 = arg2(arg3)
   while true do
-    SHX2_2 = HasScaleformMovieLoaded
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if SHX2_2 then
+    arg3 = HasScaleformMovieLoaded
+    arg4 = arg2
+    arg3 = arg3(arg4)
+    if arg3 then
       break
     end
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+    arg3 = Citizen
+    arg3 = arg3.Wait
+    arg4 = 0
+    arg3(arg4)
   end
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "CLEAR_ALL"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "SET_CLEAR_SPACE"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 200
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "SET_DATA_SLOT"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 0
-  SHX2_2(SHX3_2)
-  SHX2_2 = Button
-  SHX3_2 = GetControlInstructionalButton
-  SHX4_2 = 2
-  SHX5_2 = 194
-  SHX6_2 = true
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = ButtonMessage
-  SHX3_2 = "Abort Hack"
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "SET_DATA_SLOT"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 1
-  SHX2_2(SHX3_2)
-  SHX2_2 = Button
-  SHX3_2 = GetControlInstructionalButton
-  SHX4_2 = 2
-  SHX5_2 = 191
-  SHX6_2 = true
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = ButtonMessage
-  SHX3_2 = "Confirm selection (Irrevertible)"
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "SET_DATA_SLOT"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 2
-  SHX2_2(SHX3_2)
-  SHX2_2 = Button
-  SHX3_2 = GetControlInstructionalButton
-  SHX4_2 = 2
-  SHX5_2 = 307
-  SHX6_2 = true
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = Button
-  SHX3_2 = GetControlInstructionalButton
-  SHX4_2 = 2
-  SHX5_2 = 308
-  SHX6_2 = true
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = Button
-  SHX3_2 = GetControlInstructionalButton
-  SHX4_2 = 2
-  SHX5_2 = 299
-  SHX6_2 = true
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = Button
-  SHX3_2 = GetControlInstructionalButton
-  SHX4_2 = 2
-  SHX5_2 = 300
-  SHX6_2 = true
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = ButtonMessage
-  SHX3_2 = "Select"
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "DRAW_INSTRUCTIONAL_BUTTONS"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  SHX2_2 = BeginScaleformMovieMethod
-  SHX3_2 = SHX1_2
-  SHX4_2 = "SET_BACKGROUND_COLOUR"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 0
-  SHX2_2(SHX3_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 0
-  SHX2_2(SHX3_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 0
-  SHX2_2(SHX3_2)
-  SHX2_2 = ScaleformMovieMethodAddParamInt
-  SHX3_2 = 80
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndScaleformMovieMethod
-  SHX2_2()
-  return SHX1_2
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "CLEAR_ALL"
+  arg3(arg4, arg5)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "SET_CLEAR_SPACE"
+  arg3(arg4, arg5)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 200
+  arg3(arg4)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "SET_DATA_SLOT"
+  arg3(arg4, arg5)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 0
+  arg3(arg4)
+  arg3 = Button
+  arg4 = GetControlInstructionalButton
+  arg5 = 2
+  arg6 = 194
+  arg7 = true
+  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = ButtonMessage
+  arg4 = "Abort Hack"
+  arg3(arg4)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "SET_DATA_SLOT"
+  arg3(arg4, arg5)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 1
+  arg3(arg4)
+  arg3 = Button
+  arg4 = GetControlInstructionalButton
+  arg5 = 2
+  arg6 = 191
+  arg7 = true
+  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = ButtonMessage
+  arg4 = "Confirm selection (Irrevertible)"
+  arg3(arg4)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "SET_DATA_SLOT"
+  arg3(arg4, arg5)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 2
+  arg3(arg4)
+  arg3 = Button
+  arg4 = GetControlInstructionalButton
+  arg5 = 2
+  arg6 = 307
+  arg7 = true
+  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = Button
+  arg4 = GetControlInstructionalButton
+  arg5 = 2
+  arg6 = 308
+  arg7 = true
+  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = Button
+  arg4 = GetControlInstructionalButton
+  arg5 = 2
+  arg6 = 299
+  arg7 = true
+  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = Button
+  arg4 = GetControlInstructionalButton
+  arg5 = 2
+  arg6 = 300
+  arg7 = true
+  arg4, arg5, arg6, arg7 = arg4(arg5, arg6, arg7)
+  arg3(arg4, arg5, arg6, arg7)
+  arg3 = ButtonMessage
+  arg4 = "Select"
+  arg3(arg4)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "DRAW_INSTRUCTIONAL_BUTTONS"
+  arg3(arg4, arg5)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  arg3 = BeginScaleformMovieMethod
+  arg4 = arg2
+  arg5 = "SET_BACKGROUND_COLOUR"
+  arg3(arg4, arg5)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 0
+  arg3(arg4)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 0
+  arg3(arg4)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 0
+  arg3(arg4)
+  arg3 = ScaleformMovieMethodAddParamInt
+  arg4 = 80
+  arg3(arg4)
+  arg3 = EndScaleformMovieMethod
+  arg3()
+  return arg2
 end
-SHX33_1 = {}
-SHX34_1 = "MPIsland_Voltage"
-SHX35_1 = "MPIsland_Voltage_BG"
-SHX33_1[1] = SHX34_1
-SHX33_1[2] = SHX35_1
-SHX34_1 = "DLC_HEI4\\DLC_HEI4_V_MG"
-SHX35_1 = "DLC_HEI4\\DLC_HEI4_FH_MG"
-function SHX36_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = 1
-  SHX1_2 = SHX33_1
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
-    SHX4_2 = RequestStreamedTextureDict
-    SHX5_2 = SHX33_1
-    SHX5_2 = SHX5_2[SHX3_2]
-    SHX6_2 = false
-    SHX4_2(SHX5_2, SHX6_2)
+numberValue19 = {}
+numberValue20 = "MPIsland_Voltage"
+textValue6 = "MPIsland_Voltage_BG"
+numberValue19[1] = numberValue20
+numberValue19[2] = textValue6
+numberValue20 = "DLC_HEI4\\DLC_HEI4_V_MG"
+textValue6 = "DLC_HEI4\\DLC_HEI4_FH_MG"
+function workValue23()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
+  arg1 = 1
+  arg2 = numberValue19
+  arg2 = #arg2
+  arg3 = 1
+  for arg4 = arg1, arg2, arg3 do
+    arg5 = RequestStreamedTextureDict
+    arg6 = numberValue19
+    arg6 = arg6[arg4]
+    arg7 = false
+    arg5(arg6, arg7)
   end
-  SHX0_2 = 1
-  SHX1_2 = SHX33_1
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
+  arg1 = 1
+  arg2 = numberValue19
+  arg2 = #arg2
+  arg3 = 1
+  for arg4 = arg1, arg2, arg3 do
     while true do
-      SHX4_2 = HasStreamedTextureDictLoaded
-      SHX5_2 = SHX33_1
-      SHX5_2 = SHX5_2[SHX3_2]
-      SHX4_2 = SHX4_2(SHX5_2)
-      if SHX4_2 then
+      arg5 = HasStreamedTextureDictLoaded
+      arg6 = numberValue19
+      arg6 = arg6[arg4]
+      arg5 = arg5(arg6)
+      if arg5 then
         break
       end
-      SHX4_2 = Wait
-      SHX5_2 = 10
-      SHX4_2(SHX5_2)
+      arg5 = Wait
+      arg6 = 10
+      arg5(arg6)
     end
   end
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
   while true do
-    SHX1_2 = RequestScriptAudioBank
-    SHX2_2 = SHX34_1
-    SHX3_2 = false
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
+    arg2 = RequestScriptAudioBank
+    arg3 = numberValue20
+    arg4 = false
+    arg2 = arg2(arg3, arg4)
+    if arg2 then
       break
     end
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX1_2 = SHX1_2 - SHX0_2
-    SHX2_2 = 1500
-    if SHX1_2 > SHX2_2 then
-      SHX1_2 = ReleaseNamedScriptAudioBank
-      SHX2_2 = SHX34_1
-      SHX1_2(SHX2_2)
+    arg2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg2 = arg2()
+    arg2 = arg2 - arg1
+    arg3 = 1500
+    if arg2 > arg3 then
+      arg2 = ReleaseNamedScriptAudioBank
+      arg3 = numberValue20
+      arg2(arg3)
       break
     end
-    SHX1_2 = Citizen
-    SHX1_2 = SHX1_2.Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+    arg2 = Citizen
+    arg2 = arg2.Wait
+    arg3 = 0
+    arg2(arg3)
   end
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
+  arg2 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg2 = arg2()
   while true do
-    SHX2_2 = RequestScriptAudioBank
-    SHX3_2 = SHX35_1
-    SHX4_2 = false
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
+    arg3 = RequestScriptAudioBank
+    arg4 = textValue6
+    arg5 = false
+    arg3 = arg3(arg4, arg5)
+    if arg3 then
       break
     end
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX2_2 = SHX2_2 - SHX1_2
-    SHX3_2 = 1500
-    if SHX2_2 > SHX3_2 then
-      SHX2_2 = ReleaseNamedScriptAudioBank
-      SHX3_2 = SHX35_1
-      SHX2_2(SHX3_2)
+    arg3 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg3 = arg3()
+    arg3 = arg3 - arg2
+    arg4 = 1500
+    if arg3 > arg4 then
+      arg3 = ReleaseNamedScriptAudioBank
+      arg4 = textValue6
+      arg3(arg4)
       break
     end
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+    arg3 = Citizen
+    arg3 = arg3.Wait
+    arg4 = 0
+    arg3(arg4)
   end
 end
-function SHX37_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = ReleaseNamedScriptAudioBank
-  SHX1_2 = SHX35_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = ReleaseNamedScriptAudioBank
-  SHX1_2 = SHX34_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = 1
-  SHX1_2 = SHX33_1
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 1
-  for SHX3_2 = SHX0_2, SHX1_2, SHX2_2 do
-    SHX4_2 = SetStreamedTextureDictAsNoLongerNeeded
-    SHX5_2 = SHX33_1
-    SHX5_2 = SHX5_2[SHX3_2]
-    SHX4_2(SHX5_2)
+function workValue24()
+  local arg1, arg2, arg3, arg4, arg5, arg6
+  arg1 = ReleaseNamedScriptAudioBank
+  arg2 = textValue6
+  arg1(arg2)
+  arg1 = ReleaseNamedScriptAudioBank
+  arg2 = numberValue20
+  arg1(arg2)
+  arg1 = 1
+  arg2 = numberValue19
+  arg2 = #arg2
+  arg3 = 1
+  for arg4 = arg1, arg2, arg3 do
+    arg5 = SetStreamedTextureDictAsNoLongerNeeded
+    arg6 = numberValue19
+    arg6 = arg6[arg4]
+    arg5(arg6)
   end
 end
-SHX38_1 = AddEventHandler
-SHX39_1 = "ultra-voltlab"
-function SHX40_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = SHX36_1
-  SHX2_2()
-  SHX2_2 = false
-  SHX3_1 = SHX2_2
-  SHX2_2 = {}
-  SHX12_1 = SHX2_2
-  SHX2_2 = {}
-  SHX13_1 = SHX2_2
-  SHX2_2 = 1
-  SHX5_1 = SHX2_2
-  SHX2_2 = 0
-  SHX6_1 = SHX2_2
-  SHX2_2 = 6
-  SHX14_1 = SHX2_2
-  function SHX2_2(...)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX37_1
-    SHX0_3()
-    SHX0_3 = SHX1_2
-    SHX1_3 = ...
-    SHX0_3(SHX1_3)
+eventHandlerRegistration = AddEventHandler
+textValue7 = "ultra-voltlab"
+-- Beginner: this function runs when client event "ultra-voltlab" fires.
+function workValue26(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+  arg3 = workValue23
+  arg3()
+  arg3 = false
+  flag2 = arg3
+  arg3 = {}
+  dataTable2 = arg3
+  arg3 = {}
+  dataTable3 = arg3
+  arg3 = 1
+  numberValue23 = arg3
+  arg3 = 0
+  numberValue26 = arg3
+  arg3 = 6
+  textValue = arg3
+  function arg3(...)
+    local waitCall, dataTable8
+    waitCall = workValue24
+    waitCall()
+    waitCall = arg2
+    dataTable8 = ...
+    waitCall(dataTable8)
   end
-  SHX4_1 = SHX2_2
-  SHX2_2 = tonumber
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = SHX2_2
-  if SHX2_2 < 10 or SHX2_2 > 60 then
-    SHX4_2 = SHX4_1
-    SHX5_2 = -1
-    SHX6_2 = "Entered time is out of range"
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = true
-    SHX3_1 = SHX4_2
+  workValue27 = arg3
+  arg3 = tonumber
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  arg4 = arg3
+  if arg3 < 10 or arg3 > 60 then
+    arg5 = workValue27
+    arg6 = -1
+    arg7 = "Entered time is out of range"
+    arg5(arg6, arg7)
+    arg5 = true
+    flag2 = arg5
     return
   end
-  SHX4_2 = SHX27_1
-  SHX4_2()
-  SHX4_2 = SHX29_1
-  SHX4_2()
+  arg5 = numberValue12
+  arg5()
+  arg5 = numberValue14
+  arg5()
   while true do
-    SHX4_2 = SHX8_1
-    SHX5_2 = 999
-    if not (SHX4_2 > SHX5_2) then
-      SHX4_2 = SHX8_1
-      if not (SHX4_2 <= 0) then
+    arg5 = numberValue29
+    arg6 = 999
+    if not (arg5 > arg6) then
+      arg5 = numberValue29
+      if not (arg5 <= 0) then
         break
       end
     end
-    SHX4_2 = Wait
-    SHX5_2 = 10
-    SHX4_2(SHX5_2)
-    SHX4_2 = SHX27_1
-    SHX4_2()
+    arg5 = Wait
+    arg6 = 10
+    arg5(arg6)
+    arg5 = numberValue12
+    arg5()
   end
-  SHX4_2 = SHX24_1
-  SHX5_2 = SHX7_1
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX7_1 = SHX4_2
-  SHX4_2 = SHX24_1
-  SHX5_2 = SHX21_1
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX21_1 = SHX4_2
-  SHX4_2 = SHX24_1
-  SHX5_2 = SHX20_1
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX20_1 = SHX4_2
-  SHX4_2 = 0
-  SHX5_2 = 1
-  SHX6_2 = 3
-  SHX7_2 = 1
-  for SHX8_2 = SHX5_2, SHX6_2, SHX7_2 do
-    SHX9_2 = SHX21_1
-    SHX9_2 = SHX9_2[SHX8_2]
-    SHX4_2 = SHX4_2 + SHX9_2
+  arg5 = textValue2
+  arg6 = dataTable10
+  arg5 = arg5(arg6)
+  dataTable10 = arg5
+  arg5 = textValue2
+  arg6 = numberValue10
+  arg5 = arg5(arg6)
+  numberValue10 = arg5
+  arg5 = textValue2
+  arg6 = numberValue9
+  arg5 = arg5(arg6)
+  numberValue9 = arg5
+  arg5 = 0
+  arg6 = 1
+  arg7 = 3
+  arg8 = 1
+  for arg9 = arg6, arg7, arg8 do
+    arg10 = numberValue10
+    arg10 = arg10[arg9]
+    arg5 = arg5 + arg10
   end
-  if SHX4_2 > 111 or SHX4_2 <= 0 then
-    SHX5_2 = SHX4_1
-    SHX6_2 = -1
-    SHX7_2 = "Icon values are out of range in config"
-    SHX5_2(SHX6_2, SHX7_2)
-    SHX5_2 = true
-    SHX3_1 = SHX5_2
+  if arg5 > 111 or arg5 <= 0 then
+    arg6 = workValue27
+    arg7 = -1
+    arg8 = "Icon values are out of range in config"
+    arg6(arg7, arg8)
+    arg6 = true
+    flag2 = arg6
     return
   end
-  SHX5_2 = SHX29_1
-  SHX5_2()
-  SHX5_2 = true
-  SHX2_1 = SHX5_2
-  SHX5_2 = print
-  SHX6_2 = "Creating first Voltlab hacking thread"
-  SHX5_2(SHX6_2)
-  SHX5_2 = CreateThread
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3, SHX22_3
-    SHX0_3 = Wait
-    SHX1_3 = 100
-    SHX0_3(SHX1_3)
-    SHX0_3 = SendNUIMessage
-    SHX1_3 = {}
-    SHX1_3.type = "intro"
-    SHX0_3(SHX1_3)
-    SHX0_3 = SHX26_1
-    SHX1_3 = "Loading_Bink"
-    SHX2_3 = "DLC_H4_Voltage_Minigame_Sounds"
-    SHX0_3(SHX1_3, SHX2_3)
+  arg6 = numberValue14
+  arg6()
+  arg6 = true
+  flag = arg6
+  arg6 = print
+  arg7 = "Creating first Voltlab hacking thread"
+  arg6(arg7)
+  arg6 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function arg7()
+    local waitCall, dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6, numberValue7, workValue11, workValue13, workValue15, workValue18, workValue20, workValue22
+    waitCall = Wait
+    dataTable8 = 100
+    waitCall(dataTable8)
+    waitCall = SendNUIMessage
+    dataTable8 = {}
+    dataTable8.type = "intro"
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    waitCall(dataTable8)
+    waitCall = textValue4
+    dataTable8 = "Loading_Bink"
+    textValue5 = "DLC_H4_Voltage_Minigame_Sounds"
+    waitCall(dataTable8, textValue5)
     while true do
-      SHX0_3 = SHX2_1
-      if not SHX0_3 then
+      waitCall = flag
+      if not waitCall then
         break
       end
-      SHX0_3 = Wait
-      SHX1_3 = 1
-      SHX0_3(SHX1_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage_BG"
-      SHX2_3 = "PHONE_BACKGROUND"
-      SHX3_3 = 0.5
-      SHX4_3 = 0.5
-      SHX5_3 = 1.0
-      SHX6_3 = 1.0
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage_BG"
-      SHX2_3 = "target_text"
-      SHX3_3 = 0.498
-      SHX4_3 = 0.12
-      SHX5_3 = 0.04
-      SHX6_3 = 0.014
-      SHX7_3 = 0
-      SHX8_3 = 231
-      SHX9_3 = 99
-      SHX10_3 = 99
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage_BG"
-      SHX2_3 = "result_text"
-      SHX3_3 = 0.498
-      SHX4_3 = 0.88
-      SHX5_3 = 0.04
-      SHX6_3 = 0.014
-      SHX7_3 = 0
-      SHX8_3 = 88
-      SHX9_3 = 204
-      SHX10_3 = 102
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = "Phone_Icons"
-      SHX3_3 = 0.95
-      SHX4_3 = 0.03
-      SHX5_3 = 0.08
-      SHX6_3 = 0.04
-      SHX7_3 = 0
-      SHX8_3 = 160
-      SHX9_3 = 160
-      SHX10_3 = 160
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = "MainInterface_BG"
-      SHX3_3 = 0.5
-      SHX4_3 = 0.5
-      SHX5_3 = 0.5
-      SHX6_3 = 0.73
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX9_1
-      SHX2_3 = SHX2_3[1]
-      SHX3_3 = 0.457
-      SHX4_3 = 0.185
-      SHX5_3 = 0.03
-      SHX6_3 = 0.09
-      SHX7_3 = 0
-      SHX8_3 = 231
-      SHX9_3 = 99
-      SHX10_3 = 99
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX9_1
-      SHX2_3 = SHX2_3[2]
-      SHX3_3 = 0.497
-      SHX4_3 = 0.185
-      SHX5_3 = 0.03
-      SHX6_3 = 0.09
-      SHX7_3 = 0
-      SHX8_3 = 231
-      SHX9_3 = 99
-      SHX10_3 = 99
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX9_1
-      SHX2_3 = SHX2_3[3]
-      SHX3_3 = 0.539
-      SHX4_3 = 0.185
-      SHX5_3 = 0.03
-      SHX6_3 = 0.09
-      SHX7_3 = 0
-      SHX8_3 = 231
-      SHX9_3 = 99
-      SHX10_3 = 99
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX7_1
-      SHX2_3 = SHX2_3[1]
-      SHX3_3 = 0.29
-      SHX4_3 = 0.307
-      SHX5_3 = 0.03
-      SHX6_3 = 0.09
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX7_1
-      SHX2_3 = SHX2_3[2]
-      SHX3_3 = 0.29
-      SHX4_3 = 0.5
-      SHX5_3 = 0.03
-      SHX6_3 = 0.09
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX7_1
-      SHX2_3 = SHX2_3[3]
-      SHX3_3 = 0.29
-      SHX4_3 = 0.694
-      SHX5_3 = 0.03
-      SHX6_3 = 0.09
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX20_1
-      SHX2_3 = SHX2_3[1]
-      SHX3_3 = 0.699
-      SHX4_3 = 0.307
-      SHX5_3 = 0.06
-      SHX6_3 = 0.08
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX20_1
-      SHX2_3 = SHX2_3[2]
-      SHX3_3 = 0.7
-      SHX4_3 = 0.503
-      SHX5_3 = 0.05
-      SHX6_3 = 0.08
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = SHX31_1
-      SHX1_3 = "MPIsland_Voltage"
-      SHX2_3 = SHX20_1
-      SHX2_3 = SHX2_3[3]
-      SHX3_3 = 0.7
-      SHX4_3 = 0.698
-      SHX5_3 = 0.04
-      SHX6_3 = 0.06
-      SHX7_3 = 0
-      SHX8_3 = 255
-      SHX9_3 = 255
-      SHX10_3 = 255
-      SHX11_3 = 255
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-      SHX0_3 = 0
-      SHX1_3 = SHX10_1
-      SHX2_3 = SHX8_1
-      if SHX1_3 == SHX2_3 then
-        SHX0_3 = 2
+      waitCall = Wait
+      dataTable8 = 1
+      waitCall(dataTable8)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage_BG"
+      textValue5 = "PHONE_BACKGROUND"
+      numberValue21 = 0.5
+      numberValue22 = 0.5
+      numberValue24 = 1.0
+      numberValue27 = 1.0
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage_BG"
+      textValue5 = "target_text"
+      numberValue21 = 0.498
+      numberValue22 = 0.12
+      numberValue24 = 0.04
+      numberValue27 = 0.014
+      numberValue28 = 0
+      numberValue30 = 231
+      numberValue31 = 99
+      numberValue2 = 99
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage_BG"
+      textValue5 = "result_text"
+      numberValue21 = 0.498
+      numberValue22 = 0.88
+      numberValue24 = 0.04
+      numberValue27 = 0.014
+      numberValue28 = 0
+      numberValue30 = 88
+      numberValue31 = 204
+      numberValue2 = 102
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = "Phone_Icons"
+      numberValue21 = 0.95
+      numberValue22 = 0.03
+      numberValue24 = 0.08
+      numberValue27 = 0.04
+      numberValue28 = 0
+      numberValue30 = 160
+      numberValue31 = 160
+      numberValue2 = 160
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = "MainInterface_BG"
+      numberValue21 = 0.5
+      numberValue22 = 0.5
+      numberValue24 = 0.5
+      numberValue27 = 0.73
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = dataTable11
+      textValue5 = textValue5[1]
+      numberValue21 = 0.457
+      numberValue22 = 0.185
+      numberValue24 = 0.03
+      numberValue27 = 0.09
+      numberValue28 = 0
+      numberValue30 = 231
+      numberValue31 = 99
+      numberValue2 = 99
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = dataTable11
+      textValue5 = textValue5[2]
+      numberValue21 = 0.497
+      numberValue22 = 0.185
+      numberValue24 = 0.03
+      numberValue27 = 0.09
+      numberValue28 = 0
+      numberValue30 = 231
+      numberValue31 = 99
+      numberValue2 = 99
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = dataTable11
+      textValue5 = textValue5[3]
+      numberValue21 = 0.539
+      numberValue22 = 0.185
+      numberValue24 = 0.03
+      numberValue27 = 0.09
+      numberValue28 = 0
+      numberValue30 = 231
+      numberValue31 = 99
+      numberValue2 = 99
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = dataTable10
+      textValue5 = textValue5[1]
+      numberValue21 = 0.29
+      numberValue22 = 0.307
+      numberValue24 = 0.03
+      numberValue27 = 0.09
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = dataTable10
+      textValue5 = textValue5[2]
+      numberValue21 = 0.29
+      numberValue22 = 0.5
+      numberValue24 = 0.03
+      numberValue27 = 0.09
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = dataTable10
+      textValue5 = textValue5[3]
+      numberValue21 = 0.29
+      numberValue22 = 0.694
+      numberValue24 = 0.03
+      numberValue27 = 0.09
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = numberValue9
+      textValue5 = textValue5[1]
+      numberValue21 = 0.699
+      numberValue22 = 0.307
+      numberValue24 = 0.06
+      numberValue27 = 0.08
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = numberValue9
+      textValue5 = textValue5[2]
+      numberValue21 = 0.7
+      numberValue22 = 0.503
+      numberValue24 = 0.05
+      numberValue27 = 0.08
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = numberValue17
+      dataTable8 = "MPIsland_Voltage"
+      textValue5 = numberValue9
+      textValue5 = textValue5[3]
+      numberValue21 = 0.7
+      numberValue22 = 0.698
+      numberValue24 = 0.04
+      numberValue27 = 0.06
+      numberValue28 = 0
+      numberValue30 = 255
+      numberValue31 = 255
+      numberValue2 = 255
+      numberValue3 = 255
+      waitCall(dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3)
+      waitCall = 0
+      dataTable8 = numberValue
+      textValue5 = numberValue29
+      if dataTable8 == textValue5 then
+        waitCall = 2
       else
-        SHX0_3 = 1
+        waitCall = 1
       end
-      SHX1_3 = SHX31_1
-      SHX2_3 = "MPIsland_Voltage"
-      SHX3_3 = tostring
-      SHX4_3 = SHX11_1
-      SHX4_3 = SHX4_3[1]
-      SHX3_3 = SHX3_3(SHX4_3)
-      SHX4_3 = 0.457
-      SHX5_3 = 0.815
-      SHX6_3 = 0.03
-      SHX7_3 = 0.09
-      SHX8_3 = 0
-      SHX9_3 = SHX17_1
-      SHX9_3 = SHX9_3[SHX0_3]
-      SHX9_3 = SHX9_3[1]
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX0_3]
-      SHX10_3 = SHX10_3[2]
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX0_3]
-      SHX11_3 = SHX11_3[3]
-      SHX12_3 = SHX18_1
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX1_3 = SHX31_1
-      SHX2_3 = "MPIsland_Voltage"
-      SHX3_3 = tostring
-      SHX4_3 = SHX11_1
-      SHX4_3 = SHX4_3[2]
-      SHX3_3 = SHX3_3(SHX4_3)
-      SHX4_3 = 0.497
-      SHX5_3 = 0.815
-      SHX6_3 = 0.03
-      SHX7_3 = 0.09
-      SHX8_3 = 0
-      SHX9_3 = SHX17_1
-      SHX9_3 = SHX9_3[SHX0_3]
-      SHX9_3 = SHX9_3[1]
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX0_3]
-      SHX10_3 = SHX10_3[2]
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX0_3]
-      SHX11_3 = SHX11_3[3]
-      SHX12_3 = SHX18_1
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX1_3 = SHX31_1
-      SHX2_3 = "MPIsland_Voltage"
-      SHX3_3 = tostring
-      SHX4_3 = SHX11_1
-      SHX4_3 = SHX4_3[3]
-      SHX3_3 = SHX3_3(SHX4_3)
-      SHX4_3 = 0.539
-      SHX5_3 = 0.815
-      SHX6_3 = 0.03
-      SHX7_3 = 0.09
-      SHX8_3 = 0
-      SHX9_3 = SHX17_1
-      SHX9_3 = SHX9_3[SHX0_3]
-      SHX9_3 = SHX9_3[1]
-      SHX10_3 = SHX17_1
-      SHX10_3 = SHX10_3[SHX0_3]
-      SHX10_3 = SHX10_3[2]
-      SHX11_3 = SHX17_1
-      SHX11_3 = SHX11_3[SHX0_3]
-      SHX11_3 = SHX11_3[3]
-      SHX12_3 = SHX18_1
-      SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-      SHX1_3 = 1
-      SHX2_3 = SHX14_1
-      SHX3_3 = 1
-      for SHX4_3 = SHX1_3, SHX2_3, SHX3_3 do
-        SHX5_3 = SHX31_1
-        SHX6_3 = "MPIsland_Voltage"
-        SHX7_3 = "maininterface_progress_highlight"
-        SHX8_3 = SHX22_1
-        SHX8_3 = SHX8_3[SHX4_3]
-        SHX8_3 = SHX8_3[1]
-        SHX9_3 = SHX22_1
-        SHX9_3 = SHX9_3[SHX4_3]
-        SHX9_3 = SHX9_3[2]
-        SHX10_3 = SHX22_1
-        SHX10_3 = SHX10_3[SHX4_3]
-        SHX10_3 = SHX10_3[3]
-        SHX11_3 = SHX22_1
-        SHX11_3 = SHX11_3[SHX4_3]
-        SHX11_3 = SHX11_3[4]
-        SHX12_3 = 0
-        SHX13_3 = 88
-        SHX14_3 = 204
-        SHX15_3 = 102
-        SHX16_3 = 255
-        SHX5_3(SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3)
+      dataTable8 = numberValue17
+      textValue5 = "MPIsland_Voltage"
+      numberValue21 = tostring
+      numberValue22 = dataTable
+      numberValue22 = numberValue22[1]
+      numberValue21 = numberValue21(numberValue22)
+      numberValue22 = 0.457
+      numberValue24 = 0.815
+      numberValue27 = 0.03
+      numberValue28 = 0.09
+      numberValue30 = 0
+      numberValue31 = dataTable5
+      numberValue31 = numberValue31[waitCall]
+      numberValue31 = numberValue31[1]
+      numberValue2 = dataTable5
+      numberValue2 = numberValue2[waitCall]
+      numberValue2 = numberValue2[2]
+      numberValue3 = dataTable5
+      numberValue3 = numberValue3[waitCall]
+      numberValue3 = numberValue3[3]
+      workValue4 = dataTable6
+      dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+      dataTable8 = numberValue17
+      textValue5 = "MPIsland_Voltage"
+      numberValue21 = tostring
+      numberValue22 = dataTable
+      numberValue22 = numberValue22[2]
+      numberValue21 = numberValue21(numberValue22)
+      numberValue22 = 0.497
+      numberValue24 = 0.815
+      numberValue27 = 0.03
+      numberValue28 = 0.09
+      numberValue30 = 0
+      numberValue31 = dataTable5
+      numberValue31 = numberValue31[waitCall]
+      numberValue31 = numberValue31[1]
+      numberValue2 = dataTable5
+      numberValue2 = numberValue2[waitCall]
+      numberValue2 = numberValue2[2]
+      numberValue3 = dataTable5
+      numberValue3 = numberValue3[waitCall]
+      numberValue3 = numberValue3[3]
+      workValue4 = dataTable6
+      dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+      dataTable8 = numberValue17
+      textValue5 = "MPIsland_Voltage"
+      numberValue21 = tostring
+      numberValue22 = dataTable
+      numberValue22 = numberValue22[3]
+      numberValue21 = numberValue21(numberValue22)
+      numberValue22 = 0.539
+      numberValue24 = 0.815
+      numberValue27 = 0.03
+      numberValue28 = 0.09
+      numberValue30 = 0
+      numberValue31 = dataTable5
+      numberValue31 = numberValue31[waitCall]
+      numberValue31 = numberValue31[1]
+      numberValue2 = dataTable5
+      numberValue2 = numberValue2[waitCall]
+      numberValue2 = numberValue2[2]
+      numberValue3 = dataTable5
+      numberValue3 = numberValue3[waitCall]
+      numberValue3 = numberValue3[3]
+      workValue4 = dataTable6
+      dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
+      dataTable8 = 1
+      textValue5 = textValue
+      numberValue21 = 1
+      for numberValue22 = dataTable8, textValue5, numberValue21 do
+        numberValue24 = numberValue17
+        numberValue27 = "MPIsland_Voltage"
+        numberValue28 = "maininterface_progress_highlight"
+        numberValue30 = numberValue11
+        numberValue30 = numberValue30[numberValue22]
+        numberValue30 = numberValue30[1]
+        numberValue31 = numberValue11
+        numberValue31 = numberValue31[numberValue22]
+        numberValue31 = numberValue31[2]
+        numberValue2 = numberValue11
+        numberValue2 = numberValue2[numberValue22]
+        numberValue2 = numberValue2[3]
+        numberValue3 = numberValue11
+        numberValue3 = numberValue3[numberValue22]
+        numberValue3 = numberValue3[4]
+        workValue4 = 0
+        numberValue4 = 88
+        numberValue5 = 204
+        numberValue6 = 102
+        numberValue7 = 255
+        numberValue24(numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6, numberValue7)
       end
-      SHX1_3 = SHX5_1
-      if 1 == SHX1_3 then
-        SHX1_3 = SHX31_1
-        SHX2_3 = "MPIsland_Voltage"
-        SHX3_3 = "NUMBER_NODE"
-        SHX4_3 = 0.298
-        SHX5_3 = 0.307
-        SHX6_3 = 0.06
-        SHX7_3 = 0.098
-        SHX8_3 = 0
-        SHX9_3 = 250
-        SHX10_3 = 172
-        SHX11_3 = 54
-        SHX12_3 = 255
-        SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+      dataTable8 = numberValue23
+      if 1 == dataTable8 then
+        dataTable8 = numberValue17
+        textValue5 = "MPIsland_Voltage"
+        numberValue21 = "NUMBER_NODE"
+        numberValue22 = 0.298
+        numberValue24 = 0.307
+        numberValue27 = 0.06
+        numberValue28 = 0.098
+        numberValue30 = 0
+        numberValue31 = 250
+        numberValue2 = 172
+        numberValue3 = 54
+        workValue4 = 255
+        dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
       else
-        SHX1_3 = SHX5_1
-        if 2 == SHX1_3 then
-          SHX1_3 = SHX31_1
-          SHX2_3 = "MPIsland_Voltage"
-          SHX3_3 = "NUMBER_NODE"
-          SHX4_3 = 0.298
-          SHX5_3 = 0.5
-          SHX6_3 = 0.06
-          SHX7_3 = 0.098
-          SHX8_3 = 0
-          SHX9_3 = 247
-          SHX10_3 = 49
-          SHX11_3 = 49
-          SHX12_3 = 255
-          SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+        dataTable8 = numberValue23
+        if 2 == dataTable8 then
+          dataTable8 = numberValue17
+          textValue5 = "MPIsland_Voltage"
+          numberValue21 = "NUMBER_NODE"
+          numberValue22 = 0.298
+          numberValue24 = 0.5
+          numberValue27 = 0.06
+          numberValue28 = 0.098
+          numberValue30 = 0
+          numberValue31 = 247
+          numberValue2 = 49
+          numberValue3 = 49
+          workValue4 = 255
+          dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
         else
-          SHX1_3 = SHX5_1
-          if 3 == SHX1_3 then
-            SHX1_3 = SHX31_1
-            SHX2_3 = "MPIsland_Voltage"
-            SHX3_3 = "NUMBER_NODE"
-            SHX4_3 = 0.298
-            SHX5_3 = 0.693
-            SHX6_3 = 0.06
-            SHX7_3 = 0.098
-            SHX8_3 = 0
-            SHX9_3 = 58
-            SHX10_3 = 53
-            SHX11_3 = 212
-            SHX12_3 = 255
-            SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+          dataTable8 = numberValue23
+          if 3 == dataTable8 then
+            dataTable8 = numberValue17
+            textValue5 = "MPIsland_Voltage"
+            numberValue21 = "NUMBER_NODE"
+            numberValue22 = 0.298
+            numberValue24 = 0.693
+            numberValue27 = 0.06
+            numberValue28 = 0.098
+            numberValue30 = 0
+            numberValue31 = 58
+            numberValue2 = 53
+            numberValue3 = 212
+            workValue4 = 255
+            dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
           end
         end
       end
-      SHX1_3 = SHX6_1
-      if 1 == SHX1_3 then
-        SHX1_3 = SHX31_1
-        SHX2_3 = "MPIsland_Voltage"
-        SHX3_3 = "CIRCLE_NODE"
-        SHX4_3 = 0.691
-        SHX5_3 = 0.307
-        SHX6_3 = 0.078
-        SHX7_3 = 0.13
-        SHX8_3 = 0
-        SHX10_3 = SHX5_1
-        SHX9_3 = SHX16_1
-        SHX9_3 = SHX9_3[SHX10_3]
-        SHX9_3 = SHX9_3[1]
-        SHX11_3 = SHX5_1
-        SHX10_3 = SHX16_1
-        SHX10_3 = SHX10_3[SHX11_3]
-        SHX10_3 = SHX10_3[2]
-        SHX12_3 = SHX5_1
-        SHX11_3 = SHX16_1
-        SHX11_3 = SHX11_3[SHX12_3]
-        SHX11_3 = SHX11_3[3]
-        SHX12_3 = 255
-        SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+      dataTable8 = numberValue26
+      if 1 == dataTable8 then
+        dataTable8 = numberValue17
+        textValue5 = "MPIsland_Voltage"
+        numberValue21 = "CIRCLE_NODE"
+        numberValue22 = 0.691
+        numberValue24 = 0.307
+        numberValue27 = 0.078
+        numberValue28 = 0.13
+        numberValue30 = 0
+        numberValue2 = numberValue23
+        numberValue31 = dataTable4
+        numberValue31 = numberValue31[numberValue2]
+        numberValue31 = numberValue31[1]
+        numberValue3 = numberValue23
+        numberValue2 = dataTable4
+        numberValue2 = numberValue2[numberValue3]
+        numberValue2 = numberValue2[2]
+        workValue4 = numberValue23
+        numberValue3 = dataTable4
+        numberValue3 = numberValue3[workValue4]
+        numberValue3 = numberValue3[3]
+        workValue4 = 255
+        dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
       else
-        SHX1_3 = SHX6_1
-        if 2 == SHX1_3 then
-          SHX1_3 = SHX31_1
-          SHX2_3 = "MPIsland_Voltage"
-          SHX3_3 = "CIRCLE_NODE"
-          SHX4_3 = 0.691
-          SHX5_3 = 0.5
-          SHX6_3 = 0.078
-          SHX7_3 = 0.125
-          SHX8_3 = 0
-          SHX10_3 = SHX5_1
-          SHX9_3 = SHX16_1
-          SHX9_3 = SHX9_3[SHX10_3]
-          SHX9_3 = SHX9_3[1]
-          SHX11_3 = SHX5_1
-          SHX10_3 = SHX16_1
-          SHX10_3 = SHX10_3[SHX11_3]
-          SHX10_3 = SHX10_3[2]
-          SHX12_3 = SHX5_1
-          SHX11_3 = SHX16_1
-          SHX11_3 = SHX11_3[SHX12_3]
-          SHX11_3 = SHX11_3[3]
-          SHX12_3 = 255
-          SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+        dataTable8 = numberValue26
+        if 2 == dataTable8 then
+          dataTable8 = numberValue17
+          textValue5 = "MPIsland_Voltage"
+          numberValue21 = "CIRCLE_NODE"
+          numberValue22 = 0.691
+          numberValue24 = 0.5
+          numberValue27 = 0.078
+          numberValue28 = 0.125
+          numberValue30 = 0
+          numberValue2 = numberValue23
+          numberValue31 = dataTable4
+          numberValue31 = numberValue31[numberValue2]
+          numberValue31 = numberValue31[1]
+          numberValue3 = numberValue23
+          numberValue2 = dataTable4
+          numberValue2 = numberValue2[numberValue3]
+          numberValue2 = numberValue2[2]
+          workValue4 = numberValue23
+          numberValue3 = dataTable4
+          numberValue3 = numberValue3[workValue4]
+          numberValue3 = numberValue3[3]
+          workValue4 = 255
+          dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
         else
-          SHX1_3 = SHX6_1
-          if 3 == SHX1_3 then
-            SHX1_3 = SHX31_1
-            SHX2_3 = "MPIsland_Voltage"
-            SHX3_3 = "CIRCLE_NODE"
-            SHX4_3 = 0.691
-            SHX5_3 = 0.694
-            SHX6_3 = 0.078
-            SHX7_3 = 0.125
-            SHX8_3 = 0
-            SHX10_3 = SHX5_1
-            SHX9_3 = SHX16_1
-            SHX9_3 = SHX9_3[SHX10_3]
-            SHX9_3 = SHX9_3[1]
-            SHX11_3 = SHX5_1
-            SHX10_3 = SHX16_1
-            SHX10_3 = SHX10_3[SHX11_3]
-            SHX10_3 = SHX10_3[2]
-            SHX12_3 = SHX5_1
-            SHX11_3 = SHX16_1
-            SHX11_3 = SHX11_3[SHX12_3]
-            SHX11_3 = SHX11_3[3]
-            SHX12_3 = 255
-            SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
+          dataTable8 = numberValue26
+          if 3 == dataTable8 then
+            dataTable8 = numberValue17
+            textValue5 = "MPIsland_Voltage"
+            numberValue21 = "CIRCLE_NODE"
+            numberValue22 = 0.691
+            numberValue24 = 0.694
+            numberValue27 = 0.078
+            numberValue28 = 0.125
+            numberValue30 = 0
+            numberValue2 = numberValue23
+            numberValue31 = dataTable4
+            numberValue31 = numberValue31[numberValue2]
+            numberValue31 = numberValue31[1]
+            numberValue3 = numberValue23
+            numberValue2 = dataTable4
+            numberValue2 = numberValue2[numberValue3]
+            numberValue2 = numberValue2[2]
+            workValue4 = numberValue23
+            numberValue3 = dataTable4
+            numberValue3 = numberValue3[workValue4]
+            numberValue3 = numberValue3[3]
+            workValue4 = 255
+            dataTable8(textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4)
           end
         end
       end
-      SHX1_3 = SHX5_1
-      if 0 ~= SHX1_3 then
-        SHX1_3 = SHX6_1
-        if 0 ~= SHX1_3 then
-          SHX1_3 = pairs
-          SHX2_3 = tostring
-          SHX3_3 = SHX5_1
-          SHX2_3 = SHX2_3(SHX3_3)
-          SHX3_3 = SHX23_1
-          SHX2_3 = SHX3_3[SHX2_3]
-          SHX3_3 = tostring
-          SHX4_3 = SHX6_1
-          SHX3_3 = SHX3_3(SHX4_3)
-          SHX2_3 = SHX2_3[SHX3_3]
-          SHX1_3, SHX2_3, SHX3_3, SHX4_3 = SHX1_3(SHX2_3)
-          for SHX5_3, SHX6_3 in SHX1_3, SHX2_3, SHX3_3, SHX4_3 do
-            SHX7_3 = SHX5_1
-            if SHX7_3 then
-              SHX7_3 = SHX6_1
-              if SHX7_3 then
-                SHX7_3 = SHX30_1
-                SHX8_3 = SHX6_3[1]
-                SHX9_3 = SHX6_3[2]
-                SHX10_3 = SHX6_3[3]
-                SHX11_3 = SHX6_3[4]
-                SHX13_3 = SHX5_1
-                SHX12_3 = SHX16_1
-                SHX12_3 = SHX12_3[SHX13_3]
-                SHX12_3 = SHX12_3[1]
-                SHX14_3 = SHX5_1
-                SHX13_3 = SHX16_1
-                SHX13_3 = SHX13_3[SHX14_3]
-                SHX13_3 = SHX13_3[2]
-                SHX15_3 = SHX5_1
-                SHX14_3 = SHX16_1
-                SHX14_3 = SHX14_3[SHX15_3]
-                SHX14_3 = SHX14_3[3]
-                SHX16_3 = SHX5_1
-                SHX15_3 = SHX19_1
-                SHX15_3 = SHX15_3[SHX16_3]
-                SHX7_3(SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3)
+      dataTable8 = numberValue23
+      if 0 ~= dataTable8 then
+        dataTable8 = numberValue26
+        if 0 ~= dataTable8 then
+          dataTable8 = pairs
+          textValue5 = tostring
+          numberValue21 = numberValue23
+          textValue5 = textValue5(numberValue21)
+          numberValue21 = dataTable9
+          textValue5 = numberValue21[textValue5]
+          numberValue21 = tostring
+          numberValue22 = numberValue26
+          numberValue21 = numberValue21(numberValue22)
+          textValue5 = textValue5[numberValue21]
+          dataTable8, textValue5, numberValue21, numberValue22 = dataTable8(textValue5)
+          for numberValue24, numberValue27 in dataTable8, textValue5, numberValue21, numberValue22 do
+            numberValue28 = numberValue23
+            if numberValue28 then
+              numberValue28 = numberValue26
+              if numberValue28 then
+                numberValue28 = numberValue16
+                numberValue30 = numberValue27[1]
+                numberValue31 = numberValue27[2]
+                numberValue2 = numberValue27[3]
+                numberValue3 = numberValue27[4]
+                numberValue4 = numberValue23
+                workValue4 = dataTable4
+                workValue4 = workValue4[numberValue4]
+                workValue4 = workValue4[1]
+                numberValue5 = numberValue23
+                numberValue4 = dataTable4
+                numberValue4 = numberValue4[numberValue5]
+                numberValue4 = numberValue4[2]
+                numberValue6 = numberValue23
+                numberValue5 = dataTable4
+                numberValue5 = numberValue5[numberValue6]
+                numberValue5 = numberValue5[3]
+                numberValue7 = numberValue23
+                numberValue6 = dataTable7
+                numberValue6 = numberValue6[numberValue7]
+                numberValue28(numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6)
               end
             end
           end
         end
       end
-      SHX1_3 = SHX25_1
-      SHX2_3 = SHX13_1
-      SHX1_3 = SHX1_3(SHX2_3)
-      if 0 ~= SHX1_3 then
-        SHX1_3 = pairs
-        SHX2_3 = SHX13_1
-        SHX1_3, SHX2_3, SHX3_3, SHX4_3 = SHX1_3(SHX2_3)
-        for SHX5_3, SHX6_3 in SHX1_3, SHX2_3, SHX3_3, SHX4_3 do
-          SHX7_3 = pairs
-          SHX8_3 = tostring
-          SHX9_3 = SHX6_3[1]
-          SHX8_3 = SHX8_3(SHX9_3)
-          SHX9_3 = SHX23_1
-          SHX8_3 = SHX9_3[SHX8_3]
-          SHX9_3 = tostring
-          SHX10_3 = SHX6_3[2]
-          SHX9_3 = SHX9_3(SHX10_3)
-          SHX8_3 = SHX8_3[SHX9_3]
-          SHX7_3, SHX8_3, SHX9_3, SHX10_3 = SHX7_3(SHX8_3)
-          for SHX11_3, SHX12_3 in SHX7_3, SHX8_3, SHX9_3, SHX10_3 do
-            SHX13_3 = SHX6_3[1]
-            if SHX13_3 then
-              SHX13_3 = SHX6_3[2]
-              if SHX13_3 then
-                SHX13_3 = SHX30_1
-                SHX14_3 = SHX12_3[1]
-                SHX15_3 = SHX12_3[2]
-                SHX16_3 = SHX12_3[3]
-                SHX17_3 = SHX12_3[4]
-                SHX19_3 = SHX6_3[1]
-                SHX18_3 = SHX16_1
-                SHX18_3 = SHX18_3[SHX19_3]
-                SHX18_3 = SHX18_3[1]
-                SHX20_3 = SHX6_3[1]
-                SHX19_3 = SHX16_1
-                SHX19_3 = SHX19_3[SHX20_3]
-                SHX19_3 = SHX19_3[2]
-                SHX21_3 = SHX6_3[1]
-                SHX20_3 = SHX16_1
-                SHX20_3 = SHX20_3[SHX21_3]
-                SHX20_3 = SHX20_3[3]
-                SHX22_3 = SHX6_3[1]
-                SHX21_3 = SHX19_1
-                SHX21_3 = SHX21_3[SHX22_3]
-                SHX13_3(SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3, SHX19_3, SHX20_3, SHX21_3)
+      dataTable8 = textValue3
+      textValue5 = dataTable3
+      dataTable8 = dataTable8(textValue5)
+      if 0 ~= dataTable8 then
+        dataTable8 = pairs
+        textValue5 = dataTable3
+        dataTable8, textValue5, numberValue21, numberValue22 = dataTable8(textValue5)
+        for numberValue24, numberValue27 in dataTable8, textValue5, numberValue21, numberValue22 do
+          numberValue28 = pairs
+          numberValue30 = tostring
+          numberValue31 = numberValue27[1]
+          numberValue30 = numberValue30(numberValue31)
+          numberValue31 = dataTable9
+          numberValue30 = numberValue31[numberValue30]
+          numberValue31 = tostring
+          numberValue2 = numberValue27[2]
+          numberValue31 = numberValue31(numberValue2)
+          numberValue30 = numberValue30[numberValue31]
+          numberValue28, numberValue30, numberValue31, numberValue2 = numberValue28(numberValue30)
+          for numberValue3, workValue4 in numberValue28, numberValue30, numberValue31, numberValue2 do
+            numberValue4 = numberValue27[1]
+            if numberValue4 then
+              numberValue4 = numberValue27[2]
+              if numberValue4 then
+                numberValue4 = numberValue16
+                numberValue5 = workValue4[1]
+                numberValue6 = workValue4[2]
+                numberValue7 = workValue4[3]
+                workValue11 = workValue4[4]
+                workValue15 = numberValue27[1]
+                workValue13 = dataTable4
+                workValue13 = workValue13[workValue15]
+                workValue13 = workValue13[1]
+                workValue18 = numberValue27[1]
+                workValue15 = dataTable4
+                workValue15 = workValue15[workValue18]
+                workValue15 = workValue15[2]
+                workValue20 = numberValue27[1]
+                workValue18 = dataTable4
+                workValue18 = workValue18[workValue20]
+                workValue18 = workValue18[3]
+                workValue22 = numberValue27[1]
+                workValue20 = dataTable7
+                workValue20 = workValue20[workValue22]
+                numberValue4(numberValue5, numberValue6, numberValue7, workValue11, workValue13, workValue15, workValue18, workValue20)
               end
             end
           end
         end
       end
     end
-    SHX0_3 = print
-    SHX1_3 = "Ended first Voltlab hacking thread"
-    SHX0_3(SHX1_3)
+    waitCall = print
+    dataTable8 = "Ended first Voltlab hacking thread"
+    waitCall(dataTable8)
   end
-  SHX5_2(SHX6_2)
-  SHX5_2 = Wait
-  SHX6_2 = 100
-  SHX5_2(SHX6_2)
-  SHX5_2 = print
-  SHX6_2 = "Creating second Voltlab hacking thread"
-  SHX5_2(SHX6_2)
-  SHX5_2 = CreateThread
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3
-    SHX0_3 = 0
-    SHX1_3 = 0
-    SHX2_3 = SHX32_1
-    SHX3_3 = "instructional_buttons"
-    SHX2_3 = SHX2_3(SHX3_3)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg6(arg7)
+  arg6 = Wait
+  arg7 = 100
+  arg6(arg7)
+  arg6 = print
+  arg7 = "Creating second Voltlab hacking thread"
+  arg6(arg7)
+  arg6 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function arg7()
+    local waitCall, dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31
+    waitCall = 0
+    dataTable8 = 0
+    textValue5 = numberValue18
+    numberValue21 = "instructional_buttons"
+    textValue5 = textValue5(numberValue21)
     while true do
-      SHX3_3 = SHX2_1
-      if not SHX3_3 then
+      numberValue21 = flag
+      if not numberValue21 then
         break
       end
-      SHX3_3 = Wait
-      SHX4_3 = 5
-      SHX3_3(SHX4_3)
-      SHX3_3 = DrawScaleformMovieFullscreen
-      SHX4_3 = SHX2_3
-      SHX5_3 = 255
-      SHX6_3 = 255
-      SHX7_3 = 255
-      SHX8_3 = 255
-      SHX9_3 = 0
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 172
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 173
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 174
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 175
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 194
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 191
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 24
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = DisableControlAction
-      SHX4_3 = 0
-      SHX5_3 = 25
-      SHX6_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-      SHX3_3 = IsDisabledControlJustPressed
-      SHX4_3 = 0
-      SHX5_3 = 172
-      SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-      if SHX3_3 then
-        SHX3_3 = SHX5_1
-        if SHX3_3 > 1 then
-          SHX3_3 = SHX5_1
-          if SHX3_3 < 4 then
-            SHX3_3 = SHX5_1
-            SHX3_3 = SHX3_3 - 1
-            SHX5_1 = SHX3_3
-            SHX3_3 = SHX26_1
-            SHX4_3 = "Disconnect_Wire"
-            SHX5_3 = "DLC_H4_Voltage_Minigame_Sounds"
-            SHX3_3(SHX4_3, SHX5_3)
-            SHX3_3 = SHX6_1
-            if 0 ~= SHX3_3 then
-              SHX4_3 = SHX5_1
-              SHX3_3 = SHX7_1
-              SHX3_3 = SHX3_3[SHX4_3]
-              SHX5_3 = SHX6_1
-              SHX4_3 = SHX21_1
-              SHX4_3 = SHX4_3[SHX5_3]
-              SHX3_3 = SHX3_3 * SHX4_3
-              SHX0_3 = SHX1_3 + SHX3_3
-              SHX3_3 = SHX28_1
-              SHX4_3 = SHX0_3
-              SHX3_3(SHX4_3)
+      numberValue21 = Wait
+      numberValue22 = 5
+      numberValue21(numberValue22)
+      numberValue21 = DrawScaleformMovieFullscreen
+      numberValue22 = textValue5
+      numberValue24 = 255
+      numberValue27 = 255
+      numberValue28 = 255
+      numberValue30 = 255
+      numberValue31 = 0
+      numberValue21(numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 172
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 173
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 174
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 175
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 194
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 191
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 24
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = DisableControlAction
+      numberValue22 = 0
+      numberValue24 = 25
+      numberValue27 = true
+      numberValue21(numberValue22, numberValue24, numberValue27)
+      numberValue21 = IsDisabledControlJustPressed
+      numberValue22 = 0
+      numberValue24 = 172
+      numberValue21 = numberValue21(numberValue22, numberValue24)
+      if numberValue21 then
+        numberValue21 = numberValue23
+        if numberValue21 > 1 then
+          numberValue21 = numberValue23
+          if numberValue21 < 4 then
+            numberValue21 = numberValue23
+            numberValue21 = numberValue21 - 1
+            numberValue23 = numberValue21
+            numberValue21 = textValue4
+            numberValue22 = "Disconnect_Wire"
+            numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
+            numberValue21(numberValue22, numberValue24)
+            numberValue21 = numberValue26
+            if 0 ~= numberValue21 then
+              numberValue22 = numberValue23
+              numberValue21 = dataTable10
+              numberValue21 = numberValue21[numberValue22]
+              numberValue24 = numberValue26
+              numberValue22 = numberValue10
+              numberValue22 = numberValue22[numberValue24]
+              numberValue21 = numberValue21 * numberValue22
+              waitCall = dataTable8 + numberValue21
+              numberValue21 = numberValue13
+              numberValue22 = waitCall
+              numberValue21(numberValue22)
             end
           end
         end
       else
-        SHX3_3 = IsDisabledControlJustPressed
-        SHX4_3 = 0
-        SHX5_3 = 173
-        SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-        if SHX3_3 then
-          SHX3_3 = SHX5_1
-          if SHX3_3 < 3 then
-            SHX3_3 = SHX5_1
-            if SHX3_3 >= 0 then
-              SHX3_3 = SHX5_1
-              SHX3_3 = SHX3_3 + 1
-              SHX5_1 = SHX3_3
-              SHX3_3 = SHX26_1
-              SHX4_3 = "Disconnect_Wire"
-              SHX5_3 = "DLC_H4_Voltage_Minigame_Sounds"
-              SHX3_3(SHX4_3, SHX5_3)
-              SHX3_3 = SHX6_1
-              if 0 ~= SHX3_3 then
-                SHX4_3 = SHX5_1
-                SHX3_3 = SHX7_1
-                SHX3_3 = SHX3_3[SHX4_3]
-                SHX5_3 = SHX6_1
-                SHX4_3 = SHX21_1
-                SHX4_3 = SHX4_3[SHX5_3]
-                SHX3_3 = SHX3_3 * SHX4_3
-                SHX0_3 = SHX1_3 + SHX3_3
-                SHX3_3 = SHX28_1
-                SHX4_3 = SHX0_3
-                SHX3_3(SHX4_3)
+        numberValue21 = IsDisabledControlJustPressed
+        numberValue22 = 0
+        numberValue24 = 173
+        numberValue21 = numberValue21(numberValue22, numberValue24)
+        if numberValue21 then
+          numberValue21 = numberValue23
+          if numberValue21 < 3 then
+            numberValue21 = numberValue23
+            if numberValue21 >= 0 then
+              numberValue21 = numberValue23
+              numberValue21 = numberValue21 + 1
+              numberValue23 = numberValue21
+              numberValue21 = textValue4
+              numberValue22 = "Disconnect_Wire"
+              numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
+              numberValue21(numberValue22, numberValue24)
+              numberValue21 = numberValue26
+              if 0 ~= numberValue21 then
+                numberValue22 = numberValue23
+                numberValue21 = dataTable10
+                numberValue21 = numberValue21[numberValue22]
+                numberValue24 = numberValue26
+                numberValue22 = numberValue10
+                numberValue22 = numberValue22[numberValue24]
+                numberValue21 = numberValue21 * numberValue22
+                waitCall = dataTable8 + numberValue21
+                numberValue21 = numberValue13
+                numberValue22 = waitCall
+                numberValue21(numberValue22)
               end
             end
           end
         else
-          SHX3_3 = IsDisabledControlJustPressed
-          SHX4_3 = 0
-          SHX5_3 = 174
-          SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-          if SHX3_3 then
-            SHX3_3 = SHX6_1
-            if SHX3_3 > 1 then
-              SHX3_3 = SHX6_1
-              if SHX3_3 < 4 then
-                SHX3_3 = SHX6_1
-                SHX3_3 = SHX3_3 - 1
-                SHX6_1 = SHX3_3
-                SHX3_3 = SHX26_1
-                SHX4_3 = "Disconnect_Wire"
-                SHX5_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                SHX3_3(SHX4_3, SHX5_3)
-                SHX4_3 = SHX5_1
-                SHX3_3 = SHX7_1
-                SHX3_3 = SHX3_3[SHX4_3]
-                SHX5_3 = SHX6_1
-                SHX4_3 = SHX21_1
-                SHX4_3 = SHX4_3[SHX5_3]
-                SHX3_3 = SHX3_3 * SHX4_3
-                SHX0_3 = SHX1_3 + SHX3_3
-                SHX3_3 = SHX28_1
-                SHX4_3 = SHX0_3
-                SHX3_3(SHX4_3)
+          numberValue21 = IsDisabledControlJustPressed
+          numberValue22 = 0
+          numberValue24 = 174
+          numberValue21 = numberValue21(numberValue22, numberValue24)
+          if numberValue21 then
+            numberValue21 = numberValue26
+            if numberValue21 > 1 then
+              numberValue21 = numberValue26
+              if numberValue21 < 4 then
+                numberValue21 = numberValue26
+                numberValue21 = numberValue21 - 1
+                numberValue26 = numberValue21
+                numberValue21 = textValue4
+                numberValue22 = "Disconnect_Wire"
+                numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
+                numberValue21(numberValue22, numberValue24)
+                numberValue22 = numberValue23
+                numberValue21 = dataTable10
+                numberValue21 = numberValue21[numberValue22]
+                numberValue24 = numberValue26
+                numberValue22 = numberValue10
+                numberValue22 = numberValue22[numberValue24]
+                numberValue21 = numberValue21 * numberValue22
+                waitCall = dataTable8 + numberValue21
+                numberValue21 = numberValue13
+                numberValue22 = waitCall
+                numberValue21(numberValue22)
               end
             end
           else
-            SHX3_3 = IsDisabledControlJustPressed
-            SHX4_3 = 0
-            SHX5_3 = 175
-            SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-            if SHX3_3 then
-              SHX3_3 = SHX6_1
-              if SHX3_3 < 3 then
-                SHX3_3 = SHX6_1
-                if SHX3_3 >= 0 then
-                  SHX3_3 = SHX6_1
-                  SHX3_3 = SHX3_3 + 1
-                  SHX6_1 = SHX3_3
-                  SHX3_3 = SHX26_1
-                  SHX4_3 = "Disconnect_Wire"
-                  SHX5_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                  SHX3_3(SHX4_3, SHX5_3)
-                  SHX4_3 = SHX5_1
-                  SHX3_3 = SHX7_1
-                  SHX3_3 = SHX3_3[SHX4_3]
-                  SHX5_3 = SHX6_1
-                  SHX4_3 = SHX21_1
-                  SHX4_3 = SHX4_3[SHX5_3]
-                  SHX3_3 = SHX3_3 * SHX4_3
-                  SHX0_3 = SHX1_3 + SHX3_3
-                  SHX3_3 = SHX28_1
-                  SHX4_3 = SHX0_3
-                  SHX3_3(SHX4_3)
+            numberValue21 = IsDisabledControlJustPressed
+            numberValue22 = 0
+            numberValue24 = 175
+            numberValue21 = numberValue21(numberValue22, numberValue24)
+            if numberValue21 then
+              numberValue21 = numberValue26
+              if numberValue21 < 3 then
+                numberValue21 = numberValue26
+                if numberValue21 >= 0 then
+                  numberValue21 = numberValue26
+                  numberValue21 = numberValue21 + 1
+                  numberValue26 = numberValue21
+                  numberValue21 = textValue4
+                  numberValue22 = "Disconnect_Wire"
+                  numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
+                  numberValue21(numberValue22, numberValue24)
+                  numberValue22 = numberValue23
+                  numberValue21 = dataTable10
+                  numberValue21 = numberValue21[numberValue22]
+                  numberValue24 = numberValue26
+                  numberValue22 = numberValue10
+                  numberValue22 = numberValue22[numberValue24]
+                  numberValue21 = numberValue21 * numberValue22
+                  waitCall = dataTable8 + numberValue21
+                  numberValue21 = numberValue13
+                  numberValue22 = waitCall
+                  numberValue21(numberValue22)
                 end
               end
             else
-              SHX3_3 = IsDisabledControlJustPressed
-              SHX4_3 = 0
-              SHX5_3 = 194
-              SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-              if SHX3_3 then
-                SHX3_3 = false
-                SHX15_1 = SHX3_3
-                SHX3_3 = false
-                SHX2_1 = SHX3_3
-                SHX3_3 = SHX26_1
-                SHX4_3 = "Minigame_Failure"
-                SHX5_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                SHX3_3(SHX4_3, SHX5_3)
-                SHX3_3 = SendNUIMessage
-                SHX4_3 = {}
-                SHX4_3.type = "fail"
-                SHX3_3(SHX4_3)
-                SHX3_3 = true
-                SHX3_1 = SHX3_3
-                SHX3_3 = SHX4_1
-                SHX4_3 = 0
-                SHX5_3 = "Hack cancelled"
-                SHX3_3(SHX4_3, SHX5_3)
+              numberValue21 = IsDisabledControlJustPressed
+              numberValue22 = 0
+              numberValue24 = 194
+              numberValue21 = numberValue21(numberValue22, numberValue24)
+              if numberValue21 then
+                numberValue21 = false
+                workValue7 = numberValue21
+                numberValue21 = false
+                flag = numberValue21
+                numberValue21 = textValue4
+                numberValue22 = "Minigame_Failure"
+                numberValue24 = "DLC_H4_Voltage_Minigame_Sounds"
+                numberValue21(numberValue22, numberValue24)
+                numberValue21 = SendNUIMessage
+                numberValue22 = {}
+                numberValue22.type = "fail"
+                -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+                numberValue21(numberValue22)
+                numberValue21 = true
+                flag2 = numberValue21
+                numberValue21 = workValue27
+                numberValue22 = 0
+                numberValue24 = "Hack cancelled"
+                numberValue21(numberValue22, numberValue24)
               else
-                SHX3_3 = IsDisabledControlJustPressed
-                SHX4_3 = 0
-                SHX5_3 = 191
-                SHX3_3 = SHX3_3(SHX4_3, SHX5_3)
-                if SHX3_3 then
-                  SHX3_3 = SHX6_1
-                  if 0 ~= SHX3_3 then
-                    SHX3_3 = tostring
-                    SHX4_3 = SHX6_1
-                    SHX3_3 = SHX3_3(SHX4_3)
-                    SHX4_3 = SHX12_1
-                    SHX3_3 = SHX4_3[SHX3_3]
-                    if nil ~= SHX3_3 then
-                      SHX3_3 = tostring
-                      SHX4_3 = SHX6_1
-                      SHX3_3 = SHX3_3(SHX4_3)
-                      SHX4_3 = SHX12_1
-                      SHX3_3 = SHX4_3[SHX3_3]
-                      if false ~= SHX3_3 then
-                        goto SHX_LABEL_367
+                numberValue21 = IsDisabledControlJustPressed
+                numberValue22 = 0
+                numberValue24 = 191
+                numberValue21 = numberValue21(numberValue22, numberValue24)
+                if numberValue21 then
+                  numberValue21 = numberValue26
+                  if 0 ~= numberValue21 then
+                    numberValue21 = tostring
+                    numberValue22 = numberValue26
+                    numberValue21 = numberValue21(numberValue22)
+                    numberValue22 = dataTable2
+                    numberValue21 = numberValue22[numberValue21]
+                    if nil ~= numberValue21 then
+                      numberValue21 = tostring
+                      numberValue22 = numberValue26
+                      numberValue21 = numberValue21(numberValue22)
+                      numberValue22 = dataTable2
+                      numberValue21 = numberValue22[numberValue21]
+                      if false ~= numberValue21 then
+                        goto flow_label_367
                       end
                     end
-                    SHX3_3 = tostring
-                    SHX4_3 = SHX5_1
-                    SHX3_3 = SHX3_3(SHX4_3)
-                    SHX4_3 = SHX13_1
-                    SHX3_3 = SHX4_3[SHX3_3]
-                    if nil ~= SHX3_3 then
-                      SHX3_3 = tostring
-                      SHX4_3 = SHX5_1
-                      SHX3_3 = SHX3_3(SHX4_3)
-                      SHX4_3 = SHX13_1
-                      SHX3_3 = SHX4_3[SHX3_3]
-                      if false ~= SHX3_3 then
-                        goto SHX_LABEL_367
+                    numberValue21 = tostring
+                    numberValue22 = numberValue23
+                    numberValue21 = numberValue21(numberValue22)
+                    numberValue22 = dataTable3
+                    numberValue21 = numberValue22[numberValue21]
+                    if nil ~= numberValue21 then
+                      numberValue21 = tostring
+                      numberValue22 = numberValue23
+                      numberValue21 = numberValue21(numberValue22)
+                      numberValue22 = dataTable3
+                      numberValue21 = numberValue22[numberValue21]
+                      if false ~= numberValue21 then
+                        goto flow_label_367
                       end
                     end
-                    SHX3_3 = 1
-                    SHX4_3 = 255
-                    SHX5_3 = SHX26_1
-                    SHX6_3 = "OS_Draw"
-                    SHX7_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                    SHX5_3(SHX6_3, SHX7_3)
-                    SHX5_3 = CreateThread
-                    function SHX6_3()
-                      -- [AI CLEANUP] Decompiled Lua - Fix these:
-                      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                      -- 3. Replace goto/label with while/repeat-until where possible
-                      -- 4. Remove decompiler comments, add meaningful ones
-                      -- 5. Fix indentation and formatting
-                      
-                      local SHX0_4, SHX1_4, SHX2_4, SHX3_4, SHX4_4, SHX5_4
+                    numberValue21 = 1
+                    numberValue22 = 255
+                    numberValue24 = textValue4
+                    numberValue27 = "OS_Draw"
+                    numberValue28 = "DLC_H4_Voltage_Minigame_Sounds"
+                    numberValue24(numberValue27, numberValue28)
+                    numberValue24 = CreateThread
+                    -- Beginner: this function is the body of a background FiveM thread.
+                    function numberValue27()
+                      local waitCall2, numberValue8, numberValue15, workValue25, workValue28, numberValue25
                       while true do
-                        SHX0_4 = SHX3_3
-                        if not (SHX0_4 > 0) then
+                        waitCall2 = numberValue21
+                        if not (waitCall2 > 0) then
                           break
                         end
-                        SHX0_4 = 1
-                        SHX1_4 = SHX19_1
-                        SHX1_4 = #SHX1_4
-                        SHX2_4 = 1
-                        for SHX3_4 = SHX0_4, SHX1_4, SHX2_4 do
-                          SHX4_4 = SHX19_1
-                          SHX5_4 = SHX4_3
-                          SHX4_4[SHX3_4] = SHX5_4
-                          SHX4_4 = SHX4_3
-                          SHX5_4 = 255
-                          if SHX4_4 < SHX5_4 then
-                            SHX4_4 = SHX4_3
-                            SHX4_4 = SHX4_4 + 85
-                            SHX4_3 = SHX4_4
+                        waitCall2 = 1
+                        numberValue8 = dataTable7
+                        numberValue8 = #numberValue8
+                        numberValue15 = 1
+                        for workValue25 = waitCall2, numberValue8, numberValue15 do
+                          workValue28 = dataTable7
+                          numberValue25 = numberValue22
+                          workValue28[workValue25] = numberValue25
+                          workValue28 = numberValue22
+                          numberValue25 = 255
+                          if workValue28 < numberValue25 then
+                            workValue28 = numberValue22
+                            workValue28 = workValue28 + 85
+                            numberValue22 = workValue28
                           else
-                            SHX4_4 = SHX4_3
-                            SHX4_4 = SHX4_4 - 85
-                            SHX4_3 = SHX4_4
+                            workValue28 = numberValue22
+                            workValue28 = workValue28 - 85
+                            numberValue22 = workValue28
                           end
                         end
-                        SHX0_4 = Wait
-                        SHX1_4 = 100
-                        SHX0_4(SHX1_4)
+                        waitCall2 = Wait
+                        numberValue8 = 100
+                        waitCall2(numberValue8)
                       end
-                      SHX0_4 = 1
-                      SHX1_4 = SHX19_1
-                      SHX1_4 = #SHX1_4
-                      SHX2_4 = 1
-                      for SHX3_4 = SHX0_4, SHX1_4, SHX2_4 do
-                        SHX4_4 = SHX19_1
-                        SHX4_4[SHX3_4] = 255
+                      waitCall2 = 1
+                      numberValue8 = dataTable7
+                      numberValue8 = #numberValue8
+                      numberValue15 = 1
+                      for workValue25 = waitCall2, numberValue8, numberValue15 do
+                        workValue28 = dataTable7
+                        workValue28[workValue25] = 255
                       end
                     end
-                    SHX5_3(SHX6_3)
-                    SHX5_3 = Wait
-                    SHX6_3 = 1000
-                    SHX5_3(SHX6_3)
-                    SHX3_3 = 0
-                    SHX6_3 = SHX5_1
-                    SHX5_3 = SHX7_1
-                    SHX5_3 = SHX5_3[SHX6_3]
-                    SHX7_3 = SHX6_1
-                    SHX6_3 = SHX21_1
-                    SHX6_3 = SHX6_3[SHX7_3]
-                    SHX5_3 = SHX5_3 * SHX6_3
-                    SHX1_3 = SHX1_3 + SHX5_3
-                    SHX10_1 = SHX1_3
-                    SHX5_3 = tostring
-                    SHX6_3 = SHX6_1
-                    SHX5_3 = SHX5_3(SHX6_3)
-                    SHX6_3 = SHX12_1
-                    SHX6_3[SHX5_3] = true
-                    SHX5_3 = tostring
-                    SHX6_3 = SHX5_1
-                    SHX5_3 = SHX5_3(SHX6_3)
-                    SHX6_3 = SHX13_1
-                    SHX7_3 = {}
-                    SHX8_3 = SHX5_1
-                    SHX9_3 = SHX6_1
-                    SHX7_3[1] = SHX8_3
-                    SHX7_3[2] = SHX9_3
-                    SHX6_3[SHX5_3] = SHX7_3
-                    SHX5_3 = SHX25_1
-                    SHX6_3 = SHX13_1
-                    SHX5_3 = SHX5_3(SHX6_3)
-                    if SHX5_3 >= 3 then
-                      SHX5_3 = SHX8_1
-                      if SHX1_3 == SHX5_3 then
-                        SHX5_3 = true
-                        SHX15_1 = SHX5_3
-                        SHX5_3 = SHX26_1
-                        SHX6_3 = "All_Connected_Correct"
-                        SHX7_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                        SHX5_3(SHX6_3, SHX7_3)
-                        SHX5_3 = 1
-                        SHX6_3 = CreateThread
-                        function SHX7_3()
-                          -- [AI CLEANUP] Decompiled Lua - Fix these:
-                          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-                          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-                          -- 3. Replace goto/label with while/repeat-until where possible
-                          -- 4. Remove decompiler comments, add meaningful ones
-                          -- 5. Fix indentation and formatting
-                          
-                          local SHX0_4, SHX1_4
+                    -- Beginner: Start a separate FiveM thread so this code can run independently.
+                    numberValue24(numberValue27)
+                    numberValue24 = Wait
+                    numberValue27 = 1000
+                    numberValue24(numberValue27)
+                    numberValue21 = 0
+                    numberValue27 = numberValue23
+                    numberValue24 = dataTable10
+                    numberValue24 = numberValue24[numberValue27]
+                    numberValue28 = numberValue26
+                    numberValue27 = numberValue10
+                    numberValue27 = numberValue27[numberValue28]
+                    numberValue24 = numberValue24 * numberValue27
+                    dataTable8 = dataTable8 + numberValue24
+                    numberValue = dataTable8
+                    numberValue24 = tostring
+                    numberValue27 = numberValue26
+                    numberValue24 = numberValue24(numberValue27)
+                    numberValue27 = dataTable2
+                    numberValue27[numberValue24] = true
+                    numberValue24 = tostring
+                    numberValue27 = numberValue23
+                    numberValue24 = numberValue24(numberValue27)
+                    numberValue27 = dataTable3
+                    numberValue28 = {}
+                    numberValue30 = numberValue23
+                    numberValue31 = numberValue26
+                    numberValue28[1] = numberValue30
+                    numberValue28[2] = numberValue31
+                    numberValue27[numberValue24] = numberValue28
+                    numberValue24 = textValue3
+                    numberValue27 = dataTable3
+                    numberValue24 = numberValue24(numberValue27)
+                    if numberValue24 >= 3 then
+                      numberValue24 = numberValue29
+                      if dataTable8 == numberValue24 then
+                        numberValue24 = true
+                        workValue7 = numberValue24
+                        numberValue24 = textValue4
+                        numberValue27 = "All_Connected_Correct"
+                        numberValue28 = "DLC_H4_Voltage_Minigame_Sounds"
+                        numberValue24(numberValue27, numberValue28)
+                        numberValue24 = 1
+                        numberValue27 = CreateThread
+                        -- Beginner: this function is the body of a background FiveM thread.
+                        function numberValue28()
+                          local waitCall2, numberValue8
                           while true do
-                            SHX0_4 = SHX5_3
-                            if not (SHX0_4 > 0) then
+                            waitCall2 = numberValue24
+                            if not (waitCall2 > 0) then
                               break
                             end
-                            SHX0_4 = SHX18_1
-                            SHX1_4 = 255
-                            if SHX0_4 < SHX1_4 then
-                              SHX0_4 = SHX18_1
-                              SHX0_4 = SHX0_4 + 85
-                              SHX18_1 = SHX0_4
+                            waitCall2 = dataTable6
+                            numberValue8 = 255
+                            if waitCall2 < numberValue8 then
+                              waitCall2 = dataTable6
+                              waitCall2 = waitCall2 + 85
+                              dataTable6 = waitCall2
                             else
-                              SHX0_4 = SHX18_1
-                              SHX0_4 = SHX0_4 - 85
-                              SHX18_1 = SHX0_4
+                              waitCall2 = dataTable6
+                              waitCall2 = waitCall2 - 85
+                              dataTable6 = waitCall2
                             end
-                            SHX0_4 = Wait
-                            SHX1_4 = 100
-                            SHX0_4(SHX1_4)
+                            waitCall2 = Wait
+                            numberValue8 = 100
+                            waitCall2(numberValue8)
                           end
-                          SHX0_4 = 255
-                          SHX18_1 = SHX0_4
+                          waitCall2 = 255
+                          dataTable6 = waitCall2
                         end
-                        SHX6_3(SHX7_3)
-                        SHX6_3 = Wait
-                        SHX7_3 = 1000
-                        SHX6_3(SHX7_3)
-                        SHX5_3 = 0
-                        SHX6_3 = SHX26_1
-                        SHX7_3 = "Minigame_Success"
-                        SHX8_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                        SHX6_3(SHX7_3, SHX8_3)
-                        SHX6_3 = SendNUIMessage
-                        SHX7_3 = {}
-                        SHX7_3.type = "success"
-                        SHX6_3(SHX7_3)
-                        SHX6_3 = false
-                        SHX2_1 = SHX6_3
-                        SHX6_3 = true
-                        SHX3_1 = SHX6_3
-                        SHX6_3 = SHX4_1
-                        SHX7_3 = 1
-                        SHX6_3(SHX7_3)
+                        -- Beginner: Start a separate FiveM thread so this code can run independently.
+                        numberValue27(numberValue28)
+                        numberValue27 = Wait
+                        numberValue28 = 1000
+                        numberValue27(numberValue28)
+                        numberValue24 = 0
+                        numberValue27 = textValue4
+                        numberValue28 = "Minigame_Success"
+                        numberValue30 = "DLC_H4_Voltage_Minigame_Sounds"
+                        numberValue27(numberValue28, numberValue30)
+                        numberValue27 = SendNUIMessage
+                        numberValue28 = {}
+                        numberValue28.type = "success"
+                        -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+                        numberValue27(numberValue28)
+                        numberValue27 = false
+                        flag = numberValue27
+                        numberValue27 = true
+                        flag2 = numberValue27
+                        numberValue27 = workValue27
+                        numberValue28 = 1
+                        numberValue27(numberValue28)
                       else
-                        SHX5_3 = Wait
-                        SHX6_3 = 1000
-                        SHX5_3(SHX6_3)
-                        SHX5_3 = false
-                        SHX15_1 = SHX5_3
-                        SHX5_3 = false
-                        SHX2_1 = SHX5_3
-                        SHX5_3 = SHX26_1
-                        SHX6_3 = "Minigame_Failure"
-                        SHX7_3 = "DLC_H4_Voltage_Minigame_Sounds"
-                        SHX5_3(SHX6_3, SHX7_3)
-                        SHX5_3 = SendNUIMessage
-                        SHX6_3 = {}
-                        SHX6_3.type = "fail"
-                        SHX5_3(SHX6_3)
-                        SHX5_3 = true
-                        SHX3_1 = SHX5_3
-                        SHX5_3 = SHX4_1
-                        SHX6_3 = 0
-                        SHX7_3 = "Hack failed"
-                        SHX5_3(SHX6_3, SHX7_3)
+                        numberValue24 = Wait
+                        numberValue27 = 1000
+                        numberValue24(numberValue27)
+                        numberValue24 = false
+                        workValue7 = numberValue24
+                        numberValue24 = false
+                        flag = numberValue24
+                        numberValue24 = textValue4
+                        numberValue27 = "Minigame_Failure"
+                        numberValue28 = "DLC_H4_Voltage_Minigame_Sounds"
+                        numberValue24(numberValue27, numberValue28)
+                        numberValue24 = SendNUIMessage
+                        numberValue27 = {}
+                        numberValue27.type = "fail"
+                        -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+                        numberValue24(numberValue27)
+                        numberValue24 = true
+                        flag2 = numberValue24
+                        numberValue24 = workValue27
+                        numberValue27 = 0
+                        numberValue28 = "Hack failed"
+                        numberValue24(numberValue27, numberValue28)
                       end
                     end
                   end
@@ -2594,74 +2510,71 @@ function SHX40_1(SHX0_2, SHX1_2)
           end
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_367:: outside nested blocks until all 'goto SHX_LABEL_367' can see it
-      ::SHX_LABEL_367::
+      ::flow_label_367::
     end
-    SHX3_3 = print
-    SHX4_3 = "Ended second Voltlab hacking thread"
-    SHX3_3(SHX4_3)
+    numberValue21 = print
+    numberValue22 = "Ended second Voltlab hacking thread"
+    numberValue21(numberValue22)
   end
-  SHX5_2(SHX6_2)
-  SHX5_2 = print
-  SHX6_2 = "Creating third Voltlab hacking thread"
-  SHX5_2(SHX6_2)
-  SHX5_2 = CreateThread
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = Wait
-    SHX1_3 = 5000
-    SHX0_3(SHX1_3)
-    SHX0_3 = SHX3_2
-    SHX0_3 = SHX0_3 / 6
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg6(arg7)
+  arg6 = print
+  arg7 = "Creating third Voltlab hacking thread"
+  arg6(arg7)
+  arg6 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function arg7()
+    local waitCall, dataTable8, textValue5, numberValue21
+    waitCall = Wait
+    dataTable8 = 5000
+    waitCall(dataTable8)
+    waitCall = arg4
+    waitCall = waitCall / 6
     while true do
-      SHX1_3 = SHX3_2
-      if not (SHX1_3 > 0) then
+      dataTable8 = arg4
+      if not (dataTable8 > 0) then
         break
       end
-      SHX1_3 = Wait
-      SHX2_3 = SHX0_3 * 1000
-      SHX1_3(SHX2_3)
-      SHX1_3 = SHX3_2
-      SHX1_3 = SHX1_3 - SHX0_3
-      SHX3_2 = SHX1_3
-      SHX1_3 = SHX14_1
-      SHX1_3 = SHX1_3 - 1
-      SHX14_1 = SHX1_3
+      dataTable8 = Wait
+      textValue5 = waitCall * 1000
+      dataTable8(textValue5)
+      dataTable8 = arg4
+      dataTable8 = dataTable8 - waitCall
+      arg4 = dataTable8
+      dataTable8 = textValue
+      dataTable8 = dataTable8 - 1
+      textValue = dataTable8
     end
-    SHX1_3 = Wait
-    SHX2_3 = 2000
-    SHX1_3(SHX2_3)
-    SHX1_3 = SHX15_1
-    if nil == SHX1_3 then
-      SHX1_3 = false
-      SHX2_1 = SHX1_3
-      SHX1_3 = SHX26_1
-      SHX2_3 = "Minigame_Failure"
-      SHX3_3 = "DLC_H4_Voltage_Minigame_Sounds"
-      SHX1_3(SHX2_3, SHX3_3)
-      SHX1_3 = SendNUIMessage
-      SHX2_3 = {}
-      SHX2_3.type = "fail"
-      SHX1_3(SHX2_3)
-      SHX1_3 = SHX3_1
-      if not SHX1_3 then
-        SHX1_3 = SHX4_1
-        SHX2_3 = 2
-        SHX3_3 = "Hack timeout out"
-        SHX1_3(SHX2_3, SHX3_3)
+    dataTable8 = Wait
+    textValue5 = 2000
+    dataTable8(textValue5)
+    dataTable8 = workValue7
+    if nil == dataTable8 then
+      dataTable8 = false
+      flag = dataTable8
+      dataTable8 = textValue4
+      textValue5 = "Minigame_Failure"
+      numberValue21 = "DLC_H4_Voltage_Minigame_Sounds"
+      dataTable8(textValue5, numberValue21)
+      dataTable8 = SendNUIMessage
+      textValue5 = {}
+      textValue5.type = "fail"
+      -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+      dataTable8(textValue5)
+      dataTable8 = flag2
+      if not dataTable8 then
+        dataTable8 = workValue27
+        textValue5 = 2
+        numberValue21 = "Hack timeout out"
+        dataTable8(textValue5, numberValue21)
       end
     end
-    SHX1_3 = print
-    SHX2_3 = "Ended third Voltlab hacking thread"
-    SHX1_3(SHX2_3)
+    dataTable8 = print
+    textValue5 = "Ended third Voltlab hacking thread"
+    dataTable8(textValue5)
   end
-  SHX5_2(SHX6_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg6(arg7)
 end
-SHX38_1(SHX39_1, SHX40_1)
+-- Beginner: Register a client-side event handler. Event/command: "ultra-voltlab".
+eventHandlerRegistration(textValue7, workValue26)

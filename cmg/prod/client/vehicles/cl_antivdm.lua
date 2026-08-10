@@ -1,294 +1,296 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Anti-VDM Collision Protection
+    =============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = {}
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerVehicle
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetActivePlayers
-  SHX2_2 = SHX2_2()
-  SHX3_2 = pairs
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getAllVehicles
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2 = SHX4_2()
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX0_1
-    SHX9_2 = SHX9_2[SHX8_2]
-    if SHX9_2 then
-      SHX9_2 = SHX1_1
-      SHX9_2 = SHX9_2[SHX8_2]
-      if SHX9_2 then
-        SHX9_2 = DisableCamCollisionForEntity
-        SHX10_2 = SHX8_2
-        SHX9_2(SHX10_2)
-        SHX9_2 = GetEntitySpeed
-        SHX10_2 = SHX8_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        if SHX9_2 > 5.0 then
-          SHX9_2 = SHX2_1
-          SHX9_2 = SHX9_2[SHX8_2]
-          if not SHX9_2 then
-            SHX9_2 = SHX2_1
-            SHX9_2[SHX8_2] = true
-            SHX9_2 = GetPedInVehicleSeat
-            SHX10_2 = SHX8_2
-            SHX11_2 = -1
-            SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-            if 0 ~= SHX9_2 then
-              SHX9_2 = SetEntityNoCollisionEntity
-              SHX10_2 = SHX0_2
-              SHX11_2 = SHX8_2
-              SHX12_2 = false
-              SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-              SHX9_2 = SetEntityNoCollisionEntity
-              SHX10_2 = SHX8_2
-              SHX11_2 = SHX0_2
-              SHX12_2 = false
-              SHX9_2(SHX10_2, SHX11_2, SHX12_2)
+    VDM = Vehicle Deathmatch: using a moving vehicle to ram players.
+
+    This client watches nearby road vehicles and temporarily disables collision
+    when one is moving quickly.
+
+    Three small caches are maintained:
+      supportedVehicles[vehicle]
+        true for normal road vehicles; false for boats/helicopters/planes.
+
+      nearbyVehicles[vehicle]
+        true while the vehicle is within 50 metres of the local player.
+
+      collisionDisabled[vehicle]
+        true after this script has applied anti-VDM collision changes.
+
+    Main rule:
+      If a supported nearby vehicle is travelling faster than 5.0 game speed
+      units, collision is disabled. When it slows back down, collision is
+      restored.
+
+    There is also a very large Cayo bridge area where the player's current
+    vehicle is made non-colliding with all other vehicles.
+]]
+
+local supportedVehicles = {}
+local nearbyVehicles = {}
+local collisionDisabled = {}
+
+
+-- ============================================================
+-- ENABLE / DISABLE COLLISION SAFELY
+-- ============================================================
+
+local function setPairCollision(
+    firstEntity,
+    secondEntity,
+    shouldCollide
+)
+    if firstEntity == 0
+        or secondEntity == 0 then
+        return
+    end
+
+    -- For this native, false means "disable collision for this pair" and true
+    -- lets normal collision resume, matching the original script's usage.
+    SetEntityNoCollisionEntity(
+        firstEntity,
+        secondEntity,
+        shouldCollide
+    )
+
+    SetEntityNoCollisionEntity(
+        secondEntity,
+        firstEntity,
+        shouldCollide
+    )
+end
+
+
+-- ============================================================
+-- MAIN ANTI-VDM TICK
+-- ============================================================
+
+local function antiVdmTick()
+    local playerPed =
+        CMG.getPlayerPed()
+
+    local playerVehicle =
+        CMG.getPlayerVehicle()
+
+    local activePlayers =
+        GetActivePlayers()
+
+    for _, vehicle
+        in pairs(
+            CMG.getAllVehicles()
+        ) do
+
+        if supportedVehicles[vehicle]
+            and nearbyVehicles[vehicle] then
+
+            DisableCamCollisionForEntity(
+                vehicle
+            )
+
+            local movingFast =
+                GetEntitySpeed(vehicle)
+                > 5.0
+
+            if movingFast
+                and not collisionDisabled[
+                    vehicle
+                ] then
+
+                collisionDisabled[vehicle] =
+                    true
+
+                if GetPedInVehicleSeat(
+                    vehicle,
+                    -1
+                ) ~= 0 then
+
+                    setPairCollision(
+                        playerPed,
+                        vehicle,
+                        false
+                    )
+                end
+
+                -- The original also prevents the LOCAL player's current
+                -- vehicle from colliding with active player peds.
+                for _, playerIndex
+                    in pairs(activePlayers) do
+
+                    local otherPed =
+                        GetPlayerPed(
+                            playerIndex
+                        )
+
+                    setPairCollision(
+                        playerVehicle,
+                        otherPed,
+                        false
+                    )
+                end
+
+            elseif not movingFast
+                and collisionDisabled[
+                    vehicle
+                ] then
+
+                collisionDisabled[vehicle] =
+                    nil
+
+                if GetPedInVehicleSeat(
+                    vehicle,
+                    -1
+                ) ~= 0 then
+
+                    setPairCollision(
+                        playerPed,
+                        vehicle,
+                        true
+                    )
+                end
+
+                for _, playerIndex
+                    in pairs(activePlayers) do
+
+                    local otherPed =
+                        GetPlayerPed(
+                            playerIndex
+                        )
+
+                    setPairCollision(
+                        playerVehicle,
+                        otherPed,
+                        true
+                    )
+                end
             end
-            SHX9_2 = pairs
-            SHX10_2 = SHX2_2
-            SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-            for SHX13_2, SHX14_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-              SHX15_2 = GetPlayerPed
-              SHX16_2 = SHX14_2
-              SHX15_2 = SHX15_2(SHX16_2)
-              SHX16_2 = SetEntityNoCollisionEntity
-              SHX17_2 = SHX1_2
-              SHX18_2 = SHX15_2
-              SHX19_2 = false
-              SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-              SHX16_2 = SetEntityNoCollisionEntity
-              SHX17_2 = SHX15_2
-              SHX18_2 = SHX1_2
-              SHX19_2 = false
-              SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-            end
-          end
-        else
-          SHX9_2 = SHX2_1
-          SHX9_2 = SHX9_2[SHX8_2]
-          if SHX9_2 then
-            SHX9_2 = SHX2_1
-            SHX9_2[SHX8_2] = nil
-            SHX9_2 = GetPedInVehicleSeat
-            SHX10_2 = SHX8_2
-            SHX11_2 = -1
-            SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-            if 0 ~= SHX9_2 then
-              SHX9_2 = SetEntityNoCollisionEntity
-              SHX10_2 = SHX0_2
-              SHX11_2 = SHX8_2
-              SHX12_2 = true
-              SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-              SHX9_2 = SetEntityNoCollisionEntity
-              SHX10_2 = SHX8_2
-              SHX11_2 = SHX0_2
-              SHX12_2 = true
-              SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-            end
-            SHX9_2 = pairs
-            SHX10_2 = SHX2_2
-            SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-            for SHX13_2, SHX14_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-              SHX15_2 = GetPlayerPed
-              SHX16_2 = SHX14_2
-              SHX15_2 = SHX15_2(SHX16_2)
-              SHX16_2 = SetEntityNoCollisionEntity
-              SHX17_2 = SHX1_2
-              SHX18_2 = SHX15_2
-              SHX19_2 = true
-              SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-              SHX16_2 = SetEntityNoCollisionEntity
-              SHX17_2 = SHX15_2
-              SHX18_2 = SHX1_2
-              SHX19_2 = true
-              SHX16_2(SHX17_2, SHX18_2, SHX19_2)
-            end
-          end
         end
-      end
     end
-  end
 end
-SHX4_1 = CMG
-SHX4_1 = SHX4_1.createThreadOnTick
-SHX5_1 = SHX3_1
-SHX6_1 = "Anti VDM"
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = Citizen
-SHX4_1 = SHX4_1.CreateThread
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  while true do
-    SHX0_2 = pairs
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getAllVehicles
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX1_2()
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = SHX0_1
-      SHX6_2 = SHX6_2[SHX5_2]
-      if nil == SHX6_2 then
-        SHX6_2 = GetVehicleClass
-        SHX7_2 = SHX5_2
-        SHX6_2 = SHX6_2(SHX7_2)
-        if 14 ~= SHX6_2 and 15 ~= SHX6_2 and 16 ~= SHX6_2 then
-          SHX7_2 = SHX0_1
-          SHX7_2[SHX5_2] = true
-        else
-          SHX7_2 = SHX0_1
-          SHX7_2[SHX5_2] = false
+
+CMG.createThreadOnTick(
+    antiVdmTick,
+    "Anti VDM"
+)
+
+
+-- ============================================================
+-- CACHE WHICH VEHICLE CLASSES ARE SUPPORTED
+-- ============================================================
+
+CreateThread(function()
+    while true do
+        for _, vehicle
+            in pairs(
+                CMG.getAllVehicles()
+            ) do
+
+            if supportedVehicles[
+                vehicle
+            ] == nil then
+
+                local vehicleClass =
+                    GetVehicleClass(
+                        vehicle
+                    )
+
+                supportedVehicles[
+                    vehicle
+                ] =
+                    vehicleClass ~= 14 -- boats
+                    and vehicleClass ~= 15 -- helicopters
+                    and vehicleClass ~= 16 -- planes
+            end
         end
-      end
+
+        Wait(250)
     end
-    SHX0_2 = Wait
-    SHX1_2 = 250
-    SHX0_2(SHX1_2)
-  end
-end
-SHX4_1(SHX5_1)
-SHX4_1 = Citizen
-SHX4_1 = SHX4_1.CreateThread
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  while true do
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerCoords
-    SHX0_2 = SHX0_2()
-    SHX1_2 = pairs
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getAllVehicles
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX2_2()
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = GetEntityCoords
-      SHX8_2 = SHX6_2
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX7_2 = SHX0_2 - SHX7_2
-      SHX7_2 = #SHX7_2
-      if SHX7_2 < 50.0 then
-        SHX7_2 = SHX1_1
-        SHX7_2[SHX6_2] = true
-      else
-        SHX7_2 = SHX1_1
-        SHX7_2[SHX6_2] = nil
-      end
+end)
+
+
+-- ============================================================
+-- CACHE VEHICLES WITHIN 50 METRES
+-- ============================================================
+
+CreateThread(function()
+    while true do
+        local playerCoords =
+            CMG.getPlayerCoords()
+
+        for _, vehicle
+            in pairs(
+                CMG.getAllVehicles()
+            ) do
+
+            local distance =
+                #(
+                    playerCoords
+                    - GetEntityCoords(vehicle)
+                )
+
+            if distance < 50.0 then
+                nearbyVehicles[vehicle] =
+                    true
+            else
+                nearbyVehicles[vehicle] =
+                    nil
+            end
+        end
+
+        Wait(250)
     end
-    SHX1_2 = Wait
-    SHX2_2 = 250
-    SHX1_2(SHX2_2)
-  end
+end)
+
+
+-- ============================================================
+-- CAYO BRIDGE COLLISION AREA
+-- ============================================================
+
+local cayoBridgeCentre =
+    vector3(
+        2604.0,
+        -4005.0,
+        9.0
+    )
+
+
+local function cayoBridgeAntiVdmTick()
+    local playerVehicle =
+        CMG.getPlayerVehicle()
+
+    if playerVehicle == 0 then
+        return
+    end
+
+    if #(
+        CMG.getPlayerCoords()
+        - cayoBridgeCentre
+    ) > 1475.0 then
+        return
+    end
+
+    for _, vehicle
+        in pairs(
+            CMG.getAllVehicles()
+        ) do
+
+        setPairCollision(
+            playerVehicle,
+            vehicle,
+            true
+        )
+    end
 end
-SHX4_1(SHX5_1)
-SHX4_1 = vector3
-SHX5_1 = 2604.0
-SHX6_1 = -4005.0
-SHX7_1 = 9.0
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2 = SHX0_2()
-  if 0 == SHX0_2 then
-    return
-  end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX4_1
-  SHX1_2 = SHX1_2 - SHX2_2
-  SHX1_2 = #SHX1_2
-  SHX2_2 = 1475.0
-  if SHX1_2 > SHX2_2 then
-    return
-  end
-  SHX1_2 = pairs
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getAllVehicles
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX2_2()
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SetEntityNoCollisionEntity
-    SHX8_2 = SHX0_2
-    SHX9_2 = SHX6_2
-    SHX10_2 = true
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-    SHX7_2 = SetEntityNoCollisionEntity
-    SHX8_2 = SHX6_2
-    SHX9_2 = SHX0_2
-    SHX10_2 = true
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  end
-end
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.createArea
-SHX7_1 = "cayoBridgeAntiVDM"
-SHX8_1 = SHX4_1
-SHX9_1 = 1750.0
-SHX10_1 = 25.0
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-end
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-end
-SHX13_1 = SHX5_1
-SHX14_1 = {}
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1)
+
+
+CMG.createArea(
+    "cayoBridgeAntiVDM",
+    cayoBridgeCentre,
+    1750.0,
+    25.0,
+    function()
+    end,
+    function()
+    end,
+    cayoBridgeAntiVdmTick,
+    {}
+)

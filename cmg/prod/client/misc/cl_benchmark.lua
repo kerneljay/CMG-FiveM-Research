@@ -1,1114 +1,1102 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_benchmark.lua
+    ================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = vector3
-SHX3_1 = -9.8369
-SHX4_1 = -1474.088
-SHX5_1 = 29.5453
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.position = SHX2_1
-SHX1_1.heading = 5.4894
-SHX2_1 = vector3
-SHX3_1 = -3.0097
-SHX4_1 = -1484.3165
-SHX5_1 = 41.1898
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.cameraStartPosition = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = 0.5292
-SHX4_1 = 0.0
-SHX4_1 = -SHX4_1
-SHX5_1 = 24.6248
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.cameraStartRotation = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = -13.842
-SHX4_1 = -1454.4639
-SHX5_1 = 32.9113
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.cameraEndPosition = SHX2_1
-SHX2_1 = vector3
-SHX3_1 = -2.4231
-SHX4_1 = 0.0
-SHX5_1 = 1.8101
-SHX2_1 = SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX1_1.cameraEndRotation = SHX2_1
-SHX1_1.weather = "EXTRASUNNY"
-SHX2_1 = {}
-SHX3_1 = vector3
-SHX4_1 = 806.0358
-SHX5_1 = 1101.2482
-SHX6_1 = 306.0945
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.position = SHX3_1
-SHX2_1.heading = 348.7347
-SHX3_1 = vector3
-SHX4_1 = 804.6505
-SHX5_1 = 1184.0697
-SHX6_1 = 347.4004
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.cameraStartPosition = SHX3_1
-SHX3_1 = vector3
-SHX4_1 = -7.4378
-SHX5_1 = 0.0
-SHX5_1 = -SHX5_1
-SHX6_1 = 110.8038
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.cameraStartRotation = SHX3_1
-SHX3_1 = vector3
-SHX4_1 = 771.2347
-SHX5_1 = 1091.1151
-SHX6_1 = 337.3588
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.cameraEndPosition = SHX3_1
-SHX3_1 = vector3
-SHX4_1 = -4.9158
-SHX5_1 = 0.0
-SHX5_1 = -SHX5_1
-SHX6_1 = 22.8592
-SHX3_1 = SHX3_1(SHX4_1, SHX5_1, SHX6_1)
-SHX2_1.cameraEndRotation = SHX3_1
-SHX2_1.weather = "SMOG"
-SHX3_1 = {}
-SHX4_1 = vector3
-SHX5_1 = 2005.9663
-SHX6_1 = 3803.6094
-SHX7_1 = 31.1808
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.position = SHX4_1
-SHX3_1.heading = 60.1616
-SHX4_1 = vector3
-SHX5_1 = 1987.1251
-SHX6_1 = 3810.7661
-SHX7_1 = 33.2256
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.cameraStartPosition = SHX4_1
-SHX4_1 = vector3
-SHX5_1 = -2.1421
-SHX6_1 = 0.0
-SHX6_1 = -SHX6_1
-SHX7_1 = 37.1211
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.cameraStartRotation = SHX4_1
-SHX4_1 = vector3
-SHX5_1 = 1967.3821
-SHX6_1 = 3840.4832
-SHX7_1 = 54.8269
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.cameraEndPosition = SHX4_1
-SHX4_1 = vector3
-SHX5_1 = -1.2952
-SHX6_1 = 0.0
-SHX6_1 = -SHX6_1
-SHX7_1 = 62.8825
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX3_1.cameraEndRotation = SHX4_1
-SHX3_1.weather = "RAIN"
-SHX4_1 = {}
-SHX5_1 = vector3
-SHX6_1 = -1713.2614
-SHX7_1 = -1077.4807
-SHX8_1 = 12.0172
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.position = SHX5_1
-SHX4_1.heading = 18.823
-SHX5_1 = vector3
-SHX6_1 = -1705.3199
-SHX7_1 = -1074.6646
-SHX8_1 = 21.6983
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.cameraStartPosition = SHX5_1
-SHX5_1 = vector3
-SHX6_1 = 1.5777
-SHX7_1 = 0.0
-SHX7_1 = -SHX7_1
-SHX8_1 = -163.0528
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.cameraStartRotation = SHX5_1
-SHX5_1 = vector3
-SHX6_1 = -1731.1056
-SHX7_1 = -1098.6263
-SHX8_1 = 24.3947
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.cameraEndPosition = SHX5_1
-SHX5_1 = vector3
-SHX6_1 = -3.393
-SHX7_1 = 0.0
-SHX7_1 = -SHX7_1
-SHX8_1 = -109.8041
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.cameraEndRotation = SHX5_1
-SHX4_1.weather = "CLEAR"
-SHX5_1 = {}
-SHX6_1 = vector3
-SHX7_1 = -663.8303
-SHX8_1 = 4484.105
-SHX9_1 = 69.2669
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.position = SHX6_1
-SHX5_1.heading = 238.4128
-SHX6_1 = vector3
-SHX7_1 = -608.3302
-SHX8_1 = 4463.3027
-SHX9_1 = 23.4348
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.cameraStartPosition = SHX6_1
-SHX6_1 = vector3
-SHX7_1 = -1.9612
-SHX8_1 = 0.0
-SHX9_1 = -127.5001
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.cameraStartRotation = SHX6_1
-SHX6_1 = vector3
-SHX7_1 = -615.5822
-SHX8_1 = 4508.3086
-SHX9_1 = 110.3908
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.cameraEndPosition = SHX6_1
-SHX6_1 = vector3
-SHX7_1 = -22.87
-SHX8_1 = 0.0
-SHX9_1 = -133.0594
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.cameraEndRotation = SHX6_1
-SHX5_1.weather = "EXTRASUNNY"
-SHX6_1 = {}
-SHX7_1 = vector3
-SHX8_1 = 234.57510375977
-SHX9_1 = -1144.5062255859
-SHX10_1 = 29.47513961792
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.position = SHX7_1
-SHX6_1.heading = 0.0
-SHX7_1 = vector3
-SHX8_1 = 216.51281738281
-SHX9_1 = -1282.3959960938
-SHX10_1 = 32.077880859375
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.cameraStartPosition = SHX7_1
-SHX7_1 = vector3
-SHX8_1 = -0.98468792438507
-SHX9_1 = 0.0
-SHX9_1 = -SHX9_1
-SHX10_1 = -0.036672409623861
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.cameraStartRotation = SHX7_1
-SHX7_1 = vector3
-SHX8_1 = 241.12530517578
-SHX9_1 = -995.49108886719
-SHX10_1 = 31.893032073975
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.cameraEndPosition = SHX7_1
-SHX7_1 = vector3
-SHX8_1 = 9.3380908966064
-SHX9_1 = 0.0
-SHX9_1 = -SHX9_1
-SHX10_1 = 82.739128112793
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.cameraEndRotation = SHX7_1
-SHX6_1.weather = "XMAS"
-SHX0_1[1] = SHX1_1
-SHX0_1[2] = SHX2_1
-SHX0_1[3] = SHX3_1
-SHX0_1[4] = SHX4_1
-SHX0_1[5] = SHX5_1
-SHX0_1[6] = SHX6_1
-SHX1_1 = {}
-SHX1_1.handle = 0
-SHX1_1.name = "pc_bench"
-SHX2_1 = 0
-SHX3_1 = false
-SHX4_1 = vector3
-SHX5_1 = 0.0
-SHX6_1 = 0.0
-SHX7_1 = 0.0
-SHX4_1 = SHX4_1(SHX5_1, SHX6_1, SHX7_1)
-SHX5_1 = {}
-SHX6_1 = 25
-SHX7_1 = 1
-SHX8_1 = 0.0
-SHX9_1 = {}
-SHX10_1 = 1
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = InvalidateIdleCam
-  SHX0_2()
-  SHX0_2 = InvalidateVehicleIdleCam
-  SHX0_2()
-  SHX0_2 = HideHudAndRadarThisFrame
-  SHX0_2()
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 199
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 217
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 211
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 212
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 0
-  SHX2_2 = 213
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.CloseAll
-  SHX0_2()
-  SHX0_2 = IsScreenFadedOut
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = IsScreenFadingOut
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = IsScreenFadingIn
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = Citizen
-        SHX0_2 = SHX0_2.InvokeNative
-        SHX1_2 = 8406597705123953709
-        SHX2_2 = Citizen
-        SHX2_2 = SHX2_2.ResultAsFloat
-        SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX2_2()
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX1_2 = 1
-        SHX0_2 = SHX1_2 / SHX0_2
-        SHX2_2 = SHX10_1
-        SHX1_2 = SHX9_1
-        SHX1_2[SHX2_2] = SHX0_2
-        SHX1_2 = SHX10_1
-        SHX1_2 = SHX1_2 + 1
-        SHX10_1 = SHX1_2
-        SHX2_2 = SHX7_1
-        SHX1_2 = SHX5_1
-        SHX1_2[SHX2_2] = SHX0_2
-        SHX1_2 = SHX7_1
-        SHX1_2 = SHX1_2 + 1
-        SHX7_1 = SHX1_2
-        SHX1_2 = SHX7_1
-        SHX2_2 = SHX6_1
-        if SHX1_2 > SHX2_2 then
-          SHX1_2 = 1
-          SHX7_1 = SHX1_2
-          SHX1_2 = 0.0
-          SHX8_1 = SHX1_2
-          SHX1_2 = pairs
-          SHX2_2 = SHX5_1
-          SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-          for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-            SHX7_2 = SHX8_1
-            SHX7_2 = SHX7_2 + SHX6_2
-            SHX8_1 = SHX7_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Benchmark
+    ==========================
+
+    File: cmg/prod/client/misc/cl_benchmark.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 2
+      They are intentionally left unchanged because matching server code may use them.
+      * fc507140b6
+      * 1b2bb2e289
+
+]]
+local dataTable, dataTable2, vector3Builder, numberValue7, numberValue8, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, cmgCall, textValue, workValue8
+dataTable = {}
+dataTable2 = {}
+vector3Builder = vector3
+numberValue7 = -9.8369
+numberValue8 = -1474.088
+numberValue9 = 29.5453
+vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
+dataTable2.position = vector3Builder
+dataTable2.heading = 5.4894
+vector3Builder = vector3
+numberValue7 = -3.0097
+numberValue8 = -1484.3165
+numberValue9 = 41.1898
+vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
+dataTable2.cameraStartPosition = vector3Builder
+vector3Builder = vector3
+numberValue7 = 0.5292
+numberValue8 = 0.0
+numberValue8 = -numberValue8
+numberValue9 = 24.6248
+vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
+dataTable2.cameraStartRotation = vector3Builder
+vector3Builder = vector3
+numberValue7 = -13.842
+numberValue8 = -1454.4639
+numberValue9 = 32.9113
+vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
+dataTable2.cameraEndPosition = vector3Builder
+vector3Builder = vector3
+numberValue7 = -2.4231
+numberValue8 = 0.0
+numberValue9 = 1.8101
+vector3Builder = vector3Builder(numberValue7, numberValue8, numberValue9)
+dataTable2.cameraEndRotation = vector3Builder
+dataTable2.weather = "EXTRASUNNY"
+vector3Builder = {}
+numberValue7 = vector3
+numberValue8 = 806.0358
+numberValue9 = 1101.2482
+numberValue11 = 306.0945
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
+vector3Builder.position = numberValue7
+vector3Builder.heading = 348.7347
+numberValue7 = vector3
+numberValue8 = 804.6505
+numberValue9 = 1184.0697
+numberValue11 = 347.4004
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
+vector3Builder.cameraStartPosition = numberValue7
+numberValue7 = vector3
+numberValue8 = -7.4378
+numberValue9 = 0.0
+numberValue9 = -numberValue9
+numberValue11 = 110.8038
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
+vector3Builder.cameraStartRotation = numberValue7
+numberValue7 = vector3
+numberValue8 = 771.2347
+numberValue9 = 1091.1151
+numberValue11 = 337.3588
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
+vector3Builder.cameraEndPosition = numberValue7
+numberValue7 = vector3
+numberValue8 = -4.9158
+numberValue9 = 0.0
+numberValue9 = -numberValue9
+numberValue11 = 22.8592
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue11)
+vector3Builder.cameraEndRotation = numberValue7
+vector3Builder.weather = "SMOG"
+numberValue7 = {}
+numberValue8 = vector3
+numberValue9 = 2005.9663
+numberValue11 = 3803.6094
+numberValue12 = 31.1808
+numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
+numberValue7.position = numberValue8
+numberValue7.heading = 60.1616
+numberValue8 = vector3
+numberValue9 = 1987.1251
+numberValue11 = 3810.7661
+numberValue12 = 33.2256
+numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
+numberValue7.cameraStartPosition = numberValue8
+numberValue8 = vector3
+numberValue9 = -2.1421
+numberValue11 = 0.0
+numberValue11 = -numberValue11
+numberValue12 = 37.1211
+numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
+numberValue7.cameraStartRotation = numberValue8
+numberValue8 = vector3
+numberValue9 = 1967.3821
+numberValue11 = 3840.4832
+numberValue12 = 54.8269
+numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
+numberValue7.cameraEndPosition = numberValue8
+numberValue8 = vector3
+numberValue9 = -1.2952
+numberValue11 = 0.0
+numberValue11 = -numberValue11
+numberValue12 = 62.8825
+numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
+numberValue7.cameraEndRotation = numberValue8
+numberValue7.weather = "RAIN"
+numberValue8 = {}
+numberValue9 = vector3
+numberValue11 = -1713.2614
+numberValue12 = -1077.4807
+numberValue13 = 12.0172
+numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
+numberValue8.position = numberValue9
+numberValue8.heading = 18.823
+numberValue9 = vector3
+numberValue11 = -1705.3199
+numberValue12 = -1074.6646
+numberValue13 = 21.6983
+numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
+numberValue8.cameraStartPosition = numberValue9
+numberValue9 = vector3
+numberValue11 = 1.5777
+numberValue12 = 0.0
+numberValue12 = -numberValue12
+numberValue13 = -163.0528
+numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
+numberValue8.cameraStartRotation = numberValue9
+numberValue9 = vector3
+numberValue11 = -1731.1056
+numberValue12 = -1098.6263
+numberValue13 = 24.3947
+numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
+numberValue8.cameraEndPosition = numberValue9
+numberValue9 = vector3
+numberValue11 = -3.393
+numberValue12 = 0.0
+numberValue12 = -numberValue12
+numberValue13 = -109.8041
+numberValue9 = numberValue9(numberValue11, numberValue12, numberValue13)
+numberValue8.cameraEndRotation = numberValue9
+numberValue8.weather = "CLEAR"
+numberValue9 = {}
+numberValue11 = vector3
+numberValue12 = -663.8303
+numberValue13 = 4484.105
+numberValue14 = 69.2669
+numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
+numberValue9.position = numberValue11
+numberValue9.heading = 238.4128
+numberValue11 = vector3
+numberValue12 = -608.3302
+numberValue13 = 4463.3027
+numberValue14 = 23.4348
+numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
+numberValue9.cameraStartPosition = numberValue11
+numberValue11 = vector3
+numberValue12 = -1.9612
+numberValue13 = 0.0
+numberValue14 = -127.5001
+numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
+numberValue9.cameraStartRotation = numberValue11
+numberValue11 = vector3
+numberValue12 = -615.5822
+numberValue13 = 4508.3086
+numberValue14 = 110.3908
+numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
+numberValue9.cameraEndPosition = numberValue11
+numberValue11 = vector3
+numberValue12 = -22.87
+numberValue13 = 0.0
+numberValue14 = -133.0594
+numberValue11 = numberValue11(numberValue12, numberValue13, numberValue14)
+numberValue9.cameraEndRotation = numberValue11
+numberValue9.weather = "EXTRASUNNY"
+numberValue11 = {}
+numberValue12 = vector3
+numberValue13 = 234.57510375977
+numberValue14 = -1144.5062255859
+numberValue = 29.47513961792
+numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
+numberValue11.position = numberValue12
+numberValue11.heading = 0.0
+numberValue12 = vector3
+numberValue13 = 216.51281738281
+numberValue14 = -1282.3959960938
+numberValue = 32.077880859375
+numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
+numberValue11.cameraStartPosition = numberValue12
+numberValue12 = vector3
+numberValue13 = -0.98468792438507
+numberValue14 = 0.0
+numberValue14 = -numberValue14
+numberValue = -0.036672409623861
+numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
+numberValue11.cameraStartRotation = numberValue12
+numberValue12 = vector3
+numberValue13 = 241.12530517578
+numberValue14 = -995.49108886719
+numberValue = 31.893032073975
+numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
+numberValue11.cameraEndPosition = numberValue12
+numberValue12 = vector3
+numberValue13 = 9.3380908966064
+numberValue14 = 0.0
+numberValue14 = -numberValue14
+numberValue = 82.739128112793
+numberValue12 = numberValue12(numberValue13, numberValue14, numberValue)
+numberValue11.cameraEndRotation = numberValue12
+numberValue11.weather = "XMAS"
+dataTable[1] = dataTable2
+dataTable[2] = vector3Builder
+dataTable[3] = numberValue7
+dataTable[4] = numberValue8
+dataTable[5] = numberValue9
+dataTable[6] = numberValue11
+dataTable2 = {}
+dataTable2.handle = 0
+dataTable2.name = "pc_bench"
+vector3Builder = 0
+numberValue7 = false
+numberValue8 = vector3
+numberValue9 = 0.0
+numberValue11 = 0.0
+numberValue12 = 0.0
+numberValue8 = numberValue8(numberValue9, numberValue11, numberValue12)
+numberValue9 = {}
+numberValue11 = 25
+numberValue12 = 1
+numberValue13 = 0.0
+numberValue14 = {}
+numberValue = 1
+function workValue()
+  local arg1, arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4
+  arg1 = InvalidateIdleCam
+  arg1()
+  arg1 = InvalidateVehicleIdleCam
+  arg1()
+  arg1 = HideHudAndRadarThisFrame
+  arg1()
+  arg1 = DisableControlAction
+  arg2 = 0
+  numberValue6 = 199
+  flag2 = true
+  arg1(arg2, numberValue6, flag2)
+  arg1 = DisableControlAction
+  arg2 = 0
+  numberValue6 = 217
+  flag2 = true
+  arg1(arg2, numberValue6, flag2)
+  arg1 = DisableControlAction
+  arg2 = 0
+  numberValue6 = 211
+  flag2 = true
+  arg1(arg2, numberValue6, flag2)
+  arg1 = DisableControlAction
+  arg2 = 0
+  numberValue6 = 212
+  flag2 = true
+  arg1(arg2, numberValue6, flag2)
+  arg1 = DisableControlAction
+  arg2 = 0
+  numberValue6 = 213
+  flag2 = true
+  arg1(arg2, numberValue6, flag2)
+  arg1 = RageUI
+  arg1 = arg1.CloseAll
+  arg1()
+  arg1 = IsScreenFadedOut
+  arg1 = arg1()
+  if not arg1 then
+    arg1 = IsScreenFadingOut
+    arg1 = arg1()
+    if not arg1 then
+      arg1 = IsScreenFadingIn
+      arg1 = arg1()
+      if not arg1 then
+        arg1 = Citizen
+        arg1 = arg1.InvokeNative
+        arg2 = 8406597705123953709
+        numberValue6 = Citizen
+        numberValue6 = numberValue6.ResultAsFloat
+        numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4 = numberValue6()
+        arg1 = arg1(arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+        arg2 = 1
+        arg1 = arg2 / arg1
+        numberValue6 = numberValue
+        arg2 = numberValue14
+        arg2[numberValue6] = arg1
+        arg2 = numberValue
+        arg2 = arg2 + 1
+        numberValue = arg2
+        numberValue6 = numberValue12
+        arg2 = numberValue9
+        arg2[numberValue6] = arg1
+        arg2 = numberValue12
+        arg2 = arg2 + 1
+        numberValue12 = arg2
+        arg2 = numberValue12
+        numberValue6 = numberValue11
+        if arg2 > numberValue6 then
+          arg2 = 1
+          numberValue12 = arg2
+          arg2 = 0.0
+          numberValue13 = arg2
+          arg2 = pairs
+          numberValue6 = numberValue9
+          arg2, numberValue6, flag2, flag3 = arg2(numberValue6)
+          for numberValue10, flag4 in arg2, numberValue6, flag2, flag3 do
+            stringHelper = numberValue13
+            stringHelper = stringHelper + flag4
+            numberValue13 = stringHelper
           end
-          SHX1_2 = SHX8_1
-          SHX2_2 = SHX6_1
-          SHX2_2 = SHX2_2 + 0.0
-          SHX1_2 = SHX1_2 / SHX2_2
-          SHX8_1 = SHX1_2
+          arg2 = numberValue13
+          numberValue6 = numberValue11
+          numberValue6 = numberValue6 + 0.0
+          arg2 = arg2 / numberValue6
+          numberValue13 = arg2
         end
-        SHX1_2 = SHX8_1
-        if SHX1_2 > 0.0 then
-          SHX1_2 = DrawAdvancedText
-          SHX2_2 = 0.5
-          SHX3_2 = 0.8
-          SHX4_2 = 0.0
-          SHX5_2 = 0.0
-          SHX6_2 = 2.0
-          SHX7_2 = "FPS:"
-          SHX8_2 = 255
-          SHX9_2 = 255
-          SHX10_2 = 255
-          SHX11_2 = 255
-          SHX12_2 = 0
-          SHX13_2 = 0
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-          SHX1_2 = DrawAdvancedText
-          SHX2_2 = 0.65
-          SHX3_2 = 0.8
-          SHX4_2 = 0.0
-          SHX5_2 = 0.0
-          SHX6_2 = 2.0
-          SHX7_2 = tostring
-          SHX8_2 = math
-          SHX8_2 = SHX8_2.round
-          SHX9_2 = SHX8_1
-          SHX10_2 = 1
-          SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX8_2(SHX9_2, SHX10_2)
-          SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-          SHX8_2 = 255
-          SHX9_2 = 255
-          SHX10_2 = 255
-          SHX11_2 = 255
-          SHX12_2 = 0
-          SHX13_2 = 0
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+        arg2 = numberValue13
+        if arg2 > 0.0 then
+          arg2 = DrawAdvancedText
+          numberValue6 = 0.5
+          flag2 = 0.8
+          flag3 = 0.0
+          numberValue10 = 0.0
+          flag4 = 2.0
+          stringHelper = "FPS:"
+          mathHelper = 255
+          numberValue15 = 255
+          numberValue2 = 255
+          flag = 255
+          numberValue3 = 0
+          numberValue4 = 0
+          arg2(numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+          arg2 = DrawAdvancedText
+          numberValue6 = 0.65
+          flag2 = 0.8
+          flag3 = 0.0
+          numberValue10 = 0.0
+          flag4 = 2.0
+          stringHelper = tostring
+          mathHelper = math
+          mathHelper = mathHelper.round
+          numberValue15 = numberValue13
+          numberValue2 = 1
+          mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4 = mathHelper(numberValue15, numberValue2)
+          stringHelper = stringHelper(mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+          mathHelper = 255
+          numberValue15 = 255
+          numberValue2 = 255
+          flag = 255
+          numberValue3 = 0
+          numberValue4 = 0
+          arg2(numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
         end
       end
     end
   end
 end
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = IsScreenFadedIn
-  SHX2_2 = SHX2_2()
-  if not SHX2_2 then
-    SHX2_2 = IsScreenFadingOut
-    SHX2_2 = SHX2_2()
-    if not SHX2_2 then
+function workValue2(arg1, arg2)
+  local numberValue6, flag2
+  numberValue6 = IsScreenFadedIn
+  numberValue6 = numberValue6()
+  if not numberValue6 then
+    numberValue6 = IsScreenFadingOut
+    numberValue6 = numberValue6()
+    if not numberValue6 then
       return
     end
   end
-  SHX2_2 = DoScreenFadeOut
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  if not SHX1_2 then
+  numberValue6 = DoScreenFadeOut
+  flag2 = arg1
+  numberValue6(flag2)
+  if not arg2 then
     return
   end
   while true do
-    SHX2_2 = IsScreenFadedOut
-    SHX2_2 = SHX2_2()
-    if SHX2_2 then
+    numberValue6 = IsScreenFadedOut
+    numberValue6 = numberValue6()
+    if numberValue6 then
       break
     end
-    SHX2_2 = Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+    numberValue6 = Wait
+    flag2 = 0
+    numberValue6(flag2)
   end
 end
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = IsScreenFadedOut
-  SHX2_2 = SHX2_2()
-  if not SHX2_2 then
-    SHX2_2 = IsScreenFadingOut
-    SHX2_2 = SHX2_2()
-    if not SHX2_2 then
+function workValue3(arg1, arg2)
+  local numberValue6, flag2
+  numberValue6 = IsScreenFadedOut
+  numberValue6 = numberValue6()
+  if not numberValue6 then
+    numberValue6 = IsScreenFadingOut
+    numberValue6 = numberValue6()
+    if not numberValue6 then
       return
     end
   end
-  SHX2_2 = IsScreenFadingIn
-  SHX2_2 = SHX2_2()
-  if not SHX2_2 then
-    SHX2_2 = DoScreenFadeIn
-    SHX3_2 = SHX0_2
-    SHX2_2(SHX3_2)
+  numberValue6 = IsScreenFadingIn
+  numberValue6 = numberValue6()
+  if not numberValue6 then
+    numberValue6 = DoScreenFadeIn
+    flag2 = arg1
+    numberValue6(flag2)
   end
-  if SHX1_2 then
+  if arg2 then
     while true do
-      SHX2_2 = IsScreenFadingIn
-      SHX2_2 = SHX2_2()
-      if not SHX2_2 then
+      numberValue6 = IsScreenFadingIn
+      numberValue6 = numberValue6()
+      if not numberValue6 then
         break
       end
-      SHX2_2 = Wait
-      SHX3_2 = 0
-      SHX2_2(SHX3_2)
+      numberValue6 = Wait
+      flag2 = 0
+      numberValue6(flag2)
     end
   end
 end
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = SHX0_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX2_2 = SHX12_1
-  SHX3_2 = 500
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = RenderScriptCams
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX5_2 = 0
-  SHX6_2 = false
-  SHX7_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX2_2 = DestroyAllCams
-  SHX3_2 = false
-  SHX2_2(SHX3_2)
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SetEntityCoords
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2.position
-  SHX5_2 = SHX5_2.x
-  SHX6_2 = SHX1_2.position
-  SHX6_2 = SHX6_2.y
-  SHX7_2 = SHX1_2.position
-  SHX7_2 = SHX7_2.z
-  SHX8_2 = true
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = SetEntityHeading
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2.heading
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = FreezeEntityPosition
-  SHX4_2 = SHX2_2
-  SHX5_2 = true
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = ForcePedAiAndAnimationUpdate
-  SHX4_2 = SHX2_2
-  SHX5_2 = true
-  SHX6_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = SetGameplayCamRelativePitch
-  SHX4_2 = 0.0
-  SHX5_2 = 1.0
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = SetGameplayCamRelativeHeading
-  SHX4_2 = 0.0
-  SHX3_2(SHX4_2)
-  SHX3_2 = ClearArea
-  SHX4_2 = SHX1_2.position
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX1_2.position
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX1_2.position
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = 100.0
-  SHX8_2 = true
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX3_2 = GetGameTimer
-  SHX3_2 = SHX3_2()
+function workValue4(arg1)
+  local arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4, numberValue5
+  arg2 = dataTable
+  arg2 = arg2[arg1]
+  numberValue6 = workValue2
+  flag2 = 500
+  flag3 = true
+  numberValue6(flag2, flag3)
+  numberValue6 = RenderScriptCams
+  flag2 = false
+  flag3 = false
+  numberValue10 = 0
+  flag4 = false
+  stringHelper = false
+  numberValue6(flag2, flag3, numberValue10, flag4, stringHelper)
+  numberValue6 = DestroyAllCams
+  flag2 = false
+  numberValue6(flag2)
+  numberValue6 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  numberValue6 = numberValue6()
+  flag2 = SetEntityCoords
+  flag3 = numberValue6
+  numberValue10 = arg2.position
+  numberValue10 = numberValue10.x
+  flag4 = arg2.position
+  flag4 = flag4.y
+  stringHelper = arg2.position
+  stringHelper = stringHelper.z
+  mathHelper = true
+  numberValue15 = false
+  numberValue2 = false
+  flag = true
+  -- Beginner: Move/teleport an entity to new coordinates.
+  flag2(flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag)
+  flag2 = SetEntityHeading
+  flag3 = numberValue6
+  numberValue10 = arg2.heading
+  -- Beginner: Change the direction an entity is facing.
+  flag2(flag3, numberValue10)
+  flag2 = FreezeEntityPosition
+  flag3 = numberValue6
+  numberValue10 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  flag2(flag3, numberValue10)
+  flag2 = ForcePedAiAndAnimationUpdate
+  flag3 = numberValue6
+  numberValue10 = true
+  flag4 = true
+  flag2(flag3, numberValue10, flag4)
+  flag2 = SetGameplayCamRelativePitch
+  flag3 = 0.0
+  numberValue10 = 1.0
+  flag2(flag3, numberValue10)
+  flag2 = SetGameplayCamRelativeHeading
+  flag3 = 0.0
+  flag2(flag3)
+  flag2 = ClearArea
+  flag3 = arg2.position
+  flag3 = flag3.x
+  numberValue10 = arg2.position
+  numberValue10 = numberValue10.y
+  flag4 = arg2.position
+  flag4 = flag4.z
+  stringHelper = 100.0
+  mathHelper = true
+  numberValue15 = false
+  numberValue2 = false
+  flag = false
+  flag2(flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag)
+  flag2 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  flag2 = flag2()
   while true do
-    SHX4_2 = GetNumberOfStreamingRequests
-    SHX4_2 = SHX4_2()
-    if not (SHX4_2 > 0) then
+    flag3 = GetNumberOfStreamingRequests
+    flag3 = flag3()
+    if not (flag3 > 0) then
       break
     end
-    SHX4_2 = GetGameTimer
-    SHX4_2 = SHX4_2()
-    SHX4_2 = SHX4_2 - SHX3_2
-    SHX5_2 = 5000
-    if SHX4_2 > SHX5_2 then
+    flag3 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    flag3 = flag3()
+    flag3 = flag3 - flag2
+    numberValue10 = 5000
+    if flag3 > numberValue10 then
       break
     end
-    SHX4_2 = Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
+    flag3 = Wait
+    numberValue10 = 0
+    flag3(numberValue10)
   end
-  SHX4_2 = LoadAllObjectsNow
-  SHX4_2()
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.setWeather
-  SHX5_2 = SHX1_2.weather
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.overrideTime
-  SHX5_2 = 12
-  SHX6_2 = 0
-  SHX7_2 = 0
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = CreateCam
-  SHX5_2 = "DEFAULT_SPLINE_CAMERA"
-  SHX6_2 = false
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX2_1 = SHX4_2
-  SHX4_2 = AddCamSplineNode
-  SHX5_2 = SHX2_1
-  SHX6_2 = SHX1_2.cameraStartPosition
-  SHX6_2 = SHX6_2.x
-  SHX7_2 = SHX1_2.cameraStartPosition
-  SHX7_2 = SHX7_2.y
-  SHX8_2 = SHX1_2.cameraStartPosition
-  SHX8_2 = SHX8_2.z
-  SHX9_2 = SHX1_2.cameraStartRotation
-  SHX9_2 = SHX9_2.x
-  SHX10_2 = SHX1_2.cameraStartRotation
-  SHX10_2 = SHX10_2.y
-  SHX11_2 = SHX1_2.cameraStartRotation
-  SHX11_2 = SHX11_2.z
-  SHX12_2 = 15000
-  SHX13_2 = 3
-  SHX14_2 = 2
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX4_2 = AddCamSplineNode
-  SHX5_2 = SHX2_1
-  SHX6_2 = SHX1_2.cameraEndPosition
-  SHX6_2 = SHX6_2.x
-  SHX7_2 = SHX1_2.cameraEndPosition
-  SHX7_2 = SHX7_2.y
-  SHX8_2 = SHX1_2.cameraEndPosition
-  SHX8_2 = SHX8_2.z
-  SHX9_2 = SHX1_2.cameraEndRotation
-  SHX9_2 = SHX9_2.x
-  SHX10_2 = SHX1_2.cameraEndRotation
-  SHX10_2 = SHX10_2.y
-  SHX11_2 = SHX1_2.cameraEndRotation
-  SHX11_2 = SHX11_2.z
-  SHX12_2 = 15000
-  SHX13_2 = 3
-  SHX14_2 = 2
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX4_2 = SetCamSplinePhase
-  SHX5_2 = SHX2_1
-  SHX6_2 = 0.0
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetCamFov
-  SHX5_2 = SHX2_1
-  SHX6_2 = 50.0
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetCamSplineSmoothingStyle
-  SHX5_2 = SHX2_1
-  SHX6_2 = 3
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetCamActive
-  SHX5_2 = SHX2_1
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = RenderScriptCams
-  SHX5_2 = true
-  SHX6_2 = false
-  SHX7_2 = 0
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+  flag3 = LoadAllObjectsNow
+  flag3()
+  flag3 = CMG
+  flag3 = flag3.setWeather
+  numberValue10 = arg2.weather
+  flag4 = false
+  flag3(numberValue10, flag4)
+  flag3 = CMG
+  flag3 = flag3.overrideTime
+  numberValue10 = 12
+  flag4 = 0
+  stringHelper = 0
+  flag3(numberValue10, flag4, stringHelper)
+  flag3 = CreateCam
+  numberValue10 = "DEFAULT_SPLINE_CAMERA"
+  flag4 = false
+  -- Beginner: result below is cameraHandle.
+  flag3 = flag3(numberValue10, flag4)
+  vector3Builder = flag3
+  flag3 = AddCamSplineNode
+  numberValue10 = vector3Builder
+  flag4 = arg2.cameraStartPosition
+  flag4 = flag4.x
+  stringHelper = arg2.cameraStartPosition
+  stringHelper = stringHelper.y
+  mathHelper = arg2.cameraStartPosition
+  mathHelper = mathHelper.z
+  numberValue15 = arg2.cameraStartRotation
+  numberValue15 = numberValue15.x
+  numberValue2 = arg2.cameraStartRotation
+  numberValue2 = numberValue2.y
+  flag = arg2.cameraStartRotation
+  flag = flag.z
+  numberValue3 = 15000
+  numberValue4 = 3
+  numberValue5 = 2
+  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4, numberValue5)
+  flag3 = AddCamSplineNode
+  numberValue10 = vector3Builder
+  flag4 = arg2.cameraEndPosition
+  flag4 = flag4.x
+  stringHelper = arg2.cameraEndPosition
+  stringHelper = stringHelper.y
+  mathHelper = arg2.cameraEndPosition
+  mathHelper = mathHelper.z
+  numberValue15 = arg2.cameraEndRotation
+  numberValue15 = numberValue15.x
+  numberValue2 = arg2.cameraEndRotation
+  numberValue2 = numberValue2.y
+  flag = arg2.cameraEndRotation
+  flag = flag.z
+  numberValue3 = 15000
+  numberValue4 = 3
+  numberValue5 = 2
+  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4, numberValue5)
+  flag3 = SetCamSplinePhase
+  numberValue10 = vector3Builder
+  flag4 = 0.0
+  flag3(numberValue10, flag4)
+  flag3 = SetCamFov
+  numberValue10 = vector3Builder
+  flag4 = 50.0
+  flag3(numberValue10, flag4)
+  flag3 = SetCamSplineSmoothingStyle
+  numberValue10 = vector3Builder
+  flag4 = 3
+  flag3(numberValue10, flag4)
+  flag3 = SetCamActive
+  numberValue10 = vector3Builder
+  flag4 = true
+  flag3(numberValue10, flag4)
+  flag3 = RenderScriptCams
+  numberValue10 = true
+  flag4 = false
+  stringHelper = 0
+  mathHelper = false
+  numberValue15 = false
+  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15)
   while true do
-    SHX4_2 = GetCamSplinePhase
-    SHX5_2 = SHX2_1
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = 0.05
-    if not (SHX4_2 < SHX5_2) then
+    flag3 = GetCamSplinePhase
+    numberValue10 = vector3Builder
+    flag3 = flag3(numberValue10)
+    numberValue10 = 0.05
+    if not (flag3 < numberValue10) then
       break
     end
-    SHX4_2 = Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
+    flag3 = Wait
+    numberValue10 = 0
+    flag3(numberValue10)
   end
-  SHX4_2 = SHX13_1
-  SHX5_2 = 500
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
+  flag3 = workValue3
+  numberValue10 = 500
+  flag4 = false
+  flag3(numberValue10, flag4)
   while true do
-    SHX4_2 = GetCamSplinePhase
-    SHX5_2 = SHX2_1
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = 0.88
-    if SHX4_2 > SHX5_2 then
+    flag3 = GetCamSplinePhase
+    numberValue10 = vector3Builder
+    flag3 = flag3(numberValue10)
+    numberValue10 = 0.88
+    if flag3 > numberValue10 then
       break
     end
-    SHX5_2 = SHX4_2 - 0.05
-    SHX5_2 = SHX5_2 / 0.83
-    SHX6_2 = math
-    SHX6_2 = SHX6_2.floor
-    SHX7_2 = 1440 * SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    SHX6_2 = SHX6_2 + 720
-    SHX7_2 = math
-    SHX7_2 = SHX7_2.floor
-    SHX8_2 = SHX6_2 / 60
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = SHX6_2 % 60
-    if SHX7_2 >= 24 then
-      SHX7_2 = SHX7_2 - 24
+    numberValue10 = flag3 - 0.05
+    numberValue10 = numberValue10 / 0.83
+    flag4 = math
+    flag4 = flag4.floor
+    stringHelper = 1440 * numberValue10
+    flag4 = flag4(stringHelper)
+    flag4 = flag4 + 720
+    stringHelper = math
+    stringHelper = stringHelper.floor
+    mathHelper = flag4 / 60
+    stringHelper = stringHelper(mathHelper)
+    mathHelper = flag4 % 60
+    if stringHelper >= 24 then
+      stringHelper = stringHelper - 24
     end
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.overrideTime
-    SHX10_2 = SHX7_2
-    SHX11_2 = SHX8_2
-    SHX12_2 = 0
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-    SHX9_2 = Wait
-    SHX10_2 = 0
-    SHX9_2(SHX10_2)
+    numberValue15 = CMG
+    numberValue15 = numberValue15.overrideTime
+    numberValue2 = stringHelper
+    flag = mathHelper
+    numberValue3 = 0
+    numberValue15(numberValue2, flag, numberValue3)
+    numberValue15 = Wait
+    numberValue2 = 0
+    numberValue15(numberValue2)
   end
-  if 5 ~= SHX0_2 then
-    SHX4_2 = SHX12_1
-    SHX5_2 = 500
-    SHX6_2 = true
-    SHX4_2(SHX5_2, SHX6_2)
+  if 5 ~= arg1 then
+    flag3 = workValue2
+    numberValue10 = 500
+    flag4 = true
+    flag3(numberValue10, flag4)
   end
 end
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadModel
-  SHX1_2 = -1281684762
-  SHX0_2(SHX1_2)
-  SHX0_2 = RequestVehicleRecording
-  SHX1_2 = SHX1_1.handle
-  SHX2_2 = SHX1_1.name
-  SHX0_2(SHX1_2, SHX2_2)
+function workValue5()
+  local arg1, arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4
+  arg1 = CMG
+  arg1 = arg1.loadModel
+  arg2 = -1281684762
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg1(arg2)
+  arg1 = RequestVehicleRecording
+  arg2 = dataTable2.handle
+  numberValue6 = dataTable2.name
+  arg1(arg2, numberValue6)
   while true do
-    SHX0_2 = HasVehicleRecordingBeenLoaded
-    SHX1_2 = SHX1_1.handle
-    SHX2_2 = SHX1_1.name
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
+    arg1 = HasVehicleRecordingBeenLoaded
+    arg2 = dataTable2.handle
+    numberValue6 = dataTable2.name
+    arg1 = arg1(arg2, numberValue6)
+    if arg1 then
       break
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 0
+    arg1(arg2)
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.overrideTime
-  SHX1_2 = 12
-  SHX2_2 = 0
-  SHX3_2 = 0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setWeather
-  SHX1_2 = "EXTRASUNNY"
-  SHX0_2(SHX1_2)
-  SHX0_2 = GetVehicleRecordingId
-  SHX1_2 = SHX1_1.handle
-  SHX2_2 = SHX1_1.name
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX1_2 = GetPositionOfVehicleRecordingAtTime
-  SHX2_2 = SHX0_2
-  SHX3_2 = 4500.0
-  SHX4_2 = nil
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = GetRotationOfVehicleRecordingAtTime
-  SHX3_2 = SHX0_2
-  SHX4_2 = 4500.0
-  SHX5_2 = nil
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.spawnVehicle
-  SHX4_2 = -1281684762
-  SHX5_2 = SHX1_2.x
-  SHX6_2 = SHX1_2.y
-  SHX7_2 = SHX1_2.z
-  SHX8_2 = SHX2_2.z
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX4_2 = SetEntityInvincible
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetVehicleEngineOn
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX7_2 = true
-  SHX8_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SetVehicleCanBeVisiblyDamaged
-  SHX5_2 = SHX3_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetVehicleCanBreak
-  SHX5_2 = SHX3_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityProofs
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX4_2 = ControlLandingGear
-  SHX5_2 = SHX3_2
-  SHX6_2 = 3
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetEntityLodDist
-  SHX5_2 = SHX3_2
-  SHX6_2 = 500
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = StartPlaybackRecordedVehicle
-  SHX5_2 = SHX3_2
-  SHX6_2 = SHX1_1.handle
-  SHX7_2 = SHX1_1.name
-  SHX8_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SkipTimeInPlaybackRecordedVehicle
-  SHX5_2 = SHX3_2
-  SHX6_2 = 4500.0
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetPedIntoVehicle
-  SHX5_2 = PlayerPedId
-  SHX5_2 = SHX5_2()
-  SHX6_2 = SHX3_2
-  SHX7_2 = -1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = RenderScriptCams
-  SHX5_2 = false
-  SHX6_2 = true
-  SHX7_2 = 10000
-  SHX8_2 = true
-  SHX9_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX4_2 = SHX13_1
-  SHX5_2 = 500
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
+  arg1 = CMG
+  arg1 = arg1.overrideTime
+  arg2 = 12
+  numberValue6 = 0
+  flag2 = 0
+  arg1(arg2, numberValue6, flag2)
+  arg1 = CMG
+  arg1 = arg1.setWeather
+  arg2 = "EXTRASUNNY"
+  arg1(arg2)
+  arg1 = GetVehicleRecordingId
+  arg2 = dataTable2.handle
+  numberValue6 = dataTable2.name
+  arg1 = arg1(arg2, numberValue6)
+  arg2 = GetPositionOfVehicleRecordingAtTime
+  numberValue6 = arg1
+  flag2 = 4500.0
+  flag3 = nil
+  arg2 = arg2(numberValue6, flag2, flag3)
+  numberValue6 = GetRotationOfVehicleRecordingAtTime
+  flag2 = arg1
+  flag3 = 4500.0
+  numberValue10 = nil
+  numberValue6 = numberValue6(flag2, flag3, numberValue10)
+  flag2 = CMG
+  flag2 = flag2.spawnVehicle
+  flag3 = -1281684762
+  numberValue10 = arg2.x
+  flag4 = arg2.y
+  stringHelper = arg2.z
+  mathHelper = numberValue6.z
+  numberValue15 = false
+  numberValue2 = false
+  flag = false
+  flag2 = flag2(flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag)
+  flag3 = SetEntityInvincible
+  numberValue10 = flag2
+  flag4 = true
+  flag3(numberValue10, flag4)
+  flag3 = SetVehicleEngineOn
+  numberValue10 = flag2
+  flag4 = true
+  stringHelper = true
+  mathHelper = false
+  flag3(numberValue10, flag4, stringHelper, mathHelper)
+  flag3 = SetVehicleCanBeVisiblyDamaged
+  numberValue10 = flag2
+  flag4 = false
+  flag3(numberValue10, flag4)
+  flag3 = SetVehicleCanBreak
+  numberValue10 = flag2
+  flag4 = false
+  flag3(numberValue10, flag4)
+  flag3 = SetEntityProofs
+  numberValue10 = flag2
+  flag4 = true
+  stringHelper = true
+  mathHelper = true
+  numberValue15 = true
+  numberValue2 = true
+  flag = true
+  numberValue3 = true
+  numberValue4 = true
+  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+  flag3 = ControlLandingGear
+  numberValue10 = flag2
+  flag4 = 3
+  flag3(numberValue10, flag4)
+  flag3 = SetEntityLodDist
+  numberValue10 = flag2
+  flag4 = 500
+  flag3(numberValue10, flag4)
+  flag3 = StartPlaybackRecordedVehicle
+  numberValue10 = flag2
+  flag4 = dataTable2.handle
+  stringHelper = dataTable2.name
+  mathHelper = true
+  flag3(numberValue10, flag4, stringHelper, mathHelper)
+  flag3 = SkipTimeInPlaybackRecordedVehicle
+  numberValue10 = flag2
+  flag4 = 4500.0
+  flag3(numberValue10, flag4)
+  flag3 = SetPedIntoVehicle
+  numberValue10 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  numberValue10 = numberValue10()
+  flag4 = flag2
+  stringHelper = -1
+  flag3(numberValue10, flag4, stringHelper)
+  flag3 = RenderScriptCams
+  numberValue10 = false
+  flag4 = true
+  stringHelper = 10000
+  mathHelper = true
+  numberValue15 = false
+  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15)
+  flag3 = workValue3
+  numberValue10 = 500
+  flag4 = false
+  flag3(numberValue10, flag4)
   while true do
-    SHX4_2 = DoesEntityExist
-    SHX5_2 = SHX3_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    if not SHX4_2 then
+    flag3 = DoesEntityExist
+    numberValue10 = flag2
+    flag3 = flag3(numberValue10)
+    if not flag3 then
       break
     end
-    SHX4_2 = SetPlaybackSpeed
-    SHX5_2 = SHX3_2
-    SHX6_2 = 2.0
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SetGameplayCamRelativePitch
-    SHX5_2 = 0.0
-    SHX6_2 = 1.0
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SetGameplayCamRelativeHeading
-    SHX5_2 = 0.0
-    SHX4_2(SHX5_2)
-    SHX4_2 = math
-    SHX4_2 = SHX4_2.floor
-    SHX5_2 = GetTimePositionInRecording
-    SHX6_2 = SHX3_2
-    SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX5_2(SHX6_2)
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX5_2 = 104000
-    if SHX4_2 > SHX5_2 then
+    flag3 = SetPlaybackSpeed
+    numberValue10 = flag2
+    flag4 = 2.0
+    flag3(numberValue10, flag4)
+    flag3 = SetGameplayCamRelativePitch
+    numberValue10 = 0.0
+    flag4 = 1.0
+    flag3(numberValue10, flag4)
+    flag3 = SetGameplayCamRelativeHeading
+    numberValue10 = 0.0
+    flag3(numberValue10)
+    flag3 = math
+    flag3 = flag3.floor
+    numberValue10 = GetTimePositionInRecording
+    flag4 = flag2
+    numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4 = numberValue10(flag4)
+    flag3 = flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15, numberValue2, flag, numberValue3, numberValue4)
+    numberValue10 = 104000
+    if flag3 > numberValue10 then
       break
     end
-    SHX5_2 = Wait
-    SHX6_2 = 0
-    SHX5_2(SHX6_2)
+    numberValue10 = Wait
+    flag4 = 0
+    numberValue10(flag4)
   end
-  SHX4_2 = SHX12_1
-  SHX5_2 = 500
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = DoesEntityExist
-  SHX6_2 = SHX3_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if SHX5_2 then
-    SHX5_2 = IsPedInVehicle
-    SHX6_2 = SHX4_2
-    SHX7_2 = SHX3_2
-    SHX8_2 = false
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-    if SHX5_2 then
-      SHX5_2 = TaskLeaveVehicle
-      SHX6_2 = SHX4_2
-      SHX7_2 = SHX3_2
-      SHX8_2 = 16
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = Wait
-      SHX6_2 = 0
-      SHX5_2(SHX6_2)
+  flag3 = workValue2
+  numberValue10 = 500
+  flag4 = true
+  flag3(numberValue10, flag4)
+  flag3 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  flag3 = flag3()
+  numberValue10 = DoesEntityExist
+  flag4 = flag2
+  numberValue10 = numberValue10(flag4)
+  if numberValue10 then
+    numberValue10 = IsPedInVehicle
+    flag4 = flag3
+    stringHelper = flag2
+    mathHelper = false
+    numberValue10 = numberValue10(flag4, stringHelper, mathHelper)
+    if numberValue10 then
+      numberValue10 = TaskLeaveVehicle
+      flag4 = flag3
+      stringHelper = flag2
+      mathHelper = 16
+      numberValue10(flag4, stringHelper, mathHelper)
+      numberValue10 = Wait
+      flag4 = 0
+      numberValue10(flag4)
     end
-    SHX5_2 = StopPlaybackRecordedVehicle
-    SHX6_2 = SHX3_2
-    SHX5_2(SHX6_2)
-    SHX5_2 = DeleteEntity
-    SHX6_2 = SHX3_2
-    SHX5_2(SHX6_2)
+    numberValue10 = StopPlaybackRecordedVehicle
+    flag4 = flag2
+    numberValue10(flag4)
+    numberValue10 = DeleteEntity
+    flag4 = flag2
+    -- Beginner: Delete a GTA entity.
+    numberValue10(flag4)
   end
-  SHX5_2 = SetModelAsNoLongerNeeded
-  SHX6_2 = -1281684762
-  SHX5_2(SHX6_2)
-  SHX5_2 = RemoveVehicleRecording
-  SHX6_2 = SHX1_1.handle
-  SHX7_2 = SHX1_1.name
-  SHX5_2(SHX6_2, SHX7_2)
+  numberValue10 = SetModelAsNoLongerNeeded
+  flag4 = -1281684762
+  numberValue10(flag4)
+  numberValue10 = RemoveVehicleRecording
+  flag4 = dataTable2.handle
+  stringHelper = dataTable2.name
+  numberValue10(flag4, stringHelper)
 end
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = true
-  SHX3_1 = SHX0_2
-  SHX0_2 = table
-  SHX0_2 = SHX0_2.create
-  SHX1_2 = 60000
-  SHX2_2 = 0
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX9_1 = SHX0_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SetEntityInvincible
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX4_1 = SHX1_2
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SetPlayerControl
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX5_2 = 0
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = SetEveryoneIgnorePlayer
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.createThreadOnTick
-  SHX3_2 = SHX11_1
-  SHX4_2 = "Benchmark"
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.hideAllDisplays
-  SHX3_2 = "benchmark"
-  SHX2_2(SHX3_2)
-  SHX2_2 = SHX12_1
-  SHX3_2 = 500
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = AnimpostfxStopAll
-  SHX2_2()
+function workValue6()
+  local arg1, arg2, numberValue6, flag2, flag3, numberValue10
+  arg1 = true
+  numberValue7 = arg1
+  arg1 = table
+  arg1 = arg1.create
+  arg2 = 60000
+  numberValue6 = 0
+  arg1 = arg1(arg2, numberValue6)
+  numberValue14 = arg1
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = SetEntityInvincible
+  numberValue6 = arg1
+  flag2 = false
+  arg2(numberValue6, flag2)
+  arg2 = GetEntityCoords
+  numberValue6 = arg1
+  flag2 = true
+  -- Beginner: result below is entityCoords.
+  arg2 = arg2(numberValue6, flag2)
+  numberValue8 = arg2
+  arg2 = PlayerId
+  -- Beginner: result below is localPlayerIndex.
+  arg2 = arg2()
+  numberValue6 = SetPlayerControl
+  flag2 = arg2
+  flag3 = false
+  numberValue10 = 0
+  numberValue6(flag2, flag3, numberValue10)
+  numberValue6 = SetEveryoneIgnorePlayer
+  flag2 = arg2
+  flag3 = true
+  numberValue6(flag2, flag3)
+  numberValue6 = CMG
+  numberValue6 = numberValue6.createThreadOnTick
+  flag2 = workValue
+  flag3 = "Benchmark"
+  -- Beginner: Run a helper every game frame while this script is active.
+  numberValue6(flag2, flag3)
+  numberValue6 = CMG
+  numberValue6 = numberValue6.hideAllDisplays
+  flag2 = "benchmark"
+  numberValue6(flag2)
+  numberValue6 = workValue2
+  flag2 = 500
+  flag3 = true
+  numberValue6(flag2, flag3)
+  numberValue6 = AnimpostfxStopAll
+  numberValue6()
 end
-function SHX17_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.deleteThreadOnTick
-  SHX1_2 = SHX11_1
-  SHX0_2(SHX1_2)
-  SHX0_2 = RenderScriptCams
-  SHX1_2 = false
-  SHX2_2 = false
-  SHX3_2 = 0
-  SHX4_2 = false
-  SHX5_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = SetCamActive
-  SHX1_2 = SHX2_1
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = DestroyCam
-  SHX1_2 = SHX2_1
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SetEntityInvincible
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX4_1.x
-  SHX4_2 = SHX4_1.y
-  SHX5_2 = SHX4_1.z
-  SHX6_2 = true
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX1_2 = FreezeEntityPosition
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = PlayerId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SetPlayerControl
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX5_2 = 0
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX2_2 = SetEveryoneIgnorePlayer
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SHX13_1
-  SHX3_2 = 500
-  SHX4_2 = false
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = 0.0
-  SHX3_2 = pairs
-  SHX4_2 = SHX9_1
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX10_1
-    if SHX7_2 >= SHX9_2 then
+function workValue7()
+  local arg1, arg2, numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15
+  arg1 = CMG
+  arg1 = arg1.deleteThreadOnTick
+  arg2 = workValue
+  arg1(arg2)
+  arg1 = RenderScriptCams
+  arg2 = false
+  numberValue6 = false
+  flag2 = 0
+  flag3 = false
+  numberValue10 = false
+  arg1(arg2, numberValue6, flag2, flag3, numberValue10)
+  arg1 = SetCamActive
+  arg2 = vector3Builder
+  numberValue6 = false
+  arg1(arg2, numberValue6)
+  arg1 = DestroyCam
+  arg2 = vector3Builder
+  numberValue6 = false
+  arg1(arg2, numberValue6)
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = SetEntityInvincible
+  numberValue6 = arg1
+  flag2 = false
+  arg2(numberValue6, flag2)
+  arg2 = SetEntityCoords
+  numberValue6 = arg1
+  flag2 = numberValue8.x
+  flag3 = numberValue8.y
+  numberValue10 = numberValue8.z
+  flag4 = true
+  stringHelper = false
+  mathHelper = false
+  numberValue15 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  arg2(numberValue6, flag2, flag3, numberValue10, flag4, stringHelper, mathHelper, numberValue15)
+  arg2 = FreezeEntityPosition
+  numberValue6 = arg1
+  flag2 = false
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg2(numberValue6, flag2)
+  arg2 = PlayerId
+  -- Beginner: result below is localPlayerIndex.
+  arg2 = arg2()
+  numberValue6 = SetPlayerControl
+  flag2 = arg2
+  flag3 = true
+  numberValue10 = 0
+  numberValue6(flag2, flag3, numberValue10)
+  numberValue6 = SetEveryoneIgnorePlayer
+  flag2 = arg2
+  flag3 = false
+  numberValue6(flag2, flag3)
+  numberValue6 = workValue3
+  flag2 = 500
+  flag3 = false
+  numberValue6(flag2, flag3)
+  numberValue6 = 0.0
+  flag2 = pairs
+  flag3 = numberValue14
+  flag2, flag3, numberValue10, flag4 = flag2(flag3)
+  for stringHelper, mathHelper in flag2, flag3, numberValue10, flag4 do
+    numberValue15 = numberValue
+    if stringHelper >= numberValue15 then
       break
     end
-    SHX2_2 = SHX2_2 + SHX8_2
+    numberValue6 = numberValue6 + mathHelper
   end
-  SHX3_2 = SHX10_1
-  SHX3_2 = SHX3_2 + 0.0
-  SHX2_2 = SHX2_2 / SHX3_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.round
-  SHX4_2 = SHX2_2
-  SHX5_2 = 1
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.showWarningMessage
-  SHX5_2 = "BENCHMARK"
-  SHX6_2 = string
-  SHX6_2 = SHX6_2.format
-  SHX7_2 = "Average FPS: %s"
-  SHX8_2 = SHX3_2
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX4_2 = TriggerServerEvent
-  SHX5_2 = "fc507140b6"
-  SHX6_2 = SHX3_2
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.cancelOverrideTimeWeather
-  SHX4_2()
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.showAllDisplays
-  SHX5_2 = "benchmark"
-  SHX4_2(SHX5_2)
-  SHX4_2 = table
-  SHX4_2 = SHX4_2.clear
-  SHX5_2 = SHX5_1
-  SHX4_2(SHX5_2)
-  SHX4_2 = 1
-  SHX7_1 = SHX4_2
-  SHX4_2 = {}
-  SHX9_1 = SHX4_2
-  SHX4_2 = 1
-  SHX10_1 = SHX4_2
-  SHX4_2 = false
-  SHX3_1 = SHX4_2
+  flag2 = numberValue
+  flag2 = flag2 + 0.0
+  numberValue6 = numberValue6 / flag2
+  flag2 = math
+  flag2 = flag2.round
+  flag3 = numberValue6
+  numberValue10 = 1
+  flag2 = flag2(flag3, numberValue10)
+  flag3 = CMG
+  flag3 = flag3.showWarningMessage
+  numberValue10 = "BENCHMARK"
+  flag4 = string
+  flag4 = flag4.format
+  stringHelper = "Average FPS: %s"
+  mathHelper = flag2
+  flag4, stringHelper, mathHelper, numberValue15 = flag4(stringHelper, mathHelper)
+  flag3(numberValue10, flag4, stringHelper, mathHelper, numberValue15)
+  flag3 = TriggerServerEvent
+  numberValue10 = "fc507140b6"
+  flag4 = flag2
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "fc507140b6".
+  flag3(numberValue10, flag4)
+  flag3 = CMG
+  flag3 = flag3.cancelOverrideTimeWeather
+  flag3()
+  flag3 = CMG
+  flag3 = flag3.showAllDisplays
+  numberValue10 = "benchmark"
+  flag3(numberValue10)
+  flag3 = table
+  flag3 = flag3.clear
+  numberValue10 = numberValue9
+  flag3(numberValue10)
+  flag3 = 1
+  numberValue12 = flag3
+  flag3 = {}
+  numberValue14 = flag3
+  flag3 = 1
+  numberValue = flag3
+  flag3 = false
+  numberValue7 = flag3
 end
-SHX18_1 = RegisterNetEvent
-SHX19_1 = "1b2bb2e289"
-function SHX20_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX16_1
-  SHX0_2()
-  SHX0_2 = SHX14_1
-  SHX1_2 = 1
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX14_1
-  SHX1_2 = 2
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX14_1
-  SHX1_2 = 3
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX14_1
-  SHX1_2 = 4
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX14_1
-  SHX1_2 = 5
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX15_1
-  SHX0_2()
-  SHX0_2 = SHX14_1
-  SHX1_2 = 6
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX17_1
-  SHX0_2()
+cmgCall = RegisterNetEvent
+textValue = "1b2bb2e289"
+-- Beginner: this function handles network event "1b2bb2e289".
+function workValue8()
+  local arg1, arg2
+  arg1 = workValue6
+  arg1()
+  arg1 = workValue4
+  arg2 = 1
+  arg1(arg2)
+  arg1 = workValue4
+  arg2 = 2
+  arg1(arg2)
+  arg1 = workValue4
+  arg2 = 3
+  arg1(arg2)
+  arg1 = workValue4
+  arg2 = 4
+  arg1(arg2)
+  arg1 = workValue4
+  arg2 = 5
+  arg1(arg2)
+  arg1 = workValue5
+  arg1()
+  arg1 = workValue4
+  arg2 = 6
+  arg1(arg2)
+  arg1 = workValue7
+  arg1()
 end
-SHX18_1(SHX19_1, SHX20_1)
-SHX18_1 = CMG
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX3_1
-  return SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "1b2bb2e289".
+cmgCall(textValue, workValue8)
+cmgCall = CMG
+function textValue()
+  local arg1, arg2
+  arg1 = numberValue7
+  return arg1
 end
-SHX18_1.isBenchmarking = SHX19_1
-SHX18_1 = AddEventHandler
-SHX19_1 = "onResourceStop"
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = GetCurrentResourceName
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = SHX3_1
-    if SHX1_2 then
-      SHX1_2 = SHX17_1
-      SHX1_2()
+cmgCall.isBenchmarking = textValue
+cmgCall = AddEventHandler
+textValue = "onResourceStop"
+-- Beginner: this function runs when client event "onResourceStop" fires.
+function workValue8(arg1)
+  local arg2
+  arg2 = GetCurrentResourceName
+  arg2 = arg2()
+  if arg2 == arg1 then
+    arg2 = numberValue7
+    if arg2 then
+      arg2 = workValue7
+      arg2()
     end
   end
 end
-SHX18_1(SHX19_1, SHX20_1)
+-- Beginner: Register a client-side event handler. Event/command: "onResourceStop".
+cmgCall(textValue, workValue8)

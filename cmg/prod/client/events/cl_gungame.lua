@@ -1,666 +1,641 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_gungame.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/events/cfg_gg"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = 1
-SHX3_1 = 0
-SHX4_1 = AddRelationshipGroup
-SHX5_1 = "GG_FFA"
-SHX4_1, SHX5_1 = SHX4_1(SHX5_1)
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.registerHudTimerBarProvider
-SHX7_1 = "gungame"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX1_1.state
-  if "started" ~= SHX1_2 then
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Gungame
+    ========================
+
+    File: cmg/prod/client/events/cl_gungame.lua
+    Purpose: This file contains event/minigame logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Config/data used:
+      * cfg/events/cfg_gg
+
+    Commands/command-like entries found:
+      * /10
+      * /2
+
+    Network/hash identifiers found: 10
+      They are intentionally left unchanged because matching server code may use them.
+
+]]
+local cmgCall, dataTable, numberValue2, numberValue3, workValue2, textValue, cmgCall2, textValue2, eventRegistration, textValue3, workValue
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+dataTable = "cfg/events/cfg_gg"
+-- Beginner: result below is config.
+cmgCall = cmgCall(dataTable)
+dataTable = {}
+numberValue2 = 1
+numberValue3 = 0
+workValue2 = AddRelationshipGroup
+textValue = "GG_FFA"
+workValue2, textValue = workValue2(textValue)
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.registerHudTimerBarProvider
+textValue2 = "gungame"
+function eventRegistration(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = dataTable.state
+  if "started" ~= arg2 then
     return
   end
-  SHX1_2 = SHX0_2.push
-  SHX2_2 = "~b~WEAPON TIER~w~"
-  SHX3_2 = SHX2_1
-  SHX4_2 = "/10"
-  SHX3_2 = SHX3_2 .. SHX4_2
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SHX0_2.push
-  SHX2_2 = "~b~PROGRESS~w~"
-  SHX3_2 = SHX3_1
-  SHX4_2 = "/2"
-  SHX3_2 = SHX3_2 .. SHX4_2
-  SHX1_2(SHX2_2, SHX3_2)
+  arg2 = arg1.push
+  arg3 = "~b~WEAPON TIER~w~"
+  arg4 = numberValue2
+  arg5 = "/10"
+  arg4 = arg4 .. arg5
+  arg2(arg3, arg4)
+  arg2 = arg1.push
+  arg3 = "~b~PROGRESS~w~"
+  arg4 = numberValue3
+  arg5 = "/2"
+  arg4 = arg4 .. arg5
+  arg2(arg3, arg4)
 end
-SHX6_1(SHX7_1, SHX8_1)
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.random
-  SHX1_2 = 1
-  SHX2_2 = 5
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX1_2 = string
-  SHX1_2 = SHX1_2.char
-  SHX2_2 = 96 + SHX0_2
-  return SHX1_2(SHX2_2)
+cmgCall2(textValue2, eventRegistration)
+function cmgCall2()
+  local arg1, arg2, arg3
+  arg1 = math
+  arg1 = arg1.random
+  arg2 = 1
+  arg3 = 5
+  arg1 = arg1(arg2, arg3)
+  arg2 = string
+  arg2 = arg2.char
+  arg3 = 96 + arg1
+  return arg2(arg3)
 end
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = #SHX0_2
-  if SHX1_2 > 0 then
-    SHX1_2 = CreateThread
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3
+function textValue2(arg1)
+  local arg2, arg3
+  arg2 = #arg1
+  if arg2 > 0 then
+    arg2 = CreateThread
+    -- Beginner: this function is the body of a background FiveM thread.
+    function arg3()
+      local iterator, numberValue, flag5, numberValue4, workValue3, workValue4, cmgCall4, workValue5, cmgCall5, workValue6, position
       while true do
-        SHX0_3 = SHX1_1.pickups
-        if not SHX0_3 then
+        iterator = dataTable.pickups
+        if not iterator then
           break
         end
-        SHX0_3 = SHX1_1.state
-        if "ended" == SHX0_3 then
+        iterator = dataTable.state
+        if "ended" == iterator then
           break
         end
-        SHX0_3 = pairs
-        SHX1_3 = SHX1_1.pickups
-        SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-        for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-          SHX6_3 = CMG
-          SHX6_3 = SHX6_3.deletePickup
-          SHX7_3 = SHX5_3
-          SHX6_3(SHX7_3)
+        iterator = pairs
+        numberValue = dataTable.pickups
+        iterator, numberValue, flag5, numberValue4 = iterator(numberValue)
+        for workValue3, workValue4 in iterator, numberValue, flag5, numberValue4 do
+          cmgCall4 = CMG
+          cmgCall4 = cmgCall4.deletePickup
+          workValue5 = workValue4
+          cmgCall4(workValue5)
         end
-        SHX0_3 = {}
-        SHX1_1.pickups = SHX0_3
-        SHX0_3 = pairs
-        SHX1_3 = SHX0_2
-        SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-        for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-          SHX6_3 = table
-          SHX6_3 = SHX6_3.insert
-          SHX7_3 = SHX1_1.pickups
-          SHX8_3 = CMG
-          SHX8_3 = SHX8_3.createPickup
-          SHX9_3 = SHX5_3.hash
-          SHX10_3 = SHX5_3.position
-          SHX8_3, SHX9_3, SHX10_3 = SHX8_3(SHX9_3, SHX10_3)
-          SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3)
+        iterator = {}
+        dataTable.pickups = iterator
+        iterator = pairs
+        numberValue = arg1
+        iterator, numberValue, flag5, numberValue4 = iterator(numberValue)
+        for workValue3, workValue4 in iterator, numberValue, flag5, numberValue4 do
+          cmgCall4 = table
+          cmgCall4 = cmgCall4.insert
+          workValue5 = dataTable.pickups
+          cmgCall5 = CMG
+          cmgCall5 = cmgCall5.createPickup
+          workValue6 = workValue4.hash
+          position = workValue4.position
+          cmgCall5, workValue6, position = cmgCall5(workValue6, position)
+          cmgCall4(workValue5, cmgCall5, workValue6, position)
         end
-        SHX0_3 = Wait
-        SHX1_3 = 60000
-        SHX0_3(SHX1_3)
+        iterator = Wait
+        numberValue = 60000
+        iterator(numberValue)
       end
     end
-    SHX1_2(SHX2_2)
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    arg2(arg3)
   end
 end
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "7892140796"
-function SHX10_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_1.state = "loading"
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.loadClientRockstarMap
-  SHX6_2 = SHX1_2
-  SHX7_2 = false
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX1_1.name = SHX0_2
-  SHX5_2 = {}
-  SHX1_1.pickups = SHX5_2
-  SHX5_2 = PlayerPedId
-  SHX5_2 = SHX5_2()
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.setEventRespawnPosition
-  SHX7_2 = SHX2_2
-  SHX6_2(SHX7_2)
-  SHX6_2 = SetEntityCoordsNoOffset
-  SHX7_2 = SHX5_2
-  SHX8_2 = SHX2_2.x
-  SHX9_2 = SHX2_2.y
-  SHX10_2 = SHX2_2.z
-  SHX11_2 = true
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX6_2 = SetEntityHeading
-  SHX7_2 = SHX5_2
-  SHX8_2 = SHX2_2.w
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = FreezeEntityPosition
-  SHX7_2 = SHX5_2
-  SHX8_2 = true
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = SHX7_1
-  SHX7_2 = SHX3_2
-  SHX6_2(SHX7_2)
-  if SHX4_2 then
-    SHX6_2 = TriggerEvent
-    SHX7_2 = "9d8183a5b9"
-    SHX6_2(SHX7_2)
+eventRegistration = RegisterNetEvent
+textValue3 = "7892140796"
+-- Beginner: this function handles network event "7892140796".
+function workValue(arg1, arg2, arg3, arg4, arg5)
+  local playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2, flag3, flag4
+  dataTable.state = "loading"
+  playerPed = CMG
+  playerPed = playerPed.loadClientRockstarMap
+  cmgCall3 = arg2
+  flag6 = false
+  playerPed(cmgCall3, flag6)
+  dataTable.name = arg1
+  playerPed = {}
+  dataTable.pickups = playerPed
+  playerPed = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  playerPed = playerPed()
+  cmgCall3 = CMG
+  cmgCall3 = cmgCall3.setEventRespawnPosition
+  flag6 = arg3
+  cmgCall3(flag6)
+  cmgCall3 = SetEntityCoordsNoOffset
+  flag6 = playerPed
+  flag7 = arg3.x
+  flag8 = arg3.y
+  flag = arg3.z
+  flag2 = true
+  flag3 = false
+  flag4 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  cmgCall3(flag6, flag7, flag8, flag, flag2, flag3, flag4)
+  cmgCall3 = SetEntityHeading
+  flag6 = playerPed
+  flag7 = arg3.w
+  -- Beginner: Change the direction an entity is facing.
+  cmgCall3(flag6, flag7)
+  cmgCall3 = FreezeEntityPosition
+  flag6 = playerPed
+  flag7 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  cmgCall3(flag6, flag7)
+  cmgCall3 = textValue2
+  flag6 = arg4
+  cmgCall3(flag6)
+  if arg5 then
+    cmgCall3 = TriggerEvent
+    flag6 = "9d8183a5b9"
+    -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "9d8183a5b9".
+    cmgCall3(flag6)
     return
   end
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "9d8183a5b9"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = SetLocalPlayerAsGhost
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = SetEntityAlpha
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = 155
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = SetPedRelationshipGroupHash
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX5_1
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = SetRelationshipBetweenGroups
-  SHX1_2 = 5
-  SHX2_2 = SHX5_1
-  SHX3_2 = SHX5_1
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadAnimDict
-  SHX1_2 = "mini@triathlon"
-  SHX0_2(SHX1_2)
-  SHX0_2 = TaskPlayAnim
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "mini@triathlon"
-  SHX3_2 = "idle_"
-  SHX4_2 = SHX6_1
-  SHX4_2 = SHX4_2()
-  SHX3_2 = SHX3_2 .. SHX4_2
-  SHX4_2 = 8.0
-  SHX5_2 = 8.0
-  SHX6_2 = -1
-  SHX7_2 = 1
-  SHX8_2 = 0.2
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setPlayerCanOpenLeaderboard
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = SetEntityHealth
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = 200
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = BusyspinnerOff
-  SHX0_2()
-  SHX0_2 = PlaySoundFrontend
-  SHX1_2 = -1
-  SHX2_2 = "5s"
-  SHX3_2 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-  SHX4_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "b3cbc4aca5"
-  SHX2_2 = 5
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setSwitchGunEnabled
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.stopEventSequence
-  SHX0_2()
-  SHX0_2 = currentEvent
-  SHX0_2.drawPlayersTimeBar = false
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7892140796".
+eventRegistration(textValue3, workValue)
+eventRegistration = RegisterNetEvent
+textValue3 = "9d8183a5b9"
+-- Beginner: this function handles network event "9d8183a5b9".
+function workValue()
+  local arg1, arg2, arg3, arg4, arg5, playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2
+  arg1 = SetLocalPlayerAsGhost
+  arg2 = true
+  arg1(arg2)
+  arg1 = SetEntityAlpha
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = 155
+  arg4 = false
+  arg1(arg2, arg3, arg4)
+  arg1 = SetPedRelationshipGroupHash
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = textValue
+  arg1(arg2, arg3)
+  arg1 = SetRelationshipBetweenGroups
+  arg2 = 5
+  arg3 = textValue
+  arg4 = textValue
+  arg1(arg2, arg3, arg4)
+  arg1 = CMG
+  arg1 = arg1.loadAnimDict
+  arg2 = "mini@triathlon"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg1(arg2)
+  arg1 = TaskPlayAnim
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "mini@triathlon"
+  arg4 = "idle_"
+  arg5 = cmgCall2
+  arg5 = arg5()
+  arg4 = arg4 .. arg5
+  arg5 = 8.0
+  playerPed = 8.0
+  cmgCall3 = -1
+  flag6 = 1
+  flag7 = 0.2
+  flag8 = false
+  flag = false
+  flag2 = true
+  -- Beginner: Play an animation on a ped.
+  arg1(arg2, arg3, arg4, arg5, playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2)
+  arg1 = CMG
+  arg1 = arg1.setPlayerCanOpenLeaderboard
+  arg2 = true
+  arg1(arg2)
+  arg1 = SetEntityHealth
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = 200
+  arg1(arg2, arg3)
+  arg1 = BusyspinnerOff
+  arg1()
+  arg1 = PlaySoundFrontend
+  arg2 = -1
+  arg3 = "5s"
+  arg4 = "MP_MISSION_COUNTDOWN_SOUNDSET"
+  arg5 = false
+  arg1(arg2, arg3, arg4, arg5)
+  arg1 = TriggerEvent
+  arg2 = "b3cbc4aca5"
+  arg3 = 5
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "b3cbc4aca5".
+  arg1(arg2, arg3)
+  arg1 = CMG
+  arg1 = arg1.setSwitchGunEnabled
+  arg2 = false
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.stopEventSequence
+  arg1()
+  arg1 = currentEvent
+  arg1.drawPlayersTimeBar = false
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
   while true do
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX1_2 = SHX1_2 - SHX0_2
-    SHX2_2 = 5000
-    if not (SHX1_2 < SHX2_2) then
+    arg2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg2 = arg2()
+    arg2 = arg2 - arg1
+    arg3 = 5000
+    if not (arg2 < arg3) then
       break
     end
-    SHX1_2 = next
-    SHX2_2 = SHX1_1
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      SHX1_2 = ClearPedTasks
-      SHX2_2 = PlayerPedId
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX2_2()
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-      SHX1_2 = SetCamActive
-      SHX2_2 = SHX1_1.camera
-      SHX3_2 = false
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = RenderScriptCams
-      SHX2_2 = false
-      SHX3_2 = false
-      SHX4_2 = 0
-      SHX5_2 = false
-      SHX6_2 = false
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      SHX1_2 = DestroyCam
-      SHX2_2 = SHX1_1.camera
-      SHX3_2 = false
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = DestroyCam
-      SHX2_2 = SHX1_1.camera2
-      SHX3_2 = false
-      SHX1_2(SHX2_2, SHX3_2)
-      SHX1_2 = PlayerPedId
-      SHX1_2 = SHX1_2()
-      SHX2_2 = FreezeEntityPosition
-      SHX3_2 = SHX1_2
-      SHX4_2 = false
-      SHX2_2(SHX3_2, SHX4_2)
+    arg2 = next
+    arg3 = dataTable
+    arg2 = arg2(arg3)
+    if not arg2 then
+      arg2 = ClearPedTasks
+      arg3 = PlayerPedId
+      arg3, arg4, arg5, playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2 = arg3()
+      arg2(arg3, arg4, arg5, playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2)
+      arg2 = SetCamActive
+      arg3 = dataTable.camera
+      arg4 = false
+      arg2(arg3, arg4)
+      arg2 = RenderScriptCams
+      arg3 = false
+      arg4 = false
+      arg5 = 0
+      playerPed = false
+      cmgCall3 = false
+      arg2(arg3, arg4, arg5, playerPed, cmgCall3)
+      arg2 = DestroyCam
+      arg3 = dataTable.camera
+      arg4 = false
+      arg2(arg3, arg4)
+      arg2 = DestroyCam
+      arg3 = dataTable.camera2
+      arg4 = false
+      arg2(arg3, arg4)
+      arg2 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      arg2 = arg2()
+      arg3 = FreezeEntityPosition
+      arg4 = arg2
+      arg5 = false
+      -- Beginner: Freeze or unfreeze an entity in place.
+      arg3(arg4, arg5)
       return
     end
-    SHX1_2 = Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+    arg2 = Wait
+    arg3 = 0
+    arg2(arg3)
   end
-  SHX1_1.state = "started"
-  SHX1_2 = ClearPedTasks
-  SHX2_2 = PlayerPedId
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX2_2()
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX1_2 = SetCamActive
-  SHX2_2 = SHX1_1.camera
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = RenderScriptCams
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX4_2 = 0
-  SHX5_2 = false
-  SHX6_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = DestroyCam
-  SHX2_2 = SHX1_1.camera
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = DestroyCam
-  SHX2_2 = SHX1_1.camera2
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.enableMinigamePlayerBlips
-  SHX2_2 = true
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.enableMinigamePlayerTags
-  SHX2_2 = true
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.setMinigameBounds
-  SHX2_2 = SHX0_1.locations
-  SHX3_2 = SHX1_1.name
-  SHX2_2 = SHX2_2[SHX3_2]
-  SHX2_2 = SHX2_2.bounds
-  SHX1_2(SHX2_2)
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = FreezeEntityPosition
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetTimeout
-  SHX3_2 = 3000
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SetLocalPlayerAsGhost
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = ResetEntityAlpha
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX0_3(SHX1_3)
+  dataTable.state = "started"
+  arg2 = ClearPedTasks
+  arg3 = PlayerPedId
+  arg3, arg4, arg5, playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2 = arg3()
+  arg2(arg3, arg4, arg5, playerPed, cmgCall3, flag6, flag7, flag8, flag, flag2)
+  arg2 = SetCamActive
+  arg3 = dataTable.camera
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = RenderScriptCams
+  arg3 = false
+  arg4 = false
+  arg5 = 0
+  playerPed = false
+  cmgCall3 = false
+  arg2(arg3, arg4, arg5, playerPed, cmgCall3)
+  arg2 = DestroyCam
+  arg3 = dataTable.camera
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = DestroyCam
+  arg3 = dataTable.camera2
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = CMG
+  arg2 = arg2.enableMinigamePlayerBlips
+  arg3 = true
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.enableMinigamePlayerTags
+  arg3 = true
+  arg4 = true
+  arg2(arg3, arg4)
+  arg2 = CMG
+  arg2 = arg2.setMinigameBounds
+  arg3 = cmgCall.locations
+  arg4 = dataTable.name
+  arg3 = arg3[arg4]
+  arg3 = arg3.bounds
+  arg2(arg3)
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = FreezeEntityPosition
+  arg4 = arg2
+  arg5 = false
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg3(arg4, arg5)
+  arg3 = SetTimeout
+  arg4 = 3000
+  function arg5()
+    local iterator, numberValue
+    iterator = SetLocalPlayerAsGhost
+    numberValue = false
+    iterator(numberValue)
+    iterator = ResetEntityAlpha
+    numberValue = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    numberValue = numberValue()
+    iterator(numberValue)
   end
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.setHudTimerBarProviderActive
-  SHX3_2 = "gungame"
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
+  arg3(arg4, arg5)
+  arg3 = CMG
+  arg3 = arg3.setHudTimerBarProviderActive
+  arg4 = "gungame"
+  arg5 = true
+  arg3(arg4, arg5)
   while true do
-    SHX2_2 = SHX1_1.state
-    if "started" ~= SHX2_2 then
+    arg3 = dataTable.state
+    if "started" ~= arg3 then
       break
     end
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.disableMeleeControls
-    SHX2_2()
-    SHX2_2 = DisableFirstPersonCamThisFrame
-    SHX2_2()
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
+    arg3 = CMG
+    arg3 = arg3.disableMeleeControls
+    arg3()
+    arg3 = DisableFirstPersonCamThisFrame
+    arg3()
+    arg3 = Citizen
+    arg3 = arg3.Wait
+    arg4 = 0
+    arg3(arg4)
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.setHudTimerBarProviderActive
-  SHX3_2 = "gungame"
-  SHX4_2 = false
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.setEventRespawnPosition
-  SHX2_2()
+  arg3 = CMG
+  arg3 = arg3.setHudTimerBarProviderActive
+  arg4 = "gungame"
+  arg5 = false
+  arg3(arg4, arg5)
+  arg3 = CMG
+  arg3 = arg3.setEventRespawnPosition
+  arg3()
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = Citizen
-SHX8_1 = SHX8_1.CreateThread
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = "Gungame"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.registerMinigameCleanupHandler
-  SHX2_2 = SHX0_2
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setSwitchGunEnabled
-    SHX1_3 = true
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.enableMinigamePlayerBlips
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.cleanupRockstarMaps
-    SHX0_3()
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.clearAllPickups
-    SHX0_3()
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setEventRespawnPosition
-    SHX0_3()
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.clearMinigameBounds
-    SHX0_3()
-    SHX0_3 = RemoveAllPedWeapons
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = false
-    SHX0_3(SHX1_3, SHX2_3)
-    SHX0_3 = BusyspinnerOff
-    SHX0_3()
-    SHX0_3 = SetPlayerControl
-    SHX1_3 = PlayerId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = true
-    SHX3_3 = 0
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetRelationshipBetweenGroups
-    SHX1_3 = 0
-    SHX2_3 = SHX5_1
-    SHX3_3 = SHX5_1
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-    SHX0_3 = SetPedRelationshipGroupHash
-    SHX1_3 = PlayerPedId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = 1862763509
-    SHX0_3(SHX1_3, SHX2_3)
-    SHX0_3 = SHX1_1.pickups
-    if SHX0_3 then
-      SHX0_3 = pairs
-      SHX1_3 = SHX1_1.pickups
-      SHX0_3, SHX1_3, SHX2_3, SHX3_3 = SHX0_3(SHX1_3)
-      for SHX4_3, SHX5_3 in SHX0_3, SHX1_3, SHX2_3, SHX3_3 do
-        SHX6_3 = CMG
-        SHX6_3 = SHX6_3.deletePickup
-        SHX7_3 = SHX5_3
-        SHX6_3(SHX7_3)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9d8183a5b9".
+eventRegistration(textValue3, workValue)
+eventRegistration = Citizen
+eventRegistration = eventRegistration.CreateThread
+function textValue3()
+  local arg1, arg2, arg3, arg4
+  arg1 = "Gungame"
+  arg2 = CMG
+  arg2 = arg2.registerMinigameCleanupHandler
+  arg3 = arg1
+  function arg4()
+    local iterator, numberValue, flag5, numberValue4, workValue3, workValue4, cmgCall4, workValue5
+    iterator = CMG
+    iterator = iterator.setSwitchGunEnabled
+    numberValue = true
+    iterator(numberValue)
+    iterator = CMG
+    iterator = iterator.enableMinigamePlayerBlips
+    numberValue = false
+    iterator(numberValue)
+    iterator = CMG
+    iterator = iterator.cleanupRockstarMaps
+    iterator()
+    iterator = CMG
+    iterator = iterator.clearAllPickups
+    iterator()
+    iterator = CMG
+    iterator = iterator.setEventRespawnPosition
+    iterator()
+    iterator = CMG
+    iterator = iterator.clearMinigameBounds
+    iterator()
+    iterator = RemoveAllPedWeapons
+    numberValue = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    numberValue = numberValue()
+    flag5 = false
+    iterator(numberValue, flag5)
+    iterator = BusyspinnerOff
+    iterator()
+    iterator = SetPlayerControl
+    numberValue = PlayerId
+    -- Beginner: result below is localPlayerIndex.
+    numberValue = numberValue()
+    flag5 = true
+    numberValue4 = 0
+    iterator(numberValue, flag5, numberValue4)
+    iterator = SetRelationshipBetweenGroups
+    numberValue = 0
+    flag5 = textValue
+    numberValue4 = textValue
+    iterator(numberValue, flag5, numberValue4)
+    iterator = SetPedRelationshipGroupHash
+    numberValue = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    numberValue = numberValue()
+    flag5 = 1862763509
+    iterator(numberValue, flag5)
+    iterator = dataTable.pickups
+    if iterator then
+      iterator = pairs
+      numberValue = dataTable.pickups
+      iterator, numberValue, flag5, numberValue4 = iterator(numberValue)
+      for workValue3, workValue4 in iterator, numberValue, flag5, numberValue4 do
+        cmgCall4 = CMG
+        cmgCall4 = cmgCall4.deletePickup
+        workValue5 = workValue4
+        cmgCall4(workValue5)
       end
     end
-    SHX0_3 = 1
-    SHX2_1 = SHX0_3
-    SHX0_3 = 0
-    SHX3_1 = SHX0_3
-    SHX0_3 = {}
-    SHX1_1 = SHX0_3
+    iterator = 1
+    numberValue2 = iterator
+    iterator = 0
+    numberValue3 = iterator
+    iterator = {}
+    dataTable = iterator
   end
-  SHX1_2(SHX2_2, SHX3_2)
+  arg2(arg3, arg4)
 end
-SHX8_1(SHX9_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "9aa187d545"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX1_1.state = "waiting"
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.enableMinigamePlayerBlips
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = RemoveAllPedWeapons
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+eventRegistration(textValue3)
+eventRegistration = RegisterNetEvent
+textValue3 = "9aa187d545"
+-- Beginner: this function handles network event "9aa187d545".
+function workValue()
+  local arg1, arg2, arg3
+  dataTable.state = "waiting"
+  arg1 = CMG
+  arg1 = arg1.enableMinigamePlayerBlips
+  arg2 = false
+  arg1(arg2)
+  arg1 = RemoveAllPedWeapons
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = false
+  arg1(arg2, arg3)
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "aaefc4fa92"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CreateThread
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3
-    SHX0_3 = SetSpecialAbility
-    SHX1_3 = PlayerId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = 2
-    SHX0_3(SHX1_3, SHX2_3)
-    SHX0_3 = SpecialAbilityActivate
-    SHX1_3 = PlayerId
-    SHX1_3, SHX2_3 = SHX1_3()
-    SHX0_3(SHX1_3, SHX2_3)
-    SHX0_3 = Wait
-    SHX1_3 = 10000
-    SHX0_3(SHX1_3)
-    SHX0_3 = SetSpecialAbility
-    SHX1_3 = PlayerId
-    SHX1_3 = SHX1_3()
-    SHX2_3 = 3
-    SHX0_3(SHX1_3, SHX2_3)
-    SHX0_3 = SpecialAbilityActivate
-    SHX1_3 = PlayerId
-    SHX1_3, SHX2_3 = SHX1_3()
-    SHX0_3(SHX1_3, SHX2_3)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9aa187d545".
+eventRegistration(textValue3, workValue)
+eventRegistration = RegisterNetEvent
+textValue3 = "aaefc4fa92"
+-- Beginner: this function handles network event "aaefc4fa92".
+function workValue()
+  local arg1, arg2
+  arg1 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function arg2()
+    local iterator, numberValue, flag5
+    iterator = SetSpecialAbility
+    numberValue = PlayerId
+    -- Beginner: result below is localPlayerIndex.
+    numberValue = numberValue()
+    flag5 = 2
+    iterator(numberValue, flag5)
+    iterator = SpecialAbilityActivate
+    numberValue = PlayerId
+    numberValue, flag5 = numberValue()
+    iterator(numberValue, flag5)
+    iterator = Wait
+    numberValue = 10000
+    iterator(numberValue)
+    iterator = SetSpecialAbility
+    numberValue = PlayerId
+    -- Beginner: result below is localPlayerIndex.
+    numberValue = numberValue()
+    flag5 = 3
+    iterator(numberValue, flag5)
+    iterator = SpecialAbilityActivate
+    numberValue = PlayerId
+    numberValue, flag5 = numberValue()
+    iterator(numberValue, flag5)
   end
-  SHX0_2(SHX1_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg1(arg2)
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "c58a0272ff"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = PlaySoundFrontend
-  SHX1_2 = -1
-  SHX2_2 = "Weapon_Upgrade"
-  SHX3_2 = "DLC_GR_Weapon_Upgrade_Soundset"
-  SHX4_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.announceMpBigMsg
-  SHX1_2 = "~y~WEAPON UPGRADE"
-  SHX2_2 = ""
-  SHX3_2 = 1000
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = 0
-  SHX3_1 = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "aaefc4fa92".
+eventRegistration(textValue3, workValue)
+eventRegistration = RegisterNetEvent
+textValue3 = "c58a0272ff"
+-- Beginner: this function handles network event "c58a0272ff".
+function workValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = PlaySoundFrontend
+  arg2 = -1
+  arg3 = "Weapon_Upgrade"
+  arg4 = "DLC_GR_Weapon_Upgrade_Soundset"
+  arg5 = false
+  arg1(arg2, arg3, arg4, arg5)
+  arg1 = CMG
+  arg1 = arg1.announceMpBigMsg
+  arg2 = "~y~WEAPON UPGRADE"
+  arg3 = ""
+  arg4 = 1000
+  arg1(arg2, arg3, arg4)
+  arg1 = 0
+  numberValue3 = arg1
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = AddEventHandler
-SHX9_1 = "5dac3d7c66"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX1_1.state
-  if "started" == SHX0_2 then
-    SHX0_2 = SetLocalPlayerAsGhost
-    SHX1_2 = true
-    SHX0_2(SHX1_2)
-    SHX0_2 = Wait
-    SHX1_2 = 4000
-    SHX0_2(SHX1_2)
-    SHX0_2 = IsPedArmed
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = 5
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "dfc4f9e64d"
-      SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c58a0272ff".
+eventRegistration(textValue3, workValue)
+eventRegistration = AddEventHandler
+textValue3 = "5dac3d7c66"
+-- Beginner: this function runs when client event "5dac3d7c66" fires.
+function workValue()
+  local arg1, arg2, arg3
+  arg1 = dataTable.state
+  if "started" == arg1 then
+    arg1 = SetLocalPlayerAsGhost
+    arg2 = true
+    arg1(arg2)
+    arg1 = Wait
+    arg2 = 4000
+    arg1(arg2)
+    arg1 = IsPedArmed
+    arg2 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg2 = arg2()
+    arg3 = 5
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = TriggerServerEvent
+      arg2 = "dfc4f9e64d"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dfc4f9e64d".
+      arg1(arg2)
     end
-    SHX0_2 = Wait
-    SHX1_2 = 1000
-    SHX0_2(SHX1_2)
-    SHX0_2 = SetLocalPlayerAsGhost
-    SHX1_2 = false
-    SHX0_2(SHX1_2)
-    SHX0_2 = ResetGhostedEntityAlpha
-    SHX0_2()
+    arg1 = Wait
+    arg2 = 1000
+    arg1(arg2)
+    arg1 = SetLocalPlayerAsGhost
+    arg2 = false
+    arg1(arg2)
+    arg1 = ResetGhostedEntityAlpha
+    arg1()
   end
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "f38733e8a1"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX2_1 = SHX0_2
+-- Beginner: Register a client-side event handler. Event/command: "5dac3d7c66".
+eventRegistration(textValue3, workValue)
+eventRegistration = RegisterNetEvent
+textValue3 = "f38733e8a1"
+-- Beginner: this function handles network event "f38733e8a1".
+function workValue(arg1)
+  local arg2
+  numberValue2 = arg1
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "985340403d"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX3_1
-  SHX0_2 = SHX0_2 + 1
-  SHX3_1 = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f38733e8a1".
+eventRegistration(textValue3, workValue)
+eventRegistration = RegisterNetEvent
+textValue3 = "985340403d"
+-- Beginner: this function handles network event "985340403d".
+function workValue()
+  local arg1, arg2
+  arg1 = numberValue3
+  arg1 = arg1 + 1
+  numberValue3 = arg1
 end
-SHX8_1(SHX9_1, SHX10_1)
+eventRegistration(textValue3, workValue)

@@ -1,914 +1,919 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_hacking_phone.lua
+    ====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX2_1 = {}
-SHX2_1.label = "Street cam 1"
-SHX3_1 = {}
-SHX3_1.x = 234.53869628906
-SHX3_1.y = -394.37854003906
-SHX3_1.z = 51.980960845947
-SHX2_1.pos = SHX3_1
-SHX3_1 = {}
-SHX3_1.x = -25.0
-SHX3_1.y = 0.0
-SHX3_1.z = 0.0
-SHX2_1.rot = SHX3_1
-SHX3_1 = {}
-SHX3_1.label = "Street cam 2"
-SHX4_1 = {}
-SHX4_1.x = -130.69403076172
-SHX4_1.y = -237.51498413086
-SHX4_1.z = 46.375648498535
-SHX3_1.pos = SHX4_1
-SHX4_1 = {}
-SHX4_1.x = -25.0
-SHX4_1.y = 0.0
-SHX4_1.z = 0.0
-SHX3_1.rot = SHX4_1
-SHX4_1 = {}
-SHX4_1.label = "Street cam 3"
-SHX5_1 = {}
-SHX5_1.x = 228.79537963867
-SHX5_1.y = 217.26516723633
-SHX5_1.z = 111.65953826904
-SHX4_1.pos = SHX5_1
-SHX5_1 = {}
-SHX5_1.x = -25.0
-SHX5_1.y = 0.0
-SHX5_1.z = 0.0
-SHX4_1.rot = SHX5_1
-SHX5_1 = {}
-SHX5_1.label = "Street cam 4"
-SHX6_1 = {}
-SHX6_1.x = 276.10882568359
-SHX6_1.y = 147.8564453125
-SHX6_1.z = 108.54515075684
-SHX5_1.pos = SHX6_1
-SHX6_1 = {}
-SHX6_1.x = -25.0
-SHX6_1.y = 0.0
-SHX6_1.z = 0.0
-SHX5_1.rot = SHX6_1
-SHX6_1 = {}
-SHX6_1.label = "Street cam 5"
-SHX7_1 = {}
-SHX7_1.x = -697.13793945312
-SHX7_1.y = 271.83880615234
-SHX7_1.z = 92.289413452148
-SHX6_1.pos = SHX7_1
-SHX7_1 = {}
-SHX7_1.x = -25.0
-SHX7_1.y = 0.0
-SHX7_1.z = 0.0
-SHX6_1.rot = SHX7_1
-SHX7_1 = {}
-SHX7_1.label = "Street cam 6"
-SHX8_1 = {}
-SHX8_1.x = -717.26025390625
-SHX8_1.y = -157.43000793457
-SHX8_1.z = 41.1064453125
-SHX7_1.pos = SHX8_1
-SHX8_1 = {}
-SHX8_1.x = -25.0
-SHX8_1.y = 0.0
-SHX8_1.z = 0.0
-SHX7_1.rot = SHX8_1
-SHX8_1 = {}
-SHX8_1.label = "Street cam 7"
-SHX9_1 = {}
-SHX9_1.x = -638.20953369141
-SHX9_1.y = -249.96182250977
-SHX9_1.z = 42.848964691162
-SHX8_1.pos = SHX9_1
-SHX9_1 = {}
-SHX9_1.x = -25.0
-SHX9_1.y = 0.0
-SHX9_1.z = 0.0
-SHX8_1.rot = SHX9_1
-SHX9_1 = {}
-SHX9_1.label = "Street cam 8"
-SHX10_1 = {}
-SHX10_1.x = -2974.3278808594
-SHX10_1.y = 395.2333984375
-SHX10_1.z = 16.954597473145
-SHX9_1.pos = SHX10_1
-SHX10_1 = {}
-SHX10_1.x = -25.0
-SHX10_1.y = 0.0
-SHX10_1.z = 0.0
-SHX9_1.rot = SHX10_1
-SHX10_1 = {}
-SHX10_1.label = "Street cam 9"
-SHX11_1 = {}
-SHX11_1.x = -2966.9111328125
-SHX11_1.y = 485.03805541992
-SHX11_1.z = 17.149766921997
-SHX10_1.pos = SHX11_1
-SHX11_1 = {}
-SHX11_1.x = -25.0
-SHX11_1.y = 0.0
-SHX11_1.z = 0.0
-SHX10_1.rot = SHX11_1
-SHX11_1 = {}
-SHX11_1.label = "Street cam 10"
-SHX12_1 = {}
-SHX12_1.x = -2467.7106933594
-SHX12_1.y = -218.71464538574
-SHX12_1.z = 23.948993682861
-SHX11_1.pos = SHX12_1
-SHX12_1 = {}
-SHX12_1.x = -25.0
-SHX12_1.y = 0.0
-SHX12_1.z = 0.0
-SHX11_1.rot = SHX12_1
-SHX12_1 = {}
-SHX12_1.label = "Street cam 11"
-SHX13_1 = {}
-SHX13_1.x = -202.26121520996
-SHX13_1.y = -864.77221679688
-SHX13_1.z = 34.702033996582
-SHX12_1.pos = SHX13_1
-SHX13_1 = {}
-SHX13_1.x = -25.0
-SHX13_1.y = 0.0
-SHX13_1.z = 0.0
-SHX12_1.rot = SHX13_1
-SHX13_1 = {}
-SHX13_1.label = "Street cam 12"
-SHX14_1 = {}
-SHX14_1.x = 387.98492431641
-SHX14_1.y = -974.71929931641
-SHX14_1.z = 32.410995483398
-SHX13_1.pos = SHX14_1
-SHX14_1 = {}
-SHX14_1.x = -25.0
-SHX14_1.y = 0.0
-SHX14_1.z = 0.0
-SHX13_1.rot = SHX14_1
-SHX14_1 = {}
-SHX14_1.label = "Street cam 13"
-SHX15_1 = {}
-SHX15_1.x = 423.26708984375
-SHX15_1.y = -997.22393798828
-SHX15_1.z = 33.90548324585
-SHX14_1.pos = SHX15_1
-SHX15_1 = {}
-SHX15_1.x = -25.0
-SHX15_1.y = 0.0
-SHX15_1.z = 0.0
-SHX14_1.rot = SHX15_1
-SHX15_1 = {}
-SHX15_1.label = "Street cam 14"
-SHX16_1 = {}
-SHX16_1.x = 438.83123779297
-SHX16_1.y = -1000.6759033203
-SHX16_1.z = 32.538806915283
-SHX15_1.pos = SHX16_1
-SHX16_1 = {}
-SHX16_1.x = -25.0
-SHX16_1.y = 0.0
-SHX16_1.z = 0.0
-SHX15_1.rot = SHX16_1
-SHX16_1 = {}
-SHX16_1.label = "Street cam 15"
-SHX17_1 = {}
-SHX17_1.x = 467.33630371094
-SHX17_1.y = -1015.2039794922
-SHX17_1.z = 30.915859222412
-SHX16_1.pos = SHX17_1
-SHX17_1 = {}
-SHX17_1.x = -25.0
-SHX17_1.y = 0.0
-SHX17_1.z = 0.0
-SHX16_1.rot = SHX17_1
-SHX17_1 = {}
-SHX17_1.label = "Street cam 16"
-SHX18_1 = {}
-SHX18_1.x = 490.38217163086
-SHX18_1.y = -1024.0905761719
-SHX18_1.z = 31.309572219849
-SHX17_1.pos = SHX18_1
-SHX18_1 = {}
-SHX18_1.x = -25.0
-SHX18_1.y = 0.0
-SHX18_1.z = 0.0
-SHX17_1.rot = SHX18_1
-SHX18_1 = {}
-SHX18_1.label = "Street cam 17"
-SHX19_1 = {}
-SHX19_1.x = 489.91595458984
-SHX19_1.y = -1003.3515625
-SHX19_1.z = 29.712303161621
-SHX18_1.pos = SHX19_1
-SHX19_1 = {}
-SHX19_1.x = -25.0
-SHX19_1.y = 0.0
-SHX19_1.z = 0.0
-SHX18_1.rot = SHX19_1
-SHX19_1 = {}
-SHX19_1.label = "Street cam 18"
-SHX20_1 = {}
-SHX20_1.x = 481.11560058594
-SHX20_1.y = -977.43322753906
-SHX20_1.z = 29.869251251221
-SHX19_1.pos = SHX20_1
-SHX20_1 = {}
-SHX20_1.x = -25.0
-SHX20_1.y = 0.0
-SHX20_1.z = 0.0
-SHX19_1.rot = SHX20_1
-SHX20_1 = {}
-SHX20_1.label = "Street cam 19"
-SHX21_1 = {}
-SHX21_1.x = 432.4736328125
-SHX21_1.y = -656.77960205078
-SHX21_1.z = 30.912614822388
-SHX20_1.pos = SHX21_1
-SHX21_1 = {}
-SHX21_1.x = -25.0
-SHX21_1.y = 0.0
-SHX21_1.z = 0.0
-SHX20_1.rot = SHX21_1
-SHX21_1 = {}
-SHX21_1.label = "Street cam 20"
-SHX22_1 = {}
-SHX22_1.x = 353.97552490234
-SHX22_1.y = -600.77154541016
-SHX22_1.z = 32.244640350342
-SHX21_1.pos = SHX22_1
-SHX22_1 = {}
-SHX22_1.x = -25.0
-SHX22_1.y = 0.0
-SHX22_1.z = 0.0
-SHX21_1.rot = SHX22_1
-SHX22_1 = {}
-SHX22_1.label = "Street cam 21"
-SHX23_1 = {}
-SHX23_1.x = -128.30404663086
-SHX23_1.y = -1023.4191894531
-SHX23_1.z = 35.994411468506
-SHX22_1.pos = SHX23_1
-SHX23_1 = {}
-SHX23_1.x = -25.0
-SHX23_1.y = 0.0
-SHX23_1.z = 0.0
-SHX22_1.rot = SHX23_1
-SHX23_1 = {}
-SHX23_1.label = "Street cam 22"
-SHX24_1 = {}
-SHX24_1.x = -62.237995147705
-SHX24_1.y = -1101.1270751953
-SHX24_1.z = 32.561504364014
-SHX23_1.pos = SHX24_1
-SHX24_1 = {}
-SHX24_1.x = -25.0
-SHX24_1.y = 0.0
-SHX24_1.z = 0.0
-SHX23_1.rot = SHX24_1
-SHX24_1 = {}
-SHX24_1.label = "Street cam 23"
-SHX25_1 = {}
-SHX25_1.x = 24.420116424561
-SHX25_1.y = -1350.7467041016
-SHX25_1.z = 32.561325073242
-SHX24_1.pos = SHX25_1
-SHX25_1 = {}
-SHX25_1.x = -25.0
-SHX25_1.y = 0.0
-SHX25_1.z = 0.0
-SHX24_1.rot = SHX25_1
-SHX25_1 = {}
-SHX25_1.label = "Street cam 24"
-SHX26_1 = {}
-SHX26_1.x = 102.72190856934
-SHX26_1.y = -1318.4841308594
-SHX26_1.z = 33.93473815918
-SHX25_1.pos = SHX26_1
-SHX26_1 = {}
-SHX26_1.x = -25.0
-SHX26_1.y = 0.0
-SHX26_1.z = 0.0
-SHX25_1.rot = SHX26_1
-SHX26_1 = {}
-SHX26_1.label = "Street cam 25"
-SHX27_1 = {}
-SHX27_1.x = 68.04532623291
-SHX27_1.y = -1720.1014404297
-SHX27_1.z = 34.036998748779
-SHX26_1.pos = SHX27_1
-SHX27_1 = {}
-SHX27_1.x = -25.0
-SHX27_1.y = 0.0
-SHX27_1.z = 0.0
-SHX26_1.rot = SHX27_1
-SHX27_1 = {}
-SHX27_1.label = "Street cam 26"
-SHX28_1 = {}
-SHX28_1.x = -59.932559967041
-SHX28_1.y = -1752.037109375
-SHX28_1.z = 31.550285339355
-SHX27_1.pos = SHX28_1
-SHX28_1 = {}
-SHX28_1.x = -25.0
-SHX28_1.y = 0.0
-SHX28_1.z = 0.0
-SHX27_1.rot = SHX28_1
-SHX28_1 = {}
-SHX28_1.label = "Street cam 27"
-SHX29_1 = {}
-SHX29_1.x = 1301.2156982422
-SHX29_1.y = 4317.45703125
-SHX29_1.z = 41.211765289307
-SHX28_1.pos = SHX29_1
-SHX29_1 = {}
-SHX29_1.x = -25.0
-SHX29_1.y = 0.0
-SHX29_1.z = 0.0
-SHX28_1.rot = SHX29_1
-SHX29_1 = {}
-SHX29_1.label = "Street cam 28"
-SHX30_1 = {}
-SHX30_1.x = 3550.9475097656
-SHX30_1.y = 3651.6000976562
-SHX30_1.z = 46.954288482666
-SHX29_1.pos = SHX30_1
-SHX30_1 = {}
-SHX30_1.x = -25.0
-SHX30_1.y = 0.0
-SHX30_1.z = 0.0
-SHX29_1.rot = SHX30_1
-SHX30_1 = {}
-SHX30_1.label = "Street cam 29"
-SHX31_1 = {}
-SHX31_1.x = 1727.2385253906
-SHX31_1.y = 6412.2392578125
-SHX31_1.z = 36.611518859863
-SHX30_1.pos = SHX31_1
-SHX31_1 = {}
-SHX31_1.x = -25.0
-SHX31_1.y = 0.0
-SHX31_1.z = 0.0
-SHX30_1.rot = SHX31_1
-SHX31_1 = {}
-SHX31_1.label = "Street cam 30"
-SHX32_1 = {}
-SHX32_1.x = 130.58874511719
-SHX32_1.y = 6525.1376953125
-SHX32_1.z = 35.731548309326
-SHX31_1.pos = SHX32_1
-SHX32_1 = {}
-SHX32_1.x = -25.0
-SHX32_1.y = 0.0
-SHX32_1.z = 0.0
-SHX31_1.rot = SHX32_1
-SHX32_1 = {}
-SHX32_1.label = "Street cam 31"
-SHX33_1 = {}
-SHX33_1.x = -434.53747558594
-SHX33_1.y = 6011.1416015625
-SHX33_1.z = 34.472328186035
-SHX32_1.pos = SHX33_1
-SHX33_1 = {}
-SHX33_1.x = -25.0
-SHX33_1.y = 0.0
-SHX33_1.z = 0.0
-SHX32_1.rot = SHX33_1
-SHX33_1 = {}
-SHX33_1.label = "Street cam 32"
-SHX34_1 = {}
-SHX34_1.x = -1099.2557373047
-SHX34_1.y = 4911.3217773438
-SHX34_1.z = 218.9635925293
-SHX33_1.pos = SHX34_1
-SHX34_1 = {}
-SHX34_1.x = -25.0
-SHX34_1.y = 0.0
-SHX34_1.z = 0.0
-SHX33_1.rot = SHX34_1
-SHX34_1 = {}
-SHX34_1.label = "Street cam 33"
-SHX35_1 = {}
-SHX35_1.x = 1487.5465087891
-SHX35_1.y = 6354.9409179688
-SHX35_1.z = 27.180263519287
-SHX34_1.pos = SHX35_1
-SHX35_1 = {}
-SHX35_1.x = -25.0
-SHX35_1.y = 0.0
-SHX35_1.z = 0.0
-SHX34_1.rot = SHX35_1
-SHX35_1 = {}
-SHX35_1.label = "Street cam 34"
-SHX36_1 = {}
-SHX36_1.x = 232.71536254883
-SHX36_1.y = -591.38494873047
-SHX36_1.z = 47.335529327393
-SHX35_1.pos = SHX36_1
-SHX36_1 = {}
-SHX36_1.x = -25.0
-SHX36_1.y = 0.0
-SHX36_1.z = 0.0
-SHX35_1.rot = SHX36_1
-SHX1_1[1] = SHX2_1
-SHX1_1[2] = SHX3_1
-SHX1_1[3] = SHX4_1
-SHX1_1[4] = SHX5_1
-SHX1_1[5] = SHX6_1
-SHX1_1[6] = SHX7_1
-SHX1_1[7] = SHX8_1
-SHX1_1[8] = SHX9_1
-SHX1_1[9] = SHX10_1
-SHX1_1[10] = SHX11_1
-SHX1_1[11] = SHX12_1
-SHX1_1[12] = SHX13_1
-SHX1_1[13] = SHX14_1
-SHX1_1[14] = SHX15_1
-SHX1_1[15] = SHX16_1
-SHX1_1[16] = SHX17_1
-SHX1_1[17] = SHX18_1
-SHX1_1[18] = SHX19_1
-SHX1_1[19] = SHX20_1
-SHX1_1[20] = SHX21_1
-SHX1_1[21] = SHX22_1
-SHX1_1[22] = SHX23_1
-SHX1_1[23] = SHX24_1
-SHX1_1[24] = SHX25_1
-SHX1_1[25] = SHX26_1
-SHX1_1[26] = SHX27_1
-SHX1_1[27] = SHX28_1
-SHX1_1[28] = SHX29_1
-SHX1_1[29] = SHX30_1
-SHX1_1[30] = SHX31_1
-SHX1_1[31] = SHX32_1
-SHX1_1[32] = SHX33_1
-SHX1_1[33] = SHX34_1
-SHX1_1[34] = SHX35_1
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = ipairs
-  SHX1_2 = SHX0_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = DoesBlipExist
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if SHX6_2 then
-      SHX6_2 = RemoveBlip
-      SHX7_2 = SHX5_2
-      SHX6_2(SHX7_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Hacking Phone
+    ==============================
+
+    File: cmg/prod/client/misc/cl_hacking_phone.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Network/hash identifiers found: 3
+      They are intentionally left unchanged because matching server code may use them.
+      * f65acb9738
+      * 70c51a178a
+      * ee4d898632
+
+    Named framework/network events found:
+      * CMG:hackingPhoneActionResult
+
+]]
+local dataTable, dataTable12, dataTable23, dataTable31, eventRegistration, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8, dataTable9, dataTable10, dataTable11, dataTable13, dataTable14, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, dataTable21, dataTable22, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30
+dataTable = {}
+dataTable12 = {}
+dataTable23 = {}
+dataTable23.label = "Street cam 1"
+dataTable31 = {}
+dataTable31.x = 234.53869628906
+dataTable31.y = -394.37854003906
+dataTable31.z = 51.980960845947
+dataTable23.pos = dataTable31
+dataTable31 = {}
+dataTable31.x = -25.0
+dataTable31.y = 0.0
+dataTable31.z = 0.0
+dataTable23.rot = dataTable31
+dataTable31 = {}
+dataTable31.label = "Street cam 2"
+eventRegistration = {}
+eventRegistration.x = -130.69403076172
+eventRegistration.y = -237.51498413086
+eventRegistration.z = 46.375648498535
+dataTable31.pos = eventRegistration
+eventRegistration = {}
+eventRegistration.x = -25.0
+eventRegistration.y = 0.0
+eventRegistration.z = 0.0
+dataTable31.rot = eventRegistration
+eventRegistration = {}
+eventRegistration.label = "Street cam 3"
+dataTable32 = {}
+dataTable32.x = 228.79537963867
+dataTable32.y = 217.26516723633
+dataTable32.z = 111.65953826904
+eventRegistration.pos = dataTable32
+dataTable32 = {}
+dataTable32.x = -25.0
+dataTable32.y = 0.0
+dataTable32.z = 0.0
+eventRegistration.rot = dataTable32
+dataTable32 = {}
+dataTable32.label = "Street cam 4"
+dataTable33 = {}
+dataTable33.x = 276.10882568359
+dataTable33.y = 147.8564453125
+dataTable33.z = 108.54515075684
+dataTable32.pos = dataTable33
+dataTable33 = {}
+dataTable33.x = -25.0
+dataTable33.y = 0.0
+dataTable33.z = 0.0
+dataTable32.rot = dataTable33
+dataTable33 = {}
+dataTable33.label = "Street cam 5"
+dataTable34 = {}
+dataTable34.x = -697.13793945312
+dataTable34.y = 271.83880615234
+dataTable34.z = 92.289413452148
+dataTable33.pos = dataTable34
+dataTable34 = {}
+dataTable34.x = -25.0
+dataTable34.y = 0.0
+dataTable34.z = 0.0
+dataTable33.rot = dataTable34
+dataTable34 = {}
+dataTable34.label = "Street cam 6"
+dataTable35 = {}
+dataTable35.x = -717.26025390625
+dataTable35.y = -157.43000793457
+dataTable35.z = 41.1064453125
+dataTable34.pos = dataTable35
+dataTable35 = {}
+dataTable35.x = -25.0
+dataTable35.y = 0.0
+dataTable35.z = 0.0
+dataTable34.rot = dataTable35
+dataTable35 = {}
+dataTable35.label = "Street cam 7"
+dataTable36 = {}
+dataTable36.x = -638.20953369141
+dataTable36.y = -249.96182250977
+dataTable36.z = 42.848964691162
+dataTable35.pos = dataTable36
+dataTable36 = {}
+dataTable36.x = -25.0
+dataTable36.y = 0.0
+dataTable36.z = 0.0
+dataTable35.rot = dataTable36
+dataTable36 = {}
+dataTable36.label = "Street cam 8"
+dataTable2 = {}
+dataTable2.x = -2974.3278808594
+dataTable2.y = 395.2333984375
+dataTable2.z = 16.954597473145
+dataTable36.pos = dataTable2
+dataTable2 = {}
+dataTable2.x = -25.0
+dataTable2.y = 0.0
+dataTable2.z = 0.0
+dataTable36.rot = dataTable2
+dataTable2 = {}
+dataTable2.label = "Street cam 9"
+dataTable3 = {}
+dataTable3.x = -2966.9111328125
+dataTable3.y = 485.03805541992
+dataTable3.z = 17.149766921997
+dataTable2.pos = dataTable3
+dataTable3 = {}
+dataTable3.x = -25.0
+dataTable3.y = 0.0
+dataTable3.z = 0.0
+dataTable2.rot = dataTable3
+dataTable3 = {}
+dataTable3.label = "Street cam 10"
+dataTable4 = {}
+dataTable4.x = -2467.7106933594
+dataTable4.y = -218.71464538574
+dataTable4.z = 23.948993682861
+dataTable3.pos = dataTable4
+dataTable4 = {}
+dataTable4.x = -25.0
+dataTable4.y = 0.0
+dataTable4.z = 0.0
+dataTable3.rot = dataTable4
+dataTable4 = {}
+dataTable4.label = "Street cam 11"
+dataTable5 = {}
+dataTable5.x = -202.26121520996
+dataTable5.y = -864.77221679688
+dataTable5.z = 34.702033996582
+dataTable4.pos = dataTable5
+dataTable5 = {}
+dataTable5.x = -25.0
+dataTable5.y = 0.0
+dataTable5.z = 0.0
+dataTable4.rot = dataTable5
+dataTable5 = {}
+dataTable5.label = "Street cam 12"
+dataTable6 = {}
+dataTable6.x = 387.98492431641
+dataTable6.y = -974.71929931641
+dataTable6.z = 32.410995483398
+dataTable5.pos = dataTable6
+dataTable6 = {}
+dataTable6.x = -25.0
+dataTable6.y = 0.0
+dataTable6.z = 0.0
+dataTable5.rot = dataTable6
+dataTable6 = {}
+dataTable6.label = "Street cam 13"
+dataTable7 = {}
+dataTable7.x = 423.26708984375
+dataTable7.y = -997.22393798828
+dataTable7.z = 33.90548324585
+dataTable6.pos = dataTable7
+dataTable7 = {}
+dataTable7.x = -25.0
+dataTable7.y = 0.0
+dataTable7.z = 0.0
+dataTable6.rot = dataTable7
+dataTable7 = {}
+dataTable7.label = "Street cam 14"
+dataTable8 = {}
+dataTable8.x = 438.83123779297
+dataTable8.y = -1000.6759033203
+dataTable8.z = 32.538806915283
+dataTable7.pos = dataTable8
+dataTable8 = {}
+dataTable8.x = -25.0
+dataTable8.y = 0.0
+dataTable8.z = 0.0
+dataTable7.rot = dataTable8
+dataTable8 = {}
+dataTable8.label = "Street cam 15"
+dataTable9 = {}
+dataTable9.x = 467.33630371094
+dataTable9.y = -1015.2039794922
+dataTable9.z = 30.915859222412
+dataTable8.pos = dataTable9
+dataTable9 = {}
+dataTable9.x = -25.0
+dataTable9.y = 0.0
+dataTable9.z = 0.0
+dataTable8.rot = dataTable9
+dataTable9 = {}
+dataTable9.label = "Street cam 16"
+dataTable10 = {}
+dataTable10.x = 490.38217163086
+dataTable10.y = -1024.0905761719
+dataTable10.z = 31.309572219849
+dataTable9.pos = dataTable10
+dataTable10 = {}
+dataTable10.x = -25.0
+dataTable10.y = 0.0
+dataTable10.z = 0.0
+dataTable9.rot = dataTable10
+dataTable10 = {}
+dataTable10.label = "Street cam 17"
+dataTable11 = {}
+dataTable11.x = 489.91595458984
+dataTable11.y = -1003.3515625
+dataTable11.z = 29.712303161621
+dataTable10.pos = dataTable11
+dataTable11 = {}
+dataTable11.x = -25.0
+dataTable11.y = 0.0
+dataTable11.z = 0.0
+dataTable10.rot = dataTable11
+dataTable11 = {}
+dataTable11.label = "Street cam 18"
+dataTable13 = {}
+dataTable13.x = 481.11560058594
+dataTable13.y = -977.43322753906
+dataTable13.z = 29.869251251221
+dataTable11.pos = dataTable13
+dataTable13 = {}
+dataTable13.x = -25.0
+dataTable13.y = 0.0
+dataTable13.z = 0.0
+dataTable11.rot = dataTable13
+dataTable13 = {}
+dataTable13.label = "Street cam 19"
+dataTable14 = {}
+dataTable14.x = 432.4736328125
+dataTable14.y = -656.77960205078
+dataTable14.z = 30.912614822388
+dataTable13.pos = dataTable14
+dataTable14 = {}
+dataTable14.x = -25.0
+dataTable14.y = 0.0
+dataTable14.z = 0.0
+dataTable13.rot = dataTable14
+dataTable14 = {}
+dataTable14.label = "Street cam 20"
+dataTable15 = {}
+dataTable15.x = 353.97552490234
+dataTable15.y = -600.77154541016
+dataTable15.z = 32.244640350342
+dataTable14.pos = dataTable15
+dataTable15 = {}
+dataTable15.x = -25.0
+dataTable15.y = 0.0
+dataTable15.z = 0.0
+dataTable14.rot = dataTable15
+dataTable15 = {}
+dataTable15.label = "Street cam 21"
+dataTable16 = {}
+dataTable16.x = -128.30404663086
+dataTable16.y = -1023.4191894531
+dataTable16.z = 35.994411468506
+dataTable15.pos = dataTable16
+dataTable16 = {}
+dataTable16.x = -25.0
+dataTable16.y = 0.0
+dataTable16.z = 0.0
+dataTable15.rot = dataTable16
+dataTable16 = {}
+dataTable16.label = "Street cam 22"
+dataTable17 = {}
+dataTable17.x = -62.237995147705
+dataTable17.y = -1101.1270751953
+dataTable17.z = 32.561504364014
+dataTable16.pos = dataTable17
+dataTable17 = {}
+dataTable17.x = -25.0
+dataTable17.y = 0.0
+dataTable17.z = 0.0
+dataTable16.rot = dataTable17
+dataTable17 = {}
+dataTable17.label = "Street cam 23"
+dataTable18 = {}
+dataTable18.x = 24.420116424561
+dataTable18.y = -1350.7467041016
+dataTable18.z = 32.561325073242
+dataTable17.pos = dataTable18
+dataTable18 = {}
+dataTable18.x = -25.0
+dataTable18.y = 0.0
+dataTable18.z = 0.0
+dataTable17.rot = dataTable18
+dataTable18 = {}
+dataTable18.label = "Street cam 24"
+dataTable19 = {}
+dataTable19.x = 102.72190856934
+dataTable19.y = -1318.4841308594
+dataTable19.z = 33.93473815918
+dataTable18.pos = dataTable19
+dataTable19 = {}
+dataTable19.x = -25.0
+dataTable19.y = 0.0
+dataTable19.z = 0.0
+dataTable18.rot = dataTable19
+dataTable19 = {}
+dataTable19.label = "Street cam 25"
+dataTable20 = {}
+dataTable20.x = 68.04532623291
+dataTable20.y = -1720.1014404297
+dataTable20.z = 34.036998748779
+dataTable19.pos = dataTable20
+dataTable20 = {}
+dataTable20.x = -25.0
+dataTable20.y = 0.0
+dataTable20.z = 0.0
+dataTable19.rot = dataTable20
+dataTable20 = {}
+dataTable20.label = "Street cam 26"
+dataTable21 = {}
+dataTable21.x = -59.932559967041
+dataTable21.y = -1752.037109375
+dataTable21.z = 31.550285339355
+dataTable20.pos = dataTable21
+dataTable21 = {}
+dataTable21.x = -25.0
+dataTable21.y = 0.0
+dataTable21.z = 0.0
+dataTable20.rot = dataTable21
+dataTable21 = {}
+dataTable21.label = "Street cam 27"
+dataTable22 = {}
+dataTable22.x = 1301.2156982422
+dataTable22.y = 4317.45703125
+dataTable22.z = 41.211765289307
+dataTable21.pos = dataTable22
+dataTable22 = {}
+dataTable22.x = -25.0
+dataTable22.y = 0.0
+dataTable22.z = 0.0
+dataTable21.rot = dataTable22
+dataTable22 = {}
+dataTable22.label = "Street cam 28"
+dataTable24 = {}
+dataTable24.x = 3550.9475097656
+dataTable24.y = 3651.6000976562
+dataTable24.z = 46.954288482666
+dataTable22.pos = dataTable24
+dataTable24 = {}
+dataTable24.x = -25.0
+dataTable24.y = 0.0
+dataTable24.z = 0.0
+dataTable22.rot = dataTable24
+dataTable24 = {}
+dataTable24.label = "Street cam 29"
+dataTable25 = {}
+dataTable25.x = 1727.2385253906
+dataTable25.y = 6412.2392578125
+dataTable25.z = 36.611518859863
+dataTable24.pos = dataTable25
+dataTable25 = {}
+dataTable25.x = -25.0
+dataTable25.y = 0.0
+dataTable25.z = 0.0
+dataTable24.rot = dataTable25
+dataTable25 = {}
+dataTable25.label = "Street cam 30"
+dataTable26 = {}
+dataTable26.x = 130.58874511719
+dataTable26.y = 6525.1376953125
+dataTable26.z = 35.731548309326
+dataTable25.pos = dataTable26
+dataTable26 = {}
+dataTable26.x = -25.0
+dataTable26.y = 0.0
+dataTable26.z = 0.0
+dataTable25.rot = dataTable26
+dataTable26 = {}
+dataTable26.label = "Street cam 31"
+dataTable27 = {}
+dataTable27.x = -434.53747558594
+dataTable27.y = 6011.1416015625
+dataTable27.z = 34.472328186035
+dataTable26.pos = dataTable27
+dataTable27 = {}
+dataTable27.x = -25.0
+dataTable27.y = 0.0
+dataTable27.z = 0.0
+dataTable26.rot = dataTable27
+dataTable27 = {}
+dataTable27.label = "Street cam 32"
+dataTable28 = {}
+dataTable28.x = -1099.2557373047
+dataTable28.y = 4911.3217773438
+dataTable28.z = 218.9635925293
+dataTable27.pos = dataTable28
+dataTable28 = {}
+dataTable28.x = -25.0
+dataTable28.y = 0.0
+dataTable28.z = 0.0
+dataTable27.rot = dataTable28
+dataTable28 = {}
+dataTable28.label = "Street cam 33"
+dataTable29 = {}
+dataTable29.x = 1487.5465087891
+dataTable29.y = 6354.9409179688
+dataTable29.z = 27.180263519287
+dataTable28.pos = dataTable29
+dataTable29 = {}
+dataTable29.x = -25.0
+dataTable29.y = 0.0
+dataTable29.z = 0.0
+dataTable28.rot = dataTable29
+dataTable29 = {}
+dataTable29.label = "Street cam 34"
+dataTable30 = {}
+dataTable30.x = 232.71536254883
+dataTable30.y = -591.38494873047
+dataTable30.z = 47.335529327393
+dataTable29.pos = dataTable30
+dataTable30 = {}
+dataTable30.x = -25.0
+dataTable30.y = 0.0
+dataTable30.z = 0.0
+dataTable29.rot = dataTable30
+dataTable12[1] = dataTable23
+dataTable12[2] = dataTable31
+dataTable12[3] = eventRegistration
+dataTable12[4] = dataTable32
+dataTable12[5] = dataTable33
+dataTable12[6] = dataTable34
+dataTable12[7] = dataTable35
+dataTable12[8] = dataTable36
+dataTable12[9] = dataTable2
+dataTable12[10] = dataTable3
+dataTable12[11] = dataTable4
+dataTable12[12] = dataTable5
+dataTable12[13] = dataTable6
+dataTable12[14] = dataTable7
+dataTable12[15] = dataTable8
+dataTable12[16] = dataTable9
+dataTable12[17] = dataTable10
+dataTable12[18] = dataTable11
+dataTable12[19] = dataTable13
+dataTable12[20] = dataTable14
+dataTable12[21] = dataTable15
+dataTable12[22] = dataTable16
+dataTable12[23] = dataTable17
+dataTable12[24] = dataTable18
+dataTable12[25] = dataTable19
+dataTable12[26] = dataTable20
+dataTable12[27] = dataTable21
+dataTable12[28] = dataTable22
+dataTable12[29] = dataTable24
+dataTable12[30] = dataTable25
+dataTable12[31] = dataTable26
+dataTable12[32] = dataTable27
+dataTable12[33] = dataTable28
+dataTable12[34] = dataTable29
+function dataTable23()
+  local arg1, workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21
+  arg1 = ipairs
+  workValue9 = dataTable
+  arg1, workValue9, workValue12, workValue14 = arg1(workValue9)
+  for workValue16, workValue19 in arg1, workValue9, workValue12, workValue14 do
+    workValue20 = DoesBlipExist
+    workValue21 = workValue19
+    workValue20 = workValue20(workValue21)
+    if workValue20 then
+      workValue20 = RemoveBlip
+      workValue21 = workValue19
+      workValue20(workValue21)
     end
   end
-  SHX0_2 = {}
-  SHX0_1 = SHX0_2
+  arg1 = {}
+  dataTable = arg1
 end
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  if SHX0_2 then
-    SHX1_2 = type
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if "table" == SHX1_2 then
-      goto SHX_LABEL_10
+function dataTable31(arg1)
+  local workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2
+  if arg1 then
+    workValue9 = type
+    workValue12 = arg1
+    workValue9 = workValue9(workValue12)
+    if "table" == workValue9 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = nil
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = type
-  SHX2_2 = SHX0_2[1]
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "number" == SHX1_2 then
-    SHX1_2 = SHX0_2[2]
-    if SHX1_2 then
-      SHX1_2 = SHX0_2[2]
-      SHX2_2 = tonumber
-      SHX3_2 = SHX1_2.x
-      if not SHX3_2 then
-        SHX3_2 = SHX1_2[1]
+  workValue9 = nil
+  return workValue9
+  ::flow_label_10::
+  workValue9 = type
+  workValue12 = arg1[1]
+  workValue9 = workValue9(workValue12)
+  if "number" == workValue9 then
+    workValue9 = arg1[2]
+    if workValue9 then
+      workValue9 = arg1[2]
+      workValue12 = tonumber
+      workValue14 = workValue9.x
+      if not workValue14 then
+        workValue14 = workValue9[1]
       end
-      SHX2_2 = SHX2_2(SHX3_2)
-      SHX3_2 = tonumber
-      SHX4_2 = SHX1_2.y
-      if not SHX4_2 then
-        SHX4_2 = SHX1_2[2]
+      workValue12 = workValue12(workValue14)
+      workValue14 = tonumber
+      workValue16 = workValue9.y
+      if not workValue16 then
+        workValue16 = workValue9[2]
       end
-      SHX3_2 = SHX3_2(SHX4_2)
-      SHX4_2 = tonumber
-      SHX5_2 = SHX1_2.z
-      if not SHX5_2 then
-        SHX5_2 = SHX1_2[3]
+      workValue14 = workValue14(workValue16)
+      workValue16 = tonumber
+      workValue19 = workValue9.z
+      if not workValue19 then
+        workValue19 = workValue9[3]
       end
-      SHX4_2 = SHX4_2(SHX5_2)
-      if not SHX4_2 then
-        SHX4_2 = 0.0
+      workValue16 = workValue16(workValue19)
+      if not workValue16 then
+        workValue16 = 0.0
       end
-      if not SHX2_2 or not SHX3_2 then
-        SHX5_2 = nil
-        return SHX5_2
+      if not workValue12 or not workValue14 then
+        workValue19 = nil
+        return workValue19
       end
-      SHX5_2 = SHX2_2
-      SHX6_2 = SHX3_2
-      SHX7_2 = SHX4_2
-      SHX8_2 = SHX0_2[3]
-      SHX9_2 = SHX0_2[4]
-      SHX10_2 = SHX0_2[5]
-      SHX11_2 = SHX0_2[6]
-      return SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
+      workValue19 = workValue12
+      workValue20 = workValue14
+      workValue21 = workValue16
+      workValue23 = arg1[3]
+      workValue24 = arg1[4]
+      workValue = arg1[5]
+      workValue2 = arg1[6]
+      return workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2
     end
   end
-  SHX1_2 = SHX0_2.x
-  if SHX1_2 then
-    SHX1_2 = tonumber
-    SHX2_2 = SHX0_2.x
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = tonumber
-    SHX3_2 = SHX0_2.y
-    SHX2_2 = SHX2_2(SHX3_2)
-    SHX3_2 = tonumber
-    SHX4_2 = SHX0_2.z
-    SHX3_2 = SHX3_2(SHX4_2)
-    if not SHX3_2 then
-      SHX3_2 = 0.0
+  workValue9 = arg1.x
+  if workValue9 then
+    workValue9 = tonumber
+    workValue12 = arg1.x
+    workValue9 = workValue9(workValue12)
+    workValue12 = tonumber
+    workValue14 = arg1.y
+    workValue12 = workValue12(workValue14)
+    workValue14 = tonumber
+    workValue16 = arg1.z
+    workValue14 = workValue14(workValue16)
+    if not workValue14 then
+      workValue14 = 0.0
     end
-    SHX4_2 = SHX0_2.heading
-    SHX5_2 = SHX0_2.dead
-    SHX6_2 = SHX0_2.colour
-    SHX7_2 = SHX0_2.bucket
-    return SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
+    workValue16 = arg1.heading
+    workValue19 = arg1.dead
+    workValue20 = arg1.colour
+    workValue21 = arg1.bucket
+    return workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21
   end
-  SHX1_2 = nil
-  return SHX1_2
+  workValue9 = nil
+  return workValue9
 end
-SHX4_1 = RegisterNetEvent
-SHX5_1 = "f65acb9738"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "table" ~= SHX1_2 then
+eventRegistration = RegisterNetEvent
+dataTable32 = "f65acb9738"
+-- Beginner: this function handles network event "f65acb9738".
+function dataTable33(arg1)
+  local workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, numberValue, workValue7, workValue8, numberValue2, numberValue3
+  workValue9 = type
+  workValue12 = arg1
+  workValue9 = workValue9(workValue12)
+  if "table" ~= workValue9 then
     return
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerBucket
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX2_1
-  SHX2_2()
-  SHX2_2 = ipairs
-  SHX3_2 = SHX0_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX3_1
-    SHX9_2 = SHX7_2
-    SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX8_2(SHX9_2)
-    if SHX8_2 and SHX14_2 == SHX1_2 then
-      SHX15_2 = AddBlipForCoord
-      SHX16_2 = SHX8_2 + 0.0
-      SHX17_2 = SHX9_2 + 0.0
-      SHX18_2 = SHX10_2 + 0.0
-      SHX15_2 = SHX15_2(SHX16_2, SHX17_2, SHX18_2)
-      SHX16_2 = SHX13_2 or SHX16_2
-      if not SHX13_2 then
-        SHX16_2 = 3
+  workValue9 = CMG
+  workValue9 = workValue9.getPlayerBucket
+  workValue9 = workValue9()
+  workValue12 = dataTable23
+  workValue12()
+  workValue12 = ipairs
+  workValue14 = arg1
+  workValue12, workValue14, workValue16, workValue19 = workValue12(workValue14)
+  for workValue20, workValue21 in workValue12, workValue14, workValue16, workValue19 do
+    workValue23 = dataTable31
+    workValue24 = workValue21
+    workValue23, workValue24, workValue, workValue2, workValue3, workValue4, workValue5 = workValue23(workValue24)
+    if workValue23 and workValue5 == workValue9 then
+      workValue6 = AddBlipForCoord
+      numberValue = workValue23 + 0.0
+      workValue7 = workValue24 + 0.0
+      workValue8 = workValue + 0.0
+      -- Beginner: result below is blipHandle.
+      workValue6 = workValue6(numberValue, workValue7, workValue8)
+      numberValue = workValue4 or numberValue
+      if not workValue4 then
+        numberValue = 3
       end
-      if 1 == SHX12_2 then
-        SHX17_2 = SetBlipSprite
-        SHX18_2 = SHX15_2
-        SHX19_2 = 274
-        SHX17_2(SHX18_2, SHX19_2)
-      elseif 5 == SHX16_2 then
-        SHX17_2 = SetBlipSprite
-        SHX18_2 = SHX15_2
-        SHX19_2 = 15
-        SHX17_2(SHX18_2, SHX19_2)
+      if 1 == workValue3 then
+        workValue7 = SetBlipSprite
+        workValue8 = workValue6
+        numberValue2 = 274
+        workValue7(workValue8, numberValue2)
+      elseif 5 == numberValue then
+        workValue7 = SetBlipSprite
+        workValue8 = workValue6
+        numberValue2 = 15
+        workValue7(workValue8, numberValue2)
       else
-        SHX17_2 = SetBlipSprite
-        SHX18_2 = SHX15_2
-        SHX19_2 = 1
-        SHX17_2(SHX18_2, SHX19_2)
+        workValue7 = SetBlipSprite
+        workValue8 = workValue6
+        numberValue2 = 1
+        workValue7(workValue8, numberValue2)
       end
-      SHX17_2 = SetBlipColour
-      SHX18_2 = SHX15_2
-      SHX19_2 = SHX16_2
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = SetBlipScale
-      SHX18_2 = SHX15_2
-      SHX19_2 = 0.85
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = SetBlipAlpha
-      SHX18_2 = SHX15_2
-      SHX19_2 = 255
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = ShowHeadingIndicatorOnBlip
-      SHX18_2 = SHX15_2
-      SHX19_2 = true
-      SHX17_2(SHX18_2, SHX19_2)
-      SHX17_2 = SetBlipRotation
-      SHX18_2 = SHX15_2
-      SHX19_2 = math
-      SHX19_2 = SHX19_2.floor
-      SHX20_2 = SHX11_2 or SHX20_2
-      if not SHX11_2 then
-        SHX20_2 = 0.0
+      workValue7 = SetBlipColour
+      workValue8 = workValue6
+      numberValue2 = numberValue
+      workValue7(workValue8, numberValue2)
+      workValue7 = SetBlipScale
+      workValue8 = workValue6
+      numberValue2 = 0.85
+      workValue7(workValue8, numberValue2)
+      workValue7 = SetBlipAlpha
+      workValue8 = workValue6
+      numberValue2 = 255
+      workValue7(workValue8, numberValue2)
+      workValue7 = ShowHeadingIndicatorOnBlip
+      workValue8 = workValue6
+      numberValue2 = true
+      workValue7(workValue8, numberValue2)
+      workValue7 = SetBlipRotation
+      workValue8 = workValue6
+      numberValue2 = math
+      numberValue2 = numberValue2.floor
+      numberValue3 = workValue2 or numberValue3
+      if not workValue2 then
+        numberValue3 = 0.0
       end
-      SHX19_2, SHX20_2 = SHX19_2(SHX20_2)
-      SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-      SHX17_2 = SHX0_1
-      SHX17_2 = #SHX17_2
-      SHX18_2 = SHX17_2 + 1
-      SHX17_2 = SHX0_1
-      SHX17_2[SHX18_2] = SHX15_2
+      numberValue2, numberValue3 = numberValue2(numberValue3)
+      workValue7(workValue8, numberValue2, numberValue3)
+      workValue7 = dataTable
+      workValue7 = #workValue7
+      workValue8 = workValue7 + 1
+      workValue7 = dataTable
+      workValue7[workValue8] = workValue6
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = RegisterNetEvent
-SHX5_1 = "70c51a178a"
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  SHX0_2()
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f65acb9738".
+eventRegistration(dataTable32, dataTable33)
+eventRegistration = RegisterNetEvent
+dataTable32 = "70c51a178a"
+-- Beginner: this function handles network event "70c51a178a".
+function dataTable33()
+  local arg1, workValue9
+  arg1 = dataTable23
+  arg1()
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = RegisterNetEvent
-SHX5_1 = "CMG:hackingPhoneActionResult"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.message
-    if SHX1_2 then
-      SHX1_2 = SHX0_2.message
-      if "" ~= SHX1_2 then
-        SHX1_2 = SHX0_2.ok
-        if SHX1_2 then
-          SHX1_2 = notify
-          SHX2_2 = "~g~"
-          SHX3_2 = SHX0_2.message
-          SHX2_2 = SHX2_2 .. SHX3_2
-          SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "70c51a178a".
+eventRegistration(dataTable32, dataTable33)
+eventRegistration = RegisterNetEvent
+dataTable32 = "CMG:hackingPhoneActionResult"
+-- Beginner: this function handles network event "CMG:hackingPhoneActionResult".
+function dataTable33(arg1)
+  local workValue9, workValue12, workValue14
+  if arg1 then
+    workValue9 = arg1.message
+    if workValue9 then
+      workValue9 = arg1.message
+      if "" ~= workValue9 then
+        workValue9 = arg1.ok
+        if workValue9 then
+          workValue9 = notify
+          workValue12 = "~g~"
+          workValue14 = arg1.message
+          workValue12 = workValue12 .. workValue14
+          -- Beginner: Show a notification to the player.
+          workValue9(workValue12)
         else
-          SHX1_2 = notify
-          SHX2_2 = "~r~"
-          SHX3_2 = SHX0_2.message
-          SHX2_2 = SHX2_2 .. SHX3_2
-          SHX1_2(SHX2_2)
+          workValue9 = notify
+          workValue12 = "~r~"
+          workValue14 = arg1.message
+          workValue12 = workValue12 .. workValue14
+          workValue9(workValue12)
         end
       end
     end
   end
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = 0
-SHX5_1 = RegisterNetEvent
-SHX6_1 = "ee4d898632"
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = tonumber
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = 0
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "CMG:hackingPhoneActionResult".
+eventRegistration(dataTable32, dataTable33)
+eventRegistration = 0
+dataTable32 = RegisterNetEvent
+dataTable33 = "ee4d898632"
+-- Beginner: this function handles network event "ee4d898632".
+function dataTable34(arg1)
+  local workValue9, workValue12, workValue14, workValue16
+  workValue9 = tonumber
+  workValue12 = arg1
+  workValue9 = workValue9(workValue12)
+  if not workValue9 then
+    workValue9 = 0
   end
-  if SHX1_2 <= 0 then
+  if workValue9 <= 0 then
     return
   end
-  SHX2_2 = SHX4_1
-  SHX2_2 = SHX2_2 + 1
-  SHX4_1 = SHX2_2
-  SHX2_2 = SHX4_1
-  SHX3_2 = CreateThread
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3
-    SHX0_3 = PlayerPedId
-    SHX0_3 = SHX0_3()
-    SHX1_3 = FreezeEntityPosition
-    SHX2_3 = SHX0_3
-    SHX3_3 = true
-    SHX1_3(SHX2_3, SHX3_3)
-    SHX1_3 = DisplayRadar
-    SHX2_3 = false
-    SHX1_3(SHX2_3)
-    SHX1_3 = SetTimecycleModifier
-    SHX2_3 = "scanline_cam_cheap"
-    SHX1_3(SHX2_3)
-    SHX1_3 = SetTimecycleModifierStrength
-    SHX2_3 = 2.0
-    SHX1_3(SHX2_3)
-    SHX1_3 = CreateCam
-    SHX2_3 = "DEFAULT_SCRIPTED_CAMERA"
-    SHX3_3 = true
-    SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-    SHX2_3 = 1
-    SHX3_3 = GetGameTimer
-    SHX3_3 = SHX3_3()
-    SHX4_3 = SHX1_2
-    SHX3_3 = SHX3_3 + SHX4_3
-    function SHX4_3(SHX0_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_4, SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4
-      if not SHX0_4 then
+  workValue12 = eventRegistration
+  workValue12 = workValue12 + 1
+  eventRegistration = workValue12
+  workValue12 = eventRegistration
+  workValue14 = CreateThread
+  -- Beginner: this function is the body of a background FiveM thread.
+  function workValue16()
+    local playerPed, workValue10, flag3, gameTime, workValue17, flag4, gameTime2, workValue22, numberValue6, numberValue7, flag, flag2
+    playerPed = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    playerPed = playerPed()
+    workValue10 = FreezeEntityPosition
+    flag3 = playerPed
+    gameTime = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    workValue10(flag3, gameTime)
+    workValue10 = DisplayRadar
+    flag3 = false
+    workValue10(flag3)
+    workValue10 = SetTimecycleModifier
+    flag3 = "scanline_cam_cheap"
+    workValue10(flag3)
+    workValue10 = SetTimecycleModifierStrength
+    flag3 = 2.0
+    workValue10(flag3)
+    workValue10 = CreateCam
+    flag3 = "DEFAULT_SCRIPTED_CAMERA"
+    gameTime = true
+    -- Beginner: result below is cameraHandle.
+    workValue10 = workValue10(flag3, gameTime)
+    flag3 = 1
+    gameTime = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    gameTime = gameTime()
+    workValue17 = workValue9
+    gameTime = gameTime + workValue17
+    function workValue17(arg12)
+      local workValue11, workValue13, workValue15, workValue18, numberValue4, flag5, numberValue5
+      if not arg12 then
         return
       end
-      SHX1_4 = SetFocusPosAndVel
-      SHX2_4 = SHX0_4.pos
-      SHX2_4 = SHX2_4.x
-      SHX3_4 = SHX0_4.pos
-      SHX3_4 = SHX3_4.y
-      SHX4_4 = SHX0_4.pos
-      SHX4_4 = SHX4_4.z
-      SHX5_4 = 0.0
-      SHX6_4 = 0.0
-      SHX7_4 = 0.0
-      SHX1_4(SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4)
-      SHX1_4 = SetCamCoord
-      SHX2_4 = SHX1_3
-      SHX3_4 = SHX0_4.pos
-      SHX3_4 = SHX3_4.x
-      SHX4_4 = SHX0_4.pos
-      SHX4_4 = SHX4_4.y
-      SHX5_4 = SHX0_4.pos
-      SHX5_4 = SHX5_4.z
-      SHX1_4(SHX2_4, SHX3_4, SHX4_4, SHX5_4)
-      SHX1_4 = SetCamRot
-      SHX2_4 = SHX1_3
-      SHX3_4 = SHX0_4.rot
-      SHX3_4 = SHX3_4.x
-      SHX4_4 = SHX0_4.rot
-      SHX4_4 = SHX4_4.y
-      SHX5_4 = SHX0_4.rot
-      SHX5_4 = SHX5_4.z
-      SHX6_4 = 2
-      SHX1_4(SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4)
-      SHX1_4 = SetCamFov
-      SHX2_4 = SHX1_3
-      SHX3_4 = 50.0
-      SHX1_4(SHX2_4, SHX3_4)
-      SHX1_4 = RenderScriptCams
-      SHX2_4 = true
-      SHX3_4 = false
-      SHX4_4 = 0
-      SHX5_4 = true
-      SHX6_4 = true
-      SHX1_4(SHX2_4, SHX3_4, SHX4_4, SHX5_4, SHX6_4)
+      workValue11 = SetFocusPosAndVel
+      workValue13 = arg12.pos
+      workValue13 = workValue13.x
+      workValue15 = arg12.pos
+      workValue15 = workValue15.y
+      workValue18 = arg12.pos
+      workValue18 = workValue18.z
+      numberValue4 = 0.0
+      flag5 = 0.0
+      numberValue5 = 0.0
+      workValue11(workValue13, workValue15, workValue18, numberValue4, flag5, numberValue5)
+      workValue11 = SetCamCoord
+      workValue13 = workValue10
+      workValue15 = arg12.pos
+      workValue15 = workValue15.x
+      workValue18 = arg12.pos
+      workValue18 = workValue18.y
+      numberValue4 = arg12.pos
+      numberValue4 = numberValue4.z
+      workValue11(workValue13, workValue15, workValue18, numberValue4)
+      workValue11 = SetCamRot
+      workValue13 = workValue10
+      workValue15 = arg12.rot
+      workValue15 = workValue15.x
+      workValue18 = arg12.rot
+      workValue18 = workValue18.y
+      numberValue4 = arg12.rot
+      numberValue4 = numberValue4.z
+      flag5 = 2
+      workValue11(workValue13, workValue15, workValue18, numberValue4, flag5)
+      workValue11 = SetCamFov
+      workValue13 = workValue10
+      workValue15 = 50.0
+      workValue11(workValue13, workValue15)
+      workValue11 = RenderScriptCams
+      workValue13 = true
+      workValue15 = false
+      workValue18 = 0
+      numberValue4 = true
+      flag5 = true
+      workValue11(workValue13, workValue15, workValue18, numberValue4, flag5)
     end
-    SHX5_3 = true
+    flag4 = true
     while true do
-      SHX6_3 = SHX2_2
-      SHX7_3 = SHX4_1
-      if SHX6_3 ~= SHX7_3 then
+      gameTime2 = workValue12
+      workValue22 = eventRegistration
+      if gameTime2 ~= workValue22 then
         break
       end
-      SHX6_3 = GetGameTimer
-      SHX6_3 = SHX6_3()
-      if not (SHX3_3 > SHX6_3) then
+      gameTime2 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      gameTime2 = gameTime2()
+      if not (gameTime > gameTime2) then
         break
       end
-      SHX6_3 = SHX1_1
-      SHX6_3 = SHX6_3[SHX2_3]
-      if not SHX6_3 then
-        SHX2_3 = 1
-        SHX7_3 = SHX1_1
-        SHX6_3 = SHX7_3[SHX2_3]
+      gameTime2 = dataTable12
+      gameTime2 = gameTime2[flag3]
+      if not gameTime2 then
+        flag3 = 1
+        workValue22 = dataTable12
+        gameTime2 = workValue22[flag3]
       end
-      if SHX5_3 then
-        SHX7_3 = SHX4_3
-        SHX8_3 = SHX6_3
-        SHX7_3(SHX8_3)
-        SHX5_3 = false
+      if flag4 then
+        workValue22 = workValue17
+        numberValue6 = gameTime2
+        workValue22(numberValue6)
+        flag4 = false
       end
-      SHX7_3 = IsControlJustPressed
-      SHX8_3 = 0
-      SHX9_3 = 194
-      SHX7_3 = SHX7_3(SHX8_3, SHX9_3)
-      if SHX7_3 then
+      workValue22 = IsControlJustPressed
+      numberValue6 = 0
+      numberValue7 = 194
+      workValue22 = workValue22(numberValue6, numberValue7)
+      if workValue22 then
         break
       end
-      SHX7_3 = IsControlJustPressed
-      SHX8_3 = 0
-      SHX9_3 = 174
-      SHX7_3 = SHX7_3(SHX8_3, SHX9_3)
-      if SHX7_3 then
-        SHX2_3 = SHX2_3 - 1
-        if SHX2_3 < 1 then
-          SHX7_3 = SHX1_1
-          SHX2_3 = #SHX7_3
+      workValue22 = IsControlJustPressed
+      numberValue6 = 0
+      numberValue7 = 174
+      workValue22 = workValue22(numberValue6, numberValue7)
+      if workValue22 then
+        flag3 = flag3 - 1
+        if flag3 < 1 then
+          workValue22 = dataTable12
+          flag3 = #workValue22
         end
-        SHX5_3 = true
+        flag4 = true
       else
-        SHX7_3 = IsControlJustPressed
-        SHX8_3 = 0
-        SHX9_3 = 175
-        SHX7_3 = SHX7_3(SHX8_3, SHX9_3)
-        if SHX7_3 then
-          SHX2_3 = SHX2_3 + 1
-          SHX7_3 = SHX1_1
-          SHX7_3 = #SHX7_3
-          if SHX2_3 > SHX7_3 then
-            SHX2_3 = 1
+        workValue22 = IsControlJustPressed
+        numberValue6 = 0
+        numberValue7 = 175
+        workValue22 = workValue22(numberValue6, numberValue7)
+        if workValue22 then
+          flag3 = flag3 + 1
+          workValue22 = dataTable12
+          workValue22 = #workValue22
+          if flag3 > workValue22 then
+            flag3 = 1
           end
-          SHX5_3 = true
+          flag4 = true
         end
       end
-      SHX7_3 = Wait
-      SHX8_3 = 0
-      SHX7_3(SHX8_3)
+      workValue22 = Wait
+      numberValue6 = 0
+      workValue22(numberValue6)
     end
-    SHX6_3 = RenderScriptCams
-    SHX7_3 = false
-    SHX8_3 = false
-    SHX9_3 = 0
-    SHX10_3 = true
-    SHX11_3 = true
-    SHX6_3(SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3)
-    SHX6_3 = DoesCamExist
-    SHX7_3 = SHX1_3
-    SHX6_3 = SHX6_3(SHX7_3)
-    if SHX6_3 then
-      SHX6_3 = DestroyCam
-      SHX7_3 = SHX1_3
-      SHX8_3 = false
-      SHX6_3(SHX7_3, SHX8_3)
+    gameTime2 = RenderScriptCams
+    workValue22 = false
+    numberValue6 = false
+    numberValue7 = 0
+    flag = true
+    flag2 = true
+    gameTime2(workValue22, numberValue6, numberValue7, flag, flag2)
+    gameTime2 = DoesCamExist
+    workValue22 = workValue10
+    gameTime2 = gameTime2(workValue22)
+    if gameTime2 then
+      gameTime2 = DestroyCam
+      workValue22 = workValue10
+      numberValue6 = false
+      gameTime2(workValue22, numberValue6)
     end
-    SHX6_3 = ClearFocus
-    SHX6_3()
-    SHX6_3 = ClearTimecycleModifier
-    SHX6_3()
-    SHX6_3 = DisplayRadar
-    SHX7_3 = true
-    SHX6_3(SHX7_3)
-    SHX6_3 = SHX2_2
-    SHX7_3 = SHX4_1
-    if SHX6_3 == SHX7_3 then
-      SHX6_3 = FreezeEntityPosition
-      SHX7_3 = PlayerPedId
-      SHX7_3 = SHX7_3()
-      SHX8_3 = false
-      SHX6_3(SHX7_3, SHX8_3)
+    gameTime2 = ClearFocus
+    gameTime2()
+    gameTime2 = ClearTimecycleModifier
+    gameTime2()
+    gameTime2 = DisplayRadar
+    workValue22 = true
+    gameTime2(workValue22)
+    gameTime2 = workValue12
+    workValue22 = eventRegistration
+    if gameTime2 == workValue22 then
+      gameTime2 = FreezeEntityPosition
+      workValue22 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      workValue22 = workValue22()
+      numberValue6 = false
+      -- Beginner: Freeze or unfreeze an entity in place.
+      gameTime2(workValue22, numberValue6)
     end
   end
-  SHX3_2(SHX4_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  workValue14(workValue16)
 end
-SHX5_1(SHX6_1, SHX7_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ee4d898632".
+dataTable32(dataTable33, dataTable34)

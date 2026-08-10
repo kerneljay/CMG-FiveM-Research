@@ -1,4 +1,37 @@
 --[[
+    BEGINNER GUIDE — Pets
+    =====================
+
+    File: cmg/prod/client/misc/cl_pets.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Commands/command-like entries found:
+      * /pet
+      * /100
+
+    Network/hash identifiers found: 18
+      They are intentionally left unchanged because matching server code may use them.
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * Select your ~b~Pet
+      * You do not own any ~b~pets~w~. Visit a ~b~pet store ~w~to purchase one.
+      * You have now ~b~purchased ~w~a ~b~
+      * You have now changed your pet name to ~b~
+      * You are now able to spawn in a pet again.
+
+]]
+--[[
     CMG Pets - beginner-friendly rewrite
     ====================================
 

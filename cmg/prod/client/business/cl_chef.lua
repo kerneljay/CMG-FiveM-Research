@@ -1,2226 +1,1916 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_chef.lua
+    ===========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_business"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = nil
-SHX2_1 = false
-SHX3_1 = 0
-SHX4_1 = nil
-SHX5_1 = nil
-SHX6_1 = nil
-SHX7_1 = nil
-SHX8_1 = nil
-SHX9_1 = nil
-SHX10_1 = nil
-SHX11_1 = nil
-SHX12_1 = nil
-SHX13_1 = nil
-SHX14_1 = nil
-SHX15_1 = nil
-SHX16_1 = nil
-SHX17_1 = nil
-SHX18_1 = nil
-SHX19_1 = nil
-SHX20_1 = nil
-SHX21_1 = nil
-SHX22_1 = nil
-SHX23_1 = nil
-SHX24_1 = nil
-SHX25_1 = nil
-SHX26_1 = nil
-SHX27_1 = nil
-SHX28_1 = nil
-SHX29_1 = nil
-function SHX30_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX0_2.jobMetadata
-  SHX1_1 = SHX1_2
-  SHX1_2 = SHX1_1.washPosition
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.washPosition
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.washPosition
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.washPosition
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX4_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_wash"
-    SHX3_2 = SHX1_1.washPosition
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Chef
+    =====================
+
+    File: cmg/prod/client/business/cl_chef.lua
+    Purpose: This file contains FiveM client/resource logic.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Config/data used:
+      * cfg/cfg_business
+
+    Network/hash identifiers found: 7
+      They are intentionally left unchanged because matching server code may use them.
+      * bf3f551598
+      * c6cd1a916a
+      * 88f2f7f0ea
+      * 76d0a73816
+      * 2d5eb5712c
+      * db9a057a2d
+      * 6a31d41cc5
+
+    Example player-facing text in this file:
+      * Press ~INPUT_CONTEXT~ to wash your hands
+      * Press ~INPUT_CONTEXT~ to pour a drink
+      * Press ~INPUT_CONTEXT~ to grill the patties
+      * Press ~INPUT_CONTEXT~ to add the sauces
+      * Press ~INPUT_CONTEXT~ to view the order list
+
+]]
+local cmgCall, textValue, flag2, numberValue5, workValue29, workValue31, workValue32, workValue33, workValue34, workValue35, workValue, workValue2, workValue3, workValue4, workValue5, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue27, textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+textValue = "cfg/cfg_business"
+-- Beginner: result below is config.
+cmgCall = cmgCall(textValue)
+textValue = nil
+flag2 = false
+numberValue5 = 0
+workValue29 = nil
+workValue31 = nil
+workValue32 = nil
+workValue33 = nil
+workValue34 = nil
+workValue35 = nil
+workValue = nil
+workValue2 = nil
+workValue3 = nil
+workValue4 = nil
+workValue5 = nil
+workValue7 = nil
+workValue8 = nil
+workValue9 = nil
+workValue10 = nil
+workValue11 = nil
+workValue12 = nil
+workValue13 = nil
+workValue14 = nil
+workValue15 = nil
+workValue16 = nil
+workValue17 = nil
+workValue18 = nil
+workValue19 = nil
+workValue20 = nil
+workValue21 = nil
+function workValue22(arg1)
+  local arg2, textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4
+  arg2 = arg1.jobMetadata
+  textValue = arg2
+  arg2 = textValue.washPosition
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.washPosition
+    textValue2 = textValue2.x
+    workValue28 = textValue.washPosition
+    workValue28 = workValue28.y
+    workValue30 = textValue.washPosition
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue29 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_wash"
+    workValue28 = textValue.washPosition
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8, textValue9, numberValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to wash your hands"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.setCanAnim
-        SHX1_3 = false
-        SHX0_3(SHX1_3)
-        SHX0_3 = true
-        SHX2_1 = SHX0_3
-        SHX0_3 = tCMG
-        SHX0_3 = SHX0_3.playAnim
-        SHX1_3 = true
-        SHX2_3 = {}
-        SHX3_3 = {}
-        SHX4_3 = "switch@michael@wash_face"
-        SHX5_3 = "loop_michael"
-        SHX6_3 = 1
-        SHX3_3[1] = SHX4_3
-        SHX3_3[2] = SHX5_3
-        SHX3_3[3] = SHX6_3
-        SHX2_3[1] = SHX3_3
-        SHX3_3 = false
-        SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-        SHX0_3 = Citizen
-        SHX0_3 = SHX0_3.CreateThread
-        function SHX1_3()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_4, SHX1_4
-          SHX0_4 = Citizen
-          SHX0_4 = SHX0_4.Wait
-          SHX1_4 = 3800
-          SHX0_4(SHX1_4)
-          SHX0_4 = TriggerServerEvent
-          SHX1_4 = "bf3f551598"
-          SHX0_4(SHX1_4)
-          SHX0_4 = false
-          SHX2_1 = SHX0_4
-          SHX0_4 = tCMG
-          SHX0_4 = SHX0_4.setCanAnim
-          SHX1_4 = true
-          SHX0_4(SHX1_4)
-          SHX0_4 = 0
-          SHX3_1 = SHX0_4
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to wash your hands"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = tCMG
+        arg12 = arg12.setCanAnim
+        arg22 = false
+        arg12(arg22)
+        arg12 = true
+        flag2 = arg12
+        arg12 = tCMG
+        arg12 = arg12.playAnim
+        arg22 = true
+        arg3 = {}
+        dataTable = {}
+        textValue8 = "switch@michael@wash_face"
+        textValue9 = "loop_michael"
+        numberValue8 = 1
+        dataTable[1] = textValue8
+        dataTable[2] = textValue9
+        dataTable[3] = numberValue8
+        arg3[1] = dataTable
+        dataTable = false
+        arg12(arg22, arg3, dataTable)
+        arg12 = Citizen
+        arg12 = arg12.CreateThread
+        function arg22()
+          local serverEventCall, flag
+          serverEventCall = Citizen
+          serverEventCall = serverEventCall.Wait
+          flag = 3800
+          serverEventCall(flag)
+          serverEventCall = TriggerServerEvent
+          flag = "bf3f551598"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+          serverEventCall(flag)
+          serverEventCall = false
+          flag2 = serverEventCall
+          serverEventCall = tCMG
+          serverEventCall = serverEventCall.setCanAnim
+          flag = true
+          serverEventCall(flag)
+          serverEventCall = 0
+          numberValue5 = serverEventCall
         end
-        SHX0_3(SHX1_3)
+        -- Beginner: Start a separate FiveM thread so this code can run independently.
+        arg12(arg22)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX5_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue31 = arg2
   end
-  SHX1_2 = SHX1_1.drinksDispensor
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.drinksDispensor
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.drinksDispensor
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.drinksDispensor
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX6_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_drinks"
-    SHX3_2 = SHX1_1.drinksDispensor
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.drinksDispensor
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.drinksDispensor
+    textValue2 = textValue2.x
+    workValue28 = textValue.drinksDispensor
+    workValue28 = workValue28.y
+    workValue30 = textValue.drinksDispensor
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue32 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_drinks"
+    workValue28 = textValue.drinksDispensor
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to pour a drink"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_drinks"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to pour a drink"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_drinks"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX7_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue33 = arg2
   end
-  SHX1_2 = SHX1_1.frierPosition
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.frierPosition
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.frierPosition
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.frierPosition
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX8_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_frier"
-    SHX3_2 = SHX1_1.frierPosition
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.frierPosition
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.frierPosition
+    textValue2 = textValue2.x
+    workValue28 = textValue.frierPosition
+    workValue28 = workValue28.y
+    workValue30 = textValue.frierPosition
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue34 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_frier"
+    workValue28 = textValue.frierPosition
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = [[
+      arg12 = drawNativeNotification
+      arg22 = [[
 Press ~INPUT_CONTEXT~ to fry small fries
 Press ~INPUT_CONTEXT_SECONDARY~ to fry large fries]]
-      SHX0_3(SHX1_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 44
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 52
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      SHX1_3 = IsDisabledControlJustPressed
-      SHX2_3 = 0
-      SHX3_3 = 52
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      if SHX0_3 or SHX1_3 then
-        SHX2_3 = CMG
-        SHX2_3 = SHX2_3.disableSittingOnChairThisFrame
-        SHX2_3()
-        SHX2_3 = TriggerServerEvent
-        SHX3_3 = "bf3f551598"
-        SHX2_3(SHX3_3)
-        SHX2_3 = TriggerServerEvent
-        SHX3_3 = "c6cd1a916a"
-        SHX4_3 = SHX1_3
-        SHX2_3(SHX3_3, SHX4_3)
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = DisableControlAction
+      arg22 = 0
+      arg3 = 44
+      dataTable = true
+      arg12(arg22, arg3, dataTable)
+      arg12 = DisableControlAction
+      arg22 = 0
+      arg3 = 52
+      dataTable = true
+      arg12(arg22, arg3, dataTable)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      arg22 = IsDisabledControlJustPressed
+      arg3 = 0
+      dataTable = 52
+      arg22 = arg22(arg3, dataTable)
+      if arg12 or arg22 then
+        arg3 = CMG
+        arg3 = arg3.disableSittingOnChairThisFrame
+        arg3()
+        arg3 = TriggerServerEvent
+        dataTable = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg3(dataTable)
+        arg3 = TriggerServerEvent
+        dataTable = "c6cd1a916a"
+        textValue8 = arg22
+        arg3(dataTable, textValue8)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX9_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue35 = arg2
   end
-  SHX1_2 = SHX1_1.grillPosition
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.grillPosition
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.grillPosition
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.grillPosition
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX10_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_grill"
-    SHX3_2 = SHX1_1.grillPosition
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.grillPosition
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.grillPosition
+    textValue2 = textValue2.x
+    workValue28 = textValue.grillPosition
+    workValue28 = workValue28.y
+    workValue30 = textValue.grillPosition
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_grill"
+    workValue28 = textValue.grillPosition
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to grill the patties"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "88f2f7f0ea"
-        SHX0_3(SHX1_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to grill the patties"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = TriggerServerEvent
+        arg22 = "88f2f7f0ea"
+        arg12(arg22)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX11_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue2 = arg2
   end
-  SHX1_2 = SHX1_1.burgerPosition
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.burgerPosition
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.burgerPosition
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.burgerPosition
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX12_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_burger"
-    SHX3_2 = SHX1_1.burgerPosition
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.burgerPosition
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.burgerPosition
+    textValue2 = textValue2.x
+    workValue28 = textValue.burgerPosition
+    workValue28 = workValue28.y
+    workValue30 = textValue.burgerPosition
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue3 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_burger"
+    workValue28 = textValue.burgerPosition
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = [[
+      arg12 = drawNativeNotification
+      arg22 = [[
 Press ~INPUT_CONTEXT~ to add salad to small burger
 Press ~INPUT_CONTEXT_SECONDARY~ to add salad to large burger]]
-      SHX0_3(SHX1_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 44
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = DisableControlAction
-      SHX1_3 = 0
-      SHX2_3 = 52
-      SHX3_3 = true
-      SHX0_3(SHX1_3, SHX2_3, SHX3_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      SHX1_3 = IsDisabledControlJustPressed
-      SHX2_3 = 0
-      SHX3_3 = 52
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-      if SHX0_3 or SHX1_3 then
-        SHX2_3 = CMG
-        SHX2_3 = SHX2_3.disableSittingOnChairThisFrame
-        SHX2_3()
-        SHX2_3 = TriggerServerEvent
-        SHX3_3 = "bf3f551598"
-        SHX2_3(SHX3_3)
-        SHX2_3 = TriggerServerEvent
-        SHX3_3 = "76d0a73816"
-        SHX4_3 = SHX1_3
-        SHX2_3(SHX3_3, SHX4_3)
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = DisableControlAction
+      arg22 = 0
+      arg3 = 44
+      dataTable = true
+      arg12(arg22, arg3, dataTable)
+      arg12 = DisableControlAction
+      arg22 = 0
+      arg3 = 52
+      dataTable = true
+      arg12(arg22, arg3, dataTable)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      arg22 = IsDisabledControlJustPressed
+      arg3 = 0
+      dataTable = 52
+      arg22 = arg22(arg3, dataTable)
+      if arg12 or arg22 then
+        arg3 = CMG
+        arg3 = arg3.disableSittingOnChairThisFrame
+        arg3()
+        arg3 = TriggerServerEvent
+        dataTable = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg3(dataTable)
+        arg3 = TriggerServerEvent
+        dataTable = "76d0a73816"
+        textValue8 = arg22
+        arg3(dataTable, textValue8)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX13_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue4 = arg2
   end
-  SHX1_2 = SHX1_1.saucesPosition
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.saucesPosition
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.saucesPosition
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.saucesPosition
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX14_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_sauces"
-    SHX3_2 = SHX1_1.saucesPosition
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.saucesPosition
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.saucesPosition
+    textValue2 = textValue2.x
+    workValue28 = textValue.saucesPosition
+    workValue28 = workValue28.y
+    workValue30 = textValue.saucesPosition
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue5 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_sauces"
+    workValue28 = textValue.saucesPosition
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to add the sauces"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "2d5eb5712c"
-        SHX0_3(SHX1_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to add the sauces"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = TriggerServerEvent
+        arg22 = "2d5eb5712c"
+        arg12(arg22)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX15_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue7 = arg2
   end
-  SHX1_2 = SHX1_1.ordersPosition
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.ordersPosition
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.ordersPosition
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.ordersPosition
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX16_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_orders"
-    SHX3_2 = SHX1_1.ordersPosition
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.ordersPosition
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.ordersPosition
+    textValue2 = textValue2.x
+    workValue28 = textValue.ordersPosition
+    workValue28 = workValue28.y
+    workValue30 = textValue.ordersPosition
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue8 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_orders"
+    workValue28 = textValue.ordersPosition
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = RageUI
-      SHX0_3 = SHX0_3.CloseAll
-      SHX0_3()
+    function numberValue9()
+      local arg12, arg22
+      arg12 = RageUI
+      arg12 = arg12.CloseAll
+      arg12()
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to view the order list"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_vieworders"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to view the order list"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_vieworders"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX17_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue9 = arg2
   end
-  SHX1_2 = SHX1_1.hotDrinksDispensor
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.hotDrinksDispensor
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.hotDrinksDispensor
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.hotDrinksDispensor
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX18_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_hotdrinks"
-    SHX3_2 = SHX1_1.hotDrinksDispensor
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.hotDrinksDispensor
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.hotDrinksDispensor
+    textValue2 = textValue2.x
+    workValue28 = textValue.hotDrinksDispensor
+    workValue28 = workValue28.y
+    workValue30 = textValue.hotDrinksDispensor
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue10 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_hotdrinks"
+    workValue28 = textValue.hotDrinksDispensor
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to pour a hot drink"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_hotdrinks"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to pour a hot drink"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_hotdrinks"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX19_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue11 = arg2
   end
-  SHX1_2 = SHX1_1.milkshakeMachine
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.milkshakeMachine
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.milkshakeMachine
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.milkshakeMachine
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX20_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_milkshakes"
-    SHX3_2 = SHX1_1.milkshakeMachine
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.milkshakeMachine
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.milkshakeMachine
+    textValue2 = textValue2.x
+    workValue28 = textValue.milkshakeMachine
+    workValue28 = workValue28.y
+    workValue30 = textValue.milkshakeMachine
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue12 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_milkshakes"
+    workValue28 = textValue.milkshakeMachine
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to mix a milkshake"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_milkshakes"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to mix a milkshake"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_milkshakes"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX21_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue13 = arg2
   end
-  SHX1_2 = SHX1_1.icecreamMachine
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.icecreamMachine
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.icecreamMachine
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.icecreamMachine
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX22_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_icecream"
-    SHX3_2 = SHX1_1.icecreamMachine
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.icecreamMachine
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.icecreamMachine
+    textValue2 = textValue2.x
+    workValue28 = textValue.icecreamMachine
+    workValue28 = workValue28.y
+    workValue30 = textValue.icecreamMachine
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue14 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_icecream"
+    workValue28 = textValue.icecreamMachine
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to create icecream"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_icecreams"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to create icecream"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_icecreams"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX23_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue15 = arg2
   end
-  SHX1_2 = SHX1_1.cupcakeMachine
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.cupcakeMachine
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.cupcakeMachine
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.cupcakeMachine
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX24_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_cupcakes"
-    SHX3_2 = SHX1_1.cupcakeMachine
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.cupcakeMachine
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.cupcakeMachine
+    textValue2 = textValue2.x
+    workValue28 = textValue.cupcakeMachine
+    workValue28 = workValue28.y
+    workValue30 = textValue.cupcakeMachine
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue16 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_cupcakes"
+    workValue28 = textValue.cupcakeMachine
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to create cupcakes"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_cupcakes"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to create cupcakes"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_cupcakes"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX25_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue17 = arg2
   end
-  SHX1_2 = SHX1_1.riceMachine
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.riceMachine
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.riceMachine
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.riceMachine
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX26_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_rice"
-    SHX3_2 = SHX1_1.riceMachine
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.riceMachine
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.riceMachine
+    textValue2 = textValue2.x
+    workValue28 = textValue.riceMachine
+    workValue28 = workValue28.y
+    workValue30 = textValue.riceMachine
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue18 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_rice"
+    workValue28 = textValue.riceMachine
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to fry rice"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_rice"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to fry rice"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_rice"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX27_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue19 = arg2
   end
-  SHX1_2 = SHX1_1.chineseMachine
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.addMarker
-    SHX2_2 = SHX1_1.chineseMachine
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX1_1.chineseMachine
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX1_1.chineseMachine
-    SHX4_2 = SHX4_2.z
-    SHX4_2 = SHX4_2 - 1.0
-    SHX5_2 = 0.4
-    SHX6_2 = 0.4
-    SHX7_2 = 0.4
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 0
-    SHX11_2 = 150
-    SHX12_2 = 25.0
-    SHX13_2 = 1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX28_1 = SHX1_2
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.createArea
-    SHX2_2 = "business_chinese"
-    SHX3_2 = SHX1_1.chineseMachine
-    SHX3_2 = SHX3_2.xyz
-    SHX4_2 = 1.5
-    SHX5_2 = 3.0
-    function SHX6_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  arg2 = textValue.chineseMachine
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.addMarker
+    textValue2 = textValue.chineseMachine
+    textValue2 = textValue2.x
+    workValue28 = textValue.chineseMachine
+    workValue28 = workValue28.y
+    workValue30 = textValue.chineseMachine
+    workValue30 = workValue30.z
+    workValue30 = workValue30 - 1.0
+    numberValue6 = 0.4
+    numberValue7 = 0.4
+    numberValue9 = 0.4
+    numberValue10 = 255
+    dataTable2 = 255
+    numberValue = 0
+    numberValue2 = 150
+    numberValue3 = 25.0
+    numberValue4 = 1
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4)
+    workValue20 = arg2
+    arg2 = CMG
+    arg2 = arg2.createArea
+    textValue2 = "business_chinese"
+    workValue28 = textValue.chineseMachine
+    workValue28 = workValue28.xyz
+    workValue30 = 1.5
+    numberValue6 = 3.0
+    function numberValue7()
+      local arg12, arg22
     end
-    function SHX7_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function numberValue9()
+      local arg12, arg22
     end
-    function SHX8_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-      SHX0_3 = SHX2_1
-      if SHX0_3 then
+    function numberValue10()
+      local arg12, arg22, arg3, dataTable, textValue8
+      arg12 = flag2
+      if arg12 then
         return
       end
-      SHX0_3 = SHX3_1
-      if SHX0_3 > 8 then
-        SHX0_3 = notify
-        SHX1_3 = "~r~Your hands are dirty. Please wash them."
-        SHX0_3(SHX1_3)
+      arg12 = numberValue5
+      if arg12 > 8 then
+        arg12 = notify
+        arg22 = "~r~Your hands are dirty. Please wash them."
+        -- Beginner: Show a notification to the player.
+        arg12(arg22)
       end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_CONTEXT~ to cook food"
-      SHX0_3(SHX1_3)
-      SHX0_3 = IsControlJustPressed
-      SHX1_3 = 0
-      SHX2_3 = 51
-      SHX0_3 = SHX0_3(SHX1_3, SHX2_3)
-      if SHX0_3 then
-        SHX0_3 = CMG
-        SHX0_3 = SHX0_3.disableSittingOnChairThisFrame
-        SHX0_3()
-        SHX0_3 = TriggerServerEvent
-        SHX1_3 = "bf3f551598"
-        SHX0_3(SHX1_3)
-        SHX0_3 = RageUI
-        SHX0_3 = SHX0_3.Visible
-        SHX1_3 = RMenu
-        SHX2_3 = SHX1_3
-        SHX1_3 = SHX1_3.Get
-        SHX3_3 = "business"
-        SHX4_3 = "chef_chinese"
-        SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-        SHX2_3 = true
-        SHX0_3(SHX1_3, SHX2_3)
+      arg12 = drawNativeNotification
+      arg22 = "Press ~INPUT_CONTEXT~ to cook food"
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg12(arg22)
+      arg12 = IsControlJustPressed
+      arg22 = 0
+      arg3 = 51
+      arg12 = arg12(arg22, arg3)
+      if arg12 then
+        arg12 = CMG
+        arg12 = arg12.disableSittingOnChairThisFrame
+        arg12()
+        arg12 = TriggerServerEvent
+        arg22 = "bf3f551598"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bf3f551598".
+        arg12(arg22)
+        arg12 = RageUI
+        arg12 = arg12.Visible
+        arg22 = RMenu
+        arg3 = arg22
+        arg22 = arg22.Get
+        dataTable = "business"
+        textValue8 = "chef_chinese"
+        -- Beginner: result below is menu.
+        arg22 = arg22(arg3, dataTable, textValue8)
+        arg3 = true
+        arg12(arg22, arg3)
       end
     end
-    SHX9_2 = {}
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX29_1 = SHX1_2
+    dataTable2 = {}
+    arg2 = arg2(textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2)
+    workValue21 = arg2
   end
 end
-function SHX31_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1
-  if SHX0_2 then
-    SHX0_2 = SHX5_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX4_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX5_1
-      SHX0_2(SHX1_2)
+function workValue23()
+  local arg1, arg2
+  arg1 = workValue29
+  if arg1 then
+    arg1 = workValue31
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue29
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue31
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX6_1
-  if SHX0_2 then
-    SHX0_2 = SHX7_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX6_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX7_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue32
+  if arg1 then
+    arg1 = workValue33
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue32
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue33
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX8_1
-  if SHX0_2 then
-    SHX0_2 = SHX9_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX8_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX9_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue34
+  if arg1 then
+    arg1 = workValue35
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue34
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue35
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX11_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX10_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX11_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue
+  if arg1 then
+    arg1 = workValue2
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue2
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX12_1
-  if SHX0_2 then
-    SHX0_2 = SHX13_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX12_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX13_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue3
+  if arg1 then
+    arg1 = workValue4
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue3
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue4
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX14_1
-  if SHX0_2 then
-    SHX0_2 = SHX15_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX14_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX15_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue5
+  if arg1 then
+    arg1 = workValue7
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue5
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue7
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX16_1
-  if SHX0_2 then
-    SHX0_2 = SHX17_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX16_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX17_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue8
+  if arg1 then
+    arg1 = workValue9
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue8
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue9
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX18_1
-  if SHX0_2 then
-    SHX0_2 = SHX19_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX18_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX19_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue10
+  if arg1 then
+    arg1 = workValue11
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue10
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue11
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX20_1
-  if SHX0_2 then
-    SHX0_2 = SHX21_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX20_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX21_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue12
+  if arg1 then
+    arg1 = workValue13
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue12
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue13
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX22_1
-  if SHX0_2 then
-    SHX0_2 = SHX23_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX22_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX23_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue14
+  if arg1 then
+    arg1 = workValue15
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue14
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue15
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX24_1
-  if SHX0_2 then
-    SHX0_2 = SHX25_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX24_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX25_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue16
+  if arg1 then
+    arg1 = workValue17
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue16
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue17
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX26_1
-  if SHX0_2 then
-    SHX0_2 = SHX27_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX26_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX27_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue18
+  if arg1 then
+    arg1 = workValue19
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue18
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue19
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX28_1
-  if SHX0_2 then
-    SHX0_2 = SHX29_1
-    if SHX0_2 then
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeMarker
-      SHX1_2 = SHX28_1
-      SHX0_2(SHX1_2)
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.removeArea
-      SHX1_2 = SHX29_1
-      SHX0_2(SHX1_2)
+  arg1 = workValue20
+  if arg1 then
+    arg1 = workValue21
+    if arg1 then
+      arg1 = tCMG
+      arg1 = arg1.removeMarker
+      arg2 = workValue20
+      arg1(arg2)
+      arg1 = tCMG
+      arg1 = arg1.removeArea
+      arg2 = workValue21
+      arg1(arg2)
     end
   end
-  SHX0_2 = nil
-  SHX4_1 = SHX0_2
-  SHX0_2 = nil
-  SHX5_1 = SHX0_2
-  SHX0_2 = nil
-  SHX6_1 = SHX0_2
-  SHX0_2 = nil
-  SHX7_1 = SHX0_2
-  SHX0_2 = nil
-  SHX8_1 = SHX0_2
-  SHX0_2 = nil
-  SHX9_1 = SHX0_2
-  SHX0_2 = nil
-  SHX10_1 = SHX0_2
-  SHX0_2 = nil
-  SHX11_1 = SHX0_2
-  SHX0_2 = nil
-  SHX12_1 = SHX0_2
-  SHX0_2 = nil
-  SHX13_1 = SHX0_2
-  SHX0_2 = nil
-  SHX14_1 = SHX0_2
-  SHX0_2 = nil
-  SHX15_1 = SHX0_2
-  SHX0_2 = nil
-  SHX18_1 = SHX0_2
-  SHX0_2 = nil
-  SHX19_1 = SHX0_2
-  SHX0_2 = nil
-  SHX20_1 = SHX0_2
-  SHX0_2 = nil
-  SHX21_1 = SHX0_2
-  SHX0_2 = nil
-  SHX22_1 = SHX0_2
-  SHX0_2 = nil
-  SHX23_1 = SHX0_2
-  SHX0_2 = nil
-  SHX24_1 = SHX0_2
-  SHX0_2 = nil
-  SHX25_1 = SHX0_2
-  SHX0_2 = false
-  SHX2_1 = SHX0_2
-  SHX0_2 = 0
-  SHX3_1 = SHX0_2
-  SHX0_2 = nil
-  SHX1_1 = SHX0_2
+  arg1 = nil
+  workValue29 = arg1
+  arg1 = nil
+  workValue31 = arg1
+  arg1 = nil
+  workValue32 = arg1
+  arg1 = nil
+  workValue33 = arg1
+  arg1 = nil
+  workValue34 = arg1
+  arg1 = nil
+  workValue35 = arg1
+  arg1 = nil
+  workValue = arg1
+  arg1 = nil
+  workValue2 = arg1
+  arg1 = nil
+  workValue3 = arg1
+  arg1 = nil
+  workValue4 = arg1
+  arg1 = nil
+  workValue5 = arg1
+  arg1 = nil
+  workValue7 = arg1
+  arg1 = nil
+  workValue10 = arg1
+  arg1 = nil
+  workValue11 = arg1
+  arg1 = nil
+  workValue12 = arg1
+  arg1 = nil
+  workValue13 = arg1
+  arg1 = nil
+  workValue14 = arg1
+  arg1 = nil
+  workValue15 = arg1
+  arg1 = nil
+  workValue16 = arg1
+  arg1 = nil
+  workValue17 = arg1
+  arg1 = false
+  flag2 = arg1
+  arg1 = 0
+  numberValue5 = arg1
+  arg1 = nil
+  textValue = arg1
 end
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+function workValue24()
+  local arg1, arg2
 end
-function SHX33_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+function workValue25()
+  local arg1, arg2
 end
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+function workValue26()
+  local arg1, arg2
 end
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_drinks"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_hotdrinks"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_milkshakes"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_icecreams"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_cupcakes"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_rice"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1 = RMenu
-SHX35_1 = SHX35_1.Add
-SHX36_1 = "business"
-SHX37_1 = "chef_chinese"
-SHX38_1 = RageUI
-SHX38_1 = SHX38_1.CreateMenu
-SHX39_1 = ""
-SHX40_1 = "~b~CMG Business"
-SHX41_1 = CMG
-SHX41_1 = SHX41_1.getRageUIMenuWidth
-SHX41_1 = SHX41_1()
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.getRageUIMenuHeight
-SHX42_1 = SHX42_1()
-SHX43_1 = "cmg_marketui"
-SHX44_1 = "cmg_marketui"
-SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1 = SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-SHX35_1(SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1)
-function SHX35_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX2_2 = "Requirements: "
-  SHX3_2 = pairs
-  SHX4_2 = SHX1_2.items
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = SHX2_2
-    SHX10_2 = "\n"
-    SHX11_2 = tostring
-    SHX12_2 = SHX8_2.amount
-    SHX11_2 = SHX11_2(SHX12_2)
-    SHX12_2 = "x "
-    SHX13_2 = SHX0_2.locationInfo
-    SHX13_2 = SHX13_2.items
-    SHX14_2 = SHX8_2.id
-    SHX13_2 = SHX13_2[SHX14_2]
-    SHX13_2 = SHX13_2[1]
-    SHX9_2 = SHX9_2 .. SHX10_2 .. SHX11_2 .. SHX12_2 .. SHX13_2
-    SHX2_2 = SHX9_2
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_drinks"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_hotdrinks"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_milkshakes"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_icecreams"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_cupcakes"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_rice"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27 = RMenu
+workValue27 = workValue27.Add
+textValue3 = "business"
+textValue4 = "chef_chinese"
+rageUiCall = RageUI
+rageUiCall = rageUiCall.CreateMenu
+textValue5 = ""
+cmgCall2 = "~b~CMG Business"
+rageUiCall2 = CMG
+rageUiCall2 = rageUiCall2.getRageUIMenuWidth
+rageUiCall2 = rageUiCall2()
+rageUiCall3 = CMG
+rageUiCall3 = rageUiCall3.getRageUIMenuHeight
+rageUiCall3 = rageUiCall3()
+textValue6 = "cmg_marketui"
+textValue7 = "cmg_marketui"
+rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7 = rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+workValue27(textValue3, textValue4, rageUiCall, textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6, textValue7)
+function workValue27(arg1, arg2)
+  local textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4, workValue6
+  textValue2 = "Requirements: "
+  workValue28 = pairs
+  workValue30 = arg2.items
+  workValue28, workValue30, numberValue6, numberValue7 = workValue28(workValue30)
+  for numberValue9, numberValue10 in workValue28, workValue30, numberValue6, numberValue7 do
+    dataTable2 = textValue2
+    numberValue = "\n"
+    numberValue2 = tostring
+    numberValue3 = numberValue10.amount
+    numberValue2 = numberValue2(numberValue3)
+    numberValue3 = "x "
+    numberValue4 = arg1.locationInfo
+    numberValue4 = numberValue4.items
+    workValue6 = numberValue10.id
+    numberValue4 = numberValue4[workValue6]
+    numberValue4 = numberValue4[1]
+    dataTable2 = dataTable2 .. numberValue .. numberValue2 .. numberValue3 .. numberValue4
+    textValue2 = dataTable2
   end
-  return SHX2_2
+  return textValue2
 end
-function SHX36_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX2_2 = pairs
-  SHX3_2 = SHX1_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX0_2.locationInfo
-    SHX8_2 = SHX8_2.items
-    SHX8_2 = SHX8_2[SHX6_2]
-    if SHX8_2 then
-      SHX9_2 = RageUI
-      SHX9_2 = SHX9_2.ButtonWithStyle
-      SHX10_2 = SHX8_2[1]
-      SHX11_2 = SHX35_1
-      SHX12_2 = SHX0_2
-      SHX13_2 = SHX7_2
-      SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-      SHX12_2 = {}
-      SHX12_2.RightLabel = "\226\134\146\226\134\146\226\134\146"
-      SHX13_2 = true
-      function SHX14_2(SHX0_3, SHX1_3, SHX2_3)
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX3_3, SHX4_3, SHX5_3
-        if SHX2_3 then
-          SHX3_3 = TriggerServerEvent
-          SHX4_3 = "db9a057a2d"
-          SHX5_3 = SHX6_2
-          SHX3_3(SHX4_3, SHX5_3)
+function textValue3(arg1, arg2)
+  local textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9, numberValue10, dataTable2, numberValue, numberValue2, numberValue3, numberValue4, workValue6
+  textValue2 = pairs
+  workValue28 = arg2
+  textValue2, workValue28, workValue30, numberValue6 = textValue2(workValue28)
+  for numberValue7, numberValue9 in textValue2, workValue28, workValue30, numberValue6 do
+    numberValue10 = arg1.locationInfo
+    numberValue10 = numberValue10.items
+    numberValue10 = numberValue10[numberValue7]
+    if numberValue10 then
+      dataTable2 = RageUI
+      dataTable2 = dataTable2.ButtonWithStyle
+      numberValue = numberValue10[1]
+      numberValue2 = workValue27
+      numberValue3 = arg1
+      numberValue4 = numberValue9
+      numberValue2 = numberValue2(numberValue3, numberValue4)
+      numberValue3 = {}
+      numberValue3.RightLabel = "\226\134\146\226\134\146\226\134\146"
+      numberValue4 = true
+      function workValue6(arg12, arg22, arg3)
+        local dataTable, textValue8, textValue9
+        if arg3 then
+          dataTable = TriggerServerEvent
+          textValue8 = "db9a057a2d"
+          textValue9 = numberValue7
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "db9a057a2d".
+          dataTable(textValue8, textValue9)
         end
       end
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+      -- Beginner: Draw a selectable RageUI menu button.
+      dataTable2(numberValue, numberValue2, numberValue3, numberValue4, workValue6)
     end
   end
 end
-SHX37_1 = RageUI
-SHX37_1 = SHX37_1.CreateWhile
-SHX38_1 = 1.0
-SHX39_1 = RMenu
-SHX40_1 = SHX39_1
-SHX39_1 = SHX39_1.Get
-SHX41_1 = "business"
-SHX42_1 = "chef_drinks"
-SHX39_1 = SHX39_1(SHX40_1, SHX41_1, SHX42_1)
-SHX40_1 = nil
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_drinks"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+textValue4 = RageUI
+textValue4 = textValue4.CreateWhile
+rageUiCall = 1.0
+textValue5 = RMenu
+cmgCall2 = textValue5
+textValue5 = textValue5.Get
+rageUiCall2 = "business"
+rageUiCall3 = "chef_drinks"
+-- Beginner: result below is menu.
+textValue5 = textValue5(cmgCall2, rageUiCall2, rageUiCall3)
+cmgCall2 = nil
+function rageUiCall2()
+  local arg1, arg2, textValue2, workValue28, workValue30, numberValue6
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_drinks"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.drinksMachine
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.drinksMachine
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_hotdrinks"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_hotdrinks"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.hotDrinksMachine
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.hotDrinksMachine
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_milkshakes"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_milkshakes"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.milkshakeMachine
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.milkshakeMachine
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_icecreams"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_icecreams"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.icecreamMachine
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.icecreamMachine
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_cupcakes"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_cupcakes"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.cupcakesMachine
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.cupcakesMachine
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_rice"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_rice"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.riceStation
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.riceStation
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "business"
-  SHX4_2 = "chef_chinese"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.getUserBusinessData
-    SHX1_3 = "chef"
-    SHX0_3 = SHX0_3(SHX1_3)
-    if not SHX0_3 then
-      SHX1_3 = RageUI
-      SHX1_3 = SHX1_3.CloseAll
-      SHX1_3()
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
+  arg1 = RageUI
+  arg1 = arg1.IsVisible
+  arg2 = RMenu
+  textValue2 = arg2
+  arg2 = arg2.Get
+  workValue28 = "business"
+  workValue30 = "chef_chinese"
+  -- Beginner: result below is menu.
+  arg2 = arg2(textValue2, workValue28, workValue30)
+  textValue2 = true
+  workValue28 = false
+  workValue30 = true
+  function numberValue6()
+    local arg12, arg22, arg3, dataTable
+    arg12 = CMG
+    arg12 = arg12.getUserBusinessData
+    arg22 = "chef"
+    arg12 = arg12(arg22)
+    if not arg12 then
+      arg22 = RageUI
+      arg22 = arg22.CloseAll
+      arg22()
       return
     end
-    SHX1_3 = SHX36_1
-    SHX2_3 = SHX0_3
-    SHX3_3 = SHX0_1.chineseCookingStation
-    SHX1_3(SHX2_3, SHX3_3)
+    arg22 = textValue3
+    arg3 = arg12
+    dataTable = cmgCall.chineseCookingStation
+    arg22(arg3, dataTable)
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  arg1(arg2, textValue2, workValue28, workValue30, numberValue6)
 end
-SHX37_1(SHX38_1, SHX39_1, SHX40_1, SHX41_1)
-SHX37_1 = RegisterNetEvent
-SHX38_1 = "6a31d41cc5"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.setCanAnim
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = FreezeEntityPosition
-  SHX2_2 = SHX0_2
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.playAnim
-  SHX2_2 = true
-  SHX3_2 = {}
-  SHX4_2 = {}
-  SHX5_2 = "anim@amb@nightclub@mini@drinking@drinking_shots@ped_d@normal"
-  SHX6_2 = "pour_one"
-  SHX7_2 = 1
-  SHX4_2[1] = SHX5_2
-  SHX4_2[2] = SHX6_2
-  SHX4_2[3] = SHX7_2
-  SHX3_2[1] = SHX4_2
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = FreezeEntityPosition
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.setCanAnim
-  SHX2_2 = false
-  SHX1_2(SHX2_2)
+textValue4(rageUiCall, textValue5, cmgCall2, rageUiCall2)
+textValue4 = RegisterNetEvent
+rageUiCall = "6a31d41cc5"
+-- Beginner: this function handles network event "6a31d41cc5".
+function textValue5()
+  local arg1, arg2, textValue2, workValue28, workValue30, numberValue6, numberValue7, numberValue9
+  arg1 = tCMG
+  arg1 = arg1.setCanAnim
+  arg2 = true
+  arg1(arg2)
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = FreezeEntityPosition
+  textValue2 = arg1
+  workValue28 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg2(textValue2, workValue28)
+  arg2 = tCMG
+  arg2 = arg2.playAnim
+  textValue2 = true
+  workValue28 = {}
+  workValue30 = {}
+  numberValue6 = "anim@amb@nightclub@mini@drinking@drinking_shots@ped_d@normal"
+  numberValue7 = "pour_one"
+  numberValue9 = 1
+  workValue30[1] = numberValue6
+  workValue30[2] = numberValue7
+  workValue30[3] = numberValue9
+  workValue28[1] = workValue30
+  workValue30 = false
+  arg2(textValue2, workValue28, workValue30)
+  arg2 = FreezeEntityPosition
+  textValue2 = arg1
+  workValue28 = false
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg2(textValue2, workValue28)
+  arg2 = tCMG
+  arg2 = arg2.setCanAnim
+  textValue2 = false
+  arg2(textValue2)
 end
-SHX37_1(SHX38_1, SHX39_1)
-SHX37_1 = RegisterNetEvent
-SHX38_1 = "c6cd1a916a"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6a31d41cc5".
+textValue4(rageUiCall, textValue5)
+textValue4 = RegisterNetEvent
+rageUiCall = "c6cd1a916a"
+-- Beginner: this function handles network event "c6cd1a916a".
+function textValue5()
+  local arg1, arg2
 end
-SHX37_1(SHX38_1, SHX39_1)
-SHX37_1 = RegisterNetEvent
-SHX38_1 = "88f2f7f0ea"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+textValue4(rageUiCall, textValue5)
+textValue4 = RegisterNetEvent
+rageUiCall = "88f2f7f0ea"
+-- Beginner: this function handles network event "88f2f7f0ea".
+function textValue5()
+  local arg1, arg2
 end
-SHX37_1(SHX38_1, SHX39_1)
-SHX37_1 = RegisterNetEvent
-SHX38_1 = "76d0a73816"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "88f2f7f0ea".
+textValue4(rageUiCall, textValue5)
+textValue4 = RegisterNetEvent
+rageUiCall = "76d0a73816"
+-- Beginner: this function handles network event "76d0a73816".
+function textValue5()
+  local arg1, arg2
 end
-SHX37_1(SHX38_1, SHX39_1)
-SHX37_1 = RegisterNetEvent
-SHX38_1 = "2d5eb5712c"
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
+textValue4(rageUiCall, textValue5)
+textValue4 = RegisterNetEvent
+rageUiCall = "2d5eb5712c"
+-- Beginner: this function handles network event "2d5eb5712c".
+function textValue5()
+  local arg1, arg2
 end
-SHX37_1(SHX38_1, SHX39_1)
-SHX37_1 = {}
-SHX38_1 = {}
-SHX38_1.init = SHX32_1
-SHX38_1.tick = SHX33_1
-SHX38_1.finish = SHX34_1
-SHX38_1.next = "main"
-SHX37_1.main = SHX38_1
-SHX38_1 = CMG
-SHX38_1 = SHX38_1.registerBusinessJob
-SHX39_1 = "chef"
-SHX40_1 = SHX30_1
-SHX41_1 = "main"
-SHX42_1 = SHX37_1
-SHX43_1 = SHX31_1
-SHX38_1(SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1)
-SHX38_1 = Citizen
-SHX38_1 = SHX38_1.Wait
-SHX39_1 = 0
-SHX38_1(SHX39_1)
-SHX38_1 = CMG
-SHX38_1 = SHX38_1.addGenericBusinessOrderView
-SHX39_1 = "chef"
-SHX40_1 = nil
-SHX38_1(SHX39_1, SHX40_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2d5eb5712c".
+textValue4(rageUiCall, textValue5)
+textValue4 = {}
+rageUiCall = {}
+rageUiCall.init = workValue24
+rageUiCall.tick = workValue25
+rageUiCall.finish = workValue26
+rageUiCall.next = "main"
+textValue4.main = rageUiCall
+rageUiCall = CMG
+rageUiCall = rageUiCall.registerBusinessJob
+textValue5 = "chef"
+cmgCall2 = workValue22
+rageUiCall2 = "main"
+rageUiCall3 = textValue4
+textValue6 = workValue23
+rageUiCall(textValue5, cmgCall2, rageUiCall2, rageUiCall3, textValue6)
+rageUiCall = Citizen
+rageUiCall = rageUiCall.Wait
+textValue5 = 0
+rageUiCall(textValue5)
+rageUiCall = CMG
+rageUiCall = rageUiCall.addGenericBusinessOrderView
+textValue5 = "chef"
+cmgCall2 = nil
+rageUiCall(textValue5, cmgCall2)

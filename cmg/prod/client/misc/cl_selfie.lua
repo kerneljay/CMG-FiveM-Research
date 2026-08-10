@@ -1,508 +1,299 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Selfie / Phone Camera
+    =====================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1
-SHX0_1 = false
-SHX1_1 = 0
-SHX2_1 = false
-SHX3_1 = false
-SHX4_1 = RegisterNetEvent
-SHX5_1 = "7e74b66dae"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SHX2_1
-  if SHX0_2 ~= SHX1_2 then
-    SHX2_1 = SHX0_2
-    SHX1_2 = notify
-    if SHX0_2 then
-      SHX2_2 = "~g~"
-      if SHX2_2 then
-        goto SHX_LABEL_12
-      end
-    end
-    SHX2_2 = "~r~"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-    ::SHX_LABEL_12::
-    SHX3_2 = "Your phone has been set to "
-    if SHX0_2 then
-      SHX4_2 = "on duty"
-      if SHX4_2 then
-        goto SHX_LABEL_19
-      end
-    end
-    SHX4_2 = "off duty"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-    ::SHX_LABEL_19::
-    SHX5_2 = "."
-    SHX2_2 = SHX2_2 .. SHX3_2 .. SHX4_2 .. SHX5_2
-    SHX1_2(SHX2_2)
-  end
+    /selfie opens GTA's mobile-phone camera.
+
+    First use:
+      * creates the phone
+      * activates the mobile camera
+      * starts a loop
+
+    While the camera is open:
+      BACKSPACE (control 177)
+        closes/destroys the phone camera.
+
+      ENTER / phone-select (control 176)
+        uses GTA's high-quality-photo API:
+          BeginTakeHighQualityPhoto
+          GetStatusOfTakeHighQualityPhoto
+          SaveHighQualityPhoto
+          FreeMemoryForHighQualityPhoto
+
+      /selfie again
+        toggles the front-facing camera with CellFrontCamActivate.
+
+    HUD/radar components are hidden while the camera is active.
+
+    This file also contains LB Phone bridge exports used by the framework:
+      lbGetCompanyData(callback)
+      lbToggleDuty()
+      lb-phone:toggleHud(hidden)
+
+    CMG.setCanOpenPhone(enabled) uses a reference counter, allowing several
+    independent systems to disable the phone without one system accidentally
+    re-enabling it while another still needs it disabled.
+]]
+
+local cameraOpen = false
+
+-- Phone type passed to CreateMobilePhone by the original file.
+local mobilePhoneType = 0
+
+-- True when front-facing camera is active.
+local frontCameraActive = false
+
+-- Kept because the decompiled source used this state before waiting 2.5s on
+-- close. It is set by related phone-camera code elsewhere.
+local waitAfterClosing = false
+
+
+-- ============================================================
+-- GTA CAMERA NATIVE ALIASES
+-- ============================================================
+
+local function CellFrontCamActivate(enabled)
+    Citizen.InvokeNative(
+        2635073306796480568,
+        enabled
+    )
 end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = false
-SHX5_1 = false
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.InvokeNative
-  SHX2_2 = 2635073306796480568
-  SHX3_2 = SHX0_2
-  return SHX1_2(SHX2_2, SHX3_2)
+
+local TakePhoto =
+    BeginTakeHighQualityPhoto
+
+local WasPhotoTaken =
+    GetStatusOfTakeHighQualityPhoto
+
+local SavePhoto =
+    SaveHighQualityPhoto
+
+local ClearPhoto =
+    FreeMemoryForHighQualityPhoto
+
+
+-- ============================================================
+-- HELP TEXT
+-- ============================================================
+
+function DisplayHelpText(text)
+    BeginTextCommandDisplayHelp(
+        "STRING"
+    )
+
+    AddTextComponentSubstringPlayerName(
+        text
+    )
+
+    EndTextCommandDisplayHelp(
+        0,
+        false,
+        true,
+        -1
+    )
 end
-CellFrontCamActivate = SHX6_1
-SHX6_1 = BeginTakeHighQualityPhoto
-TakePhoto = SHX6_1
-SHX6_1 = GetStatusOfTakeHighQualityPhoto
-WasPhotoTaken = SHX6_1
-SHX6_1 = SaveHighQualityPhoto
-SavePhoto = SHX6_1
-SHX6_1 = FreeMemoryForHighQualityPhoto
-ClearPhoto = SHX6_1
-SHX6_1 = RegisterCommand
-SHX7_1 = "selfie"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = DisplayHelpText
-  SHX1_2 = "Backspace to close camera, /selfie again to take a selfie"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX0_1
-  if true == SHX0_2 then
-    SHX0_2 = SHX4_1
-    SHX0_2 = not SHX0_2
-    SHX4_1 = SHX0_2
-    SHX0_2 = CellFrontCamActivate
-    SHX1_2 = SHX4_1
-    SHX0_2(SHX1_2)
-  else
-    SHX0_2 = CreateMobilePhone
-    SHX1_2 = SHX1_1
-    SHX0_2(SHX1_2)
-    SHX0_2 = CellCamActivate
-    SHX1_2 = true
-    SHX2_2 = true
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = true
-    SHX0_1 = SHX0_2
-    while true do
-      SHX0_2 = SHX0_1
-      if not SHX0_2 then
-        break
-      end
-      SHX0_2 = IsControlJustPressed
-      SHX1_2 = 0
-      SHX2_2 = 177
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if SHX0_2 then
-        SHX0_2 = DestroyMobilePhone
-        SHX0_2()
-        SHX0_2 = false
-        SHX0_1 = SHX0_2
-        SHX0_2 = CellCamActivate
-        SHX1_2 = false
-        SHX2_2 = false
-        SHX0_2(SHX1_2, SHX2_2)
-        SHX0_2 = SHX5_1
-        if true == SHX0_2 then
-          SHX0_2 = false
-          SHX5_1 = SHX0_2
-          SHX0_2 = Citizen
-          SHX0_2 = SHX0_2.Wait
-          SHX1_2 = 2500
-          SHX0_2(SHX1_2)
+
+
+-- ============================================================
+-- SELFIE COMMAND
+-- ============================================================
+
+RegisterCommand(
+    "selfie",
+    function()
+        DisplayHelpText(
+            "Backspace to close camera, /selfie again to take a selfie"
+        )
+
+        -- Camera is already open: /selfie flips front/back camera.
+        if cameraOpen then
+            frontCameraActive =
+                not frontCameraActive
+
+            CellFrontCamActivate(
+                frontCameraActive
+            )
+
+            return
         end
-      end
-      SHX0_2 = IsControlJustPressed
-      SHX1_2 = 0
-      SHX2_2 = 176
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if SHX0_2 then
-        SHX0_2 = TakePhoto
-        SHX0_2()
-        SHX0_2 = WasPhotoTaken
-        SHX0_2 = SHX0_2()
-        if SHX0_2 then
-          SHX0_2 = SavePhoto
-          SHX1_2 = -1
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX0_2 = ClearPhoto
-            SHX0_2()
-          end
+
+        CreateMobilePhone(
+            mobilePhoneType
+        )
+
+        CellCamActivate(
+            true,
+            true
+        )
+
+        cameraOpen = true
+
+        while cameraOpen do
+            -- Backspace closes.
+            if IsControlJustPressed(
+                0,
+                177
+            ) then
+
+                DestroyMobilePhone()
+
+                cameraOpen = false
+
+                CellCamActivate(
+                    false,
+                    false
+                )
+
+                if waitAfterClosing then
+                    waitAfterClosing =
+                        false
+
+                    Citizen.Wait(2500)
+                end
+            end
+
+            -- Phone select / enter takes a saved high-quality photo.
+            if IsControlJustPressed(
+                0,
+                176
+            ) then
+
+                TakePhoto()
+
+                if WasPhotoTaken() then
+                    if SavePhoto(-1) then
+                        ClearPhoto()
+                    end
+                end
+            end
+
+            for _, componentId
+                in ipairs({
+                    7,
+                    8,
+                    9,
+                    6,
+                    19
+                }) do
+
+                HideHudComponentThisFrame(
+                    componentId
+                )
+            end
+
+            HideHudAndRadarThisFrame()
+
+            Wait(0)
         end
-      end
-      SHX0_2 = HideHudComponentThisFrame
-      SHX1_2 = 7
-      SHX0_2(SHX1_2)
-      SHX0_2 = HideHudComponentThisFrame
-      SHX1_2 = 8
-      SHX0_2(SHX1_2)
-      SHX0_2 = HideHudComponentThisFrame
-      SHX1_2 = 9
-      SHX0_2(SHX1_2)
-      SHX0_2 = HideHudComponentThisFrame
-      SHX1_2 = 6
-      SHX0_2(SHX1_2)
-      SHX0_2 = HideHudComponentThisFrame
-      SHX1_2 = 19
-      SHX0_2(SHX1_2)
-      SHX0_2 = HideHudAndRadarThisFrame
-      SHX0_2()
-      SHX0_2 = Wait
-      SHX1_2 = 0
-      SHX0_2(SHX1_2)
+    end,
+    false
+)
+
+
+-- Clean up any GTA phone object when the resource starts this file.
+Citizen.CreateThread(function()
+    DestroyMobilePhone()
+end)
+
+
+-- ============================================================
+-- LB PHONE BUSINESS/DUTY BRIDGE
+-- ============================================================
+
+local lbPhoneDuty = false
+
+
+exports(
+    "lbGetCompanyData",
+    function(callback)
+        callback({
+            job = "Business",
+            jobLabel = "Business",
+            isBoss = false,
+            duty = lbPhoneDuty
+        })
     end
-  end
-end
-SHX9_1 = false
-SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = BeginTextCommandDisplayHelp
-  SHX2_2 = "STRING"
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddTextComponentSubstringPlayerName
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = EndTextCommandDisplayHelp
-  SHX2_2 = 0
-  SHX3_2 = false
-  SHX4_2 = true
-  SHX5_2 = -1
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-end
-DisplayHelpText = SHX6_1
-SHX6_1 = Citizen
-SHX6_1 = SHX6_1.CreateThread
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = DestroyMobilePhone
-  SHX0_2()
-end
-SHX6_1(SHX7_1)
-SHX6_1 = exports
-SHX7_1 = "lbGetCompanyData"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = {}
-  SHX1_2.job = "Business"
-  SHX1_2.jobLabel = "Business"
-  SHX1_2.isBoss = false
-  SHX2_2 = SHX2_1
-  SHX1_2.duty = SHX2_2
-  SHX2_2 = SHX0_2
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = exports
-SHX7_1 = "lbToggleDuty"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "1c88547586"
-  SHX0_2(SHX1_2)
-  SHX0_2 = true
-  return SHX0_2
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "lb-phone:toggleHud"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  if SHX0_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.hideAllDisplays
-    SHX2_2 = "lb-phone"
-    SHX1_2(SHX2_2)
-  else
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.showAllDisplays
-    SHX2_2 = "lb-phone"
-    SHX1_2(SHX2_2)
-  end
-end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = 0
-SHX7_1 = CMG
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  if SHX0_2 then
-    SHX1_2 = SHX6_1
-    if SHX1_2 > 0 then
-      SHX1_2 = SHX6_1
-      SHX1_2 = SHX1_2 - 1
-      SHX6_1 = SHX1_2
+)
+
+
+exports(
+    "lbToggleDuty",
+    function()
+        TriggerServerEvent(
+            "1c88547586"
+        )
+
+        return true
     end
-    SHX1_2 = SHX6_1
-    if 0 == SHX1_2 then
-      SHX1_2 = GetResourceState
-      SHX2_2 = "lb-phone"
-      SHX1_2 = SHX1_2(SHX2_2)
-      if "started" == SHX1_2 then
-        SHX1_2 = exports
-        SHX1_2 = SHX1_2["lb-phone"]
-        SHX2_2 = SHX1_2
-        SHX1_2 = SHX1_2.ToggleDisabled
-        SHX3_2 = false
-        SHX1_2(SHX2_2, SHX3_2)
-      end
-    else
-      SHX1_2 = print
-      SHX2_2 = string
-      SHX2_2 = SHX2_2.format
-      SHX3_2 = "Can not setCanOpenPhone(true) as %d other references exist"
-      SHX4_2 = SHX6_1
-      SHX2_2, SHX3_2, SHX4_2 = SHX2_2(SHX3_2, SHX4_2)
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+)
+
+
+RegisterNetEvent(
+    "lb-phone:toggleHud",
+    function(hidden)
+        if hidden then
+            CMG.hideAllDisplays(
+                "lb-phone"
+            )
+        else
+            CMG.showAllDisplays(
+                "lb-phone"
+            )
+        end
     end
-  else
-    SHX1_2 = SHX6_1
-    SHX1_2 = SHX1_2 + 1
-    SHX6_1 = SHX1_2
-    SHX1_2 = GetResourceState
-    SHX2_2 = "lb-phone"
-    SHX1_2 = SHX1_2(SHX2_2)
-    if "started" == SHX1_2 then
-      SHX1_2 = exports
-      SHX1_2 = SHX1_2["lb-phone"]
-      SHX2_2 = SHX1_2
-      SHX1_2 = SHX1_2.ToggleDisabled
-      SHX3_2 = true
-      SHX1_2(SHX2_2, SHX3_2)
+)
+
+
+-- ============================================================
+-- PHONE-ACCESS REFERENCE COUNTER
+-- ============================================================
+
+local phoneDisableReferences = 0
+
+
+function CMG.setCanOpenPhone(canOpen)
+    if canOpen then
+        if phoneDisableReferences > 0 then
+            phoneDisableReferences =
+                phoneDisableReferences - 1
+        end
+
+        if phoneDisableReferences == 0 then
+            if GetResourceState(
+                "lb-phone"
+            ) == "started" then
+
+                exports["lb-phone"]:ToggleDisabled(
+                    false
+                )
+            end
+        else
+            print(
+                string.format(
+                    "Can not setCanOpenPhone(true) as %d other references exist",
+                    phoneDisableReferences
+                )
+            )
+        end
+
+        return
     end
-  end
+
+    phoneDisableReferences =
+        phoneDisableReferences + 1
+
+    if GetResourceState(
+        "lb-phone"
+    ) == "started" then
+
+        exports["lb-phone"]:ToggleDisabled(
+            true
+        )
+    end
 end
-SHX7_1.setCanOpenPhone = SHX8_1
-SHX7_1 = false
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "ef297ed60b"
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX7_1
-  if SHX0_2 then
+
+
+function CMG.canOpenPhone()
     return
-  end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.setCanOpenPhone
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = true
-  SHX7_1 = SHX0_2
-  SHX0_2 = notify
-  SHX1_2 = "~y~Your phone has been slapped out of your hand!"
-  SHX0_2(SHX1_2)
-  SHX0_2 = SetTimeout
-  SHX1_2 = 30000
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.setCanOpenPhone
-    SHX1_3 = true
-    SHX0_3(SHX1_3)
-    SHX0_3 = false
-    SHX7_1 = SHX0_3
-  end
-  SHX0_2(SHX1_2, SHX2_2)
+        phoneDisableReferences == 0
 end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = RegisterNetEvent
-SHX9_1 = "5934568413"
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
-    return
-  end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetPedBoneIndex
-  SHX4_2 = SHX2_2
-  SHX5_2 = 57005
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if -1 == SHX3_2 then
-    return
-  end
-  SHX4_2 = GetWorldPositionOfEntityBone
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.loadModel
-  SHX6_2 = 108397254
-  SHX5_2(SHX6_2)
-  SHX5_2 = CreateObjectNoOffset
-  SHX6_2 = 108397254
-  SHX7_2 = SHX4_2.x
-  SHX8_2 = SHX4_2.y
-  SHX9_2 = SHX4_2.z
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX6_2 = SetModelAsNoLongerNeeded
-  SHX7_2 = 108397254
-  SHX6_2(SHX7_2)
-  SHX6_2 = PlaceObjectOnGroundProperly
-  SHX7_2 = SHX5_2
-  SHX6_2(SHX7_2)
-  SHX6_2 = SetEntityRotation
-  SHX7_2 = SHX5_2
-  SHX8_2 = 90.0
-  SHX9_2 = 90.0
-  SHX10_2 = 90.0
-  SHX11_2 = 2
-  SHX12_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX6_2 = SetTimeout
-  SHX7_2 = 60000
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = DeleteEntity
-    SHX1_3 = SHX5_2
-    SHX0_3(SHX1_3)
-  end
-  SHX6_2(SHX7_2, SHX8_2)
-end
-SHX8_1(SHX9_1, SHX10_1)
-SHX8_1 = AddStateBagChangeHandler
-SHX9_1 = "phoneOpen"
-SHX10_1 = nil
-function SHX11_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = tonumber
-  SHX4_2 = stringsplit
-  SHX5_2 = SHX0_2
-  SHX6_2 = ":"
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2[2]
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getLocalPlayerSrc
-  SHX4_2 = SHX4_2()
-  if SHX3_2 == SHX4_2 then
-    SHX3_1 = SHX2_2
-  end
-end
-SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX8_1 = CMG
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX3_1
-  return SHX0_2
-end
-SHX8_1.isPhoneOpen = SHX9_1

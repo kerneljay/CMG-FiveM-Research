@@ -1,3 +1,31 @@
+--[[
+    BEGINNER GUIDE — Passthebomb
+    ============================
+
+    File: cmg/prod/cfg/events/cfg_passthebomb.lua
+    Purpose: This file contains configuration/data.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/rockstarmaps/K3l1t8v63EKhym0s-DnpoQ.json
+      * cfg/rockstarmaps/fT2GoJKzQEumZ7Dt8zPP9g.json
+      * cfg/rockstarmaps/sp-NQSL6Y0KS5nmCywnn5w.json
+      * cfg/rockstarmaps/fxVvFGgC4k28AJkBEOw_HA.json
+      * cfg/rockstarmaps/dWmY-NwsG0CitBnrvoIPxw.json
+      * cfg/rockstarmaps/bQYigRdQX0OxTZo3ZIAuFg.json
+      * cfg/rockstarmaps/5p4j2wmBCk2XateztGnVww.json
+      * cfg/rockstarmaps/KSTCyZCPQUaLq1plMssHbA.json
+      * cfg/rockstarmaps/tMPO7CZUyU6xXRYtcwfk5w.json
+      * cfg/rockstarmaps/QHmFVXPtnkmHvBW6gMEMyg.json
+
+]]
 local cfg = {}
 
 cfg.minPlayers = 4

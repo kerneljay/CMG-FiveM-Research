@@ -1,995 +1,967 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_anpr.lua
+    ===========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1
-SHX0_1 = true
-SHX1_1 = false
-SHX2_1 = ""
-SHX3_1 = ""
-SHX4_1 = nil
-SHX5_1 = nil
-SHX6_1 = {}
-SHX7_1 = false
-SHX8_1 = false
-SHX9_1 = 0
-SHX10_1 = {}
-SHX11_1 = vector3
-SHX12_1 = -763.85
-SHX13_1 = -2182.47
-SHX14_1 = 15.26
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["New Empire Way"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 814.19
-SHX13_1 = -2623.73
-SHX14_1 = 52.42
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Elysian Fields FWY Bridge"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -498.72
-SHX13_1 = -2265.92
-SHX14_1 = 61.43
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["La Puerta FWY Bridge"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1573.21
-SHX13_1 = -983.65
-SHX14_1 = 59.78
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Palomino FWY 1"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1307.31
-SHX13_1 = 599.01
-SHX14_1 = 80.05
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Los Santos FWY 1"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2118.76
-SHX13_1 = 1362.79
-SHX14_1 = 75.37
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Palomino FWY 2"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2113.76
-SHX13_1 = 2670.4
-SHX14_1 = 50.46
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora FWY 1"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -2171.84
-SHX13_1 = -345.79
-SHX14_1 = 13.18
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["West Eclipse Blvd/Great Ocean HWY"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -2720.0
-SHX13_1 = 2284.16
-SHX14_1 = 19.15
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean HWY/Route 68"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -396.31
-SHX13_1 = 5976.88
-SHX14_1 = 31.66
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean HWY/Paleto Blvd"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2793.14
-SHX13_1 = 4408.23
-SHX14_1 = 49.03
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["East Joshua Road/Senora FWY"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -1214.03
-SHX13_1 = -697.71
-SHX14_1 = 10.9
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Del Perro Fwy Tunnel"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1064.87
-SHX13_1 = -1540.35
-SHX14_1 = 28.19
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Elysian Fields Fwy 1"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 317.39
-SHX13_1 = 1003.02
-SHX14_1 = 210.36
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Baytree Canyon Rd/Marlowe Dr"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -3103.37
-SHX13_1 = 1184.33
-SHX14_1 = 20.16
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hway/Banham Canyon Dr"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 727.53
-SHX13_1 = -2784.06
-SHX14_1 = 6.25
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Buccaneer Way (Port)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -402.67
-SHX13_1 = -784.82
-SHX14_1 = 36.81
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["La Puerta Fwy 1"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -756.0
-SHX13_1 = -1732.56
-SHX14_1 = 29.15
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Dutch London St/La Puerta"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2437.49
-SHX13_1 = -183.21
-SHX14_1 = 87.49
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Palamino Fwy 3"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -149.04
-SHX13_1 = -1183.77
-SHX14_1 = 37.13
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Olympic Fwy (Above Power St)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 230.74
-SHX13_1 = -1236.45
-SHX14_1 = 38.02
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Olympic Fwy (Above Strawberry Ave)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 902.12
-SHX13_1 = 178.07
-SHX14_1 = 75.03
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Los Santos Freeway 2"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -921.26
-SHX13_1 = -542.54
-SHX14_1 = 19.01
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Del Perro Fwy (Under Movie Star Way)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 864.89
-SHX13_1 = -699.25
-SHX14_1 = 42.49
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Del Perro Fwy 2"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -404.82
-SHX13_1 = -1289.68
-SHX14_1 = 21.19
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["La Puerta Fwy (Lower)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -386.18
-SHX13_1 = -1829.63
-SHX14_1 = 21.39
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Davis Ave/Alta St"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -1549.77
-SHX13_1 = -801.19
-SHX14_1 = 13.15
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Equality Way (Exit)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -1577.42
-SHX13_1 = -726.07
-SHX14_1 = 18.55
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Equality Way (on-slip)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -3029.89
-SHX13_1 = 222.96
-SHX14_1 = 15.89
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hwy/Inseno Rd 1"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -2479.27
-SHX13_1 = 3660.72
-SHX14_1 = 13.55
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hwy/Zancudo Road"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -2592.38
-SHX13_1 = 3120.09
-SHX14_1 = 14.76
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hwy/Zancudo Tunnel"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -1903.28
-SHX13_1 = 4614.71
-SHX14_1 = 56.8
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hwy/Raton Canyon Bridge"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -771.77
-SHX13_1 = 5491.96
-SHX14_1 = 34.46
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hwy/Procopio Promenade"] = SHX11_1
-SHX11_1 = "Great Ocean Hwy/Paleto Bay Petrol Station"
-SHX12_1 = vector3
-SHX13_1 = 179.73
-SHX14_1 = 6582.76
-SHX15_1 = 31.63
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX10_1[SHX11_1] = SHX12_1
-SHX11_1 = vector3
-SHX12_1 = 149.27
-SHX13_1 = 6527.46
-SHX14_1 = 31.46
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Great Ocean Hwy/Procopio Dr"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2119.48
-SHX13_1 = 6025.09
-SHX14_1 = 50.85
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Fwy/Braddock Pass (Tunnel)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2399.84
-SHX13_1 = 5788.28
-SHX14_1 = 45.75
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Fwy/Braddock Pass"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2625.67
-SHX13_1 = 5110.9
-SHX14_1 = 44.64
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Fwy/Union Rd"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2680.09
-SHX13_1 = 3178.76
-SHX14_1 = 52.31
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Fwy 2 (Petrol Station)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2397.76
-SHX13_1 = 1210.39
-SHX14_1 = 58.92
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Way/Palomino Fwy"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1712.54
-SHX13_1 = 1499.18
-SHX14_1 = 84.7
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Los Santos Fwy 2"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1880.95
-SHX13_1 = 2103.13
-SHX14_1 = 54.48
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Palomino Fwy (Senora Fwy on-slip)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1811.66
-SHX13_1 = 2130.67
-SHX14_1 = 54.47
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Fwy (Palomino Fwy on-slip)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1769.02
-SHX13_1 = 2052.5
-SHX14_1 = 67.2
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Senora Fwy (Los Santos Fwy on-slip)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1790.68
-SHX13_1 = 1883.54
-SHX14_1 = 79.1
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Los Santos Fwy (Senora Fwy on-slip)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1786.31
-SHX13_1 = 1601.29
-SHX14_1 = 83.73
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Los Santos Fwy (Palomino Fwy on-slip)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2447.68
-SHX13_1 = 953.36
-SHX14_1 = 87.08
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Palomino Fwy (Jct Senora Way)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 2585.63
-SHX13_1 = 360.6
-SHX14_1 = 108.24
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Palomino Fwy Petrol Station"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 770.69
-SHX13_1 = -1195.34
-SHX14_1 = 44.95
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Olympic Fwy (Over Popular St)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 1240.24
-SHX13_1 = -2051.41
-SHX14_1 = 44.14
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Elysian Fields Fwy/El Rancho Blvd"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = 688.11
-SHX13_1 = -166.98
-SHX14_1 = 48.05
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["Los Santos Fwy (Under Bridge St)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -623.16
-SHX13_1 = -1720.22
-SHX14_1 = 37.06
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["La Puerta Fwy (Over South Arsenal St)"] = SHX11_1
-SHX11_1 = vector3
-SHX12_1 = -163.66
-SHX13_1 = -540.73
-SHX14_1 = 28.02
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1["La Puerta Fwy/Del Perro Fwy on-slip"] = SHX11_1
-SHX11_1 = CMG
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getFlatLicensePlate
-  SHX2_2 = GetVehicleNumberPlateText
-  SHX3_2 = SHX0_2
-  SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if not SHX1_2 then
-    SHX1_2 = "N/A"
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Anpr
+    =====================
+
+    File: cmg/prod/client/police/cl_anpr.lua
+    Purpose: This file contains police gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Commands/command-like entries found:
+      * /flagf
+      * /flagr
+      * flagf
+      * flagr
+      * anpr
+      * lockanpr
+
+    Network/hash identifiers found: 5
+      They are intentionally left unchanged because matching server code may use them.
+      * 49f6eff747
+      * 920f4c13e9
+      * 4da4f2889b
+      * 42d0ce93ae
+      * 66486b9576
+
+    Named framework/network events found:
+      * chat:addSuggestion
+
+    Example player-facing text in this file:
+      * ~r~Error~w~: You must provide a valid flag reason.
+
+]]
+local flag, flag4, textValue4, textValue5, workValue5, workValue6, dataTable3, flag5, flag6, numberValue8, dataTable, vector3Builder, numberValue2, numberValue4, numberValue5, dataTable2, cmgCall2, eventRegistration, textValue3, workValue2
+flag = true
+flag4 = false
+textValue4 = ""
+textValue5 = ""
+workValue5 = nil
+workValue6 = nil
+dataTable3 = {}
+flag5 = false
+flag6 = false
+numberValue8 = 0
+dataTable = {}
+vector3Builder = vector3
+numberValue2 = -763.85
+numberValue4 = -2182.47
+numberValue5 = 15.26
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["New Empire Way"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 814.19
+numberValue4 = -2623.73
+numberValue5 = 52.42
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Elysian Fields FWY Bridge"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -498.72
+numberValue4 = -2265.92
+numberValue5 = 61.43
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["La Puerta FWY Bridge"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1573.21
+numberValue4 = -983.65
+numberValue5 = 59.78
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Palomino FWY 1"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1307.31
+numberValue4 = 599.01
+numberValue5 = 80.05
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Los Santos FWY 1"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2118.76
+numberValue4 = 1362.79
+numberValue5 = 75.37
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Palomino FWY 2"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2113.76
+numberValue4 = 2670.4
+numberValue5 = 50.46
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora FWY 1"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2171.84
+numberValue4 = -345.79
+numberValue5 = 13.18
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["West Eclipse Blvd/Great Ocean HWY"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2720.0
+numberValue4 = 2284.16
+numberValue5 = 19.15
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean HWY/Route 68"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -396.31
+numberValue4 = 5976.88
+numberValue5 = 31.66
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean HWY/Paleto Blvd"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2793.14
+numberValue4 = 4408.23
+numberValue5 = 49.03
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["East Joshua Road/Senora FWY"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -1214.03
+numberValue4 = -697.71
+numberValue5 = 10.9
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Del Perro Fwy Tunnel"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1064.87
+numberValue4 = -1540.35
+numberValue5 = 28.19
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Elysian Fields Fwy 1"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 317.39
+numberValue4 = 1003.02
+numberValue5 = 210.36
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Baytree Canyon Rd/Marlowe Dr"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -3103.37
+numberValue4 = 1184.33
+numberValue5 = 20.16
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hway/Banham Canyon Dr"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 727.53
+numberValue4 = -2784.06
+numberValue5 = 6.25
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Buccaneer Way (Port)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -402.67
+numberValue4 = -784.82
+numberValue5 = 36.81
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["La Puerta Fwy 1"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -756.0
+numberValue4 = -1732.56
+numberValue5 = 29.15
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Dutch London St/La Puerta"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2437.49
+numberValue4 = -183.21
+numberValue5 = 87.49
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Palamino Fwy 3"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -149.04
+numberValue4 = -1183.77
+numberValue5 = 37.13
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Olympic Fwy (Above Power St)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 230.74
+numberValue4 = -1236.45
+numberValue5 = 38.02
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Olympic Fwy (Above Strawberry Ave)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 902.12
+numberValue4 = 178.07
+numberValue5 = 75.03
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Los Santos Freeway 2"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -921.26
+numberValue4 = -542.54
+numberValue5 = 19.01
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Del Perro Fwy (Under Movie Star Way)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 864.89
+numberValue4 = -699.25
+numberValue5 = 42.49
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Del Perro Fwy 2"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -404.82
+numberValue4 = -1289.68
+numberValue5 = 21.19
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["La Puerta Fwy (Lower)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -386.18
+numberValue4 = -1829.63
+numberValue5 = 21.39
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Davis Ave/Alta St"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -1549.77
+numberValue4 = -801.19
+numberValue5 = 13.15
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Equality Way (Exit)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -1577.42
+numberValue4 = -726.07
+numberValue5 = 18.55
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Equality Way (on-slip)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -3029.89
+numberValue4 = 222.96
+numberValue5 = 15.89
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hwy/Inseno Rd 1"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2479.27
+numberValue4 = 3660.72
+numberValue5 = 13.55
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hwy/Zancudo Road"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -2592.38
+numberValue4 = 3120.09
+numberValue5 = 14.76
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hwy/Zancudo Tunnel"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -1903.28
+numberValue4 = 4614.71
+numberValue5 = 56.8
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hwy/Raton Canyon Bridge"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -771.77
+numberValue4 = 5491.96
+numberValue5 = 34.46
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hwy/Procopio Promenade"] = vector3Builder
+vector3Builder = "Great Ocean Hwy/Paleto Bay Petrol Station"
+numberValue2 = vector3
+numberValue4 = 179.73
+numberValue5 = 6582.76
+dataTable2 = 31.63
+numberValue2 = numberValue2(numberValue4, numberValue5, dataTable2)
+dataTable[vector3Builder] = numberValue2
+vector3Builder = vector3
+numberValue2 = 149.27
+numberValue4 = 6527.46
+numberValue5 = 31.46
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Great Ocean Hwy/Procopio Dr"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2119.48
+numberValue4 = 6025.09
+numberValue5 = 50.85
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Fwy/Braddock Pass (Tunnel)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2399.84
+numberValue4 = 5788.28
+numberValue5 = 45.75
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Fwy/Braddock Pass"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2625.67
+numberValue4 = 5110.9
+numberValue5 = 44.64
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Fwy/Union Rd"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2680.09
+numberValue4 = 3178.76
+numberValue5 = 52.31
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Fwy 2 (Petrol Station)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2397.76
+numberValue4 = 1210.39
+numberValue5 = 58.92
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Way/Palomino Fwy"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1712.54
+numberValue4 = 1499.18
+numberValue5 = 84.7
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Los Santos Fwy 2"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1880.95
+numberValue4 = 2103.13
+numberValue5 = 54.48
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Palomino Fwy (Senora Fwy on-slip)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1811.66
+numberValue4 = 2130.67
+numberValue5 = 54.47
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Fwy (Palomino Fwy on-slip)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1769.02
+numberValue4 = 2052.5
+numberValue5 = 67.2
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Senora Fwy (Los Santos Fwy on-slip)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1790.68
+numberValue4 = 1883.54
+numberValue5 = 79.1
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Los Santos Fwy (Senora Fwy on-slip)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1786.31
+numberValue4 = 1601.29
+numberValue5 = 83.73
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Los Santos Fwy (Palomino Fwy on-slip)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2447.68
+numberValue4 = 953.36
+numberValue5 = 87.08
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Palomino Fwy (Jct Senora Way)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 2585.63
+numberValue4 = 360.6
+numberValue5 = 108.24
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Palomino Fwy Petrol Station"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 770.69
+numberValue4 = -1195.34
+numberValue5 = 44.95
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Olympic Fwy (Over Popular St)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 1240.24
+numberValue4 = -2051.41
+numberValue5 = 44.14
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Elysian Fields Fwy/El Rancho Blvd"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = 688.11
+numberValue4 = -166.98
+numberValue5 = 48.05
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["Los Santos Fwy (Under Bridge St)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -623.16
+numberValue4 = -1720.22
+numberValue5 = 37.06
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["La Puerta Fwy (Over South Arsenal St)"] = vector3Builder
+vector3Builder = vector3
+numberValue2 = -163.66
+numberValue4 = -540.73
+numberValue5 = 28.02
+vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
+dataTable["La Puerta Fwy/Del Perro Fwy on-slip"] = vector3Builder
+vector3Builder = CMG
+function numberValue2(arg1)
+  local arg2, workValue4, tableHelper
+  arg2 = CMG
+  arg2 = arg2.getFlatLicensePlate
+  workValue4 = GetVehicleNumberPlateText
+  tableHelper = arg1
+  workValue4, tableHelper = workValue4(tableHelper)
+  arg2 = arg2(workValue4, tableHelper)
+  if not arg2 then
+    arg2 = "N/A"
   end
-  SHX2_2 = SHX6_1
-  SHX2_2 = SHX2_2[SHX1_2]
-  if SHX2_2 then
-    SHX2_2 = true
-    return SHX2_2
+  workValue4 = dataTable3
+  workValue4 = workValue4[arg2]
+  if workValue4 then
+    workValue4 = true
+    return workValue4
   else
-    SHX2_2 = false
-    return SHX2_2
+    workValue4 = false
+    return workValue4
   end
 end
-SHX11_1.isVehicleFlagged = SHX12_1
-SHX11_1 = TriggerEvent
-SHX12_1 = "chat:addSuggestion"
-SHX13_1 = "/flagf"
-SHX14_1 = "Flags the front vehicle"
-SHX15_1 = {}
-SHX16_1 = {}
-SHX16_1.name = "Reason"
-SHX16_1.help = "Flag reason"
-SHX15_1[1] = SHX16_1
-SHX11_1(SHX12_1, SHX13_1, SHX14_1, SHX15_1)
-SHX11_1 = TriggerEvent
-SHX12_1 = "chat:addSuggestion"
-SHX13_1 = "/flagr"
-SHX14_1 = "Flags the rear vehicle"
-SHX15_1 = {}
-SHX16_1 = {}
-SHX16_1.name = "Reason"
-SHX16_1.help = "Flag reason"
-SHX15_1[1] = SHX16_1
-SHX11_1(SHX12_1, SHX13_1, SHX14_1, SHX15_1)
-SHX11_1 = RegisterCommand
-SHX12_1 = "flagf"
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX2_1
-  if "" ~= SHX2_2 then
-    SHX2_2 = ""
-    SHX3_2 = table
-    SHX3_2 = SHX3_2.count
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if 0 ~= SHX3_2 then
-      SHX3_2 = table
-      SHX3_2 = SHX3_2.concat
-      SHX4_2 = SHX1_2
-      SHX5_2 = " "
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      SHX2_2 = SHX3_2
-      SHX3_2 = TriggerServerEvent
-      SHX4_2 = "49f6eff747"
-      SHX5_2 = string
-      SHX5_2 = SHX5_2.upper
-      SHX6_2 = SHX2_1
-      SHX5_2 = SHX5_2(SHX6_2)
-      SHX6_2 = SHX2_2
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+vector3Builder.isVehicleFlagged = numberValue2
+vector3Builder = TriggerEvent
+numberValue2 = "chat:addSuggestion"
+numberValue4 = "/flagf"
+numberValue5 = "Flags the front vehicle"
+dataTable2 = {}
+cmgCall2 = {}
+cmgCall2.name = "Reason"
+cmgCall2.help = "Flag reason"
+dataTable2[1] = cmgCall2
+-- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+vector3Builder(numberValue2, numberValue4, numberValue5, dataTable2)
+vector3Builder = TriggerEvent
+numberValue2 = "chat:addSuggestion"
+numberValue4 = "/flagr"
+numberValue5 = "Flags the rear vehicle"
+dataTable2 = {}
+cmgCall2 = {}
+cmgCall2.name = "Reason"
+cmgCall2.help = "Flag reason"
+dataTable2[1] = cmgCall2
+vector3Builder(numberValue2, numberValue4, numberValue5, dataTable2)
+vector3Builder = RegisterCommand
+numberValue2 = "flagf"
+-- Beginner: this function is the command handler for "flagf".
+function numberValue4(arg1, arg2)
+  local workValue4, tableHelper, textValue6, stringHelper2, workValue7
+  workValue4 = textValue4
+  if "" ~= workValue4 then
+    workValue4 = ""
+    tableHelper = table
+    tableHelper = tableHelper.count
+    textValue6 = arg2
+    -- Beginner: result below is count.
+    tableHelper = tableHelper(textValue6)
+    if 0 ~= tableHelper then
+      tableHelper = table
+      tableHelper = tableHelper.concat
+      textValue6 = arg2
+      stringHelper2 = " "
+      tableHelper = tableHelper(textValue6, stringHelper2)
+      workValue4 = tableHelper
+      tableHelper = TriggerServerEvent
+      textValue6 = "49f6eff747"
+      stringHelper2 = string
+      stringHelper2 = stringHelper2.upper
+      workValue7 = textValue4
+      stringHelper2 = stringHelper2(workValue7)
+      workValue7 = workValue4
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "49f6eff747".
+      tableHelper(textValue6, stringHelper2, workValue7)
     else
-      SHX3_2 = tCMG
-      SHX3_2 = SHX3_2.notify
-      SHX4_2 = "~r~Error~w~: You must provide a valid flag reason."
-      SHX3_2(SHX4_2)
+      tableHelper = tCMG
+      tableHelper = tableHelper.notify
+      textValue6 = "~r~Error~w~: You must provide a valid flag reason."
+      -- Beginner: Show a notification to the player.
+      tableHelper(textValue6)
     end
   end
 end
-SHX14_1 = false
-SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX11_1 = RegisterCommand
-SHX12_1 = "flagr"
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX3_1
-  if "" ~= SHX2_2 then
-    SHX2_2 = ""
-    SHX3_2 = table
-    SHX3_2 = SHX3_2.count
-    SHX4_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    if 0 ~= SHX3_2 then
-      SHX3_2 = table
-      SHX3_2 = SHX3_2.concat
-      SHX4_2 = SHX1_2
-      SHX5_2 = " "
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-      SHX2_2 = SHX3_2
-      SHX3_2 = TriggerServerEvent
-      SHX4_2 = "49f6eff747"
-      SHX5_2 = string
-      SHX5_2 = SHX5_2.upper
-      SHX6_2 = SHX3_1
-      SHX5_2 = SHX5_2(SHX6_2)
-      SHX6_2 = SHX2_2
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+numberValue5 = false
+-- Beginner: Register a chat/console command. Event/command: "flagf".
+vector3Builder(numberValue2, numberValue4, numberValue5)
+vector3Builder = RegisterCommand
+numberValue2 = "flagr"
+-- Beginner: this function is the command handler for "flagr".
+function numberValue4(arg1, arg2)
+  local workValue4, tableHelper, textValue6, stringHelper2, workValue7
+  workValue4 = textValue5
+  if "" ~= workValue4 then
+    workValue4 = ""
+    tableHelper = table
+    tableHelper = tableHelper.count
+    textValue6 = arg2
+    -- Beginner: result below is count.
+    tableHelper = tableHelper(textValue6)
+    if 0 ~= tableHelper then
+      tableHelper = table
+      tableHelper = tableHelper.concat
+      textValue6 = arg2
+      stringHelper2 = " "
+      tableHelper = tableHelper(textValue6, stringHelper2)
+      workValue4 = tableHelper
+      tableHelper = TriggerServerEvent
+      textValue6 = "49f6eff747"
+      stringHelper2 = string
+      stringHelper2 = stringHelper2.upper
+      workValue7 = textValue5
+      stringHelper2 = stringHelper2(workValue7)
+      workValue7 = workValue4
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "49f6eff747".
+      tableHelper(textValue6, stringHelper2, workValue7)
     else
-      SHX3_2 = tCMG
-      SHX3_2 = SHX3_2.notify
-      SHX4_2 = "~r~Error~w~: You must provide a valid flag reason."
-      SHX3_2(SHX4_2)
+      tableHelper = tCMG
+      tableHelper = tableHelper.notify
+      textValue6 = "~r~Error~w~: You must provide a valid flag reason."
+      -- Beginner: Show a notification to the player.
+      tableHelper(textValue6)
     end
   end
 end
-SHX14_1 = false
-SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX11_1 = RegisterCommand
-SHX12_1 = "anpr"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX0_1
-  SHX0_2 = not SHX0_2
-  SHX0_1 = SHX0_2
+numberValue5 = false
+-- Beginner: Register a chat/console command. Event/command: "flagr".
+vector3Builder(numberValue2, numberValue4, numberValue5)
+vector3Builder = RegisterCommand
+numberValue2 = "anpr"
+-- Beginner: this function is the command handler for "anpr".
+function numberValue4()
+  local arg1, arg2
+  arg1 = flag
+  arg1 = not arg1
+  flag = arg1
 end
-SHX14_1 = false
-SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX11_1 = RegisterCommand
-SHX12_1 = "lockanpr"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  SHX0_2 = not SHX0_2
-  SHX1_1 = SHX0_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.notify
-    SHX1_2 = "ANPR display ~g~locked~w~."
-    SHX0_2(SHX1_2)
+numberValue5 = false
+vector3Builder(numberValue2, numberValue4, numberValue5)
+vector3Builder = RegisterCommand
+numberValue2 = "lockanpr"
+-- Beginner: this function is the command handler for "lockanpr".
+function numberValue4()
+  local arg1, arg2
+  arg1 = flag4
+  arg1 = not arg1
+  flag4 = arg1
+  arg1 = flag4
+  if arg1 then
+    arg1 = tCMG
+    arg1 = arg1.notify
+    arg2 = "ANPR display ~g~locked~w~."
+    -- Beginner: Show a notification to the player.
+    arg1(arg2)
   else
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.notify
-    SHX1_2 = "ANPR display ~r~unlocked~w~."
-    SHX0_2(SHX1_2)
+    arg1 = tCMG
+    arg1 = arg1.notify
+    arg2 = "ANPR display ~r~unlocked~w~."
+    arg1(arg2)
   end
 end
-SHX14_1 = false
-SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX11_1 = false
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = IsPedInAnyVehicle
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = false
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = GetVehicleClass
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getPlayerVehicle
-    SHX1_2, SHX2_2 = SHX1_2()
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if 18 == SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.hasClientPermission
-      SHX1_2 = "police.onduty.permission"
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = true
-        return SHX0_2
+numberValue5 = false
+-- Beginner: Register a chat/console command. Event/command: "lockanpr".
+vector3Builder(numberValue2, numberValue4, numberValue5)
+vector3Builder = false
+function numberValue2()
+  local arg1, arg2, workValue4
+  arg1 = IsPedInAnyVehicle
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  workValue4 = false
+  arg1 = arg1(arg2, workValue4)
+  if arg1 then
+    arg1 = GetVehicleClass
+    arg2 = CMG
+    arg2 = arg2.getPlayerVehicle
+    arg2, workValue4 = arg2()
+    arg1 = arg1(arg2, workValue4)
+    if 18 == arg1 then
+      arg1 = CMG
+      arg1 = arg1.hasClientPermission
+      arg2 = "police.onduty.permission"
+      arg1 = arg1(arg2)
+      if arg1 then
+        arg1 = true
+        return arg1
       end
     end
   end
-  SHX0_2 = false
-  return SHX0_2
+  arg1 = false
+  return arg1
 end
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX1_2 = nil
-  if "front" == SHX0_2 then
-    SHX1_2 = 50.0
-  elseif "rear" == SHX0_2 then
-    SHX1_2 = -50.0
+function numberValue4(arg1)
+  local arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue, textValue2, flag3
+  arg2 = nil
+  if "front" == arg1 then
+    arg2 = 50.0
+  elseif "rear" == arg1 then
+    arg2 = -50.0
   end
-  SHX2_2 = GetVehiclePedIsIn
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2 = SHX3_2()
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = GetOffsetFromEntityInWorldCoords
-  SHX4_2 = SHX2_2
-  SHX5_2 = 0.0
-  SHX6_2 = 1.0
-  SHX7_2 = 0.3
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = GetOffsetFromEntityInWorldCoords
-  SHX5_2 = SHX2_2
-  SHX6_2 = 0.0
-  SHX7_2 = SHX1_2
-  SHX8_2 = 0.0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = _ENV
-  SHX6_2 = "StartExpensiveSynchronousShapeTestLosProbe"
-  SHX5_2 = SHX5_2[SHX6_2]
-  SHX6_2 = SHX3_2.x
-  SHX7_2 = SHX3_2.y
-  SHX8_2 = SHX3_2.z
-  SHX9_2 = SHX4_2.x
-  SHX10_2 = SHX4_2.y
-  SHX11_2 = SHX4_2.z
-  SHX12_2 = 10
-  SHX13_2 = SHX2_2
-  SHX14_2 = 0
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX6_2 = GetShapeTestResult
-  SHX7_2 = SHX5_2
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX6_2(SHX7_2)
-  if SHX10_2 > 0 then
-    SHX11_2 = IsEntityAVehicle
-    SHX12_2 = SHX10_2
-    SHX11_2 = SHX11_2(SHX12_2)
-    if SHX11_2 then
-      SHX11_2 = CMG
-      SHX11_2 = SHX11_2.getFlatLicensePlate
-      SHX12_2 = GetVehicleNumberPlateText
-      SHX13_2 = SHX10_2
-      SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX12_2(SHX13_2)
-      SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      if nil ~= SHX11_2 then
-        SHX12_2 = SHX6_1
-        SHX12_2 = SHX12_2[SHX11_2]
-        if nil ~= SHX12_2 then
-          SHX12_2 = SHX6_1
-          SHX12_2 = SHX12_2[SHX11_2]
-          SHX13_2 = SHX7_1
-          if not SHX13_2 then
-            SHX13_2 = PlaySoundFrontend
-            SHX14_2 = -1
-            SHX15_2 = "BEEP_GREEN"
-            SHX16_2 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-            SHX17_2 = true
-            SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
+  workValue4 = GetVehiclePedIsIn
+  tableHelper = CMG
+  tableHelper = tableHelper.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  tableHelper = tableHelper()
+  textValue6 = false
+  -- Beginner: result below is currentVehicle.
+  workValue4 = workValue4(tableHelper, textValue6)
+  tableHelper = GetOffsetFromEntityInWorldCoords
+  textValue6 = workValue4
+  stringHelper2 = 0.0
+  workValue7 = 1.0
+  numberValue6 = 0.3
+  tableHelper = tableHelper(textValue6, stringHelper2, workValue7, numberValue6)
+  textValue6 = GetOffsetFromEntityInWorldCoords
+  stringHelper2 = workValue4
+  workValue7 = 0.0
+  numberValue6 = arg2
+  numberValue7 = 0.0
+  textValue6 = textValue6(stringHelper2, workValue7, numberValue6, numberValue7)
+  stringHelper2 = _ENV
+  workValue7 = "StartExpensiveSynchronousShapeTestLosProbe"
+  stringHelper2 = stringHelper2[workValue7]
+  workValue7 = tableHelper.x
+  numberValue6 = tableHelper.y
+  numberValue7 = tableHelper.z
+  numberValue9 = textValue6.x
+  numberValue = textValue6.y
+  cmgCall = textValue6.z
+  numberValue3 = 10
+  workValue = workValue4
+  stringHelper = 0
+  stringHelper2 = stringHelper2(workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper)
+  workValue7 = GetShapeTestResult
+  numberValue6 = stringHelper2
+  workValue7, numberValue6, numberValue7, numberValue9, numberValue = workValue7(numberValue6)
+  if numberValue > 0 then
+    cmgCall = IsEntityAVehicle
+    numberValue3 = numberValue
+    cmgCall = cmgCall(numberValue3)
+    if cmgCall then
+      cmgCall = CMG
+      cmgCall = cmgCall.getFlatLicensePlate
+      numberValue3 = GetVehicleNumberPlateText
+      workValue = numberValue
+      numberValue3, workValue, stringHelper, textValue, textValue2, flag3 = numberValue3(workValue)
+      cmgCall = cmgCall(numberValue3, workValue, stringHelper, textValue, textValue2, flag3)
+      if nil ~= cmgCall then
+        numberValue3 = dataTable3
+        numberValue3 = numberValue3[cmgCall]
+        if nil ~= numberValue3 then
+          numberValue3 = dataTable3
+          numberValue3 = numberValue3[cmgCall]
+          workValue = flag5
+          if not workValue then
+            workValue = PlaySoundFrontend
+            stringHelper = -1
+            textValue = "BEEP_GREEN"
+            textValue2 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
+            flag3 = true
+            workValue(stringHelper, textValue, textValue2, flag3)
           end
-          SHX13_2 = tCMG
-          SHX13_2 = SHX13_2.notify
-          SHX14_2 = string
-          SHX14_2 = SHX14_2.format
-          SHX15_2 = "~r~ANPR Alert~w~: Plate ~b~%s ~w~is flagged for:~b~~n~%s"
-          SHX16_2 = SHX11_2
-          SHX17_2 = SHX12_2
-          SHX14_2, SHX15_2, SHX16_2, SHX17_2 = SHX14_2(SHX15_2, SHX16_2, SHX17_2)
-          SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-          SHX13_2 = true
-          SHX7_1 = SHX13_2
-          SHX13_2 = SetTimeout
-          SHX14_2 = 10000
-          function SHX15_2()
-            -- [AI CLEANUP] Decompiled Lua - Fix these:
-            -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-            -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-            -- 3. Replace goto/label with while/repeat-until where possible
-            -- 4. Remove decompiler comments, add meaningful ones
-            -- 5. Fix indentation and formatting
-            
-            local SHX0_3, SHX1_3
-            SHX0_3 = false
-            SHX7_1 = SHX0_3
+          workValue = tCMG
+          workValue = workValue.notify
+          stringHelper = string
+          stringHelper = stringHelper.format
+          textValue = "~r~ANPR Alert~w~: Plate ~b~%s ~w~is flagged for:~b~~n~%s"
+          textValue2 = cmgCall
+          flag3 = numberValue3
+          stringHelper, textValue, textValue2, flag3 = stringHelper(textValue, textValue2, flag3)
+          -- Beginner: Show a notification to the player.
+          workValue(stringHelper, textValue, textValue2, flag3)
+          workValue = true
+          flag5 = workValue
+          workValue = SetTimeout
+          stringHelper = 10000
+          function textValue()
+            local flag2, workValue3
+            flag2 = false
+            flag5 = flag2
           end
-          SHX13_2(SHX14_2, SHX15_2)
+          workValue(stringHelper, textValue)
         end
       end
-      return SHX10_2
+      return numberValue
   end
   else
-    SHX11_2 = nil
-    return SHX11_2
+    cmgCall = nil
+    return cmgCall
   end
 end
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerVehicle
-  SHX1_2, SHX2_2 = SHX1_2()
-  if 0 ~= SHX1_2 and SHX2_2 then
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX4_2 = SHX9_1
-    SHX3_2 = SHX3_2 - SHX4_2
-    SHX4_2 = 10000
-    if SHX3_2 > SHX4_2 then
-      SHX3_2 = GetGameTimer
-      SHX3_2 = SHX3_2()
-      SHX9_1 = SHX3_2
-      SHX3_2 = TriggerServerEvent
-      SHX4_2 = "920f4c13e9"
-      SHX5_2 = SHX0_2[1]
-      SHX3_2(SHX4_2, SHX5_2)
+function numberValue5(arg1)
+  local arg2, workValue4, tableHelper, textValue6, stringHelper2
+  arg2 = CMG
+  arg2 = arg2.getPlayerVehicle
+  arg2, workValue4 = arg2()
+  if 0 ~= arg2 and workValue4 then
+    tableHelper = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    tableHelper = tableHelper()
+    textValue6 = numberValue8
+    tableHelper = tableHelper - textValue6
+    textValue6 = 10000
+    if tableHelper > textValue6 then
+      tableHelper = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      tableHelper = tableHelper()
+      numberValue8 = tableHelper
+      tableHelper = TriggerServerEvent
+      textValue6 = "920f4c13e9"
+      stringHelper2 = arg1[1]
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "920f4c13e9".
+      tableHelper(textValue6, stringHelper2)
     end
   end
 end
-SHX15_1 = Citizen
-SHX15_1 = SHX15_1.CreateThread
-function SHX16_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX0_2 = DecorRegister
-  SHX1_2 = "4da4f2889b"
-  SHX2_2 = 2
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = pairs
-  SHX1_2 = SHX10_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.createArea
-    SHX7_2 = "anpr_"
-    SHX8_2 = SHX4_2
-    SHX7_2 = SHX7_2 .. SHX8_2
-    SHX8_2 = SHX5_2
-    SHX9_2 = 28.0
-    SHX10_2 = 4.0
-    SHX11_2 = SHX14_1
-    function SHX12_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+dataTable2 = Citizen
+dataTable2 = dataTable2.CreateThread
+function cmgCall2()
+  local arg1, arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue
+  arg1 = DecorRegister
+  arg2 = "4da4f2889b"
+  workValue4 = 2
+  arg1(arg2, workValue4)
+  arg1 = pairs
+  arg2 = dataTable
+  arg1, arg2, workValue4, tableHelper = arg1(arg2)
+  for textValue6, stringHelper2 in arg1, arg2, workValue4, tableHelper do
+    workValue7 = CMG
+    workValue7 = workValue7.createArea
+    numberValue6 = "anpr_"
+    numberValue7 = textValue6
+    numberValue6 = numberValue6 .. numberValue7
+    numberValue7 = stringHelper2
+    numberValue9 = 28.0
+    numberValue = 4.0
+    cmgCall = numberValue5
+    function numberValue3()
+      local flag2, workValue3
     end
-    function SHX13_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+    function workValue()
+      local flag2, workValue3
     end
-    SHX14_2 = {}
-    SHX15_2 = SHX4_2
-    SHX14_2[1] = SHX15_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+    stringHelper = {}
+    textValue = textValue6
+    stringHelper[1] = textValue
+    -- Beginner: Create an interaction area around a world position.
+    workValue7(numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper)
   end
   while true do
-    SHX0_2 = SHX0_1
-    if SHX0_2 then
-      SHX0_2 = SHX12_1
-      SHX0_2 = SHX0_2()
-      SHX11_1 = SHX0_2
-      SHX0_2 = SHX11_1
-      if SHX0_2 then
-        SHX0_2 = SHX13_1
-        SHX1_2 = "front"
-        SHX0_2 = SHX0_2(SHX1_2)
-        SHX4_1 = SHX0_2
-        SHX0_2 = SHX4_1
-        if SHX0_2 then
-          SHX0_2 = SHX1_1
-          if not SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.getFlatLicensePlate
-            SHX1_2 = GetVehicleNumberPlateText
-            SHX2_2 = SHX4_1
-            SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX1_2(SHX2_2)
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            if not SHX0_2 then
-              SHX0_2 = "N/A"
+    arg1 = flag
+    if arg1 then
+      arg1 = numberValue2
+      arg1 = arg1()
+      vector3Builder = arg1
+      arg1 = vector3Builder
+      if arg1 then
+        arg1 = numberValue4
+        arg2 = "front"
+        arg1 = arg1(arg2)
+        workValue5 = arg1
+        arg1 = workValue5
+        if arg1 then
+          arg1 = flag4
+          if not arg1 then
+            arg1 = CMG
+            arg1 = arg1.getFlatLicensePlate
+            arg2 = GetVehicleNumberPlateText
+            workValue4 = workValue5
+            arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue = arg2(workValue4)
+            arg1 = arg1(arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue)
+            if not arg1 then
+              arg1 = "N/A"
             end
-            SHX2_1 = SHX0_2
-            SHX0_2 = GetLabelText
-            SHX1_2 = GetDisplayNameFromVehicleModel
-            SHX2_2 = GetEntityModel
-            SHX3_2 = SHX4_1
-            SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX2_2(SHX3_2)
-            SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            SHX1_2 = math
-            SHX1_2 = SHX1_2.ceil
-            SHX2_2 = GetEntitySpeed
-            SHX3_2 = SHX4_1
-            SHX2_2 = SHX2_2(SHX3_2)
-            SHX2_2 = SHX2_2 * 2.236936
-            SHX1_2 = SHX1_2(SHX2_2)
-            SHX2_2 = CMG
-            SHX2_2 = SHX2_2.uiSendMessage
-            SHX3_2 = {}
-            SHX3_2.anprSetFront = true
-            SHX4_2 = SHX2_1
-            SHX3_2.plate = SHX4_2
-            SHX3_2.model = SHX0_2
-            SHX3_2.speed = SHX1_2
-            SHX2_2(SHX3_2)
+            textValue4 = arg1
+            arg1 = GetLabelText
+            arg2 = GetDisplayNameFromVehicleModel
+            workValue4 = GetEntityModel
+            tableHelper = workValue5
+            workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue = workValue4(tableHelper)
+            arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue = arg2(workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue)
+            arg1 = arg1(arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue)
+            arg2 = math
+            arg2 = arg2.ceil
+            workValue4 = GetEntitySpeed
+            tableHelper = workValue5
+            -- Beginner: result below is speed.
+            workValue4 = workValue4(tableHelper)
+            workValue4 = workValue4 * 2.236936
+            arg2 = arg2(workValue4)
+            workValue4 = CMG
+            workValue4 = workValue4.uiSendMessage
+            tableHelper = {}
+            tableHelper.anprSetFront = true
+            textValue6 = textValue4
+            tableHelper.plate = textValue6
+            tableHelper.model = arg1
+            tableHelper.speed = arg2
+            workValue4(tableHelper)
           end
         end
-        SHX0_2 = SHX13_1
-        SHX1_2 = "rear"
-        SHX0_2 = SHX0_2(SHX1_2)
-        SHX5_1 = SHX0_2
-        SHX0_2 = SHX5_1
-        if SHX0_2 then
-          SHX0_2 = SHX1_1
-          if not SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.getFlatLicensePlate
-            SHX1_2 = GetVehicleNumberPlateText
-            SHX2_2 = SHX5_1
-            SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX1_2(SHX2_2)
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            if not SHX0_2 then
-              SHX0_2 = "N/A"
+        arg1 = numberValue4
+        arg2 = "rear"
+        arg1 = arg1(arg2)
+        workValue6 = arg1
+        arg1 = workValue6
+        if arg1 then
+          arg1 = flag4
+          if not arg1 then
+            arg1 = CMG
+            arg1 = arg1.getFlatLicensePlate
+            arg2 = GetVehicleNumberPlateText
+            workValue4 = workValue6
+            arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue = arg2(workValue4)
+            arg1 = arg1(arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue)
+            if not arg1 then
+              arg1 = "N/A"
             end
-            SHX3_1 = SHX0_2
-            SHX0_2 = GetLabelText
-            SHX1_2 = GetDisplayNameFromVehicleModel
-            SHX2_2 = GetEntityModel
-            SHX3_2 = SHX5_1
-            SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX2_2(SHX3_2)
-            SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            SHX1_2 = math
-            SHX1_2 = SHX1_2.ceil
-            SHX2_2 = GetEntitySpeed
-            SHX3_2 = SHX5_1
-            SHX2_2 = SHX2_2(SHX3_2)
-            SHX2_2 = SHX2_2 * 2.236936
-            SHX1_2 = SHX1_2(SHX2_2)
-            SHX2_2 = CMG
-            SHX2_2 = SHX2_2.uiSendMessage
-            SHX3_2 = {}
-            SHX3_2.anprSetRear = true
-            SHX4_2 = SHX3_1
-            SHX3_2.plate = SHX4_2
-            SHX3_2.model = SHX0_2
-            SHX3_2.speed = SHX1_2
-            SHX2_2(SHX3_2)
+            textValue5 = arg1
+            arg1 = GetLabelText
+            arg2 = GetDisplayNameFromVehicleModel
+            workValue4 = GetEntityModel
+            tableHelper = workValue6
+            workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue = workValue4(tableHelper)
+            arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue = arg2(workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue)
+            arg1 = arg1(arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue)
+            arg2 = math
+            arg2 = arg2.ceil
+            workValue4 = GetEntitySpeed
+            tableHelper = workValue6
+            -- Beginner: result below is speed.
+            workValue4 = workValue4(tableHelper)
+            workValue4 = workValue4 * 2.236936
+            arg2 = arg2(workValue4)
+            workValue4 = CMG
+            workValue4 = workValue4.uiSendMessage
+            tableHelper = {}
+            tableHelper.anprSetRear = true
+            textValue6 = textValue5
+            tableHelper.plate = textValue6
+            tableHelper.model = arg1
+            tableHelper.speed = arg2
+            workValue4(tableHelper)
           end
         end
       end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 250
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 250
+    arg1(arg2)
   end
 end
-SHX15_1(SHX16_1)
-function SHX15_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX0_1
-  if SHX0_2 then
-    SHX0_2 = SHX11_1
-    if SHX0_2 then
-      SHX0_2 = SHX8_1
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.uiSendMessage
-        SHX1_2 = {}
-        SHX1_2.anprShow = true
-        SHX0_2(SHX1_2)
-        SHX0_2 = true
-        SHX8_1 = SHX0_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+dataTable2(cmgCall2)
+function dataTable2()
+  local arg1, arg2
+  arg1 = flag
+  if arg1 then
+    arg1 = vector3Builder
+    if arg1 then
+      arg1 = flag6
+      if not arg1 then
+        arg1 = CMG
+        arg1 = arg1.uiSendMessage
+        arg2 = {}
+        arg2.anprShow = true
+        arg1(arg2)
+        arg1 = true
+        flag6 = arg1
       end
   end
   else
-    SHX0_2 = SHX8_1
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.uiSendMessage
-      SHX1_2 = {}
-      SHX1_2.anprHide = true
-      SHX0_2(SHX1_2)
-      SHX0_2 = false
-      SHX8_1 = SHX0_2
+    arg1 = flag6
+    if arg1 then
+      arg1 = CMG
+      arg1 = arg1.uiSendMessage
+      arg2 = {}
+      arg2.anprHide = true
+      arg1(arg2)
+      arg1 = false
+      flag6 = arg1
     end
   end
 end
-SHX16_1 = CMG
-SHX16_1 = SHX16_1.createThreadOnTick
-SHX17_1 = SHX15_1
-SHX18_1 = "ANPR"
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "42d0ce93ae"
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX6_1 = SHX0_2
+cmgCall2 = CMG
+cmgCall2 = cmgCall2.createThreadOnTick
+eventRegistration = dataTable2
+textValue3 = "ANPR"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall2(eventRegistration, textValue3)
+cmgCall2 = RegisterNetEvent
+eventRegistration = "42d0ce93ae"
+-- Beginner: this function handles network event "42d0ce93ae".
+function textValue3(arg1)
+  local arg2
+  dataTable3 = arg1
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = RegisterNetEvent
-SHX17_1 = "66486b9576"
-function SHX18_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = NetworkDoesNetworkIdExist
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = NetworkGetEntityFromNetworkId
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if 0 ~= SHX2_2 then
-      SHX3_2 = NetworkHasControlOfEntity
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 then
-        if SHX1_2 then
-          SHX3_2 = DecorSetBool
-          SHX4_2 = SHX2_2
-          SHX5_2 = "4da4f2889b"
-          SHX6_2 = true
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "42d0ce93ae".
+cmgCall2(eventRegistration, textValue3)
+cmgCall2 = RegisterNetEvent
+eventRegistration = "66486b9576"
+-- Beginner: this function handles network event "66486b9576".
+function textValue3(arg1, arg2)
+  local workValue4, tableHelper, textValue6, stringHelper2, workValue7
+  workValue4 = NetworkDoesNetworkIdExist
+  tableHelper = arg1
+  workValue4 = workValue4(tableHelper)
+  if workValue4 then
+    workValue4 = NetworkGetEntityFromNetworkId
+    tableHelper = arg1
+    workValue4 = workValue4(tableHelper)
+    if 0 ~= workValue4 then
+      tableHelper = NetworkHasControlOfEntity
+      textValue6 = workValue4
+      tableHelper = tableHelper(textValue6)
+      if tableHelper then
+        if arg2 then
+          tableHelper = DecorSetBool
+          textValue6 = workValue4
+          stringHelper2 = "4da4f2889b"
+          workValue7 = true
+          tableHelper(textValue6, stringHelper2, workValue7)
         else
-          SHX3_2 = DecorRemove
-          SHX4_2 = SHX2_2
-          SHX5_2 = "4da4f2889b"
-          SHX3_2(SHX4_2, SHX5_2)
+          tableHelper = DecorRemove
+          textValue6 = workValue4
+          stringHelper2 = "4da4f2889b"
+          tableHelper(textValue6, stringHelper2)
         end
       end
     end
   end
 end
-SHX16_1(SHX17_1, SHX18_1)
-SHX16_1 = false
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "920f4c13e9"
-function SHX19_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX2_2 = SHX6_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX2_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.uiSendMessage
-    SHX3_2 = {}
-    SHX3_2.anprSetFixed = true
-    SHX3_2.plate = SHX0_2
-    SHX3_2.location = SHX1_2
-    SHX4_2 = string
-    SHX4_2 = SHX4_2.sub
-    SHX5_2 = SHX6_1
-    SHX5_2 = SHX5_2[SHX0_2]
-    SHX6_2 = 1
-    SHX7_2 = 20
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX3_2.marker = SHX4_2
-    SHX2_2(SHX3_2)
-    SHX2_2 = SHX16_1
-    if not SHX2_2 then
-      SHX2_2 = true
-      SHX16_1 = SHX2_2
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.uiSendMessage
-      SHX3_2 = {}
-      SHX3_2.anprFlashFixed = true
-      SHX2_2(SHX3_2)
-      SHX2_2 = Citizen
-      SHX2_2 = SHX2_2.Wait
-      SHX3_2 = 2000
-      SHX2_2(SHX3_2)
-      SHX2_2 = false
-      SHX16_1 = SHX2_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "66486b9576".
+cmgCall2(eventRegistration, textValue3)
+cmgCall2 = false
+eventRegistration = RegisterNetEvent
+textValue3 = "920f4c13e9"
+-- Beginner: this function handles network event "920f4c13e9".
+function workValue2(arg1, arg2)
+  local workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6
+  workValue4 = dataTable3
+  workValue4 = workValue4[arg1]
+  if workValue4 then
+    workValue4 = CMG
+    workValue4 = workValue4.uiSendMessage
+    tableHelper = {}
+    tableHelper.anprSetFixed = true
+    tableHelper.plate = arg1
+    tableHelper.location = arg2
+    textValue6 = string
+    textValue6 = textValue6.sub
+    stringHelper2 = dataTable3
+    stringHelper2 = stringHelper2[arg1]
+    workValue7 = 1
+    numberValue6 = 20
+    textValue6 = textValue6(stringHelper2, workValue7, numberValue6)
+    tableHelper.marker = textValue6
+    workValue4(tableHelper)
+    workValue4 = cmgCall2
+    if not workValue4 then
+      workValue4 = true
+      cmgCall2 = workValue4
+      workValue4 = CMG
+      workValue4 = workValue4.uiSendMessage
+      tableHelper = {}
+      tableHelper.anprFlashFixed = true
+      workValue4(tableHelper)
+      workValue4 = Citizen
+      workValue4 = workValue4.Wait
+      tableHelper = 2000
+      workValue4(tableHelper)
+      workValue4 = false
+      cmgCall2 = workValue4
     end
   end
 end
-SHX17_1(SHX18_1, SHX19_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "920f4c13e9".
+eventRegistration(textValue3, workValue2)

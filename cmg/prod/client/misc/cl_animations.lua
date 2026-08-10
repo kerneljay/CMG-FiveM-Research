@@ -1,109 +1,153 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_animations.lua
+    =================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1
-function SHX0_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = ClearPrints
-  SHX2_2()
-  SHX2_2 = BeginTextCommandPrint
-  SHX3_2 = "STRING"
-  SHX2_2(SHX3_2)
-  SHX2_2 = AddTextComponentSubstringPlayerName
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = EndTextCommandPrint
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Animations
+    ===========================
+
+    File: cmg/prod/client/misc/cl_animations.lua
+    Purpose: This file contains general gameplay utility.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Commands/command-like entries found:
+      * anim
+      * bag3
+      * bag2
+      * k
+      * surrender
+      * picture
+      * bong
+      * ma
+      * dance1
+      * dance2
+      * dance3
+      * dance4
+
+    Network/hash identifiers found: 12
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * Press ~r~[E]~w~ to take a picture!
+      * Press ~r~[E]~w~ to take a toke!
+      * You take a huge rip!
+      * Press ~r~[E]~w~ to wave the wand.
+
+]]
+local workValue, workValue4, textValue6, flag19, flag20, flag21, cmgCall3, workValue7, workValue8, cmgCall4, cmgCall, textValue, flag, flag3, flag4, textValue2, workValue3, textValue3, textValue4, flag9, cmgCall2, textValue5, workValue6
+function workValue(arg1, arg2)
+  local arg3, arg4, arg5
+  arg3 = ClearPrints
+  arg3()
+  arg3 = BeginTextCommandPrint
+  arg4 = "STRING"
+  arg3(arg4)
+  arg3 = AddTextComponentSubstringPlayerName
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = EndTextCommandPrint
+  arg4 = arg2
+  arg5 = true
+  arg3(arg4, arg5)
 end
-DrawMissionText2 = SHX0_1
-function SHX0_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = IsPedInAnyVehicle
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if not SHX2_2 then
-    SHX2_2 = IsPedSwimming
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = IsPedShooting
-      SHX3_2 = SHX1_2
-      SHX2_2 = SHX2_2(SHX3_2)
-      if not SHX2_2 then
-        SHX2_2 = IsPedClimbing
-        SHX3_2 = SHX1_2
-        SHX2_2 = SHX2_2(SHX3_2)
-        if not SHX2_2 then
-          if not SHX0_2 then
-            SHX2_2 = IsPedCuffed
-            SHX3_2 = SHX1_2
-            SHX2_2 = SHX2_2(SHX3_2)
-            if SHX2_2 then
-              goto SHX_LABEL_82
+DrawMissionText2 = workValue
+function workValue(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = IsPedInAnyVehicle
+  arg4 = arg2
+  arg5 = false
+  arg3 = arg3(arg4, arg5)
+  if not arg3 then
+    arg3 = IsPedSwimming
+    arg4 = arg2
+    arg3 = arg3(arg4)
+    if not arg3 then
+      arg3 = IsPedShooting
+      arg4 = arg2
+      arg3 = arg3(arg4)
+      if not arg3 then
+        arg3 = IsPedClimbing
+        arg4 = arg2
+        arg3 = arg3(arg4)
+        if not arg3 then
+          if not arg1 then
+            arg3 = IsPedCuffed
+            arg4 = arg2
+            arg3 = arg3(arg4)
+            if arg3 then
+              goto flow_label_82
             end
           end
-          SHX2_2 = IsPedDiving
-          SHX3_2 = SHX1_2
-          SHX2_2 = SHX2_2(SHX3_2)
-          if not SHX2_2 then
-            SHX2_2 = IsPedFalling
-            SHX3_2 = SHX1_2
-            SHX2_2 = SHX2_2(SHX3_2)
-            if not SHX2_2 then
-              SHX2_2 = IsPedJumping
-              SHX3_2 = SHX1_2
-              SHX2_2 = SHX2_2(SHX3_2)
-              if not SHX2_2 then
-                SHX2_2 = IsPedJumpingOutOfVehicle
-                SHX3_2 = SHX1_2
-                SHX2_2 = SHX2_2(SHX3_2)
-                if not SHX2_2 then
-                  SHX2_2 = IsPedOnFoot
-                  SHX3_2 = SHX1_2
-                  SHX2_2 = SHX2_2(SHX3_2)
-                  if SHX2_2 then
-                    SHX2_2 = IsPedRunning
-                    SHX3_2 = SHX1_2
-                    SHX2_2 = SHX2_2(SHX3_2)
-                    if not SHX2_2 then
-                      SHX2_2 = IsPedUsingAnyScenario
-                      SHX3_2 = SHX1_2
-                      SHX2_2 = SHX2_2(SHX3_2)
-                      if not SHX2_2 then
-                        SHX2_2 = IsPedInParachuteFreeFall
-                        SHX3_2 = SHX1_2
-                        SHX2_2 = SHX2_2(SHX3_2)
-                        if not SHX2_2 then
-                          SHX2_2 = CMG
-                          SHX2_2 = SHX2_2.isPlayerNearPrison
-                          SHX2_2 = SHX2_2()
-                          if not SHX2_2 or SHX0_2 then
-                            SHX2_2 = true
-                            return SHX2_2
+          arg3 = IsPedDiving
+          arg4 = arg2
+          arg3 = arg3(arg4)
+          if not arg3 then
+            arg3 = IsPedFalling
+            arg4 = arg2
+            arg3 = arg3(arg4)
+            if not arg3 then
+              arg3 = IsPedJumping
+              arg4 = arg2
+              arg3 = arg3(arg4)
+              if not arg3 then
+                arg3 = IsPedJumpingOutOfVehicle
+                arg4 = arg2
+                arg3 = arg3(arg4)
+                if not arg3 then
+                  arg3 = IsPedOnFoot
+                  arg4 = arg2
+                  arg3 = arg3(arg4)
+                  if arg3 then
+                    arg3 = IsPedRunning
+                    arg4 = arg2
+                    arg3 = arg3(arg4)
+                    if not arg3 then
+                      arg3 = IsPedUsingAnyScenario
+                      arg4 = arg2
+                      arg3 = arg3(arg4)
+                      if not arg3 then
+                        arg3 = IsPedInParachuteFreeFall
+                        arg4 = arg2
+                        arg3 = arg3(arg4)
+                        if not arg3 then
+                          arg3 = CMG
+                          arg3 = arg3.isPlayerNearPrison
+                          arg3 = arg3()
+                          if not arg3 or arg1 then
+                            arg3 = true
+                            return arg3
                         end
                       end
                     end
@@ -117,11249 +161,11099 @@ function SHX0_1(SHX0_2)
     end
   end
   else
-    -- [FIX IF ERROR] Move ::SHX_LABEL_82:: outside nested blocks until all 'goto SHX_LABEL_82' can see it
-    ::SHX_LABEL_82::
-    SHX2_2 = false
-    return SHX2_2
+    ::flow_label_82::
+    arg3 = false
+    return arg3
   end
 end
-SHX1_1 = RegisterCommand
-SHX2_1 = "anim"
-function SHX3_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getClientUserId
-  SHX2_2 = SHX2_2()
-  if 1 ~= SHX2_2 then
+workValue4 = RegisterCommand
+textValue6 = "anim"
+-- Beginner: this function is the command handler for "anim".
+function flag19(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
+  arg3 = CMG
+  arg3 = arg3.getClientUserId
+  -- Beginner: result below is userId.
+  arg3 = arg3()
+  if 1 ~= arg3 then
     return
   end
-  SHX2_2 = SHX1_2[1]
-  SHX3_2 = SHX1_2[2]
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerPed
-  SHX4_2 = SHX4_2()
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.loadAnimDict
-  SHX6_2 = SHX2_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = TaskPlayAnim
-  SHX6_2 = SHX4_2
-  SHX7_2 = SHX2_2
-  SHX8_2 = SHX3_2
-  SHX9_2 = 3.0
-  SHX10_2 = 1.0
-  SHX11_2 = -1
-  SHX12_2 = 1
-  SHX13_2 = 0
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+  arg3 = arg2[1]
+  arg4 = arg2[2]
+  arg5 = CMG
+  arg5 = arg5.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = CMG
+  arg6 = arg6.loadAnimDict
+  arg7 = arg3
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg6(arg7)
+  arg6 = TaskPlayAnim
+  arg7 = arg5
+  arg8 = arg3
+  arg9 = arg4
+  arg10 = 3.0
+  arg11 = 1.0
+  arg12 = -1
+  flag2 = 1
+  numberValue = 0
+  flag5 = false
+  flag6 = false
+  flag7 = false
+  -- Beginner: Play an animation on a ped.
+  arg6(arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7)
 end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "bag3"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.canAnim
-    SHX1_2 = SHX1_2()
-    if SHX1_2 then
-      SHX1_2 = IsEntityDead
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if not SHX1_2 then
-        SHX1_2 = SHX0_1
-        SHX1_2 = SHX1_2()
-        if SHX1_2 then
-          SHX1_2 = GiveWeaponToPed
-          SHX2_2 = SHX0_2
-          SHX3_2 = 2294779575
-          SHX4_2 = 1
-          SHX5_2 = false
-          SHX6_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+flag20 = false
+-- Beginner: Register a chat/console command. Event/command: "anim".
+workValue4(textValue6, flag19, flag20)
+workValue4 = RegisterCommand
+textValue6 = "bag3"
+-- Beginner: this function is the command handler for "bag3".
+function flag19()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = DoesEntityExist
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.canAnim
+    arg2 = arg2()
+    if arg2 then
+      arg2 = IsEntityDead
+      arg3 = arg1
+      arg2 = arg2(arg3)
+      if not arg2 then
+        arg2 = workValue
+        arg2 = arg2()
+        if arg2 then
+          arg2 = GiveWeaponToPed
+          arg3 = arg1
+          arg4 = 2294779575
+          arg5 = 1
+          arg6 = false
+          arg7 = true
+          arg2(arg3, arg4, arg5, arg6, arg7)
         end
       end
     end
   end
 end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "bag2"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.canAnim
-    SHX1_2 = SHX1_2()
-    if SHX1_2 then
-      SHX1_2 = IsEntityDead
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if not SHX1_2 then
-        SHX1_2 = SHX0_1
-        SHX1_2 = SHX1_2()
-        if SHX1_2 then
-          SHX1_2 = GiveWeaponToPed
-          SHX2_2 = SHX0_2
-          SHX3_2 = 28811031
-          SHX4_2 = 1
-          SHX5_2 = false
-          SHX6_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+flag20 = false
+-- Beginner: Register a chat/console command. Event/command: "bag3".
+workValue4(textValue6, flag19, flag20)
+workValue4 = RegisterCommand
+textValue6 = "bag2"
+-- Beginner: this function is the command handler for "bag2".
+function flag19()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = DoesEntityExist
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.canAnim
+    arg2 = arg2()
+    if arg2 then
+      arg2 = IsEntityDead
+      arg3 = arg1
+      arg2 = arg2(arg3)
+      if not arg2 then
+        arg2 = workValue
+        arg2 = arg2()
+        if arg2 then
+          arg2 = GiveWeaponToPed
+          arg3 = arg1
+          arg4 = 28811031
+          arg5 = 1
+          arg6 = false
+          arg7 = true
+          arg2(arg3, arg4, arg5, arg6, arg7)
         end
       end
     end
   end
 end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = false
-SHX2_1 = true
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = false
-SHX6_1 = CMG
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  return SHX0_2
+flag20 = false
+-- Beginner: Register a chat/console command. Event/command: "bag2".
+workValue4(textValue6, flag19, flag20)
+workValue4 = false
+textValue6 = true
+flag19 = false
+flag20 = false
+flag21 = false
+cmgCall3 = CMG
+function workValue7()
+  local arg1, arg2
+  arg1 = workValue4
+  return arg1
 end
-SHX6_1.isSurrendering = SHX7_1
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX0_2 = GetPlayerPed
-  SHX1_2 = -1
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = DoesEntityExist
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.canAnim
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
-      SHX1_2 = SHX3_1
-      if not SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.isPlayerNearPrison
-        SHX1_2 = SHX1_2()
-        if not SHX1_2 then
-          goto SHX_LABEL_223
+cmgCall3.isSurrendering = workValue7
+function cmgCall3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2
+  arg1 = GetPlayerPed
+  arg2 = -1
+  -- Beginner: result below is playerPed.
+  arg1 = arg1(arg2)
+  arg2 = DoesEntityExist
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = tCMG
+    arg2 = arg2.canAnim
+    arg2 = arg2()
+    if not arg2 then
+      arg2 = flag19
+      if not arg2 then
+        arg2 = CMG
+        arg2 = arg2.isPlayerNearPrison
+        arg2 = arg2()
+        if not arg2 then
+          goto flow_label_223
         end
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.isHandcuffed
-        SHX1_2 = SHX1_2()
-        if SHX1_2 then
-          goto SHX_LABEL_223
+        arg2 = CMG
+        arg2 = arg2.isHandcuffed
+        arg2 = arg2()
+        if arg2 then
+          goto flow_label_223
         end
       end
     end
-    SHX1_2 = IsEntityDead
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      SHX1_2 = SHX0_1
-      SHX2_2 = true
-      SHX1_2 = SHX1_2(SHX2_2)
-      if SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.loadAnimDict
-        SHX2_2 = "random@arrests"
-        SHX1_2(SHX2_2)
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.loadAnimDict
-        SHX2_2 = "random@arrests@busted"
-        SHX1_2(SHX2_2)
-        SHX1_2 = IsEntityPlayingAnim
-        SHX2_2 = SHX0_2
-        SHX3_2 = "random@arrests@busted"
-        SHX4_2 = "idle_a"
-        SHX5_2 = 3
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        if SHX1_2 then
-          SHX1_2 = true
-          SHX5_1 = SHX1_2
-          SHX1_2 = false
-          SHX1_1 = SHX1_2
-          SHX1_2 = TaskPlayAnim
-          SHX2_2 = SHX0_2
-          SHX3_2 = "random@arrests@busted"
-          SHX4_2 = "exit"
-          SHX5_2 = 8.0
-          SHX6_2 = 1.0
-          SHX7_2 = -1
-          SHX8_2 = 2
-          SHX9_2 = 0
-          SHX10_2 = false
-          SHX11_2 = false
-          SHX12_2 = false
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX1_2 = Wait
-          SHX2_2 = 3000
-          SHX1_2(SHX2_2)
-          SHX1_2 = TaskPlayAnim
-          SHX2_2 = SHX0_2
-          SHX3_2 = "random@arrests"
-          SHX4_2 = "kneeling_arrest_get_up"
-          SHX5_2 = 8.0
-          SHX6_2 = 1.0
-          SHX7_2 = -1
-          SHX8_2 = 128
-          SHX9_2 = 0
-          SHX10_2 = false
-          SHX11_2 = false
-          SHX12_2 = false
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX1_2 = Wait
-          SHX2_2 = 2000
-          SHX1_2(SHX2_2)
-          SHX1_2 = false
-          SHX3_1 = SHX1_2
-          SHX1_2 = false
-          SHX5_1 = SHX1_2
-          SHX1_2 = SHX4_1
-          if SHX1_2 then
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.setCanAnim
-            SHX2_2 = true
-            SHX1_2(SHX2_2)
-            SHX1_2 = false
-            SHX4_1 = SHX1_2
+    arg2 = IsEntityDead
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      arg2 = workValue
+      arg3 = true
+      arg2 = arg2(arg3)
+      if arg2 then
+        arg2 = CMG
+        arg2 = arg2.loadAnimDict
+        arg3 = "random@arrests"
+        -- Beginner: Load a GTA animation dictionary before using it.
+        arg2(arg3)
+        arg2 = CMG
+        arg2 = arg2.loadAnimDict
+        arg3 = "random@arrests@busted"
+        arg2(arg3)
+        arg2 = IsEntityPlayingAnim
+        arg3 = arg1
+        arg4 = "random@arrests@busted"
+        arg5 = "idle_a"
+        arg6 = 3
+        arg2 = arg2(arg3, arg4, arg5, arg6)
+        if arg2 then
+          arg2 = true
+          flag21 = arg2
+          arg2 = false
+          workValue4 = arg2
+          arg2 = TaskPlayAnim
+          arg3 = arg1
+          arg4 = "random@arrests@busted"
+          arg5 = "exit"
+          arg6 = 8.0
+          arg7 = 1.0
+          arg8 = -1
+          arg9 = 2
+          arg10 = 0
+          arg11 = false
+          arg12 = false
+          flag2 = false
+          -- Beginner: Play an animation on a ped.
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+          arg2 = Wait
+          arg3 = 3000
+          arg2(arg3)
+          arg2 = TaskPlayAnim
+          arg3 = arg1
+          arg4 = "random@arrests"
+          arg5 = "kneeling_arrest_get_up"
+          arg6 = 8.0
+          arg7 = 1.0
+          arg8 = -1
+          arg9 = 128
+          arg10 = 0
+          arg11 = false
+          arg12 = false
+          flag2 = false
+          -- Beginner: Play an animation on a ped.
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+          arg2 = Wait
+          arg3 = 2000
+          arg2(arg3)
+          arg2 = false
+          flag19 = arg2
+          arg2 = false
+          flag21 = arg2
+          arg2 = flag20
+          if arg2 then
+            arg2 = tCMG
+            arg2 = arg2.setCanAnim
+            arg3 = true
+            arg2(arg3)
+            arg2 = false
+            flag20 = arg2
           end
         else
-          SHX1_2 = SHX4_1
-          if not SHX1_2 then
-            SHX1_2 = true
-            SHX4_1 = SHX1_2
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.setCanAnim
-            SHX2_2 = false
-            SHX1_2(SHX2_2)
+          arg2 = flag20
+          if not arg2 then
+            arg2 = true
+            flag20 = arg2
+            arg2 = tCMG
+            arg2 = arg2.setCanAnim
+            arg3 = false
+            arg2(arg3)
           end
-          SHX1_2 = true
-          SHX1_1 = SHX1_2
-          SHX1_2 = TaskPlayAnim
-          SHX2_2 = SHX0_2
-          SHX3_2 = "random@arrests"
-          SHX4_2 = "idle_2_hands_up"
-          SHX5_2 = 8.0
-          SHX6_2 = 1.0
-          SHX7_2 = -1
-          SHX8_2 = 2
-          SHX9_2 = 0
-          SHX10_2 = false
-          SHX11_2 = false
-          SHX12_2 = false
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX1_2 = Wait
-          SHX2_2 = 4000
-          SHX1_2(SHX2_2)
-          SHX1_2 = TaskPlayAnim
-          SHX2_2 = SHX0_2
-          SHX3_2 = "random@arrests"
-          SHX4_2 = "kneeling_arrest_idle"
-          SHX5_2 = 8.0
-          SHX6_2 = 1.0
-          SHX7_2 = -1
-          SHX8_2 = 2
-          SHX9_2 = 0
-          SHX10_2 = false
-          SHX11_2 = false
-          SHX12_2 = false
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX1_2 = Wait
-          SHX2_2 = 500
-          SHX1_2(SHX2_2)
-          SHX1_2 = TaskPlayAnim
-          SHX2_2 = SHX0_2
-          SHX3_2 = "random@arrests@busted"
-          SHX4_2 = "enter"
-          SHX5_2 = 8.0
-          SHX6_2 = 1.0
-          SHX7_2 = -1
-          SHX8_2 = 2
-          SHX9_2 = 0
-          SHX10_2 = false
-          SHX11_2 = false
-          SHX12_2 = false
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX1_2 = true
-          SHX3_1 = SHX1_2
-          SHX1_2 = Wait
-          SHX2_2 = 1000
-          SHX1_2(SHX2_2)
-          SHX1_2 = TaskPlayAnim
-          SHX2_2 = SHX0_2
-          SHX3_2 = "random@arrests@busted"
-          SHX4_2 = "idle_a"
-          SHX5_2 = 8.0
-          SHX6_2 = 1.0
-          SHX7_2 = -1
-          SHX8_2 = 9
-          SHX9_2 = 0
-          SHX10_2 = false
-          SHX11_2 = false
-          SHX12_2 = false
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX1_2 = Wait
-          SHX2_2 = 0
-          SHX1_2(SHX2_2)
+          arg2 = true
+          workValue4 = arg2
+          arg2 = TaskPlayAnim
+          arg3 = arg1
+          arg4 = "random@arrests"
+          arg5 = "idle_2_hands_up"
+          arg6 = 8.0
+          arg7 = 1.0
+          arg8 = -1
+          arg9 = 2
+          arg10 = 0
+          arg11 = false
+          arg12 = false
+          flag2 = false
+          -- Beginner: Play an animation on a ped.
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+          arg2 = Wait
+          arg3 = 4000
+          arg2(arg3)
+          arg2 = TaskPlayAnim
+          arg3 = arg1
+          arg4 = "random@arrests"
+          arg5 = "kneeling_arrest_idle"
+          arg6 = 8.0
+          arg7 = 1.0
+          arg8 = -1
+          arg9 = 2
+          arg10 = 0
+          arg11 = false
+          arg12 = false
+          flag2 = false
+          -- Beginner: Play an animation on a ped.
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+          arg2 = Wait
+          arg3 = 500
+          arg2(arg3)
+          arg2 = TaskPlayAnim
+          arg3 = arg1
+          arg4 = "random@arrests@busted"
+          arg5 = "enter"
+          arg6 = 8.0
+          arg7 = 1.0
+          arg8 = -1
+          arg9 = 2
+          arg10 = 0
+          arg11 = false
+          arg12 = false
+          flag2 = false
+          -- Beginner: Play an animation on a ped.
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+          arg2 = true
+          flag19 = arg2
+          arg2 = Wait
+          arg3 = 1000
+          arg2(arg3)
+          arg2 = TaskPlayAnim
+          arg3 = arg1
+          arg4 = "random@arrests@busted"
+          arg5 = "idle_a"
+          arg6 = 8.0
+          arg7 = 1.0
+          arg8 = -1
+          arg9 = 9
+          arg10 = 0
+          arg11 = false
+          arg12 = false
+          flag2 = false
+          -- Beginner: Play an animation on a ped.
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+          arg2 = Wait
+          arg3 = 0
+          arg2(arg3)
           while true do
-            SHX1_2 = IsEntityPlayingAnim
-            SHX2_2 = SHX0_2
-            SHX3_2 = "random@arrests@busted"
-            SHX4_2 = "idle_a"
-            SHX5_2 = 3
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            if not SHX1_2 then
+            arg2 = IsEntityPlayingAnim
+            arg3 = arg1
+            arg4 = "random@arrests@busted"
+            arg5 = "idle_a"
+            arg6 = 3
+            arg2 = arg2(arg3, arg4, arg5, arg6)
+            if not arg2 then
               break
             end
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.isNewPlayer
-            SHX1_2 = SHX1_2()
-            if SHX1_2 then
-              SHX1_2 = drawNativeNotification
-              SHX2_2 = "Run /k to exit from knees."
-              SHX1_2(SHX2_2)
+            arg2 = CMG
+            arg2 = arg2.isNewPlayer
+            arg2 = arg2()
+            if arg2 then
+              arg2 = drawNativeNotification
+              arg3 = "Run /k to exit from knees."
+              -- Beginner: Show a GTA-style notification/help prompt.
+              arg2(arg3)
             end
-            SHX1_2 = Citizen
-            SHX1_2 = SHX1_2.Wait
-            SHX2_2 = 0
-            SHX1_2(SHX2_2)
+            arg2 = Citizen
+            arg2 = arg2.Wait
+            arg3 = 0
+            arg2(arg3)
           end
-          SHX1_2 = false
-          SHX1_1 = SHX1_2
-          SHX1_2 = false
-          SHX3_1 = SHX1_2
-          SHX1_2 = SHX4_1
-          if SHX1_2 then
-            SHX1_2 = SHX5_1
-            if not SHX1_2 then
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.setCanAnim
-              SHX2_2 = true
-              SHX1_2(SHX2_2)
-              SHX1_2 = false
-              SHX4_1 = SHX1_2
+          arg2 = false
+          workValue4 = arg2
+          arg2 = false
+          flag19 = arg2
+          arg2 = flag20
+          if arg2 then
+            arg2 = flag21
+            if not arg2 then
+              arg2 = tCMG
+              arg2 = arg2.setCanAnim
+              arg3 = true
+              arg2(arg3)
+              arg2 = false
+              flag20 = arg2
             end
           end
         end
-        SHX1_2 = RemoveAnimDict
-        SHX2_2 = "random@arrests"
-        SHX1_2(SHX2_2)
-        SHX1_2 = RemoveAnimDict
-        SHX2_2 = "random@arrests@busted"
-        SHX1_2(SHX2_2)
+        arg2 = RemoveAnimDict
+        arg3 = "random@arrests"
+        arg2(arg3)
+        arg2 = RemoveAnimDict
+        arg3 = "random@arrests@busted"
+        arg2(arg3)
       end
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_223:: outside nested blocks until all 'goto SHX_LABEL_223' can see it
-  ::SHX_LABEL_223::
+  ::flow_label_223::
 end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX3_1
-  if not SHX1_2 then
-    SHX1_2 = IsEntityPlayingAnim
-    SHX2_2 = SHX0_2
-    SHX3_2 = "missminuteman_1ig_2"
-    SHX4_2 = "handsup_enter"
-    SHX5_2 = 3
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    if not SHX1_2 then
-      SHX1_2 = IsEntityPlayingAnim
-      SHX2_2 = SHX0_2
-      SHX3_2 = "random@arrests"
-      SHX4_2 = "idle_2_hands_up"
-      SHX5_2 = 3
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if not SHX1_2 then
-        SHX1_2 = IsEntityPlayingAnim
-        SHX2_2 = SHX0_2
-        SHX3_2 = "random@arrests@busted"
-        SHX4_2 = "idle_a"
-        SHX5_2 = 3
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        if not SHX1_2 then
-          goto SHX_LABEL_33
+function workValue7()
+  local arg1, arg2, arg3, arg4, arg5, arg6
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = flag19
+  if not arg2 then
+    arg2 = IsEntityPlayingAnim
+    arg3 = arg1
+    arg4 = "missminuteman_1ig_2"
+    arg5 = "handsup_enter"
+    arg6 = 3
+    arg2 = arg2(arg3, arg4, arg5, arg6)
+    if not arg2 then
+      arg2 = IsEntityPlayingAnim
+      arg3 = arg1
+      arg4 = "random@arrests"
+      arg5 = "idle_2_hands_up"
+      arg6 = 3
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if not arg2 then
+        arg2 = IsEntityPlayingAnim
+        arg3 = arg1
+        arg4 = "random@arrests@busted"
+        arg5 = "idle_a"
+        arg6 = 3
+        arg2 = arg2(arg3, arg4, arg5, arg6)
+        if not arg2 then
+          goto flow_label_33
         end
       end
     end
   end
-  SHX1_2 = true
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_33:: outside nested blocks until all 'goto SHX_LABEL_33' can see it
-  ::SHX_LABEL_33::
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = true
+  return arg2
+  ::flow_label_33::
+  arg2 = false
+  return arg2
 end
-function SHX8_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX6_2 = SHX5_2 / 100
-  SHX6_2 = SHX2_2 * SHX6_2
-  SHX7_2 = SHX5_2 / 100
-  SHX7_2 = SHX2_2 * SHX7_2
-  SHX7_2 = SHX7_2 / 2
-  SHX7_2 = SHX0_2 - SHX7_2
-  SHX8_2 = SHX2_2 / 2
-  SHX7_2 = SHX7_2 - SHX8_2
-  SHX8_2 = DrawRect
-  SHX9_2 = SHX7_2 + SHX6_2
-  SHX10_2 = SHX1_2
-  SHX11_2 = SHX6_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = SHX4_2[1]
-  SHX14_2 = SHX4_2[2]
-  SHX15_2 = SHX4_2[3]
-  SHX16_2 = SHX4_2[4]
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+function workValue8(arg1, arg2, arg3, arg4, arg5, arg6)
+  local arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
+  arg7 = arg6 / 100
+  arg7 = arg3 * arg7
+  arg8 = arg6 / 100
+  arg8 = arg3 * arg8
+  arg8 = arg8 / 2
+  arg8 = arg1 - arg8
+  arg9 = arg3 / 2
+  arg8 = arg8 - arg9
+  arg9 = DrawRect
+  arg10 = arg8 + arg7
+  arg11 = arg2
+  arg12 = arg7
+  flag2 = arg4
+  numberValue = arg5[1]
+  flag5 = arg5[2]
+  flag6 = arg5[3]
+  flag7 = arg5[4]
+  arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7)
 end
-SHX9_1 = tCMG
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
+cmgCall4 = tCMG
+function cmgCall()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
   while true do
-    SHX1_2 = GetGameTimer
-    SHX1_2 = SHX1_2()
-    SHX1_2 = SHX1_2 - SHX0_2
-    SHX2_2 = 5000
-    if not (SHX1_2 <= SHX2_2) then
+    arg2 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg2 = arg2()
+    arg2 = arg2 - arg1
+    arg3 = 5000
+    if not (arg2 <= arg3) then
       break
     end
-    SHX1_2 = SHX7_1
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
+    arg2 = workValue7
+    arg2 = arg2()
+    if not arg2 then
       break
     end
-    SHX1_2 = SHX8_1
-    SHX2_2 = 0.475
-    SHX3_2 = 0.8
-    SHX4_2 = 0.138
-    SHX5_2 = 0.012750000000000001
-    SHX6_2 = {}
-    SHX7_2 = 255
-    SHX8_2 = 47
-    SHX9_2 = 27
-    SHX10_2 = 255
-    SHX6_2[1] = SHX7_2
-    SHX6_2[2] = SHX8_2
-    SHX6_2[3] = SHX9_2
-    SHX6_2[4] = SHX10_2
-    SHX7_2 = GetGameTimer
-    SHX7_2 = SHX7_2()
-    SHX7_2 = SHX7_2 - SHX0_2
-    SHX7_2 = SHX7_2 / 5000
-    SHX7_2 = SHX7_2 * 100
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX1_2 = Wait
-    SHX2_2 = 0
-    SHX1_2(SHX2_2)
+    arg2 = workValue8
+    arg3 = 0.475
+    arg4 = 0.8
+    arg5 = 0.138
+    arg6 = 0.012750000000000001
+    arg7 = {}
+    arg8 = 255
+    arg9 = 47
+    arg10 = 27
+    arg11 = 255
+    arg7[1] = arg8
+    arg7[2] = arg9
+    arg7[3] = arg10
+    arg7[4] = arg11
+    arg8 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg8 = arg8()
+    arg8 = arg8 - arg1
+    arg8 = arg8 / 5000
+    arg8 = arg8 * 100
+    arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+    arg2 = Wait
+    arg3 = 0
+    arg2(arg3)
   end
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  SHX1_2 = SHX1_2 - SHX0_2
-  SHX2_2 = 5000
-  if SHX1_2 > SHX2_2 then
-    SHX1_2 = true
-    return SHX1_2
+  arg2 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg2 = arg2()
+  arg2 = arg2 - arg1
+  arg3 = 5000
+  if arg2 > arg3 then
+    arg2 = true
+    return arg2
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-SHX9_1.isPlayerSurrendered = SHX10_1
-SHX9_1 = tCMG
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX7_1
-  return SHX0_2()
+cmgCall4.isPlayerSurrendered = cmgCall
+cmgCall4 = tCMG
+function cmgCall()
+  local arg1, arg2
+  arg1 = workValue7
+  return arg1()
 end
-SHX9_1.isPlayerSurrenderedNoProgressBar = SHX10_1
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "617311deed"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadAnimDict
-  SHX1_2 = "combat@aim_variations@arrest"
-  SHX0_2(SHX1_2)
-  SHX0_2 = TaskPlayAnim
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "combat@aim_variations@arrest"
-  SHX3_2 = "cop_med_arrest_01"
-  SHX4_2 = 8.0
-  SHX5_2 = -8
-  SHX6_2 = 5000
-  SHX7_2 = 2
-  SHX8_2 = 0
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX0_2 = RemoveAnimDict
-  SHX1_2 = "combat@aim_variations@arrest"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.startCircularProgressBar
-  SHX1_2 = ""
-  SHX2_2 = 5000
-  SHX3_2 = nil
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+cmgCall4.isPlayerSurrenderedNoProgressBar = cmgCall
+cmgCall4 = RegisterNetEvent
+cmgCall = "617311deed"
+-- Beginner: this function handles network event "617311deed".
+function textValue()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12
+  arg1 = CMG
+  arg1 = arg1.loadAnimDict
+  arg2 = "combat@aim_variations@arrest"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg1(arg2)
+  arg1 = TaskPlayAnim
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "combat@aim_variations@arrest"
+  arg4 = "cop_med_arrest_01"
+  arg5 = 8.0
+  arg6 = -8
+  arg7 = 5000
+  arg8 = 2
+  arg9 = 0
+  arg10 = false
+  arg11 = false
+  arg12 = false
+  -- Beginner: Play an animation on a ped.
+  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+  arg1 = RemoveAnimDict
+  arg2 = "combat@aim_variations@arrest"
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.startCircularProgressBar
+  arg2 = ""
+  arg3 = 5000
+  arg4 = nil
+  function arg5()
+    local workValue2, workValue5
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+  arg1(arg2, arg3, arg4, arg5)
 end
-SHX9_1(SHX10_1, SHX11_1)
-SHX9_1 = RegisterNetEvent
-SHX10_1 = "750744bff8"
-function SHX11_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = StopAnimTask
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "combat@aim_variations@arrest"
-  SHX3_2 = "cop_med_arrest_01"
-  SHX4_2 = 1.0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.stopCircularProgressBar
-  SHX0_2()
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "617311deed".
+cmgCall4(cmgCall, textValue)
+cmgCall4 = RegisterNetEvent
+cmgCall = "750744bff8"
+-- Beginner: this function handles network event "750744bff8".
+function textValue()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = StopAnimTask
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "combat@aim_variations@arrest"
+  arg4 = "cop_med_arrest_01"
+  arg5 = 1.0
+  arg1(arg2, arg3, arg4, arg5)
+  arg1 = CMG
+  arg1 = arg1.stopCircularProgressBar
+  arg1()
 end
-SHX9_1(SHX10_1, SHX11_1)
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = SHX3_1
-  if SHX0_2 then
-    SHX0_2 = DisableControlAction
-    SHX1_2 = 1
-    SHX2_2 = 140
-    SHX3_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = DisableControlAction
-    SHX1_2 = 1
-    SHX2_2 = 141
-    SHX3_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = DisableControlAction
-    SHX1_2 = 1
-    SHX2_2 = 142
-    SHX3_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = DisableControlAction
-    SHX1_2 = 0
-    SHX2_2 = 21
-    SHX3_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "750744bff8".
+cmgCall4(cmgCall, textValue)
+function cmgCall4()
+  local arg1, arg2, arg3, arg4
+  arg1 = flag19
+  if arg1 then
+    arg1 = DisableControlAction
+    arg2 = 1
+    arg3 = 140
+    arg4 = true
+    arg1(arg2, arg3, arg4)
+    arg1 = DisableControlAction
+    arg2 = 1
+    arg3 = 141
+    arg4 = true
+    arg1(arg2, arg3, arg4)
+    arg1 = DisableControlAction
+    arg2 = 1
+    arg3 = 142
+    arg4 = true
+    arg1(arg2, arg3, arg4)
+    arg1 = DisableControlAction
+    arg2 = 0
+    arg3 = 21
+    arg4 = true
+    arg1(arg2, arg3, arg4)
   end
-  SHX0_2 = DisableControlAction
-  SHX1_2 = 2
-  SHX2_2 = 36
-  SHX3_2 = true
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+  arg1 = DisableControlAction
+  arg2 = 2
+  arg3 = 36
+  arg4 = true
+  arg1(arg2, arg3, arg4)
 end
-SHX10_1 = CMG
-SHX10_1 = SHX10_1.createThreadOnTick
-SHX11_1 = SHX9_1
-SHX12_1 = "Surrendering"
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = RegisterCommand
-SHX11_1 = "k"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = SHX6_1
-    SHX0_2()
+cmgCall = CMG
+cmgCall = cmgCall.createThreadOnTick
+textValue = cmgCall4
+flag = "Surrendering"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall(textValue, flag)
+cmgCall = RegisterCommand
+textValue = "k"
+-- Beginner: this function is the command handler for "k".
+function flag()
+  local arg1, arg2
+  arg1 = textValue6
+  if arg1 then
+    arg1 = cmgCall3
+    arg1()
   end
 end
-SHX13_1 = false
-SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX10_1 = RegisterCommand
-SHX11_1 = "surrender"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    SHX0_2 = SHX6_1
-    SHX0_2()
+flag3 = false
+-- Beginner: Register a chat/console command. Event/command: "k".
+cmgCall(textValue, flag, flag3)
+cmgCall = RegisterCommand
+textValue = "surrender"
+-- Beginner: this function is the command handler for "surrender".
+function flag()
+  local arg1, arg2
+  arg1 = textValue6
+  if arg1 then
+    arg1 = cmgCall3
+    arg1()
   end
 end
-SHX13_1 = false
-SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX10_1 = false
-SHX11_1 = "prop_parking_wand_01"
-SHX12_1 = false
-SHX13_1 = "hei_heist_sh_bong_01"
-SHX14_1 = false
-SHX15_1 = "prop_amb_phone"
-SHX16_1 = RegisterCommand
-SHX17_1 = "picture"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetHashKey
-  SHX2_2 = SHX15_1
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = RequestModel
-  SHX3_2 = SHX1_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = GetOffsetFromEntityInWorldCoords
-  SHX3_2 = GetPlayerPed
-  SHX4_2 = PlayerId
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX4_2()
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-  SHX4_2 = 0.0
-  SHX5_2 = 0.0
-  SHX6_2 = -5.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.requestEntitySpawn
-  SHX4_2 = "picture_object"
-  SHX3_2(SHX4_2)
-  SHX3_2 = CreateObject
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX8_2 = true
-  SHX9_2 = true
-  SHX10_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX4_2 = "amb@world_human_mobile_film_shocking@male@enter"
-  SHX5_2 = "amb@world_human_mobile_film_shocking@male@base"
-  SHX6_2 = "amb@world_human_mobile_film_shocking@male@exit"
-  SHX7_2 = "core"
-  SHX8_2 = "ent_anim_paparazzi_flash"
-  SHX9_2 = DoesEntityExist
-  SHX10_2 = SHX0_2
-  SHX9_2 = SHX9_2(SHX10_2)
-  if SHX9_2 then
-    SHX9_2 = IsEntityDead
-    SHX10_2 = SHX0_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    if not SHX9_2 then
-      SHX9_2 = CMG
-      SHX9_2 = SHX9_2.loadAnimDict
-      SHX10_2 = SHX4_2
-      SHX9_2(SHX10_2)
-      SHX9_2 = CMG
-      SHX9_2 = SHX9_2.loadAnimDict
-      SHX10_2 = SHX5_2
-      SHX9_2(SHX10_2)
-      SHX9_2 = CMG
-      SHX9_2 = SHX9_2.loadAnimDict
-      SHX10_2 = SHX6_2
-      SHX9_2(SHX10_2)
-      SHX9_2 = RequestNamedPtfxAsset
-      SHX10_2 = SHX7_2
-      SHX9_2(SHX10_2)
-      SHX9_2 = SHX14_1
-      if SHX9_2 then
-        SHX9_2 = TaskPlayAnim
-        SHX10_2 = SHX0_2
-        SHX11_2 = SHX6_2
-        SHX12_2 = "exit"
-        SHX13_2 = 8.0
-        SHX14_2 = 1.0
-        SHX15_2 = -1
-        SHX16_2 = 50
-        SHX17_2 = 0
-        SHX18_2 = false
-        SHX19_2 = false
-        SHX20_2 = false
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX9_2 = Wait
-        SHX10_2 = 1840
-        SHX9_2(SHX10_2)
-        SHX9_2 = DetachEntity
-        SHX10_2 = SHX3_2
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-        SHX9_2 = DeleteEntity
-        SHX10_2 = SHX3_2
-        SHX9_2(SHX10_2)
-        SHX9_2 = Wait
-        SHX10_2 = 750
-        SHX9_2(SHX10_2)
-        SHX9_2 = ClearPedSecondaryTask
-        SHX10_2 = CMG
-        SHX10_2 = SHX10_2.getPlayerPed
-        SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX10_2()
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX9_2 = false
-        SHX14_1 = SHX9_2
+flag3 = false
+-- Beginner: Register a chat/console command. Event/command: "surrender".
+cmgCall(textValue, flag, flag3)
+cmgCall = false
+textValue = "prop_parking_wand_01"
+flag = false
+flag3 = "hei_heist_sh_bong_01"
+flag4 = false
+textValue2 = "prop_amb_phone"
+workValue3 = RegisterCommand
+textValue3 = "picture"
+-- Beginner: this function is the command handler for "picture".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetHashKey
+  arg3 = textValue2
+  -- Beginner: result below is hash.
+  arg2 = arg2(arg3)
+  arg3 = RequestModel
+  arg4 = arg2
+  arg3(arg4)
+  arg3 = GetOffsetFromEntityInWorldCoords
+  arg4 = GetPlayerPed
+  arg5 = PlayerId
+  arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = arg5()
+  -- Beginner: result below is playerPed.
+  arg4 = arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+  arg5 = 0.0
+  arg6 = 0.0
+  arg7 = -5.0
+  arg3 = arg3(arg4, arg5, arg6, arg7)
+  arg4 = CMG
+  arg4 = arg4.requestEntitySpawn
+  arg5 = "picture_object"
+  arg4(arg5)
+  arg4 = CreateObject
+  arg5 = arg2
+  arg6 = arg3.x
+  arg7 = arg3.y
+  arg8 = arg3.z
+  arg9 = true
+  arg10 = true
+  arg11 = true
+  -- Beginner: result below is objectEntity.
+  arg4 = arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+  arg5 = "amb@world_human_mobile_film_shocking@male@enter"
+  arg6 = "amb@world_human_mobile_film_shocking@male@base"
+  arg7 = "amb@world_human_mobile_film_shocking@male@exit"
+  arg8 = "core"
+  arg9 = "ent_anim_paparazzi_flash"
+  arg10 = DoesEntityExist
+  arg11 = arg1
+  arg10 = arg10(arg11)
+  if arg10 then
+    arg10 = IsEntityDead
+    arg11 = arg1
+    arg10 = arg10(arg11)
+    if not arg10 then
+      arg10 = CMG
+      arg10 = arg10.loadAnimDict
+      arg11 = arg5
+      -- Beginner: Load a GTA animation dictionary before using it.
+      arg10(arg11)
+      arg10 = CMG
+      arg10 = arg10.loadAnimDict
+      arg11 = arg6
+      arg10(arg11)
+      arg10 = CMG
+      arg10 = arg10.loadAnimDict
+      arg11 = arg7
+      -- Beginner: Load a GTA animation dictionary before using it.
+      arg10(arg11)
+      arg10 = RequestNamedPtfxAsset
+      arg11 = arg8
+      arg10(arg11)
+      arg10 = flag4
+      if arg10 then
+        arg10 = TaskPlayAnim
+        arg11 = arg1
+        arg12 = arg7
+        flag2 = "exit"
+        numberValue = 8.0
+        flag5 = 1.0
+        flag6 = -1
+        flag7 = 50
+        numberValue2 = 0
+        flag8 = false
+        flag10 = false
+        flag11 = false
+        -- Beginner: Play an animation on a ped.
+        arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11)
+        arg10 = Wait
+        arg11 = 1840
+        arg10(arg11)
+        arg10 = DetachEntity
+        arg11 = arg4
+        arg12 = false
+        flag2 = false
+        arg10(arg11, arg12, flag2)
+        arg10 = DeleteEntity
+        arg11 = arg4
+        -- Beginner: Delete a GTA entity.
+        arg10(arg11)
+        arg10 = Wait
+        arg11 = 750
+        arg10(arg11)
+        arg10 = ClearPedSecondaryTask
+        arg11 = CMG
+        arg11 = arg11.getPlayerPed
+        arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = arg11()
+        arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        arg10 = false
+        flag4 = arg10
       else
-        SHX9_2 = Wait
-        SHX10_2 = 500
-        SHX9_2(SHX10_2)
-        SHX9_2 = SetNetworkIdExistsOnAllMachines
-        SHX10_2 = SHX3_2
-        SHX11_2 = true
-        SHX9_2(SHX10_2, SHX11_2)
-        SHX9_2 = NetworkUseHighPrecisionBlending
-        SHX10_2 = SHX3_2
-        SHX11_2 = true
-        SHX9_2(SHX10_2, SHX11_2)
-        SHX9_2 = SetNetworkIdCanMigrate
-        SHX10_2 = SHX3_2
-        SHX11_2 = false
-        SHX9_2(SHX10_2, SHX11_2)
-        SHX9_2 = TaskPlayAnim
-        SHX10_2 = SHX0_2
-        SHX11_2 = SHX4_2
-        SHX12_2 = "enter"
-        SHX13_2 = 8.0
-        SHX14_2 = 1.0
-        SHX15_2 = -1
-        SHX16_2 = 50
-        SHX17_2 = 0
-        SHX18_2 = false
-        SHX19_2 = false
-        SHX20_2 = false
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX9_2 = Wait
-        SHX10_2 = 1260
-        SHX9_2(SHX10_2)
-        SHX9_2 = AttachEntityToEntity
-        SHX10_2 = SHX3_2
-        SHX11_2 = GetPlayerPed
-        SHX12_2 = PlayerId
-        SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX12_2()
-        SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX12_2 = GetPedBoneIndex
-        SHX13_2 = GetPlayerPed
-        SHX14_2 = PlayerId
-        SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX14_2()
-        SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX14_2 = 28422
-        SHX12_2 = SHX12_2(SHX13_2, SHX14_2)
-        SHX13_2 = -0.005
-        SHX14_2 = 0.0
-        SHX15_2 = 0.0
-        SHX16_2 = 360.0
-        SHX17_2 = 360.0
-        SHX18_2 = 0.0
-        SHX19_2 = true
-        SHX20_2 = true
-        SHX21_2 = false
-        SHX22_2 = true
-        SHX23_2 = 0
-        SHX24_2 = true
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX9_2 = tCMG
-        SHX9_2 = SHX9_2.notify
-        SHX10_2 = "Press ~r~[E]~w~ to take a picture!"
-        SHX9_2(SHX10_2)
-        SHX9_2 = true
-        SHX14_1 = SHX9_2
+        arg10 = Wait
+        arg11 = 500
+        arg10(arg11)
+        arg10 = SetNetworkIdExistsOnAllMachines
+        arg11 = arg4
+        arg12 = true
+        arg10(arg11, arg12)
+        arg10 = NetworkUseHighPrecisionBlending
+        arg11 = arg4
+        arg12 = true
+        arg10(arg11, arg12)
+        arg10 = SetNetworkIdCanMigrate
+        arg11 = arg4
+        arg12 = false
+        arg10(arg11, arg12)
+        arg10 = TaskPlayAnim
+        arg11 = arg1
+        arg12 = arg5
+        flag2 = "enter"
+        numberValue = 8.0
+        flag5 = 1.0
+        flag6 = -1
+        flag7 = 50
+        numberValue2 = 0
+        flag8 = false
+        flag10 = false
+        flag11 = false
+        -- Beginner: Play an animation on a ped.
+        arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11)
+        arg10 = Wait
+        arg11 = 1260
+        arg10(arg11)
+        arg10 = AttachEntityToEntity
+        arg11 = arg4
+        arg12 = GetPlayerPed
+        flag2 = PlayerId
+        flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = flag2()
+        -- Beginner: result below is playerPed.
+        arg12 = arg12(flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        flag2 = GetPedBoneIndex
+        numberValue = GetPlayerPed
+        flag5 = PlayerId
+        flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = flag5()
+        -- Beginner: result below is playerPed.
+        numberValue = numberValue(flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        flag5 = 28422
+        flag2 = flag2(numberValue, flag5)
+        numberValue = -0.005
+        flag5 = 0.0
+        flag6 = 0.0
+        flag7 = 360.0
+        numberValue2 = 360.0
+        flag8 = 0.0
+        flag10 = true
+        flag11 = true
+        flag12 = false
+        flag13 = true
+        numberValue3 = 0
+        flag14 = true
+        -- Beginner: Attach one entity to another entity.
+        arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        arg10 = tCMG
+        arg10 = arg10.notify
+        arg11 = "Press ~r~[E]~w~ to take a picture!"
+        -- Beginner: Show a notification to the player.
+        arg10(arg11)
+        arg10 = true
+        flag4 = arg10
       end
     end
   end
-  SHX9_2 = SetModelAsNoLongerNeeded
-  SHX10_2 = SHX1_2
-  SHX9_2(SHX10_2)
+  arg10 = SetModelAsNoLongerNeeded
+  arg11 = arg2
+  arg10(arg11)
   while true do
-    SHX9_2 = SHX14_1
-    if not SHX9_2 then
+    arg10 = flag4
+    if not arg10 then
       break
     end
-    SHX9_2 = Wait
-    SHX10_2 = 0
-    SHX9_2(SHX10_2)
-    SHX9_2 = IsControlJustPressed
-    SHX10_2 = 0
-    SHX11_2 = 38
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    if SHX9_2 then
-      SHX9_2 = tCMG
-      SHX9_2 = SHX9_2.notify
-      SHX10_2 = "Click Click"
-      SHX9_2(SHX10_2)
-      SHX9_2 = Wait
-      SHX10_2 = 500
-      SHX9_2(SHX10_2)
-      SHX9_2 = UseParticleFxAsset
-      SHX10_2 = SHX7_2
-      SHX9_2(SHX10_2)
-      SHX9_2 = StartParticleFxNonLoopedOnEntity
-      SHX10_2 = SHX8_2
-      SHX11_2 = SHX3_2
-      SHX12_2 = 0.0
-      SHX13_2 = 0.1
-      SHX14_2 = 0.0
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = 0.0
-      SHX18_2 = 2.0
-      SHX19_2 = false
-      SHX20_2 = false
-      SHX21_2 = false
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
+    arg10 = Wait
+    arg11 = 0
+    arg10(arg11)
+    arg10 = IsControlJustPressed
+    arg11 = 0
+    arg12 = 38
+    arg10 = arg10(arg11, arg12)
+    if arg10 then
+      arg10 = tCMG
+      arg10 = arg10.notify
+      arg11 = "Click Click"
+      -- Beginner: Show a notification to the player.
+      arg10(arg11)
+      arg10 = Wait
+      arg11 = 500
+      arg10(arg11)
+      arg10 = UseParticleFxAsset
+      arg11 = arg8
+      arg10(arg11)
+      arg10 = StartParticleFxNonLoopedOnEntity
+      arg11 = arg9
+      arg12 = arg4
+      flag2 = 0.0
+      numberValue = 0.1
+      flag5 = 0.0
+      flag6 = 0.0
+      flag7 = 0.0
+      numberValue2 = 0.0
+      flag8 = 2.0
+      flag10 = false
+      flag11 = false
+      flag12 = false
+      arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12)
     end
   end
-  SHX9_2 = RemoveNamedPtfxAsset
-  SHX10_2 = SHX7_2
-  SHX9_2(SHX10_2)
+  arg10 = RemoveNamedPtfxAsset
+  arg11 = arg8
+  arg10(arg11)
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "bong"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_2 = "anim@safehouse@bong"
-  SHX1_2 = "bong_stage1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = GetHashKey
-  SHX4_2 = SHX13_1
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = RequestModel
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = GetOffsetFromEntityInWorldCoords
-  SHX5_2 = GetPlayerPed
-  SHX6_2 = PlayerId
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX6_2()
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = -5.0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.requestEntitySpawn
-  SHX6_2 = "bong_object"
-  SHX5_2(SHX6_2)
-  SHX5_2 = CreateObject
-  SHX6_2 = SHX3_2
-  SHX7_2 = SHX4_2.x
-  SHX8_2 = SHX4_2.y
-  SHX9_2 = SHX4_2.z
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX6_2 = SetModelAsNoLongerNeeded
-  SHX7_2 = SHX3_2
-  SHX6_2(SHX7_2)
-  SHX6_2 = DoesEntityExist
-  SHX7_2 = SHX2_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  if SHX6_2 then
-    SHX6_2 = IsEntityDead
-    SHX7_2 = SHX2_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if not SHX6_2 then
-      SHX6_2 = CMG
-      SHX6_2 = SHX6_2.loadAnimDict
-      SHX7_2 = SHX0_2
-      SHX6_2(SHX7_2)
-      SHX6_2 = SHX12_1
-      if SHX6_2 then
-        SHX6_2 = Wait
-        SHX7_2 = 100
-        SHX6_2(SHX7_2)
-        SHX6_2 = ClearPedSecondaryTask
-        SHX7_2 = CMG
-        SHX7_2 = SHX7_2.getPlayerPed
-        SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX7_2()
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX6_2 = DetachEntity
-        SHX7_2 = SHX5_2
-        SHX8_2 = false
-        SHX9_2 = false
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-        SHX6_2 = DeleteEntity
-        SHX7_2 = SHX5_2
-        SHX6_2(SHX7_2)
-        SHX6_2 = false
-        SHX12_1 = SHX6_2
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "picture".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "bong"
+-- Beginner: this function is the command handler for "bong".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14
+  arg1 = "anim@safehouse@bong"
+  arg2 = "bong_stage1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = GetHashKey
+  arg5 = flag3
+  -- Beginner: result below is hash.
+  arg4 = arg4(arg5)
+  arg5 = RequestModel
+  arg6 = arg4
+  arg5(arg6)
+  arg5 = GetOffsetFromEntityInWorldCoords
+  arg6 = GetPlayerPed
+  arg7 = PlayerId
+  arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = arg7()
+  -- Beginner: result below is playerPed.
+  arg6 = arg6(arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+  arg7 = 0.0
+  arg8 = 0.0
+  arg9 = -5.0
+  arg5 = arg5(arg6, arg7, arg8, arg9)
+  arg6 = CMG
+  arg6 = arg6.requestEntitySpawn
+  arg7 = "bong_object"
+  arg6(arg7)
+  arg6 = CreateObject
+  arg7 = arg4
+  arg8 = arg5.x
+  arg9 = arg5.y
+  arg10 = arg5.z
+  arg11 = true
+  arg12 = true
+  flag2 = true
+  -- Beginner: result below is objectEntity.
+  arg6 = arg6(arg7, arg8, arg9, arg10, arg11, arg12, flag2)
+  arg7 = SetModelAsNoLongerNeeded
+  arg8 = arg4
+  arg7(arg8)
+  arg7 = DoesEntityExist
+  arg8 = arg3
+  arg7 = arg7(arg8)
+  if arg7 then
+    arg7 = IsEntityDead
+    arg8 = arg3
+    arg7 = arg7(arg8)
+    if not arg7 then
+      arg7 = CMG
+      arg7 = arg7.loadAnimDict
+      arg8 = arg1
+      -- Beginner: Load a GTA animation dictionary before using it.
+      arg7(arg8)
+      arg7 = flag
+      if arg7 then
+        arg7 = Wait
+        arg8 = 100
+        arg7(arg8)
+        arg7 = ClearPedSecondaryTask
+        arg8 = CMG
+        arg8 = arg8.getPlayerPed
+        arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = arg8()
+        arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        arg7 = DetachEntity
+        arg8 = arg6
+        arg9 = false
+        arg10 = false
+        arg7(arg8, arg9, arg10)
+        arg7 = DeleteEntity
+        arg8 = arg6
+        -- Beginner: Delete a GTA entity.
+        arg7(arg8)
+        arg7 = false
+        flag = arg7
       else
-        SHX6_2 = Wait
-        SHX7_2 = 500
-        SHX6_2(SHX7_2)
-        SHX6_2 = SetNetworkIdExistsOnAllMachines
-        SHX7_2 = SHX5_2
-        SHX8_2 = true
-        SHX6_2(SHX7_2, SHX8_2)
-        SHX6_2 = NetworkUseHighPrecisionBlending
-        SHX7_2 = SHX5_2
-        SHX8_2 = true
-        SHX6_2(SHX7_2, SHX8_2)
-        SHX6_2 = SetNetworkIdCanMigrate
-        SHX7_2 = SHX5_2
-        SHX8_2 = false
-        SHX6_2(SHX7_2, SHX8_2)
-        SHX6_2 = AttachEntityToEntity
-        SHX7_2 = SHX5_2
-        SHX8_2 = GetPlayerPed
-        SHX9_2 = PlayerId
-        SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX9_2()
-        SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX9_2 = GetPedBoneIndex
-        SHX10_2 = GetPlayerPed
-        SHX11_2 = PlayerId
-        SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX11_2()
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-        SHX11_2 = 18905
-        SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-        SHX10_2 = 0.1
-        SHX11_2 = -0.25
-        SHX12_2 = 0.0
-        SHX13_2 = 95.0
-        SHX14_2 = 190.0
-        SHX15_2 = 180.0
-        SHX16_2 = true
-        SHX17_2 = true
-        SHX18_2 = false
-        SHX19_2 = true
-        SHX20_2 = 0
-        SHX21_2 = true
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-        SHX6_2 = Wait
-        SHX7_2 = 120
-        SHX6_2(SHX7_2)
-        SHX6_2 = tCMG
-        SHX6_2 = SHX6_2.notify
-        SHX7_2 = "Press ~r~[E]~w~ to take a toke!"
-        SHX6_2(SHX7_2)
-        SHX6_2 = true
-        SHX12_1 = SHX6_2
+        arg7 = Wait
+        arg8 = 500
+        arg7(arg8)
+        arg7 = SetNetworkIdExistsOnAllMachines
+        arg8 = arg6
+        arg9 = true
+        arg7(arg8, arg9)
+        arg7 = NetworkUseHighPrecisionBlending
+        arg8 = arg6
+        arg9 = true
+        arg7(arg8, arg9)
+        arg7 = SetNetworkIdCanMigrate
+        arg8 = arg6
+        arg9 = false
+        arg7(arg8, arg9)
+        arg7 = AttachEntityToEntity
+        arg8 = arg6
+        arg9 = GetPlayerPed
+        arg10 = PlayerId
+        arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = arg10()
+        -- Beginner: result below is playerPed.
+        arg9 = arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        arg10 = GetPedBoneIndex
+        arg11 = GetPlayerPed
+        arg12 = PlayerId
+        arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14 = arg12()
+        -- Beginner: result below is playerPed.
+        arg11 = arg11(arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+        arg12 = 18905
+        arg10 = arg10(arg11, arg12)
+        arg11 = 0.1
+        arg12 = -0.25
+        flag2 = 0.0
+        numberValue = 95.0
+        flag5 = 190.0
+        flag6 = 180.0
+        flag7 = true
+        numberValue2 = true
+        flag8 = false
+        flag10 = true
+        flag11 = 0
+        flag12 = true
+        -- Beginner: Attach one entity to another entity.
+        arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12)
+        arg7 = Wait
+        arg8 = 120
+        arg7(arg8)
+        arg7 = tCMG
+        arg7 = arg7.notify
+        arg8 = "Press ~r~[E]~w~ to take a toke!"
+        -- Beginner: Show a notification to the player.
+        arg7(arg8)
+        arg7 = true
+        flag = arg7
       end
     end
   end
   while true do
-    SHX6_2 = SHX12_1
-    if not SHX6_2 then
+    arg7 = flag
+    if not arg7 then
       break
     end
-    SHX6_2 = Wait
-    SHX7_2 = 0
-    SHX6_2(SHX7_2)
-    SHX6_2 = GetEntityCoords
-    SHX7_2 = SHX2_2
-    SHX8_2 = true
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-    SHX7_2 = GetEntityHeading
-    SHX8_2 = SHX2_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX8_2 = IsControlJustPressed
-    SHX9_2 = 0
-    SHX10_2 = 38
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    if SHX8_2 then
-      SHX8_2 = TaskPlayAnimAdvanced
-      SHX9_2 = SHX2_2
-      SHX10_2 = SHX0_2
-      SHX11_2 = SHX1_2
-      SHX12_2 = SHX6_2.x
-      SHX13_2 = SHX6_2.y
-      SHX14_2 = SHX6_2.z
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = SHX7_2
-      SHX18_2 = 8.0
-      SHX19_2 = 1.0
-      SHX20_2 = 4000
-      SHX21_2 = 49
-      SHX22_2 = 0.25
-      SHX23_2 = 0
-      SHX24_2 = 0
-      SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX8_2 = Wait
-      SHX9_2 = 100
-      SHX8_2(SHX9_2)
-      SHX8_2 = tCMG
-      SHX8_2 = SHX8_2.notify
-      SHX9_2 = "You take a huge rip!"
-      SHX8_2(SHX9_2)
-      SHX8_2 = Wait
-      SHX9_2 = 7250
-      SHX8_2(SHX9_2)
+    arg7 = Wait
+    arg8 = 0
+    arg7(arg8)
+    arg7 = GetEntityCoords
+    arg8 = arg3
+    arg9 = true
+    -- Beginner: result below is entityCoords.
+    arg7 = arg7(arg8, arg9)
+    arg8 = GetEntityHeading
+    arg9 = arg3
+    -- Beginner: result below is heading.
+    arg8 = arg8(arg9)
+    arg9 = IsControlJustPressed
+    arg10 = 0
+    arg11 = 38
+    arg9 = arg9(arg10, arg11)
+    if arg9 then
+      arg9 = TaskPlayAnimAdvanced
+      arg10 = arg3
+      arg11 = arg1
+      arg12 = arg2
+      flag2 = arg7.x
+      numberValue = arg7.y
+      flag5 = arg7.z
+      flag6 = 0.0
+      flag7 = 0.0
+      numberValue2 = arg8
+      flag8 = 8.0
+      flag10 = 1.0
+      flag11 = 4000
+      flag12 = 49
+      flag13 = 0.25
+      numberValue3 = 0
+      flag14 = 0
+      arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14)
+      arg9 = Wait
+      arg10 = 100
+      arg9(arg10)
+      arg9 = tCMG
+      arg9 = arg9.notify
+      arg10 = "You take a huge rip!"
+      -- Beginner: Show a notification to the player.
+      arg9(arg10)
+      arg9 = Wait
+      arg10 = 7250
+      arg9(arg10)
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "ma"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX0_2 = "amb@world_human_car_park_attendant@male@base"
-  SHX1_2 = "base"
-  SHX2_2 = "amb@world_human_drinking@beer@male@exit"
-  SHX3_2 = GetHashKey
-  SHX4_2 = SHX11_1
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = RequestModel
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerPed
-  SHX4_2 = SHX4_2()
-  SHX5_2 = GetOffsetFromEntityInWorldCoords
-  SHX6_2 = GetPlayerPed
-  SHX7_2 = PlayerId
-  SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX7_2()
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = -5.0
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.requestEntitySpawn
-  SHX7_2 = "ma_wand_object"
-  SHX6_2(SHX7_2)
-  SHX6_2 = CreateObject
-  SHX7_2 = SHX3_2
-  SHX8_2 = SHX5_2.x
-  SHX9_2 = SHX5_2.y
-  SHX10_2 = SHX5_2.z
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX7_2 = DoesEntityExist
-  SHX8_2 = SHX4_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  if SHX7_2 then
-    SHX7_2 = IsEntityDead
-    SHX8_2 = SHX4_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if not SHX7_2 then
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.loadAnimDict
-      SHX8_2 = SHX0_2
-      SHX7_2(SHX8_2)
-      SHX7_2 = CMG
-      SHX7_2 = SHX7_2.loadAnimDict
-      SHX8_2 = SHX2_2
-      SHX7_2(SHX8_2)
-      SHX7_2 = SHX10_1
-      if SHX7_2 then
-        SHX7_2 = Wait
-        SHX8_2 = 100
-        SHX7_2(SHX8_2)
-        SHX7_2 = ClearPedSecondaryTask
-        SHX8_2 = CMG
-        SHX8_2 = SHX8_2.getPlayerPed
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX8_2()
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX7_2 = DetachEntity
-        SHX8_2 = SHX6_2
-        SHX9_2 = false
-        SHX10_2 = false
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-        SHX7_2 = DeleteEntity
-        SHX8_2 = SHX6_2
-        SHX7_2(SHX8_2)
-        SHX7_2 = false
-        SHX10_1 = SHX7_2
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "bong".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "ma"
+-- Beginner: this function is the command handler for "ma".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13
+  arg1 = "amb@world_human_car_park_attendant@male@base"
+  arg2 = "base"
+  arg3 = "amb@world_human_drinking@beer@male@exit"
+  arg4 = GetHashKey
+  arg5 = textValue
+  -- Beginner: result below is hash.
+  arg4 = arg4(arg5)
+  arg5 = RequestModel
+  arg6 = arg4
+  arg5(arg6)
+  arg5 = CMG
+  arg5 = arg5.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = GetOffsetFromEntityInWorldCoords
+  arg7 = GetPlayerPed
+  arg8 = PlayerId
+  arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = arg8()
+  -- Beginner: result below is playerPed.
+  arg7 = arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+  arg8 = 0.0
+  arg9 = 0.0
+  arg10 = -5.0
+  arg6 = arg6(arg7, arg8, arg9, arg10)
+  arg7 = CMG
+  arg7 = arg7.requestEntitySpawn
+  arg8 = "ma_wand_object"
+  arg7(arg8)
+  arg7 = CreateObject
+  arg8 = arg4
+  arg9 = arg6.x
+  arg10 = arg6.y
+  arg11 = arg6.z
+  arg12 = true
+  flag2 = true
+  numberValue = true
+  -- Beginner: result below is objectEntity.
+  arg7 = arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue)
+  arg8 = DoesEntityExist
+  arg9 = arg5
+  arg8 = arg8(arg9)
+  if arg8 then
+    arg8 = IsEntityDead
+    arg9 = arg5
+    arg8 = arg8(arg9)
+    if not arg8 then
+      arg8 = CMG
+      arg8 = arg8.loadAnimDict
+      arg9 = arg1
+      -- Beginner: Load a GTA animation dictionary before using it.
+      arg8(arg9)
+      arg8 = CMG
+      arg8 = arg8.loadAnimDict
+      arg9 = arg3
+      arg8(arg9)
+      arg8 = cmgCall
+      if arg8 then
+        arg8 = Wait
+        arg9 = 100
+        arg8(arg9)
+        arg8 = ClearPedSecondaryTask
+        arg9 = CMG
+        arg9 = arg9.getPlayerPed
+        arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = arg9()
+        arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+        arg8 = DetachEntity
+        arg9 = arg7
+        arg10 = false
+        arg11 = false
+        arg8(arg9, arg10, arg11)
+        arg8 = DeleteEntity
+        arg9 = arg7
+        -- Beginner: Delete a GTA entity.
+        arg8(arg9)
+        arg8 = false
+        cmgCall = arg8
       else
-        SHX7_2 = Wait
-        SHX8_2 = 500
-        SHX7_2(SHX8_2)
-        SHX7_2 = AttachEntityToEntity
-        SHX8_2 = SHX6_2
-        SHX9_2 = GetPlayerPed
-        SHX10_2 = PlayerId
-        SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX10_2()
-        SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = GetPedBoneIndex
-        SHX11_2 = GetPlayerPed
-        SHX12_2 = PlayerId
-        SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX12_2()
-        SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX12_2 = 28422
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-        SHX11_2 = -0.005
-        SHX12_2 = 0.0
-        SHX13_2 = 0.0
-        SHX14_2 = 360.0
-        SHX15_2 = 360.0
-        SHX16_2 = 0.0
-        SHX17_2 = true
-        SHX18_2 = true
-        SHX19_2 = false
-        SHX20_2 = true
-        SHX21_2 = 0
-        SHX22_2 = true
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX7_2 = Wait
-        SHX8_2 = 120
-        SHX7_2(SHX8_2)
-        SHX7_2 = tCMG
-        SHX7_2 = SHX7_2.notify
-        SHX8_2 = "Press ~r~[E]~w~ to wave the wand."
-        SHX7_2(SHX8_2)
-        SHX7_2 = true
-        SHX10_1 = SHX7_2
+        arg8 = Wait
+        arg9 = 500
+        arg8(arg9)
+        arg8 = AttachEntityToEntity
+        arg9 = arg7
+        arg10 = GetPlayerPed
+        arg11 = PlayerId
+        arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = arg11()
+        -- Beginner: result below is playerPed.
+        arg10 = arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+        arg11 = GetPedBoneIndex
+        arg12 = GetPlayerPed
+        flag2 = PlayerId
+        flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = flag2()
+        -- Beginner: result below is playerPed.
+        arg12 = arg12(flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+        flag2 = 28422
+        arg11 = arg11(arg12, flag2)
+        arg12 = -0.005
+        flag2 = 0.0
+        numberValue = 0.0
+        flag5 = 360.0
+        flag6 = 360.0
+        flag7 = 0.0
+        numberValue2 = true
+        flag8 = true
+        flag10 = false
+        flag11 = true
+        flag12 = 0
+        flag13 = true
+        -- Beginner: Attach one entity to another entity.
+        arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+        arg8 = Wait
+        arg9 = 120
+        arg8(arg9)
+        arg8 = tCMG
+        arg8 = arg8.notify
+        arg9 = "Press ~r~[E]~w~ to wave the wand."
+        -- Beginner: Show a notification to the player.
+        arg8(arg9)
+        arg8 = true
+        cmgCall = arg8
       end
     end
   end
-  SHX7_2 = SetModelAsNoLongerNeeded
-  SHX8_2 = SHX3_2
-  SHX7_2(SHX8_2)
+  arg8 = SetModelAsNoLongerNeeded
+  arg9 = arg4
+  arg8(arg9)
   while true do
-    SHX7_2 = SHX10_1
-    if not SHX7_2 then
+    arg8 = cmgCall
+    if not arg8 then
       break
     end
-    SHX7_2 = Wait
-    SHX8_2 = 0
-    SHX7_2(SHX8_2)
-    SHX7_2 = {}
-    SHX8_2 = "Nothing to see here, lets move along."
-    SHX9_2 = "Keep it moving!"
-    SHX10_2 = "Ugh, why did I pick traffic control.."
-    SHX11_2 = "Lets go already!"
-    SHX12_2 = "Will yinz hurry up!!"
-    SHX7_2[1] = SHX8_2
-    SHX7_2[2] = SHX9_2
-    SHX7_2[3] = SHX10_2
-    SHX7_2[4] = SHX11_2
-    SHX7_2[5] = SHX12_2
-    SHX8_2 = math
-    SHX8_2 = SHX8_2.random
-    SHX9_2 = 1
-    SHX10_2 = 5
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-    SHX9_2 = IsControlJustPressed
-    SHX10_2 = 0
-    SHX11_2 = 38
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-    if SHX9_2 then
-      SHX9_2 = TaskPlayAnim
-      SHX10_2 = SHX4_2
-      SHX11_2 = SHX0_2
-      SHX12_2 = SHX1_2
-      SHX13_2 = 8.0
-      SHX14_2 = 1.0
-      SHX15_2 = 5000
-      SHX16_2 = 49
-      SHX17_2 = 0
-      SHX18_2 = false
-      SHX19_2 = false
-      SHX20_2 = false
-      SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-      SHX9_2 = Wait
-      SHX10_2 = 100
-      SHX9_2(SHX10_2)
-      SHX9_2 = tCMG
-      SHX9_2 = SHX9_2.notify
-      SHX10_2 = SHX7_2[SHX8_2]
-      SHX9_2(SHX10_2)
+    arg8 = Wait
+    arg9 = 0
+    arg8(arg9)
+    arg8 = {}
+    arg9 = "Nothing to see here, lets move along."
+    arg10 = "Keep it moving!"
+    arg11 = "Ugh, why did I pick traffic control.."
+    arg12 = "Lets go already!"
+    flag2 = "Will yinz hurry up!!"
+    arg8[1] = arg9
+    arg8[2] = arg10
+    arg8[3] = arg11
+    arg8[4] = arg12
+    arg8[5] = flag2
+    arg9 = math
+    arg9 = arg9.random
+    arg10 = 1
+    arg11 = 5
+    arg9 = arg9(arg10, arg11)
+    arg10 = IsControlJustPressed
+    arg11 = 0
+    arg12 = 38
+    arg10 = arg10(arg11, arg12)
+    if arg10 then
+      arg10 = TaskPlayAnim
+      arg11 = arg5
+      arg12 = arg1
+      flag2 = arg2
+      numberValue = 8.0
+      flag5 = 1.0
+      flag6 = 5000
+      flag7 = 49
+      numberValue2 = 0
+      flag8 = false
+      flag10 = false
+      flag11 = false
+      -- Beginner: Play an animation on a ped.
+      arg10(arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11)
+      arg10 = Wait
+      arg11 = 100
+      arg10(arg11)
+      arg10 = tCMG
+      arg10 = arg10.notify
+      arg11 = arg8[arg9]
+      -- Beginner: Show a notification to the player.
+      arg10(arg11)
     end
-    SHX9_2 = IsEntityPlayingAnim
-    SHX10_2 = PlayerPedId
-    SHX10_2 = SHX10_2()
-    SHX11_2 = "missminuteman_1ig_2"
-    SHX12_2 = "handsup_enter"
-    SHX13_2 = 3
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    if SHX9_2 then
-      SHX9_2 = DeleteEntity
-      SHX10_2 = SHX6_2
-      SHX9_2(SHX10_2)
+    arg10 = IsEntityPlayingAnim
+    arg11 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg11 = arg11()
+    arg12 = "missminuteman_1ig_2"
+    flag2 = "handsup_enter"
+    numberValue = 3
+    arg10 = arg10(arg11, arg12, flag2, numberValue)
+    if arg10 then
+      arg10 = DeleteEntity
+      arg11 = arg7
+      -- Beginner: Delete a GTA entity.
+      arg10(arg11)
       break
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance1"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
-  SHX1_2 = "li_dance_facedj_11_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "ma".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance1"
+-- Beginner: this function is the command handler for "dance1".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
+  arg2 = "li_dance_facedj_11_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance2"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance1".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance2"
+-- Beginner: this function is the command handler for "dance2".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
+  arg2 = "hi_dance_facedj_09_v2_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance3"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
-  SHX1_2 = "li_dance_facedj_15_v2_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance2".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance3"
+-- Beginner: this function is the command handler for "dance3".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
+  arg2 = "li_dance_facedj_15_v2_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance4"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "mi_dance_prop_15_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance3".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance4"
+-- Beginner: this function is the command handler for "dance4".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "mi_dance_prop_15_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance5"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@djs@dixon@"
-  SHX1_2 = "dixn_dance_a_dixon"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance4".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance5"
+-- Beginner: this function is the command handler for "dance5".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@djs@dixon@"
+  arg2 = "dixn_dance_a_dixon"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance6"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@djs@solomun@"
-  SHX1_2 = "sol_trans_out_to_rt_a_sol"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance5".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance6"
+-- Beginner: this function is the command handler for "dance6".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@djs@solomun@"
+  arg2 = "sol_trans_out_to_rt_a_sol"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance7"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance6".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance7"
+-- Beginner: this function is the command handler for "dance7".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance8"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance7".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance8"
+-- Beginner: this function is the command handler for "dance8".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance9"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance8".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance9"
+-- Beginner: this function is the command handler for "dance9".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance10"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance9".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance10"
+-- Beginner: this function is the command handler for "dance10".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance11"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance10".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance11"
+-- Beginner: this function is the command handler for "dance11".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance12"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance11".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance12"
+-- Beginner: this function is the command handler for "dance12".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance13"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance12".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance13"
+-- Beginner: this function is the command handler for "dance13".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance14"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance13".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance14"
+-- Beginner: this function is the command handler for "dance14".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance15"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance14".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance15"
+-- Beginner: this function is the command handler for "dance15".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance16"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance15".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance16"
+-- Beginner: this function is the command handler for "dance16".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance17"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance16".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance17"
+-- Beginner: this function is the command handler for "dance17".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance18"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v1_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance17".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance18"
+-- Beginner: this function is the command handler for "dance18".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v1_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance19"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance18".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance19"
+-- Beginner: this function is the command handler for "dance19".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance20"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance19".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance20"
+-- Beginner: this function is the command handler for "dance20".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance21"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance20".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance21"
+-- Beginner: this function is the command handler for "dance21".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance22"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance21".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance22"
+-- Beginner: this function is the command handler for "dance22".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance23"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance22".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance23"
+-- Beginner: this function is the command handler for "dance23".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance24"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance23".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance24"
+-- Beginner: this function is the command handler for "dance24".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance25"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance24".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance25"
+-- Beginner: this function is the command handler for "dance25".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance26"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance25".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance26"
+-- Beginner: this function is the command handler for "dance26".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance27"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance26".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance27"
+-- Beginner: this function is the command handler for "dance27".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance28"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance27".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance28"
+-- Beginner: this function is the command handler for "dance28".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance29"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance28".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance29"
+-- Beginner: this function is the command handler for "dance29".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance30"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_09_v2_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance29".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance30"
+-- Beginner: this function is the command handler for "dance30".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_09_v2_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance31"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance30".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance31"
+-- Beginner: this function is the command handler for "dance31".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance32"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance31".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance32"
+-- Beginner: this function is the command handler for "dance32".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance33"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance32".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance33"
+-- Beginner: this function is the command handler for "dance33".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance34"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance33".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance34"
+-- Beginner: this function is the command handler for "dance34".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance35"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance34".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance35"
+-- Beginner: this function is the command handler for "dance35".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance36"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance35".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance36"
+-- Beginner: this function is the command handler for "dance36".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance37"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance36".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance37"
+-- Beginner: this function is the command handler for "dance37".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance38"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance37".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance38"
+-- Beginner: this function is the command handler for "dance38".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance39"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance38".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance39"
+-- Beginner: this function is the command handler for "dance39".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance40"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance39".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance40"
+-- Beginner: this function is the command handler for "dance40".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance41"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance40".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance41"
+-- Beginner: this function is the command handler for "dance41".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance42"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v1_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance41".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance42"
+-- Beginner: this function is the command handler for "dance42".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v1_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance43"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance42".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance43"
+-- Beginner: this function is the command handler for "dance43".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance44"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance43".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance44"
+-- Beginner: this function is the command handler for "dance44".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance45"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance44".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance45"
+-- Beginner: this function is the command handler for "dance45".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance46"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance45".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance46"
+-- Beginner: this function is the command handler for "dance46".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance47"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance46".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance47"
+-- Beginner: this function is the command handler for "dance47".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance48"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance47".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance48"
+-- Beginner: this function is the command handler for "dance48".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance49"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance48".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance49"
+-- Beginner: this function is the command handler for "dance49".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance50"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance49".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance50"
+-- Beginner: this function is the command handler for "dance50".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance51"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance50".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance51"
+-- Beginner: this function is the command handler for "dance51".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance52"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance51".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance52"
+-- Beginner: this function is the command handler for "dance52".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance53"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance52".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance53"
+-- Beginner: this function is the command handler for "dance53".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance54"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "hi_dance_facedj_11_v2_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance53".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance54"
+-- Beginner: this function is the command handler for "dance54".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "hi_dance_facedj_11_v2_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance55"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance54".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance55"
+-- Beginner: this function is the command handler for "dance55".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance56"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance55".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance56"
+-- Beginner: this function is the command handler for "dance56".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance57"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance56".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance57"
+-- Beginner: this function is the command handler for "dance57".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance58"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance57".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance58"
+-- Beginner: this function is the command handler for "dance58".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance59"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance58".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance59"
+-- Beginner: this function is the command handler for "dance59".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance60"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance59".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance60"
+-- Beginner: this function is the command handler for "dance60".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance61"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance60".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance61"
+-- Beginner: this function is the command handler for "dance61".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance62"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance61".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance62"
+-- Beginner: this function is the command handler for "dance62".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance63"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance62".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance63"
+-- Beginner: this function is the command handler for "dance63".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance64"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance63".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance64"
+-- Beginner: this function is the command handler for "dance64".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance65"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance64".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance65"
+-- Beginner: this function is the command handler for "dance65".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance66"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v1_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance65".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance66"
+-- Beginner: this function is the command handler for "dance66".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v1_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance67"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v2_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance66".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance67"
+-- Beginner: this function is the command handler for "dance67".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v2_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance68"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v2_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance67".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance68"
+-- Beginner: this function is the command handler for "dance68".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v2_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance69"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v2_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance68".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance69"
+-- Beginner: this function is the command handler for "dance69".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v2_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance70"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v2_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance69".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance70"
+-- Beginner: this function is the command handler for "dance70".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v2_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance71"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v2_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance70".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance71"
+-- Beginner: this function is the command handler for "dance71".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v2_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance72"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@"
-  SHX1_2 = "mi_dance_facedj_09_v2_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance71".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance72"
+-- Beginner: this function is the command handler for "dance72".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
+  arg2 = "mi_dance_facedj_09_v2_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance73"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance72".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance73"
+-- Beginner: this function is the command handler for "dance73".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
+  arg2 = "hi_dance_facedj_09_v1_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance74"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance73".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance74"
+-- Beginner: this function is the command handler for "dance74".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
+  arg2 = "hi_dance_facedj_09_v1_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance75"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance74".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance75"
+-- Beginner: this function is the command handler for "dance75".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
+  arg2 = "hi_dance_facedj_09_v1_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance74"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance75".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance74"
+-- Beginner: this function is the command handler for "dance74".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
+  arg2 = "hi_dance_facedj_09_v1_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance75"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance74".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance75"
+-- Beginner: this function is the command handler for "dance75".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
+  arg2 = "hi_dance_facedj_09_v1_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance76"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
-  SHX1_2 = "hi_dance_facedj_09_v1_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance75".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance76"
+-- Beginner: this function is the command handler for "dance76".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
+  arg2 = "hi_dance_facedj_09_v1_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance77"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
-  SHX1_2 = "trans_dance_crowd_li_to_hi_09_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance76".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance77"
+-- Beginner: this function is the command handler for "dance77".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
+  arg2 = "trans_dance_crowd_li_to_hi_09_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance78"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
-  SHX1_2 = "trans_dance_crowd_li_to_hi_09_v1_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance77".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance78"
+-- Beginner: this function is the command handler for "dance78".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
+  arg2 = "trans_dance_crowd_li_to_hi_09_v1_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance79"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
-  SHX1_2 = "trans_dance_crowd_li_to_hi_09_v1_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance78".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance79"
+-- Beginner: this function is the command handler for "dance79".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
+  arg2 = "trans_dance_crowd_li_to_hi_09_v1_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance80"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
-  SHX1_2 = "trans_dance_crowd_li_to_hi_09_v1_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance79".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance80"
+-- Beginner: this function is the command handler for "dance80".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
+  arg2 = "trans_dance_crowd_li_to_hi_09_v1_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance81"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
-  SHX1_2 = "trans_dance_crowd_li_to_hi_09_v1_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance80".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance81"
+-- Beginner: this function is the command handler for "dance81".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
+  arg2 = "trans_dance_crowd_li_to_hi_09_v1_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance82"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
-  SHX1_2 = "trans_dance_crowd_li_to_hi_09_v1_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance81".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance82"
+-- Beginner: this function is the command handler for "dance82".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
+  arg2 = "trans_dance_crowd_li_to_hi_09_v1_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance83"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
-  SHX1_2 = "trans_dance_crowd_mi_to_hi_09_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance82".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance83"
+-- Beginner: this function is the command handler for "dance83".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
+  arg2 = "trans_dance_crowd_mi_to_hi_09_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance84"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
-  SHX1_2 = "trans_dance_crowd_mi_to_hi_09_v1_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance83".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance84"
+-- Beginner: this function is the command handler for "dance84".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
+  arg2 = "trans_dance_crowd_mi_to_hi_09_v1_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance85"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
-  SHX1_2 = "trans_dance_crowd_mi_to_hi_09_v1_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance84".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance85"
+-- Beginner: this function is the command handler for "dance85".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
+  arg2 = "trans_dance_crowd_mi_to_hi_09_v1_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance86"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
-  SHX1_2 = "trans_dance_crowd_mi_to_hi_09_v1_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance85".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance86"
+-- Beginner: this function is the command handler for "dance86".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
+  arg2 = "trans_dance_crowd_mi_to_hi_09_v1_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance87"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
-  SHX1_2 = "trans_dance_crowd_mi_to_hi_09_v1_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance86".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance87"
+-- Beginner: this function is the command handler for "dance87".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
+  arg2 = "trans_dance_crowd_mi_to_hi_09_v1_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance88"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
-  SHX1_2 = "trans_dance_crowd_mi_to_hi_09_v1_male^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance87".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance88"
+-- Beginner: this function is the command handler for "dance88".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
+  arg2 = "trans_dance_crowd_mi_to_hi_09_v1_male^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance89"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_female^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance88".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance89"
+-- Beginner: this function is the command handler for "dance89".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_female^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance90"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_female^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance89".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance90"
+-- Beginner: this function is the command handler for "dance90".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_female^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance91"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_female^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance90".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance91"
+-- Beginner: this function is the command handler for "dance91".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_female^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance92"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_female^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance91".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance92"
+-- Beginner: this function is the command handler for "dance92".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_female^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance93"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_female^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance92".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance93"
+-- Beginner: this function is the command handler for "dance93".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_female^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance94"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_female^6"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance93".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance94"
+-- Beginner: this function is the command handler for "dance94".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_female^6"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance95"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_male^1"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance94".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance95"
+-- Beginner: this function is the command handler for "dance95".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_male^1"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance96"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_male^2"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance95".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance96"
+-- Beginner: this function is the command handler for "dance96".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_male^2"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance97"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_male^3"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance96".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance97"
+-- Beginner: this function is the command handler for "dance97".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_male^3"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance98"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_male^4"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance97".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance98"
+-- Beginner: this function is the command handler for "dance98".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_male^4"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance99"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "anim@amb@nightclub@dancers@crowddance_single_props@"
-  SHX1_2 = "hi_dance_prop_09_v1_male^5"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance98".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance99"
+-- Beginner: this function is the command handler for "dance99".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
+  arg2 = "hi_dance_prop_09_v1_male^5"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = RegisterCommand
-SHX17_1 = "dance100"
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = ""
-  SHX1_2 = ""
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance99".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = RegisterCommand
+textValue3 = "dance100"
+-- Beginner: this function is the command handler for "dance100".
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = ""
+  arg2 = ""
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
 end
-SHX19_1 = false
-SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX16_1 = false
-SHX17_1 = CMG
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX16_1
-  return SHX0_2
+flag9 = false
+-- Beginner: Register a chat/console command. Event/command: "dance100".
+workValue3(textValue3, textValue4, flag9)
+workValue3 = false
+textValue3 = CMG
+function textValue4()
+  local arg1, arg2
+  arg1 = workValue3
+  return arg1
 end
-SHX17_1.isBeingNhsDragged = SHX18_1
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "d8597e7d17"
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = false
-  SHX16_1 = SHX0_2
-  SHX0_2 = ClearPedSecondaryTask
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2, SHX2_2, SHX3_2 = SHX1_2()
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX0_2 = DetachEntity
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+textValue3.isBeingNhsDragged = textValue4
+textValue3 = RegisterNetEvent
+textValue4 = "d8597e7d17"
+-- Beginner: this function handles network event "d8597e7d17".
+function flag9()
+  local arg1, arg2, arg3, arg4
+  arg1 = false
+  workValue3 = arg1
+  arg1 = ClearPedSecondaryTask
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  arg2, arg3, arg4 = arg2()
+  arg1(arg2, arg3, arg4)
+  arg1 = DetachEntity
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = false
+  arg4 = false
+  arg1(arg2, arg3, arg4)
 end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "bad02f5164"
-function SHX19_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2
-  SHX12_2 = "combat@drag_ped@" == SHX1_2
-  SHX16_1 = SHX12_2
-  SHX12_2 = CMG
-  SHX12_2 = SHX12_2.getPlayerPed
-  SHX12_2 = SHX12_2()
-  SHX13_2 = GetPlayerPed
-  SHX14_2 = GetPlayerFromServerId
-  SHX15_2 = SHX0_2
-  SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2 = SHX14_2(SHX15_2)
-  SHX13_2 = SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2)
-  SHX14_2 = RequestAnimDict
-  SHX15_2 = SHX1_2
-  SHX14_2(SHX15_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d8597e7d17".
+textValue3(textValue4, flag9)
+textValue3 = RegisterNetEvent
+textValue4 = "bad02f5164"
+-- Beginner: this function handles network event "bad02f5164".
+function flag9(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+  local flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14, flag15, flag16, flag17, numberValue4, flag18
+  flag2 = "combat@drag_ped@" == arg2
+  workValue3 = flag2
+  flag2 = CMG
+  flag2 = flag2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  flag2 = flag2()
+  numberValue = GetPlayerPed
+  flag5 = GetPlayerFromServerId
+  flag6 = arg1
+  flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14, flag15, flag16, flag17, numberValue4, flag18 = flag5(flag6)
+  -- Beginner: result below is playerPed.
+  numberValue = numberValue(flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14, flag15, flag16, flag17, numberValue4, flag18)
+  flag5 = RequestAnimDict
+  flag6 = arg2
+  flag5(flag6)
   while true do
-    SHX14_2 = HasAnimDictLoaded
-    SHX15_2 = SHX1_2
-    SHX14_2 = SHX14_2(SHX15_2)
-    if SHX14_2 then
+    flag5 = HasAnimDictLoaded
+    flag6 = arg2
+    flag5 = flag5(flag6)
+    if flag5 then
       break
     end
-    SHX14_2 = Citizen
-    SHX14_2 = SHX14_2.Wait
-    SHX15_2 = 10
-    SHX14_2(SHX15_2)
+    flag5 = Citizen
+    flag5 = flag5.Wait
+    flag6 = 10
+    flag5(flag6)
   end
-  if nil == SHX7_2 then
-    SHX7_2 = 180.0
+  if nil == arg8 then
+    arg8 = 180.0
   end
-  SHX14_2 = AttachEntityToEntity
-  SHX15_2 = CMG
-  SHX15_2 = SHX15_2.getPlayerPed
-  SHX15_2 = SHX15_2()
-  SHX16_2 = SHX13_2
-  SHX17_2 = SHX11_2 or SHX17_2
-  if not SHX11_2 then
-    SHX17_2 = 0
+  flag5 = AttachEntityToEntity
+  flag6 = CMG
+  flag6 = flag6.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  flag6 = flag6()
+  flag7 = numberValue
+  numberValue2 = arg12 or numberValue2
+  if not arg12 then
+    numberValue2 = 0
   end
-  SHX18_2 = SHX4_2
-  SHX19_2 = SHX3_2
-  SHX20_2 = SHX5_2
-  SHX21_2 = 0.5
-  SHX22_2 = 0.5
-  SHX23_2 = SHX7_2
-  SHX24_2 = false
-  SHX25_2 = false
-  SHX26_2 = false
-  SHX27_2 = false
-  SHX28_2 = 2
-  SHX29_2 = false
-  SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2)
-  SHX14_2 = Wait
-  SHX15_2 = 500
-  SHX14_2(SHX15_2)
-  if nil == SHX10_2 then
-    SHX10_2 = 0
+  flag8 = arg5
+  flag10 = arg4
+  flag11 = arg6
+  flag12 = 0.5
+  flag13 = 0.5
+  numberValue3 = arg8
+  flag14 = false
+  flag15 = false
+  flag16 = false
+  flag17 = false
+  numberValue4 = 2
+  flag18 = false
+  -- Beginner: Attach one entity to another entity.
+  flag5(flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14, flag15, flag16, flag17, numberValue4, flag18)
+  flag5 = Wait
+  flag6 = 500
+  flag5(flag6)
+  if nil == arg11 then
+    arg11 = 0
   end
-  if 0 == SHX10_2 then
-    SHX14_2 = DetachEntity
-    SHX15_2 = CMG
-    SHX15_2 = SHX15_2.getPlayerPed
-    SHX15_2 = SHX15_2()
-    SHX16_2 = true
-    SHX17_2 = false
-    SHX14_2(SHX15_2, SHX16_2, SHX17_2)
+  if 0 == arg11 then
+    flag5 = DetachEntity
+    flag6 = CMG
+    flag6 = flag6.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    flag6 = flag6()
+    flag7 = true
+    numberValue2 = false
+    flag5(flag6, flag7, numberValue2)
   end
-  if nil == SHX8_2 then
-    SHX8_2 = 0
+  if nil == arg9 then
+    arg9 = 0
   end
-  SHX14_2 = TaskPlayAnim
-  SHX15_2 = SHX12_2
-  SHX16_2 = SHX1_2
-  SHX17_2 = SHX2_2
-  SHX18_2 = 8.0
-  SHX19_2 = -8.0
-  SHX20_2 = SHX6_2
-  SHX21_2 = SHX8_2
-  SHX22_2 = 0
-  SHX23_2 = false
-  SHX24_2 = false
-  SHX25_2 = false
-  SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-  SHX14_2 = RemoveAnimDict
-  SHX15_2 = SHX1_2
-  SHX14_2(SHX15_2)
-  SHX14_2 = Citizen
-  SHX14_2 = SHX14_2.Wait
-  SHX15_2 = SHX6_2
-  SHX14_2(SHX15_2)
-  if "combat@drag_ped@" == SHX1_2 then
-    SHX14_2 = false
-    SHX16_1 = SHX14_2
+  flag5 = TaskPlayAnim
+  flag6 = flag2
+  flag7 = arg2
+  numberValue2 = arg3
+  flag8 = 8.0
+  flag10 = -8.0
+  flag11 = arg7
+  flag12 = arg9
+  flag13 = 0
+  numberValue3 = false
+  flag14 = false
+  flag15 = false
+  -- Beginner: Play an animation on a ped.
+  flag5(flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14, flag15)
+  flag5 = RemoveAnimDict
+  flag6 = arg2
+  flag5(flag6)
+  flag5 = Citizen
+  flag5 = flag5.Wait
+  flag6 = arg7
+  flag5(flag6)
+  if "combat@drag_ped@" == arg2 then
+    flag5 = false
+    workValue3 = flag5
   end
-  SHX14_2 = DetachEntity
-  SHX15_2 = CMG
-  SHX15_2 = SHX15_2.getPlayerPed
-  SHX15_2 = SHX15_2()
-  SHX16_2 = true
-  SHX17_2 = false
-  SHX14_2(SHX15_2, SHX16_2, SHX17_2)
+  flag5 = DetachEntity
+  flag6 = CMG
+  flag6 = flag6.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  flag6 = flag6()
+  flag7 = true
+  numberValue2 = false
+  flag5(flag6, flag7, numberValue2)
 end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "72c704cb58"
-function SHX19_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerPed
-  SHX4_2 = SHX4_2()
-  SHX5_2 = RequestAnimDict
-  SHX6_2 = SHX0_2
-  SHX5_2(SHX6_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "bad02f5164".
+textValue3(textValue4, flag9)
+textValue3 = RegisterNetEvent
+textValue4 = "72c704cb58"
+-- Beginner: this function handles network event "72c704cb58".
+function flag9(arg1, arg2, arg3, arg4)
+  local arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
+  arg5 = CMG
+  arg5 = arg5.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = RequestAnimDict
+  arg7 = arg1
+  arg6(arg7)
   while true do
-    SHX5_2 = HasAnimDictLoaded
-    SHX6_2 = SHX0_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if SHX5_2 then
+    arg6 = HasAnimDictLoaded
+    arg7 = arg1
+    arg6 = arg6(arg7)
+    if arg6 then
       break
     end
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 10
-    SHX5_2(SHX6_2)
+    arg6 = Citizen
+    arg6 = arg6.Wait
+    arg7 = 10
+    arg6(arg7)
   end
-  SHX5_2 = Wait
-  SHX6_2 = 500
-  SHX5_2(SHX6_2)
-  if nil == SHX3_2 then
-    SHX3_2 = 0
+  arg6 = Wait
+  arg7 = 500
+  arg6(arg7)
+  if nil == arg4 then
+    arg4 = 0
   end
-  SHX5_2 = TaskPlayAnim
-  SHX6_2 = SHX4_2
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX1_2
-  SHX9_2 = 8.0
-  SHX10_2 = -8.0
-  SHX11_2 = SHX2_2
-  SHX12_2 = SHX3_2
-  SHX13_2 = 0
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX5_2 = RemoveAnimDict
-  SHX6_2 = SHX0_2
-  SHX5_2(SHX6_2)
+  arg6 = TaskPlayAnim
+  arg7 = arg5
+  arg8 = arg1
+  arg9 = arg2
+  arg10 = 8.0
+  arg11 = -8.0
+  arg12 = arg3
+  flag2 = arg4
+  numberValue = 0
+  flag5 = false
+  flag6 = false
+  flag7 = false
+  -- Beginner: Play an animation on a ped.
+  arg6(arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7)
+  arg6 = RemoveAnimDict
+  arg7 = arg1
+  arg6(arg7)
 end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = RegisterCommand
-SHX18_1 = "rope"
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = "random@burial"
-  SHX1_2 = "untie_ped"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = DoesEntityExist
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if SHX3_2 then
-    SHX3_2 = tCMG
-    SHX3_2 = SHX3_2.canAnim
-    SHX3_2 = SHX3_2()
-    if SHX3_2 then
-      SHX3_2 = IsEntityDead
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if not SHX3_2 then
-        SHX3_2 = SHX0_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.loadAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
-          SHX3_2 = IsEntityPlayingAnim
-          SHX4_2 = SHX2_2
-          SHX5_2 = SHX0_2
-          SHX6_2 = SHX1_2
-          SHX7_2 = 3
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          if SHX3_2 then
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = "exit"
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = -1
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = ClearPedSecondaryTask
-            SHX4_2 = SHX2_2
-            SHX3_2(SHX4_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "72c704cb58".
+textValue3(textValue4, flag9)
+textValue3 = RegisterCommand
+textValue4 = "rope"
+-- Beginner: this function is the command handler for "rope".
+function flag9()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
+  arg1 = "random@burial"
+  arg2 = "untie_ped"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = DoesEntityExist
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if arg4 then
+    arg4 = tCMG
+    arg4 = arg4.canAnim
+    arg4 = arg4()
+    if arg4 then
+      arg4 = IsEntityDead
+      arg5 = arg3
+      arg4 = arg4(arg5)
+      if not arg4 then
+        arg4 = workValue
+        arg4 = arg4()
+        if arg4 then
+          arg4 = CMG
+          arg4 = arg4.loadAnimDict
+          arg5 = arg1
+          -- Beginner: Load a GTA animation dictionary before using it.
+          arg4(arg5)
+          arg4 = IsEntityPlayingAnim
+          arg5 = arg3
+          arg6 = arg1
+          arg7 = arg2
+          arg8 = 3
+          arg4 = arg4(arg5, arg6, arg7, arg8)
+          if arg4 then
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = "exit"
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = -1
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = ClearPedSecondaryTask
+            arg5 = arg3
+            arg4(arg5)
           else
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX3_2 = Wait
-            SHX4_2 = 2000
-            SHX3_2(SHX4_2)
-            SHX3_2 = TaskPlayAnim
-            SHX4_2 = SHX2_2
-            SHX5_2 = SHX0_2
-            SHX6_2 = SHX1_2
-            SHX7_2 = 3.0
-            SHX8_2 = 1.0
-            SHX9_2 = 2000
-            SHX10_2 = 1
-            SHX11_2 = 0
-            SHX12_2 = false
-            SHX13_2 = false
-            SHX14_2 = false
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+            arg4 = Wait
+            arg5 = 2000
+            arg4(arg5)
+            arg4 = TaskPlayAnim
+            arg5 = arg3
+            arg6 = arg1
+            arg7 = arg2
+            arg8 = 3.0
+            arg9 = 1.0
+            arg10 = 2000
+            arg11 = 1
+            arg12 = 0
+            flag2 = false
+            numberValue = false
+            flag5 = false
+            -- Beginner: Play an animation on a ped.
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
           end
-          SHX3_2 = RemoveAnimDict
-          SHX4_2 = SHX0_2
-          SHX3_2(SHX4_2)
+          arg4 = RemoveAnimDict
+          arg5 = arg1
+          arg4(arg5)
         end
       end
     end
   end
-  SHX3_2 = Wait
-  SHX4_2 = 5000
-  SHX3_2(SHX4_2)
+  arg4 = Wait
+  arg5 = 5000
+  arg4(arg5)
 end
-SHX20_1 = false
-SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "a72f22e19a"
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX0_2 = "mp_safehousebeer@"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "p_whiskey_bottle_s"
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = SHX0_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = table
-  SHX3_2 = SHX3_2.unpack
-  SHX4_2 = GetEntityCoords
-  SHX5_2 = SHX1_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX4_2(SHX5_2)
-  SHX3_2, SHX4_2, SHX5_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX6_2 = TaskPlayAnim
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX0_2
-  SHX9_2 = "drink_2"
-  SHX10_2 = 800.0
-  SHX11_2 = 8.0
-  SHX12_2 = -1
-  SHX13_2 = 49
-  SHX14_2 = 0
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  SHX6_2 = Wait
-  SHX7_2 = 1000
-  SHX6_2(SHX7_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.requestEntitySpawn
-  SHX7_2 = "drink_gin_object"
-  SHX6_2(SHX7_2)
-  SHX6_2 = CreateObject
-  SHX7_2 = GetHashKey
-  SHX8_2 = SHX2_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = SHX3_2
-  SHX9_2 = SHX4_2
-  SHX10_2 = SHX5_2 + 0.2
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX7_2 = AttachEntityToEntity
-  SHX8_2 = SHX6_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = GetPedBoneIndex
-  SHX11_2 = SHX1_2
-  SHX12_2 = 28422
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 0.0
-  SHX16_2 = 180.0
-  SHX17_2 = true
-  SHX18_2 = true
-  SHX19_2 = false
-  SHX20_2 = true
-  SHX21_2 = 1
-  SHX22_2 = true
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX7_2 = Wait
-  SHX8_2 = 5000
-  SHX7_2(SHX8_2)
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = SHX1_2
-  SHX9_2 = SHX0_2
-  SHX10_2 = "exit"
-  SHX11_2 = 8.0
-  SHX12_2 = 1.0
-  SHX13_2 = -1
-  SHX14_2 = 49
-  SHX15_2 = 0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = Wait
-  SHX8_2 = 100
-  SHX7_2(SHX8_2)
-  SHX7_2 = RequestAnimSet
-  SHX8_2 = "move_m@drunk@verydrunk"
-  SHX7_2(SHX8_2)
+cmgCall2 = false
+-- Beginner: Register a chat/console command. Event/command: "rope".
+textValue3(textValue4, flag9, cmgCall2)
+textValue3 = RegisterNetEvent
+textValue4 = "a72f22e19a"
+-- Beginner: this function handles network event "a72f22e19a".
+function flag9()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13
+  arg1 = "mp_safehousebeer@"
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "p_whiskey_bottle_s"
+  arg4 = CMG
+  arg4 = arg4.loadAnimDict
+  arg5 = arg1
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg4(arg5)
+  arg4 = table
+  arg4 = arg4.unpack
+  arg5 = GetEntityCoords
+  arg6 = arg2
+  arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = arg5(arg6)
+  arg4, arg5, arg6 = arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+  arg7 = TaskPlayAnim
+  arg8 = arg2
+  arg9 = arg1
+  arg10 = "drink_2"
+  arg11 = 800.0
+  arg12 = 8.0
+  flag2 = -1
+  numberValue = 49
+  flag5 = 0
+  flag6 = false
+  flag7 = false
+  numberValue2 = false
+  -- Beginner: Play an animation on a ped.
+  arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2)
+  arg7 = Wait
+  arg8 = 1000
+  arg7(arg8)
+  arg7 = CMG
+  arg7 = arg7.requestEntitySpawn
+  arg8 = "drink_gin_object"
+  arg7(arg8)
+  arg7 = CreateObject
+  arg8 = GetHashKey
+  arg9 = arg3
+  -- Beginner: result below is hash.
+  arg8 = arg8(arg9)
+  arg9 = arg4
+  arg10 = arg5
+  arg11 = arg6 + 0.2
+  arg12 = true
+  flag2 = true
+  numberValue = true
+  -- Beginner: result below is objectEntity.
+  arg7 = arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue)
+  arg8 = AttachEntityToEntity
+  arg9 = arg7
+  arg10 = arg2
+  arg11 = GetPedBoneIndex
+  arg12 = arg2
+  flag2 = 28422
+  arg11 = arg11(arg12, flag2)
+  arg12 = 0.0
+  flag2 = 0.0
+  numberValue = 0.0
+  flag5 = 0.0
+  flag6 = 0.0
+  flag7 = 180.0
+  numberValue2 = true
+  flag8 = true
+  flag10 = false
+  flag11 = true
+  flag12 = 1
+  flag13 = true
+  -- Beginner: Attach one entity to another entity.
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+  arg8 = Wait
+  arg9 = 5000
+  arg8(arg9)
+  arg8 = TaskPlayAnim
+  arg9 = arg2
+  arg10 = arg1
+  arg11 = "exit"
+  arg12 = 8.0
+  flag2 = 1.0
+  numberValue = -1
+  flag5 = 49
+  flag6 = 0
+  flag7 = false
+  numberValue2 = false
+  flag8 = false
+  -- Beginner: Play an animation on a ped.
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8)
+  arg8 = Wait
+  arg9 = 100
+  arg8(arg9)
+  arg8 = RequestAnimSet
+  arg9 = "move_m@drunk@verydrunk"
+  arg8(arg9)
   while true do
-    SHX7_2 = HasAnimSetLoaded
-    SHX8_2 = "move_m@drunk@verydrunk"
-    SHX7_2 = SHX7_2(SHX8_2)
-    if SHX7_2 then
+    arg8 = HasAnimSetLoaded
+    arg9 = "move_m@drunk@verydrunk"
+    arg8 = arg8(arg9)
+    if arg8 then
       break
     end
-    SHX7_2 = Citizen
-    SHX7_2 = SHX7_2.Wait
-    SHX8_2 = 0
-    SHX7_2(SHX8_2)
+    arg8 = Citizen
+    arg8 = arg8.Wait
+    arg9 = 0
+    arg8(arg9)
   end
-  SHX7_2 = DoScreenFadeOut
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = Citizen
-  SHX7_2 = SHX7_2.Wait
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = ClearPedTasksImmediately
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX8_2()
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX7_2 = SetTimecycleModifier
-  SHX8_2 = "spectator5"
-  SHX7_2(SHX8_2)
-  SHX7_2 = SetPedMotionBlur
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = true
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = SetPedMovementClipset
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = "move_m@drunk@verydrunk"
-  SHX10_2 = 1.0
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = RemoveAnimSet
-  SHX8_2 = "move_m@drunk@verydrunk"
-  SHX7_2(SHX8_2)
-  SHX7_2 = SetPedIsDrunk
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = true
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = DoScreenFadeIn
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = ClearPedSecondaryTask
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX8_2()
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX7_2 = DeleteObject
-  SHX8_2 = SHX6_2
-  SHX7_2(SHX8_2)
-  SHX7_2 = Wait
-  SHX8_2 = 60000
-  SHX7_2(SHX8_2)
-  SHX7_2 = DoScreenFadeOut
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = Citizen
-  SHX7_2 = SHX7_2.Wait
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = DoScreenFadeIn
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = ClearTimecycleModifier
-  SHX7_2()
-  SHX7_2 = ResetScenarioTypesEnabled
-  SHX7_2()
-  SHX7_2 = ResetPedMovementClipset
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = 0
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = SetPedIsDrunk
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = false
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = SetPedMotionBlur
-  SHX8_2 = CMG
-  SHX8_2 = SHX8_2.getPlayerPed
-  SHX8_2 = SHX8_2()
-  SHX9_2 = false
-  SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = RemoveAnimDict
-  SHX8_2 = SHX0_2
-  SHX7_2(SHX8_2)
+  arg8 = DoScreenFadeOut
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = Citizen
+  arg8 = arg8.Wait
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = ClearPedTasksImmediately
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = arg9()
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+  arg8 = SetTimecycleModifier
+  arg9 = "spectator5"
+  arg8(arg9)
+  arg8 = SetPedMotionBlur
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg9 = arg9()
+  arg10 = true
+  arg8(arg9, arg10)
+  arg8 = SetPedMovementClipset
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg9 = arg9()
+  arg10 = "move_m@drunk@verydrunk"
+  arg11 = 1.0
+  arg8(arg9, arg10, arg11)
+  arg8 = RemoveAnimSet
+  arg9 = "move_m@drunk@verydrunk"
+  arg8(arg9)
+  arg8 = SetPedIsDrunk
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg9 = arg9()
+  arg10 = true
+  arg8(arg9, arg10)
+  arg8 = DoScreenFadeIn
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = ClearPedSecondaryTask
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13 = arg9()
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+  arg8 = DeleteObject
+  arg9 = arg7
+  arg8(arg9)
+  arg8 = Wait
+  arg9 = 60000
+  arg8(arg9)
+  arg8 = DoScreenFadeOut
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = Citizen
+  arg8 = arg8.Wait
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = DoScreenFadeIn
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = ClearTimecycleModifier
+  arg8()
+  arg8 = ResetScenarioTypesEnabled
+  arg8()
+  arg8 = ResetPedMovementClipset
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg9 = arg9()
+  arg10 = 0
+  arg8(arg9, arg10)
+  arg8 = SetPedIsDrunk
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg9 = arg9()
+  arg10 = false
+  arg8(arg9, arg10)
+  arg8 = SetPedMotionBlur
+  arg9 = CMG
+  arg9 = arg9.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg9 = arg9()
+  arg10 = false
+  arg8(arg9, arg10)
+  arg8 = RemoveAnimDict
+  arg9 = arg1
+  arg8(arg9)
 end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = RegisterNetEvent
-SHX18_1 = "6c304cd42b"
-function SHX19_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2
-  SHX1_2 = "mp_safehousebeer@"
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getPlayerPed
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_2
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadAnimDict
-  SHX5_2 = SHX1_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = table
-  SHX4_2 = SHX4_2.unpack
-  SHX5_2 = GetEntityCoords
-  SHX6_2 = SHX2_2
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX5_2(SHX6_2)
-  SHX4_2, SHX5_2, SHX6_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = SHX2_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = "drink_2"
-  SHX11_2 = 800.0
-  SHX12_2 = 8.0
-  SHX13_2 = -1
-  SHX14_2 = 49
-  SHX15_2 = 0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = Wait
-  SHX8_2 = 1000
-  SHX7_2(SHX8_2)
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.requestEntitySpawn
-  SHX8_2 = "drink_can_object"
-  SHX9_2 = GetHashKey
-  SHX10_2 = SHX0_2
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX9_2(SHX10_2)
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX7_2 = CreateObject
-  SHX8_2 = GetHashKey
-  SHX9_2 = SHX3_2
-  SHX8_2 = SHX8_2(SHX9_2)
-  SHX9_2 = SHX4_2
-  SHX10_2 = SHX5_2
-  SHX11_2 = SHX6_2 + 0.2
-  SHX12_2 = true
-  SHX13_2 = true
-  SHX14_2 = true
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX8_2 = AttachEntityToEntity
-  SHX9_2 = SHX7_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = GetPedBoneIndex
-  SHX12_2 = SHX2_2
-  SHX13_2 = 28422
-  SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-  SHX12_2 = 0.0
-  SHX13_2 = 0.0
-  SHX14_2 = 0.0
-  SHX15_2 = 0.0
-  SHX16_2 = 0.0
-  SHX17_2 = 180.0
-  SHX18_2 = true
-  SHX19_2 = true
-  SHX20_2 = false
-  SHX21_2 = true
-  SHX22_2 = 1
-  SHX23_2 = true
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX8_2 = Wait
-  SHX9_2 = 5000
-  SHX8_2(SHX9_2)
-  SHX8_2 = TaskPlayAnim
-  SHX9_2 = SHX2_2
-  SHX10_2 = SHX1_2
-  SHX11_2 = "exit"
-  SHX12_2 = 8.0
-  SHX13_2 = 1.0
-  SHX14_2 = -1
-  SHX15_2 = 49
-  SHX16_2 = 0
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  SHX8_2 = Wait
-  SHX9_2 = 100
-  SHX8_2(SHX9_2)
-  SHX8_2 = RequestAnimSet
-  SHX9_2 = "move_m@drunk@verydrunk"
-  SHX8_2(SHX9_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a72f22e19a".
+textValue3(textValue4, flag9)
+textValue3 = RegisterNetEvent
+textValue4 = "6c304cd42b"
+-- Beginner: this function handles network event "6c304cd42b".
+function flag9(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3
+  arg2 = "mp_safehousebeer@"
+  arg3 = CMG
+  arg3 = arg3.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg3 = arg3()
+  arg4 = arg1
+  arg5 = CMG
+  arg5 = arg5.loadAnimDict
+  arg6 = arg2
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg5(arg6)
+  arg5 = table
+  arg5 = arg5.unpack
+  arg6 = GetEntityCoords
+  arg7 = arg3
+  arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3 = arg6(arg7)
+  arg5, arg6, arg7 = arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3)
+  arg8 = TaskPlayAnim
+  arg9 = arg3
+  arg10 = arg2
+  arg11 = "drink_2"
+  arg12 = 800.0
+  flag2 = 8.0
+  numberValue = -1
+  flag5 = 49
+  flag6 = 0
+  flag7 = false
+  numberValue2 = false
+  flag8 = false
+  -- Beginner: Play an animation on a ped.
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8)
+  arg8 = Wait
+  arg9 = 1000
+  arg8(arg9)
+  arg8 = CMG
+  arg8 = arg8.requestEntitySpawn
+  arg9 = "drink_can_object"
+  arg10 = GetHashKey
+  arg11 = arg1
+  arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3 = arg10(arg11)
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3)
+  arg8 = CreateObject
+  arg9 = GetHashKey
+  arg10 = arg4
+  -- Beginner: result below is hash.
+  arg9 = arg9(arg10)
+  arg10 = arg5
+  arg11 = arg6
+  arg12 = arg7 + 0.2
+  flag2 = true
+  numberValue = true
+  flag5 = true
+  -- Beginner: result below is objectEntity.
+  arg8 = arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+  arg9 = AttachEntityToEntity
+  arg10 = arg8
+  arg11 = arg3
+  arg12 = GetPedBoneIndex
+  flag2 = arg3
+  numberValue = 28422
+  arg12 = arg12(flag2, numberValue)
+  flag2 = 0.0
+  numberValue = 0.0
+  flag5 = 0.0
+  flag6 = 0.0
+  flag7 = 0.0
+  numberValue2 = 180.0
+  flag8 = true
+  flag10 = true
+  flag11 = false
+  flag12 = true
+  flag13 = 1
+  numberValue3 = true
+  -- Beginner: Attach one entity to another entity.
+  arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3)
+  arg9 = Wait
+  arg10 = 5000
+  arg9(arg10)
+  arg9 = TaskPlayAnim
+  arg10 = arg3
+  arg11 = arg2
+  arg12 = "exit"
+  flag2 = 8.0
+  numberValue = 1.0
+  flag5 = -1
+  flag6 = 49
+  flag7 = 0
+  numberValue2 = false
+  flag8 = false
+  flag10 = false
+  -- Beginner: Play an animation on a ped.
+  arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10)
+  arg9 = Wait
+  arg10 = 100
+  arg9(arg10)
+  arg9 = RequestAnimSet
+  arg10 = "move_m@drunk@verydrunk"
+  arg9(arg10)
   while true do
-    SHX8_2 = HasAnimSetLoaded
-    SHX9_2 = "move_m@drunk@verydrunk"
-    SHX8_2 = SHX8_2(SHX9_2)
-    if SHX8_2 then
+    arg9 = HasAnimSetLoaded
+    arg10 = "move_m@drunk@verydrunk"
+    arg9 = arg9(arg10)
+    if arg9 then
       break
     end
-    SHX8_2 = Citizen
-    SHX8_2 = SHX8_2.Wait
-    SHX9_2 = 0
-    SHX8_2(SHX9_2)
+    arg9 = Citizen
+    arg9 = arg9.Wait
+    arg10 = 0
+    arg9(arg10)
   end
-  SHX8_2 = DoScreenFadeOut
-  SHX9_2 = 1000
-  SHX8_2(SHX9_2)
-  SHX8_2 = Citizen
-  SHX8_2 = SHX8_2.Wait
-  SHX9_2 = 1000
-  SHX8_2(SHX9_2)
-  SHX8_2 = ClearPedTasksImmediately
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX9_2()
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX8_2 = SetTimecycleModifier
-  SHX9_2 = "spectator5"
-  SHX8_2(SHX9_2)
-  SHX8_2 = SetPedMotionBlur
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2 = SHX9_2()
-  SHX10_2 = true
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SetPedMovementClipset
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2 = SHX9_2()
-  SHX10_2 = "move_m@drunk@verydrunk"
-  SHX11_2 = 1.0
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-  SHX8_2 = RemoveAnimSet
-  SHX9_2 = "move_m@drunk@verydrunk"
-  SHX8_2(SHX9_2)
-  SHX8_2 = SetPedIsDrunk
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2 = SHX9_2()
-  SHX10_2 = true
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = DoScreenFadeIn
-  SHX9_2 = 1000
-  SHX8_2(SHX9_2)
-  SHX8_2 = ClearPedSecondaryTask
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2 = SHX9_2()
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-  SHX8_2 = DeleteObject
-  SHX9_2 = SHX7_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = Wait
-  SHX9_2 = 60000
-  SHX8_2(SHX9_2)
-  SHX8_2 = DoScreenFadeOut
-  SHX9_2 = 1000
-  SHX8_2(SHX9_2)
-  SHX8_2 = Citizen
-  SHX8_2 = SHX8_2.Wait
-  SHX9_2 = 1000
-  SHX8_2(SHX9_2)
-  SHX8_2 = DoScreenFadeIn
-  SHX9_2 = 1000
-  SHX8_2(SHX9_2)
-  SHX8_2 = ClearTimecycleModifier
-  SHX8_2()
-  SHX8_2 = ResetScenarioTypesEnabled
-  SHX8_2()
-  SHX8_2 = ResetPedMovementClipset
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2 = SHX9_2()
-  SHX10_2 = 0
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SetPedIsDrunk
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2 = SHX9_2()
-  SHX10_2 = false
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SetPedMotionBlur
-  SHX9_2 = CMG
-  SHX9_2 = SHX9_2.getPlayerPed
-  SHX9_2 = SHX9_2()
-  SHX10_2 = false
-  SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = RemoveAnimDict
-  SHX9_2 = SHX1_2
-  SHX8_2(SHX9_2)
+  arg9 = DoScreenFadeOut
+  arg10 = 1000
+  arg9(arg10)
+  arg9 = Citizen
+  arg9 = arg9.Wait
+  arg10 = 1000
+  arg9(arg10)
+  arg9 = ClearPedTasksImmediately
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3 = arg10()
+  arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3)
+  arg9 = SetTimecycleModifier
+  arg10 = "spectator5"
+  arg9(arg10)
+  arg9 = SetPedMotionBlur
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg10 = arg10()
+  arg11 = true
+  arg9(arg10, arg11)
+  arg9 = SetPedMovementClipset
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg10 = arg10()
+  arg11 = "move_m@drunk@verydrunk"
+  arg12 = 1.0
+  arg9(arg10, arg11, arg12)
+  arg9 = RemoveAnimSet
+  arg10 = "move_m@drunk@verydrunk"
+  arg9(arg10)
+  arg9 = SetPedIsDrunk
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg10 = arg10()
+  arg11 = true
+  arg9(arg10, arg11)
+  arg9 = DoScreenFadeIn
+  arg10 = 1000
+  arg9(arg10)
+  arg9 = ClearPedSecondaryTask
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3 = arg10()
+  arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3)
+  arg9 = DeleteObject
+  arg10 = arg8
+  arg9(arg10)
+  arg9 = Wait
+  arg10 = 60000
+  arg9(arg10)
+  arg9 = DoScreenFadeOut
+  arg10 = 1000
+  arg9(arg10)
+  arg9 = Citizen
+  arg9 = arg9.Wait
+  arg10 = 1000
+  arg9(arg10)
+  arg9 = DoScreenFadeIn
+  arg10 = 1000
+  arg9(arg10)
+  arg9 = ClearTimecycleModifier
+  arg9()
+  arg9 = ResetScenarioTypesEnabled
+  arg9()
+  arg9 = ResetPedMovementClipset
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg10 = arg10()
+  arg11 = 0
+  arg9(arg10, arg11)
+  arg9 = SetPedIsDrunk
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg10 = arg10()
+  arg11 = false
+  arg9(arg10, arg11)
+  arg9 = SetPedMotionBlur
+  arg10 = CMG
+  arg10 = arg10.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg10 = arg10()
+  arg11 = false
+  arg9(arg10, arg11)
+  arg9 = RemoveAnimDict
+  arg10 = arg2
+  arg9(arg10)
 end
-SHX17_1(SHX18_1, SHX19_1)
-SHX17_1 = tCMG
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = IsEntityPlayingAnim
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "random@arrests@busted"
-  SHX3_2 = "idle_a"
-  SHX4_2 = 3
-  return SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6c304cd42b".
+textValue3(textValue4, flag9)
+textValue3 = tCMG
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = IsEntityPlayingAnim
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "random@arrests@busted"
+  arg4 = "idle_a"
+  arg5 = 3
+  return arg1(arg2, arg3, arg4, arg5)
 end
-SHX17_1.isPlayerKneeling = SHX18_1
-SHX17_1 = false
-SHX18_1 = RegisterNetEvent
-SHX19_1 = "e4bcfd6526"
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
+textValue3.isPlayerKneeling = textValue4
+textValue3 = false
+textValue4 = RegisterNetEvent
+flag9 = "e4bcfd6526"
+-- Beginner: this function handles network event "e4bcfd6526".
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13
+  arg2 = GetPlayerFromServerId
+  arg3 = arg1
+  -- Beginner: result below is playerIndex.
+  arg2 = arg2(arg3)
+  if -1 == arg2 then
     return
   end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
+  arg3 = GetPlayerPed
+  arg4 = arg2
+  -- Beginner: result below is playerPed.
+  arg3 = arg3(arg4)
+  if 0 == arg3 then
     return
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = "misshair_shop@hair_dressers"
-  SHX3_2(SHX4_2)
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.setCanAnim
-  SHX4_2 = false
-  SHX3_2(SHX4_2)
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  SHX4_2 = GetOffsetFromEntityInWorldCoords
-  SHX5_2 = SHX2_2
-  SHX6_2 = -0.3
-  SHX7_2 = -0.2
-  SHX8_2 = 0.0
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = GetEntityHeading
-  SHX6_2 = SHX2_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = SetEntityCoords
-  SHX7_2 = SHX3_2
-  SHX8_2 = SHX4_2.x
-  SHX9_2 = SHX4_2.y
-  SHX10_2 = SHX4_2.z
-  SHX10_2 = SHX10_2 - 1.0
-  SHX11_2 = true
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX6_2 = SetEntityHeading
-  SHX7_2 = SHX3_2
-  SHX8_2 = SHX5_2
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = SetEntityNoCollisionEntity
-  SHX7_2 = SHX3_2
-  SHX8_2 = SHX2_2
-  SHX9_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = SetEntityNoCollisionEntity
-  SHX7_2 = SHX2_2
-  SHX8_2 = SHX3_2
-  SHX9_2 = false
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.loadModel
-  SHX7_2 = 1633371511
-  SHX6_2(SHX7_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.requestEntitySpawn
-  SHX7_2 = "shaving_clippers_object"
-  SHX8_2 = SHX4_2
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = CreateObject
-  SHX7_2 = 1633371511
-  SHX8_2 = SHX4_2.x
-  SHX9_2 = SHX4_2.y
-  SHX10_2 = SHX4_2.z
-  SHX10_2 = SHX10_2 + 2.0
-  SHX11_2 = true
-  SHX12_2 = true
-  SHX13_2 = false
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX7_2 = AttachEntityToEntity
-  SHX8_2 = SHX6_2
-  SHX9_2 = SHX3_2
-  SHX10_2 = GetPedBoneIndex
-  SHX11_2 = SHX3_2
-  SHX12_2 = 6286
-  SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-  SHX11_2 = 0.08
-  SHX12_2 = 0.0
-  SHX13_2 = -0.025
-  SHX14_2 = 0.0
-  SHX15_2 = 180.0
-  SHX16_2 = -90.0
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX20_2 = false
-  SHX21_2 = 0
-  SHX22_2 = true
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = SHX3_2
-  SHX9_2 = "misshair_shop@hair_dressers"
-  SHX10_2 = "keeper_hair_cut_a"
-  SHX11_2 = 8.0
-  SHX12_2 = 8.0
-  SHX13_2 = -1
-  SHX14_2 = 1
-  SHX15_2 = 1.0
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX7_2 = math
-  SHX7_2 = SHX7_2.floor
-  SHX8_2 = GetAnimDuration
-  SHX9_2 = "misshair_shop@hair_dressers"
-  SHX10_2 = "keeper_hair_cut_a"
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX8_2 = SHX8_2 * 1000
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX8_2 = Citizen
-  SHX8_2 = SHX8_2.Wait
-  SHX9_2 = SHX7_2
-  SHX8_2(SHX9_2)
-  SHX8_2 = TaskPlayAnim
-  SHX9_2 = SHX3_2
-  SHX10_2 = "misshair_shop@hair_dressers"
-  SHX11_2 = "keeper_hair_cut_b"
-  SHX12_2 = 8.0
-  SHX13_2 = 8.0
-  SHX14_2 = -1
-  SHX15_2 = 1
-  SHX16_2 = 1.0
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX19_2 = false
-  SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-  SHX8_2 = math
-  SHX8_2 = SHX8_2.floor
-  SHX9_2 = GetAnimDuration
-  SHX10_2 = "misshair_shop@hair_dressers"
-  SHX11_2 = "keeper_hair_cut_b"
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-  SHX9_2 = SHX9_2 * 1000
-  SHX8_2 = SHX8_2(SHX9_2)
-  SHX9_2 = Citizen
-  SHX9_2 = SHX9_2.Wait
-  SHX10_2 = SHX8_2
-  SHX9_2(SHX10_2)
-  SHX9_2 = ClearPedTasks
-  SHX10_2 = SHX3_2
-  SHX9_2(SHX10_2)
-  SHX9_2 = SetEntityNoCollisionEntity
-  SHX10_2 = SHX3_2
-  SHX11_2 = SHX2_2
-  SHX12_2 = true
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = SetEntityNoCollisionEntity
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2
-  SHX12_2 = true
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = DeleteEntity
-  SHX10_2 = SHX6_2
-  SHX9_2(SHX10_2)
-  SHX9_2 = tCMG
-  SHX9_2 = SHX9_2.setCanAnim
-  SHX10_2 = true
-  SHX9_2(SHX10_2)
-  SHX9_2 = RemoveAnimDict
-  SHX10_2 = "misshair_shop@hair_dressers"
-  SHX9_2(SHX10_2)
-  SHX9_2 = SetModelAsNoLongerNeeded
-  SHX10_2 = 1633371511
-  SHX9_2(SHX10_2)
+  arg4 = CMG
+  arg4 = arg4.loadAnimDict
+  arg5 = "misshair_shop@hair_dressers"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg4(arg5)
+  arg4 = tCMG
+  arg4 = arg4.setCanAnim
+  arg5 = false
+  arg4(arg5)
+  arg4 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg4 = arg4()
+  arg5 = GetOffsetFromEntityInWorldCoords
+  arg6 = arg3
+  arg7 = -0.3
+  arg8 = -0.2
+  arg9 = 0.0
+  arg5 = arg5(arg6, arg7, arg8, arg9)
+  arg6 = GetEntityHeading
+  arg7 = arg3
+  -- Beginner: result below is heading.
+  arg6 = arg6(arg7)
+  arg7 = SetEntityCoords
+  arg8 = arg4
+  arg9 = arg5.x
+  arg10 = arg5.y
+  arg11 = arg5.z
+  arg11 = arg11 - 1.0
+  arg12 = true
+  flag2 = false
+  numberValue = false
+  flag5 = false
+  -- Beginner: Move/teleport an entity to new coordinates.
+  arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5)
+  arg7 = SetEntityHeading
+  arg8 = arg4
+  arg9 = arg6
+  -- Beginner: Change the direction an entity is facing.
+  arg7(arg8, arg9)
+  arg7 = SetEntityNoCollisionEntity
+  arg8 = arg4
+  arg9 = arg3
+  arg10 = false
+  arg7(arg8, arg9, arg10)
+  arg7 = SetEntityNoCollisionEntity
+  arg8 = arg3
+  arg9 = arg4
+  arg10 = false
+  arg7(arg8, arg9, arg10)
+  arg7 = CMG
+  arg7 = arg7.loadModel
+  arg8 = 1633371511
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg7(arg8)
+  arg7 = CMG
+  arg7 = arg7.requestEntitySpawn
+  arg8 = "shaving_clippers_object"
+  arg9 = arg5
+  arg7(arg8, arg9)
+  arg7 = CreateObject
+  arg8 = 1633371511
+  arg9 = arg5.x
+  arg10 = arg5.y
+  arg11 = arg5.z
+  arg11 = arg11 + 2.0
+  arg12 = true
+  flag2 = true
+  numberValue = false
+  -- Beginner: result below is objectEntity.
+  arg7 = arg7(arg8, arg9, arg10, arg11, arg12, flag2, numberValue)
+  arg8 = AttachEntityToEntity
+  arg9 = arg7
+  arg10 = arg4
+  arg11 = GetPedBoneIndex
+  arg12 = arg4
+  flag2 = 6286
+  arg11 = arg11(arg12, flag2)
+  arg12 = 0.08
+  flag2 = 0.0
+  numberValue = -0.025
+  flag5 = 0.0
+  flag6 = 180.0
+  flag7 = -90.0
+  numberValue2 = false
+  flag8 = false
+  flag10 = false
+  flag11 = false
+  flag12 = 0
+  flag13 = true
+  -- Beginner: Attach one entity to another entity.
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13)
+  arg8 = TaskPlayAnim
+  arg9 = arg4
+  arg10 = "misshair_shop@hair_dressers"
+  arg11 = "keeper_hair_cut_a"
+  arg12 = 8.0
+  flag2 = 8.0
+  numberValue = -1
+  flag5 = 1
+  flag6 = 1.0
+  flag7 = false
+  numberValue2 = false
+  flag8 = false
+  -- Beginner: Play an animation on a ped.
+  arg8(arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8)
+  arg8 = math
+  arg8 = arg8.floor
+  arg9 = GetAnimDuration
+  arg10 = "misshair_shop@hair_dressers"
+  arg11 = "keeper_hair_cut_a"
+  arg9 = arg9(arg10, arg11)
+  arg9 = arg9 * 1000
+  arg8 = arg8(arg9)
+  arg9 = Citizen
+  arg9 = arg9.Wait
+  arg10 = arg8
+  arg9(arg10)
+  arg9 = TaskPlayAnim
+  arg10 = arg4
+  arg11 = "misshair_shop@hair_dressers"
+  arg12 = "keeper_hair_cut_b"
+  flag2 = 8.0
+  numberValue = 8.0
+  flag5 = -1
+  flag6 = 1
+  flag7 = 1.0
+  numberValue2 = false
+  flag8 = false
+  flag10 = false
+  -- Beginner: Play an animation on a ped.
+  arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10)
+  arg9 = math
+  arg9 = arg9.floor
+  arg10 = GetAnimDuration
+  arg11 = "misshair_shop@hair_dressers"
+  arg12 = "keeper_hair_cut_b"
+  arg10 = arg10(arg11, arg12)
+  arg10 = arg10 * 1000
+  arg9 = arg9(arg10)
+  arg10 = Citizen
+  arg10 = arg10.Wait
+  arg11 = arg9
+  arg10(arg11)
+  arg10 = ClearPedTasks
+  arg11 = arg4
+  arg10(arg11)
+  arg10 = SetEntityNoCollisionEntity
+  arg11 = arg4
+  arg12 = arg3
+  flag2 = true
+  arg10(arg11, arg12, flag2)
+  arg10 = SetEntityNoCollisionEntity
+  arg11 = arg3
+  arg12 = arg4
+  flag2 = true
+  arg10(arg11, arg12, flag2)
+  arg10 = DeleteEntity
+  arg11 = arg7
+  -- Beginner: Delete a GTA entity.
+  arg10(arg11)
+  arg10 = tCMG
+  arg10 = arg10.setCanAnim
+  arg11 = true
+  arg10(arg11)
+  arg10 = RemoveAnimDict
+  arg11 = "misshair_shop@hair_dressers"
+  arg10(arg11)
+  arg10 = SetModelAsNoLongerNeeded
+  arg11 = 1633371511
+  arg10(arg11)
 end
-SHX18_1(SHX19_1, SHX20_1)
-SHX18_1 = RegisterNetEvent
-SHX19_1 = "05f833428d"
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e4bcfd6526".
+textValue4(flag9, cmgCall2)
+textValue4 = RegisterNetEvent
+flag9 = "05f833428d"
+-- Beginner: this function handles network event "05f833428d".
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
+  arg2 = GetPlayerFromServerId
+  arg3 = arg1
+  -- Beginner: result below is playerIndex.
+  arg2 = arg2(arg3)
+  if -1 == arg2 then
     return
   end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
+  arg3 = GetPlayerPed
+  arg4 = arg2
+  -- Beginner: result below is playerPed.
+  arg3 = arg3(arg4)
+  if 0 == arg3 then
     return
   end
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.setCanAnim
-  SHX4_2 = false
-  SHX3_2(SHX4_2)
-  SHX3_2 = false
-  SHX2_1 = SHX3_2
-  SHX3_2 = PlayerPedId
-  SHX3_2 = SHX3_2()
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX3_2
-  SHX6_2 = true
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = GetGameTimer
-  SHX4_2 = SHX4_2()
+  arg4 = tCMG
+  arg4 = arg4.setCanAnim
+  arg5 = false
+  arg4(arg5)
+  arg4 = false
+  textValue6 = arg4
+  arg4 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg4 = arg4()
+  arg5 = FreezeEntityPosition
+  arg6 = arg4
+  arg7 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg5(arg6, arg7)
+  arg5 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg5 = arg5()
   while true do
-    SHX5_2 = GetGameTimer
-    SHX5_2 = SHX5_2()
-    SHX5_2 = SHX5_2 - SHX4_2
-    SHX6_2 = 15500
-    if not (SHX5_2 < SHX6_2) then
+    arg6 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg6 = arg6()
+    arg6 = arg6 - arg5
+    arg7 = 15500
+    if not (arg6 < arg7) then
       break
     end
-    SHX5_2 = IsEntityPlayingAnim
-    SHX6_2 = SHX3_2
-    SHX7_2 = "random@arrests@busted"
-    SHX8_2 = "idle_a"
-    SHX9_2 = 3
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    if not SHX5_2 then
-      SHX5_2 = TaskPlayAnim
-      SHX6_2 = SHX3_2
-      SHX7_2 = "random@arrests@busted"
-      SHX8_2 = "idle_a"
-      SHX9_2 = 8.0
-      SHX10_2 = 1.0
-      SHX11_2 = -1
-      SHX12_2 = 9
-      SHX13_2 = 0
-      SHX14_2 = false
-      SHX15_2 = false
-      SHX16_2 = false
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
+    arg6 = IsEntityPlayingAnim
+    arg7 = arg4
+    arg8 = "random@arrests@busted"
+    arg9 = "idle_a"
+    arg10 = 3
+    arg6 = arg6(arg7, arg8, arg9, arg10)
+    if not arg6 then
+      arg6 = TaskPlayAnim
+      arg7 = arg4
+      arg8 = "random@arrests@busted"
+      arg9 = "idle_a"
+      arg10 = 8.0
+      arg11 = 1.0
+      arg12 = -1
+      flag2 = 9
+      numberValue = 0
+      flag5 = false
+      flag6 = false
+      flag7 = false
+      -- Beginner: Play an animation on a ped.
+      arg6(arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7)
     end
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 0
-    SHX5_2(SHX6_2)
+    arg6 = Citizen
+    arg6 = arg6.Wait
+    arg7 = 0
+    arg6(arg7)
   end
-  SHX5_2 = SetPedComponentVariation
-  SHX6_2 = SHX3_2
-  SHX7_2 = 2
-  SHX8_2 = 0
-  SHX9_2 = 0
-  SHX10_2 = 0
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX5_2 = FreezeEntityPosition
-  SHX6_2 = SHX3_2
-  SHX7_2 = false
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = true
-  SHX2_1 = SHX5_2
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.setCanAnim
-  SHX6_2 = true
-  SHX5_2(SHX6_2)
-  SHX5_2 = true
-  SHX17_1 = SHX5_2
-  SHX5_2 = Citizen
-  SHX5_2 = SHX5_2.Wait
-  SHX6_2 = 1800000
-  SHX5_2(SHX6_2)
-  SHX5_2 = false
-  SHX17_1 = SHX5_2
+  arg6 = SetPedComponentVariation
+  arg7 = arg4
+  arg8 = 2
+  arg9 = 0
+  arg10 = 0
+  arg11 = 0
+  arg6(arg7, arg8, arg9, arg10, arg11)
+  arg6 = FreezeEntityPosition
+  arg7 = arg4
+  arg8 = false
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg6(arg7, arg8)
+  arg6 = true
+  textValue6 = arg6
+  arg6 = tCMG
+  arg6 = arg6.setCanAnim
+  arg7 = true
+  arg6(arg7)
+  arg6 = true
+  textValue3 = arg6
+  arg6 = Citizen
+  arg6 = arg6.Wait
+  arg7 = 1800000
+  arg6(arg7)
+  arg6 = false
+  textValue3 = arg6
 end
-SHX18_1(SHX19_1, SHX20_1)
-SHX18_1 = RegisterNetEvent
-SHX19_1 = "c38ea56445"
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "05f833428d".
+textValue4(flag9, cmgCall2)
+textValue4 = RegisterNetEvent
+flag9 = "c38ea56445"
+-- Beginner: this function handles network event "c38ea56445".
+function cmgCall2(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = GetPlayerFromServerId
+  arg3 = arg1
+  -- Beginner: result below is playerIndex.
+  arg2 = arg2(arg3)
+  if -1 == arg2 then
     return
   end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
+  arg3 = GetPlayerPed
+  arg4 = arg2
+  -- Beginner: result below is playerPed.
+  arg3 = arg3(arg4)
+  if 0 == arg3 then
     return
   end
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2 = SHX3_2()
-  SHX4_2 = GetEntityCoords
-  SHX5_2 = SHX2_2
-  SHX6_2 = true
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = SHX3_2 - SHX4_2
-  SHX5_2 = #SHX5_2
-  if SHX5_2 < 15.0 then
-    SHX5_2 = SendNUIMessage
-    SHX6_2 = {}
-    SHX6_2.transactionType = "shave"
-    SHX5_2(SHX6_2)
+  arg4 = CMG
+  arg4 = arg4.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg4 = arg4()
+  arg5 = GetEntityCoords
+  arg6 = arg3
+  arg7 = true
+  -- Beginner: result below is entityCoords.
+  arg5 = arg5(arg6, arg7)
+  arg6 = arg4 - arg5
+  arg6 = #arg6
+  if arg6 < 15.0 then
+    arg6 = SendNUIMessage
+    arg7 = {}
+    arg7.transactionType = "shave"
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    arg6(arg7)
   end
 end
-SHX18_1(SHX19_1, SHX20_1)
-SHX18_1 = RegisterNetEvent
-SHX19_1 = "aecf5d3044"
-function SHX20_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = true
-  SHX17_1 = SHX1_2
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.Wait
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = false
-  SHX17_1 = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c38ea56445".
+textValue4(flag9, cmgCall2)
+textValue4 = RegisterNetEvent
+flag9 = "aecf5d3044"
+-- Beginner: this function handles network event "aecf5d3044".
+function cmgCall2(arg1)
+  local arg2, arg3
+  arg2 = true
+  textValue3 = arg2
+  arg2 = Citizen
+  arg2 = arg2.Wait
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = false
+  textValue3 = arg2
 end
-SHX18_1(SHX19_1, SHX20_1)
-function SHX18_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX17_1
-  if SHX1_2 then
-    SHX1_2 = GetPedDrawableVariation
-    SHX2_2 = SHX0_2.playerPed
-    SHX3_2 = 2
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if 0 ~= SHX1_2 then
-      SHX1_2 = SetPedHeadOverlay
-      SHX2_2 = SHX0_2.playerPed
-      SHX3_2 = 1
-      SHX4_2 = 0
-      SHX5_2 = 0.0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      SHX1_2 = SetPedComponentVariation
-      SHX2_2 = SHX0_2.playerPed
-      SHX3_2 = 2
-      SHX4_2 = 0
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "aecf5d3044".
+textValue4(flag9, cmgCall2)
+function textValue4(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7
+  arg2 = textValue3
+  if arg2 then
+    arg2 = GetPedDrawableVariation
+    arg3 = arg1.playerPed
+    arg4 = 2
+    arg2 = arg2(arg3, arg4)
+    if 0 ~= arg2 then
+      arg2 = SetPedHeadOverlay
+      arg3 = arg1.playerPed
+      arg4 = 1
+      arg5 = 0
+      arg6 = 0.0
+      arg2(arg3, arg4, arg5, arg6)
+      arg2 = SetPedComponentVariation
+      arg3 = arg1.playerPed
+      arg4 = 2
+      arg5 = 0
+      arg6 = 0
+      arg7 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7)
     end
   end
 end
-SHX19_1 = CMG
-SHX19_1 = SHX19_1.createThreadOnTick
-SHX20_1 = SHX18_1
-SHX21_1 = "Shaver"
-SHX19_1(SHX20_1, SHX21_1)
-function SHX19_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = GetSoundId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = PlaySoundFrontend
-  SHX2_2 = SHX0_2
-  SHX3_2 = "Armour_On"
-  SHX4_2 = "DLC_GR_Steal_Miniguns_Sounds"
-  SHX5_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = ReleaseSoundId
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
+flag9 = CMG
+flag9 = flag9.createThreadOnTick
+cmgCall2 = textValue4
+textValue5 = "Shaver"
+-- Beginner: Run a helper every game frame while this script is active.
+flag9(cmgCall2, textValue5)
+function flag9()
+  local arg1, arg2, arg3, arg4, arg5, arg6
+  arg1 = GetSoundId
+  -- Beginner: result below is soundHandle.
+  arg1 = arg1()
+  arg2 = PlaySoundFrontend
+  arg3 = arg1
+  arg4 = "Armour_On"
+  arg5 = "DLC_GR_Steal_Miniguns_Sounds"
+  arg6 = true
+  arg2(arg3, arg4, arg5, arg6)
+  arg2 = ReleaseSoundId
+  arg3 = arg1
+  arg2(arg3)
 end
-SHX20_1 = RegisterNetEvent
-SHX21_1 = "b44d4efa87"
-function SHX22_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.loadAnimDict
-  SHX1_2 = "clothingtie"
-  SHX0_2(SHX1_2)
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.setCanAnim
-  SHX1_2 = false
-  SHX0_2(SHX1_2)
-  SHX0_2 = SHX19_1
-  SHX0_2()
-  SHX0_2 = TaskPlayAnim
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "clothingtie"
-  SHX3_2 = "try_tie_negative_a"
-  SHX4_2 = 3.0
-  SHX5_2 = 3.0
-  SHX6_2 = 5000
-  SHX7_2 = 51
-  SHX8_2 = 0
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX0_2 = RemoveAnimDict
-  SHX1_2 = "clothingtie"
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.startCircularProgressBar
-  SHX1_2 = ""
-  SHX2_2 = 5000
-  SHX3_2 = nil
-  function SHX4_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+cmgCall2 = RegisterNetEvent
+textValue5 = "b44d4efa87"
+-- Beginner: this function handles network event "b44d4efa87".
+function workValue6()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12
+  arg1 = CMG
+  arg1 = arg1.loadAnimDict
+  arg2 = "clothingtie"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg1(arg2)
+  arg1 = tCMG
+  arg1 = arg1.setCanAnim
+  arg2 = false
+  arg1(arg2)
+  arg1 = flag9
+  -- Beginner: Run a helper every game frame while this script is active.
+  arg1()
+  arg1 = TaskPlayAnim
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "clothingtie"
+  arg4 = "try_tie_negative_a"
+  arg5 = 3.0
+  arg6 = 3.0
+  arg7 = 5000
+  arg8 = 51
+  arg9 = 0
+  arg10 = false
+  arg11 = false
+  arg12 = false
+  -- Beginner: Play an animation on a ped.
+  arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+  arg1 = RemoveAnimDict
+  arg2 = "clothingtie"
+  arg1(arg2)
+  arg1 = CMG
+  arg1 = arg1.startCircularProgressBar
+  arg2 = ""
+  arg3 = 5000
+  arg4 = nil
+  function arg5()
+    local workValue2, workValue5
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.setCanAnim
-  SHX1_2 = true
-  SHX0_2(SHX1_2)
+  arg1(arg2, arg3, arg4, arg5)
+  arg1 = tCMG
+  arg1 = arg1.setCanAnim
+  arg2 = true
+  arg1(arg2)
 end
-SHX20_1(SHX21_1, SHX22_1)
-SHX20_1 = tCMG
-function SHX21_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = GetEntitySpeed
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  return SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b44d4efa87".
+cmgCall2(textValue5, workValue6)
+cmgCall2 = tCMG
+function textValue5()
+  local arg1, arg2
+  arg1 = GetEntitySpeed
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  return arg1(arg2)
 end
-SHX20_1.getPlayerSpeed = SHX21_1
+cmgCall2.getPlayerSpeed = textValue5

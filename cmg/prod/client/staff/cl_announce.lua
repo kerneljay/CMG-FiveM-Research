@@ -1,406 +1,343 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Global / Staff Announcement Display
+    ====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = false
-SHX1_1 = RegisterNetEvent
-SHX2_1 = "6bdd89917d"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = true
-  SHX0_1 = SHX0_2
-end
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = RegisterNetEvent
-SHX2_1 = "0be1483154"
-function SHX3_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.floor
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if nil ~= SHX0_2 then
-    SHX3_2 = CreateThread
-    function SHX4_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      while true do
-        SHX0_3 = SHX2_2
-        if -1 == SHX0_3 then
-          break
-        end
-        SHX0_3 = SHX2_2
-        SHX0_3 = SHX0_3 - 1
-        SHX2_2 = SHX0_3
-        SHX0_3 = Wait
-        SHX1_3 = 1000
-        SHX0_3(SHX1_3)
-      end
+    This client has three announcement styles:
+
+      1. Server-restart countdown
+         Event 0be1483154(seconds, scheduled)
+         Displays a large "Scheduled Server Restart" or "Unscheduled Server
+         Restart" message and counts down once per second.
+
+         Event 6bdd89917d tells the currently-running restart display to stop.
+
+      2. CMG announcement
+         Event 3d47766955(message)
+         Shows a yellow "CMG Announcement" Scaleform for six seconds.
+
+      3. Small announcement
+         Event d87daca74d(title, message, colour, duration)
+         Routes into CMG.announceMpSmallMsg(...).
+
+         Titles in the exact format LOOKOUT1 ... LOOKOUT5 are normalised to
+         "LOOKOUT" and can be filtered by gang-lookout alert settings.
+
+    Hash-looking event names are deliberately unchanged.
+]]
+
+local cancelRestartDisplay = false
+
+
+-- ============================================================
+-- STOP ACTIVE RESTART DISPLAY
+-- ============================================================
+
+RegisterNetEvent(
+    "6bdd89917d",
+    function()
+        cancelRestartDisplay =
+            true
     end
-    SHX3_2(SHX4_2)
-    SHX3_2 = nil
-    SHX4_2 = CreateThread
-    function SHX5_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3
-      while true do
-        SHX0_3 = SHX2_2
-        if -1 == SHX0_3 then
-          break
+)
+
+
+-- ============================================================
+-- SERVER-RESTART COUNTDOWN
+-- ============================================================
+
+RegisterNetEvent(
+    "0be1483154",
+    function(seconds, scheduled)
+        if seconds == nil then
+            return
         end
-        SHX0_3 = RequestScaleformMovie
-        SHX1_3 = "MIDSIZED_MESSAGE"
-        SHX0_3 = SHX0_3(SHX1_3)
-        SHX3_2 = SHX0_3
-        while true do
-          SHX0_3 = HasScaleformMovieLoaded
-          SHX1_3 = SHX3_2
-          SHX0_3 = SHX0_3(SHX1_3)
-          if SHX0_3 then
-            break
-          end
-          SHX0_3 = Wait
-          SHX1_3 = 0
-          SHX0_3(SHX1_3)
-        end
-        SHX0_3 = BeginScaleformMovieMethod
-        SHX1_3 = SHX3_2
-        SHX2_3 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-        SHX0_3(SHX1_3, SHX2_3)
-        SHX0_3 = SHX1_2
-        if SHX0_3 then
-          SHX0_3 = _ENV
-          SHX1_3 = "ScaleformMovieMethodAddParamTextureNameString"
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX1_3 = "~r~Scheduled Server Restart"
-          SHX0_3(SHX1_3)
-        else
-          SHX0_3 = _ENV
-          SHX1_3 = "ScaleformMovieMethodAddParamTextureNameString"
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX1_3 = "~r~Unscheduled Server Restart"
-          SHX0_3(SHX1_3)
-        end
-        SHX0_3 = SHX2_2
-        if 0 ~= SHX0_3 then
-          SHX0_3 = _ENV
-          SHX1_3 = "ScaleformMovieMethodAddParamTextureNameString"
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX1_3 = "In ~r~"
-          SHX2_3 = SHX2_2
-          SHX3_3 = "~s~ seconds!"
-          SHX1_3 = SHX1_3 .. SHX2_3 .. SHX3_3
-          SHX0_3(SHX1_3)
-        else
-          SHX0_3 = _ENV
-          SHX1_3 = "ScaleformMovieMethodAddParamTextureNameString"
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX1_3 = "~r~Restarting"
-          SHX0_3(SHX1_3)
-        end
-        SHX0_3 = EndScaleformMovieMethod
-        SHX0_3()
-        SHX0_3 = Wait
-        SHX1_3 = 1000
-        SHX0_3(SHX1_3)
-        SHX0_3 = SHX0_1
-        if SHX0_3 then
-          SHX0_3 = false
-          SHX0_1 = SHX0_3
-          return
-        end
-      end
+
+        local secondsRemaining =
+            math.floor(seconds)
+
+        local activeScaleform =
+            nil
+
+        -- Countdown timer.
+        CreateThread(function()
+            while secondsRemaining
+                ~= -1 do
+
+                secondsRemaining =
+                    secondsRemaining - 1
+
+                Wait(1000)
+            end
+        end)
+
+        -- Rebuild the Scaleform text once per second so the countdown updates.
+        CreateThread(function()
+            while secondsRemaining
+                ~= -1 do
+
+                activeScaleform =
+                    RequestScaleformMovie(
+                        "MIDSIZED_MESSAGE"
+                    )
+
+                while not HasScaleformMovieLoaded(
+                    activeScaleform
+                ) do
+                    Wait(0)
+                end
+
+                BeginScaleformMovieMethod(
+                    activeScaleform,
+                    "SHOW_SHARD_MIDSIZED_MESSAGE"
+                )
+
+                ScaleformMovieMethodAddParamTextureNameString(
+                    scheduled
+                    and "~r~Scheduled Server Restart"
+                    or "~r~Unscheduled Server Restart"
+                )
+
+                if secondsRemaining ~= 0 then
+                    ScaleformMovieMethodAddParamTextureNameString(
+                        "In ~r~"
+                        .. tostring(
+                            secondsRemaining
+                        )
+                        .. "~s~ seconds!"
+                    )
+                else
+                    ScaleformMovieMethodAddParamTextureNameString(
+                        "~r~Restarting"
+                    )
+                end
+
+                EndScaleformMovieMethod()
+
+                Wait(1000)
+
+                if cancelRestartDisplay then
+                    cancelRestartDisplay =
+                        false
+                    return
+                end
+            end
+        end)
+
+        -- Draw the most recently-built scaleform every frame.
+        CreateThread(function()
+            Wait(200)
+
+            while true do
+                if activeScaleform then
+                    DrawScaleformMovieFullscreen(
+                        activeScaleform,
+                        255,
+                        255,
+                        255,
+                        255,
+                        0
+                    )
+                end
+
+                if cancelRestartDisplay then
+                    return
+                end
+
+                Wait(0)
+            end
+        end)
     end
-    SHX4_2(SHX5_2)
-    SHX4_2 = CreateThread
-    function SHX5_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-      SHX0_3 = Wait
-      SHX1_3 = 200
-      SHX0_3(SHX1_3)
-      while true do
-        SHX0_3 = SHX3_2
-        if SHX0_3 then
-          SHX0_3 = DrawScaleformMovieFullscreen
-          SHX1_3 = SHX3_2
-          SHX2_3 = 255
-          SHX3_3 = 255
-          SHX4_3 = 255
-          SHX5_3 = 255
-          SHX6_3 = 0
-          SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
+)
+
+
+-- ============================================================
+-- SIX-SECOND CMG ANNOUNCEMENT
+-- ============================================================
+
+RegisterNetEvent("3d47766955")
+
+AddEventHandler(
+    "3d47766955",
+    function(message)
+        if message == nil then
+            return
         end
-        SHX0_3 = SHX0_1
-        if SHX0_3 then
-          return
+
+        CreateThread(function()
+            local startedAt =
+                GetGameTimer()
+
+            local scaleform =
+                RequestScaleformMovie(
+                    "MIDSIZED_MESSAGE"
+                )
+
+            while not HasScaleformMovieLoaded(
+                scaleform
+            ) do
+                Wait(0)
+            end
+
+            BeginScaleformMovieMethod(
+                scaleform,
+                "SHOW_SHARD_MIDSIZED_MESSAGE"
+            )
+
+            ScaleformMovieMethodAddParamTextureNameString(
+                "~y~CMG Announcement"
+            )
+
+            ScaleformMovieMethodAddParamTextureNameString(
+                message
+            )
+
+            ScaleformMovieMethodAddParamInt(
+                5
+            )
+
+            ScaleformMovieMethodAddParamBool(
+                true
+            )
+
+            ScaleformMovieMethodAddParamBool(
+                false
+            )
+
+            EndScaleformMovieMethod()
+
+            while startedAt + 6000
+                > GetGameTimer() do
+
+                DrawScaleformMovieFullscreen(
+                    scaleform,
+                    255,
+                    255,
+                    255,
+                    255,
+                    0
+                )
+
+                Wait(0)
+            end
+        end)
+    end
+)
+
+
+-- ============================================================
+-- LOOKOUT TITLE PARSER
+-- ============================================================
+
+local function getLookoutNumber(
+    title
+)
+    if not title
+        or #title ~= 8 then
+        return nil
+    end
+
+    if title:sub(1, 7)
+        ~= "LOOKOUT" then
+        return nil
+    end
+
+    local lookoutNumber =
+        tonumber(
+            title:sub(8, 8)
+        )
+
+    if not lookoutNumber
+        or lookoutNumber < 1
+        or lookoutNumber > 5 then
+        return nil
+    end
+
+    return lookoutNumber
+end
+
+
+-- ============================================================
+-- NETWORKED SMALL ANNOUNCEMENT
+-- ============================================================
+
+RegisterNetEvent(
+    "d87daca74d",
+    function(
+        title,
+        message,
+        colour,
+        duration
+    )
+        local lookoutNumber =
+            getLookoutNumber(
+                title
+            )
+
+        if lookoutNumber
+            and CMG.isGangLookoutAlertDisabled(
+                lookoutNumber
+            ) then
+            return
         end
-        SHX0_3 = Wait
-        SHX1_3 = 0
-        SHX0_3(SHX1_3)
-      end
-    end
-    SHX4_2(SHX5_2)
-  end
-end
-SHX1_1(SHX2_1, SHX3_1)
-SHX1_1 = RegisterNetEvent
-SHX2_1 = "3d47766955"
-SHX1_1(SHX2_1)
-SHX1_1 = AddEventHandler
-SHX2_1 = "3d47766955"
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  if nil ~= SHX0_2 then
-    SHX1_2 = CreateThread
-    function SHX2_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3
-      SHX0_3 = GetGameTimer
-      SHX0_3 = SHX0_3()
-      SHX1_3 = RequestScaleformMovie
-      SHX2_3 = "MIDSIZED_MESSAGE"
-      SHX1_3 = SHX1_3(SHX2_3)
-      while true do
-        SHX2_3 = HasScaleformMovieLoaded
-        SHX3_3 = SHX1_3
-        SHX2_3 = SHX2_3(SHX3_3)
-        if SHX2_3 then
-          break
+
+        if lookoutNumber then
+            title = "LOOKOUT"
         end
-        SHX2_3 = Wait
-        SHX3_3 = 0
-        SHX2_3(SHX3_3)
-      end
-      SHX2_3 = BeginScaleformMovieMethod
-      SHX3_3 = SHX1_3
-      SHX4_3 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-      SHX2_3(SHX3_3, SHX4_3)
-      SHX2_3 = _ENV
-      SHX3_3 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX2_3 = SHX2_3[SHX3_3]
-      SHX3_3 = "~y~CMG Announcement"
-      SHX2_3(SHX3_3)
-      SHX2_3 = _ENV
-      SHX3_3 = "ScaleformMovieMethodAddParamTextureNameString"
-      SHX2_3 = SHX2_3[SHX3_3]
-      SHX3_3 = SHX0_2
-      SHX2_3(SHX3_3)
-      SHX2_3 = ScaleformMovieMethodAddParamInt
-      SHX3_3 = 5
-      SHX2_3(SHX3_3)
-      SHX2_3 = ScaleformMovieMethodAddParamBool
-      SHX3_3 = true
-      SHX2_3(SHX3_3)
-      SHX2_3 = ScaleformMovieMethodAddParamBool
-      SHX3_3 = false
-      SHX2_3(SHX3_3)
-      SHX2_3 = EndScaleformMovieMethod
-      SHX2_3()
-      while true do
-        SHX2_3 = SHX0_3 + 6000
-        SHX3_3 = GetGameTimer
-        SHX3_3 = SHX3_3()
-        if not (SHX2_3 > SHX3_3) then
-          break
+
+        CMG.announceMpSmallMsg(
+            title,
+            message,
+            colour,
+            duration
+        )
+    end
+)
+
+
+-- ============================================================
+-- DRAW A SMALL MIDSIZED_MESSAGE SCALEFORM
+-- ============================================================
+
+function CMG.announceMpSmallMsg(
+    title,
+    message,
+    colour,
+    duration
+)
+    local scaleform =
+        Scaleform(
+            "MIDSIZED_MESSAGE"
+        )
+
+    scaleform.RunFunction(
+        "SHOW_SHARD_MIDSIZED_MESSAGE",
+        {
+            title,
+            message,
+            colour,
+            false,
+            false
+        }
+    )
+
+    PlaySoundFrontend(
+        -1,
+        "CHECKPOINT_NORMAL",
+        "HUD_MINI_GAME_SOUNDSET",
+        true
+    )
+
+    local finished = false
+
+    SetTimeout(
+        duration,
+        function()
+            finished = true
         end
-        SHX2_3 = DrawScaleformMovieFullscreen
-        SHX3_3 = SHX1_3
-        SHX4_3 = 255
-        SHX5_3 = 255
-        SHX6_3 = 255
-        SHX7_3 = 255
-        SHX8_3 = 0
-        SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3)
-        SHX2_3 = Wait
-        SHX3_3 = 0
-        SHX2_3(SHX3_3)
-      end
+    )
+
+    while not finished do
+        scaleform.Render2D()
+        Wait(0)
     end
-    SHX1_2(SHX2_2)
-  end
 end
-SHX1_1(SHX2_1, SHX3_1)
-function SHX1_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  if SHX0_2 then
-    SHX1_2 = #SHX0_2
-    if 8 == SHX1_2 then
-      goto SHX_LABEL_8
-    end
-  end
-  SHX1_2 = nil
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX0_2.sub
-  SHX3_2 = 1
-  SHX4_2 = 7
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  if "LOOKOUT" ~= SHX1_2 then
-    SHX1_2 = nil
-    return SHX1_2
-  end
-  SHX1_2 = tonumber
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX0_2.sub
-  SHX4_2 = 8
-  SHX5_2 = 8
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  if not SHX1_2 or SHX1_2 < 1 or SHX1_2 > 5 then
-    SHX2_2 = nil
-    return SHX2_2
-  end
-  return SHX1_2
-end
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "d87daca74d"
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX4_2 = SHX1_1
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if SHX4_2 then
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.isGangLookoutAlertDisabled
-    SHX6_2 = SHX4_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if SHX5_2 then
-      return
-    end
-  end
-  if SHX4_2 then
-    SHX0_2 = "LOOKOUT"
-  end
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.announceMpSmallMsg
-  SHX6_2 = SHX0_2
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX2_2
-  SHX9_2 = SHX3_2
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = CMG
-function SHX3_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX4_2 = Scaleform
-  SHX5_2 = "MIDSIZED_MESSAGE"
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = SHX4_2.RunFunction
-  SHX6_2 = "SHOW_SHARD_MIDSIZED_MESSAGE"
-  SHX7_2 = {}
-  SHX8_2 = SHX0_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX7_2[1] = SHX8_2
-  SHX7_2[2] = SHX9_2
-  SHX7_2[3] = SHX10_2
-  SHX7_2[4] = SHX11_2
-  SHX7_2[5] = SHX12_2
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = PlaySoundFrontend
-  SHX6_2 = -1
-  SHX7_2 = "CHECKPOINT_NORMAL"
-  SHX8_2 = "HUD_MINI_GAME_SOUNDSET"
-  SHX9_2 = true
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = false
-  SHX6_2 = SetTimeout
-  SHX7_2 = SHX3_2
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = true
-    SHX5_2 = SHX0_3
-  end
-  SHX6_2(SHX7_2, SHX8_2)
-  while not SHX5_2 do
-    SHX6_2 = SHX4_2.Render2D
-    SHX6_2()
-    SHX6_2 = Wait
-    SHX7_2 = 0
-    SHX6_2(SHX7_2)
-  end
-end
-SHX2_1.announceMpSmallMsg = SHX3_1

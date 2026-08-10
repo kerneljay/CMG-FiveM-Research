@@ -1,1308 +1,1145 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_healthservice.lua
+    ====================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "e3a2b4bde0"
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if "Trainee Paramedic" == SHX0_2 then
-    SHX1_2 = PlaySound
-    SHX2_2 = -1
-    SHX3_2 = "CHECKPOINT_BEHIND"
-    SHX4_2 = "HUD_MINI_GAME_SOUNDSET"
-    SHX5_2 = false
-    SHX6_2 = 0
-    SHX7_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.initializeInstructionalJobScaleform
-    SHX2_2 = "Trainee Paramedic"
-    SHX3_2 = "Press F6 to get started"
-    SHX1_2(SHX2_2, SHX3_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Healthservice
+    ==============================
+
+    File: cmg/prod/client/nhs/cl_healthservice.lua
+    Purpose: This file contains NHS/medical gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Network/hash identifiers found: 24
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * Press F6 to get started
+      * ~INPUT_CELLPHONE_CANCEL~ Cancel dragging
+      * healthServiceSearchPlayers
+      * healthServiceInvitePlayer
+
+]]
+local cmgCall, textValue, workValue6, workValue7, workValue8, numberValue7, workValue9, cmgCall4, dataTable3, vector3Builder, numberValue, numberValue2, numberValue3, workValue2
+cmgCall = RegisterNetEvent
+textValue = "e3a2b4bde0"
+-- Beginner: this function handles network event "e3a2b4bde0".
+function workValue6(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8, flag12
+  if "Trainee Paramedic" == arg1 then
+    arg2 = PlaySound
+    arg3 = -1
+    arg4 = "CHECKPOINT_BEHIND"
+    dataTable = "HUD_MINI_GAME_SOUNDSET"
+    dataTable2 = false
+    numberValue8 = 0
+    flag12 = true
+    arg2(arg3, arg4, dataTable, dataTable2, numberValue8, flag12)
+    arg2 = CMG
+    arg2 = arg2.initializeInstructionalJobScaleform
+    arg3 = "Trainee Paramedic"
+    arg4 = "Press F6 to get started"
+    arg2(arg3, arg4)
   end
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "87318b22f0"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getModelGender
-  SHX0_2 = SHX0_2()
-  if "male" == SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.loadCustomisationPreset
-    SHX1_2 = "ParamedicMale"
-    SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e3a2b4bde0".
+cmgCall(textValue, workValue6)
+cmgCall = RegisterNetEvent
+textValue = "87318b22f0"
+-- Beginner: this function handles network event "87318b22f0".
+function workValue6()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.getModelGender
+  arg1 = arg1()
+  if "male" == arg1 then
+    arg1 = CMG
+    arg1 = arg1.loadCustomisationPreset
+    arg2 = "ParamedicMale"
+    arg1(arg2)
   else
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.loadCustomisationPreset
-    SHX1_2 = "ParamedicFemale"
-    SHX0_2(SHX1_2)
+    arg1 = CMG
+    arg1 = arg1.loadCustomisationPreset
+    arg2 = "ParamedicFemale"
+    arg1(arg2)
   end
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.uiRegisterCallback
-SHX1_1 = "getHealthServiceLeaderboard"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "a1ab9a3b49"
-  SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "87318b22f0".
+cmgCall(textValue, workValue6)
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue = "getHealthServiceLeaderboard"
+function workValue6()
+  local arg1, arg2
+  arg1 = TriggerServerEvent
+  arg2 = "a1ab9a3b49"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a1ab9a3b49".
+  arg1(arg2)
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "985c4252d0"
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.type = "HEALTHSERVICE_LEADERBOARD"
-  SHX3_2 = {}
-  SHX4_2 = SHX0_2 or SHX4_2
-  if not SHX0_2 then
-    SHX4_2 = {}
+cmgCall(textValue, workValue6)
+cmgCall = RegisterNetEvent
+textValue = "985c4252d0"
+-- Beginner: this function handles network event "985c4252d0".
+function workValue6(arg1)
+  local arg2, arg3, arg4, dataTable
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.type = "HEALTHSERVICE_LEADERBOARD"
+  arg4 = {}
+  dataTable = arg1 or dataTable
+  if not arg1 then
+    dataTable = {}
   end
-  SHX3_2.paramedics = SHX4_2
-  SHX2_2.payload = SHX3_2
-  SHX1_2(SHX2_2)
+  arg4.paramedics = dataTable
+  arg3.payload = arg4
+  arg2(arg3)
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.uiRegisterCallback
-SHX1_1 = "getHealthServiceLevelState"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "f61531fec4"
-  SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "985c4252d0".
+cmgCall(textValue, workValue6)
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue = "getHealthServiceLevelState"
+function workValue6()
+  local arg1, arg2
+  arg1 = TriggerServerEvent
+  arg2 = "f61531fec4"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f61531fec4".
+  arg1(arg2)
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "4b7dbba9c0"
-function SHX2_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.uiSendMessage
-  SHX4_2 = {}
-  SHX4_2.type = "HEALTHSERVICE_LEVELS"
-  SHX5_2 = {}
-  SHX6_2 = SHX0_2 or SHX6_2
-  if not SHX0_2 then
-    SHX6_2 = 0
+cmgCall(textValue, workValue6)
+cmgCall = RegisterNetEvent
+textValue = "4b7dbba9c0"
+-- Beginner: this function handles network event "4b7dbba9c0".
+function workValue6(arg1, arg2, arg3)
+  local arg4, dataTable, dataTable2, numberValue8
+  arg4 = CMG
+  arg4 = arg4.uiSendMessage
+  dataTable = {}
+  dataTable.type = "HEALTHSERVICE_LEVELS"
+  dataTable2 = {}
+  numberValue8 = arg1 or numberValue8
+  if not arg1 then
+    numberValue8 = 0
   end
-  SHX5_2.level = SHX6_2
-  SHX6_2 = SHX1_2 or SHX6_2
-  if not SHX1_2 then
-    SHX6_2 = 0
+  dataTable2.level = numberValue8
+  numberValue8 = arg2 or numberValue8
+  if not arg2 then
+    numberValue8 = 0
   end
-  SHX5_2.xp = SHX6_2
-  SHX6_2 = SHX2_2 or SHX6_2
-  if not SHX2_2 then
-    SHX6_2 = 0
+  dataTable2.xp = numberValue8
+  numberValue8 = arg3 or numberValue8
+  if not arg3 then
+    numberValue8 = 0
   end
-  SHX5_2.xpMax = SHX6_2
-  SHX4_2.payload = SHX5_2
-  SHX3_2(SHX4_2)
+  dataTable2.xpMax = numberValue8
+  dataTable.payload = dataTable2
+  arg4(dataTable)
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.uiRegisterCallback
-SHX1_1 = "getHealthServiceLevels"
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "db119884cb"
-  SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4b7dbba9c0".
+cmgCall(textValue, workValue6)
+cmgCall = CMG
+cmgCall = cmgCall.uiRegisterCallback
+textValue = "getHealthServiceLevels"
+function workValue6()
+  local arg1, arg2
+  arg1 = TriggerServerEvent
+  arg2 = "db119884cb"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "db119884cb".
+  arg1(arg2)
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = RegisterNetEvent
-SHX1_1 = "291d3f328b"
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.type = "HEALTHSERVICE_LEVEL_LIST"
-  SHX3_2 = {}
-  SHX4_2 = SHX0_2 or SHX4_2
-  if not SHX0_2 then
-    SHX4_2 = {}
+cmgCall(textValue, workValue6)
+cmgCall = RegisterNetEvent
+textValue = "291d3f328b"
+-- Beginner: this function handles network event "291d3f328b".
+function workValue6(arg1)
+  local arg2, arg3, arg4, dataTable
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.type = "HEALTHSERVICE_LEVEL_LIST"
+  arg4 = {}
+  dataTable = arg1 or dataTable
+  if not arg1 then
+    dataTable = {}
   end
-  SHX3_2.levels = SHX4_2
-  SHX2_2.payload = SHX3_2
-  SHX1_2(SHX2_2)
+  arg4.levels = dataTable
+  arg3.payload = arg4
+  arg2(arg3)
 end
-SHX0_1(SHX1_1, SHX2_1)
-SHX0_1 = false
-SHX1_1 = 0
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = IsPedInAnyVehicle
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = IsPedSwimming
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = IsPedShooting
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = IsPedClimbing
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = IsPedDiving
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = IsPedFalling
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = IsPedJumping
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX1_2 = IsPedOnFoot
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 then
-    SHX1_2 = IsPedRunning
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = IsPedUsingAnyScenario
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = IsPedInParachuteFreeFall
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isPlayerNearPrison
-    SHX1_2 = SHX1_2()
-    SHX1_2 = not SHX1_2 and SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "291d3f328b".
+cmgCall(textValue, workValue6)
+cmgCall = false
+textValue = 0
+function workValue6()
+  local arg1, arg2, arg3, arg4
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = IsPedInAnyVehicle
+  arg3 = arg1
+  arg4 = false
+  arg2 = arg2(arg3, arg4)
+  arg2 = IsPedSwimming
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = IsPedShooting
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = IsPedClimbing
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = IsPedDiving
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = IsPedFalling
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = IsPedJumping
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg2 = IsPedOnFoot
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if arg2 then
+    arg2 = IsPedRunning
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg2 = IsPedUsingAnyScenario
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg2 = IsPedInParachuteFreeFall
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg2 = CMG
+    arg2 = arg2.isPlayerNearPrison
+    arg2 = arg2()
+    arg2 = not arg2 and arg2
   end
-  return SHX1_2
+  return arg2
 end
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = BeginTextCommandDisplayHelp
-  SHX1_2 = "STRING"
-  SHX0_2(SHX1_2)
-  SHX0_2 = AddTextEntry
-  SHX1_2 = "NHS_DRAG_HELP"
-  SHX2_2 = "~INPUT_CELLPHONE_CANCEL~ Cancel dragging"
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = AddTextComponentSubstringTextLabel
-  SHX1_2 = "NHS_DRAG_HELP"
-  SHX0_2(SHX1_2)
-  SHX0_2 = EndTextCommandDisplayHelp
-  SHX1_2 = 0
-  SHX2_2 = false
-  SHX3_2 = false
-  SHX4_2 = 0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+function workValue7()
+  local arg1, arg2, arg3, arg4, dataTable
+  arg1 = BeginTextCommandDisplayHelp
+  arg2 = "STRING"
+  arg1(arg2)
+  arg1 = AddTextEntry
+  arg2 = "NHS_DRAG_HELP"
+  arg3 = "~INPUT_CELLPHONE_CANCEL~ Cancel dragging"
+  arg1(arg2, arg3)
+  arg1 = AddTextComponentSubstringTextLabel
+  arg2 = "NHS_DRAG_HELP"
+  arg1(arg2)
+  arg1 = EndTextCommandDisplayHelp
+  arg2 = 0
+  arg3 = false
+  arg4 = false
+  dataTable = 0
+  arg1(arg2, arg3, arg4, dataTable)
 end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX1_1
-  if SHX0_2 > 0 then
-    SHX0_2 = TriggerServerEvent
-    SHX1_2 = "1126c6bae9"
-    SHX2_2 = SHX1_1
-    SHX0_2(SHX1_2, SHX2_2)
+function workValue8()
+  local arg1, arg2, arg3
+  arg1 = textValue
+  if arg1 > 0 then
+    arg1 = TriggerServerEvent
+    arg2 = "1126c6bae9"
+    arg3 = textValue
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1126c6bae9".
+    arg1(arg2, arg3)
   end
-  SHX0_2 = ClearPedSecondaryTask
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2, SHX2_2 = SHX1_2()
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = false
-  SHX0_1 = SHX0_2
-  SHX0_2 = 0
-  SHX1_1 = SHX0_2
+  arg1 = ClearPedSecondaryTask
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  arg2, arg3 = arg2()
+  arg1(arg2, arg3)
+  arg1 = false
+  cmgCall = arg1
+  arg1 = 0
+  textValue = arg1
 end
-SHX5_1 = 30000
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX1_2 = "combat@drag_ped@"
-  SHX2_2 = "injured_drag_plyr"
-  SHX3_2 = "injured_drag_ped"
-  SHX4_2 = TriggerServerEvent
-  SHX5_2 = "ce85753545"
-  SHX6_2 = 0
-  SHX7_2 = SHX1_2
-  SHX8_2 = SHX2_2
-  SHX9_2 = SHX3_2
-  SHX10_2 = 0.48
-  SHX11_2 = 4103
-  SHX12_2 = 0.0
-  SHX13_2 = SHX0_2
-  SHX14_2 = SHX5_1
-  SHX15_2 = 0.0
-  SHX16_2 = 33
-  SHX17_2 = 33
-  SHX18_2 = 1
-  SHX19_2 = 1
-  SHX20_2 = 11816
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-  SHX4_2 = true
-  SHX0_1 = SHX4_2
-  SHX1_1 = SHX0_2
-  SHX4_2 = SetTimeout
-  SHX5_2 = SHX5_1
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX0_1
-    if SHX0_3 then
-      SHX0_3 = SHX4_1
-      SHX0_3()
+numberValue7 = 30000
+function workValue9(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8, flag12, workValue10, workValue11, flag, flag2, flag3, workValue3, workValue4, numberValue4, numberValue5, flag4, flag5, flag6, flag7
+  arg2 = "combat@drag_ped@"
+  arg3 = "injured_drag_plyr"
+  arg4 = "injured_drag_ped"
+  dataTable = TriggerServerEvent
+  dataTable2 = "ce85753545"
+  numberValue8 = 0
+  flag12 = arg2
+  workValue10 = arg3
+  workValue11 = arg4
+  flag = 0.48
+  flag2 = 4103
+  flag3 = 0.0
+  workValue3 = arg1
+  workValue4 = numberValue7
+  numberValue4 = 0.0
+  numberValue5 = 33
+  flag4 = 33
+  flag5 = 1
+  flag6 = 1
+  flag7 = 11816
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ce85753545".
+  dataTable(dataTable2, numberValue8, flag12, workValue10, workValue11, flag, flag2, flag3, workValue3, workValue4, numberValue4, numberValue5, flag4, flag5, flag6, flag7)
+  dataTable = true
+  cmgCall = dataTable
+  textValue = arg1
+  dataTable = SetTimeout
+  dataTable2 = numberValue7
+  function numberValue8()
+    local workValue, waitCall2
+    workValue = cmgCall
+    if workValue then
+      workValue = workValue8
+      workValue()
     end
   end
-  SHX4_2(SHX5_2, SHX6_2)
+  dataTable(dataTable2, numberValue8)
 end
-SHX7_1 = CMG
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasClientPermission
-  SHX2_2 = "nhs.onduty.permission"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 and SHX0_2 > 0 then
-    SHX1_2 = SHX6_1
-    SHX2_2 = SHX0_2
-    SHX1_2(SHX2_2)
+cmgCall4 = CMG
+function dataTable3(arg1)
+  local arg2, arg3
+  arg2 = CMG
+  arg2 = arg2.hasClientPermission
+  arg3 = "nhs.onduty.permission"
+  arg2 = arg2(arg3)
+  if arg2 and arg1 > 0 then
+    arg2 = workValue9
+    arg3 = arg1
+    arg2(arg3)
   end
 end
-SHX7_1.startNhsDragFromRadial = SHX8_1
-SHX7_1 = Citizen
-SHX7_1 = SHX7_1.CreateThread
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
+cmgCall4.startNhsDragFromRadial = dataTable3
+cmgCall4 = Citizen
+cmgCall4 = cmgCall4.CreateThread
+function dataTable3()
+  local arg1, arg2, arg3, arg4
   while true do
-    SHX0_2 = IsDisabledControlPressed
-    SHX1_2 = 1
-    SHX2_2 = 19
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = IsDisabledControlPressed
-      SHX1_2 = 1
-      SHX2_2 = 63
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if SHX0_2 then
-        SHX0_2 = SHX2_1
-        SHX0_2 = SHX0_2()
-        if SHX0_2 then
-          SHX0_2 = SHX0_1
-          if not SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.hasClientPermission
-            SHX1_2 = "nhs.onduty.permission"
-            SHX0_2 = SHX0_2(SHX1_2)
-            if SHX0_2 then
-              SHX0_2 = GetClosestPlayer
-              SHX1_2 = 3
-              SHX0_2 = SHX0_2(SHX1_2)
-              if SHX0_2 then
-                SHX1_2 = GetPlayerServerId
-                SHX2_2 = SHX0_2
-                SHX1_2 = SHX1_2(SHX2_2)
-                if -1 ~= SHX1_2 and SHX1_2 > 0 then
-                  SHX2_2 = SHX6_1
-                  SHX3_2 = SHX1_2
-                  SHX2_2(SHX3_2)
+    arg1 = IsDisabledControlPressed
+    arg2 = 1
+    arg3 = 19
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = IsDisabledControlPressed
+      arg2 = 1
+      arg3 = 63
+      arg1 = arg1(arg2, arg3)
+      if arg1 then
+        arg1 = workValue6
+        arg1 = arg1()
+        if arg1 then
+          arg1 = cmgCall
+          if not arg1 then
+            arg1 = CMG
+            arg1 = arg1.hasClientPermission
+            arg2 = "nhs.onduty.permission"
+            arg1 = arg1(arg2)
+            if arg1 then
+              arg1 = GetClosestPlayer
+              arg2 = 3
+              arg1 = arg1(arg2)
+              if arg1 then
+                arg2 = GetPlayerServerId
+                arg3 = arg1
+                -- Beginner: result below is serverId.
+                arg2 = arg2(arg3)
+                if -1 ~= arg2 and arg2 > 0 then
+                  arg3 = workValue9
+                  arg4 = arg2
+                  arg3(arg4)
                 end
               end
             end
           end
-          SHX0_2 = Wait
-          SHX1_2 = 250
-          SHX0_2(SHX1_2)
+          arg1 = Wait
+          arg2 = 250
+          arg1(arg2)
         end
       end
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 0
+    arg1(arg2)
   end
 end
-SHX7_1(SHX8_1)
-SHX7_1 = CMG
-SHX7_1 = SHX7_1.createThreadOnTick
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX0_1
-  if SHX0_2 then
-    SHX0_2 = SHX3_1
-    SHX0_2()
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 0
-    SHX2_2 = 202
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = IsDisabledControlJustPressed
-      SHX1_2 = 0
-      SHX2_2 = 177
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        goto SHX_LABEL_20
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall4(dataTable3)
+cmgCall4 = CMG
+cmgCall4 = cmgCall4.createThreadOnTick
+function dataTable3()
+  local arg1, arg2, arg3
+  arg1 = cmgCall
+  if arg1 then
+    arg1 = workValue7
+    arg1()
+    arg1 = IsControlJustPressed
+    arg2 = 0
+    arg3 = 202
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = IsDisabledControlJustPressed
+      arg2 = 0
+      arg3 = 177
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        goto flow_label_20
       end
     end
-    SHX0_2 = SHX4_1
-    SHX0_2()
+    arg1 = workValue8
+    arg1()
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_20:: outside nested blocks until all 'goto SHX_LABEL_20' can see it
-  ::SHX_LABEL_20::
+  ::flow_label_20::
 end
-SHX9_1 = "NHS Drag Prompt"
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = {}
-SHX8_1 = {}
-SHX8_1.model = "bandage2"
-SHX8_1.bone = 28252
-SHX9_1 = vector3
-SHX10_1 = -0.23
-SHX11_1 = -0.12
-SHX12_1 = 0.09
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.pos = SHX9_1
-SHX9_1 = vector3
-SHX10_1 = 137.97
-SHX11_1 = -34.49
-SHX12_1 = 88.56
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.rot = SHX9_1
-SHX8_1.propDelay = 500
-SHX8_1.duration = 300000
-SHX8_1.animDuration = 5000
-SHX8_1.animFlag = 0
-SHX7_1.barm = SHX8_1
-SHX8_1 = {}
-SHX8_1.model = "bandage"
-SHX8_1.bone = 51826
-SHX9_1 = vector3
-SHX10_1 = 0.3
-SHX11_1 = 0.01
-SHX12_1 = 0.02
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.pos = SHX9_1
-SHX9_1 = vector3
-SHX10_1 = 2.96
-SHX11_1 = -78.18
-SHX12_1 = -136.04
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.rot = SHX9_1
-SHX8_1.propDelay = 500
-SHX8_1.duration = 300000
-SHX8_1.animDuration = 5000
-SHX8_1.animFlag = 0
-SHX7_1.bleg = SHX8_1
-SHX8_1 = {}
-SHX8_1.model = "prop_cs_pills"
-SHX8_1.bone = 4089
-SHX9_1 = vector3
-SHX10_1 = 0.02
-SHX11_1 = -0.02
-SHX12_1 = -0.02
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.pos = SHX9_1
-SHX9_1 = vector3
-SHX10_1 = -137.09
-SHX11_1 = 13.69
-SHX12_1 = -25.04
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.rot = SHX9_1
-SHX8_1.propDelay = 100
-SHX8_1.duration = 5000
-SHX8_1.animFlag = 0
-SHX7_1.pills = SHX8_1
-SHX8_1 = {}
-SHX8_1.model = "p_syringe_01_s"
-SHX8_1.bone = 36029
-SHX9_1 = vector3
-SHX10_1 = 0.04
-SHX11_1 = 0.04
-SHX12_1 = 0.0
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.pos = SHX9_1
-SHX9_1 = vector3
-SHX10_1 = -90.44
-SHX11_1 = 35.47
-SHX12_1 = -16.02
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.rot = SHX9_1
-SHX8_1.propDelay = 100
-SHX8_1.duration = 5000
-SHX8_1.animFlag = 0
-SHX7_1.psyringe = SHX8_1
-function SHX8_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX3_2 = GetHashKey
-  SHX4_2 = SHX1_2.model
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadModel
-  SHX5_2 = SHX3_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = HasModelLoaded
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if not SHX4_2 then
-    SHX4_2 = RequestModel
-    SHX5_2 = SHX3_2
-    SHX4_2(SHX5_2)
-    SHX4_2 = 0
+vector3Builder = "NHS Drag Prompt"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall4(dataTable3, vector3Builder)
+cmgCall4 = {}
+dataTable3 = {}
+dataTable3.model = "bandage2"
+dataTable3.bone = 28252
+vector3Builder = vector3
+numberValue = -0.23
+numberValue2 = -0.12
+numberValue3 = 0.09
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.pos = vector3Builder
+vector3Builder = vector3
+numberValue = 137.97
+numberValue2 = -34.49
+numberValue3 = 88.56
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.rot = vector3Builder
+dataTable3.propDelay = 500
+dataTable3.duration = 300000
+dataTable3.animDuration = 5000
+dataTable3.animFlag = 0
+cmgCall4.barm = dataTable3
+dataTable3 = {}
+dataTable3.model = "bandage"
+dataTable3.bone = 51826
+vector3Builder = vector3
+numberValue = 0.3
+numberValue2 = 0.01
+numberValue3 = 0.02
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.pos = vector3Builder
+vector3Builder = vector3
+numberValue = 2.96
+numberValue2 = -78.18
+numberValue3 = -136.04
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.rot = vector3Builder
+dataTable3.propDelay = 500
+dataTable3.duration = 300000
+dataTable3.animDuration = 5000
+dataTable3.animFlag = 0
+cmgCall4.bleg = dataTable3
+dataTable3 = {}
+dataTable3.model = "prop_cs_pills"
+dataTable3.bone = 4089
+vector3Builder = vector3
+numberValue = 0.02
+numberValue2 = -0.02
+numberValue3 = -0.02
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.pos = vector3Builder
+vector3Builder = vector3
+numberValue = -137.09
+numberValue2 = 13.69
+numberValue3 = -25.04
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.rot = vector3Builder
+dataTable3.propDelay = 100
+dataTable3.duration = 5000
+dataTable3.animFlag = 0
+cmgCall4.pills = dataTable3
+dataTable3 = {}
+dataTable3.model = "p_syringe_01_s"
+dataTable3.bone = 36029
+vector3Builder = vector3
+numberValue = 0.04
+numberValue2 = 0.04
+numberValue3 = 0.0
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.pos = vector3Builder
+vector3Builder = vector3
+numberValue = -90.44
+numberValue2 = 35.47
+numberValue3 = -16.02
+vector3Builder = vector3Builder(numberValue, numberValue2, numberValue3)
+dataTable3.rot = vector3Builder
+dataTable3.propDelay = 100
+dataTable3.duration = 5000
+dataTable3.animFlag = 0
+cmgCall4.psyringe = dataTable3
+function dataTable3(arg1, arg2, arg3)
+  local arg4, dataTable, dataTable2, numberValue8, flag12, workValue10, workValue11, flag, flag2, flag3, workValue3, workValue4, numberValue4, numberValue5, flag4, flag5, flag6, flag7, numberValue6, flag8
+  arg4 = GetHashKey
+  dataTable = arg2.model
+  -- Beginner: result below is hash.
+  arg4 = arg4(dataTable)
+  dataTable = CMG
+  dataTable = dataTable.loadModel
+  dataTable2 = arg4
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  dataTable(dataTable2)
+  dataTable = HasModelLoaded
+  dataTable2 = arg4
+  dataTable = dataTable(dataTable2)
+  if not dataTable then
+    dataTable = RequestModel
+    dataTable2 = arg4
+    dataTable(dataTable2)
+    dataTable = 0
     while true do
-      SHX5_2 = HasModelLoaded
-      SHX6_2 = SHX3_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      if SHX5_2 then
+      dataTable2 = HasModelLoaded
+      numberValue8 = arg4
+      dataTable2 = dataTable2(numberValue8)
+      if dataTable2 then
         break
       end
-      SHX5_2 = 150
-      if not (SHX4_2 < SHX5_2) then
+      dataTable2 = 150
+      if not (dataTable < dataTable2) then
         break
       end
-      SHX5_2 = Wait
-      SHX6_2 = 10
-      SHX5_2(SHX6_2)
-      SHX4_2 = SHX4_2 + 1
+      dataTable2 = Wait
+      numberValue8 = 10
+      dataTable2(numberValue8)
+      dataTable = dataTable + 1
     end
   end
-  SHX4_2 = HasModelLoaded
-  SHX5_2 = SHX3_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if not SHX4_2 then
-    SHX4_2 = nil
-    return SHX4_2
+  dataTable = HasModelLoaded
+  dataTable2 = arg4
+  dataTable = dataTable(dataTable2)
+  if not dataTable then
+    dataTable = nil
+    return dataTable
   end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerCoords
-  SHX4_2 = SHX4_2()
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.requestEntitySpawn
-  SHX6_2 = "emergency_pack_prop"
-  SHX7_2 = SHX2_2
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = CreateObject
-  SHX6_2 = SHX3_2
-  SHX7_2 = SHX4_2.x
-  SHX8_2 = SHX4_2.y
-  SHX9_2 = SHX4_2.z
-  SHX10_2 = true
-  SHX11_2 = true
-  SHX12_2 = false
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  if SHX5_2 then
-    SHX6_2 = DoesEntityExist
-    SHX7_2 = SHX5_2
-    SHX6_2 = SHX6_2(SHX7_2)
-    if SHX6_2 then
-      goto SHX_LABEL_64
+  dataTable = CMG
+  dataTable = dataTable.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  dataTable = dataTable()
+  dataTable2 = CMG
+  dataTable2 = dataTable2.requestEntitySpawn
+  numberValue8 = "emergency_pack_prop"
+  flag12 = arg3
+  dataTable2(numberValue8, flag12)
+  dataTable2 = CreateObject
+  numberValue8 = arg4
+  flag12 = dataTable.x
+  workValue10 = dataTable.y
+  workValue11 = dataTable.z
+  flag = true
+  flag2 = true
+  flag3 = false
+  -- Beginner: result below is objectEntity.
+  dataTable2 = dataTable2(numberValue8, flag12, workValue10, workValue11, flag, flag2, flag3)
+  if dataTable2 then
+    numberValue8 = DoesEntityExist
+    flag12 = dataTable2
+    numberValue8 = numberValue8(flag12)
+    if numberValue8 then
+      goto flow_label_64
     end
   end
-  SHX6_2 = nil
-  return SHX6_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_64:: outside nested blocks until all 'goto SHX_LABEL_64' can see it
-  ::SHX_LABEL_64::
-  SHX6_2 = GetPedBoneIndex
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX1_2.bone
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX7_2 = AttachEntityToEntity
-  SHX8_2 = SHX5_2
-  SHX9_2 = SHX0_2
-  SHX10_2 = SHX6_2
-  SHX11_2 = SHX1_2.pos
-  SHX11_2 = SHX11_2.x
-  SHX12_2 = SHX1_2.pos
-  SHX12_2 = SHX12_2.y
-  SHX13_2 = SHX1_2.pos
-  SHX13_2 = SHX13_2.z
-  SHX14_2 = SHX1_2.rot
-  SHX14_2 = SHX14_2.x
-  SHX15_2 = SHX1_2.rot
-  SHX15_2 = SHX15_2.y
-  SHX16_2 = SHX1_2.rot
-  SHX16_2 = SHX16_2.z
-  SHX17_2 = true
-  SHX18_2 = true
-  SHX19_2 = false
-  SHX20_2 = true
-  SHX21_2 = 1
-  SHX22_2 = true
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-  SHX7_2 = SetEntityCollision
-  SHX8_2 = SHX5_2
-  SHX9_2 = false
-  SHX10_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-  SHX7_2 = SetModelAsNoLongerNeeded
-  SHX8_2 = SHX3_2
-  SHX7_2(SHX8_2)
-  return SHX5_2
+  numberValue8 = nil
+  return numberValue8
+  ::flow_label_64::
+  numberValue8 = GetPedBoneIndex
+  flag12 = arg1
+  workValue10 = arg2.bone
+  numberValue8 = numberValue8(flag12, workValue10)
+  flag12 = AttachEntityToEntity
+  workValue10 = dataTable2
+  workValue11 = arg1
+  flag = numberValue8
+  flag2 = arg2.pos
+  flag2 = flag2.x
+  flag3 = arg2.pos
+  flag3 = flag3.y
+  workValue3 = arg2.pos
+  workValue3 = workValue3.z
+  workValue4 = arg2.rot
+  workValue4 = workValue4.x
+  numberValue4 = arg2.rot
+  numberValue4 = numberValue4.y
+  numberValue5 = arg2.rot
+  numberValue5 = numberValue5.z
+  flag4 = true
+  flag5 = true
+  flag6 = false
+  flag7 = true
+  numberValue6 = 1
+  flag8 = true
+  -- Beginner: Attach one entity to another entity.
+  flag12(workValue10, workValue11, flag, flag2, flag3, workValue3, workValue4, numberValue4, numberValue5, flag4, flag5, flag6, flag7, numberValue6, flag8)
+  flag12 = SetEntityCollision
+  workValue10 = dataTable2
+  workValue11 = false
+  flag = false
+  flag12(workValue10, workValue11, flag)
+  flag12 = SetModelAsNoLongerNeeded
+  workValue10 = arg4
+  flag12(workValue10)
+  return dataTable2
 end
-function SHX9_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerPed
-  SHX4_2 = SHX4_2()
-  SHX5_2 = SHX7_1
-  SHX5_2 = SHX5_2[SHX0_2]
-  if SHX5_2 then
-    SHX6_2 = SHX5_2.animFlag
-    if SHX6_2 then
-      goto SHX_LABEL_12
+function vector3Builder(arg1, arg2, arg3, arg4)
+  local dataTable, dataTable2, numberValue8, flag12, workValue10, workValue11, flag, flag2, flag3, workValue3, workValue4, numberValue4, numberValue5, flag4, flag5
+  dataTable = CMG
+  dataTable = dataTable.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  dataTable = dataTable()
+  dataTable2 = cmgCall4
+  dataTable2 = dataTable2[arg1]
+  if dataTable2 then
+    numberValue8 = dataTable2.animFlag
+    if numberValue8 then
+      goto flow_label_12
     end
   end
-  SHX6_2 = 48
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  SHX7_2 = CMG
-  SHX7_2 = SHX7_2.loadAnimDict
-  SHX8_2 = SHX1_2
-  SHX7_2(SHX8_2)
-  SHX7_2 = TaskPlayAnim
-  SHX8_2 = SHX4_2
-  SHX9_2 = SHX1_2
-  SHX10_2 = SHX2_2
-  SHX11_2 = 2.0
-  SHX12_2 = 2.0
-  SHX13_2 = -1
-  SHX14_2 = SHX6_2
-  SHX15_2 = 1
-  SHX16_2 = false
-  SHX17_2 = false
-  SHX18_2 = false
-  SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  if SHX3_2 then
-    SHX7_2 = SendNUIMessage
-    SHX8_2 = {}
-    SHX8_2.transactionType = SHX3_2
-    SHX7_2(SHX8_2)
+  numberValue8 = 48
+  ::flow_label_12::
+  flag12 = CMG
+  flag12 = flag12.loadAnimDict
+  workValue10 = arg2
+  -- Beginner: Load a GTA animation dictionary before using it.
+  flag12(workValue10)
+  flag12 = TaskPlayAnim
+  workValue10 = dataTable
+  workValue11 = arg2
+  flag = arg3
+  flag2 = 2.0
+  flag3 = 2.0
+  workValue3 = -1
+  workValue4 = numberValue8
+  numberValue4 = 1
+  numberValue5 = false
+  flag4 = false
+  flag5 = false
+  -- Beginner: Play an animation on a ped.
+  flag12(workValue10, workValue11, flag, flag2, flag3, workValue3, workValue4, numberValue4, numberValue5, flag4, flag5)
+  if arg4 then
+    flag12 = SendNUIMessage
+    workValue10 = {}
+    workValue10.transactionType = arg4
+    -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+    flag12(workValue10)
   end
-  SHX7_2 = Citizen
-  SHX7_2 = SHX7_2.CreateThread
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    SHX0_3 = nil
-    SHX1_3 = SHX5_2
-    if SHX1_3 then
-      SHX1_3 = Wait
-      SHX2_3 = SHX5_2.propDelay
-      SHX1_3(SHX2_3)
-      SHX1_3 = SHX8_1
-      SHX2_3 = CMG
-      SHX2_3 = SHX2_3.getPlayerPed
-      SHX2_3 = SHX2_3()
-      SHX3_3 = SHX5_2
-      SHX4_3 = SHX0_2
-      SHX1_3 = SHX1_3(SHX2_3, SHX3_3, SHX4_3)
-      SHX0_3 = SHX1_3
+  flag12 = Citizen
+  flag12 = flag12.CreateThread
+  function workValue10()
+    local workValue, waitCall2, cmgCall2, waitCall3, cmgCall3, flag11, numberValue9
+    workValue = nil
+    waitCall2 = dataTable2
+    if waitCall2 then
+      waitCall2 = Wait
+      cmgCall2 = dataTable2.propDelay
+      waitCall2(cmgCall2)
+      waitCall2 = dataTable3
+      cmgCall2 = CMG
+      cmgCall2 = cmgCall2.getPlayerPed
+      -- Beginner: result below is localPlayerPed.
+      cmgCall2 = cmgCall2()
+      waitCall3 = dataTable2
+      cmgCall3 = arg1
+      waitCall2 = waitCall2(cmgCall2, waitCall3, cmgCall3)
+      workValue = waitCall2
     end
-    SHX1_3 = SHX5_2
-    if SHX1_3 then
-      SHX1_3 = SHX5_2.animDuration
-      if SHX1_3 then
-        goto SHX_LABEL_29
+    waitCall2 = dataTable2
+    if waitCall2 then
+      waitCall2 = dataTable2.animDuration
+      if waitCall2 then
+        goto flow_label_29
       end
     end
-    SHX1_3 = SHX5_2
-    if SHX1_3 then
-      SHX1_3 = SHX5_2.duration
-      if SHX1_3 then
-        goto SHX_LABEL_29
+    waitCall2 = dataTable2
+    if waitCall2 then
+      waitCall2 = dataTable2.duration
+      if waitCall2 then
+        goto flow_label_29
       end
     end
-    SHX1_3 = 2500
-    -- [FIX IF ERROR] Move ::SHX_LABEL_29:: outside nested blocks until all 'goto SHX_LABEL_29' can see it
-    ::SHX_LABEL_29::
-    SHX2_3 = SHX5_2
-    if SHX2_3 then
-      SHX2_3 = SHX5_2.duration
-      if SHX2_3 then
-        goto SHX_LABEL_36
+    waitCall2 = 2500
+    ::flow_label_29::
+    cmgCall2 = dataTable2
+    if cmgCall2 then
+      cmgCall2 = dataTable2.duration
+      if cmgCall2 then
+        goto flow_label_36
       end
     end
-    SHX2_3 = 2500
-    -- [FIX IF ERROR] Move ::SHX_LABEL_36:: outside nested blocks until all 'goto SHX_LABEL_36' can see it
-    ::SHX_LABEL_36::
-    SHX3_3 = Wait
-    SHX4_3 = math
-    SHX4_3 = SHX4_3.max
-    SHX5_3 = 0
-    SHX6_3 = SHX5_2
-    if SHX6_3 then
-      SHX6_3 = SHX5_2.propDelay
-      if SHX6_3 then
-        goto SHX_LABEL_47
+    cmgCall2 = 2500
+    ::flow_label_36::
+    waitCall3 = Wait
+    cmgCall3 = math
+    cmgCall3 = cmgCall3.max
+    flag11 = 0
+    numberValue9 = dataTable2
+    if numberValue9 then
+      numberValue9 = dataTable2.propDelay
+      if numberValue9 then
+        goto flow_label_47
       end
     end
-    SHX6_3 = 0
-    -- [FIX IF ERROR] Move ::SHX_LABEL_47:: outside nested blocks until all 'goto SHX_LABEL_47' can see it
-    ::SHX_LABEL_47::
-    SHX6_3 = SHX1_3 - SHX6_3
-    SHX4_3, SHX5_3, SHX6_3 = SHX4_3(SHX5_3, SHX6_3)
-    SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-    SHX3_3 = ClearPedTasks
-    SHX4_3 = CMG
-    SHX4_3 = SHX4_3.getPlayerPed
-    SHX4_3, SHX5_3, SHX6_3 = SHX4_3()
-    SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-    if SHX0_3 then
-      SHX3_3 = DoesEntityExist
-      SHX4_3 = SHX0_3
-      SHX3_3 = SHX3_3(SHX4_3)
-      if SHX3_3 and SHX1_3 < SHX2_3 then
-        SHX3_3 = Citizen
-        SHX3_3 = SHX3_3.CreateThread
-        function SHX4_3()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_4, SHX1_4, SHX2_4, SHX3_4
-          SHX0_4 = Wait
-          SHX1_4 = SHX2_3
-          SHX2_4 = SHX1_3
-          SHX1_4 = SHX1_4 - SHX2_4
-          SHX0_4(SHX1_4)
-          SHX0_4 = SHX0_3
-          if SHX0_4 then
-            SHX0_4 = DoesEntityExist
-            SHX1_4 = SHX0_3
-            SHX0_4 = SHX0_4(SHX1_4)
-            if SHX0_4 then
-              SHX0_4 = DetachEntity
-              SHX1_4 = SHX0_3
-              SHX2_4 = false
-              SHX3_4 = false
-              SHX0_4(SHX1_4, SHX2_4, SHX3_4)
-              SHX0_4 = DeleteEntity
-              SHX1_4 = SHX0_3
-              SHX0_4(SHX1_4)
+    numberValue9 = 0
+    ::flow_label_47::
+    numberValue9 = waitCall2 - numberValue9
+    cmgCall3, flag11, numberValue9 = cmgCall3(flag11, numberValue9)
+    waitCall3(cmgCall3, flag11, numberValue9)
+    waitCall3 = ClearPedTasks
+    cmgCall3 = CMG
+    cmgCall3 = cmgCall3.getPlayerPed
+    cmgCall3, flag11, numberValue9 = cmgCall3()
+    waitCall3(cmgCall3, flag11, numberValue9)
+    if workValue then
+      waitCall3 = DoesEntityExist
+      cmgCall3 = workValue
+      waitCall3 = waitCall3(cmgCall3)
+      if waitCall3 and waitCall2 < cmgCall2 then
+        waitCall3 = Citizen
+        waitCall3 = waitCall3.CreateThread
+        function cmgCall3()
+          local waitCall, workValue5, flag9, flag10
+          waitCall = Wait
+          workValue5 = cmgCall2
+          flag9 = waitCall2
+          workValue5 = workValue5 - flag9
+          waitCall(workValue5)
+          waitCall = workValue
+          if waitCall then
+            waitCall = DoesEntityExist
+            workValue5 = workValue
+            waitCall = waitCall(workValue5)
+            if waitCall then
+              waitCall = DetachEntity
+              workValue5 = workValue
+              flag9 = false
+              flag10 = false
+              waitCall(workValue5, flag9, flag10)
+              waitCall = DeleteEntity
+              workValue5 = workValue
+              -- Beginner: Delete a GTA entity.
+              waitCall(workValue5)
             end
           end
         end
-        SHX3_3(SHX4_3)
+        -- Beginner: Start a separate FiveM thread so this code can run independently.
+        waitCall3(cmgCall3)
     end
-    elseif SHX0_3 then
-      SHX3_3 = DoesEntityExist
-      SHX4_3 = SHX0_3
-      SHX3_3 = SHX3_3(SHX4_3)
-      if SHX3_3 then
-        SHX3_3 = DetachEntity
-        SHX4_3 = SHX0_3
-        SHX5_3 = false
-        SHX6_3 = false
-        SHX3_3(SHX4_3, SHX5_3, SHX6_3)
-        SHX3_3 = DeleteEntity
-        SHX4_3 = SHX0_3
-        SHX3_3(SHX4_3)
+    elseif workValue then
+      waitCall3 = DoesEntityExist
+      cmgCall3 = workValue
+      waitCall3 = waitCall3(cmgCall3)
+      if waitCall3 then
+        waitCall3 = DetachEntity
+        cmgCall3 = workValue
+        flag11 = false
+        numberValue9 = false
+        waitCall3(cmgCall3, flag11, numberValue9)
+        waitCall3 = DeleteEntity
+        cmgCall3 = workValue
+        -- Beginner: Delete a GTA entity.
+        waitCall3(cmgCall3)
       end
     end
   end
-  SHX7_2(SHX8_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  flag12(workValue10)
 end
-SHX10_1 = RegisterNetEvent
-SHX11_1 = "b14b321665"
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  if SHX0_2 then
-    SHX2_2 = "barm"
-    if SHX2_2 then
-      goto SHX_LABEL_7
+numberValue = RegisterNetEvent
+numberValue2 = "b14b321665"
+-- Beginner: this function handles network event "b14b321665".
+function numberValue3(arg1, arg2)
+  local arg3, arg4, dataTable, dataTable2, numberValue8, flag12, workValue10, workValue11
+  if arg1 then
+    arg3 = "barm"
+    if arg3 then
+      goto flow_label_7
     end
   end
-  SHX2_2 = "bleg"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_7:: outside nested blocks until all 'goto SHX_LABEL_7' can see it
-  ::SHX_LABEL_7::
-  if SHX0_2 then
-    SHX3_2 = "emergency1@bandagearm@clip"
-    if SHX3_2 then
-      goto SHX_LABEL_13
+  arg3 = "bleg"
+  ::flow_label_7::
+  if arg1 then
+    arg4 = "emergency1@bandagearm@clip"
+    if arg4 then
+      goto flow_label_13
     end
   end
-  SHX3_2 = "emergency1@bandageleg@clip"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_13:: outside nested blocks until all 'goto SHX_LABEL_13' can see it
-  ::SHX_LABEL_13::
-  if SHX0_2 then
-    SHX4_2 = "bandagearm_clip"
-    if SHX4_2 then
-      goto SHX_LABEL_19
+  arg4 = "emergency1@bandageleg@clip"
+  ::flow_label_13::
+  if arg1 then
+    dataTable = "bandagearm_clip"
+    if dataTable then
+      goto flow_label_19
     end
   end
-  SHX4_2 = "bandageleg_clip"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-  ::SHX_LABEL_19::
-  SHX5_2 = SHX9_1
-  SHX6_2 = SHX2_2
-  SHX7_2 = SHX3_2
-  SHX8_2 = SHX4_2
-  SHX9_2 = "bandage"
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = Citizen
-  SHX5_2 = SHX5_2.CreateThread
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = Wait
-    SHX1_3 = 5000
-    SHX0_3(SHX1_3)
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.stopBleeding
-    if SHX0_3 then
-      SHX0_3 = CMG
-      SHX0_3 = SHX0_3.stopBleeding
-      SHX0_3()
+  dataTable = "bandageleg_clip"
+  ::flow_label_19::
+  dataTable2 = vector3Builder
+  numberValue8 = arg3
+  flag12 = arg4
+  workValue10 = dataTable
+  workValue11 = "bandage"
+  dataTable2(numberValue8, flag12, workValue10, workValue11)
+  dataTable2 = Citizen
+  dataTable2 = dataTable2.CreateThread
+  function numberValue8()
+    local workValue, waitCall2
+    workValue = Wait
+    waitCall2 = 5000
+    workValue(waitCall2)
+    workValue = CMG
+    workValue = workValue.stopBleeding
+    if workValue then
+      workValue = CMG
+      workValue = workValue.stopBleeding
+      workValue()
     end
   end
-  SHX5_2(SHX6_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  dataTable2(numberValue8)
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = RegisterNetEvent
-SHX11_1 = "62acadffbf"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX9_1
-  SHX1_2 = "psyringe"
-  SHX2_2 = "emergency1@syringe@clip"
-  SHX3_2 = "syringe_clip"
-  SHX4_2 = "syringe"
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b14b321665".
+numberValue(numberValue2, numberValue3)
+numberValue = RegisterNetEvent
+numberValue2 = "62acadffbf"
+-- Beginner: this function handles network event "62acadffbf".
+function numberValue3()
+  local arg1, arg2, arg3, arg4, dataTable
+  arg1 = vector3Builder
+  arg2 = "psyringe"
+  arg3 = "emergency1@syringe@clip"
+  arg4 = "syringe_clip"
+  dataTable = "syringe"
+  arg1(arg2, arg3, arg4, dataTable)
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = RegisterNetEvent
-SHX11_1 = "00393cdccd"
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.type = "HEALTHSERVICE_LOBBY"
-  SHX3_2 = SHX0_2 or SHX3_2
-  if not SHX0_2 then
-    SHX3_2 = {}
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "62acadffbf".
+numberValue(numberValue2, numberValue3)
+numberValue = RegisterNetEvent
+numberValue2 = "00393cdccd"
+-- Beginner: this function handles network event "00393cdccd".
+function numberValue3(arg1)
+  local arg2, arg3, arg4
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.type = "HEALTHSERVICE_LOBBY"
+  arg4 = arg1 or arg4
+  if not arg1 then
+    arg4 = {}
   end
-  SHX2_2.payload = SHX3_2
-  SHX1_2(SHX2_2)
+  arg3.payload = arg4
+  arg2(arg3)
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = RegisterNetEvent
-SHX11_1 = "f286a73897"
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.uiSendMessage
-  SHX2_2 = {}
-  SHX2_2.type = "HEALTHSERVICE_SEARCH_RESULT"
-  SHX3_2 = {}
-  SHX4_2 = SHX0_2 or SHX4_2
-  if not SHX0_2 then
-    SHX4_2 = {}
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "00393cdccd".
+numberValue(numberValue2, numberValue3)
+numberValue = RegisterNetEvent
+numberValue2 = "f286a73897"
+-- Beginner: this function handles network event "f286a73897".
+function numberValue3(arg1)
+  local arg2, arg3, arg4, dataTable
+  arg2 = CMG
+  arg2 = arg2.uiSendMessage
+  arg3 = {}
+  arg3.type = "HEALTHSERVICE_SEARCH_RESULT"
+  arg4 = {}
+  dataTable = arg1 or dataTable
+  if not arg1 then
+    dataTable = {}
   end
-  SHX3_2.players = SHX4_2
-  SHX2_2.payload = SHX3_2
-  SHX1_2(SHX2_2)
+  arg4.players = dataTable
+  arg3.payload = arg4
+  arg2(arg3)
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = RegisterNetEvent
-SHX11_1 = "33567d9509"
-function SHX12_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = type
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if "string" ~= SHX2_2 or "" == SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f286a73897".
+numberValue(numberValue2, numberValue3)
+numberValue = RegisterNetEvent
+numberValue2 = "33567d9509"
+-- Beginner: this function handles network event "33567d9509".
+function numberValue3(arg1, arg2)
+  local arg3, arg4, dataTable, dataTable2
+  arg3 = type
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  if "string" ~= arg3 or "" == arg2 then
     return
   end
-  if SHX0_2 then
-    SHX2_2 = "~g~"
-    if SHX2_2 then
-      goto SHX_LABEL_15
+  if arg1 then
+    arg3 = "~g~"
+    if arg3 then
+      goto flow_label_15
     end
   end
-  SHX2_2 = "~r~"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_15:: outside nested blocks until all 'goto SHX_LABEL_15' can see it
-  ::SHX_LABEL_15::
-  SHX3_2 = tCMG
-  SHX3_2 = SHX3_2.notify
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2
-  SHX4_2 = SHX4_2 .. SHX5_2
-  SHX3_2(SHX4_2)
+  arg3 = "~r~"
+  ::flow_label_15::
+  arg4 = tCMG
+  arg4 = arg4.notify
+  dataTable = arg3
+  dataTable2 = arg2
+  dataTable = dataTable .. dataTable2
+  -- Beginner: Show a notification to the player.
+  arg4(dataTable)
 end
-SHX10_1(SHX11_1, SHX12_1)
-SHX10_1 = AddEventHandler
-SHX11_1 = "a68d3374be"
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getClientFaction
-  SHX1_2 = SHX1_2()
-  if "Health Service" == SHX1_2 then
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "38dbf567b8"
-    SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "33567d9509".
+numberValue(numberValue2, numberValue3)
+numberValue = AddEventHandler
+numberValue2 = "a68d3374be"
+-- Beginner: this function runs when client event "a68d3374be" fires.
+function numberValue3(arg1)
+  local arg2, arg3
+  arg2 = CMG
+  arg2 = arg2.getClientFaction
+  arg2 = arg2()
+  if "Health Service" == arg2 then
+    arg2 = TriggerServerEvent
+    arg3 = "38dbf567b8"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "38dbf567b8".
+    arg2(arg3)
   end
 end
-SHX10_1(SHX11_1, SHX12_1)
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "table" == SHX1_2 then
-    return SHX0_2
+-- Beginner: Register a client-side event handler. Event/command: "a68d3374be".
+numberValue(numberValue2, numberValue3)
+function numberValue(arg1)
+  local arg2, arg3, arg4, dataTable
+  arg2 = type
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if "table" == arg2 then
+    return arg1
   end
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "string" == SHX1_2 and "" ~= SHX0_2 then
-    SHX1_2 = pcall
-    SHX2_2 = json
-    SHX2_2 = SHX2_2.decode
-    SHX3_2 = SHX0_2
-    SHX1_2, SHX2_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 then
-      SHX3_2 = type
-      SHX4_2 = SHX2_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if "table" == SHX3_2 then
-        return SHX2_2
+  arg2 = type
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if "string" == arg2 and "" ~= arg1 then
+    arg2 = pcall
+    arg3 = json
+    arg3 = arg3.decode
+    arg4 = arg1
+    arg2, arg3 = arg2(arg3, arg4)
+    if arg2 then
+      arg4 = type
+      dataTable = arg3
+      arg4 = arg4(dataTable)
+      if "table" == arg4 then
+        return arg3
       end
     end
   end
-  SHX1_2 = nil
-  return SHX1_2
+  arg2 = nil
+  return arg2
 end
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceRequestLobbySync"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "38dbf567b8"
-  SHX0_2(SHX1_2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceRequestLobbySync"
+function workValue2()
+  local arg1, arg2
+  arg1 = TriggerServerEvent
+  arg2 = "38dbf567b8"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "38dbf567b8".
+  arg1(arg2)
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceSearchPlayers"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2 or SHX2_2
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.query
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceSearchPlayers"
+function workValue2(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2
+  arg2 = numberValue
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2 or arg3
+  if arg2 then
+    arg3 = arg2.query
   end
-  SHX3_2 = type
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if "string" == SHX3_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "744baa038a"
-    SHX5_2 = SHX2_2
-    SHX3_2(SHX4_2, SHX5_2)
+  arg4 = type
+  dataTable = arg3
+  arg4 = arg4(dataTable)
+  if "string" == arg4 then
+    arg4 = TriggerServerEvent
+    dataTable = "744baa038a"
+    dataTable2 = arg3
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "744baa038a".
+    arg4(dataTable, dataTable2)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceInvitePlayer"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2 or SHX2_2
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.userId
-    if not SHX2_2 then
-      SHX2_2 = SHX1_2.user_id
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceInvitePlayer"
+function workValue2(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8
+  arg2 = numberValue
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2 or arg3
+  if arg2 then
+    arg3 = arg2.userId
+    if not arg3 then
+      arg3 = arg2.user_id
     end
   end
-  if nil ~= SHX2_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "ca8c92d54d"
-    SHX5_2 = tonumber
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = SHX2_2
+  if nil ~= arg3 then
+    arg4 = TriggerServerEvent
+    dataTable = "ca8c92d54d"
+    dataTable2 = tonumber
+    numberValue8 = arg3
+    dataTable2 = dataTable2(numberValue8)
+    if not dataTable2 then
+      dataTable2 = arg3
     end
-    SHX3_2(SHX4_2, SHX5_2)
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ca8c92d54d".
+    arg4(dataTable, dataTable2)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceCancelInvite"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2 or SHX2_2
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.userId
-    if not SHX2_2 then
-      SHX2_2 = SHX1_2.user_id
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceCancelInvite"
+function workValue2(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8
+  arg2 = numberValue
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2 or arg3
+  if arg2 then
+    arg3 = arg2.userId
+    if not arg3 then
+      arg3 = arg2.user_id
     end
   end
-  if nil ~= SHX2_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "75bddd9d94"
-    SHX5_2 = tonumber
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = SHX2_2
+  if nil ~= arg3 then
+    arg4 = TriggerServerEvent
+    dataTable = "75bddd9d94"
+    dataTable2 = tonumber
+    numberValue8 = arg3
+    dataTable2 = dataTable2(numberValue8)
+    if not dataTable2 then
+      dataTable2 = arg3
     end
-    SHX3_2(SHX4_2, SHX5_2)
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "75bddd9d94".
+    arg4(dataTable, dataTable2)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceAcceptInvite"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2 or SHX2_2
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.leaderUserId
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceAcceptInvite"
+function workValue2(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8
+  arg2 = numberValue
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2 or arg3
+  if arg2 then
+    arg3 = arg2.leaderUserId
   end
-  if nil ~= SHX2_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "8145d623f2"
-    SHX5_2 = tonumber
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = SHX2_2
+  if nil ~= arg3 then
+    arg4 = TriggerServerEvent
+    dataTable = "8145d623f2"
+    dataTable2 = tonumber
+    numberValue8 = arg3
+    dataTable2 = dataTable2(numberValue8)
+    if not dataTable2 then
+      dataTable2 = arg3
     end
-    SHX3_2(SHX4_2, SHX5_2)
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8145d623f2".
+    arg4(dataTable, dataTable2)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceDeclineInvite"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2 or SHX2_2
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.leaderUserId
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceDeclineInvite"
+function workValue2(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8
+  arg2 = numberValue
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2 or arg3
+  if arg2 then
+    arg3 = arg2.leaderUserId
   end
-  if nil ~= SHX2_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "784b3c6e6d"
-    SHX5_2 = tonumber
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = SHX2_2
+  if nil ~= arg3 then
+    arg4 = TriggerServerEvent
+    dataTable = "784b3c6e6d"
+    dataTable2 = tonumber
+    numberValue8 = arg3
+    dataTable2 = dataTable2(numberValue8)
+    if not dataTable2 then
+      dataTable2 = arg3
     end
-    SHX3_2(SHX4_2, SHX5_2)
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "784b3c6e6d".
+    arg4(dataTable, dataTable2)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceKickMember"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX1_2 = SHX10_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2 or SHX2_2
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.userId
-    if not SHX2_2 then
-      SHX2_2 = SHX1_2.user_id
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceKickMember"
+function workValue2(arg1)
+  local arg2, arg3, arg4, dataTable, dataTable2, numberValue8
+  arg2 = numberValue
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  arg3 = arg2 or arg3
+  if arg2 then
+    arg3 = arg2.userId
+    if not arg3 then
+      arg3 = arg2.user_id
     end
   end
-  if nil ~= SHX2_2 then
-    SHX3_2 = TriggerServerEvent
-    SHX4_2 = "ebd55de808"
-    SHX5_2 = tonumber
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = SHX2_2
+  if nil ~= arg3 then
+    arg4 = TriggerServerEvent
+    dataTable = "ebd55de808"
+    dataTable2 = tonumber
+    numberValue8 = arg3
+    dataTable2 = dataTable2(numberValue8)
+    if not dataTable2 then
+      dataTable2 = arg3
     end
-    SHX3_2(SHX4_2, SHX5_2)
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "ebd55de808".
+    arg4(dataTable, dataTable2)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.uiRegisterCallback
-SHX12_1 = "healthServiceLeaveLobby"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "1e38696858"
-  SHX0_2(SHX1_2)
+numberValue2(numberValue3, workValue2)
+numberValue2 = CMG
+numberValue2 = numberValue2.uiRegisterCallback
+numberValue3 = "healthServiceLeaveLobby"
+function workValue2()
+  local arg1, arg2
+  arg1 = TriggerServerEvent
+  arg2 = "1e38696858"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "1e38696858".
+  arg1(arg2)
 end
-SHX11_1(SHX12_1, SHX13_1)
+numberValue2(numberValue3, workValue2)

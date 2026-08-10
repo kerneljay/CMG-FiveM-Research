@@ -1,1460 +1,1509 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_ladders.lua
+    ==============================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1
-SHX0_1 = {}
-SHX1_1 = {}
-SHX1_1.firetruk = 2
-SHX1_1.lfb1 = 2
-SHX1_1.lfb2 = 2
-SHX0_1.Vehicles = SHX1_1
-SHX1_1 = {}
-SHX2_1 = {}
-SHX3_1 = "no"
-SHX4_1 = 0
-SHX5_1 = nil
-SHX6_1 = 0
-SHX7_1 = true
-SHX8_1 = false
-SHX9_1 = {}
-SHX10_1 = {}
-SHX11_1 = {}
-SHX12_1 = vector3
-SHX13_1 = 0.0
-SHX14_1 = -0.45
-SHX15_1 = -1.5
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX13_1 = "laddersbase"
-SHX14_1 = "get_on_bottom_front_stand_high"
-SHX11_1[1] = SHX12_1
-SHX11_1[2] = SHX13_1
-SHX11_1[3] = SHX14_1
-SHX12_1 = {}
-SHX13_1 = vector3
-SHX14_1 = 0.0
-SHX15_1 = -0.3
-SHX16_1 = -1.1
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX14_1 = "laddersbase"
-SHX15_1 = "climb_up"
-SHX12_1[1] = SHX13_1
-SHX12_1[2] = SHX14_1
-SHX12_1[3] = SHX15_1
-SHX13_1 = {}
-SHX14_1 = vector3
-SHX15_1 = 0.0
-SHX16_1 = -0.3
-SHX17_1 = -0.7
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX15_1 = "laddersbase"
-SHX16_1 = "climb_up"
-SHX13_1[1] = SHX14_1
-SHX13_1[2] = SHX15_1
-SHX13_1[3] = SHX16_1
-SHX14_1 = {}
-SHX15_1 = vector3
-SHX16_1 = 0.0
-SHX17_1 = -0.3
-SHX18_1 = -0.3
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX16_1 = "laddersbase"
-SHX17_1 = "climb_up"
-SHX14_1[1] = SHX15_1
-SHX14_1[2] = SHX16_1
-SHX14_1[3] = SHX17_1
-SHX15_1 = {}
-SHX16_1 = vector3
-SHX17_1 = 0.0
-SHX18_1 = -0.3
-SHX19_1 = 0.1
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX17_1 = "laddersbase"
-SHX18_1 = "climb_up"
-SHX15_1[1] = SHX16_1
-SHX15_1[2] = SHX17_1
-SHX15_1[3] = SHX18_1
-SHX16_1 = {}
-SHX17_1 = vector3
-SHX18_1 = 0.0
-SHX19_1 = -0.3
-SHX20_1 = 0.5
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX18_1 = "laddersbase"
-SHX19_1 = "climb_up"
-SHX16_1[1] = SHX17_1
-SHX16_1[2] = SHX18_1
-SHX16_1[3] = SHX19_1
-SHX17_1 = {}
-SHX18_1 = vector3
-SHX19_1 = 0.0
-SHX20_1 = -0.3
-SHX21_1 = 0.9
-SHX18_1 = SHX18_1(SHX19_1, SHX20_1, SHX21_1)
-SHX19_1 = "laddersbase"
-SHX20_1 = "climb_up"
-SHX17_1[1] = SHX18_1
-SHX17_1[2] = SHX19_1
-SHX17_1[3] = SHX20_1
-SHX18_1 = {}
-SHX19_1 = vector3
-SHX20_1 = 0.0
-SHX21_1 = -0.3
-SHX22_1 = 1.3
-SHX19_1 = SHX19_1(SHX20_1, SHX21_1, SHX22_1)
-SHX20_1 = "laddersbase"
-SHX21_1 = "climb_up"
-SHX18_1[1] = SHX19_1
-SHX18_1[2] = SHX20_1
-SHX18_1[3] = SHX21_1
-SHX19_1 = {}
-SHX20_1 = vector3
-SHX21_1 = 0.0
-SHX22_1 = -0.3
-SHX23_1 = 1.7
-SHX20_1 = SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX21_1 = "laddersbase"
-SHX22_1 = "climb_up"
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-SHX19_1[3] = SHX22_1
-SHX20_1 = {}
-SHX21_1 = vector3
-SHX22_1 = 0.0
-SHX23_1 = -0.3
-SHX24_1 = 2.1
-SHX21_1 = SHX21_1(SHX22_1, SHX23_1, SHX24_1)
-SHX22_1 = "laddersbase"
-SHX23_1 = "climb_up"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX20_1[3] = SHX23_1
-SHX21_1 = {}
-SHX22_1 = vector3
-SHX23_1 = 0.0
-SHX24_1 = -0.4
-SHX25_1 = 2.5
-SHX22_1 = SHX22_1(SHX23_1, SHX24_1, SHX25_1)
-SHX23_1 = "laddersbase"
-SHX24_1 = "get_off_top_back_stand_left_hand"
-SHX21_1[1] = SHX22_1
-SHX21_1[2] = SHX23_1
-SHX21_1[3] = SHX24_1
-SHX10_1[1] = SHX11_1
-SHX10_1[2] = SHX12_1
-SHX10_1[3] = SHX13_1
-SHX10_1[4] = SHX14_1
-SHX10_1[5] = SHX15_1
-SHX10_1[6] = SHX16_1
-SHX10_1[7] = SHX17_1
-SHX10_1[8] = SHX18_1
-SHX10_1[9] = SHX19_1
-SHX10_1[10] = SHX20_1
-SHX10_1[11] = SHX21_1
-SHX9_1.up = SHX10_1
-SHX10_1 = {}
-SHX11_1 = {}
-SHX12_1 = vector3
-SHX13_1 = 0.0
-SHX14_1 = -0.4
-SHX15_1 = 2.5
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX13_1 = "laddersbase"
-SHX14_1 = "get_on_top_front"
-SHX11_1[1] = SHX12_1
-SHX11_1[2] = SHX13_1
-SHX11_1[3] = SHX14_1
-SHX12_1 = {}
-SHX13_1 = vector3
-SHX14_1 = 0.0
-SHX15_1 = -0.3
-SHX16_1 = 2.1
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX14_1 = "laddersbase"
-SHX15_1 = "climb_down"
-SHX12_1[1] = SHX13_1
-SHX12_1[2] = SHX14_1
-SHX12_1[3] = SHX15_1
-SHX13_1 = {}
-SHX14_1 = vector3
-SHX15_1 = 0.0
-SHX16_1 = -0.3
-SHX17_1 = 1.7
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX15_1 = "laddersbase"
-SHX16_1 = "climb_down"
-SHX13_1[1] = SHX14_1
-SHX13_1[2] = SHX15_1
-SHX13_1[3] = SHX16_1
-SHX14_1 = {}
-SHX15_1 = vector3
-SHX16_1 = 0.0
-SHX17_1 = -0.3
-SHX18_1 = 1.3
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX16_1 = "laddersbase"
-SHX17_1 = "climb_down"
-SHX14_1[1] = SHX15_1
-SHX14_1[2] = SHX16_1
-SHX14_1[3] = SHX17_1
-SHX15_1 = {}
-SHX16_1 = vector3
-SHX17_1 = 0.0
-SHX18_1 = -0.3
-SHX19_1 = 0.9
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX17_1 = "laddersbase"
-SHX18_1 = "climb_down"
-SHX15_1[1] = SHX16_1
-SHX15_1[2] = SHX17_1
-SHX15_1[3] = SHX18_1
-SHX16_1 = {}
-SHX17_1 = vector3
-SHX18_1 = 0.0
-SHX19_1 = -0.3
-SHX20_1 = 0.5
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX18_1 = "laddersbase"
-SHX19_1 = "climb_down"
-SHX16_1[1] = SHX17_1
-SHX16_1[2] = SHX18_1
-SHX16_1[3] = SHX19_1
-SHX17_1 = {}
-SHX18_1 = vector3
-SHX19_1 = 0.0
-SHX20_1 = -0.3
-SHX21_1 = 0.1
-SHX18_1 = SHX18_1(SHX19_1, SHX20_1, SHX21_1)
-SHX19_1 = "laddersbase"
-SHX20_1 = "climb_down"
-SHX17_1[1] = SHX18_1
-SHX17_1[2] = SHX19_1
-SHX17_1[3] = SHX20_1
-SHX18_1 = {}
-SHX19_1 = vector3
-SHX20_1 = 0.0
-SHX21_1 = -0.3
-SHX22_1 = -0.3
-SHX19_1 = SHX19_1(SHX20_1, SHX21_1, SHX22_1)
-SHX20_1 = "laddersbase"
-SHX21_1 = "climb_down"
-SHX18_1[1] = SHX19_1
-SHX18_1[2] = SHX20_1
-SHX18_1[3] = SHX21_1
-SHX19_1 = {}
-SHX20_1 = vector3
-SHX21_1 = 0.0
-SHX22_1 = -0.3
-SHX23_1 = -0.7
-SHX20_1 = SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX21_1 = "laddersbase"
-SHX22_1 = "climb_down"
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-SHX19_1[3] = SHX22_1
-SHX20_1 = {}
-SHX21_1 = vector3
-SHX22_1 = 0.0
-SHX23_1 = -0.3
-SHX24_1 = -1.1
-SHX21_1 = SHX21_1(SHX22_1, SHX23_1, SHX24_1)
-SHX22_1 = "laddersbase"
-SHX23_1 = "climb_down"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX20_1[3] = SHX23_1
-SHX21_1 = {}
-SHX22_1 = vector3
-SHX23_1 = 0.0
-SHX24_1 = -0.45
-SHX25_1 = -1.5
-SHX22_1 = SHX22_1(SHX23_1, SHX24_1, SHX25_1)
-SHX23_1 = "laddersbase"
-SHX24_1 = "get_off_bottom_front_stand"
-SHX21_1[1] = SHX22_1
-SHX21_1[2] = SHX23_1
-SHX21_1[3] = SHX24_1
-SHX10_1[1] = SHX11_1
-SHX10_1[2] = SHX12_1
-SHX10_1[3] = SHX13_1
-SHX10_1[4] = SHX14_1
-SHX10_1[5] = SHX15_1
-SHX10_1[6] = SHX16_1
-SHX10_1[7] = SHX17_1
-SHX10_1[8] = SHX18_1
-SHX10_1[9] = SHX19_1
-SHX10_1[10] = SHX20_1
-SHX10_1[11] = SHX21_1
-SHX9_1.down = SHX10_1
-SHX10_1 = AddEventHandler
-SHX11_1 = "onClientMapStart"
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "Ladders:Server:PersonalRequest"
-  SHX0_2(SHX1_2)
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "chat:addSuggestion"
-  SHX2_2 = "/ladder"
-  SHX3_2 = "Type an action."
-  SHX4_2 = {}
-  SHX5_2 = {}
-  SHX5_2.name = "action"
-  SHX5_2.help = "collect store"
-  SHX4_2[1] = SHX5_2
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Ladders
+    ========================
+
+    File: cmg/prod/client/lfb/cl_ladders.lua
+    Purpose: This file contains London Fire Brigade gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Commands/command-like entries found:
+      * /ladder
+      * ladder
+
+    Named framework/network events found:
+      * Ladders:Server:PersonalRequest
+      * chat:addSuggestion
+      * Ladders:Server:Vehicles
+      * Ladders:Client:VehicleCheck
+      * Ladders:Server:Ladders:Local
+      * Ladders:Client:Local:Add
+      * Ladders:Client:Local:Remove
+      * Ladders:Bounce:ServerValues
+
+    Example player-facing text in this file:
+      * Ladders:Server:Vehicles
+      * ~y~You already carrying a ladder!
+      * ~y~You do not have a ladder out!
+      * Ladders:Client:VehicleCheck
+      * ~INPUT_PICKUP~ Pick up ladder
+
+]]
+local dataTable, dataTable4, dataTable5, textValue12, numberValue2, workValue3, numberValue3, flag15, flag16, dataTable8, eventHandlerRegistration, dataTable2, vector3Builder, vector3Builder2, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, numberValue
+dataTable = {}
+dataTable4 = {}
+dataTable4.firetruk = 2
+dataTable4.lfb1 = 2
+dataTable4.lfb2 = 2
+dataTable.Vehicles = dataTable4
+dataTable4 = {}
+dataTable5 = {}
+textValue12 = "no"
+numberValue2 = 0
+workValue3 = nil
+numberValue3 = 0
+flag15 = true
+flag16 = false
+dataTable8 = {}
+eventHandlerRegistration = {}
+dataTable2 = {}
+vector3Builder = vector3
+vector3Builder2 = 0.0
+textValue = -0.45
+textValue2 = -1.5
+vector3Builder = vector3Builder(vector3Builder2, textValue, textValue2)
+vector3Builder2 = "laddersbase"
+textValue = "get_on_bottom_front_stand_high"
+dataTable2[1] = vector3Builder
+dataTable2[2] = vector3Builder2
+dataTable2[3] = textValue
+vector3Builder = {}
+vector3Builder2 = vector3
+textValue = 0.0
+textValue2 = -0.3
+textValue3 = -1.1
+vector3Builder2 = vector3Builder2(textValue, textValue2, textValue3)
+textValue = "laddersbase"
+textValue2 = "climb_up"
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = textValue
+vector3Builder[3] = textValue2
+vector3Builder2 = {}
+textValue = vector3
+textValue2 = 0.0
+textValue3 = -0.3
+textValue4 = -0.7
+textValue = textValue(textValue2, textValue3, textValue4)
+textValue2 = "laddersbase"
+textValue3 = "climb_up"
+vector3Builder2[1] = textValue
+vector3Builder2[2] = textValue2
+vector3Builder2[3] = textValue3
+textValue = {}
+textValue2 = vector3
+textValue3 = 0.0
+textValue4 = -0.3
+textValue5 = -0.3
+textValue2 = textValue2(textValue3, textValue4, textValue5)
+textValue3 = "laddersbase"
+textValue4 = "climb_up"
+textValue[1] = textValue2
+textValue[2] = textValue3
+textValue[3] = textValue4
+textValue2 = {}
+textValue3 = vector3
+textValue4 = 0.0
+textValue5 = -0.3
+textValue6 = 0.1
+textValue3 = textValue3(textValue4, textValue5, textValue6)
+textValue4 = "laddersbase"
+textValue5 = "climb_up"
+textValue2[1] = textValue3
+textValue2[2] = textValue4
+textValue2[3] = textValue5
+textValue3 = {}
+textValue4 = vector3
+textValue5 = 0.0
+textValue6 = -0.3
+textValue7 = 0.5
+textValue4 = textValue4(textValue5, textValue6, textValue7)
+textValue5 = "laddersbase"
+textValue6 = "climb_up"
+textValue3[1] = textValue4
+textValue3[2] = textValue5
+textValue3[3] = textValue6
+textValue4 = {}
+textValue5 = vector3
+textValue6 = 0.0
+textValue7 = -0.3
+textValue8 = 0.9
+textValue5 = textValue5(textValue6, textValue7, textValue8)
+textValue6 = "laddersbase"
+textValue7 = "climb_up"
+textValue4[1] = textValue5
+textValue4[2] = textValue6
+textValue4[3] = textValue7
+textValue5 = {}
+textValue6 = vector3
+textValue7 = 0.0
+textValue8 = -0.3
+textValue9 = 1.3
+textValue6 = textValue6(textValue7, textValue8, textValue9)
+textValue7 = "laddersbase"
+textValue8 = "climb_up"
+textValue5[1] = textValue6
+textValue5[2] = textValue7
+textValue5[3] = textValue8
+textValue6 = {}
+textValue7 = vector3
+textValue8 = 0.0
+textValue9 = -0.3
+textValue10 = 1.7
+textValue7 = textValue7(textValue8, textValue9, textValue10)
+textValue8 = "laddersbase"
+textValue9 = "climb_up"
+textValue6[1] = textValue7
+textValue6[2] = textValue8
+textValue6[3] = textValue9
+textValue7 = {}
+textValue8 = vector3
+textValue9 = 0.0
+textValue10 = -0.3
+textValue11 = 2.1
+textValue8 = textValue8(textValue9, textValue10, textValue11)
+textValue9 = "laddersbase"
+textValue10 = "climb_up"
+textValue7[1] = textValue8
+textValue7[2] = textValue9
+textValue7[3] = textValue10
+textValue8 = {}
+textValue9 = vector3
+textValue10 = 0.0
+textValue11 = -0.4
+numberValue = 2.5
+textValue9 = textValue9(textValue10, textValue11, numberValue)
+textValue10 = "laddersbase"
+textValue11 = "get_off_top_back_stand_left_hand"
+textValue8[1] = textValue9
+textValue8[2] = textValue10
+textValue8[3] = textValue11
+eventHandlerRegistration[1] = dataTable2
+eventHandlerRegistration[2] = vector3Builder
+eventHandlerRegistration[3] = vector3Builder2
+eventHandlerRegistration[4] = textValue
+eventHandlerRegistration[5] = textValue2
+eventHandlerRegistration[6] = textValue3
+eventHandlerRegistration[7] = textValue4
+eventHandlerRegistration[8] = textValue5
+eventHandlerRegistration[9] = textValue6
+eventHandlerRegistration[10] = textValue7
+eventHandlerRegistration[11] = textValue8
+dataTable8.up = eventHandlerRegistration
+eventHandlerRegistration = {}
+dataTable2 = {}
+vector3Builder = vector3
+vector3Builder2 = 0.0
+textValue = -0.4
+textValue2 = 2.5
+vector3Builder = vector3Builder(vector3Builder2, textValue, textValue2)
+vector3Builder2 = "laddersbase"
+textValue = "get_on_top_front"
+dataTable2[1] = vector3Builder
+dataTable2[2] = vector3Builder2
+dataTable2[3] = textValue
+vector3Builder = {}
+vector3Builder2 = vector3
+textValue = 0.0
+textValue2 = -0.3
+textValue3 = 2.1
+vector3Builder2 = vector3Builder2(textValue, textValue2, textValue3)
+textValue = "laddersbase"
+textValue2 = "climb_down"
+vector3Builder[1] = vector3Builder2
+vector3Builder[2] = textValue
+vector3Builder[3] = textValue2
+vector3Builder2 = {}
+textValue = vector3
+textValue2 = 0.0
+textValue3 = -0.3
+textValue4 = 1.7
+textValue = textValue(textValue2, textValue3, textValue4)
+textValue2 = "laddersbase"
+textValue3 = "climb_down"
+vector3Builder2[1] = textValue
+vector3Builder2[2] = textValue2
+vector3Builder2[3] = textValue3
+textValue = {}
+textValue2 = vector3
+textValue3 = 0.0
+textValue4 = -0.3
+textValue5 = 1.3
+textValue2 = textValue2(textValue3, textValue4, textValue5)
+textValue3 = "laddersbase"
+textValue4 = "climb_down"
+textValue[1] = textValue2
+textValue[2] = textValue3
+textValue[3] = textValue4
+textValue2 = {}
+textValue3 = vector3
+textValue4 = 0.0
+textValue5 = -0.3
+textValue6 = 0.9
+textValue3 = textValue3(textValue4, textValue5, textValue6)
+textValue4 = "laddersbase"
+textValue5 = "climb_down"
+textValue2[1] = textValue3
+textValue2[2] = textValue4
+textValue2[3] = textValue5
+textValue3 = {}
+textValue4 = vector3
+textValue5 = 0.0
+textValue6 = -0.3
+textValue7 = 0.5
+textValue4 = textValue4(textValue5, textValue6, textValue7)
+textValue5 = "laddersbase"
+textValue6 = "climb_down"
+textValue3[1] = textValue4
+textValue3[2] = textValue5
+textValue3[3] = textValue6
+textValue4 = {}
+textValue5 = vector3
+textValue6 = 0.0
+textValue7 = -0.3
+textValue8 = 0.1
+textValue5 = textValue5(textValue6, textValue7, textValue8)
+textValue6 = "laddersbase"
+textValue7 = "climb_down"
+textValue4[1] = textValue5
+textValue4[2] = textValue6
+textValue4[3] = textValue7
+textValue5 = {}
+textValue6 = vector3
+textValue7 = 0.0
+textValue8 = -0.3
+textValue9 = -0.3
+textValue6 = textValue6(textValue7, textValue8, textValue9)
+textValue7 = "laddersbase"
+textValue8 = "climb_down"
+textValue5[1] = textValue6
+textValue5[2] = textValue7
+textValue5[3] = textValue8
+textValue6 = {}
+textValue7 = vector3
+textValue8 = 0.0
+textValue9 = -0.3
+textValue10 = -0.7
+textValue7 = textValue7(textValue8, textValue9, textValue10)
+textValue8 = "laddersbase"
+textValue9 = "climb_down"
+textValue6[1] = textValue7
+textValue6[2] = textValue8
+textValue6[3] = textValue9
+textValue7 = {}
+textValue8 = vector3
+textValue9 = 0.0
+textValue10 = -0.3
+textValue11 = -1.1
+textValue8 = textValue8(textValue9, textValue10, textValue11)
+textValue9 = "laddersbase"
+textValue10 = "climb_down"
+textValue7[1] = textValue8
+textValue7[2] = textValue9
+textValue7[3] = textValue10
+textValue8 = {}
+textValue9 = vector3
+textValue10 = 0.0
+textValue11 = -0.45
+numberValue = -1.5
+textValue9 = textValue9(textValue10, textValue11, numberValue)
+textValue10 = "laddersbase"
+textValue11 = "get_off_bottom_front_stand"
+textValue8[1] = textValue9
+textValue8[2] = textValue10
+textValue8[3] = textValue11
+eventHandlerRegistration[1] = dataTable2
+eventHandlerRegistration[2] = vector3Builder
+eventHandlerRegistration[3] = vector3Builder2
+eventHandlerRegistration[4] = textValue
+eventHandlerRegistration[5] = textValue2
+eventHandlerRegistration[6] = textValue3
+eventHandlerRegistration[7] = textValue4
+eventHandlerRegistration[8] = textValue5
+eventHandlerRegistration[9] = textValue6
+eventHandlerRegistration[10] = textValue7
+eventHandlerRegistration[11] = textValue8
+dataTable8.down = eventHandlerRegistration
+eventHandlerRegistration = AddEventHandler
+dataTable2 = "onClientMapStart"
+-- Beginner: this function runs when client event "onClientMapStart" fires.
+function vector3Builder()
+  local arg1, arg2, arg3, arg4, dataTable6, dataTable7
+  arg1 = TriggerServerEvent
+  arg2 = "Ladders:Server:PersonalRequest"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:PersonalRequest".
+  arg1(arg2)
+  arg1 = TriggerEvent
+  arg2 = "chat:addSuggestion"
+  arg3 = "/ladder"
+  arg4 = "Type an action."
+  dataTable6 = {}
+  dataTable7 = {}
+  dataTable7.name = "action"
+  dataTable7.help = "collect store"
+  dataTable6[1] = dataTable7
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addSuggestion".
+  arg1(arg2, arg3, arg4, dataTable6)
 end
-SHX10_1(SHX11_1, SHX12_1)
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX2_2 = GetOffsetFromEntityInWorldCoords
-  SHX3_2 = SHX0_2
-  SHX4_2 = 0.0
-  SHX5_2 = 10.0
-  SHX6_2 = 0.0
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = StartShapeTestRay
-  SHX4_2 = SHX1_2.x
-  SHX5_2 = SHX1_2.y
-  SHX6_2 = SHX1_2.z
-  SHX7_2 = SHX2_2.x
-  SHX8_2 = SHX2_2.y
-  SHX9_2 = SHX2_2.z
-  SHX10_2 = 10
-  SHX11_2 = SHX0_2
-  SHX12_2 = 0
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX4_2 = GetRaycastResult
-  SHX5_2 = SHX3_2
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX4_2(SHX5_2)
-  SHX9_2 = Vdist
-  SHX10_2 = SHX1_2.x
-  SHX11_2 = SHX1_2.y
-  SHX12_2 = SHX1_2.z
-  SHX13_2 = SHX6_2.x
-  SHX14_2 = SHX6_2.y
-  SHX15_2 = SHX6_2.z
-  SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  if SHX9_2 < 3 then
-    SHX9_2 = GetEntityModel
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    SHX10_2 = pairs
-    SHX11_2 = SHX0_1.Vehicles
-    SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-    for SHX14_2, SHX15_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-      SHX16_2 = GetHashKey
-      SHX17_2 = SHX14_2
-      SHX16_2 = SHX16_2(SHX17_2)
-      if SHX16_2 == SHX9_2 then
-        SHX17_2 = {}
-        SHX18_2 = SHX8_2
-        SHX19_2 = SHX15_2
-        SHX17_2[1] = SHX18_2
-        SHX17_2[2] = SHX19_2
-        return SHX17_2
+-- Beginner: Register a client-side event handler. Event/command: "onClientMapStart".
+eventHandlerRegistration(dataTable2, vector3Builder)
+function eventHandlerRegistration()
+  local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetEntityCoords
+  arg3 = arg1
+  arg4 = false
+  -- Beginner: result below is entityCoords.
+  arg2 = arg2(arg3, arg4)
+  arg3 = GetOffsetFromEntityInWorldCoords
+  arg4 = arg1
+  dataTable6 = 0.0
+  dataTable7 = 10.0
+  textValue13 = 0.0
+  arg3 = arg3(arg4, dataTable6, dataTable7, textValue13)
+  arg4 = StartShapeTestRay
+  dataTable6 = arg2.x
+  dataTable7 = arg2.y
+  textValue13 = arg2.z
+  workValue4 = arg3.x
+  workValue5 = arg3.y
+  modelHash = arg3.z
+  iterator = 10
+  workValue = arg1
+  flag = 0
+  arg4 = arg4(dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag)
+  dataTable6 = GetRaycastResult
+  dataTable7 = arg4
+  dataTable6, dataTable7, textValue13, workValue4, workValue5 = dataTable6(dataTable7)
+  modelHash = Vdist
+  iterator = arg2.x
+  workValue = arg2.y
+  flag = arg2.z
+  flag2 = textValue13.x
+  flag3 = textValue13.y
+  flag4 = textValue13.z
+  modelHash = modelHash(iterator, workValue, flag, flag2, flag3, flag4)
+  if modelHash < 3 then
+    modelHash = GetEntityModel
+    iterator = workValue5
+    -- Beginner: result below is modelHash.
+    modelHash = modelHash(iterator)
+    iterator = pairs
+    workValue = dataTable.Vehicles
+    iterator, workValue, flag, flag2 = iterator(workValue)
+    for flag3, flag4 in iterator, workValue, flag, flag2 do
+      hashValue = GetHashKey
+      dataTable3 = flag3
+      -- Beginner: result below is hash.
+      hashValue = hashValue(dataTable3)
+      if hashValue == modelHash then
+        dataTable3 = {}
+        flag5 = workValue5
+        flag6 = flag4
+        dataTable3[1] = flag5
+        dataTable3[2] = flag6
+        return dataTable3
       end
     end
-    SHX10_2 = notify
-    SHX11_2 = "~r~This vehicles does not carry ladders!"
-    SHX12_2 = true
-    SHX10_2(SHX11_2, SHX12_2)
-    SHX10_2 = false
-    return SHX10_2
+    iterator = notify
+    workValue = "~r~This vehicles does not carry ladders!"
+    flag = true
+    -- Beginner: Show a notification to the player.
+    iterator(workValue, flag)
+    iterator = false
+    return iterator
   else
-    SHX9_2 = notify
-    SHX10_2 = "~r~No ladder carrying vehicle found!"
-    SHX11_2 = true
-    SHX9_2(SHX10_2, SHX11_2)
-    SHX9_2 = false
-    return SHX9_2
+    modelHash = notify
+    iterator = "~r~No ladder carrying vehicle found!"
+    workValue = true
+    modelHash(iterator, workValue)
+    modelHash = false
+    return modelHash
   end
 end
-SHX11_1 = RegisterCommand
-SHX12_1 = "ladder"
-function SHX13_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.hasClientPermission
-  SHX3_2 = "lfb.onduty.permission"
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
+dataTable2 = RegisterCommand
+vector3Builder = "ladder"
+-- Beginner: this function is the command handler for "ladder".
+function vector3Builder2(arg1, arg2)
+  local arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash
+  arg3 = CMG
+  arg3 = arg3.hasClientPermission
+  arg4 = "lfb.onduty.permission"
+  arg3 = arg3(arg4)
+  if not arg3 then
     return
   end
-  SHX2_2 = SHX1_2[1]
-  if SHX2_2 then
-    SHX2_2 = SHX1_2[1]
-    SHX3_2 = SHX2_2
-    SHX2_2 = SHX2_2.lower
-    SHX2_2 = SHX2_2(SHX3_2)
-    if "collect" == SHX2_2 then
-      SHX3_2 = SHX4_1
-      if 0 == SHX3_2 then
-        SHX3_2 = SHX10_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX4_2 = TriggerServerEvent
-          SHX5_2 = "Ladders:Server:Vehicles"
-          SHX6_2 = "check"
-          SHX7_2 = VehToNet
-          SHX8_2 = SHX3_2[1]
-          SHX7_2 = SHX7_2(SHX8_2)
-          SHX8_2 = SHX3_2[2]
-          SHX9_2 = false
-          SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+  arg3 = arg2[1]
+  if arg3 then
+    arg3 = arg2[1]
+    arg4 = arg3
+    arg3 = arg3.lower
+    arg3 = arg3(arg4)
+    if "collect" == arg3 then
+      arg4 = numberValue2
+      if 0 == arg4 then
+        arg4 = eventHandlerRegistration
+        arg4 = arg4()
+        if arg4 then
+          dataTable6 = TriggerServerEvent
+          dataTable7 = "Ladders:Server:Vehicles"
+          textValue13 = "check"
+          workValue4 = VehToNet
+          workValue5 = arg4[1]
+          workValue4 = workValue4(workValue5)
+          workValue5 = arg4[2]
+          modelHash = false
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Vehicles".
+          dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash)
         end
       else
-        SHX3_2 = notify
-        SHX4_2 = "~y~You already carrying a ladder!"
-        SHX5_2 = true
-        SHX3_2(SHX4_2, SHX5_2)
+        arg4 = notify
+        dataTable6 = "~y~You already carrying a ladder!"
+        dataTable7 = true
+        -- Beginner: Show a notification to the player.
+        arg4(dataTable6, dataTable7)
       end
-    elseif "store" == SHX2_2 then
-      SHX3_2 = SHX4_1
-      if 0 ~= SHX3_2 then
-        SHX3_2 = SHX10_1
-        SHX3_2 = SHX3_2()
-        if SHX3_2 then
-          SHX4_2 = TriggerServerEvent
-          SHX5_2 = "Ladders:Server:Vehicles"
-          SHX6_2 = "check"
-          SHX7_2 = VehToNet
-          SHX8_2 = SHX3_2[1]
-          SHX7_2 = SHX7_2(SHX8_2)
-          SHX8_2 = SHX3_2[2]
-          SHX9_2 = true
-          SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+    elseif "store" == arg3 then
+      arg4 = numberValue2
+      if 0 ~= arg4 then
+        arg4 = eventHandlerRegistration
+        arg4 = arg4()
+        if arg4 then
+          dataTable6 = TriggerServerEvent
+          dataTable7 = "Ladders:Server:Vehicles"
+          textValue13 = "check"
+          workValue4 = VehToNet
+          workValue5 = arg4[1]
+          workValue4 = workValue4(workValue5)
+          workValue5 = arg4[2]
+          modelHash = true
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Vehicles".
+          dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash)
         end
       else
-        SHX3_2 = notify
-        SHX4_2 = "~y~You do not have a ladder out!"
-        SHX5_2 = true
-        SHX3_2(SHX4_2, SHX5_2)
+        arg4 = notify
+        dataTable6 = "~y~You do not have a ladder out!"
+        dataTable7 = true
+        -- Beginner: Show a notification to the player.
+        arg4(dataTable6, dataTable7)
       end
     else
-      SHX3_2 = notify
-      SHX4_2 = "~r~Invalid action! Use: collect or store."
-      SHX5_2 = true
-      SHX3_2(SHX4_2, SHX5_2)
+      arg4 = notify
+      dataTable6 = "~r~Invalid action! Use: collect or store."
+      dataTable7 = true
+      arg4(dataTable6, dataTable7)
     end
   else
-    SHX2_2 = notify
-    SHX3_2 = "~r~No action specified!"
-    SHX4_2 = true
-    SHX2_2(SHX3_2, SHX4_2)
+    arg3 = notify
+    arg4 = "~r~No action specified!"
+    dataTable6 = true
+    -- Beginner: Show a notification to the player.
+    arg3(arg4, dataTable6)
   end
 end
-SHX14_1 = false
-SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Client:VehicleCheck"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Client:VehicleCheck"
-function SHX13_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if SHX3_2 then
-    if SHX1_2 < SHX2_2 then
-      SHX4_2 = TriggerServerEvent
-      SHX5_2 = "Ladders:Server:Ladders:Local"
-      SHX6_2 = "remove"
-      SHX4_2(SHX5_2, SHX6_2)
-      SHX4_2 = TriggerServerEvent
-      SHX5_2 = "Ladders:Server:Vehicles"
-      SHX6_2 = "add"
-      SHX7_2 = SHX0_2
-      SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-      SHX4_2 = notify
-      SHX5_2 = "~g~Ladder stored. This vehicle can store "
-      SHX6_2 = SHX1_2 + 1
-      SHX6_2 = SHX2_2 - SHX6_2
-      SHX7_2 = " more ladders."
-      SHX5_2 = SHX5_2 .. SHX6_2 .. SHX7_2
-      SHX6_2 = false
-      SHX4_2(SHX5_2, SHX6_2)
+textValue = false
+-- Beginner: Register a chat/console command. Event/command: "ladder".
+dataTable2(vector3Builder, vector3Builder2, textValue)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Client:VehicleCheck"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:VehicleCheck".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Client:VehicleCheck"
+-- Beginner: this function runs when client event "Ladders:Client:VehicleCheck" fires.
+function vector3Builder2(arg1, arg2, arg3, arg4)
+  local dataTable6, dataTable7, textValue13, workValue4
+  if arg4 then
+    if arg2 < arg3 then
+      dataTable6 = TriggerServerEvent
+      dataTable7 = "Ladders:Server:Ladders:Local"
+      textValue13 = "remove"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders:Local".
+      dataTable6(dataTable7, textValue13)
+      dataTable6 = TriggerServerEvent
+      dataTable7 = "Ladders:Server:Vehicles"
+      textValue13 = "add"
+      workValue4 = arg1
+      dataTable6(dataTable7, textValue13, workValue4)
+      dataTable6 = notify
+      dataTable7 = "~g~Ladder stored. This vehicle can store "
+      textValue13 = arg2 + 1
+      textValue13 = arg3 - textValue13
+      workValue4 = " more ladders."
+      dataTable7 = dataTable7 .. textValue13 .. workValue4
+      textValue13 = false
+      -- Beginner: Show a notification to the player.
+      dataTable6(dataTable7, textValue13)
     else
-      SHX4_2 = notify
-      SHX5_2 = "~r~This vehicle can only carry "
-      SHX6_2 = SHX2_2
-      SHX7_2 = " ladders!"
-      SHX5_2 = SHX5_2 .. SHX6_2 .. SHX7_2
-      SHX6_2 = true
-      SHX4_2(SHX5_2, SHX6_2)
+      dataTable6 = notify
+      dataTable7 = "~r~This vehicle can only carry "
+      textValue13 = arg3
+      workValue4 = " ladders!"
+      dataTable7 = dataTable7 .. textValue13 .. workValue4
+      textValue13 = true
+      dataTable6(dataTable7, textValue13)
     end
-  elseif SHX1_2 > 0 then
-    SHX4_2 = TriggerServerEvent
-    SHX5_2 = "Ladders:Server:Ladders:Local"
-    SHX6_2 = "add"
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = TriggerServerEvent
-    SHX5_2 = "Ladders:Server:Vehicles"
-    SHX6_2 = "remove"
-    SHX7_2 = SHX0_2
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Ladder collected from vehicle. This vehicle has "
-    SHX6_2 = SHX1_2 - 1
-    SHX7_2 = " more ladders."
-    SHX5_2 = SHX5_2 .. SHX6_2 .. SHX7_2
-    SHX6_2 = false
-    SHX4_2(SHX5_2, SHX6_2)
+  elseif arg2 > 0 then
+    dataTable6 = TriggerServerEvent
+    dataTable7 = "Ladders:Server:Ladders:Local"
+    textValue13 = "add"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders:Local".
+    dataTable6(dataTable7, textValue13)
+    dataTable6 = TriggerServerEvent
+    dataTable7 = "Ladders:Server:Vehicles"
+    textValue13 = "remove"
+    workValue4 = arg1
+    dataTable6(dataTable7, textValue13, workValue4)
+    dataTable6 = notify
+    dataTable7 = "~g~Ladder collected from vehicle. This vehicle has "
+    textValue13 = arg2 - 1
+    workValue4 = " more ladders."
+    dataTable7 = dataTable7 .. textValue13 .. workValue4
+    textValue13 = false
+    -- Beginner: Show a notification to the player.
+    dataTable6(dataTable7, textValue13)
   else
-    SHX4_2 = notify
-    SHX5_2 = "~r~This vehicle has no more ladders!"
-    SHX6_2 = true
-    SHX4_2(SHX5_2, SHX6_2)
+    dataTable6 = notify
+    dataTable7 = "~r~This vehicle has no more ladders!"
+    textValue13 = true
+    dataTable6(dataTable7, textValue13)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Client:Local:Add"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Client:Local:Add"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:VehicleCheck".
+dataTable2(vector3Builder, vector3Builder2)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Client:Local:Add"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:Local:Add".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Client:Local:Add"
+-- Beginner: this function runs when client event "Ladders:Client:Local:Add" fires.
+function vector3Builder2(arg1)
+  local arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue
+  arg2 = GetPlayerFromServerId
+  arg3 = arg1
+  -- Beginner: result below is playerIndex.
+  arg2 = arg2(arg3)
+  if -1 == arg2 then
     return
   end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if -1 ~= SHX2_2 then
-    SHX3_2 = SHX2_1
-    SHX3_2 = SHX3_2[SHX2_2]
-    if not SHX3_2 then
-      SHX3_2 = GetOffsetFromEntityInWorldCoords
-      SHX4_2 = SHX2_2
-      SHX5_2 = 0.0
-      SHX6_2 = 1.2
-      SHX7_2 = 1.32
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      SHX4_2 = CreateObjectNoOffset
-      SHX5_2 = GetHashKey
-      SHX6_2 = "prop_byard_ladder01"
-      SHX5_2 = SHX5_2(SHX6_2)
-      SHX6_2 = SHX3_2.x
-      SHX7_2 = SHX3_2.y
-      SHX8_2 = SHX3_2.z
-      SHX9_2 = false
-      SHX10_2 = false
-      SHX11_2 = false
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-      SHX5_2 = SetEntityAsMissionEntity
-      SHX6_2 = SHX4_2
-      SHX7_2 = false
-      SHX8_2 = false
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = SetEntityCollision
-      SHX6_2 = SHX4_2
-      SHX7_2 = false
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = SHX2_1
-      SHX5_2[SHX2_2] = SHX4_2
-      SHX5_2 = GetPlayerServerId
-      SHX6_2 = PlayerId
-      SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX6_2()
-      SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-      if SHX5_2 == SHX0_2 then
-        SHX4_1 = SHX4_2
+  arg3 = GetPlayerPed
+  arg4 = arg2
+  -- Beginner: result below is playerPed.
+  arg3 = arg3(arg4)
+  if -1 ~= arg3 then
+    arg4 = dataTable5
+    arg4 = arg4[arg3]
+    if not arg4 then
+      arg4 = GetOffsetFromEntityInWorldCoords
+      dataTable6 = arg3
+      dataTable7 = 0.0
+      textValue13 = 1.2
+      workValue4 = 1.32
+      arg4 = arg4(dataTable6, dataTable7, textValue13, workValue4)
+      dataTable6 = CreateObjectNoOffset
+      dataTable7 = GetHashKey
+      textValue13 = "prop_byard_ladder01"
+      -- Beginner: result below is hash.
+      dataTable7 = dataTable7(textValue13)
+      textValue13 = arg4.x
+      workValue4 = arg4.y
+      workValue5 = arg4.z
+      modelHash = false
+      iterator = false
+      workValue = false
+      -- Beginner: result below is objectEntity.
+      dataTable6 = dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue)
+      dataTable7 = SetEntityAsMissionEntity
+      textValue13 = dataTable6
+      workValue4 = false
+      workValue5 = false
+      dataTable7(textValue13, workValue4, workValue5)
+      dataTable7 = SetEntityCollision
+      textValue13 = dataTable6
+      workValue4 = false
+      workValue5 = true
+      dataTable7(textValue13, workValue4, workValue5)
+      dataTable7 = dataTable5
+      dataTable7[arg3] = dataTable6
+      dataTable7 = GetPlayerServerId
+      textValue13 = PlayerId
+      textValue13, workValue4, workValue5, modelHash, iterator, workValue = textValue13()
+      -- Beginner: result below is serverId.
+      dataTable7 = dataTable7(textValue13, workValue4, workValue5, modelHash, iterator, workValue)
+      if dataTable7 == arg1 then
+        numberValue2 = dataTable6
       end
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Client:Local:Remove"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Client:Local:Remove"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:Local:Add".
+dataTable2(vector3Builder, vector3Builder2)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Client:Local:Remove"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:Local:Remove".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Client:Local:Remove"
+-- Beginner: this function runs when client event "Ladders:Client:Local:Remove" fires.
+function vector3Builder2(arg1)
+  local arg2, arg3, arg4, dataTable6
+  arg2 = GetPlayerFromServerId
+  arg3 = arg1
+  -- Beginner: result below is playerIndex.
+  arg2 = arg2(arg3)
+  if -1 == arg2 then
     return
   end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if -1 ~= SHX2_2 then
-    SHX3_2 = SHX2_1
-    SHX3_2 = SHX3_2[SHX2_2]
-    if SHX3_2 then
-      SHX3_2 = DeleteObject
-      SHX4_2 = SHX2_1
-      SHX4_2 = SHX4_2[SHX2_2]
-      SHX3_2(SHX4_2)
-      SHX3_2 = SetEntityAsNoLongerNeeded
-      SHX4_2 = SHX2_1
-      SHX4_2 = SHX4_2[SHX2_2]
-      SHX3_2(SHX4_2)
-      SHX3_2 = ClearPedTasksImmediately
-      SHX4_2 = PlayerPedId
-      SHX4_2 = SHX4_2()
-      SHX3_2(SHX4_2)
-      SHX3_2 = SHX2_1
-      SHX3_2[SHX2_2] = nil
-      SHX3_2 = GetPlayerServerId
-      SHX4_2 = PlayerId
-      SHX4_2 = SHX4_2()
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 == SHX0_2 then
-        SHX3_2 = 0
-        SHX4_1 = SHX3_2
+  arg3 = GetPlayerPed
+  arg4 = arg2
+  -- Beginner: result below is playerPed.
+  arg3 = arg3(arg4)
+  if -1 ~= arg3 then
+    arg4 = dataTable5
+    arg4 = arg4[arg3]
+    if arg4 then
+      arg4 = DeleteObject
+      dataTable6 = dataTable5
+      dataTable6 = dataTable6[arg3]
+      arg4(dataTable6)
+      arg4 = SetEntityAsNoLongerNeeded
+      dataTable6 = dataTable5
+      dataTable6 = dataTable6[arg3]
+      arg4(dataTable6)
+      arg4 = ClearPedTasksImmediately
+      dataTable6 = PlayerPedId
+      -- Beginner: result below is localPlayerPed.
+      dataTable6 = dataTable6()
+      arg4(dataTable6)
+      arg4 = dataTable5
+      arg4[arg3] = nil
+      arg4 = GetPlayerServerId
+      dataTable6 = PlayerId
+      -- Beginner: result below is localPlayerIndex.
+      dataTable6 = dataTable6()
+      -- Beginner: result below is serverId.
+      arg4 = arg4(dataTable6)
+      if arg4 == arg1 then
+        arg4 = 0
+        numberValue2 = arg4
       end
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Bounce:ServerValues"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Bounce:ServerValues"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_1 = SHX0_2
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:Local:Remove".
+dataTable2(vector3Builder, vector3Builder2)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Bounce:ServerValues"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Bounce:ServerValues".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Bounce:ServerValues"
+-- Beginner: this function runs when client event "Ladders:Bounce:ServerValues" fires.
+function vector3Builder2(arg1)
+  local arg2
+  dataTable4 = arg1
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Client:DropLadder"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Client:DropLadder"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  SHX0_2 = SHX4_1
-  if 0 ~= SHX0_2 then
-    SHX0_2 = PlayerPedId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.requestEntitySpawn
-    SHX2_2 = "lfb_ladder_object"
-    SHX1_2(SHX2_2)
-    SHX1_2 = GetOffsetFromEntityInWorldCoords
-    SHX2_2 = SHX0_2
-    SHX3_2 = 0.0
-    SHX4_2 = 0.0
-    SHX5_2 = -500.0
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = CreateObjectNoOffset
-    SHX3_2 = GetHashKey
-    SHX4_2 = "prop_byard_ladder01"
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = SHX1_2.x
-    SHX5_2 = SHX1_2.y
-    SHX6_2 = SHX1_2.z
-    SHX7_2 = true
-    SHX8_2 = false
-    SHX9_2 = false
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX3_2 = ObjToNet
-    SHX4_2 = SHX2_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = SetEntityAsMissionEntity
-    SHX5_2 = SHX2_2
-    SHX6_2 = false
-    SHX7_2 = false
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = ClearPedTasksImmediately
-    SHX5_2 = SHX0_2
-    SHX4_2(SHX5_2)
-    SHX4_2 = SetEntityRotation
-    SHX5_2 = SHX2_2
-    SHX6_2 = 0.0
-    SHX7_2 = 90.0
-    SHX8_2 = 90.0
-    SHX9_2 = 2
-    SHX10_2 = false
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX4_2 = GetOffsetFromEntityInWorldCoords
-    SHX5_2 = SHX0_2
-    SHX6_2 = 0.5
-    SHX7_2 = 0.0
-    SHX8_2 = 0.0
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX5_2 = SetEntityCoords
-    SHX6_2 = SHX2_2
-    SHX7_2 = SHX4_2.x
-    SHX8_2 = SHX4_2.y
-    SHX9_2 = SHX4_2.z
-    SHX10_2 = false
-    SHX11_2 = false
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX5_2 = ApplyForceToEntity
-    SHX6_2 = SHX2_2
-    SHX7_2 = 4
-    SHX8_2 = 0.001
-    SHX9_2 = 0.001
-    SHX10_2 = 0.001
-    SHX11_2 = 0.0
-    SHX12_2 = 0.0
-    SHX13_2 = 0.0
-    SHX14_2 = 0
-    SHX15_2 = false
-    SHX16_2 = true
-    SHX17_2 = true
-    SHX18_2 = false
-    SHX19_2 = true
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-    SHX5_2 = TriggerServerEvent
-    SHX6_2 = "Ladders:Server:Ladders:Local"
-    SHX7_2 = "remove"
-    SHX5_2(SHX6_2, SHX7_2)
-    SHX5_2 = TriggerServerEvent
-    SHX6_2 = "Ladders:Server:Ladders"
-    SHX7_2 = "store"
-    SHX8_2 = SHX3_2
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-    SHX5_2 = TriggerServerEvent
-    SHX6_2 = "Ladders:Server:Ladders"
-    SHX7_2 = "update"
-    SHX8_2 = SHX3_2
-    SHX9_2 = "BeingCarried"
-    SHX10_2 = true
-    SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 1000
-    SHX5_2(SHX6_2)
-    SHX5_2 = GetEntityCoords
-    SHX6_2 = SHX2_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "BeingCarried"
-    SHX11_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "BeingClimbed"
-    SHX11_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "Dropped"
-    SHX11_2 = true
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "Placed"
-    SHX11_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "x"
-    SHX11_2 = SHX5_2.x
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "y"
-    SHX11_2 = SHX5_2.y
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "update"
-    SHX9_2 = SHX3_2
-    SHX10_2 = "z"
-    SHX11_2 = SHX5_2.z
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Bounce:ServerValues".
+dataTable2(vector3Builder, vector3Builder2)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Client:DropLadder"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:DropLadder".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Client:DropLadder"
+-- Beginner: this function runs when client event "Ladders:Client:DropLadder" fires.
+function vector3Builder2()
+  local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6
+  arg1 = numberValue2
+  if 0 ~= arg1 then
+    arg1 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg1 = arg1()
+    arg2 = CMG
+    arg2 = arg2.requestEntitySpawn
+    arg3 = "lfb_ladder_object"
+    arg2(arg3)
+    arg2 = GetOffsetFromEntityInWorldCoords
+    arg3 = arg1
+    arg4 = 0.0
+    dataTable6 = 0.0
+    dataTable7 = -500.0
+    arg2 = arg2(arg3, arg4, dataTable6, dataTable7)
+    arg3 = CreateObjectNoOffset
+    arg4 = GetHashKey
+    dataTable6 = "prop_byard_ladder01"
+    -- Beginner: result below is hash.
+    arg4 = arg4(dataTable6)
+    dataTable6 = arg2.x
+    dataTable7 = arg2.y
+    textValue13 = arg2.z
+    workValue4 = true
+    workValue5 = false
+    modelHash = false
+    -- Beginner: result below is objectEntity.
+    arg3 = arg3(arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash)
+    arg4 = ObjToNet
+    dataTable6 = arg3
+    arg4 = arg4(dataTable6)
+    dataTable6 = SetEntityAsMissionEntity
+    dataTable7 = arg3
+    textValue13 = false
+    workValue4 = false
+    dataTable6(dataTable7, textValue13, workValue4)
+    dataTable6 = ClearPedTasksImmediately
+    dataTable7 = arg1
+    dataTable6(dataTable7)
+    dataTable6 = SetEntityRotation
+    dataTable7 = arg3
+    textValue13 = 0.0
+    workValue4 = 90.0
+    workValue5 = 90.0
+    modelHash = 2
+    iterator = false
+    dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash, iterator)
+    dataTable6 = GetOffsetFromEntityInWorldCoords
+    dataTable7 = arg1
+    textValue13 = 0.5
+    workValue4 = 0.0
+    workValue5 = 0.0
+    dataTable6 = dataTable6(dataTable7, textValue13, workValue4, workValue5)
+    dataTable7 = SetEntityCoords
+    textValue13 = arg3
+    workValue4 = dataTable6.x
+    workValue5 = dataTable6.y
+    modelHash = dataTable6.z
+    iterator = false
+    workValue = false
+    flag = false
+    flag2 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    dataTable7(textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2)
+    dataTable7 = ApplyForceToEntity
+    textValue13 = arg3
+    workValue4 = 4
+    workValue5 = 0.001
+    modelHash = 0.001
+    iterator = 0.001
+    workValue = 0.0
+    flag = 0.0
+    flag2 = 0.0
+    flag3 = 0
+    flag4 = false
+    hashValue = true
+    dataTable3 = true
+    flag5 = false
+    flag6 = true
+    dataTable7(textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6)
+    dataTable7 = TriggerServerEvent
+    textValue13 = "Ladders:Server:Ladders:Local"
+    workValue4 = "remove"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders:Local".
+    dataTable7(textValue13, workValue4)
+    dataTable7 = TriggerServerEvent
+    textValue13 = "Ladders:Server:Ladders"
+    workValue4 = "store"
+    workValue5 = arg4
+    dataTable7(textValue13, workValue4, workValue5)
+    dataTable7 = TriggerServerEvent
+    textValue13 = "Ladders:Server:Ladders"
+    workValue4 = "update"
+    workValue5 = arg4
+    modelHash = "BeingCarried"
+    iterator = true
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    dataTable7(textValue13, workValue4, workValue5, modelHash, iterator)
+    dataTable7 = Citizen
+    dataTable7 = dataTable7.Wait
+    textValue13 = 1000
+    dataTable7(textValue13)
+    dataTable7 = GetEntityCoords
+    textValue13 = arg3
+    -- Beginner: result below is entityCoords.
+    dataTable7 = dataTable7(textValue13)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "BeingCarried"
+    workValue = false
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "BeingClimbed"
+    workValue = false
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "Dropped"
+    workValue = true
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "Placed"
+    workValue = false
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "x"
+    workValue = dataTable7.x
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "y"
+    workValue = dataTable7.y
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "update"
+    modelHash = arg4
+    iterator = "z"
+    workValue = dataTable7.z
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Client:Pickup"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Client:Pickup"
-function SHX13_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = SHX4_1
-  if 0 == SHX1_2 then
-    SHX1_2 = NetworkDoesNetworkIdExist
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = NetworkRequestControlOfNetworkId
-      SHX2_2 = SHX0_2
-      SHX1_2(SHX2_2)
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:DropLadder".
+dataTable2(vector3Builder, vector3Builder2)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Client:Pickup"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:Pickup".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Client:Pickup"
+-- Beginner: this function runs when client event "Ladders:Client:Pickup" fires.
+function vector3Builder2(arg1)
+  local arg2, arg3, arg4, dataTable6, dataTable7
+  arg2 = numberValue2
+  if 0 == arg2 then
+    arg2 = NetworkDoesNetworkIdExist
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = NetworkRequestControlOfNetworkId
+      arg3 = arg1
+      arg2(arg3)
       while true do
-        SHX1_2 = NetworkHasControlOfNetworkId
-        SHX2_2 = SHX0_2
-        SHX1_2 = SHX1_2(SHX2_2)
-        if SHX1_2 then
+        arg2 = NetworkHasControlOfNetworkId
+        arg3 = arg1
+        arg2 = arg2(arg3)
+        if arg2 then
           break
         end
-        SHX1_2 = Citizen
-        SHX1_2 = SHX1_2.Wait
-        SHX2_2 = 0
-        SHX1_2(SHX2_2)
+        arg2 = Citizen
+        arg2 = arg2.Wait
+        arg3 = 0
+        arg2(arg3)
       end
-      SHX1_2 = NetToObj
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX2_2 = DeleteObject
-      SHX3_2 = SHX1_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = SetEntityAsNoLongerNeeded
-      SHX3_2 = SHX1_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = TriggerServerEvent
-      SHX3_2 = "Ladders:Server:Ladders:Local"
-      SHX4_2 = "add"
-      SHX2_2(SHX3_2, SHX4_2)
-      SHX2_2 = TriggerServerEvent
-      SHX3_2 = "Ladders:Server:Ladders"
-      SHX4_2 = "delete"
-      SHX5_2 = SHX0_2
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-      SHX2_2 = ClearPedTasksImmediately
-      SHX3_2 = PlayerPedId
-      SHX3_2, SHX4_2, SHX5_2 = SHX3_2()
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+      arg2 = NetToObj
+      arg3 = arg1
+      arg2 = arg2(arg3)
+      arg3 = DeleteObject
+      arg4 = arg2
+      arg3(arg4)
+      arg3 = SetEntityAsNoLongerNeeded
+      arg4 = arg2
+      arg3(arg4)
+      arg3 = TriggerServerEvent
+      arg4 = "Ladders:Server:Ladders:Local"
+      dataTable6 = "add"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders:Local".
+      arg3(arg4, dataTable6)
+      arg3 = TriggerServerEvent
+      arg4 = "Ladders:Server:Ladders"
+      dataTable6 = "delete"
+      dataTable7 = arg1
+      arg3(arg4, dataTable6, dataTable7)
+      arg3 = ClearPedTasksImmediately
+      arg4 = PlayerPedId
+      arg4, dataTable6, dataTable7 = arg4()
+      arg3(arg4, dataTable6, dataTable7)
     end
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-SHX11_1 = RegisterNetEvent
-SHX12_1 = "Ladders:Client:PlaceLadder"
-SHX11_1(SHX12_1)
-SHX11_1 = AddEventHandler
-SHX12_1 = "Ladders:Client:PlaceLadder"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = SHX4_1
-  if 0 ~= SHX0_2 then
-    SHX0_2 = PlayerPedId
-    SHX0_2 = SHX0_2()
-    SHX1_2 = GetEntityRotation
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.requestEntitySpawn
-    SHX3_2 = "lfb_ladder_object"
-    SHX2_2(SHX3_2)
-    SHX2_2 = GetOffsetFromEntityInWorldCoords
-    SHX3_2 = SHX0_2
-    SHX4_2 = 0.0
-    SHX5_2 = 1.0
-    SHX6_2 = 0.0
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    SHX3_2 = CreateObjectNoOffset
-    SHX4_2 = GetHashKey
-    SHX5_2 = "prop_byard_ladder01"
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = SHX2_2.x
-    SHX6_2 = SHX2_2.y
-    SHX7_2 = SHX2_2.z
-    SHX8_2 = true
-    SHX9_2 = false
-    SHX10_2 = false
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX4_2 = ObjToNet
-    SHX5_2 = SHX3_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_2 = GetOffsetFromEntityInWorldCoords
-    SHX6_2 = SHX0_2
-    SHX7_2 = 0.0
-    SHX8_2 = 1.2
-    SHX9_2 = 1.32
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX6_2 = SetEntityAsMissionEntity
-    SHX7_2 = SHX3_2
-    SHX8_2 = false
-    SHX9_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders:Local"
-    SHX8_2 = "remove"
-    SHX6_2(SHX7_2, SHX8_2)
-    SHX6_2 = TriggerServerEvent
-    SHX7_2 = "Ladders:Server:Ladders"
-    SHX8_2 = "store"
-    SHX9_2 = SHX4_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-    SHX6_2 = SetEntityCoords
-    SHX7_2 = SHX3_2
-    SHX8_2 = SHX5_2.x
-    SHX9_2 = SHX5_2.y
-    SHX10_2 = SHX5_2.z
-    SHX11_2 = false
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX14_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX6_2 = vector3
-    SHX7_2 = SHX1_2.x
-    SHX7_2 = SHX7_2 - 20.0
-    SHX8_2 = SHX1_2.y
-    SHX9_2 = SHX1_2.z
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-    SHX7_2 = SetEntityRotation
-    SHX8_2 = SHX3_2
-    SHX9_2 = SHX6_2.x
-    SHX10_2 = SHX6_2.y
-    SHX11_2 = SHX6_2.z
-    SHX12_2 = 2
-    SHX13_2 = false
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX7_2 = FreezeEntityPosition
-    SHX8_2 = SHX3_2
-    SHX9_2 = true
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "BeingCarried"
-    SHX12_2 = false
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "BeingClimbed"
-    SHX12_2 = false
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "Dropped"
-    SHX12_2 = false
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "Placed"
-    SHX12_2 = true
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "x"
-    SHX12_2 = SHX5_2.x
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "y"
-    SHX12_2 = SHX5_2.y
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "z"
-    SHX12_2 = SHX5_2.z
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "Topz"
-    SHX12_2 = SHX5_2.z
-    SHX12_2 = SHX12_2 + 5.0
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "Ladders:Server:Ladders"
-    SHX9_2 = "update"
-    SHX10_2 = SHX4_2
-    SHX11_2 = "Bottomz"
-    SHX12_2 = SHX5_2.z
-    SHX12_2 = SHX12_2 - 5.0
-    SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:Pickup".
+dataTable2(vector3Builder, vector3Builder2)
+dataTable2 = RegisterNetEvent
+vector3Builder = "Ladders:Client:PlaceLadder"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:PlaceLadder".
+dataTable2(vector3Builder)
+dataTable2 = AddEventHandler
+vector3Builder = "Ladders:Client:PlaceLadder"
+-- Beginner: this function runs when client event "Ladders:Client:PlaceLadder" fires.
+function vector3Builder2()
+  local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3
+  arg1 = numberValue2
+  if 0 ~= arg1 then
+    arg1 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg1 = arg1()
+    arg2 = GetEntityRotation
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    arg3 = CMG
+    arg3 = arg3.requestEntitySpawn
+    arg4 = "lfb_ladder_object"
+    arg3(arg4)
+    arg3 = GetOffsetFromEntityInWorldCoords
+    arg4 = arg1
+    dataTable6 = 0.0
+    dataTable7 = 1.0
+    textValue13 = 0.0
+    arg3 = arg3(arg4, dataTable6, dataTable7, textValue13)
+    arg4 = CreateObjectNoOffset
+    dataTable6 = GetHashKey
+    dataTable7 = "prop_byard_ladder01"
+    -- Beginner: result below is hash.
+    dataTable6 = dataTable6(dataTable7)
+    dataTable7 = arg3.x
+    textValue13 = arg3.y
+    workValue4 = arg3.z
+    workValue5 = true
+    modelHash = false
+    iterator = false
+    -- Beginner: result below is objectEntity.
+    arg4 = arg4(dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator)
+    dataTable6 = ObjToNet
+    dataTable7 = arg4
+    dataTable6 = dataTable6(dataTable7)
+    dataTable7 = GetOffsetFromEntityInWorldCoords
+    textValue13 = arg1
+    workValue4 = 0.0
+    workValue5 = 1.2
+    modelHash = 1.32
+    dataTable7 = dataTable7(textValue13, workValue4, workValue5, modelHash)
+    textValue13 = SetEntityAsMissionEntity
+    workValue4 = arg4
+    workValue5 = false
+    modelHash = false
+    textValue13(workValue4, workValue5, modelHash)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders:Local"
+    workValue5 = "remove"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders:Local".
+    textValue13(workValue4, workValue5)
+    textValue13 = TriggerServerEvent
+    workValue4 = "Ladders:Server:Ladders"
+    workValue5 = "store"
+    modelHash = dataTable6
+    textValue13(workValue4, workValue5, modelHash)
+    textValue13 = SetEntityCoords
+    workValue4 = arg4
+    workValue5 = dataTable7.x
+    modelHash = dataTable7.y
+    iterator = dataTable7.z
+    workValue = false
+    flag = false
+    flag2 = false
+    flag3 = false
+    -- Beginner: Move/teleport an entity to new coordinates.
+    textValue13(workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3)
+    textValue13 = vector3
+    workValue4 = arg2.x
+    workValue4 = workValue4 - 20.0
+    workValue5 = arg2.y
+    modelHash = arg2.z
+    textValue13 = textValue13(workValue4, workValue5, modelHash)
+    workValue4 = SetEntityRotation
+    workValue5 = arg4
+    modelHash = textValue13.x
+    iterator = textValue13.y
+    workValue = textValue13.z
+    flag = 2
+    flag2 = false
+    workValue4(workValue5, modelHash, iterator, workValue, flag, flag2)
+    workValue4 = FreezeEntityPosition
+    workValue5 = arg4
+    modelHash = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    workValue4(workValue5, modelHash)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "BeingCarried"
+    flag = false
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "BeingClimbed"
+    flag = false
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "Dropped"
+    flag = false
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "Placed"
+    flag = true
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "x"
+    flag = dataTable7.x
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "y"
+    flag = dataTable7.y
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "z"
+    flag = dataTable7.z
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "Topz"
+    flag = dataTable7.z
+    flag = flag + 5.0
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
+    workValue4 = TriggerServerEvent
+    workValue5 = "Ladders:Server:Ladders"
+    modelHash = "update"
+    iterator = dataTable6
+    workValue = "Bottomz"
+    flag = dataTable7.z
+    flag = flag - 5.0
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    workValue4(workValue5, modelHash, iterator, workValue, flag)
   end
 end
-SHX11_1(SHX12_1, SHX13_1)
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX1_2 = 1
-  SHX2_2 = 10
-  SHX3_2 = 1
-  for SHX4_2 = SHX1_2, SHX2_2, SHX3_2 do
-    SHX5_2 = GetOffsetFromEntityInWorldCoords
-    SHX6_2 = SHX0_2
-    SHX7_2 = 0.0
-    SHX8_2 = SHX4_2 / 5.0
-    SHX8_2 = 0.5 + SHX8_2
-    SHX9_2 = 4.0
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX6_2 = _ENV
-    SHX7_2 = "StartExpensiveSynchronousShapeTestLosProbe"
-    SHX6_2 = SHX6_2[SHX7_2]
-    SHX7_2 = SHX5_2.x
-    SHX8_2 = SHX5_2.y
-    SHX9_2 = SHX5_2.z
-    SHX10_2 = SHX5_2.x
-    SHX11_2 = SHX5_2.y
-    SHX12_2 = SHX5_2.z
-    SHX12_2 = SHX12_2 - 10.0
-    SHX13_2 = -1
-    SHX14_2 = 0
-    SHX15_2 = 4
-    SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    SHX7_2 = GetShapeTestResult
-    SHX8_2 = SHX6_2
-    SHX7_2, SHX8_2, SHX9_2 = SHX7_2(SHX8_2)
-    if SHX8_2 then
-      SHX10_2 = SHX5_2 - SHX9_2
-      SHX10_2 = #SHX10_2
-      if SHX10_2 < 6.0 then
-        SHX10_2 = vector3
-        SHX11_2 = 0.0
-        SHX12_2 = 0.0
-        SHX13_2 = 1.0
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-        SHX10_2 = SHX9_2 + SHX10_2
-        return SHX10_2
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:PlaceLadder".
+dataTable2(vector3Builder, vector3Builder2)
+function dataTable2(arg1)
+  local arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4
+  arg2 = 1
+  arg3 = 10
+  arg4 = 1
+  for dataTable6 = arg2, arg3, arg4 do
+    dataTable7 = GetOffsetFromEntityInWorldCoords
+    textValue13 = arg1
+    workValue4 = 0.0
+    workValue5 = dataTable6 / 5.0
+    workValue5 = 0.5 + workValue5
+    modelHash = 4.0
+    dataTable7 = dataTable7(textValue13, workValue4, workValue5, modelHash)
+    textValue13 = _ENV
+    workValue4 = "StartExpensiveSynchronousShapeTestLosProbe"
+    textValue13 = textValue13[workValue4]
+    workValue4 = dataTable7.x
+    workValue5 = dataTable7.y
+    modelHash = dataTable7.z
+    iterator = dataTable7.x
+    workValue = dataTable7.y
+    flag = dataTable7.z
+    flag = flag - 10.0
+    flag2 = -1
+    flag3 = 0
+    flag4 = 4
+    textValue13 = textValue13(workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4)
+    workValue4 = GetShapeTestResult
+    workValue5 = textValue13
+    workValue4, workValue5, modelHash = workValue4(workValue5)
+    if workValue5 then
+      iterator = dataTable7 - modelHash
+      iterator = #iterator
+      if iterator < 6.0 then
+        iterator = vector3
+        workValue = 0.0
+        flag = 0.0
+        flag2 = 1.0
+        iterator = iterator(workValue, flag, flag2)
+        iterator = modelHash + iterator
+        return iterator
       end
     end
   end
-  SHX1_2 = GetOffsetFromEntityInWorldCoords
-  SHX2_2 = SHX0_2
-  SHX3_2 = 0.0
-  SHX4_2 = 0.5
-  SHX5_2 = 4.0
-  return SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+  arg2 = GetOffsetFromEntityInWorldCoords
+  arg3 = arg1
+  arg4 = 0.0
+  dataTable6 = 0.5
+  dataTable7 = 4.0
+  return arg2(arg3, arg4, dataTable6, dataTable7)
 end
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "Ladders:Client:Climb"
-SHX12_1(SHX13_1)
-SHX12_1 = AddEventHandler
-SHX13_1 = "Ladders:Client:Climb"
-function SHX14_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2
-  SHX2_2 = SHX4_1
-  if 0 == SHX2_2 then
-    SHX2_2 = PlayerPedId
-    SHX2_2 = SHX2_2()
-    SHX3_2 = NetToObj
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = TriggerServerEvent
-    SHX5_2 = "Ladders:Server:Ladders"
-    SHX6_2 = "update"
-    SHX7_2 = SHX0_2
-    SHX8_2 = "BeingClimbed"
-    SHX9_2 = true
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX4_2 = "yes"
-    SHX3_1 = SHX4_2
-    SHX4_2 = GetEntityRotation
-    SHX5_2 = SHX3_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    SHX5_1 = SHX4_2
-    SHX4_2 = HasAnimDictLoaded
-    SHX5_2 = "laddersbase"
-    SHX4_2 = SHX4_2(SHX5_2)
-    if not SHX4_2 then
-      SHX4_2 = RequestAnimDict
-      SHX5_2 = "laddersbase"
-      SHX4_2(SHX5_2)
+vector3Builder = RegisterNetEvent
+vector3Builder2 = "Ladders:Client:Climb"
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "Ladders:Client:Climb".
+vector3Builder(vector3Builder2)
+vector3Builder = AddEventHandler
+vector3Builder2 = "Ladders:Client:Climb"
+-- Beginner: this function runs when client event "Ladders:Client:Climb" fires.
+function textValue(arg1, arg2)
+  local arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11, flag12, flag13, flag14
+  arg3 = numberValue2
+  if 0 == arg3 then
+    arg3 = PlayerPedId
+    -- Beginner: result below is localPlayerPed.
+    arg3 = arg3()
+    arg4 = NetToObj
+    dataTable6 = arg1
+    arg4 = arg4(dataTable6)
+    dataTable6 = TriggerServerEvent
+    dataTable7 = "Ladders:Server:Ladders"
+    textValue13 = "update"
+    workValue4 = arg1
+    workValue5 = "BeingClimbed"
+    modelHash = true
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash)
+    dataTable6 = "yes"
+    textValue12 = dataTable6
+    dataTable6 = GetEntityRotation
+    dataTable7 = arg4
+    dataTable6 = dataTable6(dataTable7)
+    workValue3 = dataTable6
+    dataTable6 = HasAnimDictLoaded
+    dataTable7 = "laddersbase"
+    dataTable6 = dataTable6(dataTable7)
+    if not dataTable6 then
+      dataTable6 = RequestAnimDict
+      dataTable7 = "laddersbase"
+      dataTable6(dataTable7)
       while true do
-        SHX4_2 = HasAnimDictLoaded
-        SHX5_2 = "laddersbase"
-        SHX4_2 = SHX4_2(SHX5_2)
-        if SHX4_2 then
+        dataTable6 = HasAnimDictLoaded
+        dataTable7 = "laddersbase"
+        dataTable6 = dataTable6(dataTable7)
+        if dataTable6 then
           break
         end
-        SHX4_2 = Citizen
-        SHX4_2 = SHX4_2.Wait
-        SHX5_2 = 0
-        SHX4_2(SHX5_2)
+        dataTable6 = Citizen
+        dataTable6 = dataTable6.Wait
+        dataTable7 = 0
+        dataTable6(dataTable7)
       end
     end
-    SHX4_2 = ClearPedTasksImmediately
-    SHX5_2 = SHX2_2
-    SHX4_2(SHX5_2)
-    SHX4_2 = FreezeEntityPosition
-    SHX5_2 = SHX2_2
-    SHX6_2 = true
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SetEntityCollision
-    SHX5_2 = SHX3_2
-    SHX6_2 = false
-    SHX7_2 = true
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = "rot"
-    SHX3_1 = SHX4_2
-    SHX4_2 = pairs
-    SHX5_2 = SHX9_1
-    SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-    for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-      if SHX1_2 == SHX8_2 then
-        SHX10_2 = pairs
-        SHX11_2 = SHX9_2
-        SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-        for SHX14_2, SHX15_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-          SHX16_2 = GetOffsetFromEntityInWorldCoords
-          SHX17_2 = SHX3_2
-          SHX18_2 = SHX15_2[1]
-          SHX18_2 = SHX18_2.x
-          SHX19_2 = SHX15_2[1]
-          SHX19_2 = SHX19_2.y
-          SHX20_2 = SHX15_2[1]
-          SHX20_2 = SHX20_2.z
-          SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-          SHX17_2 = SetEntityCoordsNoOffset
-          SHX18_2 = SHX2_2
-          SHX19_2 = SHX16_2.x
-          SHX20_2 = SHX16_2.y
-          SHX21_2 = SHX16_2.z
-          SHX22_2 = false
-          SHX23_2 = false
-          SHX24_2 = false
-          SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-          SHX17_2 = TaskPlayAnim
-          SHX18_2 = SHX2_2
-          SHX19_2 = SHX15_2[2]
-          SHX20_2 = SHX15_2[3]
-          SHX21_2 = 2.0
-          SHX22_2 = 0.0
-          SHX23_2 = -1
-          SHX24_2 = 15
-          SHX25_2 = 0
-          SHX26_2 = false
-          SHX27_2 = false
-          SHX28_2 = false
-          SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-          SHX17_2 = Citizen
-          SHX17_2 = SHX17_2.Wait
-          SHX18_2 = 850
-          SHX17_2(SHX18_2)
+    dataTable6 = ClearPedTasksImmediately
+    dataTable7 = arg3
+    dataTable6(dataTable7)
+    dataTable6 = FreezeEntityPosition
+    dataTable7 = arg3
+    textValue13 = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    dataTable6(dataTable7, textValue13)
+    dataTable6 = SetEntityCollision
+    dataTable7 = arg4
+    textValue13 = false
+    workValue4 = true
+    dataTable6(dataTable7, textValue13, workValue4)
+    dataTable6 = "rot"
+    textValue12 = dataTable6
+    dataTable6 = pairs
+    dataTable7 = dataTable8
+    dataTable6, dataTable7, textValue13, workValue4 = dataTable6(dataTable7)
+    for workValue5, modelHash in dataTable6, dataTable7, textValue13, workValue4 do
+      if arg2 == workValue5 then
+        iterator = pairs
+        workValue = modelHash
+        iterator, workValue, flag, flag2 = iterator(workValue)
+        for flag3, flag4 in iterator, workValue, flag, flag2 do
+          hashValue = GetOffsetFromEntityInWorldCoords
+          dataTable3 = arg4
+          flag5 = flag4[1]
+          flag5 = flag5.x
+          flag6 = flag4[1]
+          flag6 = flag6.y
+          workValue2 = flag4[1]
+          workValue2 = workValue2.z
+          hashValue = hashValue(dataTable3, flag5, flag6, workValue2)
+          dataTable3 = SetEntityCoordsNoOffset
+          flag5 = arg3
+          flag6 = hashValue.x
+          workValue2 = hashValue.y
+          flag7 = hashValue.z
+          flag8 = false
+          flag9 = false
+          flag10 = false
+          -- Beginner: Move/teleport an entity to new coordinates.
+          dataTable3(flag5, flag6, workValue2, flag7, flag8, flag9, flag10)
+          dataTable3 = TaskPlayAnim
+          flag5 = arg3
+          flag6 = flag4[2]
+          workValue2 = flag4[3]
+          flag7 = 2.0
+          flag8 = 0.0
+          flag9 = -1
+          flag10 = 15
+          flag11 = 0
+          flag12 = false
+          flag13 = false
+          flag14 = false
+          -- Beginner: Play an animation on a ped.
+          dataTable3(flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11, flag12, flag13, flag14)
+          dataTable3 = Citizen
+          dataTable3 = dataTable3.Wait
+          flag5 = 850
+          dataTable3(flag5)
         end
       end
     end
-    if "up" == SHX1_2 then
-      SHX4_2 = SHX11_1
-      SHX5_2 = SHX3_2
-      SHX4_2 = SHX4_2(SHX5_2)
-      SHX5_2 = SetEntityCoordsNoOffset
-      SHX6_2 = SHX2_2
-      SHX7_2 = SHX4_2.x
-      SHX8_2 = SHX4_2.y
-      SHX9_2 = SHX4_2.z
-      SHX10_2 = false
-      SHX11_2 = false
-      SHX12_2 = false
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    elseif "down" == SHX1_2 then
-      SHX4_2 = GetOffsetFromEntityInWorldCoords
-      SHX5_2 = SHX3_2
-      SHX6_2 = 0.0
-      SHX7_2 = -0.9
-      SHX8_2 = -1.4
-      SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = SetEntityCoordsNoOffset
-      SHX6_2 = SHX2_2
-      SHX7_2 = SHX4_2.x
-      SHX8_2 = SHX4_2.y
-      SHX9_2 = SHX4_2.z
-      SHX10_2 = false
-      SHX11_2 = false
-      SHX12_2 = false
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+    if "up" == arg2 then
+      dataTable6 = dataTable2
+      dataTable7 = arg4
+      dataTable6 = dataTable6(dataTable7)
+      dataTable7 = SetEntityCoordsNoOffset
+      textValue13 = arg3
+      workValue4 = dataTable6.x
+      workValue5 = dataTable6.y
+      modelHash = dataTable6.z
+      iterator = false
+      workValue = false
+      flag = false
+      -- Beginner: Move/teleport an entity to new coordinates.
+      dataTable7(textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag)
+    elseif "down" == arg2 then
+      dataTable6 = GetOffsetFromEntityInWorldCoords
+      dataTable7 = arg4
+      textValue13 = 0.0
+      workValue4 = -0.9
+      workValue5 = -1.4
+      dataTable6 = dataTable6(dataTable7, textValue13, workValue4, workValue5)
+      dataTable7 = SetEntityCoordsNoOffset
+      textValue13 = arg3
+      workValue4 = dataTable6.x
+      workValue5 = dataTable6.y
+      modelHash = dataTable6.z
+      iterator = false
+      workValue = false
+      flag = false
+      dataTable7(textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag)
     end
-    SHX4_2 = ClearPedTasksImmediately
-    SHX5_2 = SHX2_2
-    SHX4_2(SHX5_2)
-    SHX4_2 = FreezeEntityPosition
-    SHX5_2 = SHX2_2
-    SHX6_2 = false
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SetEntityCollision
-    SHX5_2 = SHX3_2
-    SHX6_2 = true
-    SHX7_2 = true
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-    SHX4_2 = "no"
-    SHX3_1 = SHX4_2
-    SHX4_2 = TriggerServerEvent
-    SHX5_2 = "Ladders:Server:Ladders"
-    SHX6_2 = "update"
-    SHX7_2 = SHX0_2
-    SHX8_2 = "BeingClimbed"
-    SHX9_2 = false
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+    dataTable6 = ClearPedTasksImmediately
+    dataTable7 = arg3
+    dataTable6(dataTable7)
+    dataTable6 = FreezeEntityPosition
+    dataTable7 = arg3
+    textValue13 = false
+    -- Beginner: Freeze or unfreeze an entity in place.
+    dataTable6(dataTable7, textValue13)
+    dataTable6 = SetEntityCollision
+    dataTable7 = arg4
+    textValue13 = true
+    workValue4 = true
+    dataTable6(dataTable7, textValue13, workValue4)
+    dataTable6 = "no"
+    textValue12 = dataTable6
+    dataTable6 = TriggerServerEvent
+    dataTable7 = "Ladders:Server:Ladders"
+    textValue13 = "update"
+    workValue4 = arg1
+    workValue5 = "BeingClimbed"
+    modelHash = false
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+    dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash)
   end
 end
-SHX12_1(SHX13_1, SHX14_1)
-function SHX12_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = vector3
-  SHX3_2 = SHX0_2.x
-  SHX4_2 = SHX0_2.y
-  SHX5_2 = SHX0_2.z
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  SHX1_2 = SHX1_2 - SHX2_2
-  SHX1_2 = #SHX1_2
-  SHX1_2 = SHX1_2 + 0.01
-  return SHX1_2
+-- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:Climb".
+vector3Builder(vector3Builder2, textValue)
+function vector3Builder(arg1)
+  local arg2, arg3, arg4, dataTable6, dataTable7
+  arg2 = CMG
+  arg2 = arg2.getPlayerCoords
+  -- Beginner: result below is playerCoords.
+  arg2 = arg2()
+  arg3 = vector3
+  arg4 = arg1.x
+  dataTable6 = arg1.y
+  dataTable7 = arg1.z
+  arg3 = arg3(arg4, dataTable6, dataTable7)
+  arg2 = arg2 - arg3
+  arg2 = #arg2
+  arg2 = arg2 + 0.01
+  return arg2
 end
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX4_1
-  if 0 == SHX1_2 then
-    SHX1_2 = SHX8_1
-    if SHX1_2 then
-      SHX1_2 = false
-      SHX8_1 = SHX1_2
-      SHX1_2 = ResetPedMovementClipset
-      SHX2_2 = SHX0_2
-      SHX3_2 = 0
-      SHX1_2(SHX2_2, SHX3_2)
+function vector3Builder2()
+  local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11
+  arg1 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = numberValue2
+  if 0 == arg2 then
+    arg2 = flag16
+    if arg2 then
+      arg2 = false
+      flag16 = arg2
+      arg2 = ResetPedMovementClipset
+      arg3 = arg1
+      arg4 = 0
+      arg2(arg3, arg4)
     end
-    SHX1_2 = pairs
-    SHX2_2 = SHX1_1
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-    for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-      SHX7_2 = type
-      SHX8_2 = SHX6_2
-      SHX7_2 = SHX7_2(SHX8_2)
-      if "table" == SHX7_2 then
-        SHX7_2 = SHX6_2.BeingCarried
-        if not SHX7_2 then
-          SHX7_2 = SHX6_2.x
-          if SHX7_2 then
-            SHX7_2 = SHX6_2.y
-            if SHX7_2 then
-              SHX7_2 = SHX6_2.z
-              if SHX7_2 then
-                SHX7_2 = SHX6_2.Dropped
-                if SHX7_2 then
-                  SHX7_2 = SHX12_1
-                  SHX8_2 = SHX6_2
-                  SHX7_2 = SHX7_2(SHX8_2)
-                  if not (SHX7_2 <= 2.0) then
-                    goto SHX_LABEL_142
+    arg2 = pairs
+    arg3 = dataTable4
+    arg2, arg3, arg4, dataTable6 = arg2(arg3)
+    for dataTable7, textValue13 in arg2, arg3, arg4, dataTable6 do
+      workValue4 = type
+      workValue5 = textValue13
+      workValue4 = workValue4(workValue5)
+      if "table" == workValue4 then
+        workValue4 = textValue13.BeingCarried
+        if not workValue4 then
+          workValue4 = textValue13.x
+          if workValue4 then
+            workValue4 = textValue13.y
+            if workValue4 then
+              workValue4 = textValue13.z
+              if workValue4 then
+                workValue4 = textValue13.Dropped
+                if workValue4 then
+                  workValue4 = vector3Builder
+                  workValue5 = textValue13
+                  workValue4 = workValue4(workValue5)
+                  if not (workValue4 <= 2.0) then
+                    goto flow_label_142
                   end
-                  SHX7_2 = CMG
-                  SHX7_2 = SHX7_2.hasClientPermission
-                  SHX8_2 = "lfb.onduty.permission"
-                  SHX7_2 = SHX7_2(SHX8_2)
-                  if SHX7_2 then
-                    SHX7_2 = drawNativeNotification
-                    SHX8_2 = "~INPUT_PICKUP~ Pick up ladder"
-                    SHX7_2(SHX8_2)
-                    SHX7_2 = IsControlJustPressed
-                    SHX8_2 = 0
-                    SHX9_2 = 38
-                    SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-                    if SHX7_2 then
-                      SHX7_2 = TriggerServerEvent
-                      SHX8_2 = "Ladders:Server:Ladders"
-                      SHX9_2 = "pickup"
-                      SHX10_2 = SHX6_2.ID
-                      SHX7_2(SHX8_2, SHX9_2, SHX10_2)
+                  workValue4 = CMG
+                  workValue4 = workValue4.hasClientPermission
+                  workValue5 = "lfb.onduty.permission"
+                  workValue4 = workValue4(workValue5)
+                  if workValue4 then
+                    workValue4 = drawNativeNotification
+                    workValue5 = "~INPUT_PICKUP~ Pick up ladder"
+                    -- Beginner: Show a GTA-style notification/help prompt.
+                    workValue4(workValue5)
+                    workValue4 = IsControlJustPressed
+                    workValue5 = 0
+                    modelHash = 38
+                    workValue4 = workValue4(workValue5, modelHash)
+                    if workValue4 then
+                      workValue4 = TriggerServerEvent
+                      workValue5 = "Ladders:Server:Ladders"
+                      modelHash = "pickup"
+                      iterator = textValue13.ID
+                      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+                      workValue4(workValue5, modelHash, iterator)
                     end
                   end
                   break
                 else
-                  SHX7_2 = SHX6_2.Dropped
-                  if not SHX7_2 then
-                    SHX7_2 = SHX6_2.Placed
-                    if SHX7_2 then
-                      SHX7_2 = SHX3_1
-                      if "no" == SHX7_2 then
-                        SHX7_2 = SHX12_1
-                        SHX8_2 = SHX6_2
-                        SHX7_2 = SHX7_2(SHX8_2)
-                        if SHX7_2 <= 4 then
-                          SHX7_2 = DisableControlAction
-                          SHX8_2 = 0
-                          SHX9_2 = 23
-                          SHX10_2 = true
-                          SHX7_2(SHX8_2, SHX9_2, SHX10_2)
-                          SHX7_2 = CMG
-                          SHX7_2 = SHX7_2.hasClientPermission
-                          SHX8_2 = "lfb.onduty.permission"
-                          SHX7_2 = SHX7_2(SHX8_2)
-                          if SHX7_2 then
-                            SHX7_2 = SHX12_1
-                            SHX8_2 = vector3
-                            SHX9_2 = SHX6_2.x
-                            SHX10_2 = SHX6_2.y
-                            SHX11_2 = SHX6_2.Topz
-                            SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-                            SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-                            SHX8_2 = SHX12_1
-                            SHX9_2 = vector3
-                            SHX10_2 = SHX6_2.x
-                            SHX11_2 = SHX6_2.y
-                            SHX12_2 = SHX6_2.Bottomz
-                            SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-                            SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-                            SHX9_2 = drawNativeNotification
-                            SHX10_2 = [[
+                  workValue4 = textValue13.Dropped
+                  if not workValue4 then
+                    workValue4 = textValue13.Placed
+                    if workValue4 then
+                      workValue4 = textValue12
+                      if "no" == workValue4 then
+                        workValue4 = vector3Builder
+                        workValue5 = textValue13
+                        workValue4 = workValue4(workValue5)
+                        if workValue4 <= 4 then
+                          workValue4 = DisableControlAction
+                          workValue5 = 0
+                          modelHash = 23
+                          iterator = true
+                          workValue4(workValue5, modelHash, iterator)
+                          workValue4 = CMG
+                          workValue4 = workValue4.hasClientPermission
+                          workValue5 = "lfb.onduty.permission"
+                          workValue4 = workValue4(workValue5)
+                          if workValue4 then
+                            workValue4 = vector3Builder
+                            workValue5 = vector3
+                            modelHash = textValue13.x
+                            iterator = textValue13.y
+                            workValue = textValue13.Topz
+                            workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11 = workValue5(modelHash, iterator, workValue)
+                            workValue4 = workValue4(workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11)
+                            workValue5 = vector3Builder
+                            modelHash = vector3
+                            iterator = textValue13.x
+                            workValue = textValue13.y
+                            flag = textValue13.Bottomz
+                            modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11 = modelHash(iterator, workValue, flag)
+                            workValue5 = workValue5(modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11)
+                            modelHash = drawNativeNotification
+                            iterator = [[
 ~INPUT_PICKUP~ Climb ladder
 ~INPUT_ENTER~ Pick up ladder]]
-                            SHX9_2(SHX10_2)
-                            SHX9_2 = IsControlJustPressed
-                            SHX10_2 = 0
-                            SHX11_2 = 38
-                            SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-                            if SHX9_2 then
-                              if SHX7_2 > SHX8_2 then
-                                SHX9_2 = TriggerServerEvent
-                                SHX10_2 = "Ladders:Server:Ladders"
-                                SHX11_2 = "climb"
-                                SHX12_2 = SHX6_2.ID
-                                SHX13_2 = "up"
-                                SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+                            -- Beginner: Show a GTA-style notification/help prompt.
+                            modelHash(iterator)
+                            modelHash = IsControlJustPressed
+                            iterator = 0
+                            workValue = 38
+                            modelHash = modelHash(iterator, workValue)
+                            if modelHash then
+                              if workValue4 > workValue5 then
+                                modelHash = TriggerServerEvent
+                                iterator = "Ladders:Server:Ladders"
+                                workValue = "climb"
+                                flag = textValue13.ID
+                                flag2 = "up"
+                                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+                                modelHash(iterator, workValue, flag, flag2)
                                 break
                               end
-                              SHX9_2 = TriggerServerEvent
-                              SHX10_2 = "Ladders:Server:Ladders"
-                              SHX11_2 = "climb"
-                              SHX12_2 = SHX6_2.ID
-                              SHX13_2 = "down"
-                              SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+                              modelHash = TriggerServerEvent
+                              iterator = "Ladders:Server:Ladders"
+                              workValue = "climb"
+                              flag = textValue13.ID
+                              flag2 = "down"
+                              modelHash(iterator, workValue, flag, flag2)
                               break
                             end
-                            SHX9_2 = IsDisabledControlJustPressed
-                            SHX10_2 = 0
-                            SHX11_2 = 23
-                            SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-                            if SHX9_2 then
-                              SHX9_2 = TriggerServerEvent
-                              SHX10_2 = "Ladders:Server:Ladders"
-                              SHX11_2 = "pickup"
-                              SHX12_2 = SHX6_2.ID
-                              SHX9_2(SHX10_2, SHX11_2, SHX12_2)
+                            modelHash = IsDisabledControlJustPressed
+                            iterator = 0
+                            workValue = 23
+                            modelHash = modelHash(iterator, workValue)
+                            if modelHash then
+                              modelHash = TriggerServerEvent
+                              iterator = "Ladders:Server:Ladders"
+                              workValue = "pickup"
+                              flag = textValue13.ID
+                              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "Ladders:Server:Ladders".
+                              modelHash(iterator, workValue, flag)
                             end
                           end
                           break
@@ -1468,451 +1517,455 @@ function SHX13_1()
           end
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_142:: outside nested blocks until all 'goto SHX_LABEL_142' can see it
-      ::SHX_LABEL_142::
+      ::flow_label_142::
     end
-    SHX1_2 = SHX6_1
-    if 0 ~= SHX1_2 then
-      SHX1_2 = ResetEntityAlpha
-      SHX2_2 = SHX6_1
-      SHX1_2(SHX2_2)
-      SHX1_2 = DeleteObject
-      SHX2_2 = SHX6_1
-      SHX1_2(SHX2_2)
-      SHX1_2 = SetEntityAsNoLongerNeeded
-      SHX2_2 = SHX6_1
-      SHX1_2(SHX2_2)
-      SHX1_2 = 0
-      SHX6_1 = SHX1_2
+    arg2 = numberValue3
+    if 0 ~= arg2 then
+      arg2 = ResetEntityAlpha
+      arg3 = numberValue3
+      arg2(arg3)
+      arg2 = DeleteObject
+      arg3 = numberValue3
+      arg2(arg3)
+      arg2 = SetEntityAsNoLongerNeeded
+      arg3 = numberValue3
+      arg2(arg3)
+      arg2 = 0
+      numberValue3 = arg2
     end
   else
-    SHX1_2 = IsPedRunning
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      SHX1_2 = IsPedSprinting
-      SHX2_2 = SHX0_2
-      SHX1_2 = SHX1_2(SHX2_2)
-      if not SHX1_2 then
-        goto SHX_LABEL_198
+    arg2 = IsPedRunning
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      arg2 = IsPedSprinting
+      arg3 = arg1
+      arg2 = arg2(arg3)
+      if not arg2 then
+        goto flow_label_198
       end
     end
-    SHX1_2 = SHX8_1
-    if not SHX1_2 then
-      SHX1_2 = true
-      SHX8_1 = SHX1_2
-      SHX1_2 = HasAnimSetLoaded
-      SHX2_2 = "MOVE_M@BAIL_BOND_TAZERED"
-      SHX1_2 = SHX1_2(SHX2_2)
-      if not SHX1_2 then
-        SHX1_2 = RequestAnimSet
-        SHX2_2 = "MOVE_M@BAIL_BOND_TAZERED"
-        SHX1_2(SHX2_2)
+    arg2 = flag16
+    if not arg2 then
+      arg2 = true
+      flag16 = arg2
+      arg2 = HasAnimSetLoaded
+      arg3 = "MOVE_M@BAIL_BOND_TAZERED"
+      arg2 = arg2(arg3)
+      if not arg2 then
+        arg2 = RequestAnimSet
+        arg3 = "MOVE_M@BAIL_BOND_TAZERED"
+        arg2(arg3)
         while true do
-          SHX1_2 = HasAnimSetLoaded
-          SHX2_2 = "MOVE_M@BAIL_BOND_TAZERED"
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 then
+          arg2 = HasAnimSetLoaded
+          arg3 = "MOVE_M@BAIL_BOND_TAZERED"
+          arg2 = arg2(arg3)
+          if arg2 then
             break
           end
-          SHX1_2 = Wait
-          SHX2_2 = 0
-          SHX1_2(SHX2_2)
+          arg2 = Wait
+          arg3 = 0
+          arg2(arg3)
         end
       end
-      SHX1_2 = SetPedMovementClipset
-      SHX2_2 = SHX0_2
-      SHX3_2 = "MOVE_M@BAIL_BOND_TAZERED"
-      SHX4_2 = 1.0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-      goto SHX_LABEL_207
-      -- [FIX IF ERROR] Move ::SHX_LABEL_198:: outside nested blocks until all 'goto SHX_LABEL_198' can see it
-      ::SHX_LABEL_198::
-      SHX1_2 = SHX8_1
-      if SHX1_2 then
-        SHX1_2 = false
-        SHX8_1 = SHX1_2
-        SHX1_2 = ResetPedMovementClipset
-        SHX2_2 = SHX0_2
-        SHX3_2 = 1.0
-        SHX1_2(SHX2_2, SHX3_2)
+      arg2 = SetPedMovementClipset
+      arg3 = arg1
+      arg4 = "MOVE_M@BAIL_BOND_TAZERED"
+      dataTable6 = 1.0
+      arg2(arg3, arg4, dataTable6)
+      goto flow_label_207
+      ::flow_label_198::
+      arg2 = flag16
+      if arg2 then
+        arg2 = false
+        flag16 = arg2
+        arg2 = ResetPedMovementClipset
+        arg3 = arg1
+        arg4 = 1.0
+        arg2(arg3, arg4)
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_207:: outside nested blocks until all 'goto SHX_LABEL_207' can see it
-    ::SHX_LABEL_207::
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.hasClientPermission
-    SHX2_2 = "lfb.onduty.permission"
-    SHX1_2 = SHX1_2(SHX2_2)
-    if SHX1_2 then
-      SHX1_2 = drawNativeNotification
-      SHX2_2 = [[
+    ::flow_label_207::
+    arg2 = CMG
+    arg2 = arg2.hasClientPermission
+    arg3 = "lfb.onduty.permission"
+    arg2 = arg2(arg3)
+    if arg2 then
+      arg2 = drawNativeNotification
+      arg3 = [[
 ~INPUT_PICKUP~ Place ladder
 ~INPUT_ENTER~ Drop ladder
 ~INPUT_MP_TEXT_CHAT_TEAM~ Toggle preview]]
-      SHX1_2(SHX2_2)
-      SHX1_2 = IsControlJustPressed
-      SHX2_2 = 0
-      SHX3_2 = 38
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      if SHX1_2 then
-        SHX1_2 = TriggerEvent
-        SHX2_2 = "Ladders:Client:PlaceLadder"
-        SHX1_2(SHX2_2)
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg2(arg3)
+      arg2 = IsControlJustPressed
+      arg3 = 0
+      arg4 = 38
+      arg2 = arg2(arg3, arg4)
+      if arg2 then
+        arg2 = TriggerEvent
+        arg3 = "Ladders:Client:PlaceLadder"
+        -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "Ladders:Client:PlaceLadder".
+        arg2(arg3)
       else
-        SHX1_2 = IsDisabledControlJustPressed
-        SHX2_2 = 0
-        SHX3_2 = 23
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if SHX1_2 then
-          SHX1_2 = TriggerEvent
-          SHX2_2 = "Ladders:Client:DropLadder"
-          SHX1_2(SHX2_2)
+        arg2 = IsDisabledControlJustPressed
+        arg3 = 0
+        arg4 = 23
+        arg2 = arg2(arg3, arg4)
+        if arg2 then
+          arg2 = TriggerEvent
+          arg3 = "Ladders:Client:DropLadder"
+          arg2(arg3)
         else
-          SHX1_2 = IsControlJustPressed
-          SHX2_2 = 0
-          SHX3_2 = 246
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if SHX1_2 then
-            SHX1_2 = SHX7_1
-            if SHX1_2 then
-              SHX1_2 = false
-              SHX7_1 = SHX1_2
-              SHX1_2 = PlaySoundFrontend
-              SHX2_2 = -1
-              SHX3_2 = "NO"
-              SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              SHX5_2 = true
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+          arg2 = IsControlJustPressed
+          arg3 = 0
+          arg4 = 246
+          arg2 = arg2(arg3, arg4)
+          if arg2 then
+            arg2 = flag15
+            if arg2 then
+              arg2 = false
+              flag15 = arg2
+              arg2 = PlaySoundFrontend
+              arg3 = -1
+              arg4 = "NO"
+              dataTable6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              dataTable7 = true
+              arg2(arg3, arg4, dataTable6, dataTable7)
             else
-              SHX1_2 = true
-              SHX7_1 = SHX1_2
-              SHX1_2 = PlaySoundFrontend
-              SHX2_2 = -1
-              SHX3_2 = "YES"
-              SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              SHX5_2 = true
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+              arg2 = true
+              flag15 = arg2
+              arg2 = PlaySoundFrontend
+              arg3 = -1
+              arg4 = "YES"
+              dataTable6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              dataTable7 = true
+              arg2(arg3, arg4, dataTable6, dataTable7)
             end
           end
         end
       end
     end
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 22
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 23
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 24
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 44
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 140
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 141
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 142
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 257
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 263
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 264
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = SHX6_1
-    if 0 == SHX1_2 then
-      SHX1_2 = SHX7_1
-      if SHX1_2 then
-        SHX1_2 = GetOffsetFromEntityInWorldCoords
-        SHX2_2 = SHX0_2
-        SHX3_2 = 0.0
-        SHX4_2 = 1.2
-        SHX5_2 = 1.32
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        SHX2_2 = CreateObjectNoOffset
-        SHX3_2 = GetHashKey
-        SHX4_2 = "prop_byard_ladder01"
-        SHX3_2 = SHX3_2(SHX4_2)
-        SHX4_2 = SHX1_2.x
-        SHX5_2 = SHX1_2.y
-        SHX6_2 = SHX1_2.z
-        SHX7_2 = false
-        SHX8_2 = false
-        SHX9_2 = false
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX6_1 = SHX2_2
-        SHX2_2 = SetEntityCollision
-        SHX3_2 = SHX6_1
-        SHX4_2 = false
-        SHX5_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-        SHX2_2 = SetEntityAlpha
-        SHX3_2 = SHX6_1
-        SHX4_2 = 100
-        SHX5_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 22
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 23
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 24
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 44
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 140
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 141
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 142
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 257
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 263
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 264
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = numberValue3
+    if 0 == arg2 then
+      arg2 = flag15
+      if arg2 then
+        arg2 = GetOffsetFromEntityInWorldCoords
+        arg3 = arg1
+        arg4 = 0.0
+        dataTable6 = 1.2
+        dataTable7 = 1.32
+        arg2 = arg2(arg3, arg4, dataTable6, dataTable7)
+        arg3 = CreateObjectNoOffset
+        arg4 = GetHashKey
+        dataTable6 = "prop_byard_ladder01"
+        -- Beginner: result below is hash.
+        arg4 = arg4(dataTable6)
+        dataTable6 = arg2.x
+        dataTable7 = arg2.y
+        textValue13 = arg2.z
+        workValue4 = false
+        workValue5 = false
+        modelHash = false
+        -- Beginner: result below is objectEntity.
+        arg3 = arg3(arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash)
+        numberValue3 = arg3
+        arg3 = SetEntityCollision
+        arg4 = numberValue3
+        dataTable6 = false
+        dataTable7 = false
+        arg3(arg4, dataTable6, dataTable7)
+        arg3 = SetEntityAlpha
+        arg4 = numberValue3
+        dataTable6 = 100
+        dataTable7 = false
+        arg3(arg4, dataTable6, dataTable7)
       end
     end
-    SHX1_2 = SHX6_1
-    if 0 ~= SHX1_2 then
-      SHX1_2 = SHX7_1
-      if SHX1_2 then
-        SHX1_2 = GetOffsetFromEntityInWorldCoords
-        SHX2_2 = SHX0_2
-        SHX3_2 = 0.0
-        SHX4_2 = 1.2
-        SHX5_2 = 1.32
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        SHX2_2 = GetEntityRotation
-        SHX3_2 = SHX0_2
-        SHX2_2 = SHX2_2(SHX3_2)
-        SHX3_2 = SetEntityCoords
-        SHX4_2 = SHX6_1
-        SHX5_2 = SHX1_2.x
-        SHX6_2 = SHX1_2.y
-        SHX7_2 = SHX1_2.z
-        SHX8_2 = true
-        SHX9_2 = false
-        SHX10_2 = false
-        SHX11_2 = true
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-        SHX3_2 = vector3
-        SHX4_2 = SHX2_2.x
-        SHX4_2 = SHX4_2 - 20.0
-        SHX5_2 = SHX2_2.y
-        SHX6_2 = SHX2_2.z
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-        SHX4_2 = SetEntityRotation
-        SHX5_2 = SHX6_1
-        SHX6_2 = SHX3_2.x
-        SHX7_2 = SHX3_2.y
-        SHX8_2 = SHX3_2.z
-        SHX9_2 = 2
-        SHX10_2 = true
-        SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+    arg2 = numberValue3
+    if 0 ~= arg2 then
+      arg2 = flag15
+      if arg2 then
+        arg2 = GetOffsetFromEntityInWorldCoords
+        arg3 = arg1
+        arg4 = 0.0
+        dataTable6 = 1.2
+        dataTable7 = 1.32
+        arg2 = arg2(arg3, arg4, dataTable6, dataTable7)
+        arg3 = GetEntityRotation
+        arg4 = arg1
+        arg3 = arg3(arg4)
+        arg4 = SetEntityCoords
+        dataTable6 = numberValue3
+        dataTable7 = arg2.x
+        textValue13 = arg2.y
+        workValue4 = arg2.z
+        workValue5 = true
+        modelHash = false
+        iterator = false
+        workValue = true
+        -- Beginner: Move/teleport an entity to new coordinates.
+        arg4(dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue)
+        arg4 = vector3
+        dataTable6 = arg3.x
+        dataTable6 = dataTable6 - 20.0
+        dataTable7 = arg3.y
+        textValue13 = arg3.z
+        arg4 = arg4(dataTable6, dataTable7, textValue13)
+        dataTable6 = SetEntityRotation
+        dataTable7 = numberValue3
+        textValue13 = arg4.x
+        workValue4 = arg4.y
+        workValue5 = arg4.z
+        modelHash = 2
+        iterator = true
+        dataTable6(dataTable7, textValue13, workValue4, workValue5, modelHash, iterator)
       end
     end
-    SHX1_2 = SHX6_1
-    if 0 ~= SHX1_2 then
-      SHX1_2 = SHX7_1
-      if not SHX1_2 then
-        SHX1_2 = ResetEntityAlpha
-        SHX2_2 = SHX6_1
-        SHX1_2(SHX2_2)
-        SHX1_2 = DeleteObject
-        SHX2_2 = SHX6_1
-        SHX1_2(SHX2_2)
-        SHX1_2 = SetEntityAsNoLongerNeeded
-        SHX2_2 = SHX6_1
-        SHX1_2(SHX2_2)
-        SHX1_2 = 0
-        SHX6_1 = SHX1_2
+    arg2 = numberValue3
+    if 0 ~= arg2 then
+      arg2 = flag15
+      if not arg2 then
+        arg2 = ResetEntityAlpha
+        arg3 = numberValue3
+        arg2(arg3)
+        arg2 = DeleteObject
+        arg3 = numberValue3
+        arg2(arg3)
+        arg2 = SetEntityAsNoLongerNeeded
+        arg3 = numberValue3
+        arg2(arg3)
+        arg2 = 0
+        numberValue3 = arg2
       end
     end
   end
-  SHX1_2 = pairs
-  SHX2_2 = SHX2_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    if -1 ~= SHX5_2 then
-      SHX7_2 = GetEntityBoneIndexByName
-      SHX8_2 = SHX5_2
-      SHX9_2 = "BONETAG_NECK"
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-      SHX8_2 = GetEntityBoneIndexByName
-      SHX9_2 = SHX5_2
-      SHX10_2 = "BONETAG_R_HAND"
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-      SHX9_2 = GetWorldRotationOfEntityBone
-      SHX10_2 = SHX5_2
-      SHX11_2 = SHX7_2
-      SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-      SHX10_2 = AttachEntityToEntity
-      SHX11_2 = SHX6_2
-      SHX12_2 = SHX5_2
-      SHX13_2 = SHX8_2
-      SHX14_2 = 0.0
-      SHX15_2 = 0.0
-      SHX16_2 = 0.0
-      SHX17_2 = SHX9_2.x
-      SHX17_2 = SHX17_2 + 20.0
-      SHX18_2 = SHX9_2.y
-      SHX18_2 = SHX18_2 + 180.0
-      SHX19_2 = SHX9_2.z
-      SHX19_2 = SHX19_2 + 90.0
-      SHX20_2 = false
-      SHX21_2 = false
-      SHX22_2 = false
-      SHX23_2 = true
-      SHX24_2 = 0
-      SHX25_2 = false
-      SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
+  arg2 = pairs
+  arg3 = dataTable5
+  arg2, arg3, arg4, dataTable6 = arg2(arg3)
+  for dataTable7, textValue13 in arg2, arg3, arg4, dataTable6 do
+    if -1 ~= dataTable7 then
+      workValue4 = GetEntityBoneIndexByName
+      workValue5 = dataTable7
+      modelHash = "BONETAG_NECK"
+      workValue4 = workValue4(workValue5, modelHash)
+      workValue5 = GetEntityBoneIndexByName
+      modelHash = dataTable7
+      iterator = "BONETAG_R_HAND"
+      workValue5 = workValue5(modelHash, iterator)
+      modelHash = GetWorldRotationOfEntityBone
+      iterator = dataTable7
+      workValue = workValue4
+      modelHash = modelHash(iterator, workValue)
+      iterator = AttachEntityToEntity
+      workValue = textValue13
+      flag = dataTable7
+      flag2 = workValue5
+      flag3 = 0.0
+      flag4 = 0.0
+      hashValue = 0.0
+      dataTable3 = modelHash.x
+      dataTable3 = dataTable3 + 20.0
+      flag5 = modelHash.y
+      flag5 = flag5 + 180.0
+      flag6 = modelHash.z
+      flag6 = flag6 + 90.0
+      workValue2 = false
+      flag7 = false
+      flag8 = false
+      flag9 = true
+      flag10 = 0
+      flag11 = false
+      -- Beginner: Attach one entity to another entity.
+      iterator(workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11)
     end
   end
-  SHX1_2 = SHX3_1
-  if "no" ~= SHX1_2 then
-    SHX1_2 = SHX3_1
-    if "rot" == SHX1_2 then
-      SHX1_2 = SHX5_1
-      if SHX1_2 then
-        SHX1_2 = vector3
-        SHX2_2 = SHX5_1.x
-        SHX3_2 = SHX5_1.y
-        SHX4_2 = SHX5_1.z
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-        SHX2_2 = SetEntityRotation
-        SHX3_2 = SHX0_2
-        SHX4_2 = SHX1_2.x
-        SHX5_2 = SHX1_2.y
-        SHX6_2 = SHX1_2.z
-        SHX7_2 = 2
-        SHX8_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+  arg2 = textValue12
+  if "no" ~= arg2 then
+    arg2 = textValue12
+    if "rot" == arg2 then
+      arg2 = workValue3
+      if arg2 then
+        arg2 = vector3
+        arg3 = workValue3.x
+        arg4 = workValue3.y
+        dataTable6 = workValue3.z
+        arg2 = arg2(arg3, arg4, dataTable6)
+        arg3 = SetEntityRotation
+        arg4 = arg1
+        dataTable6 = arg2.x
+        dataTable7 = arg2.y
+        textValue13 = arg2.z
+        workValue4 = 2
+        workValue5 = true
+        arg3(arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5)
       end
     end
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 21
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 22
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 23
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 24
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 25
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 30
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 31
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 32
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 33
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 34
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 35
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 44
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 140
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 141
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 142
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 257
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 263
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 264
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 266
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 267
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 268
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-    SHX1_2 = DisableControlAction
-    SHX2_2 = 0
-    SHX3_2 = 269
-    SHX4_2 = true
-    SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 21
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 22
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 23
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 24
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 25
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 30
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 31
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 32
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 33
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 34
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 35
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 44
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 140
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 141
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 142
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 257
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 263
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 264
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 266
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 267
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 268
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
+    arg2 = DisableControlAction
+    arg3 = 0
+    arg4 = 269
+    dataTable6 = true
+    arg2(arg3, arg4, dataTable6)
   end
 end
-SHX14_1 = CMG
-SHX14_1 = SHX14_1.createThreadOnTick
-SHX15_1 = SHX13_1
-SHX16_1 = "LFB Ladders"
-SHX14_1(SHX15_1, SHX16_1)
+textValue = CMG
+textValue = textValue.createThreadOnTick
+textValue2 = vector3Builder2
+textValue3 = "LFB Ladders"
+-- Beginner: Run a helper every game frame while this script is active.
+textValue(textValue2, textValue3)

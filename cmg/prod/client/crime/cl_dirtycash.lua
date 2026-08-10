@@ -1,670 +1,646 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_dirtycash.lua
+    ================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1
-SHX0_1 = "IDLE"
-SHX1_1 = false
-function SHX2_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadModel
-  SHX2_2 = SHX0_2.model
-  SHX1_2(SHX2_2)
-  SHX1_2 = CreatePed
-  SHX2_2 = 0
-  SHX3_2 = SHX0_2.model
-  SHX4_2 = SHX0_2.position
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX0_2.position
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX0_2.position
-  SHX6_2 = SHX6_2.z
-  SHX6_2 = SHX6_2 - 1.0
-  SHX7_2 = SHX0_2.position
-  SHX7_2 = SHX7_2.w
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX0_2.ped = SHX1_2
-  SHX1_2 = SetModelAsNoLongerNeeded
-  SHX2_2 = SHX0_2.model
-  SHX1_2(SHX2_2)
-  SHX1_2 = FreezeEntityPosition
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetEntityInvincible
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetEntityCanBeDamaged
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetPedAlertness
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = 0
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetBlockingOfNonTemporaryEvents
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetEntityCollision
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = GiveWeaponToPed
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = 28811031
-  SHX4_2 = 1
-  SHX5_2 = false
-  SHX6_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX1_2 = SetCurrentPedWeapon
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = 28811031
-  SHX4_2 = true
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadAnimDict
-  SHX2_2 = "anim@heists@heist_corona@team_idles@female_a"
-  SHX1_2(SHX2_2)
-  SHX1_2 = TaskPlayAnim
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = "anim@heists@heist_corona@team_idles@female_a"
-  SHX4_2 = "idle"
-  SHX5_2 = 8.0
-  SHX6_2 = 8.0
-  SHX7_2 = -1
-  SHX8_2 = 1
-  SHX9_2 = 0
-  SHX10_2 = false
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX1_2 = RemoveAnimDict
-  SHX2_2 = "anim@heists@heist_corona@team_idles@female_a"
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getLocalPlayerSrc
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX0_2.playerSrc
-  if SHX1_2 == SHX2_2 then
-    SHX1_2 = AddBlipForRadius
-    SHX2_2 = SHX0_2.position
-    SHX2_2 = SHX2_2.x
-    SHX3_2 = SHX0_2.position
-    SHX3_2 = SHX3_2.y
-    SHX4_2 = SHX0_2.position
-    SHX4_2 = SHX4_2.z
-    SHX5_2 = 10.0
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    SHX0_2.blip = SHX1_2
-    SHX1_2 = SetBlipColour
-    SHX2_2 = SHX0_2.blip
-    SHX3_2 = 5
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SetBlipAlpha
-    SHX2_2 = SHX0_2.blip
-    SHX3_2 = 150
-    SHX1_2(SHX2_2, SHX3_2)
-    SHX1_2 = SetWaypointOff
-    SHX1_2()
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Dirtycash
+    ==========================
+
+    File: cmg/prod/client/crime/cl_dirtycash.lua
+    Purpose: This file contains crime/gang/heist gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    Network/hash identifiers found: 7
+      They are intentionally left unchanged because matching server code may use them.
+      * 8ac077847b
+      * 28586dd690
+      * 8dfaa23b61
+      * fa2dcfab18
+      * e16d390302
+      * 429c274229
+      * 9ebeeadd8b
+
+    Example player-facing text in this file:
+      * Press ~INPUT_CONTEXT~ to hand over the dirty cash.
+
+]]
+local textValue, flag9, workValue3, workValue5, workValue7, workValue9, eventRegistration, eventRegistration2, textValue3, workValue10
+textValue = "IDLE"
+flag9 = false
+function workValue3(arg1)
+  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3
+  arg2 = CMG
+  arg2 = arg2.loadModel
+  arg3 = arg1.model
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg2(arg3)
+  arg2 = CreatePed
+  arg3 = 0
+  flag10 = arg1.model
+  flag11 = arg1.position
+  flag11 = flag11.x
+  flag12 = arg1.position
+  flag12 = flag12.y
+  position = arg1.position
+  position = position.z
+  position = position - 1.0
+  numberValue2 = arg1.position
+  numberValue2 = numberValue2.w
+  flag13 = false
+  flag14 = false
+  -- Beginner: result below is pedEntity.
+  arg2 = arg2(arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14)
+  arg1.ped = arg2
+  arg2 = SetModelAsNoLongerNeeded
+  arg3 = arg1.model
+  arg2(arg3)
+  arg2 = FreezeEntityPosition
+  arg3 = arg1.ped
+  flag10 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg2(arg3, flag10)
+  arg2 = SetEntityInvincible
+  arg3 = arg1.ped
+  flag10 = true
+  arg2(arg3, flag10)
+  arg2 = SetEntityCanBeDamaged
+  arg3 = arg1.ped
+  flag10 = false
+  arg2(arg3, flag10)
+  arg2 = SetPedAlertness
+  arg3 = arg1.ped
+  flag10 = 0
+  arg2(arg3, flag10)
+  arg2 = SetBlockingOfNonTemporaryEvents
+  arg3 = arg1.ped
+  flag10 = true
+  arg2(arg3, flag10)
+  arg2 = SetEntityCollision
+  arg3 = arg1.ped
+  flag10 = false
+  flag11 = false
+  arg2(arg3, flag10, flag11)
+  arg2 = GiveWeaponToPed
+  arg3 = arg1.ped
+  flag10 = 28811031
+  flag11 = 1
+  flag12 = false
+  position = true
+  arg2(arg3, flag10, flag11, flag12, position)
+  arg2 = SetCurrentPedWeapon
+  arg3 = arg1.ped
+  flag10 = 28811031
+  flag11 = true
+  arg2(arg3, flag10, flag11)
+  arg2 = CMG
+  arg2 = arg2.loadAnimDict
+  arg3 = "anim@heists@heist_corona@team_idles@female_a"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg2(arg3)
+  arg2 = TaskPlayAnim
+  arg3 = arg1.ped
+  flag10 = "anim@heists@heist_corona@team_idles@female_a"
+  flag11 = "idle"
+  flag12 = 8.0
+  position = 8.0
+  numberValue2 = -1
+  flag13 = 1
+  flag14 = 0
+  flag = false
+  flag2 = false
+  flag3 = false
+  -- Beginner: Play an animation on a ped.
+  arg2(arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3)
+  arg2 = RemoveAnimDict
+  arg3 = "anim@heists@heist_corona@team_idles@female_a"
+  arg2(arg3)
+  arg2 = CMG
+  arg2 = arg2.getLocalPlayerSrc
+  arg2 = arg2()
+  arg3 = arg1.playerSrc
+  if arg2 == arg3 then
+    arg2 = AddBlipForRadius
+    arg3 = arg1.position
+    arg3 = arg3.x
+    flag10 = arg1.position
+    flag10 = flag10.y
+    flag11 = arg1.position
+    flag11 = flag11.z
+    flag12 = 10.0
+    -- Beginner: result below is blipHandle.
+    arg2 = arg2(arg3, flag10, flag11, flag12)
+    arg1.blip = arg2
+    arg2 = SetBlipColour
+    arg3 = arg1.blip
+    flag10 = 5
+    arg2(arg3, flag10)
+    arg2 = SetBlipAlpha
+    arg3 = arg1.blip
+    flag10 = 150
+    arg2(arg3, flag10)
+    arg2 = SetWaypointOff
+    arg2()
   end
 end
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX0_2.blip
-  if SHX1_2 then
-    SHX1_2 = RemoveBlip
-    SHX2_2 = SHX0_2.blip
-    SHX1_2(SHX2_2)
+function workValue5(arg1)
+  local arg2, arg3
+  arg2 = arg1.blip
+  if arg2 then
+    arg2 = RemoveBlip
+    arg3 = arg1.blip
+    arg2(arg3)
   end
-  SHX1_2 = DeleteEntity
-  SHX2_2 = SHX0_2.ped
-  SHX1_2(SHX2_2)
+  arg2 = DeleteEntity
+  arg3 = arg1.ped
+  -- Beginner: Delete a GTA entity.
+  arg2(arg3)
 end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX0_1
-  if "IDLE" == SHX0_2 then
-    SHX0_2 = drawNativeNotification
-    SHX1_2 = "Press ~INPUT_CONTEXT~ to hand over the dirty cash."
-    SHX0_2(SHX1_2)
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 0
-    SHX2_2 = 51
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.disableSittingOnChairThisFrame
-      SHX0_2()
-      SHX0_2 = TriggerServerEvent
-      SHX1_2 = "8ac077847b"
-      SHX0_2(SHX1_2)
+function workValue7()
+  local arg1, arg2, arg3
+  arg1 = textValue
+  if "IDLE" == arg1 then
+    arg1 = drawNativeNotification
+    arg2 = "Press ~INPUT_CONTEXT~ to hand over the dirty cash."
+    -- Beginner: Show a GTA-style notification/help prompt.
+    arg1(arg2)
+    arg1 = IsControlJustPressed
+    arg2 = 0
+    arg3 = 51
+    arg1 = arg1(arg2, arg3)
+    if arg1 then
+      arg1 = CMG
+      arg1 = arg1.disableSittingOnChairThisFrame
+      arg1()
+      arg1 = TriggerServerEvent
+      arg2 = "8ac077847b"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8ac077847b".
+      arg1(arg2)
     end
   else
-    SHX0_2 = SHX0_1
-    if "HANDING_OVER" == SHX0_2 then
-      SHX0_2 = subtitleText
-      SHX1_2 = "~b~Handing over cash..."
-      SHX0_2(SHX1_2)
+    arg1 = textValue
+    if "HANDING_OVER" == arg1 then
+      arg1 = subtitleText
+      arg2 = "~b~Handing over cash..."
+      arg1(arg2)
     end
   end
 end
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX0_1
-  if "HANDING_OVER" == SHX0_2 then
-    SHX0_2 = TriggerServerEvent
-    SHX1_2 = "28586dd690"
-    SHX0_2(SHX1_2)
+function workValue9()
+  local arg1, arg2
+  arg1 = textValue
+  if "HANDING_OVER" == arg1 then
+    arg1 = TriggerServerEvent
+    arg2 = "28586dd690"
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "28586dd690".
+    arg1(arg2)
   end
 end
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "8dfaa23b61"
-function SHX8_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX3_2 = {}
-  SHX3_2.playerSrc = SHX0_2
-  SHX3_2.position = SHX1_2
-  SHX3_2.model = SHX2_2
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.createArea
-  SHX5_2 = "dirtycash_"
-  SHX6_2 = tostring
-  SHX7_2 = SHX0_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX5_2 = SHX5_2 .. SHX6_2
-  SHX6_2 = SHX1_2.xyz
-  SHX7_2 = 50.0
-  SHX8_2 = 6.0
-  SHX9_2 = SHX2_1
-  SHX10_2 = SHX3_1
-  function SHX11_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
+eventRegistration = RegisterNetEvent
+eventRegistration2 = "8dfaa23b61"
+-- Beginner: this function handles network event "8dfaa23b61".
+function textValue3(arg1, arg2, arg3)
+  local flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3
+  flag10 = {}
+  flag10.playerSrc = arg1
+  flag10.position = arg2
+  flag10.model = arg3
+  flag11 = CMG
+  flag11 = flag11.createArea
+  flag12 = "dirtycash_"
+  position = tostring
+  numberValue2 = arg1
+  position = position(numberValue2)
+  flag12 = flag12 .. position
+  position = arg2.xyz
+  numberValue2 = 50.0
+  flag13 = 6.0
+  flag14 = workValue3
+  flag = workValue5
+  function flag2()
+    local cmgCall, textValue2
   end
-  SHX12_2 = SHX3_2
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getLocalPlayerSrc
-  SHX4_2 = SHX4_2()
-  if SHX4_2 == SHX0_2 then
-    SHX4_2 = CMG
-    SHX4_2 = SHX4_2.createArea
-    SHX5_2 = "dirtycash_local"
-    SHX6_2 = SHX1_2.xyz
-    SHX7_2 = 1.5
-    SHX8_2 = 6.0
-    function SHX9_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
+  flag3 = flag10
+  -- Beginner: Create an interaction area around a world position.
+  flag11(flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3)
+  flag11 = CMG
+  flag11 = flag11.getLocalPlayerSrc
+  flag11 = flag11()
+  if flag11 == arg1 then
+    flag11 = CMG
+    flag11 = flag11.createArea
+    flag12 = "dirtycash_local"
+    position = arg2.xyz
+    numberValue2 = 1.5
+    flag13 = 6.0
+    function flag14()
+      local cmgCall, textValue2
     end
-    SHX10_2 = SHX5_1
-    SHX11_2 = SHX4_1
-    SHX12_2 = nil
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+    flag = workValue9
+    flag2 = workValue7
+    flag3 = nil
+    flag11(flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3)
   end
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "fa2dcfab18"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getLocalPlayerSrc
-  SHX1_2 = SHX1_2()
-  if SHX1_2 == SHX0_2 then
-    SHX1_2 = tCMG
-    SHX1_2 = SHX1_2.removeArea
-    SHX2_2 = "dirtycash_local"
-    SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8dfaa23b61".
+eventRegistration(eventRegistration2, textValue3)
+eventRegistration = RegisterNetEvent
+eventRegistration2 = "fa2dcfab18"
+-- Beginner: this function handles network event "fa2dcfab18".
+function textValue3(arg1)
+  local arg2, arg3, flag10, flag11, flag12
+  arg2 = CMG
+  arg2 = arg2.getLocalPlayerSrc
+  arg2 = arg2()
+  if arg2 == arg1 then
+    arg2 = tCMG
+    arg2 = arg2.removeArea
+    arg3 = "dirtycash_local"
+    arg2(arg3)
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getAreaMetaData
-  SHX2_2 = "dirtycash_"
-  SHX3_2 = tostring
-  SHX4_2 = SHX0_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX1_2.ped
-  if SHX2_2 then
-    SHX2_2 = ClearPedTasksImmediately
-    SHX3_2 = SHX1_2.ped
-    SHX2_2(SHX3_2)
-    SHX2_2 = SetEntityAsNoLongerNeeded
-    SHX3_2 = SHX1_2.ped
-    SHX2_2(SHX3_2)
+  arg2 = CMG
+  arg2 = arg2.getAreaMetaData
+  arg3 = "dirtycash_"
+  flag10 = tostring
+  flag11 = arg1
+  flag10 = flag10(flag11)
+  arg3 = arg3 .. flag10
+  arg2 = arg2(arg3)
+  arg3 = arg2.ped
+  if arg3 then
+    arg3 = ClearPedTasksImmediately
+    flag10 = arg2.ped
+    arg3(flag10)
+    arg3 = SetEntityAsNoLongerNeeded
+    flag10 = arg2.ped
+    arg3(flag10)
   end
-  SHX2_2 = SHX1_2.blip
-  if SHX2_2 then
-    SHX2_2 = RemoveBlip
-    SHX3_2 = SHX1_2.blip
-    SHX2_2(SHX3_2)
+  arg3 = arg2.blip
+  if arg3 then
+    arg3 = RemoveBlip
+    flag10 = arg2.blip
+    arg3(flag10)
   end
-  SHX2_2 = tCMG
-  SHX2_2 = SHX2_2.removeArea
-  SHX3_2 = "dirtycash_"
-  SHX4_2 = tostring
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX3_2 = SHX3_2 .. SHX4_2
-  SHX2_2(SHX3_2)
+  arg3 = tCMG
+  arg3 = arg3.removeArea
+  flag10 = "dirtycash_"
+  flag11 = tostring
+  flag12 = arg1
+  flag11 = flag11(flag12)
+  flag10 = flag10 .. flag11
+  arg3(flag10)
 end
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "e16d390302"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX1_2 = SHX1_1
-  if SHX1_2 then
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "fa2dcfab18".
+eventRegistration(eventRegistration2, textValue3)
+eventRegistration = RegisterNetEvent
+eventRegistration2 = "e16d390302"
+-- Beginner: this function handles network event "e16d390302".
+function textValue3(arg1)
+  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5, flag6, flag7, numberValue, flag8
+  arg2 = flag9
+  if arg2 then
     return
   end
-  SHX1_2 = true
-  SHX1_1 = SHX1_2
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.transactionType = "ring"
-  SHX2_2(SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadAnimDict
-  SHX3_2 = "cellphone@"
-  SHX2_2(SHX3_2)
-  SHX2_2 = TaskPlayAnim
-  SHX3_2 = SHX1_2
-  SHX4_2 = "cellphone@"
-  SHX5_2 = "cellphone_call_listen_base"
-  SHX6_2 = 3.0
-  SHX7_2 = -1
-  SHX8_2 = -1
-  SHX9_2 = 50
-  SHX10_2 = 0
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX2_2 = RemoveAnimDict
-  SHX3_2 = "cellphone@"
-  SHX2_2(SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadModel
-  SHX3_2 = "prop_amb_phone"
-  SHX2_2(SHX3_2)
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.requestEntitySpawn
-  SHX3_2 = "dirtycash_phone"
-  SHX2_2(SHX3_2)
-  SHX2_2 = CreateObject
-  SHX3_2 = 974883178
-  SHX4_2 = SHX0_2.x
-  SHX5_2 = SHX0_2.y
-  SHX6_2 = SHX0_2.z
-  SHX7_2 = true
-  SHX8_2 = true
-  SHX9_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX3_2 = AttachEntityToEntity
-  SHX4_2 = SHX2_2
-  SHX5_2 = SHX1_2
-  SHX6_2 = GetPedBoneIndex
-  SHX7_2 = SHX1_2
-  SHX8_2 = 28422
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 0.0
-  SHX12_2 = 0.0
-  SHX13_2 = true
-  SHX14_2 = true
-  SHX15_2 = false
-  SHX16_2 = false
-  SHX17_2 = 0
-  SHX18_2 = true
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  SHX3_2 = SetModelAsNoLongerNeeded
-  SHX4_2 = "prop_amb_phone"
-  SHX3_2(SHX4_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 9000
-  SHX3_2(SHX4_2)
-  SHX3_2 = StopAnimTask
-  SHX4_2 = SHX1_2
-  SHX5_2 = "cellphone@"
-  SHX6_2 = "cellphone_call_listen_base"
-  SHX7_2 = 1.0
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = DeleteEntity
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = SetNewWaypoint
-  SHX4_2 = SHX0_2.x
-  SHX5_2 = SHX0_2.y
-  SHX3_2(SHX4_2, SHX5_2)
-  SHX3_2 = drawNativeNotification
-  SHX4_2 = "A marker has been set to the cleaners location."
-  SHX3_2(SHX4_2)
-  SHX3_2 = false
-  SHX1_1 = SHX3_2
+  arg2 = true
+  flag9 = arg2
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = SendNUIMessage
+  flag10 = {}
+  flag10.transactionType = "ring"
+  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+  arg3(flag10)
+  arg3 = CMG
+  arg3 = arg3.loadAnimDict
+  flag10 = "cellphone@"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg3(flag10)
+  arg3 = TaskPlayAnim
+  flag10 = arg2
+  flag11 = "cellphone@"
+  flag12 = "cellphone_call_listen_base"
+  position = 3.0
+  numberValue2 = -1
+  flag13 = -1
+  flag14 = 50
+  flag = 0
+  flag2 = false
+  flag3 = false
+  flag4 = false
+  -- Beginner: Play an animation on a ped.
+  arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4)
+  arg3 = RemoveAnimDict
+  flag10 = "cellphone@"
+  arg3(flag10)
+  arg3 = CMG
+  arg3 = arg3.loadModel
+  flag10 = "prop_amb_phone"
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg3(flag10)
+  arg3 = CMG
+  arg3 = arg3.requestEntitySpawn
+  flag10 = "dirtycash_phone"
+  arg3(flag10)
+  arg3 = CreateObject
+  flag10 = 974883178
+  flag11 = arg1.x
+  flag12 = arg1.y
+  position = arg1.z
+  numberValue2 = true
+  flag13 = true
+  flag14 = false
+  -- Beginner: result below is objectEntity.
+  arg3 = arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14)
+  flag10 = AttachEntityToEntity
+  flag11 = arg3
+  flag12 = arg2
+  position = GetPedBoneIndex
+  numberValue2 = arg2
+  flag13 = 28422
+  position = position(numberValue2, flag13)
+  numberValue2 = 0.0
+  flag13 = 0.0
+  flag14 = 0.0
+  flag = 0.0
+  flag2 = 0.0
+  flag3 = 0.0
+  flag4 = true
+  flag5 = true
+  flag6 = false
+  flag7 = false
+  numberValue = 0
+  flag8 = true
+  -- Beginner: Attach one entity to another entity.
+  flag10(flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5, flag6, flag7, numberValue, flag8)
+  flag10 = SetModelAsNoLongerNeeded
+  flag11 = "prop_amb_phone"
+  flag10(flag11)
+  flag10 = Citizen
+  flag10 = flag10.Wait
+  flag11 = 9000
+  flag10(flag11)
+  flag10 = StopAnimTask
+  flag11 = arg2
+  flag12 = "cellphone@"
+  position = "cellphone_call_listen_base"
+  numberValue2 = 1.0
+  flag10(flag11, flag12, position, numberValue2)
+  flag10 = DeleteEntity
+  flag11 = arg3
+  -- Beginner: Delete a GTA entity.
+  flag10(flag11)
+  flag10 = SetNewWaypoint
+  flag11 = arg1.x
+  flag12 = arg1.y
+  flag10(flag11, flag12)
+  flag10 = drawNativeNotification
+  flag11 = "A marker has been set to the cleaners location."
+  -- Beginner: Show a GTA-style notification/help prompt.
+  flag10(flag11)
+  flag10 = false
+  flag9 = flag10
 end
-SHX6_1(SHX7_1, SHX8_1)
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX1_2 = 5.0
-  SHX2_2 = 0
-  SHX3_2 = pairs
-  SHX4_2 = GetGamePool
-  SHX5_2 = "CPed"
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX4_2(SHX5_2)
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = IsPedAPlayer
-    SHX10_2 = SHX8_2
-    SHX9_2 = SHX9_2(SHX10_2)
-    if not SHX9_2 then
-      SHX9_2 = NetworkGetEntityIsLocal
-      SHX10_2 = SHX8_2
-      SHX9_2 = SHX9_2(SHX10_2)
-      if SHX9_2 then
-        SHX9_2 = GetEntityCoords
-        SHX10_2 = SHX8_2
-        SHX11_2 = true
-        SHX9_2 = SHX9_2(SHX10_2, SHX11_2)
-        SHX10_2 = SHX0_2.xyz
-        SHX9_2 = SHX9_2 - SHX10_2
-        SHX9_2 = #SHX9_2
-        if SHX1_2 > SHX9_2 then
-          SHX1_2 = SHX9_2
-          SHX2_2 = SHX8_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e16d390302".
+eventRegistration(eventRegistration2, textValue3)
+function eventRegistration(arg1)
+  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2
+  arg2 = 5.0
+  arg3 = 0
+  flag10 = pairs
+  flag11 = GetGamePool
+  flag12 = "CPed"
+  flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2 = flag11(flag12)
+  flag10, flag11, flag12, position = flag10(flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2)
+  for numberValue2, flag13 in flag10, flag11, flag12, position do
+    flag14 = IsPedAPlayer
+    flag = flag13
+    flag14 = flag14(flag)
+    if not flag14 then
+      flag14 = NetworkGetEntityIsLocal
+      flag = flag13
+      flag14 = flag14(flag)
+      if flag14 then
+        flag14 = GetEntityCoords
+        flag = flag13
+        flag2 = true
+        -- Beginner: result below is entityCoords.
+        flag14 = flag14(flag, flag2)
+        flag = arg1.xyz
+        flag14 = flag14 - flag
+        flag14 = #flag14
+        if arg2 > flag14 then
+          arg2 = flag14
+          arg3 = flag13
         end
       end
     end
   end
-  return SHX2_2
+  return arg3
 end
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "8ac077847b"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = "HANDING_OVER"
-  SHX0_1 = SHX1_2
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.startCircularProgressBar
-    SHX1_3 = ""
-    SHX2_3 = SHX0_2
-    SHX3_3 = nil
-    function SHX4_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
+eventRegistration2 = RegisterNetEvent
+textValue3 = "8ac077847b"
+-- Beginner: this function handles network event "8ac077847b".
+function workValue10(arg1)
+  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5
+  arg2 = "HANDING_OVER"
+  textValue = arg2
+  arg2 = Citizen
+  arg2 = arg2.CreateThread
+  -- Beginner: this function handles network event "8ac077847b".
+  function arg3()
+    local cmgCall, textValue2, workValue4, workValue6, workValue8
+    cmgCall = CMG
+    cmgCall = cmgCall.startCircularProgressBar
+    textValue2 = ""
+    workValue4 = arg1
+    workValue6 = nil
+    function workValue8()
+      local workValue, workValue2
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
+    cmgCall(textValue2, workValue4, workValue6, workValue8)
   end
-  SHX1_2(SHX2_2)
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = SHX6_1
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerCoords
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX3_2()
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = TaskTurnPedToFaceEntity
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX2_2
-  SHX6_2 = 1000
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 1000
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadAnimDict
-  SHX4_2 = "mp_common"
-  SHX3_2(SHX4_2)
-  SHX3_2 = TaskPlayAnim
-  SHX4_2 = SHX1_2
-  SHX5_2 = "mp_common"
-  SHX6_2 = "givetake1_a"
-  SHX7_2 = 8.0
-  SHX8_2 = 8.0
-  SHX9_2 = -1
-  SHX10_2 = 1
-  SHX11_2 = 0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveAnimDict
-  SHX4_2 = "mp_common"
-  SHX3_2(SHX4_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 2000
-  SHX3_2(SHX4_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2(arg3)
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = eventRegistration
+  flag10 = CMG
+  flag10 = flag10.getPlayerCoords
+  flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5 = flag10()
+  arg3 = arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5)
+  flag10 = TaskTurnPedToFaceEntity
+  flag11 = arg2
+  flag12 = arg3
+  position = 1000
+  flag10(flag11, flag12, position)
+  flag10 = Citizen
+  flag10 = flag10.Wait
+  flag11 = 1000
+  flag10(flag11)
+  flag10 = CMG
+  flag10 = flag10.loadAnimDict
+  flag11 = "mp_common"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  flag10(flag11)
+  flag10 = TaskPlayAnim
+  flag11 = arg2
+  flag12 = "mp_common"
+  position = "givetake1_a"
+  numberValue2 = 8.0
+  flag13 = 8.0
+  flag14 = -1
+  flag = 1
+  flag2 = 0
+  flag3 = false
+  flag4 = false
+  flag5 = false
+  -- Beginner: Play an animation on a ped.
+  flag10(flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5)
+  flag10 = RemoveAnimDict
+  flag11 = "mp_common"
+  flag10(flag11)
+  flag10 = Citizen
+  flag10 = flag10.Wait
+  flag11 = 2000
+  flag10(flag11)
   while true do
-    SHX3_2 = SHX0_1
-    if "HANDING_OVER" ~= SHX3_2 then
+    flag10 = textValue
+    if "HANDING_OVER" ~= flag10 then
       break
     end
-    SHX3_2 = IsEntityPlayingAnim
-    SHX4_2 = SHX1_2
-    SHX5_2 = "mp_common"
-    SHX6_2 = "givetake1_a"
-    SHX7_2 = 3
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    if not SHX3_2 then
-      SHX3_2 = TriggerServerEvent
-      SHX4_2 = "28586dd690"
-      SHX3_2(SHX4_2)
+    flag10 = IsEntityPlayingAnim
+    flag11 = arg2
+    flag12 = "mp_common"
+    position = "givetake1_a"
+    numberValue2 = 3
+    flag10 = flag10(flag11, flag12, position, numberValue2)
+    if not flag10 then
+      flag10 = TriggerServerEvent
+      flag11 = "28586dd690"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "28586dd690".
+      flag10(flag11)
       break
     end
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
+    flag10 = Citizen
+    flag10 = flag10.Wait
+    flag11 = 0
+    flag10(flag11)
   end
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "28586dd690"
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = "IDLE"
-  SHX0_1 = SHX0_2
-  SHX0_2 = StopAnimTask
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "mp_common"
-  SHX3_2 = "givetake1_a"
-  SHX4_2 = 1.0
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.stopCircularProgressBar
-  SHX0_2()
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8ac077847b".
+eventRegistration2(textValue3, workValue10)
+eventRegistration2 = RegisterNetEvent
+textValue3 = "28586dd690"
+-- Beginner: this function handles network event "28586dd690".
+function workValue10()
+  local arg1, arg2, arg3, flag10, flag11
+  arg1 = "IDLE"
+  textValue = arg1
+  arg1 = StopAnimTask
+  arg2 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  arg3 = "mp_common"
+  flag10 = "givetake1_a"
+  flag11 = 1.0
+  arg1(arg2, arg3, flag10, flag11)
+  arg1 = CMG
+  arg1 = arg1.stopCircularProgressBar
+  arg1()
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "429c274229"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX6_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.loadAnimDict
-    SHX3_2 = "mp_common"
-    SHX2_2(SHX3_2)
-    SHX2_2 = TaskPlayAnim
-    SHX3_2 = SHX1_2
-    SHX4_2 = "mp_common"
-    SHX5_2 = "givetake2_a"
-    SHX6_2 = 8.0
-    SHX7_2 = 8.0
-    SHX8_2 = -1
-    SHX9_2 = 1
-    SHX10_2 = 0
-    SHX11_2 = false
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX2_2 = RemoveAnimDict
-    SHX3_2 = "mp_common"
-    SHX2_2(SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "28586dd690".
+eventRegistration2(textValue3, workValue10)
+eventRegistration2 = RegisterNetEvent
+textValue3 = "429c274229"
+-- Beginner: this function handles network event "429c274229".
+function workValue10(arg1)
+  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4
+  arg2 = eventRegistration
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if 0 ~= arg2 then
+    arg3 = CMG
+    arg3 = arg3.loadAnimDict
+    flag10 = "mp_common"
+    -- Beginner: Load a GTA animation dictionary before using it.
+    arg3(flag10)
+    arg3 = TaskPlayAnim
+    flag10 = arg2
+    flag11 = "mp_common"
+    flag12 = "givetake2_a"
+    position = 8.0
+    numberValue2 = 8.0
+    flag13 = -1
+    flag14 = 1
+    flag = 0
+    flag2 = false
+    flag3 = false
+    flag4 = false
+    -- Beginner: Play an animation on a ped.
+    arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4)
+    arg3 = RemoveAnimDict
+    flag10 = "mp_common"
+    arg3(flag10)
   end
 end
-SHX7_1(SHX8_1, SHX9_1)
-SHX7_1 = RegisterNetEvent
-SHX8_1 = "9ebeeadd8b"
-function SHX9_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = SHX6_1
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if 0 ~= SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.loadAnimDict
-    SHX3_2 = "anim@heists@heist_corona@team_idles@female_a"
-    SHX2_2(SHX3_2)
-    SHX2_2 = TaskPlayAnim
-    SHX3_2 = SHX1_2
-    SHX4_2 = "anim@heists@heist_corona@team_idles@female_a"
-    SHX5_2 = "idle"
-    SHX6_2 = 8.0
-    SHX7_2 = 8.0
-    SHX8_2 = -1
-    SHX9_2 = 1
-    SHX10_2 = 0
-    SHX11_2 = false
-    SHX12_2 = false
-    SHX13_2 = false
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX2_2 = RemoveAnimDict
-    SHX3_2 = "anim@heists@heist_corona@team_idles@female_a"
-    SHX2_2(SHX3_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "429c274229".
+eventRegistration2(textValue3, workValue10)
+eventRegistration2 = RegisterNetEvent
+textValue3 = "9ebeeadd8b"
+-- Beginner: this function handles network event "9ebeeadd8b".
+function workValue10(arg1)
+  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4
+  arg2 = eventRegistration
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if 0 ~= arg2 then
+    arg3 = CMG
+    arg3 = arg3.loadAnimDict
+    flag10 = "anim@heists@heist_corona@team_idles@female_a"
+    -- Beginner: Load a GTA animation dictionary before using it.
+    arg3(flag10)
+    arg3 = TaskPlayAnim
+    flag10 = arg2
+    flag11 = "anim@heists@heist_corona@team_idles@female_a"
+    flag12 = "idle"
+    position = 8.0
+    numberValue2 = 8.0
+    flag13 = -1
+    flag14 = 1
+    flag = 0
+    flag2 = false
+    flag3 = false
+    flag4 = false
+    -- Beginner: Play an animation on a ped.
+    arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4)
+    arg3 = RemoveAnimDict
+    flag10 = "anim@heists@heist_corona@team_idles@female_a"
+    arg3(flag10)
   end
 end
-SHX7_1(SHX8_1, SHX9_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9ebeeadd8b".
+eventRegistration2(textValue3, workValue10)

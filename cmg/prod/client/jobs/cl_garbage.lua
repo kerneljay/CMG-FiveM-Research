@@ -1,4 +1,33 @@
 --[[
+    BEGINNER GUIDE — Garbage
+    ========================
+
+    File: cmg/prod/client/jobs/cl_garbage.lua
+    Purpose: This file contains job gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Config/data used:
+      * cfg/cfg_garbage
+
+    Network/hash identifiers found: 38
+      They are intentionally left unchanged because matching server code may use them.
+
+    Example player-facing text in this file:
+      * garbageJob
+      * Vehicle 
+      * Open the back of the truck first.
+      * garbageSearchPlayers
+      * garbageInvitePlayer
+
+]]
+--[[
     CMG GARBAGE JOB
     Beginner-Friendly Rewrite / Learning Version
     ================================================================

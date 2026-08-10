@@ -1,365 +1,359 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Drive-By Shooting Rules
+    =======================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_purge"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = CMG
-SHX1_1 = SHX1_1.registerDevMenuState
-SHX2_1 = "Drive By"
-SHX3_1 = {}
-SHX3_1.drawDebug = false
-SHX1_1 = SHX1_1(SHX2_1, SHX3_1)
-SHX2_1 = {}
-SHX3_1 = 880995585
-SHX2_1[SHX3_1] = true
-SHX3_1 = 1047855333
-SHX2_1[SHX3_1] = true
-SHX3_1 = 1344775242
-SHX2_1[SHX3_1] = true
-SHX3_1 = -1645002784
-SHX2_1[SHX3_1] = true
-SHX3_1 = 1868620476
-SHX2_1[SHX3_1] = true
-SHX3_1 = -1189677529
-SHX2_1[SHX3_1] = true
-SHX3_1 = {}
-SHX4_1 = pairs
-SHX5_1 = SHX0_1.vehicles
-SHX4_1, SHX5_1, SHX6_1, SHX7_1 = SHX4_1(SHX5_1)
-for SHX8_1, SHX9_1 in SHX4_1, SHX5_1, SHX6_1, SHX7_1 do
-  SHX10_1 = SHX9_1.spawncode
-  SHX3_1[SHX10_1] = true
+    This file decides whether the local player may shoot while inside a vehicle.
+
+    Main rules:
+      * A public CMG.enableDriveBy(true/false) override can ignore normal checks.
+      * During Purge, vehicles listed in cfg_purge.vehicles are allowed to use
+        their built-in vehicle weapon. A normal hand-held weapon is put away
+        if the vehicle weapon is active.
+      * Motorcycles (vehicle class 8) allow a passenger to use a hand-held
+        weapon, but the driver/unarmed state is restricted.
+      * Helicopters (class 15) allow police-on-duty drive-by.
+      * A small hard-coded vehicle-model list requires BOTH:
+            police.onduty.permission
+            arvtrained.permission
+      * Otherwise drive-by firing controls are disabled.
+      * If the player is not in a vehicle but is attached to another entity,
+        normal attack controls are also disabled.
+
+    Developer tools:
+      /undriveby is only usable by permanent IDs 1 or 2 and toggles the
+      global override.
+
+      Dev menu "Drive By" can enable debug text.
+
+    No network event names are involved in this file.
+]]
+
+local purgeConfig = CMG.loadModule("cfg/cfg_purge")
+
+local debugState =
+    CMG.registerDevMenuState(
+        "Drive By",
+        {
+            drawDebug = false
+        }
+    )
+
+-- These vehicle model hashes receive the ARV/police special rule.
+local restrictedPoliceVehicleModels = {
+    [880995585] = true,
+    [1047855333] = true,
+    [1344775242] = true,
+    [-1645002784] = true,
+    [1868620476] = true,
+    [-1189677529] = true
+}
+
+-- Purge config stores spawn codes; convert those to a lookup table.
+local purgeVehicleModels = {}
+
+for _, vehicleData in pairs(
+    purgeConfig.vehicles or {}
+) do
+    purgeVehicleModels[
+        vehicleData.spawncode
+    ] = true
 end
-SHX4_1 = false
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = SHX1_1.drawDebug
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.drawDebugText
-    SHX1_2 = "---------- Drive By ----------"
-    SHX0_2(SHX1_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.drawDebugText
-    SHX1_2 = "Ignore Checks: %s"
-    SHX2_2 = SHX4_1
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX0_2 = GetCurrentPedVehicleWeapon
-    SHX1_2 = PlayerPedId
-    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2 = SHX1_2()
-    SHX0_2, SHX1_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.drawDebugText
-    SHX3_2 = "Vehicle Weapon: %s (%s)"
-    if SHX0_2 then
-      SHX4_2 = "Yes"
-      if SHX4_2 then
-        goto SHX_LABEL_26
-      end
+
+-- True = ignore all normal checks and simply allow drive-by.
+local driveByOverride = false
+
+
+-- ============================================================
+-- DEBUG
+-- ============================================================
+
+local function drawDriveByDebug(playerPed)
+    if not debugState.drawDebug then
+        return
     end
-    SHX4_2 = "No"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_26:: outside nested blocks until all 'goto SHX_LABEL_26' can see it
-    ::SHX_LABEL_26::
-    SHX5_2 = SHX1_2
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-  end
-  SHX0_2 = SHX4_1
-  if SHX0_2 then
-    return
-  end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerVehicle
-  SHX0_2 = SHX0_2()
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  if 0 ~= SHX0_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getPlayerId
-    SHX2_2 = SHX2_2()
-    SHX3_2 = GetEntityModel
-    SHX4_2 = SHX0_2
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX4_2 = true
-    SHX5_2 = CMG
-    SHX5_2 = SHX5_2.isPurge
-    SHX5_2 = SHX5_2()
-    if SHX5_2 then
-      SHX5_2 = SHX3_1
-      SHX5_2 = SHX5_2[SHX3_2]
-      if SHX5_2 then
-        SHX5_2 = SetPlayerCanDoDriveBy
-        SHX6_2 = SHX2_2
-        SHX7_2 = true
-        SHX5_2(SHX6_2, SHX7_2)
-        SHX4_2 = false
-        SHX5_2 = GetSelectedPedWeapon
-        SHX6_2 = SHX1_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        if 0 ~= SHX5_2 and -1569615261 ~= SHX5_2 then
-          SHX6_2 = GetCurrentPedVehicleWeapon
-          SHX7_2 = SHX1_2
-          SHX6_2 = SHX6_2(SHX7_2)
-          if not SHX6_2 then
-            SHX6_2 = CMG
-            SHX6_2 = SHX6_2.setWeapon
-            SHX7_2 = SHX1_2
-            SHX8_2 = -1569615261
-            SHX9_2 = true
-            SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-          end
-        end
+
+    CMG.drawDebugText(
+        "---------- Drive By ----------"
+    )
+
+    CMG.drawDebugText(
+        "Ignore Checks: %s",
+        driveByOverride
+    )
+
+    local hasVehicleWeapon,
+          vehicleWeaponHash =
+        GetCurrentPedVehicleWeapon(
+            playerPed
+        )
+
+    CMG.drawDebugText(
+        "Vehicle Weapon: %s (%s)",
+        hasVehicleWeapon
+            and "Yes"
+            or "No",
+        vehicleWeaponHash
+    )
+end
+
+
+-- ============================================================
+-- CONTROL HELPERS
+-- ============================================================
+
+local function disableVehicleAttackControls()
+    for _, control in ipairs({
+        69,
+        70,
+        114,
+        331,
+        68,
+        66,
+        67,
+        92,
+        24,
+        257
+    }) do
+        DisableControlAction(
+            0,
+            control,
+            true
+        )
     end
-    else
-      SHX5_2 = GetVehicleClass
-      SHX6_2 = SHX0_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      if 8 == SHX5_2 then
-        SHX5_2 = GetPedInVehicleSeat
-        SHX6_2 = SHX0_2
-        SHX7_2 = -1
-        SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-        if SHX5_2 ~= SHX1_2 then
-          SHX5_2 = GetSelectedPedWeapon
-          SHX6_2 = SHX1_2
-          SHX5_2 = SHX5_2(SHX6_2)
-          if -1569615261 ~= SHX5_2 then
-            goto SHX_LABEL_100
-          end
+end
+
+
+local function setDriveByAllowed(allowed)
+    SetPlayerCanDoDriveBy(
+        CMG.getPlayerId(),
+        allowed
+    )
+end
+
+
+-- ============================================================
+-- EVERY-FRAME RULE CHECK
+-- ============================================================
+
+local function driveByTick()
+    local playerPed = PlayerPedId()
+
+    drawDriveByDebug(playerPed)
+
+    if driveByOverride then
+        return
+    end
+
+    local vehicle =
+        CMG.getPlayerVehicle()
+
+    -- Player is not in a vehicle. If another script has attached the ped to
+    -- something, block normal attack controls while attached.
+    if vehicle == 0 then
+        if GetEntityAttachedTo(playerPed) ~= 0 then
+            DisableControlAction(0, 24, true)
+            DisableControlAction(0, 257, true)
         end
-        SHX5_2 = SetPlayerCanDoDriveBy
-        SHX6_2 = SHX2_2
-        SHX7_2 = false
-        SHX5_2(SHX6_2, SHX7_2)
-        goto SHX_LABEL_153
-        -- [FIX IF ERROR] Move ::SHX_LABEL_100:: outside nested blocks until all 'goto SHX_LABEL_100' can see it
-        ::SHX_LABEL_100::
-        SHX5_2 = SetPlayerCanDoDriveBy
-        SHX6_2 = SHX2_2
-        SHX7_2 = true
-        SHX5_2(SHX6_2, SHX7_2)
-        SHX4_2 = false
-      else
-        SHX5_2 = GetVehicleClass
-        SHX6_2 = SHX0_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        if 15 == SHX5_2 then
-          SHX5_2 = CMG
-          SHX5_2 = SHX5_2.hasClientPermission
-          SHX6_2 = "police.onduty.permission"
-          SHX5_2 = SHX5_2(SHX6_2)
-          if SHX5_2 then
-            SHX5_2 = SetPlayerCanDoDriveBy
-            SHX6_2 = SHX2_2
-            SHX7_2 = true
-            SHX5_2(SHX6_2, SHX7_2)
-            SHX4_2 = false
-        end
-        else
-          SHX5_2 = SHX2_1
-          SHX5_2 = SHX5_2[SHX3_2]
-          if SHX5_2 then
-            SHX5_2 = CMG
-            SHX5_2 = SHX5_2.hasClientPermission
-            SHX6_2 = "police.onduty.permission"
-            SHX5_2 = SHX5_2(SHX6_2)
-            if SHX5_2 then
-              SHX5_2 = CMG
-              SHX5_2 = SHX5_2.hasClientPermission
-              SHX6_2 = "arvtrained.permission"
-              SHX5_2 = SHX5_2(SHX6_2)
-              if SHX5_2 then
-                SHX5_2 = SetPlayerCanDoDriveBy
-                SHX6_2 = SHX2_2
-                SHX7_2 = true
-                SHX5_2(SHX6_2, SHX7_2)
-                SHX5_2 = DisableControlAction
-                SHX6_2 = 0
-                SHX7_2 = 92
-                SHX8_2 = true
-                SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+        return
+    end
+
+    local playerId =
+        CMG.getPlayerId()
+
+    local modelHash =
+        GetEntityModel(vehicle)
+
+    local shouldBlockAttackControls = true
+
+    -- --------------------------------------------------------
+    -- PURGE VEHICLE
+    -- --------------------------------------------------------
+
+    if CMG.isPurge()
+        and purgeVehicleModels[modelHash] then
+
+        SetPlayerCanDoDriveBy(
+            playerId,
+            true
+        )
+
+        shouldBlockAttackControls = false
+
+        local selectedWeapon =
+            GetSelectedPedWeapon(
+                playerPed
+            )
+
+        if selectedWeapon ~= 0
+            and selectedWeapon ~= -1569615261 then
+
+            local hasVehicleWeapon =
+                GetCurrentPedVehicleWeapon(
+                    playerPed
+                )
+
+            if not hasVehicleWeapon then
+                CMG.setWeapon(
+                    playerPed,
+                    -1569615261,
+                    true
+                )
             end
-          end
-          else
-            SHX5_2 = SetPlayerCanDoDriveBy
-            SHX6_2 = SHX2_2
-            SHX7_2 = false
-            SHX5_2(SHX6_2, SHX7_2)
-          end
         end
-      end
+
+    -- --------------------------------------------------------
+    -- MOTORCYCLE
+    -- --------------------------------------------------------
+
+    elseif GetVehicleClass(vehicle) == 8 then
+        local isDriver =
+            GetPedInVehicleSeat(
+                vehicle,
+                -1
+            ) == playerPed
+
+        local selectedWeapon =
+            GetSelectedPedWeapon(
+                playerPed
+            )
+
+        local mayDriveBy =
+            (not isDriver)
+            and selectedWeapon
+                ~= -1569615261
+
+        SetPlayerCanDoDriveBy(
+            playerId,
+            mayDriveBy
+        )
+
+        if mayDriveBy then
+            shouldBlockAttackControls =
+                false
+        end
+
+    -- --------------------------------------------------------
+    -- HELICOPTER POLICE
+    -- --------------------------------------------------------
+
+    elseif GetVehicleClass(vehicle) == 15
+        and CMG.hasClientPermission(
+            "police.onduty.permission"
+        ) then
+
+        SetPlayerCanDoDriveBy(
+            playerId,
+            true
+        )
+
+        shouldBlockAttackControls =
+            false
+
+    -- --------------------------------------------------------
+    -- ARV / SPECIAL POLICE VEHICLES
+    -- --------------------------------------------------------
+
+    elseif restrictedPoliceVehicleModels[
+        modelHash
+    ] then
+
+        local allowed =
+            CMG.hasClientPermission(
+                "police.onduty.permission"
+            )
+            and CMG.hasClientPermission(
+                "arvtrained.permission"
+            )
+
+        SetPlayerCanDoDriveBy(
+            playerId,
+            allowed
+        )
+
+        if allowed then
+            -- Preserve the original extra control block on these vehicles.
+            DisableControlAction(
+                0,
+                92,
+                true
+            )
+        end
+
+    -- --------------------------------------------------------
+    -- NORMAL VEHICLE
+    -- --------------------------------------------------------
+
+    else
+        SetPlayerCanDoDriveBy(
+            playerId,
+            false
+        )
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_153:: outside nested blocks until all 'goto SHX_LABEL_153' can see it
-    ::SHX_LABEL_153::
-    if SHX4_2 then
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 69
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 70
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 114
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 331
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 68
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 66
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 67
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 92
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 24
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-      SHX5_2 = DisableControlAction
-      SHX6_2 = 0
-      SHX7_2 = 257
-      SHX8_2 = true
-      SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+
+    if shouldBlockAttackControls then
+        disableVehicleAttackControls()
     end
-  else
-    SHX2_2 = GetEntityAttachedTo
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if 0 ~= SHX2_2 then
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 0
-      SHX5_2 = 24
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX3_2 = DisableControlAction
-      SHX4_2 = 0
-      SHX5_2 = 257
-      SHX6_2 = true
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+end
+
+
+CMG.createThreadOnTick(
+    driveByTick,
+    "Drive By"
+)
+
+
+-- ============================================================
+-- PUBLIC OVERRIDE
+-- ============================================================
+
+function CMG.enableDriveBy(enabled)
+    if enabled then
+        SetPlayerCanDoDriveBy(
+            PlayerId(),
+            true
+        )
     end
-  end
+
+    driveByOverride =
+        enabled == true
 end
-SHX6_1 = CMG
-function SHX7_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  if SHX0_2 then
-    SHX1_2 = SetPlayerCanDoDriveBy
-    SHX2_2 = PlayerId
-    SHX2_2 = SHX2_2()
-    SHX3_2 = true
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-  SHX4_1 = SHX0_2
-end
-SHX6_1.enableDriveBy = SHX7_1
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.registerCommand
-SHX7_1 = "undriveby"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientUserId
-  SHX0_2 = SHX0_2()
-  if 1 ~= SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getClientUserId
-    SHX0_2 = SHX0_2()
-    if 2 ~= SHX0_2 then
-      goto SHX_LABEL_16
+
+
+CMG.registerCommand(
+    "undriveby",
+    function()
+        local userId =
+            CMG.getClientUserId()
+
+        if userId ~= 1
+            and userId ~= 2 then
+            return
+        end
+
+        CMG.enableDriveBy(
+            not driveByOverride
+        )
+    end,
+    false
+)
+
+
+-- ============================================================
+-- DEV MENU
+-- ============================================================
+
+CMG.registerDevMenuItems(
+    "Drive By",
+    function()
+        RageUI.Checkbox(
+            "Debug Enabled",
+            "",
+            debugState.drawDebug,
+            {},
+            function(_, _, _, checked)
+                debugState.drawDebug =
+                    checked
+            end
+        )
     end
-  end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.enableDriveBy
-  SHX1_2 = SHX4_1
-  SHX1_2 = not SHX1_2
-  SHX0_2(SHX1_2)
-  -- [FIX IF ERROR] Move ::SHX_LABEL_16:: outside nested blocks until all 'goto SHX_LABEL_16' can see it
-  ::SHX_LABEL_16::
-end
-SHX9_1 = false
-SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.createThreadOnTick
-SHX7_1 = SHX5_1
-SHX8_1 = "Drive By"
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.registerDevMenuItems
-SHX7_1 = "Drive By"
-function SHX8_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Checkbox
-  SHX1_2 = "Debug Enabled"
-  SHX2_2 = ""
-  SHX3_2 = SHX1_1.drawDebug
-  SHX4_2 = {}
-  function SHX5_2(SHX0_3, SHX1_3, SHX2_3, SHX3_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    SHX1_1.drawDebug = SHX3_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-end
-SHX6_1(SHX7_1, SHX8_1)
+)

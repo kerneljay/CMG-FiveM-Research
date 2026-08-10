@@ -1,282 +1,213 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Legacy GUI / Request Bridge
+    ===========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1
-SHX0_1 = 1
-SHX1_1 = 83
-SHX2_1 = 1
-SHX3_1 = 84
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getLocalKeyNameFromButton
-  SHX4_2 = GetControlInstructionalButton
-  SHX5_2 = SHX0_1
-  SHX6_2 = SHX1_1
-  SHX7_2 = true
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getLocalKeyNameFromButton
-  SHX5_2 = GetControlInstructionalButton
-  SHX6_2 = SHX2_1
-  SHX7_2 = SHX3_1
-  SHX8_2 = true
-  SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = SendNUIMessage
-  SHX6_2 = {}
-  SHX6_2.act = "request"
-  SHX6_2.id = SHX0_2
-  SHX7_2 = tostring
-  SHX8_2 = SHX1_2
-  SHX7_2 = SHX7_2(SHX8_2)
-  SHX6_2.text = SHX7_2
-  SHX6_2.time = SHX2_2
-  SHX6_2.acceptKey = SHX3_2
-  SHX6_2.rejectKey = SHX4_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.playSound
-  SHX6_2 = "HUD_MINI_GAME_SOUNDSET"
-  SHX7_2 = "5_SEC_WARNING"
-  SHX5_2(SHX6_2, SHX7_2)
+    This file connects old tCMG GUI helpers to the browser NUI.
+
+    tCMG.request(id, text, time)
+      Shows an accept/reject request in NUI and plays a warning sound.
+
+    NUI callback "request"
+      Sends the player's accept/reject response back through
+      CMGclient.requestResult.
+
+    Other helpers:
+      tCMG.announce(background, content)
+      tCMG.setDiv(name, css, content)
+      tCMG.setDivCss(name, css)
+      tCMG.setDivContent(name, content)
+      tCMG.divExecuteJS(name, js)
+      tCMG.removeDiv(name)
+      tCMG.isPaused()
+
+    Event b9028016de is fired when GTA's pause-menu state changes.
+]]
+
+local ACCEPT_INPUT_GROUP = 1
+local ACCEPT_CONTROL = 83
+
+local REJECT_INPUT_GROUP = 1
+local REJECT_CONTROL = 84
+
+local paused = false
+
+
+function tCMG.request(
+    requestId,
+    text,
+    time
+)
+    local acceptKey =
+        CMG.getLocalKeyNameFromButton(
+            GetControlInstructionalButton(
+                ACCEPT_INPUT_GROUP,
+                ACCEPT_CONTROL,
+                true
+            )
+        )
+
+    local rejectKey =
+        CMG.getLocalKeyNameFromButton(
+            GetControlInstructionalButton(
+                REJECT_INPUT_GROUP,
+                REJECT_CONTROL,
+                true
+            )
+        )
+
+    SendNUIMessage({
+        act = "request",
+        id = requestId,
+        text = tostring(text),
+        time = time,
+        acceptKey = acceptKey,
+        rejectKey = rejectKey
+    })
+
+    tCMG.playSound(
+        "HUD_MINI_GAME_SOUNDSET",
+        "5_SEC_WARNING"
+    )
 end
-SHX4_1.request = SHX5_1
-SHX4_1 = RegisterNUICallback
-SHX5_1 = "request"
-function SHX6_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX0_2.act
-  if "response" == SHX1_2 then
-    SHX1_2 = CMGclient
-    SHX1_2 = SHX1_2.requestResult
-    SHX2_2 = {}
-    SHX3_2 = SHX0_2.id
-    SHX4_2 = SHX0_2.ok
-    SHX2_2[1] = SHX3_2
-    SHX2_2[2] = SHX4_2
-    SHX1_2(SHX2_2)
-  end
-end
-SHX4_1(SHX5_1, SHX6_1)
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.act = "announce"
-  SHX3_2.background = SHX0_2
-  SHX3_2.content = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX4_1.announce = SHX5_1
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2
-  SHX3_2 = SendNUIMessage
-  SHX4_2 = {}
-  SHX4_2.act = "set_div"
-  SHX4_2.name = SHX0_2
-  SHX4_2.css = SHX1_2
-  SHX4_2.content = SHX2_2
-  SHX3_2(SHX4_2)
-end
-SHX4_1.setDiv = SHX5_1
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.act = "set_div_css"
-  SHX3_2.name = SHX0_2
-  SHX3_2.css = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX4_1.setDivCss = SHX5_1
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.act = "set_div_content"
-  SHX3_2.name = SHX0_2
-  SHX3_2.content = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX4_1.setDivContent = SHX5_1
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SendNUIMessage
-  SHX3_2 = {}
-  SHX3_2.act = "div_execjs"
-  SHX3_2.name = SHX0_2
-  SHX3_2.js = SHX1_2
-  SHX2_2(SHX3_2)
-end
-SHX4_1.divExecuteJS = SHX5_1
-SHX4_1 = tCMG
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SendNUIMessage
-  SHX2_2 = {}
-  SHX2_2.act = "remove_div"
-  SHX2_2.name = SHX0_2
-  SHX1_2(SHX2_2)
-end
-SHX4_1.removeDiv = SHX5_1
-SHX4_1 = false
-SHX5_1 = tCMG
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1
-  return SHX0_2
-end
-SHX5_1.isPaused = SHX6_1
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = SHX0_1
-  SHX2_2 = SHX1_1
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = SendNUIMessage
-    SHX1_2 = {}
-    SHX1_2.act = "event"
-    SHX1_2.event = "requestAccept"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsDisabledControlJustPressed
-  SHX1_2 = SHX2_1
-  SHX2_2 = SHX3_1
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = SendNUIMessage
-    SHX1_2 = {}
-    SHX1_2.act = "event"
-    SHX1_2.event = "requestDeny"
-    SHX0_2(SHX1_2)
-  end
-  SHX0_2 = IsPauseMenuActive
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = SHX4_1
-    if not SHX1_2 then
-      SHX1_2 = true
-      SHX4_1 = SHX1_2
-      SHX1_2 = TriggerEvent
-      SHX2_2 = "b9028016de"
-      SHX3_2 = SHX4_1
-      SHX1_2(SHX2_2, SHX3_2)
-  end
-  elseif not SHX0_2 then
-    SHX1_2 = SHX4_1
-    if SHX1_2 then
-      SHX1_2 = false
-      SHX4_1 = SHX1_2
-      SHX1_2 = TriggerEvent
-      SHX2_2 = "b9028016de"
-      SHX3_2 = SHX4_1
-      SHX1_2(SHX2_2, SHX3_2)
+
+
+RegisterNUICallback(
+    "request",
+    function(data)
+        if data.act == "response" then
+            CMGclient.requestResult({
+                data.id,
+                data.ok
+            })
+        end
     end
-  end
+)
+
+
+function tCMG.announce(
+    background,
+    content
+)
+    SendNUIMessage({
+        act = "announce",
+        background = background,
+        content = content
+    })
 end
-SHX6_1 = CMG
-SHX6_1 = SHX6_1.createThreadOnTick
-SHX7_1 = SHX5_1
-SHX8_1 = "GUI Key Check"
-SHX6_1(SHX7_1, SHX8_1)
-SHX6_1 = AddEventHandler
-SHX7_1 = "b9028016de"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SendNUIMessage
-  SHX2_2 = {}
-  SHX2_2.act = "pause_change"
-  SHX2_2.paused = SHX0_2
-  SHX1_2(SHX2_2)
+
+
+function tCMG.setDiv(
+    name,
+    css,
+    content
+)
+    SendNUIMessage({
+        act = "set_div",
+        name = name,
+        css = css,
+        content = content
+    })
 end
-SHX6_1(SHX7_1, SHX8_1)
+
+
+function tCMG.setDivCss(
+    name,
+    css
+)
+    SendNUIMessage({
+        act = "set_div_css",
+        name = name,
+        css = css
+    })
+end
+
+
+function tCMG.setDivContent(
+    name,
+    content
+)
+    SendNUIMessage({
+        act = "set_div_content",
+        name = name,
+        content = content
+    })
+end
+
+
+function tCMG.divExecuteJS(
+    name,
+    javascript
+)
+    SendNUIMessage({
+        act = "div_execjs",
+        name = name,
+        js = javascript
+    })
+end
+
+
+function tCMG.removeDiv(name)
+    SendNUIMessage({
+        act = "remove_div",
+        name = name
+    })
+end
+
+
+function tCMG.isPaused()
+    return paused
+end
+
+
+local function guiKeyTick()
+    if IsDisabledControlJustPressed(
+        ACCEPT_INPUT_GROUP,
+        ACCEPT_CONTROL
+    ) then
+
+        SendNUIMessage({
+            act = "event",
+            event = "requestAccept"
+        })
+    end
+
+    if IsDisabledControlJustPressed(
+        REJECT_INPUT_GROUP,
+        REJECT_CONTROL
+    ) then
+
+        SendNUIMessage({
+            act = "event",
+            event = "requestDeny"
+        })
+    end
+
+    local pauseNow =
+        IsPauseMenuActive()
+
+    if pauseNow ~= paused then
+        paused = pauseNow
+
+        TriggerEvent(
+            "b9028016de",
+            paused
+        )
+    end
+end
+
+
+CMG.createThreadOnTick(
+    guiKeyTick,
+    "GUI Key Check"
+)
+
+
+AddEventHandler(
+    "b9028016de",
+    function(isPaused)
+        SendNUIMessage({
+            act = "pause_change",
+            paused = isPaused
+        })
+    end
+)

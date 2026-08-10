@@ -1,1298 +1,1176 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_gang.lua
+    ===========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1, SHX51_1, SHX52_1, SHX53_1, SHX54_1, SHX55_1, SHX56_1, SHX57_1, SHX58_1, SHX59_1, SHX60_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_gang"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = nil
-SHX2_1 = {}
-SHX3_1 = nil
-SHX4_1 = nil
-SHX5_1 = nil
-SHX6_1 = true
-SHX7_1 = 18
-SHX8_1 = 82
-SHX9_1 = 228
-SHX10_1 = nil
-SHX11_1 = CMG
-SHX11_1.gangCachedData = nil
-SHX11_1 = CMG
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Gang
+    =====================
+
+    File: cmg/prod/client/crime/cl_gang.lua
+    Purpose: This file contains crime/gang/heist gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Config/data used:
+      * cfg/cfg_gang
+
+    Commands/command-like entries found:
+      * pinglocation
+      * deletepinglocation
+      * -cmgGangRpRagdoll
+
+    Network/hash identifiers found: 83
+      They are intentionally left unchanged because matching server code may use them.
+
+    Named framework/network events found:
+      * CMG:onDisplayVisiblityChange
+
+    Example player-facing text in this file:
+      * Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu.
+      * Enter Gang Name:
+      * Enter amount:
+      * ~r~You don
+      * ~r~You must have the advanced gang license to pin a player.
+
+]]
+local cmgCall, textValue, dataTable4, workValue12, workValue16, workValue19, flag6, numberValue28, numberValue29, numberValue30, workValue, cmgCall2, cmgCall3, cmgCall4, numberValue3, dataTable, dataTable2, numberValue4, flag, numberValue6, workValue3, dataTable3, workValue4, numberValue11, flag2, numberValue14, numberValue16, numberValue18, workValue5, textValue2, dataTable5, cmgCall5, cmgCall6, workValue6, workValue7, workValue8, cmgCall7, textValue3, workValue9, workValue11, workValue13, workValue14, cmgCall8, workValue15, eventRegistration, textValue4, textValue5, eventRegistration2, flag4, dataTable6, workValue17, cmgCall9, cmgCall10, threadCall, eventRegistration3, textValue7, workValue18, cmgCall11, textValue8, flag5, textValue9
+cmgCall = CMG
+cmgCall = cmgCall.loadModule
+textValue = "cfg/cfg_gang"
+-- Beginner: result below is config.
+cmgCall = cmgCall(textValue)
+textValue = nil
+dataTable4 = {}
+workValue12 = nil
+workValue16 = nil
+workValue19 = nil
+flag6 = true
+numberValue28 = 18
+numberValue29 = 82
+numberValue30 = 228
+workValue = nil
+cmgCall2 = CMG
+cmgCall2.gangCachedData = nil
+cmgCall2 = CMG
+function cmgCall3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = {}
-  SHX2_2 = 2
-  SHX3_2 = 5
-  SHX4_2 = 10
-  SHX5_2 = 15
-  SHX6_2 = 20
-  SHX7_2 = 30
-  SHX1_2[1] = SHX2_2
-  SHX1_2[2] = SHX3_2
-  SHX1_2[3] = SHX4_2
-  SHX1_2[4] = SHX5_2
-  SHX1_2[5] = SHX6_2
-  SHX1_2[6] = SHX7_2
-  SHX2_2 = #SHX1_2
-  SHX3_2 = 1
-  SHX4_2 = -1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX0_2.gangPerksUnlocked
-    SHX7_2 = "pub_capture_time_"
-    SHX8_2 = SHX5_2
-    SHX7_2 = SHX7_2 .. SHX8_2
-    SHX6_2 = SHX6_2[SHX7_2]
-    if SHX6_2 then
-      SHX6_2 = SHX1_2[SHX5_2]
-      return SHX6_2
+  arg2 = 0
+  return arg2
+  ::flow_label_10::
+  arg2 = {}
+  arg3 = 2
+  arg4 = 5
+  arg5 = 10
+  arg6 = 15
+  arg7 = 20
+  arg8 = 30
+  arg2[1] = arg3
+  arg2[2] = arg4
+  arg2[3] = arg5
+  arg2[4] = arg6
+  arg2[5] = arg7
+  arg2[6] = arg8
+  arg3 = #arg2
+  arg4 = 1
+  arg5 = -1
+  for arg6 = arg3, arg4, arg5 do
+    arg7 = arg1.gangPerksUnlocked
+    arg8 = "pub_capture_time_"
+    arg9 = arg6
+    arg8 = arg8 .. arg9
+    arg7 = arg7[arg8]
+    if arg7 then
+      arg7 = arg2[arg6]
+      return arg7
     end
   end
-  SHX2_2 = 0
-  return SHX2_2
+  arg3 = 0
+  return arg3
 end
-SHX11_1.getGangPublicCaptureTimeReductionPercent = SHX12_1
-SHX11_1 = CMG
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall2.getGangPublicCaptureTimeReductionPercent = cmgCall3
+cmgCall2 = CMG
+function cmgCall3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = {}
-  SHX2_2 = 20
-  SHX3_2 = 40
-  SHX4_2 = 50
-  SHX5_2 = 70
-  SHX6_2 = 100
-  SHX7_2 = 150
-  SHX1_2[1] = SHX2_2
-  SHX1_2[2] = SHX3_2
-  SHX1_2[3] = SHX4_2
-  SHX1_2[4] = SHX5_2
-  SHX1_2[5] = SHX6_2
-  SHX1_2[6] = SHX7_2
-  SHX2_2 = 0
-  SHX3_2 = 1
-  SHX4_2 = #SHX1_2
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = SHX0_2.gangPerksUnlocked
-    SHX8_2 = "pub_name_distance_"
-    SHX9_2 = SHX6_2
-    SHX8_2 = SHX8_2 .. SHX9_2
-    SHX7_2 = SHX7_2[SHX8_2]
-    if SHX7_2 then
-      SHX7_2 = SHX1_2[SHX6_2]
-      if SHX2_2 < SHX7_2 then
-        SHX2_2 = SHX1_2[SHX6_2]
+  arg2 = 0
+  return arg2
+  ::flow_label_10::
+  arg2 = {}
+  arg3 = 20
+  arg4 = 40
+  arg5 = 50
+  arg6 = 70
+  arg7 = 100
+  arg8 = 150
+  arg2[1] = arg3
+  arg2[2] = arg4
+  arg2[3] = arg5
+  arg2[4] = arg6
+  arg2[5] = arg7
+  arg2[6] = arg8
+  arg3 = 0
+  arg4 = 1
+  arg5 = #arg2
+  arg6 = 1
+  for arg7 = arg4, arg5, arg6 do
+    arg8 = arg1.gangPerksUnlocked
+    arg9 = "pub_name_distance_"
+    arg10 = arg7
+    arg9 = arg9 .. arg10
+    arg8 = arg8[arg9]
+    if arg8 then
+      arg8 = arg2[arg7]
+      if arg3 < arg8 then
+        arg3 = arg2[arg7]
       end
     end
   end
-  return SHX2_2
+  return arg3
 end
-SHX11_1.getGangPublicNameViewDistanceFloor = SHX12_1
-SHX11_1 = CMG
-function SHX12_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = tonumber
-  SHX1_2 = SHX0_1.gangBaseMemberLimit
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = 30
+cmgCall2.getGangPublicNameViewDistanceFloor = cmgCall3
+cmgCall2 = CMG
+function cmgCall3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+  arg1 = tonumber
+  arg2 = cmgCall.gangBaseMemberLimit
+  arg1 = arg1(arg2)
+  if not arg1 then
+    arg1 = 30
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.gangCachedData
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.gangPerksUnlocked
-    if SHX2_2 then
-      goto SHX_LABEL_15
+  arg2 = CMG
+  arg2 = arg2.gangCachedData
+  if arg2 then
+    arg3 = arg2.gangPerksUnlocked
+    if arg3 then
+      goto flow_label_15
     end
   end
-  return SHX0_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_15:: outside nested blocks until all 'goto SHX_LABEL_15' can see it
-  ::SHX_LABEL_15::
-  SHX2_2 = 0
-  SHX3_2 = 1
-  SHX4_2 = 6
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = SHX1_2.gangPerksUnlocked
-    SHX8_2 = "pub_member_slots_"
-    SHX9_2 = SHX6_2
-    SHX8_2 = SHX8_2 .. SHX9_2
-    SHX7_2 = SHX7_2[SHX8_2]
-    if SHX7_2 then
-      SHX2_2 = SHX2_2 + 5
+  return arg1
+  ::flow_label_15::
+  arg3 = 0
+  arg4 = 1
+  arg5 = 6
+  arg6 = 1
+  for arg7 = arg4, arg5, arg6 do
+    arg8 = arg2.gangPerksUnlocked
+    arg9 = "pub_member_slots_"
+    arg10 = arg7
+    arg9 = arg9 .. arg10
+    arg8 = arg8[arg9]
+    if arg8 then
+      arg3 = arg3 + 5
     end
   end
-  SHX3_2 = SHX0_2 + SHX2_2
-  return SHX3_2
+  arg4 = arg1 + arg3
+  return arg4
 end
-SHX11_1.getClientGangMaxMemberLimit = SHX12_1
-SHX11_1 = CMG
-SHX12_1 = "getClientGangPublicTurfCommissionBonusPercent"
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall2.getClientGangMaxMemberLimit = cmgCall3
+cmgCall2 = CMG
+cmgCall3 = "getClientGangPublicTurfCommissionBonusPercent"
+function cmgCall4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = 0
-  SHX2_2 = 1
-  SHX3_2 = 5
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX0_2.gangPerksUnlocked
-    SHX7_2 = "pub_turf_commission_"
-    SHX8_2 = SHX5_2
-    SHX7_2 = SHX7_2 .. SHX8_2
-    SHX6_2 = SHX6_2[SHX7_2]
-    if SHX6_2 then
-      SHX1_2 = SHX1_2 + SHX5_2
+  arg2 = 0
+  return arg2
+  ::flow_label_10::
+  arg2 = 0
+  arg3 = 1
+  arg4 = 5
+  arg5 = 1
+  for arg6 = arg3, arg4, arg5 do
+    arg7 = arg1.gangPerksUnlocked
+    arg8 = "pub_turf_commission_"
+    arg9 = arg6
+    arg8 = arg8 .. arg9
+    arg7 = arg7[arg8]
+    if arg7 then
+      arg2 = arg2 + arg6
     end
   end
-  if SHX1_2 > 25 then
-    SHX1_2 = 25
+  if arg2 > 25 then
+    arg2 = 25
   end
-  return SHX1_2
+  return arg2
 end
-SHX11_1[SHX12_1] = SHX13_1
-SHX11_1 = {}
-SHX12_1 = 0.2
-SHX13_1 = 0.3
-SHX14_1 = 0.4
-SHX15_1 = 0.5
-SHX16_1 = 0.6
-SHX17_1 = 0.7
-SHX11_1[1] = SHX12_1
-SHX11_1[2] = SHX13_1
-SHX11_1[3] = SHX14_1
-SHX11_1[4] = SHX15_1
-SHX11_1[5] = SHX16_1
-SHX11_1[6] = SHX17_1
-SHX12_1 = CMG
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  SHX1_2 = 0
-  if SHX0_2 then
-    SHX2_2 = SHX0_2.gangPerksUnlocked
-    if SHX2_2 then
-      SHX2_2 = 1
-      SHX3_2 = SHX11_1
-      SHX3_2 = #SHX3_2
-      SHX4_2 = 1
-      for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-        SHX6_2 = SHX0_2.gangPerksUnlocked
-        SHX7_2 = "pub_deposit_fee_"
-        SHX8_2 = SHX5_2
-        SHX7_2 = SHX7_2 .. SHX8_2
-        SHX6_2 = SHX6_2[SHX7_2]
-        if SHX6_2 then
-          SHX6_2 = SHX11_1
-          SHX6_2 = SHX6_2[SHX5_2]
-          SHX1_2 = SHX1_2 + SHX6_2
+cmgCall2[cmgCall3] = cmgCall4
+cmgCall2 = {}
+cmgCall3 = 0.2
+cmgCall4 = 0.3
+numberValue3 = 0.4
+dataTable = 0.5
+dataTable2 = 0.6
+numberValue4 = 0.7
+cmgCall2[1] = cmgCall3
+cmgCall2[2] = cmgCall4
+cmgCall2[3] = numberValue3
+cmgCall2[4] = dataTable
+cmgCall2[5] = dataTable2
+cmgCall2[6] = numberValue4
+cmgCall3 = CMG
+function cmgCall4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  arg2 = 0
+  if arg1 then
+    arg3 = arg1.gangPerksUnlocked
+    if arg3 then
+      arg3 = 1
+      arg4 = cmgCall2
+      arg4 = #arg4
+      arg5 = 1
+      for arg6 = arg3, arg4, arg5 do
+        arg7 = arg1.gangPerksUnlocked
+        arg8 = "pub_deposit_fee_"
+        arg9 = arg6
+        arg8 = arg8 .. arg9
+        arg7 = arg7[arg8]
+        if arg7 then
+          arg7 = cmgCall2
+          arg7 = arg7[arg6]
+          arg2 = arg2 + arg7
         end
       end
     end
   end
-  if SHX1_2 > 50 then
-    SHX1_2 = 50
+  if arg2 > 50 then
+    arg2 = 50
   end
-  return SHX1_2
+  return arg2
 end
-SHX12_1.getClientGangDepositFeeReductionPercent = SHX13_1
-SHX12_1 = CMG
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getTunableValue
-  SHX1_2 = "gang_tax"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = 0
+cmgCall3.getClientGangDepositFeeReductionPercent = cmgCall4
+cmgCall3 = CMG
+function cmgCall4()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = CMG
+  arg1 = arg1.getTunableValue
+  arg2 = "gang_tax"
+  arg1 = arg1(arg2)
+  if not arg1 then
+    arg1 = 0
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getClientGangDepositFeeReductionPercent
-  SHX1_2 = SHX1_2()
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.max
-  SHX3_2 = 0
-  SHX4_2 = SHX1_2 / 100
-  SHX4_2 = SHX0_2 - SHX4_2
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = SHX2_2 * 1000
-  SHX4_2 = SHX4_2 + 0.5
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX3_2 = SHX3_2 / 10
-  return SHX3_2
+  arg2 = CMG
+  arg2 = arg2.getClientGangDepositFeeReductionPercent
+  arg2 = arg2()
+  arg3 = math
+  arg3 = arg3.max
+  arg4 = 0
+  arg5 = arg2 / 100
+  arg5 = arg1 - arg5
+  arg3 = arg3(arg4, arg5)
+  arg4 = math
+  arg4 = arg4.floor
+  arg5 = arg3 * 1000
+  arg5 = arg5 + 0.5
+  arg4 = arg4(arg5)
+  arg4 = arg4 / 10
+  return arg4
 end
-SHX12_1.getClientGangDepositFeeDisplayPercent = SHX13_1
-SHX12_1 = CMG
-SHX13_1 = "getClientGangRpHeistSetupCostAfterDiscount"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.floor
-  SHX2_2 = tonumber
-  SHX3_2 = SHX0_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    SHX2_2 = 0
+cmgCall3.getClientGangDepositFeeDisplayPercent = cmgCall4
+cmgCall3 = CMG
+cmgCall4 = "getClientGangRpHeistSetupCostAfterDiscount"
+function numberValue3(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
+  arg2 = math
+  arg2 = arg2.floor
+  arg3 = tonumber
+  arg4 = arg1
+  arg3 = arg3(arg4)
+  if not arg3 then
+    arg3 = 0
   end
-  SHX1_2 = SHX1_2(SHX2_2)
-  if SHX1_2 <= 0 then
-    SHX2_2 = 0
-    return SHX2_2
+  arg2 = arg2(arg3)
+  if arg2 <= 0 then
+    arg3 = 0
+    return arg3
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.gangCachedData
-  SHX3_2 = 0
-  if SHX2_2 then
-    SHX4_2 = SHX2_2.gangPerksUnlocked
-    if SHX4_2 then
-      SHX4_2 = ipairs
-      SHX5_2 = {}
-      SHX6_2 = 20
-      SHX7_2 = 15
-      SHX8_2 = 10
-      SHX9_2 = 5
-      SHX5_2[1] = SHX6_2
-      SHX5_2[2] = SHX7_2
-      SHX5_2[3] = SHX8_2
-      SHX5_2[4] = SHX9_2
-      SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-      for SHX8_2, SHX9_2 in SHX4_2, SHX5_2, SHX6_2, SHX7_2 do
-        SHX10_2 = SHX2_2.gangPerksUnlocked
-        SHX11_2 = "rp_heist_"
-        SHX12_2 = SHX9_2
-        SHX11_2 = SHX11_2 .. SHX12_2
-        SHX10_2 = SHX10_2[SHX11_2]
-        if SHX10_2 then
-          SHX3_2 = SHX9_2
+  arg3 = CMG
+  arg3 = arg3.gangCachedData
+  arg4 = 0
+  if arg3 then
+    arg5 = arg3.gangPerksUnlocked
+    if arg5 then
+      arg5 = ipairs
+      arg6 = {}
+      arg7 = 20
+      arg8 = 15
+      arg9 = 10
+      arg10 = 5
+      arg6[1] = arg7
+      arg6[2] = arg8
+      arg6[3] = arg9
+      arg6[4] = arg10
+      arg5, arg6, arg7, arg8 = arg5(arg6)
+      for arg9, arg10 in arg5, arg6, arg7, arg8 do
+        arg11 = arg3.gangPerksUnlocked
+        arg122 = "rp_heist_"
+        arg13 = arg10
+        arg122 = arg122 .. arg13
+        arg11 = arg11[arg122]
+        if arg11 then
+          arg4 = arg10
           break
         end
       end
     end
   end
-  if SHX3_2 <= 0 then
-    return SHX1_2
+  if arg4 <= 0 then
+    return arg2
   end
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.max
-  SHX5_2 = 0
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.floor
-  SHX7_2 = 100
-  SHX7_2 = SHX7_2 - SHX3_2
-  SHX7_2 = SHX1_2 * SHX7_2
-  SHX7_2 = SHX7_2 / 100
-  SHX7_2 = SHX7_2 + 0.5
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX6_2(SHX7_2)
-  return SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+  arg5 = math
+  arg5 = arg5.max
+  arg6 = 0
+  arg7 = math
+  arg7 = arg7.floor
+  arg8 = 100
+  arg8 = arg8 - arg4
+  arg8 = arg2 * arg8
+  arg8 = arg8 / 100
+  arg8 = arg8 + 0.5
+  arg7, arg8, arg9, arg10, arg11, arg122, arg13 = arg7(arg8)
+  return arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
 end
-SHX12_1[SHX13_1] = SHX14_1
-SHX12_1 = CMG
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall3[cmgCall4] = numberValue3
+cmgCall3 = CMG
+function cmgCall4()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = SHX0_2.gangPerksUnlocked
-  SHX1_2 = SHX1_2.rp_spray_50
-  if SHX1_2 then
-    SHX1_2 = 50
-    return SHX1_2
+  arg2 = 0
+  return arg2
+  ::flow_label_10::
+  arg2 = arg1.gangPerksUnlocked
+  arg2 = arg2.rp_spray_50
+  if arg2 then
+    arg2 = 50
+    return arg2
   end
-  SHX1_2 = SHX0_2.gangPerksUnlocked
-  SHX1_2 = SHX1_2.rp_spray_25
-  if SHX1_2 then
-    SHX1_2 = 25
-    return SHX1_2
+  arg2 = arg1.gangPerksUnlocked
+  arg2 = arg2.rp_spray_25
+  if arg2 then
+    arg2 = 25
+    return arg2
   end
-  SHX1_2 = 0
-  return SHX1_2
+  arg2 = 0
+  return arg2
 end
-SHX12_1.getClientGangRpSpraycanDiscountPercent = SHX13_1
-SHX12_1 = CMG
-function SHX13_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall3.getClientGangRpSpraycanDiscountPercent = cmgCall4
+cmgCall3 = CMG
+function cmgCall4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = ipairs
-  SHX2_2 = {}
-  SHX3_2 = 15
-  SHX4_2 = 10
-  SHX5_2 = 7
-  SHX6_2 = 5
-  SHX2_2[1] = SHX3_2
-  SHX2_2[2] = SHX4_2
-  SHX2_2[3] = SHX5_2
-  SHX2_2[4] = SHX6_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX0_2.gangPerksUnlocked
-    SHX8_2 = "rp_wl_vehicles_"
-    SHX9_2 = SHX6_2
-    SHX8_2 = SHX8_2 .. SHX9_2
-    SHX7_2 = SHX7_2[SHX8_2]
-    if SHX7_2 then
-      return SHX6_2
+  arg2 = 0
+  return arg2
+  ::flow_label_10::
+  arg2 = ipairs
+  arg3 = {}
+  arg4 = 15
+  arg5 = 10
+  arg6 = 7
+  arg7 = 5
+  arg3[1] = arg4
+  arg3[2] = arg5
+  arg3[3] = arg6
+  arg3[4] = arg7
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    arg8 = arg1.gangPerksUnlocked
+    arg9 = "rp_wl_vehicles_"
+    arg10 = arg7
+    arg9 = arg9 .. arg10
+    arg8 = arg8[arg9]
+    if arg8 then
+      return arg7
     end
   end
-  SHX1_2 = 0
-  return SHX1_2
+  arg2 = 0
+  return arg2
 end
-SHX12_1.getClientGangRpWlVehiclesDiscountPercent = SHX13_1
-SHX12_1 = 5
-SHX13_1 = CMG
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall3.getClientGangRpWlVehiclesDiscountPercent = cmgCall4
+cmgCall3 = 5
+cmgCall4 = CMG
+function numberValue3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = {}
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX2_2 = 0
-  SHX3_2 = SHX0_1.gangSkills
-  if SHX3_2 then
-    SHX3_2 = pairs
-    SHX4_2 = SHX1_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      if true == SHX8_2 then
-        SHX9_2 = SHX0_1.gangSkills
-        SHX9_2 = SHX9_2[SHX7_2]
-        if SHX9_2 then
-          SHX10_2 = tonumber
-          SHX11_2 = SHX9_2.extraRankOutfitSlots
-          SHX10_2 = SHX10_2(SHX11_2)
-          if SHX10_2 then
-            goto SHX_LABEL_30
+  arg2 = {}
+  ::flow_label_10::
+  arg3 = 0
+  arg4 = cmgCall.gangSkills
+  if arg4 then
+    arg4 = pairs
+    arg5 = arg2
+    arg4, arg5, arg6, arg7 = arg4(arg5)
+    for arg8, arg9 in arg4, arg5, arg6, arg7 do
+      if true == arg9 then
+        arg10 = cmgCall.gangSkills
+        arg10 = arg10[arg8]
+        if arg10 then
+          arg11 = tonumber
+          arg122 = arg10.extraRankOutfitSlots
+          arg11 = arg11(arg122)
+          if arg11 then
+            goto flow_label_30
           end
         end
-        SHX10_2 = 0
-        -- [FIX IF ERROR] Move ::SHX_LABEL_30:: outside nested blocks until all 'goto SHX_LABEL_30' can see it
-        ::SHX_LABEL_30::
-        if SHX10_2 > 0 then
-          SHX2_2 = SHX2_2 + SHX10_2
+        arg11 = 0
+        ::flow_label_30::
+        if arg11 > 0 then
+          arg3 = arg3 + arg11
         end
       end
     end
   end
-  SHX3_2 = 1 + SHX2_2
-  SHX4_2 = SHX12_1
-  if SHX3_2 > SHX4_2 then
-    SHX3_2 = SHX12_1
+  arg4 = 1 + arg3
+  arg5 = cmgCall3
+  if arg4 > arg5 then
+    arg4 = cmgCall3
   end
-  if SHX3_2 < 1 then
-    SHX3_2 = 1
+  if arg4 < 1 then
+    arg4 = 1
   end
-  return SHX3_2
+  return arg4
 end
-SHX13_1.getGangRankOutfitSlotMax = SHX14_1
-SHX13_1 = CMG
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall4.getGangRankOutfitSlotMax = numberValue3
+cmgCall4 = CMG
+function numberValue3()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = false
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = SHX0_2.gangPerksUnlocked
-  SHX1_2 = SHX1_2.rp_ragdoll
-  SHX1_2 = true == SHX1_2
-  return SHX1_2
+  arg2 = false
+  return arg2
+  ::flow_label_10::
+  arg2 = arg1.gangPerksUnlocked
+  arg2 = arg2.rp_ragdoll
+  arg2 = true == arg2
+  return arg2
 end
-SHX13_1.hasGangRpRagdollPerk = SHX14_1
-SHX13_1 = CMG
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangCachedData
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.gangPerksUnlocked
-    if SHX1_2 then
-      goto SHX_LABEL_10
+cmgCall4.hasGangRpRagdollPerk = numberValue3
+cmgCall4 = CMG
+function numberValue3()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.gangCachedData
+  if arg1 then
+    arg2 = arg1.gangPerksUnlocked
+    if arg2 then
+      goto flow_label_10
     end
   end
-  SHX1_2 = false
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_10:: outside nested blocks until all 'goto SHX_LABEL_10' can see it
-  ::SHX_LABEL_10::
-  SHX1_2 = SHX0_2.gangPerksUnlocked
-  SHX1_2 = SHX1_2.rp_car_theft
-  SHX1_2 = true == SHX1_2
-  return SHX1_2
+  arg2 = false
+  return arg2
+  ::flow_label_10::
+  arg2 = arg1.gangPerksUnlocked
+  arg2 = arg2.rp_car_theft
+  arg2 = true == arg2
+  return arg2
 end
-SHX13_1.hasGangRpCarTheftPerk = SHX14_1
-SHX13_1 = 1
-SHX14_1 = 1
-SHX15_1 = {}
-SHX16_1 = {}
-SHX17_1 = nil
-SHX18_1 = false
-SHX19_1 = 1
-SHX20_1 = nil
-SHX21_1 = {}
-SHX22_1 = nil
-SHX23_1 = 1
-SHX24_1 = false
-SHX25_1 = 0
-SHX26_1 = 0
-SHX27_1 = 1.0
-SHX28_1 = SHX0_1.colourLookup
-SHX28_1 = SHX28_1.Red
-SHX29_1 = GetResourceKvpString
-SHX30_1 = "cmg_gang_colour"
-SHX29_1 = SHX29_1(SHX30_1)
-if not SHX29_1 then
-  SHX29_1 = "Red"
+cmgCall4.hasGangRpCarTheftPerk = numberValue3
+cmgCall4 = 1
+numberValue3 = 1
+dataTable = {}
+dataTable2 = {}
+numberValue4 = nil
+flag = false
+numberValue6 = 1
+workValue3 = nil
+dataTable3 = {}
+workValue4 = nil
+numberValue11 = 1
+flag2 = false
+numberValue14 = 0
+numberValue16 = 0
+numberValue18 = 1.0
+workValue5 = cmgCall.colourLookup
+workValue5 = workValue5.Red
+textValue2 = GetResourceKvpString
+dataTable5 = "cmg_gang_colour"
+textValue2 = textValue2(dataTable5)
+if not textValue2 then
+  textValue2 = "Red"
 end
-SHX30_1 = {}
-SHX31_1 = CMG
-SHX31_1.gangRecognisedGangs = SHX30_1
-SHX31_1 = {}
-SHX32_1 = CMG
-SHX32_1.gangCapturedTurfs = SHX31_1
-SHX32_1 = {}
-function SHX33_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX10_1
-  return SHX0_2
+dataTable5 = {}
+cmgCall5 = CMG
+cmgCall5.gangRecognisedGangs = dataTable5
+cmgCall5 = {}
+cmgCall6 = CMG
+cmgCall6.gangCapturedTurfs = cmgCall5
+cmgCall6 = {}
+function workValue6()
+  local arg1, arg2
+  arg1 = workValue
+  return arg1
 end
-function SHX34_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = {}
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2.members
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX1_2[SHX6_2] = SHX7_2
+function workValue7(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg2 = {}
+  arg3 = pairs
+  arg4 = arg1.members
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg2[arg7] = arg8
   end
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2.guests
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX1_2[SHX6_2] = SHX7_2
+  arg3 = pairs
+  arg4 = arg1.guests
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg2[arg7] = arg8
   end
-  return SHX1_2
+  return arg2
 end
-function SHX35_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = {}
-  SHX1_2 = pairs
-  SHX2_2 = SHX2_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = type
-    SHX8_2 = SHX6_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    if "string" == SHX7_2 and "" ~= SHX6_2 then
-      SHX7_2 = #SHX0_2
-      SHX7_2 = SHX7_2 + 1
-      SHX8_2 = {}
-      SHX8_2.gangName = SHX6_2
-      SHX8_2.isGuest = false
-      SHX0_2[SHX7_2] = SHX8_2
+function workValue8()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg1 = {}
+  arg2 = pairs
+  arg3 = dataTable4
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    arg8 = type
+    arg9 = arg7
+    arg8 = arg8(arg9)
+    if "string" == arg8 and "" ~= arg7 then
+      arg8 = #arg1
+      arg8 = arg8 + 1
+      arg9 = {}
+      arg9.gangName = arg7
+      arg9.isGuest = false
+      arg1[arg8] = arg9
     end
   end
-  SHX1_2 = CMG
-  SHX1_2.gangPendingInvites = SHX0_2
+  arg2 = CMG
+  arg2.gangPendingInvites = arg1
 end
-SHX36_1 = SHX35_1
-SHX36_1()
-SHX36_1 = RegisterNetEvent
-SHX37_1 = "2cc35dc0c0"
-function SHX38_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.count
-  SHX2_2 = SHX2_1
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = SHX2_1
-  SHX2_2[SHX1_2] = SHX0_2
-  SHX1_2 = SHX35_1
-  SHX1_2()
-  SHX1_2 = notify
-  SHX2_2 = "~g~Gang invite received from "
-  SHX3_2 = tostring
-  SHX4_2 = SHX0_2 or SHX4_2
-  if not SHX0_2 then
-    SHX4_2 = ""
+cmgCall7 = workValue8
+cmgCall7()
+cmgCall7 = RegisterNetEvent
+textValue3 = "2cc35dc0c0"
+-- Beginner: this function handles network event "2cc35dc0c0".
+function workValue9(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = table
+  arg2 = arg2.count
+  arg3 = dataTable4
+  -- Beginner: result below is count.
+  arg2 = arg2(arg3)
+  arg3 = dataTable4
+  arg3[arg2] = arg1
+  arg2 = workValue8
+  arg2()
+  arg2 = notify
+  arg3 = "~g~Gang invite received from "
+  arg4 = tostring
+  arg5 = arg1 or arg5
+  if not arg1 then
+    arg5 = ""
   end
-  SHX3_2 = SHX3_2(SHX4_2)
-  SHX2_2 = SHX2_2 .. SHX3_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = TriggerEvent
-  SHX2_2 = "c89367ffd9"
-  SHX1_2(SHX2_2)
+  arg4 = arg4(arg5)
+  arg3 = arg3 .. arg4
+  -- Beginner: Show a notification to the player.
+  arg2(arg3)
+  arg2 = TriggerEvent
+  arg3 = "c89367ffd9"
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c89367ffd9".
+  arg2(arg3)
 end
-SHX36_1(SHX37_1, SHX38_1)
-SHX36_1 = CMG
-function SHX37_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  if SHX0_2 then
-    SHX2_2 = type
-    SHX3_2 = SHX0_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if "string" == SHX2_2 and "" ~= SHX0_2 then
-      goto SHX_LABEL_11
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2cc35dc0c0".
+cmgCall7(textValue3, workValue9)
+cmgCall7 = CMG
+function textValue3(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  if arg1 then
+    arg3 = type
+    arg4 = arg1
+    arg3 = arg3(arg4)
+    if "string" == arg3 and "" ~= arg1 then
+      goto flow_label_11
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_11:: outside nested blocks until all 'goto SHX_LABEL_11' can see it
-  ::SHX_LABEL_11::
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "125d443003"
-  SHX4_2 = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = pairs
-  SHX3_2 = SHX2_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    if SHX7_2 == SHX0_2 then
-      SHX8_2 = SHX2_1
-      SHX8_2[SHX6_2] = nil
+  ::flow_label_11::
+  arg3 = TriggerServerEvent
+  arg4 = "125d443003"
+  arg5 = arg1
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "125d443003".
+  arg3(arg4, arg5)
+  arg3 = pairs
+  arg4 = dataTable4
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    if arg8 == arg1 then
+      arg9 = dataTable4
+      arg9[arg7] = nil
       break
     end
   end
-  SHX2_2 = SHX35_1
-  SHX2_2()
+  arg3 = workValue8
+  arg3()
 end
-SHX36_1.gangAcceptInvite = SHX37_1
-SHX36_1 = CMG
-function SHX37_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if SHX0_2 then
-    SHX1_2 = type
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if "string" == SHX1_2 and "" ~= SHX0_2 then
-      goto SHX_LABEL_11
+cmgCall7.gangAcceptInvite = textValue3
+cmgCall7 = CMG
+function textValue3(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  if arg1 then
+    arg2 = type
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if "string" == arg2 and "" ~= arg1 then
+      goto flow_label_11
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_11:: outside nested blocks until all 'goto SHX_LABEL_11' can see it
-  ::SHX_LABEL_11::
-  SHX1_2 = pairs
-  SHX2_2 = SHX2_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    if SHX6_2 == SHX0_2 then
-      SHX7_2 = SHX2_1
-      SHX7_2[SHX5_2] = nil
+  ::flow_label_11::
+  arg2 = pairs
+  arg3 = dataTable4
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6, arg7 in arg2, arg3, arg4, arg5 do
+    if arg7 == arg1 then
+      arg8 = dataTable4
+      arg8[arg6] = nil
       break
     end
   end
-  SHX1_2 = SHX35_1
-  SHX1_2()
+  arg2 = workValue8
+  arg2()
 end
-SHX36_1.gangDeclineInvite = SHX37_1
-function SHX36_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.GetRageInputText
-  SHX2_2 = SHX0_2
-  SHX3_2 = "Yes | No"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if "yes" == SHX1_2 or "Yes" == SHX1_2 then
-    SHX2_2 = true
-    return SHX2_2
+cmgCall7.gangDeclineInvite = textValue3
+function cmgCall7(arg1)
+  local arg2, arg3, arg4
+  arg2 = CMG
+  arg2 = arg2.GetRageInputText
+  arg3 = arg1
+  arg4 = "Yes | No"
+  arg2 = arg2(arg3, arg4)
+  if "yes" == arg2 or "Yes" == arg2 then
+    arg3 = true
+    return arg3
   else
-    SHX2_2 = false
-    return SHX2_2
+    arg3 = false
+    return arg3
   end
 end
-function SHX37_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = {}
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2.members
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.copy
-    SHX9_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX8_2.user_id = SHX6_2
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX1_2
-    SHX11_2 = SHX8_2
-    SHX9_2(SHX10_2, SHX11_2)
+function textValue3(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
+  arg2 = {}
+  arg3 = pairs
+  arg4 = arg1.members
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg9 = table
+    arg9 = arg9.copy
+    arg10 = arg8
+    arg9 = arg9(arg10)
+    arg9.user_id = arg7
+    arg10 = table
+    arg10 = arg10.insert
+    arg11 = arg2
+    arg122 = arg9
+    arg10(arg11, arg122)
   end
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2.guests
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = table
-    SHX8_2 = SHX8_2.copy
-    SHX9_2 = SHX7_2
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX8_2.lastLogin = "Offline"
-    SHX8_2.user_id = SHX6_2
-    SHX9_2 = table
-    SHX9_2 = SHX9_2.insert
-    SHX10_2 = SHX1_2
-    SHX11_2 = SHX8_2
-    SHX9_2(SHX10_2, SHX11_2)
+  arg3 = pairs
+  arg4 = arg1.guests
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg9 = table
+    arg9 = arg9.copy
+    arg10 = arg8
+    arg9 = arg9(arg10)
+    arg9.lastLogin = "Offline"
+    arg9.user_id = arg7
+    arg10 = table
+    arg10 = arg10.insert
+    arg11 = arg2
+    arg122 = arg9
+    arg10(arg11, arg122)
   end
-  SHX2_2 = {}
-  SHX3_2 = SHX10_1
-  if SHX0_2 == SHX3_2 then
-    SHX3_2 = SHX13_1
-    if SHX3_2 then
-      goto SHX_LABEL_47
+  arg3 = {}
+  arg4 = workValue
+  if arg1 == arg4 then
+    arg4 = cmgCall4
+    if arg4 then
+      goto flow_label_47
     end
   end
-  SHX3_2 = SHX23_1
-  -- [FIX IF ERROR] Move ::SHX_LABEL_47:: outside nested blocks until all 'goto SHX_LABEL_47' can see it
-  ::SHX_LABEL_47::
-  SHX4_2 = SHX3_2 - 1
-  SHX4_2 = SHX4_2 * 10
-  SHX4_2 = SHX4_2 + 1
-  SHX5_2 = table
-  SHX5_2 = SHX5_2.count
-  SHX6_2 = SHX0_2.members
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = table
-  SHX6_2 = SHX6_2.count
-  SHX7_2 = SHX0_2.guests
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX5_2 = SHX5_2 + SHX6_2
-  SHX6_2 = SHX4_2
-  SHX7_2 = math
-  SHX7_2 = SHX7_2.min
-  SHX8_2 = SHX4_2 + 10
-  SHX9_2 = SHX5_2 + 1
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-  SHX7_2 = SHX7_2 - 1
-  SHX8_2 = 1
-  for SHX9_2 = SHX6_2, SHX7_2, SHX8_2 do
-    SHX10_2 = table
-    SHX10_2 = SHX10_2.insert
-    SHX11_2 = SHX2_2
-    SHX12_2 = SHX1_2[SHX9_2]
-    SHX10_2(SHX11_2, SHX12_2)
+  arg4 = numberValue11
+  ::flow_label_47::
+  arg5 = arg4 - 1
+  arg5 = arg5 * 10
+  arg5 = arg5 + 1
+  arg6 = table
+  arg6 = arg6.count
+  arg7 = arg1.members
+  -- Beginner: result below is count.
+  arg6 = arg6(arg7)
+  arg7 = table
+  arg7 = arg7.count
+  arg8 = arg1.guests
+  -- Beginner: result below is count.
+  arg7 = arg7(arg8)
+  arg6 = arg6 + arg7
+  arg7 = arg5
+  arg8 = math
+  arg8 = arg8.min
+  arg9 = arg5 + 10
+  arg10 = arg6 + 1
+  arg8 = arg8(arg9, arg10)
+  arg8 = arg8 - 1
+  arg9 = 1
+  for arg10 = arg7, arg8, arg9 do
+    arg11 = table
+    arg11 = arg11.insert
+    arg122 = arg3
+    arg13 = arg2[arg10]
+    arg11(arg122, arg13)
   end
-  SHX6_2 = #SHX2_2
-  if 0 == SHX6_2 then
-    SHX6_2 = SHX10_1
-    if SHX0_2 == SHX6_2 then
-      SHX6_2 = math
-      SHX6_2 = SHX6_2.max
-      SHX7_2 = SHX13_1
-      SHX7_2 = SHX7_2 - 1
-      SHX8_2 = 1
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-      SHX13_1 = SHX6_2
+  arg7 = #arg3
+  if 0 == arg7 then
+    arg7 = workValue
+    if arg1 == arg7 then
+      arg7 = math
+      arg7 = arg7.max
+      arg8 = cmgCall4
+      arg8 = arg8 - 1
+      arg9 = 1
+      arg7 = arg7(arg8, arg9)
+      cmgCall4 = arg7
     else
-      SHX6_2 = math
-      SHX6_2 = SHX6_2.max
-      SHX7_2 = SHX23_1
-      SHX7_2 = SHX7_2 - 1
-      SHX8_2 = 1
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-      SHX23_1 = SHX6_2
+      arg7 = math
+      arg7 = arg7.max
+      arg8 = numberValue11
+      arg8 = arg8 - 1
+      arg9 = 1
+      arg7 = arg7(arg8, arg9)
+      numberValue11 = arg7
     end
   end
-  return SHX2_2
+  return arg3
 end
-function SHX38_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX10_1.contributions
-    if SHX0_2 then
-      goto SHX_LABEL_9
+function workValue9()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
+  arg1 = workValue
+  if arg1 then
+    arg1 = workValue.contributions
+    if arg1 then
+      goto flow_label_9
     end
   end
-  SHX0_2 = {}
-  -- [FIX IF ERROR] Move ::SHX_LABEL_9:: outside nested blocks until all 'goto SHX_LABEL_9' can see it
-  ::SHX_LABEL_9::
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.sort
-  SHX2_2 = SHX0_2
-  function SHX3_2(SHX0_3, SHX1_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX2_3, SHX3_3
-    SHX2_3 = SHX0_3.amount
-    SHX3_3 = SHX1_3.amount
-    SHX2_3 = SHX2_3 > SHX3_3
-    return SHX2_3
+  arg1 = {}
+  ::flow_label_9::
+  arg2 = table
+  arg2 = arg2.sort
+  arg3 = arg1
+  function arg4(arg12, arg22)
+    local arg32, localEventCall
+    arg32 = arg12.amount
+    localEventCall = arg22.amount
+    arg32 = arg32 > localEventCall
+    return arg32
   end
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = {}
-  SHX2_2 = SHX19_1
-  SHX2_2 = SHX2_2 - 1
-  SHX2_2 = SHX2_2 * 10
-  SHX2_2 = SHX2_2 + 1
-  SHX3_2 = SHX2_2
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.min
-  SHX5_2 = SHX19_1
-  SHX5_2 = SHX5_2 + 10
-  SHX6_2 = #SHX0_2
-  SHX6_2 = SHX6_2 + 1
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX4_2 - 1
-  SHX5_2 = 1
-  for SHX6_2 = SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = table
-    SHX7_2 = SHX7_2.insert
-    SHX8_2 = SHX1_2
-    SHX9_2 = SHX0_2[SHX6_2]
-    SHX7_2(SHX8_2, SHX9_2)
+  arg2(arg3, arg4)
+  arg2 = {}
+  arg3 = numberValue6
+  arg3 = arg3 - 1
+  arg3 = arg3 * 10
+  arg3 = arg3 + 1
+  arg4 = arg3
+  arg5 = math
+  arg5 = arg5.min
+  arg6 = numberValue6
+  arg6 = arg6 + 10
+  arg7 = #arg1
+  arg7 = arg7 + 1
+  arg5 = arg5(arg6, arg7)
+  arg5 = arg5 - 1
+  arg6 = 1
+  for arg7 = arg4, arg5, arg6 do
+    arg8 = table
+    arg8 = arg8.insert
+    arg9 = arg2
+    arg10 = arg1[arg7]
+    arg8(arg9, arg10)
   end
-  SHX3_2 = #SHX1_2
-  if 0 == SHX3_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.max
-    SHX4_2 = SHX19_1
-    SHX4_2 = SHX4_2 - 1
-    SHX5_2 = 1
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX19_1 = SHX3_2
+  arg4 = #arg2
+  if 0 == arg4 then
+    arg4 = math
+    arg4 = arg4.max
+    arg5 = numberValue6
+    arg5 = arg5 - 1
+    arg6 = 1
+    arg4 = arg4(arg5, arg6)
+    numberValue6 = arg4
   end
-  SHX3_2 = SHX1_2
-  SHX4_2 = #SHX0_2
-  return SHX3_2, SHX4_2
+  arg4 = arg2
+  arg5 = #arg1
+  return arg4, arg5
 end
-function SHX39_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX1_2 = 0
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_2
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX7_2 = pairs
-    SHX8_2 = SHX0_1.permissions
-    SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-    for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-      SHX13_2 = SHX12_2.id
-      if SHX13_2 == SHX6_2 then
-        SHX1_2 = SHX1_2 + 1
+function workValue11(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14
+  arg2 = 0
+  arg3 = pairs
+  arg4 = arg1
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7 in arg3, arg4, arg5, arg6 do
+    arg8 = pairs
+    arg9 = cmgCall.permissions
+    arg8, arg9, arg10, arg11 = arg8(arg9)
+    for arg122, arg13 in arg8, arg9, arg10, arg11 do
+      arg14 = arg13.id
+      if arg14 == arg7 then
+        arg2 = arg2 + 1
         break
       end
     end
   end
-  return SHX1_2
+  return arg2
 end
-function SHX40_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  if "Friendly" == SHX0_2 then
-    SHX1_2 = 50
-    SHX2_2 = 255
-    SHX3_2 = 50
-    return SHX1_2, SHX2_2, SHX3_2
-  elseif "Enemy" == SHX0_2 then
-    SHX1_2 = 255
-    SHX2_2 = 50
-    SHX3_2 = 50
-    return SHX1_2, SHX2_2, SHX3_2
+function workValue13(arg1)
+  local arg2, arg3, arg4
+  if "Friendly" == arg1 then
+    arg2 = 50
+    arg3 = 255
+    arg4 = 50
+    return arg2, arg3, arg4
+  elseif "Enemy" == arg1 then
+    arg2 = 255
+    arg3 = 50
+    arg4 = 50
+    return arg2, arg3, arg4
   else
-    SHX1_2 = 50
-    SHX2_2 = 50
-    SHX3_2 = 50
-    return SHX1_2, SHX2_2, SHX3_2
+    arg2 = 50
+    arg3 = 50
+    arg4 = 50
+    return arg2, arg3, arg4
   end
 end
-function SHX41_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangUseNui
-  if SHX0_2 then
+function workValue14()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20
+  arg1 = CMG
+  arg1 = arg1.gangUseNui
+  if arg1 then
     return
   end
-  SHX0_2 = SHX1_1
-  if "noGang" == SHX0_2 then
-    SHX0_2 = DisableControlAction
-    SHX1_2 = 0
-    SHX2_2 = 200
-    SHX3_2 = true
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.isNewPlayer
-    SHX0_2 = SHX0_2()
-    if SHX0_2 then
-      SHX0_2 = drawNativeNotification
-      SHX1_2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
-      SHX0_2(SHX1_2)
+  arg1 = textValue
+  if "noGang" == arg1 then
+    arg1 = DisableControlAction
+    arg2 = 0
+    arg3 = 200
+    arg4 = true
+    arg1(arg2, arg3, arg4)
+    arg1 = CMG
+    arg1 = arg1.isNewPlayer
+    arg1 = arg1()
+    if arg1 then
+      arg1 = drawNativeNotification
+      arg2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
+      -- Beginner: Show a GTA-style notification/help prompt.
+      arg1(arg2)
     end
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.471
-    SHX2_2 = 0.329
-    SHX3_2 = 0.285
-    SHX4_2 = -0.005
-    SHX5_2 = 0
-    SHX6_2 = 168
-    SHX7_2 = 255
-    SHX8_2 = 204
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.471
-    SHX2_2 = 0.304
-    SHX3_2 = 0.285
-    SHX4_2 = 0.046
-    SHX5_2 = 0
-    SHX6_2 = 0
-    SHX7_2 = 0
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.471
-    SHX2_2 = 0.428
-    SHX3_2 = 0.285
-    SHX4_2 = 0.194
-    SHX5_2 = 0
-    SHX6_2 = 0
-    SHX7_2 = 0
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.383
-    SHX2_2 = 0.442
-    SHX3_2 = 0.066
-    SHX4_2 = 0.046
-    SHX5_2 = CreateGangSelectionRed
-    SHX6_2 = CreateGangSelectionGreen
-    SHX7_2 = CreateGangSelectionBlue
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.469
-    SHX2_2 = 0.442
-    SHX3_2 = 0.066
-    SHX4_2 = 0.046
-    SHX5_2 = JoinGangSelectionRed
-    SHX6_2 = JoinGangSelectionGreen
-    SHX7_2 = JoinGangSelectionBlue
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.558
-    SHX2_2 = 0.303
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.539
-    SHX6_2 = "CMG Gangs"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 7
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.478
-    SHX2_2 = 0.442
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.473
-    SHX6_2 = "Create Gang"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 4
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.564
-    SHX2_2 = 0.443
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.473
-    SHX6_2 = "Join Gang"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 4
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.561
-    SHX2_2 = 0.377
-    SHX3_2 = 0.065
-    SHX4_2 = -0.003
-    SHX5_2 = 0
-    SHX6_2 = 168
-    SHX7_2 = 255
-    SHX8_2 = 204
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.654
-    SHX2_2 = 0.37
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.364
-    SHX6_2 = "Invite list"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 4
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = pairs
-    SHX1_2 = SHX2_1
-    SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-    for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-      SHX6_2 = DrawAdvancedText
-      SHX7_2 = 0.656
-      SHX8_2 = 0.02 * SHX4_2
-      SHX8_2 = 0.398 + SHX8_2
-      SHX9_2 = 0.005
-      SHX10_2 = 0.0028
-      SHX11_2 = 0.234
-      SHX12_2 = SHX5_2
-      SHX13_2 = 255
-      SHX14_2 = 255
-      SHX15_2 = 255
-      SHX16_2 = 255
-      SHX17_2 = 0
-      SHX18_2 = 0
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      SHX6_2 = CursorInArea
-      SHX7_2 = 0.525
-      SHX8_2 = 0.59
-      SHX9_2 = 0.02 * SHX4_2
-      SHX9_2 = 0.38 + SHX9_2
-      SHX10_2 = 0.02 * SHX4_2
-      SHX10_2 = 0.396 + SHX10_2
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      if SHX6_2 then
-        SHX6_2 = SHX3_1
-        if SHX4_2 ~= SHX6_2 then
-          SHX6_2 = DrawRect
-          SHX7_2 = 0.56
-          SHX8_2 = 0.02 * SHX4_2
-          SHX8_2 = 0.39 + SHX8_2
-          SHX9_2 = 0.062
-          SHX10_2 = 0.019
-          SHX11_2 = 0
-          SHX12_2 = 168
-          SHX13_2 = 255
-          SHX14_2 = 150
-          SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-          SHX6_2 = IsControlJustPressed
-          SHX7_2 = 1
-          SHX8_2 = 329
-          SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-          if not SHX6_2 then
-            SHX6_2 = IsDisabledControlJustPressed
-            SHX7_2 = 1
-            SHX8_2 = 329
-            SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
+    arg1 = DrawRect
+    arg2 = 0.471
+    arg3 = 0.329
+    arg4 = 0.285
+    arg5 = -0.005
+    arg6 = 0
+    arg7 = 168
+    arg8 = 255
+    arg9 = 204
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.471
+    arg3 = 0.304
+    arg4 = 0.285
+    arg5 = 0.046
+    arg6 = 0
+    arg7 = 0
+    arg8 = 0
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.471
+    arg3 = 0.428
+    arg4 = 0.285
+    arg5 = 0.194
+    arg6 = 0
+    arg7 = 0
+    arg8 = 0
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.383
+    arg3 = 0.442
+    arg4 = 0.066
+    arg5 = 0.046
+    arg6 = CreateGangSelectionRed
+    arg7 = CreateGangSelectionGreen
+    arg8 = CreateGangSelectionBlue
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.469
+    arg3 = 0.442
+    arg4 = 0.066
+    arg5 = 0.046
+    arg6 = JoinGangSelectionRed
+    arg7 = JoinGangSelectionGreen
+    arg8 = JoinGangSelectionBlue
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawAdvancedText
+    arg2 = 0.558
+    arg3 = 0.303
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.539
+    arg7 = "CMG Gangs"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 7
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.478
+    arg3 = 0.442
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.473
+    arg7 = "Create Gang"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 4
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.564
+    arg3 = 0.443
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.473
+    arg7 = "Join Gang"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 4
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawRect
+    arg2 = 0.561
+    arg3 = 0.377
+    arg4 = 0.065
+    arg5 = -0.003
+    arg6 = 0
+    arg7 = 168
+    arg8 = 255
+    arg9 = 204
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawAdvancedText
+    arg2 = 0.654
+    arg3 = 0.37
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.364
+    arg7 = "Invite list"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 4
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = pairs
+    arg2 = dataTable4
+    arg1, arg2, arg3, arg4 = arg1(arg2)
+    for arg5, arg6 in arg1, arg2, arg3, arg4 do
+      arg7 = DrawAdvancedText
+      arg8 = 0.656
+      arg9 = 0.02 * arg5
+      arg9 = 0.398 + arg9
+      arg10 = 0.005
+      arg11 = 0.0028
+      arg122 = 0.234
+      arg13 = arg6
+      arg14 = 255
+      arg15 = 255
+      arg16 = 255
+      arg17 = 255
+      arg18 = 0
+      numberValue5 = 0
+      arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+      arg7 = CursorInArea
+      arg8 = 0.525
+      arg9 = 0.59
+      arg10 = 0.02 * arg5
+      arg10 = 0.38 + arg10
+      arg11 = 0.02 * arg5
+      arg11 = 0.396 + arg11
+      arg7 = arg7(arg8, arg9, arg10, arg11)
+      if arg7 then
+        arg7 = workValue12
+        if arg5 ~= arg7 then
+          arg7 = DrawRect
+          arg8 = 0.56
+          arg9 = 0.02 * arg5
+          arg9 = 0.39 + arg9
+          arg10 = 0.062
+          arg11 = 0.019
+          arg122 = 0
+          arg13 = 168
+          arg14 = 255
+          arg15 = 150
+          arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+          arg7 = IsControlJustPressed
+          arg8 = 1
+          arg9 = 329
+          arg7 = arg7(arg8, arg9)
+          if not arg7 then
+            arg7 = IsDisabledControlJustPressed
+            arg8 = 1
+            arg9 = 329
+            arg7 = arg7(arg8, arg9)
           end
-          if SHX6_2 then
-            SHX3_1 = SHX4_2
+          if arg7 then
+            workValue12 = arg5
           end
       end
       else
-        SHX6_2 = SHX3_1
-        if SHX4_2 == SHX6_2 then
-          SHX6_2 = DrawRect
-          SHX7_2 = 0.56
-          SHX8_2 = 0.02 * SHX4_2
-          SHX8_2 = 0.39 + SHX8_2
-          SHX9_2 = 0.062
-          SHX10_2 = 0.019
-          SHX11_2 = 0
-          SHX12_2 = 168
-          SHX13_2 = 255
-          SHX14_2 = 150
-          SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+        arg7 = workValue12
+        if arg5 == arg7 then
+          arg7 = DrawRect
+          arg8 = 0.56
+          arg9 = 0.02 * arg5
+          arg9 = 0.39 + arg9
+          arg10 = 0.062
+          arg11 = 0.019
+          arg122 = 0
+          arg13 = 168
+          arg14 = 255
+          arg15 = 150
+          arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
         end
       end
     end
-    SHX0_2 = CursorInArea
-    SHX1_2 = 0.35
-    SHX2_2 = 0.415
-    SHX3_2 = 0.415
-    SHX4_2 = 0.46
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    if SHX0_2 then
+    arg1 = CursorInArea
+    arg2 = 0.35
+    arg3 = 0.415
+    arg4 = 0.415
+    arg5 = 0.46
+    arg1 = arg1(arg2, arg3, arg4, arg5)
+    if arg1 then
       CreateGangSelectionRed = 0
       CreateGangSelectionGreen = 168
       CreateGangSelectionBlue = 255
-      SHX0_2 = IsControlJustPressed
-      SHX1_2 = 1
-      SHX2_2 = 329
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = IsDisabledControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = IsControlJustPressed
+      arg2 = 1
+      arg3 = 329
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        arg1 = IsDisabledControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
       end
-      if SHX0_2 then
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.GetRageInputText
-        SHX1_2 = "Enter Gang Name:"
-        SHX0_2 = SHX0_2(SHX1_2)
-        if nil ~= SHX0_2 and "null" ~= SHX0_2 and "" ~= SHX0_2 then
-          SHX1_2 = TriggerServerEvent
-          SHX2_2 = "36ca78a1b5"
-          SHX3_2 = SHX0_2
-          SHX1_2(SHX2_2, SHX3_2)
+      if arg1 then
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = CMG
+        arg1 = arg1.GetRageInputText
+        arg2 = "Enter Gang Name:"
+        arg1 = arg1(arg2)
+        if nil ~= arg1 and "null" ~= arg1 and "" ~= arg1 then
+          arg2 = TriggerServerEvent
+          arg3 = "36ca78a1b5"
+          arg4 = arg1
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "36ca78a1b5".
+          arg2(arg3, arg4)
         else
-          SHX1_2 = tCMG
-          SHX1_2 = SHX1_2.notify
-          SHX2_2 = "~r~No gang name entered!"
-          SHX1_2(SHX2_2)
+          arg2 = tCMG
+          arg2 = arg2.notify
+          arg3 = "~r~No gang name entered!"
+          -- Beginner: Show a notification to the player.
+          arg2(arg3)
         end
       end
     else
@@ -1300,56 +1178,58 @@ function SHX41_1()
       CreateGangSelectionGreen = 0
       CreateGangSelectionBlue = 0
     end
-    SHX0_2 = CursorInArea
-    SHX1_2 = 0.435
-    SHX2_2 = 0.51
-    SHX3_2 = 0.415
-    SHX4_2 = 0.46
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    if SHX0_2 then
+    arg1 = CursorInArea
+    arg2 = 0.435
+    arg3 = 0.51
+    arg4 = 0.415
+    arg5 = 0.46
+    arg1 = arg1(arg2, arg3, arg4, arg5)
+    if arg1 then
       JoinGangSelectionRed = 0
       JoinGangSelectionGreen = 168
       JoinGangSelectionBlue = 255
-      SHX0_2 = IsControlJustPressed
-      SHX1_2 = 1
-      SHX2_2 = 329
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = IsDisabledControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = IsControlJustPressed
+      arg2 = 1
+      arg3 = 329
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        arg1 = IsDisabledControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
       end
-      if SHX0_2 then
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = SHX3_1
-        if nil ~= SHX0_2 then
-          SHX1_2 = SHX3_1
-          SHX0_2 = SHX2_1
-          SHX0_2 = SHX0_2[SHX1_2]
-          SHX3_1 = SHX0_2
-          SHX0_2 = TriggerServerEvent
-          SHX1_2 = "125d443003"
-          SHX2_2 = SHX3_1
-          SHX0_2(SHX1_2, SHX2_2)
-          SHX0_2 = {}
-          SHX2_1 = SHX0_2
-          SHX0_2 = SHX35_1
-          SHX0_2()
-          SHX0_2 = "gang"
-          SHX1_1 = SHX0_2
+      if arg1 then
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = workValue12
+        if nil ~= arg1 then
+          arg2 = workValue12
+          arg1 = dataTable4
+          arg1 = arg1[arg2]
+          workValue12 = arg1
+          arg1 = TriggerServerEvent
+          arg2 = "125d443003"
+          arg3 = workValue12
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "125d443003".
+          arg1(arg2, arg3)
+          arg1 = {}
+          dataTable4 = arg1
+          arg1 = workValue8
+          arg1()
+          arg1 = "gang"
+          textValue = arg1
         else
-          SHX0_2 = tCMG
-          SHX0_2 = SHX0_2.notify
-          SHX1_2 = "~r~No gang invite selected"
-          SHX0_2(SHX1_2)
+          arg1 = tCMG
+          arg1 = arg1.notify
+          arg2 = "~r~No gang invite selected"
+          -- Beginner: Show a notification to the player.
+          arg1(arg2)
         end
       end
     else
@@ -1357,9315 +1237,9078 @@ function SHX41_1()
       JoinGangSelectionGreen = 0
       JoinGangSelectionBlue = 0
     end
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.478
-    SHX2_2 = 0.372
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.473
-    SHX6_2 = "Guests"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 4
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = CursorInAreaRect
-    SHX1_2 = 0.383
-    SHX2_2 = 0.372
-    SHX3_2 = 0.066
-    SHX4_2 = 0.046
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    if SHX0_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.383
-      SHX2_2 = 0.372
-      SHX3_2 = 0.066
-      SHX4_2 = 0.046
-      SHX5_2 = SHX7_1
-      SHX6_2 = SHX8_1
-      SHX7_2 = SHX9_1
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = IsControlJustPressed
-      SHX1_2 = 1
-      SHX2_2 = 329
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = IsDisabledControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+    arg1 = DrawAdvancedText
+    arg2 = 0.478
+    arg3 = 0.372
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.473
+    arg7 = "Guests"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 4
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = CursorInAreaRect
+    arg2 = 0.383
+    arg3 = 0.372
+    arg4 = 0.066
+    arg5 = 0.046
+    arg1 = arg1(arg2, arg3, arg4, arg5)
+    if arg1 then
+      arg1 = DrawRect
+      arg2 = 0.383
+      arg3 = 0.372
+      arg4 = 0.066
+      arg5 = 0.046
+      arg6 = numberValue28
+      arg7 = numberValue29
+      arg8 = numberValue30
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = IsControlJustPressed
+      arg2 = 1
+      arg3 = 329
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        arg1 = IsDisabledControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
       end
-      if SHX0_2 then
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = "guest"
-        SHX1_1 = SHX0_2
+      if arg1 then
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = "guest"
+        textValue = arg1
       end
     else
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.383
-      SHX2_2 = 0.372
-      SHX3_2 = 0.066
-      SHX4_2 = 0.046
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+      arg1 = DrawRect
+      arg2 = 0.383
+      arg3 = 0.372
+      arg4 = 0.066
+      arg5 = 0.046
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
     end
-    SHX0_2 = SHX20_1
-    if SHX0_2 then
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.564
-      SHX2_2 = 0.372
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.473
-      SHX6_2 = "Settings"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInAreaRect
-      SHX1_2 = 0.469
-      SHX2_2 = 0.372
-      SHX3_2 = 0.066
-      SHX4_2 = 0.046
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.469
-        SHX2_2 = 0.372
-        SHX3_2 = 0.066
-        SHX4_2 = 0.046
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+    arg1 = workValue3
+    if arg1 then
+      arg1 = DrawAdvancedText
+      arg2 = 0.564
+      arg3 = 0.372
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.473
+      arg7 = "Settings"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInAreaRect
+      arg2 = 0.469
+      arg3 = 0.372
+      arg4 = 0.066
+      arg5 = 0.046
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.469
+        arg3 = 0.372
+        arg4 = 0.066
+        arg5 = 0.046
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "settings"
-          SHX1_1 = SHX0_2
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.469
-        SHX2_2 = 0.372
-        SHX3_2 = 0.066
-        SHX4_2 = 0.046
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-    end
-  end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    if "funds" == SHX0_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.558
-      SHX3_2 = 0.421
-      SHX4_2 = 0.326
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.374
-      SHX3_2 = 0.421
-      SHX4_2 = 0.047
-      SHX5_2 = 18
-      SHX6_2 = 82
-      SHX7_2 = 228
-      SHX8_2 = 248
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.378
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.48
-      SHX6_2 = "cmg gang - funds"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.581
-      SHX2_2 = 0.464
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.5
-      SHX6_2 = "Gang Funds"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 0
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.581
-      SHX2_2 = 0.502
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "\194\163"
-      SHX7_2 = getMoneyStringFormatted
-      SHX8_2 = SHX10_1.displayMoney
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX6_2 = SHX6_2 .. SHX7_2
-      SHX7_2 = 25
-      SHX8_2 = 199
-      SHX9_2 = 65
-      SHX10_2 = 255
-      SHX11_2 = 0
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.436
-      SHX2_2 = 0.578
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Deposit ("
-      SHX7_2 = tostring
-      SHX8_2 = math
-      SHX8_2 = SHX8_2.floor
-      SHX9_2 = CMG
-      SHX9_2 = SHX9_2.getTunableValue
-      SHX10_2 = "gang_tax"
-      SHX9_2 = SHX9_2(SHX10_2)
-      SHX9_2 = SHX9_2 * 100.0
-      SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX8_2(SHX9_2)
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      SHX8_2 = "% Fee)"
-      SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.536
-      SHX2_2 = 0.578
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Deposit All ("
-      SHX7_2 = tostring
-      SHX8_2 = math
-      SHX8_2 = SHX8_2.floor
-      SHX9_2 = CMG
-      SHX9_2 = SHX9_2.getTunableValue
-      SHX10_2 = "gang_tax"
-      SHX9_2 = SHX9_2(SHX10_2)
-      SHX9_2 = SHX9_2 * 100.0
-      SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX8_2(SHX9_2)
-      SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      SHX8_2 = "% Fee)"
-      SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.637
-      SHX2_2 = 0.578
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Withdraw"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.737
-      SHX2_2 = 0.578
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Withdraw All"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.775
-      SHX2_2 = 0.693
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Back"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.3083
-      SHX2_2 = 0.3718
-      SHX3_2 = 0.549
-      SHX4_2 = 0.5999
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.341
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.hasGangPermission
-          SHX1_2 = "deposit"
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.GetRageInputText
-            SHX1_2 = "Enter amount:"
-            SHX0_2 = SHX0_2(SHX1_2)
-            if nil ~= SHX0_2 then
-              SHX1_2 = TriggerServerEvent
-              SHX2_2 = "36ba8d4574"
-              SHX3_2 = SHX0_2
-              SHX1_2(SHX2_2, SHX3_2)
-            else
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.notify
-              SHX2_2 = "~r~No amount entered!"
-              SHX1_2(SHX2_2)
-            end
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~You don't have permission to deposit"
-            SHX0_2(SHX1_2)
-          end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "settings"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.341
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.4083
-      SHX2_2 = 0.4718
-      SHX3_2 = 0.549
-      SHX4_2 = 0.5999
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.441
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.hasGangPermission
-          SHX1_2 = "deposit"
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX0_2 = TriggerServerEvent
-            SHX1_2 = "8536953bae"
-            SHX0_2(SHX1_2)
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~You don't have permission to deposit"
-            SHX0_2(SHX1_2)
-          end
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.441
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.5088
-      SHX2_2 = 0.5739
-      SHX3_2 = 0.5481
-      SHX4_2 = 0.6018
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.542
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.hasGangPermission
-          SHX1_2 = "withdraw"
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.GetRageInputText
-            SHX1_2 = "Enter amount:"
-            SHX0_2 = SHX0_2(SHX1_2)
-            if nil ~= SHX0_2 then
-              SHX1_2 = TriggerServerEvent
-              SHX2_2 = "21cfbc3c22"
-              SHX3_2 = SHX0_2
-              SHX1_2(SHX2_2, SHX3_2)
-            else
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.notify
-              SHX2_2 = "~r~No amount entered!"
-              SHX1_2(SHX2_2)
-            end
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~You don't have permission to withdraw"
-            SHX0_2(SHX1_2)
-          end
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.542
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.6088
-      SHX2_2 = 0.6739
-      SHX3_2 = 0.5481
-      SHX4_2 = 0.6018
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.642
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.hasGangPermission
-          SHX1_2 = "withdraw"
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX0_2 = TriggerServerEvent
-            SHX1_2 = "be7d1bceb0"
-            SHX0_2(SHX1_2)
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~You don't have permission to withdraw"
-            SHX0_2(SHX1_2)
-          end
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.642
-        SHX2_2 = 0.576
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.53645
-      SHX2_2 = 0.653
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "View Contributions"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.4083
-      SHX2_2 = 0.4718
-      SHX3_2 = 0.624
-      SHX4_2 = 0.6749
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.44145
-        SHX2_2 = 0.651
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX10_1.contributions = nil
-          SHX0_2 = TriggerServerEvent
-          SHX1_2 = "cef5792c69"
-          SHX0_2(SHX1_2)
-          SHX0_2 = "contributions"
-          SHX1_1 = SHX0_2
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.44145
-        SHX2_2 = 0.651
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.637
-      SHX2_2 = 0.653
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Withdraw Turf"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.5088
-      SHX2_2 = 0.5739
-      SHX3_2 = 0.624
-      SHX4_2 = 0.6749
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.542
-        SHX2_2 = 0.651
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.hasGangPermission
-          SHX1_2 = "withdrawturf"
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.GetRageInputText
-            SHX1_2 = "Enter amount:"
-            SHX0_2 = SHX0_2(SHX1_2)
-            if nil ~= SHX0_2 then
-              SHX1_2 = tonumber
-              SHX2_2 = SHX0_2
-              SHX1_2 = SHX1_2(SHX2_2)
-              if SHX1_2 then
-                SHX1_2 = TriggerServerEvent
-                SHX2_2 = "6aac8fd738"
-                SHX3_2 = tonumber
-                SHX4_2 = SHX0_2
-                SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX3_2(SHX4_2)
-                SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-            end
-            else
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.notify
-              SHX2_2 = "~r~No amount entered!"
-              SHX1_2(SHX2_2)
-            end
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~You don't have permission to withdraw turf"
-            SHX0_2(SHX1_2)
-          end
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.542
-        SHX2_2 = 0.651
-        SHX3_2 = 0.075
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.6583
-      SHX2_2 = 0.7056
-      SHX3_2 = 0.6712
-      SHX4_2 = 0.7064
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "gang"
-          SHX1_1 = SHX0_2
-        end
-      else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.469
+        arg3 = 0.372
+        arg4 = 0.066
+        arg5 = 0.046
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    if "members" == SHX0_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.525
-      SHX3_2 = 0.421
-      SHX4_2 = 0.387
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.308
-      SHX3_2 = 0.421
-      SHX4_2 = 0.047
-      SHX5_2 = 18
-      SHX6_2 = 82
-      SHX7_2 = 228
-      SHX8_2 = 248
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.312
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.48
-      SHX6_2 = "CMG gang - members"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.448
-      SHX2_2 = 0.52
-      SHX3_2 = 0.295
-      SHX4_2 = 0.291
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.449
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Name"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.506
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "ID"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.555
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Control"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.625
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Last Seen"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.675
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Pin"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.746
-      SHX2_2 = 0.39
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Permissions"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.746
-      SHX2_2 = 0.465
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Lockdown"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.746
-      SHX2_2 = 0.54
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Kick"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.746
-      SHX2_2 = 0.615
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Invite"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.491
-      SHX2_2 = 0.695
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Previous"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.581
-      SHX2_2 = 0.695
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Next"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = table
-      SHX0_2 = SHX0_2.count
-      SHX1_2 = SHX10_1.members
-      SHX0_2 = SHX0_2(SHX1_2)
-      SHX1_2 = table
-      SHX1_2 = SHX1_2.count
-      SHX2_2 = SHX10_1.guests
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX0_2 = SHX0_2 + SHX1_2
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.536
-      SHX3_2 = 0.695
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = tostring
-      SHX8_2 = SHX13_1
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX8_2 = "/"
-      SHX9_2 = tostring
-      SHX10_2 = math
-      SHX10_2 = SHX10_2.ceil
-      SHX11_2 = SHX0_2 / 10.0
-      SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX10_2(SHX11_2)
-      SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 4
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.775
-      SHX3_2 = 0.693
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Back"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 4
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = pairs
-      SHX2_2 = SHX37_1
-      SHX3_2 = SHX10_1
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX2_2(SHX3_2)
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = "Guest"
-        SHX8_2 = SHX6_2.permissions
-        if SHX8_2 then
-          SHX8_2 = tostring
-          SHX9_2 = math
-          SHX9_2 = SHX9_2.floor
-          SHX10_2 = SHX39_1
-          SHX11_2 = SHX6_2.permissions
-          SHX10_2 = SHX10_2(SHX11_2)
-          SHX11_2 = table
-          SHX11_2 = SHX11_2.count
-          SHX12_2 = SHX0_1.permissions
-          SHX11_2 = SHX11_2(SHX12_2)
-          SHX10_2 = SHX10_2 / SHX11_2
-          SHX10_2 = SHX10_2 * 100.0
-          SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX9_2(SHX10_2)
-          SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-          SHX9_2 = "%"
-          SHX8_2 = SHX8_2 .. SHX9_2
-          SHX7_2 = SHX8_2
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    if "funds" == arg1 then
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.558
+      arg4 = 0.421
+      arg5 = 0.326
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.374
+      arg4 = 0.421
+      arg5 = 0.047
+      arg6 = 18
+      arg7 = 82
+      arg8 = 228
+      arg9 = 248
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.378
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.48
+      arg7 = "cmg gang - funds"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.581
+      arg3 = 0.464
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.5
+      arg7 = "Gang Funds"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 0
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.581
+      arg3 = 0.502
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "\194\163"
+      arg8 = getMoneyStringFormatted
+      arg9 = workValue.displayMoney
+      arg8 = arg8(arg9)
+      arg7 = arg7 .. arg8
+      arg8 = 25
+      arg9 = 199
+      arg10 = 65
+      arg11 = 255
+      arg122 = 0
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.436
+      arg3 = 0.578
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Deposit ("
+      arg8 = tostring
+      arg9 = math
+      arg9 = arg9.floor
+      arg10 = CMG
+      arg10 = arg10.getTunableValue
+      arg11 = "gang_tax"
+      arg10 = arg10(arg11)
+      arg10 = arg10 * 100.0
+      arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg9(arg10)
+      arg8 = arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      arg9 = "% Fee)"
+      arg7 = arg7 .. arg8 .. arg9
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.536
+      arg3 = 0.578
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Deposit All ("
+      arg8 = tostring
+      arg9 = math
+      arg9 = arg9.floor
+      arg10 = CMG
+      arg10 = arg10.getTunableValue
+      arg11 = "gang_tax"
+      arg10 = arg10(arg11)
+      arg10 = arg10 * 100.0
+      arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg9(arg10)
+      arg8 = arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      arg9 = "% Fee)"
+      arg7 = arg7 .. arg8 .. arg9
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.637
+      arg3 = 0.578
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Withdraw"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.737
+      arg3 = 0.578
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Withdraw All"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.775
+      arg3 = 0.693
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Back"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.3083
+      arg3 = 0.3718
+      arg4 = 0.549
+      arg5 = 0.5999
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.341
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        SHX8_2 = DrawAdvancedText
-        SHX9_2 = 0.449
-        SHX10_2 = 0.0287 * SHX5_2
-        SHX10_2 = 0.361 + SHX10_2
-        SHX11_2 = 0.005
-        SHX12_2 = 0.0028
-        SHX13_2 = 0.4
-        SHX14_2 = SHX6_2.name
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 6
-        SHX20_2 = 0
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX8_2 = DrawAdvancedText
-        SHX9_2 = 0.506
-        SHX10_2 = 0.0287 * SHX5_2
-        SHX10_2 = 0.361 + SHX10_2
-        SHX11_2 = 0.005
-        SHX12_2 = 0.0028
-        SHX13_2 = 0.4
-        SHX14_2 = SHX6_2.user_id
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 6
-        SHX20_2 = 0
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX8_2 = DrawAdvancedText
-        SHX9_2 = 0.555
-        SHX10_2 = 0.0287 * SHX5_2
-        SHX10_2 = 0.361 + SHX10_2
-        SHX11_2 = 0.005
-        SHX12_2 = 0.0028
-        SHX13_2 = 0.4
-        SHX14_2 = SHX7_2
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 6
-        SHX20_2 = 0
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX8_2 = SHX6_2.lastLogin
-        SHX9_2 = fullPlayerListData
-        SHX10_2 = SHX6_2.user_id
-        SHX9_2 = SHX9_2[SHX10_2]
-        if SHX9_2 then
-          SHX9_2 = CMG
-          SHX9_2 = SHX9_2.isUserHidden
-          SHX10_2 = SHX6_2.user_id
-          SHX9_2 = SHX9_2(SHX10_2)
-          if not SHX9_2 then
-            SHX8_2 = "Online"
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = CMG
+          arg1 = arg1.hasGangPermission
+          arg2 = "deposit"
+          arg1 = arg1(arg2)
+          if arg1 then
+            arg1 = CMG
+            arg1 = arg1.GetRageInputText
+            arg2 = "Enter amount:"
+            arg1 = arg1(arg2)
+            if nil ~= arg1 then
+              arg2 = TriggerServerEvent
+              arg3 = "36ba8d4574"
+              arg4 = arg1
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "36ba8d4574".
+              arg2(arg3, arg4)
+            else
+              arg2 = tCMG
+              arg2 = arg2.notify
+              arg3 = "~r~No amount entered!"
+              -- Beginner: Show a notification to the player.
+              arg2(arg3)
+            end
+          else
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~You don't have permission to deposit"
+            arg1(arg2)
           end
         end
-        SHX9_2 = DrawAdvancedText
-        SHX10_2 = 0.625
-        SHX11_2 = 0.0287 * SHX5_2
-        SHX11_2 = 0.361 + SHX11_2
-        SHX12_2 = 0.005
-        SHX13_2 = 0.0028
-        SHX14_2 = 0.4
-        SHX15_2 = SHX8_2
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 255
-        SHX20_2 = 6
-        SHX21_2 = 0
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-        SHX9_2 = SHX15_1.pinnedPlayers
-        SHX10_2 = SHX6_2.user_id
-        SHX9_2 = SHX9_2[SHX10_2]
-        if SHX9_2 then
-          SHX9_2 = SHX10_1.isAdvanced
-          if SHX9_2 then
-            SHX9_2 = "\240\159\147\140"
-            if SHX9_2 then
-              goto SHX_LABEL_1502
+      else
+        arg1 = DrawRect
+        arg2 = 0.341
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+      arg1 = CursorInArea
+      arg2 = 0.4083
+      arg3 = 0.4718
+      arg4 = 0.549
+      arg5 = 0.5999
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.441
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+        end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = CMG
+          arg1 = arg1.hasGangPermission
+          arg2 = "deposit"
+          arg1 = arg1(arg2)
+          if arg1 then
+            arg1 = TriggerServerEvent
+            arg2 = "8536953bae"
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8536953bae".
+            arg1(arg2)
+          else
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~You don't have permission to deposit"
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
+          end
+        end
+      else
+        arg1 = DrawRect
+        arg2 = 0.441
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+      arg1 = CursorInArea
+      arg2 = 0.5088
+      arg3 = 0.5739
+      arg4 = 0.5481
+      arg5 = 0.6018
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.542
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+        end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = CMG
+          arg1 = arg1.hasGangPermission
+          arg2 = "withdraw"
+          arg1 = arg1(arg2)
+          if arg1 then
+            arg1 = CMG
+            arg1 = arg1.GetRageInputText
+            arg2 = "Enter amount:"
+            arg1 = arg1(arg2)
+            if nil ~= arg1 then
+              arg2 = TriggerServerEvent
+              arg3 = "21cfbc3c22"
+              arg4 = arg1
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "21cfbc3c22".
+              arg2(arg3, arg4)
+            else
+              arg2 = tCMG
+              arg2 = arg2.notify
+              arg3 = "~r~No amount entered!"
+              -- Beginner: Show a notification to the player.
+              arg2(arg3)
+            end
+          else
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~You don't have permission to withdraw"
+            arg1(arg2)
+          end
+        end
+      else
+        arg1 = DrawRect
+        arg2 = 0.542
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+      arg1 = CursorInArea
+      arg2 = 0.6088
+      arg3 = 0.6739
+      arg4 = 0.5481
+      arg5 = 0.6018
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.642
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+        end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = CMG
+          arg1 = arg1.hasGangPermission
+          arg2 = "withdraw"
+          arg1 = arg1(arg2)
+          if arg1 then
+            arg1 = TriggerServerEvent
+            arg2 = "be7d1bceb0"
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "be7d1bceb0".
+            arg1(arg2)
+          else
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~You don't have permission to withdraw"
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
+          end
+        end
+      else
+        arg1 = DrawRect
+        arg2 = 0.642
+        arg3 = 0.576
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+      arg1 = DrawAdvancedText
+      arg2 = 0.53645
+      arg3 = 0.653
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "View Contributions"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.4083
+      arg3 = 0.4718
+      arg4 = 0.624
+      arg5 = 0.6749
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.44145
+        arg3 = 0.651
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+        end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          workValue.contributions = nil
+          arg1 = TriggerServerEvent
+          arg2 = "cef5792c69"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cef5792c69".
+          arg1(arg2)
+          arg1 = "contributions"
+          textValue = arg1
+        end
+      else
+        arg1 = DrawRect
+        arg2 = 0.44145
+        arg3 = 0.651
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+      arg1 = DrawAdvancedText
+      arg2 = 0.637
+      arg3 = 0.653
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Withdraw Turf"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.5088
+      arg3 = 0.5739
+      arg4 = 0.624
+      arg5 = 0.6749
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.542
+        arg3 = 0.651
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+        end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = CMG
+          arg1 = arg1.hasGangPermission
+          arg2 = "withdrawturf"
+          arg1 = arg1(arg2)
+          if arg1 then
+            arg1 = CMG
+            arg1 = arg1.GetRageInputText
+            arg2 = "Enter amount:"
+            arg1 = arg1(arg2)
+            if nil ~= arg1 then
+              arg2 = tonumber
+              arg3 = arg1
+              arg2 = arg2(arg3)
+              if arg2 then
+                arg2 = TriggerServerEvent
+                arg3 = "6aac8fd738"
+                arg4 = tonumber
+                arg5 = arg1
+                arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg4(arg5)
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6aac8fd738".
+                arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+            end
+            else
+              arg2 = tCMG
+              arg2 = arg2.notify
+              arg3 = "~r~No amount entered!"
+              -- Beginner: Show a notification to the player.
+              arg2(arg3)
+            end
+          else
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~You don't have permission to withdraw turf"
+            arg1(arg2)
+          end
+        end
+      else
+        arg1 = DrawRect
+        arg2 = 0.542
+        arg3 = 0.651
+        arg4 = 0.075
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+      arg1 = CursorInArea
+      arg2 = 0.6583
+      arg3 = 0.7056
+      arg4 = 0.6712
+      arg5 = 0.7064
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+        end
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "gang"
+          textValue = arg1
+        end
+      else
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      end
+    end
+  end
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    if "members" == arg1 then
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.525
+      arg4 = 0.421
+      arg5 = 0.387
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.308
+      arg4 = 0.421
+      arg5 = 0.047
+      arg6 = 18
+      arg7 = 82
+      arg8 = 228
+      arg9 = 248
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.312
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.48
+      arg7 = "CMG gang - members"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.448
+      arg3 = 0.52
+      arg4 = 0.295
+      arg5 = 0.291
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.449
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Name"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.506
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "ID"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.555
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Control"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.625
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Last Seen"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.675
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Pin"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.746
+      arg3 = 0.39
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Permissions"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.746
+      arg3 = 0.465
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Lockdown"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.746
+      arg3 = 0.54
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Kick"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.746
+      arg3 = 0.615
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Invite"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.491
+      arg3 = 0.695
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Previous"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.581
+      arg3 = 0.695
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Next"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = table
+      arg1 = arg1.count
+      arg2 = workValue.members
+      -- Beginner: result below is count.
+      arg1 = arg1(arg2)
+      arg2 = table
+      arg2 = arg2.count
+      arg3 = workValue.guests
+      -- Beginner: result below is count.
+      arg2 = arg2(arg3)
+      arg1 = arg1 + arg2
+      arg2 = DrawAdvancedText
+      arg3 = 0.536
+      arg4 = 0.695
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = tostring
+      arg9 = cmgCall4
+      arg8 = arg8(arg9)
+      arg9 = "/"
+      arg10 = tostring
+      arg11 = math
+      arg11 = arg11.ceil
+      arg122 = arg1 / 10.0
+      arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg11(arg122)
+      arg10 = arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      arg8 = arg8 .. arg9 .. arg10
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 4
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawAdvancedText
+      arg3 = 0.775
+      arg4 = 0.693
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Back"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 4
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = pairs
+      arg3 = textValue3
+      arg4 = workValue
+      arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg3(arg4)
+      arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      for arg6, arg7 in arg2, arg3, arg4, arg5 do
+        arg8 = "Guest"
+        arg9 = arg7.permissions
+        if arg9 then
+          arg9 = tostring
+          arg10 = math
+          arg10 = arg10.floor
+          arg11 = workValue11
+          arg122 = arg7.permissions
+          arg11 = arg11(arg122)
+          arg122 = table
+          arg122 = arg122.count
+          arg13 = cmgCall.permissions
+          -- Beginner: result below is count.
+          arg122 = arg122(arg13)
+          arg11 = arg11 / arg122
+          arg11 = arg11 * 100.0
+          arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg10(arg11)
+          arg9 = arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+          arg10 = "%"
+          arg9 = arg9 .. arg10
+          arg8 = arg9
+        end
+        arg9 = DrawAdvancedText
+        arg10 = 0.449
+        arg11 = 0.0287 * arg6
+        arg11 = 0.361 + arg11
+        arg122 = 0.005
+        arg13 = 0.0028
+        arg14 = 0.4
+        arg15 = arg7.name
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 6
+        numberValue8 = 0
+        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+        arg9 = DrawAdvancedText
+        arg10 = 0.506
+        arg11 = 0.0287 * arg6
+        arg11 = 0.361 + arg11
+        arg122 = 0.005
+        arg13 = 0.0028
+        arg14 = 0.4
+        arg15 = arg7.user_id
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 6
+        numberValue8 = 0
+        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+        arg9 = DrawAdvancedText
+        arg10 = 0.555
+        arg11 = 0.0287 * arg6
+        arg11 = 0.361 + arg11
+        arg122 = 0.005
+        arg13 = 0.0028
+        arg14 = 0.4
+        arg15 = arg8
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 6
+        numberValue8 = 0
+        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+        arg9 = arg7.lastLogin
+        arg10 = fullPlayerListData
+        arg11 = arg7.user_id
+        arg10 = arg10[arg11]
+        if arg10 then
+          arg10 = CMG
+          arg10 = arg10.isUserHidden
+          arg11 = arg7.user_id
+          arg10 = arg10(arg11)
+          if not arg10 then
+            arg9 = "Online"
+          end
+        end
+        arg10 = DrawAdvancedText
+        arg11 = 0.625
+        arg122 = 0.0287 * arg6
+        arg122 = 0.361 + arg122
+        arg13 = 0.005
+        arg14 = 0.0028
+        arg15 = 0.4
+        arg16 = arg9
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 255
+        numberValue8 = 6
+        numberValue9 = 0
+        arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9)
+        arg10 = dataTable.pinnedPlayers
+        arg11 = arg7.user_id
+        arg10 = arg10[arg11]
+        if arg10 then
+          arg10 = workValue.isAdvanced
+          if arg10 then
+            arg10 = "\240\159\147\140"
+            if arg10 then
+              goto flow_label_1502
             end
           end
         end
-        SHX9_2 = "\226\173\149"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_1502:: outside nested blocks until all 'goto SHX_LABEL_1502' can see it
-        ::SHX_LABEL_1502::
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.675
-        SHX12_2 = 0.0287 * SHX5_2
-        SHX12_2 = 0.3665 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.2
-        SHX16_2 = SHX9_2
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 255
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = CursorInArea
-        SHX11_2 = 0.3005
-        SHX12_2 = 0.5955
-        SHX13_2 = SHX5_2 - 1
-        SHX13_2 = 0.0287 * SHX13_2
-        SHX13_2 = 0.3731 + SHX13_2
-        SHX14_2 = SHX5_2 - 1
-        SHX14_2 = 0.0287 * SHX14_2
-        SHX14_2 = 0.4018 + SHX14_2
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        if SHX10_2 then
-          SHX10_2 = SHX4_1
-          SHX11_2 = SHX6_2.user_id
-          if SHX10_2 ~= SHX11_2 then
-            SHX10_2 = DrawRect
-            SHX11_2 = 0.448
-            SHX12_2 = SHX5_2 - 1
-            SHX12_2 = 0.0287 * SHX12_2
-            SHX12_2 = 0.388 + SHX12_2
-            SHX13_2 = 0.295
-            SHX14_2 = 0.027
-            SHX15_2 = SHX7_1
-            SHX16_2 = SHX8_1
-            SHX17_2 = SHX9_1
-            SHX18_2 = 150
-            SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-            SHX10_2 = IsControlJustPressed
-            SHX11_2 = 1
-            SHX12_2 = 329
-            SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-            if not SHX10_2 then
-              SHX10_2 = IsDisabledControlJustPressed
-              SHX11_2 = 1
-              SHX12_2 = 329
-              SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
+        arg10 = "\226\173\149"
+        ::flow_label_1502::
+        arg11 = DrawAdvancedText
+        arg122 = 0.675
+        arg13 = 0.0287 * arg6
+        arg13 = 0.3665 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.2
+        arg17 = arg10
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 255
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = CursorInArea
+        arg122 = 0.3005
+        arg13 = 0.5955
+        arg14 = arg6 - 1
+        arg14 = 0.0287 * arg14
+        arg14 = 0.3731 + arg14
+        arg15 = arg6 - 1
+        arg15 = 0.0287 * arg15
+        arg15 = 0.4018 + arg15
+        arg11 = arg11(arg122, arg13, arg14, arg15)
+        if arg11 then
+          arg11 = workValue16
+          arg122 = arg7.user_id
+          if arg11 ~= arg122 then
+            arg11 = DrawRect
+            arg122 = 0.448
+            arg13 = arg6 - 1
+            arg13 = 0.0287 * arg13
+            arg13 = 0.388 + arg13
+            arg14 = 0.295
+            arg15 = 0.027
+            arg16 = numberValue28
+            arg17 = numberValue29
+            arg18 = numberValue30
+            numberValue5 = 150
+            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+            arg11 = IsControlJustPressed
+            arg122 = 1
+            arg13 = 329
+            arg11 = arg11(arg122, arg13)
+            if not arg11 then
+              arg11 = IsDisabledControlJustPressed
+              arg122 = 1
+              arg13 = 329
+              arg11 = arg11(arg122, arg13)
             end
-            if SHX10_2 then
-              SHX10_2 = PlaySound
-              SHX11_2 = -1
-              SHX12_2 = "SELECT"
-              SHX13_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              SHX14_2 = false
-              SHX15_2 = 0
-              SHX16_2 = true
-              SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-              SHX10_2 = SHX6_2.user_id
-              SHX4_1 = SHX10_2
+            if arg11 then
+              arg11 = PlaySound
+              arg122 = -1
+              arg13 = "SELECT"
+              arg14 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              arg15 = false
+              arg16 = 0
+              arg17 = true
+              arg11(arg122, arg13, arg14, arg15, arg16, arg17)
+              arg11 = arg7.user_id
+              workValue16 = arg11
             end
         end
         else
-          SHX10_2 = SHX4_1
-          SHX11_2 = SHX6_2.user_id
-          if SHX10_2 == SHX11_2 then
-            SHX10_2 = DrawRect
-            SHX11_2 = 0.448
-            SHX12_2 = SHX5_2 - 1
-            SHX12_2 = 0.0287 * SHX12_2
-            SHX12_2 = 0.388 + SHX12_2
-            SHX13_2 = 0.295
-            SHX14_2 = 0.027
-            SHX15_2 = SHX7_1
-            SHX16_2 = SHX8_1
-            SHX17_2 = SHX9_1
-            SHX18_2 = 150
-            SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+          arg11 = workValue16
+          arg122 = arg7.user_id
+          if arg11 == arg122 then
+            arg11 = DrawRect
+            arg122 = 0.448
+            arg13 = arg6 - 1
+            arg13 = 0.0287 * arg13
+            arg13 = 0.388 + arg13
+            arg14 = 0.295
+            arg15 = 0.027
+            arg16 = numberValue28
+            arg17 = numberValue29
+            arg18 = numberValue30
+            numberValue5 = 150
+            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
           end
         end
-        SHX10_2 = CursorInArea
-        SHX11_2 = 0.5755
-        SHX12_2 = 0.5955
-        SHX13_2 = SHX5_2 - 1
-        SHX13_2 = 0.0287 * SHX13_2
-        SHX13_2 = 0.3731 + SHX13_2
-        SHX14_2 = SHX5_2 - 1
-        SHX14_2 = 0.0287 * SHX14_2
-        SHX14_2 = 0.4018 + SHX14_2
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        if SHX10_2 then
-          SHX10_2 = IsControlJustPressed
-          SHX11_2 = 1
-          SHX12_2 = 329
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-          if not SHX10_2 then
-            SHX10_2 = IsDisabledControlJustPressed
-            SHX11_2 = 1
-            SHX12_2 = 329
-            SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-            if not SHX10_2 then
-              goto SHX_LABEL_1654
+        arg11 = CursorInArea
+        arg122 = 0.5755
+        arg13 = 0.5955
+        arg14 = arg6 - 1
+        arg14 = 0.0287 * arg14
+        arg14 = 0.3731 + arg14
+        arg15 = arg6 - 1
+        arg15 = 0.0287 * arg15
+        arg15 = 0.4018 + arg15
+        arg11 = arg11(arg122, arg13, arg14, arg15)
+        if arg11 then
+          arg11 = IsControlJustPressed
+          arg122 = 1
+          arg13 = 329
+          arg11 = arg11(arg122, arg13)
+          if not arg11 then
+            arg11 = IsDisabledControlJustPressed
+            arg122 = 1
+            arg13 = 329
+            arg11 = arg11(arg122, arg13)
+            if not arg11 then
+              goto flow_label_1654
             end
           end
-          SHX10_2 = SHX10_1.isAdvanced
-          if SHX10_2 then
-            SHX10_2 = SHX15_1.pinnedPlayers
-            SHX11_2 = SHX6_2.user_id
-            SHX10_2 = SHX10_2[SHX11_2]
-            if SHX10_2 then
-              SHX10_2 = SHX15_1.pinnedPlayers
-              SHX11_2 = SHX6_2.user_id
-              SHX10_2[SHX11_2] = nil
+          arg11 = workValue.isAdvanced
+          if arg11 then
+            arg11 = dataTable.pinnedPlayers
+            arg122 = arg7.user_id
+            arg11 = arg11[arg122]
+            if arg11 then
+              arg11 = dataTable.pinnedPlayers
+              arg122 = arg7.user_id
+              arg11[arg122] = nil
             else
-              SHX10_2 = SHX15_1.pinnedPlayers
-              SHX11_2 = SHX6_2.user_id
-              SHX10_2[SHX11_2] = true
+              arg11 = dataTable.pinnedPlayers
+              arg122 = arg7.user_id
+              arg11[arg122] = true
             end
-            SHX10_2 = SetResourceKvp
-            SHX11_2 = "cmg_gang_pinned"
-            SHX12_2 = json
-            SHX12_2 = SHX12_2.encode
-            SHX13_2 = SHX15_1.pinnedPlayers
-            SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX12_2(SHX13_2)
-            SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+            arg11 = SetResourceKvp
+            arg122 = "cmg_gang_pinned"
+            arg13 = json
+            arg13 = arg13.encode
+            arg14 = dataTable.pinnedPlayers
+            arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg13(arg14)
+            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
           else
-            SHX10_2 = notify
-            SHX11_2 = "~r~You must have the advanced gang license to pin a player."
-            SHX10_2(SHX11_2)
+            arg11 = notify
+            arg122 = "~r~You must have the advanced gang license to pin a player."
+            -- Beginner: Show a notification to the player.
+            arg11(arg122)
           end
         end
-        -- [FIX IF ERROR] Move ::SHX_LABEL_1654:: outside nested blocks until all 'goto SHX_LABEL_1654' can see it
-        ::SHX_LABEL_1654::
+        ::flow_label_1654::
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6182
-      SHX3_2 = 0.6822
-      SHX4_2 = 0.36
-      SHX5_2 = 0.416
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.388
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.6182
+      arg4 = 0.6822
+      arg5 = 0.36
+      arg6 = 0.416
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.388
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX4_1
-          if nil ~= SHX1_2 then
-            SHX1_2 = SHX10_1
-            if SHX1_2 then
-              SHX1_2 = SHX10_1.members
-              SHX2_2 = SHX4_1
-              SHX1_2 = SHX1_2[SHX2_2]
-              if SHX1_2 then
-                SHX1_2 = "permissions"
-                SHX1_1 = SHX1_2
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = workValue16
+          if nil ~= arg2 then
+            arg2 = workValue
+            if arg2 then
+              arg2 = workValue.members
+              arg3 = workValue16
+              arg2 = arg2[arg3]
+              if arg2 then
+                arg2 = "permissions"
+                textValue = arg2
             end
           end
           else
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~No gang member selected"
-            SHX1_2(SHX2_2)
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~No gang member selected"
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.388
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.388
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6182
-      SHX3_2 = 0.6822
-      SHX4_2 = 0.435
-      SHX5_2 = 0.491
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.463
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.6182
+      arg4 = 0.6822
+      arg5 = 0.435
+      arg6 = 0.491
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.463
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX4_1
-          if nil ~= SHX1_2 then
-            SHX1_2 = SHX10_1
-            if SHX1_2 then
-              SHX1_2 = SHX10_1.members
-              SHX2_2 = SHX4_1
-              SHX1_2 = SHX1_2[SHX2_2]
-              if SHX1_2 then
-                SHX1_2 = TriggerServerEvent
-                SHX2_2 = "e959bf3016"
-                SHX3_2 = SHX4_1
-                SHX1_2(SHX2_2, SHX3_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = workValue16
+          if nil ~= arg2 then
+            arg2 = workValue
+            if arg2 then
+              arg2 = workValue.members
+              arg3 = workValue16
+              arg2 = arg2[arg3]
+              if arg2 then
+                arg2 = TriggerServerEvent
+                arg3 = "e959bf3016"
+                arg4 = workValue16
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "e959bf3016".
+                arg2(arg3, arg4)
             end
           end
           else
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~No gang member selected"
-            SHX1_2(SHX2_2)
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~No gang member selected"
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.463
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.463
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6182
-      SHX3_2 = 0.6822
-      SHX4_2 = 0.51
-      SHX5_2 = 0.566
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.538
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if not SHX1_2 then
-            goto SHX_LABEL_1893
+      arg2 = CursorInArea
+      arg3 = 0.6182
+      arg4 = 0.6822
+      arg5 = 0.51
+      arg6 = 0.566
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.538
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
+          if not arg2 then
+            goto flow_label_1893
           end
         end
-        SHX1_2 = PlaySound
-        SHX2_2 = -1
-        SHX3_2 = "SELECT"
-        SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX5_2 = false
-        SHX6_2 = 0
-        SHX7_2 = true
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        SHX1_2 = SHX4_1
-        if nil ~= SHX1_2 then
-          SHX1_2 = SHX10_1.members
-          SHX2_2 = SHX4_1
-          SHX1_2 = SHX1_2[SHX2_2]
-          SHX1_2 = nil ~= SHX1_2
-          if SHX1_2 then
-            SHX2_2 = "kickmember"
-            if SHX2_2 then
-              goto SHX_LABEL_1847
+        arg2 = PlaySound
+        arg3 = -1
+        arg4 = "SELECT"
+        arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg6 = false
+        arg7 = 0
+        arg8 = true
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+        arg2 = workValue16
+        if nil ~= arg2 then
+          arg2 = workValue.members
+          arg3 = workValue16
+          arg2 = arg2[arg3]
+          arg2 = nil ~= arg2
+          if arg2 then
+            arg3 = "kickmember"
+            if arg3 then
+              goto flow_label_1847
             end
           end
-          SHX2_2 = "kickguest"
-          -- [FIX IF ERROR] Move ::SHX_LABEL_1847:: outside nested blocks until all 'goto SHX_LABEL_1847' can see it
-          ::SHX_LABEL_1847::
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.hasGangPermission
-          SHX4_2 = SHX2_2
-          SHX3_2 = SHX3_2(SHX4_2)
-          if SHX3_2 then
-            SHX3_2 = SHX36_1
-            SHX4_2 = "Are you sure?"
-            SHX3_2 = SHX3_2(SHX4_2)
-            if SHX3_2 then
-              SHX3_2 = SHX10_1.members
-              SHX4_2 = SHX4_1
-              SHX3_2 = SHX3_2[SHX4_2]
-              if SHX3_2 then
-                SHX3_2 = TriggerServerEvent
-                SHX4_2 = "85c0cc23f6"
-                SHX5_2 = SHX4_1
-                SHX3_2(SHX4_2, SHX5_2)
+          arg3 = "kickguest"
+          ::flow_label_1847::
+          arg4 = CMG
+          arg4 = arg4.hasGangPermission
+          arg5 = arg3
+          arg4 = arg4(arg5)
+          if arg4 then
+            arg4 = cmgCall7
+            arg5 = "Are you sure?"
+            arg4 = arg4(arg5)
+            if arg4 then
+              arg4 = workValue.members
+              arg5 = workValue16
+              arg4 = arg4[arg5]
+              if arg4 then
+                arg4 = TriggerServerEvent
+                arg5 = "85c0cc23f6"
+                arg6 = workValue16
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "85c0cc23f6".
+                arg4(arg5, arg6)
               else
-                SHX3_2 = TriggerServerEvent
-                SHX4_2 = "550d5b91c6"
-                SHX5_2 = SHX4_1
-                SHX3_2(SHX4_2, SHX5_2)
+                arg4 = TriggerServerEvent
+                arg5 = "550d5b91c6"
+                arg6 = workValue16
+                arg4(arg5, arg6)
               end
             end
           else
-            SHX3_2 = tCMG
-            SHX3_2 = SHX3_2.notify
-            SHX4_2 = "~r~You don't have permission to kick!"
-            SHX3_2(SHX4_2)
+            arg4 = tCMG
+            arg4 = arg4.notify
+            arg5 = "~r~You don't have permission to kick!"
+            -- Beginner: Show a notification to the player.
+            arg4(arg5)
           end
         else
-          SHX1_2 = tCMG
-          SHX1_2 = SHX1_2.notify
-          SHX2_2 = "~r~No gang member selected"
-          SHX1_2(SHX2_2)
+          arg2 = tCMG
+          arg2 = arg2.notify
+          arg3 = "~r~No gang member selected"
+          arg2(arg3)
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.538
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.538
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_1893:: outside nested blocks until all 'goto SHX_LABEL_1893' can see it
-      ::SHX_LABEL_1893::
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6182
-      SHX3_2 = 0.6822
-      SHX4_2 = 0.585
-      SHX5_2 = 0.641
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.613
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      ::flow_label_1893::
+      arg2 = CursorInArea
+      arg3 = 0.6182
+      arg4 = 0.6822
+      arg5 = 0.585
+      arg6 = 0.641
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.613
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.hasGangPermission
-          SHX2_2 = "invitemember"
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 then
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.GetRageInputText
-            SHX2_2 = "Enter Perm ID to invite:"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if nil ~= SHX1_2 then
-              SHX2_2 = tonumber
-              SHX3_2 = SHX1_2
-              SHX2_2 = SHX2_2(SHX3_2)
-              if SHX2_2 then
-                SHX2_2 = TriggerServerEvent
-                SHX3_2 = "a3ebe947dd"
-                SHX4_2 = tonumber
-                SHX5_2 = SHX1_2
-                SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX4_2(SHX5_2)
-                SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = CMG
+          arg2 = arg2.hasGangPermission
+          arg3 = "invitemember"
+          arg2 = arg2(arg3)
+          if arg2 then
+            arg2 = CMG
+            arg2 = arg2.GetRageInputText
+            arg3 = "Enter Perm ID to invite:"
+            arg2 = arg2(arg3)
+            if nil ~= arg2 then
+              arg3 = tonumber
+              arg4 = arg2
+              arg3 = arg3(arg4)
+              if arg3 then
+                arg3 = TriggerServerEvent
+                arg4 = "a3ebe947dd"
+                arg5 = tonumber
+                arg6 = arg2
+                arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg5(arg6)
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a3ebe947dd".
+                arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
             end
             else
-              SHX2_2 = tCMG
-              SHX2_2 = SHX2_2.notify
-              SHX3_2 = "Invalid Perm ID entered"
-              SHX2_2(SHX3_2)
+              arg3 = tCMG
+              arg3 = arg3.notify
+              arg4 = "Invalid Perm ID entered"
+              -- Beginner: Show a notification to the player.
+              arg3(arg4)
             end
           else
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~You don't have permission to invite players"
-            SHX1_2(SHX2_2)
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~You don't have permission to invite players"
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.613
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.613
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.3735
-      SHX3_2 = 0.4185
-      SHX4_2 = 0.6768
-      SHX5_2 = 0.7074
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.396
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.3735
+      arg4 = 0.4185
+      arg5 = 0.6768
+      arg6 = 0.7074
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.396
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX13_1
-          if SHX1_2 <= 1 then
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~Lowest page reached"
-            SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = cmgCall4
+          if arg2 <= 1 then
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~Lowest page reached"
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           else
-            SHX1_2 = SHX13_1
-            SHX1_2 = SHX1_2 - 1
-            SHX13_1 = SHX1_2
+            arg2 = cmgCall4
+            arg2 = arg2 - 1
+            cmgCall4 = arg2
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.396
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.396
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.4635
-      SHX3_2 = 0.5085
-      SHX4_2 = 0.6712
-      SHX5_2 = 0.7064
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.486
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.4635
+      arg4 = 0.5085
+      arg5 = 0.6712
+      arg6 = 0.7064
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.486
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX13_1
-          SHX2_2 = math
-          SHX2_2 = SHX2_2.ceil
-          SHX3_2 = SHX0_2 / 10.0
-          SHX2_2 = SHX2_2(SHX3_2)
-          if SHX1_2 >= SHX2_2 then
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~Max page reached"
-            SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = cmgCall4
+          arg3 = math
+          arg3 = arg3.ceil
+          arg4 = arg1 / 10.0
+          arg3 = arg3(arg4)
+          if arg2 >= arg3 then
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~Max page reached"
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           else
-            SHX1_2 = SHX13_1
-            SHX1_2 = SHX1_2 + 1
-            SHX13_1 = SHX1_2
+            arg2 = cmgCall4
+            arg2 = arg2 + 1
+            cmgCall4 = arg2
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.486
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.486
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6583
-      SHX3_2 = 0.7056
-      SHX4_2 = 0.6712
-      SHX5_2 = 0.7064
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.6583
+      arg4 = 0.7056
+      arg5 = 0.6712
+      arg6 = 0.7064
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = "gang"
-          SHX1_1 = SHX1_2
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = "gang"
+          textValue = arg2
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    SHX1_2 = "logs"
-    if SHX0_2 == SHX1_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.525
-      SHX3_2 = 0.421
-      SHX4_2 = 0.387
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.308
-      SHX3_2 = 0.421
-      SHX4_2 = 0.047
-      SHX5_2 = 18
-      SHX6_2 = 82
-      SHX7_2 = 228
-      SHX8_2 = 248
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.312
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.48
-      SHX6_2 = "CMG gang - logs"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.502
-      SHX2_2 = 0.52
-      SHX3_2 = 0.387
-      SHX4_2 = 0.286
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.449
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Name"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.51
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "UserID"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.583
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Date"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.757
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Amount"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.673
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "New Balance"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.592
-      SHX2_2 = 0.6925
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = tostring
-      SHX7_2 = SHX14_1
-      SHX6_2 = SHX6_2(SHX7_2)
-      SHX7_2 = "/"
-      SHX8_2 = tostring
-      SHX9_2 = math
-      SHX9_2 = SHX9_2.ceil
-      SHX10_2 = SHX10_1
-      SHX11_2 = "logCount"
-      SHX10_2 = SHX10_2[SHX11_2]
-      SHX10_2 = SHX10_2 / 10.0
-      SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX9_2(SHX10_2)
-      SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      SHX6_2 = SHX6_2 .. SHX7_2 .. SHX8_2
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.775
-      SHX2_2 = 0.693
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Back"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.6583
-      SHX2_2 = 0.7056
-      SHX3_2 = 0.6712
-      SHX4_2 = 0.7064
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    arg2 = "logs"
+    if arg1 == arg2 then
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.525
+      arg4 = 0.421
+      arg5 = 0.387
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.308
+      arg4 = 0.421
+      arg5 = 0.047
+      arg6 = 18
+      arg7 = 82
+      arg8 = 228
+      arg9 = 248
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.312
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.48
+      arg7 = "CMG gang - logs"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.502
+      arg3 = 0.52
+      arg4 = 0.387
+      arg5 = 0.286
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.449
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Name"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.51
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "UserID"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.583
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Date"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.757
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Amount"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.673
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "New Balance"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.592
+      arg3 = 0.6925
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = tostring
+      arg8 = numberValue3
+      arg7 = arg7(arg8)
+      arg8 = "/"
+      arg9 = tostring
+      arg10 = math
+      arg10 = arg10.ceil
+      arg11 = workValue
+      arg122 = "logCount"
+      arg11 = arg11[arg122]
+      arg11 = arg11 / 10.0
+      arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg10(arg11)
+      arg9 = arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      arg7 = arg7 .. arg8 .. arg9
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.775
+      arg3 = 0.693
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Back"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.6583
+      arg3 = 0.7056
+      arg4 = 0.6712
+      arg5 = 0.7064
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "gang"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "gang"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = pairs
-      SHX1_2 = SHX10_1
-      SHX2_2 = "logs"
-      SHX1_2 = SHX1_2[SHX2_2]
-      if not SHX1_2 then
-        SHX1_2 = {}
+      arg1 = pairs
+      arg2 = workValue
+      arg3 = "logs"
+      arg2 = arg2[arg3]
+      if not arg2 then
+        arg2 = {}
       end
-      SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-      for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-        SHX6_2 = "amount"
-        SHX6_2 = SHX5_2[SHX6_2]
-        if SHX6_2 >= 0 then
-          SHX6_2 = 50
-          if SHX6_2 then
-            goto SHX_LABEL_2385
+      arg1, arg2, arg3, arg4 = arg1(arg2)
+      for arg5, arg6 in arg1, arg2, arg3, arg4 do
+        arg7 = "amount"
+        arg7 = arg6[arg7]
+        if arg7 >= 0 then
+          arg7 = 50
+          if arg7 then
+            goto flow_label_2385
           end
         end
-        SHX6_2 = 255
-        -- [FIX IF ERROR] Move ::SHX_LABEL_2385:: outside nested blocks until all 'goto SHX_LABEL_2385' can see it
-        ::SHX_LABEL_2385::
-        SHX7_2 = "amount"
-        SHX7_2 = SHX5_2[SHX7_2]
-        if SHX7_2 >= 0 then
-          SHX7_2 = 255
-          if SHX7_2 then
-            goto SHX_LABEL_2393
+        arg7 = 255
+        ::flow_label_2385::
+        arg8 = "amount"
+        arg8 = arg6[arg8]
+        if arg8 >= 0 then
+          arg8 = 255
+          if arg8 then
+            goto flow_label_2393
           end
         end
-        SHX7_2 = 50
-        -- [FIX IF ERROR] Move ::SHX_LABEL_2393:: outside nested blocks until all 'goto SHX_LABEL_2393' can see it
-        ::SHX_LABEL_2393::
-        SHX8_2 = 50
-        SHX9_2 = SHX5_2.user_id
-        if -1 == SHX9_2 then
-          SHX9_2 = "N/A"
-          if SHX9_2 then
-            goto SHX_LABEL_2403
+        arg8 = 50
+        ::flow_label_2393::
+        arg9 = 50
+        arg10 = arg6.user_id
+        if -1 == arg10 then
+          arg10 = "N/A"
+          if arg10 then
+            goto flow_label_2403
           end
         end
-        SHX9_2 = tostring
-        SHX10_2 = SHX5_2.user_id
-        SHX9_2 = SHX9_2(SHX10_2)
-        -- [FIX IF ERROR] Move ::SHX_LABEL_2403:: outside nested blocks until all 'goto SHX_LABEL_2403' can see it
-        ::SHX_LABEL_2403::
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.449
-        SHX12_2 = 0.0287 * SHX4_2
-        SHX13_2 = 0.365
-        SHX12_2 = SHX13_2 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.4
-        SHX16_2 = SHX5_2.name
-        SHX17_2 = SHX6_2
-        SHX18_2 = SHX7_2
-        SHX19_2 = SHX8_2
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.51
-        SHX12_2 = 0.0287 * SHX4_2
-        SHX13_2 = 0.365
-        SHX12_2 = SHX13_2 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.4
-        SHX16_2 = SHX9_2
-        SHX17_2 = SHX6_2
-        SHX18_2 = SHX7_2
-        SHX19_2 = SHX8_2
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.583
-        SHX12_2 = 0.0287 * SHX4_2
-        SHX13_2 = 0.365
-        SHX12_2 = SHX13_2 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.4
-        SHX16_2 = "date"
-        SHX16_2 = SHX5_2[SHX16_2]
-        SHX17_2 = SHX6_2
-        SHX18_2 = SHX7_2
-        SHX19_2 = SHX8_2
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.673
-        SHX12_2 = 0.0287 * SHX4_2
-        SHX13_2 = 0.365
-        SHX12_2 = SHX13_2 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.4
-        SHX16_2 = "\194\163"
-        SHX17_2 = getMoneyStringFormatted
-        SHX18_2 = "newBalance"
-        SHX18_2 = SHX5_2[SHX18_2]
-        SHX17_2 = SHX17_2(SHX18_2)
-        SHX16_2 = SHX16_2 .. SHX17_2
-        SHX17_2 = SHX6_2
-        SHX18_2 = SHX7_2
-        SHX19_2 = SHX8_2
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.757
-        SHX12_2 = 0.0287 * SHX4_2
-        SHX13_2 = 0.365
-        SHX12_2 = SHX13_2 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.4
-        SHX16_2 = "\194\163"
-        SHX17_2 = getMoneyStringFormatted
-        SHX18_2 = math
-        SHX19_2 = "abs"
-        SHX18_2 = SHX18_2[SHX19_2]
-        SHX19_2 = "amount"
-        SHX19_2 = SHX5_2[SHX19_2]
-        SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX18_2(SHX19_2)
-        SHX17_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-        SHX16_2 = SHX16_2 .. SHX17_2
-        SHX17_2 = SHX6_2
-        SHX18_2 = SHX7_2
-        SHX19_2 = SHX8_2
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = CursorInArea
-        SHX11_2 = 0.3005
-        SHX12_2 = 0.5955
-        SHX13_2 = SHX4_2 - 1
-        SHX13_2 = 0.0287 * SHX13_2
-        SHX13_2 = 0.3731 + SHX13_2
-        SHX14_2 = SHX4_2 - 1
-        SHX14_2 = 0.0287 * SHX14_2
-        SHX14_2 = 0.4018 + SHX14_2
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        if SHX10_2 then
-          SHX10_2 = DrawRect
-          SHX11_2 = 0.502
-          SHX12_2 = SHX4_2 - 1
-          SHX12_2 = 0.0287 * SHX12_2
-          SHX12_2 = 0.39 + SHX12_2
-          SHX13_2 = 0.387
-          SHX14_2 = 0.027
-          SHX15_2 = SHX7_1
-          SHX16_2 = SHX8_1
-          SHX17_2 = SHX9_1
-          SHX18_2 = 150
-          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-          SHX10_2 = DrawAdvancedText
-          SHX11_2 = 0.591
-          SHX12_2 = 0.75
-          SHX13_2 = 0.005
-          SHX14_2 = 0.0028
-          SHX15_2 = 0.48
-          SHX16_2 = "reason"
-          SHX16_2 = SHX5_2[SHX16_2]
-          if SHX16_2 then
-            SHX16_2 = "reason"
-            SHX16_2 = SHX5_2[SHX16_2]
-            if SHX16_2 then
-              goto SHX_LABEL_2556
+        arg10 = tostring
+        arg11 = arg6.user_id
+        arg10 = arg10(arg11)
+        ::flow_label_2403::
+        arg11 = DrawAdvancedText
+        arg122 = 0.449
+        arg13 = 0.0287 * arg5
+        arg14 = 0.365
+        arg13 = arg14 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.4
+        arg17 = arg6.name
+        arg18 = arg7
+        numberValue5 = arg8
+        numberValue7 = arg9
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = DrawAdvancedText
+        arg122 = 0.51
+        arg13 = 0.0287 * arg5
+        arg14 = 0.365
+        arg13 = arg14 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.4
+        arg17 = arg10
+        arg18 = arg7
+        numberValue5 = arg8
+        numberValue7 = arg9
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = DrawAdvancedText
+        arg122 = 0.583
+        arg13 = 0.0287 * arg5
+        arg14 = 0.365
+        arg13 = arg14 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.4
+        arg17 = "date"
+        arg17 = arg6[arg17]
+        arg18 = arg7
+        numberValue5 = arg8
+        numberValue7 = arg9
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = DrawAdvancedText
+        arg122 = 0.673
+        arg13 = 0.0287 * arg5
+        arg14 = 0.365
+        arg13 = arg14 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.4
+        arg17 = "\194\163"
+        arg18 = getMoneyStringFormatted
+        numberValue5 = "newBalance"
+        numberValue5 = arg6[numberValue5]
+        arg18 = arg18(numberValue5)
+        arg17 = arg17 .. arg18
+        arg18 = arg7
+        numberValue5 = arg8
+        numberValue7 = arg9
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = DrawAdvancedText
+        arg122 = 0.757
+        arg13 = 0.0287 * arg5
+        arg14 = 0.365
+        arg13 = arg14 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.4
+        arg17 = "\194\163"
+        arg18 = getMoneyStringFormatted
+        numberValue5 = math
+        numberValue7 = "abs"
+        numberValue5 = numberValue5[numberValue7]
+        numberValue7 = "amount"
+        numberValue7 = arg6[numberValue7]
+        numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = numberValue5(numberValue7)
+        arg18 = arg18(numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+        arg17 = arg17 .. arg18
+        arg18 = arg7
+        numberValue5 = arg8
+        numberValue7 = arg9
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = CursorInArea
+        arg122 = 0.3005
+        arg13 = 0.5955
+        arg14 = arg5 - 1
+        arg14 = 0.0287 * arg14
+        arg14 = 0.3731 + arg14
+        arg15 = arg5 - 1
+        arg15 = 0.0287 * arg15
+        arg15 = 0.4018 + arg15
+        arg11 = arg11(arg122, arg13, arg14, arg15)
+        if arg11 then
+          arg11 = DrawRect
+          arg122 = 0.502
+          arg13 = arg5 - 1
+          arg13 = 0.0287 * arg13
+          arg13 = 0.39 + arg13
+          arg14 = 0.387
+          arg15 = 0.027
+          arg16 = numberValue28
+          arg17 = numberValue29
+          arg18 = numberValue30
+          numberValue5 = 150
+          arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+          arg11 = DrawAdvancedText
+          arg122 = 0.591
+          arg13 = 0.75
+          arg14 = 0.005
+          arg15 = 0.0028
+          arg16 = 0.48
+          arg17 = "reason"
+          arg17 = arg6[arg17]
+          if arg17 then
+            arg17 = "reason"
+            arg17 = arg6[arg17]
+            if arg17 then
+              goto flow_label_2556
             end
           end
-          SHX16_2 = "No Reason Provided"
-          -- [FIX IF ERROR] Move ::SHX_LABEL_2556:: outside nested blocks until all 'goto SHX_LABEL_2556' can see it
-          ::SHX_LABEL_2556::
-          SHX17_2 = 255
-          SHX18_2 = 255
-          SHX19_2 = 255
-          SHX20_2 = 255
-          SHX21_2 = 4
-          SHX22_2 = 0
-          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
+          arg17 = "No Reason Provided"
+          ::flow_label_2556::
+          arg18 = 255
+          numberValue5 = 255
+          numberValue7 = 255
+          numberValue8 = 255
+          numberValue9 = 4
+          numberValue10 = 0
+          arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
         end
       end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.547
-      SHX2_2 = 0.692
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Previous"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.4195
-      SHX2_2 = 0.4845
-      SHX3_2 = 0.6768
-      SHX4_2 = 0.7074
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.452
-        SHX2_2 = 0.69
-        SHX3_2 = 0.065
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = DrawAdvancedText
+      arg2 = 0.547
+      arg3 = 0.692
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Previous"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.4195
+      arg3 = 0.4845
+      arg4 = 0.6768
+      arg5 = 0.7074
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.452
+        arg3 = 0.69
+        arg4 = 0.065
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = SHX14_1
-          if SHX0_2 <= 1 then
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~Lowest page reached"
-            SHX0_2(SHX1_2)
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = numberValue3
+          if arg1 <= 1 then
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~Lowest page reached"
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
           else
-            SHX0_2 = SHX14_1
-            SHX0_2 = SHX0_2 - 1
-            SHX14_1 = SHX0_2
-            SHX0_2 = SHX10_1
-            SHX1_2 = "logs"
-            SHX0_2[SHX1_2] = nil
-            SHX0_2 = TriggerServerEvent
-            SHX1_2 = "3f8f33322f"
-            SHX2_2 = SHX14_1
-            SHX3_2 = SHX18_1
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+            arg1 = numberValue3
+            arg1 = arg1 - 1
+            numberValue3 = arg1
+            arg1 = workValue
+            arg2 = "logs"
+            arg1[arg2] = nil
+            arg1 = TriggerServerEvent
+            arg2 = "3f8f33322f"
+            arg3 = numberValue3
+            arg4 = flag
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
+            arg1(arg2, arg3, arg4)
           end
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.452
-        SHX2_2 = 0.69
-        SHX3_2 = 0.065
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.452
+        arg3 = 0.69
+        arg4 = 0.065
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.639
-      SHX2_2 = 0.692
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Next"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.5125
-      SHX2_2 = 0.5775
-      SHX3_2 = 0.6712
-      SHX4_2 = 0.7064
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.545
-        SHX2_2 = 0.69
-        SHX3_2 = 0.065
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = DrawAdvancedText
+      arg2 = 0.639
+      arg3 = 0.692
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Next"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.5125
+      arg3 = 0.5775
+      arg4 = 0.6712
+      arg5 = 0.7064
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.545
+        arg3 = 0.69
+        arg4 = 0.065
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = SHX14_1
-          SHX1_2 = math
-          SHX1_2 = SHX1_2.ceil
-          SHX2_2 = SHX10_1
-          SHX3_2 = "logCount"
-          SHX2_2 = SHX2_2[SHX3_2]
-          SHX2_2 = SHX2_2 / 10.0
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX0_2 >= SHX1_2 then
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~Max page reached"
-            SHX0_2(SHX1_2)
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = numberValue3
+          arg2 = math
+          arg2 = arg2.ceil
+          arg3 = workValue
+          arg4 = "logCount"
+          arg3 = arg3[arg4]
+          arg3 = arg3 / 10.0
+          arg2 = arg2(arg3)
+          if arg1 >= arg2 then
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~Max page reached"
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
           else
-            SHX0_2 = SHX14_1
-            SHX0_2 = SHX0_2 + 1
-            SHX14_1 = SHX0_2
-            SHX0_2 = SHX10_1
-            SHX1_2 = "logs"
-            SHX0_2[SHX1_2] = nil
-            SHX0_2 = TriggerServerEvent
-            SHX1_2 = "3f8f33322f"
-            SHX2_2 = SHX14_1
-            SHX3_2 = SHX18_1
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+            arg1 = numberValue3
+            arg1 = arg1 + 1
+            numberValue3 = arg1
+            arg1 = workValue
+            arg2 = "logs"
+            arg1[arg2] = nil
+            arg1 = TriggerServerEvent
+            arg2 = "3f8f33322f"
+            arg3 = numberValue3
+            arg4 = flag
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
+            arg1(arg2, arg3, arg4)
           end
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.545
-        SHX2_2 = 0.69
-        SHX3_2 = 0.065
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.545
+        arg3 = 0.69
+        arg4 = 0.065
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.415
-      SHX2_2 = 0.693
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = SHX18_1
-      if SHX6_2 then
-        SHX6_2 = "Show Turf"
-        if SHX6_2 then
-          goto SHX_LABEL_2753
+      arg1 = DrawAdvancedText
+      arg2 = 0.415
+      arg3 = 0.693
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = flag
+      if arg7 then
+        arg7 = "Show Turf"
+        if arg7 then
+          goto flow_label_2753
         end
       end
-      SHX6_2 = "Hide Turf"
-      -- [FIX IF ERROR] Move ::SHX_LABEL_2753:: outside nested blocks until all 'goto SHX_LABEL_2753' can see it
-      ::SHX_LABEL_2753::
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.2985
-      SHX2_2 = 0.3435
-      SHX3_2 = 0.6712
-      SHX4_2 = 0.7064
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.321
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg7 = "Hide Turf"
+      ::flow_label_2753::
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.2985
+      arg3 = 0.3435
+      arg4 = 0.6712
+      arg5 = 0.7064
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.321
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = SHX18_1
-          SHX0_2 = not SHX0_2
-          SHX18_1 = SHX0_2
-          SHX0_2 = SHX10_1
-          SHX1_2 = "logs"
-          SHX0_2[SHX1_2] = nil
-          SHX0_2 = TriggerServerEvent
-          SHX1_2 = "3f8f33322f"
-          SHX2_2 = SHX14_1
-          SHX3_2 = SHX18_1
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+        if arg1 then
+          arg1 = flag
+          arg1 = not arg1
+          flag = arg1
+          arg1 = workValue
+          arg2 = "logs"
+          arg1[arg2] = nil
+          arg1 = TriggerServerEvent
+          arg2 = "3f8f33322f"
+          arg3 = numberValue3
+          arg4 = flag
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
+          arg1(arg2, arg3, arg4)
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.321
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.321
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
     end
   end
-  SHX0_2 = SHX1_1
-  if "contributions" == SHX0_2 then
-    SHX0_2 = SHX38_1
-    SHX0_2, SHX1_2 = SHX0_2()
-    SHX2_2 = DrawRect
-    SHX3_2 = 0.501
-    SHX4_2 = 0.525
-    SHX5_2 = 0.421
-    SHX6_2 = 0.387
-    SHX7_2 = 0
-    SHX8_2 = 0
-    SHX9_2 = 0
-    SHX10_2 = 150
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX2_2 = DrawRect
-    SHX3_2 = 0.501
-    SHX4_2 = 0.308
-    SHX5_2 = 0.421
-    SHX6_2 = 0.047
-    SHX7_2 = 18
-    SHX8_2 = 82
-    SHX9_2 = 228
-    SHX10_2 = 248
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.591
-    SHX4_2 = 0.312
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.48
-    SHX8_2 = "CMG gang - contributions"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 7
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = DrawRect
-    SHX3_2 = 0.502
-    SHX4_2 = 0.52
-    SHX5_2 = 0.387
-    SHX6_2 = 0.286
-    SHX7_2 = 0
-    SHX8_2 = 0
-    SHX9_2 = 0
-    SHX10_2 = 150
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.449
-    SHX4_2 = 0.365
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Name"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.53
-    SHX4_2 = 0.365
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "UserID"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.623
-    SHX4_2 = 0.365
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Last Contribution"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.727
-    SHX4_2 = 0.365
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Total Amount"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.592
-    SHX4_2 = 0.6925
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = tostring
-    SHX9_2 = SHX14_1
-    SHX8_2 = SHX8_2(SHX9_2)
-    SHX9_2 = "/"
-    SHX10_2 = tostring
-    SHX11_2 = math
-    SHX11_2 = SHX11_2.ceil
-    SHX12_2 = SHX1_2 / 10.0
-    SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX11_2(SHX12_2)
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-    SHX8_2 = SHX8_2 .. SHX9_2 .. SHX10_2
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.775
-    SHX4_2 = 0.693
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Back"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = CursorInArea
-    SHX3_2 = 0.6583
-    SHX4_2 = 0.7056
-    SHX5_2 = 0.6712
-    SHX6_2 = 0.7064
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    if SHX2_2 then
-      SHX2_2 = DrawRect
-      SHX3_2 = 0.681
-      SHX4_2 = 0.689
-      SHX5_2 = 0.045
-      SHX6_2 = 0.036
-      SHX7_2 = SHX7_1
-      SHX8_2 = SHX8_1
-      SHX9_2 = SHX9_1
-      SHX10_2 = 150
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      SHX2_2 = IsControlJustPressed
-      SHX3_2 = 1
-      SHX4_2 = 329
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if not SHX2_2 then
-        SHX2_2 = IsDisabledControlJustPressed
-        SHX3_2 = 1
-        SHX4_2 = 329
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
+  arg1 = textValue
+  if "contributions" == arg1 then
+    arg1 = workValue9
+    arg1, arg2 = arg1()
+    arg3 = DrawRect
+    arg4 = 0.501
+    arg5 = 0.525
+    arg6 = 0.421
+    arg7 = 0.387
+    arg8 = 0
+    arg9 = 0
+    arg10 = 0
+    arg11 = 150
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+    arg3 = DrawRect
+    arg4 = 0.501
+    arg5 = 0.308
+    arg6 = 0.421
+    arg7 = 0.047
+    arg8 = 18
+    arg9 = 82
+    arg10 = 228
+    arg11 = 248
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+    arg3 = DrawAdvancedText
+    arg4 = 0.591
+    arg5 = 0.312
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.48
+    arg9 = "CMG gang - contributions"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 7
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = DrawRect
+    arg4 = 0.502
+    arg5 = 0.52
+    arg6 = 0.387
+    arg7 = 0.286
+    arg8 = 0
+    arg9 = 0
+    arg10 = 0
+    arg11 = 150
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+    arg3 = DrawAdvancedText
+    arg4 = 0.449
+    arg5 = 0.365
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Name"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = DrawAdvancedText
+    arg4 = 0.53
+    arg5 = 0.365
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "UserID"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = DrawAdvancedText
+    arg4 = 0.623
+    arg5 = 0.365
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Last Contribution"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = DrawAdvancedText
+    arg4 = 0.727
+    arg5 = 0.365
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Total Amount"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = DrawAdvancedText
+    arg4 = 0.592
+    arg5 = 0.6925
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = tostring
+    arg10 = numberValue3
+    arg9 = arg9(arg10)
+    arg10 = "/"
+    arg11 = tostring
+    arg122 = math
+    arg122 = arg122.ceil
+    arg13 = arg2 / 10.0
+    arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg122(arg13)
+    arg11 = arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+    arg9 = arg9 .. arg10 .. arg11
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = DrawAdvancedText
+    arg4 = 0.775
+    arg5 = 0.693
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Back"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = CursorInArea
+    arg4 = 0.6583
+    arg5 = 0.7056
+    arg6 = 0.6712
+    arg7 = 0.7064
+    arg3 = arg3(arg4, arg5, arg6, arg7)
+    if arg3 then
+      arg3 = DrawRect
+      arg4 = 0.681
+      arg5 = 0.689
+      arg6 = 0.045
+      arg7 = 0.036
+      arg8 = numberValue28
+      arg9 = numberValue29
+      arg10 = numberValue30
+      arg11 = 150
+      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+      arg3 = IsControlJustPressed
+      arg4 = 1
+      arg5 = 329
+      arg3 = arg3(arg4, arg5)
+      if not arg3 then
+        arg3 = IsDisabledControlJustPressed
+        arg4 = 1
+        arg5 = 329
+        arg3 = arg3(arg4, arg5)
       end
-      if SHX2_2 then
-        SHX2_2 = PlaySound
-        SHX3_2 = -1
-        SHX4_2 = "SELECT"
-        SHX5_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX6_2 = false
-        SHX7_2 = 0
-        SHX8_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX2_2 = "gang"
-        SHX1_1 = SHX2_2
+      if arg3 then
+        arg3 = PlaySound
+        arg4 = -1
+        arg5 = "SELECT"
+        arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg7 = false
+        arg8 = 0
+        arg9 = true
+        arg3(arg4, arg5, arg6, arg7, arg8, arg9)
+        arg3 = "gang"
+        textValue = arg3
       end
     else
-      SHX2_2 = DrawRect
-      SHX3_2 = 0.681
-      SHX4_2 = 0.689
-      SHX5_2 = 0.045
-      SHX6_2 = 0.036
-      SHX7_2 = 0
-      SHX8_2 = 0
-      SHX9_2 = 0
-      SHX10_2 = 150
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+      arg3 = DrawRect
+      arg4 = 0.681
+      arg5 = 0.689
+      arg6 = 0.045
+      arg7 = 0.036
+      arg8 = 0
+      arg9 = 0
+      arg10 = 0
+      arg11 = 150
+      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
     end
-    SHX2_2 = pairs
-    SHX3_2 = SHX0_2
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-    for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-      SHX8_2 = "amount"
-      SHX8_2 = SHX7_2[SHX8_2]
-      if SHX8_2 >= 0 then
-        SHX8_2 = 50
-        if SHX8_2 then
-          goto SHX_LABEL_3019
+    arg3 = pairs
+    arg4 = arg1
+    arg3, arg4, arg5, arg6 = arg3(arg4)
+    for arg7, arg8 in arg3, arg4, arg5, arg6 do
+      arg9 = "amount"
+      arg9 = arg8[arg9]
+      if arg9 >= 0 then
+        arg9 = 50
+        if arg9 then
+          goto flow_label_3019
         end
       end
-      SHX8_2 = 255
-      -- [FIX IF ERROR] Move ::SHX_LABEL_3019:: outside nested blocks until all 'goto SHX_LABEL_3019' can see it
-      ::SHX_LABEL_3019::
-      SHX9_2 = "amount"
-      SHX9_2 = SHX7_2[SHX9_2]
-      if SHX9_2 >= 0 then
-        SHX9_2 = 255
-        if SHX9_2 then
-          goto SHX_LABEL_3027
+      arg9 = 255
+      ::flow_label_3019::
+      arg10 = "amount"
+      arg10 = arg8[arg10]
+      if arg10 >= 0 then
+        arg10 = 255
+        if arg10 then
+          goto flow_label_3027
         end
       end
-      SHX9_2 = 50
-      -- [FIX IF ERROR] Move ::SHX_LABEL_3027:: outside nested blocks until all 'goto SHX_LABEL_3027' can see it
-      ::SHX_LABEL_3027::
-      SHX10_2 = 50
-      SHX11_2 = SHX7_2.user_id
-      if -1 == SHX11_2 then
-        SHX11_2 = "N/A"
-        if SHX11_2 then
-          goto SHX_LABEL_3037
+      arg10 = 50
+      ::flow_label_3027::
+      arg11 = 50
+      arg122 = arg8.user_id
+      if -1 == arg122 then
+        arg122 = "N/A"
+        if arg122 then
+          goto flow_label_3037
         end
       end
-      SHX11_2 = tostring
-      SHX12_2 = SHX7_2.user_id
-      SHX11_2 = SHX11_2(SHX12_2)
-      -- [FIX IF ERROR] Move ::SHX_LABEL_3037:: outside nested blocks until all 'goto SHX_LABEL_3037' can see it
-      ::SHX_LABEL_3037::
-      SHX12_2 = DrawAdvancedText
-      SHX13_2 = 0.449
-      SHX14_2 = 0.0287 * SHX6_2
-      SHX15_2 = 0.365
-      SHX14_2 = SHX15_2 + SHX14_2
-      SHX15_2 = 0.005
-      SHX16_2 = 0.0028
-      SHX17_2 = 0.4
-      SHX18_2 = SHX7_2.name
-      SHX19_2 = SHX8_2
-      SHX20_2 = SHX9_2
-      SHX21_2 = SHX10_2
-      SHX22_2 = 255
-      SHX23_2 = 6
-      SHX24_2 = 0
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX12_2 = DrawAdvancedText
-      SHX13_2 = 0.53
-      SHX14_2 = 0.0287 * SHX6_2
-      SHX15_2 = 0.365
-      SHX14_2 = SHX15_2 + SHX14_2
-      SHX15_2 = 0.005
-      SHX16_2 = 0.0028
-      SHX17_2 = 0.4
-      SHX18_2 = SHX11_2
-      SHX19_2 = SHX8_2
-      SHX20_2 = SHX9_2
-      SHX21_2 = SHX10_2
-      SHX22_2 = 255
-      SHX23_2 = 6
-      SHX24_2 = 0
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX12_2 = DrawAdvancedText
-      SHX13_2 = 0.623
-      SHX14_2 = 0.0287 * SHX6_2
-      SHX15_2 = 0.365
-      SHX14_2 = SHX15_2 + SHX14_2
-      SHX15_2 = 0.005
-      SHX16_2 = 0.0028
-      SHX17_2 = 0.4
-      SHX18_2 = "lastContribution"
-      SHX18_2 = SHX7_2[SHX18_2]
-      SHX19_2 = SHX8_2
-      SHX20_2 = SHX9_2
-      SHX21_2 = SHX10_2
-      SHX22_2 = 255
-      SHX23_2 = 6
-      SHX24_2 = 0
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX12_2 = DrawAdvancedText
-      SHX13_2 = 0.727
-      SHX14_2 = 0.0287 * SHX6_2
-      SHX15_2 = 0.365
-      SHX14_2 = SHX15_2 + SHX14_2
-      SHX15_2 = 0.005
-      SHX16_2 = 0.0028
-      SHX17_2 = 0.4
-      SHX18_2 = "\194\163"
-      SHX19_2 = getMoneyStringFormatted
-      SHX20_2 = "amount"
-      SHX20_2 = SHX7_2[SHX20_2]
-      SHX19_2 = SHX19_2(SHX20_2)
-      SHX18_2 = SHX18_2 .. SHX19_2
-      SHX19_2 = SHX8_2
-      SHX20_2 = SHX9_2
-      SHX21_2 = SHX10_2
-      SHX22_2 = 255
-      SHX23_2 = 6
-      SHX24_2 = 0
-      SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+      arg122 = tostring
+      arg13 = arg8.user_id
+      arg122 = arg122(arg13)
+      ::flow_label_3037::
+      arg13 = DrawAdvancedText
+      arg14 = 0.449
+      arg15 = 0.0287 * arg7
+      arg16 = 0.365
+      arg15 = arg16 + arg15
+      arg16 = 0.005
+      arg17 = 0.0028
+      arg18 = 0.4
+      numberValue5 = arg8.name
+      numberValue7 = arg9
+      numberValue8 = arg10
+      numberValue9 = arg11
+      numberValue10 = 255
+      numberValue12 = 6
+      numberValue13 = 0
+      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+      arg13 = DrawAdvancedText
+      arg14 = 0.53
+      arg15 = 0.0287 * arg7
+      arg16 = 0.365
+      arg15 = arg16 + arg15
+      arg16 = 0.005
+      arg17 = 0.0028
+      arg18 = 0.4
+      numberValue5 = arg122
+      numberValue7 = arg9
+      numberValue8 = arg10
+      numberValue9 = arg11
+      numberValue10 = 255
+      numberValue12 = 6
+      numberValue13 = 0
+      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+      arg13 = DrawAdvancedText
+      arg14 = 0.623
+      arg15 = 0.0287 * arg7
+      arg16 = 0.365
+      arg15 = arg16 + arg15
+      arg16 = 0.005
+      arg17 = 0.0028
+      arg18 = 0.4
+      numberValue5 = "lastContribution"
+      numberValue5 = arg8[numberValue5]
+      numberValue7 = arg9
+      numberValue8 = arg10
+      numberValue9 = arg11
+      numberValue10 = 255
+      numberValue12 = 6
+      numberValue13 = 0
+      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+      arg13 = DrawAdvancedText
+      arg14 = 0.727
+      arg15 = 0.0287 * arg7
+      arg16 = 0.365
+      arg15 = arg16 + arg15
+      arg16 = 0.005
+      arg17 = 0.0028
+      arg18 = 0.4
+      numberValue5 = "\194\163"
+      numberValue7 = getMoneyStringFormatted
+      numberValue8 = "amount"
+      numberValue8 = arg8[numberValue8]
+      numberValue7 = numberValue7(numberValue8)
+      numberValue5 = numberValue5 .. numberValue7
+      numberValue7 = arg9
+      numberValue8 = arg10
+      numberValue9 = arg11
+      numberValue10 = 255
+      numberValue12 = 6
+      numberValue13 = 0
+      arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
     end
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.547
-    SHX4_2 = 0.692
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Previous"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = CursorInArea
-    SHX3_2 = 0.4195
-    SHX4_2 = 0.4845
-    SHX5_2 = 0.6768
-    SHX6_2 = 0.7074
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    if SHX2_2 then
-      SHX2_2 = DrawRect
-      SHX3_2 = 0.452
-      SHX4_2 = 0.69
-      SHX5_2 = 0.065
-      SHX6_2 = 0.036
-      SHX7_2 = SHX7_1
-      SHX8_2 = SHX8_1
-      SHX9_2 = SHX9_1
-      SHX10_2 = 150
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      SHX2_2 = IsControlJustPressed
-      SHX3_2 = 1
-      SHX4_2 = 329
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if not SHX2_2 then
-        SHX2_2 = IsDisabledControlJustPressed
-        SHX3_2 = 1
-        SHX4_2 = 329
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
+    arg3 = DrawAdvancedText
+    arg4 = 0.547
+    arg5 = 0.692
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Previous"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = CursorInArea
+    arg4 = 0.4195
+    arg5 = 0.4845
+    arg6 = 0.6768
+    arg7 = 0.7074
+    arg3 = arg3(arg4, arg5, arg6, arg7)
+    if arg3 then
+      arg3 = DrawRect
+      arg4 = 0.452
+      arg5 = 0.69
+      arg6 = 0.065
+      arg7 = 0.036
+      arg8 = numberValue28
+      arg9 = numberValue29
+      arg10 = numberValue30
+      arg11 = 150
+      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+      arg3 = IsControlJustPressed
+      arg4 = 1
+      arg5 = 329
+      arg3 = arg3(arg4, arg5)
+      if not arg3 then
+        arg3 = IsDisabledControlJustPressed
+        arg4 = 1
+        arg5 = 329
+        arg3 = arg3(arg4, arg5)
       end
-      if SHX2_2 then
-        SHX2_2 = PlaySound
-        SHX3_2 = -1
-        SHX4_2 = "SELECT"
-        SHX5_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX6_2 = false
-        SHX7_2 = 0
-        SHX8_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX2_2 = SHX19_1
-        if SHX2_2 <= 1 then
-          SHX2_2 = tCMG
-          SHX2_2 = SHX2_2.notify
-          SHX3_2 = "~r~Lowest page reached"
-          SHX2_2(SHX3_2)
+      if arg3 then
+        arg3 = PlaySound
+        arg4 = -1
+        arg5 = "SELECT"
+        arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg7 = false
+        arg8 = 0
+        arg9 = true
+        arg3(arg4, arg5, arg6, arg7, arg8, arg9)
+        arg3 = numberValue6
+        if arg3 <= 1 then
+          arg3 = tCMG
+          arg3 = arg3.notify
+          arg4 = "~r~Lowest page reached"
+          -- Beginner: Show a notification to the player.
+          arg3(arg4)
         else
-          SHX2_2 = SHX19_1
-          SHX2_2 = SHX2_2 - 1
-          SHX19_1 = SHX2_2
+          arg3 = numberValue6
+          arg3 = arg3 - 1
+          numberValue6 = arg3
         end
       end
     else
-      SHX2_2 = DrawRect
-      SHX3_2 = 0.452
-      SHX4_2 = 0.69
-      SHX5_2 = 0.065
-      SHX6_2 = 0.036
-      SHX7_2 = 0
-      SHX8_2 = 0
-      SHX9_2 = 0
-      SHX10_2 = 150
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+      arg3 = DrawRect
+      arg4 = 0.452
+      arg5 = 0.69
+      arg6 = 0.065
+      arg7 = 0.036
+      arg8 = 0
+      arg9 = 0
+      arg10 = 0
+      arg11 = 150
+      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
     end
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.639
-    SHX4_2 = 0.692
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Next"
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 4
-    SHX14_2 = 0
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = CursorInArea
-    SHX3_2 = 0.5125
-    SHX4_2 = 0.5775
-    SHX5_2 = 0.6712
-    SHX6_2 = 0.7064
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-    if SHX2_2 then
-      SHX2_2 = DrawRect
-      SHX3_2 = 0.545
-      SHX4_2 = 0.69
-      SHX5_2 = 0.065
-      SHX6_2 = 0.036
-      SHX7_2 = SHX7_1
-      SHX8_2 = SHX8_1
-      SHX9_2 = SHX9_1
-      SHX10_2 = 150
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      SHX2_2 = IsControlJustPressed
-      SHX3_2 = 1
-      SHX4_2 = 329
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-      if not SHX2_2 then
-        SHX2_2 = IsDisabledControlJustPressed
-        SHX3_2 = 1
-        SHX4_2 = 329
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
+    arg3 = DrawAdvancedText
+    arg4 = 0.639
+    arg5 = 0.692
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Next"
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 4
+    arg15 = 0
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = CursorInArea
+    arg4 = 0.5125
+    arg5 = 0.5775
+    arg6 = 0.6712
+    arg7 = 0.7064
+    arg3 = arg3(arg4, arg5, arg6, arg7)
+    if arg3 then
+      arg3 = DrawRect
+      arg4 = 0.545
+      arg5 = 0.69
+      arg6 = 0.065
+      arg7 = 0.036
+      arg8 = numberValue28
+      arg9 = numberValue29
+      arg10 = numberValue30
+      arg11 = 150
+      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+      arg3 = IsControlJustPressed
+      arg4 = 1
+      arg5 = 329
+      arg3 = arg3(arg4, arg5)
+      if not arg3 then
+        arg3 = IsDisabledControlJustPressed
+        arg4 = 1
+        arg5 = 329
+        arg3 = arg3(arg4, arg5)
       end
-      if SHX2_2 then
-        SHX2_2 = PlaySound
-        SHX3_2 = -1
-        SHX4_2 = "SELECT"
-        SHX5_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX6_2 = false
-        SHX7_2 = 0
-        SHX8_2 = true
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX2_2 = SHX19_1
-        SHX3_2 = math
-        SHX3_2 = SHX3_2.ceil
-        SHX4_2 = SHX1_2 / 10.0
-        SHX3_2 = SHX3_2(SHX4_2)
-        if SHX2_2 >= SHX3_2 then
-          SHX2_2 = tCMG
-          SHX2_2 = SHX2_2.notify
-          SHX3_2 = "~r~Max page reached"
-          SHX2_2(SHX3_2)
+      if arg3 then
+        arg3 = PlaySound
+        arg4 = -1
+        arg5 = "SELECT"
+        arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg7 = false
+        arg8 = 0
+        arg9 = true
+        arg3(arg4, arg5, arg6, arg7, arg8, arg9)
+        arg3 = numberValue6
+        arg4 = math
+        arg4 = arg4.ceil
+        arg5 = arg2 / 10.0
+        arg4 = arg4(arg5)
+        if arg3 >= arg4 then
+          arg3 = tCMG
+          arg3 = arg3.notify
+          arg4 = "~r~Max page reached"
+          -- Beginner: Show a notification to the player.
+          arg3(arg4)
         else
-          SHX2_2 = SHX19_1
-          SHX2_2 = SHX2_2 + 1
-          SHX19_1 = SHX2_2
+          arg3 = numberValue6
+          arg3 = arg3 + 1
+          numberValue6 = arg3
         end
       end
     else
-      SHX2_2 = DrawRect
-      SHX3_2 = 0.545
-      SHX4_2 = 0.69
-      SHX5_2 = 0.065
-      SHX6_2 = 0.036
-      SHX7_2 = 0
-      SHX8_2 = 0
-      SHX9_2 = 0
-      SHX10_2 = 150
-      SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+      arg3 = DrawRect
+      arg4 = 0.545
+      arg5 = 0.69
+      arg6 = 0.065
+      arg7 = 0.036
+      arg8 = 0
+      arg9 = 0
+      arg10 = 0
+      arg11 = 150
+      arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
     end
   end
-  SHX0_2 = SHX1_1
-  if "settings" == SHX0_2 then
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.501
-    SHX2_2 = 0.525
-    SHX3_2 = 0.421
-    SHX4_2 = 0.387
-    SHX5_2 = 0
-    SHX6_2 = 0
-    SHX7_2 = 0
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.501
-    SHX2_2 = 0.308
-    SHX3_2 = 0.421
-    SHX4_2 = 0.047
-    SHX5_2 = 18
-    SHX6_2 = 82
-    SHX7_2 = 228
-    SHX8_2 = 248
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.591
-    SHX2_2 = 0.312
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.48
-    SHX6_2 = "CMG gang - settings"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 7
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.7
-    SHX2_2 = 0.398
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.46
-    SHX6_2 = "Permissions Guide"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 6
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.7
-    SHX2_2 = 0.436
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.46
-    SHX6_2 = "New members by can only deposit by default"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 6
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.7
-    SHX2_2 = 0.457
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.46
-    SHX6_2 = "This can be configured in the members page"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 6
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.7
-    SHX2_2 = 0.51
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.46
-    SHX6_2 = "To withdraw, invite, kick and access more"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 6
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.7
-    SHX2_2 = 0.572
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.46
-    SHX6_2 = "A leader has full access to the gang."
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 6
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.7
-    SHX2_2 = 0.532
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.46
-    SHX6_2 = "permissions must be given in members page."
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 6
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = SHX10_1
-    if SHX0_2 then
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.451
-      SHX2_2 = 0.616
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Leave Gang"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.554
-      SHX2_2 = 0.615
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Disband Gang"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.5025
-      SHX2_2 = 0.69
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Set Gang Tag"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+  arg1 = textValue
+  if "settings" == arg1 then
+    arg1 = DrawRect
+    arg2 = 0.501
+    arg3 = 0.525
+    arg4 = 0.421
+    arg5 = 0.387
+    arg6 = 0
+    arg7 = 0
+    arg8 = 0
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.501
+    arg3 = 0.308
+    arg4 = 0.421
+    arg5 = 0.047
+    arg6 = 18
+    arg7 = 82
+    arg8 = 228
+    arg9 = 248
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawAdvancedText
+    arg2 = 0.591
+    arg3 = 0.312
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.48
+    arg7 = "CMG gang - settings"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 7
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.7
+    arg3 = 0.398
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.46
+    arg7 = "Permissions Guide"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 6
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.7
+    arg3 = 0.436
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.46
+    arg7 = "New members by can only deposit by default"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 6
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.7
+    arg3 = 0.457
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.46
+    arg7 = "This can be configured in the members page"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 6
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.7
+    arg3 = 0.51
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.46
+    arg7 = "To withdraw, invite, kick and access more"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 6
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.7
+    arg3 = 0.572
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.46
+    arg7 = "A leader has full access to the gang."
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 6
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.7
+    arg3 = 0.532
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.46
+    arg7 = "permissions must be given in members page."
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 6
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = workValue
+    if arg1 then
+      arg1 = DrawAdvancedText
+      arg2 = 0.451
+      arg3 = 0.616
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Leave Gang"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.554
+      arg3 = 0.615
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Disband Gang"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.5025
+      arg3 = 0.69
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Set Gang Tag"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
     end
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.775
-    SHX2_2 = 0.693
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.4
-    SHX6_2 = "Back"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 4
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = SHX33_1
-    SHX0_2 = SHX0_2()
-    SHX1_2 = SHX10_1
-    if SHX1_2 then
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.3187
-      SHX3_2 = 0.3937
-      SHX4_2 = 0.5712
-      SHX5_2 = 0.6462
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.357
-        SHX3_2 = 0.61
-        SHX4_2 = 0.075
-        SHX5_2 = 0.076
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+    arg1 = DrawAdvancedText
+    arg2 = 0.775
+    arg3 = 0.693
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.4
+    arg7 = "Back"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 4
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = workValue6
+    arg1 = arg1()
+    arg2 = workValue
+    if arg2 then
+      arg2 = CursorInArea
+      arg3 = 0.3187
+      arg4 = 0.3937
+      arg5 = 0.5712
+      arg6 = 0.6462
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.357
+        arg4 = 0.61
+        arg5 = 0.075
+        arg6 = 0.076
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX10_1
-          if SHX0_2 == SHX1_2 then
-            SHX1_2 = SHX36_1
-            SHX2_2 = "Are you sure?"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = TriggerServerEvent
-              SHX2_2 = "4d87711de5"
-              SHX1_2(SHX2_2)
-              SHX1_2 = "noGang"
-              SHX1_1 = SHX1_2
-              SHX1_2 = CMG
-              SHX2_2 = "setCursor"
-              SHX1_2 = SHX1_2[SHX2_2]
-              SHX2_2 = 0
-              SHX1_2(SHX2_2)
-              SHX1_2 = _ENV
-              SHX2_2 = "SetPlayerControl"
-              SHX1_2 = SHX1_2[SHX2_2]
-              SHX2_2 = _ENV
-              SHX3_2 = "PlayerId"
-              SHX2_2 = SHX2_2[SHX3_2]
-              SHX2_2 = SHX2_2()
-              SHX3_2 = true
-              SHX4_2 = 0
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = workValue
+          if arg1 == arg2 then
+            arg2 = cmgCall7
+            arg3 = "Are you sure?"
+            arg2 = arg2(arg3)
+            if arg2 then
+              arg2 = TriggerServerEvent
+              arg3 = "4d87711de5"
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "4d87711de5".
+              arg2(arg3)
+              arg2 = "noGang"
+              textValue = arg2
+              arg2 = CMG
+              arg3 = "setCursor"
+              arg2 = arg2[arg3]
+              arg3 = 0
+              arg2(arg3)
+              arg2 = _ENV
+              arg3 = "SetPlayerControl"
+              arg2 = arg2[arg3]
+              arg3 = _ENV
+              arg4 = "PlayerId"
+              arg3 = arg3[arg4]
+              arg3 = arg3()
+              arg4 = true
+              arg5 = 0
+              arg2(arg3, arg4, arg5)
             end
           else
-            SHX1_2 = notify
-            SHX2_2 = "~r~You must have your main gang selected to use this."
-            SHX1_2(SHX2_2)
+            arg2 = notify
+            arg3 = "~r~You must have your main gang selected to use this."
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.357
-        SHX3_2 = 0.61
-        SHX4_2 = 0.075
-        SHX5_2 = 0.076
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.357
+        arg4 = 0.61
+        arg5 = 0.075
+        arg6 = 0.076
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.4197
-      SHX3_2 = 0.4932
-      SHX4_2 = 0.5712
-      SHX5_2 = 0.6462
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.457
-        SHX3_2 = 0.61
-        SHX4_2 = 0.075
-        SHX5_2 = 0.076
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.4197
+      arg4 = 0.4932
+      arg5 = 0.5712
+      arg6 = 0.6462
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.457
+        arg4 = 0.61
+        arg5 = 0.075
+        arg6 = 0.076
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX10_1
-          if SHX0_2 == SHX1_2 then
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.hasGangPermission
-            SHX2_2 = "leader"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = SHX36_1
-              SHX2_2 = "Are you sure?"
-              SHX1_2 = SHX1_2(SHX2_2)
-              if true == SHX1_2 then
-                SHX1_2 = TriggerServerEvent
-                SHX2_2 = "2b85de9de2"
-                SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = workValue
+          if arg1 == arg2 then
+            arg2 = CMG
+            arg2 = arg2.hasGangPermission
+            arg3 = "leader"
+            arg2 = arg2(arg3)
+            if arg2 then
+              arg2 = cmgCall7
+              arg3 = "Are you sure?"
+              arg2 = arg2(arg3)
+              if true == arg2 then
+                arg2 = TriggerServerEvent
+                arg3 = "2b85de9de2"
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2b85de9de2".
+                arg2(arg3)
               else
-                SHX1_2 = tCMG
-                SHX1_2 = SHX1_2.notify
-                SHX2_2 = "~r~Cancelled disbanding gang."
-                SHX1_2(SHX2_2)
+                arg2 = tCMG
+                arg2 = arg2.notify
+                arg3 = "~r~Cancelled disbanding gang."
+                -- Beginner: Show a notification to the player.
+                arg2(arg3)
               end
             else
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.notify
-              SHX2_2 = "~r~You don't have permission to disband!"
-              SHX1_2(SHX2_2)
+              arg2 = tCMG
+              arg2 = arg2.notify
+              arg3 = "~r~You don't have permission to disband!"
+              arg2(arg3)
             end
           else
-            SHX1_2 = notify
-            SHX2_2 = "~r~You must have your main gang selected to use this."
-            SHX1_2(SHX2_2)
+            arg2 = notify
+            arg3 = "~r~You must have your main gang selected to use this."
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.457
-        SHX3_2 = 0.61
-        SHX4_2 = 0.075
-        SHX5_2 = 0.076
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.457
+        arg4 = 0.61
+        arg5 = 0.075
+        arg6 = 0.076
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInAreaRect
-      SHX2_2 = 0.407
-      SHX3_2 = 0.69
-      SHX4_2 = 0.075
-      SHX5_2 = 0.04
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.407
-        SHX3_2 = 0.687
-        SHX4_2 = 0.075
-        SHX5_2 = 0.04
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInAreaRect
+      arg3 = 0.407
+      arg4 = 0.69
+      arg5 = 0.075
+      arg6 = 0.04
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.407
+        arg4 = 0.687
+        arg5 = 0.075
+        arg6 = 0.04
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX10_1
-          if SHX0_2 == SHX1_2 then
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.hasGangPermission
-            SHX2_2 = "leader"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = TriggerServerEvent
-              SHX2_2 = "9dad3c2a94"
-              SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = workValue
+          if arg1 == arg2 then
+            arg2 = CMG
+            arg2 = arg2.hasGangPermission
+            arg3 = "leader"
+            arg2 = arg2(arg3)
+            if arg2 then
+              arg2 = TriggerServerEvent
+              arg3 = "9dad3c2a94"
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "9dad3c2a94".
+              arg2(arg3)
             else
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.notify
-              SHX2_2 = "~r~Only a leader can set the gang tag!"
-              SHX1_2(SHX2_2)
+              arg2 = tCMG
+              arg2 = arg2.notify
+              arg3 = "~r~Only a leader can set the gang tag!"
+              -- Beginner: Show a notification to the player.
+              arg2(arg3)
             end
           else
-            SHX1_2 = notify
-            SHX2_2 = "~r~You must have your main gang selected to use this."
-            SHX1_2(SHX2_2)
+            arg2 = notify
+            arg3 = "~r~You must have your main gang selected to use this."
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.407
-        SHX3_2 = 0.687
-        SHX4_2 = 0.075
-        SHX5_2 = 0.04
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.407
+        arg4 = 0.687
+        arg5 = 0.075
+        arg6 = 0.04
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
     end
-    SHX1_2 = CursorInArea
-    SHX2_2 = 0.6583
-    SHX3_2 = 0.7056
-    SHX4_2 = 0.6712
-    SHX5_2 = 0.7064
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-    if SHX1_2 then
-      SHX1_2 = DrawRect
-      SHX2_2 = 0.681
-      SHX3_2 = 0.689
-      SHX4_2 = 0.045
-      SHX5_2 = 0.036
-      SHX6_2 = SHX7_1
-      SHX7_2 = SHX8_1
-      SHX8_2 = SHX9_1
-      SHX9_2 = 150
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-      SHX1_2 = IsControlJustPressed
-      SHX2_2 = 1
-      SHX3_2 = 329
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-      if not SHX1_2 then
-        SHX1_2 = IsDisabledControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+    arg2 = CursorInArea
+    arg3 = 0.6583
+    arg4 = 0.7056
+    arg5 = 0.6712
+    arg6 = 0.7064
+    arg2 = arg2(arg3, arg4, arg5, arg6)
+    if arg2 then
+      arg2 = DrawRect
+      arg3 = 0.681
+      arg4 = 0.689
+      arg5 = 0.045
+      arg6 = 0.036
+      arg7 = numberValue28
+      arg8 = numberValue29
+      arg9 = numberValue30
+      arg10 = 150
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+      arg2 = IsControlJustPressed
+      arg3 = 1
+      arg4 = 329
+      arg2 = arg2(arg3, arg4)
+      if not arg2 then
+        arg2 = IsDisabledControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
       end
-      if SHX1_2 then
-        SHX1_2 = PlaySound
-        SHX2_2 = -1
-        SHX3_2 = "SELECT"
-        SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX5_2 = false
-        SHX6_2 = 0
-        SHX7_2 = true
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        SHX1_2 = SHX10_1
-        if SHX1_2 then
-          SHX1_2 = "gang"
-          SHX1_1 = SHX1_2
+      if arg2 then
+        arg2 = PlaySound
+        arg3 = -1
+        arg4 = "SELECT"
+        arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg6 = false
+        arg7 = 0
+        arg8 = true
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+        arg2 = workValue
+        if arg2 then
+          arg2 = "gang"
+          textValue = arg2
         else
-          SHX1_2 = "noGang"
-          SHX1_1 = SHX1_2
+          arg2 = "noGang"
+          textValue = arg2
         end
       end
     else
-      SHX1_2 = DrawRect
-      SHX2_2 = 0.681
-      SHX3_2 = 0.689
-      SHX4_2 = 0.045
-      SHX5_2 = 0.036
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 0
-      SHX9_2 = 150
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+      arg2 = DrawRect
+      arg3 = 0.681
+      arg4 = 0.689
+      arg5 = 0.045
+      arg6 = 0.036
+      arg7 = 0
+      arg8 = 0
+      arg9 = 0
+      arg10 = 150
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
     end
-    if SHX0_2 then
-      SHX1_2 = SHX0_2.isAdvanced
-      if SHX1_2 then
-        SHX1_2 = SHX15_1
-        SHX2_2 = "blips"
-        SHX1_2 = SHX1_2[SHX2_2]
-        if SHX1_2 then
-          SHX1_2 = "Disable"
-          if SHX1_2 then
-            goto SHX_LABEL_3760
+    if arg1 then
+      arg2 = arg1.isAdvanced
+      if arg2 then
+        arg2 = dataTable
+        arg3 = "blips"
+        arg2 = arg2[arg3]
+        if arg2 then
+          arg2 = "Disable"
+          if arg2 then
+            goto flow_label_3760
           end
         end
-        SHX1_2 = "Enable"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_3760:: outside nested blocks until all 'goto SHX_LABEL_3760' can see it
-        ::SHX_LABEL_3760::
-        SHX2_2 = DrawAdvancedText
-        SHX3_2 = 0.451
-        SHX4_2 = 0.416
-        SHX5_2 = 0.005
-        SHX6_2 = 0.0028
-        SHX7_2 = 0.4
-        SHX8_2 = SHX1_2
-        SHX9_2 = " Blips"
-        SHX8_2 = SHX8_2 .. SHX9_2
-        SHX9_2 = 255
-        SHX10_2 = 255
-        SHX11_2 = 255
-        SHX12_2 = 255
-        SHX13_2 = 6
-        SHX14_2 = 0
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        SHX2_2 = CursorInArea
-        SHX3_2 = 0.3187
-        SHX4_2 = 0.3937
-        SHX5_2 = 0.3712
-        SHX6_2 = 0.4462
-        SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        if SHX2_2 then
-          SHX2_2 = DrawRect
-          SHX3_2 = 0.357
-          SHX4_2 = 0.41
-          SHX5_2 = 0.075
-          SHX6_2 = 0.076
-          SHX7_2 = SHX7_1
-          SHX8_2 = SHX8_1
-          SHX9_2 = SHX9_1
-          SHX10_2 = 150
-          SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-          SHX2_2 = IsControlJustPressed
-          SHX3_2 = 1
-          SHX4_2 = 329
-          SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-          if not SHX2_2 then
-            SHX2_2 = IsDisabledControlJustPressed
-            SHX3_2 = 1
-            SHX4_2 = 329
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-            if not SHX2_2 then
-              goto SHX_LABEL_3874
+        arg2 = "Enable"
+        ::flow_label_3760::
+        arg3 = DrawAdvancedText
+        arg4 = 0.451
+        arg5 = 0.416
+        arg6 = 0.005
+        arg7 = 0.0028
+        arg8 = 0.4
+        arg9 = arg2
+        arg10 = " Blips"
+        arg9 = arg9 .. arg10
+        arg10 = 255
+        arg11 = 255
+        arg122 = 255
+        arg13 = 255
+        arg14 = 6
+        arg15 = 0
+        arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+        arg3 = CursorInArea
+        arg4 = 0.3187
+        arg5 = 0.3937
+        arg6 = 0.3712
+        arg7 = 0.4462
+        arg3 = arg3(arg4, arg5, arg6, arg7)
+        if arg3 then
+          arg3 = DrawRect
+          arg4 = 0.357
+          arg5 = 0.41
+          arg6 = 0.075
+          arg7 = 0.076
+          arg8 = numberValue28
+          arg9 = numberValue29
+          arg10 = numberValue30
+          arg11 = 150
+          arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+          arg3 = IsControlJustPressed
+          arg4 = 1
+          arg5 = 329
+          arg3 = arg3(arg4, arg5)
+          if not arg3 then
+            arg3 = IsDisabledControlJustPressed
+            arg4 = 1
+            arg5 = 329
+            arg3 = arg3(arg4, arg5)
+            if not arg3 then
+              goto flow_label_3874
             end
           end
-          SHX2_2 = PlaySound
-          SHX3_2 = -1
-          SHX4_2 = "SELECT"
-          SHX5_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX6_2 = false
-          SHX7_2 = 0
-          SHX8_2 = true
-          SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-          SHX2_2 = SHX15_1
-          SHX3_2 = "blips"
-          SHX4_2 = SHX15_1
-          SHX5_2 = "blips"
-          SHX4_2 = SHX4_2[SHX5_2]
-          SHX4_2 = not SHX4_2
-          SHX2_2[SHX3_2] = SHX4_2
-          SHX2_2 = _ENV
-          SHX3_2 = "TriggerEvent"
-          SHX2_2 = SHX2_2[SHX3_2]
-          SHX3_2 = "e713d91b70"
-          SHX2_2(SHX3_2)
-          SHX2_2 = SHX15_1
-          SHX3_2 = "blips"
-          SHX2_2 = SHX2_2[SHX3_2]
-          if not SHX2_2 then
-            SHX2_2 = _ENV
-            SHX3_2 = "TriggerEvent"
-            SHX2_2 = SHX2_2[SHX3_2]
-            SHX3_2 = "e713d91b70"
-            SHX2_2(SHX3_2)
-            SHX2_2 = TriggerServerEvent
-            SHX3_2 = "f9c26121e2"
-            SHX4_2 = nil
-            SHX2_2(SHX3_2, SHX4_2)
+          arg3 = PlaySound
+          arg4 = -1
+          arg5 = "SELECT"
+          arg6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg7 = false
+          arg8 = 0
+          arg9 = true
+          arg3(arg4, arg5, arg6, arg7, arg8, arg9)
+          arg3 = dataTable
+          arg4 = "blips"
+          arg5 = dataTable
+          arg6 = "blips"
+          arg5 = arg5[arg6]
+          arg5 = not arg5
+          arg3[arg4] = arg5
+          arg3 = _ENV
+          arg4 = "TriggerEvent"
+          arg3 = arg3[arg4]
+          arg4 = "e713d91b70"
+          arg3(arg4)
+          arg3 = dataTable
+          arg4 = "blips"
+          arg3 = arg3[arg4]
+          if not arg3 then
+            arg3 = _ENV
+            arg4 = "TriggerEvent"
+            arg3 = arg3[arg4]
+            arg4 = "e713d91b70"
+            arg3(arg4)
+            arg3 = TriggerServerEvent
+            arg4 = "f9c26121e2"
+            arg5 = nil
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
+            arg3(arg4, arg5)
           else
-            SHX2_2 = SHX33_1
-            SHX2_2 = SHX2_2()
-            SHX3_2 = SHX10_1
-            if SHX2_2 == SHX3_2 then
-              SHX2_2 = "own"
-              if SHX2_2 then
-                goto SHX_LABEL_3850
+            arg3 = workValue6
+            arg3 = arg3()
+            arg4 = workValue
+            if arg3 == arg4 then
+              arg3 = "own"
+              if arg3 then
+                goto flow_label_3850
               end
             end
-            SHX2_2 = "guest"
-            -- [FIX IF ERROR] Move ::SHX_LABEL_3850:: outside nested blocks until all 'goto SHX_LABEL_3850' can see it
-            ::SHX_LABEL_3850::
-            SHX3_2 = TriggerServerEvent
-            SHX4_2 = "f9c26121e2"
-            SHX5_2 = SHX2_2
-            SHX6_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2)
+            arg3 = "guest"
+            ::flow_label_3850::
+            arg4 = TriggerServerEvent
+            arg5 = "f9c26121e2"
+            arg6 = arg3
+            arg7 = true
+            arg4(arg5, arg6, arg7)
           end
-          SHX2_2 = SetResourceKvp
-          SHX3_2 = "cmg_gang_blips"
-          SHX4_2 = tostring
-          SHX5_2 = SHX15_1
-          SHX6_2 = "blips"
-          SHX5_2 = SHX5_2[SHX6_2]
-          SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX4_2(SHX5_2)
-          SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+          arg3 = SetResourceKvp
+          arg4 = "cmg_gang_blips"
+          arg5 = tostring
+          arg6 = dataTable
+          arg7 = "blips"
+          arg6 = arg6[arg7]
+          arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg5(arg6)
+          arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
         else
-          SHX2_2 = DrawRect
-          SHX3_2 = 0.357
-          SHX4_2 = 0.41
-          SHX5_2 = 0.075
-          SHX6_2 = 0.076
-          SHX7_2 = 0
-          SHX8_2 = 0
-          SHX9_2 = 0
-          SHX10_2 = 150
-          SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
+          arg3 = DrawRect
+          arg4 = 0.357
+          arg5 = 0.41
+          arg6 = 0.075
+          arg7 = 0.076
+          arg8 = 0
+          arg9 = 0
+          arg10 = 0
+          arg11 = 150
+          arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
         end
-        -- [FIX IF ERROR] Move ::SHX_LABEL_3874:: outside nested blocks until all 'goto SHX_LABEL_3874' can see it
-        ::SHX_LABEL_3874::
-        SHX2_2 = SHX15_1
-        SHX3_2 = "pings"
-        SHX2_2 = SHX2_2[SHX3_2]
-        if SHX2_2 then
-          SHX2_2 = "Disable"
-          if SHX2_2 then
-            goto SHX_LABEL_3883
+        ::flow_label_3874::
+        arg3 = dataTable
+        arg4 = "pings"
+        arg3 = arg3[arg4]
+        if arg3 then
+          arg3 = "Disable"
+          if arg3 then
+            goto flow_label_3883
           end
         end
-        SHX2_2 = "Enable"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_3883:: outside nested blocks until all 'goto SHX_LABEL_3883' can see it
-        ::SHX_LABEL_3883::
-        SHX3_2 = DrawAdvancedText
-        SHX4_2 = 0.554
-        SHX5_2 = 0.415
-        SHX6_2 = 0.005
-        SHX7_2 = 0.0028
-        SHX8_2 = 0.4
-        SHX9_2 = SHX2_2
-        SHX10_2 = " Pings"
-        SHX9_2 = SHX9_2 .. SHX10_2
-        SHX10_2 = 255
-        SHX11_2 = 255
-        SHX12_2 = 255
-        SHX13_2 = 255
-        SHX14_2 = 4
-        SHX15_2 = 0
-        SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-        SHX3_2 = CursorInArea
-        SHX4_2 = 0.4197
-        SHX5_2 = 0.4932
-        SHX6_2 = 0.3712
-        SHX7_2 = 0.4462
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        if SHX3_2 then
-          SHX3_2 = DrawRect
-          SHX4_2 = 0.457
-          SHX5_2 = 0.41
-          SHX6_2 = 0.075
-          SHX7_2 = 0.076
-          SHX8_2 = SHX7_1
-          SHX9_2 = SHX8_1
-          SHX10_2 = SHX9_1
-          SHX11_2 = 150
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-          SHX3_2 = IsControlJustPressed
-          SHX4_2 = 1
-          SHX5_2 = 329
-          SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-          if not SHX3_2 then
-            SHX3_2 = IsDisabledControlJustPressed
-            SHX4_2 = 1
-            SHX5_2 = 329
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
+        arg3 = "Enable"
+        ::flow_label_3883::
+        arg4 = DrawAdvancedText
+        arg5 = 0.554
+        arg6 = 0.415
+        arg7 = 0.005
+        arg8 = 0.0028
+        arg9 = 0.4
+        arg10 = arg3
+        arg11 = " Pings"
+        arg10 = arg10 .. arg11
+        arg11 = 255
+        arg122 = 255
+        arg13 = 255
+        arg14 = 255
+        arg15 = 4
+        arg16 = 0
+        arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
+        arg4 = CursorInArea
+        arg5 = 0.4197
+        arg6 = 0.4932
+        arg7 = 0.3712
+        arg8 = 0.4462
+        arg4 = arg4(arg5, arg6, arg7, arg8)
+        if arg4 then
+          arg4 = DrawRect
+          arg5 = 0.457
+          arg6 = 0.41
+          arg7 = 0.075
+          arg8 = 0.076
+          arg9 = numberValue28
+          arg10 = numberValue29
+          arg11 = numberValue30
+          arg122 = 150
+          arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122)
+          arg4 = IsControlJustPressed
+          arg5 = 1
+          arg6 = 329
+          arg4 = arg4(arg5, arg6)
+          if not arg4 then
+            arg4 = IsDisabledControlJustPressed
+            arg5 = 1
+            arg6 = 329
+            arg4 = arg4(arg5, arg6)
           end
-          if SHX3_2 then
-            SHX3_2 = PlaySound
-            SHX4_2 = -1
-            SHX5_2 = "SELECT"
-            SHX6_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX7_2 = false
-            SHX8_2 = 0
-            SHX9_2 = true
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-            SHX3_2 = SHX15_1
-            SHX4_2 = "pings"
-            SHX5_2 = SHX15_1
-            SHX6_2 = "pings"
-            SHX5_2 = SHX5_2[SHX6_2]
-            SHX5_2 = not SHX5_2
-            SHX3_2[SHX4_2] = SHX5_2
-            SHX3_2 = SetResourceKvp
-            SHX4_2 = "cmg_gang_pings"
-            SHX5_2 = tostring
-            SHX6_2 = SHX15_1
-            SHX7_2 = "pings"
-            SHX6_2 = SHX6_2[SHX7_2]
-            SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX5_2(SHX6_2)
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+          if arg4 then
+            arg4 = PlaySound
+            arg5 = -1
+            arg6 = "SELECT"
+            arg7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            arg8 = false
+            arg9 = 0
+            arg10 = true
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10)
+            arg4 = dataTable
+            arg5 = "pings"
+            arg6 = dataTable
+            arg7 = "pings"
+            arg6 = arg6[arg7]
+            arg6 = not arg6
+            arg4[arg5] = arg6
+            arg4 = SetResourceKvp
+            arg5 = "cmg_gang_pings"
+            arg6 = tostring
+            arg7 = dataTable
+            arg8 = "pings"
+            arg7 = arg7[arg8]
+            arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg6(arg7)
+            arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
           end
         else
-          SHX3_2 = DrawRect
-          SHX4_2 = 0.457
-          SHX5_2 = 0.41
-          SHX6_2 = 0.075
-          SHX7_2 = 0.076
-          SHX8_2 = 0
-          SHX9_2 = 0
-          SHX10_2 = 0
-          SHX11_2 = 150
-          SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+          arg4 = DrawRect
+          arg5 = 0.457
+          arg6 = 0.41
+          arg7 = 0.075
+          arg8 = 0.076
+          arg9 = 0
+          arg10 = 0
+          arg11 = 0
+          arg122 = 150
+          arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122)
         end
-        SHX3_2 = SHX15_1
-        SHX4_2 = "names"
-        SHX3_2 = SHX3_2[SHX4_2]
-        if SHX3_2 then
-          SHX3_2 = "Disable"
-          if SHX3_2 then
-            goto SHX_LABEL_3972
+        arg4 = dataTable
+        arg5 = "names"
+        arg4 = arg4[arg5]
+        if arg4 then
+          arg4 = "Disable"
+          if arg4 then
+            goto flow_label_3972
           end
         end
-        SHX3_2 = "Enable"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_3972:: outside nested blocks until all 'goto SHX_LABEL_3972' can see it
-        ::SHX_LABEL_3972::
-        SHX4_2 = DrawAdvancedText
-        SHX5_2 = 0.451
-        SHX6_2 = 0.516
-        SHX7_2 = 0.005
-        SHX8_2 = 0.0028
-        SHX9_2 = 0.4
-        SHX10_2 = SHX3_2
-        SHX11_2 = " Names"
-        SHX10_2 = SHX10_2 .. SHX11_2
-        SHX11_2 = 255
-        SHX12_2 = 255
-        SHX13_2 = 255
-        SHX14_2 = 255
-        SHX15_2 = 6
-        SHX16_2 = 0
-        SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-        SHX4_2 = CursorInArea
-        SHX5_2 = 0.3187
-        SHX6_2 = 0.3937
-        SHX7_2 = 0.4712
-        SHX8_2 = 0.5462
-        SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        if SHX4_2 then
-          SHX4_2 = DrawRect
-          SHX5_2 = 0.357
-          SHX6_2 = 0.51
-          SHX7_2 = 0.075
-          SHX8_2 = 0.076
-          SHX9_2 = SHX7_1
-          SHX10_2 = SHX8_1
-          SHX11_2 = SHX9_1
-          SHX12_2 = 150
-          SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-          SHX4_2 = IsControlJustPressed
-          SHX5_2 = 1
-          SHX6_2 = 329
-          SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-          if not SHX4_2 then
-            SHX4_2 = IsDisabledControlJustPressed
-            SHX5_2 = 1
-            SHX6_2 = 329
-            SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
+        arg4 = "Enable"
+        ::flow_label_3972::
+        arg5 = DrawAdvancedText
+        arg6 = 0.451
+        arg7 = 0.516
+        arg8 = 0.005
+        arg9 = 0.0028
+        arg10 = 0.4
+        arg11 = arg4
+        arg122 = " Names"
+        arg11 = arg11 .. arg122
+        arg122 = 255
+        arg13 = 255
+        arg14 = 255
+        arg15 = 255
+        arg16 = 6
+        arg17 = 0
+        arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17)
+        arg5 = CursorInArea
+        arg6 = 0.3187
+        arg7 = 0.3937
+        arg8 = 0.4712
+        arg9 = 0.5462
+        arg5 = arg5(arg6, arg7, arg8, arg9)
+        if arg5 then
+          arg5 = DrawRect
+          arg6 = 0.357
+          arg7 = 0.51
+          arg8 = 0.075
+          arg9 = 0.076
+          arg10 = numberValue28
+          arg11 = numberValue29
+          arg122 = numberValue30
+          arg13 = 150
+          arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+          arg5 = IsControlJustPressed
+          arg6 = 1
+          arg7 = 329
+          arg5 = arg5(arg6, arg7)
+          if not arg5 then
+            arg5 = IsDisabledControlJustPressed
+            arg6 = 1
+            arg7 = 329
+            arg5 = arg5(arg6, arg7)
           end
-          if SHX4_2 then
-            SHX4_2 = PlaySound
-            SHX5_2 = -1
-            SHX6_2 = "SELECT"
-            SHX7_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX8_2 = false
-            SHX9_2 = 0
-            SHX10_2 = true
-            SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-            SHX4_2 = SHX15_1
-            SHX5_2 = "names"
-            SHX6_2 = SHX15_1
-            SHX7_2 = "names"
-            SHX6_2 = SHX6_2[SHX7_2]
-            SHX6_2 = not SHX6_2
-            SHX4_2[SHX5_2] = SHX6_2
-            SHX4_2 = SetResourceKvp
-            SHX5_2 = "cmg_gang_names"
-            SHX6_2 = tostring
-            SHX7_2 = SHX15_1
-            SHX8_2 = "names"
-            SHX7_2 = SHX7_2[SHX8_2]
-            SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX6_2(SHX7_2)
-            SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+          if arg5 then
+            arg5 = PlaySound
+            arg6 = -1
+            arg7 = "SELECT"
+            arg8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            arg9 = false
+            arg10 = 0
+            arg11 = true
+            arg5(arg6, arg7, arg8, arg9, arg10, arg11)
+            arg5 = dataTable
+            arg6 = "names"
+            arg7 = dataTable
+            arg8 = "names"
+            arg7 = arg7[arg8]
+            arg7 = not arg7
+            arg5[arg6] = arg7
+            arg5 = SetResourceKvp
+            arg6 = "cmg_gang_names"
+            arg7 = tostring
+            arg8 = dataTable
+            arg9 = "names"
+            arg8 = arg8[arg9]
+            arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg7(arg8)
+            arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
           end
         else
-          SHX4_2 = DrawRect
-          SHX5_2 = 0.357
-          SHX6_2 = 0.51
-          SHX7_2 = 0.075
-          SHX8_2 = 0.076
-          SHX9_2 = 0
-          SHX10_2 = 0
-          SHX11_2 = 0
-          SHX12_2 = 150
-          SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+          arg5 = DrawRect
+          arg6 = 0.357
+          arg7 = 0.51
+          arg8 = 0.075
+          arg9 = 0.076
+          arg10 = 0
+          arg11 = 0
+          arg122 = 0
+          arg13 = 150
+          arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
         end
-        SHX4_2 = SHX10_1
-        if SHX4_2 then
-          SHX4_2 = DrawAdvancedText
-          SHX5_2 = 0.554
-          SHX6_2 = 0.515
-          SHX7_2 = 0.005
-          SHX8_2 = 0.0028
-          SHX9_2 = 0.4
-          SHX10_2 = "Rename Gang"
-          SHX11_2 = 255
-          SHX12_2 = 255
-          SHX13_2 = 255
-          SHX14_2 = 255
-          SHX15_2 = 4
-          SHX16_2 = 0
-          SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-          SHX4_2 = CursorInArea
-          SHX5_2 = 0.4197
-          SHX6_2 = 0.4932
-          SHX7_2 = 0.4712
-          SHX8_2 = 0.5462
-          SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-          if SHX4_2 then
-            SHX4_2 = DrawRect
-            SHX5_2 = 0.457
-            SHX6_2 = 0.51
-            SHX7_2 = 0.075
-            SHX8_2 = 0.076
-            SHX9_2 = SHX7_1
-            SHX10_2 = SHX8_1
-            SHX11_2 = SHX9_1
-            SHX12_2 = 150
-            SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-            SHX4_2 = IsControlJustPressed
-            SHX5_2 = 1
-            SHX6_2 = 329
-            SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-            if not SHX4_2 then
-              SHX4_2 = IsDisabledControlJustPressed
-              SHX5_2 = 1
-              SHX6_2 = 329
-              SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
+        arg5 = workValue
+        if arg5 then
+          arg5 = DrawAdvancedText
+          arg6 = 0.554
+          arg7 = 0.515
+          arg8 = 0.005
+          arg9 = 0.0028
+          arg10 = 0.4
+          arg11 = "Rename Gang"
+          arg122 = 255
+          arg13 = 255
+          arg14 = 255
+          arg15 = 255
+          arg16 = 4
+          arg17 = 0
+          arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17)
+          arg5 = CursorInArea
+          arg6 = 0.4197
+          arg7 = 0.4932
+          arg8 = 0.4712
+          arg9 = 0.5462
+          arg5 = arg5(arg6, arg7, arg8, arg9)
+          if arg5 then
+            arg5 = DrawRect
+            arg6 = 0.457
+            arg7 = 0.51
+            arg8 = 0.075
+            arg9 = 0.076
+            arg10 = numberValue28
+            arg11 = numberValue29
+            arg122 = numberValue30
+            arg13 = 150
+            arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+            arg5 = IsControlJustPressed
+            arg6 = 1
+            arg7 = 329
+            arg5 = arg5(arg6, arg7)
+            if not arg5 then
+              arg5 = IsDisabledControlJustPressed
+              arg6 = 1
+              arg7 = 329
+              arg5 = arg5(arg6, arg7)
             end
-            if SHX4_2 then
-              SHX4_2 = PlaySound
-              SHX5_2 = -1
-              SHX6_2 = "SELECT"
-              SHX7_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              SHX8_2 = false
-              SHX9_2 = 0
-              SHX10_2 = true
-              SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-              SHX4_2 = SHX10_1.isAdvanced
-              if SHX4_2 then
-                SHX4_2 = CMG
-                SHX4_2 = SHX4_2.GetRageInputText
-                SHX5_2 = "Enter Gang Name:"
-                SHX4_2 = SHX4_2(SHX5_2)
-                if nil ~= SHX4_2 and "null" ~= SHX4_2 and "" ~= SHX4_2 then
-                  SHX5_2 = TriggerServerEvent
-                  SHX6_2 = "7a95907fc0"
-                  SHX7_2 = SHX4_2
-                  SHX5_2(SHX6_2, SHX7_2)
+            if arg5 then
+              arg5 = PlaySound
+              arg6 = -1
+              arg7 = "SELECT"
+              arg8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              arg9 = false
+              arg10 = 0
+              arg11 = true
+              arg5(arg6, arg7, arg8, arg9, arg10, arg11)
+              arg5 = workValue.isAdvanced
+              if arg5 then
+                arg5 = CMG
+                arg5 = arg5.GetRageInputText
+                arg6 = "Enter Gang Name:"
+                arg5 = arg5(arg6)
+                if nil ~= arg5 and "null" ~= arg5 and "" ~= arg5 then
+                  arg6 = TriggerServerEvent
+                  arg7 = "7a95907fc0"
+                  arg8 = arg5
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7a95907fc0".
+                  arg6(arg7, arg8)
                 else
-                  SHX5_2 = tCMG
-                  SHX5_2 = SHX5_2.notify
-                  SHX6_2 = "~r~No gang name entered!"
-                  SHX5_2(SHX6_2)
+                  arg6 = tCMG
+                  arg6 = arg6.notify
+                  arg7 = "~r~No gang name entered!"
+                  -- Beginner: Show a notification to the player.
+                  arg6(arg7)
                 end
               else
-                SHX4_2 = notify
-                SHX5_2 = "~r~Your main gang does not have the advanced license."
-                SHX4_2(SHX5_2)
+                arg5 = notify
+                arg6 = "~r~Your main gang does not have the advanced license."
+                arg5(arg6)
               end
             end
           else
-            SHX4_2 = DrawRect
-            SHX5_2 = 0.457
-            SHX6_2 = 0.51
-            SHX7_2 = 0.075
-            SHX8_2 = 0.076
-            SHX9_2 = 0
-            SHX10_2 = 0
-            SHX11_2 = 0
-            SHX12_2 = 150
-            SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+            arg5 = DrawRect
+            arg6 = 0.457
+            arg7 = 0.51
+            arg8 = 0.075
+            arg9 = 0.076
+            arg10 = 0
+            arg11 = 0
+            arg122 = 0
+            arg13 = 150
+            arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
           end
         end
-        SHX4_2 = _ENV
-        SHX5_2 = "GetHudColour"
-        SHX4_2 = SHX4_2[SHX5_2]
-        SHX5_2 = SHX0_1
-        SHX6_2 = "colourLookup"
-        SHX5_2 = SHX5_2[SHX6_2]
-        SHX6_2 = SHX29_1
-        SHX5_2 = SHX5_2[SHX6_2]
-        SHX6_2 = "hud"
-        SHX5_2 = SHX5_2[SHX6_2]
-        SHX4_2, SHX5_2, SHX6_2 = SHX4_2(SHX5_2)
-        SHX7_2 = DrawAdvancedText
-        SHX8_2 = 0.645
-        SHX9_2 = 0.63
-        SHX10_2 = 0.005
-        SHX11_2 = 0.0028
-        SHX12_2 = 0.46
-        SHX13_2 = "Your Blip Colour: "
-        SHX14_2 = 255
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 6
-        SHX19_2 = 0
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-        SHX7_2 = DrawRect
-        SHX8_2 = 0.62
-        SHX9_2 = 0.628
-        SHX10_2 = 0.05
-        SHX11_2 = 0.025
-        SHX12_2 = SHX4_2
-        SHX13_2 = SHX5_2
-        SHX14_2 = SHX6_2
-        SHX15_2 = 255
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-        SHX7_2 = CursorInArea
-        SHX8_2 = 0.595
-        SHX9_2 = 0.645
-        SHX10_2 = 0.6155
-        SHX11_2 = 0.6405
-        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-        if SHX7_2 then
-          SHX7_2 = IsControlJustPressed
-          SHX8_2 = 1
-          SHX9_2 = 329
-          SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-          if not SHX7_2 then
-            SHX7_2 = IsDisabledControlJustPressed
-            SHX8_2 = 1
-            SHX9_2 = 329
-            SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
+        arg5 = _ENV
+        arg6 = "GetHudColour"
+        arg5 = arg5[arg6]
+        arg6 = cmgCall
+        arg7 = "colourLookup"
+        arg6 = arg6[arg7]
+        arg7 = textValue2
+        arg6 = arg6[arg7]
+        arg7 = "hud"
+        arg6 = arg6[arg7]
+        arg5, arg6, arg7 = arg5(arg6)
+        arg8 = DrawAdvancedText
+        arg9 = 0.645
+        arg10 = 0.63
+        arg11 = 0.005
+        arg122 = 0.0028
+        arg13 = 0.46
+        arg14 = "Your Blip Colour: "
+        arg15 = 255
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 6
+        numberValue7 = 0
+        arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
+        arg8 = DrawRect
+        arg9 = 0.62
+        arg10 = 0.628
+        arg11 = 0.05
+        arg122 = 0.025
+        arg13 = arg5
+        arg14 = arg6
+        arg15 = arg7
+        arg16 = 255
+        arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
+        arg8 = CursorInArea
+        arg9 = 0.595
+        arg10 = 0.645
+        arg11 = 0.6155
+        arg122 = 0.6405
+        arg8 = arg8(arg9, arg10, arg11, arg122)
+        if arg8 then
+          arg8 = IsControlJustPressed
+          arg9 = 1
+          arg10 = 329
+          arg8 = arg8(arg9, arg10)
+          if not arg8 then
+            arg8 = IsDisabledControlJustPressed
+            arg9 = 1
+            arg10 = 329
+            arg8 = arg8(arg9, arg10)
           end
-          if SHX7_2 then
-            SHX7_2 = false
-            SHX8_2 = false
-            SHX9_2 = pairs
-            SHX10_2 = SHX0_1
-            SHX11_2 = "colourLookup"
-            SHX10_2 = SHX10_2[SHX11_2]
-            SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-            for SHX13_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-              SHX14_2 = SHX29_1
-              if SHX13_2 == SHX14_2 then
-                SHX7_2 = true
-              elseif SHX7_2 then
-                SHX29_1 = SHX13_2
-                SHX8_2 = true
+          if arg8 then
+            arg8 = false
+            arg9 = false
+            arg10 = pairs
+            arg11 = cmgCall
+            arg122 = "colourLookup"
+            arg11 = arg11[arg122]
+            arg10, arg11, arg122, arg13 = arg10(arg11)
+            for arg14 in arg10, arg11, arg122, arg13 do
+              arg15 = textValue2
+              if arg14 == arg15 then
+                arg8 = true
+              elseif arg8 then
+                textValue2 = arg14
+                arg9 = true
                 break
               end
             end
-            if not SHX8_2 then
-              SHX9_2 = pairs
-              SHX10_2 = SHX0_1
-              SHX11_2 = "colourLookup"
-              SHX10_2 = SHX10_2[SHX11_2]
-              SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-              for SHX13_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-                SHX29_1 = SHX13_2
+            if not arg9 then
+              arg10 = pairs
+              arg11 = cmgCall
+              arg122 = "colourLookup"
+              arg11 = arg11[arg122]
+              arg10, arg11, arg122, arg13 = arg10(arg11)
+              for arg14 in arg10, arg11, arg122, arg13 do
+                textValue2 = arg14
                 break
               end
             end
-            SHX9_2 = SetResourceKvp
-            SHX10_2 = "cmg_gang_colour"
-            SHX11_2 = SHX29_1
-            SHX9_2(SHX10_2, SHX11_2)
-            SHX9_2 = TriggerServerEvent
-            SHX10_2 = "a74c553948"
-            SHX11_2 = SHX29_1
-            SHX9_2(SHX10_2, SHX11_2)
+            arg10 = SetResourceKvp
+            arg11 = "cmg_gang_colour"
+            arg122 = textValue2
+            arg10(arg11, arg122)
+            arg10 = TriggerServerEvent
+            arg11 = "a74c553948"
+            arg122 = textValue2
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a74c553948".
+            arg10(arg11, arg122)
           end
         end
     end
     else
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.5
-      SHX3_2 = 0.406
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Purchase Advanced License\n(\194\16350,000,000)"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 6
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.5
-      SHX3_2 = 0.476
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = [[
+      arg2 = DrawAdvancedText
+      arg3 = 0.5
+      arg4 = 0.406
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Purchase Advanced License\n(\194\16350,000,000)"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 6
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawAdvancedText
+      arg3 = 0.5
+      arg4 = 0.476
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = [[
 NOTE:
 This purchase is tied to the gang.
 Any member will be able to use the features.]]
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 6
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.3187
-      SHX3_2 = 0.4932
-      SHX4_2 = 0.3712
-      SHX5_2 = 0.5462
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.407
-        SHX3_2 = 0.46
-        SHX4_2 = 0.175
-        SHX5_2 = 0.176
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 6
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = CursorInArea
+      arg3 = 0.3187
+      arg4 = 0.4932
+      arg5 = 0.3712
+      arg6 = 0.5462
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.407
+        arg4 = 0.46
+        arg5 = 0.175
+        arg6 = 0.176
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = TriggerServerEvent
-          SHX2_2 = "40cb8bd46d"
-          SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = TriggerServerEvent
+          arg3 = "40cb8bd46d"
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "40cb8bd46d".
+          arg2(arg3)
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.407
-        SHX3_2 = 0.46
-        SHX4_2 = 0.175
-        SHX5_2 = 0.176
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.407
+        arg4 = 0.46
+        arg5 = 0.175
+        arg6 = 0.176
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    SHX1_2 = "rpturfs"
-    if SHX0_2 == SHX1_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.525
-      SHX3_2 = 0.421
-      SHX4_2 = 0.387
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.308
-      SHX3_2 = 0.421
-      SHX4_2 = 0.047
-      SHX5_2 = 18
-      SHX6_2 = 82
-      SHX7_2 = 228
-      SHX8_2 = 248
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.312
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.48
-      SHX6_2 = "CMG Gang - RP Turfs"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.502
-      SHX2_2 = 0.52
-      SHX3_2 = 0.387
-      SHX4_2 = 0.286
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.449
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Gang Name"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.657
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Our Relationship"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.757
-      SHX2_2 = 0.365
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Their Relationship"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.775
-      SHX2_2 = 0.693
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Back"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.6583
-      SHX2_2 = 0.7056
-      SHX3_2 = 0.6712
-      SHX4_2 = 0.7064
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    arg2 = "rpturfs"
+    if arg1 == arg2 then
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.525
+      arg4 = 0.421
+      arg5 = 0.387
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.308
+      arg4 = 0.421
+      arg5 = 0.047
+      arg6 = 18
+      arg7 = 82
+      arg8 = 228
+      arg9 = 248
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.312
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.48
+      arg7 = "CMG Gang - RP Turfs"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.502
+      arg3 = 0.52
+      arg4 = 0.387
+      arg5 = 0.286
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.449
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Gang Name"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.657
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Our Relationship"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.757
+      arg3 = 0.365
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Their Relationship"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.775
+      arg3 = 0.693
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Back"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.6583
+      arg3 = 0.7056
+      arg4 = 0.6712
+      arg5 = 0.7064
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "gang"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "gang"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = SHX10_1
-      SHX1_2 = "id"
-      SHX1_2 = SHX0_2[SHX1_2]
-      SHX0_2 = SHX30_1
-      SHX0_2 = SHX0_2[SHX1_2]
-      SHX1_2 = 1
-      SHX2_2 = pairs
-      SHX3_2 = SHX30_1
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-      for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-        SHX8_2 = SHX10_1
-        SHX9_2 = "id"
-        SHX8_2 = SHX8_2[SHX9_2]
-        if SHX6_2 ~= SHX8_2 then
-          SHX8_2 = "relationships"
-          SHX8_2 = SHX0_2[SHX8_2]
-          SHX8_2 = SHX8_2[SHX6_2]
-          if not SHX8_2 then
-            SHX8_2 = "Neutral"
+      arg1 = workValue
+      arg2 = "id"
+      arg2 = arg1[arg2]
+      arg1 = dataTable5
+      arg1 = arg1[arg2]
+      arg2 = 1
+      arg3 = pairs
+      arg4 = dataTable5
+      arg3, arg4, arg5, arg6 = arg3(arg4)
+      for arg7, arg8 in arg3, arg4, arg5, arg6 do
+        arg9 = workValue
+        arg10 = "id"
+        arg9 = arg9[arg10]
+        if arg7 ~= arg9 then
+          arg9 = "relationships"
+          arg9 = arg1[arg9]
+          arg9 = arg9[arg7]
+          if not arg9 then
+            arg9 = "Neutral"
           end
-          SHX9_2 = "relationships"
-          SHX9_2 = SHX7_2[SHX9_2]
-          SHX10_2 = SHX10_1
-          SHX11_2 = "id"
-          SHX10_2 = SHX10_2[SHX11_2]
-          SHX9_2 = SHX9_2[SHX10_2]
-          if not SHX9_2 then
-            SHX9_2 = "Neutral"
+          arg10 = "relationships"
+          arg10 = arg8[arg10]
+          arg11 = workValue
+          arg122 = "id"
+          arg11 = arg11[arg122]
+          arg10 = arg10[arg11]
+          if not arg10 then
+            arg10 = "Neutral"
           end
-          SHX10_2 = DrawAdvancedText
-          SHX11_2 = 0.449
-          SHX12_2 = 0.0287 * SHX1_2
-          SHX13_2 = 0.365
-          SHX12_2 = SHX13_2 + SHX12_2
-          SHX13_2 = 0.005
-          SHX14_2 = 0.0028
-          SHX15_2 = 0.4
-          SHX16_2 = SHX7_2.name
-          SHX17_2 = 255
-          SHX18_2 = 255
-          SHX19_2 = 255
-          SHX20_2 = 255
-          SHX21_2 = 6
-          SHX22_2 = 0
-          SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-          SHX10_2 = SHX40_1
-          SHX11_2 = SHX8_2
-          SHX10_2, SHX11_2, SHX12_2 = SHX10_2(SHX11_2)
-          SHX13_2 = DrawAdvancedText
-          SHX14_2 = 0.657
-          SHX15_2 = 0.0287 * SHX1_2
-          SHX16_2 = 0.365
-          SHX15_2 = SHX16_2 + SHX15_2
-          SHX16_2 = 0.005
-          SHX17_2 = 0.0028
-          SHX18_2 = 0.4
-          SHX19_2 = SHX8_2
-          SHX20_2 = SHX10_2
-          SHX21_2 = SHX11_2
-          SHX22_2 = SHX12_2
-          SHX23_2 = 255
-          SHX24_2 = 6
-          SHX25_2 = 0
-          SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-          SHX13_2 = SHX40_1
-          SHX14_2 = SHX9_2
-          SHX13_2, SHX14_2, SHX15_2 = SHX13_2(SHX14_2)
-          SHX16_2 = DrawAdvancedText
-          SHX17_2 = 0.757
-          SHX18_2 = 0.0287 * SHX1_2
-          SHX19_2 = 0.365
-          SHX18_2 = SHX19_2 + SHX18_2
-          SHX19_2 = 0.005
-          SHX20_2 = 0.0028
-          SHX21_2 = 0.4
-          SHX22_2 = SHX9_2
-          SHX23_2 = SHX13_2
-          SHX24_2 = SHX14_2
-          SHX25_2 = SHX15_2
-          SHX26_2 = 255
-          SHX27_2 = 6
-          SHX28_2 = 0
-          SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-          SHX16_2 = CursorInArea
-          SHX17_2 = 0.3005
-          SHX18_2 = 0.6955
-          SHX19_2 = SHX1_2 - 1
-          SHX19_2 = 0.0287 * SHX19_2
-          SHX19_2 = 0.3731 + SHX19_2
-          SHX20_2 = SHX1_2 - 1
-          SHX20_2 = 0.0287 * SHX20_2
-          SHX20_2 = 0.4018 + SHX20_2
-          SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-          if SHX16_2 then
-            SHX16_2 = DrawRect
-            SHX17_2 = 0.502
-            SHX18_2 = SHX1_2 - 1
-            SHX18_2 = 0.0287 * SHX18_2
-            SHX18_2 = 0.39 + SHX18_2
-            SHX19_2 = 0.387
-            SHX20_2 = 0.027
-            SHX21_2 = SHX7_1
-            SHX22_2 = SHX8_1
-            SHX23_2 = SHX9_1
-            SHX24_2 = 150
-            SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-            SHX16_2 = IsControlJustPressed
-            SHX17_2 = 1
-            SHX18_2 = 329
-            SHX16_2 = SHX16_2(SHX17_2, SHX18_2)
-            if not SHX16_2 then
-              SHX16_2 = IsDisabledControlJustPressed
-              SHX17_2 = 1
-              SHX18_2 = 329
-              SHX16_2 = SHX16_2(SHX17_2, SHX18_2)
-              if not SHX16_2 then
-                goto SHX_LABEL_4649
+          arg11 = DrawAdvancedText
+          arg122 = 0.449
+          arg13 = 0.0287 * arg2
+          arg14 = 0.365
+          arg13 = arg14 + arg13
+          arg14 = 0.005
+          arg15 = 0.0028
+          arg16 = 0.4
+          arg17 = arg8.name
+          arg18 = 255
+          numberValue5 = 255
+          numberValue7 = 255
+          numberValue8 = 255
+          numberValue9 = 6
+          numberValue10 = 0
+          arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+          arg11 = workValue13
+          arg122 = arg9
+          arg11, arg122, arg13 = arg11(arg122)
+          arg14 = DrawAdvancedText
+          arg15 = 0.657
+          arg16 = 0.0287 * arg2
+          arg17 = 0.365
+          arg16 = arg17 + arg16
+          arg17 = 0.005
+          arg18 = 0.0028
+          numberValue5 = 0.4
+          numberValue7 = arg9
+          numberValue8 = arg11
+          numberValue9 = arg122
+          numberValue10 = arg13
+          numberValue12 = 255
+          numberValue13 = 6
+          numberValue15 = 0
+          arg14(arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15)
+          arg14 = workValue13
+          arg15 = arg10
+          arg14, arg15, arg16 = arg14(arg15)
+          arg17 = DrawAdvancedText
+          arg18 = 0.757
+          numberValue5 = 0.0287 * arg2
+          numberValue7 = 0.365
+          numberValue5 = numberValue7 + numberValue5
+          numberValue7 = 0.005
+          numberValue8 = 0.0028
+          numberValue9 = 0.4
+          numberValue10 = arg10
+          numberValue12 = arg14
+          numberValue13 = arg15
+          numberValue15 = arg16
+          numberValue17 = 255
+          numberValue19 = 6
+          numberValue20 = 0
+          arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+          arg17 = CursorInArea
+          arg18 = 0.3005
+          numberValue5 = 0.6955
+          numberValue7 = arg2 - 1
+          numberValue7 = 0.0287 * numberValue7
+          numberValue7 = 0.3731 + numberValue7
+          numberValue8 = arg2 - 1
+          numberValue8 = 0.0287 * numberValue8
+          numberValue8 = 0.4018 + numberValue8
+          arg17 = arg17(arg18, numberValue5, numberValue7, numberValue8)
+          if arg17 then
+            arg17 = DrawRect
+            arg18 = 0.502
+            numberValue5 = arg2 - 1
+            numberValue5 = 0.0287 * numberValue5
+            numberValue5 = 0.39 + numberValue5
+            numberValue7 = 0.387
+            numberValue8 = 0.027
+            numberValue9 = numberValue28
+            numberValue10 = numberValue29
+            numberValue12 = numberValue30
+            numberValue13 = 150
+            arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+            arg17 = IsControlJustPressed
+            arg18 = 1
+            numberValue5 = 329
+            arg17 = arg17(arg18, numberValue5)
+            if not arg17 then
+              arg17 = IsDisabledControlJustPressed
+              arg18 = 1
+              numberValue5 = 329
+              arg17 = arg17(arg18, numberValue5)
+              if not arg17 then
+                goto flow_label_4649
               end
             end
-            SHX16_2 = PlaySound
-            SHX17_2 = -1
-            SHX18_2 = "SELECT"
-            SHX19_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX20_2 = false
-            SHX21_2 = 0
-            SHX22_2 = true
-            SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-            SHX16_2 = "Friendly"
-            if SHX8_2 == SHX16_2 then
-              SHX16_2 = TriggerServerEvent
-              SHX17_2 = "bdbde03161"
-              SHX18_2 = SHX6_2
-              SHX19_2 = "Neutral"
-              SHX16_2(SHX17_2, SHX18_2, SHX19_2)
+            arg17 = PlaySound
+            arg18 = -1
+            numberValue5 = "SELECT"
+            numberValue7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            numberValue8 = false
+            numberValue9 = 0
+            numberValue10 = true
+            arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+            arg17 = "Friendly"
+            if arg9 == arg17 then
+              arg17 = TriggerServerEvent
+              arg18 = "bdbde03161"
+              numberValue5 = arg7
+              numberValue7 = "Neutral"
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdbde03161".
+              arg17(arg18, numberValue5, numberValue7)
             else
-              SHX16_2 = "Neutral"
-              if SHX8_2 == SHX16_2 then
-                SHX16_2 = TriggerServerEvent
-                SHX17_2 = "bdbde03161"
-                SHX18_2 = SHX6_2
-                SHX19_2 = "Enemy"
-                SHX16_2(SHX17_2, SHX18_2, SHX19_2)
+              arg17 = "Neutral"
+              if arg9 == arg17 then
+                arg17 = TriggerServerEvent
+                arg18 = "bdbde03161"
+                numberValue5 = arg7
+                numberValue7 = "Enemy"
+                arg17(arg18, numberValue5, numberValue7)
               else
-                SHX16_2 = "Enemy"
-                if SHX8_2 == SHX16_2 then
-                  SHX16_2 = TriggerServerEvent
-                  SHX17_2 = "bdbde03161"
-                  SHX18_2 = SHX6_2
-                  SHX19_2 = "Friendly"
-                  SHX16_2(SHX17_2, SHX18_2, SHX19_2)
+                arg17 = "Enemy"
+                if arg9 == arg17 then
+                  arg17 = TriggerServerEvent
+                  arg18 = "bdbde03161"
+                  numberValue5 = arg7
+                  numberValue7 = "Friendly"
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "bdbde03161".
+                  arg17(arg18, numberValue5, numberValue7)
                 end
               end
             end
           end
-          -- [FIX IF ERROR] Move ::SHX_LABEL_4649:: outside nested blocks until all 'goto SHX_LABEL_4649' can see it
-          ::SHX_LABEL_4649::
-          SHX1_2 = SHX1_2 + 1
+          ::flow_label_4649::
+          arg2 = arg2 + 1
         end
       end
-      SHX2_2 = "turfColour"
-      SHX2_2 = SHX0_2[SHX2_2]
-      if not SHX2_2 then
-        SHX2_2 = "Red"
+      arg3 = "turfColour"
+      arg3 = arg1[arg3]
+      if not arg3 then
+        arg3 = "Red"
       end
-      SHX3_2 = DrawAdvancedText
-      SHX4_2 = 0.415
-      SHX5_2 = 0.693
-      SHX6_2 = 0.005
-      SHX7_2 = 0.0028
-      SHX8_2 = 0.4
-      SHX9_2 = "Turf Colour:"
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 255
-      SHX13_2 = 255
-      SHX14_2 = 4
-      SHX15_2 = 0
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-      SHX3_2 = 0
-      SHX4_2 = 0
-      SHX5_2 = 0
-      if SHX2_2 then
-        SHX6_2 = SHX0_1
-        SHX7_2 = "colourLookup"
-        SHX6_2 = SHX6_2[SHX7_2]
-        SHX6_2 = SHX6_2[SHX2_2]
-        if SHX6_2 then
-          SHX6_2 = _ENV
-          SHX7_2 = "GetHudColour"
-          SHX6_2 = SHX6_2[SHX7_2]
-          SHX7_2 = SHX0_1
-          SHX8_2 = "colourLookup"
-          SHX7_2 = SHX7_2[SHX8_2]
-          SHX7_2 = SHX7_2[SHX2_2]
-          SHX8_2 = "hud"
-          SHX7_2 = SHX7_2[SHX8_2]
-          SHX6_2, SHX7_2, SHX8_2 = SHX6_2(SHX7_2)
-          SHX5_2 = SHX8_2
-          SHX4_2 = SHX7_2
-          SHX3_2 = SHX6_2
+      arg4 = DrawAdvancedText
+      arg5 = 0.415
+      arg6 = 0.693
+      arg7 = 0.005
+      arg8 = 0.0028
+      arg9 = 0.4
+      arg10 = "Turf Colour:"
+      arg11 = 255
+      arg122 = 255
+      arg13 = 255
+      arg14 = 255
+      arg15 = 4
+      arg16 = 0
+      arg4(arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
+      arg4 = 0
+      arg5 = 0
+      arg6 = 0
+      if arg3 then
+        arg7 = cmgCall
+        arg8 = "colourLookup"
+        arg7 = arg7[arg8]
+        arg7 = arg7[arg3]
+        if arg7 then
+          arg7 = _ENV
+          arg8 = "GetHudColour"
+          arg7 = arg7[arg8]
+          arg8 = cmgCall
+          arg9 = "colourLookup"
+          arg8 = arg8[arg9]
+          arg8 = arg8[arg3]
+          arg9 = "hud"
+          arg8 = arg8[arg9]
+          arg7, arg8, arg9 = arg7(arg8)
+          arg6 = arg9
+          arg5 = arg8
+          arg4 = arg7
         end
       end
-      SHX6_2 = DrawRect
-      SHX7_2 = 0.367
-      SHX8_2 = 0.689
-      SHX9_2 = 0.045
-      SHX10_2 = 0.03
-      SHX11_2 = SHX3_2
-      SHX12_2 = SHX4_2
-      SHX13_2 = SHX5_2
-      SHX14_2 = 255
-      SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-      SHX6_2 = CursorInAreaRect
-      SHX7_2 = 0.367
-      SHX8_2 = 0.689
-      SHX9_2 = 0.045
-      SHX10_2 = 0.03
-      SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-      if SHX6_2 then
-        SHX6_2 = IsControlJustPressed
-        SHX7_2 = 1
-        SHX8_2 = 329
-        SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-        if not SHX6_2 then
-          SHX6_2 = IsDisabledControlJustPressed
-          SHX7_2 = 1
-          SHX8_2 = 329
-          SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-          if not SHX6_2 then
-            goto SHX_LABEL_4769
+      arg7 = DrawRect
+      arg8 = 0.367
+      arg9 = 0.689
+      arg10 = 0.045
+      arg11 = 0.03
+      arg122 = arg4
+      arg13 = arg5
+      arg14 = arg6
+      arg15 = 255
+      arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+      arg7 = CursorInAreaRect
+      arg8 = 0.367
+      arg9 = 0.689
+      arg10 = 0.045
+      arg11 = 0.03
+      arg7 = arg7(arg8, arg9, arg10, arg11)
+      if arg7 then
+        arg7 = IsControlJustPressed
+        arg8 = 1
+        arg9 = 329
+        arg7 = arg7(arg8, arg9)
+        if not arg7 then
+          arg7 = IsDisabledControlJustPressed
+          arg8 = 1
+          arg9 = 329
+          arg7 = arg7(arg8, arg9)
+          if not arg7 then
+            goto flow_label_4769
           end
         end
-        SHX6_2 = PlaySound
-        SHX7_2 = -1
-        SHX8_2 = "SELECT"
-        SHX9_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX10_2 = false
-        SHX11_2 = 0
-        SHX12_2 = true
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-        SHX6_2 = false
-        SHX7_2 = nil
-        SHX8_2 = pairs
-        SHX9_2 = SHX0_1
-        SHX10_2 = "colourLookup"
-        SHX9_2 = SHX9_2[SHX10_2]
-        SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2)
-        for SHX12_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-          if SHX12_2 == SHX2_2 then
-            SHX6_2 = true
-          elseif SHX6_2 then
-            SHX7_2 = SHX12_2
+        arg7 = PlaySound
+        arg8 = -1
+        arg9 = "SELECT"
+        arg10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg11 = false
+        arg122 = 0
+        arg13 = true
+        arg7(arg8, arg9, arg10, arg11, arg122, arg13)
+        arg7 = false
+        arg8 = nil
+        arg9 = pairs
+        arg10 = cmgCall
+        arg11 = "colourLookup"
+        arg10 = arg10[arg11]
+        arg9, arg10, arg11, arg122 = arg9(arg10)
+        for arg13 in arg9, arg10, arg11, arg122 do
+          if arg13 == arg3 then
+            arg7 = true
+          elseif arg7 then
+            arg8 = arg13
             break
           end
         end
-        if not SHX7_2 then
-          SHX8_2 = table
-          SHX9_2 = "keyat"
-          SHX8_2 = SHX8_2[SHX9_2]
-          SHX9_2 = SHX0_1
-          SHX10_2 = "colourLookup"
-          SHX9_2 = SHX9_2[SHX10_2]
-          SHX10_2 = 1
-          SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-          SHX7_2 = SHX8_2
+        if not arg8 then
+          arg9 = table
+          arg10 = "keyat"
+          arg9 = arg9[arg10]
+          arg10 = cmgCall
+          arg11 = "colourLookup"
+          arg10 = arg10[arg11]
+          arg11 = 1
+          arg9 = arg9(arg10, arg11)
+          arg8 = arg9
         end
-        SHX8_2 = TriggerServerEvent
-        SHX9_2 = "adb903a8eb"
-        SHX10_2 = SHX7_2
-        SHX8_2(SHX9_2, SHX10_2)
+        arg9 = TriggerServerEvent
+        arg10 = "adb903a8eb"
+        arg11 = arg8
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "adb903a8eb".
+        arg9(arg10, arg11)
       end
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_4769:: outside nested blocks until all 'goto SHX_LABEL_4769' can see it
-  ::SHX_LABEL_4769::
-  SHX0_2 = SHX1_1
-  SHX1_2 = "turfs"
-  if SHX0_2 == SHX1_2 then
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.501
-    SHX2_2 = 0.555
-    SHX3_2 = 0.481
-    SHX4_2 = 0.547
-    SHX5_2 = 0
-    SHX6_2 = 0
-    SHX7_2 = 0
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.501
-    SHX2_2 = 0.3
-    SHX3_2 = 0.481
-    SHX4_2 = 0.047
-    SHX5_2 = 18
-    SHX6_2 = 82
-    SHX7_2 = 228
-    SHX8_2 = 248
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.591
-    SHX2_2 = 0.303
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.48
-    SHX6_2 = "CMG gang - Turfs"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 7
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.5
-    SHX2_2 = 0.345
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.325
-    SHX6_2 = "Turf profits updated every 15 minutes"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 0
-    SHX12_2 = 1
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = CMG
-    SHX1_2 = "getTurfOwnerAndProfit"
-    SHX0_2 = SHX0_2[SHX1_2]
-    SHX1_2 = "weed"
-    SHX0_2, SHX1_2 = SHX0_2(SHX1_2)
-    SHX2_2 = DrawAdvancedText
-    SHX3_2 = 0.369
-    SHX4_2 = 0.38
-    SHX5_2 = 0.005
-    SHX6_2 = 0.0028
-    SHX7_2 = 0.4
-    SHX8_2 = "Weed Turf - (Owned by "
-    SHX9_2 = SHX0_2
-    SHX10_2 = ") Commission - "
-    SHX11_2 = _ENV
-    SHX12_2 = "globalWeedCommissionPercent"
-    SHX11_2 = SHX11_2[SHX12_2]
-    SHX12_2 = "% Profit - \194\163"
-    SHX13_2 = getMoneyStringFormatted
-    SHX14_2 = SHX1_2
-    SHX13_2 = SHX13_2(SHX14_2)
-    SHX8_2 = SHX8_2 .. SHX9_2 .. SHX10_2 .. SHX11_2 .. SHX12_2 .. SHX13_2
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 0
-    SHX14_2 = 1
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX2_2 = CMG
-    SHX3_2 = "getTurfOwnerAndProfit"
-    SHX2_2 = SHX2_2[SHX3_2]
-    SHX3_2 = "cocaine"
-    SHX2_2, SHX3_2 = SHX2_2(SHX3_2)
-    SHX4_2 = DrawAdvancedText
-    SHX5_2 = 0.369
-    SHX6_2 = 0.44
-    SHX7_2 = 0.005
-    SHX8_2 = 0.0028
-    SHX9_2 = 0.4
-    SHX10_2 = "Cocaine Turf - (Owned by "
-    SHX11_2 = SHX2_2
-    SHX12_2 = ") Commission - "
-    SHX13_2 = _ENV
-    SHX14_2 = "globalCocaineCommissionPercent"
-    SHX13_2 = SHX13_2[SHX14_2]
-    SHX14_2 = "% Profit - \194\163"
-    SHX15_2 = getMoneyStringFormatted
-    SHX16_2 = SHX3_2
-    SHX15_2 = SHX15_2(SHX16_2)
-    SHX10_2 = SHX10_2 .. SHX11_2 .. SHX12_2 .. SHX13_2 .. SHX14_2 .. SHX15_2
-    SHX11_2 = 255
-    SHX12_2 = 255
-    SHX13_2 = 255
-    SHX14_2 = 255
-    SHX15_2 = 0
-    SHX16_2 = 1
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-    SHX4_2 = CMG
-    SHX5_2 = "getTurfOwnerAndProfit"
-    SHX4_2 = SHX4_2[SHX5_2]
-    SHX5_2 = "meth"
-    SHX4_2, SHX5_2 = SHX4_2(SHX5_2)
-    SHX6_2 = DrawAdvancedText
-    SHX7_2 = 0.369
-    SHX8_2 = 0.5
-    SHX9_2 = 0.005
-    SHX10_2 = 0.0028
-    SHX11_2 = 0.4
-    SHX12_2 = "Meth Turf - (Owned by "
-    SHX13_2 = SHX4_2
-    SHX14_2 = ") Commission - "
-    SHX15_2 = _ENV
-    SHX16_2 = "globalMethCommissionPercent"
-    SHX15_2 = SHX15_2[SHX16_2]
-    SHX16_2 = "% Profit - \194\163"
-    SHX17_2 = getMoneyStringFormatted
-    SHX18_2 = SHX5_2
-    SHX17_2 = SHX17_2(SHX18_2)
-    SHX12_2 = SHX12_2 .. SHX13_2 .. SHX14_2 .. SHX15_2 .. SHX16_2 .. SHX17_2
-    SHX13_2 = 255
-    SHX14_2 = 255
-    SHX15_2 = 255
-    SHX16_2 = 255
-    SHX17_2 = 0
-    SHX18_2 = 1
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-    SHX6_2 = CMG
-    SHX7_2 = "getTurfOwnerAndProfit"
-    SHX6_2 = SHX6_2[SHX7_2]
-    SHX7_2 = "heroin"
-    SHX6_2, SHX7_2 = SHX6_2(SHX7_2)
-    SHX8_2 = DrawAdvancedText
-    SHX9_2 = 0.369
-    SHX10_2 = 0.56
-    SHX11_2 = 0.005
-    SHX12_2 = 0.0028
-    SHX13_2 = 0.4
-    SHX14_2 = "Heroin Turf - (Owned by "
-    SHX15_2 = SHX6_2
-    SHX16_2 = ") Commission - "
-    SHX17_2 = _ENV
-    SHX18_2 = "globalHeroinCommissionPercent"
-    SHX17_2 = SHX17_2[SHX18_2]
-    SHX18_2 = "% Profit - \194\163"
-    SHX19_2 = getMoneyStringFormatted
-    SHX20_2 = SHX7_2
-    SHX19_2 = SHX19_2(SHX20_2)
-    SHX14_2 = SHX14_2 .. SHX15_2 .. SHX16_2 .. SHX17_2 .. SHX18_2 .. SHX19_2
-    SHX15_2 = 255
-    SHX16_2 = 255
-    SHX17_2 = 255
-    SHX18_2 = 255
-    SHX19_2 = 0
-    SHX20_2 = 1
-    SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-    SHX8_2 = CMG
-    SHX9_2 = "getTurfOwnerAndProfit"
-    SHX8_2 = SHX8_2[SHX9_2]
-    SHX9_2 = "large_arms"
-    SHX8_2, SHX9_2 = SHX8_2(SHX9_2)
-    SHX10_2 = DrawAdvancedText
-    SHX11_2 = 0.369
-    SHX12_2 = 0.62
-    SHX13_2 = 0.005
-    SHX14_2 = 0.0028
-    SHX15_2 = 0.4
-    SHX16_2 = "Large Arms - (Owned by "
-    SHX17_2 = SHX8_2
-    SHX18_2 = ") Commission - "
-    SHX19_2 = _ENV
-    SHX20_2 = "globalLargeArmsCommission"
-    SHX19_2 = SHX19_2[SHX20_2]
-    SHX20_2 = "% Profit - \194\163"
-    SHX21_2 = getMoneyStringFormatted
-    SHX22_2 = SHX9_2
-    SHX21_2 = SHX21_2(SHX22_2)
-    SHX16_2 = SHX16_2 .. SHX17_2 .. SHX18_2 .. SHX19_2 .. SHX20_2 .. SHX21_2
-    SHX17_2 = 255
-    SHX18_2 = 255
-    SHX19_2 = 255
-    SHX20_2 = 255
-    SHX21_2 = 0
-    SHX22_2 = 1
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-    SHX10_2 = CMG
-    SHX11_2 = "getTurfOwnerAndProfit"
-    SHX10_2 = SHX10_2[SHX11_2]
-    SHX11_2 = "lsd_north"
-    SHX10_2, SHX11_2 = SHX10_2(SHX11_2)
-    SHX12_2 = DrawAdvancedText
-    SHX13_2 = 0.369
-    SHX14_2 = 0.68
-    SHX15_2 = 0.005
-    SHX16_2 = 0.0028
-    SHX17_2 = 0.4
-    SHX18_2 = "LSD North Turf - (Owned by "
-    SHX19_2 = SHX10_2
-    SHX20_2 = ") Commission - "
-    SHX21_2 = _ENV
-    SHX22_2 = "globalLSDNorthCommissionPercent"
-    SHX21_2 = SHX21_2[SHX22_2]
-    SHX22_2 = "% Profit - \194\163"
-    SHX23_2 = getMoneyStringFormatted
-    SHX24_2 = SHX11_2
-    SHX23_2 = SHX23_2(SHX24_2)
-    SHX18_2 = SHX18_2 .. SHX19_2 .. SHX20_2 .. SHX21_2 .. SHX22_2 .. SHX23_2
-    SHX19_2 = 255
-    SHX20_2 = 255
-    SHX21_2 = 255
-    SHX22_2 = 255
-    SHX23_2 = 0
-    SHX24_2 = 1
-    SHX12_2(SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-    SHX12_2 = CMG
-    SHX13_2 = "getTurfOwnerAndProfit"
-    SHX12_2 = SHX12_2[SHX13_2]
-    SHX13_2 = "lsd_south"
-    SHX12_2, SHX13_2 = SHX12_2(SHX13_2)
-    SHX14_2 = DrawAdvancedText
-    SHX15_2 = 0.369
-    SHX16_2 = 0.74
-    SHX17_2 = 0.005
-    SHX18_2 = 0.0028
-    SHX19_2 = 0.4
-    SHX20_2 = "LSD South Turf - (Owned by "
-    SHX21_2 = SHX12_2
-    SHX22_2 = ") Commission - "
-    SHX23_2 = _ENV
-    SHX24_2 = "globalLSDSouthCommissionPercent"
-    SHX23_2 = SHX23_2[SHX24_2]
-    SHX24_2 = "% Profit - \194\163"
-    SHX25_2 = getMoneyStringFormatted
-    SHX26_2 = SHX13_2
-    SHX25_2 = SHX25_2(SHX26_2)
-    SHX20_2 = SHX20_2 .. SHX21_2 .. SHX22_2 .. SHX23_2 .. SHX24_2 .. SHX25_2
-    SHX21_2 = 255
-    SHX22_2 = 255
-    SHX23_2 = 255
-    SHX24_2 = 255
-    SHX25_2 = 0
-    SHX26_2 = 1
-    SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2)
-    SHX14_2 = CMG
-    SHX15_2 = "getTurfOwnerAndProfit"
-    SHX14_2 = SHX14_2[SHX15_2]
-    SHX15_2 = "black_market"
-    SHX14_2, SHX15_2 = SHX14_2(SHX15_2)
-    SHX16_2 = DrawAdvancedText
-    SHX17_2 = 0.369
-    SHX18_2 = 0.8
-    SHX19_2 = 0.005
-    SHX20_2 = 0.0028
-    SHX21_2 = 0.4
-    SHX22_2 = "Black Market - (Owned by "
-    SHX23_2 = SHX14_2
-    SHX24_2 = ") Commission - "
-    SHX25_2 = _ENV
-    SHX26_2 = "globalBlackMarketCommision"
-    SHX25_2 = SHX25_2[SHX26_2]
-    SHX26_2 = "% Profit - \194\163"
-    SHX27_2 = getMoneyStringFormatted
-    SHX28_2 = SHX15_2
-    SHX27_2 = SHX27_2(SHX28_2)
-    SHX22_2 = SHX22_2 .. SHX23_2 .. SHX24_2 .. SHX25_2 .. SHX26_2 .. SHX27_2
-    SHX23_2 = 255
-    SHX24_2 = 255
-    SHX25_2 = 255
-    SHX26_2 = 255
-    SHX27_2 = 0
-    SHX28_2 = 1
-    SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-    SHX16_2 = DrawAdvancedText
-    SHX17_2 = 0.804
-    SHX18_2 = 0.744
-    SHX19_2 = 0.005
-    SHX20_2 = 0.0028
-    SHX21_2 = 0.4
-    SHX22_2 = "Back"
-    SHX23_2 = 255
-    SHX24_2 = 255
-    SHX25_2 = 255
-    SHX26_2 = 255
-    SHX27_2 = 4
-    SHX28_2 = 0
-    SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-    SHX16_2 = CursorInArea
-    SHX17_2 = 0.6873
-    SHX18_2 = 0.7346
-    SHX19_2 = 0.7222
-    SHX20_2 = 0.7574
-    SHX16_2 = SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-    if SHX16_2 then
-      SHX16_2 = DrawRect
-      SHX17_2 = 0.71
-      SHX18_2 = 0.74
-      SHX19_2 = 0.045
-      SHX20_2 = 0.036
-      SHX21_2 = SHX7_1
-      SHX22_2 = SHX8_1
-      SHX23_2 = SHX9_1
-      SHX24_2 = 150
-      SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX16_2 = IsControlJustPressed
-      SHX17_2 = 1
-      SHX18_2 = 329
-      SHX16_2 = SHX16_2(SHX17_2, SHX18_2)
-      if not SHX16_2 then
-        SHX16_2 = IsDisabledControlJustPressed
-        SHX17_2 = 1
-        SHX18_2 = 329
-        SHX16_2 = SHX16_2(SHX17_2, SHX18_2)
+  ::flow_label_4769::
+  arg1 = textValue
+  arg2 = "turfs"
+  if arg1 == arg2 then
+    arg1 = DrawRect
+    arg2 = 0.501
+    arg3 = 0.555
+    arg4 = 0.481
+    arg5 = 0.547
+    arg6 = 0
+    arg7 = 0
+    arg8 = 0
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.501
+    arg3 = 0.3
+    arg4 = 0.481
+    arg5 = 0.047
+    arg6 = 18
+    arg7 = 82
+    arg8 = 228
+    arg9 = 248
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawAdvancedText
+    arg2 = 0.591
+    arg3 = 0.303
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.48
+    arg7 = "CMG gang - Turfs"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 7
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = DrawAdvancedText
+    arg2 = 0.5
+    arg3 = 0.345
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.325
+    arg7 = "Turf profits updated every 15 minutes"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 0
+    arg13 = 1
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = CMG
+    arg2 = "getTurfOwnerAndProfit"
+    arg1 = arg1[arg2]
+    arg2 = "weed"
+    arg1, arg2 = arg1(arg2)
+    arg3 = DrawAdvancedText
+    arg4 = 0.369
+    arg5 = 0.38
+    arg6 = 0.005
+    arg7 = 0.0028
+    arg8 = 0.4
+    arg9 = "Weed Turf - (Owned by "
+    arg10 = arg1
+    arg11 = ") Commission - "
+    arg122 = _ENV
+    arg13 = "globalWeedCommissionPercent"
+    arg122 = arg122[arg13]
+    arg13 = "% Profit - \194\163"
+    arg14 = getMoneyStringFormatted
+    arg15 = arg2
+    arg14 = arg14(arg15)
+    arg9 = arg9 .. arg10 .. arg11 .. arg122 .. arg13 .. arg14
+    arg10 = 255
+    arg11 = 255
+    arg122 = 255
+    arg13 = 255
+    arg14 = 0
+    arg15 = 1
+    arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+    arg3 = CMG
+    arg4 = "getTurfOwnerAndProfit"
+    arg3 = arg3[arg4]
+    arg4 = "cocaine"
+    arg3, arg4 = arg3(arg4)
+    arg5 = DrawAdvancedText
+    arg6 = 0.369
+    arg7 = 0.44
+    arg8 = 0.005
+    arg9 = 0.0028
+    arg10 = 0.4
+    arg11 = "Cocaine Turf - (Owned by "
+    arg122 = arg3
+    arg13 = ") Commission - "
+    arg14 = _ENV
+    arg15 = "globalCocaineCommissionPercent"
+    arg14 = arg14[arg15]
+    arg15 = "% Profit - \194\163"
+    arg16 = getMoneyStringFormatted
+    arg17 = arg4
+    arg16 = arg16(arg17)
+    arg11 = arg11 .. arg122 .. arg13 .. arg14 .. arg15 .. arg16
+    arg122 = 255
+    arg13 = 255
+    arg14 = 255
+    arg15 = 255
+    arg16 = 0
+    arg17 = 1
+    arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17)
+    arg5 = CMG
+    arg6 = "getTurfOwnerAndProfit"
+    arg5 = arg5[arg6]
+    arg6 = "meth"
+    arg5, arg6 = arg5(arg6)
+    arg7 = DrawAdvancedText
+    arg8 = 0.369
+    arg9 = 0.5
+    arg10 = 0.005
+    arg11 = 0.0028
+    arg122 = 0.4
+    arg13 = "Meth Turf - (Owned by "
+    arg14 = arg5
+    arg15 = ") Commission - "
+    arg16 = _ENV
+    arg17 = "globalMethCommissionPercent"
+    arg16 = arg16[arg17]
+    arg17 = "% Profit - \194\163"
+    arg18 = getMoneyStringFormatted
+    numberValue5 = arg6
+    arg18 = arg18(numberValue5)
+    arg13 = arg13 .. arg14 .. arg15 .. arg16 .. arg17 .. arg18
+    arg14 = 255
+    arg15 = 255
+    arg16 = 255
+    arg17 = 255
+    arg18 = 0
+    numberValue5 = 1
+    arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+    arg7 = CMG
+    arg8 = "getTurfOwnerAndProfit"
+    arg7 = arg7[arg8]
+    arg8 = "heroin"
+    arg7, arg8 = arg7(arg8)
+    arg9 = DrawAdvancedText
+    arg10 = 0.369
+    arg11 = 0.56
+    arg122 = 0.005
+    arg13 = 0.0028
+    arg14 = 0.4
+    arg15 = "Heroin Turf - (Owned by "
+    arg16 = arg7
+    arg17 = ") Commission - "
+    arg18 = _ENV
+    numberValue5 = "globalHeroinCommissionPercent"
+    arg18 = arg18[numberValue5]
+    numberValue5 = "% Profit - \194\163"
+    numberValue7 = getMoneyStringFormatted
+    numberValue8 = arg8
+    numberValue7 = numberValue7(numberValue8)
+    arg15 = arg15 .. arg16 .. arg17 .. arg18 .. numberValue5 .. numberValue7
+    arg16 = 255
+    arg17 = 255
+    arg18 = 255
+    numberValue5 = 255
+    numberValue7 = 0
+    numberValue8 = 1
+    arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+    arg9 = CMG
+    arg10 = "getTurfOwnerAndProfit"
+    arg9 = arg9[arg10]
+    arg10 = "large_arms"
+    arg9, arg10 = arg9(arg10)
+    arg11 = DrawAdvancedText
+    arg122 = 0.369
+    arg13 = 0.62
+    arg14 = 0.005
+    arg15 = 0.0028
+    arg16 = 0.4
+    arg17 = "Large Arms - (Owned by "
+    arg18 = arg9
+    numberValue5 = ") Commission - "
+    numberValue7 = _ENV
+    numberValue8 = "globalLargeArmsCommission"
+    numberValue7 = numberValue7[numberValue8]
+    numberValue8 = "% Profit - \194\163"
+    numberValue9 = getMoneyStringFormatted
+    numberValue10 = arg10
+    numberValue9 = numberValue9(numberValue10)
+    arg17 = arg17 .. arg18 .. numberValue5 .. numberValue7 .. numberValue8 .. numberValue9
+    arg18 = 255
+    numberValue5 = 255
+    numberValue7 = 255
+    numberValue8 = 255
+    numberValue9 = 0
+    numberValue10 = 1
+    arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+    arg11 = CMG
+    arg122 = "getTurfOwnerAndProfit"
+    arg11 = arg11[arg122]
+    arg122 = "lsd_north"
+    arg11, arg122 = arg11(arg122)
+    arg13 = DrawAdvancedText
+    arg14 = 0.369
+    arg15 = 0.68
+    arg16 = 0.005
+    arg17 = 0.0028
+    arg18 = 0.4
+    numberValue5 = "LSD North Turf - (Owned by "
+    numberValue7 = arg11
+    numberValue8 = ") Commission - "
+    numberValue9 = _ENV
+    numberValue10 = "globalLSDNorthCommissionPercent"
+    numberValue9 = numberValue9[numberValue10]
+    numberValue10 = "% Profit - \194\163"
+    numberValue12 = getMoneyStringFormatted
+    numberValue13 = arg122
+    numberValue12 = numberValue12(numberValue13)
+    numberValue5 = numberValue5 .. numberValue7 .. numberValue8 .. numberValue9 .. numberValue10 .. numberValue12
+    numberValue7 = 255
+    numberValue8 = 255
+    numberValue9 = 255
+    numberValue10 = 255
+    numberValue12 = 0
+    numberValue13 = 1
+    arg13(arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+    arg13 = CMG
+    arg14 = "getTurfOwnerAndProfit"
+    arg13 = arg13[arg14]
+    arg14 = "lsd_south"
+    arg13, arg14 = arg13(arg14)
+    arg15 = DrawAdvancedText
+    arg16 = 0.369
+    arg17 = 0.74
+    arg18 = 0.005
+    numberValue5 = 0.0028
+    numberValue7 = 0.4
+    numberValue8 = "LSD South Turf - (Owned by "
+    numberValue9 = arg13
+    numberValue10 = ") Commission - "
+    numberValue12 = _ENV
+    numberValue13 = "globalLSDSouthCommissionPercent"
+    numberValue12 = numberValue12[numberValue13]
+    numberValue13 = "% Profit - \194\163"
+    numberValue15 = getMoneyStringFormatted
+    numberValue17 = arg14
+    numberValue15 = numberValue15(numberValue17)
+    numberValue8 = numberValue8 .. numberValue9 .. numberValue10 .. numberValue12 .. numberValue13 .. numberValue15
+    numberValue9 = 255
+    numberValue10 = 255
+    numberValue12 = 255
+    numberValue13 = 255
+    numberValue15 = 0
+    numberValue17 = 1
+    arg15(arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17)
+    arg15 = CMG
+    arg16 = "getTurfOwnerAndProfit"
+    arg15 = arg15[arg16]
+    arg16 = "black_market"
+    arg15, arg16 = arg15(arg16)
+    arg17 = DrawAdvancedText
+    arg18 = 0.369
+    numberValue5 = 0.8
+    numberValue7 = 0.005
+    numberValue8 = 0.0028
+    numberValue9 = 0.4
+    numberValue10 = "Black Market - (Owned by "
+    numberValue12 = arg15
+    numberValue13 = ") Commission - "
+    numberValue15 = _ENV
+    numberValue17 = "globalBlackMarketCommision"
+    numberValue15 = numberValue15[numberValue17]
+    numberValue17 = "% Profit - \194\163"
+    numberValue19 = getMoneyStringFormatted
+    numberValue20 = arg16
+    numberValue19 = numberValue19(numberValue20)
+    numberValue10 = numberValue10 .. numberValue12 .. numberValue13 .. numberValue15 .. numberValue17 .. numberValue19
+    numberValue12 = 255
+    numberValue13 = 255
+    numberValue15 = 255
+    numberValue17 = 255
+    numberValue19 = 0
+    numberValue20 = 1
+    arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+    arg17 = DrawAdvancedText
+    arg18 = 0.804
+    numberValue5 = 0.744
+    numberValue7 = 0.005
+    numberValue8 = 0.0028
+    numberValue9 = 0.4
+    numberValue10 = "Back"
+    numberValue12 = 255
+    numberValue13 = 255
+    numberValue15 = 255
+    numberValue17 = 255
+    numberValue19 = 4
+    numberValue20 = 0
+    arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+    arg17 = CursorInArea
+    arg18 = 0.6873
+    numberValue5 = 0.7346
+    numberValue7 = 0.7222
+    numberValue8 = 0.7574
+    arg17 = arg17(arg18, numberValue5, numberValue7, numberValue8)
+    if arg17 then
+      arg17 = DrawRect
+      arg18 = 0.71
+      numberValue5 = 0.74
+      numberValue7 = 0.045
+      numberValue8 = 0.036
+      numberValue9 = numberValue28
+      numberValue10 = numberValue29
+      numberValue12 = numberValue30
+      numberValue13 = 150
+      arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
+      arg17 = IsControlJustPressed
+      arg18 = 1
+      numberValue5 = 329
+      arg17 = arg17(arg18, numberValue5)
+      if not arg17 then
+        arg17 = IsDisabledControlJustPressed
+        arg18 = 1
+        numberValue5 = 329
+        arg17 = arg17(arg18, numberValue5)
       end
-      if SHX16_2 then
-        SHX16_2 = PlaySound
-        SHX17_2 = -1
-        SHX18_2 = "SELECT"
-        SHX19_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX20_2 = false
-        SHX21_2 = 0
-        SHX22_2 = true
-        SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX16_2 = "gang"
-        SHX1_1 = SHX16_2
+      if arg17 then
+        arg17 = PlaySound
+        arg18 = -1
+        numberValue5 = "SELECT"
+        numberValue7 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        numberValue8 = false
+        numberValue9 = 0
+        numberValue10 = true
+        arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg17 = "gang"
+        textValue = arg17
       end
     else
-      SHX16_2 = DrawRect
-      SHX17_2 = 0.71
-      SHX18_2 = 0.74
-      SHX19_2 = 0.045
-      SHX20_2 = 0.036
-      SHX21_2 = 0
-      SHX22_2 = 0
-      SHX23_2 = 0
-      SHX24_2 = 150
-      SHX16_2(SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
+      arg17 = DrawRect
+      arg18 = 0.71
+      numberValue5 = 0.74
+      numberValue7 = 0.045
+      numberValue8 = 0.036
+      numberValue9 = 0
+      numberValue10 = 0
+      numberValue12 = 0
+      numberValue13 = 150
+      arg17(arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13)
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    SHX1_2 = "security"
-    if SHX0_2 == SHX1_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.525
-      SHX3_2 = 0.421
-      SHX4_2 = 0.387
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.308
-      SHX3_2 = 0.421
-      SHX4_2 = 0.047
-      SHX5_2 = 18
-      SHX6_2 = 82
-      SHX7_2 = 228
-      SHX8_2 = 248
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.312
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.48
-      SHX6_2 = "CMG gang - security"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.4
-      SHX2_2 = 0.375
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "Maximum withdraw amount per member:"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.4
-      SHX2_2 = 0.405
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Sets the maximum amount of money a member can withdraw within a 24 hour time period."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.525
-      SHX2_2 = 0.377
-      SHX3_2 = 0.1
-      SHX4_2 = 0.03
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 175
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.575
-      SHX2_2 = 0.377
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.44
-      SHX6_2 = "\194\163"
-      SHX7_2 = getMoneyStringFormatted
-      SHX8_2 = SHX10_1
-      SHX9_2 = "maxWithdraw"
-      SHX8_2 = SHX8_2[SHX9_2]
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX6_2 = SHX6_2 .. SHX7_2
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.31
-      SHX2_2 = 0.65
-      SHX3_2 = 0.36
-      SHX4_2 = 0.41
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          if not SHX0_2 then
-            goto SHX_LABEL_5281
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    arg2 = "security"
+    if arg1 == arg2 then
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.525
+      arg4 = 0.421
+      arg5 = 0.387
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.308
+      arg4 = 0.421
+      arg5 = 0.047
+      arg6 = 18
+      arg7 = 82
+      arg8 = 228
+      arg9 = 248
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.312
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.48
+      arg7 = "CMG gang - security"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.4
+      arg3 = 0.375
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "Maximum withdraw amount per member:"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.4
+      arg3 = 0.405
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Sets the maximum amount of money a member can withdraw within a 24 hour time period."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.525
+      arg3 = 0.377
+      arg4 = 0.1
+      arg5 = 0.03
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 175
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.575
+      arg3 = 0.377
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.44
+      arg7 = "\194\163"
+      arg8 = getMoneyStringFormatted
+      arg9 = workValue
+      arg10 = "maxWithdraw"
+      arg9 = arg9[arg10]
+      arg8 = arg8(arg9)
+      arg7 = arg7 .. arg8
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.31
+      arg3 = 0.65
+      arg4 = 0.36
+      arg5 = 0.41
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+          if not arg1 then
+            goto flow_label_5281
           end
         end
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.hasGangPermission
-        SHX1_2 = "security"
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 then
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.GetRageInputText
-          SHX1_2 = "Enter amount:"
-          SHX0_2 = SHX0_2(SHX1_2)
-          if SHX0_2 then
-            SHX1_2 = tonumber
-            SHX2_2 = SHX0_2
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = tonumber
-              SHX2_2 = SHX0_2
-              SHX1_2 = SHX1_2(SHX2_2)
-              if SHX1_2 >= 0 then
-                SHX1_2 = TriggerServerEvent
-                SHX2_2 = "b674c758b8"
-                SHX3_2 = tonumber
-                SHX4_2 = SHX0_2
-                SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX3_2(SHX4_2)
-                SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = CMG
+        arg1 = arg1.hasGangPermission
+        arg2 = "security"
+        arg1 = arg1(arg2)
+        if arg1 then
+          arg1 = CMG
+          arg1 = arg1.GetRageInputText
+          arg2 = "Enter amount:"
+          arg1 = arg1(arg2)
+          if arg1 then
+            arg2 = tonumber
+            arg3 = arg1
+            arg2 = arg2(arg3)
+            if arg2 then
+              arg2 = tonumber
+              arg3 = arg1
+              arg2 = arg2(arg3)
+              if arg2 >= 0 then
+                arg2 = TriggerServerEvent
+                arg3 = "b674c758b8"
+                arg4 = tonumber
+                arg5 = arg1
+                arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg4(arg5)
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b674c758b8".
+                arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
             end
           end
           else
-            SHX1_2 = notify
-            SHX2_2 = "~r~Invalid amount entered."
-            SHX1_2(SHX2_2)
+            arg2 = notify
+            arg3 = "~r~Invalid amount entered."
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           end
         else
-          SHX0_2 = notify
-          SHX1_2 = "~r~You do not have permission to edit security.."
-          SHX0_2(SHX1_2)
+          arg1 = notify
+          arg2 = "~r~You do not have permission to edit security.."
+          arg1(arg2)
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_5281:: outside nested blocks until all 'goto SHX_LABEL_5281' can see it
-      ::SHX_LABEL_5281::
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.4
-      SHX2_2 = 0.475
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "Limit withdraw amount to deposit amount:"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.4
-      SHX2_2 = 0.505
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Prevents a member withdrawing more money then they have deposited into the funds."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.525
-      SHX2_2 = 0.475
-      SHX3_2 = 0.1
-      SHX4_2 = 0.03
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 175
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.575
-      SHX2_2 = 0.475
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = SHX10_1
-      SHX7_2 = "limitWithdrawDeposit"
-      SHX6_2 = SHX6_2[SHX7_2]
-      if SHX6_2 then
-        SHX6_2 = "Yes"
-        if SHX6_2 then
-          goto SHX_LABEL_5334
+      ::flow_label_5281::
+      arg1 = DrawAdvancedText
+      arg2 = 0.4
+      arg3 = 0.475
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "Limit withdraw amount to deposit amount:"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.4
+      arg3 = 0.505
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Prevents a member withdrawing more money then they have deposited into the funds."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.525
+      arg3 = 0.475
+      arg4 = 0.1
+      arg5 = 0.03
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 175
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.575
+      arg3 = 0.475
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = workValue
+      arg8 = "limitWithdrawDeposit"
+      arg7 = arg7[arg8]
+      if arg7 then
+        arg7 = "Yes"
+        if arg7 then
+          goto flow_label_5334
         end
       end
-      SHX6_2 = "No"
-      -- [FIX IF ERROR] Move ::SHX_LABEL_5334:: outside nested blocks until all 'goto SHX_LABEL_5334' can see it
-      ::SHX_LABEL_5334::
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.31
-      SHX2_2 = 0.65
-      SHX3_2 = 0.46
-      SHX4_2 = 0.51
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          if not SHX0_2 then
-            goto SHX_LABEL_5386
+      arg7 = "No"
+      ::flow_label_5334::
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.31
+      arg3 = 0.65
+      arg4 = 0.46
+      arg5 = 0.51
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+          if not arg1 then
+            goto flow_label_5386
           end
         end
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.hasGangPermission
-        SHX1_2 = "security"
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 then
-          SHX0_2 = SHX36_1
-          SHX1_2 = "Enable?"
-          SHX0_2 = SHX0_2(SHX1_2)
-          SHX1_2 = TriggerServerEvent
-          SHX2_2 = "58d834d15a"
-          SHX3_2 = SHX0_2
-          SHX1_2(SHX2_2, SHX3_2)
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = CMG
+        arg1 = arg1.hasGangPermission
+        arg2 = "security"
+        arg1 = arg1(arg2)
+        if arg1 then
+          arg1 = cmgCall7
+          arg2 = "Enable?"
+          arg1 = arg1(arg2)
+          arg2 = TriggerServerEvent
+          arg3 = "58d834d15a"
+          arg4 = arg1
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "58d834d15a".
+          arg2(arg3, arg4)
         else
-          SHX0_2 = notify
-          SHX1_2 = "~r~You do not have permission to edit security."
-          SHX0_2(SHX1_2)
+          arg1 = notify
+          arg2 = "~r~You do not have permission to edit security."
+          -- Beginner: Show a notification to the player.
+          arg1(arg2)
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_5386:: outside nested blocks until all 'goto SHX_LABEL_5386' can see it
-      ::SHX_LABEL_5386::
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.4
-      SHX2_2 = 0.575
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "Require reason for deposit/withdraw:"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.4
-      SHX2_2 = 0.605
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Requires a member to provide a reason for depositing or withdrawing from funds."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.525
-      SHX2_2 = 0.575
-      SHX3_2 = 0.1
-      SHX4_2 = 0.03
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 175
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.575
-      SHX2_2 = 0.575
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = SHX10_1
-      SHX7_2 = "requireWithdrawReason"
-      SHX6_2 = SHX6_2[SHX7_2]
-      if SHX6_2 then
-        SHX6_2 = "Yes"
-        if SHX6_2 then
-          goto SHX_LABEL_5439
+      ::flow_label_5386::
+      arg1 = DrawAdvancedText
+      arg2 = 0.4
+      arg3 = 0.575
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "Require reason for deposit/withdraw:"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.4
+      arg3 = 0.605
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Requires a member to provide a reason for depositing or withdrawing from funds."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.525
+      arg3 = 0.575
+      arg4 = 0.1
+      arg5 = 0.03
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 175
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.575
+      arg3 = 0.575
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = workValue
+      arg8 = "requireWithdrawReason"
+      arg7 = arg7[arg8]
+      if arg7 then
+        arg7 = "Yes"
+        if arg7 then
+          goto flow_label_5439
         end
       end
-      SHX6_2 = "No"
-      -- [FIX IF ERROR] Move ::SHX_LABEL_5439:: outside nested blocks until all 'goto SHX_LABEL_5439' can see it
-      ::SHX_LABEL_5439::
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 1
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.31
-      SHX2_2 = 0.65
-      SHX3_2 = 0.56
-      SHX4_2 = 0.61
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          if not SHX0_2 then
-            goto SHX_LABEL_5491
+      arg7 = "No"
+      ::flow_label_5439::
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 1
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.31
+      arg3 = 0.65
+      arg4 = 0.56
+      arg5 = 0.61
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+          if not arg1 then
+            goto flow_label_5491
           end
         end
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.hasGangPermission
-        SHX1_2 = "security"
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 then
-          SHX0_2 = SHX36_1
-          SHX1_2 = "Enable?"
-          SHX0_2 = SHX0_2(SHX1_2)
-          SHX1_2 = TriggerServerEvent
-          SHX2_2 = "5d7f40bb9d"
-          SHX3_2 = SHX0_2
-          SHX1_2(SHX2_2, SHX3_2)
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = CMG
+        arg1 = arg1.hasGangPermission
+        arg2 = "security"
+        arg1 = arg1(arg2)
+        if arg1 then
+          arg1 = cmgCall7
+          arg2 = "Enable?"
+          arg1 = arg1(arg2)
+          arg2 = TriggerServerEvent
+          arg3 = "5d7f40bb9d"
+          arg4 = arg1
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5d7f40bb9d".
+          arg2(arg3, arg4)
         else
-          SHX0_2 = notify
-          SHX1_2 = "~r~You do not have permission to edit security."
-          SHX0_2(SHX1_2)
+          arg1 = notify
+          arg2 = "~r~You do not have permission to edit security."
+          -- Beginner: Show a notification to the player.
+          arg1(arg2)
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_5491:: outside nested blocks until all 'goto SHX_LABEL_5491' can see it
-      ::SHX_LABEL_5491::
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.775
-      SHX2_2 = 0.693
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Back"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.6583
-      SHX2_2 = 0.7056
-      SHX3_2 = 0.6712
-      SHX4_2 = 0.7064
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      ::flow_label_5491::
+      arg1 = DrawAdvancedText
+      arg2 = 0.775
+      arg3 = 0.693
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Back"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.6583
+      arg3 = 0.7056
+      arg4 = 0.6712
+      arg5 = 0.7064
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "gang"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "gang"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.681
-        SHX2_2 = 0.689
-        SHX3_2 = 0.045
-        SHX4_2 = 0.036
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.681
+        arg3 = 0.689
+        arg4 = 0.045
+        arg5 = 0.036
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    if "permissions" == SHX0_2 then
-      SHX0_2 = SHX10_1.members
-      SHX1_2 = SHX4_1
-      SHX0_2 = SHX0_2[SHX1_2]
-      if SHX0_2 then
-        SHX1_2 = SHX0_2.permissions
-        if SHX1_2 then
-          goto SHX_LABEL_5573
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    if "permissions" == arg1 then
+      arg1 = workValue.members
+      arg2 = workValue16
+      arg1 = arg1[arg2]
+      if arg1 then
+        arg2 = arg1.permissions
+        if arg2 then
+          goto flow_label_5573
         end
       end
-      SHX1_2 = "members"
-      SHX1_1 = SHX1_2
+      arg2 = "members"
+      textValue = arg2
       return
-      -- [FIX IF ERROR] Move ::SHX_LABEL_5573:: outside nested blocks until all 'goto SHX_LABEL_5573' can see it
-      ::SHX_LABEL_5573::
-      SHX1_2 = DrawRect
-      SHX2_2 = 0.501
-      SHX3_2 = 0.525
-      SHX4_2 = 0.421
-      SHX5_2 = 0.387
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 0
-      SHX9_2 = 150
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-      SHX1_2 = DrawRect
-      SHX2_2 = 0.501
-      SHX3_2 = 0.308
-      SHX4_2 = 0.421
-      SHX5_2 = 0.047
-      SHX6_2 = 18
-      SHX7_2 = 82
-      SHX8_2 = 228
-      SHX9_2 = 248
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.591
-      SHX3_2 = 0.312
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.48
-      SHX7_2 = "CMG gang - permissions"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 7
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawRect
-      SHX2_2 = 0.501
-      SHX3_2 = 0.52
-      SHX4_2 = 0.395
-      SHX5_2 = 0.291
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 0
-      SHX9_2 = 150
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.449
-      SHX3_2 = 0.359
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Permission"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 6
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.536
-      SHX3_2 = 0.359
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Has Access"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 6
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.675
-      SHX3_2 = 0.359
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Description"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 6
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = pairs
-      SHX2_2 = SHX0_1.permissions
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = SHX0_2.permissions
-        SHX8_2 = "id"
-        SHX8_2 = SHX6_2[SHX8_2]
-        SHX7_2 = SHX7_2[SHX8_2]
-        if SHX7_2 then
-          SHX7_2 = true
-          if SHX7_2 then
-            goto SHX_LABEL_5673
+      ::flow_label_5573::
+      arg2 = DrawRect
+      arg3 = 0.501
+      arg4 = 0.525
+      arg5 = 0.421
+      arg6 = 0.387
+      arg7 = 0
+      arg8 = 0
+      arg9 = 0
+      arg10 = 150
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+      arg2 = DrawRect
+      arg3 = 0.501
+      arg4 = 0.308
+      arg5 = 0.421
+      arg6 = 0.047
+      arg7 = 18
+      arg8 = 82
+      arg9 = 228
+      arg10 = 248
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+      arg2 = DrawAdvancedText
+      arg3 = 0.591
+      arg4 = 0.312
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.48
+      arg8 = "CMG gang - permissions"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 7
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawRect
+      arg3 = 0.501
+      arg4 = 0.52
+      arg5 = 0.395
+      arg6 = 0.291
+      arg7 = 0
+      arg8 = 0
+      arg9 = 0
+      arg10 = 150
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+      arg2 = DrawAdvancedText
+      arg3 = 0.449
+      arg4 = 0.359
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Permission"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 6
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawAdvancedText
+      arg3 = 0.536
+      arg4 = 0.359
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Has Access"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 6
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawAdvancedText
+      arg3 = 0.675
+      arg4 = 0.359
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Description"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 6
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = pairs
+      arg3 = cmgCall.permissions
+      arg2, arg3, arg4, arg5 = arg2(arg3)
+      for arg6, arg7 in arg2, arg3, arg4, arg5 do
+        arg8 = arg1.permissions
+        arg9 = "id"
+        arg9 = arg7[arg9]
+        arg8 = arg8[arg9]
+        if arg8 then
+          arg8 = true
+          if arg8 then
+            goto flow_label_5673
           end
         end
-        SHX7_2 = false
-        -- [FIX IF ERROR] Move ::SHX_LABEL_5673:: outside nested blocks until all 'goto SHX_LABEL_5673' can see it
-        ::SHX_LABEL_5673::
-        if SHX7_2 then
-          SHX8_2 = 50
-          if SHX8_2 then
-            goto SHX_LABEL_5679
+        arg8 = false
+        ::flow_label_5673::
+        if arg8 then
+          arg9 = 50
+          if arg9 then
+            goto flow_label_5679
           end
         end
-        SHX8_2 = 255
-        -- [FIX IF ERROR] Move ::SHX_LABEL_5679:: outside nested blocks until all 'goto SHX_LABEL_5679' can see it
-        ::SHX_LABEL_5679::
-        if SHX7_2 then
-          SHX9_2 = 255
-          if SHX9_2 then
-            goto SHX_LABEL_5685
+        arg9 = 255
+        ::flow_label_5679::
+        if arg8 then
+          arg10 = 255
+          if arg10 then
+            goto flow_label_5685
           end
         end
-        SHX9_2 = 50
-        -- [FIX IF ERROR] Move ::SHX_LABEL_5685:: outside nested blocks until all 'goto SHX_LABEL_5685' can see it
-        ::SHX_LABEL_5685::
-        SHX10_2 = 50
-        SHX11_2 = DrawAdvancedText
-        SHX12_2 = 0.449
-        SHX13_2 = 0.0287 * SHX5_2
-        SHX13_2 = 0.361 + SHX13_2
-        SHX14_2 = 0.005
-        SHX15_2 = 0.0028
-        SHX16_2 = 0.4
-        SHX17_2 = SHX6_2.name
-        SHX18_2 = SHX8_2
-        SHX19_2 = SHX9_2
-        SHX20_2 = SHX10_2
-        SHX21_2 = 255
-        SHX22_2 = 6
-        SHX23_2 = 0
-        SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-        SHX11_2 = DrawAdvancedText
-        SHX12_2 = 0.536
-        SHX13_2 = 0.0287 * SHX5_2
-        SHX13_2 = 0.361 + SHX13_2
-        SHX14_2 = 0.005
-        SHX15_2 = 0.0028
-        SHX16_2 = 0.4
-        if SHX7_2 then
-          SHX17_2 = "Yes"
-          if SHX17_2 then
-            goto SHX_LABEL_5718
+        arg10 = 50
+        ::flow_label_5685::
+        arg11 = 50
+        arg122 = DrawAdvancedText
+        arg13 = 0.449
+        arg14 = 0.0287 * arg6
+        arg14 = 0.361 + arg14
+        arg15 = 0.005
+        arg16 = 0.0028
+        arg17 = 0.4
+        arg18 = arg7.name
+        numberValue5 = arg9
+        numberValue7 = arg10
+        numberValue8 = arg11
+        numberValue9 = 255
+        numberValue10 = 6
+        numberValue12 = 0
+        arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12)
+        arg122 = DrawAdvancedText
+        arg13 = 0.536
+        arg14 = 0.0287 * arg6
+        arg14 = 0.361 + arg14
+        arg15 = 0.005
+        arg16 = 0.0028
+        arg17 = 0.4
+        if arg8 then
+          arg18 = "Yes"
+          if arg18 then
+            goto flow_label_5718
           end
         end
-        SHX17_2 = "No"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_5718:: outside nested blocks until all 'goto SHX_LABEL_5718' can see it
-        ::SHX_LABEL_5718::
-        SHX18_2 = SHX8_2
-        SHX19_2 = SHX9_2
-        SHX20_2 = SHX10_2
-        SHX21_2 = 255
-        SHX22_2 = 6
-        SHX23_2 = 0
-        SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-        SHX11_2 = DrawAdvancedText
-        SHX12_2 = 0.675
-        SHX13_2 = 0.0287 * SHX5_2
-        SHX13_2 = 0.361 + SHX13_2
-        SHX14_2 = 0.005
-        SHX15_2 = 0.0028
-        SHX16_2 = 0.4
-        SHX17_2 = "description"
-        SHX17_2 = SHX6_2[SHX17_2]
-        SHX18_2 = SHX8_2
-        SHX19_2 = SHX9_2
-        SHX20_2 = SHX10_2
-        SHX21_2 = 255
-        SHX22_2 = 6
-        SHX23_2 = 0
-        SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2)
-        SHX11_2 = CursorInArea
-        SHX12_2 = 0.3005
-        SHX13_2 = 0.5955
-        SHX14_2 = SHX5_2 - 1
-        SHX14_2 = 0.0287 * SHX14_2
-        SHX14_2 = 0.3731 + SHX14_2
-        SHX15_2 = SHX5_2 - 1
-        SHX15_2 = 0.0287 * SHX15_2
-        SHX15_2 = 0.4018 + SHX15_2
-        SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-        if SHX11_2 then
-          SHX11_2 = IsControlJustPressed
-          SHX12_2 = 1
-          SHX13_2 = 329
-          SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-          if not SHX11_2 then
-            SHX11_2 = IsDisabledControlJustPressed
-            SHX12_2 = 1
-            SHX13_2 = 329
-            SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-            if not SHX11_2 then
-              goto SHX_LABEL_5780
+        arg18 = "No"
+        ::flow_label_5718::
+        numberValue5 = arg9
+        numberValue7 = arg10
+        numberValue8 = arg11
+        numberValue9 = 255
+        numberValue10 = 6
+        numberValue12 = 0
+        arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12)
+        arg122 = DrawAdvancedText
+        arg13 = 0.675
+        arg14 = 0.0287 * arg6
+        arg14 = 0.361 + arg14
+        arg15 = 0.005
+        arg16 = 0.0028
+        arg17 = 0.4
+        arg18 = "description"
+        arg18 = arg7[arg18]
+        numberValue5 = arg9
+        numberValue7 = arg10
+        numberValue8 = arg11
+        numberValue9 = 255
+        numberValue10 = 6
+        numberValue12 = 0
+        arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12)
+        arg122 = CursorInArea
+        arg13 = 0.3005
+        arg14 = 0.5955
+        arg15 = arg6 - 1
+        arg15 = 0.0287 * arg15
+        arg15 = 0.3731 + arg15
+        arg16 = arg6 - 1
+        arg16 = 0.0287 * arg16
+        arg16 = 0.4018 + arg16
+        arg122 = arg122(arg13, arg14, arg15, arg16)
+        if arg122 then
+          arg122 = IsControlJustPressed
+          arg13 = 1
+          arg14 = 329
+          arg122 = arg122(arg13, arg14)
+          if not arg122 then
+            arg122 = IsDisabledControlJustPressed
+            arg13 = 1
+            arg14 = 329
+            arg122 = arg122(arg13, arg14)
+            if not arg122 then
+              goto flow_label_5780
             end
           end
-          SHX11_2 = TriggerServerEvent
-          SHX12_2 = "a6cd82c68e"
-          SHX13_2 = SHX4_1
-          SHX14_2 = "id"
-          SHX14_2 = SHX6_2[SHX14_2]
-          SHX15_2 = not SHX7_2
-          SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+          arg122 = TriggerServerEvent
+          arg13 = "a6cd82c68e"
+          arg14 = workValue16
+          arg15 = "id"
+          arg15 = arg7[arg15]
+          arg16 = not arg8
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a6cd82c68e".
+          arg122(arg13, arg14, arg15, arg16)
         end
-        -- [FIX IF ERROR] Move ::SHX_LABEL_5780:: outside nested blocks until all 'goto SHX_LABEL_5780' can see it
-        ::SHX_LABEL_5780::
+        ::flow_label_5780::
       end
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.4
-      SHX3_2 = 0.693
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Editing permissions for "
-      SHX8_2 = SHX0_2.name
-      SHX9_2 = " (User ID: "
-      SHX10_2 = tostring
-      SHX11_2 = SHX4_1
-      SHX10_2 = SHX10_2(SHX11_2)
-      SHX11_2 = ")"
-      SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2 .. SHX10_2 .. SHX11_2
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 4
-      SHX13_2 = 1
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.775
-      SHX3_2 = 0.693
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Back"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 4
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6583
-      SHX3_2 = 0.7056
-      SHX4_2 = 0.6712
-      SHX5_2 = 0.7064
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = DrawAdvancedText
+      arg3 = 0.4
+      arg4 = 0.693
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Editing permissions for "
+      arg9 = arg1.name
+      arg10 = " (User ID: "
+      arg11 = tostring
+      arg122 = workValue16
+      arg11 = arg11(arg122)
+      arg122 = ")"
+      arg8 = arg8 .. arg9 .. arg10 .. arg11 .. arg122
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 4
+      arg14 = 1
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawAdvancedText
+      arg3 = 0.775
+      arg4 = 0.693
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Back"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 4
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = CursorInArea
+      arg3 = 0.6583
+      arg4 = 0.7056
+      arg5 = 0.6712
+      arg6 = 0.7064
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = "members"
-          SHX1_1 = SHX1_2
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = "members"
+          textValue = arg2
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
     end
   end
-  SHX0_2 = SHX1_1
-  if "guest" == SHX0_2 then
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.501
-    SHX2_2 = 0.525
-    SHX3_2 = 0.421
-    SHX4_2 = 0.387
-    SHX5_2 = 0
-    SHX6_2 = 0
-    SHX7_2 = 0
-    SHX8_2 = 150
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawRect
-    SHX1_2 = 0.501
-    SHX2_2 = 0.308
-    SHX3_2 = 0.421
-    SHX4_2 = 0.047
-    SHX5_2 = 18
-    SHX6_2 = 82
-    SHX7_2 = 228
-    SHX8_2 = 248
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.591
-    SHX2_2 = 0.312
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.48
-    SHX6_2 = "CMG gang - guest"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 7
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = SHX20_1
-    if SHX0_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.448
-      SHX2_2 = 0.52
-      SHX3_2 = 0.295
-      SHX4_2 = 0.291
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.449
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Name"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.506
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "ID"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.555
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Control"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.625
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Last Seen"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.675
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Pin"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = SHX10_1
-      if SHX0_2 then
-        SHX0_2 = SHX20_1
-        if SHX0_2 then
-          SHX0_2 = SHX24_1
-          if SHX0_2 then
-            SHX0_2 = "Remove Selection"
-            if SHX0_2 then
-              goto SHX_LABEL_6002
+  arg1 = textValue
+  if "guest" == arg1 then
+    arg1 = DrawRect
+    arg2 = 0.501
+    arg3 = 0.525
+    arg4 = 0.421
+    arg5 = 0.387
+    arg6 = 0
+    arg7 = 0
+    arg8 = 0
+    arg9 = 150
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawRect
+    arg2 = 0.501
+    arg3 = 0.308
+    arg4 = 0.421
+    arg5 = 0.047
+    arg6 = 18
+    arg7 = 82
+    arg8 = 228
+    arg9 = 248
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+    arg1 = DrawAdvancedText
+    arg2 = 0.591
+    arg3 = 0.312
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.48
+    arg7 = "CMG gang - guest"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 7
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = workValue3
+    if arg1 then
+      arg1 = DrawRect
+      arg2 = 0.448
+      arg3 = 0.52
+      arg4 = 0.295
+      arg5 = 0.291
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.449
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Name"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.506
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "ID"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.555
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Control"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.625
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Last Seen"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.675
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Pin"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = workValue
+      if arg1 then
+        arg1 = workValue3
+        if arg1 then
+          arg1 = flag2
+          if arg1 then
+            arg1 = "Remove Selection"
+            if arg1 then
+              goto flow_label_6002
             end
           end
-          SHX0_2 = "Set As Selected"
-          -- [FIX IF ERROR] Move ::SHX_LABEL_6002:: outside nested blocks until all 'goto SHX_LABEL_6002' can see it
-          ::SHX_LABEL_6002::
-          SHX1_2 = DrawAdvancedText
-          SHX2_2 = 0.746
-          SHX3_2 = 0.465
-          SHX4_2 = 0.005
-          SHX5_2 = 0.0028
-          SHX6_2 = 0.4
-          SHX7_2 = SHX0_2
-          SHX8_2 = 255
-          SHX9_2 = 255
-          SHX10_2 = 255
-          SHX11_2 = 255
-          SHX12_2 = 4
-          SHX13_2 = 0
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
+          arg1 = "Set As Selected"
+          ::flow_label_6002::
+          arg2 = DrawAdvancedText
+          arg3 = 0.746
+          arg4 = 0.465
+          arg5 = 0.005
+          arg6 = 0.0028
+          arg7 = 0.4
+          arg8 = arg1
+          arg9 = 255
+          arg10 = 255
+          arg11 = 255
+          arg122 = 255
+          arg13 = 4
+          arg14 = 0
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
         end
       end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.746
-      SHX2_2 = 0.54
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Leave"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.491
-      SHX2_2 = 0.695
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Previous"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.581
-      SHX2_2 = 0.695
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Next"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = table
-      SHX0_2 = SHX0_2.count
-      SHX1_2 = SHX20_1.members
-      SHX0_2 = SHX0_2(SHX1_2)
-      SHX1_2 = table
-      SHX1_2 = SHX1_2.count
-      SHX2_2 = SHX20_1.guests
-      SHX1_2 = SHX1_2(SHX2_2)
-      SHX0_2 = SHX0_2 + SHX1_2
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.536
-      SHX3_2 = 0.695
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = tostring
-      SHX8_2 = SHX23_1
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX8_2 = "/"
-      SHX9_2 = tostring
-      SHX10_2 = math
-      SHX10_2 = SHX10_2.ceil
-      SHX11_2 = SHX0_2 / 10.0
-      SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX10_2(SHX11_2)
-      SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      SHX7_2 = SHX7_2 .. SHX8_2 .. SHX9_2
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 4
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = DrawAdvancedText
-      SHX2_2 = 0.775
-      SHX3_2 = 0.693
-      SHX4_2 = 0.005
-      SHX5_2 = 0.0028
-      SHX6_2 = 0.4
-      SHX7_2 = "Back"
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 255
-      SHX12_2 = 4
-      SHX13_2 = 0
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      SHX1_2 = SHX10_1
-      if SHX1_2 then
-        SHX1_2 = DrawAdvancedText
-        SHX2_2 = 0.746
-        SHX3_2 = 0.622
-        SHX4_2 = 0.005
-        SHX5_2 = 0.0028
-        SHX6_2 = 0.473
-        SHX7_2 = "Invite Guest"
-        SHX8_2 = 255
-        SHX9_2 = 255
-        SHX10_2 = 255
-        SHX11_2 = 255
-        SHX12_2 = 4
-        SHX13_2 = 0
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX1_2 = CursorInAreaRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.622
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-        if SHX1_2 then
-          SHX1_2 = DrawRect
-          SHX2_2 = 0.651
-          SHX3_2 = 0.622
-          SHX4_2 = 0.065
-          SHX5_2 = 0.056
-          SHX6_2 = 0
-          SHX7_2 = 168
-          SHX8_2 = 255
-          SHX9_2 = 150
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-          SHX1_2 = IsControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if not SHX1_2 then
-            SHX1_2 = IsDisabledControlJustPressed
-            SHX2_2 = 1
-            SHX3_2 = 329
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg1 = DrawAdvancedText
+      arg2 = 0.746
+      arg3 = 0.54
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Leave"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.491
+      arg3 = 0.695
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Previous"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.581
+      arg3 = 0.695
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Next"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = table
+      arg1 = arg1.count
+      arg2 = workValue3.members
+      -- Beginner: result below is count.
+      arg1 = arg1(arg2)
+      arg2 = table
+      arg2 = arg2.count
+      arg3 = workValue3.guests
+      -- Beginner: result below is count.
+      arg2 = arg2(arg3)
+      arg1 = arg1 + arg2
+      arg2 = DrawAdvancedText
+      arg3 = 0.536
+      arg4 = 0.695
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = tostring
+      arg9 = numberValue11
+      arg8 = arg8(arg9)
+      arg9 = "/"
+      arg10 = tostring
+      arg11 = math
+      arg11 = arg11.ceil
+      arg122 = arg1 / 10.0
+      arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg11(arg122)
+      arg10 = arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      arg8 = arg8 .. arg9 .. arg10
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 4
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = DrawAdvancedText
+      arg3 = 0.775
+      arg4 = 0.693
+      arg5 = 0.005
+      arg6 = 0.0028
+      arg7 = 0.4
+      arg8 = "Back"
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 255
+      arg13 = 4
+      arg14 = 0
+      arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+      arg2 = workValue
+      if arg2 then
+        arg2 = DrawAdvancedText
+        arg3 = 0.746
+        arg4 = 0.622
+        arg5 = 0.005
+        arg6 = 0.0028
+        arg7 = 0.473
+        arg8 = "Invite Guest"
+        arg9 = 255
+        arg10 = 255
+        arg11 = 255
+        arg122 = 255
+        arg13 = 4
+        arg14 = 0
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+        arg2 = CursorInAreaRect
+        arg3 = 0.651
+        arg4 = 0.622
+        arg5 = 0.065
+        arg6 = 0.056
+        arg2 = arg2(arg3, arg4, arg5, arg6)
+        if arg2 then
+          arg2 = DrawRect
+          arg3 = 0.651
+          arg4 = 0.622
+          arg5 = 0.065
+          arg6 = 0.056
+          arg7 = 0
+          arg8 = 168
+          arg9 = 255
+          arg10 = 150
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+          arg2 = IsControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
+          if not arg2 then
+            arg2 = IsDisabledControlJustPressed
+            arg3 = 1
+            arg4 = 329
+            arg2 = arg2(arg3, arg4)
           end
-          if SHX1_2 then
-            SHX1_2 = PlaySound
-            SHX2_2 = -1
-            SHX3_2 = "SELECT"
-            SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX5_2 = false
-            SHX6_2 = 0
-            SHX7_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.hasGangPermission
-            SHX2_2 = "inviteguest"
-            SHX1_2 = SHX1_2(SHX2_2)
-            if SHX1_2 then
-              SHX1_2 = CMG
-              SHX1_2 = SHX1_2.GetRageInputText
-              SHX2_2 = "Enter Perm ID to invite:"
-              SHX1_2 = SHX1_2(SHX2_2)
-              if nil ~= SHX1_2 then
-                SHX2_2 = tonumber
-                SHX3_2 = SHX1_2
-                SHX2_2 = SHX2_2(SHX3_2)
-                if SHX2_2 then
-                  SHX2_2 = TriggerServerEvent
-                  SHX3_2 = "306a9cdbc9"
-                  SHX4_2 = tonumber
-                  SHX5_2 = SHX1_2
-                  SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX4_2(SHX5_2)
-                  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+          if arg2 then
+            arg2 = PlaySound
+            arg3 = -1
+            arg4 = "SELECT"
+            arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            arg6 = false
+            arg7 = 0
+            arg8 = true
+            arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+            arg2 = CMG
+            arg2 = arg2.hasGangPermission
+            arg3 = "inviteguest"
+            arg2 = arg2(arg3)
+            if arg2 then
+              arg2 = CMG
+              arg2 = arg2.GetRageInputText
+              arg3 = "Enter Perm ID to invite:"
+              arg2 = arg2(arg3)
+              if nil ~= arg2 then
+                arg3 = tonumber
+                arg4 = arg2
+                arg3 = arg3(arg4)
+                if arg3 then
+                  arg3 = TriggerServerEvent
+                  arg4 = "306a9cdbc9"
+                  arg5 = tonumber
+                  arg6 = arg2
+                  arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg5(arg6)
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "306a9cdbc9".
+                  arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
               end
               else
-                SHX2_2 = tCMG
-                SHX2_2 = SHX2_2.notify
-                SHX3_2 = "Invalid Perm ID entered"
-                SHX2_2(SHX3_2)
+                arg3 = tCMG
+                arg3 = arg3.notify
+                arg4 = "Invalid Perm ID entered"
+                -- Beginner: Show a notification to the player.
+                arg3(arg4)
               end
             else
-              SHX1_2 = tCMG
-              SHX1_2 = SHX1_2.notify
-              SHX2_2 = "~r~You don't have permission to invite players"
-              SHX1_2(SHX2_2)
+              arg2 = tCMG
+              arg2 = arg2.notify
+              arg3 = "~r~You don't have permission to invite players"
+              arg2(arg3)
             end
           end
         else
-          SHX1_2 = DrawRect
-          SHX2_2 = 0.651
-          SHX3_2 = 0.622
-          SHX4_2 = 0.065
-          SHX5_2 = 0.056
-          SHX6_2 = 0
-          SHX7_2 = 0
-          SHX8_2 = 0
-          SHX9_2 = 150
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+          arg2 = DrawRect
+          arg3 = 0.651
+          arg4 = 0.622
+          arg5 = 0.065
+          arg6 = 0.056
+          arg7 = 0
+          arg8 = 0
+          arg9 = 0
+          arg10 = 150
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
         end
       end
-      SHX1_2 = pairs
-      SHX2_2 = SHX37_1
-      SHX3_2 = SHX20_1
-      SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX2_2(SHX3_2)
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = "Guest"
-        SHX8_2 = SHX6_2.permissions
-        if SHX8_2 then
-          SHX8_2 = tostring
-          SHX9_2 = math
-          SHX9_2 = SHX9_2.floor
-          SHX10_2 = table
-          SHX10_2 = SHX10_2.count
-          SHX11_2 = SHX6_2.permissions
-          SHX10_2 = SHX10_2(SHX11_2)
-          SHX11_2 = table
-          SHX11_2 = SHX11_2.count
-          SHX12_2 = SHX0_1.permissions
-          SHX11_2 = SHX11_2(SHX12_2)
-          SHX10_2 = SHX10_2 / SHX11_2
-          SHX10_2 = SHX10_2 * 100.0
-          SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX9_2(SHX10_2)
-          SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
-          SHX9_2 = "%"
-          SHX8_2 = SHX8_2 .. SHX9_2
-          SHX7_2 = SHX8_2
+      arg2 = pairs
+      arg3 = textValue3
+      arg4 = workValue3
+      arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg3(arg4)
+      arg2, arg3, arg4, arg5 = arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+      for arg6, arg7 in arg2, arg3, arg4, arg5 do
+        arg8 = "Guest"
+        arg9 = arg7.permissions
+        if arg9 then
+          arg9 = tostring
+          arg10 = math
+          arg10 = arg10.floor
+          arg11 = table
+          arg11 = arg11.count
+          arg122 = arg7.permissions
+          -- Beginner: result below is count.
+          arg11 = arg11(arg122)
+          arg122 = table
+          arg122 = arg122.count
+          arg13 = cmgCall.permissions
+          -- Beginner: result below is count.
+          arg122 = arg122(arg13)
+          arg11 = arg11 / arg122
+          arg11 = arg11 * 100.0
+          arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg10(arg11)
+          arg9 = arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
+          arg10 = "%"
+          arg9 = arg9 .. arg10
+          arg8 = arg9
         end
-        SHX8_2 = DrawAdvancedText
-        SHX9_2 = 0.449
-        SHX10_2 = 0.0287 * SHX5_2
-        SHX10_2 = 0.361 + SHX10_2
-        SHX11_2 = 0.005
-        SHX12_2 = 0.0028
-        SHX13_2 = 0.4
-        SHX14_2 = SHX6_2.name
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 6
-        SHX20_2 = 0
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX8_2 = DrawAdvancedText
-        SHX9_2 = 0.506
-        SHX10_2 = 0.0287 * SHX5_2
-        SHX10_2 = 0.361 + SHX10_2
-        SHX11_2 = 0.005
-        SHX12_2 = 0.0028
-        SHX13_2 = 0.4
-        SHX14_2 = SHX6_2.user_id
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 6
-        SHX20_2 = 0
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX8_2 = DrawAdvancedText
-        SHX9_2 = 0.555
-        SHX10_2 = 0.0287 * SHX5_2
-        SHX10_2 = 0.361 + SHX10_2
-        SHX11_2 = 0.005
-        SHX12_2 = 0.0028
-        SHX13_2 = 0.4
-        SHX14_2 = SHX7_2
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 6
-        SHX20_2 = 0
-        SHX8_2(SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-        SHX8_2 = SHX6_2.lastLogin
-        SHX9_2 = fullPlayerListData
-        SHX10_2 = SHX6_2.user_id
-        SHX9_2 = SHX9_2[SHX10_2]
-        if SHX9_2 then
-          SHX9_2 = CMG
-          SHX9_2 = SHX9_2.isUserHidden
-          SHX10_2 = SHX6_2.user_id
-          SHX9_2 = SHX9_2(SHX10_2)
-          if not SHX9_2 then
-            SHX8_2 = "Online"
+        arg9 = DrawAdvancedText
+        arg10 = 0.449
+        arg11 = 0.0287 * arg6
+        arg11 = 0.361 + arg11
+        arg122 = 0.005
+        arg13 = 0.0028
+        arg14 = 0.4
+        arg15 = arg7.name
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 6
+        numberValue8 = 0
+        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+        arg9 = DrawAdvancedText
+        arg10 = 0.506
+        arg11 = 0.0287 * arg6
+        arg11 = 0.361 + arg11
+        arg122 = 0.005
+        arg13 = 0.0028
+        arg14 = 0.4
+        arg15 = arg7.user_id
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 6
+        numberValue8 = 0
+        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+        arg9 = DrawAdvancedText
+        arg10 = 0.555
+        arg11 = 0.0287 * arg6
+        arg11 = 0.361 + arg11
+        arg122 = 0.005
+        arg13 = 0.0028
+        arg14 = 0.4
+        arg15 = arg8
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 6
+        numberValue8 = 0
+        arg9(arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+        arg9 = arg7.lastLogin
+        arg10 = fullPlayerListData
+        arg11 = arg7.user_id
+        arg10 = arg10[arg11]
+        if arg10 then
+          arg10 = CMG
+          arg10 = arg10.isUserHidden
+          arg11 = arg7.user_id
+          arg10 = arg10(arg11)
+          if not arg10 then
+            arg9 = "Online"
           end
         end
-        SHX9_2 = DrawAdvancedText
-        SHX10_2 = 0.625
-        SHX11_2 = 0.0287 * SHX5_2
-        SHX11_2 = 0.361 + SHX11_2
-        SHX12_2 = 0.005
-        SHX13_2 = 0.0028
-        SHX14_2 = 0.4
-        SHX15_2 = SHX8_2
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 255
-        SHX20_2 = 6
-        SHX21_2 = 0
-        SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2)
-        SHX9_2 = SHX15_1.pinnedPlayers
-        SHX10_2 = SHX6_2.user_id
-        SHX9_2 = SHX9_2[SHX10_2]
-        if SHX9_2 then
-          SHX9_2 = SHX20_1.isAdvanced
-          if SHX9_2 then
-            SHX9_2 = "\240\159\147\140"
-            if SHX9_2 then
-              goto SHX_LABEL_6329
+        arg10 = DrawAdvancedText
+        arg11 = 0.625
+        arg122 = 0.0287 * arg6
+        arg122 = 0.361 + arg122
+        arg13 = 0.005
+        arg14 = 0.0028
+        arg15 = 0.4
+        arg16 = arg9
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 255
+        numberValue8 = 6
+        numberValue9 = 0
+        arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9)
+        arg10 = dataTable.pinnedPlayers
+        arg11 = arg7.user_id
+        arg10 = arg10[arg11]
+        if arg10 then
+          arg10 = workValue3.isAdvanced
+          if arg10 then
+            arg10 = "\240\159\147\140"
+            if arg10 then
+              goto flow_label_6329
             end
           end
         end
-        SHX9_2 = "\226\173\149"
-        -- [FIX IF ERROR] Move ::SHX_LABEL_6329:: outside nested blocks until all 'goto SHX_LABEL_6329' can see it
-        ::SHX_LABEL_6329::
-        SHX10_2 = DrawAdvancedText
-        SHX11_2 = 0.675
-        SHX12_2 = 0.0287 * SHX5_2
-        SHX12_2 = 0.3665 + SHX12_2
-        SHX13_2 = 0.005
-        SHX14_2 = 0.0028
-        SHX15_2 = 0.2
-        SHX16_2 = SHX9_2
-        SHX17_2 = 255
-        SHX18_2 = 255
-        SHX19_2 = 255
-        SHX20_2 = 255
-        SHX21_2 = 6
-        SHX22_2 = 0
-        SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX10_2 = CursorInArea
-        SHX11_2 = 0.5755
-        SHX12_2 = 0.5955
-        SHX13_2 = SHX5_2 - 1
-        SHX13_2 = 0.0287 * SHX13_2
-        SHX13_2 = 0.3731 + SHX13_2
-        SHX14_2 = SHX5_2 - 1
-        SHX14_2 = 0.0287 * SHX14_2
-        SHX14_2 = 0.4018 + SHX14_2
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        if SHX10_2 then
-          SHX10_2 = IsControlJustPressed
-          SHX11_2 = 1
-          SHX12_2 = 329
-          SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-          if not SHX10_2 then
-            SHX10_2 = IsDisabledControlJustPressed
-            SHX11_2 = 1
-            SHX12_2 = 329
-            SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-            if not SHX10_2 then
-              goto SHX_LABEL_6402
+        arg10 = "\226\173\149"
+        ::flow_label_6329::
+        arg11 = DrawAdvancedText
+        arg122 = 0.675
+        arg13 = 0.0287 * arg6
+        arg13 = 0.3665 + arg13
+        arg14 = 0.005
+        arg15 = 0.0028
+        arg16 = 0.2
+        arg17 = arg10
+        arg18 = 255
+        numberValue5 = 255
+        numberValue7 = 255
+        numberValue8 = 255
+        numberValue9 = 6
+        numberValue10 = 0
+        arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10)
+        arg11 = CursorInArea
+        arg122 = 0.5755
+        arg13 = 0.5955
+        arg14 = arg6 - 1
+        arg14 = 0.0287 * arg14
+        arg14 = 0.3731 + arg14
+        arg15 = arg6 - 1
+        arg15 = 0.0287 * arg15
+        arg15 = 0.4018 + arg15
+        arg11 = arg11(arg122, arg13, arg14, arg15)
+        if arg11 then
+          arg11 = IsControlJustPressed
+          arg122 = 1
+          arg13 = 329
+          arg11 = arg11(arg122, arg13)
+          if not arg11 then
+            arg11 = IsDisabledControlJustPressed
+            arg122 = 1
+            arg13 = 329
+            arg11 = arg11(arg122, arg13)
+            if not arg11 then
+              goto flow_label_6402
             end
           end
-          SHX10_2 = SHX20_1.isAdvanced
-          if SHX10_2 then
-            SHX10_2 = SHX15_1.pinnedPlayers
-            SHX11_2 = SHX6_2.user_id
-            SHX10_2 = SHX10_2[SHX11_2]
-            if SHX10_2 then
-              SHX10_2 = SHX15_1.pinnedPlayers
-              SHX11_2 = SHX6_2.user_id
-              SHX10_2[SHX11_2] = nil
+          arg11 = workValue3.isAdvanced
+          if arg11 then
+            arg11 = dataTable.pinnedPlayers
+            arg122 = arg7.user_id
+            arg11 = arg11[arg122]
+            if arg11 then
+              arg11 = dataTable.pinnedPlayers
+              arg122 = arg7.user_id
+              arg11[arg122] = nil
             else
-              SHX10_2 = SHX15_1.pinnedPlayers
-              SHX11_2 = SHX6_2.user_id
-              SHX10_2[SHX11_2] = true
+              arg11 = dataTable.pinnedPlayers
+              arg122 = arg7.user_id
+              arg11[arg122] = true
             end
-            SHX10_2 = SetResourceKvp
-            SHX11_2 = "cmg_gang_pinned"
-            SHX12_2 = json
-            SHX12_2 = SHX12_2.encode
-            SHX13_2 = SHX15_1.pinnedPlayers
-            SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX12_2(SHX13_2)
-            SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+            arg11 = SetResourceKvp
+            arg122 = "cmg_gang_pinned"
+            arg13 = json
+            arg13 = arg13.encode
+            arg14 = dataTable.pinnedPlayers
+            arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg13(arg14)
+            arg11(arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
           else
-            SHX10_2 = notify
-            SHX11_2 = "~r~You must have the advanced gang license to pin a player."
-            SHX10_2(SHX11_2)
+            arg11 = notify
+            arg122 = "~r~You must have the advanced gang license to pin a player."
+            -- Beginner: Show a notification to the player.
+            arg11(arg122)
           end
         end
-        -- [FIX IF ERROR] Move ::SHX_LABEL_6402:: outside nested blocks until all 'goto SHX_LABEL_6402' can see it
-        ::SHX_LABEL_6402::
+        ::flow_label_6402::
       end
-      SHX1_2 = SHX10_1
-      if SHX1_2 then
-        SHX1_2 = SHX20_1
-        if SHX1_2 then
-          SHX1_2 = CursorInArea
-          SHX2_2 = 0.6182
-          SHX3_2 = 0.6822
-          SHX4_2 = 0.435
-          SHX5_2 = 0.491
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-          if SHX1_2 then
-            SHX1_2 = DrawRect
-            SHX2_2 = 0.651
-            SHX3_2 = 0.463
-            SHX4_2 = 0.065
-            SHX5_2 = 0.056
-            SHX6_2 = SHX7_1
-            SHX7_2 = SHX8_1
-            SHX8_2 = SHX9_1
-            SHX9_2 = 150
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-            SHX1_2 = IsControlJustPressed
-            SHX2_2 = 1
-            SHX3_2 = 329
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-            if not SHX1_2 then
-              SHX1_2 = IsDisabledControlJustPressed
-              SHX2_2 = 1
-              SHX3_2 = 329
-              SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-              if not SHX1_2 then
-                goto SHX_LABEL_6504
+      arg2 = workValue
+      if arg2 then
+        arg2 = workValue3
+        if arg2 then
+          arg2 = CursorInArea
+          arg3 = 0.6182
+          arg4 = 0.6822
+          arg5 = 0.435
+          arg6 = 0.491
+          arg2 = arg2(arg3, arg4, arg5, arg6)
+          if arg2 then
+            arg2 = DrawRect
+            arg3 = 0.651
+            arg4 = 0.463
+            arg5 = 0.065
+            arg6 = 0.056
+            arg7 = numberValue28
+            arg8 = numberValue29
+            arg9 = numberValue30
+            arg10 = 150
+            arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+            arg2 = IsControlJustPressed
+            arg3 = 1
+            arg4 = 329
+            arg2 = arg2(arg3, arg4)
+            if not arg2 then
+              arg2 = IsDisabledControlJustPressed
+              arg3 = 1
+              arg4 = 329
+              arg2 = arg2(arg3, arg4)
+              if not arg2 then
+                goto flow_label_6504
               end
             end
-            SHX1_2 = PlaySound
-            SHX2_2 = -1
-            SHX3_2 = "SELECT"
-            SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX5_2 = false
-            SHX6_2 = 0
-            SHX7_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-            SHX1_2 = SHX24_1
-            if SHX1_2 then
-              SHX1_2 = notify
-              SHX2_2 = "~g~Set main gang as selected"
-              SHX1_2(SHX2_2)
-              SHX1_2 = false
-              SHX24_1 = SHX1_2
+            arg2 = PlaySound
+            arg3 = -1
+            arg4 = "SELECT"
+            arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            arg6 = false
+            arg7 = 0
+            arg8 = true
+            arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+            arg2 = flag2
+            if arg2 then
+              arg2 = notify
+              arg3 = "~g~Set main gang as selected"
+              -- Beginner: Show a notification to the player.
+              arg2(arg3)
+              arg2 = false
+              flag2 = arg2
             else
-              SHX1_2 = notify
-              SHX2_2 = "~g~Set guest gang as selected"
-              SHX1_2(SHX2_2)
-              SHX1_2 = true
-              SHX24_1 = SHX1_2
+              arg2 = notify
+              arg3 = "~g~Set guest gang as selected"
+              arg2(arg3)
+              arg2 = true
+              flag2 = arg2
             end
-            SHX1_2 = _ENV
-            SHX2_2 = "TriggerEvent"
-            SHX1_2 = SHX1_2[SHX2_2]
-            SHX2_2 = "e713d91b70"
-            SHX1_2(SHX2_2)
-            SHX1_2 = SHX33_1
-            SHX1_2 = SHX1_2()
-            if not SHX1_2 then
-              goto SHX_LABEL_6504
+            arg2 = _ENV
+            arg3 = "TriggerEvent"
+            arg2 = arg2[arg3]
+            arg3 = "e713d91b70"
+            arg2(arg3)
+            arg2 = workValue6
+            arg2 = arg2()
+            if not arg2 then
+              goto flow_label_6504
             end
-            SHX2_2 = SHX1_2.isAdvanced
-            if not SHX2_2 then
-              goto SHX_LABEL_6504
+            arg3 = arg2.isAdvanced
+            if not arg3 then
+              goto flow_label_6504
             end
-            SHX2_2 = SHX15_1
-            SHX3_2 = "blips"
-            SHX2_2 = SHX2_2[SHX3_2]
-            if not SHX2_2 then
-              goto SHX_LABEL_6504
+            arg3 = dataTable
+            arg4 = "blips"
+            arg3 = arg3[arg4]
+            if not arg3 then
+              goto flow_label_6504
             end
-            SHX2_2 = SHX33_1
-            SHX2_2 = SHX2_2()
-            SHX3_2 = SHX10_1
-            if SHX2_2 == SHX3_2 then
-              SHX2_2 = "own"
-              if SHX2_2 then
-                goto SHX_LABEL_6489
+            arg3 = workValue6
+            arg3 = arg3()
+            arg4 = workValue
+            if arg3 == arg4 then
+              arg3 = "own"
+              if arg3 then
+                goto flow_label_6489
               end
             end
-            SHX2_2 = "guest"
-            -- [FIX IF ERROR] Move ::SHX_LABEL_6489:: outside nested blocks until all 'goto SHX_LABEL_6489' can see it
-            ::SHX_LABEL_6489::
-            SHX3_2 = TriggerServerEvent
-            SHX4_2 = "f9c26121e2"
-            SHX5_2 = SHX2_2
-            SHX3_2(SHX4_2, SHX5_2)
+            arg3 = "guest"
+            ::flow_label_6489::
+            arg4 = TriggerServerEvent
+            arg5 = "f9c26121e2"
+            arg6 = arg3
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
+            arg4(arg5, arg6)
           else
-            SHX1_2 = DrawRect
-            SHX2_2 = 0.651
-            SHX3_2 = 0.463
-            SHX4_2 = 0.065
-            SHX5_2 = 0.056
-            SHX6_2 = 0
-            SHX7_2 = 0
-            SHX8_2 = 0
-            SHX9_2 = 150
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+            arg2 = DrawRect
+            arg3 = 0.651
+            arg4 = 0.463
+            arg5 = 0.065
+            arg6 = 0.056
+            arg7 = 0
+            arg8 = 0
+            arg9 = 0
+            arg10 = 150
+            arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
           end
         end
       end
-      -- [FIX IF ERROR] Move ::SHX_LABEL_6504:: outside nested blocks until all 'goto SHX_LABEL_6504' can see it
-      ::SHX_LABEL_6504::
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6182
-      SHX3_2 = 0.6822
-      SHX4_2 = 0.51
-      SHX5_2 = 0.566
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.538
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      ::flow_label_6504::
+      arg2 = CursorInArea
+      arg3 = 0.6182
+      arg4 = 0.6822
+      arg5 = 0.51
+      arg6 = 0.566
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.538
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX36_1
-          SHX2_2 = "Are you sure?"
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 then
-            SHX1_2 = TriggerServerEvent
-            SHX2_2 = "dc72f21cc8"
-            SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = cmgCall7
+          arg3 = "Are you sure?"
+          arg2 = arg2(arg3)
+          if arg2 then
+            arg2 = TriggerServerEvent
+            arg3 = "dc72f21cc8"
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dc72f21cc8".
+            arg2(arg3)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.538
-        SHX4_2 = 0.065
-        SHX5_2 = 0.056
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.538
+        arg5 = 0.065
+        arg6 = 0.056
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.3735
-      SHX3_2 = 0.4185
-      SHX4_2 = 0.6768
-      SHX5_2 = 0.7074
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.396
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.3735
+      arg4 = 0.4185
+      arg5 = 0.6768
+      arg6 = 0.7074
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.396
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX23_1
-          if SHX1_2 <= 1 then
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~Lowest page reached"
-            SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = numberValue11
+          if arg2 <= 1 then
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~Lowest page reached"
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           else
-            SHX1_2 = SHX23_1
-            SHX1_2 = SHX1_2 - 1
-            SHX23_1 = SHX1_2
+            arg2 = numberValue11
+            arg2 = arg2 - 1
+            numberValue11 = arg2
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.396
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.396
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.4635
-      SHX3_2 = 0.5085
-      SHX4_2 = 0.6712
-      SHX5_2 = 0.7064
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.486
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.4635
+      arg4 = 0.5085
+      arg5 = 0.6712
+      arg6 = 0.7064
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.486
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = SHX23_1
-          SHX2_2 = math
-          SHX2_2 = SHX2_2.ceil
-          SHX3_2 = SHX0_2 / 10.0
-          SHX2_2 = SHX2_2(SHX3_2)
-          if SHX1_2 >= SHX2_2 then
-            SHX1_2 = tCMG
-            SHX1_2 = SHX1_2.notify
-            SHX2_2 = "~r~Max page reached"
-            SHX1_2(SHX2_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = numberValue11
+          arg3 = math
+          arg3 = arg3.ceil
+          arg4 = arg1 / 10.0
+          arg3 = arg3(arg4)
+          if arg2 >= arg3 then
+            arg2 = tCMG
+            arg2 = arg2.notify
+            arg3 = "~r~Max page reached"
+            -- Beginner: Show a notification to the player.
+            arg2(arg3)
           else
-            SHX1_2 = SHX23_1
-            SHX1_2 = SHX1_2 + 1
-            SHX23_1 = SHX1_2
+            arg2 = numberValue11
+            arg2 = arg2 + 1
+            numberValue11 = arg2
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.486
-        SHX3_2 = 0.693
-        SHX4_2 = 0.045
-        SHX5_2 = 0.033
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.486
+        arg4 = 0.693
+        arg5 = 0.045
+        arg6 = 0.033
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6583
-      SHX3_2 = 0.7056
-      SHX4_2 = 0.6712
-      SHX5_2 = 0.7064
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.6583
+      arg4 = 0.7056
+      arg5 = 0.6712
+      arg6 = 0.7064
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = "gang"
-          SHX1_1 = SHX1_2
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = "gang"
+          textValue = arg2
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
     else
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.501
-      SHX2_2 = 0.378
-      SHX3_2 = 0.105
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "Guest Guide"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.501
-      SHX2_2 = 0.416
-      SHX3_2 = 0.105
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "A guest is a player who will temporarily have access to a limited area of your gang."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.501
-      SHX2_2 = 0.454
-      SHX3_2 = 0.105
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "They will be able to pin members, see pings, see blips and name tags."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.501
-      SHX2_2 = 0.492
-      SHX3_2 = 0.105
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "They will not be able to see or access your funds, logs, settings and security."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.501
-      SHX2_2 = 0.53
-      SHX3_2 = 0.105
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.46
-      SHX6_2 = "Being a guest of another gang will not remove you from your current gang."
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = SHX10_1
-      if SHX0_2 then
-        SHX0_2 = DrawAdvancedText
-        SHX1_2 = 0.478
-        SHX2_2 = 0.642
-        SHX3_2 = 0.005
-        SHX4_2 = 0.0028
-        SHX5_2 = 0.473
-        SHX6_2 = "Invite Guest"
-        SHX7_2 = 255
-        SHX8_2 = 255
-        SHX9_2 = 255
-        SHX10_2 = 255
-        SHX11_2 = 4
-        SHX12_2 = 0
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
+      arg1 = DrawAdvancedText
+      arg2 = 0.501
+      arg3 = 0.378
+      arg4 = 0.105
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "Guest Guide"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.501
+      arg3 = 0.416
+      arg4 = 0.105
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "A guest is a player who will temporarily have access to a limited area of your gang."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.501
+      arg3 = 0.454
+      arg4 = 0.105
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "They will be able to pin members, see pings, see blips and name tags."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.501
+      arg3 = 0.492
+      arg4 = 0.105
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "They will not be able to see or access your funds, logs, settings and security."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.501
+      arg3 = 0.53
+      arg4 = 0.105
+      arg5 = 0.0028
+      arg6 = 0.46
+      arg7 = "Being a guest of another gang will not remove you from your current gang."
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = workValue
+      if arg1 then
+        arg1 = DrawAdvancedText
+        arg2 = 0.478
+        arg3 = 0.642
+        arg4 = 0.005
+        arg5 = 0.0028
+        arg6 = 0.473
+        arg7 = "Invite Guest"
+        arg8 = 255
+        arg9 = 255
+        arg10 = 255
+        arg11 = 255
+        arg122 = 4
+        arg13 = 0
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
       end
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.564
-      SHX2_2 = 0.643
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.473
-      SHX6_2 = "Accept Invite"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.561
-      SHX2_2 = 0.577
-      SHX3_2 = 0.065
-      SHX4_2 = -0.003
-      SHX5_2 = 0
-      SHX6_2 = 168
-      SHX7_2 = 255
-      SHX8_2 = 204
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.654
-      SHX2_2 = 0.57
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.364
-      SHX6_2 = "Guest Invite list"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = pairs
-      SHX1_2 = SHX21_1
-      SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-      for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-        SHX6_2 = DrawAdvancedText
-        SHX7_2 = 0.656
-        SHX8_2 = 0.02 * SHX4_2
-        SHX9_2 = 0.598
-        SHX8_2 = SHX9_2 + SHX8_2
-        SHX9_2 = 0.005
-        SHX10_2 = 0.0028
-        SHX11_2 = 0.234
-        SHX12_2 = SHX5_2
-        SHX13_2 = 255
-        SHX14_2 = 255
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 0
-        SHX18_2 = 0
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-        SHX6_2 = CursorInArea
-        SHX7_2 = 0.525
-        SHX8_2 = 0.59
-        SHX9_2 = 0.02 * SHX4_2
-        SHX10_2 = 0.58
-        SHX9_2 = SHX10_2 + SHX9_2
-        SHX10_2 = 0.02 * SHX4_2
-        SHX11_2 = 0.596
-        SHX10_2 = SHX11_2 + SHX10_2
-        SHX6_2 = SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-        if SHX6_2 then
-          SHX6_2 = SHX22_1
-          if SHX4_2 ~= SHX6_2 then
-            SHX6_2 = DrawRect
-            SHX7_2 = 0.56
-            SHX8_2 = 0.02 * SHX4_2
-            SHX8_2 = 0.59 + SHX8_2
-            SHX9_2 = 0.062
-            SHX10_2 = 0.019
-            SHX11_2 = 0
-            SHX12_2 = 168
-            SHX13_2 = 255
-            SHX14_2 = 150
-            SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            SHX6_2 = IsControlJustPressed
-            SHX7_2 = 1
-            SHX8_2 = 329
-            SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-            if not SHX6_2 then
-              SHX6_2 = IsDisabledControlJustPressed
-              SHX7_2 = 1
-              SHX8_2 = 329
-              SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
+      arg1 = DrawAdvancedText
+      arg2 = 0.564
+      arg3 = 0.643
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.473
+      arg7 = "Accept Invite"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.561
+      arg3 = 0.577
+      arg4 = 0.065
+      arg5 = -0.003
+      arg6 = 0
+      arg7 = 168
+      arg8 = 255
+      arg9 = 204
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.654
+      arg3 = 0.57
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.364
+      arg7 = "Guest Invite list"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = pairs
+      arg2 = dataTable3
+      arg1, arg2, arg3, arg4 = arg1(arg2)
+      for arg5, arg6 in arg1, arg2, arg3, arg4 do
+        arg7 = DrawAdvancedText
+        arg8 = 0.656
+        arg9 = 0.02 * arg5
+        arg10 = 0.598
+        arg9 = arg10 + arg9
+        arg10 = 0.005
+        arg11 = 0.0028
+        arg122 = 0.234
+        arg13 = arg6
+        arg14 = 255
+        arg15 = 255
+        arg16 = 255
+        arg17 = 255
+        arg18 = 0
+        numberValue5 = 0
+        arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
+        arg7 = CursorInArea
+        arg8 = 0.525
+        arg9 = 0.59
+        arg10 = 0.02 * arg5
+        arg11 = 0.58
+        arg10 = arg11 + arg10
+        arg11 = 0.02 * arg5
+        arg122 = 0.596
+        arg11 = arg122 + arg11
+        arg7 = arg7(arg8, arg9, arg10, arg11)
+        if arg7 then
+          arg7 = workValue4
+          if arg5 ~= arg7 then
+            arg7 = DrawRect
+            arg8 = 0.56
+            arg9 = 0.02 * arg5
+            arg9 = 0.59 + arg9
+            arg10 = 0.062
+            arg11 = 0.019
+            arg122 = 0
+            arg13 = 168
+            arg14 = 255
+            arg15 = 150
+            arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
+            arg7 = IsControlJustPressed
+            arg8 = 1
+            arg9 = 329
+            arg7 = arg7(arg8, arg9)
+            if not arg7 then
+              arg7 = IsDisabledControlJustPressed
+              arg8 = 1
+              arg9 = 329
+              arg7 = arg7(arg8, arg9)
             end
-            if SHX6_2 then
-              SHX22_1 = SHX4_2
+            if arg7 then
+              workValue4 = arg5
             end
         end
         else
-          SHX6_2 = SHX22_1
-          if SHX4_2 == SHX6_2 then
-            SHX6_2 = DrawRect
-            SHX7_2 = 0.56
-            SHX8_2 = 0.02 * SHX4_2
-            SHX8_2 = 0.59 + SHX8_2
-            SHX9_2 = 0.062
-            SHX10_2 = 0.019
-            SHX11_2 = 0
-            SHX12_2 = 168
-            SHX13_2 = 255
-            SHX14_2 = 150
-            SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+          arg7 = workValue4
+          if arg5 == arg7 then
+            arg7 = DrawRect
+            arg8 = 0.56
+            arg9 = 0.02 * arg5
+            arg9 = 0.59 + arg9
+            arg10 = 0.062
+            arg11 = 0.019
+            arg122 = 0
+            arg13 = 168
+            arg14 = 255
+            arg15 = 150
+            arg7(arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15)
           end
         end
       end
-      SHX0_2 = SHX10_1
-      if SHX0_2 then
-        SHX0_2 = CursorInArea
-        SHX1_2 = 0.35
-        SHX2_2 = 0.415
-        SHX3_2 = 0.615
-        SHX4_2 = 0.66
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-        if SHX0_2 then
-          SHX0_2 = DrawRect
-          SHX1_2 = 0.383
-          SHX2_2 = 0.642
-          SHX3_2 = 0.066
-          SHX4_2 = 0.046
-          SHX5_2 = 0
-          SHX6_2 = 168
-          SHX7_2 = 255
-          SHX8_2 = 150
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-          SHX0_2 = IsControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          if not SHX0_2 then
-            SHX0_2 = IsDisabledControlJustPressed
-            SHX1_2 = 1
-            SHX2_2 = 329
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = workValue
+      if arg1 then
+        arg1 = CursorInArea
+        arg2 = 0.35
+        arg3 = 0.415
+        arg4 = 0.615
+        arg5 = 0.66
+        arg1 = arg1(arg2, arg3, arg4, arg5)
+        if arg1 then
+          arg1 = DrawRect
+          arg2 = 0.383
+          arg3 = 0.642
+          arg4 = 0.066
+          arg5 = 0.046
+          arg6 = 0
+          arg7 = 168
+          arg8 = 255
+          arg9 = 150
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+          arg1 = IsControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+          if not arg1 then
+            arg1 = IsDisabledControlJustPressed
+            arg2 = 1
+            arg3 = 329
+            arg1 = arg1(arg2, arg3)
           end
-          if SHX0_2 then
-            SHX0_2 = PlaySound
-            SHX1_2 = -1
-            SHX2_2 = "SELECT"
-            SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX4_2 = false
-            SHX5_2 = 0
-            SHX6_2 = true
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.hasGangPermission
-            SHX1_2 = "inviteguest"
-            SHX0_2 = SHX0_2(SHX1_2)
-            if SHX0_2 then
-              SHX0_2 = CMG
-              SHX0_2 = SHX0_2.GetRageInputText
-              SHX1_2 = "Enter Perm ID to invite:"
-              SHX0_2 = SHX0_2(SHX1_2)
-              if nil ~= SHX0_2 then
-                SHX1_2 = tonumber
-                SHX2_2 = SHX0_2
-                SHX1_2 = SHX1_2(SHX2_2)
-                if SHX1_2 then
-                  SHX1_2 = TriggerServerEvent
-                  SHX2_2 = "306a9cdbc9"
-                  SHX3_2 = tonumber
-                  SHX4_2 = SHX0_2
-                  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2 = SHX3_2(SHX4_2)
-                  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2)
+          if arg1 then
+            arg1 = PlaySound
+            arg2 = -1
+            arg3 = "SELECT"
+            arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            arg5 = false
+            arg6 = 0
+            arg7 = true
+            arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+            arg1 = CMG
+            arg1 = arg1.hasGangPermission
+            arg2 = "inviteguest"
+            arg1 = arg1(arg2)
+            if arg1 then
+              arg1 = CMG
+              arg1 = arg1.GetRageInputText
+              arg2 = "Enter Perm ID to invite:"
+              arg1 = arg1(arg2)
+              if nil ~= arg1 then
+                arg2 = tonumber
+                arg3 = arg1
+                arg2 = arg2(arg3)
+                if arg2 then
+                  arg2 = TriggerServerEvent
+                  arg3 = "306a9cdbc9"
+                  arg4 = tonumber
+                  arg5 = arg1
+                  arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20 = arg4(arg5)
+                  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "306a9cdbc9".
+                  arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20)
               end
               else
-                SHX1_2 = tCMG
-                SHX1_2 = SHX1_2.notify
-                SHX2_2 = "Invalid Perm ID entered"
-                SHX1_2(SHX2_2)
+                arg2 = tCMG
+                arg2 = arg2.notify
+                arg3 = "Invalid Perm ID entered"
+                -- Beginner: Show a notification to the player.
+                arg2(arg3)
               end
             else
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~You don't have permission to invite players"
-              SHX0_2(SHX1_2)
+              arg1 = tCMG
+              arg1 = arg1.notify
+              arg2 = "~r~You don't have permission to invite players"
+              arg1(arg2)
             end
           end
         else
-          SHX0_2 = DrawRect
-          SHX1_2 = 0.383
-          SHX2_2 = 0.642
-          SHX3_2 = 0.066
-          SHX4_2 = 0.046
-          SHX5_2 = 0
-          SHX6_2 = 0
-          SHX7_2 = 0
-          SHX8_2 = 150
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+          arg1 = DrawRect
+          arg2 = 0.383
+          arg3 = 0.642
+          arg4 = 0.066
+          arg5 = 0.046
+          arg6 = 0
+          arg7 = 0
+          arg8 = 0
+          arg9 = 150
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
         end
       end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.435
-      SHX2_2 = 0.51
-      SHX3_2 = 0.615
-      SHX4_2 = 0.66
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.469
-        SHX2_2 = 0.642
-        SHX3_2 = 0.066
-        SHX4_2 = 0.046
-        SHX5_2 = 0
-        SHX6_2 = 168
-        SHX7_2 = 255
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInArea
+      arg2 = 0.435
+      arg3 = 0.51
+      arg4 = 0.615
+      arg5 = 0.66
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.469
+        arg3 = 0.642
+        arg4 = 0.066
+        arg5 = 0.046
+        arg6 = 0
+        arg7 = 168
+        arg8 = 255
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = SHX22_1
-          if nil ~= SHX0_2 then
-            SHX1_2 = SHX22_1
-            SHX0_2 = SHX21_1
-            SHX0_2 = SHX0_2[SHX1_2]
-            SHX22_1 = SHX0_2
-            SHX0_2 = TriggerServerEvent
-            SHX1_2 = "6e7e491304"
-            SHX2_2 = SHX22_1
-            SHX0_2(SHX1_2, SHX2_2)
-            SHX0_2 = {}
-            SHX21_1 = SHX0_2
-            SHX0_2 = SHX35_1
-            SHX0_2()
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = workValue4
+          if nil ~= arg1 then
+            arg2 = workValue4
+            arg1 = dataTable3
+            arg1 = arg1[arg2]
+            workValue4 = arg1
+            arg1 = TriggerServerEvent
+            arg2 = "6e7e491304"
+            arg3 = workValue4
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "6e7e491304".
+            arg1(arg2, arg3)
+            arg1 = {}
+            dataTable3 = arg1
+            arg1 = workValue8
+            arg1()
           else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~No guest invite selected"
-            SHX0_2(SHX1_2)
+            arg1 = tCMG
+            arg1 = arg1.notify
+            arg2 = "~r~No guest invite selected"
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
           end
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.469
-        SHX2_2 = 0.642
-        SHX3_2 = 0.066
-        SHX4_2 = 0.046
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.469
+        arg3 = 0.642
+        arg4 = 0.066
+        arg5 = 0.046
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
     end
-    SHX0_2 = DrawAdvancedText
-    SHX1_2 = 0.775
-    SHX2_2 = 0.693
-    SHX3_2 = 0.005
-    SHX4_2 = 0.0028
-    SHX5_2 = 0.4
-    SHX6_2 = "Back"
-    SHX7_2 = 255
-    SHX8_2 = 255
-    SHX9_2 = 255
-    SHX10_2 = 255
-    SHX11_2 = 4
-    SHX12_2 = 0
-    SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    SHX0_2 = CursorInArea
-    SHX1_2 = 0.6583
-    SHX2_2 = 0.7056
-    SHX3_2 = 0.6712
-    SHX4_2 = 0.7064
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-    if SHX0_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.681
-      SHX2_2 = 0.689
-      SHX3_2 = 0.045
-      SHX4_2 = 0.036
-      SHX5_2 = SHX7_1
-      SHX6_2 = SHX8_1
-      SHX7_2 = SHX9_1
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = IsControlJustPressed
-      SHX1_2 = 1
-      SHX2_2 = 329
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = IsDisabledControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+    arg1 = DrawAdvancedText
+    arg2 = 0.775
+    arg3 = 0.693
+    arg4 = 0.005
+    arg5 = 0.0028
+    arg6 = 0.4
+    arg7 = "Back"
+    arg8 = 255
+    arg9 = 255
+    arg10 = 255
+    arg11 = 255
+    arg122 = 4
+    arg13 = 0
+    arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+    arg1 = CursorInArea
+    arg2 = 0.6583
+    arg3 = 0.7056
+    arg4 = 0.6712
+    arg5 = 0.7064
+    arg1 = arg1(arg2, arg3, arg4, arg5)
+    if arg1 then
+      arg1 = DrawRect
+      arg2 = 0.681
+      arg3 = 0.689
+      arg4 = 0.045
+      arg5 = 0.036
+      arg6 = numberValue28
+      arg7 = numberValue29
+      arg8 = numberValue30
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = IsControlJustPressed
+      arg2 = 1
+      arg3 = 329
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        arg1 = IsDisabledControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
       end
-      if SHX0_2 then
-        SHX0_2 = PlaySound
-        SHX1_2 = -1
-        SHX2_2 = "SELECT"
-        SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-        SHX4_2 = false
-        SHX5_2 = 0
-        SHX6_2 = true
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX0_2 = SHX10_1
-        if SHX0_2 then
-          SHX0_2 = "gang"
-          SHX1_1 = SHX0_2
+      if arg1 then
+        arg1 = PlaySound
+        arg2 = -1
+        arg3 = "SELECT"
+        arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+        arg5 = false
+        arg6 = 0
+        arg7 = true
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+        arg1 = workValue
+        if arg1 then
+          arg1 = "gang"
+          textValue = arg1
         else
-          SHX0_2 = "noGang"
-          SHX1_1 = SHX0_2
+          arg1 = "noGang"
+          textValue = arg1
         end
       end
     else
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.681
-      SHX2_2 = 0.689
-      SHX3_2 = 0.045
-      SHX4_2 = 0.036
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+      arg1 = DrawRect
+      arg2 = 0.681
+      arg3 = 0.689
+      arg4 = 0.045
+      arg5 = 0.036
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    if "gang" == SHX0_2 then
-      SHX0_2 = DisableControlAction
-      SHX1_2 = 0
-      SHX2_2 = 200
-      SHX3_2 = true
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.isNewPlayer
-      SHX0_2 = SHX0_2()
-      if SHX0_2 then
-        SHX0_2 = drawNativeNotification
-        SHX1_2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
-        SHX0_2(SHX1_2)
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    if "gang" == arg1 then
+      arg1 = DisableControlAction
+      arg2 = 0
+      arg3 = 200
+      arg4 = true
+      arg1(arg2, arg3, arg4)
+      arg1 = CMG
+      arg1 = arg1.isNewPlayer
+      arg1 = arg1()
+      if arg1 then
+        arg1 = drawNativeNotification
+        arg2 = "Press ~INPUT_SELECT_CHARACTER_MICHAEL~ to toggle the Gang Menu."
+        -- Beginner: Show a GTA-style notification/help prompt.
+        arg1(arg2)
       end
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.532
-      SHX3_2 = 0.375
-      SHX4_2 = 0.225
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.396
-      SHX3_2 = 0.375
-      SHX4_2 = 0.046
-      SHX5_2 = 19
-      SHX6_2 = 86
-      SHX7_2 = 223
-      SHX8_2 = 255
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.399
-      SHX3_2 = 0.005
-      SHX4_2 = 0.003
-      SHX5_2 = 0.51
-      SHX6_2 = "CMG Gangs"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.46
-      SHX2_2 = 0.534
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "funds"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.554
-      SHX2_2 = 0.534
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "members"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.642
-      SHX2_2 = 0.534
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "logs"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.732
-      SHX2_2 = 0.534
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "settings"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.46
-      SHX2_2 = 0.604
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Turfs"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.554
-      SHX2_2 = 0.604
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Security"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.642
-      SHX2_2 = 0.604
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Guest"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.732
-      SHX2_2 = 0.604
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Radios"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.3333
-      SHX2_2 = 0.3973
-      SHX3_2 = 0.4981
-      SHX4_2 = 0.5537
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.366
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.532
+      arg4 = 0.375
+      arg5 = 0.225
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.396
+      arg4 = 0.375
+      arg5 = 0.046
+      arg6 = 19
+      arg7 = 86
+      arg8 = 223
+      arg9 = 255
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.399
+      arg4 = 0.005
+      arg5 = 0.003
+      arg6 = 0.51
+      arg7 = "CMG Gangs"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.46
+      arg3 = 0.534
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "funds"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.554
+      arg3 = 0.534
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "members"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.642
+      arg3 = 0.534
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "logs"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.732
+      arg3 = 0.534
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "settings"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.46
+      arg3 = 0.604
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Turfs"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.554
+      arg3 = 0.604
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Security"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.642
+      arg3 = 0.604
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Guest"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.732
+      arg3 = 0.604
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Radios"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = CursorInArea
+      arg2 = 0.3333
+      arg3 = 0.3973
+      arg4 = 0.4981
+      arg5 = 0.5537
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.366
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "funds"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "funds"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.366
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.366
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.4244
-      SHX2_2 = 0.4903
-      SHX3_2 = 0.4981
-      SHX4_2 = 0.5537
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.458
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInArea
+      arg2 = 0.4244
+      arg3 = 0.4903
+      arg4 = 0.4981
+      arg5 = 0.5537
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.458
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "members"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "members"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.458
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.458
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.514
-      SHX2_2 = 0.5776
-      SHX3_2 = 0.4981
-      SHX4_2 = 0.5537
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.546
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInArea
+      arg2 = 0.514
+      arg3 = 0.5776
+      arg4 = 0.4981
+      arg5 = 0.5537
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.546
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "logs"
-          SHX1_1 = SHX0_2
-          SHX0_2 = SHX10_1
-          SHX1_2 = "logs"
-          SHX0_2[SHX1_2] = nil
-          SHX0_2 = SHX10_1
-          SHX1_2 = "logCount"
-          SHX0_2[SHX1_2] = 0
-          SHX0_2 = TriggerServerEvent
-          SHX1_2 = "3f8f33322f"
-          SHX2_2 = SHX14_1
-          SHX3_2 = SHX18_1
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2)
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "logs"
+          textValue = arg1
+          arg1 = workValue
+          arg2 = "logs"
+          arg1[arg2] = nil
+          arg1 = workValue
+          arg2 = "logCount"
+          arg1[arg2] = 0
+          arg1 = TriggerServerEvent
+          arg2 = "3f8f33322f"
+          arg3 = numberValue3
+          arg4 = flag
+          -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "3f8f33322f".
+          arg1(arg2, arg3, arg4)
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.546
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.546
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.602
-      SHX2_2 = 0.6677
-      SHX3_2 = 0.4981
-      SHX4_2 = 0.5537
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.635
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInArea
+      arg2 = 0.602
+      arg3 = 0.6677
+      arg4 = 0.4981
+      arg5 = 0.5537
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.635
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "settings"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "settings"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.635
-        SHX2_2 = 0.527
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.635
+        arg3 = 0.527
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInAreaRect
-      SHX1_2 = 0.366
-      SHX2_2 = 0.6
-      SHX3_2 = 0.065
-      SHX4_2 = 0.056
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.366
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInAreaRect
+      arg2 = 0.366
+      arg3 = 0.6
+      arg4 = 0.065
+      arg5 = 0.056
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.366
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "turfs"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "turfs"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.366
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.366
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInAreaRect
-      SHX1_2 = 0.458
-      SHX2_2 = 0.6
-      SHX3_2 = 0.065
-      SHX4_2 = 0.056
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.458
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInAreaRect
+      arg2 = 0.458
+      arg3 = 0.6
+      arg4 = 0.065
+      arg5 = 0.056
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.458
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = SHX10_1.isAdvanced
-          if SHX0_2 then
-            SHX0_2 = "security"
-            SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = workValue.isAdvanced
+          if arg1 then
+            arg1 = "security"
+            textValue = arg1
           else
-            SHX0_2 = notify
-            SHX1_2 = "~r~You must have the advanced gang license to access this page."
-            SHX0_2(SHX1_2)
+            arg1 = notify
+            arg2 = "~r~You must have the advanced gang license to access this page."
+            -- Beginner: Show a notification to the player.
+            arg1(arg2)
           end
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.458
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.458
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.514
-      SHX2_2 = 0.5776
-      SHX3_2 = 0.5722
-      SHX4_2 = 0.6259
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.546
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInArea
+      arg2 = 0.514
+      arg3 = 0.5776
+      arg4 = 0.5722
+      arg5 = 0.6259
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.546
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "guest"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "guest"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.546
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.546
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = CursorInArea
-      SHX1_2 = 0.602
-      SHX2_2 = 0.6677
-      SHX3_2 = 0.5722
-      SHX4_2 = 0.6259
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-      if SHX0_2 then
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.635
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = SHX7_1
-        SHX6_2 = SHX8_1
-        SHX7_2 = SHX9_1
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-        SHX0_2 = IsControlJustPressed
-        SHX1_2 = 1
-        SHX2_2 = 329
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsDisabledControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = CursorInArea
+      arg2 = 0.602
+      arg3 = 0.6677
+      arg4 = 0.5722
+      arg5 = 0.6259
+      arg1 = arg1(arg2, arg3, arg4, arg5)
+      if arg1 then
+        arg1 = DrawRect
+        arg2 = 0.635
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = numberValue28
+        arg7 = numberValue29
+        arg8 = numberValue30
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+        arg1 = IsControlJustPressed
+        arg2 = 1
+        arg3 = 329
+        arg1 = arg1(arg2, arg3)
+        if not arg1 then
+          arg1 = IsDisabledControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
         end
-        if SHX0_2 then
-          SHX0_2 = PlaySound
-          SHX1_2 = -1
-          SHX2_2 = "SELECT"
-          SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX4_2 = false
-          SHX5_2 = 0
-          SHX6_2 = true
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          SHX0_2 = "radios"
-          SHX1_1 = SHX0_2
+        if arg1 then
+          arg1 = PlaySound
+          arg2 = -1
+          arg3 = "SELECT"
+          arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg5 = false
+          arg6 = 0
+          arg7 = true
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+          arg1 = "radios"
+          textValue = arg1
         end
       else
-        SHX0_2 = DrawRect
-        SHX1_2 = 0.635
-        SHX2_2 = 0.6
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX5_2 = 0
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 150
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+        arg1 = DrawRect
+        arg2 = 0.635
+        arg3 = 0.6
+        arg4 = 0.065
+        arg5 = 0.056
+        arg6 = 0
+        arg7 = 0
+        arg8 = 0
+        arg9 = 150
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX0_2 = SHX10_1
-      SHX1_2 = "id"
-      SHX1_2 = SHX0_2[SHX1_2]
-      SHX0_2 = SHX30_1
-      SHX0_2 = SHX0_2[SHX1_2]
-      if SHX0_2 then
-        SHX0_2 = DrawAdvancedText
-        SHX1_2 = 0.598
-        SHX2_2 = 0.466
-        SHX3_2 = 0.005
-        SHX4_2 = 0.0028
-        SHX5_2 = 0.4
-        SHX6_2 = "RP Turfs"
-        SHX7_2 = 255
-        SHX8_2 = 255
-        SHX9_2 = 255
-        SHX10_2 = 255
-        SHX11_2 = 7
-        SHX12_2 = 0
-        SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-        SHX0_2 = CursorInAreaRect
-        SHX1_2 = 0.502
-        SHX2_2 = 0.459
-        SHX3_2 = 0.065
-        SHX4_2 = 0.056
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-        if SHX0_2 then
-          SHX0_2 = DrawRect
-          SHX1_2 = 0.502
-          SHX2_2 = 0.459
-          SHX3_2 = 0.065
-          SHX4_2 = 0.056
-          SHX5_2 = SHX7_1
-          SHX6_2 = SHX8_1
-          SHX7_2 = SHX9_1
-          SHX8_2 = 150
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-          SHX0_2 = IsControlJustPressed
-          SHX1_2 = 1
-          SHX2_2 = 329
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          if not SHX0_2 then
-            SHX0_2 = IsDisabledControlJustPressed
-            SHX1_2 = 1
-            SHX2_2 = 329
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
+      arg1 = workValue
+      arg2 = "id"
+      arg2 = arg1[arg2]
+      arg1 = dataTable5
+      arg1 = arg1[arg2]
+      if arg1 then
+        arg1 = DrawAdvancedText
+        arg2 = 0.598
+        arg3 = 0.466
+        arg4 = 0.005
+        arg5 = 0.0028
+        arg6 = 0.4
+        arg7 = "RP Turfs"
+        arg8 = 255
+        arg9 = 255
+        arg10 = 255
+        arg11 = 255
+        arg122 = 7
+        arg13 = 0
+        arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+        arg1 = CursorInAreaRect
+        arg2 = 0.502
+        arg3 = 0.459
+        arg4 = 0.065
+        arg5 = 0.056
+        arg1 = arg1(arg2, arg3, arg4, arg5)
+        if arg1 then
+          arg1 = DrawRect
+          arg2 = 0.502
+          arg3 = 0.459
+          arg4 = 0.065
+          arg5 = 0.056
+          arg6 = numberValue28
+          arg7 = numberValue29
+          arg8 = numberValue30
+          arg9 = 150
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+          arg1 = IsControlJustPressed
+          arg2 = 1
+          arg3 = 329
+          arg1 = arg1(arg2, arg3)
+          if not arg1 then
+            arg1 = IsDisabledControlJustPressed
+            arg2 = 1
+            arg3 = 329
+            arg1 = arg1(arg2, arg3)
           end
-          if SHX0_2 then
-            SHX0_2 = PlaySound
-            SHX1_2 = -1
-            SHX2_2 = "SELECT"
-            SHX3_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-            SHX4_2 = false
-            SHX5_2 = 0
-            SHX6_2 = true
-            SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-            SHX0_2 = "rpturfs"
-            SHX1_1 = SHX0_2
+          if arg1 then
+            arg1 = PlaySound
+            arg2 = -1
+            arg3 = "SELECT"
+            arg4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+            arg5 = false
+            arg6 = 0
+            arg7 = true
+            arg1(arg2, arg3, arg4, arg5, arg6, arg7)
+            arg1 = "rpturfs"
+            textValue = arg1
           end
         else
-          SHX0_2 = DrawRect
-          SHX1_2 = 0.502
-          SHX2_2 = 0.459
-          SHX3_2 = 0.065
-          SHX4_2 = 0.056
-          SHX5_2 = 0
-          SHX6_2 = 0
-          SHX7_2 = 0
-          SHX8_2 = 150
-          SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+          arg1 = DrawRect
+          arg2 = 0.502
+          arg3 = 0.459
+          arg4 = 0.065
+          arg5 = 0.056
+          arg6 = 0
+          arg7 = 0
+          arg8 = 0
+          arg9 = 150
+          arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
         end
       end
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    SHX1_2 = "radios"
-    if SHX0_2 == SHX1_2 then
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.525
-      SHX3_2 = 0.421
-      SHX4_2 = 0.387
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.501
-      SHX2_2 = 0.308
-      SHX3_2 = 0.421
-      SHX4_2 = 0.047
-      SHX5_2 = 18
-      SHX6_2 = 82
-      SHX7_2 = 228
-      SHX8_2 = 248
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.591
-      SHX2_2 = 0.312
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.48
-      SHX6_2 = "CMG gang - radios"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 7
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawRect
-      SHX1_2 = 0.448
-      SHX2_2 = 0.52
-      SHX3_2 = 0.295
-      SHX4_2 = 0.291
-      SHX5_2 = 0
-      SHX6_2 = 0
-      SHX7_2 = 0
-      SHX8_2 = 150
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.479
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Channel Name"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.675
-      SHX2_2 = 0.359
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Edit"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 6
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.746
-      SHX2_2 = 0.455
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = [[
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    arg2 = "radios"
+    if arg1 == arg2 then
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.525
+      arg4 = 0.421
+      arg5 = 0.387
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawRect
+      arg2 = 0.501
+      arg3 = 0.308
+      arg4 = 0.421
+      arg5 = 0.047
+      arg6 = 18
+      arg7 = 82
+      arg8 = 228
+      arg9 = 248
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.591
+      arg3 = 0.312
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.48
+      arg7 = "CMG gang - radios"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 7
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawRect
+      arg2 = 0.448
+      arg3 = 0.52
+      arg4 = 0.295
+      arg5 = 0.291
+      arg6 = 0
+      arg7 = 0
+      arg8 = 0
+      arg9 = 150
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+      arg1 = DrawAdvancedText
+      arg2 = 0.479
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Channel Name"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.675
+      arg3 = 0.359
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Edit"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 6
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.746
+      arg3 = 0.455
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = [[
 Purchase
 Channel]]
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = DrawAdvancedText
-      SHX1_2 = 0.775
-      SHX2_2 = 0.693
-      SHX3_2 = 0.005
-      SHX4_2 = 0.0028
-      SHX5_2 = 0.4
-      SHX6_2 = "Back"
-      SHX7_2 = 255
-      SHX8_2 = 255
-      SHX9_2 = 255
-      SHX10_2 = 255
-      SHX11_2 = 4
-      SHX12_2 = 0
-      SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-      SHX0_2 = table
-      SHX1_2 = "copy"
-      SHX0_2 = SHX0_2[SHX1_2]
-      SHX1_2 = SHX10_1
-      SHX2_2 = "additionalRadios"
-      SHX1_2 = SHX1_2[SHX2_2]
-      SHX0_2 = SHX0_2(SHX1_2)
-      SHX1_2 = SHX10_1.isAdvanced
-      if SHX1_2 then
-        SHX1_2 = table
-        SHX2_2 = "insert"
-        SHX1_2 = SHX1_2[SHX2_2]
-        SHX2_2 = SHX0_2
-        SHX3_2 = 1
-        SHX4_2 = {}
-        SHX5_2 = "id"
-        SHX4_2[SHX5_2] = 0
-        SHX5_2 = _ENV
-        SHX6_2 = "string"
-        SHX5_2 = SHX5_2[SHX6_2]
-        SHX6_2 = "format"
-        SHX5_2 = SHX5_2[SHX6_2]
-        SHX6_2 = "%s (Default)"
-        SHX7_2 = SHX10_1.name
-        SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-        SHX4_2.name = SHX5_2
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = DrawAdvancedText
+      arg2 = 0.775
+      arg3 = 0.693
+      arg4 = 0.005
+      arg5 = 0.0028
+      arg6 = 0.4
+      arg7 = "Back"
+      arg8 = 255
+      arg9 = 255
+      arg10 = 255
+      arg11 = 255
+      arg122 = 4
+      arg13 = 0
+      arg1(arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13)
+      arg1 = table
+      arg2 = "copy"
+      arg1 = arg1[arg2]
+      arg2 = workValue
+      arg3 = "additionalRadios"
+      arg2 = arg2[arg3]
+      arg1 = arg1(arg2)
+      arg2 = workValue.isAdvanced
+      if arg2 then
+        arg2 = table
+        arg3 = "insert"
+        arg2 = arg2[arg3]
+        arg3 = arg1
+        arg4 = 1
+        arg5 = {}
+        arg6 = "id"
+        arg5[arg6] = 0
+        arg6 = _ENV
+        arg7 = "string"
+        arg6 = arg6[arg7]
+        arg7 = "format"
+        arg6 = arg6[arg7]
+        arg7 = "%s (Default)"
+        arg8 = workValue.name
+        arg6 = arg6(arg7, arg8)
+        arg5.name = arg6
+        arg2(arg3, arg4, arg5)
       end
-      SHX1_2 = pairs
-      SHX2_2 = SHX0_2
-      SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-      for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-        SHX7_2 = DrawAdvancedText
-        SHX8_2 = 0.479
-        SHX9_2 = 0.0287 * SHX5_2
-        SHX9_2 = 0.361 + SHX9_2
-        SHX10_2 = 0.005
-        SHX11_2 = 0.0028
-        SHX12_2 = 0.4
-        SHX13_2 = SHX6_2.name
-        SHX14_2 = 255
-        SHX15_2 = 255
-        SHX16_2 = 255
-        SHX17_2 = 255
-        SHX18_2 = 6
-        SHX19_2 = 0
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-        SHX7_2 = "id"
-        SHX7_2 = SHX6_2[SHX7_2]
-        if 0 ~= SHX7_2 then
-          SHX7_2 = DrawAdvancedText
-          SHX8_2 = 0.675
-          SHX9_2 = 0.0287 * SHX5_2
-          SHX9_2 = 0.3665 + SHX9_2
-          SHX10_2 = 0.005
-          SHX11_2 = 0.0028
-          SHX12_2 = 0.2
-          SHX13_2 = "\226\156\143\239\184\143"
-          SHX14_2 = 255
-          SHX15_2 = 255
-          SHX16_2 = 255
-          SHX17_2 = 255
-          SHX18_2 = 6
-          SHX19_2 = 0
-          SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
+      arg2 = pairs
+      arg3 = arg1
+      arg2, arg3, arg4, arg5 = arg2(arg3)
+      for arg6, arg7 in arg2, arg3, arg4, arg5 do
+        arg8 = DrawAdvancedText
+        arg9 = 0.479
+        arg10 = 0.0287 * arg6
+        arg10 = 0.361 + arg10
+        arg11 = 0.005
+        arg122 = 0.0028
+        arg13 = 0.4
+        arg14 = arg7.name
+        arg15 = 255
+        arg16 = 255
+        arg17 = 255
+        arg18 = 255
+        numberValue5 = 6
+        numberValue7 = 0
+        arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
+        arg8 = "id"
+        arg8 = arg7[arg8]
+        if 0 ~= arg8 then
+          arg8 = DrawAdvancedText
+          arg9 = 0.675
+          arg10 = 0.0287 * arg6
+          arg10 = 0.3665 + arg10
+          arg11 = 0.005
+          arg122 = 0.0028
+          arg13 = 0.2
+          arg14 = "\226\156\143\239\184\143"
+          arg15 = 255
+          arg16 = 255
+          arg17 = 255
+          arg18 = 255
+          numberValue5 = 6
+          numberValue7 = 0
+          arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
         end
-        SHX7_2 = CursorInArea
-        SHX8_2 = 0.3005
-        SHX9_2 = 0.5955
-        SHX10_2 = SHX5_2 - 1
-        SHX10_2 = 0.0287 * SHX10_2
-        SHX10_2 = 0.3731 + SHX10_2
-        SHX11_2 = SHX5_2 - 1
-        SHX11_2 = 0.0287 * SHX11_2
-        SHX11_2 = 0.4018 + SHX11_2
-        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-        if SHX7_2 then
-          SHX7_2 = SHX5_1
-          SHX8_2 = "id"
-          SHX8_2 = SHX6_2[SHX8_2]
-          if SHX7_2 ~= SHX8_2 then
-            SHX7_2 = DrawRect
-            SHX8_2 = 0.448
-            SHX9_2 = SHX5_2 - 1
-            SHX9_2 = 0.0287 * SHX9_2
-            SHX9_2 = 0.388 + SHX9_2
-            SHX10_2 = 0.295
-            SHX11_2 = 0.027
-            SHX12_2 = SHX7_1
-            SHX13_2 = SHX8_1
-            SHX14_2 = SHX9_1
-            SHX15_2 = 150
-            SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-            SHX7_2 = IsControlJustPressed
-            SHX8_2 = 1
-            SHX9_2 = 329
-            SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-            if not SHX7_2 then
-              SHX7_2 = IsDisabledControlJustPressed
-              SHX8_2 = 1
-              SHX9_2 = 329
-              SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
+        arg8 = CursorInArea
+        arg9 = 0.3005
+        arg10 = 0.5955
+        arg11 = arg6 - 1
+        arg11 = 0.0287 * arg11
+        arg11 = 0.3731 + arg11
+        arg122 = arg6 - 1
+        arg122 = 0.0287 * arg122
+        arg122 = 0.4018 + arg122
+        arg8 = arg8(arg9, arg10, arg11, arg122)
+        if arg8 then
+          arg8 = workValue19
+          arg9 = "id"
+          arg9 = arg7[arg9]
+          if arg8 ~= arg9 then
+            arg8 = DrawRect
+            arg9 = 0.448
+            arg10 = arg6 - 1
+            arg10 = 0.0287 * arg10
+            arg10 = 0.388 + arg10
+            arg11 = 0.295
+            arg122 = 0.027
+            arg13 = numberValue28
+            arg14 = numberValue29
+            arg15 = numberValue30
+            arg16 = 150
+            arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
+            arg8 = IsControlJustPressed
+            arg9 = 1
+            arg10 = 329
+            arg8 = arg8(arg9, arg10)
+            if not arg8 then
+              arg8 = IsDisabledControlJustPressed
+              arg9 = 1
+              arg10 = 329
+              arg8 = arg8(arg9, arg10)
             end
-            if SHX7_2 then
-              SHX7_2 = PlaySound
-              SHX8_2 = -1
-              SHX9_2 = "SELECT"
-              SHX10_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-              SHX11_2 = false
-              SHX12_2 = 0
-              SHX13_2 = true
-              SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-              SHX7_2 = "id"
-              SHX7_2 = SHX6_2[SHX7_2]
-              SHX5_1 = SHX7_2
+            if arg8 then
+              arg8 = PlaySound
+              arg9 = -1
+              arg10 = "SELECT"
+              arg11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+              arg122 = false
+              arg13 = 0
+              arg14 = true
+              arg8(arg9, arg10, arg11, arg122, arg13, arg14)
+              arg8 = "id"
+              arg8 = arg7[arg8]
+              workValue19 = arg8
             end
         end
         else
-          SHX7_2 = SHX5_1
-          SHX8_2 = "id"
-          SHX8_2 = SHX6_2[SHX8_2]
-          if SHX7_2 == SHX8_2 then
-            SHX7_2 = DrawRect
-            SHX8_2 = 0.448
-            SHX9_2 = SHX5_2 - 1
-            SHX9_2 = 0.0287 * SHX9_2
-            SHX9_2 = 0.388 + SHX9_2
-            SHX10_2 = 0.295
-            SHX11_2 = 0.027
-            SHX12_2 = SHX7_1
-            SHX13_2 = SHX8_1
-            SHX14_2 = SHX9_1
-            SHX15_2 = 150
-            SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
+          arg8 = workValue19
+          arg9 = "id"
+          arg9 = arg7[arg9]
+          if arg8 == arg9 then
+            arg8 = DrawRect
+            arg9 = 0.448
+            arg10 = arg6 - 1
+            arg10 = 0.0287 * arg10
+            arg10 = 0.388 + arg10
+            arg11 = 0.295
+            arg122 = 0.027
+            arg13 = numberValue28
+            arg14 = numberValue29
+            arg15 = numberValue30
+            arg16 = 150
+            arg8(arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16)
           end
         end
-        SHX7_2 = CursorInArea
-        SHX8_2 = 0.5755
-        SHX9_2 = 0.5955
-        SHX10_2 = SHX5_2 - 1
-        SHX10_2 = 0.0287 * SHX10_2
-        SHX10_2 = 0.3731 + SHX10_2
-        SHX11_2 = SHX5_2 - 1
-        SHX11_2 = 0.0287 * SHX11_2
-        SHX11_2 = 0.4018 + SHX11_2
-        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-        if SHX7_2 then
-          SHX7_2 = IsControlJustPressed
-          SHX8_2 = 1
-          SHX9_2 = 329
-          SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-          if not SHX7_2 then
-            SHX7_2 = IsDisabledControlJustPressed
-            SHX8_2 = 1
-            SHX9_2 = 329
-            SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-            if not SHX7_2 then
-              goto SHX_LABEL_8156
+        arg8 = CursorInArea
+        arg9 = 0.5755
+        arg10 = 0.5955
+        arg11 = arg6 - 1
+        arg11 = 0.0287 * arg11
+        arg11 = 0.3731 + arg11
+        arg122 = arg6 - 1
+        arg122 = 0.0287 * arg122
+        arg122 = 0.4018 + arg122
+        arg8 = arg8(arg9, arg10, arg11, arg122)
+        if arg8 then
+          arg8 = IsControlJustPressed
+          arg9 = 1
+          arg10 = 329
+          arg8 = arg8(arg9, arg10)
+          if not arg8 then
+            arg8 = IsDisabledControlJustPressed
+            arg9 = 1
+            arg10 = 329
+            arg8 = arg8(arg9, arg10)
+            if not arg8 then
+              goto flow_label_8156
             end
           end
-          SHX7_2 = PlaySound
-          SHX8_2 = -1
-          SHX9_2 = "SELECT"
-          SHX10_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX11_2 = false
-          SHX12_2 = 0
-          SHX13_2 = true
-          SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-          SHX7_2 = CMG
-          SHX7_2 = SHX7_2.GetRageInputText
-          SHX8_2 = "Channel Name"
-          SHX9_2 = SHX6_2.name
-          SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-          if SHX7_2 then
-            SHX8_2 = TriggerServerEvent
-            SHX9_2 = "8a2894785e"
-            SHX10_2 = "id"
-            SHX10_2 = SHX6_2[SHX10_2]
-            SHX11_2 = SHX7_2
-            SHX8_2(SHX9_2, SHX10_2, SHX11_2)
+          arg8 = PlaySound
+          arg9 = -1
+          arg10 = "SELECT"
+          arg11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg122 = false
+          arg13 = 0
+          arg14 = true
+          arg8(arg9, arg10, arg11, arg122, arg13, arg14)
+          arg8 = CMG
+          arg8 = arg8.GetRageInputText
+          arg9 = "Channel Name"
+          arg10 = arg7.name
+          arg8 = arg8(arg9, arg10)
+          if arg8 then
+            arg9 = TriggerServerEvent
+            arg10 = "8a2894785e"
+            arg11 = "id"
+            arg11 = arg7[arg11]
+            arg122 = arg8
+            -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8a2894785e".
+            arg9(arg10, arg11, arg122)
           else
-            SHX8_2 = notify
-            SHX9_2 = "~r~Cancelled changing channel name."
-            SHX8_2(SHX9_2)
+            arg9 = notify
+            arg10 = "~r~Cancelled changing channel name."
+            -- Beginner: Show a notification to the player.
+            arg9(arg10)
           end
         end
-        -- [FIX IF ERROR] Move ::SHX_LABEL_8156:: outside nested blocks until all 'goto SHX_LABEL_8156' can see it
-        ::SHX_LABEL_8156::
+        ::flow_label_8156::
       end
-      SHX1_2 = CursorInAreaRect
-      SHX2_2 = 0.651
-      SHX3_2 = 0.463
-      SHX4_2 = 0.065
-      SHX5_2 = 0.086
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.463
-        SHX4_2 = 0.065
-        SHX5_2 = 0.086
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInAreaRect
+      arg3 = 0.651
+      arg4 = 0.463
+      arg5 = 0.065
+      arg6 = 0.086
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.463
+        arg5 = 0.065
+        arg6 = 0.086
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.GetRageInputText
-          SHX2_2 = "Purchase for \194\1635,000,000?"
-          SHX3_2 = "Yes/No"
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-          if SHX1_2 then
-            SHX2_2 = _ENV
-            SHX3_2 = "string"
-            SHX2_2 = SHX2_2[SHX3_2]
-            SHX3_2 = "lower"
-            SHX2_2 = SHX2_2[SHX3_2]
-            SHX3_2 = SHX1_2
-            SHX2_2 = SHX2_2(SHX3_2)
-            SHX3_2 = "yes"
-            if SHX2_2 == SHX3_2 then
-              SHX2_2 = TriggerServerEvent
-              SHX3_2 = "5b98fcee62"
-              SHX2_2(SHX3_2)
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = CMG
+          arg2 = arg2.GetRageInputText
+          arg3 = "Purchase for \194\1635,000,000?"
+          arg4 = "Yes/No"
+          arg2 = arg2(arg3, arg4)
+          if arg2 then
+            arg3 = _ENV
+            arg4 = "string"
+            arg3 = arg3[arg4]
+            arg4 = "lower"
+            arg3 = arg3[arg4]
+            arg4 = arg2
+            arg3 = arg3(arg4)
+            arg4 = "yes"
+            if arg3 == arg4 then
+              arg3 = TriggerServerEvent
+              arg4 = "5b98fcee62"
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "5b98fcee62".
+              arg3(arg4)
           end
           else
-            SHX2_2 = notify
-            SHX3_2 = "~r~Cancelled purchase of new channel."
-            SHX2_2(SHX3_2)
+            arg3 = notify
+            arg4 = "~r~Cancelled purchase of new channel."
+            -- Beginner: Show a notification to the player.
+            arg3(arg4)
           end
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.651
-        SHX3_2 = 0.463
-        SHX4_2 = 0.065
-        SHX5_2 = 0.086
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.651
+        arg4 = 0.463
+        arg5 = 0.065
+        arg6 = 0.086
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
-      SHX1_2 = CursorInArea
-      SHX2_2 = 0.6583
-      SHX3_2 = 0.7056
-      SHX4_2 = 0.6712
-      SHX5_2 = 0.7064
-      SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-      if SHX1_2 then
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = SHX7_1
-        SHX7_2 = SHX8_1
-        SHX8_2 = SHX9_1
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-        SHX1_2 = IsControlJustPressed
-        SHX2_2 = 1
-        SHX3_2 = 329
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if not SHX1_2 then
-          SHX1_2 = IsDisabledControlJustPressed
-          SHX2_2 = 1
-          SHX3_2 = 329
-          SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
+      arg2 = CursorInArea
+      arg3 = 0.6583
+      arg4 = 0.7056
+      arg5 = 0.6712
+      arg6 = 0.7064
+      arg2 = arg2(arg3, arg4, arg5, arg6)
+      if arg2 then
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = numberValue28
+        arg8 = numberValue29
+        arg9 = numberValue30
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+        arg2 = IsControlJustPressed
+        arg3 = 1
+        arg4 = 329
+        arg2 = arg2(arg3, arg4)
+        if not arg2 then
+          arg2 = IsDisabledControlJustPressed
+          arg3 = 1
+          arg4 = 329
+          arg2 = arg2(arg3, arg4)
         end
-        if SHX1_2 then
-          SHX1_2 = PlaySound
-          SHX2_2 = -1
-          SHX3_2 = "SELECT"
-          SHX4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-          SHX5_2 = false
-          SHX6_2 = 0
-          SHX7_2 = true
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-          SHX1_2 = "gang"
-          SHX1_1 = SHX1_2
+        if arg2 then
+          arg2 = PlaySound
+          arg3 = -1
+          arg4 = "SELECT"
+          arg5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
+          arg6 = false
+          arg7 = 0
+          arg8 = true
+          arg2(arg3, arg4, arg5, arg6, arg7, arg8)
+          arg2 = "gang"
+          textValue = arg2
         end
       else
-        SHX1_2 = DrawRect
-        SHX2_2 = 0.681
-        SHX3_2 = 0.689
-        SHX4_2 = 0.045
-        SHX5_2 = 0.036
-        SHX6_2 = 0
-        SHX7_2 = 0
-        SHX8_2 = 0
-        SHX9_2 = 150
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+        arg2 = DrawRect
+        arg3 = 0.681
+        arg4 = 0.689
+        arg5 = 0.045
+        arg6 = 0.036
+        arg7 = 0
+        arg8 = 0
+        arg9 = 0
+        arg10 = 150
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
       end
     end
   end
 end
-SHX42_1 = CMG
-SHX42_1 = SHX42_1.createThreadOnTick
-SHX43_1 = SHX41_1
-SHX44_1 = "Gang UI"
-SHX42_1(SHX43_1, SHX44_1)
-SHX42_1 = 0
-function SHX43_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.gangUseNui
-  if SHX0_2 then
+cmgCall8 = CMG
+cmgCall8 = cmgCall8.createThreadOnTick
+workValue15 = workValue14
+eventRegistration = "Gang UI"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall8(workValue15, eventRegistration)
+cmgCall8 = 0
+function workValue15()
+  local arg1, arg2, arg3
+  arg1 = CMG
+  arg1 = arg1.gangUseNui
+  if arg1 then
     return
   end
-  SHX0_2 = IsControlJustPressed
-  SHX1_2 = 0
-  SHX2_2 = 166
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if not SHX0_2 then
-    SHX0_2 = IsDisabledControlJustPressed
-    SHX1_2 = 0
-    SHX2_2 = 166
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if not SHX0_2 then
-      SHX0_2 = IsDisabledControlJustReleased
-      SHX1_2 = 0
-      SHX2_2 = 200
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        goto SHX_LABEL_99
+  arg1 = IsControlJustPressed
+  arg2 = 0
+  arg3 = 166
+  arg1 = arg1(arg2, arg3)
+  if not arg1 then
+    arg1 = IsDisabledControlJustPressed
+    arg2 = 0
+    arg3 = 166
+    arg1 = arg1(arg2, arg3)
+    if not arg1 then
+      arg1 = IsDisabledControlJustReleased
+      arg2 = 0
+      arg3 = 200
+      arg1 = arg1(arg2, arg3)
+      if not arg1 then
+        goto flow_label_99
       end
-      SHX0_2 = SHX1_1
-      if "noGang" ~= SHX0_2 then
-        SHX0_2 = SHX1_1
-        if "gang" ~= SHX0_2 then
-          goto SHX_LABEL_99
+      arg1 = textValue
+      if "noGang" ~= arg1 then
+        arg1 = textValue
+        if "gang" ~= arg1 then
+          goto flow_label_99
         end
       end
     end
   end
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = SHX42_1
-  SHX0_2 = SHX0_2 - SHX1_2
-  if SHX0_2 < 100 then
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
+  arg2 = cmgCall8
+  arg1 = arg1 - arg2
+  if arg1 < 100 then
     return
   end
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX42_1 = SHX0_2
-  SHX0_2 = SHX10_1
-  if not SHX0_2 then
-    SHX0_2 = SHX1_1
-    if "noGang" == SHX0_2 then
-      SHX0_2 = nil
-      SHX1_1 = SHX0_2
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setCursor
-      SHX1_2 = 0
-      SHX0_2(SHX1_2)
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setInGUI
-      SHX1_2 = false
-      SHX0_2(SHX1_2)
-      SHX0_2 = nil
-      SHX3_1 = SHX0_2
+  arg1 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg1 = arg1()
+  cmgCall8 = arg1
+  arg1 = workValue
+  if not arg1 then
+    arg1 = textValue
+    if "noGang" == arg1 then
+      arg1 = nil
+      textValue = arg1
+      arg1 = CMG
+      arg1 = arg1.setCursor
+      arg2 = 0
+      arg1(arg2)
+      arg1 = CMG
+      arg1 = arg1.setInGUI
+      arg2 = false
+      arg1(arg2)
+      arg1 = nil
+      workValue12 = arg1
     else
-      SHX0_2 = "noGang"
-      SHX1_1 = SHX0_2
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setCursor
-      SHX1_2 = 1
-      SHX0_2(SHX1_2)
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setInGUI
-      SHX1_2 = true
-      SHX0_2(SHX1_2)
+      arg1 = "noGang"
+      textValue = arg1
+      arg1 = CMG
+      arg1 = arg1.setCursor
+      arg2 = 1
+      arg1(arg2)
+      arg1 = CMG
+      arg1 = arg1.setInGUI
+      arg2 = true
+      arg1(arg2)
     end
   end
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    if "gang" == SHX0_2 then
-      SHX0_2 = nil
-      SHX1_1 = SHX0_2
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setCursor
-      SHX1_2 = 0
-      SHX0_2(SHX1_2)
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setInGUI
-      SHX1_2 = false
-      SHX0_2(SHX1_2)
-      SHX0_2 = nil
-      SHX4_1 = SHX0_2
+  arg1 = workValue
+  if arg1 then
+    arg1 = textValue
+    if "gang" == arg1 then
+      arg1 = nil
+      textValue = arg1
+      arg1 = CMG
+      arg1 = arg1.setCursor
+      arg2 = 0
+      arg1(arg2)
+      arg1 = CMG
+      arg1 = arg1.setInGUI
+      arg2 = false
+      arg1(arg2)
+      arg1 = nil
+      workValue16 = arg1
     else
-      SHX0_2 = "gang"
-      SHX1_1 = SHX0_2
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setCursor
-      SHX1_2 = 1
-      SHX0_2(SHX1_2)
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.setInGUI
-      SHX1_2 = true
-      SHX0_2(SHX1_2)
+      arg1 = "gang"
+      textValue = arg1
+      arg1 = CMG
+      arg1 = arg1.setCursor
+      arg2 = 1
+      arg1(arg2)
+      arg1 = CMG
+      arg1 = arg1.setInGUI
+      arg2 = true
+      arg1(arg2)
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_99:: outside nested blocks until all 'goto SHX_LABEL_99' can see it
-  ::SHX_LABEL_99::
+  ::flow_label_99::
 end
-SHX44_1 = Citizen
-SHX44_1 = SHX44_1.CreateThread
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX0_2 = json
-  SHX0_2 = SHX0_2.decode
-  SHX1_2 = GetResourceKvpString
-  SHX2_2 = "cmg_gang_pinned"
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = "{}"
+eventRegistration = Citizen
+eventRegistration = eventRegistration.CreateThread
+function textValue4()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
+  arg1 = json
+  arg1 = arg1.decode
+  arg2 = GetResourceKvpString
+  arg3 = "cmg_gang_pinned"
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = "{}"
   end
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = {}
+  arg1 = arg1(arg2)
+  if not arg1 then
+    arg1 = {}
   end
-  SHX1_2 = {}
-  SHX2_2 = GetResourceKvpString
-  SHX3_2 = "cmg_gang_blips"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX2_2 = "true" == SHX2_2
-  SHX1_2.blips = SHX2_2
-  SHX2_2 = GetResourceKvpString
-  SHX3_2 = "cmg_gang_pings"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX2_2 = "true" == SHX2_2
-  SHX1_2.pings = SHX2_2
-  SHX2_2 = GetResourceKvpString
-  SHX3_2 = "cmg_gang_names"
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX2_2 = "true" == SHX2_2
-  SHX1_2.names = SHX2_2
-  SHX2_2 = {}
-  SHX1_2.pinnedPlayers = SHX2_2
-  SHX15_1 = SHX1_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX15_1.pinnedPlayers
-    SHX7_2 = tonumber
-    SHX8_2 = SHX5_2
-    SHX7_2 = SHX7_2(SHX8_2)
-    SHX6_2[SHX7_2] = true
+  arg2 = {}
+  arg3 = GetResourceKvpString
+  arg4 = "cmg_gang_blips"
+  arg3 = arg3(arg4)
+  arg3 = "true" == arg3
+  arg2.blips = arg3
+  arg3 = GetResourceKvpString
+  arg4 = "cmg_gang_pings"
+  arg3 = arg3(arg4)
+  arg3 = "true" == arg3
+  arg2.pings = arg3
+  arg3 = GetResourceKvpString
+  arg4 = "cmg_gang_names"
+  arg3 = arg3(arg4)
+  arg3 = "true" == arg3
+  arg2.names = arg3
+  arg3 = {}
+  arg2.pinnedPlayers = arg3
+  dataTable = arg2
+  arg2 = pairs
+  arg3 = arg1
+  arg2, arg3, arg4, arg5 = arg2(arg3)
+  for arg6 in arg2, arg3, arg4, arg5 do
+    arg7 = dataTable.pinnedPlayers
+    arg8 = tonumber
+    arg9 = arg6
+    arg8 = arg8(arg9)
+    arg7[arg8] = true
   end
-  SHX1_2 = CMG
-  SHX2_2 = SHX15_1.pinnedPlayers
-  SHX1_2.gangPinnedPlayers = SHX2_2
-  SHX1_2 = CMG
-  SHX2_2 = SHX15_1
-  SHX1_2.gangClientSettings = SHX2_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.createThreadOnTick
-  SHX2_2 = SHX43_1
-  SHX3_2 = "Gang Key Controls"
-  SHX1_2(SHX2_2, SHX3_2)
+  arg2 = CMG
+  arg3 = dataTable.pinnedPlayers
+  arg2.gangPinnedPlayers = arg3
+  arg2 = CMG
+  arg3 = dataTable
+  arg2.gangClientSettings = arg3
+  arg2 = CMG
+  arg2 = arg2.createThreadOnTick
+  arg3 = workValue15
+  arg4 = "Gang Key Controls"
+  -- Beginner: Run a helper every game frame while this script is active.
+  arg2(arg3, arg4)
 end
-SHX44_1(SHX45_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "f9904fb04b"
-function SHX46_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX18_2, SHX19_2, SHX20_2
-  SHX18_2 = {}
-  SHX18_2.id = SHX9_2
-  SHX18_2.name = SHX0_2
-  SHX18_2.displayMoney = SHX1_2
-  SHX18_2.members = SHX2_2
-  SHX18_2.guests = SHX3_2
-  SHX18_2.isAdvanced = SHX4_2
-  SHX18_2.maxWithdraw = SHX5_2
-  SHX18_2.limitWithdrawDeposit = SHX6_2
-  SHX18_2.requireWithdrawReason = SHX7_2
-  SHX19_2 = {}
-  SHX18_2.pings = SHX19_2
-  SHX18_2.additionalRadios = SHX8_2
-  SHX19_2 = SHX10_2 or SHX19_2
-  if not SHX10_2 then
-    SHX19_2 = 0
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+eventRegistration(textValue4)
+eventRegistration = RegisterNetEvent
+textValue4 = "f9904fb04b"
+-- Beginner: this function handles network event "f9904fb04b".
+function textValue5(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18)
+  local numberValue5, numberValue7, numberValue8
+  numberValue5 = {}
+  numberValue5.id = arg10
+  numberValue5.name = arg1
+  numberValue5.displayMoney = arg2
+  numberValue5.members = arg3
+  numberValue5.guests = arg4
+  numberValue5.isAdvanced = arg5
+  numberValue5.maxWithdraw = arg6
+  numberValue5.limitWithdrawDeposit = arg7
+  numberValue5.requireWithdrawReason = arg8
+  numberValue7 = {}
+  numberValue5.pings = numberValue7
+  numberValue5.additionalRadios = arg9
+  numberValue7 = arg11 or numberValue7
+  if not arg11 then
+    numberValue7 = 0
   end
-  SHX18_2.gangPublicSkillPoints = SHX19_2
-  SHX19_2 = SHX17_2 or SHX19_2
-  if not SHX17_2 then
-    SHX19_2 = 0
+  numberValue5.gangPublicSkillPoints = numberValue7
+  numberValue7 = arg18 or numberValue7
+  if not arg18 then
+    numberValue7 = 0
   end
-  SHX18_2.gangRpSkillPoints = SHX19_2
-  SHX19_2 = SHX11_2 or SHX19_2
-  if not SHX11_2 then
-    SHX19_2 = {}
+  numberValue5.gangRpSkillPoints = numberValue7
+  numberValue7 = arg122 or numberValue7
+  if not arg122 then
+    numberValue7 = {}
   end
-  SHX18_2.gangPerksUnlocked = SHX19_2
-  SHX19_2 = SHX12_2 or SHX19_2
-  if not SHX12_2 then
-    SHX19_2 = {}
+  numberValue5.gangPerksUnlocked = numberValue7
+  numberValue7 = arg13 or numberValue7
+  if not arg13 then
+    numberValue7 = {}
   end
-  SHX18_2.announcements = SHX19_2
-  SHX19_2 = SHX13_2 or SHX19_2
-  if not SHX13_2 then
-    SHX19_2 = 1
+  numberValue5.announcements = numberValue7
+  numberValue7 = arg14 or numberValue7
+  if not arg14 then
+    numberValue7 = 1
   end
-  SHX18_2.gangPublicLevel = SHX19_2
-  SHX19_2 = SHX14_2 or SHX19_2
-  if not SHX14_2 then
-    SHX19_2 = 0
+  numberValue5.gangPublicLevel = numberValue7
+  numberValue7 = arg15 or numberValue7
+  if not arg15 then
+    numberValue7 = 0
   end
-  SHX18_2.gangPublicXp = SHX19_2
-  SHX19_2 = SHX15_2 or SHX19_2
-  if not SHX15_2 then
-    SHX19_2 = 1
+  numberValue5.gangPublicXp = numberValue7
+  numberValue7 = arg16 or numberValue7
+  if not arg16 then
+    numberValue7 = 1
   end
-  SHX18_2.gangRpLevel = SHX19_2
-  SHX19_2 = SHX16_2 or SHX19_2
-  if not SHX16_2 then
-    SHX19_2 = 0
+  numberValue5.gangRpLevel = numberValue7
+  numberValue7 = arg17 or numberValue7
+  if not arg17 then
+    numberValue7 = 0
   end
-  SHX18_2.gangRpXp = SHX19_2
-  SHX10_1 = SHX18_2
-  SHX18_2 = CMG
-  SHX19_2 = SHX10_1
-  SHX18_2.gangCachedData = SHX19_2
-  SHX18_2 = SHX10_1.isAdvanced
-  if SHX18_2 then
-    SHX18_2 = RequestStreamedTextureDict
-    SHX19_2 = "cmg_gang"
-    SHX20_2 = false
-    SHX18_2(SHX19_2, SHX20_2)
-    SHX18_2 = SHX15_1.blips
-    if SHX18_2 then
-      SHX18_2 = TriggerEvent
-      SHX19_2 = "e713d91b70"
-      SHX18_2(SHX19_2)
-      SHX18_2 = TriggerServerEvent
-      SHX19_2 = "f9c26121e2"
-      SHX20_2 = "own"
-      SHX18_2(SHX19_2, SHX20_2)
+  numberValue5.gangRpXp = numberValue7
+  workValue = numberValue5
+  numberValue5 = CMG
+  numberValue7 = workValue
+  numberValue5.gangCachedData = numberValue7
+  numberValue5 = workValue.isAdvanced
+  if numberValue5 then
+    numberValue5 = RequestStreamedTextureDict
+    numberValue7 = "cmg_gang"
+    numberValue8 = false
+    numberValue5(numberValue7, numberValue8)
+    numberValue5 = dataTable.blips
+    if numberValue5 then
+      numberValue5 = TriggerEvent
+      numberValue7 = "e713d91b70"
+      -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
+      numberValue5(numberValue7)
+      numberValue5 = TriggerServerEvent
+      numberValue7 = "f9c26121e2"
+      numberValue8 = "own"
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
+      numberValue5(numberValue7, numberValue8)
     end
-    SHX18_2 = TriggerServerEvent
-    SHX19_2 = "a74c553948"
-    SHX20_2 = SHX29_1
-    SHX18_2(SHX19_2, SHX20_2)
+    numberValue5 = TriggerServerEvent
+    numberValue7 = "a74c553948"
+    numberValue8 = textValue2
+    numberValue5(numberValue7, numberValue8)
   end
-  SHX18_2 = SHX1_1
-  if SHX18_2 then
-    SHX18_2 = "gang"
-    SHX1_1 = SHX18_2
-  end
-end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "4a773cc562"
-function SHX46_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX5_2
-  SHX5_2 = nil
-  SHX20_1 = SHX5_2
-  SHX5_2 = CMG
-  SHX5_2.gangCachedGuestData = nil
-end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "d59e8e8fd8"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.name = SHX0_2
+  numberValue5 = textValue
+  if numberValue5 then
+    numberValue5 = "gang"
+    textValue = numberValue5
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "38c659d0a7"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.displayMoney = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f9904fb04b".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "4a773cc562"
+-- Beginner: this function handles network event "4a773cc562".
+function textValue5(arg1, arg2, arg3, arg4, arg5)
+  local arg6
+  arg6 = nil
+  workValue3 = arg6
+  arg6 = CMG
+  arg6.gangCachedGuestData = nil
+end
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "d59e8e8fd8"
+-- Beginner: this function handles network event "d59e8e8fd8".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.name = arg1
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "cbebb2bd7a"
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = RequestStreamedTextureDict
-    SHX1_2 = "cmg_gang"
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX10_1.isAdvanced = true
-  end
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "238e25c639"
-  SHX0_2(SHX1_2)
-end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "a7a59eed45"
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX20_1
-  if SHX0_2 then
-    SHX0_2 = RequestStreamedTextureDict
-    SHX1_2 = "cmg_gang"
-    SHX2_2 = false
-    SHX0_2(SHX1_2, SHX2_2)
-    SHX20_1.isAdvanced = true
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d59e8e8fd8".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "38c659d0a7"
+-- Beginner: this function handles network event "38c659d0a7".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.displayMoney = arg1
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "6e6d067235"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.members
-    SHX2_2[SHX0_2] = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "cbebb2bd7a"
+-- Beginner: this function handles network event "cbebb2bd7a".
+function textValue5()
+  local arg1, arg2, arg3
+  arg1 = workValue
+  if arg1 then
+    arg1 = RequestStreamedTextureDict
+    arg2 = "cmg_gang"
+    arg3 = false
+    arg1(arg2, arg3)
+    workValue.isAdvanced = true
+  end
+  arg1 = TriggerEvent
+  arg2 = "238e25c639"
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "238e25c639".
+  arg1(arg2)
+end
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "cbebb2bd7a".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "a7a59eed45"
+-- Beginner: this function handles network event "a7a59eed45".
+function textValue5()
+  local arg1, arg2, arg3
+  arg1 = workValue3
+  if arg1 then
+    arg1 = RequestStreamedTextureDict
+    arg2 = "cmg_gang"
+    arg3 = false
+    arg1(arg2, arg3)
+    workValue3.isAdvanced = true
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "f5b2ceb8df"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.members
-    SHX2_2[SHX0_2] = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a7a59eed45".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "6e6d067235"
+-- Beginner: this function handles network event "6e6d067235".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.members
+    arg3[arg1] = arg2
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "363c115205"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.guests
-    SHX2_2[SHX0_2] = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "f5b2ceb8df"
+-- Beginner: this function handles network event "f5b2ceb8df".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.members
+    arg3[arg1] = arg2
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "36135ce16e"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.guests
-    SHX2_2[SHX0_2] = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f5b2ceb8df".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "363c115205"
+-- Beginner: this function handles network event "363c115205".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.guests
+    arg3[arg1] = arg2
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "6998c9a240"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.permissions = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "36135ce16e"
+-- Beginner: this function handles network event "36135ce16e".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.guests
+    arg3[arg1] = arg2
+  end
+end
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "36135ce16e".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "6998c9a240"
+-- Beginner: this function handles network event "6998c9a240".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue.members
+      arg3 = arg3[arg1]
+      arg3.permissions = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "f71d7949c0"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.permissions = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "f71d7949c0"
+-- Beginner: this function handles network event "f71d7949c0".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue3.members
+      arg3 = arg3[arg1]
+      arg3.permissions = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "854c66098d"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.lastLogin = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f71d7949c0".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "854c66098d"
+-- Beginner: this function handles network event "854c66098d".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue.members
+      arg3 = arg3[arg1]
+      arg3.lastLogin = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "982c46dbf0"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.lastLogin = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "982c46dbf0"
+-- Beginner: this function handles network event "982c46dbf0".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue3.members
+      arg3 = arg3[arg1]
+      arg3.lastLogin = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "6049cc2bb1"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.name = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "982c46dbf0".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "6049cc2bb1"
+-- Beginner: this function handles network event "6049cc2bb1".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue.members
+      arg3 = arg3[arg1]
+      arg3.name = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "f9fdd3de9c"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.name = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "f9fdd3de9c"
+-- Beginner: this function handles network event "f9fdd3de9c".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue3.members
+      arg3 = arg3[arg1]
+      arg3.name = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "078a4215cf"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.guests
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.guests
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.name = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f9fdd3de9c".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "078a4215cf"
+-- Beginner: this function handles network event "078a4215cf".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.guests
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue.guests
+      arg3 = arg3[arg1]
+      arg3.name = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "24c8e98259"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.guests
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.guests
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.name = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "24c8e98259"
+-- Beginner: this function handles network event "24c8e98259".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.guests
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue3.guests
+      arg3 = arg3[arg1]
+      arg3.name = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "c4fb7a7250"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX1_2 = SHX10_1.members
-    SHX1_2[SHX0_2] = nil
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "24c8e98259".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "c4fb7a7250"
+-- Beginner: this function handles network event "c4fb7a7250".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    arg2 = workValue.members
+    arg2[arg1] = nil
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "4d2c3b82a7"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX20_1
-  if SHX1_2 then
-    SHX1_2 = SHX20_1.members
-    SHX1_2[SHX0_2] = nil
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "4d2c3b82a7"
+-- Beginner: this function handles network event "4d2c3b82a7".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue3
+  if arg2 then
+    arg2 = workValue3.members
+    arg2[arg1] = nil
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "3a92ce94a9"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX1_2 = SHX10_1.guests
-    SHX1_2[SHX0_2] = nil
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4d2c3b82a7".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "3a92ce94a9"
+-- Beginner: this function handles network event "3a92ce94a9".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    arg2 = workValue.guests
+    arg2[arg1] = nil
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "2b3786c5c2"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX20_1
-  if SHX1_2 then
-    SHX1_2 = SHX20_1.guests
-    SHX1_2[SHX0_2] = nil
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "2b3786c5c2"
+-- Beginner: this function handles network event "2b3786c5c2".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue3
+  if arg2 then
+    arg2 = workValue3.guests
+    arg2[arg1] = nil
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "b6d14a58c2"
-function SHX46_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2
-  SHX3_2 = SHX10_1
-  if SHX3_2 then
-    SHX3_2 = SHX14_1
-    if SHX3_2 == SHX0_2 then
-      SHX10_1.logs = SHX1_2
-      SHX10_1.logCount = SHX2_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2b3786c5c2".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "b6d14a58c2"
+-- Beginner: this function handles network event "b6d14a58c2".
+function textValue5(arg1, arg2, arg3)
+  local arg4
+  arg4 = workValue
+  if arg4 then
+    arg4 = numberValue3
+    if arg4 == arg1 then
+      workValue.logs = arg2
+      workValue.logCount = arg3
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "df6b023891"
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX15_1.blips
-  if SHX0_2 then
-    SHX0_2 = TriggerEvent
-    SHX1_2 = "e713d91b70"
-    SHX0_2(SHX1_2)
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "df6b023891"
+-- Beginner: this function handles network event "df6b023891".
+function textValue5()
+  local arg1, arg2
+  arg1 = dataTable.blips
+  if arg1 then
+    arg1 = TriggerEvent
+    arg2 = "e713d91b70"
+    -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
+    arg1(arg2)
   end
-  SHX0_2 = SHX1_1
-  if SHX0_2 then
-    SHX0_2 = "noGang"
-    SHX1_1 = SHX0_2
+  arg1 = textValue
+  if arg1 then
+    arg1 = "noGang"
+    textValue = arg1
   end
-  SHX0_2 = nil
-  SHX10_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2.gangCachedData = nil
+  arg1 = nil
+  workValue = arg1
+  arg1 = CMG
+  arg1.gangCachedData = nil
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "ac7da32975"
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX15_1.blips
-  if SHX0_2 then
-    SHX0_2 = TriggerEvent
-    SHX1_2 = "e713d91b70"
-    SHX0_2(SHX1_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "df6b023891".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "ac7da32975"
+-- Beginner: this function handles network event "ac7da32975".
+function textValue5()
+  local arg1, arg2
+  arg1 = dataTable.blips
+  if arg1 then
+    arg1 = TriggerEvent
+    arg2 = "e713d91b70"
+    -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
+    arg1(arg2)
   end
-  SHX0_2 = nil
-  SHX20_1 = SHX0_2
-  SHX0_2 = CMG
-  SHX0_2.gangCachedGuestData = nil
+  arg1 = nil
+  workValue3 = arg1
+  arg1 = CMG
+  arg1.gangCachedGuestData = nil
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "0d45fc5353"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX16_1 = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ac7da32975".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "0d45fc5353"
+-- Beginner: this function handles network event "0d45fc5353".
+function textValue5(arg1)
+  local arg2
+  dataTable2 = arg1
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "b674c758b8"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.maxWithdraw = SHX0_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "b674c758b8"
+-- Beginner: this function handles network event "b674c758b8".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.maxWithdraw = arg1
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "58d834d15a"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.limitWithdrawDeposit = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b674c758b8".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "58d834d15a"
+-- Beginner: this function handles network event "58d834d15a".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.limitWithdrawDeposit = arg1
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "5d7f40bb9d"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.requireWithdrawReason = SHX0_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "5d7f40bb9d"
+-- Beginner: this function handles network event "5d7f40bb9d".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.requireWithdrawReason = arg1
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "aa406726e4"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.colour = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5d7f40bb9d".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "aa406726e4"
+-- Beginner: this function handles network event "aa406726e4".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue.members
+      arg3 = arg3[arg1]
+      arg3.colour = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "f4a19c737d"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.members
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.members
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.colour = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "f4a19c737d"
+-- Beginner: this function handles network event "f4a19c737d".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.members
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue3.members
+      arg3 = arg3[arg1]
+      arg3.colour = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "6d46904865"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = SHX10_1.guests
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.guests
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.colour = SHX1_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f4a19c737d".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "6d46904865"
+-- Beginner: this function handles network event "6d46904865".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue
+  if arg3 then
+    arg3 = workValue.guests
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue.guests
+      arg3 = arg3[arg1]
+      arg3.colour = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "71c5863a91"
-function SHX46_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = SHX20_1.guests
-    SHX2_2 = SHX2_2[SHX0_2]
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.guests
-      SHX2_2 = SHX2_2[SHX0_2]
-      SHX2_2.colour = SHX1_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "71c5863a91"
+-- Beginner: this function handles network event "71c5863a91".
+function textValue5(arg1, arg2)
+  local arg3
+  arg3 = workValue3
+  if arg3 then
+    arg3 = workValue3.guests
+    arg3 = arg3[arg1]
+    if arg3 then
+      arg3 = workValue3.guests
+      arg3 = arg3[arg1]
+      arg3.colour = arg2
     end
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = RegisterNetEvent
-SHX45_1 = "bb3efd07e8"
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.contributions = SHX0_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "71c5863a91".
+eventRegistration(textValue4, textValue5)
+eventRegistration = RegisterNetEvent
+textValue4 = "bb3efd07e8"
+-- Beginner: this function handles network event "bb3efd07e8".
+function textValue5(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.contributions = arg1
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = CMG
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX10_1
-  SHX0_2 = nil ~= SHX0_2
-  return SHX0_2
+eventRegistration(textValue4, textValue5)
+eventRegistration = CMG
+-- Beginner: this function handles network event "bb3efd07e8".
+function textValue4()
+  local arg1, arg2
+  arg1 = workValue
+  arg1 = nil ~= arg1
+  return arg1
 end
-SHX44_1.isInGang = SHX45_1
-SHX44_1 = CMG
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  return SHX0_2
+eventRegistration.isInGang = textValue4
+eventRegistration = CMG
+function textValue4()
+  local arg1, arg2
+  arg1 = false
+  return arg1
 end
-SHX44_1.isGuestGangSelected = SHX45_1
-SHX44_1 = CMG
-function SHX45_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
+eventRegistration.isGuestGangSelected = textValue4
+eventRegistration = CMG
+function textValue4(arg1)
+  local arg2
 end
-SHX44_1.setGuestGangSelected = SHX45_1
-SHX44_1 = CMG
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX10_1.isAdvanced
-    if SHX0_2 then
-      SHX0_2 = true
-      return SHX0_2
+eventRegistration.setGuestGangSelected = textValue4
+eventRegistration = CMG
+function textValue4()
+  local arg1, arg2
+  arg1 = workValue
+  if arg1 then
+    arg1 = workValue.isAdvanced
+    if arg1 then
+      arg1 = true
+      return arg1
     end
   end
-  SHX0_2 = false
-  return SHX0_2
+  arg1 = false
+  return arg1
 end
-SHX44_1.isMainGangAdvanced = SHX45_1
-SHX44_1 = CMG
-function SHX45_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX1_2 = SHX10_1.members
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getClientUserId
-    SHX2_2 = SHX2_2()
-    SHX1_2 = SHX1_2[SHX2_2]
-    if SHX1_2 then
-      SHX2_2 = SHX1_2.permissions
-      if SHX2_2 then
-        SHX2_2 = SHX1_2.permissions
-        SHX2_2 = SHX2_2[SHX0_2]
-        if not SHX2_2 then
-          SHX2_2 = SHX1_2.permissions
-          SHX2_2 = SHX2_2.leader
-          if not SHX2_2 then
-            goto SHX_LABEL_24
+eventRegistration.isMainGangAdvanced = textValue4
+eventRegistration = CMG
+function textValue4(arg1)
+  local arg2, arg3
+  arg2 = workValue
+  if arg2 then
+    arg2 = workValue.members
+    arg3 = CMG
+    arg3 = arg3.getClientUserId
+    -- Beginner: result below is userId.
+    arg3 = arg3()
+    arg2 = arg2[arg3]
+    if arg2 then
+      arg3 = arg2.permissions
+      if arg3 then
+        arg3 = arg2.permissions
+        arg3 = arg3[arg1]
+        if not arg3 then
+          arg3 = arg2.permissions
+          arg3 = arg3.leader
+          if not arg3 then
+            goto flow_label_24
           end
         end
-        SHX2_2 = true
-        return SHX2_2
+        arg3 = true
+        return arg3
       end
     end
   end
-  -- [FIX IF ERROR] Move ::SHX_LABEL_24:: outside nested blocks until all 'goto SHX_LABEL_24' can see it
-  ::SHX_LABEL_24::
-  SHX1_2 = false
-  return SHX1_2
+  ::flow_label_24::
+  arg2 = false
+  return arg2
 end
-SHX44_1.hasGangPermission = SHX45_1
-SHX44_1 = CMG
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX33_1
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.isAdvanced
-    if SHX1_2 then
-      SHX1_2 = true
-      return SHX1_2
+eventRegistration.hasGangPermission = textValue4
+eventRegistration = CMG
+function textValue4()
+  local arg1, arg2
+  arg1 = workValue6
+  arg1 = arg1()
+  if arg1 then
+    arg2 = arg1.isAdvanced
+    if arg2 then
+      arg2 = true
+      return arg2
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-SHX44_1.isSelectedGangAdvanced = SHX45_1
-SHX44_1 = CMG
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX33_1
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.isAdvanced
-    if SHX1_2 then
-      SHX1_2 = SHX15_1.blips
-      if SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.inEvent
-        SHX1_2 = SHX1_2()
-        if not SHX1_2 then
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.hasRadioItem
-          SHX1_2 = SHX1_2()
-          if SHX1_2 then
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.gangOrgClientState
-            if SHX1_2 then
-              SHX2_2 = SHX1_2.hasOrgPack
-              if true == SHX2_2 then
-                SHX2_2 = CMG
-                SHX2_2 = SHX2_2.isClientClockedOnOrganisation
-                SHX2_2 = SHX2_2()
-                if not SHX2_2 then
-                  SHX2_2 = false
-                  return SHX2_2
+eventRegistration.isSelectedGangAdvanced = textValue4
+eventRegistration = CMG
+function textValue4()
+  local arg1, arg2, arg3
+  arg1 = workValue6
+  arg1 = arg1()
+  if arg1 then
+    arg2 = arg1.isAdvanced
+    if arg2 then
+      arg2 = dataTable.blips
+      if arg2 then
+        arg2 = CMG
+        arg2 = arg2.inEvent
+        arg2 = arg2()
+        if not arg2 then
+          arg2 = CMG
+          arg2 = arg2.hasRadioItem
+          arg2 = arg2()
+          if arg2 then
+            arg2 = CMG
+            arg2 = arg2.gangOrgClientState
+            if arg2 then
+              arg3 = arg2.hasOrgPack
+              if true == arg3 then
+                arg3 = CMG
+                arg3 = arg3.isClientClockedOnOrganisation
+                arg3 = arg3()
+                if not arg3 then
+                  arg3 = false
+                  return arg3
                 end
               end
             end
-            SHX2_2 = true
-            return SHX2_2
+            arg3 = true
+            return arg3
           end
         end
       end
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-SHX44_1.hasGangBlipsEnabled = SHX45_1
-SHX44_1 = AddEventHandler
-SHX45_1 = "e892eba4b7"
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = TriggerEvent
-  SHX1_2 = "e713d91b70"
-  SHX0_2(SHX1_2)
-  SHX0_2 = TriggerServerEvent
-  SHX1_2 = "f9c26121e2"
-  SHX2_2 = nil
-  SHX0_2(SHX1_2, SHX2_2)
+eventRegistration.hasGangBlipsEnabled = textValue4
+eventRegistration = AddEventHandler
+textValue4 = "e892eba4b7"
+-- Beginner: this function runs when client event "e892eba4b7" fires.
+function textValue5()
+  local arg1, arg2, arg3
+  arg1 = TriggerEvent
+  arg2 = "e713d91b70"
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
+  arg1(arg2)
+  arg1 = TriggerServerEvent
+  arg2 = "f9c26121e2"
+  arg3 = nil
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
+  arg1(arg2, arg3)
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = AddEventHandler
-SHX45_1 = "f7b3a54a8f"
-function SHX46_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasGangBlipsEnabled
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX0_2 = SHX33_1
-    SHX0_2 = SHX0_2()
-    SHX1_2 = SHX10_1
-    if SHX0_2 == SHX1_2 then
-      SHX0_2 = "own"
-      if SHX0_2 then
-        goto SHX_LABEL_15
+-- Beginner: Register a client-side event handler. Event/command: "e892eba4b7".
+eventRegistration(textValue4, textValue5)
+eventRegistration = AddEventHandler
+textValue4 = "f7b3a54a8f"
+-- Beginner: this function runs when client event "f7b3a54a8f" fires.
+function textValue5()
+  local arg1, arg2, arg3, arg4
+  arg1 = CMG
+  arg1 = arg1.hasGangBlipsEnabled
+  arg1 = arg1()
+  if arg1 then
+    arg1 = workValue6
+    arg1 = arg1()
+    arg2 = workValue
+    if arg1 == arg2 then
+      arg1 = "own"
+      if arg1 then
+        goto flow_label_15
       end
     end
-    SHX0_2 = "guest"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_15:: outside nested blocks until all 'goto SHX_LABEL_15' can see it
-    ::SHX_LABEL_15::
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "f9c26121e2"
-    SHX3_2 = SHX0_2
-    SHX1_2(SHX2_2, SHX3_2)
+    arg1 = "guest"
+    ::flow_label_15::
+    arg2 = TriggerServerEvent
+    arg3 = "f9c26121e2"
+    arg4 = arg1
+    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
+    arg2(arg3, arg4)
   end
 end
-SHX44_1(SHX45_1, SHX46_1)
-SHX44_1 = CMG
-function SHX45_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX33_1
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.isAdvanced
-    if SHX1_2 then
-      SHX1_2 = SHX15_1.names
-      if SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.inEvent
-        SHX1_2 = SHX1_2()
-        if not SHX1_2 then
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.hasRadioItem
-          SHX1_2 = SHX1_2()
-          if SHX1_2 then
-            SHX1_2 = true
-            return SHX1_2
+-- Beginner: Register a client-side event handler. Event/command: "f7b3a54a8f".
+eventRegistration(textValue4, textValue5)
+eventRegistration = CMG
+function textValue4()
+  local arg1, arg2
+  arg1 = workValue6
+  arg1 = arg1()
+  if arg1 then
+    arg2 = arg1.isAdvanced
+    if arg2 then
+      arg2 = dataTable.names
+      if arg2 then
+        arg2 = CMG
+        arg2 = arg2.inEvent
+        arg2 = arg2()
+        if not arg2 then
+          arg2 = CMG
+          arg2 = arg2.hasRadioItem
+          arg2 = arg2()
+          if arg2 then
+            arg2 = true
+            return arg2
           end
         end
       end
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-SHX44_1.hasGangNamesEnabled = SHX45_1
-SHX44_1 = CMG
-function SHX45_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX33_1
-  SHX1_2 = SHX1_2()
-  if SHX1_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.inEvent
-    SHX2_2 = SHX2_2()
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.clientGetUserIdFromSource
-      SHX3_2 = SHX0_2
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 then
-        SHX3_2 = SHX1_2.members
-        SHX3_2 = SHX3_2[SHX2_2]
-        if SHX3_2 then
-          SHX4_2 = true
-          SHX5_2 = SHX0_1.colourLookup
-          SHX6_2 = SHX3_2.colour
-          SHX5_2 = SHX5_2[SHX6_2]
-          if not SHX5_2 then
-            SHX5_2 = SHX28_1
+eventRegistration.hasGangNamesEnabled = textValue4
+eventRegistration = CMG
+function textValue4(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8
+  arg2 = workValue6
+  arg2 = arg2()
+  if arg2 then
+    arg3 = CMG
+    arg3 = arg3.inEvent
+    arg3 = arg3()
+    if not arg3 then
+      arg3 = CMG
+      arg3 = arg3.clientGetUserIdFromSource
+      arg4 = arg1
+      -- Beginner: result below is userId.
+      arg3 = arg3(arg4)
+      if arg3 then
+        arg4 = arg2.members
+        arg4 = arg4[arg3]
+        if arg4 then
+          arg5 = true
+          arg6 = cmgCall.colourLookup
+          arg7 = arg4.colour
+          arg6 = arg6[arg7]
+          if not arg6 then
+            arg6 = workValue5
           end
-          return SHX4_2, SHX5_2
+          return arg5, arg6
         end
-        SHX4_2 = SHX1_2.guests
-        SHX4_2 = SHX4_2[SHX2_2]
-        if SHX4_2 then
-          SHX5_2 = true
-          SHX6_2 = SHX0_1.colourLookup
-          SHX7_2 = SHX4_2.colour
-          SHX6_2 = SHX6_2[SHX7_2]
-          if not SHX6_2 then
-            SHX6_2 = SHX28_1
+        arg5 = arg2.guests
+        arg5 = arg5[arg3]
+        if arg5 then
+          arg6 = true
+          arg7 = cmgCall.colourLookup
+          arg8 = arg5.colour
+          arg7 = arg7[arg8]
+          if not arg7 then
+            arg7 = workValue5
           end
-          return SHX5_2, SHX6_2
+          return arg6, arg7
         end
       end
     end
   end
-  SHX2_2 = false
-  SHX3_2 = SHX28_1
-  return SHX2_2, SHX3_2
+  arg3 = false
+  arg4 = workValue5
+  return arg3, arg4
 end
-SHX44_1.isPlayerInSelectedGang = SHX45_1
-SHX44_1 = CMG
-function SHX45_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX15_1
-  if SHX1_2 then
-    SHX1_2 = SHX15_1.pinnedPlayers
-    if SHX1_2 then
-      SHX1_2 = SHX15_1.pinnedPlayers
-      SHX1_2 = SHX1_2[SHX0_2]
-      if SHX1_2 then
-        goto SHX_LABEL_12
+eventRegistration.isPlayerInSelectedGang = textValue4
+eventRegistration = CMG
+function textValue4(arg1)
+  local arg2
+  arg2 = dataTable
+  if arg2 then
+    arg2 = dataTable.pinnedPlayers
+    if arg2 then
+      arg2 = dataTable.pinnedPlayers
+      arg2 = arg2[arg1]
+      if arg2 then
+        goto flow_label_12
       end
     end
   end
-  SHX1_2 = false
-  -- [FIX IF ERROR] Move ::SHX_LABEL_12:: outside nested blocks until all 'goto SHX_LABEL_12' can see it
-  ::SHX_LABEL_12::
-  return SHX1_2
+  arg2 = false
+  ::flow_label_12::
+  return arg2
 end
-SHX44_1.isPlayerPinnedInGang = SHX45_1
-function SHX44_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = GetControlInstructionalButton
-  SHX1_2 = 2
-  SHX2_2 = -175937621
-  SHX3_2 = true
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-  SHX1_2 = GetControlInstructionalButton
-  SHX2_2 = 2
-  SHX3_2 = -1943871200
-  SHX4_2 = true
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = SHX0_2 == SHX1_2
-  return SHX0_2
+eventRegistration.isPlayerPinnedInGang = textValue4
+function eventRegistration()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = GetControlInstructionalButton
+  arg2 = 2
+  arg3 = -175937621
+  arg4 = true
+  arg1 = arg1(arg2, arg3, arg4)
+  arg2 = GetControlInstructionalButton
+  arg3 = 2
+  arg4 = -1943871200
+  arg5 = true
+  arg2 = arg2(arg3, arg4, arg5)
+  arg1 = arg1 == arg2
+  return arg1
 end
-SHX45_1 = RegisterCommand
-SHX46_1 = "pinglocation"
-function SHX47_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2
-  SHX0_2 = SHX33_1
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.isAdvanced
-    if SHX1_2 then
-      SHX1_2 = SHX15_1.pings
-      if SHX1_2 then
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.isEmergencyService
-        SHX1_2 = SHX1_2()
-        if not SHX1_2 then
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.inEvent
-          SHX1_2 = SHX1_2()
-          if not SHX1_2 then
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.hasRadioItem
-            SHX1_2 = SHX1_2()
-            if SHX1_2 then
-              SHX1_2 = SHX44_1
-              SHX1_2 = SHX1_2()
-              if SHX1_2 then
-                SHX1_2 = SHX0_2.pings
-                SHX2_2 = CMG
-                SHX2_2 = SHX2_2.getClientUserId
-                SHX2_2 = SHX2_2()
-                SHX1_2 = SHX1_2[SHX2_2]
-                if SHX1_2 then
+textValue4 = RegisterCommand
+textValue5 = "pinglocation"
+-- Beginner: this function is the command handler for "pinglocation".
+function eventRegistration2()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8
+  arg1 = workValue6
+  arg1 = arg1()
+  if arg1 then
+    arg2 = arg1.isAdvanced
+    if arg2 then
+      arg2 = dataTable.pings
+      if arg2 then
+        arg2 = CMG
+        arg2 = arg2.isEmergencyService
+        arg2 = arg2()
+        if not arg2 then
+          arg2 = CMG
+          arg2 = arg2.inEvent
+          arg2 = arg2()
+          if not arg2 then
+            arg2 = CMG
+            arg2 = arg2.hasRadioItem
+            arg2 = arg2()
+            if arg2 then
+              arg2 = eventRegistration
+              arg2 = arg2()
+              if arg2 then
+                arg2 = arg1.pings
+                arg3 = CMG
+                arg3 = arg3.getClientUserId
+                -- Beginner: result below is userId.
+                arg3 = arg3()
+                arg2 = arg2[arg3]
+                if arg2 then
                   return
                 end
               end
-              SHX1_2 = GetGameplayCamCoord
-              SHX1_2 = SHX1_2()
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.rotationToDirection
-              SHX3_2 = GetGameplayCamRot
-              SHX4_2 = 2
-              SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2 = SHX3_2(SHX4_2)
-              SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-              SHX3_2 = SHX2_2 * 500.0
-              SHX3_2 = SHX1_2 + SHX3_2
-              SHX4_2 = _ENV
-              SHX5_2 = "StartExpensiveSynchronousShapeTestLosProbe"
-              SHX4_2 = SHX4_2[SHX5_2]
-              SHX5_2 = SHX1_2.x
-              SHX6_2 = SHX1_2.y
-              SHX7_2 = SHX1_2.z
-              SHX8_2 = SHX3_2.x
-              SHX9_2 = SHX3_2.y
-              SHX10_2 = SHX3_2.z
-              SHX11_2 = -1
-              SHX12_2 = PlayerPedId
-              SHX12_2 = SHX12_2()
-              SHX13_2 = 8
-              SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-              SHX5_2 = GetShapeTestResult
-              SHX6_2 = SHX4_2
-              SHX5_2, SHX6_2, SHX7_2 = SHX5_2(SHX6_2)
-              if not SHX6_2 or 0 == SHX6_2 then
-                SHX8_2 = nil
-                SHX9_2 = 2.0
-                SHX10_2 = 20
-                SHX11_2 = 500
-                SHX12_2 = 1
-                for SHX13_2 = SHX10_2, SHX11_2, SHX12_2 do
-                  if SHX13_2 > 50 and not SHX8_2 then
-                    SHX9_2 = 10.0
+              arg2 = GetGameplayCamCoord
+              arg2 = arg2()
+              arg3 = CMG
+              arg3 = arg3.rotationToDirection
+              arg4 = GetGameplayCamRot
+              arg5 = 2
+              arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8 = arg4(arg5)
+              arg3 = arg3(arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8)
+              arg4 = arg3 * 500.0
+              arg4 = arg2 + arg4
+              arg5 = _ENV
+              arg6 = "StartExpensiveSynchronousShapeTestLosProbe"
+              arg5 = arg5[arg6]
+              arg6 = arg2.x
+              arg7 = arg2.y
+              arg8 = arg2.z
+              arg9 = arg4.x
+              arg10 = arg4.y
+              arg11 = arg4.z
+              arg122 = -1
+              arg13 = PlayerPedId
+              -- Beginner: result below is localPlayerPed.
+              arg13 = arg13()
+              arg14 = 8
+              arg5 = arg5(arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14)
+              arg6 = GetShapeTestResult
+              arg7 = arg5
+              arg6, arg7, arg8 = arg6(arg7)
+              if not arg7 or 0 == arg7 then
+                arg9 = nil
+                arg10 = 2.0
+                arg11 = 20
+                arg122 = 500
+                arg13 = 1
+                for arg14 = arg11, arg122, arg13 do
+                  if arg14 > 50 and not arg9 then
+                    arg10 = 10.0
                   end
-                  SHX14_2 = SHX2_2 * SHX13_2
-                  SHX14_2 = SHX1_2 + SHX14_2
-                  SHX15_2 = GetGroundZFor_3dCoord
-                  SHX16_2 = SHX14_2.x
-                  SHX17_2 = SHX14_2.y
-                  SHX18_2 = SHX14_2.z
-                  SHX19_2 = 0.0
-                  SHX20_2 = false
-                  SHX15_2, SHX16_2 = SHX15_2(SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2)
-                  if SHX15_2 then
-                    SHX17_2 = vector3
-                    SHX18_2 = SHX14_2.x
-                    SHX19_2 = SHX14_2.y
-                    SHX20_2 = SHX16_2
-                    SHX17_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-                    SHX18_2 = SHX14_2 - SHX17_2
-                    SHX18_2 = #SHX18_2
-                    if SHX9_2 > SHX18_2 then
-                      SHX8_2 = SHX17_2
-                      SHX9_2 = SHX18_2
+                  arg15 = arg3 * arg14
+                  arg15 = arg2 + arg15
+                  arg16 = GetGroundZFor_3dCoord
+                  arg17 = arg15.x
+                  arg18 = arg15.y
+                  numberValue5 = arg15.z
+                  numberValue7 = 0.0
+                  numberValue8 = false
+                  arg16, arg17 = arg16(arg17, arg18, numberValue5, numberValue7, numberValue8)
+                  if arg16 then
+                    arg18 = vector3
+                    numberValue5 = arg15.x
+                    numberValue7 = arg15.y
+                    numberValue8 = arg17
+                    arg18 = arg18(numberValue5, numberValue7, numberValue8)
+                    numberValue5 = arg15 - arg18
+                    numberValue5 = #numberValue5
+                    if arg10 > numberValue5 then
+                      arg9 = arg18
+                      arg10 = numberValue5
                     end
                   end
                 end
-                if SHX8_2 then
-                  SHX6_2 = true
-                  SHX7_2 = SHX8_2
+                if arg9 then
+                  arg7 = true
+                  arg8 = arg9
                 end
               end
-              if SHX6_2 and 0 ~= SHX6_2 then
-                SHX8_2 = GetGameTimer
-                SHX8_2 = SHX8_2()
-                SHX25_1 = SHX8_2
-                SHX8_2 = TriggerServerEvent
-                SHX9_2 = "f1d8cdbd8e"
-                SHX10_2 = SHX7_2
-                SHX11_2 = false
-                SHX8_2(SHX9_2, SHX10_2, SHX11_2)
+              if arg7 and 0 ~= arg7 then
+                arg9 = GetGameTimer
+                -- Beginner: result below is gameTimeMs.
+                arg9 = arg9()
+                numberValue14 = arg9
+                arg9 = TriggerServerEvent
+                arg10 = "f1d8cdbd8e"
+                arg11 = arg8
+                arg122 = false
+                -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f1d8cdbd8e".
+                arg9(arg10, arg11, arg122)
               end
             end
           end
@@ -10674,579 +10317,554 @@ function SHX47_1()
     end
   end
 end
-SHX48_1 = false
-SHX45_1(SHX46_1, SHX47_1, SHX48_1)
-SHX45_1 = RegisterKeyMapping
-SHX46_1 = "pinglocation"
-SHX47_1 = "Create Gang Ping"
-SHX48_1 = "MOUSE_BUTTON"
-SHX49_1 = "MOUSE_MIDDLE"
-SHX45_1(SHX46_1, SHX47_1, SHX48_1, SHX49_1)
-SHX45_1 = RegisterCommand
-SHX46_1 = "deletepinglocation"
-function SHX47_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX33_1
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX1_2 = SHX0_2.pings
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.getClientUserId
-    SHX2_2 = SHX2_2()
-    SHX1_2 = SHX1_2[SHX2_2]
-    if SHX1_2 then
-      SHX1_2 = SHX44_1
-      SHX1_2 = SHX1_2()
-      if SHX1_2 then
-        SHX1_2 = SHX0_2.pings
-        SHX2_2 = CMG
-        SHX2_2 = SHX2_2.getClientUserId
-        SHX2_2 = SHX2_2()
-        SHX1_2 = SHX1_2[SHX2_2]
-        if not SHX1_2 then
+flag4 = false
+-- Beginner: Register a chat/console command. Event/command: "pinglocation".
+textValue4(textValue5, eventRegistration2, flag4)
+textValue4 = RegisterKeyMapping
+textValue5 = "pinglocation"
+eventRegistration2 = "Create Gang Ping"
+flag4 = "MOUSE_BUTTON"
+dataTable6 = "MOUSE_MIDDLE"
+-- Beginner: Bind a command to a keyboard/controller key.
+textValue4(textValue5, eventRegistration2, flag4, dataTable6)
+textValue4 = RegisterCommand
+textValue5 = "deletepinglocation"
+-- Beginner: this function is the command handler for "deletepinglocation".
+function eventRegistration2()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = workValue6
+  arg1 = arg1()
+  if arg1 then
+    arg2 = arg1.pings
+    arg3 = CMG
+    arg3 = arg3.getClientUserId
+    -- Beginner: result below is userId.
+    arg3 = arg3()
+    arg2 = arg2[arg3]
+    if arg2 then
+      arg2 = eventRegistration
+      arg2 = arg2()
+      if arg2 then
+        arg2 = arg1.pings
+        arg3 = CMG
+        arg3 = arg3.getClientUserId
+        -- Beginner: result below is userId.
+        arg3 = arg3()
+        arg2 = arg2[arg3]
+        if not arg2 then
           return
         end
       end
-      SHX1_2 = TriggerServerEvent
-      SHX2_2 = "f1d8cdbd8e"
-      SHX3_2 = nil
-      SHX4_2 = false
-      SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+      arg2 = TriggerServerEvent
+      arg3 = "f1d8cdbd8e"
+      arg4 = nil
+      arg5 = false
+      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f1d8cdbd8e".
+      arg2(arg3, arg4, arg5)
     end
   end
 end
-SHX48_1 = false
-SHX45_1(SHX46_1, SHX47_1, SHX48_1)
-SHX45_1 = RegisterKeyMapping
-SHX46_1 = "deletepinglocation"
-SHX47_1 = "Delete Gang Ping"
-SHX48_1 = "MOUSE_BUTTON"
-SHX49_1 = "MOUSE_MIDDLE"
-SHX45_1(SHX46_1, SHX47_1, SHX48_1, SHX49_1)
-function SHX45_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getGangPingMarkerIndex
-  SHX1_2 = SHX1_2()
-  if 2 == SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isEmergencyService
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.inEvent
-      SHX1_2 = SHX1_2()
-      if not SHX1_2 then
-        SHX1_2 = GetGroundZFor_3dCoord
-        SHX2_2 = SHX0_2.x
-        SHX3_2 = SHX0_2.y
-        SHX4_2 = SHX0_2.z
-        SHX5_2 = SHX0_2.z
-        SHX6_2 = false
-        SHX1_2, SHX2_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-        SHX3_2 = math
-        SHX3_2 = SHX3_2.abs
-        SHX4_2 = SHX0_2.z
-        SHX4_2 = SHX2_2 - SHX4_2
-        SHX3_2 = SHX3_2(SHX4_2)
-        if SHX3_2 > 10.0 then
-          SHX4_2 = SHX0_2.z
-          if SHX4_2 then
-            goto SHX_LABEL_35
+flag4 = false
+-- Beginner: Register a chat/console command. Event/command: "deletepinglocation".
+textValue4(textValue5, eventRegistration2, flag4)
+textValue4 = RegisterKeyMapping
+textValue5 = "deletepinglocation"
+eventRegistration2 = "Delete Gang Ping"
+flag4 = "MOUSE_BUTTON"
+dataTable6 = "MOUSE_MIDDLE"
+-- Beginner: Bind a command to a keyboard/controller key.
+textValue4(textValue5, eventRegistration2, flag4, dataTable6)
+function textValue4(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5
+  arg2 = CMG
+  arg2 = arg2.getGangPingMarkerIndex
+  arg2 = arg2()
+  if 2 == arg2 then
+    arg2 = CMG
+    arg2 = arg2.isEmergencyService
+    arg2 = arg2()
+    if not arg2 then
+      arg2 = CMG
+      arg2 = arg2.inEvent
+      arg2 = arg2()
+      if not arg2 then
+        arg2 = GetGroundZFor_3dCoord
+        arg3 = arg1.x
+        arg4 = arg1.y
+        arg5 = arg1.z
+        arg6 = arg1.z
+        arg7 = false
+        arg2, arg3 = arg2(arg3, arg4, arg5, arg6, arg7)
+        arg4 = math
+        arg4 = arg4.abs
+        arg5 = arg1.z
+        arg5 = arg3 - arg5
+        arg4 = arg4(arg5)
+        if arg4 > 10.0 then
+          arg5 = arg1.z
+          if arg5 then
+            goto flow_label_35
           end
         end
-        SHX4_2 = SHX2_2
-        -- [FIX IF ERROR] Move ::SHX_LABEL_35:: outside nested blocks until all 'goto SHX_LABEL_35' can see it
-        ::SHX_LABEL_35::
-        SHX4_2 = SHX4_2 - 1.0
-        SHX5_2 = CreateCheckpoint
-        SHX6_2 = 47
-        SHX7_2 = SHX0_2.x
-        SHX8_2 = SHX0_2.y
-        SHX9_2 = SHX4_2
-        SHX10_2 = SHX0_2.x
-        SHX11_2 = SHX0_2.y
-        SHX12_2 = SHX0_2.z
-        SHX12_2 = SHX12_2 + 200.0
-        SHX13_2 = 1.0
-        SHX14_2 = 255
-        SHX15_2 = 50
-        SHX16_2 = 50
-        SHX17_2 = 125
-        SHX18_2 = 0
-        return SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
+        arg5 = arg3
+        ::flow_label_35::
+        arg5 = arg5 - 1.0
+        arg6 = CreateCheckpoint
+        arg7 = 47
+        arg8 = arg1.x
+        arg9 = arg1.y
+        arg10 = arg5
+        arg11 = arg1.x
+        arg122 = arg1.y
+        arg13 = arg1.z
+        arg13 = arg13 + 200.0
+        arg14 = 1.0
+        arg15 = 255
+        arg16 = 50
+        arg17 = 50
+        arg18 = 125
+        numberValue5 = 0
+        return arg6(arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5)
     end
   end
   else
-    SHX1_2 = nil
-    return SHX1_2
+    arg2 = nil
+    return arg2
   end
 end
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getGangAdditionalPingMarkerIndex
-  SHX1_2 = SHX1_2()
-  if 2 ~= SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.getGangAdditionalPingMarkerIndex
-    SHX1_2 = SHX1_2()
-    if 4 ~= SHX1_2 then
-      goto SHX_LABEL_25
+function textValue5(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = CMG
+  arg2 = arg2.getGangAdditionalPingMarkerIndex
+  arg2 = arg2()
+  if 2 ~= arg2 then
+    arg2 = CMG
+    arg2 = arg2.getGangAdditionalPingMarkerIndex
+    arg2 = arg2()
+    if 4 ~= arg2 then
+      goto flow_label_25
     end
   end
-  SHX1_2 = AddBlipForCoord
-  SHX2_2 = SHX0_2.x
-  SHX3_2 = SHX0_2.y
-  SHX4_2 = SHX0_2.z
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = SetBlipSprite
-  SHX3_2 = SHX1_2
-  SHX4_2 = 162
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetBlipDisplay
-  SHX3_2 = SHX1_2
-  SHX4_2 = 9
-  SHX2_2(SHX3_2, SHX4_2)
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_25:: outside nested blocks until all 'goto SHX_LABEL_25' can see it
-  ::SHX_LABEL_25::
-  SHX1_2 = nil
-  return SHX1_2
+  arg2 = AddBlipForCoord
+  arg3 = arg1.x
+  arg4 = arg1.y
+  arg5 = arg1.z
+  -- Beginner: result below is blipHandle.
+  arg2 = arg2(arg3, arg4, arg5)
+  arg3 = SetBlipSprite
+  arg4 = arg2
+  arg5 = 162
+  arg3(arg4, arg5)
+  arg3 = SetBlipDisplay
+  arg4 = arg2
+  arg5 = 9
+  arg3(arg4, arg5)
+  return arg2
+  ::flow_label_25::
+  arg2 = nil
+  return arg2
 end
-SHX47_1 = RegisterNetEvent
-SHX48_1 = "f1d8cdbd8e"
-function SHX49_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX2_2 = SHX10_1
-  if SHX2_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.hasRadioItem
-    SHX2_2 = SHX2_2()
-    if SHX2_2 then
-      SHX2_2 = SHX10_1.pings
-      SHX2_2 = SHX2_2[SHX0_2]
-      if SHX2_2 then
-        SHX3_2 = SHX2_2.checkpoint
-        if SHX3_2 then
-          SHX3_2 = DeleteCheckpoint
-          SHX4_2 = SHX2_2.checkpoint
-          SHX3_2(SHX4_2)
-          SHX2_2.checkpoint = nil
+eventRegistration2 = RegisterNetEvent
+flag4 = "f1d8cdbd8e"
+-- Beginner: this function handles network event "f1d8cdbd8e".
+function dataTable6(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8
+  arg3 = workValue
+  if arg3 then
+    arg3 = CMG
+    arg3 = arg3.hasRadioItem
+    arg3 = arg3()
+    if arg3 then
+      arg3 = workValue.pings
+      arg3 = arg3[arg1]
+      if arg3 then
+        arg4 = arg3.checkpoint
+        if arg4 then
+          arg4 = DeleteCheckpoint
+          arg5 = arg3.checkpoint
+          arg4(arg5)
+          arg3.checkpoint = nil
         end
       end
-      if SHX2_2 then
-        SHX3_2 = SHX2_2.blip
-        if SHX3_2 then
-          SHX3_2 = RemoveBlip
-          SHX4_2 = SHX2_2.blip
-          SHX3_2(SHX4_2)
-          SHX2_2.blip = nil
+      if arg3 then
+        arg4 = arg3.blip
+        if arg4 then
+          arg4 = RemoveBlip
+          arg5 = arg3.blip
+          arg4(arg5)
+          arg3.blip = nil
         end
       end
-      if SHX1_2 then
-        SHX3_2 = SHX10_1.pings
-        SHX4_2 = {}
-        SHX4_2.position = SHX1_2
-        SHX5_2 = SHX45_1
-        SHX6_2 = SHX1_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        SHX4_2.checkpoint = SHX5_2
-        SHX5_2 = SHX46_1
-        SHX6_2 = SHX1_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        SHX4_2.blip = SHX5_2
-        SHX3_2[SHX0_2] = SHX4_2
-        SHX3_2 = SHX26_1
-        if SHX3_2 > 0 then
-          SHX3_2 = CMG
-          SHX3_2 = SHX3_2.getClientUserId
-          SHX3_2 = SHX3_2()
-          if SHX0_2 ~= SHX3_2 then
-            SHX3_2 = SendNUIMessage
-            SHX4_2 = {}
-            SHX5_2 = "gangping"
-            SHX6_2 = tostring
-            SHX7_2 = SHX26_1
-            SHX6_2 = SHX6_2(SHX7_2)
-            SHX5_2 = SHX5_2 .. SHX6_2
-            SHX4_2.transactionType = SHX5_2
-            SHX5_2 = SHX27_1
-            SHX4_2.volumeOverride = SHX5_2
-            SHX3_2(SHX4_2)
+      if arg2 then
+        arg4 = workValue.pings
+        arg5 = {}
+        arg5.position = arg2
+        arg6 = textValue4
+        arg7 = arg2
+        arg6 = arg6(arg7)
+        arg5.checkpoint = arg6
+        arg6 = textValue5
+        arg7 = arg2
+        arg6 = arg6(arg7)
+        arg5.blip = arg6
+        arg4[arg1] = arg5
+        arg4 = numberValue16
+        if arg4 > 0 then
+          arg4 = CMG
+          arg4 = arg4.getClientUserId
+          -- Beginner: result below is userId.
+          arg4 = arg4()
+          if arg1 ~= arg4 then
+            arg4 = SendNUIMessage
+            arg5 = {}
+            arg6 = "gangping"
+            arg7 = tostring
+            arg8 = numberValue16
+            arg7 = arg7(arg8)
+            arg6 = arg6 .. arg7
+            arg5.transactionType = arg6
+            arg6 = numberValue18
+            arg5.volumeOverride = arg6
+            -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
+            arg4(arg5)
           end
         end
       else
-        SHX3_2 = SHX10_1.pings
-        SHX3_2[SHX0_2] = nil
+        arg4 = workValue.pings
+        arg4[arg1] = nil
       end
     end
   end
 end
-SHX47_1(SHX48_1, SHX49_1)
-SHX47_1 = RegisterNetEvent
-SHX48_1 = "eef17f8aa1"
-function SHX49_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX20_1
-  if SHX2_2 then
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.hasRadioItem
-    SHX2_2 = SHX2_2()
-    if SHX2_2 then
-      SHX2_2 = SHX20_1.pings
-      SHX2_2 = SHX2_2[SHX0_2]
-      if SHX2_2 then
-        SHX3_2 = SHX2_2.checkpoint
-        if SHX3_2 then
-          SHX3_2 = DeleteCheckpoint
-          SHX4_2 = SHX2_2.checkpoint
-          SHX3_2(SHX4_2)
-          SHX2_2.checkpoint = nil
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "f1d8cdbd8e".
+eventRegistration2(flag4, dataTable6)
+eventRegistration2 = RegisterNetEvent
+flag4 = "eef17f8aa1"
+-- Beginner: this function handles network event "eef17f8aa1".
+function dataTable6(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7
+  arg3 = workValue3
+  if arg3 then
+    arg3 = CMG
+    arg3 = arg3.hasRadioItem
+    arg3 = arg3()
+    if arg3 then
+      arg3 = workValue3.pings
+      arg3 = arg3[arg1]
+      if arg3 then
+        arg4 = arg3.checkpoint
+        if arg4 then
+          arg4 = DeleteCheckpoint
+          arg5 = arg3.checkpoint
+          arg4(arg5)
+          arg3.checkpoint = nil
         end
       end
-      if SHX2_2 then
-        SHX3_2 = SHX2_2.blip
-        if SHX3_2 then
-          SHX3_2 = RemoveBlip
-          SHX4_2 = SHX2_2.blip
-          SHX3_2(SHX4_2)
-          SHX2_2.blip = nil
+      if arg3 then
+        arg4 = arg3.blip
+        if arg4 then
+          arg4 = RemoveBlip
+          arg5 = arg3.blip
+          arg4(arg5)
+          arg3.blip = nil
         end
       end
-      if SHX1_2 then
-        SHX3_2 = SHX20_1.pings
-        SHX4_2 = {}
-        SHX4_2.position = SHX1_2
-        SHX5_2 = SHX45_1
-        SHX6_2 = SHX1_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        SHX4_2.checkpoint = SHX5_2
-        SHX5_2 = SHX46_1
-        SHX6_2 = SHX1_2
-        SHX5_2 = SHX5_2(SHX6_2)
-        SHX4_2.blip = SHX5_2
-        SHX3_2[SHX0_2] = SHX4_2
+      if arg2 then
+        arg4 = workValue3.pings
+        arg5 = {}
+        arg5.position = arg2
+        arg6 = textValue4
+        arg7 = arg2
+        arg6 = arg6(arg7)
+        arg5.checkpoint = arg6
+        arg6 = textValue5
+        arg7 = arg2
+        arg6 = arg6(arg7)
+        arg5.blip = arg6
+        arg4[arg1] = arg5
       else
-        SHX3_2 = SHX20_1.pings
-        SHX3_2[SHX0_2] = nil
+        arg4 = workValue3.pings
+        arg4[arg1] = nil
       end
     end
   end
 end
-SHX47_1(SHX48_1, SHX49_1)
-SHX47_1 = 0.8
-SHX48_1 = 0
-SHX49_1 = {}
-SHX49_1.metpd = true
-SHX49_1.nhs = true
-SHX49_1.hmp = true
-SHX49_1.lfb = true
-function SHX50_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2
-  SHX0_2 = 0
-  SHX1_2 = SHX33_1
-  SHX1_2 = SHX1_2()
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getGangUIPostion
-  SHX2_2 = SHX2_2()
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getShowHealthPercentageFlag
-  SHX3_2 = SHX3_2()
-  SHX4_2 = {}
-  if SHX1_2 then
-    SHX5_2 = SHX1_2.isAdvanced
-    if SHX5_2 then
-      SHX5_2 = CMG
-      SHX5_2 = SHX5_2.isEmergencyService
-      SHX5_2 = SHX5_2()
-      if not SHX5_2 then
-        SHX5_2 = CMG
-        SHX5_2 = SHX5_2.isDisplayVisible
-        SHX6_2 = "gang"
-        SHX5_2 = SHX5_2(SHX6_2)
-        if SHX5_2 then
-          SHX5_2 = CMG
-          SHX5_2 = SHX5_2.inEvent
-          SHX5_2 = SHX5_2()
-          if not SHX5_2 then
-            SHX5_2 = CMG
-            SHX5_2 = SHX5_2.hasRadioItem
-            SHX5_2 = SHX5_2()
-            if SHX5_2 then
-              SHX5_2 = SHX15_1.pings
-              if SHX5_2 then
-                SHX5_2 = GetGameplayCamCoord
-                SHX5_2 = SHX5_2()
-                SHX6_2 = HasStreamedTextureDictLoaded
-                SHX7_2 = "cmg_gang"
-                SHX6_2 = SHX6_2(SHX7_2)
-                SHX7_2 = GetActiveScreenResolution
-                SHX7_2, SHX8_2 = SHX7_2()
-                SHX9_2 = SHX7_2 / SHX8_2
-                SHX10_2 = CMG
-                SHX10_2 = SHX10_2.getGangAdditionalPingMarkerIndex
-                SHX10_2 = SHX10_2()
-                SHX11_2 = pairs
-                SHX12_2 = SHX1_2.pings
-                SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-                for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-                  SHX17_2 = GetScreenCoordFromWorldCoord
-                  SHX18_2 = SHX16_2.position
-                  SHX18_2 = SHX18_2.x
-                  SHX19_2 = SHX16_2.position
-                  SHX19_2 = SHX19_2.y
-                  SHX20_2 = SHX16_2.position
-                  SHX20_2 = SHX20_2.z
-                  SHX17_2, SHX18_2, SHX19_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2)
-                  if SHX17_2 then
-                    SHX20_2 = SHX34_1
-                    SHX21_2 = SHX1_2
-                    SHX20_2 = SHX20_2(SHX21_2)
-                    SHX20_2 = SHX20_2[SHX15_2]
-                    if SHX20_2 then
-                      SHX21_2 = SHX16_2.position
-                      SHX21_2 = SHX5_2 - SHX21_2
-                      SHX21_2 = #SHX21_2
-                      SHX22_2 = tostring
-                      SHX23_2 = math
-                      SHX23_2 = SHX23_2.floor
-                      SHX24_2 = SHX21_2
-                      SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX23_2(SHX24_2)
-                      SHX22_2 = SHX22_2(SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-                      SHX23_2 = "m"
-                      SHX22_2 = SHX22_2 .. SHX23_2
-                      SHX23_2 = 1000.0
-                      if SHX21_2 > SHX23_2 then
-                        SHX23_2 = tostring
-                        SHX24_2 = math
-                        SHX24_2 = SHX24_2.round
-                        SHX25_2 = SHX21_2 / 1000.0
-                        SHX26_2 = 1
-                        SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX24_2(SHX25_2, SHX26_2)
-                        SHX23_2 = SHX23_2(SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-                        SHX24_2 = "km"
-                        SHX23_2 = SHX23_2 .. SHX24_2
-                        SHX22_2 = SHX23_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "eef17f8aa1".
+eventRegistration2(flag4, dataTable6)
+eventRegistration2 = 0.8
+flag4 = 0
+dataTable6 = {}
+dataTable6.metpd = true
+dataTable6.nhs = true
+dataTable6.hmp = true
+dataTable6.lfb = true
+function workValue17()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26
+  arg1 = 0
+  arg2 = workValue6
+  arg2 = arg2()
+  arg3 = CMG
+  arg3 = arg3.getGangUIPostion
+  arg3 = arg3()
+  arg4 = CMG
+  arg4 = arg4.getShowHealthPercentageFlag
+  arg4 = arg4()
+  arg5 = {}
+  if arg2 then
+    arg6 = arg2.isAdvanced
+    if arg6 then
+      arg6 = CMG
+      arg6 = arg6.isEmergencyService
+      arg6 = arg6()
+      if not arg6 then
+        arg6 = CMG
+        arg6 = arg6.isDisplayVisible
+        arg7 = "gang"
+        arg6 = arg6(arg7)
+        if arg6 then
+          arg6 = CMG
+          arg6 = arg6.inEvent
+          arg6 = arg6()
+          if not arg6 then
+            arg6 = CMG
+            arg6 = arg6.hasRadioItem
+            arg6 = arg6()
+            if arg6 then
+              arg6 = dataTable.pings
+              if arg6 then
+                arg6 = GetGameplayCamCoord
+                arg6 = arg6()
+                arg7 = HasStreamedTextureDictLoaded
+                arg8 = "cmg_gang"
+                arg7 = arg7(arg8)
+                arg8 = GetActiveScreenResolution
+                arg8, arg9 = arg8()
+                arg10 = arg8 / arg9
+                arg11 = CMG
+                arg11 = arg11.getGangAdditionalPingMarkerIndex
+                arg11 = arg11()
+                arg122 = pairs
+                arg13 = arg2.pings
+                arg122, arg13, arg14, arg15 = arg122(arg13)
+                for arg16, arg17 in arg122, arg13, arg14, arg15 do
+                  arg18 = GetScreenCoordFromWorldCoord
+                  numberValue5 = arg17.position
+                  numberValue5 = numberValue5.x
+                  numberValue7 = arg17.position
+                  numberValue7 = numberValue7.y
+                  numberValue8 = arg17.position
+                  numberValue8 = numberValue8.z
+                  arg18, numberValue5, numberValue7 = arg18(numberValue5, numberValue7, numberValue8)
+                  if arg18 then
+                    numberValue8 = workValue7
+                    numberValue9 = arg2
+                    numberValue8 = numberValue8(numberValue9)
+                    numberValue8 = numberValue8[arg16]
+                    if numberValue8 then
+                      numberValue9 = arg17.position
+                      numberValue9 = arg6 - numberValue9
+                      numberValue9 = #numberValue9
+                      numberValue10 = tostring
+                      numberValue12 = math
+                      numberValue12 = numberValue12.floor
+                      numberValue13 = numberValue9
+                      numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue12(numberValue13)
+                      numberValue10 = numberValue10(numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
+                      numberValue12 = "m"
+                      numberValue10 = numberValue10 .. numberValue12
+                      numberValue12 = 1000.0
+                      if numberValue9 > numberValue12 then
+                        numberValue12 = tostring
+                        numberValue13 = math
+                        numberValue13 = numberValue13.round
+                        numberValue15 = numberValue9 / 1000.0
+                        numberValue17 = 1
+                        numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue13(numberValue15, numberValue17)
+                        numberValue12 = numberValue12(numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
+                        numberValue13 = "km"
+                        numberValue12 = numberValue12 .. numberValue13
+                        numberValue10 = numberValue12
                       end
-                      SHX23_2 = math
-                      SHX23_2 = SHX23_2.min
-                      SHX24_2 = SHX21_2 / 1000.0
-                      SHX25_2 = 1.0
-                      SHX23_2 = SHX23_2(SHX24_2, SHX25_2)
-                      SHX23_2 = 0.4 * SHX23_2
-                      SHX24_2 = CMG
-                      SHX24_2 = SHX24_2.DrawText
-                      SHX25_2 = SHX18_2
-                      SHX26_2 = SHX19_2
-                      SHX27_2 = SHX20_2.name
-                      SHX28_2 = "\n"
-                      SHX29_2 = SHX22_2
-                      SHX27_2 = SHX27_2 .. SHX28_2 .. SHX29_2
-                      SHX28_2 = 1.0
-                      SHX28_2 = SHX28_2 - SHX23_2
-                      SHX28_2 = 0.2 * SHX28_2
-                      SHX29_2 = SHX47_1
-                      SHX28_2 = SHX28_2 * SHX29_2
-                      SHX29_2 = 0
-                      SHX30_2 = 0
-                      SHX31_2 = nil
-                      SHX32_2 = true
-                      SHX24_2(SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2)
-                      if SHX6_2 then
-                        SHX24_2 = CMG
-                        SHX24_2 = SHX24_2.getGangPingMarkerIndex
-                        SHX24_2 = SHX24_2()
-                        if 3 == SHX24_2 then
-                          SHX24_2 = SHX23_2 * 1.25
-                          SHX25_2 = 1.0
-                          SHX24_2 = SHX25_2 - SHX24_2
-                          SHX25_2 = DrawSprite
-                          SHX26_2 = "cmg_gang"
-                          SHX27_2 = "ping"
-                          SHX28_2 = SHX18_2
-                          SHX29_2 = 0.01 * SHX24_2
-                          SHX30_2 = SHX47_1
-                          SHX29_2 = SHX29_2 * SHX30_2
-                          SHX29_2 = SHX19_2 - SHX29_2
-                          SHX30_2 = 0.03
-                          SHX30_2 = SHX30_2 / SHX9_2
-                          SHX30_2 = SHX30_2 * SHX24_2
-                          SHX31_2 = SHX47_1
-                          SHX30_2 = SHX30_2 * SHX31_2
-                          SHX31_2 = 0.03 * SHX24_2
-                          SHX32_2 = SHX47_1
-                          SHX31_2 = SHX31_2 * SHX32_2
-                          SHX32_2 = 0
-                          SHX33_2 = 255
-                          SHX34_2 = 255
-                          SHX35_2 = 255
-                          SHX36_2 = 255
-                          SHX25_2(SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
+                      numberValue12 = math
+                      numberValue12 = numberValue12.min
+                      numberValue13 = numberValue9 / 1000.0
+                      numberValue15 = 1.0
+                      numberValue12 = numberValue12(numberValue13, numberValue15)
+                      numberValue12 = 0.4 * numberValue12
+                      numberValue13 = CMG
+                      numberValue13 = numberValue13.DrawText
+                      numberValue15 = numberValue5
+                      numberValue17 = numberValue7
+                      numberValue19 = numberValue8.name
+                      numberValue20 = "\n"
+                      numberValue21 = numberValue10
+                      numberValue19 = numberValue19 .. numberValue20 .. numberValue21
+                      numberValue20 = 1.0
+                      numberValue20 = numberValue20 - numberValue12
+                      numberValue20 = 0.2 * numberValue20
+                      numberValue21 = eventRegistration2
+                      numberValue20 = numberValue20 * numberValue21
+                      numberValue21 = 0
+                      numberValue22 = 0
+                      numberValue23 = nil
+                      flag3 = true
+                      numberValue13(numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3)
+                      if arg7 then
+                        numberValue13 = CMG
+                        numberValue13 = numberValue13.getGangPingMarkerIndex
+                        numberValue13 = numberValue13()
+                        if 3 == numberValue13 then
+                          numberValue13 = numberValue12 * 1.25
+                          numberValue15 = 1.0
+                          numberValue13 = numberValue15 - numberValue13
+                          numberValue15 = DrawSprite
+                          numberValue17 = "cmg_gang"
+                          numberValue19 = "ping"
+                          numberValue20 = numberValue5
+                          numberValue21 = 0.01 * numberValue13
+                          numberValue22 = eventRegistration2
+                          numberValue21 = numberValue21 * numberValue22
+                          numberValue21 = numberValue7 - numberValue21
+                          numberValue22 = 0.03
+                          numberValue22 = numberValue22 / arg10
+                          numberValue22 = numberValue22 * numberValue13
+                          numberValue23 = eventRegistration2
+                          numberValue22 = numberValue22 * numberValue23
+                          numberValue23 = 0.03 * numberValue13
+                          flag3 = eventRegistration2
+                          numberValue23 = numberValue23 * flag3
+                          flag3 = 0
+                          numberValue24 = 255
+                          vector3Builder = 255
+                          numberValue25 = 255
+                          numberValue26 = 255
+                          numberValue15(numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
                         end
                       end
                     end
                   end
-                  if 3 == SHX10_2 or 4 == SHX10_2 then
-                    SHX20_2 = CMG
-                    SHX20_2 = SHX20_2.getPlayerCoords
-                    SHX20_2 = SHX20_2()
-                    SHX21_2 = math
-                    SHX21_2 = SHX21_2.deg
-                    SHX22_2 = math
-                    SHX22_2 = SHX22_2.atan
-                    SHX23_2 = SHX16_2.position
-                    SHX23_2 = SHX23_2.x
-                    SHX24_2 = SHX20_2.x
-                    SHX23_2 = SHX23_2 - SHX24_2
-                    SHX24_2 = SHX16_2.position
-                    SHX24_2 = SHX24_2.y
-                    SHX25_2 = SHX20_2.y
-                    SHX24_2 = SHX24_2 - SHX25_2
-                    SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX22_2(SHX23_2, SHX24_2)
-                    SHX21_2 = SHX21_2(SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-                    SHX21_2 = SHX21_2 % 360
-                    SHX22_2 = CMG
-                    SHX22_2 = SHX22_2.addCompassPing
-                    SHX23_2 = SHX21_2
-                    SHX22_2(SHX23_2)
+                  if 3 == arg11 or 4 == arg11 then
+                    numberValue8 = CMG
+                    numberValue8 = numberValue8.getPlayerCoords
+                    -- Beginner: result below is playerCoords.
+                    numberValue8 = numberValue8()
+                    numberValue9 = math
+                    numberValue9 = numberValue9.deg
+                    numberValue10 = math
+                    numberValue10 = numberValue10.atan
+                    numberValue12 = arg17.position
+                    numberValue12 = numberValue12.x
+                    numberValue13 = numberValue8.x
+                    numberValue12 = numberValue12 - numberValue13
+                    numberValue13 = arg17.position
+                    numberValue13 = numberValue13.y
+                    numberValue15 = numberValue8.y
+                    numberValue13 = numberValue13 - numberValue15
+                    numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue10(numberValue12, numberValue13)
+                    numberValue9 = numberValue9(numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
+                    numberValue9 = numberValue9 % 360
+                    numberValue10 = CMG
+                    numberValue10 = numberValue10.addCompassPing
+                    numberValue12 = numberValue9
+                    numberValue10(numberValue12)
                   end
                 end
               end
-              SHX5_2 = pairs
-              SHX6_2 = SHX34_1
-              SHX7_2 = SHX1_2
-              SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX6_2(SHX7_2)
-              SHX5_2, SHX6_2, SHX7_2, SHX8_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-              for SHX9_2, SHX10_2 in SHX5_2, SHX6_2, SHX7_2, SHX8_2 do
-                SHX11_2 = SHX15_1.pinnedPlayers
-                SHX11_2 = SHX11_2[SHX9_2]
-                if SHX11_2 then
-                  SHX11_2 = fullPlayerListData
-                  SHX11_2 = SHX11_2[SHX9_2]
-                  if SHX11_2 then
-                    SHX11_2 = CMG
-                    SHX11_2 = SHX11_2.getJobType
-                    SHX12_2 = SHX9_2
-                    SHX11_2 = SHX11_2(SHX12_2)
-                    SHX12_2 = SHX49_1
-                    SHX11_2 = SHX12_2[SHX11_2]
-                    if not SHX11_2 then
-                      SHX11_2 = true
-                      SHX12_2 = nil
-                      SHX13_2 = nil
-                      SHX14_2 = SHX16_1
-                      SHX14_2 = SHX14_2[SHX9_2]
-                      if SHX14_2 then
-                        SHX12_2 = SHX14_2.health
-                        SHX13_2 = SHX14_2.armour
+              arg6 = pairs
+              arg7 = workValue7
+              arg8 = arg2
+              arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = arg7(arg8)
+              arg6, arg7, arg8, arg9 = arg6(arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
+              for arg10, arg11 in arg6, arg7, arg8, arg9 do
+                arg122 = dataTable.pinnedPlayers
+                arg122 = arg122[arg10]
+                if arg122 then
+                  arg122 = fullPlayerListData
+                  arg122 = arg122[arg10]
+                  if arg122 then
+                    arg122 = CMG
+                    arg122 = arg122.getJobType
+                    arg13 = arg10
+                    arg122 = arg122(arg13)
+                    arg13 = dataTable6
+                    arg122 = arg13[arg122]
+                    if not arg122 then
+                      arg122 = true
+                      arg13 = nil
+                      arg14 = nil
+                      arg15 = dataTable2
+                      arg15 = arg15[arg10]
+                      if arg15 then
+                        arg13 = arg15.health
+                        arg14 = arg15.armour
                       end
-                      SHX15_2 = fullPlayerListData
-                      SHX15_2 = SHX15_2[SHX9_2]
-                      SHX15_2 = SHX15_2[1]
-                      if SHX15_2 then
-                        SHX16_2 = GetPlayerFromServerId
-                        SHX17_2 = SHX15_2
-                        SHX16_2 = SHX16_2(SHX17_2)
-                        if -1 ~= SHX16_2 then
-                          SHX17_2 = GetPlayerPed
-                          SHX18_2 = SHX16_2
-                          SHX17_2 = SHX17_2(SHX18_2)
-                          if 0 ~= SHX17_2 then
-                            SHX18_2 = GetEntityHealth
-                            SHX19_2 = SHX17_2
-                            SHX18_2 = SHX18_2(SHX19_2)
-                            SHX12_2 = SHX18_2
-                            SHX18_2 = GetPedArmour
-                            SHX19_2 = SHX17_2
-                            SHX18_2 = SHX18_2(SHX19_2)
-                            SHX13_2 = SHX18_2
-                            SHX11_2 = false
+                      arg16 = fullPlayerListData
+                      arg16 = arg16[arg10]
+                      arg16 = arg16[1]
+                      if arg16 then
+                        arg17 = GetPlayerFromServerId
+                        arg18 = arg16
+                        -- Beginner: result below is playerIndex.
+                        arg17 = arg17(arg18)
+                        if -1 ~= arg17 then
+                          arg18 = GetPlayerPed
+                          numberValue5 = arg17
+                          -- Beginner: result below is playerPed.
+                          arg18 = arg18(numberValue5)
+                          if 0 ~= arg18 then
+                            numberValue5 = GetEntityHealth
+                            numberValue7 = arg18
+                            -- Beginner: result below is health.
+                            numberValue5 = numberValue5(numberValue7)
+                            arg13 = numberValue5
+                            numberValue5 = GetPedArmour
+                            numberValue7 = arg18
+                            numberValue5 = numberValue5(numberValue7)
+                            arg14 = numberValue5
+                            arg122 = false
                           end
                         end
                       end
-                      if SHX12_2 and SHX13_2 then
-                        SHX16_2 = math
-                        SHX16_2 = SHX16_2.min
-                        SHX17_2 = SHX12_2
-                        SHX18_2 = 200
-                        SHX16_2 = SHX16_2(SHX17_2, SHX18_2)
-                        SHX17_2 = math
-                        SHX17_2 = SHX17_2.max
-                        SHX18_2 = 0
-                        SHX19_2 = math
-                        SHX19_2 = SHX19_2.floor
-                        SHX20_2 = SHX16_2 - 100
-                        SHX20_2 = SHX20_2 / 100.0
-                        SHX20_2 = SHX20_2 * 100
-                        SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2 = SHX19_2(SHX20_2)
-                        SHX17_2 = SHX17_2(SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2)
-                        SHX18_2 = SHX13_2
-                        if SHX12_2 <= 102 then
-                          SHX18_2 = 0
+                      if arg13 and arg14 then
+                        arg17 = math
+                        arg17 = arg17.min
+                        arg18 = arg13
+                        numberValue5 = 200
+                        arg17 = arg17(arg18, numberValue5)
+                        arg18 = math
+                        arg18 = arg18.max
+                        numberValue5 = 0
+                        numberValue7 = math
+                        numberValue7 = numberValue7.floor
+                        numberValue8 = arg17 - 100
+                        numberValue8 = numberValue8 / 100.0
+                        numberValue8 = numberValue8 * 100
+                        numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26 = numberValue7(numberValue8)
+                        arg18 = arg18(numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26)
+                        numberValue5 = arg14
+                        if arg13 <= 102 then
+                          numberValue5 = 0
                         end
-                        if nil ~= SHX14_2 then
-                          SHX19_2 = SHX14_2.hasRadio
+                        if nil ~= arg15 then
+                          numberValue7 = arg15.hasRadio
                         end
-                        SHX19_2 = CMG
-                        SHX19_2 = SHX19_2.doesPlayerHaveRadioItem
-                        SHX20_2 = SHX15_2
-                        SHX19_2 = true == SHX19_2 or SHX19_2
-                        SHX20_2 = table
-                        SHX20_2 = SHX20_2.insert
-                        SHX21_2 = SHX4_2
-                        SHX22_2 = {}
-                        SHX23_2 = SHX10_2.name
-                        SHX22_2.name = SHX23_2
-                        SHX22_2.health = SHX17_2
-                        SHX22_2.armour = SHX18_2
-                        SHX22_2.hasRadio = SHX19_2
-                        SHX20_2(SHX21_2, SHX22_2)
+                        numberValue7 = CMG
+                        numberValue7 = numberValue7.doesPlayerHaveRadioItem
+                        numberValue8 = arg16
+                        numberValue7 = true == numberValue7 or numberValue7
+                        numberValue8 = table
+                        numberValue8 = numberValue8.insert
+                        numberValue9 = arg5
+                        numberValue10 = {}
+                        numberValue12 = arg11.name
+                        numberValue10.name = numberValue12
+                        numberValue10.health = arg18
+                        numberValue10.armour = numberValue5
+                        numberValue10.hasRadio = numberValue7
+                        numberValue8(numberValue9, numberValue10)
                       end
-                      if SHX11_2 then
-                        SHX0_2 = SHX0_2 + 1
+                      if arg122 then
+                        arg1 = arg1 + 1
                       end
                     end
                   end
@@ -11258,1397 +10876,1253 @@ function SHX50_1()
       end
     end
   end
-  SHX5_2 = GetGameTimer
-  SHX5_2 = SHX5_2()
-  SHX6_2 = SHX48_1
-  SHX6_2 = SHX5_2 - SHX6_2
-  if SHX6_2 > 100 then
-    SHX48_1 = SHX5_2
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.uiSendMessage
-    SHX7_2 = {}
-    SHX7_2.action = "GANG_PINNED_UPDATE"
-    SHX8_2 = {}
-    SHX8_2.players = SHX4_2
-    SHX9_2 = {}
-    SHX10_2 = SHX2_2.x
-    SHX9_2.x = SHX10_2
-    SHX10_2 = SHX2_2.y
-    SHX9_2.y = SHX10_2
-    SHX8_2.position = SHX9_2
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.getGangUIScaleMultiplier
-    SHX9_2 = SHX9_2()
-    SHX8_2.scale = SHX9_2
-    SHX8_2.showPercentage = SHX3_2
-    SHX7_2.payload = SHX8_2
-    SHX6_2(SHX7_2)
+  arg6 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg6 = arg6()
+  arg7 = flag4
+  arg7 = arg6 - arg7
+  if arg7 > 100 then
+    flag4 = arg6
+    arg7 = CMG
+    arg7 = arg7.uiSendMessage
+    arg8 = {}
+    arg8.action = "GANG_PINNED_UPDATE"
+    arg9 = {}
+    arg9.players = arg5
+    arg10 = {}
+    arg11 = arg3.x
+    arg10.x = arg11
+    arg11 = arg3.y
+    arg10.y = arg11
+    arg9.position = arg10
+    arg10 = CMG
+    arg10 = arg10.getGangUIScaleMultiplier
+    arg10 = arg10()
+    arg9.scale = arg10
+    arg9.showPercentage = arg4
+    arg8.payload = arg9
+    arg7(arg8)
   end
-  SHX6_2 = SHX17_1
-  if SHX6_2 then
-    SHX6_2 = SHX17_1
-    if SHX6_2 == SHX1_2 then
-      if SHX0_2 <= 0 then
-        SHX6_2 = TriggerServerEvent
-        SHX7_2 = "dc39cfbe4e"
-        SHX8_2 = nil
-        SHX6_2(SHX7_2, SHX8_2)
-        SHX6_2 = nil
-        SHX17_1 = SHX6_2
+  arg7 = numberValue4
+  if arg7 then
+    arg7 = numberValue4
+    if arg7 == arg2 then
+      if arg1 <= 0 then
+        arg7 = TriggerServerEvent
+        arg8 = "dc39cfbe4e"
+        arg9 = nil
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "dc39cfbe4e".
+        arg7(arg8, arg9)
+        arg7 = nil
+        numberValue4 = arg7
       end
   end
-  elseif SHX0_2 > 0 then
-    SHX6_2 = SHX10_1
-    if SHX1_2 == SHX6_2 then
-      SHX6_2 = "own"
-      if SHX6_2 then
-        goto SHX_LABEL_366
+  elseif arg1 > 0 then
+    arg7 = workValue
+    if arg2 == arg7 then
+      arg7 = "own"
+      if arg7 then
+        goto flow_label_366
       end
     end
-    SHX6_2 = "guest"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_366:: outside nested blocks until all 'goto SHX_LABEL_366' can see it
-    ::SHX_LABEL_366::
-    SHX7_2 = TriggerServerEvent
-    SHX8_2 = "dc39cfbe4e"
-    SHX9_2 = SHX6_2
-    SHX7_2(SHX8_2, SHX9_2)
-    SHX17_1 = SHX1_2
+    arg7 = "guest"
+    ::flow_label_366::
+    arg8 = TriggerServerEvent
+    arg9 = "dc39cfbe4e"
+    arg10 = arg7
+    arg8(arg9, arg10)
+    numberValue4 = arg2
   end
 end
-SHX51_1 = AddEventHandler
-SHX52_1 = "CMG:onDisplayVisiblityChange"
-function SHX53_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  if "gang" ~= SHX0_2 then
+cmgCall9 = AddEventHandler
+cmgCall10 = "CMG:onDisplayVisiblityChange"
+-- Beginner: this function runs when client event "CMG:onDisplayVisiblityChange" fires.
+function threadCall(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7, arg8
+  if "gang" ~= arg1 then
     return
   end
-  if SHX1_2 then
+  if arg2 then
     return
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.getGangUIPostion
-  SHX2_2 = SHX2_2()
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.uiSendMessage
-  SHX4_2 = {}
-  SHX4_2.action = "GANG_PINNED_UPDATE"
-  SHX5_2 = {}
-  SHX6_2 = {}
-  SHX5_2.players = SHX6_2
-  SHX6_2 = {}
-  SHX7_2 = SHX2_2.x
-  SHX6_2.x = SHX7_2
-  SHX7_2 = SHX2_2.y
-  SHX6_2.y = SHX7_2
-  SHX5_2.position = SHX6_2
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getGangUIScaleMultiplier
-  SHX6_2 = SHX6_2()
-  SHX5_2.scale = SHX6_2
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.getShowHealthPercentageFlag
-  SHX6_2 = SHX6_2()
-  SHX5_2.showPercentage = SHX6_2
-  SHX4_2.payload = SHX5_2
-  SHX3_2(SHX4_2)
+  arg3 = CMG
+  arg3 = arg3.getGangUIPostion
+  arg3 = arg3()
+  arg4 = CMG
+  arg4 = arg4.uiSendMessage
+  arg5 = {}
+  arg5.action = "GANG_PINNED_UPDATE"
+  arg6 = {}
+  arg7 = {}
+  arg6.players = arg7
+  arg7 = {}
+  arg8 = arg3.x
+  arg7.x = arg8
+  arg8 = arg3.y
+  arg7.y = arg8
+  arg6.position = arg7
+  arg7 = CMG
+  arg7 = arg7.getGangUIScaleMultiplier
+  arg7 = arg7()
+  arg6.scale = arg7
+  arg7 = CMG
+  arg7 = arg7.getShowHealthPercentageFlag
+  arg7 = arg7()
+  arg6.showPercentage = arg7
+  arg5.payload = arg6
+  arg4(arg5)
 end
-SHX51_1(SHX52_1, SHX53_1)
-SHX51_1 = CMG
-SHX51_1 = SHX51_1.createThreadOnTick
-SHX52_1 = SHX50_1
-SHX53_1 = "Gang Location Pings"
-SHX51_1(SHX52_1, SHX53_1)
-SHX51_1 = RegisterNetEvent
-SHX52_1 = "028443631e"
-function SHX53_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX33_1
-  SHX1_2 = SHX1_2()
-  if "polblips" == SHX0_2 and SHX1_2 then
-    SHX2_2 = SHX1_2.isAdvanced
-    if SHX2_2 then
-      SHX2_2 = SHX15_1.blips
-      if SHX2_2 then
-        SHX2_2 = TriggerEvent
-        SHX3_2 = "e713d91b70"
-        SHX2_2(SHX3_2)
-        SHX2_2 = TriggerServerEvent
-        SHX3_2 = "f9c26121e2"
-        SHX4_2 = "own"
-        SHX2_2(SHX3_2, SHX4_2)
+-- Beginner: Register a client-side event handler. Event/command: "CMG:onDisplayVisiblityChange".
+cmgCall9(cmgCall10, threadCall)
+cmgCall9 = CMG
+cmgCall9 = cmgCall9.createThreadOnTick
+cmgCall10 = workValue17
+threadCall = "Gang Location Pings"
+-- Beginner: Run a helper every game frame while this script is active.
+cmgCall9(cmgCall10, threadCall)
+cmgCall9 = RegisterNetEvent
+cmgCall10 = "028443631e"
+-- Beginner: this function handles network event "028443631e".
+function threadCall(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = workValue6
+  arg2 = arg2()
+  if "polblips" == arg1 and arg2 then
+    arg3 = arg2.isAdvanced
+    if arg3 then
+      arg3 = dataTable.blips
+      if arg3 then
+        arg3 = TriggerEvent
+        arg4 = "e713d91b70"
+        -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e713d91b70".
+        arg3(arg4)
+        arg3 = TriggerServerEvent
+        arg4 = "f9c26121e2"
+        arg5 = "own"
+        -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f9c26121e2".
+        arg3(arg4, arg5)
       end
     end
   end
 end
-SHX51_1(SHX52_1, SHX53_1)
-SHX51_1 = Citizen
-SHX51_1 = SHX51_1.CreateThread
-function SHX52_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "028443631e".
+cmgCall9(cmgCall10, threadCall)
+cmgCall9 = Citizen
+cmgCall9 = cmgCall9.CreateThread
+function cmgCall10()
+  local arg1, arg2, arg3, arg4, arg5
   while true do
-    SHX0_2 = SHX25_1
-    if SHX0_2 > 0 then
-      SHX0_2 = GetGameTimer
-      SHX0_2 = SHX0_2()
-      SHX1_2 = SHX25_1
-      SHX0_2 = SHX0_2 - SHX1_2
-      SHX1_2 = 300000
-      if SHX0_2 > SHX1_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.getClientUserId
-        SHX0_2 = SHX0_2()
-        SHX1_2 = SHX10_1
-        if SHX1_2 then
-          SHX1_2 = SHX10_1.pings
-          if SHX1_2 then
-            SHX1_2 = SHX10_1.pings
-            SHX1_2 = SHX1_2[SHX0_2]
-            if SHX1_2 then
-              SHX1_2 = TriggerServerEvent
-              SHX2_2 = "f1d8cdbd8e"
-              SHX3_2 = nil
-              SHX4_2 = false
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    arg1 = numberValue14
+    if arg1 > 0 then
+      arg1 = GetGameTimer
+      -- Beginner: result below is gameTimeMs.
+      arg1 = arg1()
+      arg2 = numberValue14
+      arg1 = arg1 - arg2
+      arg2 = 300000
+      if arg1 > arg2 then
+        arg1 = CMG
+        arg1 = arg1.getClientUserId
+        -- Beginner: result below is userId.
+        arg1 = arg1()
+        arg2 = workValue
+        if arg2 then
+          arg2 = workValue.pings
+          if arg2 then
+            arg2 = workValue.pings
+            arg2 = arg2[arg1]
+            if arg2 then
+              arg2 = TriggerServerEvent
+              arg3 = "f1d8cdbd8e"
+              arg4 = nil
+              arg5 = false
+              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "f1d8cdbd8e".
+              arg2(arg3, arg4, arg5)
             end
           end
         end
-        SHX1_2 = 0
-        SHX25_1 = SHX1_2
+        arg2 = 0
+        numberValue14 = arg2
       end
     end
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 15000
-    SHX0_2(SHX1_2)
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 15000
+    arg1(arg2)
   end
 end
-SHX51_1(SHX52_1)
-SHX51_1 = AddEventHandler
-SHX52_1 = "1c597fc419"
-function SHX53_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  SHX26_1 = SHX0_2
-  if SHX1_2 >= 0.0 and SHX1_2 <= 1.0 then
-    SHX27_1 = SHX1_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+cmgCall9(cmgCall10)
+cmgCall9 = AddEventHandler
+cmgCall10 = "1c597fc419"
+-- Beginner: this function runs when client event "1c597fc419" fires.
+function threadCall(arg1, arg2)
+  numberValue16 = arg1
+  if arg2 >= 0.0 and arg2 <= 1.0 then
+    numberValue18 = arg2
   end
 end
-SHX51_1(SHX52_1, SHX53_1)
-SHX51_1 = RegisterNetEvent
-SHX52_1 = "e35812009c"
-function SHX53_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX10_1
-  if SHX1_2 then
-    SHX10_1.additionalRadios = SHX0_2
+-- Beginner: Register a client-side event handler. Event/command: "1c597fc419".
+cmgCall9(cmgCall10, threadCall)
+cmgCall9 = RegisterNetEvent
+cmgCall10 = "e35812009c"
+-- Beginner: this function handles network event "e35812009c".
+function threadCall(arg1)
+  local arg2
+  arg2 = workValue
+  if arg2 then
+    workValue.additionalRadios = arg1
   end
 end
-SHX51_1(SHX52_1, SHX53_1)
-SHX51_1 = RegisterNetEvent
-SHX52_1 = "bdbde03161"
-function SHX53_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2
-  SHX3_2 = SHX30_1
-  SHX3_2 = SHX3_2[SHX0_2]
-  if SHX3_2 then
-    SHX4_2 = SHX3_2.relationships
-    SHX4_2[SHX1_2] = SHX2_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e35812009c".
+cmgCall9(cmgCall10, threadCall)
+cmgCall9 = RegisterNetEvent
+cmgCall10 = "bdbde03161"
+-- Beginner: this function handles network event "bdbde03161".
+function threadCall(arg1, arg2, arg3)
+  local arg4, arg5
+  arg4 = dataTable5
+  arg4 = arg4[arg1]
+  if arg4 then
+    arg5 = arg4.relationships
+    arg5[arg2] = arg3
   end
 end
-SHX51_1(SHX52_1, SHX53_1)
-function SHX51_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.clearEnemyGamerTags
-  SHX0_2()
+cmgCall9(cmgCall10, threadCall)
+-- Beginner: this function handles network event "bdbde03161".
+function cmgCall9()
+  local arg1, arg2
+  arg1 = CMG
+  arg1 = arg1.clearEnemyGamerTags
+  arg1()
 end
-SHX52_1 = false
-SHX53_1 = Citizen
-SHX53_1 = SHX53_1.CreateThread
-function SHX54_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2, SHX26_2, SHX27_2, SHX28_2, SHX29_2, SHX30_2, SHX31_2, SHX32_2, SHX33_2, SHX34_2, SHX35_2, SHX36_2, SHX37_2, SHX38_2
-  SHX0_2 = SHX0_1.turfSystemEnabled
-  if not SHX0_2 then
-    SHX0_2 = true
-    SHX52_1 = SHX0_2
+cmgCall10 = false
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function eventRegistration3()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue13, numberValue15, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, flag3, numberValue24, vector3Builder, numberValue25, numberValue26, nameValue, workValue10
+  arg1 = cmgCall.turfSystemEnabled
+  if not arg1 then
+    arg1 = true
+    cmgCall10 = arg1
     return
   end
-  SHX0_2 = 30.0
-  SHX1_2 = 40
-  SHX2_2 = pairs
-  SHX3_2 = SHX0_1.turfs
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = PolyZone
-    SHX9_2 = SHX8_2
-    SHX8_2 = SHX8_2.Create
-    SHX10_2 = SHX7_2.bounds
-    SHX11_2 = {}
-    SHX12_2 = SHX7_2.name
-    if not SHX12_2 then
-      SHX12_2 = "turf_"
-      SHX13_2 = SHX6_2
-      SHX12_2 = SHX12_2 .. SHX13_2
+  arg1 = 30.0
+  arg2 = 40
+  arg3 = pairs
+  arg4 = cmgCall.turfs
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg9 = PolyZone
+    arg10 = arg9
+    arg9 = arg9.Create
+    arg11 = arg8.bounds
+    arg122 = {}
+    arg13 = arg8.name
+    if not arg13 then
+      arg13 = "turf_"
+      arg14 = arg7
+      arg13 = arg13 .. arg14
     end
-    SHX11_2.name = SHX12_2
-    SHX11_2.minZ = 0.0
-    SHX11_2.maxZ = 150.0
-    SHX11_2.debugGrid = false
-    SHX11_2.createLines = false
-    SHX11_2.gridDivisions = 25
-    SHX8_2 = SHX8_2(SHX9_2, SHX10_2, SHX11_2)
-    SHX10_2 = SHX7_2.name
-    SHX9_2 = SHX32_1
-    SHX11_2 = {}
-    SHX9_2[SHX10_2] = SHX11_2
-    SHX9_2 = nil
-    SHX10_2 = nil
-    SHX11_2 = nil
-    SHX12_2 = nil
-    SHX13_2 = ipairs
-    SHX14_2 = SHX7_2.bounds
-    SHX13_2, SHX14_2, SHX15_2, SHX16_2 = SHX13_2(SHX14_2)
-    for SHX17_2, SHX18_2 in SHX13_2, SHX14_2, SHX15_2, SHX16_2 do
-      SHX19_2 = SHX18_2.x
-      SHX20_2 = SHX18_2.y
-      if 1 == SHX17_2 then
-        SHX21_2 = SHX19_2
-        SHX10_2 = SHX19_2
-        SHX9_2 = SHX21_2
-        SHX21_2 = SHX20_2
-        SHX12_2 = SHX20_2
-        SHX11_2 = SHX21_2
+    arg122.name = arg13
+    arg122.minZ = 0.0
+    arg122.maxZ = 150.0
+    arg122.debugGrid = false
+    arg122.createLines = false
+    arg122.gridDivisions = 25
+    arg9 = arg9(arg10, arg11, arg122)
+    arg11 = arg8.name
+    arg10 = cmgCall6
+    arg122 = {}
+    arg10[arg11] = arg122
+    arg10 = nil
+    arg11 = nil
+    arg122 = nil
+    arg13 = nil
+    arg14 = ipairs
+    arg15 = arg8.bounds
+    arg14, arg15, arg16, arg17 = arg14(arg15)
+    for arg18, numberValue5 in arg14, arg15, arg16, arg17 do
+      numberValue7 = numberValue5.x
+      numberValue8 = numberValue5.y
+      if 1 == arg18 then
+        numberValue9 = numberValue7
+        arg11 = numberValue7
+        arg10 = numberValue9
+        numberValue9 = numberValue8
+        arg13 = numberValue8
+        arg122 = numberValue9
       else
-        if SHX19_2 < SHX9_2 then
-          SHX9_2 = SHX19_2
+        if numberValue7 < arg10 then
+          arg10 = numberValue7
         end
-        if SHX19_2 > SHX10_2 then
-          SHX10_2 = SHX19_2
+        if numberValue7 > arg11 then
+          arg11 = numberValue7
         end
-        if SHX20_2 < SHX11_2 then
-          SHX11_2 = SHX20_2
+        if numberValue8 < arg122 then
+          arg122 = numberValue8
         end
-        if SHX20_2 > SHX12_2 then
-          SHX12_2 = SHX20_2
+        if numberValue8 > arg13 then
+          arg13 = numberValue8
         end
       end
     end
-    SHX13_2 = SHX7_2.bounds
-    SHX13_2 = SHX13_2[1]
-    if SHX13_2 then
-      SHX13_2 = SHX7_2.bounds
-      SHX13_2 = SHX13_2[1]
-      SHX13_2 = SHX13_2.z
-      if SHX13_2 then
-        goto SHX_LABEL_77
+    arg14 = arg8.bounds
+    arg14 = arg14[1]
+    if arg14 then
+      arg14 = arg8.bounds
+      arg14 = arg14[1]
+      arg14 = arg14.z
+      if arg14 then
+        goto flow_label_77
       end
     end
-    SHX13_2 = 0.0
-    -- [FIX IF ERROR] Move ::SHX_LABEL_77:: outside nested blocks until all 'goto SHX_LABEL_77' can see it
-    ::SHX_LABEL_77::
-    SHX14_2 = SHX10_2 - SHX9_2
-    SHX15_2 = SHX12_2 - SHX11_2
-    SHX16_2 = math
-    SHX16_2 = SHX16_2.floor
-    SHX17_2 = SHX14_2 / SHX0_2
-    SHX16_2 = SHX16_2(SHX17_2)
-    SHX16_2 = SHX16_2 + 1
-    SHX17_2 = math
-    SHX17_2 = SHX17_2.floor
-    SHX18_2 = SHX15_2 / SHX0_2
-    SHX17_2 = SHX17_2(SHX18_2)
-    SHX17_2 = SHX17_2 + 1
-    SHX18_2 = {}
-    SHX19_2 = 0
-    SHX20_2 = SHX17_2 - 1
-    SHX21_2 = 1
-    for SHX22_2 = SHX19_2, SHX20_2, SHX21_2 do
-      SHX23_2 = {}
-      SHX18_2[SHX22_2] = SHX23_2
-      SHX23_2 = SHX22_2 * SHX0_2
-      SHX23_2 = SHX11_2 + SHX23_2
-      SHX24_2 = 0
-      SHX25_2 = SHX16_2 - 1
-      SHX26_2 = 1
-      for SHX27_2 = SHX24_2, SHX25_2, SHX26_2 do
-        SHX28_2 = SHX27_2 * SHX0_2
-        SHX28_2 = SHX9_2 + SHX28_2
-        SHX29_2 = SHX0_2 * 0.5
-        SHX29_2 = SHX28_2 + SHX29_2
-        SHX30_2 = SHX0_2 * 0.5
-        SHX30_2 = SHX23_2 + SHX30_2
-        SHX31_2 = SHX18_2[SHX22_2]
-        SHX33_2 = SHX8_2
-        SHX32_2 = SHX8_2.isPointInside
-        SHX34_2 = vector3
-        SHX35_2 = SHX29_2
-        SHX36_2 = SHX30_2
-        SHX37_2 = SHX13_2
-        SHX34_2, SHX35_2, SHX36_2, SHX37_2, SHX38_2 = SHX34_2(SHX35_2, SHX36_2, SHX37_2)
-        SHX32_2 = SHX32_2(SHX33_2, SHX34_2, SHX35_2, SHX36_2, SHX37_2, SHX38_2)
-        SHX31_2[SHX27_2] = SHX32_2
+    arg14 = 0.0
+    ::flow_label_77::
+    arg15 = arg11 - arg10
+    arg16 = arg13 - arg122
+    arg17 = math
+    arg17 = arg17.floor
+    arg18 = arg15 / arg1
+    arg17 = arg17(arg18)
+    arg17 = arg17 + 1
+    arg18 = math
+    arg18 = arg18.floor
+    numberValue5 = arg16 / arg1
+    arg18 = arg18(numberValue5)
+    arg18 = arg18 + 1
+    numberValue5 = {}
+    numberValue7 = 0
+    numberValue8 = arg18 - 1
+    numberValue9 = 1
+    for numberValue10 = numberValue7, numberValue8, numberValue9 do
+      numberValue12 = {}
+      numberValue5[numberValue10] = numberValue12
+      numberValue12 = numberValue10 * arg1
+      numberValue12 = arg122 + numberValue12
+      numberValue13 = 0
+      numberValue15 = arg17 - 1
+      numberValue17 = 1
+      for numberValue19 = numberValue13, numberValue15, numberValue17 do
+        numberValue20 = numberValue19 * arg1
+        numberValue20 = arg10 + numberValue20
+        numberValue21 = arg1 * 0.5
+        numberValue21 = numberValue20 + numberValue21
+        numberValue22 = arg1 * 0.5
+        numberValue22 = numberValue12 + numberValue22
+        numberValue23 = numberValue5[numberValue10]
+        numberValue24 = arg9
+        flag3 = arg9.isPointInside
+        vector3Builder = vector3
+        numberValue25 = numberValue21
+        numberValue26 = numberValue22
+        nameValue = arg14
+        vector3Builder, numberValue25, numberValue26, nameValue, workValue10 = vector3Builder(numberValue25, numberValue26, nameValue)
+        flag3 = flag3(numberValue24, vector3Builder, numberValue25, numberValue26, nameValue, workValue10)
+        numberValue23[numberValue19] = flag3
       end
     end
-    SHX19_2 = 0
-    SHX20_2 = 0
-    SHX21_2 = SHX17_2 - 1
-    SHX22_2 = 1
-    for SHX23_2 = SHX20_2, SHX21_2, SHX22_2 do
-      SHX24_2 = SHX18_2[SHX23_2]
-      SHX25_2 = 0
-      while SHX16_2 > SHX25_2 do
-        SHX26_2 = SHX24_2[SHX25_2]
-        if SHX26_2 then
-          SHX26_2 = SHX25_2
+    numberValue7 = 0
+    numberValue8 = 0
+    numberValue9 = arg18 - 1
+    numberValue10 = 1
+    for numberValue12 = numberValue8, numberValue9, numberValue10 do
+      numberValue13 = numberValue5[numberValue12]
+      numberValue15 = 0
+      while arg17 > numberValue15 do
+        numberValue17 = numberValue13[numberValue15]
+        if numberValue17 then
+          numberValue17 = numberValue15
           while true do
-            SHX27_2 = SHX25_2 + 1
-            if not (SHX16_2 > SHX27_2) then
+            numberValue19 = numberValue15 + 1
+            if not (arg17 > numberValue19) then
               break
             end
-            SHX27_2 = SHX25_2 + 1
-            SHX27_2 = SHX24_2[SHX27_2]
-            if not SHX27_2 then
+            numberValue19 = numberValue15 + 1
+            numberValue19 = numberValue13[numberValue19]
+            if not numberValue19 then
               break
             end
-            SHX25_2 = SHX25_2 + 1
+            numberValue15 = numberValue15 + 1
           end
-          SHX27_2 = SHX25_2
-          SHX28_2 = SHX27_2 - SHX26_2
-          SHX28_2 = SHX28_2 + 1
-          SHX29_2 = SHX0_2 * SHX28_2
-          SHX30_2 = SHX0_2
-          SHX31_2 = SHX26_2 + SHX27_2
-          SHX31_2 = SHX31_2 + 1
-          SHX31_2 = SHX31_2 * 0.5
-          SHX31_2 = SHX31_2 * SHX0_2
-          SHX31_2 = SHX9_2 + SHX31_2
-          SHX32_2 = SHX23_2 + 0.5
-          SHX32_2 = SHX32_2 * SHX0_2
-          SHX32_2 = SHX11_2 + SHX32_2
-          SHX33_2 = AddBlipForArea
-          SHX34_2 = SHX31_2
-          SHX35_2 = SHX32_2
-          SHX36_2 = SHX13_2
-          SHX37_2 = SHX29_2
-          SHX38_2 = SHX30_2
-          SHX33_2 = SHX33_2(SHX34_2, SHX35_2, SHX36_2, SHX37_2, SHX38_2)
-          SHX34_2 = SetBlipDisplay
-          SHX35_2 = SHX33_2
-          SHX36_2 = 3
-          SHX34_2(SHX35_2, SHX36_2)
-          SHX34_2 = SetBlipAlpha
-          SHX35_2 = SHX33_2
-          SHX36_2 = SHX0_1.blipAlpha
-          SHX34_2(SHX35_2, SHX36_2)
-          SHX34_2 = SetBlipColour
-          SHX35_2 = SHX33_2
-          SHX36_2 = SHX0_1.defaultTurfColour
-          SHX34_2(SHX35_2, SHX36_2)
-          SHX34_2 = SetBlipAsShortRange
-          SHX35_2 = SHX33_2
-          SHX36_2 = true
-          SHX34_2(SHX35_2, SHX36_2)
-          SHX34_2 = table
-          SHX34_2 = SHX34_2.insert
-          SHX36_2 = SHX7_2.name
-          SHX35_2 = SHX32_1
-          SHX35_2 = SHX35_2[SHX36_2]
-          SHX36_2 = SHX33_2
-          SHX34_2(SHX35_2, SHX36_2)
-          SHX19_2 = SHX19_2 + 1
-          if SHX1_2 <= SHX19_2 then
-            SHX34_2 = print
-            SHX35_2 = "[TURF] Reached max blips per turf for %s, stopping."
-            SHX36_2 = SHX35_2
-            SHX35_2 = SHX35_2.format
-            SHX37_2 = SHX7_2.name
-            SHX35_2, SHX36_2, SHX37_2, SHX38_2 = SHX35_2(SHX36_2, SHX37_2)
-            SHX34_2(SHX35_2, SHX36_2, SHX37_2, SHX38_2)
+          numberValue19 = numberValue15
+          numberValue20 = numberValue19 - numberValue17
+          numberValue20 = numberValue20 + 1
+          numberValue21 = arg1 * numberValue20
+          numberValue22 = arg1
+          numberValue23 = numberValue17 + numberValue19
+          numberValue23 = numberValue23 + 1
+          numberValue23 = numberValue23 * 0.5
+          numberValue23 = numberValue23 * arg1
+          numberValue23 = arg10 + numberValue23
+          flag3 = numberValue12 + 0.5
+          flag3 = flag3 * arg1
+          flag3 = arg122 + flag3
+          numberValue24 = AddBlipForArea
+          vector3Builder = numberValue23
+          numberValue25 = flag3
+          numberValue26 = arg14
+          nameValue = numberValue21
+          workValue10 = numberValue22
+          numberValue24 = numberValue24(vector3Builder, numberValue25, numberValue26, nameValue, workValue10)
+          vector3Builder = SetBlipDisplay
+          numberValue25 = numberValue24
+          numberValue26 = 3
+          vector3Builder(numberValue25, numberValue26)
+          vector3Builder = SetBlipAlpha
+          numberValue25 = numberValue24
+          numberValue26 = cmgCall.blipAlpha
+          vector3Builder(numberValue25, numberValue26)
+          vector3Builder = SetBlipColour
+          numberValue25 = numberValue24
+          numberValue26 = cmgCall.defaultTurfColour
+          vector3Builder(numberValue25, numberValue26)
+          vector3Builder = SetBlipAsShortRange
+          numberValue25 = numberValue24
+          numberValue26 = true
+          vector3Builder(numberValue25, numberValue26)
+          vector3Builder = table
+          vector3Builder = vector3Builder.insert
+          numberValue26 = arg8.name
+          numberValue25 = cmgCall6
+          numberValue25 = numberValue25[numberValue26]
+          numberValue26 = numberValue24
+          vector3Builder(numberValue25, numberValue26)
+          numberValue7 = numberValue7 + 1
+          if arg2 <= numberValue7 then
+            vector3Builder = print
+            numberValue25 = "[TURF] Reached max blips per turf for %s, stopping."
+            numberValue26 = numberValue25
+            numberValue25 = numberValue25.format
+            nameValue = arg8.name
+            numberValue25, numberValue26, nameValue, workValue10 = numberValue25(numberValue26, nameValue)
+            vector3Builder(numberValue25, numberValue26, nameValue, workValue10)
             break
           end
         end
-        SHX25_2 = SHX25_2 + 1
+        numberValue15 = numberValue15 + 1
       end
-      if SHX1_2 <= SHX19_2 then
+      if arg2 <= numberValue7 then
         break
       end
     end
   end
-  SHX2_2 = true
-  SHX52_1 = SHX2_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.createThreadOnTick
-  SHX3_2 = SHX51_1
-  SHX4_2 = "Gang Turfs"
-  SHX2_2(SHX3_2, SHX4_2)
+  arg3 = true
+  cmgCall10 = arg3
+  arg3 = CMG
+  arg3 = arg3.createThreadOnTick
+  arg4 = cmgCall9
+  arg5 = "Gang Turfs"
+  -- Beginner: Run a helper every game frame while this script is active.
+  arg3(arg4, arg5)
 end
-SHX53_1(SHX54_1)
-function SHX53_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(eventRegistration3)
+function threadCall()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7
   while true do
-    SHX0_2 = SHX52_1
-    if SHX0_2 then
+    arg1 = cmgCall10
+    if arg1 then
       break
     end
-    SHX0_2 = Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
+    arg1 = Wait
+    arg2 = 0
+    arg1(arg2)
   end
-  SHX0_2 = pairs
-  SHX1_2 = SHX31_1
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX7_2 = SHX5_2.ownedByGangId
-    SHX6_2 = SHX30_1
-    SHX6_2 = SHX6_2[SHX7_2]
-    SHX7_2 = SHX0_1.turfNameToIndex
-    SHX7_2 = SHX7_2[SHX4_2]
-    if SHX7_2 then
-      SHX8_2 = SHX0_1.turfs
-      SHX8_2 = SHX8_2[SHX7_2]
-      SHX9_2 = SHX5_2.attackingBlip
-      if SHX9_2 then
-        SHX9_2 = RemoveBlip
-        SHX10_2 = SHX5_2.attackingBlip
-        SHX9_2(SHX10_2)
-        SHX5_2.attackingBlip = nil
+  arg1 = pairs
+  arg2 = cmgCall5
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5, arg6 in arg1, arg2, arg3, arg4 do
+    arg8 = arg6.ownedByGangId
+    arg7 = dataTable5
+    arg7 = arg7[arg8]
+    arg8 = cmgCall.turfNameToIndex
+    arg8 = arg8[arg5]
+    if arg8 then
+      arg9 = cmgCall.turfs
+      arg9 = arg9[arg8]
+      arg10 = arg6.attackingBlip
+      if arg10 then
+        arg10 = RemoveBlip
+        arg11 = arg6.attackingBlip
+        arg10(arg11)
+        arg6.attackingBlip = nil
       end
-      SHX9_2 = SHX5_2.ownedByGangId
-      if SHX9_2 then
-        SHX9_2 = SHX5_2.ownedByGangId
-        SHX9_2 = SHX9_2 > 0
+      arg10 = arg6.ownedByGangId
+      if arg10 then
+        arg10 = arg6.ownedByGangId
+        arg10 = arg10 > 0
       end
-      SHX10_2 = SHX9_2 or SHX10_2
-      SHX10_2 = SHX6_2 or SHX10_2
-      if SHX9_2 and SHX6_2 then
-        SHX10_2 = SHX8_2.infoMarker
+      arg11 = arg10 or arg11
+      arg11 = arg7 or arg11
+      if arg10 and arg7 then
+        arg11 = arg9.infoMarker
       end
-      if not SHX10_2 then
-        SHX11_2 = SHX5_2.ownerBlip
-        if SHX11_2 then
-          SHX11_2 = tCMG
-          SHX11_2 = SHX11_2.removeBlip
-          SHX12_2 = SHX5_2.ownerBlip
-          SHX11_2(SHX12_2)
-          SHX5_2.ownerBlip = nil
+      if not arg11 then
+        arg122 = arg6.ownerBlip
+        if arg122 then
+          arg122 = tCMG
+          arg122 = arg122.removeBlip
+          arg13 = arg6.ownerBlip
+          arg122(arg13)
+          arg6.ownerBlip = nil
         end
       else
-        SHX11_2 = SHX5_2.ownerBlip
-        if not SHX11_2 then
-          SHX11_2 = SHX6_1
-          if SHX11_2 then
-            SHX11_2 = tCMG
-            SHX11_2 = SHX11_2.addBlip
-            SHX12_2 = SHX8_2.infoMarker
-            SHX12_2 = SHX12_2.x
-            SHX13_2 = SHX8_2.infoMarker
-            SHX13_2 = SHX13_2.y
-            SHX14_2 = SHX8_2.infoMarker
-            SHX14_2 = SHX14_2.z
-            SHX15_2 = SHX6_2.blipId
-            SHX16_2 = 1
-            SHX17_2 = SHX6_2.name
-            SHX18_2 = 1.0
-            SHX19_2 = false
-            SHX11_2 = SHX11_2(SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2)
-            SHX5_2.ownerBlip = SHX11_2
+        arg122 = arg6.ownerBlip
+        if not arg122 then
+          arg122 = flag6
+          if arg122 then
+            arg122 = tCMG
+            arg122 = arg122.addBlip
+            arg13 = arg9.infoMarker
+            arg13 = arg13.x
+            arg14 = arg9.infoMarker
+            arg14 = arg14.y
+            arg15 = arg9.infoMarker
+            arg15 = arg15.z
+            arg16 = arg7.blipId
+            arg17 = 1
+            arg18 = arg7.name
+            numberValue5 = 1.0
+            numberValue7 = false
+            arg122 = arg122(arg13, arg14, arg15, arg16, arg17, arg18, numberValue5, numberValue7)
+            arg6.ownerBlip = arg122
           end
         end
-        SHX11_2 = SHX5_2.ownerBlip
-        if SHX11_2 then
-          SHX11_2 = SetBlipSprite
-          SHX12_2 = SHX5_2.ownerBlip
-          SHX13_2 = SHX6_2.blipId
-          SHX11_2(SHX12_2, SHX13_2)
-          SHX11_2 = SetBlipColour
-          SHX12_2 = SHX5_2.ownerBlip
-          SHX13_2 = 1
-          SHX11_2(SHX12_2, SHX13_2)
-          SHX11_2 = SetBlipScale
-          SHX12_2 = SHX5_2.ownerBlip
-          SHX13_2 = 1.0
-          SHX11_2(SHX12_2, SHX13_2)
-          SHX11_2 = AddTextEntryByHash
-          SHX12_2 = GetHashKey
-          SHX13_2 = SHX6_2.name
-          SHX12_2 = SHX12_2(SHX13_2)
-          SHX13_2 = SHX6_2.name
-          SHX11_2(SHX12_2, SHX13_2)
-          SHX11_2 = BeginTextCommandSetBlipName
-          SHX12_2 = SHX6_2.name
-          SHX11_2(SHX12_2)
-          SHX11_2 = EndTextCommandSetBlipName
-          SHX12_2 = SHX5_2.ownerBlip
-          SHX11_2(SHX12_2)
+        arg122 = arg6.ownerBlip
+        if arg122 then
+          arg122 = SetBlipSprite
+          arg13 = arg6.ownerBlip
+          arg14 = arg7.blipId
+          arg122(arg13, arg14)
+          arg122 = SetBlipColour
+          arg13 = arg6.ownerBlip
+          arg14 = 1
+          arg122(arg13, arg14)
+          arg122 = SetBlipScale
+          arg13 = arg6.ownerBlip
+          arg14 = 1.0
+          arg122(arg13, arg14)
+          arg122 = AddTextEntryByHash
+          arg13 = GetHashKey
+          arg14 = arg7.name
+          -- Beginner: result below is hash.
+          arg13 = arg13(arg14)
+          arg14 = arg7.name
+          arg122(arg13, arg14)
+          arg122 = BeginTextCommandSetBlipName
+          arg13 = arg7.name
+          arg122(arg13)
+          arg122 = EndTextCommandSetBlipName
+          arg13 = arg6.ownerBlip
+          arg122(arg13)
         end
       end
     end
-    SHX8_2 = SHX32_1
-    SHX8_2 = SHX8_2[SHX4_2]
-    if SHX8_2 then
-      if SHX6_2 then
-        SHX9_2 = SHX0_1.colourLookup
-        SHX10_2 = SHX6_2.turfColour
-        SHX9_2 = SHX9_2[SHX10_2]
-        if not SHX9_2 then
-          goto SHX_LABEL_141
+    arg9 = cmgCall6
+    arg9 = arg9[arg5]
+    if arg9 then
+      if arg7 then
+        arg10 = cmgCall.colourLookup
+        arg11 = arg7.turfColour
+        arg10 = arg10[arg11]
+        if not arg10 then
+          goto flow_label_141
         end
-        SHX10_2 = SHX5_2.ownedByGangId
-        if SHX10_2 then
-          SHX10_2 = SHX9_2.blip
-          if SHX10_2 then
-            goto SHX_LABEL_118
+        arg11 = arg6.ownedByGangId
+        if arg11 then
+          arg11 = arg10.blip
+          if arg11 then
+            goto flow_label_118
           end
         end
-        SHX10_2 = 0
-        -- [FIX IF ERROR] Move ::SHX_LABEL_118:: outside nested blocks until all 'goto SHX_LABEL_118' can see it
-        ::SHX_LABEL_118::
-        SHX11_2 = pairs
-        SHX12_2 = SHX8_2
-        SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-        for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-          SHX17_2 = SetBlipColour
-          SHX18_2 = SHX16_2
-          SHX19_2 = SHX10_2
-          SHX17_2(SHX18_2, SHX19_2)
+        arg11 = 0
+        ::flow_label_118::
+        arg122 = pairs
+        arg13 = arg9
+        arg122, arg13, arg14, arg15 = arg122(arg13)
+        for arg16, arg17 in arg122, arg13, arg14, arg15 do
+          arg18 = SetBlipColour
+          numberValue5 = arg17
+          numberValue7 = arg11
+          arg18(numberValue5, numberValue7)
         end
       else
-        SHX9_2 = pairs
-        SHX10_2 = SHX8_2
-        SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX9_2(SHX10_2)
-        for SHX13_2, SHX14_2 in SHX9_2, SHX10_2, SHX11_2, SHX12_2 do
-          SHX15_2 = SetBlipColour
-          SHX16_2 = SHX14_2
-          SHX17_2 = SHX0_1.defaultTurfColour
-          SHX15_2(SHX16_2, SHX17_2)
+        arg10 = pairs
+        arg11 = arg9
+        arg10, arg11, arg122, arg13 = arg10(arg11)
+        for arg14, arg15 in arg10, arg11, arg122, arg13 do
+          arg16 = SetBlipColour
+          arg17 = arg15
+          arg18 = cmgCall.defaultTurfColour
+          arg16(arg17, arg18)
         end
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_141:: outside nested blocks until all 'goto SHX_LABEL_141' can see it
-    ::SHX_LABEL_141::
+    ::flow_label_141::
   end
 end
-SHX54_1 = RegisterNetEvent
-SHX55_1 = "adb903a8eb"
-function SHX56_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = SHX30_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX2_2 then
-    SHX2_2.turfColour = SHX1_2
-    SHX3_2 = SHX53_1
-    SHX3_2()
+eventRegistration3 = RegisterNetEvent
+textValue7 = "adb903a8eb"
+-- Beginner: this function handles network event "adb903a8eb".
+function workValue18(arg1, arg2)
+  local arg3, arg4
+  arg3 = dataTable5
+  arg3 = arg3[arg1]
+  if arg3 then
+    arg3.turfColour = arg2
+    arg4 = threadCall
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    arg4()
   end
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = RegisterNetEvent
-SHX55_1 = "db88e5e716"
-function SHX56_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX30_1 = SHX0_2
-  SHX1_2 = CMG
-  SHX1_2.gangRecognisedGangs = SHX0_2
-  SHX1_2 = SHX53_1
-  SHX1_2()
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "adb903a8eb".
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = RegisterNetEvent
+textValue7 = "db88e5e716"
+-- Beginner: this function handles network event "db88e5e716".
+function workValue18(arg1)
+  local arg2
+  dataTable5 = arg1
+  arg2 = CMG
+  arg2.gangRecognisedGangs = arg1
+  arg2 = threadCall
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2()
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = RegisterNetEvent
-SHX55_1 = "a014160254"
-function SHX56_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX31_1 = SHX0_2
-  SHX1_2 = CMG
-  SHX1_2.gangCapturedTurfs = SHX0_2
-  SHX1_2 = SHX53_1
-  SHX1_2()
-  SHX1_2 = TriggerEvent
-  SHX2_2 = "e394af4876"
-  SHX1_2(SHX2_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "db88e5e716".
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = RegisterNetEvent
+textValue7 = "a014160254"
+-- Beginner: this function handles network event "a014160254".
+function workValue18(arg1)
+  local arg2, arg3
+  cmgCall5 = arg1
+  arg2 = CMG
+  arg2.gangCapturedTurfs = arg1
+  arg2 = threadCall
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg2()
+  arg2 = TriggerEvent
+  arg3 = "e394af4876"
+  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "e394af4876".
+  arg2(arg3)
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = RegisterNetEvent
-SHX55_1 = "62e40e243c"
-function SHX56_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX30_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX2_2 then
-    SHX3_2 = table
-    SHX3_2 = SHX3_2.insert
-    SHX4_2 = SHX2_2.onlinePlayers
-    SHX5_2 = SHX1_2
-    SHX3_2(SHX4_2, SHX5_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "a014160254".
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = RegisterNetEvent
+textValue7 = "62e40e243c"
+-- Beginner: this function handles network event "62e40e243c".
+function workValue18(arg1, arg2)
+  local arg3, arg4, arg5, arg6
+  arg3 = dataTable5
+  arg3 = arg3[arg1]
+  if arg3 then
+    arg4 = table
+    arg4 = arg4.insert
+    arg5 = arg3.onlinePlayers
+    arg6 = arg2
+    arg4(arg5, arg6)
   end
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = RegisterNetEvent
-SHX55_1 = "5da078c840"
-function SHX56_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = SHX30_1
-  SHX2_2 = SHX2_2[SHX0_2]
-  if SHX2_2 then
-    SHX3_2 = table
-    SHX3_2 = SHX3_2.find
-    SHX4_2 = SHX2_2.onlinePlayers
-    SHX5_2 = SHX1_2
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    SHX4_2 = assert
-    SHX5_2 = SHX3_2
-    SHX4_2(SHX5_2)
-    SHX4_2 = table
-    SHX4_2 = SHX4_2.insert
-    SHX5_2 = SHX2_2.onlinePlayers
-    SHX6_2 = SHX3_2
-    SHX4_2(SHX5_2, SHX6_2)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "62e40e243c".
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = RegisterNetEvent
+textValue7 = "5da078c840"
+-- Beginner: this function handles network event "5da078c840".
+function workValue18(arg1, arg2)
+  local arg3, arg4, arg5, arg6, arg7
+  arg3 = dataTable5
+  arg3 = arg3[arg1]
+  if arg3 then
+    arg4 = table
+    arg4 = arg4.find
+    arg5 = arg3.onlinePlayers
+    arg6 = arg2
+    arg4 = arg4(arg5, arg6)
+    arg5 = assert
+    arg6 = arg4
+    arg5(arg6)
+    arg5 = table
+    arg5 = arg5.insert
+    arg6 = arg3.onlinePlayers
+    arg7 = arg4
+    arg5(arg6, arg7)
   end
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = RegisterNetEvent
-SHX55_1 = "b41c8a1869"
-function SHX56_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX2_2 = SHX0_1.turfs
-  SHX2_2 = SHX2_2[SHX0_2]
-  SHX4_2 = SHX2_2.name
-  SHX3_2 = SHX31_1
-  SHX3_2 = SHX3_2[SHX4_2]
-  if not SHX3_2 then
-    SHX4_2 = {}
-    SHX3_2 = SHX4_2
-    SHX5_2 = SHX2_2.name
-    SHX4_2 = SHX31_1
-    SHX4_2[SHX5_2] = SHX3_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "5da078c840".
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = RegisterNetEvent
+textValue7 = "b41c8a1869"
+-- Beginner: this function handles network event "b41c8a1869".
+function workValue18(arg1, arg2)
+  local arg3, arg4, arg5, arg6
+  arg3 = cmgCall.turfs
+  arg3 = arg3[arg1]
+  arg5 = arg3.name
+  arg4 = cmgCall5
+  arg4 = arg4[arg5]
+  if not arg4 then
+    arg5 = {}
+    arg4 = arg5
+    arg6 = arg3.name
+    arg5 = cmgCall5
+    arg5[arg6] = arg4
   end
-  SHX3_2.ownedByGangId = SHX1_2
-  SHX4_2 = SHX53_1
-  SHX4_2()
+  arg4.ownedByGangId = arg2
+  arg5 = threadCall
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg5()
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = CMG
-function SHX55_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  if not SHX0_2 then
-    SHX1_2 = SHX10_1
-    SHX0_2 = SHX1_2 or SHX0_2
-    if SHX1_2 then
-      SHX0_2 = SHX10_1.id
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b41c8a1869".
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = CMG
+function textValue7(arg1)
+  local arg2, arg3
+  if not arg1 then
+    arg2 = workValue
+    arg1 = arg2 or arg1
+    if arg2 then
+      arg1 = workValue.id
     end
   end
-  SHX1_2 = SHX30_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX2_2 = SHX1_2.textureName
-    if SHX2_2 then
-      SHX2_2 = SHX1_2.textureName
-      return SHX2_2
+  arg2 = dataTable5
+  arg2 = arg2[arg1]
+  if arg2 then
+    arg3 = arg2.textureName
+    if arg3 then
+      arg3 = arg2.textureName
+      return arg3
     end
   end
-  SHX2_2 = nil
-  return SHX2_2
+  arg3 = nil
+  return arg3
 end
-SHX54_1.getGangRecognisedTexture = SHX55_1
-SHX54_1 = CMG
-function SHX55_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX10_1
-  if SHX0_2 then
-    SHX0_2 = SHX10_1.id
+eventRegistration3.getGangRecognisedTexture = textValue7
+eventRegistration3 = CMG
+function textValue7()
+  local arg1, arg2
+  arg1 = workValue
+  if arg1 then
+    arg1 = workValue.id
   end
-  return SHX0_2
+  return arg1
 end
-SHX54_1.getGangId = SHX55_1
-SHX54_1 = CMG
-SHX54_1 = SHX54_1.registerDevMenuItems
-SHX55_1 = "Gangs"
-function SHX56_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = SHX10_1
-  if not SHX0_2 then
-    SHX0_2 = RageUI
-    SHX0_2 = SHX0_2.Separator
-    SHX1_2 = "~y~No Gang Selected."
-    SHX0_2(SHX1_2)
+eventRegistration3.getGangId = textValue7
+eventRegistration3 = CMG
+eventRegistration3 = eventRegistration3.registerDevMenuItems
+textValue7 = "Gangs"
+function workValue18()
+  local arg1, arg2, arg3, arg4, arg5
+  arg1 = workValue
+  if not arg1 then
+    arg1 = RageUI
+    arg1 = arg1.Separator
+    arg2 = "~y~No Gang Selected."
+    arg1(arg2)
     return
   end
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Set Turf Owned Locally"
-  SHX2_2 = "Sets the main gang to being owned locally. This will break sync, use in dev only."
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3
-    if SHX2_3 then
-      SHX3_3 = TriggerEvent
-      SHX4_3 = "b41c8a1869"
-      SHX5_3 = 1
-      SHX6_3 = GetNetworkTime
-      SHX6_3 = SHX6_3()
-      SHX7_3 = SHX10_1.id
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3, SHX7_3)
+  arg1 = RageUI
+  arg1 = arg1.Button
+  arg2 = "Set Turf Owned Locally"
+  arg3 = "Sets the main gang to being owned locally. This will break sync, use in dev only."
+  arg4 = true
+  function arg5(arg12, arg22, arg32)
+    local localEventCall, textValue6, numberValue27, networkTime, workValue20
+    if arg32 then
+      localEventCall = TriggerEvent
+      textValue6 = "b41c8a1869"
+      numberValue27 = 1
+      networkTime = GetNetworkTime
+      -- Beginner: result below is networkTime.
+      networkTime = networkTime()
+      workValue20 = workValue.id
+      -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "b41c8a1869".
+      localEventCall(textValue6, numberValue27, networkTime, workValue20)
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Button
-  SHX1_2 = "Debug Gang Blips"
-  SHX2_2 = "Display all the gang blips near to 0,0. This is just to view them, does nothing else."
-  SHX3_2 = true
-  function SHX4_2(SHX0_3, SHX1_3, SHX2_3)
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-    if SHX2_3 then
-      SHX3_3 = pairs
-      SHX4_3 = SHX0_1.debugGangBlips
-      SHX3_3, SHX4_3, SHX5_3, SHX6_3 = SHX3_3(SHX4_3)
-      for SHX7_3, SHX8_3 in SHX3_3, SHX4_3, SHX5_3, SHX6_3 do
-        SHX9_3 = AddBlipForCoord
-        SHX10_3 = 0.0
-        SHX11_3 = SHX7_3 * 15.0
-        SHX12_3 = 0.0
-        SHX9_3 = SHX9_3(SHX10_3, SHX11_3, SHX12_3)
-        SHX10_3 = SetBlipSprite
-        SHX11_3 = SHX9_3
-        SHX12_3 = SHX8_3
-        SHX10_3(SHX11_3, SHX12_3)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg1(arg2, arg3, arg4, arg5)
+  arg1 = RageUI
+  arg1 = arg1.Button
+  arg2 = "Debug Gang Blips"
+  arg3 = "Display all the gang blips near to 0,0. This is just to view them, does nothing else."
+  arg4 = true
+  function arg5(arg12, arg22, arg32)
+    local localEventCall, textValue6, numberValue27, networkTime, workValue20, workValue21, workValue22, numberValue, workValue2, numberValue2
+    if arg32 then
+      localEventCall = pairs
+      textValue6 = cmgCall.debugGangBlips
+      localEventCall, textValue6, numberValue27, networkTime = localEventCall(textValue6)
+      for workValue20, workValue21 in localEventCall, textValue6, numberValue27, networkTime do
+        workValue22 = AddBlipForCoord
+        numberValue = 0.0
+        workValue2 = workValue20 * 15.0
+        numberValue2 = 0.0
+        -- Beginner: result below is blipHandle.
+        workValue22 = workValue22(numberValue, workValue2, numberValue2)
+        numberValue = SetBlipSprite
+        workValue2 = workValue22
+        numberValue2 = workValue21
+        numberValue(workValue2, numberValue2)
       end
     end
   end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2)
+  -- Beginner: Draw a selectable RageUI menu button.
+  arg1(arg2, arg3, arg4, arg5)
 end
-SHX54_1(SHX55_1, SHX56_1)
-SHX54_1 = CMG
-function SHX55_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX6_1 = SHX0_2
-  if SHX0_2 then
-    SHX1_2 = SHX0_1.blipAlpha
-    if SHX1_2 then
-      goto SHX_LABEL_8
+eventRegistration3(textValue7, workValue18)
+eventRegistration3 = CMG
+function textValue7(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17
+  flag6 = arg1
+  if arg1 then
+    arg2 = cmgCall.blipAlpha
+    if arg2 then
+      goto flow_label_8
     end
   end
-  SHX1_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_8:: outside nested blocks until all 'goto SHX_LABEL_8' can see it
-  ::SHX_LABEL_8::
-  SHX2_2 = pairs
-  SHX3_2 = SHX32_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = pairs
-    SHX9_2 = SHX7_2
-    SHX8_2, SHX9_2, SHX10_2, SHX11_2 = SHX8_2(SHX9_2)
-    for SHX12_2, SHX13_2 in SHX8_2, SHX9_2, SHX10_2, SHX11_2 do
-      SHX14_2 = DoesBlipExist
-      SHX15_2 = SHX13_2
-      SHX14_2 = SHX14_2(SHX15_2)
-      if SHX14_2 then
-        SHX14_2 = SetBlipAlpha
-        SHX15_2 = SHX13_2
-        SHX16_2 = SHX1_2
-        SHX14_2(SHX15_2, SHX16_2)
+  arg2 = 0
+  ::flow_label_8::
+  arg3 = pairs
+  arg4 = cmgCall6
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg9 = pairs
+    arg10 = arg8
+    arg9, arg10, arg11, arg122 = arg9(arg10)
+    for arg13, arg14 in arg9, arg10, arg11, arg122 do
+      arg15 = DoesBlipExist
+      arg16 = arg14
+      arg15 = arg15(arg16)
+      if arg15 then
+        arg15 = SetBlipAlpha
+        arg16 = arg14
+        arg17 = arg2
+        arg15(arg16, arg17)
       end
     end
   end
-  SHX2_2 = pairs
-  SHX3_2 = SHX31_1
-  SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2)
-  for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-    SHX8_2 = SHX7_2.ownerBlip
-    if SHX8_2 then
-      SHX8_2 = DoesBlipExist
-      SHX9_2 = SHX7_2.ownerBlip
-      SHX8_2 = SHX8_2(SHX9_2)
-      if SHX8_2 then
-        if SHX0_2 then
-          SHX8_2 = 255
-          if SHX8_2 then
-            goto SHX_LABEL_49
+  arg3 = pairs
+  arg4 = cmgCall5
+  arg3, arg4, arg5, arg6 = arg3(arg4)
+  for arg7, arg8 in arg3, arg4, arg5, arg6 do
+    arg9 = arg8.ownerBlip
+    if arg9 then
+      arg9 = DoesBlipExist
+      arg10 = arg8.ownerBlip
+      arg9 = arg9(arg10)
+      if arg9 then
+        if arg1 then
+          arg9 = 255
+          if arg9 then
+            goto flow_label_49
           end
         end
-        SHX8_2 = 0
-        -- [FIX IF ERROR] Move ::SHX_LABEL_49:: outside nested blocks until all 'goto SHX_LABEL_49' can see it
-        ::SHX_LABEL_49::
-        SHX9_2 = SetBlipAlpha
-        SHX10_2 = SHX7_2.ownerBlip
-        SHX11_2 = SHX8_2
-        SHX9_2(SHX10_2, SHX11_2)
+        arg9 = 0
+        ::flow_label_49::
+        arg10 = SetBlipAlpha
+        arg11 = arg8.ownerBlip
+        arg122 = arg9
+        arg10(arg11, arg122)
       end
     end
-    SHX8_2 = SHX7_2.attackingBlip
-    if SHX8_2 then
-      SHX8_2 = DoesBlipExist
-      SHX9_2 = SHX7_2.attackingBlip
-      SHX8_2 = SHX8_2(SHX9_2)
-      if SHX8_2 then
-        SHX8_2 = SetBlipAlpha
-        SHX9_2 = SHX7_2.attackingBlip
-        SHX10_2 = SHX1_2
-        SHX8_2(SHX9_2, SHX10_2)
+    arg9 = arg8.attackingBlip
+    if arg9 then
+      arg9 = DoesBlipExist
+      arg10 = arg8.attackingBlip
+      arg9 = arg9(arg10)
+      if arg9 then
+        arg9 = SetBlipAlpha
+        arg10 = arg8.attackingBlip
+        arg11 = arg2
+        arg9(arg10, arg11)
       end
     end
   end
 end
-SHX54_1.setShowTurfBlips = SHX55_1
-SHX54_1 = false
-function SHX55_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasGangRpRagdollPerk
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = false
-    return SHX0_2
+eventRegistration3.setShowTurfBlips = textValue7
+eventRegistration3 = false
+function textValue7()
+  local arg1, arg2, arg3, arg4
+  arg1 = CMG
+  arg1 = arg1.hasGangRpRagdollPerk
+  arg1 = arg1()
+  if not arg1 then
+    arg1 = false
+    return arg1
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.inEvent
-  SHX0_2 = SHX0_2()
-  if SHX0_2 then
-    SHX0_2 = false
-    return SHX0_2
+  arg1 = CMG
+  arg1 = arg1.inEvent
+  arg1 = arg1()
+  if arg1 then
+    arg1 = false
+    return arg1
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCombatTimer
-  SHX0_2 = SHX0_2()
-  if SHX0_2 > 0 then
-    SHX0_2 = false
-    return SHX0_2
+  arg1 = CMG
+  arg1 = arg1.getPlayerCombatTimer
+  arg1 = arg1()
+  if arg1 > 0 then
+    arg1 = false
+    return arg1
   end
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.canAnim
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = false
-    return SHX0_2
+  arg1 = tCMG
+  arg1 = arg1.canAnim
+  arg1 = arg1()
+  if not arg1 then
+    arg1 = false
+    return arg1
   end
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  if 0 ~= SHX0_2 then
-    SHX1_2 = IsEntityDead
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      goto SHX_LABEL_41
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  if 0 ~= arg1 then
+    arg2 = IsEntityDead
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      goto flow_label_41
     end
   end
-  SHX1_2 = false
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_41:: outside nested blocks until all 'goto SHX_LABEL_41' can see it
-  ::SHX_LABEL_41::
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.isHandcuffed
-  SHX1_2 = SHX1_2()
-  if SHX1_2 then
-    SHX1_2 = false
-    return SHX1_2
+  arg2 = false
+  return arg2
+  ::flow_label_41::
+  arg2 = CMG
+  arg2 = arg2.isHandcuffed
+  arg2 = arg2()
+  if arg2 then
+    arg2 = false
+    return arg2
   end
-  SHX1_2 = tCMG
-  SHX1_2 = SHX1_2.isInComa
-  SHX1_2 = SHX1_2()
-  if SHX1_2 then
-    SHX1_2 = false
-    return SHX1_2
+  arg2 = tCMG
+  arg2 = arg2.isInComa
+  arg2 = arg2()
+  if arg2 then
+    arg2 = false
+    return arg2
   end
-  SHX1_2 = IsPedInAnyVehicle
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 then
-    SHX1_2 = false
-    return SHX1_2
+  arg2 = IsPedInAnyVehicle
+  arg3 = arg1
+  arg4 = false
+  arg2 = arg2(arg3, arg4)
+  if arg2 then
+    arg2 = false
+    return arg2
   end
-  SHX1_2 = IsPedOnFoot
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = false
-    return SHX1_2
+  arg2 = IsPedOnFoot
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = false
+    return arg2
   end
-  SHX1_2 = IsPedSwimming
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = IsPedSwimmingUnderWater
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      goto SHX_LABEL_82
+  arg2 = IsPedSwimming
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = IsPedSwimmingUnderWater
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      goto flow_label_82
     end
   end
-  SHX1_2 = false
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_82:: outside nested blocks until all 'goto SHX_LABEL_82' can see it
-  ::SHX_LABEL_82::
-  SHX1_2 = IsPedFalling
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if not SHX1_2 then
-    SHX1_2 = IsPedInParachuteFreeFall
-    SHX2_2 = SHX0_2
-    SHX1_2 = SHX1_2(SHX2_2)
-    if not SHX1_2 then
-      goto SHX_LABEL_94
+  arg2 = false
+  return arg2
+  ::flow_label_82::
+  arg2 = IsPedFalling
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if not arg2 then
+    arg2 = IsPedInParachuteFreeFall
+    arg3 = arg1
+    arg2 = arg2(arg3)
+    if not arg2 then
+      goto flow_label_94
     end
   end
-  SHX1_2 = false
-  return SHX1_2
-  -- [FIX IF ERROR] Move ::SHX_LABEL_94:: outside nested blocks until all 'goto SHX_LABEL_94' can see it
-  ::SHX_LABEL_94::
-  SHX1_2 = true
-  return SHX1_2
+  arg2 = false
+  return arg2
+  ::flow_label_94::
+  arg2 = true
+  return arg2
 end
-SHX56_1 = RegisterCommand
-SHX57_1 = "+cmgGangRpRagdoll"
-function SHX58_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX55_1
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
+workValue18 = RegisterCommand
+cmgCall11 = "+cmgGangRpRagdoll"
+-- Beginner: this function is the command handler for "+cmgGangRpRagdoll".
+function textValue8()
+  local arg1, arg2
+  arg1 = textValue7
+  arg1 = arg1()
+  if not arg1 then
     return
   end
-  SHX0_2 = true
-  SHX54_1 = SHX0_2
-  SHX0_2 = notify
-  SHX1_2 = "~s~Release ~b~G ~s~to stop ragdolling."
-  SHX0_2(SHX1_2)
+  arg1 = true
+  eventRegistration3 = arg1
+  arg1 = notify
+  arg2 = "~s~Release ~b~G ~s~to stop ragdolling."
+  -- Beginner: Show a notification to the player.
+  arg1(arg2)
 end
-SHX59_1 = false
-SHX56_1(SHX57_1, SHX58_1, SHX59_1)
-SHX56_1 = RegisterCommand
-SHX57_1 = "-cmgGangRpRagdoll"
-function SHX58_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX54_1 = SHX0_2
+flag5 = false
+-- Beginner: Register a chat/console command. Event/command: "+cmgGangRpRagdoll".
+workValue18(cmgCall11, textValue8, flag5)
+workValue18 = RegisterCommand
+cmgCall11 = "-cmgGangRpRagdoll"
+-- Beginner: this function is the command handler for "-cmgGangRpRagdoll".
+function textValue8()
+  local arg1, arg2
+  arg1 = false
+  eventRegistration3 = arg1
 end
-SHX59_1 = false
-SHX56_1(SHX57_1, SHX58_1, SHX59_1)
-SHX56_1 = RegisterKeyMapping
-SHX57_1 = "+cmgGangRpRagdoll"
-SHX58_1 = "Ragdoll (hold)"
-SHX59_1 = "keyboard"
-SHX60_1 = "G"
-SHX56_1(SHX57_1, SHX58_1, SHX59_1, SHX60_1)
-SHX56_1 = Citizen
-SHX56_1 = SHX56_1.CreateThread
-function SHX57_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
+flag5 = false
+workValue18(cmgCall11, textValue8, flag5)
+workValue18 = RegisterKeyMapping
+cmgCall11 = "+cmgGangRpRagdoll"
+textValue8 = "Ragdoll (hold)"
+flag5 = "keyboard"
+textValue9 = "G"
+-- Beginner: Bind a command to a keyboard/controller key.
+workValue18(cmgCall11, textValue8, flag5, textValue9)
+workValue18 = Citizen
+workValue18 = workValue18.CreateThread
+function cmgCall11()
+  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   while true do
-    SHX0_2 = SHX54_1
-    if SHX0_2 then
-      SHX0_2 = IsPauseMenuActive
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = SHX55_1
-        SHX0_2 = SHX0_2()
-        if SHX0_2 then
-          goto SHX_LABEL_19
+    arg1 = eventRegistration3
+    if arg1 then
+      arg1 = IsPauseMenuActive
+      arg1 = arg1()
+      if not arg1 then
+        arg1 = textValue7
+        arg1 = arg1()
+        if arg1 then
+          goto flow_label_19
         end
       end
-      SHX0_2 = false
-      SHX54_1 = SHX0_2
-      SHX0_2 = Citizen
-      SHX0_2 = SHX0_2.Wait
-      SHX1_2 = 200
-      SHX0_2(SHX1_2)
-      goto SHX_LABEL_42
-      -- [FIX IF ERROR] Move ::SHX_LABEL_19:: outside nested blocks until all 'goto SHX_LABEL_19' can see it
-      ::SHX_LABEL_19::
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.getPlayerPed
-      SHX0_2 = SHX0_2()
-      if 0 ~= SHX0_2 then
-        SHX1_2 = SetPedToRagdoll
-        SHX2_2 = SHX0_2
-        SHX3_2 = 500
-        SHX4_2 = 500
-        SHX5_2 = 0
-        SHX6_2 = false
-        SHX7_2 = false
-        SHX8_2 = false
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+      arg1 = false
+      eventRegistration3 = arg1
+      arg1 = Citizen
+      arg1 = arg1.Wait
+      arg2 = 200
+      arg1(arg2)
+      goto flow_label_42
+      ::flow_label_19::
+      arg1 = CMG
+      arg1 = arg1.getPlayerPed
+      -- Beginner: result below is localPlayerPed.
+      arg1 = arg1()
+      if 0 ~= arg1 then
+        arg2 = SetPedToRagdoll
+        arg3 = arg1
+        arg4 = 500
+        arg5 = 500
+        arg6 = 0
+        arg7 = false
+        arg8 = false
+        arg9 = false
+        arg2(arg3, arg4, arg5, arg6, arg7, arg8, arg9)
       end
-      SHX1_2 = Citizen
-      SHX1_2 = SHX1_2.Wait
-      SHX2_2 = 0
-      SHX1_2(SHX2_2)
+      arg2 = Citizen
+      arg2 = arg2.Wait
+      arg3 = 0
+      arg2(arg3)
     else
-      SHX0_2 = Citizen
-      SHX0_2 = SHX0_2.Wait
-      SHX1_2 = 200
-      SHX0_2(SHX1_2)
+      arg1 = Citizen
+      arg1 = arg1.Wait
+      arg2 = 200
+      arg1(arg2)
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_42:: outside nested blocks until all 'goto SHX_LABEL_42' can see it
-    ::SHX_LABEL_42::
+    ::flow_label_42::
   end
 end
-SHX56_1(SHX57_1)
-SHX56_1 = false
-SHX57_1 = CMG
-function SHX58_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = SHX56_1
-  if SHX1_2 then
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+workValue18(cmgCall11)
+workValue18 = false
+cmgCall11 = CMG
+function textValue8(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = workValue18
+  if arg2 then
     return
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.hasGangRpCarTheftPerk
-  SHX1_2 = SHX1_2()
-  if not SHX1_2 then
+  arg2 = CMG
+  arg2 = arg2.hasGangRpCarTheftPerk
+  arg2 = arg2()
+  if not arg2 then
     return
   end
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  if 0 ~= SHX1_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      goto SHX_LABEL_22
+  arg2 = CMG
+  arg2 = arg2.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg2 = arg2()
+  if 0 ~= arg2 then
+    arg3 = IsEntityDead
+    arg4 = arg2
+    arg3 = arg3(arg4)
+    if not arg3 then
+      goto flow_label_22
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_22:: outside nested blocks until all 'goto SHX_LABEL_22' can see it
-  ::SHX_LABEL_22::
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.isHandcuffed
-  SHX2_2 = SHX2_2()
-  if SHX2_2 then
+  ::flow_label_22::
+  arg3 = CMG
+  arg3 = arg3.isHandcuffed
+  arg3 = arg3()
+  if arg3 then
     return
   end
-  SHX2_2 = tCMG
-  SHX2_2 = SHX2_2.isInComa
-  SHX2_2 = SHX2_2()
-  if SHX2_2 then
+  arg3 = tCMG
+  arg3 = arg3.isInComa
+  arg3 = arg3()
+  if arg3 then
     return
   end
-  SHX2_2 = IsPedInAnyVehicle
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if SHX2_2 then
+  arg3 = IsPedInAnyVehicle
+  arg4 = arg2
+  arg5 = false
+  arg3 = arg3(arg4, arg5)
+  if arg3 then
     return
   end
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.isInGreenzone
-  SHX2_2 = SHX2_2()
-  if SHX2_2 then
+  arg3 = CMG
+  arg3 = arg3.isInGreenzone
+  arg3 = arg3()
+  if arg3 then
     return
   end
-  SHX2_2 = true
-  SHX56_1 = SHX2_2
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "8fe4aba1e5"
-  SHX4_2 = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2)
+  arg3 = true
+  workValue18 = arg3
+  arg3 = TriggerServerEvent
+  arg4 = "8fe4aba1e5"
+  arg5 = arg1
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8fe4aba1e5".
+  arg3(arg4, arg5)
 end
-SHX57_1.startGangCarjack = SHX58_1
-SHX57_1 = RegisterNetEvent
-SHX58_1 = "6539f54c12"
-function SHX59_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = false
-  SHX56_1 = SHX0_2
+cmgCall11.startGangCarjack = textValue8
+cmgCall11 = RegisterNetEvent
+textValue8 = "6539f54c12"
+-- Beginner: this function handles network event "6539f54c12".
+function flag5()
+  local arg1, arg2
+  arg1 = false
+  workValue18 = arg1
 end
-SHX57_1(SHX58_1, SHX59_1)
-SHX57_1 = RegisterNetEvent
-SHX58_1 = "7fbf0126af"
-function SHX59_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2
-  SHX1_2 = GetPlayerFromServerId
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1 == SHX1_2 then
-    SHX2_2 = false
-    SHX56_1 = SHX2_2
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6539f54c12".
+cmgCall11(textValue8, flag5)
+cmgCall11 = RegisterNetEvent
+textValue8 = "7fbf0126af"
+-- Beginner: this function handles network event "7fbf0126af".
+function flag5(arg1)
+  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17
+  arg2 = GetPlayerFromServerId
+  arg3 = arg1
+  -- Beginner: result below is playerIndex.
+  arg2 = arg2(arg3)
+  if -1 == arg2 then
+    arg3 = false
+    workValue18 = arg3
     return
   end
-  SHX2_2 = GetPlayerPed
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if 0 == SHX2_2 then
-    SHX3_2 = false
-    SHX56_1 = SHX3_2
+  arg3 = GetPlayerPed
+  arg4 = arg2
+  -- Beginner: result below is playerPed.
+  arg3 = arg3(arg4)
+  if 0 == arg3 then
+    arg4 = false
+    workValue18 = arg4
     return
   end
-  SHX3_2 = GetVehiclePedIsUsing
-  SHX4_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2)
-  if 0 == SHX3_2 then
-    SHX4_2 = false
-    SHX56_1 = SHX4_2
+  arg4 = GetVehiclePedIsUsing
+  arg5 = arg3
+  arg4 = arg4(arg5)
+  if 0 == arg4 then
+    arg5 = false
+    workValue18 = arg5
     return
   end
-  SHX4_2 = PlayerPedId
-  SHX4_2 = SHX4_2()
-  SHX5_2 = GetPedRelationshipGroupHash
-  SHX6_2 = SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = GetPedRelationshipGroupHash
-  SHX7_2 = SHX2_2
-  SHX6_2 = SHX6_2(SHX7_2)
-  SHX7_2 = GetRelationshipBetweenGroups
-  SHX8_2 = SHX5_2
-  SHX9_2 = SHX6_2
-  SHX7_2 = SHX7_2(SHX8_2, SHX9_2)
-  SHX8_2 = GetRelationshipBetweenGroups
-  SHX9_2 = SHX6_2
-  SHX10_2 = SHX5_2
-  SHX8_2 = SHX8_2(SHX9_2, SHX10_2)
-  SHX9_2 = SetRelationshipBetweenGroups
-  SHX10_2 = 5
-  SHX11_2 = SHX5_2
-  SHX12_2 = SHX6_2
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = SetRelationshipBetweenGroups
-  SHX10_2 = 5
-  SHX11_2 = SHX6_2
-  SHX12_2 = SHX5_2
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2)
-  SHX9_2 = SetPedCanBeDraggedOut
-  SHX10_2 = SHX2_2
-  SHX11_2 = true
-  SHX9_2(SHX10_2, SHX11_2)
-  SHX9_2 = TaskEnterVehicle
-  SHX10_2 = SHX4_2
-  SHX11_2 = SHX3_2
-  SHX12_2 = -1
-  SHX13_2 = -1
-  SHX14_2 = 1.0
-  SHX15_2 = 8
-  SHX16_2 = 0
-  SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2)
-  SHX9_2 = GetGameTimer
-  SHX9_2 = SHX9_2()
+  arg5 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  arg5 = arg5()
+  arg6 = GetPedRelationshipGroupHash
+  arg7 = arg5
+  arg6 = arg6(arg7)
+  arg7 = GetPedRelationshipGroupHash
+  arg8 = arg3
+  arg7 = arg7(arg8)
+  arg8 = GetRelationshipBetweenGroups
+  arg9 = arg6
+  arg10 = arg7
+  arg8 = arg8(arg9, arg10)
+  arg9 = GetRelationshipBetweenGroups
+  arg10 = arg7
+  arg11 = arg6
+  arg9 = arg9(arg10, arg11)
+  arg10 = SetRelationshipBetweenGroups
+  arg11 = 5
+  arg122 = arg6
+  arg13 = arg7
+  arg10(arg11, arg122, arg13)
+  arg10 = SetRelationshipBetweenGroups
+  arg11 = 5
+  arg122 = arg7
+  arg13 = arg6
+  arg10(arg11, arg122, arg13)
+  arg10 = SetPedCanBeDraggedOut
+  arg11 = arg3
+  arg122 = true
+  arg10(arg11, arg122)
+  arg10 = TaskEnterVehicle
+  arg11 = arg5
+  arg122 = arg4
+  arg13 = -1
+  arg14 = -1
+  arg15 = 1.0
+  arg16 = 8
+  arg17 = 0
+  arg10(arg11, arg122, arg13, arg14, arg15, arg16, arg17)
+  arg10 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg10 = arg10()
   while true do
-    SHX10_2 = GetVehiclePedIsIn
-    SHX11_2 = SHX4_2
-    SHX12_2 = false
-    SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-    if SHX10_2 == SHX3_2 then
+    arg11 = GetVehiclePedIsIn
+    arg122 = arg5
+    arg13 = false
+    -- Beginner: result below is currentVehicle.
+    arg11 = arg11(arg122, arg13)
+    if arg11 == arg4 then
       break
     end
-    SHX10_2 = GetGameTimer
-    SHX10_2 = SHX10_2()
-    SHX10_2 = SHX10_2 - SHX9_2
-    SHX11_2 = 8000
-    if SHX10_2 > SHX11_2 then
+    arg11 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg11 = arg11()
+    arg11 = arg11 - arg10
+    arg122 = 8000
+    if arg11 > arg122 then
       break
     end
-    SHX10_2 = Citizen
-    SHX10_2 = SHX10_2.Wait
-    SHX11_2 = 0
-    SHX10_2(SHX11_2)
+    arg11 = Citizen
+    arg11 = arg11.Wait
+    arg122 = 0
+    arg11(arg122)
   end
-  SHX10_2 = SetPedCanBeDraggedOut
-  SHX11_2 = SHX2_2
-  SHX12_2 = false
-  SHX10_2(SHX11_2, SHX12_2)
-  SHX10_2 = SetRelationshipBetweenGroups
-  SHX11_2 = SHX7_2
-  SHX12_2 = SHX5_2
-  SHX13_2 = SHX6_2
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = SetRelationshipBetweenGroups
-  SHX11_2 = SHX8_2
-  SHX12_2 = SHX6_2
-  SHX13_2 = SHX5_2
-  SHX10_2(SHX11_2, SHX12_2, SHX13_2)
-  SHX10_2 = false
-  SHX56_1 = SHX10_2
+  arg11 = SetPedCanBeDraggedOut
+  arg122 = arg3
+  arg13 = false
+  arg11(arg122, arg13)
+  arg11 = SetRelationshipBetweenGroups
+  arg122 = arg8
+  arg13 = arg6
+  arg14 = arg7
+  arg11(arg122, arg13, arg14)
+  arg11 = SetRelationshipBetweenGroups
+  arg122 = arg9
+  arg13 = arg7
+  arg14 = arg6
+  arg11(arg122, arg13, arg14)
+  arg11 = false
+  workValue18 = arg11
 end
-SHX57_1(SHX58_1, SHX59_1)
+-- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "7fbf0126af".
+cmgCall11(textValue8, flag5)

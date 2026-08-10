@@ -1,2220 +1,2124 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Beginner Guide: cl_realisticvehiclefailure.lua
+    ==============================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1
-SHX0_1 = {}
-SHX0_1.deformationMultiplier = -1
-SHX0_1.deformationExponent = 0.7
-SHX0_1.collisionDamageExponent = 0.6
-SHX0_1.damageFactorEngine = 10.0
-SHX0_1.damageFactorBody = 10.0
-SHX0_1.damageFactorPetrolTank = 64.0
-SHX0_1.engineDamageExponent = 0.6
-SHX0_1.weaponsDamageMultiplier = 1.0
-SHX0_1.degradingHealthSpeedFactor = 10
-SHX0_1.cascadingFailureSpeedFactor = 15.0
-SHX0_1.degradingFailureThreshold = 0.0
-SHX0_1.cascadingFailureThreshold = 0.0
-SHX0_1.engineSafeGuard = 150.0
-SHX0_1.torqueMultiplierEnabled = true
-SHX0_1.limpMode = true
-SHX0_1.limpModeMultiplier = 0.005
-SHX0_1.preventVehicleFlip = true
-SHX0_1.sundayDriver = false
-SHX0_1.sundayDriverAcceleratorCurve = 7.5
-SHX0_1.sundayDriverBrakeCurve = 5.0
-SHX0_1.displayBlips = true
-SHX0_1.compatibilityMode = false
-SHX0_1.randomTireBurstInterval = 0
-SHX0_1.chargeForRepairs = true
-SHX0_1.price = 1000.0
-SHX0_1.DamageMultiplier = 2.5
-SHX1_1 = {}
-SHX1_1[0] = 1.0
-SHX2_1 = 1.0
-SHX3_1 = 1.0
-SHX4_1 = 1.0
-SHX5_1 = 1.0
-SHX6_1 = 1.0
-SHX7_1 = 1.0
-SHX8_1 = 1.3
-SHX9_1 = 0.25
-SHX10_1 = 0.7
-SHX11_1 = 0.5
-SHX12_1 = 1.0
-SHX13_1 = 1.0
-SHX14_1 = 1.0
-SHX15_1 = 1.0
-SHX16_1 = 1.0
-SHX17_1 = 1.0
-SHX18_1 = 1.0
-SHX19_1 = 0.75
-SHX20_1 = 0.75
-SHX21_1 = 1.0
-SHX22_1 = 1.0
-SHX23_1 = 1.0
-SHX1_1[1] = SHX2_1
-SHX1_1[2] = SHX3_1
-SHX1_1[3] = SHX4_1
-SHX1_1[4] = SHX5_1
-SHX1_1[5] = SHX6_1
-SHX1_1[6] = SHX7_1
-SHX1_1[7] = SHX8_1
-SHX1_1[8] = SHX9_1
-SHX1_1[9] = SHX10_1
-SHX1_1[10] = SHX11_1
-SHX1_1[11] = SHX12_1
-SHX1_1[12] = SHX13_1
-SHX1_1[13] = SHX14_1
-SHX1_1[14] = SHX15_1
-SHX1_1[15] = SHX16_1
-SHX1_1[16] = SHX17_1
-SHX1_1[17] = SHX18_1
-SHX1_1[18] = SHX19_1
-SHX1_1[19] = SHX20_1
-SHX1_1[20] = SHX21_1
-SHX1_1[21] = SHX22_1
-SHX1_1[22] = SHX23_1
-SHX0_1.classDamageMultiplier = SHX1_1
-SHX1_1 = false
-SHX2_1 = CMG
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX1_1
-  return SHX0_2
+    This file came from decompiled Lua. It has been cleaned so the
+    temporary SHX names are replaced with role-based names. Where the
+    exact server-side meaning cannot be proven from this client file,
+    neutral names such as stateValue/workValue are used instead of
+    inventing a misleading meaning.
+
+    Compatibility:
+      * Event/hash strings and public framework calls are unchanged.
+      * This pass intentionally avoids guessing unknown server meanings.
+]]
+--[[
+    BEGINNER GUIDE — Realisticvehiclefailure
+    ========================================
+
+    File: cmg/prod/client/vehicles/cl_realisticvehiclefailure.lua
+    Purpose: This file contains vehicle-related gameplay.
+
+    How to read FiveM Lua:
+      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
+      * TriggerServerEvent = this client asks/tells the server to do something.
+      * PlayerPedId() = your local GTA character (called a 'ped').
+      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
+      * RageUI/NUI = menu or browser-based UI code.
+      * CreateThread/Wait = code that can keep running without freezing the game.
+
+    Decompiled-code note:
+      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
+      has been removed. Any remaining SHX-style values are compiler/decompiler
+      temporaries whose meaning changes repeatedly; follow the surrounding API
+      call and the comments rather than treating one SHX variable as one concept.
+
+    WARNING:
+      The original decompiler output contains broken goto/label structure.
+      This file is annotated for reading, but the original control flow should be
+      reconstructed/tested before treating it as production-ready Lua.
+
+    Network/hash identifiers found: 1
+      They are intentionally left unchanged because matching server code may use them.
+      * cadd5c84c8
+
+    Example player-facing text in this file:
+      * Press ~INPUT_PICKUP~ to have your vehicle repaired.
+      * ~r~You must be stationary to repair your vehicle.
+
+]]
+local dataTable, dataTable2, cmgCall, dataTable3, dataTable4, vector3Builder, vector3Builder2, numberValue27, numberValue29, numberValue31, numberValue, numberValue3, numberValue5, numberValue7, numberValue8, numberValue9, numberValue10, numberValue12, numberValue14, numberValue16, numberValue17, numberValue18, numberValue20, numberValue21, numberValue22, numberValue23, numberValue24, numberValue25, workValue4, mathHelper, gameTime, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, threadCall, workValue24
+dataTable = {}
+dataTable.deformationMultiplier = -1
+dataTable.deformationExponent = 0.7
+dataTable.collisionDamageExponent = 0.6
+dataTable.damageFactorEngine = 10.0
+dataTable.damageFactorBody = 10.0
+dataTable.damageFactorPetrolTank = 64.0
+dataTable.engineDamageExponent = 0.6
+dataTable.weaponsDamageMultiplier = 1.0
+dataTable.degradingHealthSpeedFactor = 10
+dataTable.cascadingFailureSpeedFactor = 15.0
+dataTable.degradingFailureThreshold = 0.0
+dataTable.cascadingFailureThreshold = 0.0
+dataTable.engineSafeGuard = 150.0
+dataTable.torqueMultiplierEnabled = true
+dataTable.limpMode = true
+dataTable.limpModeMultiplier = 0.005
+dataTable.preventVehicleFlip = true
+dataTable.sundayDriver = false
+dataTable.sundayDriverAcceleratorCurve = 7.5
+dataTable.sundayDriverBrakeCurve = 5.0
+dataTable.displayBlips = true
+dataTable.compatibilityMode = false
+dataTable.randomTireBurstInterval = 0
+dataTable.chargeForRepairs = true
+dataTable.price = 1000.0
+dataTable.DamageMultiplier = 2.5
+dataTable2 = {}
+dataTable2[0] = 1.0
+cmgCall = 1.0
+dataTable3 = 1.0
+dataTable4 = 1.0
+vector3Builder = 1.0
+vector3Builder2 = 1.0
+numberValue27 = 1.0
+numberValue29 = 1.3
+numberValue31 = 0.25
+numberValue = 0.7
+numberValue3 = 0.5
+numberValue5 = 1.0
+numberValue7 = 1.0
+numberValue8 = 1.0
+numberValue9 = 1.0
+numberValue10 = 1.0
+numberValue12 = 1.0
+numberValue14 = 1.0
+numberValue16 = 0.75
+numberValue17 = 0.75
+numberValue18 = 1.0
+numberValue20 = 1.0
+numberValue21 = 1.0
+dataTable2[1] = cmgCall
+dataTable2[2] = dataTable3
+dataTable2[3] = dataTable4
+dataTable2[4] = vector3Builder
+dataTable2[5] = vector3Builder2
+dataTable2[6] = numberValue27
+dataTable2[7] = numberValue29
+dataTable2[8] = numberValue31
+dataTable2[9] = numberValue
+dataTable2[10] = numberValue3
+dataTable2[11] = numberValue5
+dataTable2[12] = numberValue7
+dataTable2[13] = numberValue8
+dataTable2[14] = numberValue9
+dataTable2[15] = numberValue10
+dataTable2[16] = numberValue12
+dataTable2[17] = numberValue14
+dataTable2[18] = numberValue16
+dataTable2[19] = numberValue17
+dataTable2[20] = numberValue18
+dataTable2[21] = numberValue20
+dataTable2[22] = numberValue21
+dataTable.classDamageMultiplier = dataTable2
+dataTable2 = false
+cmgCall = CMG
+function dataTable3()
+  local arg1, arg2
+  arg1 = dataTable2
+  return arg1
 end
-SHX2_1.isVehicleFailureDisabled = SHX3_1
-SHX2_1 = CMG
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_1 = SHX0_2
+cmgCall.isVehicleFailureDisabled = dataTable3
+cmgCall = CMG
+function dataTable3(arg1)
+  local arg2
+  dataTable2 = arg1
 end
-SHX2_1.setVehicleFailureDisabled = SHX3_1
-SHX2_1 = {}
-SHX3_1 = {}
-SHX4_1 = {}
-SHX4_1.name = "Mechanic"
-SHX4_1.blip = 402
-SHX4_1.radius = 5.0
-SHX5_1 = vector3
-SHX6_1 = 1774.0
-SHX7_1 = 3333.0
-SHX8_1 = 41.0
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX4_1.position = SHX5_1
-SHX5_1 = vector4
-SHX6_1 = 1776.9522705078
-SHX7_1 = 3327.7587890625
-SHX8_1 = 41.433326721191
-SHX9_1 = 312.74
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1)
-SHX4_1.pedPosition = SHX5_1
-SHX5_1 = {}
-SHX5_1.name = "Mechanic"
-SHX5_1.blip = 402
-SHX5_1.radius = 5.0
-SHX6_1 = vector3
-SHX7_1 = 1143.0
-SHX8_1 = -776.0
-SHX9_1 = 57.0
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1)
-SHX5_1.position = SHX6_1
-SHX6_1 = vector4
-SHX7_1 = 1151.2346191406
-SHX8_1 = -778.63012695312
-SHX9_1 = 57.598678588867
-SHX10_1 = 58.28
-SHX6_1 = SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-SHX5_1.pedPosition = SHX6_1
-SHX6_1 = {}
-SHX6_1.name = "Mechanic"
-SHX6_1.blip = 402
-SHX6_1.radius = 5.0
-SHX7_1 = vector3
-SHX8_1 = 2508.0
-SHX9_1 = 4103.0
-SHX10_1 = 38.0
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1)
-SHX6_1.position = SHX7_1
-SHX7_1 = vector4
-SHX8_1 = 2506.7048339844
-SHX9_1 = 4097.9829101562
-SHX10_1 = 38.706733703613
-SHX11_1 = 2.37
-SHX7_1 = SHX7_1(SHX8_1, SHX9_1, SHX10_1, SHX11_1)
-SHX6_1.pedPosition = SHX7_1
-SHX7_1 = {}
-SHX7_1.name = "Mechanic"
-SHX7_1.blip = 402
-SHX7_1.radius = 5.0
-SHX8_1 = vector3
-SHX9_1 = 2006.0
-SHX10_1 = 3792.0
-SHX11_1 = 32.0
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX7_1.position = SHX8_1
-SHX8_1 = vector4
-SHX9_1 = 2002.1617431641
-SHX10_1 = 3796.1989746094
-SHX11_1 = 32.180774688721
-SHX12_1 = 282.57
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1, SHX12_1)
-SHX7_1.pedPosition = SHX8_1
-SHX8_1 = {}
-SHX8_1.name = "Mechanic"
-SHX8_1.blip = 402
-SHX8_1.radius = 5.0
-SHX9_1 = vector3
-SHX10_1 = 484.0
-SHX11_1 = -1316.0
-SHX12_1 = 29.0
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1)
-SHX8_1.position = SHX9_1
-SHX9_1 = vector4
-SHX10_1 = 474.15823364258
-SHX11_1 = -1313.6834716797
-SHX12_1 = 29.195556640625
-SHX13_1 = 252.28346252441
-SHX9_1 = SHX9_1(SHX10_1, SHX11_1, SHX12_1, SHX13_1)
-SHX8_1.pedPosition = SHX9_1
-SHX9_1 = {}
-SHX9_1.name = "Mechanic"
-SHX9_1.blip = 402
-SHX9_1.radius = 5.0
-SHX10_1 = vector3
-SHX11_1 = -1408.65
-SHX12_1 = -459.72
-SHX13_1 = 34.49
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1)
-SHX9_1.position = SHX10_1
-SHX10_1 = vector4
-SHX11_1 = -1402.3912353516
-SHX12_1 = -452.58462524414
-SHX13_1 = 34.469604492188
-SHX14_1 = 206.92913818359
-SHX10_1 = SHX10_1(SHX11_1, SHX12_1, SHX13_1, SHX14_1)
-SHX9_1.pedPosition = SHX10_1
-SHX10_1 = {}
-SHX10_1.name = "Mechanic"
-SHX10_1.blip = 402
-SHX10_1.radius = 5.0
-SHX11_1 = vector3
-SHX12_1 = 254.52
-SHX13_1 = -1800.12
-SHX14_1 = 27.1
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1)
-SHX10_1.position = SHX11_1
-SHX11_1 = vector4
-SHX12_1 = 262.70770263672
-SHX13_1 = -1794.4088134766
-SHX14_1 = 27.106201171875
-SHX15_1 = 76.535430908203
-SHX11_1 = SHX11_1(SHX12_1, SHX13_1, SHX14_1, SHX15_1)
-SHX10_1.pedPosition = SHX11_1
-SHX11_1 = {}
-SHX11_1.name = "Mechanic"
-SHX11_1.blip = 402
-SHX11_1.radius = 5.0
-SHX12_1 = vector3
-SHX13_1 = 288.0
-SHX14_1 = -1730.0
-SHX15_1 = 29.0
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1)
-SHX11_1.position = SHX12_1
-SHX12_1 = vector4
-SHX13_1 = 289.78021240234
-SHX14_1 = -1721.8286132812
-SHX15_1 = 29.263061523438
-SHX16_1 = 195.5905456543
-SHX12_1 = SHX12_1(SHX13_1, SHX14_1, SHX15_1, SHX16_1)
-SHX11_1.pedPosition = SHX12_1
-SHX12_1 = {}
-SHX12_1.name = "Mechanic"
-SHX12_1.blip = 402
-SHX12_1.radius = 5.0
-SHX13_1 = vector3
-SHX14_1 = 1910.0
-SHX15_1 = 3730.35
-SHX16_1 = 32.4
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1)
-SHX12_1.position = SHX13_1
-SHX13_1 = vector4
-SHX14_1 = 1917.5340576172
-SHX15_1 = 3727.2790527344
-SHX16_1 = 32.801513671875
-SHX17_1 = 107.71653747559
-SHX13_1 = SHX13_1(SHX14_1, SHX15_1, SHX16_1, SHX17_1)
-SHX12_1.pedPosition = SHX13_1
-SHX13_1 = {}
-SHX13_1.name = "Mechanic"
-SHX13_1.blip = 402
-SHX13_1.radius = 5.0
-SHX14_1 = vector3
-SHX15_1 = -29.16
-SHX16_1 = -1679.95
-SHX17_1 = 29.46
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1)
-SHX13_1.position = SHX14_1
-SHX14_1 = vector4
-SHX15_1 = -34.378021240234
-SHX16_1 = -1676.5186767578
-SHX17_1 = 29.482055664062
-SHX18_1 = 235.27558898926
-SHX14_1 = SHX14_1(SHX15_1, SHX16_1, SHX17_1, SHX18_1)
-SHX13_1.pedPosition = SHX14_1
-SHX14_1 = {}
-SHX14_1.name = "Mechanic"
-SHX14_1.blip = 402
-SHX14_1.radius = 5.0
-SHX15_1 = vector3
-SHX16_1 = -198.12
-SHX17_1 = -1381.97
-SHX18_1 = 31.26
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1)
-SHX14_1.position = SHX15_1
-SHX15_1 = vector4
-SHX16_1 = -195.50769042969
-SHX17_1 = -1377.2307128906
-SHX18_1 = 31.251342773438
-SHX19_1 = 192.75592041016
-SHX15_1 = SHX15_1(SHX16_1, SHX17_1, SHX18_1, SHX19_1)
-SHX14_1.pedPosition = SHX15_1
-SHX15_1 = {}
-SHX15_1.name = "Mechanic"
-SHX15_1.blip = 402
-SHX15_1.radius = 5.0
-SHX16_1 = vector3
-SHX17_1 = 258.0
-SHX18_1 = 2594.0
-SHX19_1 = 44.0
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1)
-SHX15_1.position = SHX16_1
-SHX16_1 = vector4
-SHX17_1 = 259.55130004883
-SHX18_1 = 2586.1047363281
-SHX19_1 = 44.9541206359861
-SHX20_1 = 11.14
-SHX16_1 = SHX16_1(SHX17_1, SHX18_1, SHX19_1, SHX20_1)
-SHX15_1.pedPosition = SHX16_1
-SHX16_1 = {}
-SHX16_1.name = "Mechanic"
-SHX16_1.blip = 402
-SHX16_1.radius = 5.0
-SHX17_1 = vector3
-SHX18_1 = -32.0
-SHX19_1 = -1090.0
-SHX20_1 = 26.0
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1)
-SHX16_1.position = SHX17_1
-SHX17_1 = vector4
-SHX18_1 = -36.834205627441
-SHX19_1 = -1088.4458007812
-SHX20_1 = 26.422451019287
-SHX21_1 = 248.74
-SHX17_1 = SHX17_1(SHX18_1, SHX19_1, SHX20_1, SHX21_1)
-SHX16_1.pedPosition = SHX17_1
-SHX17_1 = {}
-SHX17_1.name = "Mechanic"
-SHX17_1.blip = 402
-SHX17_1.radius = 5.0
-SHX18_1 = vector3
-SHX19_1 = -200.0
-SHX20_1 = -1298.0
-SHX21_1 = 31.29
-SHX18_1 = SHX18_1(SHX19_1, SHX20_1, SHX21_1)
-SHX17_1.position = SHX18_1
-SHX18_1 = vector4
-SHX19_1 = -196.32527160645
-SHX20_1 = -1297.4505615234
-SHX21_1 = 31.285034179688
-SHX22_1 = 130.39370727539
-SHX18_1 = SHX18_1(SHX19_1, SHX20_1, SHX21_1, SHX22_1)
-SHX17_1.pedPosition = SHX18_1
-SHX18_1 = {}
-SHX18_1.name = "Mechanic"
-SHX18_1.blip = 402
-SHX18_1.radius = 5.0
-SHX19_1 = vector3
-SHX20_1 = 903.0
-SHX21_1 = 3563.0
-SHX22_1 = 34.0
-SHX19_1 = SHX19_1(SHX20_1, SHX21_1, SHX22_1)
-SHX18_1.position = SHX19_1
-SHX19_1 = vector4
-SHX20_1 = 902.65588378906
-SHX21_1 = 3566.1516113281
-SHX22_1 = 33.794116973877
-SHX23_1 = 110.31
-SHX19_1 = SHX19_1(SHX20_1, SHX21_1, SHX22_1, SHX23_1)
-SHX18_1.pedPosition = SHX19_1
-SHX19_1 = {}
-SHX19_1.name = "Mechanic"
-SHX19_1.blip = 402
-SHX19_1.radius = 5.0
-SHX20_1 = vector3
-SHX21_1 = 434.85
-SHX22_1 = 3577.52
-SHX23_1 = 33.23
-SHX20_1 = SHX20_1(SHX21_1, SHX22_1, SHX23_1)
-SHX19_1.position = SHX20_1
-SHX20_1 = vector4
-SHX21_1 = 439.26593017578
-SHX22_1 = 3571.8989257812
-SHX23_1 = 33.22265625
-SHX24_1 = 0.0
-SHX20_1 = SHX20_1(SHX21_1, SHX22_1, SHX23_1, SHX24_1)
-SHX19_1.pedPosition = SHX20_1
-SHX20_1 = {}
-SHX20_1.name = "Mechanic"
-SHX20_1.blip = 402
-SHX20_1.radius = 5.0
-SHX21_1 = vector3
-SHX22_1 = -394.34808349609
-SHX23_1 = 6055.6342773438
-SHX24_1 = 31.500127792358
-SHX21_1 = SHX21_1(SHX22_1, SHX23_1, SHX24_1)
-SHX20_1.position = SHX21_1
-SHX21_1 = vector4
-SHX22_1 = -401.18240356445
-SHX23_1 = 6058.4438476562
-SHX24_1 = 31.487182617188
-SHX25_1 = 232.44094848633
-SHX21_1 = SHX21_1(SHX22_1, SHX23_1, SHX24_1, SHX25_1)
-SHX20_1.pedPosition = SHX21_1
-SHX21_1 = {}
-SHX21_1.name = "Mechanic"
-SHX21_1.blip = 402
-SHX21_1.radius = 5.0
-SHX22_1 = vector3
-SHX23_1 = 161.84657287598
-SHX24_1 = 6405.3413085938
-SHX25_1 = 31.1448802948
-SHX22_1 = SHX22_1(SHX23_1, SHX24_1, SHX25_1)
-SHX21_1.position = SHX22_1
-SHX22_1 = vector4
-SHX23_1 = 164.72967529297
-SHX24_1 = 6412.1142578125
-SHX25_1 = 31.150146484375
-SHX26_1 = 172.91339111328
-SHX22_1 = SHX22_1(SHX23_1, SHX24_1, SHX25_1, SHX26_1)
-SHX21_1.pedPosition = SHX22_1
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX3_1[5] = SHX8_1
-SHX3_1[6] = SHX9_1
-SHX3_1[7] = SHX10_1
-SHX3_1[8] = SHX11_1
-SHX3_1[9] = SHX12_1
-SHX3_1[10] = SHX13_1
-SHX3_1[11] = SHX14_1
-SHX3_1[12] = SHX15_1
-SHX3_1[13] = SHX16_1
-SHX3_1[14] = SHX17_1
-SHX3_1[15] = SHX18_1
-SHX3_1[16] = SHX19_1
-SHX3_1[17] = SHX20_1
-SHX3_1[18] = SHX21_1
-SHX2_1.mechanics = SHX3_1
-SHX3_1 = {}
-SHX4_1 = "Looks fixed... must be nice!"
-SHX5_1 = "Duct tape application complete..."
-SHX6_1 = "Zip tie application complete..."
-SHX7_1 = "I heard kicking your car fixes it..."
-SHX8_1 = "Super glue fixed everything..."
-SHX3_1[1] = SHX4_1
-SHX3_1[2] = SHX5_1
-SHX3_1[3] = SHX6_1
-SHX3_1[4] = SHX7_1
-SHX3_1[5] = SHX8_1
-SHX2_1.fixMessages = SHX3_1
-SHX2_1.fixMessageCount = 5
-SHX3_1 = {}
-SHX4_1 = "Dave: Bring the car in!"
-SHX3_1[1] = SHX4_1
-SHX2_1.noFixMessages = SHX3_1
-SHX2_1.noFixMessageCount = 1
-SHX3_1 = false
-SHX4_1 = nil
-SHX5_1 = nil
-SHX6_1 = nil
-SHX7_1 = 0.0
-SHX8_1 = 0.0
-SHX9_1 = 0.0
-SHX10_1 = 1.0
-SHX11_1 = false
-SHX12_1 = false
-SHX13_1 = 1000.0
-SHX14_1 = 1000.0
-SHX15_1 = 1000.0
-SHX16_1 = 0.0
-SHX17_1 = 0.0
-SHX18_1 = 1000.0
-SHX19_1 = 1000.0
-SHX20_1 = 1000.0
-SHX21_1 = 0.0
-SHX22_1 = 0.0
-SHX23_1 = 1000.0
-SHX24_1 = 1000.0
-SHX25_1 = 1000.0
-SHX26_1 = 0.0
-SHX27_1 = 0.0
-SHX28_1 = nil
-SHX29_1 = math
-SHX29_1 = SHX29_1.randomseed
-SHX30_1 = GetGameTimer
-SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1 = SHX30_1()
-SHX29_1(SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1, SHX36_1, SHX37_1, SHX38_1, SHX39_1, SHX40_1, SHX41_1, SHX42_1, SHX43_1, SHX44_1, SHX45_1, SHX46_1, SHX47_1, SHX48_1, SHX49_1, SHX50_1)
-SHX29_1 = SHX0_1.randomTireBurstInterval
-SHX29_1 = SHX29_1 * 1200
-SHX30_1 = SHX0_1.randomTireBurstInterval
-if 0 ~= SHX30_1 then
-  SHX30_1 = math
-  SHX30_1 = SHX30_1.random
-  SHX31_1 = SHX29_1
-  SHX30_1 = SHX30_1(SHX31_1)
-  SHX28_1 = SHX30_1
+cmgCall.setVehicleFailureDisabled = dataTable3
+cmgCall = {}
+dataTable3 = {}
+dataTable4 = {}
+dataTable4.name = "Mechanic"
+dataTable4.blip = 402
+dataTable4.radius = 5.0
+vector3Builder = vector3
+vector3Builder2 = 1774.0
+numberValue27 = 3333.0
+numberValue29 = 41.0
+vector3Builder = vector3Builder(vector3Builder2, numberValue27, numberValue29)
+dataTable4.position = vector3Builder
+vector3Builder = vector4
+vector3Builder2 = 1776.9522705078
+numberValue27 = 3327.7587890625
+numberValue29 = 41.433326721191
+numberValue31 = 312.74
+vector3Builder = vector3Builder(vector3Builder2, numberValue27, numberValue29, numberValue31)
+dataTable4.pedPosition = vector3Builder
+vector3Builder = {}
+vector3Builder.name = "Mechanic"
+vector3Builder.blip = 402
+vector3Builder.radius = 5.0
+vector3Builder2 = vector3
+numberValue27 = 1143.0
+numberValue29 = -776.0
+numberValue31 = 57.0
+vector3Builder2 = vector3Builder2(numberValue27, numberValue29, numberValue31)
+vector3Builder.position = vector3Builder2
+vector3Builder2 = vector4
+numberValue27 = 1151.2346191406
+numberValue29 = -778.63012695312
+numberValue31 = 57.598678588867
+numberValue = 58.28
+vector3Builder2 = vector3Builder2(numberValue27, numberValue29, numberValue31, numberValue)
+vector3Builder.pedPosition = vector3Builder2
+vector3Builder2 = {}
+vector3Builder2.name = "Mechanic"
+vector3Builder2.blip = 402
+vector3Builder2.radius = 5.0
+numberValue27 = vector3
+numberValue29 = 2508.0
+numberValue31 = 4103.0
+numberValue = 38.0
+numberValue27 = numberValue27(numberValue29, numberValue31, numberValue)
+vector3Builder2.position = numberValue27
+numberValue27 = vector4
+numberValue29 = 2506.7048339844
+numberValue31 = 4097.9829101562
+numberValue = 38.706733703613
+numberValue3 = 2.37
+numberValue27 = numberValue27(numberValue29, numberValue31, numberValue, numberValue3)
+vector3Builder2.pedPosition = numberValue27
+numberValue27 = {}
+numberValue27.name = "Mechanic"
+numberValue27.blip = 402
+numberValue27.radius = 5.0
+numberValue29 = vector3
+numberValue31 = 2006.0
+numberValue = 3792.0
+numberValue3 = 32.0
+numberValue29 = numberValue29(numberValue31, numberValue, numberValue3)
+numberValue27.position = numberValue29
+numberValue29 = vector4
+numberValue31 = 2002.1617431641
+numberValue = 3796.1989746094
+numberValue3 = 32.180774688721
+numberValue5 = 282.57
+numberValue29 = numberValue29(numberValue31, numberValue, numberValue3, numberValue5)
+numberValue27.pedPosition = numberValue29
+numberValue29 = {}
+numberValue29.name = "Mechanic"
+numberValue29.blip = 402
+numberValue29.radius = 5.0
+numberValue31 = vector3
+numberValue = 484.0
+numberValue3 = -1316.0
+numberValue5 = 29.0
+numberValue31 = numberValue31(numberValue, numberValue3, numberValue5)
+numberValue29.position = numberValue31
+numberValue31 = vector4
+numberValue = 474.15823364258
+numberValue3 = -1313.6834716797
+numberValue5 = 29.195556640625
+numberValue7 = 252.28346252441
+numberValue31 = numberValue31(numberValue, numberValue3, numberValue5, numberValue7)
+numberValue29.pedPosition = numberValue31
+numberValue31 = {}
+numberValue31.name = "Mechanic"
+numberValue31.blip = 402
+numberValue31.radius = 5.0
+numberValue = vector3
+numberValue3 = -1408.65
+numberValue5 = -459.72
+numberValue7 = 34.49
+numberValue = numberValue(numberValue3, numberValue5, numberValue7)
+numberValue31.position = numberValue
+numberValue = vector4
+numberValue3 = -1402.3912353516
+numberValue5 = -452.58462524414
+numberValue7 = 34.469604492188
+numberValue8 = 206.92913818359
+numberValue = numberValue(numberValue3, numberValue5, numberValue7, numberValue8)
+numberValue31.pedPosition = numberValue
+numberValue = {}
+numberValue.name = "Mechanic"
+numberValue.blip = 402
+numberValue.radius = 5.0
+numberValue3 = vector3
+numberValue5 = 254.52
+numberValue7 = -1800.12
+numberValue8 = 27.1
+numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8)
+numberValue.position = numberValue3
+numberValue3 = vector4
+numberValue5 = 262.70770263672
+numberValue7 = -1794.4088134766
+numberValue8 = 27.106201171875
+numberValue9 = 76.535430908203
+numberValue3 = numberValue3(numberValue5, numberValue7, numberValue8, numberValue9)
+numberValue.pedPosition = numberValue3
+numberValue3 = {}
+numberValue3.name = "Mechanic"
+numberValue3.blip = 402
+numberValue3.radius = 5.0
+numberValue5 = vector3
+numberValue7 = 288.0
+numberValue8 = -1730.0
+numberValue9 = 29.0
+numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9)
+numberValue3.position = numberValue5
+numberValue5 = vector4
+numberValue7 = 289.78021240234
+numberValue8 = -1721.8286132812
+numberValue9 = 29.263061523438
+numberValue10 = 195.5905456543
+numberValue5 = numberValue5(numberValue7, numberValue8, numberValue9, numberValue10)
+numberValue3.pedPosition = numberValue5
+numberValue5 = {}
+numberValue5.name = "Mechanic"
+numberValue5.blip = 402
+numberValue5.radius = 5.0
+numberValue7 = vector3
+numberValue8 = 1910.0
+numberValue9 = 3730.35
+numberValue10 = 32.4
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10)
+numberValue5.position = numberValue7
+numberValue7 = vector4
+numberValue8 = 1917.5340576172
+numberValue9 = 3727.2790527344
+numberValue10 = 32.801513671875
+numberValue12 = 107.71653747559
+numberValue7 = numberValue7(numberValue8, numberValue9, numberValue10, numberValue12)
+numberValue5.pedPosition = numberValue7
+numberValue7 = {}
+numberValue7.name = "Mechanic"
+numberValue7.blip = 402
+numberValue7.radius = 5.0
+numberValue8 = vector3
+numberValue9 = -29.16
+numberValue10 = -1679.95
+numberValue12 = 29.46
+numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12)
+numberValue7.position = numberValue8
+numberValue8 = vector4
+numberValue9 = -34.378021240234
+numberValue10 = -1676.5186767578
+numberValue12 = 29.482055664062
+numberValue14 = 235.27558898926
+numberValue8 = numberValue8(numberValue9, numberValue10, numberValue12, numberValue14)
+numberValue7.pedPosition = numberValue8
+numberValue8 = {}
+numberValue8.name = "Mechanic"
+numberValue8.blip = 402
+numberValue8.radius = 5.0
+numberValue9 = vector3
+numberValue10 = -198.12
+numberValue12 = -1381.97
+numberValue14 = 31.26
+numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14)
+numberValue8.position = numberValue9
+numberValue9 = vector4
+numberValue10 = -195.50769042969
+numberValue12 = -1377.2307128906
+numberValue14 = 31.251342773438
+numberValue16 = 192.75592041016
+numberValue9 = numberValue9(numberValue10, numberValue12, numberValue14, numberValue16)
+numberValue8.pedPosition = numberValue9
+numberValue9 = {}
+numberValue9.name = "Mechanic"
+numberValue9.blip = 402
+numberValue9.radius = 5.0
+numberValue10 = vector3
+numberValue12 = 258.0
+numberValue14 = 2594.0
+numberValue16 = 44.0
+numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16)
+numberValue9.position = numberValue10
+numberValue10 = vector4
+numberValue12 = 259.55130004883
+numberValue14 = 2586.1047363281
+numberValue16 = 44.9541206359861
+numberValue17 = 11.14
+numberValue10 = numberValue10(numberValue12, numberValue14, numberValue16, numberValue17)
+numberValue9.pedPosition = numberValue10
+numberValue10 = {}
+numberValue10.name = "Mechanic"
+numberValue10.blip = 402
+numberValue10.radius = 5.0
+numberValue12 = vector3
+numberValue14 = -32.0
+numberValue16 = -1090.0
+numberValue17 = 26.0
+numberValue12 = numberValue12(numberValue14, numberValue16, numberValue17)
+numberValue10.position = numberValue12
+numberValue12 = vector4
+numberValue14 = -36.834205627441
+numberValue16 = -1088.4458007812
+numberValue17 = 26.422451019287
+numberValue18 = 248.74
+numberValue12 = numberValue12(numberValue14, numberValue16, numberValue17, numberValue18)
+numberValue10.pedPosition = numberValue12
+numberValue12 = {}
+numberValue12.name = "Mechanic"
+numberValue12.blip = 402
+numberValue12.radius = 5.0
+numberValue14 = vector3
+numberValue16 = -200.0
+numberValue17 = -1298.0
+numberValue18 = 31.29
+numberValue14 = numberValue14(numberValue16, numberValue17, numberValue18)
+numberValue12.position = numberValue14
+numberValue14 = vector4
+numberValue16 = -196.32527160645
+numberValue17 = -1297.4505615234
+numberValue18 = 31.285034179688
+numberValue20 = 130.39370727539
+numberValue14 = numberValue14(numberValue16, numberValue17, numberValue18, numberValue20)
+numberValue12.pedPosition = numberValue14
+numberValue14 = {}
+numberValue14.name = "Mechanic"
+numberValue14.blip = 402
+numberValue14.radius = 5.0
+numberValue16 = vector3
+numberValue17 = 903.0
+numberValue18 = 3563.0
+numberValue20 = 34.0
+numberValue16 = numberValue16(numberValue17, numberValue18, numberValue20)
+numberValue14.position = numberValue16
+numberValue16 = vector4
+numberValue17 = 902.65588378906
+numberValue18 = 3566.1516113281
+numberValue20 = 33.794116973877
+numberValue21 = 110.31
+numberValue16 = numberValue16(numberValue17, numberValue18, numberValue20, numberValue21)
+numberValue14.pedPosition = numberValue16
+numberValue16 = {}
+numberValue16.name = "Mechanic"
+numberValue16.blip = 402
+numberValue16.radius = 5.0
+numberValue17 = vector3
+numberValue18 = 434.85
+numberValue20 = 3577.52
+numberValue21 = 33.23
+numberValue17 = numberValue17(numberValue18, numberValue20, numberValue21)
+numberValue16.position = numberValue17
+numberValue17 = vector4
+numberValue18 = 439.26593017578
+numberValue20 = 3571.8989257812
+numberValue21 = 33.22265625
+numberValue22 = 0.0
+numberValue17 = numberValue17(numberValue18, numberValue20, numberValue21, numberValue22)
+numberValue16.pedPosition = numberValue17
+numberValue17 = {}
+numberValue17.name = "Mechanic"
+numberValue17.blip = 402
+numberValue17.radius = 5.0
+numberValue18 = vector3
+numberValue20 = -394.34808349609
+numberValue21 = 6055.6342773438
+numberValue22 = 31.500127792358
+numberValue18 = numberValue18(numberValue20, numberValue21, numberValue22)
+numberValue17.position = numberValue18
+numberValue18 = vector4
+numberValue20 = -401.18240356445
+numberValue21 = 6058.4438476562
+numberValue22 = 31.487182617188
+numberValue23 = 232.44094848633
+numberValue18 = numberValue18(numberValue20, numberValue21, numberValue22, numberValue23)
+numberValue17.pedPosition = numberValue18
+numberValue18 = {}
+numberValue18.name = "Mechanic"
+numberValue18.blip = 402
+numberValue18.radius = 5.0
+numberValue20 = vector3
+numberValue21 = 161.84657287598
+numberValue22 = 6405.3413085938
+numberValue23 = 31.1448802948
+numberValue20 = numberValue20(numberValue21, numberValue22, numberValue23)
+numberValue18.position = numberValue20
+numberValue20 = vector4
+numberValue21 = 164.72967529297
+numberValue22 = 6412.1142578125
+numberValue23 = 31.150146484375
+numberValue24 = 172.91339111328
+numberValue20 = numberValue20(numberValue21, numberValue22, numberValue23, numberValue24)
+numberValue18.pedPosition = numberValue20
+dataTable3[1] = dataTable4
+dataTable3[2] = vector3Builder
+dataTable3[3] = vector3Builder2
+dataTable3[4] = numberValue27
+dataTable3[5] = numberValue29
+dataTable3[6] = numberValue31
+dataTable3[7] = numberValue
+dataTable3[8] = numberValue3
+dataTable3[9] = numberValue5
+dataTable3[10] = numberValue7
+dataTable3[11] = numberValue8
+dataTable3[12] = numberValue9
+dataTable3[13] = numberValue10
+dataTable3[14] = numberValue12
+dataTable3[15] = numberValue14
+dataTable3[16] = numberValue16
+dataTable3[17] = numberValue17
+dataTable3[18] = numberValue18
+cmgCall.mechanics = dataTable3
+dataTable3 = {}
+dataTable4 = "Looks fixed... must be nice!"
+vector3Builder = "Duct tape application complete..."
+vector3Builder2 = "Zip tie application complete..."
+numberValue27 = "I heard kicking your car fixes it..."
+numberValue29 = "Super glue fixed everything..."
+dataTable3[1] = dataTable4
+dataTable3[2] = vector3Builder
+dataTable3[3] = vector3Builder2
+dataTable3[4] = numberValue27
+dataTable3[5] = numberValue29
+cmgCall.fixMessages = dataTable3
+cmgCall.fixMessageCount = 5
+dataTable3 = {}
+dataTable4 = "Dave: Bring the car in!"
+dataTable3[1] = dataTable4
+cmgCall.noFixMessages = dataTable3
+cmgCall.noFixMessageCount = 1
+dataTable3 = false
+dataTable4 = nil
+vector3Builder = nil
+vector3Builder2 = nil
+numberValue27 = 0.0
+numberValue29 = 0.0
+numberValue31 = 0.0
+numberValue = 1.0
+numberValue3 = false
+numberValue5 = false
+numberValue7 = 1000.0
+numberValue8 = 1000.0
+numberValue9 = 1000.0
+numberValue10 = 0.0
+numberValue12 = 0.0
+numberValue14 = 1000.0
+numberValue16 = 1000.0
+numberValue17 = 1000.0
+numberValue18 = 0.0
+numberValue20 = 0.0
+numberValue21 = 1000.0
+numberValue22 = 1000.0
+numberValue23 = 1000.0
+numberValue24 = 0.0
+numberValue25 = 0.0
+workValue4 = nil
+mathHelper = math
+mathHelper = mathHelper.randomseed
+gameTime = GetGameTimer
+gameTime, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, threadCall, workValue24 = gameTime()
+mathHelper(gameTime, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, threadCall, workValue24)
+mathHelper = dataTable.randomTireBurstInterval
+mathHelper = mathHelper * 1200
+gameTime = dataTable.randomTireBurstInterval
+if 0 ~= gameTime then
+  gameTime = math
+  gameTime = gameTime.random
+  workValue6 = mathHelper
+  gameTime = gameTime(workValue6)
+  workValue4 = gameTime
 end
-function SHX30_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerPed
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetVehiclePedIsIn
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX4_1 = SHX1_2
-  SHX1_2 = IsPedInAnyVehicle
-  SHX2_2 = SHX0_2
-  SHX3_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 then
-    SHX1_2 = GetPedInVehicleSeat
-    SHX2_2 = SHX4_1
-    SHX3_2 = -1
-    SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-    if SHX1_2 == SHX0_2 then
-      SHX1_2 = GetVehicleClass
-      SHX2_2 = SHX4_1
-      SHX1_2 = SHX1_2(SHX2_2)
-      if 15 ~= SHX1_2 and 16 ~= SHX1_2 and 21 ~= SHX1_2 and 13 ~= SHX1_2 then
-        SHX2_2 = true
-        return SHX2_2
+function gameTime()
+  local arg1, arg2, arg3, arg4
+  arg1 = CMG
+  arg1 = arg1.getPlayerPed
+  -- Beginner: result below is localPlayerPed.
+  arg1 = arg1()
+  arg2 = GetVehiclePedIsIn
+  arg3 = arg1
+  arg4 = false
+  -- Beginner: result below is currentVehicle.
+  arg2 = arg2(arg3, arg4)
+  dataTable4 = arg2
+  arg2 = IsPedInAnyVehicle
+  arg3 = arg1
+  arg4 = false
+  arg2 = arg2(arg3, arg4)
+  if arg2 then
+    arg2 = GetPedInVehicleSeat
+    arg3 = dataTable4
+    arg4 = -1
+    arg2 = arg2(arg3, arg4)
+    if arg2 == arg1 then
+      arg2 = GetVehicleClass
+      arg3 = dataTable4
+      arg2 = arg2(arg3)
+      if 15 ~= arg2 and 16 ~= arg2 and 21 ~= arg2 and 13 ~= arg2 then
+        arg3 = true
+        return arg3
       end
     end
   end
-  SHX1_2 = false
-  return SHX1_2
+  arg2 = false
+  return arg2
 end
-function SHX31_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX6_2 = 0.0
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 0
-  if SHX5_2 > 10.0 then
-    SHX5_2 = 10.0
+function workValue6(arg1, arg2, arg3, arg4, arg5, arg6)
+  local flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6
+  flag9 = 0.0
+  numberValue28 = 0.0
+  numberValue30 = 0.0
+  numberValue32 = 0.0
+  numberValue2 = 0.0
+  numberValue4 = 0
+  if arg6 > 10.0 then
+    arg6 = 10.0
   end
-  if SHX5_2 < -10.0 then
-    SHX5_2 = -10.0
+  if arg6 < -10.0 then
+    arg6 = -10.0
   end
-  SHX5_2 = SHX5_2 * -0.1
-  SHX12_2 = 10.0
-  SHX5_2 = SHX12_2 ^ SHX5_2
-  if SHX0_2 < SHX1_2 then
-    SHX0_2 = SHX1_2
+  arg6 = arg6 * -0.1
+  numberValue6 = 10.0
+  arg6 = numberValue6 ^ arg6
+  if arg1 < arg2 then
+    arg1 = arg2
   end
-  if SHX2_2 < SHX0_2 then
-    SHX0_2 = SHX2_2
+  if arg3 < arg1 then
+    arg1 = arg3
   end
-  SHX6_2 = SHX2_2 - SHX1_2
-  if SHX3_2 < SHX4_2 then
-    SHX7_2 = SHX4_2 - SHX3_2
+  flag9 = arg3 - arg2
+  if arg4 < arg5 then
+    numberValue28 = arg5 - arg4
   else
-    SHX7_2 = SHX3_2 - SHX4_2
-    SHX11_2 = 1
+    numberValue28 = arg4 - arg5
+    numberValue4 = 1
   end
-  SHX8_2 = SHX0_2 - SHX1_2
-  SHX9_2 = SHX8_2 / SHX6_2
-  if SHX2_2 < SHX1_2 then
-    SHX12_2 = 0
-    return SHX12_2
+  numberValue30 = arg1 - arg2
+  numberValue32 = numberValue30 / flag9
+  if arg3 < arg2 then
+    numberValue6 = 0
+    return numberValue6
   end
-  if 0 == SHX11_2 then
-    SHX12_2 = SHX9_2 ^ SHX5_2
-    SHX12_2 = SHX12_2 * SHX7_2
-    SHX10_2 = SHX12_2 + SHX3_2
+  if 0 == numberValue4 then
+    numberValue6 = numberValue32 ^ arg6
+    numberValue6 = numberValue6 * numberValue28
+    numberValue2 = numberValue6 + arg4
   else
-    SHX12_2 = SHX9_2 ^ SHX5_2
-    SHX12_2 = SHX12_2 * SHX7_2
-    SHX10_2 = SHX3_2 - SHX12_2
+    numberValue6 = numberValue32 ^ arg6
+    numberValue6 = numberValue6 * numberValue28
+    numberValue2 = arg4 - numberValue6
   end
-  return SHX10_2
+  return numberValue2
 end
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.random
-  SHX1_2 = SHX29_1
-  SHX0_2 = SHX0_2(SHX1_2)
-  SHX1_2 = SHX28_1
-  if SHX0_2 == SHX1_2 then
-    SHX1_2 = GetVehicleTyresCanBurst
-    SHX2_2 = SHX4_1
-    SHX1_2 = SHX1_2(SHX2_2)
-    if false == SHX1_2 then
+function workValue7()
+  local arg1, arg2, arg3, arg4, arg5, arg6, flag9, numberValue28
+  arg1 = math
+  arg1 = arg1.random
+  arg2 = mathHelper
+  arg1 = arg1(arg2)
+  arg2 = workValue4
+  if arg1 == arg2 then
+    arg2 = GetVehicleTyresCanBurst
+    arg3 = dataTable4
+    arg2 = arg2(arg3)
+    if false == arg2 then
       return
     end
-    SHX1_2 = GetVehicleNumberOfWheels
-    SHX2_2 = SHX4_1
-    SHX1_2 = SHX1_2(SHX2_2)
-    SHX2_2 = nil
-    if 2 == SHX1_2 then
-      SHX3_2 = math
-      SHX3_2 = SHX3_2.random
-      SHX4_2 = 2
-      SHX3_2 = SHX3_2(SHX4_2)
-      SHX3_2 = SHX3_2 - 1
-      SHX2_2 = SHX3_2 * 4
-    elseif 4 == SHX1_2 then
-      SHX3_2 = math
-      SHX3_2 = SHX3_2.random
-      SHX4_2 = 4
-      SHX3_2 = SHX3_2(SHX4_2)
-      SHX2_2 = SHX3_2 - 1
-      if SHX2_2 > 1 then
-        SHX2_2 = SHX2_2 + 2
+    arg2 = GetVehicleNumberOfWheels
+    arg3 = dataTable4
+    arg2 = arg2(arg3)
+    arg3 = nil
+    if 2 == arg2 then
+      arg4 = math
+      arg4 = arg4.random
+      arg5 = 2
+      arg4 = arg4(arg5)
+      arg4 = arg4 - 1
+      arg3 = arg4 * 4
+    elseif 4 == arg2 then
+      arg4 = math
+      arg4 = arg4.random
+      arg5 = 4
+      arg4 = arg4(arg5)
+      arg3 = arg4 - 1
+      if arg3 > 1 then
+        arg3 = arg3 + 2
       end
-    elseif 6 == SHX1_2 then
-      SHX3_2 = math
-      SHX3_2 = SHX3_2.random
-      SHX4_2 = 6
-      SHX3_2 = SHX3_2(SHX4_2)
-      SHX2_2 = SHX3_2 - 1
+    elseif 6 == arg2 then
+      arg4 = math
+      arg4 = arg4.random
+      arg5 = 6
+      arg4 = arg4(arg5)
+      arg3 = arg4 - 1
     else
-      SHX2_2 = 0
+      arg3 = 0
     end
-    SHX3_2 = SetVehicleTyreBurst
-    SHX4_2 = SHX4_1
-    SHX5_2 = SHX2_2
-    SHX6_2 = false
-    SHX7_2 = 1000.0
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.random
-    SHX4_2 = SHX29_1
-    SHX3_2 = SHX3_2(SHX4_2)
-    SHX28_1 = SHX3_2
+    arg4 = SetVehicleTyreBurst
+    arg5 = dataTable4
+    arg6 = arg3
+    flag9 = false
+    numberValue28 = 1000.0
+    arg4(arg5, arg6, flag9, numberValue28)
+    arg4 = math
+    arg4 = arg4.random
+    arg5 = mathHelper
+    arg4 = arg4(arg5)
+    workValue4 = arg4
   end
 end
-SHX33_1 = SHX0_1.torqueMultiplierEnabled
-if not SHX33_1 then
-  SHX33_1 = SHX0_1.preventVehicleFlip
-  if not SHX33_1 then
-    SHX33_1 = SHX0_1.limpMode
-    if not SHX33_1 then
-      goto SHX_LABEL_466
+workValue8 = dataTable.torqueMultiplierEnabled
+if not workValue8 then
+  workValue8 = dataTable.preventVehicleFlip
+  if not workValue8 then
+    workValue8 = dataTable.limpMode
+    if not workValue8 then
+      goto flow_label_466
     end
   end
 end
-SHX33_1 = Citizen
-SHX33_1 = SHX33_1.CreateThread
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
+workValue8 = Citizen
+workValue8 = workValue8.CreateThread
+function workValue9()
+  local arg1, arg2, arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6
   while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 0
-    SHX0_2(SHX1_2)
-    SHX0_2 = SHX0_1.torqueMultiplierEnabled
-    if not SHX0_2 then
-      SHX0_2 = SHX0_1.sundayDriver
-      if not SHX0_2 then
-        SHX0_2 = SHX0_1.limpMode
-        if not SHX0_2 then
-          goto SHX_LABEL_218
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 0
+    arg1(arg2)
+    arg1 = dataTable.torqueMultiplierEnabled
+    if not arg1 then
+      arg1 = dataTable.sundayDriver
+      if not arg1 then
+        arg1 = dataTable.limpMode
+        if not arg1 then
+          goto flow_label_218
         end
       end
     end
-    SHX0_2 = SHX1_1
-    if not SHX0_2 then
-      SHX0_2 = SHX3_1
-      if SHX0_2 then
-        SHX0_2 = 1.0
-        SHX1_2 = SHX0_1.torqueMultiplierEnabled
-        if SHX1_2 then
-          SHX1_2 = SHX15_1
-          SHX2_2 = 900
-          if SHX1_2 < SHX2_2 then
-            SHX1_2 = SHX15_1
-            SHX1_2 = SHX1_2 + 200.0
-            SHX0_2 = SHX1_2 / 1100
+    arg1 = dataTable2
+    if not arg1 then
+      arg1 = dataTable3
+      if arg1 then
+        arg1 = 1.0
+        arg2 = dataTable.torqueMultiplierEnabled
+        if arg2 then
+          arg2 = numberValue9
+          arg3 = 900
+          if arg2 < arg3 then
+            arg2 = numberValue9
+            arg2 = arg2 + 200.0
+            arg1 = arg2 / 1100
           end
         end
-        SHX1_2 = SHX0_1.sundayDriver
-        if SHX1_2 then
-          SHX1_2 = GetVehicleClass
-          SHX2_2 = SHX4_1
-          SHX1_2 = SHX1_2(SHX2_2)
-          if 14 ~= SHX1_2 then
-            SHX1_2 = GetControlValue
-            SHX2_2 = 2
-            SHX3_2 = 71
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-            SHX2_2 = GetControlValue
-            SHX3_2 = 2
-            SHX4_2 = 72
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-            SHX3_2 = GetEntitySpeedVector
-            SHX4_2 = SHX4_1
-            SHX5_2 = true
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-            SHX3_2 = SHX3_2.y
-            SHX4_2 = SHX10_1
-            if SHX3_2 >= 1.0 then
-              if SHX1_2 > 127 then
-                SHX5_2 = SHX31_1
-                SHX6_2 = SHX1_2
-                SHX7_2 = 127.0
-                SHX8_2 = 254.0
-                SHX9_2 = 0.1
-                SHX10_2 = 1.0
-                SHX11_2 = SHX0_1.sundayDriverAcceleratorCurve
-                SHX11_2 = SHX11_2 * 2.0
-                SHX12_2 = 10.0
-                SHX11_2 = SHX12_2 - SHX11_2
-                SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-                SHX0_2 = SHX0_2 * SHX5_2
+        arg2 = dataTable.sundayDriver
+        if arg2 then
+          arg2 = GetVehicleClass
+          arg3 = dataTable4
+          arg2 = arg2(arg3)
+          if 14 ~= arg2 then
+            arg2 = GetControlValue
+            arg3 = 2
+            arg4 = 71
+            arg2 = arg2(arg3, arg4)
+            arg3 = GetControlValue
+            arg4 = 2
+            arg5 = 72
+            arg3 = arg3(arg4, arg5)
+            arg4 = GetEntitySpeedVector
+            arg5 = dataTable4
+            arg6 = true
+            arg4 = arg4(arg5, arg6)
+            arg4 = arg4.y
+            arg5 = numberValue
+            if arg4 >= 1.0 then
+              if arg2 > 127 then
+                arg6 = workValue6
+                flag9 = arg2
+                numberValue28 = 127.0
+                numberValue30 = 254.0
+                numberValue32 = 0.1
+                numberValue2 = 1.0
+                numberValue4 = dataTable.sundayDriverAcceleratorCurve
+                numberValue4 = numberValue4 * 2.0
+                numberValue6 = 10.0
+                numberValue4 = numberValue6 - numberValue4
+                arg6 = arg6(flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4)
+                arg1 = arg1 * arg6
               end
-              if SHX2_2 > 127 then
-                SHX5_2 = true
-                SHX11_1 = SHX5_2
-                SHX5_2 = SHX31_1
-                SHX6_2 = SHX2_2
-                SHX7_2 = 127.0
-                SHX8_2 = 254.0
-                SHX9_2 = 0.01
-                SHX10_2 = SHX10_1
-                SHX11_2 = SHX0_1.sundayDriverBrakeCurve
-                SHX11_2 = SHX11_2 * 2.0
-                SHX12_2 = 10.0
-                SHX11_2 = SHX12_2 - SHX11_2
-                SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-                SHX4_2 = SHX5_2
+              if arg3 > 127 then
+                arg6 = true
+                numberValue3 = arg6
+                arg6 = workValue6
+                flag9 = arg3
+                numberValue28 = 127.0
+                numberValue30 = 254.0
+                numberValue32 = 0.01
+                numberValue2 = numberValue
+                numberValue4 = dataTable.sundayDriverBrakeCurve
+                numberValue4 = numberValue4 * 2.0
+                numberValue6 = 10.0
+                numberValue4 = numberValue6 - numberValue4
+                arg6 = arg6(flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4)
+                arg5 = arg6
               end
-            elseif SHX3_2 <= -1.0 then
-              if SHX2_2 > 127 then
-                SHX5_2 = SHX31_1
-                SHX6_2 = SHX2_2
-                SHX7_2 = 127.0
-                SHX8_2 = 254.0
-                SHX9_2 = 0.1
-                SHX10_2 = 1.0
-                SHX11_2 = SHX0_1.sundayDriverAcceleratorCurve
-                SHX11_2 = SHX11_2 * 2.0
-                SHX12_2 = 10.0
-                SHX11_2 = SHX12_2 - SHX11_2
-                SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-                SHX0_2 = SHX0_2 * SHX5_2
+            elseif arg4 <= -1.0 then
+              if arg3 > 127 then
+                arg6 = workValue6
+                flag9 = arg3
+                numberValue28 = 127.0
+                numberValue30 = 254.0
+                numberValue32 = 0.1
+                numberValue2 = 1.0
+                numberValue4 = dataTable.sundayDriverAcceleratorCurve
+                numberValue4 = numberValue4 * 2.0
+                numberValue6 = 10.0
+                numberValue4 = numberValue6 - numberValue4
+                arg6 = arg6(flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4)
+                arg1 = arg1 * arg6
               end
-              if SHX1_2 > 127 then
-                SHX5_2 = true
-                SHX12_1 = SHX5_2
-                SHX5_2 = SHX31_1
-                SHX6_2 = SHX1_2
-                SHX7_2 = 127.0
-                SHX8_2 = 254.0
-                SHX9_2 = 0.01
-                SHX10_2 = SHX10_1
-                SHX11_2 = SHX0_1.sundayDriverBrakeCurve
-                SHX11_2 = SHX11_2 * 2.0
-                SHX12_2 = 10.0
-                SHX11_2 = SHX12_2 - SHX11_2
-                SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-                SHX4_2 = SHX5_2
+              if arg2 > 127 then
+                arg6 = true
+                numberValue5 = arg6
+                arg6 = workValue6
+                flag9 = arg2
+                numberValue28 = 127.0
+                numberValue30 = 254.0
+                numberValue32 = 0.01
+                numberValue2 = numberValue
+                numberValue4 = dataTable.sundayDriverBrakeCurve
+                numberValue4 = numberValue4 * 2.0
+                numberValue6 = 10.0
+                numberValue4 = numberValue6 - numberValue4
+                arg6 = arg6(flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4)
+                arg5 = arg6
               end
             else
-              SHX5_2 = GetEntitySpeed
-              SHX6_2 = SHX4_1
-              SHX5_2 = SHX5_2(SHX6_2)
-              if SHX5_2 < 1 then
-                SHX6_2 = SHX11_1
-                if true == SHX6_2 then
-                  SHX6_2 = DisableControlAction
-                  SHX7_2 = 2
-                  SHX8_2 = 72
-                  SHX9_2 = true
-                  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                  SHX6_2 = SetVehicleForwardSpeed
-                  SHX7_2 = SHX4_1
-                  SHX8_2 = SHX3_2 * 0.98
-                  SHX6_2(SHX7_2, SHX8_2)
-                  SHX6_2 = SetVehicleBrakeLights
-                  SHX7_2 = SHX4_1
-                  SHX8_2 = true
-                  SHX6_2(SHX7_2, SHX8_2)
+              arg6 = GetEntitySpeed
+              flag9 = dataTable4
+              -- Beginner: result below is speed.
+              arg6 = arg6(flag9)
+              if arg6 < 1 then
+                flag9 = numberValue3
+                if true == flag9 then
+                  flag9 = DisableControlAction
+                  numberValue28 = 2
+                  numberValue30 = 72
+                  numberValue32 = true
+                  flag9(numberValue28, numberValue30, numberValue32)
+                  flag9 = SetVehicleForwardSpeed
+                  numberValue28 = dataTable4
+                  numberValue30 = arg4 * 0.98
+                  flag9(numberValue28, numberValue30)
+                  flag9 = SetVehicleBrakeLights
+                  numberValue28 = dataTable4
+                  numberValue30 = true
+                  flag9(numberValue28, numberValue30)
                 end
-                SHX6_2 = SHX12_1
-                if true == SHX6_2 then
-                  SHX6_2 = DisableControlAction
-                  SHX7_2 = 2
-                  SHX8_2 = 71
-                  SHX9_2 = true
-                  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-                  SHX6_2 = SetVehicleForwardSpeed
-                  SHX7_2 = SHX4_1
-                  SHX8_2 = SHX3_2 * 0.98
-                  SHX6_2(SHX7_2, SHX8_2)
-                  SHX6_2 = SetVehicleBrakeLights
-                  SHX7_2 = SHX4_1
-                  SHX8_2 = true
-                  SHX6_2(SHX7_2, SHX8_2)
+                flag9 = numberValue5
+                if true == flag9 then
+                  flag9 = DisableControlAction
+                  numberValue28 = 2
+                  numberValue30 = 71
+                  numberValue32 = true
+                  flag9(numberValue28, numberValue30, numberValue32)
+                  flag9 = SetVehicleForwardSpeed
+                  numberValue28 = dataTable4
+                  numberValue30 = arg4 * 0.98
+                  flag9(numberValue28, numberValue30)
+                  flag9 = SetVehicleBrakeLights
+                  numberValue28 = dataTable4
+                  numberValue30 = true
+                  flag9(numberValue28, numberValue30)
                 end
-                SHX6_2 = SHX11_1
-                if true == SHX6_2 then
-                  SHX6_2 = GetDisabledControlNormal
-                  SHX7_2 = 2
-                  SHX8_2 = 72
-                  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-                  if 0 == SHX6_2 then
-                    SHX6_2 = false
-                    SHX11_1 = SHX6_2
+                flag9 = numberValue3
+                if true == flag9 then
+                  flag9 = GetDisabledControlNormal
+                  numberValue28 = 2
+                  numberValue30 = 72
+                  flag9 = flag9(numberValue28, numberValue30)
+                  if 0 == flag9 then
+                    flag9 = false
+                    numberValue3 = flag9
                   end
                 end
-                SHX6_2 = SHX12_1
-                if true == SHX6_2 then
-                  SHX6_2 = GetDisabledControlNormal
-                  SHX7_2 = 2
-                  SHX8_2 = 71
-                  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-                  if 0 == SHX6_2 then
-                    SHX6_2 = false
-                    SHX12_1 = SHX6_2
+                flag9 = numberValue5
+                if true == flag9 then
+                  flag9 = GetDisabledControlNormal
+                  numberValue28 = 2
+                  numberValue30 = 71
+                  flag9 = flag9(numberValue28, numberValue30)
+                  if 0 == flag9 then
+                    flag9 = false
+                    numberValue5 = flag9
                   end
                 end
               end
             end
-            SHX5_2 = SHX10_1
-            SHX5_2 = SHX5_2 - 0.02
-            if SHX4_2 > SHX5_2 then
-              SHX4_2 = SHX10_1
+            arg6 = numberValue
+            arg6 = arg6 - 0.02
+            if arg5 > arg6 then
+              arg5 = numberValue
             end
-            SHX5_2 = SetVehicleHandlingFloat
-            SHX6_2 = SHX4_1
-            SHX7_2 = "CHandlingData"
-            SHX8_2 = "fBrakeForce"
-            SHX9_2 = SHX4_2
-            SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+            arg6 = SetVehicleHandlingFloat
+            flag9 = dataTable4
+            numberValue28 = "CHandlingData"
+            numberValue30 = "fBrakeForce"
+            numberValue32 = arg5
+            arg6(flag9, numberValue28, numberValue30, numberValue32)
           end
         end
-        SHX1_2 = SHX0_1.limpMode
-        if true == SHX1_2 then
-          SHX1_2 = SHX15_1
-          SHX2_2 = SHX0_1.engineSafeGuard
-          SHX2_2 = SHX2_2 + 5
-          if SHX1_2 < SHX2_2 then
-            SHX0_2 = SHX0_1.limpModeMultiplier
+        arg2 = dataTable.limpMode
+        if true == arg2 then
+          arg2 = numberValue9
+          arg3 = dataTable.engineSafeGuard
+          arg3 = arg3 + 5
+          if arg2 < arg3 then
+            arg1 = dataTable.limpModeMultiplier
           end
         end
-        SHX1_2 = SetVehicleCheatPowerIncrease
-        SHX2_2 = SHX4_1
-        SHX3_2 = SHX0_2
-        SHX1_2(SHX2_2, SHX3_2)
+        arg2 = SetVehicleCheatPowerIncrease
+        arg3 = dataTable4
+        arg4 = arg1
+        arg2(arg3, arg4)
       end
     end
-    -- [FIX IF ERROR] Move ::SHX_LABEL_218:: outside nested blocks until all 'goto SHX_LABEL_218' can see it
-    ::SHX_LABEL_218::
-    SHX0_2 = SHX0_1.preventVehicleFlip
-    if SHX0_2 then
-      SHX0_2 = SHX1_1
-      if not SHX0_2 then
-        SHX0_2 = GetEntityRoll
-        SHX1_2 = SHX4_1
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 > 75.0 or SHX0_2 < -75.0 then
-          SHX1_2 = GetEntitySpeed
-          SHX2_2 = SHX4_1
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 < 2 then
-            SHX1_2 = DisableControlAction
-            SHX2_2 = 2
-            SHX3_2 = 59
-            SHX4_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-            SHX1_2 = DisableControlAction
-            SHX2_2 = 2
-            SHX3_2 = 60
-            SHX4_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+    ::flow_label_218::
+    arg1 = dataTable.preventVehicleFlip
+    if arg1 then
+      arg1 = dataTable2
+      if not arg1 then
+        arg1 = GetEntityRoll
+        arg2 = dataTable4
+        arg1 = arg1(arg2)
+        if arg1 > 75.0 or arg1 < -75.0 then
+          arg2 = GetEntitySpeed
+          arg3 = dataTable4
+          -- Beginner: result below is speed.
+          arg2 = arg2(arg3)
+          if arg2 < 2 then
+            arg2 = DisableControlAction
+            arg3 = 2
+            arg4 = 59
+            arg5 = true
+            arg2(arg3, arg4, arg5)
+            arg2 = DisableControlAction
+            arg3 = 2
+            arg4 = 60
+            arg5 = true
+            arg2(arg3, arg4, arg5)
           end
         end
       end
     end
   end
 end
-SHX33_1(SHX34_1)
--- [FIX IF ERROR] Move ::SHX_LABEL_466:: outside nested blocks until all 'goto SHX_LABEL_466' can see it
-::SHX_LABEL_466::
-SHX33_1 = Citizen
-SHX33_1 = SHX33_1.CreateThread
-function SHX34_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+workValue8(workValue9)
+::flow_label_466::
+workValue8 = Citizen
+workValue8 = workValue8.CreateThread
+function workValue9()
+  local arg1, arg2, arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30
   while true do
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.Wait
-    SHX1_2 = 50
-    SHX0_2(SHX1_2)
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerPed
-    SHX0_2 = SHX0_2()
-    SHX1_2 = SHX30_1
-    SHX1_2 = SHX1_2()
-    if SHX1_2 then
-      SHX1_2 = SHX1_1
-      if not SHX1_2 then
-        SHX1_2 = GetVehiclePedIsIn
-        SHX2_2 = SHX0_2
-        SHX3_2 = false
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        SHX4_1 = SHX1_2
-        SHX1_2 = GetVehicleClass
-        SHX2_2 = SHX4_1
-        SHX1_2 = SHX1_2(SHX2_2)
-        SHX6_1 = SHX1_2
-        SHX1_2 = GetVehicleEngineHealth
-        SHX2_2 = SHX4_1
-        SHX1_2 = SHX1_2(SHX2_2)
-        SHX14_1 = SHX1_2
-        SHX1_2 = SHX14_1
-        if 1000 == SHX1_2 then
-          SHX1_2 = 1000.0
-          SHX13_1 = SHX1_2
+    arg1 = Citizen
+    arg1 = arg1.Wait
+    arg2 = 50
+    arg1(arg2)
+    arg1 = CMG
+    arg1 = arg1.getPlayerPed
+    -- Beginner: result below is localPlayerPed.
+    arg1 = arg1()
+    arg2 = gameTime
+    arg2 = arg2()
+    if arg2 then
+      arg2 = dataTable2
+      if not arg2 then
+        arg2 = GetVehiclePedIsIn
+        arg3 = arg1
+        arg4 = false
+        -- Beginner: result below is currentVehicle.
+        arg2 = arg2(arg3, arg4)
+        dataTable4 = arg2
+        arg2 = GetVehicleClass
+        arg3 = dataTable4
+        arg2 = arg2(arg3)
+        vector3Builder2 = arg2
+        arg2 = GetVehicleEngineHealth
+        arg3 = dataTable4
+        arg2 = arg2(arg3)
+        numberValue8 = arg2
+        arg2 = numberValue8
+        if 1000 == arg2 then
+          arg2 = 1000.0
+          numberValue7 = arg2
         end
-        SHX1_2 = SHX14_1
-        SHX15_1 = SHX1_2
-        SHX1_2 = SHX13_1
-        SHX2_2 = SHX14_1
-        SHX1_2 = SHX1_2 - SHX2_2
-        SHX16_1 = SHX1_2
-        SHX1_2 = SHX16_1
-        SHX2_2 = SHX0_1.damageFactorEngine
-        SHX1_2 = SHX1_2 * SHX2_2
-        SHX2_2 = SHX0_1.classDamageMultiplier
-        SHX3_2 = SHX6_1
-        SHX2_2 = SHX2_2[SHX3_2]
-        SHX1_2 = SHX1_2 * SHX2_2
-        SHX17_1 = SHX1_2
-        SHX1_2 = GetVehicleBodyHealth
-        SHX2_2 = SHX4_1
-        SHX1_2 = SHX1_2(SHX2_2)
-        SHX19_1 = SHX1_2
-        SHX1_2 = SHX19_1
-        if 1000 == SHX1_2 then
-          SHX1_2 = 1000.0
-          SHX18_1 = SHX1_2
+        arg2 = numberValue8
+        numberValue9 = arg2
+        arg2 = numberValue7
+        arg3 = numberValue8
+        arg2 = arg2 - arg3
+        numberValue10 = arg2
+        arg2 = numberValue10
+        arg3 = dataTable.damageFactorEngine
+        arg2 = arg2 * arg3
+        arg3 = dataTable.classDamageMultiplier
+        arg4 = vector3Builder2
+        arg3 = arg3[arg4]
+        arg2 = arg2 * arg3
+        numberValue12 = arg2
+        arg2 = GetVehicleBodyHealth
+        arg3 = dataTable4
+        arg2 = arg2(arg3)
+        numberValue16 = arg2
+        arg2 = numberValue16
+        if 1000 == arg2 then
+          arg2 = 1000.0
+          numberValue14 = arg2
         end
-        SHX1_2 = SHX19_1
-        SHX20_1 = SHX1_2
-        SHX1_2 = SHX18_1
-        SHX2_2 = SHX19_1
-        SHX1_2 = SHX1_2 - SHX2_2
-        SHX21_1 = SHX1_2
-        SHX1_2 = SHX21_1
-        SHX2_2 = SHX0_1.damageFactorBody
-        SHX1_2 = SHX1_2 * SHX2_2
-        SHX2_2 = SHX0_1.classDamageMultiplier
-        SHX3_2 = SHX6_1
-        SHX2_2 = SHX2_2[SHX3_2]
-        SHX1_2 = SHX1_2 * SHX2_2
-        SHX22_1 = SHX1_2
-        SHX1_2 = GetVehiclePetrolTankHealth
-        SHX2_2 = SHX4_1
-        SHX1_2 = SHX1_2(SHX2_2)
-        SHX24_1 = SHX1_2
-        SHX1_2 = SHX0_1.compatibilityMode
-        if SHX1_2 then
-          SHX1_2 = SHX24_1
-          if SHX1_2 < 1 then
-            SHX1_2 = SHX24_1
-            SHX23_1 = SHX1_2
+        arg2 = numberValue16
+        numberValue17 = arg2
+        arg2 = numberValue14
+        arg3 = numberValue16
+        arg2 = arg2 - arg3
+        numberValue18 = arg2
+        arg2 = numberValue18
+        arg3 = dataTable.damageFactorBody
+        arg2 = arg2 * arg3
+        arg3 = dataTable.classDamageMultiplier
+        arg4 = vector3Builder2
+        arg3 = arg3[arg4]
+        arg2 = arg2 * arg3
+        numberValue20 = arg2
+        arg2 = GetVehiclePetrolTankHealth
+        arg3 = dataTable4
+        arg2 = arg2(arg3)
+        numberValue22 = arg2
+        arg2 = dataTable.compatibilityMode
+        if arg2 then
+          arg2 = numberValue22
+          if arg2 < 1 then
+            arg2 = numberValue22
+            numberValue21 = arg2
           end
         end
-        SHX1_2 = SHX24_1
-        if 1000 == SHX1_2 then
-          SHX1_2 = 1000.0
-          SHX23_1 = SHX1_2
+        arg2 = numberValue22
+        if 1000 == arg2 then
+          arg2 = 1000.0
+          numberValue21 = arg2
         end
-        SHX1_2 = SHX24_1
-        SHX25_1 = SHX1_2
-        SHX1_2 = SHX23_1
-        SHX2_2 = SHX24_1
-        SHX1_2 = SHX1_2 - SHX2_2
-        SHX26_1 = SHX1_2
-        SHX1_2 = SHX26_1
-        SHX2_2 = SHX0_1.damageFactorPetrolTank
-        SHX1_2 = SHX1_2 * SHX2_2
-        SHX2_2 = SHX0_1.classDamageMultiplier
-        SHX3_2 = SHX6_1
-        SHX2_2 = SHX2_2[SHX3_2]
-        SHX1_2 = SHX1_2 * SHX2_2
-        SHX27_1 = SHX1_2
-        SHX1_2 = SHX14_1
-        SHX2_2 = SHX0_1.engineSafeGuard
-        SHX2_2 = SHX2_2 + 1
-        if SHX1_2 > SHX2_2 then
-          SHX1_2 = SetVehicleUndriveable
-          SHX2_2 = SHX4_1
-          SHX3_2 = false
-          SHX1_2(SHX2_2, SHX3_2)
+        arg2 = numberValue22
+        numberValue23 = arg2
+        arg2 = numberValue21
+        arg3 = numberValue22
+        arg2 = arg2 - arg3
+        numberValue24 = arg2
+        arg2 = numberValue24
+        arg3 = dataTable.damageFactorPetrolTank
+        arg2 = arg2 * arg3
+        arg3 = dataTable.classDamageMultiplier
+        arg4 = vector3Builder2
+        arg3 = arg3[arg4]
+        arg2 = arg2 * arg3
+        numberValue25 = arg2
+        arg2 = numberValue8
+        arg3 = dataTable.engineSafeGuard
+        arg3 = arg3 + 1
+        if arg2 > arg3 then
+          arg2 = SetVehicleUndriveable
+          arg3 = dataTable4
+          arg4 = false
+          arg2(arg3, arg4)
         end
-        SHX1_2 = SHX14_1
-        SHX2_2 = SHX0_1.engineSafeGuard
-        SHX2_2 = SHX2_2 + 1
-        if SHX1_2 <= SHX2_2 then
-          SHX1_2 = SHX0_1.limpMode
-          if false == SHX1_2 then
-            SHX1_2 = SetVehicleUndriveable
-            SHX2_2 = SHX4_1
-            SHX3_2 = true
-            SHX1_2(SHX2_2, SHX3_2)
+        arg2 = numberValue8
+        arg3 = dataTable.engineSafeGuard
+        arg3 = arg3 + 1
+        if arg2 <= arg3 then
+          arg2 = dataTable.limpMode
+          if false == arg2 then
+            arg2 = SetVehicleUndriveable
+            arg3 = dataTable4
+            arg4 = true
+            arg2(arg3, arg4)
           end
         end
-        SHX1_2 = SHX4_1
-        SHX2_2 = SHX5_1
-        if SHX1_2 ~= SHX2_2 then
-          SHX1_2 = false
-          SHX3_1 = SHX1_2
+        arg2 = dataTable4
+        arg3 = vector3Builder
+        if arg2 ~= arg3 then
+          arg2 = false
+          dataTable3 = arg2
         end
-        SHX1_2 = SHX3_1
-        if true == SHX1_2 then
-          SHX1_2 = SHX14_1
-          if 1000.0 == SHX1_2 then
-            SHX1_2 = SHX19_1
-            if 1000.0 == SHX1_2 then
-              SHX1_2 = SHX24_1
+        arg2 = dataTable3
+        if true == arg2 then
+          arg2 = numberValue8
+          if 1000.0 == arg2 then
+            arg2 = numberValue16
+            if 1000.0 == arg2 then
+              arg2 = numberValue22
             end
           end
-          if 1000.0 ~= SHX1_2 then
-            SHX1_2 = math
-            SHX1_2 = SHX1_2.max
-            SHX2_2 = SHX17_1
-            SHX3_2 = SHX22_1
-            SHX4_2 = SHX27_1
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-            SHX2_2 = SHX14_1
-            SHX3_2 = SHX0_1.engineSafeGuard
-            SHX2_2 = SHX2_2 - SHX3_2
-            if SHX1_2 > SHX2_2 then
-              SHX1_2 = SHX1_2 * 0.7
+          if 1000.0 ~= arg2 then
+            arg2 = math
+            arg2 = arg2.max
+            arg3 = numberValue12
+            arg4 = numberValue20
+            arg5 = numberValue25
+            arg2 = arg2(arg3, arg4, arg5)
+            arg3 = numberValue8
+            arg4 = dataTable.engineSafeGuard
+            arg3 = arg3 - arg4
+            if arg2 > arg3 then
+              arg2 = arg2 * 0.7
             end
-            SHX2_2 = SHX14_1
-            if SHX1_2 > SHX2_2 then
-              SHX2_2 = SHX14_1
-              SHX3_2 = SHX0_1.cascadingFailureThreshold
-              SHX3_2 = SHX3_2 / 5
-              SHX1_2 = SHX2_2 - SHX3_2
+            arg3 = numberValue8
+            if arg2 > arg3 then
+              arg3 = numberValue8
+              arg4 = dataTable.cascadingFailureThreshold
+              arg4 = arg4 / 5
+              arg2 = arg3 - arg4
             end
-            SHX2_2 = SHX13_1
-            SHX2_2 = SHX2_2 - SHX1_2
-            SHX15_1 = SHX2_2
-            SHX2_2 = SHX15_1
-            SHX3_2 = SHX0_1.cascadingFailureThreshold
-            SHX3_2 = SHX3_2 + 5
-            if SHX2_2 > SHX3_2 then
-              SHX2_2 = SHX15_1
-              SHX3_2 = SHX0_1.degradingFailureThreshold
-              if SHX2_2 < SHX3_2 then
-                SHX2_2 = SHX15_1
-                SHX3_2 = SHX0_1.degradingHealthSpeedFactor
-                SHX3_2 = 0.038 * SHX3_2
-                SHX2_2 = SHX2_2 - SHX3_2
-                SHX15_1 = SHX2_2
+            arg3 = numberValue7
+            arg3 = arg3 - arg2
+            numberValue9 = arg3
+            arg3 = numberValue9
+            arg4 = dataTable.cascadingFailureThreshold
+            arg4 = arg4 + 5
+            if arg3 > arg4 then
+              arg3 = numberValue9
+              arg4 = dataTable.degradingFailureThreshold
+              if arg3 < arg4 then
+                arg3 = numberValue9
+                arg4 = dataTable.degradingHealthSpeedFactor
+                arg4 = 0.038 * arg4
+                arg3 = arg3 - arg4
+                numberValue9 = arg3
               end
             end
-            SHX2_2 = SHX15_1
-            SHX3_2 = SHX0_1.cascadingFailureThreshold
-            if SHX2_2 < SHX3_2 then
-              SHX2_2 = SHX15_1
-              SHX3_2 = SHX0_1.cascadingFailureSpeedFactor
-              SHX3_2 = 0.1 * SHX3_2
-              SHX2_2 = SHX2_2 - SHX3_2
-              SHX15_1 = SHX2_2
+            arg3 = numberValue9
+            arg4 = dataTable.cascadingFailureThreshold
+            if arg3 < arg4 then
+              arg3 = numberValue9
+              arg4 = dataTable.cascadingFailureSpeedFactor
+              arg4 = 0.1 * arg4
+              arg3 = arg3 - arg4
+              numberValue9 = arg3
             end
-            SHX2_2 = SHX15_1
-            SHX3_2 = SHX0_1.engineSafeGuard
-            if SHX2_2 < SHX3_2 then
-              SHX2_2 = SHX0_1.engineSafeGuard
-              SHX15_1 = SHX2_2
+            arg3 = numberValue9
+            arg4 = dataTable.engineSafeGuard
+            if arg3 < arg4 then
+              arg3 = dataTable.engineSafeGuard
+              numberValue9 = arg3
             end
-            SHX2_2 = SHX0_1.compatibilityMode
-            if false == SHX2_2 then
-              SHX2_2 = SHX24_1
-              SHX3_2 = 750
-              if SHX2_2 < SHX3_2 then
-                SHX2_2 = 750.0
-                SHX25_1 = SHX2_2
+            arg3 = dataTable.compatibilityMode
+            if false == arg3 then
+              arg3 = numberValue22
+              arg4 = 750
+              if arg3 < arg4 then
+                arg3 = 750.0
+                numberValue23 = arg3
               end
             end
-            SHX2_2 = SHX20_1
-            if SHX2_2 < 0 then
-              SHX2_2 = 0.0
-              SHX20_1 = SHX2_2
+            arg3 = numberValue17
+            if arg3 < 0 then
+              arg3 = 0.0
+              numberValue17 = arg3
             end
           end
         else
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.isVehicleCarDevDamageDisabled
-          SHX2_2 = SHX4_1
-          SHX1_2 = SHX1_2(SHX2_2)
-          if not SHX1_2 then
-            SHX1_2 = GetVehicleHandlingFloat
-            SHX2_2 = SHX4_1
-            SHX3_2 = "CHandlingData"
-            SHX4_2 = "fDeformationDamageMult"
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-            SHX8_1 = SHX1_2
-            SHX1_2 = GetVehicleHandlingFloat
-            SHX2_2 = SHX4_1
-            SHX3_2 = "CHandlingData"
-            SHX4_2 = "fBrakeForce"
-            SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-            SHX10_1 = SHX1_2
-            SHX1_2 = SHX8_1
-            SHX2_2 = SHX0_1.deformationExponent
-            SHX1_2 = SHX1_2 ^ SHX2_2
-            SHX2_2 = SHX0_1.deformationMultiplier
-            if -1 ~= SHX2_2 then
-              SHX2_2 = SetVehicleHandlingFloat
-              SHX3_2 = SHX4_1
-              SHX4_2 = "CHandlingData"
-              SHX5_2 = "fDeformationDamageMult"
-              SHX6_2 = SHX0_1.deformationMultiplier
-              SHX6_2 = SHX1_2 * SHX6_2
-              SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+          arg2 = CMG
+          arg2 = arg2.isVehicleCarDevDamageDisabled
+          arg3 = dataTable4
+          arg2 = arg2(arg3)
+          if not arg2 then
+            arg2 = GetVehicleHandlingFloat
+            arg3 = dataTable4
+            arg4 = "CHandlingData"
+            arg5 = "fDeformationDamageMult"
+            arg2 = arg2(arg3, arg4, arg5)
+            numberValue29 = arg2
+            arg2 = GetVehicleHandlingFloat
+            arg3 = dataTable4
+            arg4 = "CHandlingData"
+            arg5 = "fBrakeForce"
+            arg2 = arg2(arg3, arg4, arg5)
+            numberValue = arg2
+            arg2 = numberValue29
+            arg3 = dataTable.deformationExponent
+            arg2 = arg2 ^ arg3
+            arg3 = dataTable.deformationMultiplier
+            if -1 ~= arg3 then
+              arg3 = SetVehicleHandlingFloat
+              arg4 = dataTable4
+              arg5 = "CHandlingData"
+              arg6 = "fDeformationDamageMult"
+              flag9 = dataTable.deformationMultiplier
+              flag9 = arg2 * flag9
+              arg3(arg4, arg5, arg6, flag9)
             end
-            SHX2_2 = SHX0_1.weaponsDamageMultiplier
-            if -1 ~= SHX2_2 then
-              SHX2_2 = SetVehicleHandlingFloat
-              SHX3_2 = SHX4_1
-              SHX4_2 = "CHandlingData"
-              SHX5_2 = "fWeaponDamageMult"
-              SHX6_2 = SHX0_1.weaponsDamageMultiplier
-              SHX7_2 = SHX0_1.damageFactorBody
-              SHX6_2 = SHX6_2 / SHX7_2
-              SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
+            arg3 = dataTable.weaponsDamageMultiplier
+            if -1 ~= arg3 then
+              arg3 = SetVehicleHandlingFloat
+              arg4 = dataTable4
+              arg5 = "CHandlingData"
+              arg6 = "fWeaponDamageMult"
+              flag9 = dataTable.weaponsDamageMultiplier
+              numberValue28 = dataTable.damageFactorBody
+              flag9 = flag9 / numberValue28
+              arg3(arg4, arg5, arg6, flag9)
             end
-            SHX2_2 = GetVehicleHandlingFloat
-            SHX3_2 = SHX4_1
-            SHX4_2 = "CHandlingData"
-            SHX5_2 = "fCollisionDamageMult"
-            SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-            SHX7_1 = SHX2_2
-            SHX2_2 = SHX7_1
-            SHX3_2 = SHX0_1.collisionDamageExponent
-            SHX2_2 = SHX2_2 ^ SHX3_2
-            SHX3_2 = SetVehicleHandlingFloat
-            SHX4_2 = SHX4_1
-            SHX5_2 = "CHandlingData"
-            SHX6_2 = "fCollisionDamageMult"
-            SHX7_2 = SHX2_2
-            SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-            SHX3_2 = GetVehicleHandlingFloat
-            SHX4_2 = SHX4_1
-            SHX5_2 = "CHandlingData"
-            SHX6_2 = "fEngineDamageMult"
-            SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-            SHX9_1 = SHX3_2
-            SHX3_2 = SHX9_1
-            SHX4_2 = SHX0_1.engineDamageExponent
-            SHX3_2 = SHX3_2 ^ SHX4_2
-            SHX4_2 = SetVehicleHandlingFloat
-            SHX5_2 = SHX4_1
-            SHX6_2 = "CHandlingData"
-            SHX7_2 = "fEngineDamageMult"
-            SHX8_2 = SHX3_2
-            SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-            SHX4_2 = SHX19_1
-            SHX5_2 = SHX0_1.cascadingFailureThreshold
-            if SHX4_2 < SHX5_2 then
-              SHX4_2 = SHX0_1.cascadingFailureThreshold
-              SHX20_1 = SHX4_2
+            arg3 = GetVehicleHandlingFloat
+            arg4 = dataTable4
+            arg5 = "CHandlingData"
+            arg6 = "fCollisionDamageMult"
+            arg3 = arg3(arg4, arg5, arg6)
+            numberValue27 = arg3
+            arg3 = numberValue27
+            arg4 = dataTable.collisionDamageExponent
+            arg3 = arg3 ^ arg4
+            arg4 = SetVehicleHandlingFloat
+            arg5 = dataTable4
+            arg6 = "CHandlingData"
+            flag9 = "fCollisionDamageMult"
+            numberValue28 = arg3
+            arg4(arg5, arg6, flag9, numberValue28)
+            arg4 = GetVehicleHandlingFloat
+            arg5 = dataTable4
+            arg6 = "CHandlingData"
+            flag9 = "fEngineDamageMult"
+            arg4 = arg4(arg5, arg6, flag9)
+            numberValue31 = arg4
+            arg4 = numberValue31
+            arg5 = dataTable.engineDamageExponent
+            arg4 = arg4 ^ arg5
+            arg5 = SetVehicleHandlingFloat
+            arg6 = dataTable4
+            flag9 = "CHandlingData"
+            numberValue28 = "fEngineDamageMult"
+            numberValue30 = arg4
+            arg5(arg6, flag9, numberValue28, numberValue30)
+            arg5 = numberValue16
+            arg6 = dataTable.cascadingFailureThreshold
+            if arg5 < arg6 then
+              arg5 = dataTable.cascadingFailureThreshold
+              numberValue17 = arg5
             end
-            SHX4_2 = true
-            SHX3_1 = SHX4_2
+            arg5 = true
+            dataTable3 = arg5
           end
         end
-        SHX1_2 = SHX15_1
-        SHX2_2 = SHX14_1
-        if SHX1_2 ~= SHX2_2 then
-          SHX1_2 = SetVehicleEngineHealth
-          SHX2_2 = SHX4_1
-          SHX3_2 = SHX15_1
-          SHX1_2(SHX2_2, SHX3_2)
+        arg2 = numberValue9
+        arg3 = numberValue8
+        if arg2 ~= arg3 then
+          arg2 = SetVehicleEngineHealth
+          arg3 = dataTable4
+          arg4 = numberValue9
+          arg2(arg3, arg4)
         end
-        SHX1_2 = SHX20_1
-        SHX2_2 = SHX19_1
-        if SHX1_2 ~= SHX2_2 then
-          SHX1_2 = SetVehicleBodyHealth
-          SHX2_2 = SHX4_1
-          SHX3_2 = SHX20_1
-          SHX1_2(SHX2_2, SHX3_2)
+        arg2 = numberValue17
+        arg3 = numberValue16
+        if arg2 ~= arg3 then
+          arg2 = SetVehicleBodyHealth
+          arg3 = dataTable4
+          arg4 = numberValue17
+          arg2(arg3, arg4)
         end
-        SHX1_2 = SHX25_1
-        SHX2_2 = SHX24_1
-        if SHX1_2 ~= SHX2_2 then
-          SHX1_2 = SetVehiclePetrolTankHealth
-          SHX2_2 = SHX4_1
-          SHX3_2 = SHX25_1
-          SHX1_2(SHX2_2, SHX3_2)
+        arg2 = numberValue23
+        arg3 = numberValue22
+        if arg2 ~= arg3 then
+          arg2 = SetVehiclePetrolTankHealth
+          arg3 = dataTable4
+          arg4 = numberValue23
+          arg2(arg3, arg4)
         end
-        SHX1_2 = SHX15_1
-        SHX13_1 = SHX1_2
-        SHX1_2 = SHX20_1
-        SHX18_1 = SHX1_2
-        SHX1_2 = SHX25_1
-        SHX23_1 = SHX1_2
-        SHX1_2 = SHX4_1
-        SHX5_1 = SHX1_2
-        SHX1_2 = SHX0_1.randomTireBurstInterval
-        if 0 ~= SHX1_2 then
-          SHX1_2 = GetEntitySpeed
-          SHX2_2 = SHX4_1
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 > 10 then
-            SHX1_2 = SHX32_1
-            SHX1_2()
+        arg2 = numberValue9
+        numberValue7 = arg2
+        arg2 = numberValue17
+        numberValue14 = arg2
+        arg2 = numberValue23
+        numberValue21 = arg2
+        arg2 = dataTable4
+        vector3Builder = arg2
+        arg2 = dataTable.randomTireBurstInterval
+        if 0 ~= arg2 then
+          arg2 = GetEntitySpeed
+          arg3 = dataTable4
+          -- Beginner: result below is speed.
+          arg2 = arg2(arg3)
+          if arg2 > 10 then
+            arg2 = workValue7
+            arg2()
           end
         end
     end
     else
-      SHX1_2 = SHX3_1
-      if true == SHX1_2 then
-        SHX1_2 = GetVehiclePedIsIn
-        SHX2_2 = SHX0_2
-        SHX3_2 = true
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        SHX5_1 = SHX1_2
-        SHX1_2 = SHX5_1
-        if 0 ~= SHX1_2 then
-          SHX1_2 = SHX0_1.deformationMultiplier
-          if -1 ~= SHX1_2 then
-            SHX1_2 = SetVehicleHandlingFloat
-            SHX2_2 = SHX5_1
-            SHX3_2 = "CHandlingData"
-            SHX4_2 = "fDeformationDamageMult"
-            SHX5_2 = SHX8_1
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+      arg2 = dataTable3
+      if true == arg2 then
+        arg2 = GetVehiclePedIsIn
+        arg3 = arg1
+        arg4 = true
+        -- Beginner: result below is currentVehicle.
+        arg2 = arg2(arg3, arg4)
+        vector3Builder = arg2
+        arg2 = vector3Builder
+        if 0 ~= arg2 then
+          arg2 = dataTable.deformationMultiplier
+          if -1 ~= arg2 then
+            arg2 = SetVehicleHandlingFloat
+            arg3 = vector3Builder
+            arg4 = "CHandlingData"
+            arg5 = "fDeformationDamageMult"
+            arg6 = numberValue29
+            arg2(arg3, arg4, arg5, arg6)
           end
-          SHX1_2 = SetVehicleHandlingFloat
-          SHX2_2 = SHX5_1
-          SHX3_2 = "CHandlingData"
-          SHX4_2 = "fBrakeForce"
-          SHX5_2 = SHX10_1
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-          SHX1_2 = SHX0_1.weaponsDamageMultiplier
-          if -1 ~= SHX1_2 then
-            SHX1_2 = SetVehicleHandlingFloat
-            SHX2_2 = SHX5_1
-            SHX3_2 = "CHandlingData"
-            SHX4_2 = "fWeaponDamageMult"
-            SHX5_2 = SHX0_1.weaponsDamageMultiplier
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+          arg2 = SetVehicleHandlingFloat
+          arg3 = vector3Builder
+          arg4 = "CHandlingData"
+          arg5 = "fBrakeForce"
+          arg6 = numberValue
+          arg2(arg3, arg4, arg5, arg6)
+          arg2 = dataTable.weaponsDamageMultiplier
+          if -1 ~= arg2 then
+            arg2 = SetVehicleHandlingFloat
+            arg3 = vector3Builder
+            arg4 = "CHandlingData"
+            arg5 = "fWeaponDamageMult"
+            arg6 = dataTable.weaponsDamageMultiplier
+            arg2(arg3, arg4, arg5, arg6)
           end
-          SHX1_2 = SetVehicleHandlingFloat
-          SHX2_2 = SHX5_1
-          SHX3_2 = "CHandlingData"
-          SHX4_2 = "fCollisionDamageMult"
-          SHX5_2 = SHX7_1
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-          SHX1_2 = SetVehicleHandlingFloat
-          SHX2_2 = SHX5_1
-          SHX3_2 = "CHandlingData"
-          SHX4_2 = "fEngineDamageMult"
-          SHX5_2 = SHX9_1
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+          arg2 = SetVehicleHandlingFloat
+          arg3 = vector3Builder
+          arg4 = "CHandlingData"
+          arg5 = "fCollisionDamageMult"
+          arg6 = numberValue27
+          arg2(arg3, arg4, arg5, arg6)
+          arg2 = SetVehicleHandlingFloat
+          arg3 = vector3Builder
+          arg4 = "CHandlingData"
+          arg5 = "fEngineDamageMult"
+          arg6 = numberValue31
+          arg2(arg3, arg4, arg5, arg6)
         end
       end
-      SHX1_2 = false
-      SHX3_1 = SHX1_2
+      arg2 = false
+      dataTable3 = arg2
     end
   end
 end
-SHX33_1(SHX34_1)
-function SHX33_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2
-  SHX1_2 = BeginTextCommandDisplayHelp
-  SHX2_2 = "STRING"
-  SHX1_2(SHX2_2)
-  SHX1_2 = AddTextComponentSubstringPlayerName
-  SHX2_2 = SHX0_2
-  SHX1_2(SHX2_2)
-  SHX1_2 = EndTextCommandDisplayHelp
-  SHX2_2 = 0
-  SHX3_2 = false
-  SHX4_2 = false
-  SHX5_2 = 0
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+workValue8(workValue9)
+function workValue8(arg1)
+  local arg2, arg3, arg4, arg5, arg6
+  arg2 = BeginTextCommandDisplayHelp
+  arg3 = "STRING"
+  arg2(arg3)
+  arg2 = AddTextComponentSubstringPlayerName
+  arg3 = arg1
+  arg2(arg3)
+  arg2 = EndTextCommandDisplayHelp
+  arg3 = 0
+  arg4 = false
+  arg5 = false
+  arg6 = 0
+  arg2(arg3, arg4, arg5, arg6)
 end
-function SHX34_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = GetEntityCoords
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = GetEntityBoneIndexByName
-  SHX3_2 = SHX0_2
-  SHX4_2 = "bonnet"
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  SHX3_2 = nil
-  if -1 ~= SHX2_2 then
-    SHX4_2 = GetWorldPositionOfEntityBone
-    SHX5_2 = SHX0_2
-    SHX6_2 = SHX2_2
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    SHX5_2 = SHX4_2 - SHX1_2
-    SHX5_2 = #SHX5_2
-    SHX6_2 = 0.75
-    if SHX5_2 > SHX6_2 and SHX5_2 < 12.0 then
-      SHX3_2 = SHX4_2
+function workValue9(arg1)
+  local arg2, arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32
+  arg2 = GetEntityCoords
+  arg3 = arg1
+  -- Beginner: result below is entityCoords.
+  arg2 = arg2(arg3)
+  arg3 = GetEntityBoneIndexByName
+  arg4 = arg1
+  arg5 = "bonnet"
+  arg3 = arg3(arg4, arg5)
+  arg4 = nil
+  if -1 ~= arg3 then
+    arg5 = GetWorldPositionOfEntityBone
+    arg6 = arg1
+    flag9 = arg3
+    arg5 = arg5(arg6, flag9)
+    arg6 = arg5 - arg2
+    arg6 = #arg6
+    flag9 = 0.75
+    if arg6 > flag9 and arg6 < 12.0 then
+      arg4 = arg5
     end
   end
-  if not SHX3_2 then
-    SHX4_2 = GetOffsetFromEntityInWorldCoords
-    SHX5_2 = SHX0_2
-    SHX6_2 = 0.0
-    SHX7_2 = 2.4
-    SHX8_2 = 0.35
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-    SHX3_2 = SHX4_2
+  if not arg4 then
+    arg5 = GetOffsetFromEntityInWorldCoords
+    arg6 = arg1
+    flag9 = 0.0
+    numberValue28 = 2.4
+    numberValue30 = 0.35
+    arg5 = arg5(arg6, flag9, numberValue28, numberValue30)
+    arg4 = arg5
   end
-  SHX4_2 = GetEntityForwardVector
-  SHX5_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX5_2 = vector3
-  SHX6_2 = SHX3_2.x
-  SHX7_2 = SHX4_2.x
-  SHX7_2 = SHX7_2 * 1.35
-  SHX6_2 = SHX6_2 + SHX7_2
-  SHX7_2 = SHX3_2.y
-  SHX8_2 = SHX4_2.y
-  SHX8_2 = SHX8_2 * 1.35
-  SHX7_2 = SHX7_2 + SHX8_2
-  SHX8_2 = SHX3_2.z
-  SHX9_2 = SHX4_2.z
-  SHX9_2 = SHX9_2 * 1.35
-  SHX8_2 = SHX8_2 + SHX9_2
-  return SHX5_2(SHX6_2, SHX7_2, SHX8_2)
+  arg5 = GetEntityForwardVector
+  arg6 = arg1
+  arg5 = arg5(arg6)
+  arg6 = vector3
+  flag9 = arg4.x
+  numberValue28 = arg5.x
+  numberValue28 = numberValue28 * 1.35
+  flag9 = flag9 + numberValue28
+  numberValue28 = arg4.y
+  numberValue30 = arg5.y
+  numberValue30 = numberValue30 * 1.35
+  numberValue28 = numberValue28 + numberValue30
+  numberValue30 = arg4.z
+  numberValue32 = arg5.z
+  numberValue32 = numberValue32 * 1.35
+  numberValue30 = numberValue30 + numberValue32
+  return arg6(flag9, numberValue28, numberValue30)
 end
-function SHX35_1(SHX0_2, SHX1_2, SHX2_2, SHX3_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX4_2 = GetGameTimer
-  SHX4_2 = SHX4_2()
+function workValue10(arg1, arg2, arg3, arg4)
+  local arg5, arg6, flag9, numberValue28
+  arg5 = GetGameTimer
+  -- Beginner: result below is gameTimeMs.
+  arg5 = arg5()
   while true do
-    SHX5_2 = GetGameTimer
-    SHX5_2 = SHX5_2()
-    SHX5_2 = SHX5_2 - SHX4_2
-    if not (SHX3_2 > SHX5_2) then
+    arg6 = GetGameTimer
+    -- Beginner: result below is gameTimeMs.
+    arg6 = arg6()
+    arg6 = arg6 - arg5
+    if not (arg4 > arg6) then
       break
     end
-    SHX5_2 = DoesEntityExist
-    SHX6_2 = SHX0_2
-    SHX5_2 = SHX5_2(SHX6_2)
-    if not SHX5_2 then
-      SHX5_2 = false
-      return SHX5_2
+    arg6 = DoesEntityExist
+    flag9 = arg1
+    arg6 = arg6(flag9)
+    if not arg6 then
+      arg6 = false
+      return arg6
     end
-    SHX5_2 = GetEntityCoords
-    SHX6_2 = SHX0_2
-    SHX7_2 = true
-    SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-    SHX5_2 = SHX5_2 - SHX1_2
-    SHX5_2 = #SHX5_2
-    if SHX2_2 >= SHX5_2 then
-      SHX5_2 = true
-      return SHX5_2
+    arg6 = GetEntityCoords
+    flag9 = arg1
+    numberValue28 = true
+    -- Beginner: result below is entityCoords.
+    arg6 = arg6(flag9, numberValue28)
+    arg6 = arg6 - arg2
+    arg6 = #arg6
+    if arg3 >= arg6 then
+      arg6 = true
+      return arg6
     end
-    SHX5_2 = Citizen
-    SHX5_2 = SHX5_2.Wait
-    SHX6_2 = 0
-    SHX5_2(SHX6_2)
+    arg6 = Citizen
+    arg6 = arg6.Wait
+    flag9 = 0
+    arg6(flag9)
   end
-  SHX5_2 = GetEntityCoords
-  SHX6_2 = SHX0_2
-  SHX7_2 = true
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SHX5_2 - SHX1_2
-  SHX5_2 = #SHX5_2
-  SHX5_2 = SHX2_2 >= SHX5_2
-  return SHX5_2
+  arg6 = GetEntityCoords
+  flag9 = arg1
+  numberValue28 = true
+  -- Beginner: result below is entityCoords.
+  arg6 = arg6(flag9, numberValue28)
+  arg6 = arg6 - arg2
+  arg6 = #arg6
+  arg6 = arg3 >= arg6
+  return arg6
 end
-function SHX36_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX2_2 = ClearPedTasks
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetPedKeepTask
-  SHX3_2 = SHX0_2
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = TaskFollowNavMeshToCoord
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2.x
-  SHX5_2 = SHX1_2.y
-  SHX6_2 = SHX1_2.z
-  SHX7_2 = 2.5
-  SHX8_2 = 35000
-  SHX9_2 = 1.4
-  SHX10_2 = false
-  SHX11_2 = 0.0
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
+function workValue11(arg1, arg2)
+  local arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4
+  arg3 = ClearPedTasks
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = SetPedKeepTask
+  arg4 = arg1
+  arg5 = true
+  arg3(arg4, arg5)
+  arg3 = TaskFollowNavMeshToCoord
+  arg4 = arg1
+  arg5 = arg2.x
+  arg6 = arg2.y
+  flag9 = arg2.z
+  numberValue28 = 2.5
+  numberValue30 = 35000
+  numberValue32 = 1.4
+  numberValue2 = false
+  numberValue4 = 0.0
+  arg3(arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4)
 end
-function SHX37_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = ClearPedTasks
-  SHX3_2 = SHX0_2
-  SHX2_2(SHX3_2)
-  SHX2_2 = SetPedKeepTask
-  SHX3_2 = SHX0_2
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = TaskGoToEntity
-  SHX3_2 = SHX0_2
-  SHX4_2 = SHX1_2
-  SHX5_2 = 22000
-  SHX6_2 = 3.0
-  SHX7_2 = 1.75
-  SHX8_2 = 0
-  SHX9_2 = 0
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
+function workValue12(arg1, arg2)
+  local arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32
+  arg3 = ClearPedTasks
+  arg4 = arg1
+  arg3(arg4)
+  arg3 = SetPedKeepTask
+  arg4 = arg1
+  arg5 = true
+  arg3(arg4, arg5)
+  arg3 = TaskGoToEntity
+  arg4 = arg1
+  arg5 = arg2
+  arg6 = 22000
+  flag9 = 3.0
+  numberValue28 = 1.75
+  numberValue30 = 0
+  numberValue32 = 0
+  arg3(arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32)
 end
-function SHX38_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.CreateThread
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3
-    SHX0_3 = SHX1_2
-    SHX0_3 = SHX0_3 / 4
-    SHX1_3 = Citizen
-    SHX1_3 = SHX1_3.Wait
-    SHX2_3 = SHX0_3
-    SHX1_3(SHX2_3)
-    SHX1_3 = TaskStartScenarioInPlace
-    SHX2_3 = SHX0_2.ped
-    SHX3_3 = "WORLD_HUMAN_HAMMERING"
-    SHX4_3 = 0
-    SHX5_3 = true
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX1_3 = Citizen
-    SHX1_3 = SHX1_3.Wait
-    SHX2_3 = SHX0_3
-    SHX1_3(SHX2_3)
-    SHX1_3 = TaskStartScenarioInPlace
-    SHX2_3 = SHX0_2.ped
-    SHX3_3 = "WORLD_HUMAN_WELDING"
-    SHX4_3 = 0
-    SHX5_3 = true
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX1_3 = Citizen
-    SHX1_3 = SHX1_3.Wait
-    SHX2_3 = SHX0_3
-    SHX1_3(SHX2_3)
-    SHX1_3 = TaskStartScenarioInPlace
-    SHX2_3 = SHX0_2.ped
-    SHX3_3 = "CODE_HUMAN_MEDIC_TIME_OF_DEATH"
-    SHX4_3 = 0
-    SHX5_3 = true
-    SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3)
+function workValue13(arg1, arg2)
+  local arg3, arg4
+  arg3 = Citizen
+  arg3 = arg3.CreateThread
+  function arg4()
+    local workValue, waitCall, workValue5, textValue, numberValue26, flag8
+    workValue = arg2
+    workValue = workValue / 4
+    waitCall = Citizen
+    waitCall = waitCall.Wait
+    workValue5 = workValue
+    waitCall(workValue5)
+    waitCall = TaskStartScenarioInPlace
+    workValue5 = arg1.ped
+    textValue = "WORLD_HUMAN_HAMMERING"
+    numberValue26 = 0
+    flag8 = true
+    waitCall(workValue5, textValue, numberValue26, flag8)
+    waitCall = Citizen
+    waitCall = waitCall.Wait
+    workValue5 = workValue
+    waitCall(workValue5)
+    waitCall = TaskStartScenarioInPlace
+    workValue5 = arg1.ped
+    textValue = "WORLD_HUMAN_WELDING"
+    numberValue26 = 0
+    flag8 = true
+    waitCall(workValue5, textValue, numberValue26, flag8)
+    waitCall = Citizen
+    waitCall = waitCall.Wait
+    workValue5 = workValue
+    waitCall(workValue5)
+    waitCall = TaskStartScenarioInPlace
+    workValue5 = arg1.ped
+    textValue = "CODE_HUMAN_MEDIC_TIME_OF_DEATH"
+    numberValue26 = 0
+    flag8 = true
+    waitCall(workValue5, textValue, numberValue26, flag8)
   end
-  SHX2_2(SHX3_2)
+  -- Beginner: Start a separate FiveM thread so this code can run independently.
+  arg3(arg4)
 end
-function SHX39_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX1_2 = "getMechanicRepairStationSpeedPercentClient"
-  SHX0_2 = SHX0_2[SHX1_2]
-  SHX0_2 = SHX0_2()
-  SHX1_2 = type
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if "number" == SHX1_2 and SHX0_2 >= 0 and SHX0_2 <= 50 then
-    SHX1_2 = SHX0_2 / 100
-    SHX2_2 = 1
-    SHX1_2 = SHX2_2 - SHX1_2
-    return SHX1_2
+function workValue14()
+  local arg1, arg2, arg3
+  arg1 = CMG
+  arg2 = "getMechanicRepairStationSpeedPercentClient"
+  arg1 = arg1[arg2]
+  arg1 = arg1()
+  arg2 = type
+  arg3 = arg1
+  arg2 = arg2(arg3)
+  if "number" == arg2 and arg1 >= 0 and arg1 <= 50 then
+    arg2 = arg1 / 100
+    arg3 = 1
+    arg2 = arg3 - arg2
+    return arg2
   end
-  SHX1_2 = 1.0
-  return SHX1_2
+  arg2 = 1.0
+  return arg2
 end
-function SHX40_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.max
-  SHX2_2 = 1000
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = 11000 * SHX0_2
-  SHX3_2, SHX4_2 = SHX3_2(SHX4_2)
-  return SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+function workValue15(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = math
+  arg2 = arg2.max
+  arg3 = 1000
+  arg4 = math
+  arg4 = arg4.floor
+  arg5 = 11000 * arg1
+  arg4, arg5 = arg4(arg5)
+  return arg2(arg3, arg4, arg5)
 end
-function SHX41_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.random
-  SHX3_2 = 1
-  SHX4_2 = 3
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if 1 == SHX2_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.max
-    SHX4_2 = 4000
-    SHX5_2 = math
-    SHX5_2 = SHX5_2.floor
-    SHX6_2 = 11000 * SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX4_2 = SHX38_1
-    SHX5_2 = SHX0_2
-    SHX6_2 = SHX3_2
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Dave the mechanic is looking at your car."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Dave is working on your car."
-    SHX4_2(SHX5_2)
-  elseif 2 == SHX2_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.max
-    SHX4_2 = 4000
-    SHX5_2 = math
-    SHX5_2 = SHX5_2.floor
-    SHX6_2 = 55000 * SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX4_2 = SHX38_1
-    SHX5_2 = SHX0_2
-    SHX6_2 = SHX3_2
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Stef the mechanic is looking at your car."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Stef looks confused."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Stef starts hitting things with a hammer."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Stef goes to look for help."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Stef's Manager comes back and starts working on your car."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~The Manager is also hitting things with a hammer."
-    SHX4_2(SHX5_2)
-  elseif 3 == SHX2_2 then
-    SHX3_2 = math
-    SHX3_2 = SHX3_2.max
-    SHX4_2 = 4000
-    SHX5_2 = math
-    SHX5_2 = SHX5_2.floor
-    SHX6_2 = 33000 * SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX4_2 = SHX38_1
-    SHX5_2 = SHX0_2
-    SHX6_2 = SHX3_2
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Rob the mechanic is looking at your car."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Rob yells for Dave to come look at it."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Just look at it."
-    SHX4_2(SHX5_2)
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = SHX40_1
-    SHX6_2 = SHX1_2
-    SHX5_2, SHX6_2 = SHX5_2(SHX6_2)
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = notify
-    SHX5_2 = "~g~Dave is working on your car."
-    SHX4_2(SHX5_2)
+function workValue16(arg1, arg2)
+  local arg3, arg4, arg5, arg6, flag9
+  arg3 = math
+  arg3 = arg3.random
+  arg4 = 1
+  arg5 = 3
+  arg3 = arg3(arg4, arg5)
+  if 1 == arg3 then
+    arg4 = math
+    arg4 = arg4.max
+    arg5 = 4000
+    arg6 = math
+    arg6 = arg6.floor
+    flag9 = 11000 * arg2
+    arg6, flag9 = arg6(flag9)
+    arg4 = arg4(arg5, arg6, flag9)
+    arg5 = workValue13
+    arg6 = arg1
+    flag9 = arg4
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Dave the mechanic is looking at your car."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Dave is working on your car."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+  elseif 2 == arg3 then
+    arg4 = math
+    arg4 = arg4.max
+    arg5 = 4000
+    arg6 = math
+    arg6 = arg6.floor
+    flag9 = 55000 * arg2
+    arg6, flag9 = arg6(flag9)
+    arg4 = arg4(arg5, arg6, flag9)
+    arg5 = workValue13
+    arg6 = arg1
+    flag9 = arg4
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Stef the mechanic is looking at your car."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Stef looks confused."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Stef starts hitting things with a hammer."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Stef goes to look for help."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Stef's Manager comes back and starts working on your car."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~The Manager is also hitting things with a hammer."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+  elseif 3 == arg3 then
+    arg4 = math
+    arg4 = arg4.max
+    arg5 = 4000
+    arg6 = math
+    arg6 = arg6.floor
+    flag9 = 33000 * arg2
+    arg6, flag9 = arg6(flag9)
+    arg4 = arg4(arg5, arg6, flag9)
+    arg5 = workValue13
+    arg6 = arg1
+    flag9 = arg4
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Rob the mechanic is looking at your car."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Rob yells for Dave to come look at it."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Just look at it."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
+    arg5 = Citizen
+    arg5 = arg5.Wait
+    arg6 = workValue15
+    flag9 = arg2
+    arg6, flag9 = arg6(flag9)
+    arg5(arg6, flag9)
+    arg5 = notify
+    arg6 = "~g~Dave is working on your car."
+    -- Beginner: Show a notification to the player.
+    arg5(arg6)
   end
 end
-function SHX42_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX2_2 = FreezeEntityPosition
-  SHX3_2 = SHX1_2
-  SHX4_2 = true
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = SetVehicleEngineOn
-  SHX3_2 = SHX1_2
-  SHX4_2 = false
-  SHX5_2 = true
-  SHX6_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-  SHX2_2 = SHX34_1
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = GetEntityCoords
-  SHX4_2 = SHX0_2.ped
-  SHX5_2 = true
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = SHX36_1
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = SHX2_2
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX35_1
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = SHX2_2
-  SHX7_2 = 1.65
-  SHX8_2 = 36000
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  if not SHX4_2 then
-    SHX4_2 = SHX37_1
-    SHX5_2 = SHX0_2.ped
-    SHX6_2 = SHX1_2
-    SHX4_2(SHX5_2, SHX6_2)
-    SHX4_2 = SHX35_1
-    SHX5_2 = SHX0_2.ped
-    SHX6_2 = SHX2_2
-    SHX7_2 = 2.75
-    SHX8_2 = 22000
-    SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
+function workValue17(arg1, arg2)
+  local arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3
+  arg3 = FreezeEntityPosition
+  arg4 = arg2
+  arg5 = true
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg3(arg4, arg5)
+  arg3 = SetVehicleEngineOn
+  arg4 = arg2
+  arg5 = false
+  arg6 = true
+  flag9 = false
+  arg3(arg4, arg5, arg6, flag9)
+  arg3 = workValue9
+  arg4 = arg2
+  arg3 = arg3(arg4)
+  arg4 = GetEntityCoords
+  arg5 = arg1.ped
+  arg6 = true
+  -- Beginner: result below is entityCoords.
+  arg4 = arg4(arg5, arg6)
+  arg5 = workValue11
+  arg6 = arg1.ped
+  flag9 = arg3
+  arg5(arg6, flag9)
+  arg5 = workValue10
+  arg6 = arg1.ped
+  flag9 = arg3
+  numberValue28 = 1.65
+  numberValue30 = 36000
+  arg5 = arg5(arg6, flag9, numberValue28, numberValue30)
+  if not arg5 then
+    arg5 = workValue12
+    arg6 = arg1.ped
+    flag9 = arg2
+    arg5(arg6, flag9)
+    arg5 = workValue10
+    arg6 = arg1.ped
+    flag9 = arg3
+    numberValue28 = 2.75
+    numberValue30 = 22000
+    arg5(arg6, flag9, numberValue28, numberValue30)
   end
-  SHX4_2 = SetPedKeepTask
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = ClearPedTasks
-  SHX5_2 = SHX0_2.ped
-  SHX4_2(SHX5_2)
-  SHX4_2 = TaskLookAtEntity
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = SHX1_2
-  SHX7_2 = -1
-  SHX8_2 = 2048
-  SHX9_2 = 3
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.Wait
-  SHX5_2 = 2500
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadAnimDict
-  SHX5_2 = "missexile3"
-  SHX4_2(SHX5_2)
-  SHX4_2 = TaskPlayAnim
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = "missexile3"
-  SHX7_2 = "ex03_dingy_search_case_base_michael"
-  SHX8_2 = 1.0
-  SHX9_2 = 8.0
-  SHX10_2 = -1
-  SHX11_2 = 1
-  SHX12_2 = 1.0
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2 = RemoveAnimDict
-  SHX5_2 = "missexile3"
-  SHX4_2(SHX5_2)
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.Wait
-  SHX5_2 = 1000
-  SHX4_2(SHX5_2)
-  SHX4_2 = SetVehicleDoorOpen
-  SHX5_2 = SHX1_2
-  SHX6_2 = 4
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SHX41_1
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX39_1
-  SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2 = SHX6_2()
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2 = ClearPedTasksImmediately
-  SHX5_2 = SHX0_2.ped
-  SHX4_2(SHX5_2)
-  SHX4_2 = SetVehicleDoorShut
-  SHX5_2 = SHX1_2
-  SHX6_2 = 4
-  SHX7_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.Wait
-  SHX5_2 = 1000
-  SHX4_2(SHX5_2)
-  SHX4_2 = SetVehicleEngineHealth
-  SHX5_2 = SHX1_2
-  SHX6_2 = 9999
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetVehiclePetrolTankHealth
-  SHX5_2 = SHX1_2
-  SHX6_2 = 9999
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.setVehicleFixedPreservingFuel
-  SHX5_2 = SHX1_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = SHX36_1
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = SHX3_2
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SHX35_1
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = SHX3_2
-  SHX7_2 = 1.35
-  SHX8_2 = 36000
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SetPedKeepTask
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = ClearPedTasks
-  SHX5_2 = SHX0_2.ped
-  SHX4_2(SHX5_2)
-  SHX4_2 = TaskLookAtEntity
-  SHX5_2 = SHX0_2.ped
-  SHX6_2 = PlayerPedId
-  SHX6_2 = SHX6_2()
-  SHX7_2 = -1
-  SHX8_2 = 2048
-  SHX9_2 = 3
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX0_2.inUse = false
-  SHX4_2 = SetVehicleEngineOn
-  SHX5_2 = SHX1_2
-  SHX6_2 = true
-  SHX7_2 = false
-  SHX8_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = FreezeEntityPosition
-  SHX5_2 = SHX1_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = TriggerServerEvent
-  SHX5_2 = "cadd5c84c8"
-  SHX4_2(SHX5_2)
+  arg5 = SetPedKeepTask
+  arg6 = arg1.ped
+  flag9 = false
+  arg5(arg6, flag9)
+  arg5 = ClearPedTasks
+  arg6 = arg1.ped
+  arg5(arg6)
+  arg5 = TaskLookAtEntity
+  arg6 = arg1.ped
+  flag9 = arg2
+  numberValue28 = -1
+  numberValue30 = 2048
+  numberValue32 = 3
+  arg5(arg6, flag9, numberValue28, numberValue30, numberValue32)
+  arg5 = Citizen
+  arg5 = arg5.Wait
+  arg6 = 2500
+  arg5(arg6)
+  arg5 = CMG
+  arg5 = arg5.loadAnimDict
+  arg6 = "missexile3"
+  -- Beginner: Load a GTA animation dictionary before using it.
+  arg5(arg6)
+  arg5 = TaskPlayAnim
+  arg6 = arg1.ped
+  flag9 = "missexile3"
+  numberValue28 = "ex03_dingy_search_case_base_michael"
+  numberValue30 = 1.0
+  numberValue32 = 8.0
+  numberValue2 = -1
+  numberValue4 = 1
+  numberValue6 = 1.0
+  flag = false
+  flag2 = false
+  flag3 = false
+  -- Beginner: Play an animation on a ped.
+  arg5(arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3)
+  arg5 = RemoveAnimDict
+  arg6 = "missexile3"
+  arg5(arg6)
+  arg5 = Citizen
+  arg5 = arg5.Wait
+  arg6 = 1000
+  arg5(arg6)
+  arg5 = SetVehicleDoorOpen
+  arg6 = arg2
+  flag9 = 4
+  numberValue28 = false
+  numberValue30 = false
+  arg5(arg6, flag9, numberValue28, numberValue30)
+  arg5 = workValue16
+  arg6 = arg1
+  flag9 = workValue14
+  flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3 = flag9()
+  arg5(arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3)
+  arg5 = ClearPedTasksImmediately
+  arg6 = arg1.ped
+  arg5(arg6)
+  arg5 = SetVehicleDoorShut
+  arg6 = arg2
+  flag9 = 4
+  numberValue28 = false
+  arg5(arg6, flag9, numberValue28)
+  arg5 = Citizen
+  arg5 = arg5.Wait
+  arg6 = 1000
+  arg5(arg6)
+  arg5 = SetVehicleEngineHealth
+  arg6 = arg2
+  flag9 = 9999
+  arg5(arg6, flag9)
+  arg5 = SetVehiclePetrolTankHealth
+  arg6 = arg2
+  flag9 = 9999
+  arg5(arg6, flag9)
+  arg5 = CMG
+  arg5 = arg5.setVehicleFixedPreservingFuel
+  arg6 = arg2
+  arg5(arg6)
+  arg5 = workValue11
+  arg6 = arg1.ped
+  flag9 = arg4
+  arg5(arg6, flag9)
+  arg5 = workValue10
+  arg6 = arg1.ped
+  flag9 = arg4
+  numberValue28 = 1.35
+  numberValue30 = 36000
+  arg5(arg6, flag9, numberValue28, numberValue30)
+  arg5 = SetPedKeepTask
+  arg6 = arg1.ped
+  flag9 = false
+  arg5(arg6, flag9)
+  arg5 = ClearPedTasks
+  arg6 = arg1.ped
+  arg5(arg6)
+  arg5 = TaskLookAtEntity
+  arg6 = arg1.ped
+  flag9 = PlayerPedId
+  -- Beginner: result below is localPlayerPed.
+  flag9 = flag9()
+  numberValue28 = -1
+  numberValue30 = 2048
+  numberValue32 = 3
+  arg5(arg6, flag9, numberValue28, numberValue30, numberValue32)
+  arg1.inUse = false
+  arg5 = SetVehicleEngineOn
+  arg6 = arg2
+  flag9 = true
+  numberValue28 = false
+  numberValue30 = false
+  arg5(arg6, flag9, numberValue28, numberValue30)
+  arg5 = FreezeEntityPosition
+  arg6 = arg2
+  flag9 = false
+  -- Beginner: Freeze or unfreeze an entity in place.
+  arg5(arg6, flag9)
+  arg5 = TriggerServerEvent
+  arg6 = "cadd5c84c8"
+  -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "cadd5c84c8".
+  arg5(arg6)
 end
-function SHX43_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadModel
-  SHX2_2 = 1142162924
-  SHX1_2(SHX2_2)
-  SHX1_2 = CreatePed
-  SHX2_2 = 0
-  SHX3_2 = 1142162924
-  SHX4_2 = SHX0_2.pedPosition
-  SHX4_2 = SHX4_2.x
-  SHX5_2 = SHX0_2.pedPosition
-  SHX5_2 = SHX5_2.y
-  SHX6_2 = SHX0_2.pedPosition
-  SHX6_2 = SHX6_2.z
-  SHX7_2 = 0.0
-  SHX8_2 = false
-  SHX9_2 = false
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX0_2.ped = SHX1_2
-  SHX1_2 = SetModelAsNoLongerNeeded
-  SHX2_2 = 1142162924
-  SHX1_2(SHX2_2)
-  SHX1_2 = SetEntityCanBeDamaged
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetEntityCanBeDamagedByRelationshipGroup
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = false
-  SHX4_2 = 1862763509
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX1_2 = SetEntityInvincible
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetPedCanRagdoll
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetPedCanRagdollFromPlayerImpact
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = false
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetBlockingOfNonTemporaryEvents
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
-  SHX1_2 = SetEntityInvincible
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = true
-  SHX1_2(SHX2_2, SHX3_2)
+function workValue18(arg1)
+  local arg2, arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32
+  arg2 = CMG
+  arg2 = arg2.loadModel
+  arg3 = 1142162924
+  -- Beginner: Request/load a GTA model before spawning or applying it.
+  arg2(arg3)
+  arg2 = CreatePed
+  arg3 = 0
+  arg4 = 1142162924
+  arg5 = arg1.pedPosition
+  arg5 = arg5.x
+  arg6 = arg1.pedPosition
+  arg6 = arg6.y
+  flag9 = arg1.pedPosition
+  flag9 = flag9.z
+  numberValue28 = 0.0
+  numberValue30 = false
+  numberValue32 = false
+  -- Beginner: result below is pedEntity.
+  arg2 = arg2(arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32)
+  arg1.ped = arg2
+  arg2 = SetModelAsNoLongerNeeded
+  arg3 = 1142162924
+  arg2(arg3)
+  arg2 = SetEntityCanBeDamaged
+  arg3 = arg1.ped
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = SetEntityCanBeDamagedByRelationshipGroup
+  arg3 = arg1.ped
+  arg4 = false
+  arg5 = 1862763509
+  arg2(arg3, arg4, arg5)
+  arg2 = SetEntityInvincible
+  arg3 = arg1.ped
+  arg4 = true
+  arg2(arg3, arg4)
+  arg2 = SetPedCanRagdoll
+  arg3 = arg1.ped
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = SetPedCanRagdollFromPlayerImpact
+  arg3 = arg1.ped
+  arg4 = false
+  arg2(arg3, arg4)
+  arg2 = SetBlockingOfNonTemporaryEvents
+  arg3 = arg1.ped
+  arg4 = true
+  arg2(arg3, arg4)
+  arg2 = SetEntityInvincible
+  arg3 = arg1.ped
+  arg4 = true
+  arg2(arg3, arg4)
 end
-function SHX44_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2
-  SHX1_2 = DeleteEntity
-  SHX2_2 = SHX0_2.ped
-  SHX1_2(SHX2_2)
-  SHX0_2.ped = nil
+function workValue19(arg1)
+  local arg2, arg3
+  arg2 = DeleteEntity
+  arg3 = arg1.ped
+  -- Beginner: Delete a GTA entity.
+  arg2(arg3)
+  arg1.ped = nil
 end
-function SHX45_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2
-  SHX1_2 = SHX0_2.inUse
-  if not SHX1_2 then
-    SHX1_2 = CMG
-    SHX1_2 = SHX1_2.isInsideLsCustoms
-    SHX1_2 = SHX1_2()
-    if not SHX1_2 then
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.getPlayerVehicle
-      SHX1_2 = SHX1_2()
-      if 0 ~= SHX1_2 then
-        SHX1_2 = DrawMarker
-        SHX2_2 = 1
-        SHX3_2 = SHX0_2.position
-        SHX3_2 = SHX3_2.x
-        SHX4_2 = SHX0_2.position
-        SHX4_2 = SHX4_2.y
-        SHX5_2 = SHX0_2.position
-        SHX5_2 = SHX5_2.z
-        SHX5_2 = SHX5_2 - 2.0
-        SHX6_2 = 0.0
-        SHX7_2 = 0.0
-        SHX8_2 = 0.0
-        SHX9_2 = 0.0
-        SHX10_2 = 0.0
-        SHX11_2 = 0.0
-        SHX12_2 = SHX0_2.radius
-        SHX13_2 = SHX0_2.radius
-        SHX14_2 = 2.0
-        SHX15_2 = 62
-        SHX16_2 = 255
-        SHX17_2 = 143
-        SHX18_2 = 140
-        SHX19_2 = false
-        SHX20_2 = false
-        SHX21_2 = 2
-        SHX22_2 = false
-        SHX23_2 = nil
-        SHX24_2 = nil
-        SHX25_2 = false
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
-        SHX1_2 = DrawMarker
-        SHX2_2 = 36
-        SHX3_2 = SHX0_2.position
-        SHX3_2 = SHX3_2.x
-        SHX4_2 = SHX0_2.position
-        SHX4_2 = SHX4_2.y
-        SHX5_2 = SHX0_2.position
-        SHX5_2 = SHX5_2.z
-        SHX5_2 = SHX5_2 + 1.0
-        SHX6_2 = 0.0
-        SHX7_2 = 0.0
-        SHX8_2 = 0.0
-        SHX9_2 = 0.0
-        SHX10_2 = 0.0
-        SHX11_2 = 0.0
-        SHX12_2 = SHX0_2.radius
-        SHX12_2 = SHX12_2 / 2.0
-        SHX13_2 = SHX0_2.radius
-        SHX13_2 = SHX13_2 / 2.0
-        SHX14_2 = SHX0_2.radius
-        SHX14_2 = SHX14_2 / 2.0
-        SHX15_2 = 62
-        SHX16_2 = 255
-        SHX17_2 = 143
-        SHX18_2 = 140
-        SHX19_2 = false
-        SHX20_2 = false
-        SHX21_2 = 2
-        SHX22_2 = false
-        SHX23_2 = nil
-        SHX24_2 = nil
-        SHX25_2 = false
-        SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2, SHX25_2)
+function workValue20(arg1)
+  local arg2, arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3, numberValue11, numberValue13, numberValue15, flag4, flag5, numberValue19, flag6, workValue2, workValue3, flag7
+  arg2 = arg1.inUse
+  if not arg2 then
+    arg2 = CMG
+    arg2 = arg2.isInsideLsCustoms
+    arg2 = arg2()
+    if not arg2 then
+      arg2 = CMG
+      arg2 = arg2.getPlayerVehicle
+      -- Beginner: result below is currentVehicle.
+      arg2 = arg2()
+      if 0 ~= arg2 then
+        arg2 = DrawMarker
+        arg3 = 1
+        arg4 = arg1.position
+        arg4 = arg4.x
+        arg5 = arg1.position
+        arg5 = arg5.y
+        arg6 = arg1.position
+        arg6 = arg6.z
+        arg6 = arg6 - 2.0
+        flag9 = 0.0
+        numberValue28 = 0.0
+        numberValue30 = 0.0
+        numberValue32 = 0.0
+        numberValue2 = 0.0
+        numberValue4 = 0.0
+        numberValue6 = arg1.radius
+        flag = arg1.radius
+        flag2 = 2.0
+        flag3 = 62
+        numberValue11 = 255
+        numberValue13 = 143
+        numberValue15 = 140
+        flag4 = false
+        flag5 = false
+        numberValue19 = 2
+        flag6 = false
+        workValue2 = nil
+        workValue3 = nil
+        flag7 = false
+        arg2(arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3, numberValue11, numberValue13, numberValue15, flag4, flag5, numberValue19, flag6, workValue2, workValue3, flag7)
+        arg2 = DrawMarker
+        arg3 = 36
+        arg4 = arg1.position
+        arg4 = arg4.x
+        arg5 = arg1.position
+        arg5 = arg5.y
+        arg6 = arg1.position
+        arg6 = arg6.z
+        arg6 = arg6 + 1.0
+        flag9 = 0.0
+        numberValue28 = 0.0
+        numberValue30 = 0.0
+        numberValue32 = 0.0
+        numberValue2 = 0.0
+        numberValue4 = 0.0
+        numberValue6 = arg1.radius
+        numberValue6 = numberValue6 / 2.0
+        flag = arg1.radius
+        flag = flag / 2.0
+        flag2 = arg1.radius
+        flag2 = flag2 / 2.0
+        flag3 = 62
+        numberValue11 = 255
+        numberValue13 = 143
+        numberValue15 = 140
+        flag4 = false
+        flag5 = false
+        numberValue19 = 2
+        flag6 = false
+        workValue2 = nil
+        workValue3 = nil
+        flag7 = false
+        arg2(arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2, flag3, numberValue11, numberValue13, numberValue15, flag4, flag5, numberValue19, flag6, workValue2, workValue3, flag7)
       end
-      SHX1_2 = SHX0_2.ped
-      if SHX1_2 then
-        SHX1_2 = GetScriptTaskStatus
-        SHX2_2 = SHX0_2.ped
-        SHX3_2 = -875674219
-        SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-        if 7 == SHX1_2 then
-          SHX1_2 = TaskTurnPedToFaceEntity
-          SHX2_2 = SHX0_2.ped
-          SHX3_2 = PlayerPedId
-          SHX3_2 = SHX3_2()
-          SHX4_2 = -1
-          SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+      arg2 = arg1.ped
+      if arg2 then
+        arg2 = GetScriptTaskStatus
+        arg3 = arg1.ped
+        arg4 = -875674219
+        arg2 = arg2(arg3, arg4)
+        if 7 == arg2 then
+          arg2 = TaskTurnPedToFaceEntity
+          arg3 = arg1.ped
+          arg4 = PlayerPedId
+          -- Beginner: result below is localPlayerPed.
+          arg4 = arg4()
+          arg5 = -1
+          arg2(arg3, arg4, arg5)
         end
       end
     end
   end
 end
-function SHX46_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = PlayPedAmbientSpeechNative
-  SHX2_2 = SHX0_2.ped
-  SHX3_2 = "GENERIC_HI_MALE"
-  SHX4_2 = "SPEECH_PARAMS_FORCE"
-  SHX1_2(SHX2_2, SHX3_2, SHX4_2)
+function workValue21(arg1)
+  local arg2, arg3, arg4, arg5
+  arg2 = PlayPedAmbientSpeechNative
+  arg3 = arg1.ped
+  arg4 = "GENERIC_HI_MALE"
+  arg5 = "SPEECH_PARAMS_FORCE"
+  arg2(arg3, arg4, arg5)
 end
-function SHX47_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX0_2.inUse = nil
+function workValue22(arg1)
+  local arg2
+  arg1.inUse = nil
 end
-function SHX48_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerVehicle
-  SHX1_2, SHX2_2 = SHX1_2()
-  if 0 ~= SHX1_2 and SHX2_2 then
-    SHX3_2 = CMG
-    SHX3_2 = SHX3_2.isInsideLsCustoms
-    SHX3_2 = SHX3_2()
-    if not SHX3_2 then
-      goto SHX_LABEL_14
+function workValue23(arg1)
+  local arg2, arg3, arg4, arg5, arg6, flag9, numberValue28
+  arg2 = CMG
+  arg2 = arg2.getPlayerVehicle
+  arg2, arg3 = arg2()
+  if 0 ~= arg2 and arg3 then
+    arg4 = CMG
+    arg4 = arg4.isInsideLsCustoms
+    arg4 = arg4()
+    if not arg4 then
+      goto flow_label_14
     end
   end
   return
-  -- [FIX IF ERROR] Move ::SHX_LABEL_14:: outside nested blocks until all 'goto SHX_LABEL_14' can see it
-  ::SHX_LABEL_14::
-  SHX3_2 = SHX0_2.inUse
-  if SHX3_2 then
-    SHX3_2 = FreezeEntityPosition
-    SHX4_2 = SHX1_2
-    SHX5_2 = true
-    SHX3_2(SHX4_2, SHX5_2)
-    SHX3_2 = SetVehicleEngineOn
-    SHX4_2 = SHX1_2
-    SHX5_2 = false
-    SHX6_2 = true
-    SHX7_2 = true
-    SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
+  ::flow_label_14::
+  arg4 = arg1.inUse
+  if arg4 then
+    arg4 = FreezeEntityPosition
+    arg5 = arg2
+    arg6 = true
+    -- Beginner: Freeze or unfreeze an entity in place.
+    arg4(arg5, arg6)
+    arg4 = SetVehicleEngineOn
+    arg5 = arg2
+    arg6 = false
+    flag9 = true
+    numberValue28 = true
+    arg4(arg5, arg6, flag9, numberValue28)
   else
-    SHX3_2 = SHX33_1
-    SHX4_2 = "Press ~INPUT_PICKUP~ to have your vehicle repaired."
-    SHX3_2(SHX4_2)
-    SHX3_2 = IsControlJustPressed
-    SHX4_2 = 0
-    SHX5_2 = 38
-    SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-    if SHX3_2 then
-      SHX3_2 = GetEntitySpeed
-      SHX4_2 = SHX1_2
-      SHX3_2 = SHX3_2(SHX4_2)
-      if SHX3_2 > 0.0 then
-        SHX3_2 = notify
-        SHX4_2 = "~r~You must be stationary to repair your vehicle."
-        SHX3_2(SHX4_2)
+    arg4 = workValue8
+    arg5 = "Press ~INPUT_PICKUP~ to have your vehicle repaired."
+    -- Beginner: Start a separate FiveM thread so this code can run independently.
+    arg4(arg5)
+    arg4 = IsControlJustPressed
+    arg5 = 0
+    arg6 = 38
+    arg4 = arg4(arg5, arg6)
+    if arg4 then
+      arg4 = GetEntitySpeed
+      arg5 = arg2
+      -- Beginner: result below is speed.
+      arg4 = arg4(arg5)
+      if arg4 > 0.0 then
+        arg4 = notify
+        arg5 = "~r~You must be stationary to repair your vehicle."
+        -- Beginner: Show a notification to the player.
+        arg4(arg5)
       else
-        SHX0_2.inUse = true
-        SHX3_2 = Citizen
-        SHX3_2 = SHX3_2.CreateThreadNow
-        function SHX4_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3
-          SHX0_3 = SHX42_1
-          SHX1_3 = SHX0_2
-          SHX2_3 = SHX1_2
-          SHX0_3(SHX1_3, SHX2_3)
+        arg1.inUse = true
+        arg4 = Citizen
+        arg4 = arg4.CreateThreadNow
+        function arg5()
+          local workValue, waitCall, workValue5
+          workValue = workValue17
+          waitCall = arg1
+          workValue5 = arg2
+          workValue(waitCall, workValue5)
         end
-        SHX3_2(SHX4_2)
+        arg4(arg5)
       end
     end
   end
 end
-SHX49_1 = Citizen
-SHX49_1 = SHX49_1.CreateThread
-function SHX50_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX2_1.mechanics
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = tCMG
-    SHX6_2 = SHX6_2.addBlip
-    SHX7_2 = SHX5_2.position
-    SHX7_2 = SHX7_2.x
-    SHX8_2 = SHX5_2.position
-    SHX8_2 = SHX8_2.y
-    SHX9_2 = SHX5_2.position
-    SHX9_2 = SHX9_2.z
-    SHX10_2 = SHX5_2.blip
-    SHX11_2 = 4
-    SHX12_2 = SHX5_2.name
-    SHX13_2 = 1.0
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.createArea
-    SHX7_2 = "mechanic_ped_"
-    SHX8_2 = SHX4_2
-    SHX7_2 = SHX7_2 .. SHX8_2
-    SHX8_2 = SHX5_2.position
-    SHX9_2 = 25.0
-    SHX10_2 = 25.0
-    SHX11_2 = SHX43_1
-    SHX12_2 = SHX44_1
-    SHX13_2 = SHX45_1
-    SHX14_2 = SHX5_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.createArea
-    SHX7_2 = "mechanic_vehicle_"
-    SHX8_2 = SHX4_2
-    SHX7_2 = SHX7_2 .. SHX8_2
-    SHX8_2 = SHX5_2.position
-    SHX9_2 = SHX5_2.radius
-    SHX10_2 = 5.0
-    SHX11_2 = SHX46_1
-    SHX12_2 = SHX47_1
-    SHX13_2 = SHX48_1
-    SHX14_2 = SHX5_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
+threadCall = Citizen
+threadCall = threadCall.CreateThread
+function workValue24()
+  local arg1, arg2, arg3, arg4, arg5, arg6, flag9, numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2
+  arg1 = pairs
+  arg2 = cmgCall.mechanics
+  arg1, arg2, arg3, arg4 = arg1(arg2)
+  for arg5, arg6 in arg1, arg2, arg3, arg4 do
+    flag9 = tCMG
+    flag9 = flag9.addBlip
+    numberValue28 = arg6.position
+    numberValue28 = numberValue28.x
+    numberValue30 = arg6.position
+    numberValue30 = numberValue30.y
+    numberValue32 = arg6.position
+    numberValue32 = numberValue32.z
+    numberValue2 = arg6.blip
+    numberValue4 = 4
+    numberValue6 = arg6.name
+    flag = 1.0
+    -- Beginner: Create a minimap blip.
+    flag9(numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag)
+    flag9 = CMG
+    flag9 = flag9.createArea
+    numberValue28 = "mechanic_ped_"
+    numberValue30 = arg5
+    numberValue28 = numberValue28 .. numberValue30
+    numberValue30 = arg6.position
+    numberValue32 = 25.0
+    numberValue2 = 25.0
+    numberValue4 = workValue18
+    numberValue6 = workValue19
+    flag = workValue20
+    flag2 = arg6
+    -- Beginner: Create an interaction area around a world position.
+    flag9(numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2)
+    flag9 = CMG
+    flag9 = flag9.createArea
+    numberValue28 = "mechanic_vehicle_"
+    numberValue30 = arg5
+    numberValue28 = numberValue28 .. numberValue30
+    numberValue30 = arg6.position
+    numberValue32 = arg6.radius
+    numberValue2 = 5.0
+    numberValue4 = workValue21
+    numberValue6 = workValue22
+    flag = workValue23
+    flag2 = arg6
+    flag9(numberValue28, numberValue30, numberValue32, numberValue2, numberValue4, numberValue6, flag, flag2)
   end
 end
-SHX49_1(SHX50_1)
+-- Beginner: Start a separate FiveM thread so this code can run independently.
+threadCall(workValue24)
