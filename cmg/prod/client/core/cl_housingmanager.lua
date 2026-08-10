@@ -1,144 +1,92 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Housing Interior Manager
+    ========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1
-SHX0_1 = false
-SHX1_1 = nil
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "86e1c60d27"
-function SHX4_1(SHX0_2, SHX1_2, SHX2_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2
-  if nil ~= SHX0_2 then
-    SHX3_2 = pairs
-    SHX4_2 = SHX0_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = RemoveIpl
-      SHX10_2 = SHX8_2
-      SHX9_2(SHX10_2)
-    end
-  end
-  if nil ~= SHX1_2 then
-    SHX3_2 = pairs
-    SHX4_2 = SHX1_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = RequestIpl
-      SHX10_2 = SHX8_2
-      SHX9_2(SHX10_2)
-    end
-  end
-  if nil ~= SHX2_2 then
-    SHX3_2 = pairs
-    SHX4_2 = SHX2_2
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-    for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-      SHX9_2 = SHX8_2.position
-      SHX10_2 = GetInteriorAtCoordsWithType
-      SHX11_2 = SHX9_2.x
-      SHX12_2 = SHX9_2.y
-      SHX13_2 = SHX9_2.z
-      SHX14_2 = SHX8_2.type
-      SHX10_2 = SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-      SHX11_2 = IsValidInterior
-      SHX12_2 = SHX10_2
-      SHX11_2 = SHX11_2(SHX12_2)
-      if SHX11_2 then
-        SHX11_2 = SHX8_2.request
-        if SHX11_2 then
-          SHX11_2 = pairs
-          SHX12_2 = SHX8_2.request
-          SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-          for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-            SHX17_2 = ActivateInteriorEntitySet
-            SHX18_2 = SHX10_2
-            SHX19_2 = SHX16_2
-            SHX17_2(SHX18_2, SHX19_2)
-          end
+    This file manages GTA IPLs/interior entity sets used by houses.
+
+    Beginner notes:
+      IPL = a GTA map/interior package that can be requested or removed.
+      entity set = a group of interior decorations/objects that can be turned
+                   on or off inside an interior.
+
+    It also stores whether the player is currently inside a house and a second
+    server-provided house value. The exact meaning of that second value is not
+    shown in this client file, so it is named currentHouseData rather than
+    guessing.
+]]
+
+local inHouse = false
+local currentHouseData = nil
+
+-- Server asks us to modify map/interior content.
+RegisterNetEvent("86e1c60d27", function(iplsToRemove, iplsToRequest, interiors)
+    if iplsToRemove then
+        for _, iplName in pairs(iplsToRemove) do
+            RemoveIpl(iplName)
         end
-        SHX11_2 = SHX8_2.remove
-        if SHX11_2 then
-          SHX11_2 = pairs
-          SHX12_2 = SHX8_2.remove
-          SHX11_2, SHX12_2, SHX13_2, SHX14_2 = SHX11_2(SHX12_2)
-          for SHX15_2, SHX16_2 in SHX11_2, SHX12_2, SHX13_2, SHX14_2 do
-            SHX17_2 = DeactivateInteriorEntitySet
-            SHX18_2 = SHX10_2
-            SHX19_2 = SHX16_2
-            SHX17_2(SHX18_2, SHX19_2)
-          end
+    end
+
+    if iplsToRequest then
+        for _, iplName in pairs(iplsToRequest) do
+            RequestIpl(iplName)
         end
-        SHX11_2 = RefreshInterior
-        SHX12_2 = SHX10_2
-        SHX11_2(SHX12_2)
-      end
     end
-  end
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "66dd8aed8f"
-function SHX4_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  SHX0_1 = SHX0_2
-  SHX1_1 = SHX1_2
-end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = table
-function SHX3_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX2_2 = {}
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_2
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    if SHX8_2 == SHX1_2 then
-    else
-      SHX9_2 = #SHX2_2
-      SHX9_2 = SHX9_2 + 1
-      SHX2_2[SHX9_2] = SHX8_2
+
+    if not interiors then
+        return
     end
-  end
-  SHX0_2 = SHX2_2
-  return SHX2_2
+
+    for _, interiorConfig in pairs(interiors) do
+        local position = interiorConfig.position
+
+        local interiorId = GetInteriorAtCoordsWithType(
+            position.x,
+            position.y,
+            position.z,
+            interiorConfig.type
+        )
+
+        if IsValidInterior(interiorId) then
+            -- Decorations/entity sets that should be enabled.
+            if interiorConfig.request then
+                for _, entitySetName in pairs(interiorConfig.request) do
+                    ActivateInteriorEntitySet(interiorId, entitySetName)
+                end
+            end
+
+            -- Decorations/entity sets that should be disabled.
+            if interiorConfig.remove then
+                for _, entitySetName in pairs(interiorConfig.remove) do
+                    DeactivateInteriorEntitySet(interiorId, entitySetName)
+                end
+            end
+
+            RefreshInterior(interiorId)
+        end
+    end
+end)
+
+-- Server updates our current-house state.
+RegisterNetEvent("66dd8aed8f", function(isInsideHouse, houseData)
+    inHouse = isInsideHouse
+    currentHouseData = houseData
+end)
+
+-- The original resource adds table.delete globally.
+-- It returns a COPY of a list without the requested value.
+function table.delete(list, valueToRemove)
+    local result = {}
+
+    for _, value in pairs(list) do
+        if value ~= valueToRemove then
+            result[#result + 1] = value
+        end
+    end
+
+    return result
 end
-SHX2_1.delete = SHX3_1
-SHX2_1 = CMG
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX0_1
-  SHX1_2 = SHX1_1
-  return SHX0_2, SHX1_2
+
+-- Other client files can call this to inspect the housing state.
+function CMG.isInHouse()
+    return inHouse, currentHouseData
 end
-SHX2_1.isInHouse = SHX3_1

@@ -1,265 +1,116 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Client Groups / Permissions / Jobs
+    ==================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/cfg_jobs"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = {}
-SHX2_1 = {}
-SHX3_1 = CMG
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX1_2 = false
-  end
-  return SHX1_2
+    The server sends two lookup tables to the client:
+      clientGroups      = group/job names the player belongs to
+      clientPermissions = permissions the player currently has
+
+    Other client scripts then call helpers such as:
+      CMG.hasClientGroup("Police")
+      CMG.hasClientPermission("police.onduty.permission")
+      CMG.getClientJob()
+      CMG.getClientFaction()
+      CMG.getClientJobGrade()
+]]
+
+local jobsConfig = CMG.loadModule("cfg/cfg_jobs")
+
+local clientGroups = {}
+local clientPermissions = {}
+
+function CMG.hasClientGroup(groupName)
+    return clientGroups[groupName] or false
 end
-SHX3_1.hasClientGroup = SHX4_1
-SHX3_1 = CMG
-function SHX4_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX2_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if not SHX1_2 then
-    SHX1_2 = false
-  end
-  return SHX1_2
+
+function CMG.hasClientPermission(permissionName)
+    return clientPermissions[permissionName] or false
 end
-SHX3_1.hasClientPermission = SHX4_1
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "db10f68228"
-function SHX5_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2
-  SHX1_1 = SHX0_2
-  SHX2_1 = SHX1_2
-  SHX2_2 = TriggerEvent
-  SHX3_2 = "b51e08118b"
-  SHX2_2(SHX3_2)
-end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "003eadf2da"
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  SHX1_2[SHX0_2] = true
-end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "f1dae6cf3d"
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX1_2 = SHX1_1
-  SHX1_2[SHX0_2] = nil
-end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "9b5a446f85"
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX2_1
-    SHX7_2[SHX6_2] = true
-  end
-  SHX1_2 = TriggerEvent
-  SHX2_2 = "b51e08118b"
-  SHX1_2(SHX2_2)
-end
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = RegisterNetEvent
-SHX4_1 = "989c4097ae"
-function SHX5_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX0_2
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2, SHX6_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX7_2 = SHX2_1
-    SHX7_2[SHX6_2] = nil
-  end
-  SHX1_2 = TriggerEvent
-  SHX2_2 = "b51e08118b"
-  SHX1_2(SHX2_2)
-end
-SHX3_1(SHX4_1, SHX5_1)
-function SHX3_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = pairs
-  SHX2_2 = SHX1_1
-  SHX1_2, SHX2_2, SHX3_2, SHX4_2 = SHX1_2(SHX2_2)
-  for SHX5_2 in SHX1_2, SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = SHX0_1.jobs
-    SHX6_2 = SHX6_2[SHX5_2]
-    if SHX6_2 then
-      SHX7_2 = SHX6_2._config
-      if SHX7_2 then
-        SHX7_2 = SHX6_2._config
-        SHX7_2 = SHX7_2.gtype
-        if SHX7_2 then
-          SHX7_2 = SHX6_2._config
-          SHX7_2 = SHX7_2.gtype
-          if SHX7_2 == SHX0_2 then
-            return SHX5_2
-          end
+
+-- Replace both lookup tables at once.
+RegisterNetEvent("db10f68228", function(groups, permissions)
+    clientGroups = groups
+    clientPermissions = permissions
+
+    -- Let other scripts know that group/permission data changed.
+    TriggerEvent("b51e08118b")
+end)
+
+-- Add one group.
+RegisterNetEvent("003eadf2da", function(groupName)
+    clientGroups[groupName] = true
+end)
+
+-- Remove one group.
+RegisterNetEvent("f1dae6cf3d", function(groupName)
+    clientGroups[groupName] = nil
+end)
+
+-- Add several permissions at once.
+RegisterNetEvent("9b5a446f85", function(permissions)
+    for _, permissionName in pairs(permissions) do
+        clientPermissions[permissionName] = true
+    end
+
+    TriggerEvent("b51e08118b")
+end)
+
+-- Remove several permissions at once.
+RegisterNetEvent("989c4097ae", function(permissions)
+    for _, permissionName in pairs(permissions) do
+        clientPermissions[permissionName] = nil
+    end
+
+    TriggerEvent("b51e08118b")
+end)
+
+-- Finds the first client group whose cfg_jobs entry has the requested gtype.
+-- Example: gtype "job" is used to work out the player's active job.
+local function findGroupByType(groupType)
+    for groupName in pairs(clientGroups) do
+        local job = jobsConfig.jobs[groupName]
+        local config = job and job._config
+
+        if config and config.gtype == groupType then
+            return groupName
         end
-      end
     end
-  end
-  SHX1_2 = nil
-  return SHX1_2
+
+    return nil
 end
-SHX4_1 = CMG
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX3_1
-  SHX1_2 = "job"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if not SHX0_2 then
-    SHX0_2 = "Unemployed"
-  end
-  return SHX0_2
+
+function CMG.getClientJob()
+    return findGroupByType("job") or "Unemployed"
 end
-SHX4_1.getClientJob = SHX5_1
-SHX4_1 = CMG
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "police.onduty.permission"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = "Police"
-    return SHX0_2
-  else
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hasClientPermission
-    SHX1_2 = "nhs.onduty.permission"
-    SHX0_2 = SHX0_2(SHX1_2)
-    if SHX0_2 then
-      SHX0_2 = "Health Service"
-      return SHX0_2
-    else
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.hasClientPermission
-      SHX1_2 = "prisonguard.onduty.permission"
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX0_2 = "HMP"
-        return SHX0_2
-      end
+
+function CMG.getClientFaction()
+    if CMG.hasClientPermission("police.onduty.permission") then
+        return "Police"
     end
-  end
-end
-SHX4_1.getClientFaction = SHX5_1
-SHX4_1 = CMG
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getClientJob
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX1_2 = 0
-    return SHX1_2
-  end
-  SHX1_2 = SHX0_1.jobs
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX2_2 = SHX1_2._config
-    SHX2_2 = SHX2_2.grade
-    if not SHX2_2 then
-      SHX2_2 = 0
+
+    if CMG.hasClientPermission("nhs.onduty.permission") then
+        return "Health Service"
     end
-    return SHX2_2
-  end
-  SHX2_2 = 0
-  return SHX2_2
+
+    if CMG.hasClientPermission("prisonguard.onduty.permission") then
+        return "HMP"
+    end
+
+    return nil
 end
-SHX4_1.getClientJobGrade = SHX5_1
+
+function CMG.getClientJobGrade()
+    local jobName = CMG.getClientJob()
+
+    if not jobName then
+        return 0
+    end
+
+    local job = jobsConfig.jobs[jobName]
+
+    if not job or not job._config then
+        return 0
+    end
+
+    return job._config.grade or 0
+end

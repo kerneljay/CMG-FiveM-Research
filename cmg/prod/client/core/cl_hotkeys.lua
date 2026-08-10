@@ -1,569 +1,273 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Modifier Hotkeys
+    ================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1
-SHX0_1 = 0
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2
-  SHX0_2 = PlayerPedId
-  SHX0_2 = SHX0_2()
-  SHX1_2 = GetSelectedPedWeapon
-  SHX2_2 = SHX0_2
-  SHX1_2 = SHX1_2(SHX2_2)
-  if -1569615261 == SHX1_2 then
-    return
-  end
-  SHX2_2 = GetPedBoneIndex
-  SHX3_2 = SHX0_1
-  SHX4_2 = 57005
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-  if -1 == SHX2_2 then
-    return
-  end
-  SHX3_2 = GetWorldPositionOfEntityBone
-  SHX4_2 = SHX0_1
-  SHX5_2 = SHX2_2
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.getPlayerCoords
-  SHX4_2 = SHX4_2()
-  SHX4_2 = SHX4_2 - SHX3_2
-  SHX4_2 = #SHX4_2
-  if SHX4_2 > 1.0 then
-    return
-  end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.DrawText3D
-  SHX5_2 = SHX3_2
-  SHX6_2 = "~y~Press [G] to slap phone out of hand"
-  SHX7_2 = 0.25
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = IsControlJustPressed
-  SHX5_2 = 0
-  SHX6_2 = 47
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  if not SHX4_2 then
-    return
-  end
-  SHX4_2 = NetworkGetPlayerIndexFromPed
-  SHX5_2 = SHX0_1
-  SHX4_2 = SHX4_2(SHX5_2)
-  if SHX4_2 < 0 then
-    return
-  end
-  SHX5_2 = GetPlayerServerId
-  SHX6_2 = SHX4_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  if SHX5_2 <= 0 then
-    return
-  end
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.setSwitchGunEnabled
-  SHX7_2 = false
-  SHX6_2(SHX7_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.setWeapon
-  SHX7_2 = SHX0_2
-  SHX8_2 = -1569615261
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.playEmote
-  SHX7_2 = "slap"
-  SHX6_2(SHX7_2)
-  SHX6_2 = TriggerServerEvent
-  SHX7_2 = "ef297ed60b"
-  SHX8_2 = SHX5_2
-  SHX6_2(SHX7_2, SHX8_2)
-  SHX6_2 = notify
-  SHX7_2 = "~y~Slapped phone out of persons hands."
-  SHX6_2(SHX7_2)
-  SHX6_2 = Wait
-  SHX7_2 = 2000
-  SHX6_2(SHX7_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.setWeapon
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX1_2
-  SHX9_2 = true
-  SHX6_2(SHX7_2, SHX8_2, SHX9_2)
-  SHX6_2 = CMG
-  SHX6_2 = SHX6_2.setSwitchGunEnabled
-  SHX7_2 = true
-  SHX6_2(SHX7_2)
-end
-SHX2_1 = false
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = true
-  SHX2_1 = SHX0_2
-  SHX0_2 = SetTimeout
-  SHX1_2 = 1000
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = false
-    SHX2_1 = SHX0_3
-  end
-  SHX0_2(SHX1_2, SHX2_2)
-end
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = SHX2_1
-  if SHX0_2 then
-    return
-  end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 1
-  SHX2_2 = 19
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 1
-    SHX2_2 = 90
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = GetClosestPlayer
-      SHX1_2 = 3
-      SHX0_2 = SHX0_2(SHX1_2)
-      if SHX0_2 then
-        SHX1_2 = GetPlayerServerId
-        SHX2_2 = SHX0_2
-        SHX1_2 = SHX1_2(SHX2_2)
-        if SHX1_2 > 0 then
-          SHX2_2 = TriggerServerEvent
-          SHX3_2 = "c5274515e4"
-          SHX4_2 = SHX1_2
-          SHX2_2(SHX3_2, SHX4_2)
-        end
-      end
-      SHX1_2 = SHX3_1
-      SHX1_2()
+    Most actions in this file are used while holding control 19 (normally the
+    server's modifier/ALT-style key), then pressing another key.
+
+    It also looks for a phone prop attached to a nearby player so G can slap
+    the phone out of their hand.
+]]
+
+-- Ped currently holding the nearest recognised phone prop.
+local nearbyPhoneOwnerPed = 0
+
+-- Draw the "slap phone" prompt and perform the action.
+local function handlePhoneSlap()
+    local playerPed = PlayerPedId()
+    local currentWeapon = GetSelectedPedWeapon(playerPed)
+
+    -- Do not let the player slap while already unarmed.
+    if currentWeapon == -1569615261 then
+        return
     end
-  end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 1
-  SHX2_2 = 19
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsDisabledControlJustPressed
-    SHX1_2 = 1
-    SHX2_2 = 185
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.getClosestVehicleIncludingPed
-      SHX1_2 = 5.0
-      SHX0_2, SHX1_2 = SHX0_2(SHX1_2)
-      if 0 ~= SHX0_2 and 0 ~= SHX1_2 then
-        SHX2_2 = NetworkGetPlayerIndexFromPed
-        SHX3_2 = SHX1_2
-        SHX2_2 = SHX2_2(SHX3_2)
-        if SHX2_2 >= 0 then
-          SHX3_2 = GetPlayerServerId
-          SHX4_2 = SHX2_2
-          SHX3_2 = SHX3_2(SHX4_2)
-          if SHX3_2 > 0 then
-            SHX4_2 = TriggerServerEvent
-            SHX5_2 = "1fccdc61f1"
-            SHX6_2 = SHX3_2
-            SHX4_2(SHX5_2, SHX6_2)
-          end
-        end
-      end
-      SHX2_2 = SHX3_1
-      SHX2_2()
+
+    local handBone = GetPedBoneIndex(nearbyPhoneOwnerPed, 57005)
+    if handBone == -1 then
+        return
     end
-  end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 1
-  SHX2_2 = 19
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 1
-    SHX2_2 = 58
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = IsPedArmed
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.getPlayerPed
-      SHX1_2 = SHX1_2()
-      SHX2_2 = 7
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.isPurge
-        SHX0_2 = SHX0_2()
-        if not SHX0_2 then
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.isPlayerInRedZone
-          SHX0_2 = SHX0_2()
-          if not SHX0_2 then
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.getPlayerCombatTimer
-            SHX0_2 = SHX0_2()
-            if 0 == SHX0_2 then
-              SHX0_2 = CMG
-              SHX0_2 = SHX0_2.hasClientPermission
-              SHX1_2 = "police.onduty.permission"
-              SHX0_2 = SHX0_2(SHX1_2)
-              if not SHX0_2 then
-                SHX0_2 = CMG
-                SHX0_2 = SHX0_2.inArena
-                SHX0_2 = SHX0_2()
-                if not SHX0_2 then
-                  SHX0_2 = CMG
-                  SHX0_2 = SHX0_2.inEvent
-                  SHX0_2 = SHX0_2()
-                  if not SHX0_2 then
-                    SHX0_2 = GetSelectedPedWeapon
-                    SHX1_2 = CMG
-                    SHX1_2 = SHX1_2.getPlayerPed
-                    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-                    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-                    if -1569615261 ~= SHX0_2 then
-                      SHX1_2 = GetWeapontypeGroup
-                      SHX2_2 = SHX0_2
-                      SHX1_2 = SHX1_2(SHX2_2)
-                      if -1609580060 ~= SHX1_2 and -728555052 ~= SHX1_2 and 1548507267 ~= SHX1_2 then
-                        SHX2_2 = TriggerServerEvent
-                        SHX3_2 = "42cf043256"
-                        SHX2_2(SHX3_2)
-                      end
-                    end
-                    SHX1_2 = SHX3_1
-                    SHX1_2()
-                  end
+
+    local handCoords = GetWorldPositionOfEntityBone(nearbyPhoneOwnerPed, handBone)
+    local distance = #(CMG.getPlayerCoords() - handCoords)
+
+    if distance > 1.0 then
+        return
+    end
+
+    CMG.DrawText3D(handCoords, "~y~Press [G] to slap phone out of hand", 0.25)
+
+    if not IsControlJustPressed(0, 47) then
+        return
+    end
+
+    local targetPlayer = NetworkGetPlayerIndexFromPed(nearbyPhoneOwnerPed)
+    if targetPlayer < 0 then
+        return
+    end
+
+    local targetServerId = GetPlayerServerId(targetPlayer)
+    if targetServerId <= 0 then
+        return
+    end
+
+    -- Temporarily put our weapon away while the slap animation plays.
+    CMG.setSwitchGunEnabled(false)
+    CMG.setWeapon(playerPed, -1569615261, true)
+    CMG.playEmote("slap")
+
+    TriggerServerEvent("ef297ed60b", targetServerId)
+    notify("~y~Slapped phone out of persons hands.")
+
+    Wait(2000)
+
+    CMG.setWeapon(playerPed, currentWeapon, true)
+    CMG.setSwitchGunEnabled(true)
+end
+
+-- Prevent several modifier hotkeys triggering repeatedly within one second.
+local hotkeyCooldown = false
+
+local function startHotkeyCooldown()
+    hotkeyCooldown = true
+
+    SetTimeout(1000, function()
+        hotkeyCooldown = false
+    end)
+end
+
+local function modifierHeld()
+    return IsControlPressed(1, 19)
+end
+
+local function processHotkeys()
+    if hotkeyCooldown then
+        return
+    end
+
+    -- --------------------------------------------------------
+    -- Modifier + control 90: send server action to nearest player (3m)
+    -- --------------------------------------------------------
+    if modifierHeld() and IsControlJustPressed(1, 90) then
+        local closestPlayer = GetClosestPlayer(3)
+
+        if closestPlayer then
+            local serverId = GetPlayerServerId(closestPlayer)
+
+            if serverId > 0 then
+                TriggerServerEvent("c5274515e4", serverId)
+            end
+        end
+
+        startHotkeyCooldown()
+    end
+
+    -- --------------------------------------------------------
+    -- Modifier + disabled control 185: action on player in nearby vehicle
+    -- --------------------------------------------------------
+    if modifierHeld() and IsDisabledControlJustPressed(1, 185) then
+        local vehicle, vehiclePed = CMG.getClosestVehicleIncludingPed(5.0)
+
+        if vehicle ~= 0 and vehiclePed ~= 0 then
+            local playerIndex = NetworkGetPlayerIndexFromPed(vehiclePed)
+
+            if playerIndex >= 0 then
+                local serverId = GetPlayerServerId(playerIndex)
+
+                if serverId > 0 then
+                    TriggerServerEvent("1fccdc61f1", serverId)
                 end
-              end
             end
-          end
         end
-      end
+
+        startHotkeyCooldown()
     end
-  end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 1
-  SHX2_2 = 19
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 1
-    SHX2_2 = 32
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = IsPauseMenuActive
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = IsPedInAnyVehicle
-        SHX1_2 = CMG
-        SHX1_2 = SHX1_2.getPlayerPed
-        SHX1_2 = SHX1_2()
-        SHX2_2 = true
-        SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-        if not SHX0_2 then
-          SHX0_2 = IsPedSwimming
-          SHX1_2 = CMG
-          SHX1_2 = SHX1_2.getPlayerPed
-          SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-          if not SHX0_2 then
-            SHX0_2 = IsPedSwimmingUnderWater
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.getPlayerPed
-            SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-            if not SHX0_2 then
-              SHX0_2 = IsPedShooting
-              SHX1_2 = CMG
-              SHX1_2 = SHX1_2.getPlayerPed
-              SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-              SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-              if not SHX0_2 then
-                SHX0_2 = IsPedDiving
-                SHX1_2 = CMG
-                SHX1_2 = SHX1_2.getPlayerPed
-                SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-                SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-                if not SHX0_2 then
-                  SHX0_2 = IsPedFalling
-                  SHX1_2 = CMG
-                  SHX1_2 = SHX1_2.getPlayerPed
-                  SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-                  SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-                  if not SHX0_2 then
-                    SHX0_2 = GetEntityHealth
-                    SHX1_2 = CMG
-                    SHX1_2 = SHX1_2.getPlayerPed
-                    SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX1_2()
-                    SHX0_2 = SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-                    if SHX0_2 > 105 then
-                      SHX0_2 = CMG
-                      SHX0_2 = SHX0_2.isHandcuffed
-                      SHX0_2 = SHX0_2()
-                      if not SHX0_2 then
-                        SHX0_2 = CMG
-                        SHX0_2 = SHX0_2.isInRadioChannel
-                        SHX0_2 = SHX0_2()
-                        if not SHX0_2 then
-                          SHX0_2 = tCMG
-                          SHX0_2 = SHX0_2.canAnim
-                          SHX0_2 = SHX0_2()
-                          if SHX0_2 then
-                            SHX0_2 = tCMG
-                            SHX0_2 = SHX0_2.playAnim
-                            SHX1_2 = true
-                            SHX2_2 = {}
-                            SHX3_2 = {}
-                            SHX4_2 = "rcmnigel1c"
-                            SHX5_2 = "hailing_whistle_waive_a"
-                            SHX3_2[1] = SHX4_2
-                            SHX3_2[2] = SHX5_2
-                            SHX2_2[1] = SHX3_2
-                            SHX3_2 = false
-                            SHX0_2(SHX1_2, SHX2_2, SHX3_2)
-                            SHX0_2 = CMG
-                            SHX0_2 = SHX0_2.setActivePetFollowsPlayer
-                            SHX0_2()
-                          end
-                        end
-                      end
-                    end
-                  end
+
+    -- --------------------------------------------------------
+    -- Modifier + control 58: weapon-related server action
+    -- --------------------------------------------------------
+    if modifierHeld() and IsControlJustPressed(1, 58) then
+        local playerPed = CMG.getPlayerPed()
+
+        if IsPedArmed(playerPed, 7)
+            and not CMG.isPurge()
+            and not CMG.isPlayerInRedZone()
+            and CMG.getPlayerCombatTimer() == 0
+            and not CMG.hasClientPermission("police.onduty.permission")
+            and not CMG.inArena()
+            and not CMG.inEvent() then
+
+            local weaponHash = GetSelectedPedWeapon(playerPed)
+
+            if weaponHash ~= -1569615261 then
+                local weaponGroup = GetWeapontypeGroup(weaponHash)
+
+                -- Original excludes these three weapon groups.
+                if weaponGroup ~= -1609580060
+                    and weaponGroup ~= -728555052
+                    and weaponGroup ~= 1548507267 then
+                    TriggerServerEvent("42cf043256")
                 end
-              end
             end
-          end
+
+            startHotkeyCooldown()
         end
-      end
     end
-  end
-  SHX0_2 = IsControlPressed
-  SHX1_2 = 1
-  SHX2_2 = 19
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = IsControlJustPressed
-    SHX1_2 = 1
-    SHX2_2 = 29
-    SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-    if SHX0_2 then
-      SHX0_2 = IsPedInAnyVehicle
-      SHX1_2 = CMG
-      SHX1_2 = SHX1_2.getPlayerPed
-      SHX1_2 = SHX1_2()
-      SHX2_2 = false
-      SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-      if not SHX0_2 then
-        SHX0_2 = GetClosestPlayer
-        SHX1_2 = 4
-        SHX0_2 = SHX0_2(SHX1_2)
-        if SHX0_2 and SHX0_2 >= 0 then
-          SHX1_2 = GetPlayerServerId
-          SHX2_2 = SHX0_2
-          SHX1_2 = SHX1_2(SHX2_2)
-          if SHX1_2 > 0 then
-            SHX2_2 = TriggerServerEvent
-            SHX3_2 = "a02d917ea8"
-            SHX4_2 = SHX1_2
-            SHX2_2(SHX3_2, SHX4_2)
-          end
+
+    -- --------------------------------------------------------
+    -- Modifier + W (control 32): whistle/animation + recall active pet
+    -- --------------------------------------------------------
+    if modifierHeld() and IsControlJustPressed(1, 32) then
+        local playerPed = CMG.getPlayerPed()
+
+        if not IsPauseMenuActive()
+            and not IsPedInAnyVehicle(playerPed, true)
+            and not IsPedSwimming(playerPed)
+            and not IsPedSwimmingUnderWater(playerPed)
+            and not IsPedShooting(playerPed)
+            and not IsPedDiving(playerPed)
+            and not IsPedFalling(playerPed)
+            and GetEntityHealth(playerPed) > 105
+            and not CMG.isHandcuffed()
+            and not CMG.isInRadioChannel()
+            and tCMG.canAnim() then
+
+            tCMG.playAnim(
+                true,
+                {{"rcmnigel1c", "hailing_whistle_waive_a"}},
+                false
+            )
+
+            CMG.setActivePetFollowsPlayer()
         end
-      end
     end
-  end
-  SHX0_2 = SHX0_1
-  if 0 ~= SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.getPlayerVehicle
-    SHX0_2 = SHX0_2()
-    if 0 == SHX0_2 then
-      SHX0_2 = SHX1_1
-      SHX0_2()
-    end
-  end
-end
-SHX5_1 = CMG
-SHX5_1 = SHX5_1.createThreadOnTick
-SHX6_1 = SHX4_1
-SHX7_1 = "Hotkeys"
-SHX5_1(SHX6_1, SHX7_1)
-SHX5_1 = Citizen
-SHX5_1 = SHX5_1.CreateThread
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  while true do
-    SHX0_2 = 10.0
-    SHX1_2 = 0
-    SHX0_1 = SHX1_2
-    SHX1_2 = PlayerPedId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = pairs
-    SHX3_2 = GetGamePool
-    SHX4_2 = "CObject"
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2 = SHX3_2(SHX4_2)
-    SHX2_2, SHX3_2, SHX4_2, SHX5_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-    for SHX6_2, SHX7_2 in SHX2_2, SHX3_2, SHX4_2, SHX5_2 do
-      SHX8_2 = GetEntityModel
-      SHX9_2 = SHX7_2
-      SHX8_2 = SHX8_2(SHX9_2)
-      if 108397254 == SHX8_2 then
-        SHX8_2 = GetEntityAttachedTo
-        SHX9_2 = SHX7_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        SHX9_2 = DoesEntityExist
-        SHX10_2 = SHX8_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        if SHX9_2 then
-          SHX9_2 = IsEntityAPed
-          SHX10_2 = SHX8_2
-          SHX9_2 = SHX9_2(SHX10_2)
-          if SHX9_2 then
-            SHX9_2 = IsPedAPlayer
-            SHX10_2 = SHX8_2
-            SHX9_2 = SHX9_2(SHX10_2)
-            if SHX9_2 then
-              SHX9_2 = CMG
-              SHX9_2 = SHX9_2.getPlayerCoords
-              SHX9_2 = SHX9_2()
-              SHX10_2 = GetEntityCoords
-              SHX11_2 = SHX8_2
-              SHX12_2 = true
-              SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-              SHX9_2 = SHX9_2 - SHX10_2
-              SHX9_2 = #SHX9_2
-              if SHX0_2 > SHX9_2 and SHX8_2 ~= SHX1_2 then
-                SHX0_1 = SHX8_2
-                SHX0_2 = SHX9_2
-              end
+
+    -- --------------------------------------------------------
+    -- Modifier + control 29: server action on nearest player (4m)
+    -- --------------------------------------------------------
+    if modifierHeld() and IsControlJustPressed(1, 29) then
+        local playerPed = CMG.getPlayerPed()
+
+        if not IsPedInAnyVehicle(playerPed, false) then
+            local closestPlayer = GetClosestPlayer(4)
+
+            if closestPlayer and closestPlayer >= 0 then
+                local serverId = GetPlayerServerId(closestPlayer)
+
+                if serverId > 0 then
+                    TriggerServerEvent("a02d917ea8", serverId)
+                end
             end
-          end
         end
-      end
     end
-    SHX2_2 = Wait
-    SHX3_2 = 1000
-    SHX2_2(SHX3_2)
-  end
+
+    -- Phone slap is independent of the modifier key once a phone holder has
+    -- been found by the background scanner.
+    if nearbyPhoneOwnerPed ~= 0 and CMG.getPlayerVehicle() == 0 then
+        handlePhoneSlap()
+    end
 end
-SHX5_1(SHX6_1)
-SHX5_1 = 5000
-SHX6_1 = RegisterNetEvent
-SHX7_1 = "a02d917ea8"
-function SHX8_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.CreateThread
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3
-    SHX0_3 = CMG
-    SHX0_3 = SHX0_3.startCircularProgressBar
-    SHX1_3 = ""
-    SHX2_3 = SHX5_1
-    SHX3_3 = nil
-    function SHX4_3()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_4, SHX1_4
+
+CMG.createThreadOnTick(processHotkeys, "Hotkeys")
+
+-- Every second, find the nearest phone prop attached to another player.
+-- Model hash 108397254 is the phone object used by this resource.
+Citizen.CreateThread(function()
+    while true do
+        local closestDistance = 10.0
+        nearbyPhoneOwnerPed = 0
+
+        local myPed = PlayerPedId()
+
+        for _, object in pairs(GetGamePool("CObject")) do
+            if GetEntityModel(object) == 108397254 then
+                local attachedEntity = GetEntityAttachedTo(object)
+
+                if DoesEntityExist(attachedEntity)
+                    and IsEntityAPed(attachedEntity)
+                    and IsPedAPlayer(attachedEntity) then
+
+                    local distance = #(
+                        CMG.getPlayerCoords() - GetEntityCoords(attachedEntity, true)
+                    )
+
+                    if distance < closestDistance and attachedEntity ~= myPed then
+                        nearbyPhoneOwnerPed = attachedEntity
+                        closestDistance = distance
+                    end
+                end
+            end
+        end
+
+        Wait(1000)
     end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3)
-  end
-  SHX1_2(SHX2_2)
-  SHX1_2 = GetGameTimer
-  SHX1_2 = SHX1_2()
-  while true do
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX2_2 = SHX2_2 - SHX1_2
-    SHX3_2 = SHX5_1
-    if SHX2_2 > SHX3_2 then
-      break
+end)
+
+local HEADBAG_PROGRESS_MS = 5000
+
+-- Server tells this client to begin a 5-second "headbag" action.
+RegisterNetEvent("a02d917ea8", function(targetServerId)
+    Citizen.CreateThread(function()
+        CMG.startCircularProgressBar(
+            "",
+            HEADBAG_PROGRESS_MS,
+            nil,
+            function()
+                -- Empty completion callback in original.
+            end
+        )
+    end)
+
+    local startedAt = GetGameTimer()
+
+    while GetGameTimer() - startedAt <= HEADBAG_PROGRESS_MS do
+        if tCMG.isInComa() or CMG.getPlayerCombatTimer() ~= 0 then
+            notify("~r~You can not headbag someone whilst in a coma or have a combat timer.")
+            CMG.stopCircularProgressBar()
+            return
+        end
+
+        Wait(0)
     end
-    SHX2_2 = tCMG
-    SHX2_2 = SHX2_2.isInComa
-    SHX2_2 = SHX2_2()
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.getPlayerCombatTimer
-      SHX2_2 = SHX2_2()
-      if 0 == SHX2_2 then
-        goto SHX_LABEL_31
-      end
-    end
-    SHX2_2 = notify
-    SHX3_2 = "~r~You can not headbag someone whilst in a coma or have a combat timer."
-    SHX2_2(SHX3_2)
-    SHX2_2 = CMG
-    SHX2_2 = SHX2_2.stopCircularProgressBar
-    SHX2_2()
-    return
-    -- [FIX IF ERROR] Move ::SHX_LABEL_31:: outside nested blocks until all 'goto SHX_LABEL_31' can see it
-    ::SHX_LABEL_31::
-    SHX2_2 = Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
-  end
-  SHX2_2 = TriggerServerEvent
-  SHX3_2 = "c7887567db"
-  SHX4_2 = SHX0_2
-  SHX2_2(SHX3_2, SHX4_2)
-end
-SHX6_1(SHX7_1, SHX8_1)
+
+    TriggerServerEvent("c7887567db", targetServerId)
+end)

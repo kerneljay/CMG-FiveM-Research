@@ -1,1081 +1,415 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Player Animation Commands
+    =========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1
-SHX0_1 = false
-SHX1_1 = RegisterCommand
-SHX2_1 = "salute"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "anim@mp_player_intuppersalute"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "idle_a"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 600
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "idle_a"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
+    Beginner overview:
+      This file adds simple chat commands such as:
+        /salute
+        /finger
+        /finger2
+        /facepalm
+        /damn
+        /fail
+        /sign1
+        /sign2
+        /fingerbum
+        /touchself
+        /wanker
+        /cigar
+
+      Most commands do the exact same job:
+        1. Check that your ped exists and is alive.
+        2. Load an animation dictionary.
+        3. If that animation is already playing, play its "exit" animation.
+        4. Otherwise play the requested animation.
+
+      The original decompiled file repeated that logic hundreds of times, so
+      this readable version puts the shared behaviour into one helper.
+]]
+
+-- /fingerbum temporarily prevents shooting while its animation is active.
+local blockFiringForAnimation = false
+
+-- /cigar stores the spawned cigar prop here so it can be deleted later.
+local cigarObject = 0
+
+-- The original script used this global value.
+-- Keep it global in case another client file reads it.
+IsCigar = IsCigar or false
+
+
+-- ============================================================
+-- BASIC ANIMATION HELPERS
+-- ============================================================
+
+local function canUseAnimation()
+    local ped = CMG.getPlayerPed()
+
+    if not DoesEntityExist(ped) then
+        return false, ped
     end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "finger"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "anim@mp_player_intselfiethe_bird"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "idle_a"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "idle_a"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 5000
-        SHX2_2(SHX3_2)
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
+
+    if IsEntityDead(ped) then
+        return false, ped
     end
-  end
+
+    return true, ped
 end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "finger2"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "anim@mp_player_intupperfinger"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "idle_a"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "idle_a"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 5000
-        SHX2_2(SHX3_2)
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
+
+
+local function playUpperBodyAnim(ped, dict, anim)
+    TaskPlayAnim(
+        ped,
+        dict,
+        anim,
+        8.0,
+        1.0,
+        -1,
+        49,
+        0,
+        false,
+        false,
+        false
+    )
+end
+
+
+local function stopToggleAnimation(ped, dict, exitWaitMs, clearAfterExit)
+    playUpperBodyAnim(ped, dict, "exit")
+
+    Wait(exitWaitMs or 100)
+
+    if clearAfterExit then
+        ClearPedSecondaryTask(CMG.getPlayerPed())
     end
-  end
 end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "facepalm"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "anim@mp_player_intupperface_palm"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "idle_a"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "idle_a"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 5000
-        SHX2_2(SHX3_2)
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = ClearPedSecondaryTask
-        SHX3_2 = CMG
-        SHX3_2 = SHX3_2.getPlayerPed
-        SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
+
+
+-- Registers one of the repeated animation commands.
+--
+-- options:
+--   startWaitMs       = how long the original code waited after starting
+--   autoExit          = automatically play "exit" after startWaitMs
+--   stopWaitMs        = wait after playing exit when toggled off
+--   clearAfterStop    = clear the secondary task after toggling off
+--   clearAfterAutoExit= clear the task after an automatic exit
+--   blockFiring       = keep normal weapon firing disabled while active
+local function registerToggleAnimation(commandName, dict, animName, options)
+    options = options or {}
+
+    RegisterCommand(commandName, function()
+        local allowed, ped = canUseAnimation()
+
+        if not allowed then
+            return
+        end
+
+        CMG.loadAnimDict(dict)
+
+        local alreadyPlaying =
+            IsEntityPlayingAnim(
+                ped,
+                dict,
+                animName,
+                3
+            )
+
+        if alreadyPlaying then
+            stopToggleAnimation(
+                ped,
+                dict,
+                options.stopWaitMs or 100,
+                options.clearAfterStop
+            )
+
+            if options.blockFiring then
+                blockFiringForAnimation = false
+            end
+        else
+            playUpperBodyAnim(
+                ped,
+                dict,
+                animName
+            )
+
+            if options.blockFiring then
+                blockFiringForAnimation = true
+            end
+
+            if options.startWaitMs then
+                Wait(options.startWaitMs)
+            end
+
+            if options.autoExit then
+                playUpperBodyAnim(
+                    ped,
+                    dict,
+                    "exit"
+                )
+
+                Wait(options.autoExitWaitMs or 100)
+
+                if options.clearAfterAutoExit then
+                    ClearPedSecondaryTask(
+                        CMG.getPlayerPed()
+                    )
+                end
+            end
+        end
+
+        RemoveAnimDict(dict)
+    end, false)
+end
+
+
+-- ============================================================
+-- SIMPLE COMMANDS
+-- ============================================================
+
+registerToggleAnimation(
+    "salute",
+    "anim@mp_player_intuppersalute",
+    "idle_a",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 600,
+        clearAfterStop = true
+    }
+)
+
+registerToggleAnimation(
+    "finger",
+    "anim@mp_player_intselfiethe_bird",
+    "idle_a",
+    {
+        startWaitMs = 5000,
+        autoExit = true,
+        autoExitWaitMs = 100,
+        clearAfterAutoExit = true,
+        stopWaitMs = 100,
+        clearAfterStop = true
+    }
+)
+
+registerToggleAnimation(
+    "finger2",
+    "anim@mp_player_intupperfinger",
+    "idle_a",
+    {
+        startWaitMs = 5000,
+        autoExit = true,
+        autoExitWaitMs = 100,
+        clearAfterAutoExit = true,
+        stopWaitMs = 100,
+        clearAfterStop = true
+    }
+)
+
+registerToggleAnimation(
+    "facepalm",
+    "anim@mp_player_intupperface_palm",
+    "idle_a",
+    {
+        startWaitMs = 5000,
+        autoExit = true,
+        autoExitWaitMs = 100,
+        clearAfterAutoExit = true,
+        stopWaitMs = 100,
+        clearAfterStop = true
+    }
+)
+
+registerToggleAnimation(
+    "damn",
+    "gestures@m@standing@casual",
+    "gesture_damn",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100
+    }
+)
+
+registerToggleAnimation(
+    "fail",
+    "random@car_thief@agitated@idle_a",
+    "agitated_idle_a",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100
+    }
+)
+
+registerToggleAnimation(
+    "sign1",
+    "mp_player_int_uppergang_sign_a",
+    "mp_player_int_gang_sign_a",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100
+    }
+)
+
+registerToggleAnimation(
+    "sign2",
+    "mp_player_int_uppergang_sign_b",
+    "mp_player_int_gang_sign_b",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100
+    }
+)
+
+registerToggleAnimation(
+    "fingerbum",
+    "mp_player_int_upperarse_pick",
+    "mp_player_int_arse_pick",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100,
+        blockFiring = true
+    }
+)
+
+registerToggleAnimation(
+    "touchself",
+    "mp_player_int_uppergrab_crotch",
+    "mp_player_int_grab_crotch",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100
+    }
+)
+
+registerToggleAnimation(
+    "wanker",
+    "mp_player_intwank",
+    "mp_player_int_wank",
+    {
+        startWaitMs = 500,
+        stopWaitMs = 100
+    }
+)
+
+
+-- ============================================================
+-- CIGAR COMMAND
+-- ============================================================
+
+RegisterCommand("cigar", function()
+    local allowed, ped = canUseAnimation()
+
+    if not allowed then
+        return
     end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "damn"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "gestures@m@standing@casual"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "gesture_damn"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "gesture_damn"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "fail"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "random@car_thief@agitated@idle_a"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "agitated_idle_a"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "agitated_idle_a"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "sign1"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "mp_player_int_uppergang_sign_a"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "mp_player_int_gang_sign_a"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_player_int_gang_sign_a"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "sign2"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "mp_player_int_uppergang_sign_b"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "mp_player_int_gang_sign_b"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_player_int_gang_sign_b"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "fingerbum"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "mp_player_int_upperarse_pick"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "mp_player_int_arse_pick"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-        SHX2_2 = false
-        SHX0_1 = SHX2_2
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_player_int_arse_pick"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-        SHX2_2 = true
-        SHX0_1 = SHX2_2
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "touchself"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "mp_player_int_uppergrab_crotch"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "mp_player_int_grab_crotch"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_player_int_grab_crotch"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = RegisterCommand
-SHX2_1 = "wanker"
-function SHX3_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = "mp_player_intwank"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = DoesEntityExist
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if SHX2_2 then
-    SHX2_2 = IsEntityDead
-    SHX3_2 = SHX1_2
-    SHX2_2 = SHX2_2(SHX3_2)
-    if not SHX2_2 then
-      SHX2_2 = CMG
-      SHX2_2 = SHX2_2.loadAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-      SHX2_2 = IsEntityPlayingAnim
-      SHX3_2 = SHX1_2
-      SHX4_2 = SHX0_2
-      SHX5_2 = "mp_player_int_wank"
-      SHX6_2 = 3
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-      if SHX2_2 then
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "exit"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 100
-        SHX2_2(SHX3_2)
-      else
-        SHX2_2 = TaskPlayAnim
-        SHX3_2 = SHX1_2
-        SHX4_2 = SHX0_2
-        SHX5_2 = "mp_player_int_wank"
-        SHX6_2 = 8.0
-        SHX7_2 = 1.0
-        SHX8_2 = -1
-        SHX9_2 = 49
-        SHX10_2 = 0
-        SHX11_2 = false
-        SHX12_2 = false
-        SHX13_2 = false
-        SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-        SHX2_2 = Wait
-        SHX3_2 = 500
-        SHX2_2(SHX3_2)
-      end
-      SHX2_2 = RemoveAnimDict
-      SHX3_2 = SHX0_2
-      SHX2_2(SHX3_2)
-    end
-  end
-end
-SHX4_1 = false
-SHX1_1(SHX2_1, SHX3_1, SHX4_1)
-SHX1_1 = 0
-SHX2_1 = RegisterCommand
-SHX3_1 = "cigar"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2
-  SHX0_2 = "prop_cigar_02"
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  SHX2_2 = "mp_player_int_uppersmoke"
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.getPlayerPed
-  SHX3_2 = SHX3_2()
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadAnimDict
-  SHX5_2 = SHX2_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = DoesEntityExist
-  SHX5_2 = SHX1_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  if SHX4_2 then
-    SHX4_2 = IsEntityDead
-    SHX5_2 = SHX1_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    if not SHX4_2 then
-      SHX4_2 = IsCigar
-      if SHX4_2 then
-        SHX4_2 = Wait
-        SHX5_2 = 500
-        SHX4_2(SHX5_2)
-        SHX4_2 = DeleteObject
-        SHX5_2 = SHX1_1
-        SHX4_2(SHX5_2)
+
+    local animDict =
+        "mp_player_int_uppersmoke"
+
+    CMG.loadAnimDict(animDict)
+
+    -- --------------------------------------------------------
+    -- TURN CIGAR OFF
+    -- --------------------------------------------------------
+
+    if IsCigar then
+        Wait(500)
+
+        if cigarObject ~= 0
+            and DoesEntityExist(cigarObject) then
+            DeleteObject(cigarObject)
+        end
+
+        cigarObject = 0
         IsCigar = false
-      else
-        IsCigar = true
-        SHX4_2 = Wait
-        SHX5_2 = 500
-        SHX4_2(SHX5_2)
-        SHX4_2 = table
-        SHX4_2 = SHX4_2.unpack
-        SHX5_2 = GetEntityCoords
-        SHX6_2 = SHX1_2
-        SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2 = SHX5_2(SHX6_2)
-        SHX4_2, SHX5_2, SHX6_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX7_2 = CMG
-        SHX7_2 = SHX7_2.requestEntitySpawn
-        SHX8_2 = "animation_cigar_object"
-        SHX7_2(SHX8_2)
-        SHX7_2 = CreateObject
-        SHX8_2 = GetHashKey
-        SHX9_2 = SHX0_2
-        SHX8_2 = SHX8_2(SHX9_2)
-        SHX9_2 = SHX4_2
-        SHX10_2 = SHX5_2
-        SHX11_2 = SHX6_2 + 0.2
-        SHX12_2 = true
-        SHX13_2 = true
-        SHX14_2 = true
-        SHX7_2 = SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        SHX1_1 = SHX7_2
-        SHX7_2 = AttachEntityToEntity
-        SHX8_2 = SHX1_1
-        SHX9_2 = SHX1_2
-        SHX10_2 = GetPedBoneIndex
-        SHX11_2 = SHX1_2
-        SHX12_2 = 47419
-        SHX10_2 = SHX10_2(SHX11_2, SHX12_2)
-        SHX11_2 = 0.015
-        SHX12_2 = -1.0E-4
-        SHX13_2 = 0.003
-        SHX14_2 = 55.0
-        SHX15_2 = 0.0
-        SHX16_2 = -85.0
-        SHX17_2 = true
-        SHX18_2 = true
-        SHX19_2 = false
-        SHX20_2 = true
-        SHX21_2 = 1
-        SHX22_2 = true
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2)
-        SHX7_2 = TaskPlayAnim
-        SHX8_2 = SHX3_2
-        SHX9_2 = SHX2_2
-        SHX10_2 = "mp_player_int_smoke"
-        SHX11_2 = 8.0
-        SHX12_2 = 1.0
-        SHX13_2 = -1
-        SHX14_2 = 49
-        SHX15_2 = 0
-        SHX16_2 = false
-        SHX17_2 = false
-        SHX18_2 = false
-        SHX7_2(SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      end
+
+        RemoveAnimDict(animDict)
+        return
     end
-  end
-  SHX4_2 = RemoveAnimDict
-  SHX5_2 = SHX2_2
-  SHX4_2(SHX5_2)
+
+    -- --------------------------------------------------------
+    -- TURN CIGAR ON
+    -- --------------------------------------------------------
+
+    IsCigar = true
+
+    Wait(500)
+
+    local coords = GetEntityCoords(ped)
+
+    -- Framework bookkeeping before creating this entity.
+    CMG.requestEntitySpawn(
+        "animation_cigar_object"
+    )
+
+    cigarObject = CreateObject(
+        GetHashKey("prop_cigar_02"),
+        coords.x,
+        coords.y,
+        coords.z + 0.2,
+        true,
+        true,
+        true
+    )
+
+    AttachEntityToEntity(
+        cigarObject,
+        ped,
+        GetPedBoneIndex(ped, 47419),
+        0.015,
+        -0.0001,
+        0.003,
+        55.0,
+        0.0,
+        -85.0,
+        true,
+        true,
+        false,
+        true,
+        1,
+        true
+    )
+
+    TaskPlayAnim(
+        ped,
+        animDict,
+        "mp_player_int_smoke",
+        8.0,
+        1.0,
+        -1,
+        49,
+        0,
+        false,
+        false,
+        false
+    )
+
+    RemoveAnimDict(animDict)
+end, false)
+
+
+-- ============================================================
+-- FIRING SAFETY TICK
+-- ============================================================
+
+local function animationSafetyTick()
+    if blockFiringForAnimation then
+        DisablePlayerFiring(
+            PlayerId(),
+            true
+        )
+    end
 end
-SHX5_1 = false
-SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-function SHX2_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = SHX0_1
-  if SHX0_2 then
-    SHX0_2 = DisablePlayerFiring
-    SHX1_2 = PlayerId
-    SHX1_2 = SHX1_2()
-    SHX2_2 = true
-    SHX0_2(SHX1_2, SHX2_2)
-  end
-end
-SHX3_1 = CMG
-SHX3_1 = SHX3_1.createThreadOnTick
-SHX4_1 = SHX2_1
-SHX5_1 = "Anim Check Tick"
-SHX3_1(SHX4_1, SHX5_1)
-SHX3_1 = exports
-SHX4_1 = "canAnim"
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.canAnim
-  return SHX0_2()
-end
-SHX3_1(SHX4_1, SHX5_1)
+
+CMG.createThreadOnTick(
+    animationSafetyTick,
+    "Anim Check Tick"
+)
+
+
+-- ============================================================
+-- EXPORT
+-- ============================================================
+
+exports("canAnim", function()
+    return tCMG.canAnim()
+end)

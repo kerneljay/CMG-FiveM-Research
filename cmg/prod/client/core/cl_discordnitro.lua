@@ -1,563 +1,218 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Discord Nitro / Special Vehicle Crafting
+    ========================================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1
-SHX0_1 = GetGameTimer
-SHX0_1 = SHX0_1()
-function SHX1_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = IsEntityInWater
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerPed
-  SHX1_2 = SHX1_2()
-  return SHX0_2(SHX1_2)
+    Lets eligible players craft small fun vehicles after a 5-second hammering
+    animation. All craft actions share a 10-second cooldown.
+
+    Server events:
+      739ff0bbbe = craft BMX
+      c185d91d8b = craft moped
+
+    Commands:
+      /unicycle   (requires unicycle.whitelisted)
+      /skate      (requires skate.whitelisted)
+]]
+
+local lastCraftTime = GetGameTimer()
+local CRAFT_COOLDOWN_MS = 10000
+local CRAFT_ANIMATION_MS = 5000
+
+local function isPlayerInWater()
+    return IsEntityInWater(CMG.getPlayerPed())
 end
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "739ff0bbbe"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.isInComa
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.isHandcuffed
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.isInsideDiamondCasino
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.isPlayerNearPrison
-        SHX0_2 = SHX0_2()
-        if not SHX0_2 then
-          SHX0_2 = GetTimeDifference
-          SHX1_2 = GetGameTimer
-          SHX1_2 = SHX1_2()
-          SHX2_2 = SHX0_1
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          SHX1_2 = 10000
-          if SHX0_2 > SHX1_2 then
-            SHX0_2 = SHX1_1
-            SHX0_2 = SHX0_2()
-            if SHX0_2 then
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~You cannot craft a BMX while in the water."
-              SHX0_2(SHX1_2)
-              return
-            end
-            SHX0_2 = IsPedInAnyVehicle
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.getPlayerPed
-            SHX1_2 = SHX1_2()
-            SHX2_2 = false
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-            if SHX0_2 then
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~You cannot craft a BMX while in a vehicle."
-              SHX0_2(SHX1_2)
-              return
-            end
-            SHX0_2 = GetGameTimer
-            SHX0_2 = SHX0_2()
-            SHX0_1 = SHX0_2
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~g~Crafting a BMX"
-            SHX0_2(SHX1_2)
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.getPlayerPed
-            SHX0_2 = SHX0_2()
-            SHX1_2 = TaskStartScenarioInPlace
-            SHX2_2 = SHX0_2
-            SHX3_2 = "WORLD_HUMAN_HAMMERING"
-            SHX4_2 = 0
-            SHX5_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            SHX1_2 = Wait
-            SHX2_2 = 5000
-            SHX1_2(SHX2_2)
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.inOrganHesit
-            SHX1_2 = SHX1_2()
-            if not SHX1_2 then
-              SHX1_2 = SHX1_1
-              SHX1_2 = SHX1_2()
-              if SHX1_2 then
-                SHX1_2 = ClearPedTasksImmediately
-                SHX2_2 = SHX0_2
-                SHX1_2(SHX2_2)
-                SHX1_2 = tCMG
-                SHX1_2 = SHX1_2.notify
-                SHX2_2 = "~r~You cannot craft a BMX while in the water."
-                SHX1_2(SHX2_2)
-                return
-              end
-              SHX1_2 = IsPedInAnyVehicle
-              SHX2_2 = SHX0_2
-              SHX3_2 = false
-              SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-              if SHX1_2 then
-                SHX1_2 = ClearPedTasksImmediately
-                SHX2_2 = SHX0_2
-                SHX1_2(SHX2_2)
-                SHX1_2 = tCMG
-                SHX1_2 = SHX1_2.notify
-                SHX2_2 = "~r~You cannot craft a BMX while in a vehicle."
-                SHX1_2(SHX2_2)
-                return
-              end
-              SHX1_2 = ClearPedTasksImmediately
-              SHX2_2 = SHX0_2
-              SHX1_2(SHX2_2)
-              SHX1_2 = GetEntityCoords
-              SHX2_2 = SHX0_2
-              SHX1_2 = SHX1_2(SHX2_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.requestEntitySpawn
-              SHX3_2 = "bmx"
-              SHX2_2(SHX3_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.spawnVehicle
-              SHX3_2 = 1131912276
-              SHX4_2 = SHX1_2.x
-              SHX5_2 = SHX1_2.y
-              SHX6_2 = SHX1_2.z
-              SHX7_2 = GetEntityHeading
-              SHX8_2 = SHX0_2
-              SHX7_2 = SHX7_2(SHX8_2)
-              SHX8_2 = true
-              SHX9_2 = true
-              SHX10_2 = true
-              SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-            end
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~Nitro BMX cooldown, please wait."
-            SHX0_2(SHX1_2)
-          end
-      end
-    end
-  end
-  else
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.notify
-    SHX1_2 = "~r~Cannot craft a BMX right now."
-    SHX0_2(SHX1_2)
-  end
+
+local function isCraftCooldownReady()
+    return GetTimeDifference(GetGameTimer(), lastCraftTime) > CRAFT_COOLDOWN_MS
 end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterNetEvent
-SHX3_1 = "c185d91d8b"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = tCMG
-  SHX0_2 = SHX0_2.isInComa
-  SHX0_2 = SHX0_2()
-  if not SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.isHandcuffed
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.isInsideDiamondCasino
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.isPlayerNearPrison
-        SHX0_2 = SHX0_2()
-        if not SHX0_2 then
-          SHX0_2 = GetTimeDifference
-          SHX1_2 = GetGameTimer
-          SHX1_2 = SHX1_2()
-          SHX2_2 = SHX0_1
-          SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-          SHX1_2 = 10000
-          if SHX0_2 > SHX1_2 then
-            SHX0_2 = SHX1_1
-            SHX0_2 = SHX0_2()
-            if SHX0_2 then
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~You cannot craft a moped while in the water."
-              SHX0_2(SHX1_2)
-              return
-            end
-            SHX0_2 = IsPedInAnyVehicle
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.getPlayerPed
-            SHX1_2 = SHX1_2()
-            SHX2_2 = false
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-            if SHX0_2 then
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~You cannot craft a moped while in a vehicle."
-              SHX0_2(SHX1_2)
-              return
-            end
-            SHX0_2 = GetGameTimer
-            SHX0_2 = SHX0_2()
-            SHX0_1 = SHX0_2
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~g~Crafting a Moped"
-            SHX0_2(SHX1_2)
-            SHX0_2 = CMG
-            SHX0_2 = SHX0_2.getPlayerPed
-            SHX0_2 = SHX0_2()
-            SHX1_2 = TaskStartScenarioInPlace
-            SHX2_2 = SHX0_2
-            SHX3_2 = "WORLD_HUMAN_HAMMERING"
-            SHX4_2 = 0
-            SHX5_2 = true
-            SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-            SHX1_2 = Wait
-            SHX2_2 = 5000
-            SHX1_2(SHX2_2)
-            SHX1_2 = CMG
-            SHX1_2 = SHX1_2.inOrganHesit
-            SHX1_2 = SHX1_2()
-            if not SHX1_2 then
-              SHX1_2 = SHX1_1
-              SHX1_2 = SHX1_2()
-              if SHX1_2 then
-                SHX1_2 = ClearPedTasksImmediately
-                SHX2_2 = SHX0_2
-                SHX1_2(SHX2_2)
-                SHX1_2 = tCMG
-                SHX1_2 = SHX1_2.notify
-                SHX2_2 = "~r~You cannot craft a moped while in the water."
-                SHX1_2(SHX2_2)
-                return
-              end
-              SHX1_2 = IsPedInAnyVehicle
-              SHX2_2 = SHX0_2
-              SHX3_2 = false
-              SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-              if SHX1_2 then
-                SHX1_2 = ClearPedTasksImmediately
-                SHX2_2 = SHX0_2
-                SHX1_2(SHX2_2)
-                SHX1_2 = tCMG
-                SHX1_2 = SHX1_2.notify
-                SHX2_2 = "~r~You cannot craft a moped while in a vehicle."
-                SHX1_2(SHX2_2)
-                return
-              end
-              SHX1_2 = ClearPedTasksImmediately
-              SHX2_2 = SHX0_2
-              SHX1_2(SHX2_2)
-              SHX1_2 = GetEntityCoords
-              SHX2_2 = SHX0_2
-              SHX1_2 = SHX1_2(SHX2_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.requestEntitySpawn
-              SHX3_2 = "moped"
-              SHX2_2(SHX3_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.spawnVehicle
-              SHX3_2 = -1842748181
-              SHX4_2 = SHX1_2.x
-              SHX5_2 = SHX1_2.y
-              SHX6_2 = SHX1_2.z
-              SHX7_2 = GetEntityHeading
-              SHX8_2 = SHX0_2
-              SHX7_2 = SHX7_2(SHX8_2)
-              SHX8_2 = true
-              SHX9_2 = true
-              SHX10_2 = true
-              SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-            end
-          else
-            SHX0_2 = tCMG
-            SHX0_2 = SHX0_2.notify
-            SHX1_2 = "~r~Nitro BMX cooldown, please wait."
-            SHX0_2(SHX1_2)
-          end
-      end
+
+-- Restrictions shared by all four craftable vehicles.
+local function isGeneralCraftingAllowed()
+    if tCMG.isInComa() then
+        return false
     end
-  end
-  else
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.notify
-    SHX1_2 = "~r~Cannot craft a BMX right now."
-    SHX0_2(SHX1_2)
-  end
+
+    if CMG.isHandcuffed() then
+        return false
+    end
+
+    if CMG.isInsideDiamondCasino() then
+        return false
+    end
+
+    if CMG.isPlayerNearPrison() then
+        return false
+    end
+
+    return true
 end
-SHX2_1(SHX3_1, SHX4_1)
-SHX2_1 = RegisterCommand
-SHX3_1 = "unicycle"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "unicycle.whitelisted"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.isInComa
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.isHandcuffed
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.isInsideDiamondCasino
-        SHX0_2 = SHX0_2()
-        if not SHX0_2 then
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.isPlayerNearPrison
-          SHX0_2 = SHX0_2()
-          if not SHX0_2 then
-            SHX0_2 = GetTimeDifference
-            SHX1_2 = GetGameTimer
-            SHX1_2 = SHX1_2()
-            SHX2_2 = SHX0_1
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-            SHX1_2 = 10000
-            if SHX0_2 > SHX1_2 then
-              SHX0_2 = GetGameTimer
-              SHX0_2 = SHX0_2()
-              SHX0_1 = SHX0_2
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~g~Crafting a Unicycle"
-              SHX0_2(SHX1_2)
-              SHX0_2 = CMG
-              SHX0_2 = SHX0_2.getPlayerPed
-              SHX0_2 = SHX0_2()
-              SHX1_2 = TaskStartScenarioInPlace
-              SHX2_2 = SHX0_2
-              SHX3_2 = "WORLD_HUMAN_HAMMERING"
-              SHX4_2 = 0
-              SHX5_2 = true
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-              SHX1_2 = Wait
-              SHX2_2 = 5000
-              SHX1_2(SHX2_2)
-              SHX1_2 = ClearPedTasksImmediately
-              SHX2_2 = SHX0_2
-              SHX1_2(SHX2_2)
-              SHX1_2 = GetEntityCoords
-              SHX2_2 = SHX0_2
-              SHX1_2 = SHX1_2(SHX2_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.loadModel
-              SHX3_2 = 769320387
-              SHX2_2 = SHX2_2(SHX3_2)
-              if SHX2_2 then
-                SHX3_2 = CMG
-                SHX3_2 = SHX3_2.requestEntitySpawn
-                SHX4_2 = "unicycle"
-                SHX3_2(SHX4_2)
-                SHX3_2 = CreateVehicle
-                SHX4_2 = SHX2_2
-                SHX5_2 = SHX1_2.x
-                SHX6_2 = SHX1_2.y
-                SHX7_2 = SHX1_2.z
-                SHX8_2 = GetEntityHeading
-                SHX9_2 = SHX0_2
-                SHX8_2 = SHX8_2(SHX9_2)
-                SHX9_2 = true
-                SHX10_2 = false
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-                SHX4_2 = CMG
-                SHX4_2 = SHX4_2.initLocalVehicle
-                SHX5_2 = SHX3_2
-                SHX4_2(SHX5_2)
-                SHX4_2 = SetVehicleOnGroundProperly
-                SHX5_2 = SHX3_2
-                SHX4_2(SHX5_2)
-                SHX4_2 = SetEntityInvincible
-                SHX5_2 = SHX3_2
-                SHX6_2 = false
-                SHX4_2(SHX5_2, SHX6_2)
-                SHX4_2 = SetPedIntoVehicle
-                SHX5_2 = SHX0_2
-                SHX6_2 = SHX3_2
-                SHX7_2 = -1
-                SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-                SHX4_2 = SetModelAsNoLongerNeeded
-                SHX5_2 = SHX2_2
-                SHX4_2(SHX5_2)
-              end
-            else
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~Unicycle cooldown, please wait."
-              SHX0_2(SHX1_2)
-            end
-        end
-      end
-    end
-    else
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.notify
-      SHX1_2 = "~r~Cannot craft a Unicycle right now."
-      SHX0_2(SHX1_2)
-    end
-  end
+
+local function startHammering(playerPed, message)
+    lastCraftTime = GetGameTimer()
+    tCMG.notify(message)
+
+    TaskStartScenarioInPlace(
+        playerPed,
+        "WORLD_HUMAN_HAMMERING",
+        0,
+        true
+    )
+
+    Wait(CRAFT_ANIMATION_MS)
 end
-SHX5_1 = false
-SHX2_1(SHX3_1, SHX4_1, SHX5_1)
-SHX2_1 = RegisterCommand
-SHX3_1 = "skate"
-function SHX4_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.hasClientPermission
-  SHX1_2 = "skate.whitelisted"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = tCMG
-    SHX0_2 = SHX0_2.isInComa
-    SHX0_2 = SHX0_2()
-    if not SHX0_2 then
-      SHX0_2 = CMG
-      SHX0_2 = SHX0_2.isHandcuffed
-      SHX0_2 = SHX0_2()
-      if not SHX0_2 then
-        SHX0_2 = CMG
-        SHX0_2 = SHX0_2.isInsideDiamondCasino
-        SHX0_2 = SHX0_2()
-        if not SHX0_2 then
-          SHX0_2 = CMG
-          SHX0_2 = SHX0_2.isPlayerNearPrison
-          SHX0_2 = SHX0_2()
-          if not SHX0_2 then
-            SHX0_2 = GetTimeDifference
-            SHX1_2 = GetGameTimer
-            SHX1_2 = SHX1_2()
-            SHX2_2 = SHX0_1
-            SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-            SHX1_2 = 10000
-            if SHX0_2 > SHX1_2 then
-              SHX0_2 = GetGameTimer
-              SHX0_2 = SHX0_2()
-              SHX0_1 = SHX0_2
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~g~Crafting a Skateboard"
-              SHX0_2(SHX1_2)
-              SHX0_2 = CMG
-              SHX0_2 = SHX0_2.getPlayerPed
-              SHX0_2 = SHX0_2()
-              SHX1_2 = TaskStartScenarioInPlace
-              SHX2_2 = SHX0_2
-              SHX3_2 = "WORLD_HUMAN_HAMMERING"
-              SHX4_2 = 0
-              SHX5_2 = true
-              SHX1_2(SHX2_2, SHX3_2, SHX4_2, SHX5_2)
-              SHX1_2 = Wait
-              SHX2_2 = 5000
-              SHX1_2(SHX2_2)
-              SHX1_2 = ClearPedTasksImmediately
-              SHX2_2 = SHX0_2
-              SHX1_2(SHX2_2)
-              SHX1_2 = GetEntityCoords
-              SHX2_2 = SHX0_2
-              SHX1_2 = SHX1_2(SHX2_2)
-              SHX2_2 = CMG
-              SHX2_2 = SHX2_2.loadModel
-              SHX3_2 = 1958479196
-              SHX2_2 = SHX2_2(SHX3_2)
-              if SHX2_2 then
-                SHX3_2 = CMG
-                SHX3_2 = SHX3_2.requestEntitySpawn
-                SHX4_2 = "skate"
-                SHX3_2(SHX4_2)
-                SHX3_2 = CreateVehicle
-                SHX4_2 = SHX2_2
-                SHX5_2 = SHX1_2.x
-                SHX6_2 = SHX1_2.y
-                SHX7_2 = SHX1_2.z
-                SHX8_2 = GetEntityHeading
-                SHX9_2 = SHX0_2
-                SHX8_2 = SHX8_2(SHX9_2)
-                SHX9_2 = true
-                SHX10_2 = false
-                SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-                SHX4_2 = CMG
-                SHX4_2 = SHX4_2.initLocalVehicle
-                SHX5_2 = SHX3_2
-                SHX4_2(SHX5_2)
-                SHX4_2 = SetVehicleOnGroundProperly
-                SHX5_2 = SHX3_2
-                SHX4_2(SHX5_2)
-                SHX4_2 = SetEntityInvincible
-                SHX5_2 = SHX3_2
-                SHX6_2 = false
-                SHX4_2(SHX5_2, SHX6_2)
-                SHX4_2 = SetPedIntoVehicle
-                SHX5_2 = SHX0_2
-                SHX6_2 = SHX3_2
-                SHX7_2 = -1
-                SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-                SHX4_2 = SetModelAsNoLongerNeeded
-                SHX5_2 = SHX2_2
-                SHX4_2(SHX5_2)
-              end
-            else
-              SHX0_2 = tCMG
-              SHX0_2 = SHX0_2.notify
-              SHX1_2 = "~r~Skateboard cooldown, please wait."
-              SHX0_2(SHX1_2)
-            end
-        end
-      end
+
+-- Used by BMX and moped. These two have extra water/vehicle checks before and
+-- after the 5-second crafting animation.
+local function craftNitroVehicle(options)
+    if not isGeneralCraftingAllowed() then
+        -- The original file only explicitly showed this message for the coma
+        -- branch; this generic message describes the intended restriction.
+        tCMG.notify("~r~Cannot craft a " .. options.displayName .. " right now.")
+        return
     end
-    else
-      SHX0_2 = tCMG
-      SHX0_2 = SHX0_2.notify
-      SHX1_2 = "~r~Cannot craft a Skateboard right now."
-      SHX0_2(SHX1_2)
+
+    if not isCraftCooldownReady() then
+        tCMG.notify(options.cooldownMessage)
+        return
     end
-  end
+
+    local playerPed = CMG.getPlayerPed()
+
+    if isPlayerInWater() then
+        tCMG.notify("~r~You cannot craft a " .. options.displayName .. " while in the water.")
+        return
+    end
+
+    if IsPedInAnyVehicle(playerPed, false) then
+        tCMG.notify("~r~You cannot craft a " .. options.displayName .. " while in a vehicle.")
+        return
+    end
+
+    startHammering(playerPed, options.craftingMessage)
+
+    -- The original script does not finish the spawn while inside the organ
+    -- heist state.
+    if CMG.inOrganHesit() then
+        return
+    end
+
+    -- Re-check conditions because the player may have moved during the 5 sec.
+    if isPlayerInWater() then
+        ClearPedTasksImmediately(playerPed)
+        tCMG.notify("~r~You cannot craft a " .. options.displayName .. " while in the water.")
+        return
+    end
+
+    if IsPedInAnyVehicle(playerPed, false) then
+        ClearPedTasksImmediately(playerPed)
+        tCMG.notify("~r~You cannot craft a " .. options.displayName .. " while in a vehicle.")
+        return
+    end
+
+    ClearPedTasksImmediately(playerPed)
+
+    local coords = GetEntityCoords(playerPed)
+
+    CMG.requestEntitySpawn(options.spawnRequestName)
+
+    CMG.spawnVehicle(
+        options.modelHash,
+        coords.x,
+        coords.y,
+        coords.z,
+        GetEntityHeading(playerPed),
+        true,
+        true,
+        true
+    )
 end
-SHX5_1 = false
-SHX2_1(SHX3_1, SHX4_1, SHX5_1)
+
+RegisterNetEvent("739ff0bbbe", function()
+    craftNitroVehicle({
+        displayName = "BMX",
+        craftingMessage = "~g~Crafting a BMX",
+        cooldownMessage = "~r~Nitro BMX cooldown, please wait.",
+        spawnRequestName = "bmx",
+        modelHash = 1131912276
+    })
+end)
+
+RegisterNetEvent("c185d91d8b", function()
+    craftNitroVehicle({
+        displayName = "moped",
+        craftingMessage = "~g~Crafting a Moped",
+        -- This wording is intentionally kept from the original file.
+        cooldownMessage = "~r~Nitro BMX cooldown, please wait.",
+        spawnRequestName = "moped",
+        modelHash = -1842748181
+    })
+end)
+
+-- Unicycle/skateboard use CreateVehicle directly instead of CMG.spawnVehicle.
+local function craftWhitelistedVehicle(options)
+    if not CMG.hasClientPermission(options.permission) then
+        return
+    end
+
+    if not isGeneralCraftingAllowed() then
+        tCMG.notify("~r~Cannot craft a " .. options.displayName .. " right now.")
+        return
+    end
+
+    if not isCraftCooldownReady() then
+        tCMG.notify(options.cooldownMessage)
+        return
+    end
+
+    local playerPed = CMG.getPlayerPed()
+
+    startHammering(playerPed, options.craftingMessage)
+    ClearPedTasksImmediately(playerPed)
+
+    local coords = GetEntityCoords(playerPed)
+    local loadedModel = CMG.loadModel(options.modelHash)
+
+    if not loadedModel then
+        return
+    end
+
+    CMG.requestEntitySpawn(options.spawnRequestName)
+
+    local vehicle = CreateVehicle(
+        loadedModel,
+        coords.x,
+        coords.y,
+        coords.z,
+        GetEntityHeading(playerPed),
+        true,
+        false
+    )
+
+    CMG.initLocalVehicle(vehicle)
+    SetVehicleOnGroundProperly(vehicle)
+    SetEntityInvincible(vehicle, false)
+    SetPedIntoVehicle(playerPed, vehicle, -1)
+    SetModelAsNoLongerNeeded(loadedModel)
+end
+
+RegisterCommand("unicycle", function()
+    craftWhitelistedVehicle({
+        permission = "unicycle.whitelisted",
+        displayName = "Unicycle",
+        craftingMessage = "~g~Crafting a Unicycle",
+        cooldownMessage = "~r~Unicycle cooldown, please wait.",
+        spawnRequestName = "unicycle",
+        modelHash = 769320387
+    })
+end, false)
+
+RegisterCommand("skate", function()
+    craftWhitelistedVehicle({
+        permission = "skate.whitelisted",
+        displayName = "Skateboard",
+        craftingMessage = "~g~Crafting a Skateboard",
+        cooldownMessage = "~r~Skateboard cooldown, please wait.",
+        spawnRequestName = "skate",
+        modelHash = 1958479196
+    })
+end, false)

@@ -1,488 +1,256 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    Compass HUD
+    ===========
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1, SHX25_1, SHX26_1, SHX27_1, SHX28_1, SHX29_1, SHX30_1, SHX31_1, SHX32_1, SHX33_1, SHX34_1, SHX35_1
-SHX0_1 = {}
-SHX0_1.x = 0.375
-SHX0_1.y = 0.035
-SHX0_1.centered = true
-SHX1_1 = 0.25
-SHX2_1 = 180
-SHX3_1 = true
-SHX4_1 = 9.0
-SHX5_1 = {}
-SHX5_1.r = 255
-SHX5_1.g = 255
-SHX5_1.b = 255
-SHX5_1.a = 255
-SHX6_1 = {}
-SHX6_1.w = 0.001
-SHX6_1.h = 0.003
-SHX7_1 = 0.15
-SHX8_1 = 0.01
-SHX9_1 = {}
-SHX10_1 = 255
-SHX11_1 = 255
-SHX12_1 = 255
-SHX13_1 = 255
-SHX9_1[1] = SHX10_1
-SHX9_1[2] = SHX11_1
-SHX9_1[3] = SHX12_1
-SHX9_1[4] = SHX13_1
-SHX10_1 = true
-SHX11_1 = {}
-SHX11_1.w = 0.001
-SHX11_1.h = 0.012
-SHX12_1 = {}
-SHX12_1.r = 0
-SHX12_1.g = 168
-SHX12_1.b = 255
-SHX12_1.a = 255
-SHX13_1 = true
-SHX14_1 = true
-SHX15_1 = 0.2
-SHX16_1 = 0.01
-SHX17_1 = {}
-SHX18_1 = 255
-SHX19_1 = 255
-SHX20_1 = 255
-SHX21_1 = 255
-SHX17_1[1] = SHX18_1
-SHX17_1[2] = SHX19_1
-SHX17_1[3] = SHX20_1
-SHX17_1[4] = SHX21_1
-SHX18_1 = true
-SHX19_1 = {}
-SHX19_1.w = 0.001
-SHX19_1.h = 0.006
-SHX20_1 = {}
-SHX20_1.r = 255
-SHX20_1.g = 255
-SHX20_1.b = 255
-SHX20_1.a = 255
-SHX21_1 = 0.2
-SHX22_1 = 0.03
-SHX23_1 = {}
-SHX24_1 = 255
-SHX25_1 = 255
-SHX26_1 = 255
-SHX27_1 = 255
-SHX23_1[1] = SHX24_1
-SHX23_1[2] = SHX25_1
-SHX23_1[3] = SHX26_1
-SHX23_1[4] = SHX27_1
-SHX24_1 = {}
-SHX24_1.w = 0.0015
-SHX24_1.h = 0.018
-SHX25_1 = {}
-SHX25_1.r = 0
-SHX25_1.g = 168
-SHX25_1.b = 255
-SHX25_1.a = 255
-SHX26_1 = {}
-function SHX27_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX0_2 = SHX0_2 % 360.0
-  if SHX0_2 >= 0.0 then
-    SHX1_2 = 22.5
-    if SHX0_2 < SHX1_2 then
-      goto SHX_LABEL_11
-    end
-  end
-  SHX1_2 = 337.5
-  if SHX0_2 >= SHX1_2 then
-    -- [FIX IF ERROR] Move ::SHX_LABEL_11:: outside nested blocks until all 'goto SHX_LABEL_11' can see it
-    ::SHX_LABEL_11::
-    SHX1_2 = "N "
-    return SHX1_2
-  else
-    SHX1_2 = 22.5
-    if SHX0_2 >= SHX1_2 then
-      SHX1_2 = 67.5
-      if SHX0_2 < SHX1_2 then
-        SHX1_2 = "NE"
-        return SHX1_2
-    end
+    Draws the horizontal compass at the top of the screen.
+
+    It supports:
+      - N / NE / E / SE / S / SW / W / NW labels
+      - small and large heading tick marks
+      - a numeric heading readout
+      - temporary compass pings/icons
+      - /showcompass to let the user hide/show it
+]]
+
+-- Position of the compass on screen.
+local compassPosition = {
+    x = 0.375,
+    y = 0.035,
+    centered = true
+}
+
+local compassWidth = 0.25
+local visibleDegrees = 180
+local useCameraHeading = true
+local degreesPerTick = 9.0
+
+-- Small tick marks.
+local minorTickColour = {r = 255, g = 255, b = 255, a = 255}
+local minorTickSize = {w = 0.001, h = 0.003}
+
+-- Main/cardinal labels.
+local cardinalTextScale = 0.15
+local cardinalTextYOffset = 0.01
+local cardinalTextColour = {255, 255, 255, 255}
+local drawCardinalTicks = true
+local cardinalTickSize = {w = 0.001, h = 0.012}
+local cardinalTickColour = {r = 0, g = 168, b = 255, a = 255}
+
+-- Inter-cardinal labels (NE, SE, SW, NW).
+local drawIntercardinalLabels = true
+local intercardinalTextScale = 0.2
+local intercardinalTextYOffset = 0.01
+local intercardinalTextColour = {255, 255, 255, 255}
+local drawIntercardinalTicks = true
+local intercardinalTickSize = {w = 0.001, h = 0.006}
+local intercardinalTickColour = {r = 255, g = 255, b = 255, a = 255}
+
+-- Numeric heading indicator.
+local headingTextScale = 0.2
+local headingYOffset = 0.03
+local headingTextColour = {255, 255, 255, 255}
+local headingIndicatorSize = {w = 0.0015, h = 0.018}
+local headingIndicatorColour = {r = 0, g = 168, b = 255, a = 255}
+
+-- Angles temporarily added by CMG.addCompassPing().
+local compassPings = {}
+
+local function headingToDirection(heading)
+    heading = heading % 360.0
+
+    if heading < 22.5 or heading >= 337.5 then return "N " end
+    if heading < 67.5 then return "NE" end
+    if heading < 112.5 then return "E" end
+    if heading < 157.5 then return "SE" end
+    if heading < 202.5 then return "S" end
+    if heading < 247.5 then return "SW" end
+    if heading < 292.5 then return "W" end
+    return "NW"
+end
+
+-- The original helper rounds a number to a requested decimal place.
+local function roundNumber(value, decimalPlaces)
+    local multiplier = 10 ^ (decimalPlaces or 0)
+    return math.floor(value + 0.5 * multiplier)
+end
+
+RegisterCommand("showcompass", function()
+    if CMG.isDisplayVisible("compass", "user") then
+        CMG.hideDisplay("compass", "user")
     else
-      SHX1_2 = 67.5
-      if SHX0_2 >= SHX1_2 then
-        SHX1_2 = 112.5
-        if SHX0_2 < SHX1_2 then
-          SHX1_2 = "E"
-          return SHX1_2
-      end
-      else
-        SHX1_2 = 112.5
-        if SHX0_2 >= SHX1_2 then
-          SHX1_2 = 157.5
-          if SHX0_2 < SHX1_2 then
-            SHX1_2 = "SE"
-            return SHX1_2
+        CMG.showDisplay("compass", "user")
+    end
+end, false)
+
+local screenWidth = nil
+local screenHeight = nil
+local screenAspect = nil
+
+local function drawCompass()
+    if not CMG.isDisplayVisible("compass") then
+        return
+    end
+
+    -- How much screen-space one degree takes.
+    local pixelsPerDegree = compassWidth / visibleDegrees
+
+    local heading
+
+    if useCameraHeading then
+        local cameraRotation = GetGameplayCamRot(0)
+        local cameraHeading = (cameraRotation.z + 360.0) % 360.0
+        heading = 360.0 - cameraHeading
+    else
+        heading = 360.0 - GetEntityHeading(CMG.getPlayerPed())
+    end
+
+    -- Start half of the visible compass width before our current heading.
+    local displayedHeading = heading - (visibleDegrees / 2)
+
+    -- Snap to the next tick so marks stay evenly spaced.
+    local offsetToTick = degreesPerTick - (displayedHeading % degreesPerTick)
+    local screenX = compassPosition.x + offsetToTick * pixelsPerDegree
+    displayedHeading = displayedHeading + offsetToTick
+
+    local hasPings = #compassPings ~= 0
+
+    if hasPings then
+        screenWidth, screenHeight = GetActiveScreenResolution()
+        screenAspect = screenWidth / screenHeight
+    end
+
+    while screenX < compassPosition.x + compassWidth do
+        local normalisedHeading = displayedHeading
+
+        if normalisedHeading < 0.0 then
+            normalisedHeading = 360.0 + normalisedHeading
+        elseif normalisedHeading > 360.0 then
+            normalisedHeading = normalisedHeading - 360.0
         end
-        else
-          SHX1_2 = 157.5
-          if SHX0_2 >= SHX1_2 then
-            SHX1_2 = 202.5
-            if SHX0_2 < SHX1_2 then
-              SHX1_2 = "S"
-              return SHX1_2
-          end
-          else
-            SHX1_2 = 202.5
-            if SHX0_2 >= SHX1_2 then
-              SHX1_2 = 247.5
-              if SHX0_2 < SHX1_2 then
-                SHX1_2 = "SW"
-                return SHX1_2
-            end
-            else
-              SHX1_2 = 247.5
-              if SHX0_2 >= SHX1_2 then
-                SHX1_2 = 292.5
-                if SHX0_2 < SHX1_2 then
-                  SHX1_2 = "W"
-                  return SHX1_2
-              end
-              else
-                SHX1_2 = 292.5
-                if SHX0_2 >= SHX1_2 then
-                  SHX1_2 = 337.5
-                  if SHX0_2 < SHX1_2 then
-                    SHX1_2 = "NW"
-                    return SHX1_2
-                  end
+
+        -- Draw compass pings that are close to this heading tick.
+        if hasPings then
+            for _, pingHeading in pairs(compassPings) do
+                if math.abs(normalisedHeading - pingHeading) < degreesPerTick / 2.0 then
+                    DrawSprite(
+                        "cmg_gang",
+                        "ping_thick",
+                        screenX,
+                        compassPosition.y - 0.0175,
+                        (0.03 / screenAspect) * 0.75,
+                        0.0225,
+                        0,
+                        255,
+                        255,
+                        255,
+                        255
+                    )
                 end
-              end
             end
-          end
         end
-      end
-    end
-  end
-end
-function SHX28_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2
-  SHX2_2 = SHX1_2 or nil
-  if not SHX1_2 then
-    SHX2_2 = 0
-  end
-  SHX3_2 = 10
-  SHX2_2 = SHX3_2 ^ SHX2_2
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.floor
-  SHX4_2 = 0.5 * SHX2_2
-  SHX4_2 = SHX0_2 + SHX4_2
-  return SHX3_2(SHX4_2)
-end
-SHX29_1 = RegisterCommand
-SHX30_1 = "showcompass"
-function SHX31_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isDisplayVisible
-  SHX1_2 = "compass"
-  SHX2_2 = "user"
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  if SHX0_2 then
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.hideDisplay
-    SHX1_2 = "compass"
-    SHX2_2 = "user"
-    SHX0_2(SHX1_2, SHX2_2)
-  else
-    SHX0_2 = CMG
-    SHX0_2 = SHX0_2.showDisplay
-    SHX1_2 = "compass"
-    SHX2_2 = "user"
-    SHX0_2(SHX1_2, SHX2_2)
-  end
-end
-SHX32_1 = false
-SHX29_1(SHX30_1, SHX31_1, SHX32_1)
-SHX29_1 = nil
-SHX30_1 = nil
-SHX31_1 = nil
-function SHX32_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.isDisplayVisible
-  SHX1_2 = "compass"
-  SHX0_2 = SHX0_2(SHX1_2)
-  if SHX0_2 then
-    SHX0_2 = SHX1_1
-    SHX1_2 = SHX2_1
-    SHX0_2 = SHX0_2 / SHX1_2
-    SHX1_2 = 0
-    SHX2_2 = SHX3_1
-    if SHX2_2 then
-      SHX2_2 = GetGameplayCamRot
-      SHX3_2 = 0
-      SHX2_2 = SHX2_2(SHX3_2)
-      SHX3_2 = SHX2_2.z
-      SHX3_2 = SHX3_2 + 360.0
-      SHX3_2 = SHX3_2 % 360.0
-      SHX4_2 = 360.0
-      SHX1_2 = SHX4_2 - SHX3_2
-    else
-      SHX2_2 = GetEntityHeading
-      SHX3_2 = CMG
-      SHX3_2 = SHX3_2.getPlayerPed
-      SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX3_2()
-      SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-      SHX3_2 = 360.0
-      SHX1_2 = SHX3_2 - SHX2_2
-    end
-    SHX2_2 = SHX2_1
-    SHX2_2 = SHX2_2 / 2
-    SHX2_2 = SHX1_2 - SHX2_2
-    SHX3_2 = SHX4_1
-    SHX4_2 = SHX4_1
-    SHX4_2 = SHX2_2 % SHX4_2
-    SHX3_2 = SHX3_2 - SHX4_2
-    SHX4_2 = SHX0_1.x
-    SHX5_2 = SHX3_2 * SHX0_2
-    SHX4_2 = SHX4_2 + SHX5_2
-    SHX2_2 = SHX2_2 + SHX3_2
-    SHX5_2 = SHX26_1
-    SHX5_2 = #SHX5_2
-    SHX5_2 = 0 ~= SHX5_2
-    if SHX5_2 then
-      SHX6_2 = GetActiveScreenResolution
-      SHX6_2, SHX7_2 = SHX6_2()
-      SHX30_1 = SHX7_2
-      SHX29_1 = SHX6_2
-      SHX6_2 = SHX29_1
-      SHX7_2 = SHX30_1
-      SHX6_2 = SHX6_2 / SHX7_2
-      SHX31_1 = SHX6_2
-    end
-    while true do
-      SHX6_2 = SHX0_1.x
-      SHX7_2 = SHX1_1
-      SHX6_2 = SHX6_2 + SHX7_2
-      if not (SHX4_2 < SHX6_2) then
-        break
-      end
-      if SHX5_2 then
-        SHX6_2 = SHX2_2
-        if SHX6_2 < 0.0 then
-          SHX6_2 = 360.0 + SHX6_2
+
+        -- 90 degree marks: N/E/S/W.
+        if displayedHeading % 90.0 == 0 then
+            if drawCardinalTicks then
+                DrawRect(
+                    screenX,
+                    compassPosition.y,
+                    cardinalTickSize.w,
+                    cardinalTickSize.h,
+                    cardinalTickColour.r,
+                    cardinalTickColour.g,
+                    cardinalTickColour.b,
+                    cardinalTickColour.a
+                )
+            end
+
+            CMG.DrawText(
+                screenX,
+                compassPosition.y + cardinalTextYOffset,
+                headingToDirection(displayedHeading),
+                cardinalTextScale,
+                0,
+                0,
+                cardinalTextColour,
+                true
+            )
+
+        -- 45 degree marks: NE/SE/SW/NW.
+        elseif displayedHeading % 45.0 == 0 then
+            if drawIntercardinalLabels then
+                if drawIntercardinalTicks then
+                    DrawRect(
+                        screenX,
+                        compassPosition.y,
+                        intercardinalTickSize.w,
+                        intercardinalTickSize.h,
+                        intercardinalTickColour.r,
+                        intercardinalTickColour.g,
+                        intercardinalTickColour.b,
+                        intercardinalTickColour.a
+                    )
+                end
+
+                CMG.DrawText(
+                    screenX,
+                    compassPosition.y + intercardinalTextYOffset,
+                    headingToDirection(displayedHeading),
+                    intercardinalTextScale,
+                    0,
+                    0,
+                    intercardinalTextColour,
+                    true
+                )
+            end
         else
-          SHX7_2 = 360.0
-          if SHX6_2 > SHX7_2 then
-            SHX6_2 = SHX6_2 - 360.0
-          end
+            -- Ordinary little compass tick.
+            DrawRect(
+                screenX,
+                compassPosition.y,
+                minorTickSize.w,
+                minorTickSize.h,
+                minorTickColour.r,
+                minorTickColour.g,
+                minorTickColour.b,
+                minorTickColour.a
+            )
         end
-        SHX7_2 = pairs
-        SHX8_2 = SHX26_1
-        SHX7_2, SHX8_2, SHX9_2, SHX10_2 = SHX7_2(SHX8_2)
-        for SHX11_2, SHX12_2 in SHX7_2, SHX8_2, SHX9_2, SHX10_2 do
-          SHX13_2 = math
-          SHX13_2 = SHX13_2.abs
-          SHX14_2 = SHX6_2 - SHX12_2
-          SHX13_2 = SHX13_2(SHX14_2)
-          SHX14_2 = SHX4_1
-          SHX14_2 = SHX14_2 / 2.0
-          if SHX13_2 < SHX14_2 then
-            SHX13_2 = DrawSprite
-            SHX14_2 = "cmg_gang"
-            SHX15_2 = "ping_thick"
-            SHX16_2 = SHX4_2
-            SHX17_2 = SHX0_1.y
-            SHX17_2 = -0.01 + SHX17_2
-            SHX17_2 = SHX17_2 - 0.0075
-            SHX18_2 = SHX31_1
-            SHX19_2 = 0.03
-            SHX18_2 = SHX19_2 / SHX18_2
-            SHX18_2 = SHX18_2 * 0.75
-            SHX19_2 = 0.0225
-            SHX20_2 = 0
-            SHX21_2 = 255
-            SHX22_2 = 255
-            SHX23_2 = 255
-            SHX24_2 = 255
-            SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-          end
-        end
-      end
-      SHX6_2 = SHX2_2 % 90.0
-      if 0 == SHX6_2 then
-        SHX6_2 = SHX10_1
-        if SHX6_2 then
-          SHX6_2 = DrawRect
-          SHX7_2 = SHX4_2
-          SHX8_2 = SHX0_1.y
-          SHX9_2 = SHX11_1.w
-          SHX10_2 = SHX11_1.h
-          SHX11_2 = SHX12_1.r
-          SHX12_2 = SHX12_1.g
-          SHX13_2 = SHX12_1.b
-          SHX14_2 = SHX12_1.a
-          SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        end
-        SHX6_2 = CMG
-        SHX6_2 = SHX6_2.DrawText
-        SHX7_2 = SHX4_2
-        SHX8_2 = SHX0_1.y
-        SHX9_2 = SHX8_1
-        SHX8_2 = SHX8_2 + SHX9_2
-        SHX9_2 = SHX27_1
-        SHX10_2 = SHX2_2
-        SHX9_2 = SHX9_2(SHX10_2)
-        SHX10_2 = SHX7_1
-        SHX11_2 = 0
-        SHX12_2 = 0
-        SHX13_2 = SHX9_1
-        SHX14_2 = true
-        SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-      else
-        SHX6_2 = SHX2_2 % 45.0
-        if 0 == SHX6_2 then
-          SHX6_2 = SHX13_1
-          if SHX6_2 then
-            SHX6_2 = SHX18_1
-            if SHX6_2 then
-              SHX6_2 = DrawRect
-              SHX7_2 = SHX4_2
-              SHX8_2 = SHX0_1.y
-              SHX9_2 = SHX19_1.w
-              SHX10_2 = SHX19_1.h
-              SHX11_2 = SHX20_1.r
-              SHX12_2 = SHX20_1.g
-              SHX13_2 = SHX20_1.b
-              SHX14_2 = SHX20_1.a
-              SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            end
-            SHX6_2 = SHX14_1
-            if SHX6_2 then
-              SHX6_2 = CMG
-              SHX6_2 = SHX6_2.DrawText
-              SHX7_2 = SHX4_2
-              SHX8_2 = SHX0_1.y
-              SHX9_2 = SHX16_1
-              SHX8_2 = SHX8_2 + SHX9_2
-              SHX9_2 = SHX27_1
-              SHX10_2 = SHX2_2
-              SHX9_2 = SHX9_2(SHX10_2)
-              SHX10_2 = SHX15_1
-              SHX11_2 = 0
-              SHX12_2 = 0
-              SHX13_2 = SHX17_1
-              SHX14_2 = true
-              SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-            end
-        end
-        else
-          SHX6_2 = DrawRect
-          SHX7_2 = SHX4_2
-          SHX8_2 = SHX0_1.y
-          SHX9_2 = SHX6_1.w
-          SHX10_2 = SHX6_1.h
-          SHX11_2 = SHX5_1.r
-          SHX12_2 = SHX5_1.g
-          SHX13_2 = SHX5_1.b
-          SHX14_2 = SHX5_1.a
-          SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-        end
-      end
-      SHX6_2 = SHX4_1
-      SHX2_2 = SHX2_2 + SHX6_2
-      SHX6_2 = SHX4_1
-      SHX6_2 = SHX0_2 * SHX6_2
-      SHX4_2 = SHX4_2 + SHX6_2
+
+        displayedHeading = displayedHeading + degreesPerTick
+        screenX = screenX + pixelsPerDegree * degreesPerTick
     end
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.DrawText
-    SHX7_2 = SHX0_1.x
-    SHX8_2 = SHX1_1
-    SHX8_2 = SHX8_2 / 2
-    SHX7_2 = SHX7_2 + SHX8_2
-    SHX8_2 = SHX0_1.y
-    SHX9_2 = SHX22_1
-    SHX8_2 = SHX8_2 - SHX9_2
-    SHX9_2 = tostring
-    SHX10_2 = SHX28_1
-    SHX11_2 = SHX1_2
-    SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2 = SHX10_2(SHX11_2)
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2, SHX19_2, SHX20_2, SHX21_2, SHX22_2, SHX23_2, SHX24_2)
-    SHX10_2 = SHX21_1
-    SHX11_2 = 0
-    SHX12_2 = 0
-    SHX13_2 = SHX23_1
-    SHX14_2 = true
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    SHX6_2 = DrawRect
-    SHX7_2 = SHX0_1.x
-    SHX8_2 = SHX1_1
-    SHX8_2 = SHX8_2 / 2
-    SHX7_2 = SHX7_2 + SHX8_2
-    SHX8_2 = SHX0_1.y
-    SHX9_2 = SHX24_1.w
-    SHX10_2 = SHX24_1.h
-    SHX11_2 = SHX25_1.r
-    SHX12_2 = SHX25_1.g
-    SHX13_2 = SHX25_1.b
-    SHX14_2 = SHX25_1.a
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-    if SHX5_2 then
-      SHX6_2 = table
-      SHX6_2 = SHX6_2.wipe
-      SHX7_2 = SHX26_1
-      SHX6_2(SHX7_2)
+
+    -- Current numeric heading centred above the compass.
+    CMG.DrawText(
+        compassPosition.x + compassWidth / 2,
+        compassPosition.y - headingYOffset,
+        tostring(roundNumber(heading)),
+        headingTextScale,
+        0,
+        0,
+        headingTextColour,
+        true
+    )
+
+    DrawRect(
+        compassPosition.x + compassWidth / 2,
+        compassPosition.y,
+        headingIndicatorSize.w,
+        headingIndicatorSize.h,
+        headingIndicatorColour.r,
+        headingIndicatorColour.g,
+        headingIndicatorColour.b,
+        headingIndicatorColour.a
+    )
+
+    -- Pings last only for this draw pass; callers add them again when needed.
+    if hasPings then
+        table.wipe(compassPings)
     end
-  end
 end
-SHX33_1 = CMG
-SHX33_1 = SHX33_1.createThreadOnTick
-SHX34_1 = SHX32_1
-SHX35_1 = "Compass"
-SHX33_1(SHX34_1, SHX35_1)
-SHX33_1 = CMG
-function SHX34_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = table
-  SHX1_2 = SHX1_2.insert
-  SHX2_2 = SHX26_1
-  SHX3_2 = SHX0_2
-  SHX1_2(SHX2_2, SHX3_2)
+
+CMG.createThreadOnTick(drawCompass, "Compass")
+
+function CMG.addCompassPing(heading)
+    table.insert(compassPings, heading)
 end
-SHX33_1.addCompassPing = SHX34_1

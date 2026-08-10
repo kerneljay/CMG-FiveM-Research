@@ -2,7 +2,7 @@
     Call Manager (cleaned/readable version)
 
     This file was reconstructed from a decompiled Lua script.
-    The original used temporary names such as SHX0_1, SHX1_2, etc.
+    The original used meaningless decompiler-generated temporary variable names.
     Those have been replaced with descriptive names and the decompiler's
     goto/label noise has been removed.
 

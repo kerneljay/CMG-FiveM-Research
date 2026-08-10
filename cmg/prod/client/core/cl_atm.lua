@@ -1,1923 +1,1397 @@
--- [AI CLEANUP] Decompiled Lua - Fix these:
--- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
--- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
--- 3. Replace goto/label with while/repeat-until where possible
--- 4. Remove decompiler comments, add meaningful ones
--- 5. Fix indentation and formatting
+--[[
+    ATM / ATM Robbery Client
+    ========================
 
-local SHX0_1, SHX1_1, SHX2_1, SHX3_1, SHX4_1, SHX5_1, SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1
-SHX0_1 = CMG
-SHX0_1 = SHX0_1.loadModule
-SHX1_1 = "cfg/atms"
-SHX0_1 = SHX0_1(SHX1_1)
-SHX1_1 = "bzzz_marker_atm_green_anim"
-SHX2_1 = 20.0
-SHX3_1 = false
-SHX4_1 = false
-SHX5_1 = RMenu
-SHX5_1 = SHX5_1.Add
-SHX6_1 = "cmgatm"
-SHX7_1 = "mainmenu"
-SHX8_1 = RageUI
-SHX8_1 = SHX8_1.CreateMenu
-SHX9_1 = ""
-SHX10_1 = ""
-SHX11_1 = CMG
-SHX11_1 = SHX11_1.getRageUIMenuWidth
-SHX11_1 = SHX11_1()
-SHX12_1 = CMG
-SHX12_1 = SHX12_1.getRageUIMenuHeight
-SHX12_1 = SHX12_1()
-SHX13_1 = "cmg_atmui"
-SHX14_1 = "cmg_atmui"
-SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1)
-SHX5_1(SHX6_1, SHX7_1, SHX8_1, SHX9_1, SHX10_1, SHX11_1, SHX12_1, SHX13_1, SHX14_1, SHX15_1, SHX16_1, SHX17_1, SHX18_1, SHX19_1, SHX20_1, SHX21_1, SHX22_1, SHX23_1, SHX24_1)
-SHX5_1 = RMenu
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.Get
-SHX7_1 = "cmgatm"
-SHX8_1 = "mainmenu"
-SHX5_1 = SHX5_1(SHX6_1, SHX7_1, SHX8_1)
-SHX6_1 = SHX5_1
-SHX5_1 = SHX5_1.SetSubtitle
-SHX7_1 = "~b~ATM"
-SHX5_1(SHX6_1, SHX7_1)
-function SHX5_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2
-  SHX0_2 = SHX4_1
-  if not SHX0_2 then
-    SHX0_2 = true
-    SHX4_1 = SHX0_2
-    SHX0_2 = Citizen
-    SHX0_2 = SHX0_2.CreateThread
-    function SHX1_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3
-      SHX0_3 = PlayerPedId
-      SHX0_3 = SHX0_3()
-      SHX1_3 = CMG
-      SHX1_3 = SHX1_3.loadModel
-      SHX2_3 = -121386306
-      SHX1_3(SHX2_3)
-      SHX1_3 = CMG
-      SHX1_3 = SHX1_3.getPlayerCoords
-      SHX1_3 = SHX1_3()
-      SHX2_3 = CMG
-      SHX2_3 = SHX2_3.requestEntitySpawn
-      SHX3_3 = "atm_object"
-      SHX2_3(SHX3_3)
-      SHX2_3 = CreateObject
-      SHX3_3 = -121386306
-      SHX4_3 = SHX1_3.x
-      SHX5_3 = SHX1_3.y
-      SHX6_3 = SHX1_3.z
-      SHX7_3 = true
-      SHX8_3 = false
-      SHX9_3 = false
-      SHX2_3 = SHX2_3(SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-      SHX3_3 = AttachEntityToEntity
-      SHX4_3 = SHX2_3
-      SHX5_3 = SHX0_3
-      SHX6_3 = GetPedBoneIndex
-      SHX7_3 = SHX0_3
-      SHX8_3 = 57005
-      SHX6_3 = SHX6_3(SHX7_3, SHX8_3)
-      SHX7_3 = 0.14
-      SHX8_3 = 0.04
-      SHX9_3 = -0.02
-      SHX10_3 = 318.0
-      SHX11_3 = 22.0
-      SHX12_3 = 2.0
-      SHX13_3 = false
-      SHX14_3 = false
-      SHX15_3 = false
-      SHX16_3 = true
-      SHX17_3 = 2
-      SHX18_3 = true
-      SHX3_3(SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3, SHX13_3, SHX14_3, SHX15_3, SHX16_3, SHX17_3, SHX18_3)
-      SHX3_3 = SetModelAsNoLongerNeeded
-      SHX4_3 = -121386306
-      SHX3_3(SHX4_3)
-      SHX3_3 = Citizen
-      SHX3_3 = SHX3_3.Wait
-      SHX4_3 = 5000
-      SHX3_3(SHX4_3)
-      SHX3_3 = DeleteEntity
-      SHX4_3 = SHX2_3
-      SHX3_3(SHX4_3)
-      SHX3_3 = false
-      SHX4_1 = SHX3_3
-    end
-    SHX0_2(SHX1_2)
-  end
-end
-SHX6_1 = RageUI
-SHX6_1 = SHX6_1.CreateWhile
-SHX7_1 = 1.0
-SHX8_1 = RMenu
-SHX9_1 = SHX8_1
-SHX8_1 = SHX8_1.Get
-SHX10_1 = "cmgatm"
-SHX11_1 = "mainmenu"
-SHX8_1 = SHX8_1(SHX9_1, SHX10_1, SHX11_1)
-SHX9_1 = nil
-function SHX10_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.IsVisible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgatm"
-  SHX4_2 = "mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX3_2 = false
-  SHX4_2 = true
-  function SHX5_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Deposit"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4
-      if SHX2_4 then
-        SHX3_4 = CMG
-        SHX3_4 = SHX3_4.GetRageInputText
-        SHX4_4 = "Enter amount"
-        SHX3_4 = SHX3_4(SHX4_4)
-        SHX4_4 = tonumber
-        SHX5_4 = SHX3_4
-        SHX4_4 = SHX4_4(SHX5_4)
-        if SHX4_4 then
-          SHX4_4 = GetVehiclePedIsIn
-          SHX5_4 = PlayerPedId
-          SHX5_4 = SHX5_4()
-          SHX6_4 = false
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-          if 0 == SHX4_4 then
-            SHX4_4 = SHX3_1
-            if SHX4_4 then
-              SHX4_4 = SHX5_1
-              SHX4_4()
-              SHX4_4 = tCMG
-              SHX4_4 = SHX4_4.playAnim
-              SHX5_4 = false
-              SHX6_4 = {}
-              SHX7_4 = {}
-              SHX8_4 = "amb@prop_human_atm@male@exit"
-              SHX9_4 = "exit"
-              SHX7_4[1] = SHX8_4
-              SHX7_4[2] = SHX9_4
-              SHX6_4[1] = SHX7_4
-              SHX7_4 = false
-              SHX4_4(SHX5_4, SHX6_4, SHX7_4)
-              SHX4_4 = TriggerServerEvent
-              SHX5_4 = "2898c283c7"
-              SHX6_4 = SHX3_4
-              SHX4_4(SHX5_4, SHX6_4)
-            else
-              SHX4_4 = tCMG
-              SHX4_4 = SHX4_4.notify
-              SHX5_4 = "~r~Not near ATM."
-              SHX4_4(SHX5_4)
-            end
-          else
-            SHX4_4 = tCMG
-            SHX4_4 = SHX4_4.notify
-            SHX5_4 = "~r~Get out your vehicle to use the ATM"
-            SHX4_4(SHX5_4)
-          end
-        else
-          SHX4_4 = tCMG
-          SHX4_4 = SHX4_4.notify
-          SHX5_4 = "~r~Invalid amount."
-          SHX4_4(SHX5_4)
-        end
-      end
-    end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Withdraw"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4, SHX9_4
-      if SHX2_4 then
-        SHX3_4 = CMG
-        SHX3_4 = SHX3_4.GetRageInputText
-        SHX4_4 = "Enter amount"
-        SHX3_4 = SHX3_4(SHX4_4)
-        SHX4_4 = tonumber
-        SHX5_4 = SHX3_4
-        SHX4_4 = SHX4_4(SHX5_4)
-        if SHX4_4 then
-          SHX4_4 = GetVehiclePedIsIn
-          SHX5_4 = PlayerPedId
-          SHX5_4 = SHX5_4()
-          SHX6_4 = false
-          SHX4_4 = SHX4_4(SHX5_4, SHX6_4)
-          if 0 == SHX4_4 then
-            SHX4_4 = SHX3_1
-            if SHX4_4 then
-              SHX4_4 = SHX5_1
-              SHX4_4()
-              SHX4_4 = tCMG
-              SHX4_4 = SHX4_4.playAnim
-              SHX5_4 = false
-              SHX6_4 = {}
-              SHX7_4 = {}
-              SHX8_4 = "amb@prop_human_atm@male@exit"
-              SHX9_4 = "exit"
-              SHX7_4[1] = SHX8_4
-              SHX7_4[2] = SHX9_4
-              SHX6_4[1] = SHX7_4
-              SHX7_4 = false
-              SHX4_4(SHX5_4, SHX6_4, SHX7_4)
-              SHX4_4 = TriggerServerEvent
-              SHX5_4 = "de2d3b354c"
-              SHX6_4 = SHX3_4
-              SHX4_4(SHX5_4, SHX6_4)
-            else
-              SHX4_4 = tCMG
-              SHX4_4 = SHX4_4.notify
-              SHX5_4 = "~r~Not near ATM."
-              SHX4_4(SHX5_4)
-            end
-          else
-            SHX4_4 = tCMG
-            SHX4_4 = SHX4_4.notify
-            SHX5_4 = "~r~Get out your vehicle to use the ATM"
-            SHX4_4(SHX5_4)
-          end
-        else
-          SHX4_4 = tCMG
-          SHX4_4 = SHX4_4.notify
-          SHX5_4 = "~r~Invalid amount."
-          SHX4_4(SHX5_4)
-        end
-      end
-    end
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Deposit All"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
-      if SHX2_4 then
-        SHX3_4 = GetVehiclePedIsIn
-        SHX4_4 = PlayerPedId
-        SHX4_4 = SHX4_4()
-        SHX5_4 = false
-        SHX3_4 = SHX3_4(SHX4_4, SHX5_4)
-        if 0 == SHX3_4 then
-          SHX3_4 = SHX3_1
-          if SHX3_4 then
-            SHX3_4 = SHX5_1
-            SHX3_4()
-            SHX3_4 = tCMG
-            SHX3_4 = SHX3_4.playAnim
-            SHX4_4 = false
-            SHX5_4 = {}
-            SHX6_4 = {}
-            SHX7_4 = "amb@prop_human_atm@male@exit"
-            SHX8_4 = "exit"
-            SHX6_4[1] = SHX7_4
-            SHX6_4[2] = SHX8_4
-            SHX5_4[1] = SHX6_4
-            SHX6_4 = false
-            SHX3_4(SHX4_4, SHX5_4, SHX6_4)
-            SHX3_4 = TriggerServerEvent
-            SHX4_4 = "ae86725473"
-            SHX3_4(SHX4_4)
-          else
-            SHX3_4 = tCMG
-            SHX3_4 = SHX3_4.notify
-            SHX4_4 = "~r~Not near ATM."
-            SHX3_4(SHX4_4)
-          end
-        else
-          SHX3_4 = tCMG
-          SHX3_4 = SHX3_4.notify
-          SHX4_4 = "~r~Get out your vehicle to use the ATM"
-          SHX3_4(SHX4_4)
-        end
-      end
-    end
-    SHX6_3 = nil
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-    SHX0_3 = RageUI
-    SHX0_3 = SHX0_3.ButtonWithStyle
-    SHX1_3 = "Withdraw All"
-    SHX2_3 = ""
-    SHX3_3 = {}
-    SHX3_3.RightLabel = "\226\134\146\226\134\146\226\134\146"
-    SHX4_3 = true
-    function SHX5_3(SHX0_4, SHX1_4, SHX2_4)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX3_4, SHX4_4, SHX5_4, SHX6_4, SHX7_4, SHX8_4
-      if SHX2_4 then
-        SHX3_4 = GetVehiclePedIsIn
-        SHX4_4 = PlayerPedId
-        SHX4_4 = SHX4_4()
-        SHX5_4 = false
-        SHX3_4 = SHX3_4(SHX4_4, SHX5_4)
-        if 0 == SHX3_4 then
-          SHX3_4 = SHX3_1
-          if SHX3_4 then
-            SHX3_4 = SHX5_1
-            SHX3_4()
-            SHX3_4 = tCMG
-            SHX3_4 = SHX3_4.playAnim
-            SHX4_4 = false
-            SHX5_4 = {}
-            SHX6_4 = {}
-            SHX7_4 = "amb@prop_human_atm@male@exit"
-            SHX8_4 = "exit"
-            SHX6_4[1] = SHX7_4
-            SHX6_4[2] = SHX8_4
-            SHX5_4[1] = SHX6_4
-            SHX6_4 = false
-            SHX3_4(SHX4_4, SHX5_4, SHX6_4)
-            SHX3_4 = TriggerServerEvent
-            SHX4_4 = "dabab3db32"
-            SHX3_4(SHX4_4)
-          else
-            SHX3_4 = tCMG
-            SHX3_4 = SHX3_4.notify
-            SHX4_4 = "~r~Not near ATM."
-            SHX3_4(SHX4_4)
-          end
-        else
-          SHX3_4 = tCMG
-          SHX3_4 = SHX3_4.notify
-          SHX4_4 = "~r~Get out your vehicle to use the ATM"
-          SHX3_4(SHX4_4)
-        end
-      end
-    end
-    SHX6_3 = nil
-    SHX0_3(SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3)
-  end
-  function SHX6_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX0_2(SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2)
-end
-SHX6_1(SHX7_1, SHX8_1, SHX9_1, SHX10_1)
-function SHX6_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.CloseAll
-  SHX0_2()
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgatm"
-  SHX4_2 = "mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-end
-function SHX7_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.CloseAll
-  SHX0_2()
-  SHX0_2 = RageUI
-  SHX0_2 = SHX0_2.Visible
-  SHX1_2 = RMenu
-  SHX2_2 = SHX1_2
-  SHX1_2 = SHX1_2.Get
-  SHX3_2 = "cmgatm"
-  SHX4_2 = "mainmenu"
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2, SHX4_2)
-  SHX2_2 = false
-  SHX0_2(SHX1_2, SHX2_2)
-end
-SHX8_1 = Citizen
-SHX8_1 = SHX8_1.CreateThread
-function SHX9_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  function SHX0_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = tCMG
-    SHX0_3 = SHX0_3.setCanAnim
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = SHX6_1
-    SHX0_3()
-    SHX0_3 = true
-    SHX3_1 = SHX0_3
-  end
-  function SHX1_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX7_1
-    SHX0_3()
-    SHX0_3 = tCMG
-    SHX0_3 = SHX0_3.setCanAnim
-    SHX1_3 = true
-    SHX0_3(SHX1_3)
-    SHX0_3 = false
-    SHX3_1 = SHX0_3
-  end
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_1.atms
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.createArea
-    SHX10_2 = "atm_"
-    SHX11_2 = SHX7_2
-    SHX10_2 = SHX10_2 .. SHX11_2
-    SHX11_2 = SHX8_2
-    SHX12_2 = 1.5
-    SHX13_2 = 6
-    SHX14_2 = SHX0_2
-    SHX15_2 = SHX1_2
-    SHX16_2 = SHX2_2
-    SHX17_2 = {}
-    SHX17_2.atmId = SHX7_2
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX9_2 = tCMG
-    SHX9_2 = SHX9_2.addBlip
-    SHX10_2 = SHX8_2.x
-    SHX11_2 = SHX8_2.y
-    SHX12_2 = SHX8_2.z
-    SHX13_2 = 108
-    SHX14_2 = 4
-    SHX15_2 = "ATM"
-    SHX16_2 = 0.8
-    SHX17_2 = true
-    SHX9_2 = SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX10_2 = tCMG
-    SHX10_2 = SHX10_2.addPropMarker
-    SHX11_2 = SHX1_1
-    SHX12_2 = SHX8_2.x
-    SHX13_2 = SHX8_2.y
-    SHX14_2 = SHX8_2.z
-    SHX15_2 = SHX2_1
-    SHX10_2(SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-    SHX10_2 = pairs
-    SHX11_2 = SHX0_1.robberyAtms
-    SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX10_2(SHX11_2)
-    for SHX14_2, SHX15_2 in SHX10_2, SHX11_2, SHX12_2, SHX13_2 do
-      SHX16_2 = SHX15_2.xyz
-      SHX16_2 = SHX8_2 - SHX16_2
-      SHX16_2 = #SHX16_2
-      if SHX16_2 < 5.0 then
-        SHX16_2 = SetBlipColour
-        SHX17_2 = SHX9_2
-        SHX18_2 = 1
-        SHX16_2(SHX17_2, SHX18_2)
-      end
-    end
-  end
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_1.casinoAtms
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.createArea
-    SHX10_2 = "atm_casino_"
-    SHX11_2 = SHX7_2
-    SHX10_2 = SHX10_2 .. SHX11_2
-    SHX11_2 = SHX8_2
-    SHX12_2 = 1.5
-    SHX13_2 = 6
-    SHX14_2 = SHX0_2
-    SHX15_2 = SHX1_2
-    SHX16_2 = SHX2_2
-    SHX17_2 = {}
-    SHX17_2.atmId = SHX7_2
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX9_2 = tCMG
-    SHX9_2 = SHX9_2.addBlip
-    SHX10_2 = SHX8_2.x
-    SHX11_2 = SHX8_2.y
-    SHX12_2 = SHX8_2.z
-    SHX13_2 = 108
-    SHX14_2 = 4
-    SHX15_2 = "ATM"
-    SHX16_2 = 0.8
-    SHX17_2 = true
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX9_2 = tCMG
-    SHX9_2 = SHX9_2.addPropMarker
-    SHX10_2 = SHX1_1
-    SHX11_2 = SHX8_2.x
-    SHX12_2 = SHX8_2.y
-    SHX13_2 = SHX8_2.z
-    SHX14_2 = SHX2_1
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  end
-  SHX3_2 = pairs
-  SHX4_2 = SHX0_1.casinoAtmPeds
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2 = SHX3_2(SHX4_2)
-  for SHX7_2, SHX8_2 in SHX3_2, SHX4_2, SHX5_2, SHX6_2 do
-    SHX9_2 = CMG
-    SHX9_2 = SHX9_2.createDynamicPed
-    SHX10_2 = -1156746507
-    SHX11_2 = SHX8_2.xyz
-    SHX12_2 = SHX8_2.w
-    SHX13_2 = true
-    SHX14_2 = "mini@strip_club@idles@bouncer@base"
-    SHX15_2 = "base"
-    SHX16_2 = 75.0
-    SHX17_2 = nil
-    function SHX18_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-    end
-    SHX9_2(SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-  end
-end
-SHX8_1(SHX9_1)
-SHX8_1 = {}
-SHX9_1 = CMG
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  function SHX2_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = tCMG
-    SHX0_3 = SHX0_3.setCanAnim
-    SHX1_3 = false
-    SHX0_3(SHX1_3)
-    SHX0_3 = SHX6_1
-    SHX0_3()
-    SHX0_3 = true
-    SHX3_1 = SHX0_3
-  end
-  function SHX3_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    SHX0_3 = SHX7_1
-    SHX0_3()
-    SHX0_3 = tCMG
-    SHX0_3 = SHX0_3.setCanAnim
-    SHX1_3 = true
-    SHX0_3(SHX1_3)
-    SHX0_3 = false
-    SHX3_1 = SHX0_3
-  end
-  SHX4_2 = string
-  SHX4_2 = SHX4_2.format
-  SHX5_2 = "atm_%s"
-  SHX6_2 = SHX0_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = CMG
-  SHX5_2 = SHX5_2.createArea
-  SHX6_2 = SHX4_2
-  SHX7_2 = SHX1_2
-  SHX8_2 = 1.5
-  SHX9_2 = 6
-  SHX10_2 = SHX2_2
-  SHX11_2 = SHX3_2
-  function SHX12_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-  end
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.addPropMarker
-  SHX6_2 = SHX1_1
-  SHX7_2 = SHX1_2.x
-  SHX8_2 = SHX1_2.y
-  SHX9_2 = SHX1_2.z
-  SHX10_2 = SHX2_1
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2)
-  SHX6_2 = SHX8_1
-  SHX7_2 = {}
-  SHX7_2.area = SHX4_2
-  SHX7_2.marker = SHX5_2
-  SHX6_2[SHX0_2] = SHX7_2
-end
-SHX9_1.createAtm = SHX10_1
-SHX9_1 = CMG
-function SHX10_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX8_1
-  SHX1_2 = SHX1_2[SHX0_2]
-  if SHX1_2 then
-    SHX2_2 = tCMG
-    SHX2_2 = SHX2_2.removeMarker
-    SHX3_2 = SHX1_2.marker
-    SHX2_2(SHX3_2)
-    SHX2_2 = tCMG
-    SHX2_2 = SHX2_2.removeArea
-    SHX3_2 = SHX1_2.area
-    SHX2_2(SHX3_2)
-    SHX2_2 = SHX8_1
-    SHX2_2[SHX0_2] = nil
-  end
-end
-SHX9_1.deleteAtm = SHX10_1
-SHX9_1 = false
-function SHX10_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2, SHX18_2
-  SHX2_2 = tonumber
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  if not SHX2_2 then
-    SHX2_2 = 0
-  end
-  if SHX2_2 < 0 then
-    SHX2_2 = 0
-  end
-  SHX3_2 = math
-  SHX3_2 = SHX3_2.random
-  SHX4_2 = 3
-  SHX5_2 = 4
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2)
-  if SHX3_2 > 0 then
-    SHX4_2 = math
-    SHX4_2 = SHX4_2.floor
-    SHX5_2 = SHX2_2 / SHX3_2
-    SHX4_2 = SHX4_2(SHX5_2)
-    if SHX4_2 then
-      goto SHX_LABEL_25
-    end
-  end
-  SHX4_2 = 0
-  -- [FIX IF ERROR] Move ::SHX_LABEL_25:: outside nested blocks until all 'goto SHX_LABEL_25' can see it
-  ::SHX_LABEL_25::
-  SHX5_2 = true
-  SHX6_2 = false
-  SHX7_2 = Citizen
-  SHX7_2 = SHX7_2.CreateThread
-  function SHX8_2()
-    -- [AI CLEANUP] Decompiled Lua - Fix these:
-    -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-    -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-    -- 3. Replace goto/label with while/repeat-until where possible
-    -- 4. Remove decompiler comments, add meaningful ones
-    -- 5. Fix indentation and formatting
-    
-    local SHX0_3, SHX1_3
-    while true do
-      SHX0_3 = SHX6_2
-      if SHX0_3 then
-        break
-      end
-      SHX0_3 = drawNativeNotification
-      SHX1_3 = "Press ~INPUT_JUMP~ in the correct area to cut the wire."
-      SHX0_3(SHX1_3)
-      SHX0_3 = Citizen
-      SHX0_3 = SHX0_3.Wait
-      SHX1_3 = 0
-      SHX0_3(SHX1_3)
-    end
-  end
-  SHX7_2(SHX8_2)
-  SHX7_2 = 1
-  SHX8_2 = SHX3_2
-  SHX9_2 = 1
-  for SHX10_2 = SHX7_2, SHX8_2, SHX9_2 do
-    SHX11_2 = math
-    SHX11_2 = SHX11_2.random
-    SHX12_2 = 1
-    SHX13_2 = 4
-    SHX11_2 = SHX11_2(SHX12_2, SHX13_2)
-    if SHX11_2 <= 3 then
-      SHX11_2 = "Easy"
-      if SHX11_2 then
-        goto SHX_LABEL_46
-      end
-    end
-    SHX11_2 = "Medium"
-    -- [FIX IF ERROR] Move ::SHX_LABEL_46:: outside nested blocks until all 'goto SHX_LABEL_46' can see it
-    ::SHX_LABEL_46::
-    SHX12_2 = true
-    SHX13_2 = CMG
-    SHX13_2 = SHX13_2.minigameCircularProgressBar
-    SHX14_2 = {}
-    SHX14_2.Difficulty = SHX11_2
-    SHX15_2 = math
-    SHX15_2 = SHX15_2.max
-    SHX16_2 = 4000
-    SHX17_2 = 25000
-    SHX17_2 = SHX17_2 - SHX4_2
-    SHX15_2 = SHX15_2(SHX16_2, SHX17_2)
-    SHX14_2.Timeout = SHX15_2
-    function SHX15_2(SHX0_3)
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX1_3
-      SHX5_2 = SHX0_3
-      SHX1_3 = false
-      SHX12_2 = SHX1_3
-    end
-    SHX14_2.onComplete = SHX15_2
-    function SHX15_2()
-      -- [AI CLEANUP] Decompiled Lua - Fix these:
-      -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-      -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-      -- 3. Replace goto/label with while/repeat-until where possible
-      -- 4. Remove decompiler comments, add meaningful ones
-      -- 5. Fix indentation and formatting
-      
-      local SHX0_3, SHX1_3
-      SHX0_3 = false
-      SHX5_2 = SHX0_3
-      SHX0_3 = false
-      SHX12_2 = SHX0_3
-    end
-    SHX14_2.onTimeout = SHX15_2
-    SHX13_2(SHX14_2)
-    while SHX12_2 do
-      SHX13_2 = drawNativeText
-      SHX14_2 = "Cut the wires"
-      SHX13_2(SHX14_2)
-      SHX13_2 = Citizen
-      SHX13_2 = SHX13_2.Wait
-      SHX14_2 = 0
-      SHX13_2(SHX14_2)
-    end
-    SHX13_2 = CMG
-    SHX13_2 = SHX13_2.setPlayerCombatTimer
-    SHX14_2 = 30
-    SHX15_2 = false
-    SHX13_2(SHX14_2, SHX15_2)
-    if not SHX5_2 then
-      SHX13_2 = PlaySoundFrontend
-      SHX14_2 = -1
-      SHX15_2 = "HACKING_CLICK_BAD"
-      SHX16_2 = ""
-      SHX17_2 = false
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      break
-    else
-      SHX13_2 = PlaySoundFrontend
-      SHX14_2 = -1
-      SHX15_2 = "HACKING_SUCCESS"
-      SHX16_2 = ""
-      SHX17_2 = true
-      SHX13_2(SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-      SHX13_2 = Citizen
-      SHX13_2 = SHX13_2.Wait
-      SHX14_2 = 2000
-      SHX13_2(SHX14_2)
-      SHX13_2 = GetGameTimer
-      SHX13_2 = SHX13_2()
-      while true do
-        SHX14_2 = CMG
-        SHX14_2 = SHX14_2.isProgressBarRunning
-        SHX14_2 = SHX14_2()
-        if not SHX14_2 then
-          break
-        end
-        SHX14_2 = assert
-        SHX15_2 = GetGameTimer
-        SHX15_2 = SHX15_2()
-        SHX15_2 = SHX15_2 - SHX13_2
-        SHX16_2 = 5000
-        SHX15_2 = SHX15_2 < SHX16_2
-        SHX16_2 = "Timed out whilst waiting for progress bar to finished"
-        SHX14_2(SHX15_2, SHX16_2)
-        SHX14_2 = Wait
-        SHX15_2 = 0
-        SHX14_2(SHX15_2)
-      end
-      SHX14_2 = PlaySoundFrontend
-      SHX15_2 = -1
-      SHX16_2 = "HACKING_CLICK"
-      SHX17_2 = ""
-      SHX18_2 = true
-      SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      SHX14_2 = CMG
-      SHX14_2 = SHX14_2.startCircularProgressBar
-      SHX15_2 = ""
-      SHX16_2 = 2000
-      SHX17_2 = nil
-      function SHX18_2()
-        -- [AI CLEANUP] Decompiled Lua - Fix these:
-        -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-        -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-        -- 3. Replace goto/label with while/repeat-until where possible
-        -- 4. Remove decompiler comments, add meaningful ones
-        -- 5. Fix indentation and formatting
-        
-        local SHX0_3, SHX1_3
-      end
-      SHX14_2(SHX15_2, SHX16_2, SHX17_2, SHX18_2)
-      SHX14_2 = TriggerServerEvent
-      SHX15_2 = "d96c9842ab"
-      SHX16_2 = SHX0_2
-      SHX17_2 = false
-      SHX14_2(SHX15_2, SHX16_2, SHX17_2)
-      SHX14_2 = Citizen
-      SHX14_2 = SHX14_2.Wait
-      SHX15_2 = 2000
-      SHX14_2(SHX15_2)
-    end
-  end
-  SHX6_2 = true
-  return SHX5_2
-end
-function SHX11_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.rad
-  SHX2_2 = -0.8738472
-  SHX1_2 = SHX1_2(SHX2_2)
-  SHX2_2 = math
-  SHX2_2 = SHX2_2.rad
-  SHX3_2 = SHX0_2.w
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = vector3
-  SHX4_2 = math
-  SHX4_2 = SHX4_2.sin
-  SHX5_2 = SHX2_2
-  SHX4_2 = SHX4_2(SHX5_2)
-  SHX4_2 = -SHX4_2
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.abs
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.cos
-  SHX7_2 = SHX1_2
-  SHX6_2, SHX7_2, SHX8_2 = SHX6_2(SHX7_2)
-  SHX5_2 = SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SHX4_2 * SHX5_2
-  SHX5_2 = math
-  SHX5_2 = SHX5_2.cos
-  SHX6_2 = SHX2_2
-  SHX5_2 = SHX5_2(SHX6_2)
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.abs
-  SHX7_2 = math
-  SHX7_2 = SHX7_2.cos
-  SHX8_2 = SHX1_2
-  SHX7_2, SHX8_2 = SHX7_2(SHX8_2)
-  SHX6_2 = SHX6_2(SHX7_2, SHX8_2)
-  SHX5_2 = SHX5_2 * SHX6_2
-  SHX6_2 = math
-  SHX6_2 = SHX6_2.sin
-  SHX7_2 = SHX1_2
-  SHX6_2, SHX7_2, SHX8_2 = SHX6_2(SHX7_2)
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2)
-  SHX4_2 = SHX0_2.xyz
-  SHX5_2 = SHX3_2 * 0.65
-  SHX4_2 = SHX4_2 + SHX5_2
-  return SHX4_2
-end
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "c80193f4f4"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX1_2 = SHX0_1.robberyAtms
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX2_2 = SHX11_1
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadPtfx
-  SHX4_2 = "core"
-  SHX3_2(SHX4_2)
-  SHX3_2 = StartParticleFxNonLoopedAtCoord
-  SHX4_2 = "ent_sht_electrical_box"
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 0.5
-  SHX8_2 = SHX1_2.w
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 2.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveNamedPtfxAsset
-  SHX4_2 = "core"
-  SHX3_2(SHX4_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadPtfx
-  SHX4_2 = "scr_xs_celebration"
-  SHX3_2(SHX4_2)
-  SHX3_2 = StartParticleFxLoopedAtCoord
-  SHX4_2 = "scr_xs_money_rain"
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 0.2
-  SHX8_2 = SHX1_2.w
-  SHX8_2 = SHX8_2 + 90.0
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 1.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2 = RemoveNamedPtfxAsset
-  SHX5_2 = "scr_xs_celebration"
-  SHX4_2(SHX5_2)
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.Wait
-  SHX5_2 = 15000
-  SHX4_2(SHX5_2)
-  SHX4_2 = StopParticleFxLooped
-  SHX5_2 = SHX3_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "0d0bba08e3"
-function SHX14_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX0_2 = GetGameTimer
-  SHX0_2 = SHX0_2()
-  SHX1_2 = 0
-  while true do
-    SHX2_2 = GetGameTimer
-    SHX2_2 = SHX2_2()
-    SHX3_2 = SHX2_2 - SHX0_2
-    SHX4_2 = 15000
-    if SHX3_2 > SHX4_2 then
-      break
-    end
-    SHX3_2 = SHX2_2 - SHX1_2
-    SHX4_2 = math
-    SHX4_2 = SHX4_2.random
-    SHX5_2 = 150
-    SHX6_2 = 650
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    if SHX3_2 >= SHX4_2 then
-      SHX3_2 = PlaySoundFrontend
-      SHX4_2 = -1
-      SHX5_2 = "Bus_Schedule_Pickup"
-      SHX6_2 = "DLC_PRISON_BREAK_HEIST_SOUNDS"
-      SHX7_2 = false
-      SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-      SHX1_2 = SHX2_2
-    end
-    SHX3_2 = Citizen
-    SHX3_2 = SHX3_2.Wait
-    SHX4_2 = 0
-    SHX3_2(SHX4_2)
-  end
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "d96c9842ab"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX1_2 = SHX0_1.robberyAtms
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX2_2 = SHX11_1
-  SHX3_2 = SHX1_2
-  SHX2_2 = SHX2_2(SHX3_2)
-  SHX3_2 = CMG
-  SHX3_2 = SHX3_2.loadPtfx
-  SHX4_2 = "core"
-  SHX3_2(SHX4_2)
-  SHX3_2 = StartParticleFxNonLoopedAtCoord
-  SHX4_2 = "ent_dst_electrical"
-  SHX5_2 = SHX2_2.x
-  SHX6_2 = SHX2_2.y
-  SHX7_2 = SHX2_2.z
-  SHX7_2 = SHX7_2 - 0.5
-  SHX8_2 = SHX1_2.w
-  SHX9_2 = 0.0
-  SHX10_2 = 0.0
-  SHX11_2 = 2.0
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  SHX3_2 = RemoveNamedPtfxAsset
-  SHX4_2 = "core"
-  SHX3_2(SHX4_2)
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "0b6d9ff2bc"
-function SHX14_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.setPlayerCombatTimer
-  SHX3_2 = 60
-  SHX4_2 = false
-  SHX2_2(SHX3_2, SHX4_2)
-  SHX2_2 = GetGameTimer
-  SHX2_2 = SHX2_2()
-  while true do
-    SHX3_2 = GetGameTimer
-    SHX3_2 = SHX3_2()
-    SHX3_2 = SHX3_2 - SHX2_2
-    SHX4_2 = 10000
-    if SHX3_2 >= SHX4_2 then
-      SHX4_2 = TriggerEvent
-      SHX5_2 = "dba3e00154"
-      SHX6_2 = SHX0_2 + SHX1_2
-      SHX4_2(SHX5_2, SHX6_2)
-      break
-    else
-      SHX4_2 = SHX3_2 / 10000
-      SHX5_2 = TriggerEvent
-      SHX6_2 = "dba3e00154"
-      SHX7_2 = math
-      SHX7_2 = SHX7_2.floor
-      SHX8_2 = SHX1_2 * SHX4_2
-      SHX7_2 = SHX7_2(SHX8_2)
-      SHX7_2 = SHX0_2 + SHX7_2
-      SHX5_2(SHX6_2, SHX7_2)
-    end
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
-  end
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "c63557b5fa"
-function SHX14_1(SHX0_2, SHX1_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2
-  SHX2_2 = true
-  SHX9_1 = SHX2_2
-  SHX2_2 = PlayerPedId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = SHX0_1.robberyAtms
-  SHX3_2 = SHX3_2[SHX0_2]
-  SHX4_2 = tCMG
-  SHX4_2 = SHX4_2.setCanAnim
-  SHX5_2 = false
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.setPlayerCombatTimer
-  SHX5_2 = 30
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.setWeapon
-  SHX5_2 = SHX2_2
-  SHX6_2 = -1569615261
-  SHX7_2 = true
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = ClearPedTasksImmediately
-  SHX5_2 = SHX2_2
-  SHX4_2(SHX5_2)
-  SHX4_2 = Citizen
-  SHX4_2 = SHX4_2.Wait
-  SHX5_2 = 1000
-  SHX4_2(SHX5_2)
-  SHX4_2 = TaskGoStraightToCoord
-  SHX5_2 = SHX2_2
-  SHX6_2 = SHX3_2.x
-  SHX7_2 = SHX3_2.y
-  SHX8_2 = SHX3_2.z
-  SHX9_2 = 1.0
-  SHX10_2 = 5000
-  SHX11_2 = SHX3_2.w
-  SHX12_2 = 0.1
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  while true do
-    SHX4_2 = GetScriptTaskStatus
-    SHX5_2 = SHX2_2
-    SHX6_2 = 2106541073
-    SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-    if 7 == SHX4_2 then
-      break
-    end
-    SHX4_2 = Citizen
-    SHX4_2 = SHX4_2.Wait
-    SHX5_2 = 0
-    SHX4_2(SHX5_2)
-  end
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadClipSet
-  SHX5_2 = "move_ped_crouched"
-  SHX4_2(SHX5_2)
-  SHX4_2 = SetPedCanPlayAmbientAnims
-  SHX5_2 = SHX2_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetPedCanPlayAmbientBaseAnims
-  SHX5_2 = SHX2_2
-  SHX6_2 = false
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = SetPedMovementClipset
-  SHX5_2 = SHX2_2
-  SHX6_2 = "move_ped_crouched"
-  SHX7_2 = 0.35
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX4_2 = SetPedStrafeClipset
-  SHX5_2 = SHX2_2
-  SHX6_2 = "move_ped_crouched_strafing"
-  SHX4_2(SHX5_2, SHX6_2)
-  SHX4_2 = RemoveClipSet
-  SHX5_2 = "move_ped_crouched"
-  SHX4_2(SHX5_2)
-  SHX4_2 = CMG
-  SHX4_2 = SHX4_2.loadAnimDict
-  SHX5_2 = "mini@repair"
-  SHX4_2(SHX5_2)
-  SHX4_2 = TaskPlayAnim
-  SHX5_2 = SHX2_2
-  SHX6_2 = "mini@repair"
-  SHX7_2 = "fixing_a_ped"
-  SHX8_2 = 8.0
-  SHX9_2 = -8.0
-  SHX10_2 = -1
-  SHX11_2 = 17
-  SHX12_2 = 0
-  SHX13_2 = false
-  SHX14_2 = false
-  SHX15_2 = false
-  SHX4_2(SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2)
-  SHX4_2 = RemoveAnimDict
-  SHX5_2 = "mini@repair"
-  SHX4_2(SHX5_2)
-  SHX4_2 = SHX10_1
-  SHX5_2 = SHX0_2
-  SHX6_2 = SHX1_2
-  SHX4_2 = SHX4_2(SHX5_2, SHX6_2)
-  SHX5_2 = TriggerServerEvent
-  SHX6_2 = "6c81c57c72"
-  SHX7_2 = SHX0_2
-  SHX8_2 = SHX4_2
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2)
-  SHX5_2 = StopAnimTask
-  SHX6_2 = SHX2_2
-  SHX7_2 = "mini@repair"
-  SHX8_2 = "fixing_a_ped"
-  SHX9_2 = 1.0
-  SHX5_2(SHX6_2, SHX7_2, SHX8_2, SHX9_2)
-  SHX5_2 = ResetPedStrafeClipset
-  SHX6_2 = SHX2_2
-  SHX5_2(SHX6_2)
-  SHX5_2 = ResetPedMovementClipset
-  SHX6_2 = SHX2_2
-  SHX7_2 = 0.0
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SetPedCanPlayAmbientAnims
-  SHX6_2 = SHX2_2
-  SHX7_2 = true
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = SetPedCanPlayAmbientBaseAnims
-  SHX6_2 = SHX2_2
-  SHX7_2 = true
-  SHX5_2(SHX6_2, SHX7_2)
-  SHX5_2 = tCMG
-  SHX5_2 = SHX5_2.setCanAnim
-  SHX6_2 = true
-  SHX5_2(SHX6_2)
-  SHX5_2 = false
-  SHX9_1 = SHX5_2
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "f0b274ca98"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2
-  SHX1_2 = SHX0_1.robberyAtms
-  SHX1_2 = SHX1_2[SHX0_2]
-  SHX2_2 = CMG
-  SHX2_2 = SHX2_2.loadPtfx
-  SHX3_2 = "veh_xs_vehicle_mods"
-  SHX2_2(SHX3_2)
-  SHX2_2 = 1
-  SHX3_2 = 10
-  SHX4_2 = 1
-  for SHX5_2 = SHX2_2, SHX3_2, SHX4_2 do
-    SHX6_2 = UseParticleFxAsset
-    SHX7_2 = "veh_xs_vehicle_mods"
-    SHX6_2(SHX7_2)
-    SHX6_2 = StartParticleFxNonLoopedAtCoord
-    SHX7_2 = "exp_xs_mine_tar"
-    SHX8_2 = SHX1_2.x
-    SHX9_2 = SHX1_2.y
-    SHX10_2 = SHX1_2.z
-    SHX10_2 = SHX10_2 - 0.5
-    SHX11_2 = 0.0
-    SHX12_2 = 0.0
-    SHX13_2 = 0.0
-    SHX14_2 = 1.0
-    SHX15_2 = false
-    SHX16_2 = false
-    SHX17_2 = false
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2, SHX15_2, SHX16_2, SHX17_2)
-    SHX6_2 = Citizen
-    SHX6_2 = SHX6_2.Wait
-    SHX7_2 = 50
-    SHX6_2(SHX7_2)
-  end
-  SHX2_2 = RemoveNamedPtfxAsset
-  SHX3_2 = "veh_xs_vehicle_mods"
-  SHX2_2(SHX3_2)
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = RegisterNetEvent
-SHX13_1 = "9b400f568d"
-function SHX14_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2
-  SHX1_2 = SHX0_1.robberyAtms
-  SHX1_2 = SHX1_2[SHX0_2]
-  while true do
-    SHX2_2 = RequestScriptAudioBank
-    SHX3_2 = "Alarms"
-    SHX4_2 = false
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      break
-    end
-    SHX2_2 = Citizen
-    SHX2_2 = SHX2_2.Wait
-    SHX3_2 = 0
-    SHX2_2(SHX3_2)
-  end
-  SHX2_2 = GetSoundId
-  SHX2_2 = SHX2_2()
-  SHX3_2 = PlaySoundFromCoord
-  SHX4_2 = SHX2_2
-  SHX5_2 = "Burglar_Bell"
-  SHX6_2 = SHX1_2.x
-  SHX7_2 = SHX1_2.y
-  SHX8_2 = SHX1_2.z
-  SHX9_2 = "Generic_Alarms"
-  SHX10_2 = false
-  SHX11_2 = 0.05
-  SHX12_2 = false
-  SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2)
-  SHX3_2 = Citizen
-  SHX3_2 = SHX3_2.Wait
-  SHX4_2 = 60000
-  SHX3_2(SHX4_2)
-  SHX3_2 = StopSound
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
-  SHX3_2 = ReleaseSoundId
-  SHX4_2 = SHX2_2
-  SHX3_2(SHX4_2)
-end
-SHX12_1(SHX13_1, SHX14_1)
-SHX12_1 = 0
-SHX13_1 = 0
-SHX14_1 = false
-SHX15_1 = 0
-function SHX16_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.random
-  SHX2_2 = 6
-  SHX3_2 = 12
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  SHX12_1 = SHX1_2
-  SHX1_2 = 0
-  SHX15_1 = SHX1_2
-  SHX1_2 = TriggerServerEvent
-  SHX2_2 = "f448952ef9"
-  SHX3_2 = SHX0_2.robberyId
-  SHX1_2(SHX2_2, SHX3_2)
-end
-function SHX17_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2
-  SHX1_2 = SHX9_1
-  if SHX1_2 then
-    SHX1_2 = TriggerServerEvent
-    SHX2_2 = "ec10dc3f68"
-    SHX3_2 = SHX0_2.robberyId
-    SHX1_2(SHX2_2, SHX3_2)
-  end
-  SHX1_2 = 0
-  SHX13_1 = SHX1_2
-end
-function SHX18_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2
-  SHX0_2 = RequestScriptAudioBank
-  SHX1_2 = "NIGEL_02_CRASH_A"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = RequestScriptAudioBank
-  SHX1_2 = "NIGEL_02_CRASH_B"
-  SHX2_2 = true
-  SHX0_2(SHX1_2, SHX2_2)
-  SHX0_2 = Citizen
-  SHX0_2 = SHX0_2.Wait
-  SHX1_2 = 500
-  SHX0_2(SHX1_2)
-  SHX0_2 = CMG
-  SHX0_2 = SHX0_2.getPlayerCoords
-  SHX0_2 = SHX0_2()
-  SHX1_2 = math
-  SHX1_2 = SHX1_2.random
-  SHX2_2 = 1
-  SHX3_2 = 10
-  SHX1_2 = SHX1_2(SHX2_2, SHX3_2)
-  if SHX1_2 >= 8 then
-    SHX1_2 = "WINDOW_CRASH"
-    if SHX1_2 then
-      goto SHX_LABEL_27
-    end
-  end
-  SHX1_2 = "WALL_CRASH"
-  -- [FIX IF ERROR] Move ::SHX_LABEL_27:: outside nested blocks until all 'goto SHX_LABEL_27' can see it
-  ::SHX_LABEL_27::
-  SHX2_2 = PlaySoundFromCoord
-  SHX3_2 = -1
-  SHX4_2 = SHX1_2
-  SHX5_2 = SHX0_2.x
-  SHX6_2 = SHX0_2.y
-  SHX7_2 = SHX0_2.z
-  SHX8_2 = "NIGEL_02_SOUNDSET"
-  SHX9_2 = false
-  SHX10_2 = 0
-  SHX11_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2)
-  SHX2_2 = Citizen
-  SHX2_2 = SHX2_2.Wait
-  SHX3_2 = 1500
-  SHX2_2(SHX3_2)
-  SHX2_2 = ReleaseNamedScriptAudioBank
-  SHX3_2 = "NIGEL_02_CRASH_B"
-  SHX2_2(SHX3_2)
-  SHX2_2 = ReleaseNamedScriptAudioBank
-  SHX3_2 = "NIGEL_02_CRASH_A"
-  SHX2_2(SHX3_2)
-end
-SHX19_1 = {}
-SHX20_1 = {}
-SHX21_1 = "des_vaultdoor"
-SHX22_1 = "ent_ray_pro1_concrete_impacts"
-SHX20_1[1] = SHX21_1
-SHX20_1[2] = SHX22_1
-SHX21_1 = {}
-SHX22_1 = "des_fib_glass"
-SHX23_1 = "ent_ray_fbi2_window_break"
-SHX21_1[1] = SHX22_1
-SHX21_1[2] = SHX23_1
-SHX19_1[1] = SHX20_1
-SHX19_1[2] = SHX21_1
-function SHX20_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2
-  SHX0_2 = math
-  SHX0_2 = SHX0_2.random
-  SHX1_2 = 1
-  SHX2_2 = SHX19_1
-  SHX2_2 = #SHX2_2
-  SHX0_2 = SHX0_2(SHX1_2, SHX2_2)
-  SHX1_2 = SHX19_1
-  SHX0_2 = SHX1_2[SHX0_2]
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.loadPtfx
-  SHX2_2 = SHX0_2[1]
-  SHX1_2(SHX2_2)
-  SHX1_2 = Citizen
-  SHX1_2 = SHX1_2.Wait
-  SHX2_2 = 500
-  SHX1_2(SHX2_2)
-  SHX1_2 = UseParticleFxAsset
-  SHX2_2 = SHX0_2[1]
-  SHX1_2(SHX2_2)
-  SHX1_2 = CMG
-  SHX1_2 = SHX1_2.getPlayerCoords
-  SHX1_2 = SHX1_2()
-  SHX2_2 = GetEntityForwardVector
-  SHX3_2 = PlayerPedId
-  SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2 = SHX3_2()
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX2_2 = SHX2_2 * 1.0
-  SHX1_2 = SHX1_2 + SHX2_2
-  SHX2_2 = StartParticleFxNonLoopedAtCoord
-  SHX3_2 = SHX0_2[2]
-  SHX4_2 = SHX1_2.x
-  SHX5_2 = SHX1_2.y
-  SHX6_2 = SHX1_2.z
-  SHX7_2 = 0.0
-  SHX8_2 = 0.0
-  SHX9_2 = 0.0
-  SHX10_2 = 1.0
-  SHX11_2 = false
-  SHX12_2 = false
-  SHX13_2 = false
-  SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2)
-  SHX2_2 = RemoveNamedPtfxAsset
-  SHX3_2 = SHX0_2[1]
-  SHX2_2(SHX3_2)
-end
-function SHX21_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2
-  SHX1_2 = SHX9_1
-  if SHX1_2 then
+    Beginner overview:
+
+      NORMAL ATM:
+        * Walking into an ATM area opens the ATM menu.
+        * Deposit / Withdraw ask for an amount.
+        * Deposit All / Withdraw All do not need an amount.
+        * The player must be on foot and still inside the ATM area.
+
+      DYNAMIC ATMS:
+        * Other scripts can call CMG.createAtm(id, coords).
+        * CMG.deleteAtm(id) removes that marker/area again.
+
+      ATM ROBBERY:
+        * Some configured ATMs can be attacked.
+        * Entering the robbery area asks the server for its cooldown state.
+        * The player must be holding the exact weapon hash used by the
+          original script.
+        * Repeated attacks damage the ATM door.
+        * Once enough hits are recorded, the server starts the next robbery
+          stage.
+        * A circular-progress minigame is then used to cut ATM wires.
+        * Server events provide sparks, alarms, money effects and other FX.
+
+    Hash-looking server event names are intentionally kept unchanged.
+]]
+
+local atmConfig = CMG.loadModule("cfg/atms")
+if not atmConfig then
     return
-  end
-  SHX1_2 = PlayerPedId
-  SHX1_2 = SHX1_2()
-  SHX2_2 = select
-  SHX3_2 = 2
-  SHX4_2 = GetCurrentPedWeapon
-  SHX5_2 = SHX1_2
-  SHX6_2 = 0
-  SHX7_2 = false
-  SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2, SHX6_2, SHX7_2)
-  SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-  if -2067956739 == SHX2_2 then
-    SHX2_2 = SHX15_1
-    if SHX2_2 > 0 then
-      SHX2_2 = SHX15_1
-      SHX2_2 = SHX2_2 + 900000
-      SHX3_2 = GetNetworkTime
-      SHX3_2 = SHX3_2()
-      SHX2_2 = SHX2_2 - SHX3_2
-      if SHX2_2 > 0 then
-        SHX3_2 = formatTimeString
-        SHX4_2 = formatTime
-        SHX5_2 = SHX2_2 / 1000
-        SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX4_2(SHX5_2)
-        SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-        SHX4_2 = drawNativeNotification
-        SHX5_2 = "This ATM has been robbed recently. You can rob it in "
-        SHX6_2 = SHX3_2
-        SHX5_2 = SHX5_2 .. SHX6_2
-        SHX6_2 = true
-        SHX4_2(SHX5_2, SHX6_2)
-      end
-      return
+end
+
+local ATM_MARKER_PROP = "bzzz_marker_atm_green_anim"
+local ATM_MARKER_DISTANCE = 20.0
+
+-- True while the player is physically inside a normal ATM interaction area.
+local nearAtm = false
+
+-- Stops the temporary "ATM card/object in hand" helper from spawning twice.
+local showingAtmHandProp = false
+
+-- Dynamic ATMs created by other scripts:
+-- dynamicAtms[id] = { area = areaId, marker = markerHandle }
+local dynamicAtms = {}
+
+-- True while the server-controlled robbery interaction owns the player.
+local robberySequenceActive = false
+
+
+-- ============================================================
+-- ATM MENU
+-- ============================================================
+
+RMenu.Add(
+    "cmgatm",
+    "mainmenu",
+    RageUI.CreateMenu(
+        "",
+        "",
+        CMG.getRageUIMenuWidth(),
+        CMG.getRageUIMenuHeight(),
+        "cmg_atmui",
+        "cmg_atmui"
+    )
+)
+
+local atmMenu = RMenu:Get("cmgatm", "mainmenu")
+atmMenu:SetSubtitle("~b~ATM")
+
+
+local function openAtmMenu()
+    RageUI.CloseAll()
+    RageUI.Visible(atmMenu, true)
+end
+
+
+local function closeAtmMenu()
+    RageUI.CloseAll()
+    RageUI.Visible(atmMenu, false)
+end
+
+
+-- The original client briefly attaches a small object to the player's hand.
+-- It is purely visual and deletes itself after five seconds.
+local function showTemporaryAtmHandProp()
+    if showingAtmHandProp then
+        return
     end
-    SHX2_2 = drawNativeNotification
-    SHX3_2 = "Hit the ATM with ~INPUT_ATTACK~ to begin breaking the door."
-    SHX2_2(SHX3_2)
-    SHX2_2 = SHX13_1
-    if SHX2_2 > 0 then
-      SHX2_2 = math
-      SHX2_2 = SHX2_2.floor
-      SHX3_2 = SHX13_1
-      SHX4_2 = SHX12_1
-      SHX3_2 = SHX3_2 / SHX4_2
-      SHX3_2 = SHX3_2 * 100
-      SHX2_2 = SHX2_2(SHX3_2)
-      if SHX2_2 > 100 then
-        SHX2_2 = 100
-      end
-      SHX3_2 = subtitleText
-      SHX4_2 = "~r~ATM door damage "
-      SHX5_2 = tostring
-      SHX6_2 = SHX2_2
-      SHX5_2 = SHX5_2(SHX6_2)
-      SHX6_2 = "%"
-      SHX4_2 = SHX4_2 .. SHX5_2 .. SHX6_2
-      SHX3_2(SHX4_2)
+
+    showingAtmHandProp = true
+
+    Citizen.CreateThread(function()
+        local ped = PlayerPedId()
+        local modelHash = -121386306
+
+        CMG.loadModel(modelHash)
+
+        local coords = CMG.getPlayerCoords()
+
+        CMG.requestEntitySpawn("atm_object")
+
+        local object = CreateObject(
+            modelHash,
+            coords.x,
+            coords.y,
+            coords.z,
+            true,
+            false,
+            false
+        )
+
+        AttachEntityToEntity(
+            object,
+            ped,
+            GetPedBoneIndex(ped, 57005),
+            0.14,
+            0.04,
+            -0.02,
+            318.0,
+            22.0,
+            2.0,
+            false,
+            false,
+            false,
+            true,
+            2,
+            true
+        )
+
+        SetModelAsNoLongerNeeded(modelHash)
+
+        Citizen.Wait(5000)
+
+        DeleteEntity(object)
+        showingAtmHandProp = false
+    end)
+end
+
+
+local function playAtmExitAnimation()
+    tCMG.playAnim(
+        false,
+        {
+            {
+                "amb@prop_human_atm@male@exit",
+                "exit"
+            }
+        },
+        false
+    )
+end
+
+
+local function canSubmitAtmTransaction()
+    if GetVehiclePedIsIn(
+        PlayerPedId(),
+        false
+    ) ~= 0 then
+        tCMG.notify(
+            "~r~Get out your vehicle to use the ATM"
+        )
+        return false
     end
-    SHX2_2 = RageUI
-    SHX2_2 = SHX2_2.Visible
-    SHX3_2 = RMenu
-    SHX4_2 = SHX3_2
-    SHX3_2 = SHX3_2.Get
-    SHX5_2 = "cmgatm"
-    SHX6_2 = "mainmenu"
-    SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2)
-    if SHX2_2 then
-      SHX2_2 = RageUI
-      SHX2_2 = SHX2_2.Visible
-      SHX3_2 = RMenu
-      SHX4_2 = SHX3_2
-      SHX3_2 = SHX3_2.Get
-      SHX5_2 = "cmgatm"
-      SHX6_2 = "mainmenu"
-      SHX3_2 = SHX3_2(SHX4_2, SHX5_2, SHX6_2)
-      SHX4_2 = false
-      SHX2_2(SHX3_2, SHX4_2)
+
+    if not nearAtm then
+        tCMG.notify("~r~Not near ATM.")
+        return false
     end
-    SHX2_2 = DisableControlAction
-    SHX3_2 = 0
-    SHX4_2 = 24
-    SHX5_2 = true
-    SHX2_2(SHX3_2, SHX4_2, SHX5_2)
-    SHX2_2 = IsDisabledControlJustPressed
-    SHX3_2 = 0
-    SHX4_2 = 24
-    SHX2_2 = SHX2_2(SHX3_2, SHX4_2)
-    if SHX2_2 then
-      SHX2_2 = SHX14_1
-      if not SHX2_2 then
-        SHX2_2 = Citizen
-        SHX2_2 = SHX2_2.CreateThreadNow
-        function SHX3_2()
-          -- [AI CLEANUP] Decompiled Lua - Fix these:
-          -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-          -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-          -- 3. Replace goto/label with while/repeat-until where possible
-          -- 4. Remove decompiler comments, add meaningful ones
-          -- 5. Fix indentation and formatting
-          
-          local SHX0_3, SHX1_3, SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3
-          SHX0_3 = true
-          SHX14_1 = SHX0_3
-          SHX0_3 = SHX0_1.robberyAtms
-          SHX1_3 = SHX0_2.robberyId
-          SHX0_3 = SHX0_3[SHX1_3]
-          SHX1_3 = ClearPedTasks
-          SHX2_3 = SHX1_2
-          SHX1_3(SHX2_3)
-          SHX1_3 = TaskGoStraightToCoord
-          SHX2_3 = SHX1_2
-          SHX3_3 = SHX0_3.x
-          SHX4_3 = SHX0_3.y
-          SHX5_3 = SHX0_3.z
-          SHX6_3 = 1.0
-          SHX7_3 = 3000
-          SHX8_3 = SHX0_3.w
-          SHX9_3 = 0.35
-          SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3)
-          while true do
-            SHX1_3 = GetScriptTaskStatus
-            SHX2_3 = SHX1_2
-            SHX3_3 = 2106541073
-            SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-            if 7 == SHX1_3 then
-              break
+
+    return true
+end
+
+
+local function submitAtmTransaction(eventName, amount)
+    if not canSubmitAtmTransaction() then
+        return
+    end
+
+    showTemporaryAtmHandProp()
+    playAtmExitAnimation()
+
+    if amount ~= nil then
+        TriggerServerEvent(eventName, amount)
+    else
+        TriggerServerEvent(eventName)
+    end
+end
+
+
+RageUI.CreateWhile(
+    1.0,
+    atmMenu,
+    nil,
+    function()
+        RageUI.IsVisible(
+            atmMenu,
+            true,
+            false,
+            true,
+            function()
+                RageUI.ButtonWithStyle(
+                    "Deposit",
+                    "",
+                    {RightLabel = "→→→"},
+                    true,
+                    function(_, _, selected)
+                        if not selected then
+                            return
+                        end
+
+                        local input =
+                            CMG.GetRageInputText(
+                                "Enter amount"
+                            )
+
+                        if not tonumber(input) then
+                            tCMG.notify(
+                                "~r~Invalid amount."
+                            )
+                            return
+                        end
+
+                        submitAtmTransaction(
+                            "2898c283c7",
+                            input
+                        )
+                    end
+                )
+
+                RageUI.ButtonWithStyle(
+                    "Withdraw",
+                    "",
+                    {RightLabel = "→→→"},
+                    true,
+                    function(_, _, selected)
+                        if not selected then
+                            return
+                        end
+
+                        local input =
+                            CMG.GetRageInputText(
+                                "Enter amount"
+                            )
+
+                        if not tonumber(input) then
+                            tCMG.notify(
+                                "~r~Invalid amount."
+                            )
+                            return
+                        end
+
+                        submitAtmTransaction(
+                            "de2d3b354c",
+                            input
+                        )
+                    end
+                )
+
+                RageUI.ButtonWithStyle(
+                    "Deposit All",
+                    "",
+                    {RightLabel = "→→→"},
+                    true,
+                    function(_, _, selected)
+                        if selected then
+                            submitAtmTransaction(
+                                "ae86725473"
+                            )
+                        end
+                    end
+                )
+
+                RageUI.ButtonWithStyle(
+                    "Withdraw All",
+                    "",
+                    {RightLabel = "→→→"},
+                    true,
+                    function(_, _, selected)
+                        if selected then
+                            submitAtmTransaction(
+                                "dabab3db32"
+                            )
+                        end
+                    end
+                )
+            end,
+            function()
             end
-            SHX1_3 = Citizen
-            SHX1_3 = SHX1_3.Wait
-            SHX2_3 = 0
-            SHX1_3(SHX2_3)
-          end
-          SHX1_3 = CMG
-          SHX1_3 = SHX1_3.loadAnimDict
-          SHX2_3 = "melee@small_wpn@streamed_core"
-          SHX1_3(SHX2_3)
-          SHX1_3 = PlayerPedId
-          SHX1_3 = SHX1_3()
-          SHX1_2 = SHX1_3
-          SHX1_3 = TaskPlayAnim
-          SHX2_3 = SHX1_2
-          SHX3_3 = "melee@small_wpn@streamed_core"
-          SHX4_3 = "ground_attack_on_spot"
-          SHX5_3 = 8.0
-          SHX6_3 = 8.0
-          SHX7_3 = -1
-          SHX8_3 = 1
-          SHX9_3 = 1.0
-          SHX10_3 = false
-          SHX11_3 = false
-          SHX12_3 = false
-          SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3, SHX8_3, SHX9_3, SHX10_3, SHX11_3, SHX12_3)
-          SHX1_3 = RemoveAnimDict
-          SHX2_3 = "melee@small_wpn@streamed_core"
-          SHX1_3(SHX2_3)
-          SHX1_3 = Citizen
-          SHX1_3 = SHX1_3.CreateThread
-          SHX2_3 = SHX18_1
-          SHX1_3(SHX2_3)
-          SHX1_3 = Citizen
-          SHX1_3 = SHX1_3.CreateThread
-          SHX2_3 = SHX20_1
-          SHX1_3(SHX2_3)
-          SHX1_3 = Citizen
-          SHX1_3 = SHX1_3.Wait
-          SHX2_3 = 2000
-          SHX1_3(SHX2_3)
-          SHX1_3 = ClearPedTasks
-          SHX2_3 = SHX1_2
-          SHX1_3(SHX2_3)
-          SHX1_3 = SHX13_1
-          SHX1_3 = SHX1_3 + 1
-          SHX13_1 = SHX1_3
-          SHX1_3 = SHX13_1
-          SHX2_3 = SHX12_1
-          if SHX1_3 >= SHX2_3 then
-            SHX1_3 = TriggerServerEvent
-            SHX2_3 = "c63557b5fa"
-            SHX3_3 = SHX0_2.robberyId
-            SHX1_3(SHX2_3, SHX3_3)
-          end
-          SHX1_3 = TaskPedSlideToCoord
-          SHX2_3 = SHX1_2
-          SHX3_3 = SHX0_3.x
-          SHX4_3 = SHX0_3.y
-          SHX5_3 = SHX0_3.z
-          SHX6_3 = SHX0_3.w
-          SHX7_3 = 2000
-          SHX1_3(SHX2_3, SHX3_3, SHX4_3, SHX5_3, SHX6_3, SHX7_3)
-          while true do
-            SHX1_3 = GetScriptTaskStatus
-            SHX2_3 = SHX1_2
-            SHX3_3 = 1045468327
-            SHX1_3 = SHX1_3(SHX2_3, SHX3_3)
-            if 7 == SHX1_3 then
-              break
+        )
+    end
+)
+
+
+-- ============================================================
+-- NORMAL ATM AREAS
+-- ============================================================
+
+local function onEnterAtm()
+    tCMG.setCanAnim(false)
+    openAtmMenu()
+    nearAtm = true
+end
+
+
+local function onLeaveAtm()
+    closeAtmMenu()
+    tCMG.setCanAnim(true)
+    nearAtm = false
+end
+
+
+local function emptyAtmTick()
+    -- The original normal ATM area did not need a per-frame callback.
+end
+
+
+Citizen.CreateThread(function()
+    for atmId, coords in pairs(atmConfig.atms) do
+        CMG.createArea(
+            "atm_" .. atmId,
+            coords,
+            1.5,
+            6,
+            onEnterAtm,
+            onLeaveAtm,
+            emptyAtmTick,
+            {atmId = atmId}
+        )
+
+        local blip = tCMG.addBlip(
+            coords.x,
+            coords.y,
+            coords.z,
+            108,
+            4,
+            "ATM",
+            0.8,
+            true
+        )
+
+        tCMG.addPropMarker(
+            ATM_MARKER_PROP,
+            coords.x,
+            coords.y,
+            coords.z,
+            ATM_MARKER_DISTANCE
+        )
+
+        -- Robbable ATMs are coloured differently on the minimap.
+        for _, robberyCoords
+            in pairs(atmConfig.robberyAtms) do
+
+            if #(coords - robberyCoords.xyz) < 5.0 then
+                SetBlipColour(blip, 1)
             end
-            SHX1_3 = Citizen
-            SHX1_3 = SHX1_3.Wait
-            SHX2_3 = 0
-            SHX1_3(SHX2_3)
-          end
-          SHX1_3 = false
-          SHX14_1 = SHX1_3
         end
-        SHX2_2(SHX3_2)
-      end
     end
-  end
+
+    for atmId, coords
+        in pairs(atmConfig.casinoAtms) do
+
+        CMG.createArea(
+            "atm_casino_" .. atmId,
+            coords,
+            1.5,
+            6,
+            onEnterAtm,
+            onLeaveAtm,
+            emptyAtmTick,
+            {atmId = atmId}
+        )
+
+        tCMG.addBlip(
+            coords.x,
+            coords.y,
+            coords.z,
+            108,
+            4,
+            "ATM",
+            0.8,
+            true
+        )
+
+        tCMG.addPropMarker(
+            ATM_MARKER_PROP,
+            coords.x,
+            coords.y,
+            coords.z,
+            ATM_MARKER_DISTANCE
+        )
+    end
+
+    -- Casino ATM guards/bouncers.
+    for _, coords
+        in pairs(atmConfig.casinoAtmPeds) do
+
+        CMG.createDynamicPed(
+            -1156746507,
+            coords.xyz,
+            coords.w,
+            true,
+            "mini@strip_club@idles@bouncer@base",
+            "base",
+            75.0,
+            nil,
+            function()
+            end
+        )
+    end
+end)
+
+
+-- ============================================================
+-- DYNAMIC ATM API
+-- ============================================================
+
+function CMG.createAtm(atmId, coords)
+    local areaId =
+        string.format("atm_%s", atmId)
+
+    CMG.createArea(
+        areaId,
+        coords,
+        1.5,
+        6,
+        onEnterAtm,
+        onLeaveAtm,
+        emptyAtmTick
+    )
+
+    local marker =
+        tCMG.addPropMarker(
+            ATM_MARKER_PROP,
+            coords.x,
+            coords.y,
+            coords.z,
+            ATM_MARKER_DISTANCE
+        )
+
+    dynamicAtms[atmId] = {
+        area = areaId,
+        marker = marker
+    }
 end
-SHX22_1 = Citizen
-SHX22_1 = SHX22_1.CreateThread
-function SHX23_1()
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX0_2, SHX1_2, SHX2_2, SHX3_2, SHX4_2, SHX5_2, SHX6_2, SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2
-  SHX0_2 = pairs
-  SHX1_2 = SHX0_1.robberyAtms
-  SHX0_2, SHX1_2, SHX2_2, SHX3_2 = SHX0_2(SHX1_2)
-  for SHX4_2, SHX5_2 in SHX0_2, SHX1_2, SHX2_2, SHX3_2 do
-    SHX6_2 = CMG
-    SHX6_2 = SHX6_2.createArea
-    SHX7_2 = "atmrobbery_"
-    SHX8_2 = SHX4_2
-    SHX7_2 = SHX7_2 .. SHX8_2
-    SHX8_2 = SHX5_2.xyz
-    SHX9_2 = 1.5
-    SHX10_2 = 6
-    SHX11_2 = SHX16_1
-    SHX12_2 = SHX17_1
-    SHX13_2 = SHX21_1
-    SHX14_2 = {}
-    SHX14_2.robberyId = SHX4_2
-    SHX6_2(SHX7_2, SHX8_2, SHX9_2, SHX10_2, SHX11_2, SHX12_2, SHX13_2, SHX14_2)
-  end
+
+
+function CMG.deleteAtm(atmId)
+    local data = dynamicAtms[atmId]
+
+    if not data then
+        return
+    end
+
+    tCMG.removeMarker(data.marker)
+    tCMG.removeArea(data.area)
+
+    dynamicAtms[atmId] = nil
 end
-SHX22_1(SHX23_1)
-SHX22_1 = RegisterNetEvent
-SHX23_1 = "de574bb3d5"
-function SHX24_1(SHX0_2)
-  -- [AI CLEANUP] Decompiled Lua - Fix these:
-  -- 1. Move ::SHX_LABEL_XX:: outside nested blocks if 'no visible label' error
-  -- 2. Rename SHX0_1, SHX1_2 variables to meaningful names
-  -- 3. Replace goto/label with while/repeat-until where possible
-  -- 4. Remove decompiler comments, add meaningful ones
-  -- 5. Fix indentation and formatting
-  
-  local SHX1_2
-  SHX15_1 = SHX0_2
+
+
+-- ============================================================
+-- ATM WIRE-CUT MINIGAME
+-- ============================================================
+
+-- atmId = which configured robbery ATM is being worked on.
+-- difficultyModifier = server value that shortens the allowed timeout.
+local function runAtmWireMinigame(
+    atmId,
+    difficultyModifier
+)
+    local modifier =
+        math.max(
+            tonumber(difficultyModifier) or 0,
+            0
+        )
+
+    -- Three or four wires/rounds.
+    local numberOfWires =
+        math.random(3, 4)
+
+    local timeoutReduction =
+        math.floor(
+            modifier / numberOfWires
+        )
+
+    local minigameSucceeded = true
+    local notificationThreadDone = false
+
+    Citizen.CreateThread(function()
+        while not notificationThreadDone do
+            drawNativeNotification(
+                "Press ~INPUT_JUMP~ in the correct area to cut the wire."
+            )
+            Citizen.Wait(0)
+        end
+    end)
+
+    for _ = 1, numberOfWires do
+        -- 75% Easy, 25% Medium.
+        local difficulty =
+            math.random(1, 4) <= 3
+            and "Easy"
+            or "Medium"
+
+        local waitingForResult = true
+
+        CMG.minigameCircularProgressBar({
+            Difficulty = difficulty,
+
+            Timeout = math.max(
+                4000,
+                25000 - timeoutReduction
+            ),
+
+            onComplete = function(success)
+                minigameSucceeded = success
+                waitingForResult = false
+            end,
+
+            onTimeout = function()
+                minigameSucceeded = false
+                waitingForResult = false
+            end
+        })
+
+        while waitingForResult do
+            drawNativeText("Cut the wires")
+            Citizen.Wait(0)
+        end
+
+        CMG.setPlayerCombatTimer(
+            30,
+            false
+        )
+
+        if not minigameSucceeded then
+            PlaySoundFrontend(
+                -1,
+                "HACKING_CLICK_BAD",
+                "",
+                false
+            )
+            break
+        end
+
+        PlaySoundFrontend(
+            -1,
+            "HACKING_SUCCESS",
+            "",
+            true
+        )
+
+        Citizen.Wait(2000)
+
+        -- Wait until any prior progress bar has actually finished.
+        local waitStartedAt =
+            GetGameTimer()
+
+        while CMG.isProgressBarRunning() do
+            assert(
+                GetGameTimer() - waitStartedAt
+                    < 5000,
+                "Timed out whilst waiting for progress bar to finished"
+            )
+
+            Wait(0)
+        end
+
+        PlaySoundFrontend(
+            -1,
+            "HACKING_CLICK",
+            "",
+            true
+        )
+
+        CMG.startCircularProgressBar(
+            "",
+            2000,
+            nil,
+            function()
+            end
+        )
+
+        -- Tell the server this wire stage succeeded.
+        TriggerServerEvent(
+            "d96c9842ab",
+            atmId,
+            false
+        )
+
+        Citizen.Wait(2000)
+    end
+
+    notificationThreadDone = true
+
+    return minigameSucceeded
 end
-SHX22_1(SHX23_1, SHX24_1)
+
+
+-- ============================================================
+-- ROBBERY POSITION HELPER
+-- ============================================================
+
+-- Finds a point roughly 0.65m in front of a robbery ATM.
+local function getAtmFrontPosition(atmCoords)
+    local pitch =
+        math.rad(-0.8738472)
+
+    local heading =
+        math.rad(atmCoords.w)
+
+    local direction =
+        vector3(
+            -math.sin(heading)
+                * math.abs(math.cos(pitch)),
+
+            math.cos(heading)
+                * math.abs(math.cos(pitch)),
+
+            math.sin(pitch)
+        )
+
+    return
+        atmCoords.xyz +
+        direction * 0.65
+end
+
+
+-- ============================================================
+-- ROBBERY VISUAL / AUDIO EVENTS
+-- ============================================================
+
+-- Electrical spark + money-rain effect for 15 seconds.
+RegisterNetEvent("c80193f4f4", function(atmId)
+    local atmCoords =
+        atmConfig.robberyAtms[atmId]
+
+    if not atmCoords then
+        return
+    end
+
+    local front =
+        getAtmFrontPosition(atmCoords)
+
+    CMG.loadPtfx("core")
+
+    StartParticleFxNonLoopedAtCoord(
+        "ent_sht_electrical_box",
+        front.x,
+        front.y,
+        front.z - 0.5,
+        atmCoords.w,
+        0.0,
+        0.0,
+        2.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveNamedPtfxAsset("core")
+
+    CMG.loadPtfx(
+        "scr_xs_celebration"
+    )
+
+    local moneyFx =
+        StartParticleFxLoopedAtCoord(
+            "scr_xs_money_rain",
+            front.x,
+            front.y,
+            front.z - 0.2,
+            atmCoords.w + 90.0,
+            0.0,
+            0.0,
+            1.0,
+            false,
+            false,
+            false,
+            false
+        )
+
+    RemoveNamedPtfxAsset(
+        "scr_xs_celebration"
+    )
+
+    Citizen.Wait(15000)
+
+    StopParticleFxLooped(
+        moneyFx,
+        false
+    )
+end)
+
+
+-- Plays repeated pickup/beep sounds for 15 seconds.
+RegisterNetEvent("0d0bba08e3", function()
+    local startedAt = GetGameTimer()
+    local lastSoundAt = 0
+
+    while GetGameTimer() - startedAt <= 15000 do
+        local now = GetGameTimer()
+
+        if now - lastSoundAt
+            >= math.random(150, 650) then
+
+            PlaySoundFrontend(
+                -1,
+                "Bus_Schedule_Pickup",
+                "DLC_PRISON_BREAK_HEIST_SOUNDS",
+                false
+            )
+
+            lastSoundAt = now
+        end
+
+        Citizen.Wait(0)
+    end
+end)
+
+
+-- Single electrical-destruction particle.
+RegisterNetEvent("d96c9842ab", function(atmId)
+    local atmCoords =
+        atmConfig.robberyAtms[atmId]
+
+    if not atmCoords then
+        return
+    end
+
+    local front =
+        getAtmFrontPosition(atmCoords)
+
+    CMG.loadPtfx("core")
+
+    StartParticleFxNonLoopedAtCoord(
+        "ent_dst_electrical",
+        front.x,
+        front.y,
+        front.z - 0.5,
+        atmCoords.w,
+        0.0,
+        0.0,
+        2.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveNamedPtfxAsset("core")
+end)
+
+
+-- Smoothly updates framework value/event "dba3e00154" over ten seconds.
+RegisterNetEvent(
+    "0b6d9ff2bc",
+    function(startValue, amountToAdd)
+        CMG.setPlayerCombatTimer(
+            60,
+            false
+        )
+
+        local startedAt =
+            GetGameTimer()
+
+        while true do
+            local elapsed =
+                GetGameTimer() - startedAt
+
+            if elapsed >= 10000 then
+                TriggerEvent(
+                    "dba3e00154",
+                    startValue + amountToAdd
+                )
+                break
+            end
+
+            local progress =
+                elapsed / 10000
+
+            TriggerEvent(
+                "dba3e00154",
+                startValue +
+                    math.floor(
+                        amountToAdd * progress
+                    )
+            )
+
+            Citizen.Wait(0)
+        end
+    end
+)
+
+
+-- Small burst/explosion-style particle at an ATM.
+RegisterNetEvent("f0b274ca98", function(atmId)
+    local atmCoords =
+        atmConfig.robberyAtms[atmId]
+
+    if not atmCoords then
+        return
+    end
+
+    CMG.loadPtfx(
+        "veh_xs_vehicle_mods"
+    )
+
+    for _ = 1, 10 do
+        UseParticleFxAsset(
+            "veh_xs_vehicle_mods"
+        )
+
+        StartParticleFxNonLoopedAtCoord(
+            "exp_xs_mine_tar",
+            atmCoords.x,
+            atmCoords.y,
+            atmCoords.z - 0.5,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            false,
+            false,
+            false
+        )
+
+        Citizen.Wait(50)
+    end
+
+    RemoveNamedPtfxAsset(
+        "veh_xs_vehicle_mods"
+    )
+end)
+
+
+-- One-minute burglar alarm.
+RegisterNetEvent("9b400f568d", function(atmId)
+    local atmCoords =
+        atmConfig.robberyAtms[atmId]
+
+    if not atmCoords then
+        return
+    end
+
+    while not RequestScriptAudioBank(
+        "Alarms",
+        false
+    ) do
+        Citizen.Wait(0)
+    end
+
+    local soundId = GetSoundId()
+
+    PlaySoundFromCoord(
+        soundId,
+        "Burglar_Bell",
+        atmCoords.x,
+        atmCoords.y,
+        atmCoords.z,
+        "Generic_Alarms",
+        false,
+        0.05,
+        false
+    )
+
+    Citizen.Wait(60000)
+
+    StopSound(soundId)
+    ReleaseSoundId(soundId)
+end)
+
+
+-- ============================================================
+-- ROBBERY DOOR / SMASHING STATE
+-- ============================================================
+
+local requiredDoorHits = 0
+local currentDoorHits = 0
+local smashAnimationBusy = false
+
+-- Network time when this robbery ATM was most recently robbed.
+local lastRobbedNetworkTime = 0
+
+-- Same event handler earlier in the file uses this as a general "robbery
+-- sequence owns the player" lock.
+-- robberySequenceActive is declared near the top.
+
+
+local function onEnterRobberyAtm(areaData)
+    requiredDoorHits =
+        math.random(6, 12)
+
+    lastRobbedNetworkTime = 0
+
+    TriggerServerEvent(
+        "f448952ef9",
+        areaData.robberyId
+    )
+end
+
+
+local function onLeaveRobberyAtm(areaData)
+    if robberySequenceActive then
+        TriggerServerEvent(
+            "ec10dc3f68",
+            areaData.robberyId
+        )
+    end
+
+    currentDoorHits = 0
+end
+
+
+local function playRandomSmashSound()
+    RequestScriptAudioBank(
+        "NIGEL_02_CRASH_A",
+        true
+    )
+
+    RequestScriptAudioBank(
+        "NIGEL_02_CRASH_B",
+        true
+    )
+
+    Citizen.Wait(500)
+
+    local coords = CMG.getPlayerCoords()
+
+    local soundName =
+        math.random(1, 10) >= 8
+        and "WINDOW_CRASH"
+        or "WALL_CRASH"
+
+    PlaySoundFromCoord(
+        -1,
+        soundName,
+        coords.x,
+        coords.y,
+        coords.z,
+        "NIGEL_02_SOUNDSET",
+        false,
+        0,
+        false
+    )
+
+    Citizen.Wait(1500)
+
+    ReleaseNamedScriptAudioBank(
+        "NIGEL_02_CRASH_B"
+    )
+
+    ReleaseNamedScriptAudioBank(
+        "NIGEL_02_CRASH_A"
+    )
+end
+
+
+local smashParticleChoices = {
+    {
+        "des_vaultdoor",
+        "ent_ray_pro1_concrete_impacts"
+    },
+    {
+        "des_fib_glass",
+        "ent_ray_fbi2_window_break"
+    }
+}
+
+
+local function playRandomSmashParticles()
+    local fx =
+        smashParticleChoices[
+            math.random(
+                1,
+                #smashParticleChoices
+            )
+        ]
+
+    CMG.loadPtfx(fx[1])
+
+    Citizen.Wait(500)
+
+    UseParticleFxAsset(fx[1])
+
+    local coords = CMG.getPlayerCoords()
+
+    local forward =
+        GetEntityForwardVector(
+            PlayerPedId()
+        )
+
+    local effectCoords =
+        coords + forward * 1.0
+
+    StartParticleFxNonLoopedAtCoord(
+        fx[2],
+        effectCoords.x,
+        effectCoords.y,
+        effectCoords.z,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveNamedPtfxAsset(fx[1])
+end
+
+
+local function waitForScriptTask(
+    ped,
+    taskHash
+)
+    while GetScriptTaskStatus(
+        ped,
+        taskHash
+    ) ~= 7 do
+        Citizen.Wait(0)
+    end
+end
+
+
+local function beginDoorSmash(
+    robberyId,
+    atmCoords
+)
+    if smashAnimationBusy then
+        return
+    end
+
+    smashAnimationBusy = true
+
+    local ped = PlayerPedId()
+
+    ClearPedTasks(ped)
+
+    TaskGoStraightToCoord(
+        ped,
+        atmCoords.x,
+        atmCoords.y,
+        atmCoords.z,
+        1.0,
+        3000,
+        atmCoords.w,
+        0.35
+    )
+
+    waitForScriptTask(
+        ped,
+        2106541073
+    )
+
+    CMG.loadAnimDict(
+        "melee@small_wpn@streamed_core"
+    )
+
+    ped = PlayerPedId()
+
+    TaskPlayAnim(
+        ped,
+        "melee@small_wpn@streamed_core",
+        "ground_attack_on_spot",
+        8.0,
+        8.0,
+        -1,
+        1,
+        1.0,
+        false,
+        false,
+        false
+    )
+
+    RemoveAnimDict(
+        "melee@small_wpn@streamed_core"
+    )
+
+    Citizen.CreateThread(
+        playRandomSmashSound
+    )
+
+    Citizen.CreateThread(
+        playRandomSmashParticles
+    )
+
+    Citizen.Wait(2000)
+
+    ClearPedTasks(ped)
+
+    currentDoorHits =
+        currentDoorHits + 1
+
+    if currentDoorHits >= requiredDoorHits then
+        TriggerServerEvent(
+            "c63557b5fa",
+            robberyId
+        )
+    end
+
+    TaskPedSlideToCoord(
+        ped,
+        atmCoords.x,
+        atmCoords.y,
+        atmCoords.z,
+        atmCoords.w,
+        2000
+    )
+
+    waitForScriptTask(
+        ped,
+        1045468327
+    )
+
+    smashAnimationBusy = false
+end
+
+
+local function robberyAtmTick(areaData)
+    if robberySequenceActive then
+        return
+    end
+
+    local ped = PlayerPedId()
+
+    local _, weaponHash =
+        GetCurrentPedWeapon(
+            ped,
+            0,
+            false
+        )
+
+    -- Exact weapon required by the original script.
+    if weaponHash ~= -2067956739 then
+        return
+    end
+
+    -- Fifteen-minute local cooldown display.
+    if lastRobbedNetworkTime > 0 then
+        local remainingMs =
+            lastRobbedNetworkTime +
+            900000 -
+            GetNetworkTime()
+
+        if remainingMs > 0 then
+            drawNativeNotification(
+                "This ATM has been robbed recently. You can rob it in " ..
+                formatTimeString(
+                    formatTime(
+                        remainingMs / 1000
+                    )
+                ),
+                true
+            )
+        end
+
+        return
+    end
+
+    drawNativeNotification(
+        "Hit the ATM with ~INPUT_ATTACK~ to begin breaking the door."
+    )
+
+    if currentDoorHits > 0 then
+        local percentage =
+            math.floor(
+                currentDoorHits /
+                requiredDoorHits *
+                100
+            )
+
+        percentage =
+            math.min(percentage, 100)
+
+        subtitleText(
+            "~r~ATM door damage " ..
+            tostring(percentage) ..
+            "%"
+        )
+    end
+
+    if RageUI.Visible(atmMenu) then
+        RageUI.Visible(
+            atmMenu,
+            false
+        )
+    end
+
+    DisableControlAction(
+        0,
+        24,
+        true
+    )
+
+    if IsDisabledControlJustPressed(
+        0,
+        24
+    ) then
+        local robberyId =
+            areaData.robberyId
+
+        local atmCoords =
+            atmConfig.robberyAtms[
+                robberyId
+            ]
+
+        if atmCoords then
+            Citizen.CreateThreadNow(
+                function()
+                    beginDoorSmash(
+                        robberyId,
+                        atmCoords
+                    )
+                end
+            )
+        end
+    end
+end
+
+
+-- ============================================================
+-- SERVER: START THE WIRE-CUT STAGE
+-- ============================================================
+
+RegisterNetEvent(
+    "c63557b5fa",
+    function(atmId, difficultyModifier)
+        robberySequenceActive = true
+
+        local ped = PlayerPedId()
+        local atmCoords =
+            atmConfig.robberyAtms[atmId]
+
+        if not atmCoords then
+            robberySequenceActive = false
+            return
+        end
+
+        tCMG.setCanAnim(false)
+
+        CMG.setPlayerCombatTimer(
+            30,
+            false
+        )
+
+        -- Put normal weapon away.
+        CMG.setWeapon(
+            ped,
+            -1569615261,
+            true
+        )
+
+        ClearPedTasksImmediately(ped)
+
+        Citizen.Wait(1000)
+
+        TaskGoStraightToCoord(
+            ped,
+            atmCoords.x,
+            atmCoords.y,
+            atmCoords.z,
+            1.0,
+            5000,
+            atmCoords.w,
+            0.1
+        )
+
+        waitForScriptTask(
+            ped,
+            2106541073
+        )
+
+        CMG.loadClipSet(
+            "move_ped_crouched"
+        )
+
+        SetPedCanPlayAmbientAnims(
+            ped,
+            false
+        )
+
+        SetPedCanPlayAmbientBaseAnims(
+            ped,
+            false
+        )
+
+        SetPedMovementClipset(
+            ped,
+            "move_ped_crouched",
+            0.35
+        )
+
+        SetPedStrafeClipset(
+            ped,
+            "move_ped_crouched_strafing"
+        )
+
+        RemoveClipSet(
+            "move_ped_crouched"
+        )
+
+        CMG.loadAnimDict(
+            "mini@repair"
+        )
+
+        TaskPlayAnim(
+            ped,
+            "mini@repair",
+            "fixing_a_ped",
+            8.0,
+            -8.0,
+            -1,
+            17,
+            0,
+            false,
+            false,
+            false
+        )
+
+        RemoveAnimDict(
+            "mini@repair"
+        )
+
+        local success =
+            runAtmWireMinigame(
+                atmId,
+                difficultyModifier
+            )
+
+        TriggerServerEvent(
+            "6c81c57c72",
+            atmId,
+            success
+        )
+
+        StopAnimTask(
+            ped,
+            "mini@repair",
+            "fixing_a_ped",
+            1.0
+        )
+
+        ResetPedStrafeClipset(ped)
+
+        ResetPedMovementClipset(
+            ped,
+            0.0
+        )
+
+        SetPedCanPlayAmbientAnims(
+            ped,
+            true
+        )
+
+        SetPedCanPlayAmbientBaseAnims(
+            ped,
+            true
+        )
+
+        tCMG.setCanAnim(true)
+
+        robberySequenceActive = false
+    end
+)
+
+
+-- ============================================================
+-- ROBBERY AREAS / COOLDOWN UPDATE
+-- ============================================================
+
+Citizen.CreateThread(function()
+    for robberyId, coords
+        in pairs(atmConfig.robberyAtms) do
+
+        CMG.createArea(
+            "atmrobbery_" .. robberyId,
+            coords.xyz,
+            1.5,
+            6,
+            onEnterRobberyAtm,
+            onLeaveRobberyAtm,
+            robberyAtmTick,
+            {robberyId = robberyId}
+        )
+    end
+end)
+
+
+-- Server sends the network timestamp of the last robbery.
+RegisterNetEvent("de574bb3d5", function(networkTime)
+    lastRobbedNetworkTime =
+        networkTime
+end)
