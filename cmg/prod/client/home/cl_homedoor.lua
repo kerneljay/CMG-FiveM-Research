@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Homedoor
+    ======================================
+
+    File: cmg/prod/client/home/cl_homedoor.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: housing/home gameplay, specifically the Homedoor feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 3
+      * Background threads: 2
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 65628adf18, 97c2f3afb4
+      * Local event handlers: none found by static scan
+      * Server events sent: 536b0723e3, 12558d4fd3
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/homes
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Home Door Peephole
     ==================
 
@@ -45,6 +83,7 @@ local editingRotation = false
 -- CLOSE CAMERA
 -- ============================================================
 
+-- === HELPER FUNCTION: closePeephole() ===
 local function closePeephole()
     if not peepholeCamera then
         return
@@ -93,6 +132,7 @@ end
 -- OPEN CAMERA
 -- ============================================================
 
+-- === HELPER FUNCTION: openPeephole() ===
 local function openPeephole()
     assert(
         peepholeHeading,
@@ -219,6 +259,7 @@ CMG.registerHomeCustomisationButtons(
                         editingRotation =
                             true
 
+                        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
                         Citizen.CreateThread(
                             openPeephole
                         )
@@ -248,6 +289,7 @@ CMG.registerHomeCustomisationButtons(
 -- HOME EXIT BUTTON
 -- ============================================================
 
+-- === HELPER FUNCTION: drawPeepholeExitButton() ===
 local function drawPeepholeExitButton()
     RageUI.ButtonWithStyle(
         "View Peephole",
@@ -258,6 +300,7 @@ local function drawPeepholeExitButton()
             if selected
                 and not peepholeCamera then
 
+                -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
                 Citizen.CreateThread(
                     openPeephole
                 )

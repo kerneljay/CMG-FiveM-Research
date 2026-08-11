@@ -1,41 +1,56 @@
 --[[
-    Beginner Guide: cl_cayoperico_loader.lua
-    ========================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Cayoperico Loader
-    ==================================
+    LEVEL 1 BEGINNER GUIDE — Cayoperico Loader
+    ===============================================
 
     File: cmg/prod/client/misc/cl_cayoperico_loader.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Cayoperico Loader feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 12
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Example player-facing text in this file:
-      * PlayerOnDLCHeist4Island
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, textValue21, cmgCall, textValue43, textValue46, textValue47, flag4, textValue48, textValue49, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue32, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue44, textValue45
 dataTable = {}
@@ -180,12 +195,16 @@ dataTable2[63] = textValue5
 dataTable2[64] = textValue6
 textValue21 = false
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue43; parameters: none) ===
 function textValue43()
   local arg1, flag
   arg1 = textValue21
   return arg1
 end
 cmgCall.isInCayoPerico = textValue43
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, flag, textValue22
   arg1 = textValue21
@@ -219,6 +238,8 @@ function cmgCall()
   arg1(flag, textValue22)
 end
 TogglePerico = cmgCall
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: arg1) ===
 function cmgCall(arg1)
   local flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3, workValue4
   flag = SetIslandHopperEnabled
@@ -283,6 +304,8 @@ function cmgCall(arg1)
   end
 end
 EnableCayoPerico = cmgCall
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: arg1) ===
 function cmgCall(arg1)
   local flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3, workValue4
   flag = SetIslandHopperEnabled
@@ -349,6 +372,8 @@ end
 DisableCayoPerico = cmgCall
 cmgCall = Citizen
 cmgCall = cmgCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: textValue43; parameters: none) ===
 function textValue43()
   local arg1, flag, textValue22, flag2, flag3, numberValue, numberValue2, workValue3
   arg1 = CMG
@@ -361,16 +386,22 @@ function textValue43()
   textValue22 = textValue22(flag2, flag3, numberValue)
   flag2 = 2142.0
   flag3 = 1400.0
+
+  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
   function numberValue()
     local workValue, workValue2
     workValue = TogglePerico
     workValue()
   end
+
+  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
   function numberValue2()
     local workValue, workValue2
     workValue = TogglePerico
     workValue()
   end
+
+  -- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
   function workValue3()
     local workValue, workValue2
   end
@@ -382,6 +413,8 @@ cmgCall(textValue43)
 cmgCall = RegisterNetEvent
 textValue43 = "EnableCayoPerico"
 -- Beginner: this function handles network event "EnableCayoPerico".
+
+-- === HELPER FUNCTION (decompiler name: textValue46; parameters: none) ===
 function textValue46()
   local arg1, flag
   arg1 = EnableCayoPerico
@@ -393,6 +426,8 @@ cmgCall(textValue43, textValue46)
 cmgCall = RegisterNetEvent
 textValue43 = "DisableCayoPerico"
 -- Beginner: this function handles network event "DisableCayoPerico".
+
+-- === HELPER FUNCTION (decompiler name: textValue46; parameters: none) ===
 function textValue46()
   local arg1, flag
   arg1 = DisableCayoPerico
@@ -405,6 +440,8 @@ cmgCall = false
 textValue43 = false
 textValue46 = Citizen
 textValue46 = textValue46.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: textValue47; parameters: none) ===
 function textValue47()
   local arg1, flag, textValue22, flag2, flag3
   while true do
@@ -439,6 +476,8 @@ end
 textValue46(textValue47)
 textValue46 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: textValue47; parameters: none) ===
 function textValue47()
   local arg1, flag, textValue22, flag2, flag3, numberValue, numberValue2
   while true do

@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Store
+    ===================================
+
+    File: cmg/prod/client/core/cl_store.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Store feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 18
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: store
+      * Incoming network events: c0823e196e, 7186a02c28, 46e04ab78a, 2d25483829, 7fc7111a60, 3355341629, de6c00047f, f28f82d7c9, 8868f548de, 3496b19fd4
+      * Local event handlers: 919aefda0c, CMG:onClientSpawn
+      * Server events sent: 7920f0299e, 39e37ff016, dc21aa19f9, 0ddb1b6e9d, 0ee232fdca, 6d07788b0f, 80f8eda00b, 965a575cfd, 51208becbd
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_store
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     CMG Store / Donation Inventory Client
     ======================================
 
@@ -96,6 +134,7 @@ local xpBoostExpiresText = "N/A"
 local CUSTOM_NAME_KVP =
     "cmg_customStoreNameUUIDs"
 
+-- === HELPER FUNCTION: saveCustomPackageNames() ===
 local function saveCustomPackageNames()
     SetResourceKvp(
         CUSTOM_NAME_KVP,
@@ -103,6 +142,7 @@ local function saveCustomPackageNames()
     )
 end
 
+-- === HELPER FUNCTION: loadCustomPackageNames() ===
 local function loadCustomPackageNames()
     local raw =
         GetResourceKvpString(
@@ -120,6 +160,7 @@ local function loadCustomPackageNames()
     end
 end
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(
     loadCustomPackageNames
 )
@@ -210,6 +251,7 @@ local confirmDeleteMenu =
 -- PACKAGE HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: getSelectedPackage() ===
 local function getSelectedPackage()
     if not selectedPackageUuid then
         return nil
@@ -222,6 +264,7 @@ local function getSelectedPackage()
 end
 
 
+-- === HELPER FUNCTION: getItemConfig(package) ===
 local function getItemConfig(package)
     if not package then
         return nil
@@ -257,6 +300,7 @@ local function getPackageDisplayName(
 end
 
 
+-- === HELPER FUNCTION: sortedPackageEntries() ===
 local function sortedPackageEntries()
     local entries = {}
 
@@ -290,6 +334,7 @@ local function sortedPackageEntries()
 end
 
 
+-- === HELPER FUNCTION: resetRedeemState() ===
 local function resetRedeemState()
     redeemArguments = {}
     selectedItemConfig = nil
@@ -344,6 +389,8 @@ end
 
 -- argsTemplate entries are server/config-driven.
 -- The client only needs a generic way to request text/numeric/list values.
+
+-- === HELPER FUNCTION: drawRedeemArgument(arg) ===
 local function drawRedeemArgument(arg)
     local current =
         redeemArguments[arg.field]
@@ -481,6 +528,7 @@ local function openVehicleRedeem(
 end
 
 
+-- === HELPER FUNCTION: drawVehicleGarageButtons() ===
 local function drawVehicleGarageButtons()
     for garageName, garageData
         in pairs(
@@ -520,6 +568,7 @@ local function drawVehicleGarageButtons()
 end
 
 
+-- === HELPER FUNCTION: drawVehicleButtons() ===
 local function drawVehicleButtons()
     for modelName, vehicleData
         in pairs(
@@ -576,6 +625,7 @@ end
 -- VEHICLE PREVIEW / STORE TESTING
 -- ============================================================
 
+-- === HELPER FUNCTION: stopVehiclePreview() ===
 local function stopVehiclePreview()
     if previewVehicle ~= 0
         and DoesEntityExist(
@@ -601,11 +651,13 @@ local function stopVehiclePreview()
 end
 
 
+-- === HELPER FUNCTION: CMG.isInStoreTesting() ===
 function CMG.isInStoreTesting()
     return inStoreTesting
 end
 
 
+-- === HELPER FUNCTION: startVehiclePreview(modelName) ===
 local function startVehiclePreview(modelName)
     if inStoreTesting then
         return

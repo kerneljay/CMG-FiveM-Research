@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Prison Jobs
+    =========================================
+
+    File: cmg/prod/client/hmp/cl_prisonJobs.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: prison gameplay, specifically the Prison Jobs feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 5
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: c88f69209e, 7a9cb961f5, 9be829c8d9
+      * Local event handlers: none found by static scan
+      * Server events sent: 7a9cb961f5, 9be829c8d9
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_prison
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Prison Cleaning Job
     ===================
 
@@ -106,6 +144,7 @@ end
 -- PLAY ONE CLEANING ANIMATION
 -- ============================================================
 
+-- === HELPER FUNCTION: playCleaningAnimation() ===
 local function playCleaningAnimation()
     local ped =
         PlayerPedId()
@@ -187,6 +226,7 @@ end
 -- CREATE MOP ON DEMAND
 -- ============================================================
 
+-- === HELPER FUNCTION: ensureMopExists(ped) ===
 local function ensureMopExists(ped)
     if DoesEntityExist(
         mopEntity
@@ -234,6 +274,7 @@ end
 -- MAIN CLEANING TICK
 -- ============================================================
 
+-- === HELPER FUNCTION: prisonCleaningTick() ===
 local function prisonCleaningTick()
     if not CMG.isPlayerNearPrison() then
         local now =
@@ -372,6 +413,7 @@ local function prisonCleaningTick()
         currentlyCleaning =
             true
 
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(
             playCleaningAnimation
         )

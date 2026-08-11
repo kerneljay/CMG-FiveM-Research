@@ -1,18 +1,40 @@
 --[[
-    BEGINNER GUIDE — Box Zone
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Box Zone
+    ======================================
 
     File: cmg/util/client/polyzone/BoxZone.lua
-    Purpose: This file contains shared utility code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: PolyZone geometry/zone library code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
+    Quick map of this file (automatic static scan):
+      * Named functions: 16
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ---@diagnostic disable
 
@@ -22,6 +44,8 @@ setmetatable(BoxZone, { __index = PolyZone })
 
 -- Utility functions
 local rad, cos, sin = math.rad, math.cos, math.sin
+
+-- === HELPER FUNCTION: PolyZone.rotate(origin, point, theta) ===
 function PolyZone.rotate(origin, point, theta)
   if theta == 0.0 then return point end
 
@@ -35,6 +59,7 @@ function PolyZone.rotate(origin, point, theta)
   return vector2(x, y) + origin
 end
 
+-- === HELPER FUNCTION: BoxZone.calculateMinAndMaxZ(minZ, maxZ, scaleZ, offsetZ) ===
 function BoxZone.calculateMinAndMaxZ(minZ, maxZ, scaleZ, offsetZ)
   local minScaleZ, maxScaleZ, minOffsetZ, maxOffsetZ = scaleZ[1] or 1.0, scaleZ[2] or 1.0, offsetZ[1] or 0.0, offsetZ[2] or 0.0
   if (minZ == nil and maxZ == nil) or (minScaleZ == 1.0 and maxScaleZ == 1.0 and minOffsetZ == 0.0 and maxOffsetZ == 0.0) then
@@ -62,6 +87,7 @@ function BoxZone.calculateMinAndMaxZ(minZ, maxZ, scaleZ, offsetZ)
   return minZ, maxZ
 end
 
+-- === HELPER FUNCTION: _calculateScaleAndOffset(options) ===
 local function _calculateScaleAndOffset(options)
   -- Scale and offset tables are both formatted as {forward, back, left, right, up, down}
   -- or if symmetrical {forward/back, left/right, up/down}
@@ -82,6 +108,7 @@ local function _calculateScaleAndOffset(options)
   return minOffset, maxOffset, minScale, maxScale
 end
 
+-- === HELPER FUNCTION: _calculatePoints(center, length, width, minScale, maxScale, minOffset, maxOffset) ===
 local function _calculatePoints(center, length, width, minScale, maxScale, minOffset, maxOffset)
   local halfLength, halfWidth = length / 2, width / 2
   local min = vector3(-halfWidth, -halfLength, 0.0)
@@ -99,6 +126,8 @@ local function _calculatePoints(center, length, width, minScale, maxScale, minOf
 end
 
 -- Debug drawing functions
+
+-- === HELPER FUNCTION: BoxZone:TransformPoint(point) ===
 function BoxZone:TransformPoint(point)
   -- Overriding TransformPoint function to take into account rotation and position offset
   return PolyZone.rotate(self.startPos, point, self.offsetRot) + self.offsetPos
@@ -106,12 +135,15 @@ end
 
 
 -- Initialization functions
+
+-- === HELPER FUNCTION: _initDebug(zone, options) ===
 local function _initDebug(zone, options)
   if options.debugBlip then zone:addDebugBlip() end
   if not options.debugPoly then
     return
   end
 
+  -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
   Citizen.CreateThread(function()
     while not zone.destroyed do
       zone:draw(false)
@@ -122,6 +154,8 @@ end
 
 local defaultMinOffset, defaultMaxOffset, defaultMinScale, defaultMaxScale = vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0), vector3(1.0, 1.0, 1.0), vector3(1.0, 1.0, 1.0)
 local defaultScaleZ, defaultOffsetZ = {defaultMinScale.z, defaultMaxScale.z}, {defaultMinOffset.z, defaultMaxOffset.z}
+
+-- === HELPER FUNCTION: BoxZone:new(center, length, width, options) ===
 function BoxZone:new(center, length, width, options)
   local minOffset, maxOffset, minScale, maxScale = defaultMinOffset, defaultMaxOffset, defaultMinScale, defaultMaxScale
   local scaleZ, offsetZ = defaultScaleZ, defaultOffsetZ
@@ -165,6 +199,7 @@ function BoxZone:new(center, length, width, options)
   return zone
 end
 
+-- === HELPER FUNCTION: BoxZone:Create(center, length, width, options) ===
 function BoxZone:Create(center, length, width, options)
   local zone = BoxZone:new(center, length, width, options)
   _initDebug(zone, options)
@@ -173,6 +208,8 @@ end
 
 
 -- Helper functions
+
+-- === HELPER FUNCTION: BoxZone:isPointInside(point) ===
 function BoxZone:isPointInside(point)
   if self.destroyed then
     print("[PolyZone] Warning: Called isPointInside on destroyed zone {name=" .. self.name .. "}")
@@ -199,10 +236,12 @@ function BoxZone:isPointInside(point)
   return true
 end
 
+-- === HELPER FUNCTION: BoxZone:getHeading() ===
 function BoxZone:getHeading()
   return self.offsetRot
 end
 
+-- === HELPER FUNCTION: BoxZone:setHeading(heading) ===
 function BoxZone:setHeading(heading)
   if not heading then
     return
@@ -210,6 +249,7 @@ function BoxZone:setHeading(heading)
   self.offsetRot = heading
 end
 
+-- === HELPER FUNCTION: BoxZone:setCenter(center) ===
 function BoxZone:setCenter(center)
   if not center or center == self.center then
     return
@@ -219,10 +259,12 @@ function BoxZone:setCenter(center)
   self.points = _calculatePoints(self.center, self.length, self.width, self.minScale, self.maxScale, self.minOffset, self.maxOffset)
 end
 
+-- === HELPER FUNCTION: BoxZone:getLength() ===
 function BoxZone:getLength()
   return self.length
 end
 
+-- === HELPER FUNCTION: BoxZone:setLength(length) ===
 function BoxZone:setLength(length)
   if not length or length == self.length then
     return
@@ -231,10 +273,12 @@ function BoxZone:setLength(length)
   self.points = _calculatePoints(self.center, self.length, self.width, self.minScale, self.maxScale, self.minOffset, self.maxOffset)
 end
 
+-- === HELPER FUNCTION: BoxZone:getWidth() ===
 function BoxZone:getWidth()
   return self.width
 end
 
+-- === HELPER FUNCTION: BoxZone:setWidth(width) ===
 function BoxZone:setWidth(width)
   if not width or width == self.width then
     return

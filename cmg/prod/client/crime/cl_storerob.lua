@@ -1,73 +1,56 @@
 --[[
-    Beginner Guide: cl_storerob.lua
-    ===============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Important events used:
-      * 
-cmgCall2 = cmgCall2[eventHandlerRegistration]
-eventHandlerRegistration = 
-      * 
-eventHandlerRegistration = eventHandlerRegistration[textValue4]
-textValue4 = 
-      * 
-numberValue4 = numberValue4[numberValue5]
-numberValue5 = 
-      * 
-numberValue6 = numberValue6[numberValue7]
-numberValue7 = 
-      * 
-workValue3 = workValue3[cmgCall2]
-cmgCall2 = 
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Storerob
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Storerob
+    ======================================
 
     File: cmg/prod/client/crime/cl_storerob.lua
-    Purpose: This file contains crime/gang/heist gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: crime, robbery, gang, and criminal gameplay, specifically the Storerob feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 40
+      * Background threads: 0
+      * Always-running loops: 14
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 12
-      They are intentionally left unchanged because matching server code may use them.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~r~You need a weapon in your hands to rob this store!
-      * Press ~INPUT_CONTEXT~ to grab the money!
-      * Press ~INPUT_CONTEXT~ to start cracking the safe!
-      * ~INPUT_CELLPHONE_UP~
-      * ~INPUT_CELLPHONE_RIGHT~
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local textValue, textValue3, textValue5, textValue7, workValue5, workValue6, workValue7, gameTime, numberValue13, numberValue15, numberValue, workValue, flag4, textValue2, flag5, flag7, dataTable, dataTable2, vector3Builder, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, workValue2, workValue3, cmgCall2, eventHandlerRegistration, textValue4, workValue4
 textValue = "rotation.clockwise"
@@ -1208,6 +1191,8 @@ vector3Builder.insideStore = false
 vector3Builder.robberyInProgress = false
 vector3Builder.isPlayingAnims = false
 dataTable[dataTable2] = vector3Builder
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, flag18, flag19, flag21
   arg2 = BeginTextCommandDisplayHelp
@@ -1223,6 +1208,8 @@ function dataTable2(arg1)
   flag21 = -1
   arg2(arg3, flag18, flag19, flag21)
 end
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: arg1, arg2, arg3) ===
 function vector3Builder(arg1, arg2, arg3)
   local flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15
   flag18 = IsPedDeadOrDying
@@ -1429,6 +1416,8 @@ function vector3Builder(arg1, arg2, arg3)
             flag4 = numberValue16
             numberValue16 = Citizen
             numberValue16 = numberValue16.CreateThread
+
+            -- === HELPER FUNCTION: hashValue() ===
             function hashValue()
               local coords, cmgCall, textValue6, textValue8, flag20
               while true do
@@ -1517,6 +1506,8 @@ function vector3Builder(arg1, arg2, arg3)
           end
           numberValue16 = Citizen
           numberValue16 = numberValue16.CreateThread
+
+          -- === HELPER FUNCTION: hashValue() ===
           function hashValue()
             local coords, cmgCall, textValue6, textValue8, flag20, numberValue9, numberValue10, numberValue12, numberValue14, flag24, flag, flag3
             coords = TaskPlayAnim
@@ -1572,6 +1563,8 @@ numberValue4 = _ENV
 numberValue5 = "AddEventHandler"
 numberValue4 = numberValue4[numberValue5]
 numberValue5 = "CMG:onClientSpawn"
+
+-- === HELPER FUNCTION (decompiler name: numberValue6; parameters: arg1, arg2) ===
 function numberValue6(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2
   if arg2 then
@@ -1614,6 +1607,8 @@ numberValue5 = "Citizen"
 numberValue4 = numberValue4[numberValue5]
 numberValue5 = "CreateThread"
 numberValue4 = numberValue4[numberValue5]
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16
   while true do
@@ -1653,6 +1648,8 @@ function numberValue5()
 end
 numberValue4(numberValue5)
 numberValue4 = {}
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
 function numberValue5(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8
   workValue = arg1
@@ -1707,6 +1704,8 @@ numberValue6 = _ENV
 numberValue7 = "RegisterNetEvent"
 numberValue6 = numberValue6[numberValue7]
 numberValue7 = "b598315839"
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1) ===
 function numberValue8(arg1)
   local arg2, arg3
   arg2 = numberValue5
@@ -1719,6 +1718,8 @@ numberValue7 = "Citizen"
 numberValue6 = numberValue6[numberValue7]
 numberValue7 = "CreateThread"
 numberValue6 = numberValue6[numberValue7]
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11, flag12, flag13, flag14, flag15, flag16, flag17
   arg1 = pairs
@@ -2047,6 +2048,8 @@ numberValue6(numberValue7)
 numberValue6 = true
 numberValue7 = 0
 numberValue8 = 3000
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue
   arg1 = numberValue6
@@ -2130,6 +2133,8 @@ function workValue2()
                     numberValue6 = flag23
                     flag23 = SetTimeout
                     numberValue16 = 40000
+
+                    -- === HELPER FUNCTION: hashValue() ===
                     function hashValue()
                       local coords, cmgCall
                       coords = true
@@ -2158,6 +2163,8 @@ workValue3 = _ENV
 cmgCall2 = "RegisterNetEvent"
 workValue3 = workValue3[cmgCall2]
 cmgCall2 = "95dec7b268"
+
+-- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
 function eventHandlerRegistration(arg1)
   local arg2
   arg2 = dataTable
@@ -2169,6 +2176,8 @@ workValue3 = _ENV
 cmgCall2 = "RegisterNetEvent"
 workValue3 = workValue3[cmgCall2]
 cmgCall2 = "880648a891"
+
+-- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
 function eventHandlerRegistration(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6
   arg2 = dataTable
@@ -2220,6 +2229,8 @@ workValue3 = _ENV
 cmgCall2 = "RegisterNetEvent"
 workValue3 = workValue3[cmgCall2]
 cmgCall2 = "0b120db34a"
+
+-- === HELPER FUNCTION: eventHandlerRegistration(arg1, arg2) ===
 function eventHandlerRegistration(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22
   flag4 = arg1
@@ -2263,6 +2274,8 @@ workValue3 = _ENV
 cmgCall2 = "RegisterNetEvent"
 workValue3 = workValue3[cmgCall2]
 cmgCall2 = "28bff1b311"
+
+-- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
 function eventHandlerRegistration(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2
   arg2 = dataTable
@@ -2357,6 +2370,8 @@ cmgCall2 = "Citizen"
 workValue3 = workValue3[cmgCall2]
 cmgCall2 = "CreateThread"
 workValue3 = workValue3[cmgCall2]
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16
   while true do
@@ -2468,6 +2483,8 @@ function cmgCall2()
   end
 end
 workValue3(cmgCall2)
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue
   arg1 = RequestScaleformMovie
@@ -2566,6 +2583,8 @@ cmgCall2 = _ENV
 eventHandlerRegistration = "AddEventHandler"
 cmgCall2 = cmgCall2[eventHandlerRegistration]
 eventHandlerRegistration = "onResourceStop"
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
 function textValue4(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23
   arg2 = GetCurrentResourceName
@@ -2597,6 +2616,8 @@ function textValue4(arg1)
   end
 end
 cmgCall2(eventHandlerRegistration, textValue4)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23
   arg2 = {}
@@ -2620,6 +2641,8 @@ function cmgCall2(arg1)
 end
 eventHandlerRegistration = _ENV
 textValue4 = "RunMiniGame"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2
   arg3 = 1
@@ -2795,6 +2818,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "GetSafeDoorAnimOffsetPosition"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
 function workValue4(arg1, arg2, arg3)
   local flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3
   flag18 = nil
@@ -2864,6 +2889,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "PlaySafeCrackIntroAnim"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10, flag11
   arg3 = "mini@safe_cracking"
@@ -2909,6 +2936,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "HandleSafeDialMovement"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9, flag10
   arg1 = CMG
@@ -3140,6 +3169,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "HandleIncorrectMovement"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9
   arg1 = "mini@safe_cracking"
@@ -3188,6 +3219,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "ReleaseCurrentPin"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22
   arg3 = textValue7
@@ -3221,6 +3254,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "DrawSprites"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3
   arg1 = "MPSafeCracking"
@@ -3258,6 +3293,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "IsSafeUnlocked"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3
   arg3 = arg1[arg2]
@@ -3267,6 +3304,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "CloseSafeDoor"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16
   arg3 = CMG
@@ -3304,6 +3343,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "OpenSafeDoor"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue
   arg3 = 500
@@ -3345,6 +3386,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "RelockSafe"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2
   arg1 = InitSafeLocks
@@ -3353,6 +3396,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "GetCurrentSafeDialNumber"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18
   arg2 = math
@@ -3449,6 +3494,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "RotateSafeDial"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23
   if "rotation.anticlockwise" == arg1 or "rotation.clockwise" == arg1 then
@@ -3478,6 +3525,8 @@ eventHandlerRegistration = _ENV
 textValue4 = "RegisterNetEvent"
 eventHandlerRegistration = eventHandlerRegistration[textValue4]
 textValue4 = "8a511fd1d8"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18, flag19, flag21
   arg2 = dataTable
@@ -3496,6 +3545,8 @@ eventHandlerRegistration = _ENV
 textValue4 = "RegisterNetEvent"
 eventHandlerRegistration = eventHandlerRegistration[textValue4]
 textValue4 = "1203341535"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18, flag19, flag21
   arg2 = dataTable
@@ -3512,6 +3563,8 @@ end
 eventHandlerRegistration(textValue4, workValue4)
 eventHandlerRegistration = _ENV
 textValue4 = "EndMiniGame"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18, flag19, flag21, flag22, numberValue11, flag23, numberValue16, hashValue, flag2, hashValue2, hashValue3, flag6, flag8, numberValue2, numberValue3, flag9
   arg2 = ClearPedTasks
@@ -3573,6 +3626,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "UnloadSafeCountdown"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, flag18, flag19
   arg1 = 0
@@ -3593,6 +3648,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "InitSafeLocks"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18, flag19, flag21
   arg2 = {}
@@ -3607,6 +3664,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "LoadResources"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3
   arg1 = RequestStreamedTextureDict
@@ -3642,6 +3701,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "GetDialProximityToTargetPin"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
 function workValue4(arg1, arg2, arg3)
   local flag18, flag19, flag21
   flag18 = arg2[arg3]
@@ -3676,6 +3737,8 @@ end
 eventHandlerRegistration[textValue4] = workValue4
 eventHandlerRegistration = _ENV
 textValue4 = "SetDialSpriteShake"
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, flag18
   if 5 == arg1 or 4 == arg1 or 95 == arg1 or 96 == arg1 then

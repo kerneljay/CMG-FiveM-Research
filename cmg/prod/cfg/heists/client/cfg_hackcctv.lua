@@ -1,38 +1,44 @@
 --[[
-    BEGINNER GUIDE — Hackcctv
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Hackcctv
+    ======================================
 
     File: cmg/prod/cfg/heists/client/cfg_hackcctv.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Network/hash identifiers found: 7
-      They are intentionally left unchanged because matching server code may use them.
-      * 50b70a9edf
-      * e8ecf4fc28
-      * e62667d330
-      * 292e52f985
-      * beeb626586
-      * 57de4057f0
-      * 2d8b0ff1a7
+    Quick map of this file (automatic static scan):
+      * Named functions: 37
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: 50b70a9edf, e8ecf4fc28, e62667d330, 292e52f985, beeb626586, 2d8b0ff1a7
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Example player-facing text in this file:
-      * SET_INPUT_EVENT_SELECT
-      * SET_INPUT_EVENT_BACK
-      * ~INPUT_ATTACK~
-      * Enter the bank through an ~y~entrance~w~
-      * Press ~INPUT_PICKUP~ to hack the computer
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ----------- [[ UTILITIES ]] -----------
 
+-- === HELPER FUNCTION: ensureSecurityHasBlip(ped) ===
 local function ensureSecurityHasBlip(ped)
     local pedBlip = GetBlipFromEntity(ped)
     if pedBlip == 0 then
@@ -49,6 +55,7 @@ local function ensureSecurityHasBlip(ped)
     end
 end
 
+-- === HELPER FUNCTION: onUpdateSecurityStand(ped) ===
 local function onUpdateSecurityStand(ped)
     if NetworkHasControlOfEntity(ped) then
         if GetScriptTaskStatus(ped, 0xD88F2CDE) == 7 then
@@ -63,6 +70,7 @@ local function onUpdateSecurityStand(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateSecurityAttack(ped) ===
 local function onUpdateSecurityAttack(ped)
     if NetworkHasControlOfEntity(ped) then
         if GetScriptTaskStatus(ped, 0x2E85A751) == 7 then
@@ -95,6 +103,7 @@ local function onUpdateSecurityAttack(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateWorkerSitting(ped) ===
 local function onUpdateWorkerSitting(ped)
     if NetworkHasControlOfEntity(ped) then
         if not IsPedUsingScenario(ped, "PROP_HUMAN_SEAT_BENCH") then
@@ -109,6 +118,7 @@ local function onUpdateWorkerSitting(ped)
     end
 end
 
+-- === HELPER FUNCTION: onUpdatePersonStanding(ped, panic) ===
 local function onUpdatePersonStanding(ped, panic)
     if NetworkHasControlOfEntity(ped) then
         if panic then
@@ -132,6 +142,7 @@ local function onUpdatePersonStanding(ped, panic)
     end
 end
 
+-- === HELPER FUNCTION: onUpdatePolicePilot(ped) ===
 local function onUpdatePolicePilot(ped)
     local heliNetId = Entity(ped).state.heliNetId
     if heliNetId and NetworkDoesNetworkIdExist(heliNetId) and NetworkDoesEntityExistWithNetworkId(heliNetId) then
@@ -155,6 +166,7 @@ local function onUpdatePolicePilot(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdatePoliceGunner(ped) ===
 local function onUpdatePoliceGunner(ped)
     local heliNetId = Entity(ped).state.heliNetId
     if heliNetId and NetworkDoesNetworkIdExist(heliNetId) and NetworkDoesEntityExistWithNetworkId(heliNetId) then
@@ -179,6 +191,7 @@ local function onUpdatePoliceGunner(ped)
     end
 end
 
+-- === HELPER FUNCTION: onUpdatePoliceARV(ped) ===
 local function onUpdatePoliceARV(ped)
     local arvNetId = Entity(ped).state.arvNetId
     if arvNetId and NetworkDoesNetworkIdExist(arvNetId) and NetworkDoesEntityExistWithNetworkId(arvNetId) then
@@ -253,6 +266,7 @@ local function onUpdatePoliceARV(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateWorldPeds(panic) ===
 local function onUpdateWorldPeds(panic)
     for _, ped in ipairs(GetGamePool("CPed")) do
         if NetworkGetEntityIsNetworked(ped) then
@@ -277,6 +291,7 @@ local function onUpdateWorldPeds(panic)
     end
 end
 
+-- === HELPER FUNCTION: disableRunningAndSprintingInside() ===
 local function disableRunningAndSprintingInside()
     if GetRoomKeyFromEntity(PlayerPedId()) ~= 0 then
         DisableControlAction(0, 21, true) -- INPUT_SPRINT
@@ -284,12 +299,14 @@ local function disableRunningAndSprintingInside()
     end
 end
 
+-- === HELPER FUNCTION: checkPlayerIsBeingSilent(info) ===
 local function checkPlayerIsBeingSilent(info)
     local playerPos = GetEntityCoords(PlayerPedId(), true)
     if #(playerPos - info.bankPosition) < 100.0 then
         if GetRoomKeyFromEntity(PlayerPedId()) ~= 0 then
             if GetVehiclePedIsUsing(PlayerPedId()) ~= 0 and not info.sentAlert then -- Driving inside
                 print("Sending security alerted for reason 1.")
+                -- Beginner: sends the "50b70a9edf" event to the server.
                 TriggerServerEvent("50b70a9edf")
                 info.sentAlert = true
             end
@@ -297,6 +314,7 @@ local function checkPlayerIsBeingSilent(info)
             local _, weaponModel = GetCurrentPedWeapon(PlayerPedId(), 0, false)
             if weaponModel ~= `WEAPON_UNARMED` and not info.sentAlert then -- Using weapons inside
                 print("Sending security alerted for reason 2.")
+                -- Beginner: sends the "50b70a9edf" event to the server.
                 TriggerServerEvent("50b70a9edf")
                 info.sentAlert = true
             end
@@ -308,11 +326,14 @@ local function checkPlayerIsBeingSilent(info)
             local limit = HasPedGotWeapon(PlayerPedId(), `GADGET_PARACHUTE`, false) and 1 or 0
             if numWeapons > limit and not info.sentAlert then -- Carrying weapons through knife arch
                 print("Sending security alerted for reason 3.")
+                -- Beginner: sends the "e8ecf4fc28" event to the server.
                 TriggerServerEvent("e8ecf4fc28", info.knifeArchPosition.xyz)
+                -- Beginner: sends the "50b70a9edf" event to the server.
                 TriggerServerEvent("50b70a9edf")
                 info.sentAlert = true
             end
             if not info.knifeArchInventoryCheck then
+                -- Beginner: sends the "e62667d330" event to the server.
                 TriggerServerEvent("e62667d330")
                 info.knifeArchInventoryCheck = true
             end
@@ -320,6 +341,7 @@ local function checkPlayerIsBeingSilent(info)
     end
 end
 
+-- === HELPER FUNCTION: ensureSecureDoorsAreLocked() ===
 local function ensureSecureDoorsAreLocked()
     local lhsMetalDoor = GetClosestObjectOfType(272.13510131836,220.1669921875,97.16618347168, 5.0, 0x18651EA9, false, false, false)
     FreezeEntityPosition(lhsMetalDoor, true)
@@ -334,12 +356,14 @@ local function ensureSecureDoorsAreLocked()
     FreezeEntityPosition(roofUpperDoor, true)
 end
 
+-- === HELPER FUNCTION: drawPlayerCount(info) ===
 local function drawPlayerCount(info)
     local timerBars = CMG.createTimerBars()
     timerBars.push("~y~MEMBERS~w~", tostring(#info.players))
     timerBars.draw()
 end
 
+-- === HELPER FUNCTION: exitHackingScaleform(info) ===
 local function exitHackingScaleform(info)
     if info.scaleform then
         SetPlayerControl(PlayerId(), true, 0)
@@ -349,11 +373,13 @@ local function exitHackingScaleform(info)
         info.buttonScaleform = nil
         info.numberLives = nil
         info.scaleformReturn = nil
+        -- Beginner: sends the "292e52f985" event to the server.
         TriggerServerEvent("292e52f985", false)
         CMG.showAllDisplays("bankheist_setup")
     end
 end
 
+-- === HELPER FUNCTION: createHackingScaleform() ===
 local function createHackingScaleform()
     CMG.hideAllDisplays("bankheist_setup")
     SetPlayerControl(PlayerId(), false, 0)
@@ -430,6 +456,7 @@ local function createHackingScaleform()
     return scaleform
 end
 
+-- === HELPER FUNCTION: onUpdateHackingScaleform(info) ===
 local function onUpdateHackingScaleform(info)
     DrawScaleformMovieFullscreen(info.scaleform, 255, 255, 255, 255, 0)
     DrawScaleformMovieFullscreen(info.buttonScaleform, 255, 255, 255, 255, 0)
@@ -456,6 +483,7 @@ local function onUpdateHackingScaleform(info)
     if info.numberLives <= 0 then
         print("Sending security alerted for reason 4.")
         exitHackingScaleform(info)
+        -- Beginner: sends the "50b70a9edf" event to the server.
         TriggerServerEvent("50b70a9edf")
         info.sentAlert = true
         return
@@ -490,6 +518,7 @@ local function onUpdateHackingScaleform(info)
         elseif program == 86 then
             PlaySoundFrontend(-1, "HACKING_SUCCESS", "", true)
 
+            -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
             Citizen.CreateThread(function()
                 BeginScaleformMovieMethod(info.scaleform, "SET_ROULETTE_OUTCOME")
                 ScaleformMovieMethodAddParamBool(true)
@@ -535,6 +564,7 @@ local function onUpdateHackingScaleform(info)
 
                 Citizen.Wait(1500)
                 exitHackingScaleform(info)
+                -- Beginner: sends the "beeb626586" event to the server.
                 TriggerServerEvent("beeb626586")
             end)
         elseif program == 6 then
@@ -544,6 +574,7 @@ local function onUpdateHackingScaleform(info)
     end
 end
 
+-- === HELPER FUNCTION: createHackingInstructionalButtons() ===
 local function createHackingInstructionalButtons()
     local scaleform = RequestScaleformMovie("instructional_buttons")
 
@@ -577,6 +608,7 @@ end
 
 ----------- [[ STAGE: DRIVE_TO_BANK ]] -----------
 
+-- === HELPER FUNCTION: initDriveToBank(info) ===
 local function initDriveToBank(info)
     info.bankBlip = AddBlipForCoord(info.bankPosition.x, info.bankPosition.y, info.bankPosition.z)
     SetBlipRoute(info.bankBlip, true)
@@ -584,6 +616,7 @@ local function initDriveToBank(info)
     TriggerMusicEvent("AH3B_EVADE_COPS_RT")
 end
 
+-- === HELPER FUNCTION: runDriveToBank(info) ===
 local function runDriveToBank(info)
     drawPlayerCount(info)
 
@@ -597,6 +630,7 @@ local function runDriveToBank(info)
     drawNativeText("Drive to the ~y~Bank Of England~w~")
 end
 
+-- === HELPER FUNCTION: cleanDriveToBank(info) ===
 local function cleanDriveToBank(info)
     RemoveBlip(info.bankBlip)
     info.bankBlip = nil
@@ -605,6 +639,7 @@ end
 
 ----------- [[ STAGE: GO_TO_ENTRANCE ]] -----------
 
+-- === HELPER FUNCTION: initGoToEntrance(info) ===
 local function initGoToEntrance(info)
     info.bankEnterBlips = {}
     for _, position in ipairs(info.bankEnterPositions) do
@@ -616,6 +651,7 @@ local function initGoToEntrance(info)
     PlaySoundFrontend(-1, "one_of_two_doors", "dlc_bankheist_setupone_soundset", false)
 end
 
+-- === HELPER FUNCTION: runGoToEntrance(info) ===
 local function runGoToEntrance(info)
     drawPlayerCount(info)
     onUpdateWorldPeds(false)
@@ -623,6 +659,7 @@ local function runGoToEntrance(info)
     drawNativeText("Enter the bank through an ~y~entrance~w~")
 end
 
+-- === HELPER FUNCTION: cleanGotoEntrance(info) ===
 local function cleanGotoEntrance(info)
     for _, blip in ipairs(info.bankEnterBlips) do
         RemoveBlip(blip)
@@ -631,6 +668,7 @@ end
 
 ----------- [[ STAGE: FIND_COMPUTER ]] -----------
 
+-- === HELPER FUNCTION: initFindComputer(info) ===
 local function initFindComputer(info)
     PlaySoundFrontend(-1, "laptop_upstairs_offices", "dlc_bankheist_setupone_soundset", false)
     if info.knifeArchPosition then
@@ -642,6 +680,7 @@ local function initFindComputer(info)
     end
 end
 
+-- === HELPER FUNCTION: runFindComputer(info) ===
 local function runFindComputer(info)
     onUpdateWorldPeds(false)
     disableRunningAndSprintingInside()
@@ -658,6 +697,7 @@ end
 
 ----------- [[ STAGE: HACK_COMPUTER ]] -----------
 
+-- === HELPER FUNCTION: initHackComputer(info) ===
 local function initHackComputer(info)
     local createInfo = info.computerCreateModel
     CMG.loadModel(createInfo.model)
@@ -677,6 +717,7 @@ local function initHackComputer(info)
     PlaySoundFrontend(-1, "load_the_hack", "dlc_bankheist_setupone_soundset", false)
 end
 
+-- === HELPER FUNCTION: runHackComputer(info) ===
 local function runHackComputer(info)
     onUpdateWorldPeds(false)
     disableRunningAndSprintingInside()
@@ -691,6 +732,7 @@ local function runHackComputer(info)
             drawNativeNotification("Press ~INPUT_PICKUP~ to hack the computer")
             DisableControlAction(0, 38, true)
             if IsDisabledControlPressed(0, 38) then
+                -- Beginner: sends the "292e52f985" event to the server.
                 TriggerServerEvent("292e52f985", true)
                 info.scaleform = createHackingScaleform()
                 info.buttonScaleform = createHackingInstructionalButtons()
@@ -720,6 +762,7 @@ local function runHackComputer(info)
     end
 end
 
+-- === HELPER FUNCTION: cleanHackComputer(info) ===
 local function cleanHackComputer(info)
     RemoveEventHandler(info.eventUsingComputer)
     info.eventUsingComputer = nil
@@ -738,6 +781,7 @@ end
 
 ----------- [[ STAGE: VIEW_HACKED_CAMERAS ]] -----------
 
+-- === HELPER FUNCTION: initViewHackedCameras(info) ===
 local function initViewHackedCameras(info)
     info.cameraHandle = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
     SetCamActive(info.cameraHandle, true)
@@ -756,6 +800,7 @@ local function initViewHackedCameras(info)
     info.audioPlayed = false
 end
 
+-- === HELPER FUNCTION: runViewHackedCameras(info) ===
 local function runViewHackedCameras(info)
     onUpdateWorldPeds(false)
     disableRunningAndSprintingInside()
@@ -804,6 +849,7 @@ local function runViewHackedCameras(info)
     HideHUDThisFrame()
 end
 
+-- === HELPER FUNCTION: cleanViewHackedCameras(info) ===
 local function cleanViewHackedCameras(info)
     RenderScriptCams(false, false, 0, false, false)
     SetCamActive(info.cameraHandle, false)
@@ -827,6 +873,7 @@ end
 
 ----------- [[ STAGE: EXIT_BANK ]] -----------
 
+-- === HELPER FUNCTION: initExitBank(info) ===
 local function initExitBank(info)
     info.exitBlip = AddBlipForCoord(info.lestersFactoryPosition.x, info.lestersFactoryPosition.y, info.lestersFactoryPosition.z)
     SetBlipRoute(info.exitBlip, true)
@@ -834,6 +881,7 @@ local function initExitBank(info)
     info.audioPlayed = false
 end
 
+-- === HELPER FUNCTION: runExitBank(info) ===
 local function runExitBank(info)
     onUpdateWorldPeds(false)
     disableRunningAndSprintingInside()
@@ -851,6 +899,7 @@ local function runExitBank(info)
     drawNativeText("Return to the ~y~factory~w~")
 end
 
+-- === HELPER FUNCTION: cleanExitBank(info) ===
 local function cleanExitBank(info)
     RemoveBlip(info.exitBlip)
     info.exitBlip = nil
@@ -859,6 +908,7 @@ end
 
 ----------- [[ STAGE: EXIT_BANK_ALERTED ]] -----------
 
+-- === HELPER FUNCTION: initExitBankAlerted(info) ===
 local function initExitBankAlerted(info)
     local startedLoading = GetGameTimer()
     while not RequestScriptAudioBank("ALARM_BELL_02", false) do
@@ -907,6 +957,7 @@ local function initExitBankAlerted(info)
         for nodeNum = math.random(51, 100), 50, -1 do
             local success, position, heading = GetNthClosestVehicleNodeWithHeading(playerCoords.x, playerCoords.y, playerCoords.z, nodeNum, vector3(0.0, 0.0, 0.0), 0.0, 0, 1, 3.0, 0.0)
             if success then
+                -- Beginner: sends the "2d8b0ff1a7" event to the server.
                 TriggerServerEvent("2d8b0ff1a7", position, heading)
                 return
             end
@@ -914,6 +965,7 @@ local function initExitBankAlerted(info)
     end)
 end
 
+-- === HELPER FUNCTION: runExitBankAlerted(info) ===
 local function runExitBankAlerted(info)
     onUpdateWorldPeds(true)
     drawPlayerCount(info)
@@ -956,6 +1008,7 @@ local function runExitBankAlerted(info)
     drawNativeText("Return to the ~y~factory~w~")
 end
 
+-- === HELPER FUNCTION: cleanExitBankAlerted(info) ===
 local function cleanExitBankAlerted(info)
     RemoveBlip(info.exitBlip)
     info.exitBlip = nil

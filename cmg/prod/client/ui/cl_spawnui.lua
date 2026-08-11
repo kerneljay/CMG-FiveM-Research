@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Spawnui
+    =====================================
+
+    File: cmg/prod/client/ui/cl_spawnui.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: NUI/menu/interface behaviour, specifically the Spawnui feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 0
+      * Background threads: 1
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: 0cee493655, 2f40f9b5e7
+      * Local event handlers: CMGUI:openSpawnMenu, fdf12e0408, 0d3f9227c2, 5d1f7b4ba9, d374144aa8, 10e19c3bc2, 6b772be49e, 543db28eb0
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Spawn / Death-Screen UI Bridge
     ==============================
 
@@ -323,6 +361,7 @@ AddEventHandler(
 -- ONE-SECOND COUNTDOWN
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if deathScreenTimer > 0 then

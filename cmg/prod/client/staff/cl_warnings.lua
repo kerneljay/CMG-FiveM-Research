@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Warnings
+    ======================================
+
+    File: cmg/prod/client/staff/cl_warnings.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: staff/admin gameplay and moderation tools, specifically the Warnings feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 4
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: openwarnings
+      * Incoming network events: 6b71e3c99b, f394480d7d
+      * Local event handlers: none found by static scan
+      * Server events sent: 0d0b23d7d4
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Staff Warnings Menu
     ===================
 
@@ -29,6 +67,7 @@ local warnings = {}
 local warningsOpen = false
 
 
+-- === HELPER FUNCTION: getLocalPlaytimeHours() ===
 local function getLocalPlaytimeHours()
     local userId =
         CMG.getClientUserId()
@@ -93,6 +132,7 @@ local function openWarningsUi(
 end
 
 
+-- === HELPER FUNCTION: closeWarningsUi() ===
 local function closeWarningsUi()
     if not warningsOpen then
         return
@@ -119,6 +159,7 @@ local function closeWarningsUi()
 end
 
 
+-- === HELPER FUNCTION: toggleWarnings() ===
 local function toggleWarnings()
     if warningsOpen then
         closeWarningsUi()
@@ -224,6 +265,7 @@ CMG.uiRegisterCallback(
             0.0
         )
 
+        -- Beginner: changes whether the NUI owns keyboard/mouse input.
         SetNuiFocus(
             false,
             false

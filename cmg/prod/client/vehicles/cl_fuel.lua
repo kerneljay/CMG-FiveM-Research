@@ -1,60 +1,56 @@
 --[[
-    Beginner Guide: cl_fuel.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Fuel
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Fuel
+    ==================================
 
     File: cmg/prod/client/vehicles/cl_fuel.lua
-    Purpose: This file contains vehicle-related gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: vehicle gameplay and vehicle systems, specifically the Fuel feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 18
+      * Background threads: 0
+      * Always-running loops: 6
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/cfg_fuel
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 4
-      They are intentionally left unchanged because matching server code may use them.
-      * 145eb2f935
-      * 49e51ddb66
-      * 0a6cf607ed
-      * 486c23d750
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Named framework/network events found:
-      * fuel:startFuelUpTick
-      * fuel:refuelFromPump
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
-    Example player-facing text in this file:
-      * % | Vehicle: 
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, threadCall, flag7, numberValue2, numberValue3, flag8, cmgCall3, cmgCall5, workValue5, threadCall2, dataTable, eventHandlerRegistration, textValue, cmgCall2, textValue2, textValue3, workValue, workValue2
 cmgCall = CMG
@@ -64,6 +60,8 @@ threadCall = "cfg/cfg_fuel"
 cmgCall = cmgCall(threadCall)
 threadCall = Citizen
 threadCall = threadCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: flag7; parameters: none) ===
 function flag7()
   local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2
   arg1 = pairs
@@ -91,6 +89,8 @@ numberValue2 = 0.0
 numberValue3 = 0.0
 flag8 = false
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2) ===
 function cmgCall5(arg1, arg2)
   local arg3, workValue3, textValue4, numberValue4, cmgCall4
   arg3 = type
@@ -112,6 +112,8 @@ function cmgCall5(arg1, arg2)
 end
 cmgCall3.setVehicleFuel = cmgCall5
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
 function cmgCall5(arg1)
   local arg2, arg3, workValue3, textValue4
   arg2 = nil
@@ -154,6 +156,8 @@ function cmgCall5(arg1)
   end
 end
 cmgCall3.setVehicleFixedPreservingFuel = cmgCall5
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
 function cmgCall3(arg1, arg2)
   local arg3, workValue3, textValue4
   arg3 = arg2 or nil
@@ -171,6 +175,8 @@ function cmgCall3(arg1, arg2)
   return workValue3
 end
 cmgCall5 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, arg3, workValue3
   arg2 = DecorGetFloat
@@ -179,6 +185,8 @@ function workValue5(arg1)
   return arg2(arg3, workValue3)
 end
 cmgCall5.getVehicleFuel = workValue5
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3
   arg1 = CMG
@@ -187,6 +195,8 @@ function cmgCall5()
   arg3 = arg1 + arg2
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4
   arg2 = DecorExistOn
@@ -290,6 +300,8 @@ function workValue5(arg1)
 end
 threadCall2 = Citizen
 threadCall2 = threadCall2.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
 function dataTable()
   local arg1, arg2, arg3, workValue3, textValue4
   arg1 = DecorRegister
@@ -339,6 +351,8 @@ function dataTable()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 threadCall2(dataTable)
+
+-- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
 function threadCall2()
   local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue
   arg1 = GetEntityCoords
@@ -391,6 +405,8 @@ end
 dataTable = {}
 eventHandlerRegistration = Citizen
 eventHandlerRegistration = eventHandlerRegistration.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4, flag5, flag6
   arg1 = pairs
@@ -481,6 +497,8 @@ eventHandlerRegistration(textValue)
 eventHandlerRegistration = AddEventHandler
 textValue = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash
   arg2 = GetCurrentResourceName
@@ -502,6 +520,8 @@ eventHandlerRegistration(textValue, cmgCall2)
 eventHandlerRegistration = AddEventHandler
 textValue = "fuel:startFuelUpTick"
 -- Beginner: this function runs when client event "fuel:startFuelUpTick" fires.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2, arg3) ===
 function cmgCall2(arg1, arg2, arg3)
   local workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2
   workValue3 = GetVehicleFuelLevel
@@ -636,6 +656,8 @@ eventHandlerRegistration(textValue, cmgCall2)
 eventHandlerRegistration = AddEventHandler
 textValue = "fuel:refuelFromPump"
 -- Beginner: this function runs when client event "fuel:refuelFromPump" fires.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2, arg3) ===
 function cmgCall2(arg1, arg2, arg3)
   local workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue, flag, flag2, flag3, flag4
   workValue3 = TaskTurnPedToFaceEntity
@@ -843,6 +865,8 @@ Gas can: ~g~]]
 end
 -- Beginner: Register a client-side event handler. Event/command: "fuel:refuelFromPump".
 eventHandlerRegistration(textValue, cmgCall2)
+
+-- === HELPER FUNCTION: eventHandlerRegistration(arg1) ===
 function eventHandlerRegistration(arg1)
   local arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash
   arg2 = GetEntityModel
@@ -880,6 +904,8 @@ function eventHandlerRegistration(arg1)
 end
 textValue = Citizen
 textValue = textValue.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2, arg3, workValue3, textValue4, numberValue4, cmgCall4, workValue4, modelHash, workValue6, coords, numberValue
   while true do
@@ -1224,6 +1250,8 @@ end
 textValue(cmgCall2)
 textValue = Citizen
 textValue = textValue.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2, arg3, workValue3, textValue4
   arg1 = RequestStreamedTextureDict
@@ -1305,6 +1333,8 @@ function cmgCall2()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 textValue(cmgCall2)
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
 function textValue(arg1)
   local arg2, arg3, workValue3, textValue4, numberValue4
   arg2 = string
@@ -1325,6 +1355,8 @@ cmgCall2 = cmgCall2.registerDevMenuEntityEditor
 textValue2 = "Fuel"
 textValue3 = "vehicle"
 workValue = textValue
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2
 end

@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Announce
+    ======================================
+
+    File: cmg/prod/client/staff/cl_announce.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: staff/admin gameplay and moderation tools, specifically the Announce feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 2
+      * Background threads: 4
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: 6bdd89917d, 0be1483154, 3d47766955, d87daca74d
+      * Local event handlers: 3d47766955
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Global / Staff Announcement Display
     ====================================
 
@@ -59,6 +97,8 @@ RegisterNetEvent(
             nil
 
         -- Countdown timer.
+
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         CreateThread(function()
             while secondsRemaining
                 ~= -1 do
@@ -71,6 +111,8 @@ RegisterNetEvent(
         end)
 
         -- Rebuild the Scaleform text once per second so the countdown updates.
+
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         CreateThread(function()
             while secondsRemaining
                 ~= -1 do
@@ -124,6 +166,8 @@ RegisterNetEvent(
         end)
 
         -- Draw the most recently-built scaleform every frame.
+
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         CreateThread(function()
             Wait(200)
 
@@ -154,6 +198,7 @@ RegisterNetEvent(
 -- SIX-SECOND CMG ANNOUNCEMENT
 -- ============================================================
 
+-- === NETWORK EVENT: receives "3d47766955" from server/another network source ===
 RegisterNetEvent("3d47766955")
 
 AddEventHandler(
@@ -163,6 +208,7 @@ AddEventHandler(
             return
         end
 
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         CreateThread(function()
             local startedAt =
                 GetGameTimer()

@@ -1,42 +1,56 @@
 --[[
-    BEGINNER GUIDE — Searchboat
-    ===========================
+    LEVEL 1 BEGINNER GUIDE — Searchboat
+    ========================================
 
     File: cmg/prod/cfg/heists/client/cfg_searchboat.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * 2bccd0dc23
-      * 5472d87bcb
-      * 6ec17c4146
+    Quick map of this file (automatic static scan):
+      * Named functions: 40
+      * Background threads: 2
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 2bccd0dc23, 5472d87bcb
+      * Local event handlers: none found by static scan
+      * Server events sent: 2bccd0dc23, 6ec17c4146
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Example player-facing text in this file:
-      * Enter any of the ~y~dinghys~w~
-      * Exit your vehicle seat when nearby to the ~y~cargo ship~w~
-      * Press ~INPUT_CONTEXT~ to search the crate
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ----------- [[ UTILITIES ]] -----------
 
+-- === HELPER FUNCTION: drawPlayerCount(info) ===
 local function drawPlayerCount(info)
     local timerBars = CMG.createTimerBars()
     timerBars.push("~y~MEMBERS~w~", tostring(#info.players))
     timerBars.draw()
 end
 
+-- === HELPER FUNCTION: SetBoatRemainsAnchoredWhilePlayerIsDriver(vehicleIndex, forcePlayerBoatAnchorFlag) ===
 local function SetBoatRemainsAnchoredWhilePlayerIsDriver(vehicleIndex, forcePlayerBoatAnchorFlag)
 	Citizen.InvokeNative(0x577f790cb611bd49, vehicleIndex, forcePlayerBoatAnchorFlag)
 end
 
+-- === HELPER FUNCTION: ensureSecurityHasBlip(ped) ===
 local function ensureSecurityHasBlip(ped)
     local pedBlip = GetBlipFromEntity(ped)
     if pedBlip == 0 then
@@ -56,6 +70,7 @@ local setupNpcAccuracy = 22
 local setupNpcCombatAbility = 0
 local setupNpcShootRate = 35
 
+-- === HELPER FUNCTION: applySetupCombatDifficulty(ped) ===
 local function applySetupCombatDifficulty(ped)
     if Entity(ped).state.setupCombatTuned then
         return
@@ -66,6 +81,7 @@ local function applySetupCombatDifficulty(ped)
     Entity(ped).state.setupCombatTuned = true
 end
 
+-- === HELPER FUNCTION: onUpdateSecurity(ped) ===
 local function onUpdateSecurity(ped)
     if NetworkHasControlOfEntity(ped) then
         applySetupCombatDifficulty(ped)
@@ -92,6 +108,7 @@ local function onUpdateSecurity(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateStaff(ped) ===
 local function onUpdateStaff(ped)
     if NetworkHasControlOfEntity(ped) then
         applySetupCombatDifficulty(ped)
@@ -121,6 +138,7 @@ end
 local heliAttackOrbitRadius = 75.0
 local heliAttackHeight = 28.0
 
+-- === HELPER FUNCTION: getHeliFromPedState(ped) ===
 local function getHeliFromPedState(ped)
     local heliNetId = Entity(ped).state.heliNetId
     if not heliNetId or not NetworkDoesNetworkIdExist(heliNetId) or not NetworkDoesEntityExistWithNetworkId(heliNetId) then
@@ -129,6 +147,7 @@ local function getHeliFromPedState(ped)
     return NetworkGetEntityFromNetworkId(heliNetId)
 end
 
+-- === HELPER FUNCTION: onUpdateHeliVehicle(helicopter, pilotPed) ===
 local function onUpdateHeliVehicle(helicopter, pilotPed)
     if helicopter == 0 or not DoesEntityExist(helicopter) then
         return
@@ -160,10 +179,12 @@ local function onUpdateHeliVehicle(helicopter, pilotPed)
     end
 end
 
+-- === HELPER FUNCTION: isHeliUsable(helicopter) ===
 local function isHeliUsable(helicopter)
     return helicopter ~= 0 and DoesEntityExist(helicopter) and not IsEntityDead(helicopter) and GetEntityHealth(helicopter) > 0
 end
 
+-- === HELPER FUNCTION: onUpdateDismountedPilot(ped) ===
 local function onUpdateDismountedPilot(ped)
     if NetworkHasControlOfEntity(ped) then
         applySetupCombatDifficulty(ped)
@@ -193,6 +214,7 @@ local function onUpdateDismountedPilot(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdatePilot(ped) ===
 local function onUpdatePilot(ped)
     local helicopter = getHeliFromPedState(ped)
     if not isHeliUsable(helicopter) then
@@ -259,6 +281,7 @@ local function onUpdatePilot(ped)
     ensureSecurityHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateWorldPeds() ===
 local function onUpdateWorldPeds()
      for _, ped in pairs(GetGamePool("CPed")) do
         if NetworkGetEntityIsNetworked(ped) then
@@ -274,6 +297,7 @@ local function onUpdateWorldPeds()
      end
 end
 
+-- === HELPER FUNCTION: drawCursor() ===
 local function drawCursor()
 	local screenX, screenY = GetActiveScreenResolution()
 	local ratio = screenY / screenX
@@ -281,6 +305,7 @@ local function drawCursor()
 	DrawRect(0.5, 0.5, 0.0025 * ratio, 0.015, 200, 30, 30, 255)
 end
 
+-- === HELPER FUNCTION: requestCargoShipIpls(info) ===
 local function requestCargoShipIpls(info)
     if not info.cargoShipIpls then
         return
@@ -290,6 +315,7 @@ local function requestCargoShipIpls(info)
     end
 end
 
+-- === HELPER FUNCTION: removeCargoShipIpls(info) ===
 local function removeCargoShipIpls(info)
     if not info.cargoShipIpls then
         return
@@ -299,6 +325,7 @@ local function removeCargoShipIpls(info)
     end
 end
 
+-- === HELPER FUNCTION: findDaisyBoat() ===
 local function findDaisyBoat()
     for _, vehicle in pairs(CMG.getAllVehicles()) do
         if GetEntityModel(vehicle) == `daisy` then
@@ -310,6 +337,7 @@ end
 
 local grappleSlowWalkClipSet = "anim@move_m@grooving@slow@"
 
+-- === HELPER FUNCTION: enableGrappleSlowWalk(info) ===
 local function enableGrappleSlowWalk(info)
     local playerPed = PlayerPedId()
     CMG.loadClipSet(grappleSlowWalkClipSet)
@@ -319,6 +347,7 @@ local function enableGrappleSlowWalk(info)
     info.grappleSlowWalkActive = true
 end
 
+-- === HELPER FUNCTION: disableGrappleSlowWalk(info) ===
 local function disableGrappleSlowWalk(info)
     if not info.grappleSlowWalkActive then
         return
@@ -330,6 +359,7 @@ local function disableGrappleSlowWalk(info)
     info.grappleSlowWalkActive = false
 end
 
+-- === HELPER FUNCTION: isPlayerInGrappleWater() ===
 local function isPlayerInGrappleWater()
     local playerPed = PlayerPedId()
     return IsEntityInWater(playerPed) or IsPedSwimming(playerPed) or IsPedSwimmingUnderWater(playerPed)
@@ -337,6 +367,7 @@ end
 
 ----------- [[ STAGE: DRIVE_TO_CAYO ]] -----------
 
+-- === HELPER FUNCTION: initDriveToCayo(info) ===
 local function initDriveToCayo(info)
     requestCargoShipIpls(info)
     info.cayoBlip = AddBlipForCoord(info.cayoPosition.x, info.cayoPosition.y, info.cayoPosition.z)
@@ -345,11 +376,13 @@ local function initDriveToCayo(info)
     SetPlayerFallDistance(PlayerId(), 200.0)
 end
 
+-- === HELPER FUNCTION: runDriveToCayo(info) ===
 local function runDriveToCayo(info)
     drawPlayerCount(info)
     drawNativeText("Drive to the ~y~coast~w~")
 end
 
+-- === HELPER FUNCTION: cleanDriveToCayo(info) ===
 local function cleanDriveToCayo(info)
     RemoveBlip(info.cayoBlip)
     info.cayoBlip = nil
@@ -357,12 +390,14 @@ end
 
 ----------- [[ STAGE: GET_IN_BOAT ]] -----------
 
+-- === HELPER FUNCTION: initGetInBoat(info) ===
 local function initGetInBoat(info)
     info.dinghyBlip = AddBlipForCoord(info.dinghyPosition.x, info.dinghyPosition.y, info.dinghyPosition.z)
     SetBlipRoute(info.dinghyBlip, true)
     SetPlayerFallDistance(PlayerId(), 200.0)
 end
 
+-- === HELPER FUNCTION: runGetInBoat() ===
 local function runGetInBoat()
     local isInDinghy = false
     local playerVehicle = CMG.getPlayerVehicle()
@@ -388,6 +423,7 @@ local function runGetInBoat()
     end
 end
 
+-- === HELPER FUNCTION: cleanGetInBoat(info) ===
 local function cleanGetInBoat(info)
     RemoveBlip(info.dinghyBlip)
     info.dinghyBlip = nil
@@ -395,6 +431,7 @@ end
 
 ----------- [[ STAGE: GRAPPLE_ONTO_BOAT ]] -----------
 
+-- === HELPER FUNCTION: initGrappleOntoBoat(info) ===
 local function initGrappleOntoBoat(info)
     info.hasSentEvent = false
     info.grappleSlowWalkActive = false
@@ -430,6 +467,7 @@ local function initGrappleOntoBoat(info)
 
     info.ropeHandles = {}
 
+    -- === NETWORK EVENT: receives "2bccd0dc23" from server/another network source ===
     info.ropeCoordsEvent = RegisterNetEvent("2bccd0dc23", function(targetSrc, coords)
         local playerIndex = GetPlayerFromServerId(targetSrc)
         if playerIndex == -1 then
@@ -483,6 +521,7 @@ local function initGrappleOntoBoat(info)
     end)
 end
 
+-- === HELPER FUNCTION: runGrappleOntoBoat(info) ===
 local function runGrappleOntoBoat(info)
     if info.grappleAnchor == 0 or not DoesEntityExist(info.grappleAnchor) then
         drawNativeText("Approach the ~y~cargo ship~w~ carefully")
@@ -525,6 +564,7 @@ local function runGrappleOntoBoat(info)
                     if IsControlJustPressed(0, 24) then
                         RemoveWeaponFromPed(playerPed, `WEAPON_STAFFGUN`)
                         disableGrappleSlowWalk(info)
+                        -- Beginner: sends the "2bccd0dc23" event to the server.
                         TriggerServerEvent("2bccd0dc23", info.grapplePosition)
                         info.hasSentEvent = true
                     end
@@ -544,6 +584,7 @@ local function runGrappleOntoBoat(info)
     onUpdateWorldPeds()
 end
 
+-- === HELPER FUNCTION: cleanGrappleOntoBoat(info) ===
 local function cleanGrappleOntoBoat(info)
     RemoveBlip(info.boatBlip)
     info.boatBlip = nil
@@ -569,6 +610,7 @@ end
 
 ----------- [[ STAGE: KILL_ALL_AI ]] -----------
 
+-- === HELPER FUNCTION: initKillAllAi(info) ===
 local function initKillAllAi(info)
     for _, vehicle in pairs(CMG.getAllVehicles()) do
         if GetEntityModel(vehicle) == `dinghy` then
@@ -582,6 +624,7 @@ local function initKillAllAi(info)
     SetPlayerFallDistance(PlayerId(), 200.0)
 end
 
+-- === HELPER FUNCTION: runKillAllAi(info) ===
 local function runKillAllAi(info)
     if CMG.getPlayerCoords().z <= 5.0 and GetGameTimer() - info.lastTeleportTime > 1000 then
         SetEntityCoordsNoOffset(PlayerPedId(), info.failedGrappelPosition.x, info.failedGrappelPosition.y, info.failedGrappelPosition.z, true, false, false)
@@ -591,12 +634,14 @@ local function runKillAllAi(info)
     onUpdateWorldPeds()
 end
 
+-- === HELPER FUNCTION: cleanKillAllAi(info) ===
 local function cleanKillAllAi(info)
     info.lastTeleportTime = nil
 end
 
 ----------- [[ STAGE: BOAT_SINKING_CUTSCENE ]] -----------
 
+-- === HELPER FUNCTION: initBoatSinkingCutscene(info) ===
 local function initBoatSinkingCutscene(info)
     removeCargoShipIpls(info)
 
@@ -659,6 +704,7 @@ local function initBoatSinkingCutscene(info)
     SetPlayerFallDistance(PlayerId(), 200.0)
 end
 
+-- === HELPER FUNCTION: runBoatSinkingCutscene(info) ===
 local function runBoatSinkingCutscene(info)
     if info.crashStartTime then
         local elapsedFloat = (GetGameTimer() - info.crashStartTime) / 5000
@@ -721,6 +767,7 @@ local function runBoatSinkingCutscene(info)
     end
 end
 
+-- === HELPER FUNCTION: cleanBoatSinkingCutscene(info) ===
 local function cleanBoatSinkingCutscene(info)
     if info.heli then
         DeleteEntity(info.heli)
@@ -763,6 +810,8 @@ local function cleanBoatSinkingCutscene(info)
     SetEntityCoords(playerPed, info.boatPosition.x, info.boatPosition.y, info.boatPosition.z, true, false, false, false)
 
     -- Explosions may persist a few frames ahead, lets wait a second for good measure.
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         Wait(1000)
         FreezeEntityPosition(playerPed, false)
@@ -775,6 +824,7 @@ end
 
 ----------- [[ STAGE: SEARCH_FOR_TECH ]] -----------
 
+-- === HELPER FUNCTION: initSearchForTech(info) ===
 local function initSearchForTech(info)
     DoScreenFadeOut(0)
 
@@ -823,6 +873,7 @@ local function initSearchForTech(info)
         table.insert(info.crateBlips, blip)
     end
 
+    -- === NETWORK EVENT: receives "5472d87bcb" from server/another network source ===
     info.removeCrateEvent = RegisterNetEvent("5472d87bcb", function(crateIndex)
         if info.crateMarkers and info.crateMarkers[crateIndex] then
             tCMG.removeMarker(info.crateMarkers[crateIndex])
@@ -834,12 +885,14 @@ local function initSearchForTech(info)
 
     SetPlayerFallDistance(PlayerId(), 200.0)
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         Citizen.Wait(1000)
         DoScreenFadeIn(2000)
     end)
 end
 
+-- === HELPER FUNCTION: runSearchForTech(info) ===
 local function runSearchForTech(info)
     drawNativeText("Scuba dive and search ~y~crates~w~ in the ~b~wreck~w~")
     local coords = CMG.getPlayerCoords()
@@ -847,12 +900,14 @@ local function runSearchForTech(info)
         if #(coords - GetEntityCoords(object, true)) < 2.0 then
             drawNativeNotification("Press ~INPUT_CONTEXT~ to search the crate")
             if IsControlJustPressed(0, 51) then
+               -- Beginner: sends the "6ec17c4146" event to the server.
                TriggerServerEvent("6ec17c4146", index)
             end
         end
     end
 end
 
+-- === HELPER FUNCTION: cleanSearchForTech(info) ===
 local function cleanSearchForTech(info)
     if info.crateObjects then
         for _, object in pairs(info.crateObjects) do
@@ -881,6 +936,7 @@ end
 
 ----------- [[ STAGE: RETURN_TO_FACTORY ]] -----------
 
+-- === HELPER FUNCTION: initReturnToFactory(info) ===
 local function initReturnToFactory(info)
     for _, vehicle in pairs(CMG.getAllVehicles()) do
         if GetEntityModel(vehicle) == `dinghy` then
@@ -893,10 +949,12 @@ local function initReturnToFactory(info)
     SetPlayerFallDistance(PlayerId(), 200.0)
 end
 
+-- === HELPER FUNCTION: runReturnToFactory() ===
 local function runReturnToFactory()
     drawNativeText("Return to the ~y~factory~w~ to finish")
 end
 
+-- === HELPER FUNCTION: cleanReturnToFactory(info) ===
 local function cleanReturnToFactory(info)
     if info.factoryBlip then
         RemoveBlip(info.factoryBlip)

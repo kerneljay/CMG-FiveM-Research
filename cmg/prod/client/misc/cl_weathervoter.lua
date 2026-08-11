@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Weathervoter
+    ==========================================
+
+    File: cmg/prod/client/misc/cl_weathervoter.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Weathervoter feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 14
+      * Background threads: 2
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: d119eeb42f, 6e6fb36867
+      * Local event handlers: none found by static scan
+      * Server events sent: 1dc4f2e900
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Time / Weather Controller
     =========================
 
@@ -28,6 +66,7 @@
     Normal server updates are ignored while the player is inside an event.
 ]]
 
+-- === HELPER FUNCTION: getDefaultWeather() ===
 local function getDefaultWeather()
     if CMG.isHalloween() then
         return "HALLOWEEN"
@@ -66,6 +105,7 @@ local timelapseRunning = false
 -- BASIC GETTERS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.getCurrentTime() ===
 function CMG.getCurrentTime()
     return
         currentTime.h,
@@ -74,6 +114,7 @@ function CMG.getCurrentTime()
 end
 
 
+-- === HELPER FUNCTION: CMG.getCurrentWeather() ===
 function CMG.getCurrentWeather()
     return currentWeather
 end
@@ -83,6 +124,7 @@ end
 -- APPLY WEATHER
 -- ============================================================
 
+-- === HELPER FUNCTION: applyCurrentWeather() ===
 local function applyCurrentWeather()
     if weatherTransitionStartedAt == -1 then
         ClearOverrideWeather()
@@ -160,6 +202,7 @@ function CMG.overrideTime(
 end
 
 
+-- === HELPER FUNCTION: CMG.cancelOverrideTimeWeather() ===
 function CMG.cancelOverrideTimeWeather()
     timeOverridden = false
 
@@ -192,6 +235,7 @@ function CMG.setWeather(
 end
 
 
+-- === HELPER FUNCTION: CMG.setTimeFrozen(frozen) ===
 function CMG.setTimeFrozen(frozen)
     timeFrozen =
         frozen == true
@@ -202,6 +246,7 @@ end
 -- APPLY CLOCK / WEATHER EVERY FRAME
 -- ============================================================
 
+-- === HELPER FUNCTION: timeWeatherTick() ===
 local function timeWeatherTick()
     NetworkOverrideClockTime(
         currentTime.h,
@@ -254,6 +299,7 @@ RegisterNetEvent(
 -- ADVANCE NORMAL TIME
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     SetWeatherOwnedByNetwork(false)
 
@@ -315,6 +361,7 @@ local function runTimelapse(
         + currentTime.m
         + currentTime.s / 60.0
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         while timelapseRunning do
             local progress =
@@ -394,11 +441,13 @@ function CMG.startTimelapse(
 end
 
 
+-- === HELPER FUNCTION: CMG.stopTimelapse() ===
 function CMG.stopTimelapse()
     timelapseRunning = false
 end
 
 
+-- === HELPER FUNCTION: CMG.isTimelapseRunning() ===
 function CMG.isTimelapseRunning()
     return timelapseRunning
 end

@@ -1,49 +1,56 @@
 --[[
-    Beginner Guide: cl_acid.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Acid
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Acid
+    ==================================
 
     File: cmg/prod/client/drugs/cl_acid.lua
-    Purpose: This file contains drug gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: drug-related gameplay systems, specifically the Acid feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 13
+      * Background threads: 0
+      * Always-running loops: 7
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * 2155168724
-      * 770ce54c02
-      * 631801299a
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, dataTable3, numberValue33, numberValue44, numberValue50, numberValue51, numberValue52, numberValue53, numberValue55, numberValue, numberValue2, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, numberValue24, numberValue25, numberValue26, numberValue27, numberValue28, numberValue29, numberValue30, numberValue31, numberValue32, numberValue34, numberValue35, numberValue36, numberValue37, numberValue38, numberValue39, numberValue40, numberValue41, numberValue42, numberValue43, numberValue45, numberValue46, numberValue47, numberValue48, numberValue49
 dataTable = {}
@@ -2835,6 +2842,8 @@ numberValue4 = 0.01
 numberValue5 = RegisterNetEvent
 numberValue6 = "2155168724"
 -- Beginner: this function handles network event "2155168724".
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, numberValue15, flag11
   arg1 = "mp_player_inteat@burger"
@@ -2924,6 +2933,8 @@ function numberValue7()
   numberValue54(numberValue56)
   numberValue54 = SetTimeout
   numberValue56 = 2000
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
   function cmgCall()
     local workValue, workValue2
     workValue = DeletePed
@@ -2940,6 +2951,8 @@ function numberValue7()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "2155168724".
 numberValue5(numberValue6, numberValue7)
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
 function numberValue5(arg1)
   local arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag, flag2, flag3, flag4, flag5, flag6
   if arg1 then
@@ -3120,6 +3133,8 @@ function numberValue5(arg1)
   numberValue4 = gameTime
 end
 DoAcid = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag
   arg1 = CMG
@@ -3232,6 +3247,8 @@ function numberValue5()
   arg6()
 end
 InitPed = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54
   while true do
@@ -3379,6 +3396,8 @@ function numberValue5()
   end
 end
 TrackEnt = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10
   arg1 = 1
@@ -3547,6 +3566,8 @@ function numberValue5()
   end
 end
 InitCubes = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10
   arg1 = GetEntityCoords
@@ -3627,6 +3648,8 @@ function numberValue5()
   end
 end
 DrawCubes = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3, arg4, arg5, arg6, gameTime
   arg1 = CMG
@@ -3692,6 +3715,8 @@ function numberValue5()
   arg5(arg6)
 end
 DrawToons = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
 function numberValue5(arg1)
   local arg2, arg3, arg4, arg5, arg6, gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10
   arg2 = 0
@@ -3771,6 +3796,8 @@ function numberValue5(arg1)
   end
 end
 DrawMario = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1, arg2) ===
 function numberValue5(arg1, arg2)
   local arg3, arg4, arg5, arg6, gameTime
   if arg1 and arg2 then
@@ -3849,6 +3876,8 @@ function numberValue5(arg1, arg2)
   return arg3(arg4)
 end
 GetVecDist = numberValue5
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function numberValue5(arg1, arg2, arg3, arg4, arg5, arg6)
   local gameTime, cmgCall2, numberValue54, numberValue56, cmgCall, numberValue3, flag, flag2
   gameTime = 0.017453292384744
@@ -3954,6 +3983,8 @@ numberValue6 = false
 numberValue7 = RegisterNetEvent
 numberValue8 = "770ce54c02"
 -- Beginner: this function handles network event "770ce54c02".
+
+-- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
 function numberValue9()
   local arg1, arg2, arg3, arg4
   arg1 = numberValue5
@@ -4027,6 +4058,8 @@ numberValue7(numberValue8, numberValue9)
 numberValue7 = RegisterNetEvent
 numberValue8 = "631801299a"
 -- Beginner: this function handles network event "631801299a".
+
+-- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
 function numberValue9()
   local arg1, arg2, arg3, arg4
   arg1 = PrepareMusicEvent

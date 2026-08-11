@@ -1,49 +1,56 @@
 --[[
-    Beginner Guide: cl_spectator.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Spectator
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Spectator
+    =======================================
 
     File: cmg/prod/client/events/cl_spectator.lua
-    Purpose: This file contains event/minigame logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Spectator feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 22
+      * Background threads: 0
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 5
-      They are intentionally left unchanged because matching server code may use them.
-      * a963b1abb7
-      * b7ce7ba79c
-      * 87a29fa0b5
-      * e0d0f4d443
-      * 193ee4e15e
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * ScaleformMovieMethodAddParamPlayerNameString
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, numberValue5, workValue12, numberValue7, dataTable, flag6, workValue16, workValue17, workValue18, workValue19, workValue2, workValue3, workValue4, workValue5, cmgCall2, textValue2, workValue6, workValue7, workValue8, workValue9, workValue10, gameTime, flag3, flag4, workValue11, cmgCall4, textValue4, textValue5
 flag = false
@@ -52,6 +59,8 @@ workValue12 = nil
 numberValue7 = 50
 dataTable = {}
 flag6 = false
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
 function workValue16(arg1)
   local arg2, playerPed, workValue13, flag5, flag7
   workValue12 = arg1
@@ -78,6 +87,8 @@ function workValue16(arg1)
   flag7 = playerPed
   workValue13(flag5, flag7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, arg2, playerPed
   arg1 = nil
@@ -91,10 +102,14 @@ function workValue17()
   playerPed = nil
   arg1(arg2, playerPed)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
 function workValue18(arg1)
   local arg2
   workValue12 = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
 function workValue19()
   local arg1, arg2, playerPed, workValue13, flag5
   arg1 = nil
@@ -129,6 +144,8 @@ function workValue19()
   -- Beginner: Freeze or unfreeze an entity in place.
   arg2(playerPed, workValue13)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
 function workValue2(arg1)
   local arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2
   arg2 = FreezeEntityPosition
@@ -171,6 +188,8 @@ function workValue2(arg1)
   workValue13 = false
   arg2(playerPed, workValue13)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2
   arg2 = SetEntityProofs
@@ -199,6 +218,8 @@ function workValue3(arg1)
   workValue13 = true
   arg2(playerPed, workValue13)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14
   arg1 = nil
@@ -248,6 +269,8 @@ function workValue4()
   end
   return playerPed
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12
   arg1 = workValue4
@@ -284,6 +307,8 @@ function workValue5()
   flag6 = arg2
 end
 cmgCall2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
 function textValue2(arg1)
   local arg2, playerPed
   flag = arg1
@@ -326,6 +351,8 @@ cmgCall2.setEventSpectatorMode = textValue2
 cmgCall2 = RegisterNetEvent
 textValue2 = "a963b1abb7"
 -- Beginner: this function handles network event "a963b1abb7".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, playerPed
   arg2 = true
@@ -338,12 +365,16 @@ end
 cmgCall2(textValue2, workValue6)
 cmgCall2 = CMG
 -- Beginner: this function handles network event "a963b1abb7".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, arg2
   arg1 = flag
   return arg1
 end
 cmgCall2.isSpectatingEvent = textValue2
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, playerPed
   arg2 = BeginTextCommandScaleformString
@@ -355,6 +386,8 @@ function cmgCall2(arg1)
   arg2 = EndTextCommandScaleformString
   arg2()
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
 function textValue2(arg1)
   local arg2, playerPed
   arg2 = _ENV
@@ -363,6 +396,8 @@ function textValue2(arg1)
   playerPed = arg1
   arg2(playerPed)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local playerPed, workValue13, flag5, flag7, flag8, flag10, flag12
   playerPed = RequestScaleformMovie
@@ -474,6 +509,8 @@ function workValue6(arg1, arg2)
   workValue13()
   return playerPed
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3, numberValue3, numberValue4
   arg1 = 0.3
@@ -498,6 +535,8 @@ function workValue7()
   numberValue4 = 200
   flag10(flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3, numberValue3, numberValue4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
 function workValue8()
   local arg1, arg2, playerPed
   arg1 = workValue4
@@ -540,6 +579,8 @@ function workValue8()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2, playerPed
   arg1 = workValue4
@@ -582,6 +623,8 @@ workValue10 = RequestStreamedTextureDict
 gameTime = "mphud"
 flag3 = false
 workValue10(gameTime, flag3)
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
 function workValue10()
   local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3
   arg1 = flag
@@ -799,6 +842,8 @@ gameTime = GetGameTimer
 gameTime = gameTime()
 flag3 = 0
 flag4 = false
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
 function workValue11()
   local arg1, arg2, playerPed, workValue13, flag5, flag7, flag8, flag10, flag12, flag14, flag2, numberValue, numberValue2, cmgCall, textValue, cmgCall3, textValue3
   arg1 = flag
@@ -975,6 +1020,8 @@ function workValue11()
               flag4 = arg2
               arg2 = Citizen
               arg2 = arg2.CreateThread
+
+              -- === HELPER FUNCTION: playerPed() ===
               function playerPed()
                 local workValue, numberValue6, playerPed2, workValue14, workValue15, numberValue8, flag9, flag11, flag13, flag15
                 workValue = DoScreenFadeOut
@@ -1067,6 +1114,8 @@ cmgCall4(textValue4, textValue5)
 cmgCall4 = RegisterNetEvent
 textValue4 = "87a29fa0b5"
 -- Beginner: this function handles network event "87a29fa0b5".
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
 function textValue5(arg1)
   local arg2
   dataTable = arg1
@@ -1076,6 +1125,8 @@ cmgCall4(textValue4, textValue5)
 cmgCall4 = RegisterNetEvent
 textValue4 = "e0d0f4d443"
 -- Beginner: this function handles network event "e0d0f4d443".
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2, playerPed, workValue13, flag5, flag7
   arg1 = CMG

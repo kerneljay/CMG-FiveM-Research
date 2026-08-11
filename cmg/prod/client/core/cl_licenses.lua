@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Licenses
+    ======================================
+
+    File: cmg/prod/client/core/cl_licenses.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Licenses feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 3
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 6732d32af6, f03b0703fc, 0506613825
+      * Local event handlers: none found by static scan
+      * Server events sent: 6732d32af6, d95bb7279e
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_licenses
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     License Shop Client
     ===================
 
@@ -52,6 +90,7 @@ local selectedLicenseId = nil
 -- WORLD MARKER / BLIP
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     tCMG.addMarker(
         shopCoords.x,
@@ -138,12 +177,14 @@ vigilanteMenu:SetSubtitle(
 -- SHOP AREA
 -- ============================================================
 
+-- === HELPER FUNCTION: closeLicenseShop() ===
 local function closeLicenseShop()
     if RageUI.Visible(shopMenu) then
         RageUI.Visible(shopMenu, false)
     end
 end
 
+-- === HELPER FUNCTION: whileInsideLicenseShop() ===
 local function whileInsideLicenseShop()
     -- Control 38 = E / INPUT_PICKUP.
     if IsControlJustPressed(1, 38) then
@@ -154,6 +195,7 @@ local function whileInsideLicenseShop()
         )
 
         -- Refresh ownership information from the server.
+        -- Beginner: sends the "6732d32af6" event to the server.
         TriggerServerEvent("6732d32af6")
     end
 
@@ -182,6 +224,7 @@ CMG.createArea(
 -- LICENCE LIST HELPER
 -- ============================================================
 
+-- === HELPER FUNCTION: drawLicenseSection(title, licenses) ===
 local function drawLicenseSection(title, licenses)
     RageUI.Separator(title)
 
@@ -348,16 +391,22 @@ https://wiki.cmgstudios.net/guides/licenses/vigilante]],
 -- ============================================================
 
 -- Server sends the licences this player currently owns.
+
+-- === NETWORK EVENT: receives "6732d32af6" from server/another network source ===
 RegisterNetEvent("6732d32af6", function(serverOwnedLicenses)
     ownedLicenses = serverOwnedLicenses or {}
 end)
 
 -- Open the Vigilante information menu.
+
+-- === NETWORK EVENT: receives "f03b0703fc" from server/another network source ===
 RegisterNetEvent("f03b0703fc", function()
     RageUI.Visible(vigilanteMenu, true)
 end)
 
 -- Close the Vigilante information menu.
+
+-- === NETWORK EVENT: receives "0506613825" from server/another network source ===
 RegisterNetEvent("0506613825", function()
     RageUI.Visible(vigilanteMenu, false)
 end)

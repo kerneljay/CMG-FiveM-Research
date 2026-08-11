@@ -1,60 +1,56 @@
 --[[
-    Beginner Guide: cl_devmisc.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Devmisc
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Devmisc
+    =====================================
 
     File: cmg/prod/client/developer/cl_devmisc.lua
-    Purpose: This file contains developer/debug tooling.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: developer/admin testing utilities, specifically the Devmisc feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 74
+      * Background threads: 0
+      * Always-running loops: 4
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/weapons
-      * cfg/heists/cfg_heist
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 9
-      They are intentionally left unchanged because matching server code may use them.
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Named framework/network events found:
-      * chat:addMessage
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
-    Example player-facing text in this file:
-      * ^3Already placing. Press ^7Backspace ^3to cancel or ^7F ^3to confirm.
-      * Spawn Vehicle By Name
-      * Clear Vehicles
-      * Enter Model List
-      * Open Scene Menu (RP)
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, cmgCall2, dataTable, dataTable2, workValue19, numberValue22, dataTable3, numberValue24, numberValue26, cmgCall8, numberValue, numberValue2, numberValue4, workValue3, workValue4, workValue5, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, cmgCall3, textValue3, workValue13, numberValue16, cmgCall4, textValue4, textValue5, workValue14
 cmgCall = CMG
@@ -78,6 +74,8 @@ numberValue24 = 0
 numberValue26 = 30000
 cmgCall8 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
 function numberValue()
   local arg1, arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5, vector3Builder, modelHash, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue13, flag4, flag6, flag8, numberValue17, flag10, flag11, flag12, flag14, flag15, workValue15, flag18
   while true do
@@ -168,6 +166,8 @@ end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 cmgCall8(numberValue)
 cmgCall8 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg1, arg2) ===
 function numberValue(arg1, arg2)
   local arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5, vector3Builder, modelHash, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue13
   arg3 = PlayerPedId
@@ -224,6 +224,8 @@ function numberValue(arg1, arg2)
     iterator = table
     iterator = iterator.sort
     workValue21 = gameTime2
+
+    -- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg12, arg22) ===
     function textValue6(arg12, arg22)
       local arg32, arg4
       arg32 = arg12.dist
@@ -307,6 +309,8 @@ cmgCall8 = 0.25
 numberValue = 0.05
 numberValue2 = 5.0
 numberValue4 = 1.0
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, arg3, coords
   arg2 = IsModelInCdimage
@@ -352,6 +356,8 @@ function workValue3(arg1)
   arg3 = true
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7
   arg1 = GetGameplayCamRot
@@ -396,6 +402,8 @@ function workValue4()
   textValue6 = iterator
   return workValue21, textValue6
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5
   arg2 = 0.78
@@ -439,6 +447,8 @@ function workValue5(arg1)
     arg2 = arg2 + 0.02
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
 function workValue7(arg1)
   local arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5
   arg2 = GetGameplayCamCoord
@@ -470,6 +480,8 @@ function workValue7(arg1)
     return coords
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2) ===
 function workValue8(arg1, arg2)
   local arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2
   arg3 = CreateObjectNoOffset
@@ -516,6 +528,8 @@ function workValue8(arg1, arg2)
   coords(gameTime2, iterator)
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2
   arg1 = workValue19
@@ -586,6 +600,8 @@ function workValue9()
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "chat:addMessage".
   gameTime2(iterator, workValue21)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
 function workValue10()
   local arg1, arg2
   arg1 = workValue19
@@ -610,6 +626,8 @@ function workValue10()
   arg1 = 0
   numberValue22 = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
 function workValue11(arg1)
   local arg2
   arg1 = arg1 % 360.0
@@ -618,6 +636,8 @@ function workValue11(arg1)
   end
   return arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
 function workValue12()
   local arg1, arg2, arg3, coords
   arg1 = DisableAllControlActions
@@ -710,6 +730,8 @@ function workValue12()
   arg1(arg2, arg3, coords)
 end
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
 function textValue3(arg1)
   local arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6
   arg2 = dataTable2
@@ -771,6 +793,8 @@ function textValue3(arg1)
   dataTable2 = coords
   coords = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: gameTime2() ===
   function gameTime2()
     local arg12, arg22, arg32, arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22, heading2, hashValue, waitCall, workValue2, textValue, numberValue6, workValue6, textValue2, flag, flag2, flag3, numberValue12, numberValue14, flag5, flag7, numberValue15, flag9, numberValue18, numberValue19, flag13, numberValue20, flag16, flag17, numberValue21, flag20, workValue16, workValue17, flag21
     arg12 = cmgCall8
@@ -778,6 +802,8 @@ function textValue3(arg1)
     arg32 = 140
     arg4 = {}
     -- Beginner: this function is the body of a background FiveM thread.
+
+    -- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg13, arg23) ===
     function cmgCall5(arg13, arg23)
       local gameTime, workValue18, workValue20, flag22
       gameTime = GetGameTimer
@@ -1211,6 +1237,8 @@ cmgCall3.placeObject = textValue3
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.registerDevMenuItems
 textValue3 = "Spawning"
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
 function workValue13()
   local arg1, arg2, arg3, coords, gameTime2
   arg1 = RageUI
@@ -1218,6 +1246,8 @@ function workValue13()
   arg2 = "Spawn Vehicle By Name"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23, numberValue25
     if arg32 then
@@ -1229,6 +1259,8 @@ function workValue13()
       cmgCall5 = cmgCall5.clientPrompt
       waitCall2 = "Spawn Code"
       numberValue23 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: arg13) ===
       function numberValue25(arg13)
         local arg23, gameTime, workValue18, workValue20, flag22, heading, cmgCall6, flag23, flag24
         arg23 = CMG
@@ -1267,6 +1299,8 @@ function workValue13()
   arg2 = "Spawn Object By Name"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1274,6 +1308,8 @@ function workValue13()
       arg4 = arg4.clientPrompt
       cmgCall5 = "Object Name"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime
         arg23 = CMG
@@ -1294,6 +1330,8 @@ function workValue13()
   arg2 = "Spawn Object By Hash"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1301,6 +1339,8 @@ function workValue13()
       arg4 = arg4.clientPrompt
       cmgCall5 = "Object Name"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime
         arg23 = CMG
@@ -1321,6 +1361,8 @@ function workValue13()
   arg2 = "Spawn Weapon"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1328,6 +1370,8 @@ function workValue13()
       arg4 = arg4.clientPrompt
       cmgCall5 = "Weapon:"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime, workValue18, workValue20, flag22, heading
         if nil ~= arg13 and "" ~= arg13 then
@@ -1355,6 +1399,8 @@ function workValue13()
   arg2 = "Clear Vehicles"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1374,6 +1420,8 @@ function workValue13()
   arg2 = "Clear Objects"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1393,6 +1441,8 @@ function workValue13()
   arg2 = "Clear Peds"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1412,6 +1462,8 @@ function workValue13()
   arg2 = "Clear Weapons"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2
     if arg32 then
@@ -1428,6 +1480,8 @@ function workValue13()
 end
 cmgCall3(textValue3, workValue13)
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
 function textValue3(arg1)
   local arg2, arg3, coords, gameTime2, iterator, workValue21
   arg2 = CMG
@@ -1462,10 +1516,14 @@ function textValue3(arg1)
 end
 cmgCall3.resolveHash = textValue3
 cmgCall3 = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2
   arg1 = Citizen
   arg1 = arg1.CreateThread
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local arg12, arg22, arg32, arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22
     while true do
@@ -1500,12 +1558,16 @@ function textValue3()
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
 function workValue13()
   local arg1, arg2, arg3, coords
   arg1 = CMG
   arg1 = arg1.clientPrompt
   arg2 = "Enter Model List"
   arg3 = ""
+
+  -- === HELPER FUNCTION: coords(arg12) ===
   function coords(arg12)
     local arg22, arg32, arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22, heading2, hashValue, waitCall, workValue2
     arg22 = CMG
@@ -1543,6 +1605,8 @@ function workValue13()
         arg32 = arg32 + 1
         waitCall = Citizen
         waitCall = waitCall.CreateThread
+
+        -- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
         function workValue2()
           local arg13, arg23, gameTime, workValue18, workValue20, flag22, heading, cmgCall6, flag23, flag24
           arg13 = CMG
@@ -1604,6 +1668,8 @@ function workValue13()
 end
 numberValue16 = 0
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, coords, gameTime2
   arg1 = RageUI
@@ -1611,6 +1677,8 @@ function textValue4()
   arg2 = "Get Customization [JSON]"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1626,6 +1694,8 @@ function textValue4()
       if not waitCall2 then
         waitCall2 = ""
       end
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: none) ===
       function numberValue23()
         local arg13, arg23
       end
@@ -1639,6 +1709,8 @@ function textValue4()
   arg2 = "Set Customization [JSON]"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1646,6 +1718,8 @@ function textValue4()
       arg4 = arg4.clientPrompt
       cmgCall5 = "Customization [JSON]"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime, workValue18
         arg23 = tCMG
@@ -1666,6 +1740,8 @@ cmgCall4.drawCustomisationDebugButtons = textValue4
 cmgCall4 = CMG
 cmgCall4 = cmgCall4.registerDevMenuItems
 textValue4 = "Customisation"
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2
   arg1 = CMG
@@ -1676,6 +1752,8 @@ cmgCall4(textValue4, textValue5)
 cmgCall4 = CMG
 cmgCall4 = cmgCall4.registerDevMenuItems
 textValue4 = "Miscellaneous"
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2, arg3, coords, gameTime2, iterator
   arg1 = RageUI
@@ -1683,6 +1761,8 @@ function textValue5()
   arg2 = "Show nearby objects"
   arg3 = "Lists all objects within 15m and draws markers with hash/distance. Check F8."
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1699,6 +1779,8 @@ function textValue5()
   arg2 = "Drop Lootbag"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1715,6 +1797,8 @@ function textValue5()
   arg2 = "Preview Daily Reward Crate"
   arg3 = "Opens the loot box animation without granting a reward."
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1731,6 +1815,8 @@ function textValue5()
   arg2 = "Reset Daily Reward"
   arg3 = "Sets last claim to yesterday so you can claim again today."
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1747,6 +1833,8 @@ function textValue5()
   arg2 = "Open Scene Menu (RP)"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1763,6 +1851,8 @@ function textValue5()
   arg2 = "Preview Marker"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22, heading2, hashValue, waitCall, workValue2, textValue, numberValue6, workValue6, textValue2, flag, flag2, flag3, numberValue12, numberValue14, flag5, flag7, numberValue15, flag9, numberValue18, numberValue19, flag13
     arg4 = numberValue16
@@ -1812,6 +1902,8 @@ function textValue5()
       arg4 = arg4.clientPrompt
       cmgCall5 = "Enter ID"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime
         arg23 = tonumber
@@ -1832,6 +1924,8 @@ function textValue5()
   arg2 = "Get Camera Pos & Rot"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22, heading2, hashValue, waitCall, workValue2, textValue, numberValue6
     if arg32 then
@@ -1853,6 +1947,8 @@ function textValue5()
       textValue = cmgCall5.y
       numberValue6 = cmgCall5.z
       numberValue25 = numberValue25(workValue22, heading2, hashValue, waitCall, workValue2, textValue, numberValue6)
+
+      -- === HELPER FUNCTION (decompiler name: workValue22; parameters: none) ===
       function workValue22()
         local arg13, arg23
       end
@@ -1866,6 +1962,8 @@ function textValue5()
   arg2 = "Clear Watchlist Of Old Staff"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then
@@ -1882,6 +1980,8 @@ function textValue5()
   arg2 = "Test Models"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4
     if arg32 then
@@ -1896,6 +1996,8 @@ function textValue5()
   arg2 = "Resolve Hash"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1903,6 +2005,8 @@ function textValue5()
       arg4 = arg4.clientPrompt
       cmgCall5 = "Enter Number"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime, workValue18, workValue20, flag22, heading, cmgCall6, flag23
         arg23 = tonumber
@@ -1949,6 +2053,8 @@ Name: %s]]
   arg2 = "Highlight Object"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -1956,6 +2062,8 @@ Name: %s]]
       arg4 = arg4.clientPrompt
       cmgCall5 = "Object Name / Hash"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime, workValue18, workValue20, flag22
         if "" == arg13 then
@@ -2012,6 +2120,8 @@ Name: %s]]
   arg3 = ""
   coords = cmgCall2.selectingCrosshairPosition
   gameTime2 = {}
+
+  -- === HELPER FUNCTION: iterator(arg12, arg22, arg32, arg4) ===
   function iterator(arg12, arg22, arg32, arg4)
     cmgCall2.selectingCrosshairPosition = arg4
   end
@@ -2025,6 +2135,8 @@ Name: %s]]
   gameTime2 = cmgCall2.selectCrosshairDistance
   coords.RightLabel = gameTime2
   gameTime2 = true
+
+  -- === HELPER FUNCTION: iterator(arg12, arg22, arg32) ===
   function iterator(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23
     if arg32 then
@@ -2032,6 +2144,8 @@ Name: %s]]
       arg4 = arg4.clientPrompt
       cmgCall5 = "Enter Value:"
       waitCall2 = ""
+
+      -- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg13) ===
       function numberValue23(arg13)
         local arg23, gameTime
         arg23 = tonumber
@@ -2051,6 +2165,8 @@ Name: %s]]
   arg2 = "Get Camera Position"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22, heading2, hashValue
     if arg32 then
@@ -2066,6 +2182,8 @@ Name: %s]]
       heading2 = arg4.y
       hashValue = arg4.z
       numberValue23 = numberValue23(numberValue25, workValue22, heading2, hashValue)
+
+      -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: none) ===
       function numberValue25()
         local arg13, arg23
       end
@@ -2079,6 +2197,8 @@ Name: %s]]
   arg2 = "Get Camera Rotation"
   arg3 = nil
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5, waitCall2, numberValue23, numberValue25, workValue22, heading2, hashValue
     if arg32 then
@@ -2095,6 +2215,8 @@ Name: %s]]
       heading2 = arg4.y
       hashValue = arg4.z
       numberValue23 = numberValue23(numberValue25, workValue22, heading2, hashValue)
+
+      -- === HELPER FUNCTION (decompiler name: numberValue25; parameters: none) ===
       function numberValue25()
         local arg13, arg23
       end
@@ -2108,6 +2230,8 @@ cmgCall4(textValue4, textValue5)
 cmgCall4 = RegisterNetEvent
 textValue4 = "351e7015f2"
 -- Beginner: this function handles network event "351e7015f2".
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1) ===
 function textValue5(arg1)
   local arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5, vector3Builder, modelHash, numberValue7
   arg2 = CMG
@@ -2260,6 +2384,8 @@ cmgCall4(textValue4, textValue5)
 cmgCall4 = RegisterNetEvent
 textValue4 = "0f125feacd"
 -- Beginner: this function handles network event "0f125feacd".
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: ...) ===
 function textValue5(...)
   local arg1, arg2
   arg1 = print
@@ -2272,6 +2398,8 @@ cmgCall4 = CMG
 cmgCall4 = cmgCall4.registerDevMenuThread
 textValue4 = "Dev Misc"
 -- Beginner: this function handles network event "0f125feacd".
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5, vector3Builder, modelHash, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue13, flag4, flag6, flag8, numberValue17, flag10, flag11, flag12, flag14, flag15, workValue15, flag18, flag19
   arg1 = cmgCall2.selectingCrosshairPosition
@@ -2415,6 +2543,8 @@ function textValue5()
 end
 cmgCall4(textValue4, textValue5)
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
 function textValue4(arg1, arg2)
   local arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue
   arg3 = DrawLine
@@ -2462,6 +2592,8 @@ function textValue4(arg1, arg2)
 end
 cmgCall4.drawAxisOnPoint = textValue4
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2, arg3) ===
 function textValue4(arg1, arg2, arg3)
   local coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5, vector3Builder
   coords = vector3
@@ -2496,6 +2628,8 @@ function textValue4(arg1, arg2, arg3)
 end
 cmgCall4.drawHeadingFromPoint = textValue4
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, ...) ===
 function textValue4(arg1, ...)
   local arg2, arg3, coords, gameTime2, iterator
   arg2 = table
@@ -2510,6 +2644,8 @@ function textValue4(arg1, ...)
 end
 cmgCall4.drawDebugText = textValue4
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
 function textValue4(arg1, arg2)
   local arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue, numberValue3, workValue, numberValue5, vector3Builder, modelHash, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue13, flag4, flag6, flag8
   if not arg2 then
@@ -2637,6 +2773,8 @@ cmgCall4 = cmgCall4(textValue4)
 textValue4 = CMG
 textValue4 = textValue4.registerDevMenuItems
 textValue5 = "Bank Heists"
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
 function workValue14()
   local arg1, arg2, arg3, coords, gameTime2, iterator, workValue21, textValue6, cmgCall7, vector3Builder2, labelValue
   arg1 = ipairs
@@ -2653,6 +2791,8 @@ function workValue14()
 Starts this setup instantly (dev only, no cost).]]
     cmgCall7 = cmgCall7 .. vector3Builder2
     vector3Builder2 = true
+
+    -- === HELPER FUNCTION: labelValue(arg12, arg22, arg32) ===
     function labelValue(arg12, arg22, arg32)
       local arg4, cmgCall5, waitCall2
       if arg32 then
@@ -2671,6 +2811,8 @@ textValue4(textValue5, workValue14)
 textValue4 = CMG
 textValue4 = textValue4.registerDevMenuItems
 textValue5 = "Events/Chat Mini-Event"
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
 function workValue14()
   local arg1, arg2, arg3, coords, gameTime2
   arg1 = RageUI
@@ -2678,6 +2820,8 @@ function workValue14()
   arg2 = "Trigger Now"
   arg3 = "Immediately starts a random chat mini-event round (dev only)."
   coords = true
+
+  -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
   function gameTime2(arg12, arg22, arg32)
     local arg4, cmgCall5
     if arg32 then

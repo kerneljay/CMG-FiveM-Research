@@ -1,60 +1,56 @@
 --[[
-    Beginner Guide: cl_anpr.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Anpr
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Anpr
+    ==================================
 
     File: cmg/prod/client/police/cl_anpr.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Anpr feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 16
+      * Background threads: 0
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Commands/command-like entries found:
-      * /flagf
-      * /flagr
-      * flagf
-      * flagr
-      * anpr
-      * lockanpr
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 5
-      They are intentionally left unchanged because matching server code may use them.
-      * 49f6eff747
-      * 920f4c13e9
-      * 4da4f2889b
-      * 42d0ce93ae
-      * 66486b9576
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * chat:addSuggestion
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~r~Error~w~: You must provide a valid flag reason.
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, flag4, textValue4, textValue5, workValue5, workValue6, dataTable3, flag5, flag6, numberValue8, dataTable, vector3Builder, numberValue2, numberValue4, numberValue5, dataTable2, cmgCall2, eventRegistration, textValue3, workValue2
 flag = true
@@ -388,6 +384,8 @@ numberValue5 = 28.02
 vector3Builder = vector3Builder(numberValue2, numberValue4, numberValue5)
 dataTable["La Puerta Fwy/Del Perro Fwy on-slip"] = vector3Builder
 vector3Builder = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg1) ===
 function numberValue2(arg1)
   local arg2, workValue4, tableHelper
   arg2 = CMG
@@ -434,6 +432,8 @@ vector3Builder(numberValue2, numberValue4, numberValue5, dataTable2)
 vector3Builder = RegisterCommand
 numberValue2 = "flagf"
 -- Beginner: this function is the command handler for "flagf".
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: arg1, arg2) ===
 function numberValue4(arg1, arg2)
   local workValue4, tableHelper, textValue6, stringHelper2, workValue7
   workValue4 = textValue4
@@ -475,6 +475,8 @@ vector3Builder(numberValue2, numberValue4, numberValue5)
 vector3Builder = RegisterCommand
 numberValue2 = "flagr"
 -- Beginner: this function is the command handler for "flagr".
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: arg1, arg2) ===
 function numberValue4(arg1, arg2)
   local workValue4, tableHelper, textValue6, stringHelper2, workValue7
   workValue4 = textValue5
@@ -516,6 +518,8 @@ vector3Builder(numberValue2, numberValue4, numberValue5)
 vector3Builder = RegisterCommand
 numberValue2 = "anpr"
 -- Beginner: this function is the command handler for "anpr".
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
 function numberValue4()
   local arg1, arg2
   arg1 = flag
@@ -527,6 +531,8 @@ vector3Builder(numberValue2, numberValue4, numberValue5)
 vector3Builder = RegisterCommand
 numberValue2 = "lockanpr"
 -- Beginner: this function is the command handler for "lockanpr".
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
 function numberValue4()
   local arg1, arg2
   arg1 = flag4
@@ -550,6 +556,8 @@ numberValue5 = false
 -- Beginner: Register a chat/console command. Event/command: "lockanpr".
 vector3Builder(numberValue2, numberValue4, numberValue5)
 vector3Builder = false
+
+-- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
 function numberValue2()
   local arg1, arg2, workValue4
   arg1 = IsPedInAnyVehicle
@@ -579,6 +587,8 @@ function numberValue2()
   arg1 = false
   return arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: arg1) ===
 function numberValue4(arg1)
   local arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue, textValue2, flag3
   arg2 = nil
@@ -663,6 +673,8 @@ function numberValue4(arg1)
           flag5 = workValue
           workValue = SetTimeout
           stringHelper = 10000
+
+          -- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
           function textValue()
             local flag2, workValue3
             flag2 = false
@@ -678,6 +690,8 @@ function numberValue4(arg1)
     return cmgCall
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
 function numberValue5(arg1)
   local arg2, workValue4, tableHelper, textValue6, stringHelper2
   arg2 = CMG
@@ -705,6 +719,8 @@ function numberValue5(arg1)
 end
 dataTable2 = Citizen
 dataTable2 = dataTable2.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2, workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6, numberValue7, numberValue9, numberValue, cmgCall, numberValue3, workValue, stringHelper, textValue
   arg1 = DecorRegister
@@ -724,9 +740,13 @@ function cmgCall2()
     numberValue9 = 28.0
     numberValue = 4.0
     cmgCall = numberValue5
+
+    -- === HELPER FUNCTION (decompiler name: numberValue3; parameters: none) ===
     function numberValue3()
       local flag2, workValue3
     end
+
+    -- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
     function workValue()
       local flag2, workValue3
     end
@@ -841,6 +861,8 @@ function cmgCall2()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 dataTable2(cmgCall2)
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2
   arg1 = flag
@@ -880,6 +902,8 @@ cmgCall2(eventRegistration, textValue3)
 cmgCall2 = RegisterNetEvent
 eventRegistration = "42d0ce93ae"
 -- Beginner: this function handles network event "42d0ce93ae".
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
 function textValue3(arg1)
   local arg2
   dataTable3 = arg1
@@ -889,6 +913,8 @@ cmgCall2(eventRegistration, textValue3)
 cmgCall2 = RegisterNetEvent
 eventRegistration = "66486b9576"
 -- Beginner: this function handles network event "66486b9576".
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1, arg2) ===
 function textValue3(arg1, arg2)
   local workValue4, tableHelper, textValue6, stringHelper2, workValue7
   workValue4 = NetworkDoesNetworkIdExist
@@ -925,6 +951,8 @@ cmgCall2 = false
 eventRegistration = RegisterNetEvent
 textValue3 = "920f4c13e9"
 -- Beginner: this function handles network event "920f4c13e9".
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
 function workValue2(arg1, arg2)
   local workValue4, tableHelper, textValue6, stringHelper2, workValue7, numberValue6
   workValue4 = dataTable3

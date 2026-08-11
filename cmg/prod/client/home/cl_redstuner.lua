@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Redstuner
+    =======================================
+
+    File: cmg/prod/client/home/cl_redstuner.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: housing/home gameplay, specifically the Redstuner feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 2
+      * Background threads: 2
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Simple Two-Way Teleport System
     ==============================
 
@@ -93,6 +131,7 @@ local activeTeleportIndex = nil
 -- HELPER: CREATE A RED CHECKPOINT
 -- ============================================================
 
+-- === HELPER FUNCTION: createTeleportCheckpoint(zone) ===
 local function createTeleportCheckpoint(zone)
     local checkpoint = CreateCheckpoint(
         47,
@@ -136,6 +175,7 @@ end
 -- CHECK PLAYER DISTANCE + SHOW/HIDE CHECKPOINTS
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     while true do
         local playerPed = PlayerPedId()
@@ -204,6 +244,7 @@ end)
 -- HELPER: TELEPORT AN ENTITY
 -- ============================================================
 
+-- === HELPER FUNCTION: teleportEntity(entity, target) ===
 local function teleportEntity(entity, target)
     SetEntityCoords(
         entity,
@@ -228,6 +269,7 @@ end
 -- INPUT + ACTUAL TELEPORT
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     while true do
         -- Are we currently standing inside a usable teleport zone?

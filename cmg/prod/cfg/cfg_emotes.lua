@@ -1,29 +1,40 @@
 --[[
-    BEGINNER GUIDE — Emotes
-    =======================
+    LEVEL 1 BEGINNER GUIDE — Emotes
+    ====================================
 
     File: cmg/prod/cfg/cfg_emotes.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Config/shared data — is mainly loaded as data/configuration by other scripts.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/cfg_rpemotes
-      * cfg/cfg_pazeee_emotes
+    Quick map of this file (automatic static scan):
+      * Named functions: 10
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_rpemotes, cfg/cfg_pazeee_emotes
 
-    Example player-facing text in this file:
-      * Press ~y~G~w~ to make it rain.
-      * Press ~y~G~w~ to use camera flash.
-      * Steal Stop Sign 
-      * Steal Stop Sign Snow 
-      * Press ~y~G~w~ to flash camera.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cfgRP = CMG.loadModule("cfg/cfg_rpemotes")
 
@@ -4993,6 +5004,7 @@ for name, emoteInfo in pairs(cfgRP.Walks) do
     end
 end
 
+-- === HELPER FUNCTION: doesEmoteWithNameExist(name) ===
 local function doesEmoteWithNameExist(name)
     if cfg.emotes[name] or cfg.dances[name] or cfg.custom[name] or cfg.props[name] or cfg.guns[name] or cfg.animals[name] then
         return true
@@ -5001,6 +5013,7 @@ local function doesEmoteWithNameExist(name)
     end
 end
 
+-- === HELPER FUNCTION: canModelNameBeUsed(name) ===
 local function canModelNameBeUsed(name)
     local lowerName = string.lower(name or "")
     for _, unwantedName in pairs(unwantedEmoteNames) do
@@ -5011,6 +5024,7 @@ local function canModelNameBeUsed(name)
     return true
 end
 
+-- === HELPER FUNCTION: doesAnimDictExist(animDict) ===
 local function doesAnimDictExist(animDict)
     if IsDuplicityVersion() then
         return true
@@ -5018,10 +5032,12 @@ local function doesAnimDictExist(animDict)
     return DoesAnimDictExist(animDict)
 end
 
+-- === HELPER FUNCTION: isModelValid(modelHash) ===
 local function isModelValid(modelHash)
     return IsDuplicityVersion() and true or IsModelValid(modelHash)
 end
 
+-- === HELPER FUNCTION: canExternalEmoteBeUsed(emoteInfo) ===
 local function canExternalEmoteBeUsed(emoteInfo)
     if emoteInfo[1] and not doesAnimDictExist(emoteInfo[1]) then
         return false
@@ -5051,6 +5067,7 @@ local function canExternalEmoteBeUsed(emoteInfo)
     return true
 end
 
+-- === HELPER FUNCTION: canExternalAnimalEmoteBeUsed(emoteInfo) ===
 local function canExternalAnimalEmoteBeUsed(emoteInfo)
     if emoteInfo[1] and not doesAnimDictExist(emoteInfo[1]) then
         return false
@@ -5075,10 +5092,12 @@ local function canExternalAnimalEmoteBeUsed(emoteInfo)
     return true
 end
 
+-- === HELPER FUNCTION: canEmoteNameBeUsed(name) ===
 local function canEmoteNameBeUsed(name)
     return not string.match(name, "shield") and not explictBannedLists[name]
 end
 
+-- === HELPER FUNCTION: copyPropTextureVariations(src) ===
 local function copyPropTextureVariations(src)
     if not src then
         return nil
@@ -5093,6 +5112,7 @@ local function copyPropTextureVariations(src)
     return out
 end
 
+-- === HELPER FUNCTION: copyExternalEmote(emoteInfo) ===
 local function copyExternalEmote(emoteInfo)
     local newEmoteInfo = {emoteInfo[1], emoteInfo[2], emoteInfo[3], emoteInfo[4]}
     local opt = emoteInfo.AnimationOptions
@@ -5160,6 +5180,7 @@ local function copyExternalEmote(emoteInfo)
     return newEmoteInfo
 end
 
+-- === HELPER FUNCTION: stripUnwantedEmotes(emoteTable) ===
 local function stripUnwantedEmotes(emoteTable)
     for emoteId, emoteInfo in pairs(emoteTable) do
         if not canModelNameBeUsed(emoteInfo[3]) then

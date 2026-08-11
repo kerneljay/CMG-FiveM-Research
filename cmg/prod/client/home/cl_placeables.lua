@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Placeables
+    ========================================
+
+    File: cmg/prod/client/home/cl_placeables.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: housing/home gameplay, specifically the Placeables feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 41269ceaa6, 891add160c, 04d1477f6f, 5823396a12, bb2ff71d8f
+      * Local event handlers: onResourceStop
+      * Server events sent: 5823396a12, cd012390a5, aa0e6fb69e
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_homecustomisation
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Home Placeable Objects - Readable Client Script
     ===============================================
 
@@ -114,6 +152,7 @@ end
 -- DELETE LOCAL PLACEABLES
 -- ============================================================
 
+-- === HELPER FUNCTION: deleteAllLocalPlaceables() ===
 local function deleteAllLocalPlaceables()
     if not placedObjects then
         return
@@ -173,6 +212,7 @@ RegisterNetEvent(
 -- SERVER: CLEAR ALL PLACEABLES
 -- ============================================================
 
+-- === NETWORK EVENT: receives "04d1477f6f" from server/another network source ===
 RegisterNetEvent("04d1477f6f", function()
     deleteAllLocalPlaceables()
     placedObjects = nil
@@ -183,6 +223,7 @@ end)
 -- SERVER: REMOVE ONE PLACEABLE BY INDEX
 -- ============================================================
 
+-- === NETWORK EVENT: receives "5823396a12" from server/another network source ===
 RegisterNetEvent("5823396a12", function(index)
     if not placedObjects or not placedObjects[index] then
         return
@@ -202,6 +243,7 @@ end)
 -- FIND THE INDEX OF A SPAWNED ENTITY
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.getHomePlaceableIndex(wantedEntity) ===
 function CMG.getHomePlaceableIndex(wantedEntity)
     if not placedObjects then
         return -1
@@ -221,6 +263,7 @@ end
 -- RETURN ALL CURRENT PLACEABLE OBJECT DATA
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.getHomePlaceableObjects() ===
 function CMG.getHomePlaceableObjects()
     return placedObjects
 end
@@ -230,6 +273,7 @@ end
 -- REQUEST DELETION OF A SPECIFIC ENTITY
 -- ============================================================
 
+-- === HELPER FUNCTION: requestPlaceableDeletion(entity) ===
 local function requestPlaceableDeletion(entity)
     local index = CMG.getHomePlaceableIndex(entity)
 
@@ -250,6 +294,7 @@ end
 -- DELETE THE CLOSEST PROP
 -- ============================================================
 
+-- === HELPER FUNCTION: deleteClosestPlaceable() ===
 local function deleteClosestPlaceable()
     if not placedObjects then
         return
@@ -288,6 +333,7 @@ end
 -- ENTER DELETE-PREVIEW MODE
 -- ============================================================
 
+-- === HELPER FUNCTION: enterDeletionPreview() ===
 local function enterDeletionPreview()
     local entities = {}
 

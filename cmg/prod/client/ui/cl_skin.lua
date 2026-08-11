@@ -1,48 +1,56 @@
 --[[
-    Beginner Guide: cl_skin.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Skin
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Skin
+    ==================================
 
     File: cmg/prod/client/ui/cl_skin.lua
-    Purpose: This file contains menu/UI logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: NUI/menu/interface behaviour, specifically the Skin feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 4
-      They are intentionally left unchanged because matching server code may use them.
-      * 9c3ac4fb9c
-      * daf420849d
-      * 5554c4f64b
-      * b0ae230dba
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * Press ~INPUT_FRONTEND_LB~ and ~INPUT_FRONTEND_RB~ to rotate your character.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, numberValue, dataTable, dataTable2, cmgCall2, textValue, cmgCall3, textValue2, textValue3
 flag = false
@@ -52,6 +60,8 @@ dataTable2 = {}
 cmgCall2 = CMG
 cmgCall2 = cmgCall2.uiRegisterCallback
 textValue = "updateSkin"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
 function cmgCall3(arg1)
   local arg2, workValue18, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, cmgCall, numberValue2, workValue16, workValue17, numberValue3, workValue19, numberValue4, numberValue5, workValue20, workValue21, workValue22, workValue23, numberValue6, flag2
   arg2 = tonumber
@@ -404,6 +414,8 @@ cmgCall2(textValue, cmgCall3)
 cmgCall2 = RegisterNetEvent
 textValue = "daf420849d"
 -- Beginner: this function handles network event "daf420849d".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
 function cmgCall3(arg1, arg2)
   dataTable = arg1
   dataTable2 = arg2
@@ -413,6 +425,8 @@ cmgCall2(textValue, cmgCall3)
 cmgCall2 = RegisterNetEvent
 textValue = "5554c4f64b"
 -- Beginner: this function handles network event "5554c4f64b".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2
   arg1 = {}
@@ -422,6 +436,8 @@ function cmgCall3()
 end
 cmgCall2(textValue, cmgCall3)
 -- Beginner: this function handles network event "5554c4f64b".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, workValue18, workValue24, workValue25
   flag = arg1
@@ -509,6 +525,8 @@ function cmgCall2(arg1)
     workValue24(workValue25)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, workValue18
   arg1 = flag
@@ -532,6 +550,8 @@ cmgCall3(textValue2, textValue3)
 cmgCall3 = AddEventHandler
 textValue2 = "b0ae230dba"
 -- Beginner: this function runs when client event "b0ae230dba" fires.
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2, workValue18, workValue24, workValue25, workValue26, workValue27, workValue28
   arg1 = flag
@@ -607,6 +627,8 @@ cmgCall3(textValue2, textValue3)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "closeSkinUI"
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2, workValue18, workValue24, workValue25, workValue26
   arg1 = flag
@@ -638,6 +660,8 @@ cmgCall3(textValue2, textValue3)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "rotateSkinCharacter"
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
 function textValue3(arg1)
   local arg2, workValue18, workValue24, workValue25, workValue26
   arg2 = PlayerPedId

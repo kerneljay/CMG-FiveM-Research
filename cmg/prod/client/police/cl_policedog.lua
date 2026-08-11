@@ -1,60 +1,56 @@
 --[[
-    Beginner Guide: cl_policedog.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Policedog
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Policedog
+    =======================================
 
     File: cmg/prod/client/police/cl_policedog.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Policedog feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 47
+      * Background threads: 0
+      * Always-running loops: 7
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * /k9
-      * /k9attack
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 9
-      They are intentionally left unchanged because matching server code may use them.
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Named framework/network events found:
-      * chat:addSuggestion
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
-    Example player-facing text in this file:
-      * Start a police dog attack
-      * You must be outside the vehicle.
-      * You have been bitten by a police dog.
-      * Press INSERT to attack another player without having the menu open.
-      * Select Breed
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, dataTable6, dataTable7, rageUiCall2, dataTable8, dataTable9, rageUiCall3, rageUiCall4, textValue10, textValue11, workValue, dataTable, workValue2, workValue3, workValue4, workValue5, dataTable3, dataTable4, dataTable5, textValue3, workValue7, workValue9, eventRegistration, eventRegistration2, textValue4, rageUiCall, eventRegistration3, workValue11, workValue13, textValue5, textValue7
 flag = RMenu
@@ -137,6 +133,8 @@ dataTable9(rageUiCall3, rageUiCall4, textValue10)
 dataTable9 = RegisterNetEvent
 rageUiCall3 = "0ca8b17662"
 -- Beginner: this function handles network event "0ca8b17662".
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
 function rageUiCall4()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18
   arg1 = CMG
@@ -264,6 +262,8 @@ function rageUiCall4()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "0ca8b17662".
 dataTable9(rageUiCall3, rageUiCall4)
+
+-- === HELPER FUNCTION (decompiler name: dataTable9; parameters: none) ===
 function dataTable9()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15
   arg1 = rageUiCall2.active
@@ -314,6 +314,8 @@ function dataTable9()
     arg1(arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
 function rageUiCall3()
   local arg1, arg2
   arg1 = rageUiCall2.active
@@ -326,6 +328,8 @@ function rageUiCall3()
   arg1 = dataTable6.Stay
   rageUiCall2.currentAction = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
 function rageUiCall4()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2
   arg1 = rageUiCall2.active
@@ -375,6 +379,8 @@ function rageUiCall4()
   arg3 = dataTable6.Sit
   rageUiCall2.currentAction = arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue10; parameters: arg1, arg2) ===
 function textValue10(arg1, arg2)
   local arg3, cmgCall
   arg3 = notify
@@ -382,6 +388,8 @@ function textValue10(arg1, arg2)
   -- Beginner: Show a notification to the player.
   arg3(cmgCall)
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1) ===
 function textValue11(arg1)
   local arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2, flag4
   arg2 = dataTable6.Trick
@@ -425,6 +433,8 @@ function textValue11(arg1)
   textValue8 = arg2
   cmgCall(textValue8)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15
   arg1 = GetEntityCoords
@@ -449,6 +459,8 @@ function workValue()
   arg2(arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15)
 end
 dataTable = {}
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2
   arg1 = rageUiCall2.currentAction
@@ -582,6 +594,8 @@ function workValue2()
         cmgCall[textValue8] = true
         cmgCall = Citizen
         cmgCall = cmgCall.CreateThread
+
+        -- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
         function textValue8()
           local waitCall, numberValue9
           waitCall = Citizen
@@ -624,6 +638,8 @@ function workValue2()
     arg3(cmgCall)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2, arg3, cmgCall, textValue8
   arg1 = CMG
@@ -648,6 +664,8 @@ function workValue3()
     arg3(cmgCall, textValue8)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2, flag4, flag5, flag6, flag7
   arg1 = tCMG
@@ -708,6 +726,8 @@ function workValue4()
     arg2(arg3, cmgCall)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15
   arg1 = IsPedInAnyVehicle
@@ -772,6 +792,8 @@ dataTable4[1] = dataTable5
 dataTable4[2] = textValue3
 dataTable5 = {}
 dataTable5.breed = 1
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2, arg3, cmgCall
   arg1 = GetResourceKvpString
@@ -799,6 +821,8 @@ function textValue3()
   arg2.vestDesign = 0
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
 function workValue7(arg1, arg2)
   local arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2, flag4, flag5, flag6
   arg3 = CMG
@@ -974,6 +998,8 @@ function workValue7(arg1, arg2)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2, arg3
   arg1 = DeleteEntity
@@ -991,6 +1017,8 @@ end
 eventRegistration = RegisterNetEvent
 eventRegistration2 = "21403d7958"
 -- Beginner: this function handles network event "21403d7958".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3
   arg1 = SetPedToRagdoll
@@ -1017,6 +1045,8 @@ eventRegistration = nil
 eventRegistration2 = RegisterNetEvent
 textValue4 = "3d3cfdde5b"
 -- Beginner: this function handles network event "3d3cfdde5b".
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
 function rageUiCall()
   local arg1, arg2
   arg1 = rageUiCall2.active
@@ -1031,6 +1061,8 @@ function rageUiCall()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "3d3cfdde5b".
 eventRegistration2(textValue4, rageUiCall)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
 function eventRegistration2(arg1)
   local arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3
   arg2 = {}
@@ -1072,6 +1104,8 @@ textValue7 = "main"
 -- Beginner: result below is menu.
 workValue11 = workValue11(workValue13, textValue5, textValue7)
 workValue13 = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9
   arg1 = RageUI
@@ -1086,6 +1120,8 @@ function textValue5()
   arg3 = true
   cmgCall = false
   textValue8 = true
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
   function cmgCall2()
     local waitCall, numberValue9, textValue6, flag12, workValue15, dataTable10, flag13, numberValue13
     waitCall = flag
@@ -1107,6 +1143,8 @@ function textValue5()
       workValue15 = nil
       dataTable10 = {}
       flag13 = true
+
+      -- === HELPER FUNCTION (decompiler name: numberValue13; parameters: arg12, arg22, arg32, arg4) ===
       function numberValue13(arg12, arg22, arg32, arg4)
         local workValue16, workValue17
         if arg32 then
@@ -1127,6 +1165,8 @@ function textValue5()
       numberValue9 = "Create Dog"
       textValue6 = "Create a police dog"
       flag12 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
       function workValue15(arg12, arg22, arg32)
         local arg4, workValue16, workValue17, numberValue12
         if arg32 then
@@ -1170,6 +1210,8 @@ function textValue5()
           numberValue9 = "Follow"
           textValue6 = "Dog will follow you"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4, workValue16, workValue17
             if arg32 then
@@ -1193,6 +1235,8 @@ function textValue5()
           numberValue9 = "Stay"
           textValue6 = "Dog will stay"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4, workValue16, workValue17
             if arg32 then
@@ -1215,6 +1259,8 @@ function textValue5()
           numberValue9 = "Sit"
           textValue6 = "Dog will sit"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4, workValue16, workValue17
             if arg32 then
@@ -1237,6 +1283,8 @@ function textValue5()
           numberValue9 = "Attack"
           textValue6 = "Begin a dog attack"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4
             if arg32 then
@@ -1252,6 +1300,8 @@ function textValue5()
           numberValue9 = "Stop Attack"
           textValue6 = "Stop the current attack"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4, workValue16, workValue17
             if arg32 then
@@ -1282,6 +1332,8 @@ function textValue5()
         numberValue9 = "Remove from vehicle"
         textValue6 = "Remove the dog from the vehicle"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16, workValue17
           if arg32 then
@@ -1303,6 +1355,8 @@ function textValue5()
         numberValue9 = "Put in vehicle"
         textValue6 = "Put the dog in a vehicle"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4
           if arg32 then
@@ -1317,6 +1371,8 @@ function textValue5()
         numberValue9 = "Paw Trick"
         textValue6 = "Perform the paw trick"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16
           if arg32 then
@@ -1332,6 +1388,8 @@ function textValue5()
         numberValue9 = "Beg Trick"
         textValue6 = "Perform the beg trick"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16
           if arg32 then
@@ -1347,6 +1405,8 @@ function textValue5()
         numberValue9 = "Search Nearby"
         textValue6 = "Dog will follow and sniff close pedestrians"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16, workValue17
           if arg32 then
@@ -1368,6 +1428,8 @@ function textValue5()
         numberValue9 = "Search Nearby Vehicle"
         textValue6 = "Dog will search the nearest vehicle. This does not include people inside vehicle."
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16
           if arg32 then
@@ -1385,6 +1447,8 @@ function textValue5()
         numberValue9 = "Teleport Dog"
         textValue6 = "Teleport the dog to you"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16, workValue17
           if arg32 then
@@ -1403,6 +1467,8 @@ function textValue5()
         numberValue9 = "Change Fur Colour"
         textValue6 = "Cycle through colours"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16, workValue17, numberValue12, numberValue14, numberValue15, numberValue17, numberValue3, numberValue5
           if arg32 then
@@ -1456,6 +1522,8 @@ function textValue5()
           numberValue9 = "Change Vest Colour"
           textValue6 = "Cycle through colours"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4, workValue16, workValue17, numberValue12, numberValue14, numberValue15, numberValue17, numberValue3, numberValue5
             if arg32 then
@@ -1507,6 +1575,8 @@ function textValue5()
           numberValue9 = "Change Vest Design"
           textValue6 = "Cycle through designs"
           flag12 = true
+
+          -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
           function workValue15(arg12, arg22, arg32)
             local arg4, workValue16, workValue17, numberValue12, numberValue14, numberValue15, numberValue17, numberValue3, numberValue5
             if arg32 then
@@ -1559,6 +1629,8 @@ function textValue5()
         numberValue9 = "Delete Dog"
         textValue6 = "Delete the dog"
         flag12 = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg12, arg22, arg32) ===
         function workValue15(arg12, arg22, arg32)
           local arg4, workValue16, workValue17
           if arg32 then
@@ -1576,12 +1648,16 @@ function textValue5()
       end
     end
   end
+
+  -- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
   function textValue9()
     local waitCall, numberValue9
   end
   arg1(arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9)
 end
 rageUiCall(eventRegistration3, workValue11, workValue13, textValue5)
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
 function rageUiCall(arg1)
   local arg2, arg3
   arg2 = BeginTextCommandScaleformString
@@ -1594,6 +1670,8 @@ function rageUiCall(arg1)
   arg2()
 end
 ButtonMessage = rageUiCall
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
 function rageUiCall(arg1)
   local arg2, arg3
   arg2 = _ENV
@@ -1604,6 +1682,8 @@ function rageUiCall(arg1)
 end
 Button = rageUiCall
 rageUiCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: arg1) ===
 function eventRegistration3(arg1)
   local arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9
   arg2 = RequestScaleformMovie
@@ -1725,6 +1805,8 @@ function eventRegistration3(arg1)
   return arg2
 end
 rageUiCall.setupDogScaleform = eventRegistration3
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: arg1) ===
 function rageUiCall(arg1)
   local arg2, arg3, cmgCall, textValue8, cmgCall2
   arg2 = {}
@@ -1767,10 +1849,14 @@ function rageUiCall(arg1)
   arg2.b = cmgCall
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: none) ===
 function eventRegistration3()
   local arg1, arg2
   arg1 = Citizen
   arg1 = arg1.CreateThread
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local waitCall, numberValue9, textValue6, flag12, workValue15, dataTable10, flag13, numberValue13, flag14, numberValue16, numberValue2, numberValue4, numberValue6, numberValue7, numberValue8, playerPed, serverEventCall, textValue, textValue2, workValue6, workValue8, workValue10, numberValue10, flag8, flag9, numberValue11, flag10, workValue12, workValue14, flag11
     waitCall = dataTable6.Attack
@@ -1998,6 +2084,8 @@ eventRegistration = eventRegistration3
 eventRegistration3 = RegisterNetEvent
 workValue11 = "f89085dfdd"
 -- Beginner: this function handles network event "f89085dfdd".
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1) ===
 function workValue13(arg1)
   local arg2, arg3, cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2, flag4, flag5, flag6
   arg2 = GetPlayerFromServerId
@@ -2158,6 +2246,8 @@ eventRegistration3(workValue11, workValue13)
 eventRegistration3 = RegisterNetEvent
 workValue11 = "d63a2502ab"
 -- Beginner: this function handles network event "d63a2502ab".
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1, arg2, arg3) ===
 function workValue13(arg1, arg2, arg3)
   local cmgCall, textValue8, cmgCall2, textValue9, cmgCall3, workValue18, flag15, numberValue, flag2, flag3, dataTable2, flag4, flag5
   cmgCall = dataTable6.SearchVehicle

@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Groupselector
+    ===========================================
+
+    File: cmg/prod/client/core/cl_groupselector.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Groupselector feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 7
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 8938ae8828, 1d9acfa3dd, 2f8f180e56, 9a672bc0ac
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: e7a86c3e34, 5c91c15de0, 09d233a638
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_groupselector
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Job / Group Selector Client
     ===========================
 
@@ -79,6 +117,7 @@ AddEventHandler(
     "CMG:onClientSpawn",
     function(_, firstSpawn)
         if firstSpawn then
+            -- Beginner: sends the "e7a86c3e34" event to the server.
             TriggerServerEvent("e7a86c3e34")
         end
     end
@@ -89,6 +128,7 @@ AddEventHandler(
 -- REMOVE OLD SELECTOR WORLD ITEMS
 -- ============================================================
 
+-- === HELPER FUNCTION: clearSelectorWorldItems() ===
 local function clearSelectorWorldItems()
     for _, areaId in pairs(selectorAreas) do
         tCMG.removeArea(areaId)
@@ -119,6 +159,7 @@ RegisterNetEvent(
 
         activeSelectors = serverSelectors or {}
 
+        -- === HELPER FUNCTION: onEnterSelector(areaData) ===
         local function onEnterSelector(areaData)
             -- The purge disables normal job-selector use.
             if not CMG.isPurge() then
@@ -127,11 +168,13 @@ RegisterNetEvent(
             end
         end
 
+        -- === HELPER FUNCTION: onLeaveSelector() ===
         local function onLeaveSelector()
             RageUI.CloseAll()
             RageUI.Visible(selectorMenu, false)
         end
 
+        -- === HELPER FUNCTION: whileInsideSelector(areaData) ===
         local function whileInsideSelector(areaData)
             if CMG.isPurge()
                 or CMG.isPlayerInPrison() then
@@ -247,6 +290,7 @@ RegisterNetEvent(
 -- PAYCHECK BUTTON
 -- ============================================================
 
+-- === HELPER FUNCTION: drawPaycheckButton() ===
 local function drawPaycheckButton()
     -- The original only draws this button after at least some paycheck
     -- time or money has been recorded.
@@ -290,6 +334,8 @@ end
 
 
 -- This function is used from the casino-owner UI elsewhere in the client.
+
+-- === HELPER FUNCTION: CMG.drawPaycheckButtonForCasinoOwner() ===
 function CMG.drawPaycheckButtonForCasinoOwner()
     if minutesSinceLastPaycheck <= 0
         and withdrawablePaycheck <= 0 then
@@ -330,6 +376,7 @@ end
 -- DRAW JOB BUTTONS
 -- ============================================================
 
+-- === HELPER FUNCTION: drawJobsForCurrentSelector() ===
 local function drawJobsForCurrentSelector()
     for selectorId, selector
         in pairs(activeSelectors) do
@@ -452,17 +499,23 @@ RageUI.CreateWhile(
 -- ============================================================
 
 -- Replace the current withdrawable amount.
+
+-- === NETWORK EVENT: receives "1d9acfa3dd" from server/another network source ===
 RegisterNetEvent("1d9acfa3dd", function(amount)
     withdrawablePaycheck = amount
 end)
 
 -- Add money to the current withdrawable amount.
+
+-- === NETWORK EVENT: receives "2f8f180e56" from server/another network source ===
 RegisterNetEvent("2f8f180e56", function(amount)
     withdrawablePaycheck =
         withdrawablePaycheck + amount
 end)
 
 -- Update the paycheck timer value.
+
+-- === NETWORK EVENT: receives "9a672bc0ac" from server/another network source ===
 RegisterNetEvent("9a672bc0ac", function(minutes)
     minutesSinceLastPaycheck = minutes
 end)

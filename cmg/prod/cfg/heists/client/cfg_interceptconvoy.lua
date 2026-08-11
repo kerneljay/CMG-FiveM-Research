@@ -1,41 +1,51 @@
 --[[
-    BEGINNER GUIDE — Interceptconvoy
-    ================================
+    LEVEL 1 BEGINNER GUIDE — Interceptconvoy
+    =============================================
 
     File: cmg/prod/cfg/heists/client/cfg_interceptconvoy.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Network/hash identifiers found: 4
-      They are intentionally left unchanged because matching server code may use them.
-      * 279175563c
-      * a9469cd747
-      * f41b06e9fc
-      * 9d5eb52282
+    Quick map of this file (automatic static scan):
+      * Named functions: 47
+      * Background threads: 3
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: 279175563c, a9469cd747, f41b06e9fc, 9d5eb52282
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Example player-facing text in this file:
-      * ~INPUT_MOVE_DOWN_ONLY~
-      * ~INPUT_DIVE~
-      * ~INPUT_MOVE_UP_ONLY~
-      * Press ~INPUT_ENTER~ to drive the train
-      * Press ~INPUT_PICKUP~ to start stealing
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ----------- [[ UTILITIES ]] -----------
 
+-- === HELPER FUNCTION: drawPlayerCount(info) ===
 local function drawPlayerCount(info)
     local timerBars = CMG.createTimerBars()
     timerBars.push("~y~MEMBERS~w~", tostring(#info.players))
     timerBars.draw()
 end
 
+-- === HELPER FUNCTION: loadTrainModels(loadFlag) ===
 local function loadTrainModels(loadFlag)
     local procedure = loadFlag and CMG.loadModel or SetModelAsNoLongerNeeded
     procedure(`freight`)
@@ -47,6 +57,7 @@ local function loadTrainModels(loadFlag)
     procedure(`tankercar`)
 end
 
+-- === HELPER FUNCTION: getCurrentTrain() ===
 local function getCurrentTrain()
     for _, vehicle in ipairs(CMG.getAllVehicles()) do
         if GetEntityModel(vehicle) == `freight` then
@@ -56,6 +67,7 @@ local function getCurrentTrain()
     return 0
 end
 
+-- === HELPER FUNCTION: createTrainWorkaround(type, position, direction, isCompleteFn, createdFn) ===
 local function createTrainWorkaround(type, position, direction, isCompleteFn, createdFn)
     DoScreenFadeOut(0)
     local origPos = GetEntityCoords(PlayerPedId(), true)
@@ -82,6 +94,7 @@ local function createTrainWorkaround(type, position, direction, isCompleteFn, cr
     DoScreenFadeIn(1000)
 end
 
+-- === HELPER FUNCTION: createTrainControlsScaleform() ===
 local function createTrainControlsScaleform()
     local scaleform = RequestScaleformMovie("instructional_buttons")
 
@@ -129,6 +142,7 @@ local function createTrainControlsScaleform()
     return scaleform
 end
 
+-- === HELPER FUNCTION: loadCollideCutsceneModels(info, loadFlag) ===
 local function loadCollideCutsceneModels(info, loadFlag)
     local procedure = loadFlag and CMG.loadModel or SetModelAsNoLongerNeeded
     procedure(`cs_fbisuit_01`)
@@ -138,6 +152,7 @@ local function loadCollideCutsceneModels(info, loadFlag)
     end
 end
 
+-- === HELPER FUNCTION: moveToCollideStageTwo(info) ===
 local function moveToCollideStageTwo(info)
     for _, vehInfo in ipairs(info.cutsceneVehicles) do
         if vehInfo.focus then
@@ -153,6 +168,7 @@ local function moveToCollideStageTwo(info)
     info.stage = 2
 end
 
+-- === HELPER FUNCTION: moveToCollideStageThree(info) ===
 local function moveToCollideStageThree(info)
     for _, vehInfo in ipairs(info.cutsceneVehicles) do
         ClearPedTasks(vehInfo.ped)
@@ -178,6 +194,7 @@ local function moveToCollideStageThree(info)
     info.stage = 3
 end
 
+-- === HELPER FUNCTION: onUpdateStageThree(info) ===
 local function onUpdateStageThree(info)
     local train = getCurrentTrain()
     if train ~= 0 then
@@ -185,6 +202,7 @@ local function onUpdateStageThree(info)
     end
 end
 
+-- === HELPER FUNCTION: moveToCollideStageFour(info) ===
 local function moveToCollideStageFour(info)
     local targetPosition = info.collideCutscene.stageOne.targetPosition
 
@@ -205,6 +223,7 @@ local function moveToCollideStageFour(info)
     info.stage = 4
 end
 
+-- === HELPER FUNCTION: moveToCollideStageFive(info) ===
 local function moveToCollideStageFive(info)
     local cutscene = info.collideCutscene.stageFive
 
@@ -241,6 +260,8 @@ local function moveToCollideStageFive(info)
 
             SetEntityVisible(vehicle, false, false)
             SetEntityCollision(vehicle, false, false)
+
+            -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
             Citizen.CreateThread(function()
                 Citizen.Wait(1000)
                 if NetworkHasControlOfEntity(vehicle) then
@@ -252,6 +273,7 @@ local function moveToCollideStageFive(info)
             SetEntityVelocity(object, velocity.x / 2.0, velocity.y / 2.0, velocity.z / 2.0)
             table.insert(info.objects, object)
 
+            -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
             Citizen.CreateThread(function()
                 CMG.loadPtfx("scr_trevor3")
                 local fire = StartParticleFxLoopedOnEntity("scr_trev3_trailer_plume", object, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, false, false, false)
@@ -278,6 +300,7 @@ local function moveToCollideStageFive(info)
     info.stage = 5
 end
 
+-- === HELPER FUNCTION: getFocusVehicleInfo(info) ===
 local function getFocusVehicleInfo(info)
     for _, vehInfo in ipairs(info.cutsceneVehicles) do
         if vehInfo.focus then
@@ -286,6 +309,7 @@ local function getFocusVehicleInfo(info)
     end
 end
 
+-- === HELPER FUNCTION: shouldSwitchToStageFive(info) ===
 local function shouldSwitchToStageFive(info)
     local vehInfo = getFocusVehicleInfo(info)
     if GetEntityHealth(vehInfo.vehicle) <= 0 or GetEntityHealth(vehInfo.ped) <= 0 then
@@ -294,6 +318,7 @@ local function shouldSwitchToStageFive(info)
     return getCurrentTrain() == 0
 end
 
+-- === HELPER FUNCTION: deleteAiVehicles() ===
 local function deleteAiVehicles()
     SetVehicleDensityMultiplierThisFrame(0.0)
     SetRandomVehicleDensityMultiplierThisFrame(0.0)
@@ -311,6 +336,7 @@ local function deleteAiVehicles()
     end
 end
 
+-- === HELPER FUNCTION: onUpdateGenericAgent(ped) ===
 local function onUpdateGenericAgent(ped)
     if GetScriptTaskStatus(ped, 0x2E85A751) == 7 then
         SetPedCombatMovement(ped, 2)
@@ -328,6 +354,7 @@ local function onUpdateGenericAgent(ped)
     SetBlockingOfNonTemporaryEvents(ped, true)
 end
 
+-- === HELPER FUNCTION: ensureAgentHasBlip(ped) ===
 local function ensureAgentHasBlip(ped)
     local pedBlip = GetBlipFromEntity(ped)
     if pedBlip == 0 then
@@ -344,6 +371,7 @@ local function ensureAgentHasBlip(ped)
     end
 end
 
+-- === HELPER FUNCTION: onUpdateStandardAgent(ped) ===
 local function onUpdateStandardAgent(ped)
     if NetworkHasControlOfEntity(ped) then
         onUpdateGenericAgent(ped)
@@ -357,6 +385,7 @@ local function onUpdateStandardAgent(ped)
     ensureAgentHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateArmedAgent(ped) ===
 local function onUpdateArmedAgent(ped)
     if NetworkHasControlOfEntity(ped) then
         onUpdateGenericAgent(ped)
@@ -370,6 +399,7 @@ local function onUpdateArmedAgent(ped)
     ensureAgentHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateFiremanAgent(ped) ===
 local function onUpdateFiremanAgent(ped)
     if NetworkHasControlOfEntity(ped) then
         onUpdateGenericAgent(ped)
@@ -383,6 +413,7 @@ local function onUpdateFiremanAgent(ped)
     ensureAgentHasBlip(ped)
 end
 
+-- === HELPER FUNCTION: onUpdateWorldPeds() ===
 local function onUpdateWorldPeds()
     for _, ped in ipairs(GetGamePool("CPed")) do
         if NetworkGetEntityIsNetworked(ped) then
@@ -399,14 +430,18 @@ local function onUpdateWorldPeds()
     end
 end
 
+-- === HELPER FUNCTION: startStealingDevice(info) ===
 local function startStealingDevice(info)
+    -- Beginner: sends the "279175563c" event to the server.
     TriggerServerEvent("279175563c", true)
     info.stealingDevicePlayer = GetPlayerServerId(PlayerId())
     TaskStartScenarioInPlace(PlayerPedId(), "CODE_HUMAN_MEDIC_TEND_TO_DEAD", 0, true)
 end
 
+-- === HELPER FUNCTION: exitStealingDevice(info) ===
 local function exitStealingDevice(info)
     if info.stealingDevicePlayer == GetPlayerServerId(PlayerId()) then
+        -- Beginner: sends the "279175563c" event to the server.
         TriggerServerEvent("279175563c", false)
         ClearPedTasksImmediately(PlayerPedId())
     end
@@ -415,6 +450,7 @@ end
 
 ----------- [[ STAGE: DRIVE_TO_TRACK ]] -----------
 
+-- === HELPER FUNCTION: initDriveToTrack(info) ===
 local function initDriveToTrack(info)
     loadTrainModels(true)
     loadCollideCutsceneModels(info, true)
@@ -424,12 +460,14 @@ local function initDriveToTrack(info)
     TriggerMusicEvent("AH3B_EVADE_COPS_RT")
 end
 
+-- === HELPER FUNCTION: runDriveToTrack(info) ===
 local function runDriveToTrack(info)
     drawPlayerCount(info)
 
     drawNativeText("Drive to the ~y~train crossing~w~")
 end
 
+-- === HELPER FUNCTION: cleanDriveToTrack(info) ===
 local function cleanDriveToTrack(info)
     RemoveBlip(info.trackBlip)
     info.trackBlip = nil
@@ -437,6 +475,7 @@ end
 
 ----------- [[ STAGE: BLOCK_TRACK ]] -----------
 
+-- === HELPER FUNCTION: initBlockTrack(info) ===
 local function initBlockTrack(info)
     info.eventBlockedTracked = RegisterHeistEvent("a9469cd747", function(hasBlocked)
         print(string.format("Received track blocked (hasBlocked: %s)", hasBlocked and "true" or "false"))
@@ -448,6 +487,7 @@ local function initBlockTrack(info)
     SetBlipRoute(info.trackBlip, true)
 end
 
+-- === HELPER FUNCTION: runBlockTrack(info) ===
 local function runBlockTrack(info)
     drawPlayerCount(info)
 
@@ -462,12 +502,14 @@ local function runBlockTrack(info)
             local boundTwo = info.trackBlockBounds[2]
             if IsEntityInArea(playerVehicle, boundOne.x, boundOne.y, boundOne.z, boundTwo.x, boundTwo.y, boundTwo.z, false, false, 0) then
                 FreezeEntityPosition(playerVehicle, true)
+                -- Beginner: sends the "a9469cd747" event to the server.
                 TriggerServerEvent("a9469cd747", true)
             end
         end
     end
 end
 
+-- === HELPER FUNCTION: cleanBlockTrack(info) ===
 local function cleanBlockTrack(info)
     RemoveEventHandler(info.eventBlockedTracked)
     info.eventBlockedTracked = nil
@@ -479,6 +521,7 @@ end
 
 ----------- [[ STAGE: TRAIN_COMING_CUTSCENE ]] -----------
 
+-- === HELPER FUNCTION: initTrainComingCutscene(info) ===
 local function initTrainComingCutscene(info)
     if info.hostPlayer == GetPlayerServerId(PlayerId()) then
         createTrainWorkaround(2, info.trainCutscene.position, info.trainCutscene.direction, function(train)
@@ -506,6 +549,7 @@ local function initTrainComingCutscene(info)
     info.isFocused = false
 end
 
+-- === HELPER FUNCTION: runTrainComingCutscene(info) ===
 local function runTrainComingCutscene(info)
     drawPlayerCount(info)
 
@@ -525,6 +569,7 @@ local function runTrainComingCutscene(info)
     end
 end
 
+-- === HELPER FUNCTION: cleanTrainComingCutscene(info) ===
 local function cleanTrainComingCutscene(info)
     local train = getCurrentTrain()
     if train ~= 0 and NetworkHasControlOfEntity(train) then
@@ -547,6 +592,7 @@ end
 
 ----------- [[ STAGE: TRAIN_SLOWING ]] -----------
 
+-- === HELPER FUNCTION: initTrainSlowing(info) ===
 local function initTrainSlowing(info)
     if info.hostPlayer == GetPlayerServerId(PlayerId()) then
         createTrainWorkaround(2, info.trainSlowing.position, info.trainSlowing.direction, function(train)
@@ -554,6 +600,7 @@ local function initTrainSlowing(info)
         end, function(train)
             info.train = train
             local netId = NetworkGetNetworkIdFromEntity(train)
+            -- Beginner: sends the "f41b06e9fc" event to the server.
             TriggerServerEvent("f41b06e9fc", netId)
             print(string.format("Alerting server of train create (entity: %d network: %d)", train, netId))
         end)
@@ -567,6 +614,7 @@ local function initTrainSlowing(info)
     info.trainNetId = 0
 end
 
+-- === HELPER FUNCTION: runTrainSlowing(info) ===
 local function runTrainSlowing(info)
     drawPlayerCount(info)
 
@@ -597,6 +645,7 @@ local function runTrainSlowing(info)
     drawNativeText("Wait for the ~b~train~w~ to come to an emergency stop")
 end
 
+-- === HELPER FUNCTION: cleanTrainSlowing(info) ===
 local function cleanTrainSlowing(info)
     RemoveEventHandler(info.eventSetNetworkTrain)
     info.eventSetNetworkTrain = nil
@@ -604,6 +653,7 @@ end
 
 ----------- [[ STAGE: HIJACK_TRAIN ]] -----------
 
+-- === HELPER FUNCTION: runHijackTrain(info) ===
 local function runHijackTrain(info)
     drawPlayerCount(info)
     drawNativeText("Steal the ~b~train~w~ from the train driver")
@@ -641,6 +691,7 @@ end
 
 ----------- [[ STAGE: DRIVE_TRAIN ]] -----------
 
+-- === HELPER FUNCTION: initDriveTrain(info) ===
 local function initDriveTrain(info)
     info.eventSetTrainState = RegisterHeistEvent("9d5eb52282", function(state)
         print(string.format("Received set train state (state: %s)", state))
@@ -662,6 +713,7 @@ local function initDriveTrain(info)
     end
 end
 
+-- === HELPER FUNCTION: runDriveTrain(info) ===
 local function runDriveTrain(info)
     drawPlayerCount(info)
 
@@ -707,6 +759,7 @@ local function runDriveTrain(info)
                     if info.train ~= "INCREASING" then
                         DisableControlAction(0, 32, true)
                         if IsDisabledControlJustPressed(0, 32) then
+                            -- Beginner: sends the "9d5eb52282" event to the server.
                             TriggerServerEvent("9d5eb52282", "INCREASING")
                         end
                     end
@@ -714,6 +767,7 @@ local function runDriveTrain(info)
                     if info.train ~= "STEADY" then
                         DisableControlAction(0, 55, true)
                         if IsDisabledControlJustPressed(0, 55) then
+                            -- Beginner: sends the "9d5eb52282" event to the server.
                             TriggerServerEvent("9d5eb52282", "STEADY")
                         end
                     end
@@ -721,6 +775,7 @@ local function runDriveTrain(info)
                     if info.train ~= "SLOWING" then
                         DisableControlAction(0, 33, true)
                         if IsDisabledControlJustPressed(0, 33) then
+                            -- Beginner: sends the "9d5eb52282" event to the server.
                             TriggerServerEvent("9d5eb52282", "SLOWING")
                         end
                     end
@@ -759,6 +814,7 @@ local function runDriveTrain(info)
     end
 end
 
+-- === HELPER FUNCTION: cleanDriveTrain(info) ===
 local function cleanDriveTrain(info)
     RemoveEventHandler(info.eventSetTrainState)
     info.eventSetTrainState = nil
@@ -785,6 +841,7 @@ end
 
 ----------- [[ STAGE: TRAIN_COLLIDE_CUTSCENE ]] -----------
 
+-- === HELPER FUNCTION: initTrainCollideCutscene(info) ===
 local function initTrainCollideCutscene(info)
     CMG.hideAllDisplays("bankheist_setup")
     SetPlayerControl(PlayerId(), false, 0)
@@ -823,6 +880,7 @@ local function initTrainCollideCutscene(info)
     info.stage = 1
 end
 
+-- === HELPER FUNCTION: runTrainCollideCutscene(info) ===
 local function runTrainCollideCutscene(info)
     local currentTime = GetGameTimer()
 
@@ -897,6 +955,7 @@ local function runTrainCollideCutscene(info)
     deleteAiVehicles()
 end
 
+-- === HELPER FUNCTION: cleanTrainCollideCutscene(info) ===
 local function cleanTrainCollideCutscene(info)
     for _, vehInfo in ipairs(info.cutsceneVehicles) do
         DeleteEntity(vehInfo.vehicle)
@@ -933,6 +992,7 @@ end
 
 ----------- [[ STAGE: LOOT_CONVOY_CONTENTS ]] -----------
 
+-- === HELPER FUNCTION: initLootConvoyContents(info) ===
 local function initLootConvoyContents(info)
     local position = info.afterCollide.spawnPosition + vector3((math.random() - 0.5) * 10.0, (math.random() - 0.5) * 10.0, 0.0)
     SetEntityCoordsNoOffset(PlayerPedId(), position.x, position.y, position.z, true, false, false)
@@ -993,6 +1053,7 @@ local function initLootConvoyContents(info)
                     PlaceObjectOnGroundProperly(object)
                 end
 
+                -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
                 Citizen.CreateThread(function()
                     local pos = GetEntityCoords(object, true)
 
@@ -1014,6 +1075,7 @@ local function initLootConvoyContents(info)
     end)
 end
 
+-- === HELPER FUNCTION: runLootConvoyContents(info) ===
 local function runLootConvoyContents(info)
     onUpdateWorldPeds()
     local convoyLootHudBars = CMG.createTimerBars()
@@ -1053,6 +1115,7 @@ local function runLootConvoyContents(info)
     convoyLootHudBars.draw()
 end
 
+-- === HELPER FUNCTION: cleanLootConvoyContents(info) ===
 local function cleanLootConvoyContents(info)
     RemoveBlip(info.focusBlip)
     info.focusBlip = nil
@@ -1065,6 +1128,7 @@ end
 
 ----------- [[ STAGE: RETURN_TO_FACTORY ]] -----------
 
+-- === HELPER FUNCTION: initReturnToFactory(info) ===
 local function initReturnToFactory(info)
     info.exitBlip = AddBlipForCoord(info.lestersFactoryPosition.x, info.lestersFactoryPosition.y, info.lestersFactoryPosition.z)
     SetBlipRoute(info.exitBlip, true)
@@ -1080,6 +1144,7 @@ local function initReturnToFactory(info)
     end
 end
 
+-- === HELPER FUNCTION: runReturnToFactory(info) ===
 local function runReturnToFactory(info)
     onUpdateWorldPeds()
     drawPlayerCount(info)
@@ -1087,6 +1152,7 @@ local function runReturnToFactory(info)
     drawNativeText("Return to the ~y~factory~w~")
 end
 
+-- === HELPER FUNCTION: cleanReturnToFactory(info) ===
 local function cleanReturnToFactory(info)
     for _, blip in ipairs(info.vehicleBlips) do
         RemoveBlip(blip)

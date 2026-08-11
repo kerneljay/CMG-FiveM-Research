@@ -1,61 +1,56 @@
 --[[
-    Beginner Guide: cl_loadouts.lua
-    ===============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Loadouts
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Loadouts
+    ======================================
 
     File: cmg/prod/client/faction/cl_loadouts.lua
-    Purpose: This file contains FiveM client/resource logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: faction equipment/radio features, specifically the Loadouts feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 15
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/cfg_loadouts
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 6
-      They are intentionally left unchanged because matching server code may use them.
-      * ee12a1db92
-      * 78e1192fb6
-      * cbd7c161ac
-      * fbc104fb05
-      * 53d18271be
-      * d39749e61b
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~r~You have no saved loadouts in this category
-      * Press ~INPUT_FRONTEND_DELETE~ to delete this loadout
-      * ~y~You need to be a subscriber of CMG Platinum to use this feature.
-      * Enter Loadout Name
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, dataTable3, workValue2, numberValue10, textValue7, workValue3, textValue9, textValue11, rageUiCall5, textValue14, textValue, rageUiCall, rageUiCall2, rageUiCall3, textValue3, textValue4
 cmgCall = CMG
@@ -121,6 +116,8 @@ textValue = "mainmenu"
 -- Beginner: result below is menu.
 textValue11 = textValue11(rageUiCall5, textValue14, textValue)
 rageUiCall5 = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue14; parameters: none) ===
 function textValue14()
   local arg1, arg2, flag4, flag5, flag6, flag8
   arg1 = RageUI
@@ -135,6 +132,8 @@ function textValue14()
   flag4 = true
   flag5 = true
   flag6 = true
+
+  -- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
   function flag8()
     local arg12, textValue5, textValue6, dataTable4, flag7, workValue4, workValue5, rageUiCall4, textValue13, textValue15
     arg12 = RageUI
@@ -144,6 +143,8 @@ function textValue14()
     dataTable4 = {}
     dataTable4.RightLabel = "\226\134\146\226\134\146\226\134\146"
     flag7 = true
+
+    -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg13, arg22, arg3) ===
     function workValue4(arg13, arg22, arg3)
       local serverEventCall
       if arg3 then
@@ -166,6 +167,8 @@ function textValue14()
     dataTable4 = {}
     dataTable4.RightLabel = "\226\134\146\226\134\146\226\134\146"
     flag7 = true
+
+    -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg13, arg22, arg3) ===
     function workValue4(arg13, arg22, arg3)
       local serverEventCall, textValue8, numberValue11
       if arg3 then
@@ -192,6 +195,8 @@ function textValue14()
   flag4 = true
   flag5 = true
   flag6 = true
+
+  -- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
   function flag8()
     local arg12, textValue5, textValue6, dataTable4, flag7, workValue4, workValue5, rageUiCall4, textValue13, textValue15, dataTable, stringHelper, textValue2, workValue
     textValue5 = workValue2
@@ -225,6 +230,8 @@ function textValue14()
       stringHelper = stringHelper(textValue2, workValue)
       dataTable.RightLabel = stringHelper
       stringHelper = true
+
+      -- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg13, arg22, arg3) ===
       function textValue2(arg13, arg22, arg3)
         local serverEventCall, textValue8, numberValue11, workValue6, workValue7
         if arg22 then
@@ -301,6 +308,8 @@ function textValue14()
   arg1(arg2, flag4, flag5, flag6, flag8)
 end
 workValue3(textValue9, textValue11, rageUiCall5, textValue14)
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, flag4, flag5, flag6, flag8, textValue10, cmgCall2
   arg2 = cmgCall.types
@@ -352,6 +361,8 @@ function workValue3(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
 function textValue9()
   local arg1, arg2
   arg1 = RageUI
@@ -366,6 +377,8 @@ function textValue9()
 end
 textValue11 = Citizen
 textValue11 = textValue11.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall5; parameters: none) ===
 function rageUiCall5()
   local arg1, arg2, flag4, flag5, flag6, flag8, textValue10, cmgCall2, textValue12, stringHelper2, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, dataTable2, numberValue6, numberValue7, numberValue8, numberValue9, flag, flag2, flag3
   arg1 = GetResourceKvpString
@@ -397,6 +410,8 @@ function rageUiCall5()
     numberValue2 = 2.5
     numberValue3 = workValue3
     numberValue4 = textValue9
+
+    -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
     function numberValue5()
       local arg12, textValue5
     end
@@ -434,6 +449,8 @@ textValue11(rageUiCall5)
 textValue11 = RegisterNetEvent
 rageUiCall5 = "cbd7c161ac"
 -- Beginner: this function handles network event "cbd7c161ac".
+
+-- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1) ===
 function textValue14(arg1)
   local arg2, flag4, flag5, flag6, flag8, textValue10, cmgCall2, textValue12, stringHelper2, numberValue
   arg2 = pairs
@@ -474,6 +491,8 @@ textValue11(rageUiCall5, textValue14)
 textValue11 = RegisterNetEvent
 rageUiCall5 = "ee12a1db92"
 -- Beginner: this function handles network event "ee12a1db92".
+
+-- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1, arg2) ===
 function textValue14(arg1, arg2)
   local flag4, flag5, flag6, flag8
   flag4 = dataTable3
@@ -487,6 +506,8 @@ function textValue14(arg1, arg2)
   flag4 = flag4.clientPrompt
   flag5 = "Enter Loadout Name"
   flag6 = ""
+
+  -- === HELPER FUNCTION (decompiler name: flag8; parameters: arg12) ===
   function flag8(arg12)
     local textValue5, textValue6, dataTable4, flag7, workValue4
     textValue5 = #arg12
@@ -527,6 +548,8 @@ textValue11(rageUiCall5, textValue14)
 textValue11 = RegisterNetEvent
 rageUiCall5 = "78e1192fb6"
 -- Beginner: this function handles network event "78e1192fb6".
+
+-- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1, arg2) ===
 function textValue14(arg1, arg2)
   local flag4
   flag4 = numberValue10
@@ -538,6 +561,8 @@ textValue11(rageUiCall5, textValue14)
 textValue11 = RegisterNetEvent
 rageUiCall5 = "d39749e61b"
 -- Beginner: this function handles network event "d39749e61b".
+
+-- === HELPER FUNCTION (decompiler name: textValue14; parameters: arg1, arg2) ===
 function textValue14(arg1, arg2)
   local flag4
   flag4 = workValue2

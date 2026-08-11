@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Ipls
+    ==================================
+
+    File: cmg/prod/client/core/cl_ipls.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Ipls feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 4
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_ipls
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     IPL / Interior Streaming Manager
     ================================
 
@@ -23,6 +61,8 @@ local activeEntitySetCount = 0
 -- iplAction       = RequestIpl when loading, RemoveIpl when unloading
 -- entitySetAction = ActivateInteriorEntitySet / DeactivateInteriorEntitySet
 -- unloading       = true when leaving the area
+
+-- === HELPER FUNCTION: applyIplLocation(location, iplAction, entitySetAction, unloading) ===
 local function applyIplLocation(location, iplAction, entitySetAction, unloading)
     local counterChange = unloading and -1 or 1
 
@@ -92,6 +132,7 @@ local function applyIplLocation(location, iplAction, entitySetAction, unloading)
     end
 end
 
+-- === HELPER FUNCTION: loadIplLocation(location) ===
 local function loadIplLocation(location)
     applyIplLocation(
         location,
@@ -101,6 +142,7 @@ local function loadIplLocation(location)
     )
 end
 
+-- === HELPER FUNCTION: unloadIplLocation(location) ===
 local function unloadIplLocation(location)
     applyIplLocation(
         location,
@@ -110,6 +152,7 @@ local function unloadIplLocation(location)
     )
 end
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     -- Original resource disables the deep-ocean scaler globally.
     SetDeepOceanScaler(0.0)
@@ -137,6 +180,8 @@ Citizen.CreateThread(function()
 end)
 
 -- Small helper used by all four debug buttons below.
+
+-- === HELPER FUNCTION: copyDebugValue(value) ===
 local function copyDebugValue(value)
     CMG.copyToClipboard(tostring(value))
     notify("~g~Copied to clipboard.")

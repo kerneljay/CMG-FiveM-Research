@@ -1,18 +1,40 @@
 --[[
-    BEGINNER GUIDE — Circle Zone
-    ============================
+    LEVEL 1 BEGINNER GUIDE — Circle Zone
+    =========================================
 
     File: cmg/util/client/polyzone/CircleZone.lua
-    Purpose: This file contains shared utility code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: PolyZone geometry/zone library code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
+    Quick map of this file (automatic static scan):
+      * Named functions: 9
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ---@diagnostic disable
 
@@ -20,6 +42,7 @@ CircleZone = {}
 -- Inherits from PolyZone
 setmetatable(CircleZone, { __index = PolyZone })
 
+-- === HELPER FUNCTION: CircleZone:draw(forceDraw) ===
 function CircleZone:draw(forceDraw)
   if not forceDraw and not self.debugPoly then return end
   local center = self.center
@@ -35,12 +58,14 @@ function CircleZone:draw(forceDraw)
 end
 
 
+-- === HELPER FUNCTION: _initDebug(zone, options) ===
 local function _initDebug(zone, options)
   if options.debugBlip then zone:addDebugBlip() end
   if not options.debugPoly then
     return
   end
 
+  -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
   Citizen.CreateThread(function()
     while not zone.destroyed do
       zone:draw(false)
@@ -49,6 +74,7 @@ local function _initDebug(zone, options)
   end)
 end
 
+-- === HELPER FUNCTION: CircleZone:new(center, radius, options) ===
 function CircleZone:new(center, radius, options)
   options = options or {}
   local zone = {
@@ -70,12 +96,14 @@ function CircleZone:new(center, radius, options)
   return zone
 end
 
+-- === HELPER FUNCTION: CircleZone:Create(center, radius, options) ===
 function CircleZone:Create(center, radius, options)
   local zone = CircleZone:new(center, radius, options)
   _initDebug(zone, options)
   return zone
 end
 
+-- === HELPER FUNCTION: CircleZone:isPointInside(point) ===
 function CircleZone:isPointInside(point)
   if self.destroyed then
     print("[PolyZone] Warning: Called isPointInside on destroyed zone {name=" .. self.name .. "}")
@@ -92,10 +120,12 @@ function CircleZone:isPointInside(point)
   end
 end
 
+-- === HELPER FUNCTION: CircleZone:getRadius() ===
 function CircleZone:getRadius()
   return self.radius
 end
 
+-- === HELPER FUNCTION: CircleZone:setRadius(radius) ===
 function CircleZone:setRadius(radius)
   if not radius or radius == self.radius then
     return
@@ -104,10 +134,12 @@ function CircleZone:setRadius(radius)
   self.diameter = radius * 2.0
 end
 
+-- === HELPER FUNCTION: CircleZone:getCenter() ===
 function CircleZone:getCenter()
   return self.center
 end
 
+-- === HELPER FUNCTION: CircleZone:setCenter(center) ===
 function CircleZone:setCenter(center)
   if not center or center == self.center then
     return

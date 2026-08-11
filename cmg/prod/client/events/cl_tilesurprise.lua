@@ -1,35 +1,40 @@
 --[[
-    BEGINNER GUIDE — Tilesurprise
-    =============================
+    LEVEL 1 BEGINNER GUIDE — Tilesurprise
+    ==========================================
 
     File: cmg/prod/client/events/cl_tilesurprise.lua
-    Purpose: This file contains event/minigame logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Tilesurprise feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/events/cfg_tilesurprise
+    Quick map of this file (automatic static scan):
+      * Named functions: 15
+      * Background threads: 1
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: cba023ac32, 460d7ee179, bb0fad16db, b328b55f35, 0c97107a0d, 70a0b3cccd
+      * Local event handlers: none found by static scan
+      * Server events sent: 22086f3ac9, 6d6db403a1
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/events/cfg_tilesurprise
 
-    Network/hash identifiers found: 8
-      They are intentionally left unchanged because matching server code may use them.
-      * cba023ac32
-      * 22086f3ac9
-      * 460d7ee179
-      * bb0fad16db
-      * 6d6db403a1
-      * b328b55f35
-      * 0c97107a0d
-      * 70a0b3cccd
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * Enter Spawncode
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 -- Tile Surprise
 -- Cleaned/reconstructed from decompiled FiveM Lua.
@@ -65,6 +70,8 @@ local state = {}
 local timerBars = CMG.createTimerBars()
 
 -- Removes every generated tile and boundary wall from the current map.
+
+-- === HELPER FUNCTION: deleteGeneratedMapObjects() ===
 local function deleteGeneratedMapObjects()
     if state.map then
         for _, layer in ipairs(state.map) do
@@ -87,6 +94,8 @@ end
 
 -- Shows the local player's failure/wasted sequence and temporarily hides them
 -- until the server advances the event to another round.
+
+-- === HELPER FUNCTION: playFailureSequence() ===
 local function playFailureSequence()
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsUsing(ped)
@@ -151,6 +160,8 @@ local function playFailureSequence()
 end
 
 -- Formats a participant's name for the minigame player-tag display.
+
+-- === HELPER FUNCTION: formatPlayerTag(playerData) ===
 local function formatPlayerTag(playerData)
     local player = GetPlayerFromServerId(playerData.source)
 
@@ -162,6 +173,7 @@ local function formatPlayerTag(playerData)
     return "Unknown (Lives: -1)"
 end
 
+-- === HELPER FUNCTION: createWall(layerIndex, x, y, z, rotX, rotY, rotZ) ===
 local function createWall(layerIndex, x, y, z, rotX, rotY, rotZ)
     local wall = CreateObjectNoOffset(TILE_MODEL, x, y, z, false, true, false)
 
@@ -173,6 +185,8 @@ end
 
 -- Creates boundary walls around the tile grid. This is called for every tile,
 -- but only edge tiles actually result in a wall being created.
+
+-- === HELPER FUNCTION: createBoundaryWalls(origin, layerIndex, columnIndex, rowIndex) ===
 local function createBoundaryWalls(origin, layerIndex, columnIndex, rowIndex)
     if not state.walls[layerIndex] then
         state.walls[layerIndex] = {}
@@ -231,6 +245,8 @@ local function createBoundaryWalls(origin, layerIndex, columnIndex, rowIndex)
 end
 
 -- Drops every tile that does not match the safe colour for the current round.
+
+-- === HELPER FUNCTION: dropUnsafeTiles(safeColour) ===
 local function dropUnsafeTiles(safeColour)
     local playerCoords = GetEntityCoords(PlayerPedId(), true)
 
@@ -312,6 +328,8 @@ end
 
 -- Rebuilds the complete tile map. When savedColours is provided, each tile
 -- reuses its previously assigned texture; otherwise a random colour is chosen.
+
+-- === HELPER FUNCTION: buildTileMap(savedColours) ===
 local function buildTileMap(savedColours)
     CMG.loadModel(TILE_MODEL)
 
@@ -362,6 +380,8 @@ end
 
 -- Places the selected event vehicle at the player's assigned spawnpoint and
 -- enforces the selected primary/secondary vehicle colour.
+
+-- === HELPER FUNCTION: setupEventVehicle(leaveUnfrozen) ===
 local function setupEventVehicle(leaveUnfrozen)
     SetPedIntoVehicle(PlayerPedId(), state.vehicle, -1)
 
@@ -422,6 +442,8 @@ local function setupEventVehicle(leaveUnfrozen)
 end
 
 -- Server provides the network ID of the event vehicle created for this player.
+
+-- === NETWORK EVENT: receives "cba023ac32" from server/another network source ===
 RegisterNetEvent("cba023ac32", function(networkId, leaveUnfrozen)
     state.hasFailed = false
 
@@ -463,12 +485,14 @@ RegisterNetEvent("cba023ac32", function(networkId, leaveUnfrozen)
     setupEventVehicle(leaveUnfrozen)
 end)
 
+-- === HELPER FUNCTION: disableEventControls() ===
 local function disableEventControls()
     for _, control in ipairs(DISABLED_EVENT_CONTROLS) do
         DisableControlAction(0, control, true)
     end
 end
 
+-- === HELPER FUNCTION: updateEventStats() ===
 local function updateEventStats()
     local activePlayers = #CMG.getActiveEventPlayers()
     local eliminatedPlayers = #currentEvent.players - activePlayers
@@ -480,6 +504,8 @@ end
 
 -- Tracks which player's vehicle most recently damaged the local player's event
 -- vehicle so the server can attribute a knock-out where possible.
+
+-- === HELPER FUNCTION: trackLastDamagedVehicle() ===
 local function trackLastDamagedVehicle()
     for _, player in ipairs(GetActivePlayers()) do
         local ped = GetPlayerPed(player)
@@ -500,6 +526,7 @@ local function trackLastDamagedVehicle()
     end
 end
 
+-- === HELPER FUNCTION: getLastDamagedPlayerServerId() ===
 local function getLastDamagedPlayerServerId()
     if not state.lastDamagedVehicle then
         return nil
@@ -511,6 +538,7 @@ local function getLastDamagedPlayerServerId()
     return GetPlayerServerId(player)
 end
 
+-- === HELPER FUNCTION: failureCooldownExpired() ===
 local function failureCooldownExpired()
     if not state.hasFailed then
         return true
@@ -519,6 +547,7 @@ local function failureCooldownExpired()
     return GetGameTimer() - state.lastFailedTime > 20000
 end
 
+-- === HELPER FUNCTION: markPlayerAsFailed() ===
 local function markPlayerAsFailed()
     Citizen.CreateThreadNow(playFailureSequence)
     state.hasFailed = true
@@ -526,6 +555,8 @@ local function markPlayerAsFailed()
 end
 
 -- Main per-frame update used while the Tile Surprise round is active.
+
+-- === HELPER FUNCTION: updateGameplay() ===
 local function updateGameplay()
     CMG.hideAllDisplays("tilesurprise")
 
@@ -576,6 +607,7 @@ local function updateGameplay()
             local vehicleIsDestroyed = GetEntityHealth(vehicle) <= 0
 
             if (playerIsDead or vehicleIsDestroyed) and failureCooldownExpired() then
+                -- Beginner: sends the "22086f3ac9" event to the server.
                 TriggerServerEvent("22086f3ac9")
                 markPlayerAsFailed()
             end
@@ -588,6 +620,7 @@ local function updateGameplay()
         local playerCoords = GetEntityCoords(PlayerPedId(), true)
 
         if playerCoords.z < 625.0 and failureCooldownExpired() then
+            -- Beginner: sends the "22086f3ac9" event to the server.
             TriggerServerEvent("22086f3ac9", getLastDamagedPlayerServerId())
             markPlayerAsFailed()
         end
@@ -603,6 +636,8 @@ local function updateGameplay()
 end
 
 -- Initializes the local client for a new Tile Surprise event.
+
+-- === NETWORK EVENT: receives "460d7ee179" from server/another network source ===
 RegisterNetEvent("460d7ee179", function(locationIndex, spawnIndex)
     currentEvent.drawPlayersTimeBar = false
     SetPlayerControl(PlayerId(), false, 0)
@@ -649,6 +684,8 @@ RegisterNetEvent("460d7ee179", function(locationIndex, spawnIndex)
 end)
 
 -- Opens the vehicle/colour selector before the first round begins.
+
+-- === NETWORK EVENT: receives "bb0fad16db" from server/another network source ===
 RegisterNetEvent("bb0fad16db", function(selectionPosition)
     CMG.stopEventSequence()
     CMG.hideAllDisplays("tilesurprise")
@@ -663,6 +700,7 @@ RegisterNetEvent("bb0fad16db", function(selectionPosition)
         state.vehicles,
         20,
         function(selectedVehicle)
+            -- Beginner: sends the "6d6db403a1" event to the server.
             TriggerServerEvent("6d6db403a1", selectedVehicle)
         end,
         function(selectedColour)
@@ -685,6 +723,8 @@ RegisterNetEvent("bb0fad16db", function(selectionPosition)
 end)
 
 -- Starts or advances a Tile Surprise round.
+
+-- === NETWORK EVENT: receives "b328b55f35" from server/another network source ===
 RegisterNetEvent("b328b55f35", function(savedColours, roundNumber)
     state.round = roundNumber
 
@@ -769,6 +809,8 @@ end)
 
 -- Announces the safe colour, creates/colours the boundary walls, runs the
 -- countdown and finally drops every unsafe tile.
+
+-- === NETWORK EVENT: receives "0c97107a0d" from server/another network source ===
 RegisterNetEvent("0c97107a0d", function(safeColourIndex, countdownSeconds)
     local colourInfo = TILE_COLOURS[safeColourIndex]
 
@@ -902,6 +944,7 @@ RegisterNetEvent(
     end
 )
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     local eventName = "Tile Surprise"
 

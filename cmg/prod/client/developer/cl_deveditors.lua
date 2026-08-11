@@ -1,19 +1,40 @@
 --[[
-    Beginner Guide: cl_deveditors.lua
-    =================================
+    LEVEL 1 BEGINNER GUIDE — Deveditors
+    ========================================
 
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
+    File: cmg/prod/client/developer/cl_deveditors.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: developer/admin testing utilities, specifically the Deveditors feature.
 
-    Important events used:
-      * 2b9c7299fb
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
+    Quick map of this file (automatic static scan):
+      * Named functions: 27
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: 2b9c7299fb
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     READABLE VERSION OF THE DECOMPILED DEVELOPER EDITOR SCRIPT
@@ -53,6 +74,8 @@ local editedCoords = nil
 local coordBlips = {}
 
 ---Remove old coordinate blips, then recreate them for the current list.
+
+-- === HELPER FUNCTION: refreshCoordinateBlips() ===
 local function refreshCoordinateBlips()
     for _, blip in pairs(coordBlips) do
         RemoveBlip(blip)
@@ -73,6 +96,8 @@ end
 ---Turn pasted vector3/vector4 text into actual FiveM vectors.
 ---@param text string
 ---@param vectorSize number 3 for vector3, 4 for vector4
+
+-- === HELPER FUNCTION: loadCoordinateList(text, vectorSize) ===
 local function loadCoordinateList(text, vectorSize)
     -- Accept text such as:
     -- vector3(100.0, 200.0, 30.0)
@@ -123,6 +148,8 @@ end
 local GRID_DRIVER_MODEL = 1641152947
 
 ---Wait until the user presses Y (control 246).
+
+-- === HELPER FUNCTION: waitForGridPoint(message) ===
 local function waitForGridPoint(message)
     tCMG.notify(message)
 
@@ -141,6 +168,8 @@ end
 ---@param vehicleModel string|number
 ---@param rowCount number|string
 ---@param columnCount number|string
+
+-- === HELPER FUNCTION: CMG.gridPositionSaver(vehicleModel, rowCount, columnCount) ===
 function CMG.gridPositionSaver(vehicleModel, rowCount, columnCount)
     rowCount = tonumber(rowCount) or 1
     columnCount = tonumber(columnCount) or 1
@@ -261,6 +290,8 @@ local boundsEditor = {
 ---@param min vector3
 ---@param max vector3
 ---@return table
+
+-- === HELPER FUNCTION: getBoundsCorners(min, max) ===
 local function getBoundsCorners(min, max)
     -- Tiny offset stops faces occupying the exact same plane.
     local epsilon = 0.001
@@ -282,6 +313,8 @@ end
 ---A rectangular box has 6 sides, and each side is drawn with 2 triangles.
 ---@param corners table
 ---@return table
+
+-- === HELPER FUNCTION: getBoundsTriangles(corners) ===
 local function getBoundsTriangles(corners)
     return {
         { corners[3], corners[2], corners[1] },
@@ -306,6 +339,8 @@ end
 
 ---Draw the triangles that visually show the bounds box.
 ---@param triangles table
+
+-- === HELPER FUNCTION: drawBoundsTriangles(triangles) ===
 local function drawBoundsTriangles(triangles)
     for index, triangle in ipairs(triangles) do
         local a = triangle[1]
@@ -326,6 +361,8 @@ local function drawBoundsTriangles(triangles)
 end
 
 ---Draw the complete bounds box.
+
+-- === HELPER FUNCTION: drawBoundsBox(min, max) ===
 local function drawBoundsBox(min, max)
     local corners = getBoundsCorners(min, max)
     local triangles = getBoundsTriangles(corners)
@@ -333,6 +370,8 @@ local function drawBoundsBox(min, max)
 end
 
 ---Move and rotate the free camera.
+
+-- === HELPER FUNCTION: updateBoundsCamera() ===
 local function updateBoundsCamera()
     local frameTime = GetFrameTime()
 
@@ -411,6 +450,8 @@ end
 
 ---Return true if a world-space point is roughly underneath the screen centre.
 ---@param point vector3
+
+-- === HELPER FUNCTION: pointIsNearScreenCentre(point) ===
 local function pointIsNearScreenCentre(point)
     local visible, screenX, screenY =
         GetScreenCoordFromWorldCoord(point.x, point.y, point.z)
@@ -424,6 +465,8 @@ local function pointIsNearScreenCentre(point)
 end
 
 ---Allow the user to grab either the MIN or MAX corner with the mouse.
+
+-- === HELPER FUNCTION: updateBoundsSelection() ===
 local function updateBoundsSelection()
     -- Left mouse / attack.
     DisableControlAction(0, 24, true)
@@ -471,7 +514,11 @@ local function updateBoundsSelection()
 end
 
 ---Draw the two draggable corner markers and the box itself.
+
+-- === HELPER FUNCTION: drawBoundsEditor() ===
 local function drawBoundsEditor()
+
+    -- === HELPER FUNCTION: drawCornerMarker(position) ===
     local function drawCornerMarker(position)
         DrawMarker(
             28,
@@ -491,6 +538,8 @@ local function drawBoundsEditor()
 end
 
 ---Called every frame while the bounds editor is open.
+
+-- === HELPER FUNCTION: updateBoundsEditor() ===
 local function updateBoundsEditor()
     updateBoundsCamera()
     updateBoundsSelection()
@@ -498,6 +547,8 @@ local function updateBoundsEditor()
 end
 
 ---Clean up the camera and restore normal player controls.
+
+-- === HELPER FUNCTION: destroyBoundsCamera() ===
 local function destroyBoundsCamera()
     if not boundsEditor.camera then
         return
@@ -514,6 +565,8 @@ local function destroyBoundsCamera()
 end
 
 ---Finish the editor and keep the current min/max values.
+
+-- === HELPER FUNCTION: finishBoundsEditor() ===
 local function finishBoundsEditor()
     if not boundsEditor.camera then
         return
@@ -550,6 +603,8 @@ end
 ---  options.max     = starting maximum vector
 ---  options.onClose = function(min, max)
 ---@param options table|nil
+
+-- === HELPER FUNCTION: startBoundsEditor(options) ===
 local function startBoundsEditor(options)
     options = options or {}
 
@@ -589,6 +644,7 @@ local function startBoundsEditor(options)
     boundsEditor.selectedType = "NONE"
     boundsEditor.onClose = options.onClose
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         while boundsEditor.camera do
             updateBoundsEditor()
@@ -600,11 +656,15 @@ local function startBoundsEditor(options)
 end
 
 ---True when the bounds editor is currently running.
+
+-- === HELPER FUNCTION: CMG.isBoundsEditorActive() ===
 function CMG.isBoundsEditorActive()
     return boundsEditor.camera ~= nil
 end
 
 ---Close the editor without saving.
+
+-- === HELPER FUNCTION: CMG.cancelBoundsEditor() ===
 function CMG.cancelBoundsEditor()
     if not boundsEditor.camera then
         return
@@ -625,6 +685,8 @@ end
 ---This helper is useful from code that wants:
 ---    local min, max = CMG.runBoundsEditor(oldMin, oldMax)
 ---@return vector3|nil, vector3|nil
+
+-- === HELPER FUNCTION: CMG.runBoundsEditor(min, max) ===
 function CMG.runBoundsEditor(min, max)
     if boundsEditor.camera then
         return nil, nil
@@ -658,6 +720,8 @@ function CMG.runBoundsEditor(min, max)
 end
 
 ---Open the editor if closed; finish/save it if already open.
+
+-- === HELPER FUNCTION: CMG.toggleBoundsEditor() ===
 function CMG.toggleBoundsEditor()
     if boundsEditor.camera then
         finishBoundsEditor()
@@ -731,6 +795,8 @@ end)
 ---
 ---Controls are the same numeric controls used by the original script.
 ---@param model string|number
+
+-- === HELPER FUNCTION: CMG.createDebugObject(model) ===
 function CMG.createDebugObject(model)
     local modelHash = CMG.loadModel(model)
 
@@ -873,6 +939,8 @@ end
 ---Sort coordinates so the nearest points to the player come first.
 ---@param coords table
 ---@return table
+
+-- === HELPER FUNCTION: sortCoordinatesByDistance(coords) ===
 local function sortCoordinatesByDistance(coords)
     local playerCoords = CMG.getPlayerCoords()
 
@@ -887,6 +955,8 @@ local function sortCoordinatesByDistance(coords)
 end
 
 ---Runs every developer-menu tick while a coordinate list is loaded.
+
+-- === HELPER FUNCTION: coordinateEditorTick() ===
 local function coordinateEditorTick()
     if not editedCoords then
         return
@@ -944,6 +1014,7 @@ Press ~INPUT_DETONATE~ to save file]])
 
     -- G / INPUT_DETONATE: send the list to the server to be saved.
     if IsControlJustPressed(0, 47) then
+        -- Beginner: sends the "2b9c7299fb" event to the server.
         TriggerServerEvent("2b9c7299fb", editedCoords)
 
         -- This matches the original behaviour.
@@ -1053,6 +1124,8 @@ local function createAttachedProp(
 end
 
 ---Delete the old preview and create a new one using the menu values.
+
+-- === HELPER FUNCTION: refreshAttachedPropPreview() ===
 local function refreshAttachedPropPreview()
     if previewProp and previewProp ~= 0 then
         DeleteEntity(previewProp)
@@ -1077,6 +1150,8 @@ end
 
 ---Small helper so the six RageUI.List callbacks do not contain the same
 ---30 lines of duplicated decompiled code.
+
+-- === HELPER FUNCTION: handlePlacementListChange(isActive) ===
 local function handlePlacementListChange(isActive)
     if isActive then
         refreshAttachedPropPreview()

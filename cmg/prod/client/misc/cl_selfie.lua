@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Selfie
+    ====================================
+
+    File: cmg/prod/client/misc/cl_selfie.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Selfie feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 4
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: selfie
+      * Incoming network events: lb-phone:toggleHud
+      * Local event handlers: none found by static scan
+      * Server events sent: 1c88547586
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Selfie / Phone Camera
     =====================
 
@@ -52,6 +90,7 @@ local waitAfterClosing = false
 -- GTA CAMERA NATIVE ALIASES
 -- ============================================================
 
+-- === HELPER FUNCTION: CellFrontCamActivate(enabled) ===
 local function CellFrontCamActivate(enabled)
     Citizen.InvokeNative(
         2635073306796480568,
@@ -76,6 +115,7 @@ local ClearPhoto =
 -- HELP TEXT
 -- ============================================================
 
+-- === HELPER FUNCTION: DisplayHelpText(text) ===
 function DisplayHelpText(text)
     BeginTextCommandDisplayHelp(
         "STRING"
@@ -191,6 +231,8 @@ RegisterCommand(
 
 
 -- Clean up any GTA phone object when the resource starts this file.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     DestroyMobilePhone()
 end)
@@ -251,6 +293,7 @@ RegisterNetEvent(
 local phoneDisableReferences = 0
 
 
+-- === HELPER FUNCTION: CMG.setCanOpenPhone(canOpen) ===
 function CMG.setCanOpenPhone(canOpen)
     if canOpen then
         if phoneDisableReferences > 0 then
@@ -293,6 +336,7 @@ function CMG.setCanOpenPhone(canOpen)
 end
 
 
+-- === HELPER FUNCTION: CMG.canOpenPhone() ===
 function CMG.canOpenPhone()
     return
         phoneDisableReferences == 0

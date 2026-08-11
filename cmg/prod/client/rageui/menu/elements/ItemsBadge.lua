@@ -1,42 +1,62 @@
 --[[
-    Beginner Guide: ItemsBadge.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Items Badge
-    ============================
+    LEVEL 1 BEGINNER GUIDE — Items Badge
+    =========================================
 
     File: cmg/prod/client/rageui/menu/elements/ItemsBadge.lua
-    Purpose: This file contains FiveM client/resource logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: RageUI menu framework/library code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 52
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local rageUiCall, dataTable, workValue
 rageUiCall = RageUI
 dataTable = {}
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -45,6 +65,8 @@ function workValue()
   return arg1
 end
 dataTable.None = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -52,6 +74,8 @@ function workValue()
   return arg1
 end
 dataTable.BronzeMedal = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -59,6 +83,8 @@ function workValue()
   return arg1
 end
 dataTable.GoldMedal = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -66,6 +92,8 @@ function workValue()
   return arg1
 end
 dataTable.SilverMedal = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -73,6 +101,8 @@ function workValue()
   return arg1
 end
 dataTable.Alert = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -97,6 +127,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Crown = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -112,6 +144,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Ammo = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -127,6 +161,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Armour = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -142,6 +178,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Barber = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -157,6 +195,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Clothes = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -172,6 +212,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Franklin = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -187,6 +229,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Bike = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -202,6 +246,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Car = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -209,6 +255,8 @@ function workValue()
   return arg1
 end
 dataTable.CarWhite = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -216,6 +264,8 @@ function workValue()
   return arg1
 end
 dataTable.CarBlack = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -232,6 +282,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Boat = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -248,6 +300,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Heli = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -264,6 +318,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Plane = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -280,6 +336,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.BoatPickup = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -296,6 +354,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Card = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -311,6 +371,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Gun = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -326,6 +388,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Heart = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -341,6 +405,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Makeup = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -356,6 +422,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Mask = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -371,6 +439,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Michael = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -378,6 +448,8 @@ function workValue()
   return arg1
 end
 dataTable.Star = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -393,6 +465,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Tattoo = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -408,6 +482,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Trevor = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -432,6 +508,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Lock = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -456,6 +534,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Tick = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -472,6 +552,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Key = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -488,6 +570,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Coke = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -504,6 +588,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Heroin = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -520,6 +606,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Meth = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -536,6 +624,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Weed = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -552,6 +642,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Package = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2, dataTable3
   dataTable2 = {}
@@ -568,6 +660,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.Cash = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local dataTable2
   dataTable2 = {}
@@ -576,6 +670,8 @@ function workValue(arg1)
   return dataTable2
 end
 dataTable.RP = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -584,6 +680,8 @@ function workValue()
   return arg1
 end
 dataTable.LSPD = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -592,6 +690,8 @@ function workValue()
   return arg1
 end
 dataTable.Vagos = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -600,6 +700,8 @@ function workValue()
   return arg1
 end
 dataTable.Bikers = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -608,6 +710,8 @@ function workValue()
   return arg1
 end
 dataTable.Badbeat = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -616,6 +720,8 @@ function workValue()
   return arg1
 end
 dataTable.CashingOut = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -624,6 +730,8 @@ function workValue()
   return arg1
 end
 dataTable.FullHouse = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -632,6 +740,8 @@ function workValue()
   return arg1
 end
 dataTable.HighRoller = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -640,6 +750,8 @@ function workValue()
   return arg1
 end
 dataTable.HouseKeeping = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -648,6 +760,8 @@ function workValue()
   return arg1
 end
 dataTable.LooseCheng = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -656,6 +770,8 @@ function workValue()
   return arg1
 end
 dataTable.LuckyLucky = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -664,6 +780,8 @@ function workValue()
   return arg1
 end
 dataTable.PlayToWin = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -672,6 +790,8 @@ function workValue()
   return arg1
 end
 dataTable.StraightFlush = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}
@@ -680,6 +800,8 @@ function workValue()
   return arg1
 end
 dataTable.StrongArmTactics = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, dataTable2
   arg1 = {}

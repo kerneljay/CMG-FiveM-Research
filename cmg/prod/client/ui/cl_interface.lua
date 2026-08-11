@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Interface
+    =======================================
+
+    File: cmg/prod/client/ui/cl_interface.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: NUI/menu/interface behaviour, specifically the Interface feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 9
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: CMG:resourceFocusUpdated
+      * Local event handlers: onClientResourceStart, onClientResourceStop, CMG:resourceFocusUpdated
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     CMGUI Focus / NUI Callback Bridge
     ==================================
 
@@ -71,6 +109,7 @@ local callbackRetryThreadRunning = false
 -- SAFE CMGUI MESSAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.uiSendMessage(message) ===
 function CMG.uiSendMessage(message)
     if GetResourceState("cmgui") ~= "started" then
         return
@@ -86,6 +125,7 @@ end
 -- TRY TO REGISTER ANY UNREGISTERED CALLBACKS
 -- ============================================================
 
+-- === HELPER FUNCTION: tryRegisterCallbacks() ===
 local function tryRegisterCallbacks()
     if GetResourceState("cmgui") ~= "started" then
         return false
@@ -127,6 +167,8 @@ end
 
 -- The original retries for at most 400 frames. That covers the case where
 -- another file registers UI callbacks before the cmgui resource is fully ready.
+
+-- === HELPER FUNCTION: startCallbackRetryThread() ===
 local function startCallbackRetryThread()
     if callbackRetryThreadRunning then
         return
@@ -134,6 +176,7 @@ local function startCallbackRetryThread()
 
     callbackRetryThreadRunning = true
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         for _ = 1, 400 do
             if GetResourceState("cmgui") == "started" then
@@ -155,6 +198,7 @@ end
 -- EFFECTIVE FOCUS
 -- ============================================================
 
+-- === HELPER FUNCTION: applyEffectiveFocus() ===
 local function applyEffectiveFocus()
     local hasExternalFocus =
         table.count(resourceFocus) > 0
@@ -313,6 +357,7 @@ AddEventHandler(
 )
 
 
+-- === HELPER FUNCTION: CMG.awaitInterfaceLoaded() ===
 function CMG.awaitInterfaceLoaded()
     while GetResourceState("cmgui")
         ~= "started" do
@@ -374,6 +419,7 @@ CMG.patchFunction(
         focus,
         cursor
     )
+        -- Beginner: changes whether the NUI owns keyboard/mouse input.
         originalSetNuiFocus(
             focus,
             cursor
@@ -394,6 +440,7 @@ CMG.patchFunction(
 -- TEMPORARILY SUPPRESS FOCUS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.toggleTemporaryFocusDisable() ===
 function CMG.toggleTemporaryFocusDisable()
     temporaryFocusDisabled =
         not temporaryFocusDisabled
@@ -439,6 +486,7 @@ local controllerInputs = {
 }
 
 
+-- === HELPER FUNCTION: controllerUiTick() ===
 local function controllerUiTick()
     if not requestedFocus then
         return

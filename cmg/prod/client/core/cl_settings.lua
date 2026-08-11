@@ -1,4 +1,58 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Settings
+    ======================================
+
+    File: cmg/prod/client/core/cl_settings.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Settings feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 55
+      * Background threads: 3
+      * Always-running loops: 2
+      * Commands: settings
+      * Incoming network events: none found by static scan
+      * Local event handlers: CMG:chatMessagePing
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_settings, cfg/cfg_hud, cfg/cfg_weaponsonback, cfg/weapons
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     CMG SETTINGS / HUD
     Beginner-Friendly Rewrite
     ==================================================================
@@ -298,14 +352,17 @@ local ALL_SOURCE_KVP_NAMES = {
 -- BASIC KVP HELPERS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getBoolInt(key) ===
 local function getBoolInt(key)
     return GetResourceKvpInt(key) == 1
 end
 
+-- === HELPER FUNCTION: setBoolInt(key, enabled) ===
 local function setBoolInt(key, enabled)
     SetResourceKvpInt(key, enabled and 1 or 0)
 end
 
+-- === HELPER FUNCTION: getBoolString(key, default) ===
 local function getBoolString(key, default)
     local value = GetResourceKvpString(key)
 
@@ -316,10 +373,12 @@ local function getBoolString(key, default)
     return value ~= "false"
 end
 
+-- === HELPER FUNCTION: setBoolString(key, enabled) ===
 local function setBoolString(key, enabled)
     SetResourceKvp(key, tostring(enabled == true))
 end
 
+-- === HELPER FUNCTION: getNumberKvp(key, default) ===
 local function getNumberKvp(key, default)
     local value = tonumber(GetResourceKvpString(key) or "")
     return value ~= nil and value or default
@@ -354,11 +413,13 @@ do
     end
 end
 
+-- === HELPER FUNCTION: minimapIndexToValue(index) ===
 local function minimapIndexToValue(index)
     local value = -MINIMAP_CLAMP + ((index - 1) * MINIMAP_STEP)
     return math.floor(value * 1000 + 0.5) / 1000
 end
 
+-- === HELPER FUNCTION: minimapValueToIndex(value) ===
 local function minimapValueToIndex(value)
     value = tonumber(value) or 0.0
     value = math.min(MINIMAP_CLAMP, math.max(-MINIMAP_CLAMP, value))
@@ -398,15 +459,18 @@ local ChainEditor = {
     rz = 0.0,
 }
 
+-- === HELPER FUNCTION: chainEditMultiplier() ===
 local function chainEditMultiplier()
     return CHAIN_SPEEDS[ChainEditor.speedIndex] or 1.0
 end
 
+-- === HELPER FUNCTION: getWeaponDisplayName(weaponName) ===
 local function getWeaponDisplayName(weaponName)
     local data = WeaponsConfig.weapons and WeaponsConfig.weapons[weaponName]
     return data and data.name or weaponName
 end
 
+-- === HELPER FUNCTION: loadChainEditor(weaponName) ===
 local function loadChainEditor(weaponName)
     ChainEditor.weaponName = weaponName
 
@@ -422,6 +486,7 @@ local function loadChainEditor(weaponName)
     ChainEditor.rz = tonumber(rz) or 0.0
 end
 
+-- === HELPER FUNCTION: saveChainEditor() ===
 local function saveChainEditor()
     if ChainEditor.weaponName == "" then
         return
@@ -438,6 +503,7 @@ local function saveChainEditor()
     )
 end
 
+-- === HELPER FUNCTION: changeChainValue(field, amount) ===
 local function changeChainValue(field, amount)
     local minValue = field:sub(1, 1) == "r" and CHAIN_ROTATION_MIN or CHAIN_POSITION_MIN
     local maxValue = field:sub(1, 1) == "r" and CHAIN_ROTATION_MAX or CHAIN_POSITION_MAX
@@ -573,6 +639,7 @@ local HUD_COLOURS = {
 -- APPLY HUD COLOUR
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: applyHudColour() ===
 local function applyHudColour()
     local colour = HUD_COLOURS[State.hudColourIndex]
 
@@ -593,6 +660,7 @@ end
 -- LOAD SAVED SETTINGS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: loadSavedSettings() ===
 local function loadSavedSettings()
     local speed = GetResourceKvpInt(KVP.CHAIN_SPEED)
 
@@ -737,122 +805,150 @@ local function loadSavedSettings()
     end)
 end
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(loadSavedSettings)
 
 ---------------------------------------------------------------------------
 -- PUBLIC FUNCTIONS OTHER RESOURCES USE
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.arePilotJobGuidesDisabled() ===
 function CMG.arePilotJobGuidesDisabled()
     return State.disablePilotGuides
 end
 
+-- === HELPER FUNCTION: CMG.areTrapperShelfVisualsDisabled() ===
 function CMG.areTrapperShelfVisualsDisabled()
     return State.disableTrapperShelfVisuals
 end
 
+-- === HELPER FUNCTION: CMG.isGangLookoutAlertDisabled(index) ===
 function CMG.isGangLookoutAlertDisabled(index)
     return State.lookoutDisabled[index] == true
 end
 
+-- === HELPER FUNCTION: CMG.areEmergencyServiceNamesDisabled() ===
 function CMG.areEmergencyServiceNamesDisabled()
     return State.disableEmergencyNames
 end
 
+-- === HELPER FUNCTION: tCMG.getDoorbellNotificationType() ===
 function tCMG.getDoorbellNotificationType()
     return State.doorbellNotification
 end
 
+-- === HELPER FUNCTION: CMG.setDiagonalWeaponSetting(enabled) ===
 function CMG.setDiagonalWeaponSetting(enabled)
     State.diagonalWeapons = enabled == true
     setBoolString(KVP.DIAGONAL_WEAPONS, State.diagonalWeapons)
 end
 
+-- === HELPER FUNCTION: CMG.setFrontARSetting(enabled) ===
 function CMG.setFrontARSetting(enabled)
     State.frontARs = enabled == true
     setBoolString(KVP.FRONT_ARS, State.frontARs)
 end
 
+-- === HELPER FUNCTION: CMG.setFrontSMGSetting(enabled) ===
 function CMG.setFrontSMGSetting(enabled)
     State.frontSMGs = enabled == true
     setBoolString(KVP.FRONT_SMGS, State.frontSMGs)
 end
 
+-- === HELPER FUNCTION: CMG.setHitMarkerSetting(enabled) ===
 function CMG.setHitMarkerSetting(enabled)
     State.hitmarkerSounds = enabled == true
     setBoolString(KVP.HITMARKERS, State.hitmarkerSounds)
 end
 
+-- === HELPER FUNCTION: CMG.setCODHitMarkerSetting(enabled) ===
 function CMG.setCODHitMarkerSetting(enabled)
     State.codHitmarkerSounds = enabled == true
     setBoolString(KVP.COD_HITMARKERS, State.codHitmarkerSounds)
 end
 
+-- === HELPER FUNCTION: CMG.setKillListSetting(enabled) ===
 function CMG.setKillListSetting(enabled)
     setBoolString(KVP.KILL_LIST, enabled == true)
 end
 
+-- === HELPER FUNCTION: CMG.setReducedChatOpacity(enabled) ===
 function CMG.setReducedChatOpacity(enabled)
     State.reducedChatOpacity = enabled == true
     setBoolString(KVP.REDUCED_CHAT_OPACITY, State.reducedChatOpacity)
 end
 
+-- === HELPER FUNCTION: CMG.getHideEventAnnouncementFlag() ===
 function CMG.getHideEventAnnouncementFlag()
     return EVENT_NOTIFICATION_LABELS[State.eventNotification]
 end
 
+-- === HELPER FUNCTION: CMG.setShowHealthPercentageFlag(enabled) ===
 function CMG.setShowHealthPercentageFlag(enabled)
     State.healthPercentage = enabled == true
     setBoolString(KVP.HEALTH_PERCENTAGE, State.healthPercentage)
 end
 
+-- === HELPER FUNCTION: CMG.setFlashlightNotAimingFlag(enabled) ===
 function CMG.setFlashlightNotAimingFlag(enabled)
     State.flashlightKeepOn = enabled == true
     SetFlashLightKeepOnWhileMoving(State.flashlightKeepOn)
     setBoolString(KVP.FLASHLIGHT_KEEP_ON, State.flashlightKeepOn)
 end
 
+-- === HELPER FUNCTION: CMG.getShowHealthPercentageFlag() ===
 function CMG.getShowHealthPercentageFlag()
     return State.healthPercentage
 end
 
+-- === HELPER FUNCTION: CMG.getGangPingMarkerIndex() ===
 function CMG.getGangPingMarkerIndex()
     return State.gangPingMarker
 end
 
+-- === HELPER FUNCTION: CMG.getGangAdditionalPingMarkerIndex() ===
 function CMG.getGangAdditionalPingMarkerIndex()
     return State.gangExtraMarker
 end
 
+-- === HELPER FUNCTION: CMG.getGangUIScaleMultiplier() ===
 function CMG.getGangUIScaleMultiplier()
     return GANG_UI_SCALES[State.gangUiScale] or 1.0
 end
 
+-- === HELPER FUNCTION: CMG.isGangPanicsPinnedOnly() ===
 function CMG.isGangPanicsPinnedOnly()
     return State.pinnedPanicsOnly
 end
 
+-- === HELPER FUNCTION: CMG.isGangBlipsPinnedOnly() ===
 function CMG.isGangBlipsPinnedOnly()
     return State.pinnedBlipsOnly
 end
 
+-- === HELPER FUNCTION: CMG.isDebuggingClothing() ===
 function CMG.isDebuggingClothing()
     return State.clothingDebug
 end
 
+-- === HELPER FUNCTION: CMG.getInventoryOpacity() ===
 function CMG.getInventoryOpacity()
     return (tonumber(State.inventoryOpacity) or 10) / 10.0
 end
 
 -- Original source spells it "Postion"; keep that API spelling.
+
+-- === HELPER FUNCTION: CMG.getGangUIPostion() ===
 function CMG.getGangUIPostion()
     return State.gangUiPosition
 end
 
+-- === HELPER FUNCTION: CMG.areBlipPlayerNamesEnabled() ===
 function CMG.areBlipPlayerNamesEnabled()
     return State.playerBlipNames
 end
 
+-- === HELPER FUNCTION: CMG.isUsingKeyboard(controlGroup) ===
 function CMG.isUsingKeyboard(controlGroup)
     if State.forceKeyboard then
         return true
@@ -865,12 +961,14 @@ end
 -- SAVE MINIMAP CHANGES
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: saveMinimapPreset(index) ===
 local function saveMinimapPreset(index)
     State.minimapPreset = index
     SetResourceKvpInt(KVP.MINIMAP_PRESET, index)
     CMG.refreshMinimap()
 end
 
+-- === HELPER FUNCTION: saveMinimapFineX(index) ===
 local function saveMinimapFineX(index)
     State.minimapFineX = index
     SetResourceKvp(
@@ -880,6 +978,7 @@ local function saveMinimapFineX(index)
     CMG.refreshMinimap()
 end
 
+-- === HELPER FUNCTION: saveMinimapFineY(index) ===
 local function saveMinimapFineY(index)
     State.minimapFineY = index
     SetResourceKvp(
@@ -932,6 +1031,7 @@ local MENU = {
     OVERWATCH_PLAYER = "overwatchplayer",
 }
 
+-- === HELPER FUNCTION: createMenu(id, subtitle, parentId) ===
 local function createMenu(id, subtitle, parentId)
     local menu
 
@@ -1001,6 +1101,7 @@ createMenu(MENU.OVERWATCH_PLAYER, "~b~Overwatch", MENU.OVERWATCH)
 -- MAIN MENU
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: buttonTo(label, description, menuId, onSelected) ===
 local function buttonTo(label, description, menuId, onSelected)
     RageUI.ButtonWithStyle(
         label,
@@ -1016,6 +1117,7 @@ local function buttonTo(label, description, menuId, onSelected)
     )
 end
 
+-- === HELPER FUNCTION: drawMainMenu() ===
 local function drawMainMenu()
     RageUI.ButtonWithStyle(
         "~y~CMG Club",
@@ -1095,6 +1197,7 @@ end
 -- WEAPON OPTIONS MENU
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawWeaponOptions() ===
 local function drawWeaponOptions()
     RageUI.Checkbox(
         "Enable Diagonal Weapons",
@@ -1203,6 +1306,7 @@ end
 -- CHAIN MENUS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawChainList() ===
 local function drawChainList()
     RageUI.Separator("~s~Chains you are carrying")
 
@@ -1236,6 +1340,7 @@ local function drawChainList()
     end
 end
 
+-- === HELPER FUNCTION: drawChainEditor() ===
 local function drawChainEditor()
     if ChainEditor.weaponName == "" then
         RageUI.Separator("~r~No chain selected")
@@ -1328,6 +1433,7 @@ end
 -- GANG SETTINGS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawGangSettings() ===
 local function drawGangSettings()
     RageUI.List(
         "Gang Ping Marker",
@@ -1391,6 +1497,7 @@ local function drawGangSettings()
             local sound = GANG_SOUND_IDS[index]
 
             if selected and sound and sound > 0 then
+                -- Beginner: sends a Lua table to the HTML/JavaScript UI.
                 SendNUIMessage({
                     transactionType = "gangping" .. tostring(sound),
                     volumeOverride = GANG_VOLUME_VALUES[State.gangPingVolume] or 1.0,
@@ -1480,6 +1587,7 @@ end
 -- GRAPHICS / MINIMAP
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawGraphics() ===
 local function drawGraphics()
     buttonTo("~y~Sky Colours", "", MENU.SKY_COLOURS)
 
@@ -1535,10 +1643,12 @@ local function drawGraphics()
     end
 end
 
+-- === HELPER FUNCTION: saveSkyColours() ===
 local function saveSkyColours()
     SetResourceKvp(KVP.SKY_COLOURS, json.encode(State.skyColours))
 end
 
+-- === HELPER FUNCTION: drawSkyColours() ===
 local function drawSkyColours()
     RageUI.Checkbox(
         "Enabled",
@@ -1605,6 +1715,7 @@ end
 -- UI / MINIMAP MENU
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawUiSettings() ===
 local function drawUiSettings()
     RageUI.List(
         "Minimap Position",
@@ -1683,6 +1794,7 @@ end
 -- MISC MENU
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawMisc() ===
 local function drawMisc()
     RageUI.List(
         "Doorbell Notification",
@@ -1970,11 +2082,13 @@ AddEventHandler(EVENTS.UNKNOWN_71B989B7CD, function() end)
 -- CHAT PING
 ---------------------------------------------------------------------------
 
+-- === EVENT HANDLER: runs when "CMG:chatMessagePing" fires ===
 AddEventHandler("CMG:chatMessagePing", function()
     if getBoolInt(KVP.DISABLE_CHAT_PINGS) then
         return
     end
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         transactionType = "chatping"
     })
@@ -1991,6 +2105,7 @@ local FPS_AREAS = {
     Rebel = vector3(1585.5583496094, 6446.8916015625, 25.142086029053),
 }
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     local previousArea = nil
     local previousFps = 0
@@ -2035,6 +2150,7 @@ end)
 -- F2 SETTINGS COMMAND
 ---------------------------------------------------------------------------
 
+-- === COMMAND /settings: runs when that command is entered ===
 RegisterCommand("settings", function()
     local menu = RMenu:Get("settingsmenu", MENU.MAIN)
     RageUI.Visible(menu, not RageUI.Visible(menu))
@@ -2051,6 +2167,7 @@ RegisterKeyMapping(
 -- MENU DRAW THREAD
 ---------------------------------------------------------------------------
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         RageUI.IsVisible(

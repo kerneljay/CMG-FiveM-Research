@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Oneinchamber
+    ==========================================
+
+    File: cmg/prod/client/events/cl_oneinchamber.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Oneinchamber feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 1
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: 26fd108ba4, 0fc9717b90, bee9494620, 80947f33ff, 9209f7b849, 3836478e4b
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/events/cfg_oneinchamber
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     One In The Chamber - Readable Client Script
     --------------------------------------------
     Cleaned from decompiled Lua.
@@ -48,6 +86,8 @@ local arenaInteriorLoaded = false
 -- Returns:
 --   true  = arena loaded successfully
 --   false = loading failed/timed out
+
+-- === HELPER FUNCTION: loadArenaInterior() ===
 local function loadArenaInterior()
     -- If we already loaded it once, there is nothing else to do.
     if arenaInteriorLoaded then
@@ -98,6 +138,8 @@ end
 -- Forces GTA to stream the world/collision around a position.
 -- This is useful before teleporting the player so they do not fall
 -- through an unloaded floor.
+
+-- === HELPER FUNCTION: preloadArea(position) ===
 local function preloadArea(position)
     RequestCollisionAtCoord(position.x, position.y, position.z)
     NewLoadSceneStartSphere(position.x, position.y, position.z, 100.0, 0)
@@ -139,6 +181,8 @@ end
 --
 -- The original code does this while drawing the One In The Chamber HUD.
 -- It appears intended to stop nearby arena objects moving around.
+
+-- === HELPER FUNCTION: freezeNearbyObjects() ===
 local function freezeNearbyObjects()
     local playerCoords = CMG.getPlayerCoords()
 
@@ -157,12 +201,15 @@ end
 -- PLAYER DATA HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: getOneInChamberClientData() ===
 local function getOneInChamberClientData()
     return CMG.getClientEventData("OneInChamberClientData")
 end
 
 
 -- Finds the event-data entry belonging to a specific server ID.
+
+-- === HELPER FUNCTION: findEventPlayerBySource(serverId) ===
 local function findEventPlayerBySource(serverId)
     local eventData = getOneInChamberClientData()
 
@@ -185,6 +232,8 @@ end
 -- ============================================================
 
 -- Draws all One In The Chamber information for one frame.
+
+-- === HELPER FUNCTION: drawOneInChamberHud(state) ===
 local function drawOneInChamberHud(state)
     -- Show how many players are currently in the event.
     state.timers.push("~y~PLAYERS", tostring(#currentEvent.players))
@@ -246,6 +295,8 @@ end
 
 
 -- This function runs every frame while the match is active.
+
+-- === HELPER FUNCTION: oneInChamberTick() ===
 local function oneInChamberTick()
     if not matchState then
         return
@@ -268,6 +319,8 @@ end
 --
 -- IMPORTANT:
 -- The event hash is kept exactly as found in the original file.
+
+-- === NETWORK EVENT: receives "26fd108ba4" from server/another network source ===
 RegisterNetEvent("26fd108ba4", function()
     CMG.stopEventSequence()
     CMG.setPlayerCanOpenLeaderboard(true)
@@ -347,7 +400,11 @@ end)
 --
 -- locationIndex = which arena/location from config.locations
 -- spawnIndex    = which spawnpoint inside that location
+
+-- === NETWORK EVENT: receives "0fc9717b90" from server/another network source ===
 RegisterNetEvent("0fc9717b90", function(locationIndex, spawnIndex)
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         local location = config.locations[locationIndex]
 
@@ -421,6 +478,8 @@ end)
 -- ============================================================
 
 -- Sent when the server chooses/changes the player who currently has the gun.
+
+-- === NETWORK EVENT: receives "bee9494620" from server/another network source ===
 RegisterNetEvent("bee9494620", function(killerPlayerSrc, updatedAtNetworkTime)
     if not matchState then
         return
@@ -435,6 +494,7 @@ end)
 -- CLEANUP
 -- ============================================================
 
+-- === HELPER FUNCTION: cleanupOneInChamber() ===
 local function cleanupOneInChamber()
     -- Stop drawing the custom HUD.
     CMG.deleteThreadOnTick(oneInChamberTick)
@@ -472,6 +532,8 @@ CMG.registerMinigameCleanupHandler(
 -- ============================================================
 
 -- Updates a player's kill count in the local event-data copy.
+
+-- === NETWORK EVENT: receives "80947f33ff" from server/another network source ===
 RegisterNetEvent("80947f33ff", function(playerServerId, newKillCount)
     local playerData = findEventPlayerBySource(playerServerId)
 
@@ -482,6 +544,8 @@ end)
 
 
 -- Updates a player's attempt count in the local event-data copy.
+
+-- === NETWORK EVENT: receives "9209f7b849" from server/another network source ===
 RegisterNetEvent("9209f7b849", function(playerServerId, newAttemptCount)
     local playerData = findEventPlayerBySource(playerServerId)
 

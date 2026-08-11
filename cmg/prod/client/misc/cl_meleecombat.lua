@@ -1,55 +1,56 @@
 --[[
-    Beginner Guide: cl_meleecombat.lua
-    ==================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Meleecombat
-    ============================
+    LEVEL 1 BEGINNER GUIDE — Meleecombat
+    =========================================
 
     File: cmg/prod/client/misc/cl_meleecombat.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Meleecombat feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 18
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Commands/command-like entries found:
-      * cancelmelee
-      * shuff
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * 1e1208e937
-      * 8e08db8961
-      * 259d5b120c
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * Press ~INPUT_PICKUP~ to  pick up \240\159\165\138
-      * Press ~INPUT_PICKUP~ to take off \240\159\165\138
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, dataTable, dataTable2, vector3Builder3, vector3Builder4, vector3Builder5, vector3Builder6, vector3Builder7, vector3Builder8, vector3Builder9, vector3Builder, vector3Builder2, numberValue, numberValue2, numberValue4, cmgCall2, numberValue6, numberValue7
 flag = false
@@ -151,6 +152,8 @@ vector3Builder5 = 0
 vector3Builder6 = RegisterCommand
 vector3Builder7 = "cancelmelee"
 -- Beginner: this function is the command handler for "cancelmelee".
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder8; parameters: none) ===
 function vector3Builder8()
   local arg1, arg2
   arg1 = CMG
@@ -174,6 +177,8 @@ vector3Builder9 = false
 -- Beginner: Register a chat/console command. Event/command: "cancelmelee".
 vector3Builder6(vector3Builder7, vector3Builder8, vector3Builder9)
 vector3Builder6 = CMG
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder7; parameters: arg1) ===
 function vector3Builder7(arg1)
   local arg2
   vector3Builder3 = arg1
@@ -183,6 +188,8 @@ vector3Builder6 = CMG
 vector3Builder6 = vector3Builder6.enablePunching
 vector3Builder7 = false
 vector3Builder6(vector3Builder7)
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder6; parameters: none) ===
 function vector3Builder6()
   local arg1, arg2, workValue, weaponHash, numberValue14, numberValue16, flag11, numberValue17, flag12
   arg1 = PlayerPedId
@@ -334,6 +341,8 @@ vector3Builder7(vector3Builder8, vector3Builder9)
 vector3Builder7 = AddEventHandler
 vector3Builder8 = "1e1208e937"
 -- Beginner: this function runs when client event "1e1208e937" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder9; parameters: arg1) ===
 function vector3Builder9(arg1)
   local arg2, workValue
   arg2 = flag
@@ -376,6 +385,8 @@ function vector3Builder9(arg1)
 end
 -- Beginner: Register a client-side event handler. Event/command: "1e1208e937".
 vector3Builder7(vector3Builder8, vector3Builder9)
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder7; parameters: arg1) ===
 function vector3Builder7(arg1)
   local arg2
   dataTable2 = arg1
@@ -383,10 +394,14 @@ end
 vector3Builder8 = AddEventHandler
 vector3Builder9 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: arg1, arg2) ===
 function vector3Builder(arg1, arg2)
   local workValue, weaponHash, numberValue14, numberValue16, flag11, numberValue17, flag12, flag13, flag2, cmgCall, textValue, numberValue3, numberValue5, flag3, flag4, flag5, flag6, numberValue8
   if arg2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+    -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg12) ===
     function workValue(arg12)
       local mathHelper, numberValue12, numberValue13
       mathHelper = true
@@ -403,6 +418,8 @@ function vector3Builder(arg1, arg2)
         vector3Builder5 = mathHelper
       end
     end
+
+    -- === HELPER FUNCTION: weaponHash(arg12) ===
     function weaponHash(arg12)
       local mathHelper, numberValue12, numberValue13, numberValue15
       mathHelper = false
@@ -436,6 +453,8 @@ function vector3Builder(arg1, arg2)
         vector3Builder5 = numberValue12
       end
     end
+
+    -- === HELPER FUNCTION (decompiler name: numberValue14; parameters: arg12) ===
     function numberValue14(arg12)
       local mathHelper, numberValue12, numberValue13, numberValue15
       mathHelper = arg12.disableDamage
@@ -489,6 +508,8 @@ vector3Builder8(vector3Builder9, vector3Builder)
 vector3Builder8 = RegisterCommand
 vector3Builder9 = "shuff"
 -- Beginner: this function is the command handler for "shuff".
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: none) ===
 function vector3Builder()
   local arg1, arg2, workValue
   arg1 = IsPedInAnyVehicle
@@ -549,6 +570,8 @@ vector3Builder[5] = cmgCall2
 vector3Builder[6] = numberValue6
 vector3Builder[7] = numberValue7
 vector3Builder2 = {}
+
+-- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
 function numberValue()
   local arg1, arg2, workValue, weaponHash, numberValue14, numberValue16, flag11, numberValue17, flag12, flag13, flag2, cmgCall, textValue, numberValue3, numberValue5, flag3, flag4, flag5, flag6, numberValue8, flag7
   arg1 = CMG
@@ -681,6 +704,8 @@ function numberValue()
   flag7 = true
   numberValue16(flag11, numberValue17, flag12, flag13, flag2, cmgCall, textValue, numberValue3, numberValue5, flag3, flag4, flag5, flag6, numberValue8, flag7)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
 function numberValue2()
   local arg1, arg2, workValue, weaponHash, numberValue14, numberValue16, flag11, numberValue17
   arg1 = pairs
@@ -697,10 +722,14 @@ end
 numberValue4 = AddEventHandler
 cmgCall2 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: numberValue6; parameters: arg1, arg2) ===
 function numberValue6(arg1, arg2)
   local workValue, weaponHash, numberValue14, numberValue16, flag11, numberValue17, flag12, flag13, flag2, cmgCall, textValue, numberValue3, numberValue5, flag3, flag4, flag5, flag6, numberValue8, flag7, numberValue9, numberValue10, numberValue11, flag8, flag9, flag10
   if arg2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+    -- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
     function workValue()
       local arg12, mathHelper
       arg12 = vector3Builder8
@@ -715,9 +744,13 @@ function numberValue6(arg1, arg2)
         arg12(mathHelper)
       end
     end
+
+    -- === HELPER FUNCTION: weaponHash() ===
     function weaponHash()
       local arg12, mathHelper
     end
+
+    -- === HELPER FUNCTION (decompiler name: numberValue14; parameters: none) ===
     function numberValue14()
       local arg12, mathHelper, numberValue12
       arg12 = IsControlJustPressed
@@ -799,6 +832,8 @@ end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
 numberValue4(cmgCall2, numberValue6)
 numberValue4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2
   arg1 = flag
@@ -806,6 +841,8 @@ function cmgCall2()
 end
 numberValue4.inBoxingZone = cmgCall2
 numberValue4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2, workValue, weaponHash, numberValue14
   arg1 = GetSelectedPedWeapon

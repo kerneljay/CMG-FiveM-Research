@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Staff
+    ===================================
+
+    File: cmg/prod/client/staff/cl_staff.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: staff/admin gameplay and moderation tools, specifically the Staff feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 11
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: onResourceStop
+      * Server events sent: 7c24fb009f
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Client Staff State + Developer Delete Gun
     =========================================
 
@@ -47,34 +85,42 @@ local staffState = {
 -- STATE GETTERS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.isStaffedOnClient() ===
 function CMG.isStaffedOnClient()
     return staffState.staffedOn
 end
 
+-- === HELPER FUNCTION: CMG.isDeveloperClient() ===
 function CMG.isDeveloperClient()
     return staffState.developer
 end
 
+-- === HELPER FUNCTION: CMG.isStaffClient() ===
 function CMG.isStaffClient()
     return staffState.staff
 end
 
+-- === HELPER FUNCTION: CMG.isAdminClient() ===
 function CMG.isAdminClient()
     return staffState.admin
 end
 
+-- === HELPER FUNCTION: CMG.isSeniorAdminClient() ===
 function CMG.isSeniorAdminClient()
     return staffState.seniorAdmin
 end
 
+-- === HELPER FUNCTION: CMG.isHeadAdminClient() ===
 function CMG.isHeadAdminClient()
     return staffState.headAdmin
 end
 
+-- === HELPER FUNCTION: CMG.isManagementClient() ===
 function CMG.isManagementClient()
     return staffState.management
 end
 
+-- === HELPER FUNCTION: CMG.isFounderClient() ===
 function CMG.isFounderClient()
     return staffState.founder
 end
@@ -116,6 +162,7 @@ local deleteGunEnabled = false
 local outlinedEntity = 0
 
 
+-- === HELPER FUNCTION: clearDeleteGunOutline() ===
 local function clearDeleteGunOutline()
     if outlinedEntity ~= 0
         and DoesEntityExist(
@@ -132,6 +179,7 @@ local function clearDeleteGunOutline()
 end
 
 
+-- === HELPER FUNCTION: getAimedEntity() ===
 local function getAimedEntity()
     local aiming, entity =
         GetEntityPlayerIsFreeAimingAt(
@@ -148,6 +196,7 @@ local function getAimedEntity()
 end
 
 
+-- === HELPER FUNCTION: deleteGunTick() ===
 local function deleteGunTick()
     if not staffState.staffedOn then
         if deleteGunEnabled then

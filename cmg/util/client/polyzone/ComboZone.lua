@@ -1,21 +1,40 @@
 --[[
-    BEGINNER GUIDE — Combo Zone
-    ===========================
+    LEVEL 1 BEGINNER GUIDE — Combo Zone
+    ========================================
 
     File: cmg/util/client/polyzone/ComboZone.lua
-    Purpose: This file contains shared utility code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: PolyZone geometry/zone library code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Named framework/network events found:
-      * polyzone:pzcomboinfo
+    Quick map of this file (automatic static scan):
+      * Named functions: 26
+      * Background threads: 3
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: polyzone:pzcomboinfo
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ---@diagnostic disable
 
@@ -28,6 +47,8 @@ local yDelta = (mapMaxY - mapMinY) / yDivisions
 ComboZone = {}
 
 -- Finds all values in tblA that are not in tblB, using the "id" property
+
+-- === HELPER FUNCTION: tblDifference(tblA, tblB) ===
 local function tblDifference(tblA, tblB)
   local diff
   for _, a in ipairs(tblA) do
@@ -46,6 +67,7 @@ local function tblDifference(tblA, tblB)
   return diff
 end
 
+-- === HELPER FUNCTION: _differenceBetweenInsideZones(insideZones, newInsideZones) ===
 local function _differenceBetweenInsideZones(insideZones, newInsideZones)
   local insideZonesCount, newInsideZonesCount = #insideZones, #newInsideZones
   if insideZonesCount == 0 and newInsideZonesCount == 0 then
@@ -68,6 +90,7 @@ local function _differenceBetweenInsideZones(insideZones, newInsideZones)
   return isDifferent, enteredZones, leftZones
 end
 
+-- === HELPER FUNCTION: _getZoneBounds(zone) ===
 local function _getZoneBounds(zone)
   local center = zone.center
   local radius = zone.radius or zone.boundingRadius
@@ -78,6 +101,7 @@ local function _getZoneBounds(zone)
   return minY, maxY, minX, maxX
 end
 
+-- === HELPER FUNCTION: _removeZoneByFunction(predicateFn, zones) ===
 local function _removeZoneByFunction(predicateFn, zones)
   if predicateFn == nil or zones == nil or #zones == 0 then return end
 
@@ -91,6 +115,7 @@ local function _removeZoneByFunction(predicateFn, zones)
   return nil
 end
 
+-- === HELPER FUNCTION: _addZoneToGrid(grid, zone) ===
 local function _addZoneToGrid(grid, zone)
   local minY, maxY, minX, maxX = _getZoneBounds(zone)
   for y=minY, maxY do
@@ -104,6 +129,7 @@ local function _addZoneToGrid(grid, zone)
   end
 end
 
+-- === HELPER FUNCTION: _getGridCell(pos) ===
 local function _getGridCell(pos)
   local x = (pos.x - mapMinX) // xDelta
   local y = (pos.y - mapMinY) // yDelta
@@ -111,6 +137,7 @@ local function _getGridCell(pos)
 end
 
 
+-- === HELPER FUNCTION: ComboZone:draw(forceDraw) ===
 function ComboZone:draw(forceDraw)
   local zones = self.zones
   for i=1, #zones do
@@ -122,12 +149,14 @@ function ComboZone:draw(forceDraw)
 end
 
 
+-- === HELPER FUNCTION: _initDebug(zone, options) ===
 local function _initDebug(zone, options)
   if options.debugBlip then zone:addDebugBlip() end
   if not options.debugPoly then
     return
   end
 
+  -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
   Citizen.CreateThread(function()
     while not zone.destroyed do
       zone:draw(false)
@@ -136,6 +165,7 @@ local function _initDebug(zone, options)
   end)
 end
 
+-- === HELPER FUNCTION: ComboZone:new(zones, options) ===
 function ComboZone:new(zones, options)
   options = options or {}
   local useGrid = options.useGrid
@@ -165,15 +195,19 @@ function ComboZone:new(zones, options)
   return zone
 end
 
+-- === HELPER FUNCTION: ComboZone:Create(zones, options) ===
 function ComboZone:Create(zones, options)
   local zone = ComboZone:new(zones, options)
   _initDebug(zone, options)
+
+  -- === EVENT HANDLER: runs when "polyzone:pzcomboinfo" fires ===
   AddEventHandler("polyzone:pzcomboinfo", function ()
       zone:printInfo()
   end)
   return zone
 end
 
+-- === HELPER FUNCTION: ComboZone:getZones(point) ===
 function ComboZone:getZones(point)
   if not self.useGrid then
     return self.zones
@@ -188,6 +222,7 @@ function ComboZone:getZones(point)
   return row[x]
 end
 
+-- === HELPER FUNCTION: ComboZone:AddZone(zone) ===
 function ComboZone:AddZone(zone)
   local zones = self.zones
   local newIndex = #zones+1
@@ -199,6 +234,7 @@ function ComboZone:AddZone(zone)
   if self.debugBlip then zone:addDebugBlip() end
 end
 
+-- === HELPER FUNCTION: ComboZone:RemoveZone(nameOrFn) ===
 function ComboZone:RemoveZone(nameOrFn)
   local predicateFn = nameOrFn
   if type(nameOrFn) == "string" then
@@ -226,6 +262,7 @@ function ComboZone:RemoveZone(nameOrFn)
   return zone
 end
 
+-- === HELPER FUNCTION: ComboZone:isPointInside(point, zoneName) ===
 function ComboZone:isPointInside(point, zoneName)
   if self.destroyed then
     print("[PolyZone] Warning: Called isPointInside on destroyed zone {name=" .. self.name .. "}")
@@ -244,6 +281,7 @@ function ComboZone:isPointInside(point, zoneName)
   return false, nil
 end
 
+-- === HELPER FUNCTION: ComboZone:isPointInsideExhaustive(point, insideZones) ===
 function ComboZone:isPointInsideExhaustive(point, insideZones)
   if self.destroyed then
     print("[PolyZone] Warning: Called isPointInside on destroyed zone {name=" .. self.name .. "}")
@@ -266,6 +304,7 @@ function ComboZone:isPointInsideExhaustive(point, insideZones)
   return #insideZones > 0, insideZones
 end
 
+-- === HELPER FUNCTION: ComboZone:destroy() ===
 function ComboZone:destroy()
   PolyZone.destroy(self)
   local zones = self.zones
@@ -277,11 +316,13 @@ function ComboZone:destroy()
   end
 end
 
+-- === HELPER FUNCTION: ComboZone:onPointInOut(getPointCb, onPointInOutCb, waitInMS) ===
 function ComboZone:onPointInOut(getPointCb, onPointInOutCb, waitInMS)
   -- Localize the waitInMS value for performance reasons (default of 500 ms)
   local _waitInMS = 500
   if waitInMS ~= nil then _waitInMS = waitInMS end
 
+  -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
   Citizen.CreateThread(function()
     local isInside = nil
     local insideZone = nil
@@ -300,11 +341,13 @@ function ComboZone:onPointInOut(getPointCb, onPointInOutCb, waitInMS)
   end)
 end
 
+-- === HELPER FUNCTION: ComboZone:onPointInOutExhaustive(getPointCb, onPointInOutCb, waitInMS) ===
 function ComboZone:onPointInOutExhaustive(getPointCb, onPointInOutCb, waitInMS)
   -- Localize the waitInMS value for performance reasons (default of 500 ms)
   local _waitInMS = 500
   if waitInMS ~= nil then _waitInMS = waitInMS end
 
+  -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
   Citizen.CreateThread(function()
     local isInside, insideZones = nil, {}
     local newIsInside, newInsideZones = nil, {}
@@ -324,14 +367,17 @@ function ComboZone:onPointInOutExhaustive(getPointCb, onPointInOutCb, waitInMS)
   end)
 end
 
+-- === HELPER FUNCTION: ComboZone:onPlayerInOut(onPointInOutCb, waitInMS) ===
 function ComboZone:onPlayerInOut(onPointInOutCb, waitInMS)
   self:onPointInOut(PolyZone.getPlayerPosition, onPointInOutCb, waitInMS)
 end
 
+-- === HELPER FUNCTION: ComboZone:onPlayerInOutExhaustive(onPointInOutCb, waitInMS) ===
 function ComboZone:onPlayerInOutExhaustive(onPointInOutCb, waitInMS)
   self:onPointInOutExhaustive(PolyZone.getPlayerPosition, onPointInOutCb, waitInMS)
 end
 
+-- === HELPER FUNCTION: ComboZone:addEvent(eventName, zoneName) ===
 function ComboZone:addEvent(eventName, zoneName)
   if self.events == nil then self.events = {} end
   local internalEventName = eventPrefix .. eventName
@@ -343,10 +389,12 @@ function ComboZone:addEvent(eventName, zoneName)
   end)
 end
 
+-- === HELPER FUNCTION: ComboZone:removeEvent(name) ===
 function ComboZone:removeEvent(name)
   PolyZone.removeEvent(self, name)
 end
 
+-- === HELPER FUNCTION: ComboZone:addDebugBlip() ===
 function ComboZone:addDebugBlip()
   self.debugBlip = true
   local zones = self.zones
@@ -356,6 +404,7 @@ function ComboZone:addDebugBlip()
   end
 end
 
+-- === HELPER FUNCTION: ComboZone:printInfo() ===
 function ComboZone:printInfo()
   local zones = self.zones
   local polyCount, boxCount, circleCount, entityCount, comboCount = 0, 0, 0, 0, 0
@@ -381,10 +430,12 @@ function ComboZone:printInfo()
   print("-----------------------------------------------------")
 end
 
+-- === HELPER FUNCTION: ComboZone:setPaused(paused) ===
 function ComboZone:setPaused(paused)
   self.paused = paused
 end
 
+-- === HELPER FUNCTION: ComboZone:isPaused() ===
 function ComboZone:isPaused()
   return self.paused
 end

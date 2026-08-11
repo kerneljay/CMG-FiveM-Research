@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Clothingmenu
+    ==========================================
+
+    File: cmg/prod/client/core/cl_clothingmenu.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Clothingmenu feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 50
+      * Background threads: 2
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: c8c4d7de17, 5554c4f64b
+      * Local event handlers: CMG:onClientSpawn, b51e08118b, d580dacaa7, onResourceStop
+      * Server events sent: 236aec7dad, b6d3eda536, a5402aab30, 98b604d886, b9d98986e1, 862cc1a614
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/ped_cfg/clothing.json
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Clothing Store / Clothing Menu Client
     ======================================
 
@@ -72,6 +110,8 @@ end
 
 -- dummies.json contains additional whitelist entries.
 -- The old script merged those entries into clothing.json at runtime.
+
+-- === HELPER FUNCTION: mergeWhitelistTables(targetConfig, extraConfig) ===
 local function mergeWhitelistTables(targetConfig, extraConfig)
     if not targetConfig or not extraConfig then
         return
@@ -144,6 +184,7 @@ end
 -- SMALL DATA HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: trim(value) ===
 local function trim(value)
     if type(value) ~= "string" then
         return value
@@ -157,6 +198,7 @@ local function trim(value)
 end
 
 
+-- === HELPER FUNCTION: toRoundedInteger(value) ===
 local function toRoundedInteger(value)
     if value == nil then
         return nil
@@ -211,6 +253,7 @@ local groupFamilyMap = {
 }
 
 
+-- === HELPER FUNCTION: normaliseGroupFamily(groupName) ===
 local function normaliseGroupFamily(groupName)
     if type(groupName) ~= "string"
         or groupName == "" then
@@ -464,6 +507,7 @@ local clearPropsMenu =
 -- CLOTHING WHITELIST HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: getGenderWhitelist() ===
 local function getGenderWhitelist()
     if CMG.getModelGender() == "female" then
         return
@@ -875,6 +919,7 @@ end
 -- WHICH CLOTHING GROUP TABS CAN THE PLAYER OPEN?
 -- ============================================================
 
+-- === HELPER FUNCTION: canOpenClothingGroup(groupId) ===
 local function canOpenClothingGroup(groupId)
     if groupId == "civilian" then
         return true
@@ -901,6 +946,7 @@ end
 -- CATEGORY RESTRICTIONS
 -- ============================================================
 
+-- === HELPER FUNCTION: canChangeCategory(categoryName) ===
 local function canChangeCategory(categoryName)
     -- AA male uniform prevents changing these major uniform slots.
     if CMG.hasClientPermission(
@@ -939,6 +985,7 @@ end
 -- READ/APPLY CURRENT DRAWABLE + TEXTURE
 -- ============================================================
 
+-- === HELPER FUNCTION: getCurrentGlobalDrawable(category) ===
 local function getCurrentGlobalDrawable(category)
     local ped = CMG.getPlayerPed()
 
@@ -965,6 +1012,7 @@ local function getCurrentGlobalDrawable(category)
 end
 
 
+-- === HELPER FUNCTION: getCurrentTexture(category) ===
 local function getCurrentTexture(category)
     local ped = CMG.getPlayerPed()
 
@@ -1119,6 +1167,7 @@ local function firstVisibleTexture(
 end
 
 
+-- === HELPER FUNCTION: sendHairUpdateToServer() ===
 local function sendHairUpdateToServer()
     local ped = CMG.getPlayerPed()
 
@@ -1190,6 +1239,7 @@ end
 -- REMOVE / RESET ONE CATEGORY
 -- ============================================================
 
+-- === HELPER FUNCTION: resetCategory(category) ===
 local function resetCategory(category)
     local ped = CMG.getPlayerPed()
 
@@ -1321,6 +1371,7 @@ end
 -- BUILD THE DRAWABLE LIST FOR ONE CATEGORY
 -- ============================================================
 
+-- === HELPER FUNCTION: rebuildCategoryList(category) ===
 local function rebuildCategoryList(category)
     local ped = CMG.getPlayerPed()
 
@@ -1488,6 +1539,7 @@ local function rebuildCategoryList(category)
 end
 
 
+-- === HELPER FUNCTION: rebuildAllCategoryLists() ===
 local function rebuildAllCategoryLists()
     for _, category
         in ipairs(clothingCategories) do
@@ -1695,6 +1747,7 @@ local clothingCamera = nil
 local cameraActive = false
 
 
+-- === HELPER FUNCTION: updateClothingCamera() ===
 local function updateClothingCamera()
     if not clothingCamera
         or not DoesCamExist(
@@ -1769,6 +1822,7 @@ local function updateClothingCamera()
 end
 
 
+-- === HELPER FUNCTION: startClothingCamera() ===
 local function startClothingCamera()
     if cameraActive then
         return
@@ -1795,6 +1849,7 @@ local function startClothingCamera()
 
     cameraActive = true
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         while cameraActive do
             updateClothingCamera()
@@ -1804,6 +1859,7 @@ local function startClothingCamera()
 end
 
 
+-- === HELPER FUNCTION: stopClothingCamera() ===
 local function stopClothingCamera()
     cameraActive = false
 
@@ -1897,6 +1953,7 @@ local staticClothingStores = {
 local storeWorldItems = {}
 
 
+-- === HELPER FUNCTION: removeStoreWorldItems(storeId) ===
 local function removeStoreWorldItems(storeId)
     local data =
         storeWorldItems[storeId]
@@ -1926,6 +1983,7 @@ local function removeStoreWorldItems(storeId)
 end
 
 
+-- === HELPER FUNCTION: leaveClothingStore() ===
 local function leaveClothingStore()
     RageUI.CloseAll()
 
@@ -1935,6 +1993,7 @@ local function leaveClothingStore()
 end
 
 
+-- === HELPER FUNCTION: clothingStoreTick() ===
 local function clothingStoreTick()
     -- The server opens the menu after returning the clothing-group access
     -- table. The area itself does not need per-frame work.
@@ -2004,6 +2063,7 @@ local function createStoreWorldItems(
 end
 
 
+-- === HELPER FUNCTION: refreshPermissionStores() ===
 local function refreshPermissionStores()
     for storeId, store
         in ipairs(staticClothingStores) do
@@ -2138,6 +2198,7 @@ local function selectClothingGroup(
 end
 
 
+-- === HELPER FUNCTION: drawGroupButtons() ===
 local function drawGroupButtons()
     local paramedicOnly =
         CMG.hasClientPermission(
@@ -2175,6 +2236,7 @@ local function drawGroupButtons()
 end
 
 
+-- === HELPER FUNCTION: drawMoreOptions() ===
 local function drawMoreOptions()
     RageUI.Separator(
         "~y~More Options~w~"
@@ -2324,6 +2386,7 @@ end
 -- CHANGE GENDER MENU
 -- ============================================================
 
+-- === HELPER FUNCTION: canChangeGender() ===
 local function canChangeGender()
     if GetEntityHealth(
         CMG.getPlayerPed()
@@ -2339,6 +2402,7 @@ local function canChangeGender()
 end
 
 
+-- === HELPER FUNCTION: drawGenderMenu() ===
 local function drawGenderMenu()
     RageUI.ButtonWithStyle(
         "MP Male",
@@ -2419,6 +2483,7 @@ local function propRemovalButton(
 end
 
 
+-- === HELPER FUNCTION: drawClearPropsMenu() ===
 local function drawClearPropsMenu()
     propRemovalButton(
         "Remove Hat",
@@ -2454,6 +2519,7 @@ end
 local directInputBusy = false
 
 
+-- === HELPER FUNCTION: promptForClothingId() ===
 local function promptForClothingId()
     if directInputBusy
         or not activeCategory then
@@ -2462,6 +2528,7 @@ local function promptForClothingId()
 
     directInputBusy = true
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         local input =
             CMG.GetRageInputText(
@@ -2626,6 +2693,7 @@ local function drawClothingCategory(
 end
 
 
+-- === HELPER FUNCTION: drawClothingMenu() ===
 local function drawClothingMenu()
     if clothingListsNeedRefresh then
         rebuildAllCategoryLists()
@@ -2725,6 +2793,8 @@ RegisterNetEvent(
 -- Old clothing configs stored GLOBAL drawable IDs.
 -- Newer configs store collectionName + localIndex, which survives GTA DLC
 -- ordering changes much better.
+
+-- === HELPER FUNCTION: migrateWhitelistConfig() ===
 local function migrateWhitelistConfig()
     local output = {
         male_whitelists = {},

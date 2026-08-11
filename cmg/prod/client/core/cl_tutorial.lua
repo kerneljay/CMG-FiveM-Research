@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Tutorial
+    ======================================
+
+    File: cmg/prod/client/core/cl_tutorial.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Tutorial feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 32
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: protectionoff
+      * Incoming network events: CMG:initMoney, a146e2cd0b, c2edd7984f, 6932434e21, 47324dc7c8, d227939ac3
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: 813acdb9f7, 97a59f5031, 42036878bb, 91dff835ca, d8da13a755, c50703eeb9
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/weapons
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     New Player Tutorial + Protection Client
     =======================================
 
@@ -200,6 +238,7 @@ RegisterNetEvent(
 )
 
 
+-- === HELPER FUNCTION: tutorialLog(message, ...) ===
 local function tutorialLog(message, ...)
     print(
         "[Tutorial] " ..
@@ -210,6 +249,8 @@ end
 
 
 -- Server-side debug/progress tracking used by the original tutorial.
+
+-- === HELPER FUNCTION: reportTutorialStage(stageName) ===
 local function reportTutorialStage(stageName)
     tutorialStage = stageName
 
@@ -223,6 +264,7 @@ end
 local function sendTutorialTransaction(
     transactionType
 )
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         transactionType =
             transactionType
@@ -234,6 +276,7 @@ end
 -- SIMPLE TUTORIAL UI HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: showObjective(text) ===
 local function showObjective(text)
     drawNativeNotification(text)
 end
@@ -298,6 +341,7 @@ end
 local genderSelectionOpen = false
 
 
+-- === HELPER FUNCTION: closeGenderSelection() ===
 local function closeGenderSelection()
     genderSelectionOpen = false
 
@@ -314,6 +358,7 @@ local function closeGenderSelection()
 end
 
 
+-- === HELPER FUNCTION: openGenderSelection() ===
 local function openGenderSelection()
     genderSelectionOpen = true
 
@@ -360,6 +405,7 @@ CMG.uiRegisterCallback(
 )
 
 
+-- === HELPER FUNCTION: runGenderStage() ===
 local function runGenderStage()
     reportTutorialStage("Gender Stage")
 
@@ -395,6 +441,7 @@ end
 -- NAME / IDENTITY STAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: runNameStage() ===
 local function runNameStage()
     reportTutorialStage("Name Stage")
 
@@ -411,6 +458,7 @@ end
 -- PHONE STAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: runPhoneStage() ===
 local function runPhoneStage()
     reportTutorialStage("Phone Call")
 
@@ -438,6 +486,7 @@ end
 -- FIRST VEHICLE / SIMEON'S STAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: runVehicleStage() ===
 local function runVehicleStage()
     reportTutorialStage("Buy Simeons")
 
@@ -548,6 +597,7 @@ end
 -- GARAGE STAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: runGarageStage() ===
 local function runGarageStage()
     reportTutorialStage("Pull Out Garage")
 
@@ -599,6 +649,7 @@ end
 -- CITY HALL STAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: runCityHallStage() ===
 local function runCityHallStage()
     reportTutorialStage("Drive City Hall")
 
@@ -616,6 +667,7 @@ end
 -- COMPLETE / ABORT TUTORIAL
 -- ============================================================
 
+-- === HELPER FUNCTION: cleanTutorialEntities() ===
 local function cleanTutorialEntities()
     if tutorialVehicle
         and DoesEntityExist(
@@ -642,6 +694,7 @@ local function cleanTutorialEntities()
 end
 
 
+-- === HELPER FUNCTION: finishTutorial() ===
 local function finishTutorial()
     tutorialStage =
         "Complete"
@@ -664,6 +717,7 @@ local function finishTutorial()
 end
 
 
+-- === HELPER FUNCTION: cancelTutorial() ===
 local function cancelTutorial()
     cleanTutorialEntities()
     inTutorial = false
@@ -675,6 +729,7 @@ end
 -- MAIN TUTORIAL SEQUENCE
 -- ============================================================
 
+-- === HELPER FUNCTION: startTutorialSequence() ===
 local function startTutorialSequence()
     if inTutorial then
         return
@@ -789,11 +844,13 @@ RegisterNetEvent(
 )
 
 
+-- === HELPER FUNCTION: CMG.isNewPlayer() ===
 function CMG.isNewPlayer()
     return isNewPlayer
 end
 
 
+-- === HELPER FUNCTION: CMG.isInTutorial() ===
 function CMG.isInTutorial()
     return inTutorial
 end
@@ -923,6 +980,7 @@ local protectedWeaponClasses = {
 }
 
 
+-- === HELPER FUNCTION: CMG.hasNewPlayerProtection() ===
 function CMG.hasNewPlayerProtection()
     return newPlayerProtectionActive
 end
@@ -980,6 +1038,7 @@ local function isRealCombatWeapon(
 end
 
 
+-- === HELPER FUNCTION: disableProtectionCombatControls() ===
 local function disableProtectionCombatControls()
     local controls = {
         140,
@@ -1005,6 +1064,7 @@ local function disableProtectionCombatControls()
 end
 
 
+-- === HELPER FUNCTION: protectionCanApply() ===
 local function protectionCanApply()
     if not newPlayerProtectionActive then
         return false
@@ -1026,6 +1086,7 @@ local function protectionCanApply()
 end
 
 
+-- === HELPER FUNCTION: showProtectionIntro() ===
 local function showProtectionIntro()
     notify({
         title = "New Player Protection",
@@ -1038,6 +1099,7 @@ local function showProtectionIntro()
 end
 
 
+-- === HELPER FUNCTION: CMG.tryShowNewPlayerProtectionIntroUi() ===
 function CMG.tryShowNewPlayerProtectionIntroUi()
     if protectionIntroShown then
         return
@@ -1071,6 +1133,7 @@ local function setProtectionHudEnabled(
 end
 
 
+-- === HELPER FUNCTION: disableNewPlayerProtection() ===
 local function disableNewPlayerProtection()
     newPlayerProtectionActive = false
     protectionEndsAt = 0
@@ -1227,6 +1290,7 @@ RegisterNetEvent(
 )
 
 
+-- === HELPER FUNCTION: newPlayerProtectionTick() ===
 local function newPlayerProtectionTick()
     if not protectionCanApply() then
         return

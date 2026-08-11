@@ -1,55 +1,56 @@
 --[[
-    Beginner Guide: cl_stretcher.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Stretcher
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Stretcher
+    =======================================
 
     File: cmg/prod/client/nhs/cl_stretcher.lua
-    Purpose: This file contains NHS/medical gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: health-service/medical gameplay, specifically the Stretcher feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 18
+      * Background threads: 0
+      * Always-running loops: 3
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Config/data used:
-      * cfg/cfg_stretcher
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * stretcher
-      * removestretcher
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 11
-      They are intentionally left unchanged because matching server code may use them.
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~INPUT_FRONTEND_RDOWN~ Change position  ~INPUT_CELLPHONE_CANCEL~ Get up
-      * ~INPUT_COVER~ Push  ~INPUT_FRONTEND_RDOWN~ Use
-      * ~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop pushing
-      * ~INPUT_CELLPHONE_CAMERA_EXPRESSION~ Stop  ~INPUT_CELLPHONE_CAMERA_GRID~ Place player
-      * ~INPUT_REPLAY_REWIND~ Close door  ~INPUT_REPLAY_FFWD~ Take stretcher out
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, flag17, numberValue9, workValue10, numberValue11, workValue11, workValue12, workValue13, workValue14, threadCall, workValue, workValue2, workValue3, cmgCall2, numberValue2, textValue, workValue5, flag11
 cmgCall = CMG
@@ -62,6 +63,8 @@ numberValue9 = 0
 workValue10 = nil
 numberValue11 = 1
 workValue11 = nil
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
 function workValue12(arg1, arg2)
   local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4
   cmgCall3 = CMG
@@ -96,6 +99,8 @@ function workValue12(arg1, arg2)
   end
   return numberValue10
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
 function workValue13()
   local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator
   arg1 = IsControlJustReleased
@@ -175,6 +180,8 @@ function workValue13()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
 function workValue14(arg1)
   local arg2, cmgCall3, numberValue10, textValue3, iterator
   arg2 = BeginTextCommandDisplayHelp
@@ -196,6 +203,8 @@ function workValue14(arg1)
 end
 threadCall = Citizen
 threadCall = threadCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2, cmgCall3
   while true do
@@ -211,6 +220,8 @@ function workValue()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 threadCall(workValue)
+
+-- === HELPER FUNCTION (decompiler name: threadCall; parameters: arg1) ===
 function threadCall(arg1)
   local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash
   arg2 = GetEntityAttachedTo
@@ -284,6 +295,8 @@ function threadCall(arg1)
   numberValue10 = arg1
   cmgCall3(numberValue10)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29
   arg2 = pairs
@@ -306,6 +319,8 @@ function workValue(arg1)
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
 function workValue2(arg1, arg2)
   local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15
   cmgCall3 = PlayerPedId
@@ -402,6 +417,8 @@ workValue3 = DecorRegister
 cmgCall2 = "58fe205294"
 numberValue2 = 3
 workValue3(cmgCall2, numberValue2)
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18, flag19, flag20, numberValue7, flag22, workValue6, workValue7, flag25
   arg1 = CMG
@@ -1101,10 +1118,14 @@ numberValue2 = workValue3
 textValue = "NHS Stretcher"
 -- Beginner: Run a helper every game frame while this script is active.
 cmgCall2(numberValue2, textValue)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2) ===
 function cmgCall2(arg1, arg2)
   local cmgCall3, numberValue10
   cmgCall3 = Citizen
   cmgCall3 = cmgCall3.CreateThread
+
+  -- === HELPER FUNCTION (decompiler name: numberValue10; parameters: none) ===
   function numberValue10()
     local networkId, serverEventCall, textValue2, playerPed, flag27, textValue4, numberValue12, textValue5, textValue6, numberValue13, numberValue, flag2, flag3, flag4, flag6, flag8, flag10, flag13, numberValue3, flag16, numberValue4, numberValue5, numberValue6, flag21, flag23, numberValue8, flag24, workValue8, workValue9, flag26
     networkId = NetworkGetNetworkIdFromEntity
@@ -1518,6 +1539,8 @@ workValue11 = cmgCall2
 cmgCall2 = RegisterNetEvent
 numberValue2 = "5672bd2d03"
 -- Beginner: this function handles network event "5672bd2d03".
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
 function textValue(arg1, arg2)
   local cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag, modelHash, coords, workValue4, flag5, flag7, flag9, flag12, flag14, flag15, flag18
   cmgCall3 = NetworkDoesNetworkIdExist
@@ -1568,6 +1591,8 @@ cmgCall2 = 0
 numberValue2 = RegisterCommand
 textValue = "stretcher"
 -- Beginner: this function is the command handler for "stretcher".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4, playerPed2, flag28, flag29, flag
   arg1 = CMG
@@ -1681,6 +1706,8 @@ numberValue2(textValue, workValue5, flag11)
 numberValue2 = RegisterCommand
 textValue = "removestretcher"
 -- Beginner: this function is the command handler for "removestretcher".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, cmgCall3, numberValue10, textValue3, iterator
   arg1 = CMG
@@ -1711,6 +1738,8 @@ numberValue2(textValue, workValue5, flag11)
 numberValue2 = RegisterNetEvent
 textValue = "0a9884b220"
 -- Beginner: this function handles network event "0a9884b220".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
 function workValue5(arg1, arg2)
   local cmgCall3, numberValue10, textValue3, iterator, cmgCall4
   cmgCall3 = CMG
@@ -1731,6 +1760,8 @@ numberValue2(textValue, workValue5)
 numberValue2 = RegisterNetEvent
 textValue = "5f63e7b654"
 -- Beginner: this function handles network event "5f63e7b654".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
 function workValue5(arg1, arg2)
   local cmgCall3, numberValue10, textValue3, iterator, cmgCall4
   cmgCall3 = CMG
@@ -1751,6 +1782,8 @@ numberValue2(textValue, workValue5)
 numberValue2 = RegisterNetEvent
 textValue = "48c58592c1"
 -- Beginner: this function handles network event "48c58592c1".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, cmgCall3, numberValue10, textValue3, iterator, cmgCall4
   arg2 = CMG
@@ -1806,6 +1839,8 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "48c58592c1".
 numberValue2(textValue, workValue5)
 numberValue2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2
   arg1 = flag17
@@ -1815,6 +1850,8 @@ numberValue2.isUsingStretcher = textValue
 numberValue2 = RegisterNetEvent
 textValue = "2d2aca0333"
 -- Beginner: this function handles network event "2d2aca0333".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, cmgCall3, numberValue10, textValue3
   arg2 = NetworkDoesNetworkIdExist

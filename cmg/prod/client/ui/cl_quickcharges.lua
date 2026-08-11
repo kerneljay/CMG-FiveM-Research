@@ -1,27 +1,40 @@
 --[[
-    BEGINNER GUIDE — Quickcharges
-    =============================
+    LEVEL 1 BEGINNER GUIDE — Quickcharges
+    ==========================================
 
     File: cmg/prod/client/ui/cl_quickcharges.lua
-    Purpose: This file contains menu/UI logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: NUI/menu/interface behaviour, specifically the Quickcharges feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/cfg_pnc
+    Quick map of this file (automatic static scan):
+      * Named functions: 7
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: quickChargesClose, quickChargesConfirm
+      * Modules/config loaded: cfg/cfg_pnc
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * 61172cd221
-      * c08019918f
-      * 9276adb44e
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     Quick Charges - beginner-friendly rewrite
@@ -122,6 +135,8 @@ local cachedCategoryOrder = nil
 --     { fine = 250, months = 3 },
 --     { fine = 500, months = 5 }
 -- }
+
+-- === HELPER FUNCTION: buildPunishmentTiers(offence) ===
 local function buildPunishmentTiers(offence)
     local tiers = {}
 
@@ -155,6 +170,8 @@ end
 -- 3. categoryOrder
 --    An ordered list of category names so the UI can display them
 --    consistently.
+
+-- === HELPER FUNCTION: buildQuickChargeData() ===
 local function buildQuickChargeData()
     local charges = {}
     local categories = {}
@@ -271,6 +288,7 @@ end
 -- GET THE CACHED CHARGE DATA
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getQuickChargeData() ===
 local function getQuickChargeData()
     if not cachedCharges then
         cachedCharges, cachedCategories, cachedCategoryOrder =
@@ -284,6 +302,7 @@ end
 -- POLICE PERMISSION CHECK
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: isOnDutyPolice() ===
 local function isOnDutyPolice()
     return CMG.hasClientPermission("police.onduty.permission")
 end
@@ -292,6 +311,7 @@ end
 -- CLOSE THE QUICK-CHARGES MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: closeQuickChargesMenu() ===
 local function closeQuickChargesMenu()
     if not quickChargesOpen then
         return
@@ -302,6 +322,7 @@ local function closeQuickChargesMenu()
     targetServerId = 0
 
     -- Give control of the mouse/keyboard back to the game.
+    -- Beginner: changes whether the NUI owns keyboard/mouse input.
     SetNuiFocus(false, false)
 end
 
@@ -315,6 +336,8 @@ end
 -- requestedMode:
 --     "jail" = jail workflow
 --     anything else = fine workflow
+
+-- === HELPER FUNCTION: CMG.openQuickChargesMenu(targetEntity, requestedMode) ===
 function CMG.openQuickChargesMenu(targetEntity, requestedMode)
 
     -------------------------------------------------------------
@@ -386,8 +409,10 @@ function CMG.openQuickChargesMenu(targetEntity, requestedMode)
             return
         end
 
+        -- Beginner: changes whether the NUI owns keyboard/mouse input.
         SetNuiFocus(true, true)
 
+        -- Beginner: sends a Lua table to the HTML/JavaScript UI.
         SendNUIMessage({
             openQuickCharges = true,
 
@@ -409,6 +434,7 @@ end
 -- NUI CALLBACK: CLOSE BUTTON
 ---------------------------------------------------------------------
 
+-- === NUI CALLBACK: browser UI calls "quickChargesClose" ===
 RegisterNUICallback("quickChargesClose", function(_, callback)
     closeQuickChargesMenu()
 
@@ -432,6 +458,8 @@ end)
 --   - with a STRING offence id
 --
 -- Tier is forced into the valid 1 -> 3 range.
+
+-- === HELPER FUNCTION: sanitiseSelectedCharge(pick) ===
 local function sanitiseSelectedCharge(pick)
     if type(pick) ~= "table" then
         return nil
@@ -459,6 +487,7 @@ end
 -- NUI CALLBACK: OFFICER CONFIRMED THE CHARGES
 ---------------------------------------------------------------------
 
+-- === NUI CALLBACK: browser UI calls "quickChargesConfirm" ===
 RegisterNUICallback("quickChargesConfirm", function(data, callback)
 
     -- Reply to the browser immediately.

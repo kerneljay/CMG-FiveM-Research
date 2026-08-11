@@ -1,70 +1,56 @@
 --[[
-    Beginner Guide: cl_adminmenu.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Config/modules used:
-      * cfg/cfg_adminmenu
-      * cfg/weapons
-
-    Important events used:
-      * 27c1cbc184
-      * 418b9bdc25
-      * 50fa0a0852
-      * 58a4f99038
-      * 6086032737
-      * 663d6aaba9
-      * 71d244f7c0
-      * 875a695765
-      * b27c8066ac
-      * b4de17ed21
-      * b69c3d95fb
-      * b935d6126d
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Adminmenu
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Adminmenu
+    =======================================
 
     File: cmg/prod/client/staff/cl_adminmenu.lua
-    Purpose: This file contains staff/admin tools.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: staff/admin gameplay and moderation tools, specifically the Adminmenu feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 58
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: b4de17ed21, 58a4f99038, 27c1cbc184, b27c8066ac, 418b9bdc25, 875a695765, b935d6126d, 663d6aaba9, b69c3d95fb, 6086032737 (+1 more)
+      * Local event handlers: b4de17ed21, 58a4f99038, 27c1cbc184, b27c8066ac, 418b9bdc25, 875a695765, b935d6126d, 663d6aaba9, b69c3d95fb, 6086032737 (+1 more)
+      * Server events sent: 50fa0a0852
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_adminmenu, cfg/weapons
 
-    Config/data used:
-      * cfg/cfg_adminmenu
-      * cfg/weapons
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 91
-      They are intentionally left unchanged because matching server code may use them.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Example player-facing text in this file:
-      * ~b~Players
-      * ~b~Admin Player Interaction Menu
-      * ~b~Admin Functions Menu
-      * ~b~Admin Compensation Menu
-      * ~b~Admin Compensation Users Menu
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     CMG ADMIN MENU - BEGINNER READABLE REWRITE
@@ -249,10 +235,12 @@ local EVENTS = {
 -- 4. CREATE THE RAGEUI MENUS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getMenu(name) ===
 local function getMenu(name)
     return RMenu:Get(MENU_NAMESPACE, name)
 end
 
+-- === HELPER FUNCTION: createSubMenu(name, parentName, subtitle) ===
 local function createSubMenu(name, parentName, subtitle)
     RMenu.Add(
         MENU_NAMESPACE,
@@ -418,6 +406,7 @@ local lastAdminTaxiSpawn = 0
 -- 6. BAN REASONS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: formatBanDuration(hours) ===
 local function formatBanDuration(hours)
     if hours == -1 then
         return "Permanent"
@@ -484,10 +473,12 @@ local favouriteActions =
     json.decode(GetResourceKvpString(FAVOURITES_KVP) or "[]")
     or {}
 
+-- === HELPER FUNCTION: isActionPinned(actionName) ===
 local function isActionPinned(actionName)
     return table.find(favouriteActions, actionName) ~= false
 end
 
+-- === HELPER FUNCTION: saveFavouriteActions() ===
 local function saveFavouriteActions()
     SetResourceKvp(
         FAVOURITES_KVP,
@@ -495,6 +486,7 @@ local function saveFavouriteActions()
     )
 end
 
+-- === HELPER FUNCTION: toggleFavouriteAction(actionName) ===
 local function toggleFavouriteAction(actionName)
     local existingIndex = table.find(favouriteActions, actionName)
 
@@ -507,6 +499,7 @@ local function toggleFavouriteAction(actionName)
     saveFavouriteActions()
 end
 
+-- === HELPER FUNCTION: makeActionStyle(actionName, rightLabel, showPin) ===
 local function makeActionStyle(actionName, rightLabel, showPin)
     rightLabel = rightLabel or ARROW
 
@@ -520,6 +513,8 @@ local function makeActionStyle(actionName, rightLabel, showPin)
 end
 
 -- INSERT is control ID 121 in the original script.
+
+-- === HELPER FUNCTION: handlePinHotkey(isHovered, actionName) ===
 local function handlePinHotkey(isHovered, actionName)
     if isHovered and IsControlJustPressed(0, 121) then
         toggleFavouriteAction(actionName)
@@ -530,6 +525,7 @@ end
 -- 9. SELECTED PLAYER HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: selectedPlayerDescription() ===
 local function selectedPlayerDescription()
     return string.format(
         "%s PermID: %s TempID: %s",
@@ -539,6 +535,7 @@ local function selectedPlayerDescription()
     )
 end
 
+-- === HELPER FUNCTION: selectPlayer(permId) ===
 local function selectPlayer(permId)
     local data = fullPlayerListData and fullPlayerListData[permId]
 
@@ -553,6 +550,7 @@ local function selectPlayer(permId)
     return true
 end
 
+-- === HELPER FUNCTION: getPlayerHours(permId) ===
 local function getPlayerHours(permId)
     local data = fullPlayerListData and fullPlayerListData[permId]
 
@@ -563,6 +561,7 @@ local function getPlayerHours(permId)
     return data[4] or "N/A"
 end
 
+-- === HELPER FUNCTION: getPlayerTempId(permId) ===
 local function getPlayerTempId(permId)
     local data = fullPlayerListData and fullPlayerListData[permId]
 
@@ -573,6 +572,7 @@ local function getPlayerTempId(permId)
     return data[1] or 0
 end
 
+-- === HELPER FUNCTION: getPlayerName(permId) ===
 local function getPlayerName(permId)
     local data = fullPlayerListData and fullPlayerListData[permId]
 
@@ -583,12 +583,14 @@ local function getPlayerName(permId)
     return data[2] or "Error"
 end
 
+-- === HELPER FUNCTION: isStaffMember(permId) ===
 local function isStaffMember(permId)
     local data = fullPlayerListData and fullPlayerListData[permId]
 
     return data and data[5] == true
 end
 
+-- === HELPER FUNCTION: calculateSelectedKD() ===
 local function calculateSelectedKD()
     if selectedPlayer.deaths <= 0 then
         return selectedPlayer.kills
@@ -601,6 +603,7 @@ end
 -- 10. COMMON RAGEUI HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: menuButton(title, description, style, enabled, callback, subMenu) ===
 local function menuButton(title, description, style, enabled, callback, subMenu)
     RageUI.ButtonWithStyle(
         title,
@@ -616,6 +619,7 @@ local function menuButton(title, description, style, enabled, callback, subMenu)
     )
 end
 
+-- === HELPER FUNCTION: arrowButton(title, description, callback, subMenu) ===
 local function arrowButton(title, description, callback, subMenu)
     menuButton(
         title,
@@ -627,6 +631,7 @@ local function arrowButton(title, description, callback, subMenu)
     )
 end
 
+-- === HELPER FUNCTION: promptText(title, defaultText, callback) ===
 local function promptText(title, defaultText, callback)
     CMG.clientPrompt(
         title,
@@ -635,6 +640,7 @@ local function promptText(title, defaultText, callback)
     )
 end
 
+-- === HELPER FUNCTION: promptNumber(title, callback) ===
 local function promptNumber(title, callback)
     promptText(title, "", function(value)
         local number = tonumber(value)
@@ -648,10 +654,12 @@ local function promptNumber(title, callback)
     end)
 end
 
+-- === HELPER FUNCTION: hasPermission(permission) ===
 local function hasPermission(permission)
     return CMG.hasClientPermission(permission)
 end
 
+-- === HELPER FUNCTION: hasGroup(group) ===
 local function hasGroup(group)
     return CMG.hasClientGroup(group)
 end
@@ -660,6 +668,7 @@ end
 -- 11. STREAMER MODE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.isStreamerMode() ===
 function CMG.isStreamerMode()
     return streamerMode
 end
@@ -668,6 +677,7 @@ end
 -- 12. VIDEO-NOTIFICATION SETTING
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.drawHideVideoRequestCheckbox() ===
 function CMG.drawHideVideoRequestCheckbox()
     local hidden =
         GetResourceKvpInt("cmg_hide_video_notifs") == 1
@@ -692,6 +702,7 @@ end
 -- 13. EVENT-BUCKET BUTTON
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.drawEventJoinAndInviteButtons(shouldCloseAfterInvite) ===
 function CMG.drawEventJoinAndInviteButtons(shouldCloseAfterInvite)
     if not hasPermission("admin.eventbucket") then
         return
@@ -743,6 +754,7 @@ end
 
 local PlayerActions = {}
 
+-- === HELPER FUNCTION: addPlayerAction(name, isVisible, draw) ===
 local function addPlayerAction(name, isVisible, draw)
     PlayerActions[name] = {
         isVisible = isVisible,
@@ -750,6 +762,7 @@ local function addPlayerAction(name, isVisible, draw)
     }
 end
 
+-- === HELPER FUNCTION: actionButton(actionName, title, description, onSelected, subMenu, showPin, rightLabel) ===
 local function actionButton(actionName, title, description, onSelected, subMenu, showPin, rightLabel)
     menuButton(
         title,
@@ -769,6 +782,7 @@ local function actionButton(actionName, title, description, onSelected, subMenu,
     )
 end
 
+-- === HELPER FUNCTION: drawPlayerAction(actionName, showPin) ===
 local function drawPlayerAction(actionName, showPin)
     local action = PlayerActions[actionName]
 
@@ -783,6 +797,7 @@ local function drawPlayerAction(actionName, showPin)
     action.draw(showPin == true)
 end
 
+-- === HELPER FUNCTION: drawPinnedPlayerActions() ===
 local function drawPinnedPlayerActions()
     local drewHeading = false
 
@@ -1628,6 +1643,7 @@ AddEventHandler(
 -- 20. GENERIC PLAYER LIST DRAWER
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawPlayerList(filter) ===
 local function drawPlayerList(filter)
     local sortedPlayers = CMG.getSortedFullPlayerListData()
 
@@ -1684,6 +1700,7 @@ end
 -- 21. RECENTLY DISCONNECTED + NEARBY PLAYERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawDisconnectedPlayerMarkers() ===
 local function drawDisconnectedPlayerMarkers()
     local origin =
         -- Beginner: Read an entity's world coordinates.
@@ -1739,6 +1756,7 @@ local function drawDisconnectedPlayerMarkers()
     end
 end
 
+-- === HELPER FUNCTION: getNearbyPermIds() ===
 local function getNearbyPermIds()
     local nearbyPermIds = {}
 
@@ -1778,6 +1796,7 @@ local function getNearbyPermIds()
     return nearbyPermIds
 end
 
+-- === HELPER FUNCTION: drawNearbyPlayers() ===
 local function drawNearbyPlayers()
     drawDisconnectedPlayerMarkers()
 
@@ -1855,6 +1874,7 @@ end
 -- 22. MAIN MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawMainMenu() ===
 local function drawMainMenu()
     arrowButton(
         "All Players",
@@ -1950,6 +1970,7 @@ end
 -- 23. PLAYER MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawSelectedPlayerMenu() ===
 local function drawSelectedPlayerMenu()
     if not selectedPlayer.permId then
         RageUI.Separator("~r~No player selected")
@@ -2028,6 +2049,7 @@ end
 -- 24. ACTION SUBMENUS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawActionGroup(actionNames) ===
 local function drawActionGroup(actionNames)
     RageUI.Separator(
         "~y~Press INSERT to pin to player menu"
@@ -2041,6 +2063,7 @@ local function drawActionGroup(actionNames)
     end
 end
 
+-- === HELPER FUNCTION: drawTeleportLocationActions() ===
 local function drawTeleportLocationActions()
     RageUI.Separator(
         "~y~Press INSERT to pin to player menu"
@@ -2058,6 +2081,7 @@ end
 -- 25. WATCHLIST MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawWatchlistMenu() ===
 local function drawWatchlistMenu()
     if watchlistState.selectedPlayerStatus == nil then
         RageUI.Separator("~y~Loading...")
@@ -2106,6 +2130,7 @@ end
 -- 26. PLAYER SEARCH
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: openTextSearch(title, targetMenu, matcher) ===
 local function openTextSearch(title, targetMenu, matcher)
     promptText(
         title,
@@ -2131,6 +2156,7 @@ local function openTextSearch(title, targetMenu, matcher)
     )
 end
 
+-- === HELPER FUNCTION: drawSearchMenu() ===
 local function drawSearchMenu()
     arrowButton(
         "Search by Name",
@@ -2252,6 +2278,7 @@ local function drawSearchMenu()
     )
 end
 
+-- === HELPER FUNCTION: drawNameSearchResults() ===
 local function drawNameSearchResults()
     local query =
         string.lower(searchState.query or "")
@@ -2268,6 +2295,7 @@ local function drawNameSearchResults()
     )
 end
 
+-- === HELPER FUNCTION: drawTempSearchResults() ===
 local function drawTempSearchResults()
     local query =
         tostring(searchState.query or "")
@@ -2279,6 +2307,7 @@ local function drawTempSearchResults()
     )
 end
 
+-- === HELPER FUNCTION: drawPermSearchResults() ===
 local function drawPermSearchResults()
     local query =
         tostring(searchState.query or "")
@@ -2294,6 +2323,7 @@ end
 -- 27. ADMIN FUNCTIONS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: initialiseCompensationDraft() ===
 local function initialiseCompensationDraft()
     compensationDraft = {
         cash = 0,
@@ -2306,6 +2336,7 @@ local function initialiseCompensationDraft()
     }
 end
 
+-- === HELPER FUNCTION: drawFunctionsMenu() ===
 local function drawFunctionsMenu()
     if hasGroup("superadmin") then
         menuButton(
@@ -2561,6 +2592,7 @@ end
 -- 28. COMPENSATION MENU - SIMPLE READABLE VERSION
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawCompensationMenu() ===
 local function drawCompensationMenu()
     if not compensationDraft then
         initialiseCompensationDraft()
@@ -2677,6 +2709,7 @@ local function drawCompensationMenu()
     )
 end
 
+-- === HELPER FUNCTION: drawCompensationUsersMenu() ===
 local function drawCompensationUsersMenu()
     if not compensationDraft then
         initialiseCompensationDraft()
@@ -2713,6 +2746,7 @@ end
 -- 29. WEAPON SEARCH
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawWeaponList() ===
 local function drawWeaponList()
     RageUI.Separator(
         "Searching for: "
@@ -2773,6 +2807,7 @@ end
 -- 30. BAN WORKFLOW
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: resetBanState() ===
 local function resetBanState()
     banState.selectedReasons = {}
     banState.generatedInfo = {}
@@ -2785,6 +2820,7 @@ local function resetBanState()
     end
 end
 
+-- === HELPER FUNCTION: drawBanReasonMenu() ===
 local function drawBanReasonMenu()
     if IsControlJustPressed(0, 22) then
         promptText(
@@ -2876,6 +2912,7 @@ local function drawBanReasonMenu()
     )
 end
 
+-- === HELPER FUNCTION: drawConfirmBanMenu() ===
 local function drawConfirmBanMenu()
     local info = banState.generatedInfo
 
@@ -2999,6 +3036,7 @@ end
 -- 31. WATCHLIST RESULTS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawMyWatchlist() ===
 local function drawMyWatchlist()
     local watchlist =
         watchlistState.myWatchlist
@@ -3051,6 +3089,7 @@ end
 -- 32. BUCKET OPTIONS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawBucketOptions() ===
 local function drawBucketOptions()
     menuButton(
         "Return To Main Bucket",
@@ -3134,6 +3173,7 @@ end
 -- 33. EVENT INVITE MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawEventInviteMenu() ===
 local function drawEventInviteMenu()
     menuButton(
         "~g~Invite Selected",
@@ -3186,6 +3226,7 @@ end
 -- 34. KICK-SELECTED MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawKickSelectedMenu() ===
 local function drawKickSelectedMenu()
     menuButton(
         "~r~Kick Selected",
@@ -3230,6 +3271,7 @@ end
 -- Only the currently visible menu actually draws its contents.
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawAdminMenus() ===
 local function drawAdminMenus()
     RageUI.IsVisible(
         getMenu("mainmenu"),
@@ -3640,6 +3682,7 @@ local allowedInvisibleWeaponGroups = {
     [-1569042529] = true,
 }
 
+-- === HELPER FUNCTION: staffSpectatorControlTick() ===
 local function staffSpectatorControlTick()
     -------------------------------------------------------------
     -- Press E to stop staff spectating.
@@ -3743,6 +3786,8 @@ CMG.createThreadOnTick(
 ---------------------------------------------------------------------
 
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b4de17ed21".
+
+-- === NETWORK EVENT: receives "b4de17ed21" from server/another network source ===
 RegisterNetEvent("b4de17ed21")
 AddEventHandler(
     "b4de17ed21",
@@ -3754,6 +3799,8 @@ AddEventHandler(
 
 -- Recently disconnected players.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "58a4f99038".
+
+-- === NETWORK EVENT: receives "58a4f99038" from server/another network source ===
 RegisterNetEvent("58a4f99038")
 AddEventHandler(
     "58a4f99038",
@@ -3767,6 +3814,8 @@ AddEventHandler(
 local currentPlayerNotes = nil
 
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "27c1cbc184".
+
+-- === NETWORK EVENT: receives "27c1cbc184" from server/another network source ===
 RegisterNetEvent("27c1cbc184")
 AddEventHandler(
     "27c1cbc184",
@@ -3782,6 +3831,8 @@ AddEventHandler(
 
 -- Generated ban information.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b27c8066ac".
+
+-- === NETWORK EVENT: receives "b27c8066ac" from server/another network source ===
 RegisterNetEvent("b27c8066ac")
 AddEventHandler(
     "b27c8066ac",
@@ -3793,6 +3844,8 @@ AddEventHandler(
 
 -- Criteria-search results.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "418b9bdc25".
+
+-- === NETWORK EVENT: receives "418b9bdc25" from server/another network source ===
 RegisterNetEvent("418b9bdc25")
 AddEventHandler(
     "418b9bdc25",
@@ -3809,6 +3862,8 @@ AddEventHandler(
 
 -- K/D-search results.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "875a695765".
+
+-- === NETWORK EVENT: receives "875a695765" from server/another network source ===
 RegisterNetEvent("875a695765")
 AddEventHandler(
     "875a695765",
@@ -3825,6 +3880,8 @@ AddEventHandler(
 
 -- Hardware/GPU-search results.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b935d6126d".
+
+-- === NETWORK EVENT: receives "b935d6126d" from server/another network source ===
 RegisterNetEvent("b935d6126d")
 AddEventHandler(
     "b935d6126d",
@@ -3841,6 +3898,8 @@ AddEventHandler(
 
 -- Bucket-search results.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "663d6aaba9".
+
+-- === NETWORK EVENT: receives "663d6aaba9" from server/another network source ===
 RegisterNetEvent("663d6aaba9")
 AddEventHandler(
     "663d6aaba9",
@@ -3857,6 +3916,8 @@ AddEventHandler(
 
 -- Selected player's watchlist state.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b69c3d95fb".
+
+-- === NETWORK EVENT: receives "b69c3d95fb" from server/another network source ===
 RegisterNetEvent("b69c3d95fb")
 AddEventHandler(
     "b69c3d95fb",
@@ -3868,6 +3929,8 @@ AddEventHandler(
 
 -- Current admin's full watchlist.
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6086032737".
+
+-- === NETWORK EVENT: receives "6086032737" from server/another network source ===
 RegisterNetEvent("6086032737")
 AddEventHandler(
     "6086032737",
@@ -3882,6 +3945,8 @@ AddEventHandler(
 ---------------------------------------------------------------------
 
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "71d244f7c0".
+
+-- === NETWORK EVENT: receives "71d244f7c0" from server/another network source ===
 RegisterNetEvent("71d244f7c0")
 AddEventHandler(
     "71d244f7c0",
@@ -3961,10 +4026,12 @@ CMG.uiRegisterCallback(
 -- 41. EXPORTED / SHARED HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.enableAdminModeSpectator() ===
 function CMG.enableAdminModeSpectator()
     staffSpectatorEnabled = true
 end
 
+-- === HELPER FUNCTION: CMG.getEventBucketId() ===
 function CMG.getEventBucketId()
     return AdminConfig.eventBucketId
 end

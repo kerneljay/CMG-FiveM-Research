@@ -1,45 +1,56 @@
 --[[
-    Beginner Guide: cl_progress.lua
-    ===============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Progress
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Progress
+    ======================================
 
     File: cmg/prod/client/ui/cl_progress.lua
-    Purpose: This file contains menu/UI logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: NUI/menu/interface behaviour, specifically the Progress feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 29
+      * Background threads: 0
+      * Always-running loops: 3
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Named framework/network events found:
-      * rprogress:stop
-      * rprogress:start
-      * rprogress:custom
-      * rprogress:linear
-      * rprogress:minigame
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable4, dataTable5, dataTable6, workValue18, workValue20, workValue22, workValue24, flag3, workValue28, flag, numberValue, workValue2, workValue4, workValue6, workValue7, workValue9, workValue10, workValue12, workValue13, workValue15, textValue2, workValue16
 dataTable = {}
@@ -70,10 +81,14 @@ dataTable4.Mouse = false
 dataTable4.Player = false
 dataTable4.Vehicle = false
 dataTable.DisableControls = dataTable4
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
 function dataTable4()
   local arg1, arg2
 end
 dataTable.onStart = dataTable4
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
 function dataTable4()
   local arg1, arg2
 end
@@ -106,9 +121,13 @@ dataTable6.Duration = 400
 dataTable5.VeryHard = dataTable6
 dataTable4.Difficulty = dataTable5
 dataTable.MiniGameOptions = dataTable4
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3, arg4, workValue19
   arg2 = {}
+
+  -- === HELPER FUNCTION: arg3(arg12) ===
   function arg3(arg12)
     local workValue14, iterator, workValue17, tableHelper, workValue21, workValue23, workValue26, workValue27, workValue30, workValue
     workValue14 = type
@@ -151,6 +170,8 @@ function dataTable4(arg1)
   workValue19 = arg1
   return arg4(workValue19)
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg1, arg2) ===
 function dataTable5(arg1, arg2)
   local arg3, arg4, workValue19, stringHelper, dataTable7, workValue25, dataTable8, workValue29, flag2, dataTable2
   arg3 = dataTable4
@@ -190,6 +211,8 @@ function dataTable5(arg1, arg2)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable6; parameters: arg1) ===
 function dataTable6(arg1)
   local arg2, arg3, arg4, workValue19
   arg2 = "======== RPROGRESS ERROR: "
@@ -215,6 +238,8 @@ function dataTable6(arg1)
   arg4 = arg2
   arg3(arg4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
 function workValue18(arg1)
   local arg2, arg3, arg4, workValue19, stringHelper, dataTable7, workValue25, dataTable8, workValue29, flag2, dataTable2, workValue3, workValue5, dataTable3, workValue8, textValue, workValue11
   arg2 = type
@@ -337,6 +362,8 @@ flag3 = false
 workValue28 = nil
 flag = false
 numberValue = 0
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2, arg3, arg4) ===
 function workValue2(arg1, arg2, arg3, arg4)
   local workValue19, stringHelper, dataTable7, workValue25
   workValue19 = type
@@ -399,6 +426,8 @@ function workValue2(arg1, arg2, arg3, arg4)
     stringHelper(dataTable7)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, arg4, workValue19, stringHelper
   arg1 = workValue28
@@ -437,6 +466,8 @@ function workValue4()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3, arg4, workValue19, stringHelper
   arg3 = workValue18
@@ -548,6 +579,8 @@ function workValue6(arg1, arg2)
   else
     arg4 = Citizen
     arg4 = arg4.CreateThread
+
+    -- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
     function workValue19()
       local arg12, workValue14, iterator
       while true do
@@ -584,6 +617,8 @@ function workValue6(arg1, arg2)
     arg4(workValue19)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
 function workValue7(arg1, arg2)
   local arg3, arg4, workValue19, stringHelper
   arg3 = workValue2
@@ -592,6 +627,8 @@ function workValue7(arg1, arg2)
   stringHelper = true
   arg3(arg4, workValue19, stringHelper)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2
   arg1 = SendNUIMessage
@@ -600,6 +637,8 @@ function workValue9()
   -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
 function workValue10(arg1)
   local arg2, arg3, arg4
   arg2 = workValue6
@@ -615,6 +654,8 @@ function workValue10(arg1)
   arg4 = arg2
   arg3(arg4)
   arg3 = {}
+
+  -- === HELPER FUNCTION: arg4() ===
   function arg4()
     local arg12, workValue14
     arg2.hide = false
@@ -626,6 +667,8 @@ function workValue10(arg1)
     arg12(workValue14)
   end
   arg3.Show = arg4
+
+  -- === HELPER FUNCTION: arg4(arg12) ===
   function arg4(arg12)
     local workValue14, iterator
     arg2.hide = false
@@ -648,6 +691,8 @@ function workValue10(arg1)
     workValue14(iterator)
   end
   arg3.SetProgress = arg4
+
+  -- === HELPER FUNCTION: arg4() ===
   function arg4()
     local arg12, workValue14
     arg2.show = false
@@ -659,6 +704,8 @@ function workValue10(arg1)
     arg12(workValue14)
   end
   arg3.Hide = arg4
+
+  -- === HELPER FUNCTION: arg4() ===
   function arg4()
     local arg12, workValue14
     arg2.show = false
@@ -672,6 +719,8 @@ function workValue10(arg1)
   arg3.Destroy = arg4
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1) ===
 function workValue12(arg1)
   local arg2, arg3, arg4, workValue19
   arg2 = flag3
@@ -721,6 +770,8 @@ function workValue12(arg1)
       arg3 = Citizen
       arg3 = arg3.SetTimeout
       arg4 = arg1.Timeout
+
+      -- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
       function workValue19()
         local arg12, workValue14
         arg12 = workValue24
@@ -747,6 +798,8 @@ function workValue12(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1) ===
 function workValue13(arg1)
   local arg2, arg3, arg4, workValue19
   arg2 = arg1.DisableControls
@@ -813,6 +866,8 @@ function workValue13(arg1)
   end
 end
 DisableControls = workValue13
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
 function workValue13()
   local arg1, arg2, arg3
   arg1 = false
@@ -825,6 +880,8 @@ function workValue13()
 end
 workValue15 = RegisterNUICallback
 textValue2 = "progress_start"
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
 function workValue16(arg1, arg2)
   local arg3, arg4
   arg3 = workValue20
@@ -839,6 +896,8 @@ end
 workValue15(textValue2, workValue16)
 workValue15 = RegisterNUICallback
 textValue2 = "progress_complete"
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
 function workValue16(arg1, arg2)
   local arg3, arg4
   arg3 = workValue13
@@ -857,6 +916,8 @@ end
 workValue15(textValue2, workValue16)
 workValue15 = RegisterNUICallback
 textValue2 = "progress_stop"
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
 function workValue16(arg1, arg2)
   local arg3, arg4
   arg3 = workValue13
@@ -870,6 +931,8 @@ end
 workValue15(textValue2, workValue16)
 workValue15 = RegisterNUICallback
 textValue2 = "progress_minigame_input"
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
 function workValue16(arg1, arg2)
   local arg3, arg4
   arg3 = true
@@ -890,6 +953,8 @@ end
 workValue15(textValue2, workValue16)
 workValue15 = RegisterNUICallback
 textValue2 = "progress_minigame_complete"
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1, arg2) ===
 function workValue16(arg1, arg2)
   local arg3, arg4
   arg3 = workValue13
@@ -929,6 +994,8 @@ workValue15(textValue2, workValue16)
 workValue15 = AddEventHandler
 textValue2 = "rprogress:custom"
 -- Beginner: this function runs when client event "rprogress:custom" fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
 function workValue16(arg1)
   local arg2, arg3
   arg1.Async = false
@@ -986,6 +1053,8 @@ workValue15.linerCircularProgressBar = workValue7
 workValue15 = CMG
 workValue15.minigameCircularProgressBar = workValue12
 workValue15 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, arg2
   arg1 = flag3

@@ -1,58 +1,56 @@
 --[[
-    Beginner Guide: cl_gangdoors.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Gangdoors
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Gangdoors
+    =======================================
 
     File: cmg/prod/client/crime/cl_gangdoors.lua
-    Purpose: This file contains crime/gang/heist gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: crime, robbery, gang, and criminal gameplay, specifically the Gangdoors feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 31
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * dooreditor
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 5
-      They are intentionally left unchanged because matching server code may use them.
-      * 580c03ccaf
-      * 977dcc3a52
-      * ff4be674af
-      * b5e4a21f88
-      * b51e08118b
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~r~You must have staff
-      * You have edited 
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, dataTable4, dataTable5, numberValue14, workValue12, workValue13, workValue15, workValue16, workValue18, workValue2, workValue4, workValue5, eventRegistration, eventRegistration2, textValue2, workValue6, textValue3, workValue7, rageUiCall, textValue5, textValue6, rageUiCall2, textValue7, textValue8, rageUiCall3, rageUiCall4
 dataTable = {}
@@ -60,10 +58,14 @@ dataTable2 = {}
 dataTable4 = {}
 dataTable5 = {}
 numberValue14 = 0
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2, arg3) ===
 function workValue12(arg1, arg2, arg3)
   local threadCall, workValue11
   threadCall = Citizen
   threadCall = threadCall.CreateThread
+
+  -- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
   function workValue11()
     local playerPed, flag8, gameTime, textValue9, textValue10, gameTime2, workValue14, numberValue18, numberValue19, numberValue20, flag, flag2, coords, position, flag6
     playerPed = arg1.areaName
@@ -149,10 +151,14 @@ function workValue12(arg1, arg2, arg3)
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   threadCall(workValue11)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
 function workValue13()
   local arg1, arg2
   arg1 = Citizen
   arg1 = arg1.CreateThread
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local playerPed, flag8, gameTime, textValue9, textValue10, gameTime2, workValue14, numberValue18, numberValue19, numberValue20, flag, flag2, coords
     playerPed = PlayerPedId
@@ -191,6 +197,8 @@ function workValue13()
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
 function workValue15(arg1)
   local arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3, cmgCall3, textValue
   arg2 = arg1.linkedToHouses
@@ -228,6 +236,8 @@ function workValue15(arg1)
   threadCall = false
   return threadCall
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
 function workValue16(arg1)
   local arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3
   arg3 = arg1.areaName
@@ -270,6 +280,8 @@ function workValue16(arg1)
   arg3 = false
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1) ===
 function workValue18(arg1)
   local arg2, arg3
   arg2 = workValue16
@@ -287,6 +299,8 @@ function workValue18(arg1)
   end
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
 function workValue2(arg1)
   local arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2
   arg2 = workValue18
@@ -313,6 +327,8 @@ function workValue2(arg1)
     threadCall = workValue12
     workValue11 = arg1
     numberValue16 = 4
+
+    -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
     function cmgCall2()
       local playerPed, flag8, gameTime, textValue9, textValue10
       playerPed = TriggerServerEvent
@@ -326,6 +342,8 @@ function workValue2(arg1)
     threadCall(workValue11, numberValue16, cmgCall2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1) ===
 function workValue4(arg1)
   local arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3, cmgCall3, textValue, numberValue, numberValue2, flag4
   arg3 = arg1.areaName
@@ -455,6 +473,8 @@ function workValue4(arg1)
       textValue = workValue12
       numberValue = arg1
       numberValue2 = cmgCall3
+
+      -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
       function flag4()
         local playerPed, flag8, gameTime, textValue9, textValue10
         playerPed = TriggerServerEvent
@@ -471,6 +491,8 @@ function workValue4(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, arg3, threadCall
   arg2 = TriggerServerEvent
@@ -482,6 +504,8 @@ end
 eventRegistration = RegisterNetEvent
 eventRegistration2 = "ff4be674af"
 -- Beginner: this function handles network event "ff4be674af".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2) ===
 function textValue2(arg1, arg2)
   local arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3, cmgCall3, textValue, numberValue, numberValue2, flag4, flag5, modelValue, cmgCall, textValue4, flag7, stringHelper, numberValue8, flag9, flag10, flag11, dataTable3
   dataTable2 = arg2
@@ -537,6 +561,8 @@ function textValue2(arg1, arg2)
       flag7 = flag4.position
       stringHelper = modelValue
       numberValue8 = 5.0
+
+      -- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
       function flag9()
         local playerPed, flag8
       end
@@ -559,9 +585,13 @@ function textValue2(arg1, arg2)
     numberValue = numberValue17.eventRadius
     numberValue2 = 100.0
     flag4 = workValue5
+
+    -- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
     function flag5()
       local playerPed, flag8
     end
+
+    -- === HELPER FUNCTION: modelValue() ===
     function modelValue()
       local playerPed, flag8
     end
@@ -572,6 +602,8 @@ function textValue2(arg1, arg2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ff4be674af".
 eventRegistration(eventRegistration2, textValue2)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2) ===
 function eventRegistration(arg1, arg2)
   local arg3, threadCall, workValue11, numberValue16, cmgCall2
   arg3 = DoorSystemSetDoorState
@@ -595,6 +627,8 @@ end
 eventRegistration2 = RegisterNetEvent
 textValue2 = "b5e4a21f88"
 -- Beginner: this function handles network event "b5e4a21f88".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3, cmgCall3, textValue
   arg3 = pairs
@@ -614,6 +648,8 @@ eventRegistration2(textValue2, workValue6)
 eventRegistration2 = RegisterNetEvent
 textValue2 = "580c03ccaf"
 -- Beginner: this function handles network event "580c03ccaf".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2, arg3) ===
 function workValue6(arg1, arg2, arg3)
   local threadCall, workValue11, numberValue16
   threadCall = eventRegistration
@@ -631,6 +667,8 @@ textValue2 = 0
 workValue6 = RegisterCommand
 textValue3 = "dooreditor"
 -- Beginner: this function is the command handler for "dooreditor".
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, threadCall, workValue11
   arg1 = CMG
@@ -658,11 +696,15 @@ end
 rageUiCall = false
 -- Beginner: Register a chat/console command. Event/command: "dooreditor".
 workValue6(textValue3, workValue7, rageUiCall)
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3, cmgCall3, textValue, numberValue, numberValue2, flag4, flag5, modelValue
   arg1 = RageUI
@@ -881,6 +923,8 @@ Is the highlighted object the door you want?
   numberValue2.modelPosition = flag4
   textValue(numberValue, numberValue2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3, cmgCall3, textValue, numberValue, numberValue2, flag4, flag5, modelValue, cmgCall, textValue4, flag7, stringHelper, numberValue8, flag9, flag10
   arg1 = ""
@@ -954,6 +998,8 @@ textValue8 = "mainmenu"
 -- Beginner: result below is menu.
 textValue6 = textValue6(rageUiCall2, textValue7, textValue8)
 rageUiCall2 = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
 function textValue7()
   local arg1, arg2, arg3, threadCall, workValue11, numberValue16
   arg1 = RageUI
@@ -968,6 +1014,8 @@ function textValue7()
   arg3 = true
   threadCall = true
   workValue11 = true
+
+  -- === HELPER FUNCTION (decompiler name: numberValue16; parameters: none) ===
   function numberValue16()
     local playerPed, flag8, gameTime, textValue9, textValue10, gameTime2, workValue14, numberValue18, numberValue19, numberValue20, flag, flag2, coords, position, flag6, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue9, numberValue10, numberValue11, numberValue12, flag12, flag13, numberValue13, flag14, workValue9, workValue10, flag15
     playerPed = RageUI
@@ -991,6 +1039,8 @@ Try stand in the middle of the door when you do this as it will also be the loca
     textValue9 = {}
     textValue9.RightLabel = "\226\134\146\226\134\146\226\134\146"
     textValue10 = true
+
+    -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
     function gameTime2(arg12, arg22, arg32)
       local rageUiCall5, numberValue15, flag16, textValue11, textValue12
       if arg32 then
@@ -1022,6 +1072,8 @@ Try stand in the middle of the door when you do this as it will also be the loca
     textValue9 = {}
     textValue9.RightLabel = "\226\134\146\226\134\146\226\134\146"
     textValue10 = true
+
+    -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
     function gameTime2(arg12, arg22, arg32)
       local rageUiCall5, numberValue15, flag16, textValue11
       if arg32 then
@@ -1030,6 +1082,8 @@ Try stand in the middle of the door when you do this as it will also be the loca
         numberValue15 = "Exported (CTRL+A then CTRL+C)"
         flag16 = workValue7
         flag16 = flag16()
+
+        -- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
         function textValue11()
           local workValue, workValue8
         end
@@ -1045,6 +1099,8 @@ Try stand in the middle of the door when you do this as it will also be the loca
     textValue9 = {}
     textValue9.RightLabel = "\226\134\146\226\134\146\226\134\146"
     textValue10 = true
+
+    -- === HELPER FUNCTION: gameTime2(arg12, arg22, arg32) ===
     function gameTime2(arg12, arg22, arg32)
       local rageUiCall5, numberValue15, flag16, textValue11, textValue12, workValue17, workValue19, workValue3, flag3
       if arg32 then
@@ -1106,6 +1162,8 @@ rageUiCall(textValue5, textValue6, rageUiCall2, textValue7)
 rageUiCall = AddEventHandler
 textValue5 = "b51e08118b"
 -- Beginner: this function runs when client event "b51e08118b" fires.
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
 function textValue6()
   local arg1, arg2, arg3, threadCall, workValue11, numberValue16, cmgCall2, numberValue17, gameTime3
   arg1 = pairs
@@ -1124,6 +1182,8 @@ end
 -- Beginner: Register a client-side event handler. Event/command: "b51e08118b".
 rageUiCall(textValue5, textValue6)
 rageUiCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2) ===
 function textValue5(arg1, arg2)
   local arg3, threadCall, workValue11
   arg3 = dataTable5

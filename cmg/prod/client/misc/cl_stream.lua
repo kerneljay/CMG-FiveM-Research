@@ -1,22 +1,40 @@
 --[[
-    BEGINNER GUIDE — Stream
-    =======================
+    LEVEL 1 BEGINNER GUIDE — Stream
+    ====================================
 
     File: cmg/prod/client/misc/cl_stream.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Stream feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Network/hash identifiers found: 1
-      They are intentionally left unchanged because matching server code may use them.
-      * 02b1617ec9
+    Quick map of this file (automatic static scan):
+      * Named functions: 4
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: 02b1617ec9
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     Stream File Client Helper
@@ -59,6 +77,7 @@ local lastNotificationTime = 0
 -- MARK A FILE AS ALREADY ACTIVATED
 ------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.setStreamFilePreActivatedClient(fileName) ===
 function CMG.setStreamFilePreActivatedClient(fileName)
     preActivatedFiles[fileName] = true
 end
@@ -68,6 +87,7 @@ end
 -- REQUEST A STREAM FILE
 ------------------------------------------------------------
 
+-- === HELPER FUNCTION: requestStreamFile(fileName) ===
 local function requestStreamFile(fileName)
 
     -- Don't request the same file more than once.
@@ -139,6 +159,7 @@ end
 -- PUBLIC FUNCTION: REQUEST A STREAM FILE
 ------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.requestStreamFileClient(fileName) ===
 function CMG.requestStreamFileClient(fileName)
 
     -- Ignore invalid requests.
@@ -159,6 +180,7 @@ end
 -- REGISTER A "FILE LOADED" CALLBACK
 ------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.registerStreamFileLoadedCallback(callback) ===
 function CMG.registerStreamFileLoadedCallback(callback)
 
     -- Save the function so another part of the streaming system

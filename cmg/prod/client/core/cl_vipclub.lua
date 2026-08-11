@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Vipclub
+    =====================================
+
+    File: cmg/prod/client/core/cl_vipclub.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Vipclub feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 16
+      * Background threads: 3
+      * Always-running loops: 1
+      * Commands: cmgclub
+      * Incoming network events: 2244097108, 7aab2694dd, 70e6fd77fe, 8aaaa9e0cc
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: dd042dd67d, d9fb371b48, 43b7dcfedd
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     CMG Club / VIP Perks Client
     ===========================
 
@@ -37,6 +75,7 @@
 -- MENUS
 -- ============================================================
 
+-- === HELPER FUNCTION: createClubMenu(menuName, parentName) ===
 local function createClubMenu(menuName, parentName)
     local menu
 
@@ -88,12 +127,14 @@ local subscription = {
     hoursOfPlatinumGame = 0
 }
 
+-- === HELPER FUNCTION: CMG.isPlusClub() ===
 function CMG.isPlusClub()
     return
         subscription.hoursOfPlus > 0
         or subscription.hoursOfPlusGame > 0
 end
 
+-- === HELPER FUNCTION: CMG.isPlatClub() ===
 function CMG.isPlatClub()
     return
         subscription.hoursOfPlatinum > 0
@@ -101,6 +142,7 @@ function CMG.isPlatClub()
         or CMG.hasClientPermission("vipclub.free")
 end
 
+-- === HELPER FUNCTION: hasAnyClub() ===
 local function hasAnyClub()
     return CMG.isPlusClub() or CMG.isPlatClub()
 end
@@ -134,6 +176,7 @@ local hourIndex = 0
 local minuteIndex = 0
 local secondIndex = 0
 
+-- === HELPER FUNCTION: getSelectedTime() ===
 local function getSelectedTime()
     return
         hourOptions[hourIndex] or 0,
@@ -141,6 +184,7 @@ local function getSelectedTime()
         secondOptions[secondIndex] or 0
 end
 
+-- === HELPER FUNCTION: applyClubTimeSettings() ===
 local function applyClubTimeSettings()
     CMG.setTimeFrozen(timeFrozen)
 
@@ -156,6 +200,7 @@ local function applyClubTimeSettings()
     end
 end
 
+-- === HELPER FUNCTION: saveClubTimeSettings() ===
 local function saveClubTimeSettings()
     if not hasAnyClub() then
         return
@@ -173,6 +218,7 @@ local function saveClubTimeSettings()
     )
 end
 
+-- === HELPER FUNCTION: loadClubTimeSettings() ===
 local function loadClubTimeSettings()
     local raw =
         GetResourceKvpString(TIME_KVP)
@@ -260,6 +306,7 @@ local deathSounds = {
     }
 }
 
+-- === HELPER FUNCTION: CMG.setDeathSound(soundId) ===
 function CMG.setDeathSound(soundId)
     if not hasAnyClub() then
         tCMG.notify(
@@ -274,6 +321,7 @@ function CMG.setDeathSound(soundId)
     )
 end
 
+-- === HELPER FUNCTION: CMG.getDeathSound() ===
 function CMG.getDeathSound()
     if not hasAnyClub() then
         return "playDead"
@@ -292,6 +340,7 @@ function CMG.getDeathSound()
     return "playDead"
 end
 
+-- === HELPER FUNCTION: refreshDeathSoundChecks() ===
 local function refreshDeathSoundChecks()
     local selected =
         CMG.getDeathSound()
@@ -316,6 +365,7 @@ local KILL_LIST_KVP =
 local codHitmarkersEnabled = false
 local killListEnabled = false
 
+-- === HELPER FUNCTION: setCodHitmarkers(enabled) ===
 local function setCodHitmarkers(enabled)
     codHitmarkersEnabled = enabled
 
@@ -333,6 +383,7 @@ local function setCodHitmarkers(enabled)
     CMG.setCODHitMarkerSetting(enabled)
 end
 
+-- === HELPER FUNCTION: setKillList(enabled) ===
 local function setKillList(enabled)
     killListEnabled = enabled
 
@@ -344,6 +395,7 @@ local function setKillList(enabled)
     CMG.setKillListSetting(enabled)
 end
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     loadClubTimeSettings()
 
@@ -391,6 +443,7 @@ AddEventHandler(
 -- OPEN / CLOSE COMMAND
 -- ============================================================
 
+-- === HELPER FUNCTION: toggleClubMenu() ===
 local function toggleClubMenu()
     RageUI.CloseAll()
 
@@ -413,6 +466,7 @@ RegisterCommand(
 
 local recentKills = {}
 
+-- === HELPER FUNCTION: isBountyTargetPed(ped) ===
 local function isBountyTargetPed(ped)
     if not DoesEntityExist(ped)
         or not IsPedAPlayer(ped) then
@@ -435,6 +489,7 @@ local function isBountyTargetPed(ped)
         or false
 end
 
+-- === HELPER FUNCTION: killListTick() ===
 local function killListTick()
     if not killListEnabled then
         return
@@ -507,6 +562,7 @@ RegisterNetEvent(
 
         local myIndex = #recentKills
 
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(function()
             Wait(2000)
 
@@ -617,6 +673,7 @@ RegisterNetEvent(
 -- PASSIVE CLUB PERKS
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if CMG.isPlatClub() then

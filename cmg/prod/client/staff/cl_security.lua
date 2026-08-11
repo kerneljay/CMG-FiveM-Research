@@ -1,52 +1,56 @@
 --[[
-    Beginner Guide: cl_security.lua
-    ===============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Security
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Security
+    ======================================
 
     File: cmg/prod/client/staff/cl_security.lua
-    Purpose: This file contains staff/admin tools.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: staff/admin gameplay and moderation tools, specifically the Security feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 21
+      * Background threads: 0
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 8
-      They are intentionally left unchanged because matching server code may use them.
-      * 99f7ddf34a
-      * 27459d8750
-      * 4193527f42
-      * a7d85abf0b
-      * ca62cdb8a4
-      * 1210872e84
-      * cb3f1ca2d1
-      * f41bab8346
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local waitCall, numberValue, flag, workValue2, cmgCall, textValue2, workValue3, cmgCall3, cmgCall4, cmgCall5, textValue, workValue
 waitCall = Wait
@@ -55,6 +59,8 @@ waitCall(numberValue)
 waitCall = {}
 numberValue = 1
 flag = false
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1) ===
 function workValue2(arg1)
   local arg2, arg3
   arg2 = numberValue
@@ -68,6 +74,8 @@ end
 cmgCall = CMG
 cmgCall = cmgCall.uiRegisterCallback
 textValue2 = "screenshot_created"
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, arg3
   arg2 = arg1.id
@@ -91,6 +99,8 @@ cmgCall(textValue2, workValue3)
 cmgCall = CMG
 cmgCall = cmgCall.uiRegisterCallback
 textValue2 = "video_created"
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, arg3, arg4
   arg2 = arg1.id
@@ -115,6 +125,8 @@ cmgCall(textValue2, workValue3)
 cmgCall = CMG
 cmgCall = cmgCall.uiRegisterCallback
 textValue2 = "video_uploading"
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, arg3
   arg2 = arg1.id
@@ -137,6 +149,8 @@ cmgCall(textValue2, workValue3)
 cmgCall = CMG
 cmgCall = cmgCall.uiRegisterCallback
 textValue2 = "keep_alive"
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, arg3
   arg2 = arg1.id
@@ -158,6 +172,8 @@ function workValue3(arg1)
 end
 cmgCall(textValue2, workValue3)
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2, arg3, arg4) ===
 function textValue2(arg1, arg2, arg3, arg4)
   local arg5, dataTable, cmgCall2, dataTable2
   arg5 = arg3 or arg5
@@ -187,6 +203,8 @@ function textValue2(arg1, arg2, arg3, arg4)
 end
 cmgCall.requestScreenshotUpload = textValue2
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function textValue2(arg1, arg2, arg3, arg4, arg5)
   local dataTable, cmgCall2, dataTable2, dataTable3
   dataTable = arg3 or dataTable
@@ -225,6 +243,8 @@ function textValue2(arg1, arg2, arg3, arg4, arg5)
 end
 cmgCall.requestVideoUpload = textValue2
 cmgCall = 0
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
 function textValue2(arg1)
   local arg2, arg3, arg4, arg5, dataTable
   arg2 = CMG
@@ -241,9 +261,13 @@ function textValue2(arg1)
   arg3.data = arg4
   arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2
   arg1 = textValue2
+
+  -- === HELPER FUNCTION: arg2(arg12) ===
   function arg2(arg12)
     local gameTime
     if not arg12 then
@@ -275,6 +299,8 @@ end
 cmgCall3 = AddEventHandler
 cmgCall4 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2) ===
 function cmgCall5(arg1, arg2)
   local arg3, arg4
   if arg2 then
@@ -297,6 +323,8 @@ cmgCall3(cmgCall4, cmgCall5)
 cmgCall3 = RegisterNetEvent
 cmgCall4 = "27459d8750"
 -- Beginner: this function handles network event "27459d8750".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2) ===
 function cmgCall5(arg1, arg2)
   local arg3, arg4, arg5, dataTable, cmgCall2
   if arg2 then
@@ -333,6 +361,8 @@ cmgCall3(cmgCall4, cmgCall5)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 cmgCall4 = "fetchPeerIdForScreenView"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
 function cmgCall5(arg1)
   local arg2, arg3, arg4
   arg2 = TriggerServerEvent
@@ -345,6 +375,8 @@ cmgCall3(cmgCall4, cmgCall5)
 cmgCall3 = RegisterNetEvent
 cmgCall4 = "4193527f42"
 -- Beginner: this function handles network event "4193527f42".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
 function cmgCall5(arg1)
   local arg2, arg3, arg4
   arg2 = CMG
@@ -361,6 +393,8 @@ cmgCall3(cmgCall4, cmgCall5)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 cmgCall4 = "closeScreenView"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2
   arg1 = TriggerServerEvent
@@ -372,6 +406,8 @@ cmgCall3(cmgCall4, cmgCall5)
 cmgCall3 = RegisterNetEvent
 cmgCall4 = "ca62cdb8a4"
 -- Beginner: this function handles network event "ca62cdb8a4".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
 function cmgCall5(arg1)
   local arg2, arg3, arg4
   arg2 = CMG
@@ -385,6 +421,8 @@ function cmgCall5(arg1)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "ca62cdb8a4".
 cmgCall3(cmgCall4, cmgCall5)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2, arg3
   arg1 = IsControlJustPressed
@@ -402,6 +440,8 @@ end
 cmgCall4 = CMG
 cmgCall4 = cmgCall4.uiRegisterCallback
 cmgCall5 = "setScreenViewActive"
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
 function textValue(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = arg1.active
@@ -457,6 +497,8 @@ cmgCall4(cmgCall5, textValue)
 cmgCall4 = CMG
 cmgCall4 = cmgCall4.uiRegisterCallback
 cmgCall5 = "scFail"
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
 function textValue(arg1)
   local arg2, arg3, arg4
   arg2 = TriggerServerEvent
@@ -469,6 +511,8 @@ cmgCall4(cmgCall5, textValue)
 cmgCall4 = false
 cmgCall5 = RegisterNUICallback
 textValue = "syncClock"
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
 function workValue(arg1, arg2)
   local arg3, arg4
   arg3 = cmgCall4
@@ -488,6 +532,8 @@ cmgCall5(textValue, workValue)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.uiRegisterCallback
 textValue = "tasty"
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, arg4, arg5, dataTable
   arg2 = CMG

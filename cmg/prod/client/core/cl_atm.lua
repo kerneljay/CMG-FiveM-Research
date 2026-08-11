@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Atm
+    =================================
+
+    File: cmg/prod/client/core/cl_atm.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Atm feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 20
+      * Background threads: 6
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: c80193f4f4, 0d0bba08e3, d96c9842ab, 0b6d9ff2bc, f0b274ca98, 9b400f568d, c63557b5fa, de574bb3d5
+      * Local event handlers: none found by static scan
+      * Server events sent: d96c9842ab, f448952ef9, ec10dc3f68, c63557b5fa, 6c81c57c72
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/atms
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     ATM / ATM Robbery Client
     ========================
 
@@ -71,12 +109,14 @@ local atmMenu = RMenu:Get("cmgatm", "mainmenu")
 atmMenu:SetSubtitle("~b~ATM")
 
 
+-- === HELPER FUNCTION: openAtmMenu() ===
 local function openAtmMenu()
     RageUI.CloseAll()
     RageUI.Visible(atmMenu, true)
 end
 
 
+-- === HELPER FUNCTION: closeAtmMenu() ===
 local function closeAtmMenu()
     RageUI.CloseAll()
     RageUI.Visible(atmMenu, false)
@@ -85,6 +125,8 @@ end
 
 -- The original client briefly attaches a small object to the player's hand.
 -- It is purely visual and deletes itself after five seconds.
+
+-- === HELPER FUNCTION: showTemporaryAtmHandProp() ===
 local function showTemporaryAtmHandProp()
     if showingAtmHandProp then
         return
@@ -92,6 +134,7 @@ local function showTemporaryAtmHandProp()
 
     showingAtmHandProp = true
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         local ped = PlayerPedId()
         local modelHash = -121386306
@@ -140,6 +183,7 @@ local function showTemporaryAtmHandProp()
 end
 
 
+-- === HELPER FUNCTION: playAtmExitAnimation() ===
 local function playAtmExitAnimation()
     tCMG.playAnim(
         false,
@@ -154,6 +198,7 @@ local function playAtmExitAnimation()
 end
 
 
+-- === HELPER FUNCTION: canSubmitAtmTransaction() ===
 local function canSubmitAtmTransaction()
     if GetVehiclePedIsIn(
         PlayerPedId(),
@@ -174,6 +219,7 @@ local function canSubmitAtmTransaction()
 end
 
 
+-- === HELPER FUNCTION: submitAtmTransaction(eventName, amount) ===
 local function submitAtmTransaction(eventName, amount)
     if not canSubmitAtmTransaction() then
         return
@@ -298,6 +344,7 @@ RageUI.CreateWhile(
 -- NORMAL ATM AREAS
 -- ============================================================
 
+-- === HELPER FUNCTION: onEnterAtm() ===
 local function onEnterAtm()
     tCMG.setCanAnim(false)
     openAtmMenu()
@@ -305,6 +352,7 @@ local function onEnterAtm()
 end
 
 
+-- === HELPER FUNCTION: onLeaveAtm() ===
 local function onLeaveAtm()
     closeAtmMenu()
     tCMG.setCanAnim(true)
@@ -312,11 +360,13 @@ local function onLeaveAtm()
 end
 
 
+-- === HELPER FUNCTION: emptyAtmTick() ===
 local function emptyAtmTick()
     -- The original normal ATM area did not need a per-frame callback.
 end
 
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     for atmId, coords in pairs(atmConfig.atms) do
         CMG.createArea(
@@ -417,6 +467,7 @@ end)
 -- DYNAMIC ATM API
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.createAtm(atmId, coords) ===
 function CMG.createAtm(atmId, coords)
     local areaId =
         string.format("atm_%s", atmId)
@@ -447,6 +498,7 @@ function CMG.createAtm(atmId, coords)
 end
 
 
+-- === HELPER FUNCTION: CMG.deleteAtm(atmId) ===
 function CMG.deleteAtm(atmId)
     local data = dynamicAtms[atmId]
 
@@ -489,6 +541,7 @@ local function runAtmWireMinigame(
     local minigameSucceeded = true
     local notificationThreadDone = false
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         while not notificationThreadDone do
             drawNativeNotification(
@@ -605,6 +658,8 @@ end
 -- ============================================================
 
 -- Finds a point roughly 0.65m in front of a robbery ATM.
+
+-- === HELPER FUNCTION: getAtmFrontPosition(atmCoords) ===
 local function getAtmFrontPosition(atmCoords)
     local pitch =
         math.rad(-0.8738472)
@@ -634,6 +689,8 @@ end
 -- ============================================================
 
 -- Electrical spark + money-rain effect for 15 seconds.
+
+-- === NETWORK EVENT: receives "c80193f4f4" from server/another network source ===
 RegisterNetEvent("c80193f4f4", function(atmId)
     local atmCoords =
         atmConfig.robberyAtms[atmId]
@@ -697,6 +754,8 @@ end)
 
 
 -- Plays repeated pickup/beep sounds for 15 seconds.
+
+-- === NETWORK EVENT: receives "0d0bba08e3" from server/another network source ===
 RegisterNetEvent("0d0bba08e3", function()
     local startedAt = GetGameTimer()
     local lastSoundAt = 0
@@ -723,6 +782,8 @@ end)
 
 
 -- Single electrical-destruction particle.
+
+-- === NETWORK EVENT: receives "d96c9842ab" from server/another network source ===
 RegisterNetEvent("d96c9842ab", function(atmId)
     local atmCoords =
         atmConfig.robberyAtms[atmId]
@@ -796,6 +857,8 @@ RegisterNetEvent(
 
 
 -- Small burst/explosion-style particle at an ATM.
+
+-- === NETWORK EVENT: receives "f0b274ca98" from server/another network source ===
 RegisterNetEvent("f0b274ca98", function(atmId)
     local atmCoords =
         atmConfig.robberyAtms[atmId]
@@ -837,6 +900,8 @@ end)
 
 
 -- One-minute burglar alarm.
+
+-- === NETWORK EVENT: receives "9b400f568d" from server/another network source ===
 RegisterNetEvent("9b400f568d", function(atmId)
     local atmCoords =
         atmConfig.robberyAtms[atmId]
@@ -889,6 +954,7 @@ local lastRobbedNetworkTime = 0
 -- robberySequenceActive is declared near the top.
 
 
+-- === HELPER FUNCTION: onEnterRobberyAtm(areaData) ===
 local function onEnterRobberyAtm(areaData)
     requiredDoorHits =
         math.random(6, 12)
@@ -902,6 +968,7 @@ local function onEnterRobberyAtm(areaData)
 end
 
 
+-- === HELPER FUNCTION: onLeaveRobberyAtm(areaData) ===
 local function onLeaveRobberyAtm(areaData)
     if robberySequenceActive then
         TriggerServerEvent(
@@ -914,6 +981,7 @@ local function onLeaveRobberyAtm(areaData)
 end
 
 
+-- === HELPER FUNCTION: playRandomSmashSound() ===
 local function playRandomSmashSound()
     RequestScriptAudioBank(
         "NIGEL_02_CRASH_A",
@@ -970,6 +1038,7 @@ local smashParticleChoices = {
 }
 
 
+-- === HELPER FUNCTION: playRandomSmashParticles() ===
 local function playRandomSmashParticles()
     local fx =
         smashParticleChoices[
@@ -1080,10 +1149,12 @@ local function beginDoorSmash(
         "melee@small_wpn@streamed_core"
     )
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(
         playRandomSmashSound
     )
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(
         playRandomSmashParticles
     )
@@ -1120,6 +1191,7 @@ local function beginDoorSmash(
 end
 
 
+-- === HELPER FUNCTION: robberyAtmTick(areaData) ===
 local function robberyAtmTick(areaData)
     if robberySequenceActive then
         return
@@ -1372,6 +1444,7 @@ RegisterNetEvent(
 -- ROBBERY AREAS / COOLDOWN UPDATE
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     for robberyId, coords
         in pairs(atmConfig.robberyAtms) do
@@ -1391,6 +1464,8 @@ end)
 
 
 -- Server sends the network timestamp of the last robbery.
+
+-- === NETWORK EVENT: receives "de574bb3d5" from server/another network source ===
 RegisterNetEvent("de574bb3d5", function(networkTime)
     lastRobbedNetworkTime =
         networkTime

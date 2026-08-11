@@ -1,37 +1,40 @@
 --[[
-    BEGINNER GUIDE — Trapper
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Trapper
+    =====================================
 
     File: cmg/prod/cfg/cfg_trapper.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Config/shared data — is mainly loaded as data/configuration by other scripts.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/cfg_xp
-      * cfg/cfg_jobs
+    Quick map of this file (automatic static scan):
+      * Named functions: 12
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: 020ba07cfc
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_xp, cfg/cfg_jobs
 
-    Network/hash identifiers found: 5
-      They are intentionally left unchanged because matching server code may use them.
-      * 020ba07cfc
-      * 770e1455bc
-      * c8a4567418
-      * 75f86594c8
-      * acc4e317a4
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * Press [E]
-      * Purchase Drug Den
-      * Purchase Equipment
-      * Purchase 4x Watering Can
-      * Purchase 2x bags of soil
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cfg = {}
 local cfgXP = CMG.loadModule("cfg/cfg_xp")
@@ -769,6 +772,7 @@ cfg.warehouses = {
 
 local fxHandles = {}
 
+-- === HELPER FUNCTION: createDirtPfx(bagObj) ===
 local function createDirtPfx(bagObj)
     local asset = "cut_michael1"
     local name  = "cs_mich1_pick_dirt_trail"
@@ -801,6 +805,7 @@ local function createDirtPfx(bagObj)
     end
 end
 
+-- === HELPER FUNCTION: faceEntity(ped, targetEntity, rotationOffset) ===
 local function faceEntity(ped, targetEntity, rotationOffset)
     local p = GetEntityCoords(ped)
     local t = GetEntityCoords(targetEntity)
@@ -818,6 +823,7 @@ local function faceEntity(ped, targetEntity, rotationOffset)
     SetEntityHeading(ped, heading)
 end
 
+-- === HELPER FUNCTION: getHeadingToEntity(ped, targetEntity, rotationOffset) ===
 local function getHeadingToEntity(ped, targetEntity, rotationOffset)
     local p = GetEntityCoords(ped)
     local t = GetEntityCoords(targetEntity)
@@ -834,6 +840,7 @@ local function getHeadingToEntity(ped, targetEntity, rotationOffset)
     return heading
 end
 
+-- === HELPER FUNCTION: getClosestStandPosToPed(targetObject, ped, dist) ===
 local function getClosestStandPosToPed(targetObject, ped, dist)
     dist = dist or 0.85
     local t = GetEntityCoords(targetObject)
@@ -849,6 +856,7 @@ local function getClosestStandPosToPed(targetObject, ped, dist)
     return t + (dir * dist) -- point dist away from target, towards the ped
 end
 
+-- === HELPER FUNCTION: approachEntity(ped, targetObject, dist, timeoutMs, speed, headingOffset, stoppingRange) ===
 local function approachEntity(ped, targetObject, dist, timeoutMs, speed, headingOffset, stoppingRange)
     dist = dist or 0.85
     timeoutMs = timeoutMs or 2200
@@ -876,6 +884,7 @@ local function approachEntity(ped, targetObject, dist, timeoutMs, speed, heading
     return arrived
 end
 
+-- === HELPER FUNCTION: useSoilBag(targetObject) ===
 local function useSoilBag(targetObject)
     local playerPed = PlayerPedId()
 
@@ -910,6 +919,7 @@ local function useSoilBag(targetObject)
     local fx = nil
     local fxStarted = false
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         createDirtPfx(bagObj)
     end)
@@ -954,6 +964,7 @@ local function useSoilBag(targetObject)
     fxHandles = {}
 end
 
+-- === HELPER FUNCTION: plantSeedAnim(targetObject) ===
 local function plantSeedAnim(targetObject)
     local dict = "anim@heists@narcotics@trash"
     local anim = "pickup"
@@ -968,6 +979,7 @@ local function plantSeedAnim(targetObject)
     TaskPlayAnim(playerPed, dict, anim, 2.0, 8.0, 1400, 1, 0, false, false, false)
 end
 
+-- === HELPER FUNCTION: useWateringCan(targetObject) ===
 local function useWateringCan(targetObject)
     local playerPed = PlayerPedId()
     if not approachEntity(playerPed, targetObject, 0.85, 2200, 1.0, -20.0, 0.2) then
@@ -1009,6 +1021,7 @@ local function useWateringCan(targetObject)
     SetModelAsNoLongerNeeded(canHash)
 end
 
+-- === HELPER FUNCTION: useHoseWatering(targetObject) ===
 local function useHoseWatering(targetObject)
     local waterMs = 4000
 
@@ -1034,12 +1047,14 @@ local function useHoseWatering(targetObject)
     end
 end
 
+-- === HELPER FUNCTION: harvestPlant(targetObject, placedItemId, delay) ===
 local function harvestPlant(targetObject, placedItemId, delay)
     local ped = PlayerPedId()
 
     if not approachEntity(ped, targetObject, 0.85, 2200, 1.0, 0.0, 0.2) then
         notify("~r~Entity was too far")
         tCMG.setCanAnim(true)
+        -- Beginner: sends the "020ba07cfc" event to the server.
         TriggerServerEvent("020ba07cfc", placedItemId)
         return
     end
@@ -1052,6 +1067,7 @@ local function harvestPlant(targetObject, placedItemId, delay)
     SetTimeout(animMs, function()
         tCMG.setCanAnim(true)
         CMG.addJobTutorialProgress("harvest_weed", 1)
+        -- Beginner: sends the "020ba07cfc" event to the server.
         TriggerServerEvent("020ba07cfc", placedItemId)
     end)
 end
@@ -1147,6 +1163,7 @@ cfg.weedWorkbenchFp = {
 
 local trapperWaterCookXpHydrationMaxExclusive = 0.66
 
+-- === HELPER FUNCTION: tryGrantTrapperCookXpForWateringPlant(user_id, plant) ===
 local function tryGrantTrapperCookXpForWateringPlant(user_id, plant)
     if not plant then
         return
@@ -1199,6 +1216,7 @@ cfg.items = {
                     useSoilBag(targetObject)
                     tCMG.setCanAnim(true)
                     CMG.addJobTutorialProgress("fill_soil", 1)
+                    -- Beginner: sends the "020ba07cfc" event to the server.
                     TriggerServerEvent("020ba07cfc", placedItemId)
                 end,
             }
@@ -1283,6 +1301,7 @@ cfg.items = {
                     plantSeedAnim(targetObject)
                     tCMG.setCanAnim(true)
                     CMG.addJobTutorialProgress("put_seed", 1)
+                    -- Beginner: sends the "020ba07cfc" event to the server.
                     TriggerServerEvent("020ba07cfc", placedItemId)
                 end,
             }
@@ -1327,6 +1346,7 @@ cfg.items = {
                     useWateringCan(targetObject)
                     tCMG.setCanAnim(true)
                     CMG.addJobTutorialProgress("use_watering_can", 1)
+                    -- Beginner: sends the "020ba07cfc" event to the server.
                     TriggerServerEvent("020ba07cfc", placedItemId)
                 end,
             },
@@ -1395,6 +1415,7 @@ cfg.items = {
                     useHoseWatering(targetObject)
                     tCMG.setCanAnim(true)
                     CMG.addJobTutorialProgress("use_watering_can", 1)
+                    -- Beginner: sends the "020ba07cfc" event to the server.
                     TriggerServerEvent("020ba07cfc", placedItemId)
                 end,
             },
@@ -2275,6 +2296,8 @@ for p = 2, 100 do
 end
 
 -- All weed_bag_X / weed_bud_X (any purity) share one shelf slot each; other items one slot per item id.
+
+-- === HELPER FUNCTION: cfg.getShelfSlotKey(itemId) ===
 function cfg.getShelfSlotKey(itemId)
     if itemId and itemId:match("^weed_bag_%d+$") then
         return "weed_bag"

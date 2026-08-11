@@ -1,38 +1,40 @@
 --[[
-    Beginner Guide: cl_devui.lua
-    ============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Devui
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Devui
+    ===================================
 
     File: cmg/prod/client/developer/cl_devui.lua
-    Purpose: This file contains developer/debug tooling.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: developer/admin testing utilities, specifically the Devui feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 7
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: moneyUILoaded
+      * Modules/config loaded: none found by static scan
 
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     CMG SCREEN UI DEBUG
@@ -150,6 +152,7 @@ local lastDebugEnabledState = false
 -- This helps other HUD elements avoid overlapping the debug strip.
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.isDrawingDebugUI() ===
 function CMG.isDrawingDebugUI()
     if ScreenDebug.enabled then
         -- CMG.getTextHeight() can return more than one value.
@@ -181,6 +184,7 @@ end
 RegisterNUICallback(
     "moneyUILoaded",
     function()
+        -- Beginner: sends a Lua table to the HTML/JavaScript UI.
         SendNUIMessage({
             toggleDebugUI = true,
             debugEnabled =
@@ -193,6 +197,7 @@ RegisterNUICallback(
 -- 6. MOVE THE MINIMAP WHEN DEBUG MODE CHANGES
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: applyDebugLayoutIfChanged() ===
 local function applyDebugLayoutIfChanged()
     -------------------------------------------------------------
     -- Nothing to do if the checkbox has not changed.
@@ -211,6 +216,7 @@ local function applyDebugLayoutIfChanged()
     -- Run the minimap refresh asynchronously just like the source.
     -------------------------------------------------------------
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(
         function()
             local debugHeight =
@@ -300,6 +306,7 @@ local function applyDebugLayoutIfChanged()
             -- Update NUI.
             -----------------------------------------------------
 
+            -- Beginner: sends a Lua table to the HTML/JavaScript UI.
             SendNUIMessage({
                 toggleDebugUI = true,
                 debugEnabled =
@@ -313,6 +320,7 @@ end
 -- 7. REFRESH EXPENSIVE DEBUG STATISTICS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: updateCachedDebugStats() ===
 local function updateCachedDebugStats()
     local now =
         GetGameTimer()
@@ -358,6 +366,7 @@ end
 -- 8. SAFE FPS CALCULATION
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getCurrentFps() ===
 local function getCurrentFps()
     if DebugStats.frameTimeMs
         <= 0.0
@@ -391,6 +400,7 @@ end
 -- 10. MAIN DEBUG OVERLAY
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawScreenDebug() ===
 local function drawScreenDebug()
     -------------------------------------------------------------
     -- Apply minimap/NUI changes if the checkbox was toggled.

@@ -1,64 +1,56 @@
 --[[
-    Beginner Guide: cl_ladders.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Ladders
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Ladders
+    =====================================
 
     File: cmg/prod/client/lfb/cl_ladders.lua
-    Purpose: This file contains London Fire Brigade gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: fire-service gameplay, specifically the Ladders feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 14
+      * Background threads: 0
+      * Always-running loops: 3
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * /ladder
-      * ladder
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * Ladders:Server:PersonalRequest
-      * chat:addSuggestion
-      * Ladders:Server:Vehicles
-      * Ladders:Client:VehicleCheck
-      * Ladders:Server:Ladders:Local
-      * Ladders:Client:Local:Add
-      * Ladders:Client:Local:Remove
-      * Ladders:Bounce:ServerValues
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * Ladders:Server:Vehicles
-      * ~y~You already carrying a ladder!
-      * ~y~You do not have a ladder out!
-      * Ladders:Client:VehicleCheck
-      * ~INPUT_PICKUP~ Pick up ladder
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable4, dataTable5, textValue12, numberValue2, workValue3, numberValue3, flag15, flag16, dataTable8, eventHandlerRegistration, dataTable2, vector3Builder, vector3Builder2, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, numberValue
 dataTable = {}
@@ -347,6 +339,8 @@ dataTable8.down = eventHandlerRegistration
 eventHandlerRegistration = AddEventHandler
 dataTable2 = "onClientMapStart"
 -- Beginner: this function runs when client event "onClientMapStart" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: none) ===
 function vector3Builder()
   local arg1, arg2, arg3, arg4, dataTable6, dataTable7
   arg1 = TriggerServerEvent
@@ -367,6 +361,8 @@ function vector3Builder()
 end
 -- Beginner: Register a client-side event handler. Event/command: "onClientMapStart".
 eventHandlerRegistration(dataTable2, vector3Builder)
+
+-- === HELPER FUNCTION: eventHandlerRegistration() ===
 function eventHandlerRegistration()
   local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6
   arg1 = PlayerPedId
@@ -446,6 +442,8 @@ end
 dataTable2 = RegisterCommand
 vector3Builder = "ladder"
 -- Beginner: this function is the command handler for "ladder".
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1, arg2) ===
 function vector3Builder2(arg1, arg2)
   local arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash
   arg3 = CMG
@@ -533,6 +531,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Client:VehicleCheck"
 -- Beginner: this function runs when client event "Ladders:Client:VehicleCheck" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1, arg2, arg3, arg4) ===
 function vector3Builder2(arg1, arg2, arg3, arg4)
   local dataTable6, dataTable7, textValue13, workValue4
   if arg4 then
@@ -600,6 +600,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Client:Local:Add"
 -- Beginner: this function runs when client event "Ladders:Client:Local:Add" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1) ===
 function vector3Builder2(arg1)
   local arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue
   arg2 = GetPlayerFromServerId
@@ -668,6 +670,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Client:Local:Remove"
 -- Beginner: this function runs when client event "Ladders:Client:Local:Remove" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1) ===
 function vector3Builder2(arg1)
   local arg2, arg3, arg4, dataTable6
   arg2 = GetPlayerFromServerId
@@ -722,6 +726,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Bounce:ServerValues"
 -- Beginner: this function runs when client event "Ladders:Bounce:ServerValues" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1) ===
 function vector3Builder2(arg1)
   local arg2
   dataTable4 = arg1
@@ -735,6 +741,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Client:DropLadder"
 -- Beginner: this function runs when client event "Ladders:Client:DropLadder" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: none) ===
 function vector3Builder2()
   local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6
   arg1 = numberValue2
@@ -907,6 +915,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Client:Pickup"
 -- Beginner: this function runs when client event "Ladders:Client:Pickup" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1) ===
 function vector3Builder2(arg1)
   local arg2, arg3, arg4, dataTable6, dataTable7
   arg2 = numberValue2
@@ -965,6 +975,8 @@ dataTable2(vector3Builder)
 dataTable2 = AddEventHandler
 vector3Builder = "Ladders:Client:PlaceLadder"
 -- Beginner: this function runs when client event "Ladders:Client:PlaceLadder" fires.
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: none) ===
 function vector3Builder2()
   local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3
   arg1 = numberValue2
@@ -1126,6 +1138,8 @@ function vector3Builder2()
 end
 -- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:PlaceLadder".
 dataTable2(vector3Builder, vector3Builder2)
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4
   arg2 = 1
@@ -1184,6 +1198,8 @@ vector3Builder(vector3Builder2)
 vector3Builder = AddEventHandler
 vector3Builder2 = "Ladders:Client:Climb"
 -- Beginner: this function runs when client event "Ladders:Client:Climb" fires.
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2) ===
 function textValue(arg1, arg2)
   local arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11, flag12, flag13, flag14
   arg3 = numberValue2
@@ -1350,6 +1366,8 @@ function textValue(arg1, arg2)
 end
 -- Beginner: Register a client-side event handler. Event/command: "Ladders:Client:Climb".
 vector3Builder(vector3Builder2, textValue)
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: arg1) ===
 function vector3Builder(arg1)
   local arg2, arg3, arg4, dataTable6, dataTable7
   arg2 = CMG
@@ -1366,6 +1384,8 @@ function vector3Builder(arg1)
   arg2 = arg2 + 0.01
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: none) ===
 function vector3Builder2()
   local arg1, arg2, arg3, arg4, dataTable6, dataTable7, textValue13, workValue4, workValue5, modelHash, iterator, workValue, flag, flag2, flag3, flag4, hashValue, dataTable3, flag5, flag6, workValue2, flag7, flag8, flag9, flag10, flag11
   arg1 = PlayerPedId

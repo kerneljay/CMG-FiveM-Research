@@ -1,18 +1,40 @@
 --[[
-    BEGINNER GUIDE — Entity Zone
-    ============================
+    LEVEL 1 BEGINNER GUIDE — Entity Zone
+    =========================================
 
     File: cmg/util/client/polyzone/EntityZone.lua
-    Purpose: This file contains shared utility code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: PolyZone geometry/zone library code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
+    Quick map of this file (automatic static scan):
+      * Named functions: 10
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: gameEventTriggered
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 ---@diagnostic disable
 
@@ -22,11 +44,14 @@ setmetatable(EntityZone, { __index = BoxZone })
 
 -- Utility functions
 local deg, atan2 = math.deg, math.atan2
+
+-- === HELPER FUNCTION: GetRotation(entity) ===
 local function GetRotation(entity)
   local fwdVector = GetEntityForwardVector(entity)
   return deg(atan2(fwdVector.y, fwdVector.x))
 end
 
+-- === HELPER FUNCTION: _calculateMinAndMaxZ(entity, dimensions, scaleZ, offsetZ) ===
 local function _calculateMinAndMaxZ(entity, dimensions, scaleZ, offsetZ)
   local min, max = dimensions[1], dimensions[2]
   local minX, minY, minZ, maxX, maxY, maxZ = min.x, min.y, min.z, max.x, max.y, max.z
@@ -49,12 +74,15 @@ local function _calculateMinAndMaxZ(entity, dimensions, scaleZ, offsetZ)
 end
 
 -- Initialization functions
+
+-- === HELPER FUNCTION: _initDebug(zone, options) ===
 local function _initDebug(zone, options)
   if options.debugBlip then zone:addDebugBlip() end
   if not options.debugPoly and not options.debugBlip then
     return
   end
 
+  -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
   Citizen.CreateThread(function()
     local entity = zone.entity
     local shouldDraw = options.debugPoly
@@ -66,6 +94,7 @@ local function _initDebug(zone, options)
   end)
 end
 
+-- === HELPER FUNCTION: EntityZone:new(entity, options) ===
 function EntityZone:new(entity, options)
   assert(DoesEntityExist(entity), "Entity does not exist")
 
@@ -93,12 +122,14 @@ function EntityZone:new(entity, options)
   return zone
 end
 
+-- === HELPER FUNCTION: EntityZone:Create(entity, options) ===
 function EntityZone:Create(entity, options)
   local zone = EntityZone:new(entity, options)
   _initDebug(zone, options)
   return zone
 end
 
+-- === HELPER FUNCTION: UpdateOffsets(entity, zone) ===
 function UpdateOffsets(entity, zone)
   local pos = GetEntityCoords(entity)
   local rot = GetRotation(entity)
@@ -113,6 +144,8 @@ end
 
 
 -- Helper functions
+
+-- === HELPER FUNCTION: EntityZone:isPointInside(point) ===
 function EntityZone:isPointInside(point)
   local entity = self.entity
   if entity == nil then
@@ -124,6 +157,7 @@ function EntityZone:isPointInside(point)
   return BoxZone.isPointInside(self, point)
 end
 
+-- === HELPER FUNCTION: EntityZone:onEntityDamaged(onDamagedCb) ===
 function EntityZone:onEntityDamaged(onDamagedCb)
   local entity = self.entity
   if not entity then
@@ -131,6 +165,7 @@ function EntityZone:onEntityDamaged(onDamagedCb)
     return
   end
 
+  -- === EVENT HANDLER: runs when "gameEventTriggered" fires ===
   self.damageEventHandlers[#self.damageEventHandlers + 1] = AddEventHandler('gameEventTriggered', function (name, args)
     if self.destroyed or self.paused then
       return
@@ -145,6 +180,7 @@ function EntityZone:onEntityDamaged(onDamagedCb)
   end)
 end
 
+-- === HELPER FUNCTION: EntityZone:destroy() ===
 function EntityZone:destroy()
   for i=1, #self.damageEventHandlers do
     print("Destroying damageEventHandler:", self.damageEventHandlers[i])
@@ -154,6 +190,7 @@ function EntityZone:destroy()
   PolyZone.destroy(self)
 end
 
+-- === HELPER FUNCTION: EntityZone:addDebugBlip() ===
 function EntityZone:addDebugBlip()
   local blip = PolyZone.addDebugBlip(self)
   self.debugBlip = blip

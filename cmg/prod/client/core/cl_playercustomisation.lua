@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Playercustomisation
+    =================================================
+
+    File: cmg/prod/client/core/cl_playercustomisation.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Playercustomisation feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 33
+      * Background threads: 1
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: d580dacaa7
+      * Local event handlers: none found by static scan
+      * Server events sent: f46b8e185c, 195b53ce8c
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_clothing, cfg/cfg_store, cfg/clothing/migration.json
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Player Customisation / Clothing Data Client
     ===========================================
 
@@ -117,6 +155,7 @@ local lockedPresetName = nil
 -- CUSTOM CLOTHING LOOKUP KEYS
 -- ============================================================
 
+-- === HELPER FUNCTION: roundIndex(value) ===
 local function roundIndex(value)
     return math.floor((value or 0) + 0.5)
 end
@@ -162,6 +201,7 @@ end
 -- PLAYER GENDER
 -- ============================================================
 
+-- === HELPER FUNCTION: getGenderFromModel(modelHash) ===
 local function getGenderFromModel(modelHash)
     -- Standard GTA freemode male.
     if modelHash == 1885233650 then
@@ -177,6 +217,7 @@ local function getGenderFromModel(modelHash)
 end
 
 
+-- === HELPER FUNCTION: getCurrentGender() ===
 local function getCurrentGender()
     return getGenderFromModel(
         GetEntityModel(PlayerPedId())
@@ -188,6 +229,7 @@ end
 -- MAP GTA COMPONENT IDS TO CUSTOM-CLOTHING SLOT NAMES
 -- ============================================================
 
+-- === HELPER FUNCTION: buildCustomSlotMap() ===
 local function buildCustomSlotMap()
     local result = {
         [false] = {}, -- normal components
@@ -215,6 +257,7 @@ local function buildCustomSlotMap()
 end
 
 
+-- === HELPER FUNCTION: getCustomSlot(componentId, isProp) ===
 local function getCustomSlot(componentId, isProp)
     if not customSlotByComponent then
         customSlotByComponent =
@@ -252,6 +295,8 @@ end
 -- }
 --
 -- and builds three faster lookup tables.
+
+-- === HELPER FUNCTION: buildClothingAccessLookups(entries) ===
 local function buildClothingAccessLookups(entries)
     local exactItems = {}
     local drawables = {}
@@ -418,6 +463,7 @@ function CMG.hasAccessibleCustomClothingDrawable(
 end
 
 
+-- === HELPER FUNCTION: CMG.hasAnyAccessibleCustomClothing() ===
 function CMG.hasAnyAccessibleCustomClothing()
     local gender =
         getCurrentGender()
@@ -496,6 +542,7 @@ function CMG.getAccessibleClothingTextureSet(
 end
 
 
+-- === HELPER FUNCTION: CMG.isPlayerCustomisationSetup() ===
 function CMG.isPlayerCustomisationSetup()
     return customisationSetup
 end
@@ -505,6 +552,7 @@ end
 -- REMOVE RESTRICTED CLOTHING THE PLAYER DOES NOT OWN
 -- ============================================================
 
+-- === HELPER FUNCTION: removeUnownedRestrictedItems(customisation) ===
 local function removeUnownedRestrictedItems(customisation)
     if type(customisation) ~= "table" then
         return 0
@@ -521,6 +569,7 @@ local function removeUnownedRestrictedItems(customisation)
 
     local removedCount = 0
 
+    -- === HELPER FUNCTION: checkSection(section, isProp) ===
     local function checkSection(section, isProp)
         if type(section) ~= "table" then
             return
@@ -581,6 +630,8 @@ end
 -- V1 saves can use:
 --   "p0" -> prop 0
 --   "6"  -> component 6
+
+-- === HELPER FUNCTION: parseLegacySlotId(value) ===
 local function parseLegacySlotId(value)
     if type(value) == "string"
         and string.sub(value, 1, 1) == "p" then
@@ -600,6 +651,7 @@ end
 -- CREATE AN EMPTY V2 CUSTOMISATION TABLE
 -- ============================================================
 
+-- === HELPER FUNCTION: createEmptyCustomisation(ped) ===
 local function createEmptyCustomisation(ped)
     local modelHash = 0
 
@@ -627,6 +679,7 @@ end
 -- READ CURRENT PLAYER CLOTHING
 -- ============================================================
 
+-- === HELPER FUNCTION: tCMG.getCustomization() ===
 function tCMG.getCustomization()
     local ped = PlayerPedId()
 
@@ -709,6 +762,7 @@ end
 -- NORMALISE V2 TABLE KEYS
 -- ============================================================
 
+-- === HELPER FUNCTION: normaliseV2Customisation(customisation) ===
 local function normaliseV2Customisation(customisation)
     customisation.components =
         table.indicies(
@@ -728,6 +782,7 @@ end
 -- MIGRATE A V1 SAVE TO V2
 -- ============================================================
 
+-- === HELPER FUNCTION: migrateV1ToV2(oldCustomisation) ===
 local function migrateV1ToV2(oldCustomisation)
     local newCustomisation =
         createEmptyCustomisation(nil)
@@ -836,6 +891,7 @@ local function migrateV1ToV2(oldCustomisation)
 end
 
 
+-- === HELPER FUNCTION: CMG.migrateClothingCustomisation(customisation) ===
 function CMG.migrateClothingCustomisation(customisation)
     local version =
         customisation.version or 1
@@ -1125,6 +1181,7 @@ end
 -- PED MODEL-CHANGE SAFETY FLAG
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.isPedScriptGuidChanging() ===
 function CMG.isPedScriptGuidChanging()
     return
         pedModelChanging
@@ -1272,12 +1329,15 @@ function CMG.lockCustomisationPreset(
 end
 
 
+-- === HELPER FUNCTION: CMG.unlockCustomisationPreset() ===
 function CMG.unlockCustomisationPreset()
     lockedPresetName = nil
 end
 
 
 -- Re-apply a locked uniform/preset if another script tries to change it.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if lockedPresetName then
@@ -1469,6 +1529,7 @@ local function buildModelIndexLookup(
 end
 
 
+-- === HELPER FUNCTION: copyGlobalToLocalLookup() ===
 local function copyGlobalToLocalLookup()
     table.clear(migrationDump)
 
@@ -1492,6 +1553,7 @@ end
 local convertingMalePresets = true
 
 
+-- === HELPER FUNCTION: convertPresetRow() ===
 local function convertPresetRow()
     CMG.clientPrompt(
         "Enter Input",

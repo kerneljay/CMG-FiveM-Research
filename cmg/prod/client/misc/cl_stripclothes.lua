@@ -1,55 +1,56 @@
 --[[
-    Beginner Guide: cl_stripclothes.lua
-    ===================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Stripclothes
-    =============================
+    LEVEL 1 BEGINNER GUIDE — Stripclothes
+    ==========================================
 
     File: cmg/prod/client/misc/cl_stripclothes.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Stripclothes feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Commands/command-like entries found:
-      * /takeoffmask
-      * /takeoffhat
-      * /takeoffjacket
-      * /takeofftie
-      * /takeoffbracelet
-      * /takeoffglasses
-      * /takeofftrousers
-      * /takeoffshoes
-      * takeoffmask
-      * takeoffhat
-      * takeoffjacket
-      * takeofftie
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Named framework/network events found:
-      * chat:addSuggestion
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local localEventCall, textValue, textValue2, textValue4
 localEventCall = TriggerEvent
@@ -99,6 +100,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeoffmask"
 -- Beginner: this function is the command handler for "takeoffmask".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG
@@ -154,6 +157,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeoffhat"
 -- Beginner: this function is the command handler for "takeoffhat".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG
@@ -206,6 +211,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeoffjacket"
 -- Beginner: this function is the command handler for "takeoffjacket".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG
@@ -280,6 +287,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeofftie"
 -- Beginner: this function is the command handler for "takeofftie".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG
@@ -326,6 +335,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeoffbracelet"
 -- Beginner: this function is the command handler for "takeoffbracelet".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4
   cmgCall = CMG
@@ -347,6 +358,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeoffglasses"
 -- Beginner: this function is the command handler for "takeoffglasses".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG
@@ -397,6 +410,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeofftrousers"
 -- Beginner: this function is the command handler for "takeofftrousers".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG
@@ -464,6 +479,8 @@ localEventCall(textValue, textValue2, textValue4)
 localEventCall = RegisterCommand
 textValue = "takeoffshoes"
 -- Beginner: this function is the command handler for "takeoffshoes".
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local cmgCall, cmgCall2, textValue3, flag4, textValue5, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag, flag2, flag3
   cmgCall = CMG

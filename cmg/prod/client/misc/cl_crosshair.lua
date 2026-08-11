@@ -1,56 +1,56 @@
 --[[
-    Beginner Guide: cl_crosshair.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Crosshair
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Crosshair
+    =======================================
 
     File: cmg/prod/client/misc/cl_crosshair.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Crosshair feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 29
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/cfg_crosshair
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Commands/command-like entries found:
-      * crosshair
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * Press ~b~ENTER~w~ to enter RGB Red value
-      * Enter Red Value (0-255)
-      * Press ~b~ENTER~w~ to enter RGB Green value
-      * Enter Green Value (0-255)
-      * Press ~b~ENTER~w~ to enter RGB Blue value
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, flag2, workValue6, workValue7, workValue8, workValue10, rageUiCall4, flag4, textValue7, rageUiCall5, textValue, cmgCall2, rageUiCall2, rageUiCall3, flag, workValue5
 cmgCall = CMG
@@ -59,6 +59,8 @@ flag2 = "cfg/cfg_crosshair"
 -- Beginner: result below is config.
 cmgCall = cmgCall(flag2)
 flag2 = false
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2, textValue4, textValue5, tableHelper, labelValue, workValue11, workValue12
   arg1 = 1
@@ -91,6 +93,8 @@ function workValue6()
     tableHelper(labelValue, workValue11, workValue12)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, textValue4, textValue5, tableHelper, labelValue, workValue11, workValue12, indexValue, textValue8, textValue2
   arg1 = workValue6
@@ -240,6 +244,8 @@ function workValue7()
     textValue2.blue = textValue8
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
 function workValue8()
   local arg1, arg2, textValue4
   arg1 = SetResourceKvpInt
@@ -299,6 +305,8 @@ function workValue8()
   textValue4 = textValue4.green
   arg1(arg2, textValue4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2) ===
 function workValue10(arg1, arg2)
   local textValue4, textValue5, tableHelper
   textValue4 = CMG
@@ -346,6 +354,8 @@ cmgCall2 = "main"
 -- Beginner: result below is menu.
 textValue7 = textValue7(rageUiCall5, textValue, cmgCall2)
 rageUiCall5 = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, textValue4, textValue5, tableHelper, labelValue
   arg1 = RageUI
@@ -360,6 +370,8 @@ function textValue()
   textValue4 = true
   textValue5 = true
   tableHelper = true
+
+  -- === HELPER FUNCTION: labelValue() ===
   function labelValue()
     local rageUiCall, textValue3, dataTable, numberValue2, dataTable2, dataTable3, flag3, workValue13
     rageUiCall = flag2
@@ -375,9 +387,13 @@ function textValue()
     numberValue2 = numberValue2.enabled
     numberValue2 = 1 == numberValue2
     dataTable2 = {}
+
+    -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
     function dataTable3()
       local arg12, arg22
     end
+
+    -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
     function flag3()
       local arg12, arg22
       arg12 = cmgCall.options
@@ -385,6 +401,8 @@ function textValue()
       arg12 = workValue8
       arg12()
     end
+
+    -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
     function workValue13()
       local arg12, arg22
       arg12 = cmgCall.options
@@ -414,6 +432,8 @@ function textValue()
       dataTable2 = nil
       dataTable3 = {}
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9
         if arg22 then
@@ -442,6 +462,8 @@ function textValue()
       dataTable2 = nil
       dataTable3 = {}
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9
         if arg22 then
@@ -469,6 +491,8 @@ function textValue()
       dataTable2 = nil
       dataTable3 = {}
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9, numberValue3
         if arg22 then
@@ -503,6 +527,8 @@ function textValue()
       dataTable2 = nil
       dataTable3 = {}
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9, numberValue3
         if arg22 then
@@ -536,6 +562,8 @@ function textValue()
       dataTable2 = nil
       dataTable3 = {}
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9, numberValue3
         if arg22 then
@@ -585,6 +613,8 @@ function textValue()
       flag3.A = 255
       dataTable3.ProgressColor = flag3
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9, numberValue3, textValue6, workValue14
         if arg22 then
@@ -646,6 +676,8 @@ function textValue()
       flag3.A = 255
       dataTable3.ProgressColor = flag3
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9, numberValue3, textValue6, workValue14
         if arg22 then
@@ -707,6 +739,8 @@ function textValue()
       flag3.A = 255
       dataTable3.ProgressColor = flag3
       flag3 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg12, arg22, arg3, arg4) ===
       function workValue13(arg12, arg22, arg3, arg4)
         local workValue9, numberValue3, textValue6, workValue14
         if arg22 then
@@ -750,9 +784,13 @@ function textValue()
       numberValue2 = numberValue2.forcedGtaCrosshair
       numberValue2 = 1 == numberValue2
       dataTable2 = {}
+
+      -- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
       function dataTable3()
         local arg12, arg22
       end
+
+      -- === HELPER FUNCTION (decompiler name: flag3; parameters: none) ===
       function flag3()
         local arg12, arg22
         arg12 = cmgCall.options
@@ -760,6 +798,8 @@ function textValue()
         arg12 = workValue8
         arg12()
       end
+
+      -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
       function workValue13()
         local arg12, arg22
         arg12 = cmgCall.options
@@ -774,6 +814,8 @@ function textValue()
   arg1(arg2, textValue4, textValue5, tableHelper, labelValue)
 end
 rageUiCall4(flag4, textValue7, rageUiCall5, textValue)
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
 function rageUiCall4()
   local arg1, arg2, textValue4, textValue5, tableHelper, labelValue, workValue11, workValue12, indexValue, textValue8, textValue2, workValue, workValue2, workValue3, workValue4, numberValue
   arg1 = cmgCall.options
@@ -873,6 +915,8 @@ end
 flag4 = false
 textValue7 = false
 rageUiCall5 = 0
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, textValue4, textValue5, tableHelper
   arg1 = cmgCall.options
@@ -951,6 +995,8 @@ function textValue()
         end
         arg2 = SetTimeout
         textValue4 = 1000
+
+        -- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
         function textValue5()
           local rageUiCall, textValue3
           rageUiCall = false
@@ -973,6 +1019,8 @@ cmgCall2(rageUiCall2, rageUiCall3)
 cmgCall2 = RegisterCommand
 rageUiCall2 = "crosshair"
 -- Beginner: this function is the command handler for "crosshair".
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall3; parameters: none) ===
 function rageUiCall3()
   local arg1, arg2, textValue4, textValue5, tableHelper
   arg1 = RageUI
@@ -991,6 +1039,8 @@ flag = false
 -- Beginner: Register a chat/console command. Event/command: "crosshair".
 cmgCall2(rageUiCall2, rageUiCall3, flag)
 cmgCall2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
 function rageUiCall2()
   local arg1, arg2
   arg1 = true
@@ -1000,6 +1050,8 @@ cmgCall2.setHideCrosshairNextFrameHack = rageUiCall2
 cmgCall2 = {}
 rageUiCall2 = false
 rageUiCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
 function flag(arg1)
   local arg2, textValue4, textValue5, tableHelper
   arg2 = true
@@ -1019,6 +1071,8 @@ function flag(arg1)
 end
 rageUiCall3.openRadialMenu = flag
 rageUiCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: arg1, arg2) ===
 function flag(arg1, arg2)
   local textValue4
   textValue4 = cmgCall2
@@ -1028,6 +1082,8 @@ rageUiCall3.addRadialMenuHandler = flag
 rageUiCall3 = CMG
 rageUiCall3 = rageUiCall3.uiRegisterCallback
 flag = "radialClick"
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, textValue4, textValue5, tableHelper
   arg2 = arg1.itemid
@@ -1045,6 +1101,8 @@ rageUiCall3(flag, workValue5)
 rageUiCall3 = CMG
 rageUiCall3 = rageUiCall3.uiRegisterCallback
 flag = "radialClose"
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, textValue4, textValue5
   arg1 = rageUiCall2

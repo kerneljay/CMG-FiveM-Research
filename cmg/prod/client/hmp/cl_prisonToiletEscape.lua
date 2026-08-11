@@ -1,49 +1,56 @@
 --[[
-    Beginner Guide: cl_prisonToiletEscape.lua
-    =========================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Prison Toilet Escape
-    =====================================
+    LEVEL 1 BEGINNER GUIDE — Prison Toilet Escape
+    ==================================================
 
     File: cmg/prod/client/hmp/cl_prisonToiletEscape.lua
-    Purpose: This file contains prison/HMP gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: prison gameplay, specifically the Prison Toilet Escape feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 12
+      * Background threads: 0
+      * Always-running loops: 4
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 4
-      They are intentionally left unchanged because matching server code may use them.
-      * d73cd69672
-      * d939d5b1ea
-      * aee0b08546
-      * 19f123276f
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * Press ~INPUT_CONTEXT~ to start your escape
-      * ~r~You need a screwdriver to start the toilet escape. Buy one from the canteen.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, numberValue2, workValue7, flag5, workValue9, workValue10, workValue11, workValue12, dataTable2, eventRegistration, textValue, workValue2
 dataTable = {}
@@ -63,6 +70,8 @@ numberValue2 = false
 workValue7 = nil
 flag5 = false
 workValue9 = nil
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2) ===
 function workValue10(arg1, arg2)
   local arg3, workValue8, textValue2, flag6, flag7, numberValue5, flag10, coords2, workValue
   arg3 = {}
@@ -99,12 +108,16 @@ function workValue10(arg1, arg2)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
 function workValue11(arg1)
   local arg2, arg3
   arg2 = true
   numberValue2 = arg2
   arg2 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local coords, playerPed, numberValue3, iterator, numberValue4, textValue3, flag8, flag9, workValue13, workValue14
     while true do
@@ -162,6 +175,8 @@ function workValue11(arg1)
   arg2(arg3)
   arg2 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local coords, playerPed, numberValue3
     while true do
@@ -198,6 +213,8 @@ function workValue11(arg1)
   arg2(arg3)
   arg2 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local coords, playerPed
     while true do
@@ -228,6 +245,8 @@ function workValue11(arg1)
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: none) ===
 function workValue12()
   local arg1, arg2
   arg1 = false
@@ -237,6 +256,8 @@ dataTable2 = {}
 eventRegistration = RegisterNetEvent
 textValue = "d73cd69672"
 -- Beginner: this function handles network event "d73cd69672".
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2, arg3) ===
 function workValue2(arg1, arg2, arg3)
   local workValue8, textValue2, flag6, flag7
   workValue8 = dataTable2
@@ -292,11 +313,15 @@ function workValue2(arg1, arg2, arg3)
   end
   workValue8 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
   function textValue2()
     local coords, playerPed, numberValue3, iterator, numberValue4, textValue3, flag8, flag9, workValue13, workValue14, modelHash, workValue4, workValue5, flag3, flag4
     coords = false
     playerPed = {}
     -- Beginner: this function is the body of a background FiveM thread.
+
+    -- === HELPER FUNCTION (decompiler name: numberValue3; parameters: none) ===
     function numberValue3()
       local flag, workValue6
       flag = true
@@ -410,6 +435,8 @@ function workValue2(arg1, arg2, arg3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d73cd69672".
 eventRegistration(textValue, workValue2)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
 function eventRegistration(arg1)
   local arg2, arg3, workValue8, textValue2, flag6, flag7, numberValue5, flag10, coords2, workValue, workValue3, numberValue, flag2
   arg2 = CMG
@@ -550,6 +577,8 @@ CMG_prisonToiletStartGame = eventRegistration
 eventRegistration = RegisterNetEvent
 textValue = "aee0b08546"
 -- Beginner: this function handles network event "aee0b08546".
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2
   arg1 = workValue11
@@ -561,6 +590,8 @@ eventRegistration(textValue, workValue2)
 eventRegistration = RegisterNetEvent
 textValue = "19f123276f"
 -- Beginner: this function handles network event "19f123276f".
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2
   arg1 = workValue12

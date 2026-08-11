@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Cctv
+    ==================================
+
+    File: cmg/prod/client/core/cl_cctv.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Cctv feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 11
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_cctv
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     CCTV / Security Camera Client
     =============================
 
@@ -42,7 +80,9 @@ end
 -- SMALL NUI HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: showCameraOverlay(location, camera) ===
 local function showCameraOverlay(location, camera)
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         type = "enablecam",
         label = camera.label,
@@ -50,14 +90,18 @@ local function showCameraOverlay(location, camera)
     })
 end
 
+-- === HELPER FUNCTION: updateCameraOverlay(camera) ===
 local function updateCameraOverlay(camera)
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         type = "updatecam",
         label = camera.label
     })
 end
 
+-- === HELPER FUNCTION: hideCameraOverlay() ===
 local function hideCameraOverlay()
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         type = "disablecam"
     })
@@ -68,6 +112,7 @@ end
 -- CAMERA CREATION / CLOSING
 -- ============================================================
 
+-- === HELPER FUNCTION: ChangeSecurityCamera(x, y, z, rotation) ===
 function ChangeSecurityCamera(x, y, z, rotation)
     if securityCamera ~= 0 then
         DestroyCam(
@@ -113,6 +158,7 @@ function ChangeSecurityCamera(x, y, z, rotation)
 end
 
 
+-- === HELPER FUNCTION: CloseSecurityCamera() ===
 function CloseSecurityCamera()
     if securityCamera ~= 0 then
         DestroyCam(
@@ -153,6 +199,8 @@ end
 
 
 -- Called when the player leaves a CCTV control-box area.
+
+-- === HELPER FUNCTION: leaveCameraBox() ===
 local function leaveCameraBox()
     CloseSecurityCamera()
     hideCameraOverlay()
@@ -163,6 +211,7 @@ end
 -- SWITCH TO ONE CONFIGURED CAMERA
 -- ============================================================
 
+-- === HELPER FUNCTION: useConfiguredCamera(cameraIndex) ===
 local function useConfiguredCamera(cameraIndex)
     local location =
         cctvConfig.Locations[
@@ -207,6 +256,7 @@ end
 -- CCTV BOX TICK
 -- ============================================================
 
+-- === HELPER FUNCTION: cctvBoxTick(areaData) ===
 local function cctvBoxTick(areaData)
     local locationIndex =
         areaData.index
@@ -470,6 +520,8 @@ end
 -- ============================================================
 
 -- Keep the original misspelt global name because another file may refer to it.
+
+-- === HELPER FUNCTION: CreateInstuctionScaleform(scaleformName) ===
 function CreateInstuctionScaleform(scaleformName)
     local scaleform =
         RequestScaleformMovie(
@@ -571,6 +623,7 @@ function CreateInstuctionScaleform(scaleformName)
 end
 
 
+-- === HELPER FUNCTION: InstructionButton(buttonText) ===
 function InstructionButton(buttonText)
     ScaleformMovieMethodAddParamPlayerNameString(
         buttonText
@@ -578,6 +631,7 @@ function InstructionButton(buttonText)
 end
 
 
+-- === HELPER FUNCTION: InstructionButtonMessage(message) ===
 function InstructionButtonMessage(message)
     BeginTextCommandScaleformString(
         "STRING"

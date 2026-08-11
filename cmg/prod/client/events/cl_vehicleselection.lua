@@ -1,55 +1,64 @@
 --[[
-    Beginner Guide: cl_vehicleselection.lua
-    =======================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Vehicleselection
-    =================================
+    LEVEL 1 BEGINNER GUIDE — Vehicleselection
+    ==============================================
 
     File: cmg/prod/client/events/cl_vehicleselection.lua
-    Purpose: This file contains event/minigame logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Vehicleselection feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 18
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 2
-      They are intentionally left unchanged because matching server code may use them.
-      * 1239b973de
-      * 2d1686688d
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * Event Vehicle Selection
-      * Select your vehicle
-      * Available Vehicles
-      * ~INPUT_JUMP~
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, cmgCall2, cmgCall3, textValue7, textValue8, cmgCall4, textValue9, textValue10, rageUiCall6, textValue12, textValue, rageUiCall, textValue2, textValue3, rageUiCall3, rageUiCall4, textValue4, textValue5
 dataTable = {}
 cmgCall2 = CMG
 cmgCall2 = cmgCall2.registerHudTimerBarProvider
 cmgCall3 = "vehicleSelection"
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
 function textValue7(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = dataTable.camera
@@ -74,6 +83,8 @@ function textValue7(arg1)
   end
 end
 cmgCall2(cmgCall3, textValue7)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, arg4, arg5, arg6, mathHelper, workValue8
   arg2 = 5.0
@@ -131,6 +142,8 @@ function cmgCall2(arg1)
   return arg3
 end
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function textValue7(arg1, arg2, arg3, arg4, arg5, arg6)
   local mathHelper, workValue8, flag6, flag7, position, position2, tableHelper2, cmgCall, numberValue, numberValue2, flag, numberValue3
   dataTable.position = arg1
@@ -180,6 +193,8 @@ function textValue7(arg1, arg2, arg3, arg4, arg5, arg6)
   mathHelper = table
   mathHelper = mathHelper.sort
   workValue8 = dataTable.orders
+
+  -- === HELPER FUNCTION (decompiler name: flag6; parameters: arg12, arg22) ===
   function flag6(arg12, arg22)
     local textValue6
     textValue6 = arg12 < arg22
@@ -246,6 +261,8 @@ function textValue7(arg1, arg2, arg3, arg4, arg5, arg6)
 end
 cmgCall3.startVehicleSelection = textValue7
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
 function textValue7()
   local arg1, arg2, arg3, arg4, arg5, arg6, mathHelper, workValue8, flag6, flag7, position
   arg1 = dataTable.camera
@@ -323,6 +340,8 @@ cmgCall3.endVehicleSelection = textValue7
 cmgCall3 = RegisterNetEvent
 textValue7 = "1239b973de"
 -- Beginner: this function handles network event "1239b973de".
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
 function textValue8(arg1)
   local arg2
   dataTable.votes = arg1
@@ -346,6 +365,8 @@ cmgCall3[5] = textValue10
 cmgCall3[6] = rageUiCall6
 cmgCall3[7] = textValue12
 cmgCall3[8] = textValue
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
 function textValue7(arg1)
   local arg2
   if 1 == arg1 then
@@ -374,6 +395,8 @@ function textValue7(arg1)
     return arg2
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
 function textValue8()
   local arg1, arg2, arg3, arg4, arg5, arg6, mathHelper, workValue8, flag6, flag7, position, position2, tableHelper2
   arg1 = dataTable.camera
@@ -455,6 +478,8 @@ textValue9 = textValue8
 textValue10 = "Event Vehicle Selection"
 -- Beginner: Run a helper every game frame while this script is active.
 cmgCall4(textValue9, textValue10)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2) ===
 function cmgCall4(arg1, arg2)
   local arg3, arg4, arg5, arg6, mathHelper, workValue8, flag6, flag7, position
   dataTable.lastVehicleName = arg2
@@ -551,6 +576,8 @@ function cmgCall4(arg1, arg2)
   flag6 = arg4.z
   arg5(arg6, mathHelper, workValue8, flag6)
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue9; parameters: arg1, arg2, arg3) ===
 function textValue9(arg1, arg2, arg3)
   local arg4, arg5, arg6, mathHelper
   arg4 = dataTable.lastVehicleName
@@ -582,6 +609,8 @@ function textValue9(arg1, arg2, arg3)
   end
   ::flow_label_26::
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue10; parameters: arg1, arg2, arg3, arg4) ===
 function textValue10(arg1, arg2, arg3, arg4)
   local arg5, arg6, mathHelper, workValue8, flag6
   if arg1 then
@@ -678,6 +707,8 @@ textValue3 = "mainmenu"
 -- Beginner: result below is menu.
 textValue = textValue(rageUiCall, textValue2, textValue3)
 rageUiCall = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, arg2, arg3, arg4, arg5, arg6
   arg1 = RageUI
@@ -692,6 +723,8 @@ function textValue2()
   arg3 = true
   arg4 = true
   arg5 = true
+
+  -- === HELPER FUNCTION: arg6() ===
   function arg6()
     local arg12, arg22, textValue6, workValue4, dataTable4, flag4, iterator, rageUiCall5, textValue11, workValue10, tableHelper, dataTable2, stringHelper, rageUiCall2, workValue, players, flag2, flag3, workValue2, workValue3
     arg12 = dataTable.votes
@@ -733,9 +766,13 @@ function textValue2()
           players = #players
           stringHelper = stringHelper(rageUiCall2, workValue, players)
           dataTable2.RightLabel = stringHelper
+
+          -- === HELPER FUNCTION: stringHelper() ===
           function stringHelper()
             local arg13, arg23
           end
+
+          -- === HELPER FUNCTION (decompiler name: rageUiCall2; parameters: none) ===
           function rageUiCall2()
             local arg13, arg23, arg32, dataTable3
             arg13 = TriggerServerEvent
@@ -745,6 +782,8 @@ function textValue2()
             -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "2d1686688d".
             arg13(arg23, arg32, dataTable3)
           end
+
+          -- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
           function workValue()
             local arg13, arg23, arg32, dataTable3
             arg13 = TriggerServerEvent
@@ -776,6 +815,8 @@ function textValue2()
       dataTable4 = {}
       dataTable4.RightLabel = "\226\156\148\239\184\143"
       flag4 = true
+
+      -- === HELPER FUNCTION: iterator(arg13, arg23, arg32) ===
       function iterator(arg13, arg23, arg32)
         local dataTable3, workValue5, workValue6, workValue7, flag5, workValue9
         dataTable3 = {}
@@ -823,6 +864,8 @@ function textValue2()
             players = nil
             flag2 = stringHelper
             flag3 = true
+
+            -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg13, arg23, arg32) ===
             function workValue2(arg13, arg23, arg32)
               local dataTable3, workValue5, workValue6, workValue7, flag5
               dataTable3 = textValue10

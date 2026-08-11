@@ -1,60 +1,56 @@
 --[[
-    Beginner Guide: cl_hud.lua
-    ==========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Hud
-    ====================
+    LEVEL 1 BEGINNER GUIDE — Hud
+    =================================
 
     File: cmg/prod/client/hud/cl_hud.lua
-    Purpose: This file contains HUD and on-screen UI.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: HUD and on-screen player information, specifically the Hud feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 72
+      * Background threads: 0
+      * Always-running loops: 9
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/cfg_hud
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 5
-      They are intentionally left unchanged because matching server code may use them.
-      * 7ad2e2f656
-      * 3ee4eff5d1
-      * b9028016de
-      * b43f1cc624
-      * 0b1dd98e8e
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
-    Example player-facing text in this file:
-      * toggleVehicleEngine
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, dataTable6, flag4, flag9, textValue10, cmgCall13, workValue17, workValue18, cmgCall14, cmgCall15, flag, dataTable, dataTable2, workValue3, workValue4, cmgCall2, dataTable3, cmgCall3, dataTable4, dataTable5, dataTable7, dataTable9, dataTable10, dataTable11, cmgCall5, dataTable12, cmgCall6, textValue6, workValue9, cmgCall7, cmgCall8, textValue7, workValue10, workValue11, cmgCall9, cmgCall10, textValue8, workValue12, flag7, flag8, workValue14, cmgCall11, cmgCall12, textValue9, workValue15
 cmgCall = CMG
@@ -75,6 +71,8 @@ cmgCall13 = "cmg_legacy_hud"
 textValue10 = textValue10(cmgCall13)
 textValue10 = "1" == textValue10
 cmgCall13 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, arg2
   arg1 = textValue10
@@ -82,6 +80,8 @@ function workValue17()
 end
 cmgCall13.isLegacyHudEnabled = workValue17
 cmgCall13 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, arg2
   arg1 = flag4
@@ -89,6 +89,8 @@ function workValue17()
 end
 cmgCall13.isHudVehicleCursorEnabled = workValue17
 cmgCall13 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, arg2
   arg1 = flag9
@@ -97,6 +99,8 @@ end
 cmgCall13.isHudLoaded = workValue17
 cmgCall13 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, arg2
   while true do
@@ -117,6 +121,8 @@ end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 cmgCall13(workValue17)
 cmgCall13 = nil
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, arg2
   arg1 = CMG
@@ -124,6 +130,8 @@ function workValue17()
   arg2 = "HIDE_HUD"
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
 function workValue18()
   local arg1, arg2
   arg1 = CMG
@@ -132,6 +140,8 @@ function workValue18()
   arg1(arg2)
 end
 cmgCall14 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: none) ===
 function cmgCall15()
   local arg1, arg2
   arg1 = DisplayRadar
@@ -154,6 +164,8 @@ function cmgCall15()
 end
 cmgCall14.showHud = cmgCall15
 cmgCall14 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: arg1) ===
 function cmgCall15(arg1)
   local arg2, arg3
   if arg1 then
@@ -179,6 +191,8 @@ function cmgCall15(arg1)
 end
 cmgCall14.setHudCallManagerNotificationsOnlyMode = cmgCall15
 cmgCall14 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: none) ===
 function cmgCall15()
   local arg1, arg2
   arg1 = DisplayRadar
@@ -203,6 +217,8 @@ function cmgCall15()
 end
 cmgCall14.hideHud = cmgCall15
 cmgCall14 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: none) ===
 function cmgCall15()
   local arg1, arg2
   arg1 = DisplayRadar
@@ -231,6 +247,8 @@ cmgCall14.hideHudForDeathScreen = cmgCall15
 cmgCall14 = AddEventHandler
 cmgCall15 = "7ad2e2f656"
 -- Beginner: this function runs when client event "7ad2e2f656" fires.
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: none) ===
 function flag()
   local arg1, arg2
   arg1 = CMG
@@ -242,6 +260,8 @@ cmgCall14(cmgCall15, flag)
 cmgCall14 = AddEventHandler
 cmgCall15 = "3ee4eff5d1"
 -- Beginner: this function runs when client event "3ee4eff5d1" fires.
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: none) ===
 function flag()
   local arg1, arg2
   arg1 = CMG
@@ -253,6 +273,8 @@ cmgCall14(cmgCall15, flag)
 cmgCall14 = AddEventHandler
 cmgCall15 = "b9028016de"
 -- Beginner: this function runs when client event "b9028016de" fires.
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
 function flag(arg1)
   local arg2
   if arg1 then
@@ -267,6 +289,8 @@ function flag(arg1)
 end
 -- Beginner: Register a client-side event handler. Event/command: "b9028016de".
 cmgCall14(cmgCall15, flag)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall14; parameters: none) ===
 function cmgCall14()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue
   arg1 = GetSafeZoneSize
@@ -327,6 +351,8 @@ function cmgCall14()
   return mathHelper
 end
 cmgCall15 = CMG
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: none) ===
 function flag()
   local arg1, arg2
   arg1 = cmgCall14
@@ -336,6 +362,8 @@ function flag()
 end
 cmgCall15.getHudLeftNormalized = flag
 cmgCall15 = CMG
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: none) ===
 function flag()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4
   arg1 = GetActiveScreenResolution
@@ -385,6 +413,8 @@ function flag()
   return stringHelper2
 end
 cmgCall15.getRoundMinimapRightPx = flag
+
+-- === HELPER FUNCTION (decompiler name: cmgCall15; parameters: none) ===
 function cmgCall15()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue
   arg1 = cmgCall.minimapPositionPresets
@@ -493,6 +523,8 @@ dataTable2.posY = 0.058
 dataTable2.sizeX = 0.296
 dataTable2.sizeY = 0.339
 dataTable.bl = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue, textValue2, textValue3, textValue4, workValue5, workValue6, workValue7, workValue8
   arg1 = type
@@ -662,6 +694,8 @@ function dataTable2()
   textValue2 = 1050
   textValue(textValue2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4
   arg1 = type
@@ -737,6 +771,8 @@ function workValue3()
   arg2 = 1050
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2
   arg1 = CMG
@@ -772,6 +808,8 @@ function workValue4()
   end
 end
 cmgCall2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
 function dataTable3()
   local arg1, arg2
   arg1 = workValue4
@@ -834,6 +872,8 @@ cmgCall2[8] = dataTable11
 cmgCall2[9] = cmgCall5
 cmgCall2[10] = dataTable12
 cmgCall2[11] = cmgCall6
+
+-- === HELPER FUNCTION (decompiler name: dataTable3; parameters: none) ===
 function dataTable3()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue, textValue2
   arg1 = textValue10
@@ -895,6 +935,8 @@ function dataTable3()
   end
 end
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3, workValue13
   arg2 = SetResourceKvp
@@ -920,6 +962,8 @@ function dataTable4(arg1)
 end
 cmgCall3.setLegacyHudEnabled = dataTable4
 cmgCall3 = 200
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3
   arg2 = math
@@ -928,12 +972,16 @@ function dataTable4(arg1)
   arg3 = arg3 + 80.5
   return arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg1) ===
 function dataTable5(arg1)
   local arg2
   arg2 = arg1 - 80
   arg2 = arg2 / 400
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
 function dataTable7()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue, textValue2, textValue3, textValue4, workValue5, workValue6, workValue7
   arg1 = true
@@ -1014,8 +1062,12 @@ function dataTable7()
   workValue7 = workValue7.sizeY
   numberValue(textValue, textValue2, textValue3, textValue4, workValue5, workValue6, workValue7)
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable9; parameters: none) ===
 function dataTable9()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue
+
+  -- === HELPER FUNCTION: arg1(arg12) ===
   function arg1(arg12)
     local arg22, arg32, arg4
     arg22 = string
@@ -1104,6 +1156,8 @@ function dataTable9()
   arg2(arg3)
 end
 dataTable10 = 0
+
+-- === HELPER FUNCTION (decompiler name: dataTable11; parameters: arg1, arg2, arg3) ===
 function dataTable11(arg1, arg2, arg3)
   local workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue, textValue2
   workValue13 = dataTable4
@@ -1129,6 +1183,8 @@ function dataTable11(arg1, arg2, arg3)
   numberValue5 = false
   numberValue = {}
   textValue = true
+
+  -- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg12, arg22, arg32, arg4) ===
   function textValue2(arg12, arg22, arg32, arg4)
     local threadCall, workValue16, numberValue3, flag10
     threadCall = workValue13
@@ -1152,6 +1208,8 @@ function dataTable11(arg1, arg2, arg3)
       workValue16 = SetTimeout
       numberValue3 = 300
       -- Beginner: this function is the body of a background FiveM thread.
+
+      -- === HELPER FUNCTION (decompiler name: flag10; parameters: none) ===
       function flag10()
         local workValue, flag2, flag5
         workValue = dataTable10
@@ -1166,6 +1224,8 @@ function dataTable11(arg1, arg2, arg3)
           workValue(flag2)
           workValue = SetTimeout
           flag2 = 50
+
+          -- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
           function flag5()
             local workValue2, flag3, flag6
             workValue2 = SetRadarBigmapEnabled
@@ -1184,6 +1244,8 @@ end
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.registerDevMenuItems
 dataTable12 = "Minimap Tuner"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2
   arg1 = true
@@ -1194,6 +1256,8 @@ function cmgCall6()
   arg3 = "Print copy-paste-ready code to F8 console"
   workValue13 = {}
   stringHelper = true
+
+  -- === HELPER FUNCTION: stringHelper2(arg12, arg22, arg32) ===
   function stringHelper2(arg12, arg22, arg32)
     local arg4
     if arg32 then
@@ -1208,6 +1272,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.registerDevMenuItems
 dataTable12 = "Minimap Tuner/Content (minimap)"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2, arg3, workValue13
   arg1 = true
@@ -1237,6 +1303,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.registerDevMenuItems
 dataTable12 = "Minimap Tuner/Mask (minimap_mask)"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2, arg3, workValue13
   arg1 = true
@@ -1266,6 +1334,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.registerDevMenuItems
 dataTable12 = "Minimap Tuner/Blur (minimap_blur)"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2, arg3, workValue13
   arg1 = true
@@ -1295,6 +1365,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.uiRegisterCallback
 dataTable12 = "loaded"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2
   arg1 = true
@@ -1306,6 +1378,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = AddEventHandler
 dataTable12 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
 function cmgCall6(arg1, arg2)
   local arg3, workValue13
   while true do
@@ -1339,6 +1413,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.uiRegisterCallback
 dataTable12 = "getHudSetting"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
 function cmgCall6(arg1, arg2)
   local arg3, workValue13, stringHelper
   arg3 = arg1.type
@@ -1350,6 +1426,8 @@ cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.uiRegisterCallback
 dataTable12 = "persistHudSettingsJson"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1) ===
 function cmgCall6(arg1)
   local arg2, arg3, workValue13, stringHelper, stringHelper2
   arg2 = type
@@ -1373,6 +1451,8 @@ function cmgCall6(arg1)
 end
 cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable12; parameters: arg1, arg2) ===
 function dataTable12(arg1, arg2)
   local arg3, workValue13
   while true do
@@ -1395,6 +1475,8 @@ function dataTable12(arg1, arg2)
 end
 cmgCall5.sendHudNuiMessage = dataTable12
 cmgCall5 = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable12; parameters: none) ===
 function dataTable12()
   local arg1, arg2, arg3, workValue13
   arg1 = CMG
@@ -1409,6 +1491,8 @@ end
 cmgCall5.syncHudNotifySoundEnabled = dataTable12
 cmgCall5 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: dataTable12; parameters: none) ===
 function dataTable12()
   local arg1, arg2, arg3, workValue13
   while true do
@@ -1514,6 +1598,8 @@ cmgCall5(dataTable12)
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.uiRegisterCallback
 dataTable12 = "resize"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2
   arg1 = workValue4
@@ -1522,6 +1608,8 @@ end
 cmgCall5(dataTable12, cmgCall6)
 cmgCall5 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: dataTable12; parameters: none) ===
 function dataTable12()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4
   arg1 = GetActiveScreenResolution
@@ -1563,6 +1651,8 @@ function dataTable12()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 cmgCall5(dataTable12)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5
   arg1 = CMG
@@ -1609,6 +1699,8 @@ function cmgCall5()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable12; parameters: arg1) ===
 function dataTable12(arg1)
   local arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4
   arg2 = GetVehicleLightsState
@@ -1633,6 +1725,8 @@ end
 cmgCall6 = CMG
 cmgCall6 = cmgCall6.uiRegisterCallback
 textValue6 = "closeSettings"
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2, arg3, workValue13
   arg1 = CMG
@@ -1662,6 +1756,8 @@ function workValue9()
 end
 cmgCall6(textValue6, workValue9)
 cmgCall6 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
 function textValue6()
   local arg1, arg2, arg3, workValue13
   arg1 = CMG
@@ -1689,6 +1785,8 @@ cmgCall6.backLeftDoor = false
 cmgCall6.backRightDoor = false
 cmgCall6.hood = false
 cmgCall6.trunk = false
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1, arg2, arg3) ===
 function textValue6(arg1, arg2, arg3)
   local workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue
   workValue13 = true
@@ -1707,6 +1805,8 @@ function textValue6(arg1, arg2, arg3)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue
   arg1 = CMG
@@ -2555,6 +2655,8 @@ end
 cmgCall7 = CMG
 cmgCall7 = cmgCall7.uiRegisterCallback
 cmgCall8 = "vehicleDoors"
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg1) ===
 function textValue7(arg1)
   local arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4
   arg2 = CMG
@@ -2590,6 +2692,8 @@ cmgCall7(cmgCall8, textValue7)
 cmgCall7 = CMG
 cmgCall7 = cmgCall7.uiRegisterCallback
 cmgCall8 = "toggleVehicleEngine"
+
+-- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
 function textValue7()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4
   arg1 = CMG
@@ -2621,6 +2725,8 @@ function textValue7()
   end
 end
 cmgCall7(cmgCall8, textValue7)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall7; parameters: arg1, arg2, arg3) ===
 function cmgCall7(arg1, arg2, arg3)
   local workValue13, stringHelper, stringHelper2, textValue11
   workValue13 = DoesEntityExist
@@ -2651,6 +2757,8 @@ end
 cmgCall8 = CMG
 cmgCall8 = cmgCall8.uiRegisterCallback
 textValue7 = "toggleWindow"
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2) ===
 function workValue10(arg1, arg2)
   local arg3, workValue13, stringHelper, stringHelper2
   arg3 = TriggerServerEvent
@@ -2668,6 +2776,8 @@ cmgCall8(textValue7)
 cmgCall8 = AddEventHandler
 textValue7 = "0b1dd98e8e"
 -- Beginner: this function runs when client event "0b1dd98e8e" fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2, arg3) ===
 function workValue10(arg1, arg2, arg3)
   local workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper
   workValue13 = GetPlayerPed
@@ -2702,6 +2812,8 @@ end
 cmgCall8(textValue7, workValue10)
 cmgCall8 = {}
 textValue7 = false
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
 function workValue10(arg1)
   local arg2, arg3, workValue13
   arg2 = cmgCall8
@@ -2721,6 +2833,8 @@ function workValue10(arg1)
     return arg2
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
 function workValue11()
   local arg1, arg2, arg3
   arg1 = textValue7
@@ -2733,6 +2847,8 @@ function workValue11()
     textValue7 = arg2
     arg2 = CreateThread
     -- Beginner: this function is the body of a background FiveM thread.
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local arg12, arg22, arg32, arg4, threadCall, workValue16, numberValue3, flag10
       while true do
@@ -2782,6 +2898,8 @@ end
 cmgCall9 = CMG
 cmgCall9 = cmgCall9.uiRegisterCallback
 cmgCall10 = "toggleNeon"
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
 function textValue8(arg1)
   local arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue
   arg2 = CMG
@@ -2861,6 +2979,8 @@ cmgCall9(cmgCall10, textValue8)
 cmgCall9 = CMG
 cmgCall9 = cmgCall9.uiRegisterCallback
 cmgCall10 = "OnInputFocus"
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
 function textValue8()
   local arg1, arg2, arg3, workValue13
   arg1 = flag4
@@ -2877,6 +2997,8 @@ cmgCall9(cmgCall10, textValue8)
 cmgCall9 = CMG
 cmgCall9 = cmgCall9.uiRegisterCallback
 cmgCall10 = "OnInputFocusRemove"
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
 function textValue8()
   local arg1, arg2, arg3, workValue13
   arg1 = flag4
@@ -2890,6 +3012,8 @@ function textValue8()
   end
 end
 cmgCall9(cmgCall10, textValue8)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg1) ===
 function cmgCall9(arg1)
   local arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue
   arg2 = -1
@@ -2918,6 +3042,8 @@ end
 cmgCall10 = CMG
 cmgCall10 = cmgCall10.uiRegisterCallback
 textValue8 = "waypoint"
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1) ===
 function workValue12(arg1)
   local arg2, arg3, workValue13, stringHelper, stringHelper2
   arg2 = cmgCall.QuickLocations
@@ -2958,6 +3084,8 @@ function workValue12(arg1)
   end
 end
 cmgCall10(textValue8, workValue12)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: arg1, arg2) ===
 function cmgCall10(arg1, arg2)
   local arg3, workValue13, stringHelper
   arg3 = arg2 or nil
@@ -2972,6 +3100,8 @@ function cmgCall10(arg1, arg2)
   stringHelper = arg1 + stringHelper
   return workValue13(stringHelper)
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: none) ===
 function textValue8()
   local arg1, arg2
   arg1 = dataTable6.speedType
@@ -2985,6 +3115,8 @@ function textValue8()
   ::flow_label_8::
   return arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
 function workValue12(arg1, arg2)
   local arg3, workValue13
   if not arg2 then
@@ -3015,6 +3147,8 @@ function workValue12(arg1, arg2)
 end
 flag7 = false
 flag8 = false
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
 function workValue14()
   local arg1, arg2, arg3, workValue13, stringHelper
   arg1 = flag4
@@ -3255,6 +3389,8 @@ textValue9 = "handbrake_check"
 cmgCall11(cmgCall12, textValue9)
 cmgCall11 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall12; parameters: none) ===
 function cmgCall12()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue
   while true do
@@ -3367,6 +3503,8 @@ cmgCall11.W = 90
 cmgCall11.NW = 45
 cmgCall12 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
 function textValue9()
   local arg1, arg2, arg3, workValue13, stringHelper, stringHelper2, textValue11, numberValue4, mathHelper, numberValue5, numberValue, textValue, textValue2, textValue3, textValue4, workValue5, workValue6, workValue7, workValue8, textValue5, dataTable8, cmgCall4, numberValue2
   arg1 = false
@@ -3581,6 +3719,8 @@ cmgCall12(textValue9)
 cmgCall12 = CMG
 cmgCall12 = cmgCall12.uiRegisterCallback
 textValue9 = "changeSeat"
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
 function workValue15(arg1)
   local arg2, arg3
   arg2 = CMG

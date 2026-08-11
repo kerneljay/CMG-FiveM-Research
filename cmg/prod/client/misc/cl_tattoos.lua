@@ -1,57 +1,56 @@
 --[[
-    Beginner Guide: cl_tattoos.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Tattoos
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Tattoos
+    =====================================
 
     File: cmg/prod/client/misc/cl_tattoos.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Tattoos feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 17
+      * Background threads: 0
+      * Always-running loops: 3
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Config/data used:
-      * cfg/ped_cfg/cfg_tattoos
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * 195b53ce8c
-      * 9bb006b498
-      * 4e23f069b7
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * mainMenu
-      * Enter tattoo ID you want to wear
-      * Enter Tattoo ID 
-      * ~INPUT_CELLPHONE_EXTRA_OPTION~
-      * ~INPUT_CELLPHONE_OPTION~
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, cmgCall2, flag6, rageUiCall2, dataTable8, dataTable9, rageUiCall3, rageUiCall4, dataTable10, dataTable11, dataTable, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, workValue7, workValue8, workValue9, workValue10, eventRegistration, rageUiCall, numberValue8, workValue11, workValue12, cmgCall3, textValue3
 cmgCall = RMenu
@@ -151,6 +150,8 @@ dataTable3 = {}
 dataTable4 = {}
 dataTable5 = false
 dataTable6 = false
+
+-- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
 function dataTable7()
   local arg1, arg2, arg3
   arg1 = CMG
@@ -177,6 +178,8 @@ function dataTable7()
   arg2 = false
   dataTable = arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
 function workValue7(arg1)
   local arg2, arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2
   arg2 = type
@@ -212,6 +215,8 @@ function workValue7(arg1)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
 function workValue8(arg1)
   local arg2, arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue
   arg2 = dataTable8
@@ -240,6 +245,8 @@ function workValue8(arg1)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2, arg3) ===
 function workValue9(arg1, arg2, arg3)
   local tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3
   tableHelper = SetEntityHeading
@@ -465,6 +472,8 @@ function workValue9(arg1, arg2, arg3)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
 function workValue10()
   local arg1, arg2, arg3, tableHelper, workValue13, numberValue15
   arg1 = {}
@@ -490,6 +499,8 @@ function workValue10()
   arg1[5] = numberValue15
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local serverEventCall, textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9
     serverEventCall = Wait
@@ -582,10 +593,14 @@ end
 eventRegistration = AddEventHandler
 rageUiCall = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1, arg2) ===
 function numberValue8(arg1, arg2)
   local arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2, workValue3, flag2, numberValue, numberValue2, numberValue3, textValue, numberValue4, numberValue5, numberValue6, numberValue7, numberValue9, numberValue10, flag3, flag4, flag5, textValue4, textValue5, numberValue11, numberValue13, numberValue14
   if arg2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local serverEventCall, textValue2, numberValue12, textValue6, flag7
       serverEventCall = TriggerServerEvent
@@ -618,6 +633,8 @@ function numberValue8(arg1, arg2)
       numberValue12 = true
       serverEventCall(textValue2, numberValue12)
     end
+
+    -- === HELPER FUNCTION: tableHelper() ===
     function tableHelper()
       local serverEventCall, textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9
       serverEventCall = DoesCamExist
@@ -693,6 +710,8 @@ function numberValue8(arg1, arg2)
       serverEventCall = {}
       rageUiCall3 = serverEventCall
     end
+
+    -- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
     function workValue13()
       local serverEventCall, textValue2, numberValue12, textValue6, flag7
       serverEventCall = flag6
@@ -796,6 +815,8 @@ end
 eventRegistration(rageUiCall, numberValue8)
 eventRegistration = Citizen
 eventRegistration = eventRegistration.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: rageUiCall; parameters: none) ===
 function rageUiCall()
   local arg1, arg2, arg3
   arg1 = false
@@ -829,6 +850,8 @@ eventRegistration(rageUiCall)
 eventRegistration = RegisterNetEvent
 rageUiCall = "9bb006b498"
 -- Beginner: this function handles network event "9bb006b498".
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1) ===
 function numberValue8(arg1)
   local arg2, arg3, tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8, workValue, workValue2
   arg2 = Citizen
@@ -898,6 +921,8 @@ function numberValue8(arg1)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9bb006b498".
 eventRegistration(rageUiCall, numberValue8)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3) ===
 function eventRegistration(arg1, arg2, arg3)
   local tableHelper, workValue13, numberValue15, hashValue, workValue15, cmgCall5, textValue8
   tableHelper = pairs
@@ -930,6 +955,8 @@ textValue3 = "mainMenu"
 -- Beginner: result below is menu.
 workValue11 = workValue11(workValue12, cmgCall3, textValue3)
 workValue12 = nil
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2, arg3, tableHelper, workValue13, numberValue15
   arg1 = dataTable
@@ -946,6 +973,8 @@ function cmgCall3()
     arg3 = true
     tableHelper = false
     workValue13 = true
+
+    -- === HELPER FUNCTION (decompiler name: numberValue15; parameters: none) ===
     function numberValue15()
       local serverEventCall, textValue2, numberValue12, textValue6, flag7, cmgCall4, hashValue2, workValue16, textValue7, textValue9, dataTable2, flag, workValue4, workValue5, workValue6
       serverEventCall = 1
@@ -968,6 +997,8 @@ function cmgCall3()
         textValue9 = "Tattoo Add/Removal Price: \194\1631,000"
         dataTable2 = {}
         flag = true
+
+        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg12, arg22, arg32, arg4) ===
         function workValue4(arg12, arg22, arg32, arg4)
           local workValue14, numberValue16, numberValue17, numberValue18, flag8, flag9
           if arg22 then
@@ -1143,6 +1174,8 @@ function cmgCall3()
             end
           end
         end
+
+        -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
         function workValue5()
           local arg12, arg22
         end

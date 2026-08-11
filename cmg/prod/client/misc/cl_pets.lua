@@ -1,35 +1,40 @@
 --[[
-    BEGINNER GUIDE — Pets
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Pets
+    ==================================
 
     File: cmg/prod/client/misc/cl_pets.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Pets feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Commands/command-like entries found:
-      * /pet
-      * /100
+    Quick map of this file (automatic static scan):
+      * Named functions: 43
+      * Background threads: 5
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: onResourceStop
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 18
-      They are intentionally left unchanged because matching server code may use them.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Named framework/network events found:
-      * chat:addSuggestion
-
-    Example player-facing text in this file:
-      * Select your ~b~Pet
-      * You do not own any ~b~pets~w~. Visit a ~b~pet store ~w~to purchase one.
-      * You have now ~b~purchased ~w~a ~b~
-      * You have now changed your pet name to ~b~
-      * You are now able to spawn in a pet again.
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     CMG Pets - beginner-friendly rewrite
@@ -125,10 +130,12 @@ TriggerEvent(
     "Manage your owned pets!"
 )
 
+-- === HELPER FUNCTION: getPetMenu() ===
 local function getPetMenu()
     return RMenu:Get(MENU_NAMESPACE, "main")
 end
 
+-- === HELPER FUNCTION: getPetStoreMenu() ===
 local function getPetStoreMenu()
     return RMenu:Get(MENU_NAMESPACE, "store")
 end
@@ -236,11 +243,13 @@ local lastRideAttempt = 0
 -- GENERAL HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: petNotify(_, message) ===
 local function petNotify(_, message)
     -- The original helper ignored the notification type.
     notify(message)
 end
 
+-- === HELPER FUNCTION: setMainMenuSubtitle() ===
 local function setMainMenuSubtitle()
     if not activePet.active then
         getPetMenu():SetSubtitle("Select your ~b~Pet")
@@ -267,6 +276,7 @@ local function setMainMenuSubtitle()
     getPetMenu():SetSubtitle(subtitle)
 end
 
+-- === HELPER FUNCTION: getActivePet() ===
 local function getActivePet()
     if not activePet.active or activePet.id == 0 then
         return nil
@@ -279,6 +289,7 @@ local function getActivePet()
     return petConfig.pets[activePet.id]
 end
 
+-- === HELPER FUNCTION: playerOwnsAnyUsablePet() ===
 local function playerOwnsAnyUsablePet()
     for _, pet in pairs(petConfig.pets or {}) do
         if pet.info
@@ -296,6 +307,7 @@ end
 -- PET MENU ACCESS CHECK
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: canUsePetMenu() ===
 local function canUsePetMenu()
     -- [DECOMPILER RECONSTRUCTION]
     --
@@ -311,6 +323,7 @@ end
 -- PET STORE CAMERA
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: openPetStore() ===
 local function openPetStore()
     RageUI.Visible(getPetStoreMenu(), true)
 
@@ -355,6 +368,7 @@ local function openPetStore()
     storeState.cameraEnabled = true
 end
 
+-- === HELPER FUNCTION: closePetStore() ===
 local function closePetStore()
     RageUI.Visible(getPetStoreMenu(), false)
 
@@ -390,6 +404,7 @@ local function closePetStore()
     end
 end
 
+-- === HELPER FUNCTION: petStoreAreaTick() ===
 local function petStoreAreaTick()
     -- The original area tick callback was empty.
 end
@@ -398,6 +413,7 @@ end
 -- SHOP NPC APPEARANCE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: customisePetShopNpc(ped) ===
 local function customisePetShopNpc(ped)
     SetPedComponentVariation(ped, 1, 0, 0, 0)
     SetPedComponentVariation(ped, 2, 12, 3, 1)
@@ -717,6 +733,7 @@ AddEventHandler(
 -- PET NETWORK-ACTION SENDER
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: sendPetAction(actionName, ...) ===
 local function sendPetAction(actionName, ...)
     if not activePet.active
         or activePet.handle == 0
@@ -750,6 +767,7 @@ end
 -- PET SPAWNING
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: makePetFollowPlayer() ===
 local function makePetFollowPlayer()
 
     local pet = getActivePet()
@@ -793,6 +811,7 @@ local function makePetFollowPlayer()
     pet.info.currentAction = PET_ACTION.Follow
 end
 
+-- === HELPER FUNCTION: CMG.setActivePetFollowsPlayer() ===
 function CMG.setActivePetFollowsPlayer()
     if activePet.active
         and activePet.id ~= 0
@@ -803,6 +822,7 @@ function CMG.setActivePetFollowsPlayer()
     end
 end
 
+-- === HELPER FUNCTION: spawnPet(petId) ===
 local function spawnPet(petId)
     local pet = petConfig.pets
         and petConfig.pets[petId]
@@ -884,6 +904,7 @@ end
 -- DELETE ACTIVE PET
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: deleteActivePet() ===
 local function deleteActivePet()
     if not activePet.active then
         return
@@ -925,6 +946,7 @@ end
 -- BASIC PET ACTIONS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: makePetStay() ===
 local function makePetStay()
     local pet = getActivePet()
     if not pet then
@@ -935,6 +957,7 @@ local function makePetStay()
     pet.info.currentAction = PET_ACTION.Stay
 end
 
+-- === HELPER FUNCTION: makePetSit() ===
 local function makePetSit()
     local pet = getActivePet()
 
@@ -956,6 +979,7 @@ local function makePetSit()
     pet.info.currentAction = PET_ACTION.Sit
 end
 
+-- === HELPER FUNCTION: teleportPetToPlayer() ===
 local function teleportPetToPlayer()
     local pet = getActivePet()
     if not pet then
@@ -968,6 +992,7 @@ local function teleportPetToPlayer()
     )
 end
 
+-- === HELPER FUNCTION: performPetTrick(animation) ===
 local function performPetTrick(animation)
     local pet = getActivePet()
 
@@ -988,6 +1013,7 @@ end
 -- SHOULDER PETS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: putPetOnShoulder(useRightShoulder) ===
 local function putPetOnShoulder(useRightShoulder)
     local pet = getActivePet()
 
@@ -1011,6 +1037,7 @@ local function putPetOnShoulder(useRightShoulder)
     )
 end
 
+-- === HELPER FUNCTION: placeShoulderPetOnGround() ===
 local function placeShoulderPetOnGround()
     local pet = getActivePet()
 
@@ -1040,6 +1067,7 @@ end
 -- VEHICLE PETS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: putPetInNearestVehicle() ===
 local function putPetInNearestVehicle()
     local pet = getActivePet()
     if not pet then
@@ -1079,6 +1107,7 @@ local function putPetInNearestVehicle()
     )
 end
 
+-- === HELPER FUNCTION: removePetFromVehicle() ===
 local function removePetFromVehicle()
     local pet = getActivePet()
     if not pet then
@@ -1114,6 +1143,7 @@ end
 -- ATTACK TARGETING
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: animatedMarkerColour(speed) ===
 local function animatedMarkerColour(speed)
     local time = GetGameTimer() / 200
 
@@ -1130,6 +1160,7 @@ local function animatedMarkerColour(speed)
     }
 end
 
+-- === HELPER FUNCTION: beginAttackSelection() ===
 local function beginAttackSelection()
     local pet = getActivePet()
 
@@ -1142,6 +1173,7 @@ local function beginAttackSelection()
 
     RageUI.Visible(getPetMenu(), false)
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         pet.info.currentAction =
             PET_ACTION.Attack
@@ -1357,6 +1389,7 @@ local RIDE_MODEL_HASH = 6768186
 local FREEMODE_MALE_HASH = 1885233650
 local FREEMODE_FEMALE_HASH = -1667301416
 
+-- === HELPER FUNCTION: startRidingPet() ===
 local function startRidingPet()
     local pet = getActivePet()
 
@@ -1440,6 +1473,7 @@ local function startRidingPet()
         RIDE_MODEL_HASH
     )
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         Wait(200)
 
@@ -1530,6 +1564,7 @@ local function startRidingPet()
         1191392768
     )
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         while activePet.active
             and activePet.id ~= 0
@@ -1586,6 +1621,7 @@ local function startRidingPet()
             originalCustomization
         )
 
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(function()
             Wait(200)
 
@@ -1614,6 +1650,7 @@ end
 -- PET STORE MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawPetStoreMenu() ===
 local function drawPetStoreMenu()
     if storeState.purchasing then
         local pet =
@@ -1741,6 +1778,7 @@ RageUI.CreateWhile(
 -- PET STORE PREVIEW THREAD
 ---------------------------------------------------------------------
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if storeState.viewingPet
@@ -1860,6 +1898,7 @@ end)
 -- MAIN PET MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawMainPetMenu() ===
 local function drawMainPetMenu()
     if not canUsePetMenu() then
         RageUI.CloseAll()
@@ -2320,6 +2359,7 @@ local function playPetAnimation(
     )
 end
 
+-- === HELPER FUNCTION: deletePetEntity(petPed) ===
 local function deletePetEntity(petPed)
     DeleteEntity(petPed)
 end
@@ -2359,6 +2399,7 @@ local function followPlayerByServerId(
     )
 end
 
+-- === HELPER FUNCTION: makePetEntityStay(petPed) ===
 local function makePetEntityStay(petPed)
     ClearPedTasks(petPed)
 end
@@ -2778,6 +2819,7 @@ AddEventHandler(
 -- PET HEALTH / DEATH / STORE CAMERA TICK
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: petSystemTick() ===
 local function petSystemTick()
     -------------------------------------------------------------
     -- ACTIVE PET HEALTH / DEATH
@@ -2923,6 +2965,7 @@ local function petSystemTick()
     end
 end
 
+-- === HELPER FUNCTION: CMG.hasPetSpawned() ===
 function CMG.hasPetSpawned()
     return activePet.active
 end
@@ -2980,6 +3023,7 @@ local catCafeAnimations = {
 
 local localCatCafeCats = {}
 
+-- === HELPER FUNCTION: spawnCatCafeCats() ===
 local function spawnCatCafeCats()
     CMG.loadModel(CAT_MODEL)
 
@@ -3115,6 +3159,7 @@ local function spawnCatCafeCats()
     end
 end
 
+-- === HELPER FUNCTION: updateCatCafeCats() ===
 local function updateCatCafeCats()
     for _, ped in pairs(
         GetGamePool("CPed")
@@ -3149,6 +3194,7 @@ local function updateCatCafeCats()
     end
 end
 
+-- === HELPER FUNCTION: removeLocalCatCafeCats() ===
 local function removeLocalCatCafeCats()
     for _, cat in pairs(
         localCatCafeCats

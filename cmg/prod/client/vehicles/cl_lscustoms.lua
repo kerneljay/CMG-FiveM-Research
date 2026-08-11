@@ -1,57 +1,56 @@
 --[[
-    Beginner Guide: cl_lscustoms.lua
-    ================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Lscustoms
-    ==========================
+    LEVEL 1 BEGINNER GUIDE — Lscustoms
+    =======================================
 
     File: cmg/prod/client/vehicles/cl_lscustoms.lua
-    Purpose: This file contains vehicle-related gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: vehicle gameplay and vehicle systems, specifically the Lscustoms feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 125
+      * Background threads: 0
+      * Always-running loops: 14
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/cfg_lscustoms
-      * cfg/cfg_store
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 25
-      They are intentionally left unchanged because matching server code may use them.
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * Repair Vehicle
-      * Main Menu
-      * ~INPUT_NEXT_CAMERA~
-      * ~r~You have already applied this mod
-      * Press ~INPUT_FRONTEND_ACCEPT~ to change %s
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, cmgCall2, textValue5, textValue6, textValue8, rageUiCall3, textValue15, textValue16, rageUiCall5, rageUiCall6, textValue, textValue2, flag3, workValue3, workValue5, dataTable, workValue7, workValue8, workValue9, workValue10, workValue11, workValue13, workValue15, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue31, numberValue3, workValue32, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, rageUiCall2, dataTable2, workValue43, workValue44, textValue9, cmgCall3, workValue45, workValue46, workValue47, workValue48, eventRegistration, textValue10, textValue11, cmgCall4, textValue12, cmgCall5, textValue13, textValue14
 cmgCall = CMG
@@ -101,6 +100,8 @@ textValue2 = "cmg_lscustomsui"
 rageUiCall3, textValue15, textValue16, rageUiCall5, rageUiCall6, textValue, textValue2, flag3, workValue3, workValue5, dataTable, workValue7, workValue8, workValue9, workValue10, workValue11, workValue13, workValue15, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue31, numberValue3, workValue32, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, rageUiCall2, dataTable2, workValue43, workValue44, textValue9, cmgCall3, workValue45, workValue46, workValue47, workValue48, eventRegistration, textValue10, textValue11, cmgCall4, textValue12, cmgCall5, textValue13, textValue14 = rageUiCall3(textValue15, textValue16, rageUiCall5, rageUiCall6, textValue, textValue2)
 textValue5(textValue6, textValue8, rageUiCall3, textValue15, textValue16, rageUiCall5, rageUiCall6, textValue, textValue2, flag3, workValue3, workValue5, dataTable, workValue7, workValue8, workValue9, workValue10, workValue11, workValue13, workValue15, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue25, workValue26, workValue27, workValue28, workValue29, workValue30, workValue31, numberValue3, workValue32, workValue33, workValue34, workValue35, workValue36, workValue37, workValue38, workValue39, workValue40, workValue41, workValue42, rageUiCall2, dataTable2, workValue43, workValue44, textValue9, cmgCall3, workValue45, workValue46, workValue47, workValue48, eventRegistration, textValue10, textValue11, cmgCall4, textValue12, cmgCall5, textValue13, textValue14)
 textValue5 = {}
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
 function textValue6(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall
   arg2 = table
@@ -200,6 +201,8 @@ flag3 = false
 workValue3 = nil
 workValue5 = nil
 dataTable = {}
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg1 = {}
@@ -218,6 +221,8 @@ function workValue7()
   return arg1
 end
 dataTable.livery = workValue7
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg1 = {}
@@ -240,6 +245,8 @@ function workValue7()
   return arg1
 end
 dataTable.extra = workValue7
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg1 = {}
@@ -256,6 +263,8 @@ function workValue7()
   return arg1
 end
 dataTable.bootupgrade = workValue7
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2) ===
 function workValue7(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5
   arg3 = SetCamActive
@@ -377,6 +386,8 @@ function workValue7(arg1, arg2)
   flag5 = false
   textValue18(rageUiCall7, rageUiCall, workValue, workValue2, flag5)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2) ===
 function workValue8(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2
   arg3 = GetEntityBoneIndexByName
@@ -438,6 +449,8 @@ function workValue8(arg1, arg2)
   workValue2 = false
   textValue17(textValue18, rageUiCall7, rageUiCall, workValue, workValue2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
 function workValue9(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5
   arg2 = rageUiCall6
@@ -496,6 +509,8 @@ function workValue9(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
 function workValue10()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg1 = rageUiCall6
@@ -546,6 +561,8 @@ function workValue10()
   stringHelper2 = false
   arg3(textValue7, stringHelper2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1) ===
 function workValue11(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue
   arg2 = arg1.cameraPreset
@@ -598,6 +615,8 @@ function workValue11(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1, arg2) ===
 function workValue13(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7
   arg3 = pairs
@@ -615,6 +634,8 @@ function workValue13(arg1, arg2)
   textValue7 = nil
   arg3(textValue7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
 function workValue15()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg1 = {}
@@ -642,6 +663,8 @@ function workValue15()
   arg2 = 0
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg1) ===
 function workValue17(arg1)
   local arg2, arg3, textValue7, stringHelper2
   if not arg1 or arg1 <= 0 then
@@ -657,6 +680,8 @@ function workValue17(arg1)
   textValue7 = arg1 * textValue7
   return arg3(textValue7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2, arg3) ===
 function workValue18(arg1, arg2, arg3)
   local textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   if arg1 then
@@ -687,6 +712,8 @@ function workValue18(arg1, arg2, arg3)
     return stringHelper2
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
 function workValue19()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue
   arg1 = textValue2
@@ -709,6 +736,8 @@ function workValue19()
   arg1(arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue)
   arg1 = Citizen
   arg1 = arg1.CreateThread
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local arg12, arg22, arg32, arg4, flag8, flag10
     arg12 = GetGameTimer
@@ -754,6 +783,8 @@ function workValue19()
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2) ===
 function workValue20(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue
   arg3 = arg1.modType
@@ -779,12 +810,16 @@ function workValue20(arg1, arg2)
   arg3(textValue7, stringHelper2, rageUiCall4, nameValue)
   ::flow_label_20::
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1) ===
 function workValue21(arg1)
   local arg2, arg3, textValue7
   arg2 = workValue13
   textValue7 = arg1.saveKey
   arg3 = textValue8
   arg3 = arg3[textValue7]
+
+  -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg12) ===
   function textValue7(arg12)
     local arg22, arg32, arg4, flag8, flag10
     if arg12 then
@@ -841,6 +876,8 @@ function workValue21(arg1)
   end
   arg2(arg3, textValue7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1) ===
 function workValue22(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue
   arg2 = -1
@@ -894,6 +931,8 @@ function workValue22(arg1)
     workValue2 = nil
     flag5 = rageUiCall7
     flag6 = true
+
+    -- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg12, arg22, arg32) ===
     function numberValue(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49, workValue50, workValue52
       if arg22 then
@@ -945,6 +984,8 @@ function workValue22(arg1)
     rageUiCall(workValue, workValue2, flag5, flag6, numberValue)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1, arg2) ===
 function workValue23(arg1, arg2)
   local arg3, textValue7, stringHelper2
   arg3 = arg1.saveKey
@@ -955,6 +996,8 @@ function workValue23(arg1, arg2)
     arg3(textValue7, stringHelper2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue24; parameters: arg1) ===
 function workValue24(arg1)
   local arg2, arg3, textValue7
   arg2 = arg1.saveKey
@@ -963,6 +1006,8 @@ function workValue24(arg1)
     textValue7 = arg1.saveKey
     arg3 = textValue8
     arg3 = arg3[textValue7]
+
+    -- === HELPER FUNCTION (decompiler name: textValue7; parameters: arg12) ===
     function textValue7(arg12)
       local arg22, arg32, arg4, flag8
       if arg12 then
@@ -985,6 +1030,8 @@ function workValue24(arg1)
     arg2(arg3, textValue7)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue25; parameters: arg1) ===
 function workValue25(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue
   arg3 = arg1.generatorName
@@ -1018,6 +1065,8 @@ function workValue25(arg1)
     workValue2 = nil
     flag5 = rageUiCall7
     flag6 = true
+
+    -- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg12, arg22, arg32) ===
     function numberValue(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49, workValue50, workValue52
       if arg22 then
@@ -1069,6 +1118,8 @@ function workValue25(arg1)
     rageUiCall(workValue, workValue2, flag5, flag6, numberValue)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1) ===
 function workValue26(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue
   arg3 = arg1.generatorName
@@ -1102,6 +1153,8 @@ function workValue26(arg1)
     workValue2 = nil
     flag5 = rageUiCall7
     flag6 = true
+
+    -- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg12, arg22, arg32) ===
     function numberValue(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49, workValue50
       if arg32 then
@@ -1152,6 +1205,8 @@ function workValue26(arg1)
     rageUiCall(workValue, workValue2, flag5, flag6, numberValue)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg1, arg2) ===
 function workValue27(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg3 = GetIsVehiclePrimaryColourCustom
@@ -1177,6 +1232,8 @@ function workValue27(arg1, arg2)
   textValue17 = textValue7
   stringHelper2(rageUiCall4, nameValue, textValue17)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue28; parameters: arg1, arg2) ===
 function workValue28(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg3 = GetIsVehicleSecondaryColourCustom
@@ -1201,6 +1258,8 @@ function workValue28(arg1, arg2)
   textValue17 = arg2
   stringHelper2(rageUiCall4, nameValue, textValue17)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue29; parameters: arg1, arg2) ===
 function workValue29(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18
   arg3 = arg1.saveKey
@@ -1675,6 +1734,8 @@ function workValue29(arg1, arg2)
       textValue7(stringHelper2, rageUiCall4)
       textValue7 = SetTimeout
       stringHelper2 = 500
+
+      -- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
       function rageUiCall4()
         local arg12, arg22, arg32
         arg12 = SetVehicleRadioEnabled
@@ -1696,6 +1757,8 @@ function workValue29(arg1, arg2)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue30; parameters: arg1) ===
 function workValue30(arg1)
   local arg2, arg3, textValue7, stringHelper2
   arg2 = arg1.saveKey
@@ -1714,6 +1777,8 @@ function workValue30(arg1)
   elseif "windowtint" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.windowtint
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8
       if arg12 then
@@ -1737,6 +1802,8 @@ function workValue30(arg1)
   elseif "frontwheel" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.frontwheel
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10, workValue49
       arg22 = SetVehicleWheelType
@@ -1774,6 +1841,8 @@ function workValue30(arg1)
   elseif "backwheel" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.backwheel
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10, workValue49
       arg22 = SetVehicleWheelType
@@ -1811,6 +1880,8 @@ function workValue30(arg1)
   elseif "pearlescent" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.pearlescent
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10, workValue49
       arg22 = GetVehicleColours
@@ -1839,6 +1910,8 @@ function workValue30(arg1)
   elseif "wheelcolor" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.wheelcolor
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10
       if arg12 then
@@ -1868,6 +1941,8 @@ function workValue30(arg1)
   elseif "interiorcolour" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.interiorcolour
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8
       if arg12 then
@@ -1891,6 +1966,8 @@ function workValue30(arg1)
   elseif "dashboardcolour" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.dashboardcolour
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8
       if arg12 then
@@ -1914,6 +1991,8 @@ function workValue30(arg1)
   elseif "mod_14" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.mod_14
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10
       if arg12 then
@@ -1943,6 +2022,8 @@ function workValue30(arg1)
   elseif "mod_15" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.mod_15
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10
       if arg12 then
@@ -1972,10 +2053,14 @@ function workValue30(arg1)
   elseif "mod_22" == arg2 or "xenonlights" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.mod_22
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4
       arg22 = workValue13
       arg32 = textValue8.xenonlights
+
+      -- === HELPER FUNCTION: arg4(arg13) ===
       function arg4(arg13)
         local arg23, arg33, numberValue4, flag9
         arg23 = arg12
@@ -2015,10 +2100,14 @@ function workValue30(arg1)
   elseif "neonlayout" == arg2 or "neoncolour" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.neonlayout
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4
       arg22 = workValue13
       arg32 = textValue8.neoncolour
+
+      -- === HELPER FUNCTION: arg4(arg13) ===
       function arg4(arg13)
         local arg23, arg33, numberValue4, flag9, flag11, numberValue5, workValue51
         arg23 = arg12
@@ -2142,6 +2231,8 @@ function workValue30(arg1)
   elseif "sounds" == arg2 then
     arg3 = workValue13
     textValue7 = textValue8.sounds
+
+    -- === HELPER FUNCTION: stringHelper2(arg12) ===
     function stringHelper2(arg12)
       local arg22, arg32, arg4, flag8, flag10
       if arg12 then
@@ -2165,6 +2256,8 @@ function workValue30(arg1)
       end
       arg22 = SetTimeout
       arg32 = 500
+
+      -- === HELPER FUNCTION: arg4() ===
       function arg4()
         local arg13, arg23, arg33
         arg13 = SetVehicleRadioEnabled
@@ -2181,12 +2274,16 @@ function workValue30(arg1)
     arg3(textValue7, stringHelper2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1) ===
 function workValue31(arg1)
   local arg2, arg3
   arg2 = arg1.saveKey
   if "mod_14" == arg2 then
     arg2 = Citizen
     arg2 = arg2.CreateThread
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local arg12, arg22, arg32, arg4, flag8
       arg12 = GetGameTimer
@@ -2245,6 +2342,8 @@ function workValue31(arg1)
   end
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local arg12, arg22, arg32, arg4, flag8, flag10, workValue49, workValue50, workValue52, flag12, flag, flag2, flag4
     arg12 = CMG
@@ -2294,6 +2393,8 @@ function workValue31(arg1)
   arg2(arg3)
 end
 numberValue3 = 0.5
+
+-- === HELPER FUNCTION (decompiler name: workValue32; parameters: none) ===
 function workValue32()
   local arg1, arg2, arg3, textValue7
   arg1 = GetVehiclePedIsIn
@@ -2319,6 +2420,8 @@ function workValue32()
   arg3 = false
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
 function workValue33(arg1)
   local arg2
   if "Engine Tunes" == arg1 or "Transmission" == arg1 or "Suspension" == arg1 or "Turbo" == arg1 or "Brakes" == arg1 then
@@ -2328,6 +2431,8 @@ function workValue33(arg1)
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue34; parameters: arg1) ===
 function workValue34(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue, flag7, numberValue2
   arg2 = arg1.helpText
@@ -2394,6 +2499,8 @@ function workValue34(arg1)
     flag6 = nil
     numberValue = workValue
     flag7 = true
+
+    -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg12, arg22, arg32) ===
     function numberValue2(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49, workValue50
       if arg22 then
@@ -2445,6 +2552,8 @@ function workValue34(arg1)
     workValue2(flag5, flag6, numberValue, flag7, numberValue2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue35; parameters: arg1) ===
 function workValue35(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6
   arg2 = pairs
@@ -2484,6 +2593,8 @@ function workValue35(arg1)
     workValue = nil
     workValue2 = textValue18
     flag5 = true
+
+    -- === HELPER FUNCTION (decompiler name: flag6; parameters: arg12, arg22, arg32) ===
     function flag6(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49, workValue50
       if arg32 then
@@ -2513,6 +2624,8 @@ function workValue35(arg1)
     rageUiCall7(rageUiCall, workValue, workValue2, flag5, flag6)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1) ===
 function workValue36(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5
   arg3 = arg1.saveKey
@@ -2551,6 +2664,8 @@ function workValue36(arg1)
     workValue2 = workValue2(flag5)
     workValue.RightLabel = workValue2
     workValue2 = true
+
+    -- === HELPER FUNCTION (decompiler name: flag5; parameters: arg12, arg22, arg32) ===
     function flag5(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49
       if arg32 then
@@ -2558,6 +2673,8 @@ function workValue36(arg1)
         arg4 = arg4.clientPrompt
         flag8 = arg1.inputTitle
         flag10 = ""
+
+        -- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg13) ===
         function workValue49(arg13)
           local arg23, arg33, numberValue4, flag9, flag11, numberValue5, workValue51, workValue53
           arg33 = nameValue
@@ -2613,6 +2730,8 @@ function workValue36(arg1)
   nameValue = nameValue .. textValue17
   rageUiCall4.RightLabel = nameValue
   nameValue = true
+
+  -- === HELPER FUNCTION (decompiler name: textValue17; parameters: arg12, arg22, arg32) ===
   function textValue17(arg12, arg22, arg32)
     local arg4, flag8, flag10, workValue49, workValue50
     if arg32 then
@@ -2629,6 +2748,8 @@ function workValue36(arg1)
   -- Beginner: Draw a selectable RageUI menu button.
   arg3(textValue7, stringHelper2, rageUiCall4, nameValue, textValue17)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue37; parameters: arg1, arg2) ===
 function workValue37(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg3 = arg1.saveKey
@@ -2641,11 +2762,15 @@ function workValue37(arg1, arg2)
     textValue7(stringHelper2, rageUiCall4, nameValue, textValue17)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue38; parameters: arg1) ===
 function workValue38(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2
   arg3 = arg1.saveKey
   arg2 = textValue8
   arg2 = arg2[arg3]
+
+  -- === HELPER FUNCTION: arg3(arg12, arg22) ===
   function arg3(arg12, arg22)
     local arg32, arg4, flag8, flag10
     if arg12 then
@@ -2653,6 +2778,8 @@ function workValue38(arg1)
       arg32 = arg32.clientPrompt
       arg4 = "Enter Value (0 - 255)"
       flag8 = ""
+
+      -- === HELPER FUNCTION (decompiler name: flag10; parameters: arg13) ===
       function flag10(arg13)
         local arg23, arg33, numberValue4
         arg23 = tonumber
@@ -2676,6 +2803,8 @@ function workValue38(arg1)
       arg32(arg4, flag8, flag10)
     end
   end
+
+  -- === HELPER FUNCTION (decompiler name: textValue7; parameters: none) ===
   function textValue7()
     local arg12, arg22, arg32, arg4, flag8, flag10, workValue49
     arg12 = workValue37
@@ -2709,6 +2838,8 @@ function workValue38(arg1)
     textValue18 = textValue18 .. rageUiCall7
     textValue17.RightLabel = textValue18
     textValue18 = true
+
+    -- === HELPER FUNCTION (decompiler name: rageUiCall7; parameters: arg12, arg22, arg32) ===
     function rageUiCall7(arg12, arg22, arg32)
       local arg4, flag8, flag10, workValue49, workValue50
       if arg32 then
@@ -2745,10 +2876,14 @@ function workValue38(arg1)
   rageUiCall7 = false
   rageUiCall = {}
   workValue = nil ~= arg2
+
+  -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg12, arg22, arg32, arg4) ===
   function workValue2(arg12, arg22, arg32, arg4)
     local flag8, flag10, workValue49
     flag8 = arg3
     flag10 = arg32
+
+    -- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg13) ===
     function workValue49(arg13)
       local arg23
       arg2.red = arg13
@@ -2780,10 +2915,14 @@ function workValue38(arg1)
   rageUiCall7 = false
   rageUiCall = {}
   workValue = nil ~= arg2
+
+  -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg12, arg22, arg32, arg4) ===
   function workValue2(arg12, arg22, arg32, arg4)
     local flag8, flag10, workValue49
     flag8 = arg3
     flag10 = arg32
+
+    -- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg13) ===
     function workValue49(arg13)
       local arg23
       arg2.green = arg13
@@ -2815,10 +2954,14 @@ function workValue38(arg1)
   rageUiCall7 = false
   rageUiCall = {}
   workValue = nil ~= arg2
+
+  -- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg12, arg22, arg32, arg4) ===
   function workValue2(arg12, arg22, arg32, arg4)
     local flag8, flag10, workValue49
     flag8 = arg3
     flag10 = arg32
+
+    -- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg13) ===
     function workValue49(arg13)
       local arg23
       arg2.blue = arg13
@@ -2835,6 +2978,8 @@ function workValue38(arg1)
   end
   stringHelper2(rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue39; parameters: arg1, arg2) ===
 function workValue39(arg1, arg2)
   local arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue
   arg3 = RageUI
@@ -2844,6 +2989,8 @@ function workValue39(arg1, arg2)
   rageUiCall4 = {}
   rageUiCall4.RightLabel = "\226\134\146\226\134\146\226\134\146"
   nameValue = true
+
+  -- === HELPER FUNCTION (decompiler name: textValue17; parameters: arg12, arg22, arg32) ===
   function textValue17(arg12, arg22, arg32)
     local arg4, flag8, flag10, workValue49, workValue50, workValue52, flag12
     if arg32 then
@@ -2867,6 +3014,8 @@ function workValue39(arg1, arg2)
   -- Beginner: Draw a selectable RageUI menu button.
   arg3(textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue40; parameters: arg1) ===
 function workValue40(arg1)
   local arg2, arg3, textValue7
   arg2 = IsControlJustPressed
@@ -2885,6 +3034,8 @@ function workValue40(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue41; parameters: arg1) ===
 function workValue41(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall
   arg2 = {}
@@ -2901,6 +3052,8 @@ function workValue41(arg1)
   arg3 = table
   arg3 = arg3.sort
   textValue7 = arg2
+
+  -- === HELPER FUNCTION: stringHelper2(arg12, arg22) ===
   function stringHelper2(arg12, arg22)
     local arg32, arg4
     arg32 = arg12.name
@@ -2917,6 +3070,8 @@ function workValue41(arg1)
   arg3(textValue7, stringHelper2)
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue42; parameters: arg1) ===
 function workValue42(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18
   arg2 = RageUI
@@ -2931,10 +3086,14 @@ function workValue42(arg1)
   textValue7 = true
   stringHelper2 = true
   rageUiCall4 = true
+
+  -- === HELPER FUNCTION: nameValue() ===
   function nameValue()
     local arg12, arg22, arg32, arg4, flag8, flag10, workValue49, workValue50, workValue52, flag12, flag, flag2, flag4, workValue4, textValue3, workValue6
     arg12 = RageUI
     arg12 = arg12.BackspaceMenuCallback
+
+    -- === HELPER FUNCTION: arg22() ===
     function arg22()
       local arg13, arg23
       arg13 = workValue11
@@ -3053,6 +3212,8 @@ function workValue42(arg1)
                           flag12 = {}
                           flag12.RightLabel = "\226\134\146\226\134\146\226\134\146"
                           flag = true
+
+                          -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg13, arg23, arg33) ===
                           function flag2(arg13, arg23, arg33)
                             local numberValue4, flag9
                             if arg33 then
@@ -3105,6 +3266,8 @@ cmgCall3 = "mainmenu"
 -- Beginner: result below is menu.
 workValue43 = workValue43(workValue44, textValue9, cmgCall3)
 workValue44 = nil
+
+-- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
 function textValue9()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4
   arg1 = RageUI
@@ -3119,6 +3282,8 @@ function textValue9()
   arg3 = true
   textValue7 = true
   stringHelper2 = true
+
+  -- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: none) ===
   function rageUiCall4()
     local arg12, arg22, arg32, arg4, flag8, flag10
     arg12 = RageUI
@@ -3128,6 +3293,8 @@ function textValue9()
     arg4 = {}
     arg4.RightLabel = "\194\1631,000"
     flag8 = true
+
+    -- === HELPER FUNCTION (decompiler name: flag10; parameters: arg13, arg23, arg33) ===
     function flag10(arg13, arg23, arg33)
       local numberValue4, flag9
       if arg33 then
@@ -3147,12 +3314,16 @@ function textValue9()
 end
 rageUiCall2(dataTable2, workValue43, workValue44, textValue9)
 rageUiCall2 = {}
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2
   arg1 = true
   return arg1
 end
 rageUiCall2.default = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = IsThisModelACar
@@ -3162,6 +3333,8 @@ function dataTable2()
   return arg1(arg2, arg3)
 end
 rageUiCall2.isCar = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = IsThisModelABike
@@ -3171,6 +3344,8 @@ function dataTable2()
   return arg1(arg2, arg3)
 end
 rageUiCall2.isBike = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = IsThisModelAPlane
@@ -3180,6 +3355,8 @@ function dataTable2()
   return arg1(arg2, arg3)
 end
 rageUiCall2.isPlane = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = GetNumVehicleMods
@@ -3190,6 +3367,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.hasFrontBumper = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = GetNumVehicleMods
@@ -3200,6 +3379,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.hasRearBumper = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = GetNumVehicleMods
@@ -3210,6 +3391,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.hasAnyBumper = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue
   arg1 = 42
@@ -3233,6 +3416,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.hasChassis = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue
   arg1 = 27
@@ -3252,6 +3437,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.hasInterior = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = GetNumVehicleMods
@@ -3262,6 +3449,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.hasPlates = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = IsThisModelACar
@@ -3279,6 +3468,8 @@ function dataTable2()
   return arg1
 end
 rageUiCall2.isCarOrBike = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3
   arg1 = GetEntityModel
@@ -3301,6 +3492,8 @@ function dataTable2()
   return arg2
 end
 rageUiCall2.isCarOrBikeOrHeli = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2
   arg1 = textValue8
@@ -3318,6 +3511,8 @@ rageUiCall2.hasBiometricLock = dataTable2
 dataTable2 = {}
 dataTable2[18] = true
 dataTable2[22] = true
+
+-- === HELPER FUNCTION (decompiler name: workValue43; parameters: arg1) ===
 function workValue43(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue
   arg1.visible = true
@@ -3435,6 +3630,8 @@ function workValue43(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue44; parameters: none) ===
 function workValue44()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue
   arg1 = CMG
@@ -3836,6 +4033,8 @@ function workValue44()
   textValue7 = true
   flag3 = textValue7
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue9; parameters: none) ===
 function textValue9()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue
   arg1 = CMG
@@ -4266,6 +4465,8 @@ function textValue9()
   flag3 = stringHelper2
 end
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue45; parameters: arg1, arg2, arg3) ===
 function workValue45(arg1, arg2, arg3)
   local textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall
   if arg1 and 0 ~= arg1 then
@@ -4364,6 +4565,8 @@ function workValue45(arg1, arg2, arg3)
   rageUiCall4(nameValue)
 end
 cmgCall3.enterRemoteLsCustomsFromGarage = workValue45
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5
   arg1 = assert
@@ -4792,6 +4995,8 @@ function cmgCall3()
   stringHelper2 = true
   textValue7(stringHelper2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue45; parameters: arg1) ===
 function workValue45(arg1)
   local arg2, arg3, textValue7
   arg2 = CMG
@@ -4801,6 +5006,8 @@ function workValue45(arg1)
   arg2 = arg2(arg3, textValue7)
   arg1.isLocked = arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue46; parameters: arg1) ===
 function workValue46(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue
   arg2 = CMG
@@ -4922,6 +5129,8 @@ function workValue46(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue47; parameters: arg1) ===
 function workValue47(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18
   arg2 = RageUI
@@ -4969,6 +5178,8 @@ function workValue47(arg1)
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue48; parameters: none) ===
 function workValue48()
   local arg1, arg2, arg3, textValue7, stringHelper2
   arg1 = rageUiCall3
@@ -5007,6 +5218,8 @@ function workValue48()
 end
 eventRegistration = Citizen
 eventRegistration = eventRegistration.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: textValue10; parameters: none) ===
 function textValue10()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue
   arg1 = pairs
@@ -5038,6 +5251,8 @@ function textValue10()
       rageUiCall = 5.0 * nameValue
       workValue = 6.0 * nameValue
       workValue2 = workValue45
+
+      -- === HELPER FUNCTION (decompiler name: flag5; parameters: none) ===
       function flag5()
         local arg12, arg22
       end
@@ -5078,6 +5293,8 @@ eventRegistration(textValue10)
 eventRegistration = RegisterNetEvent
 textValue10 = "b5a8ef81c1"
 -- Beginner: this function handles network event "b5a8ef81c1".
+
+-- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1) ===
 function textValue11(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17
   arg2 = pairs
@@ -5094,6 +5311,8 @@ eventRegistration(textValue10, textValue11)
 eventRegistration = RegisterNetEvent
 textValue10 = "08cf0d5d45"
 -- Beginner: this function handles network event "08cf0d5d45".
+
+-- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1) ===
 function textValue11(arg1)
   local arg2
   textValue8 = arg1
@@ -5102,6 +5321,8 @@ eventRegistration(textValue10, textValue11)
 eventRegistration = RegisterNetEvent
 textValue10 = "6b3c48e86c"
 -- Beginner: this function handles network event "6b3c48e86c".
+
+-- === HELPER FUNCTION (decompiler name: textValue11; parameters: arg1, arg2) ===
 function textValue11(arg1, arg2)
   local arg3
   arg3 = textValue8
@@ -5112,6 +5333,8 @@ eventRegistration(textValue10, textValue11)
 eventRegistration = RegisterNetEvent
 textValue10 = "d4574bdb4a"
 -- Beginner: this function handles network event "d4574bdb4a".
+
+-- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
 function textValue11()
   local arg1, arg2, arg3, textValue7, stringHelper2
   arg1 = CMG
@@ -5133,6 +5356,8 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d4574bdb4a".
 eventRegistration(textValue10, textValue11)
 eventRegistration = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue10; parameters: none) ===
 function textValue10()
   local arg1, arg2
   arg1 = rageUiCall3
@@ -5140,6 +5365,8 @@ function textValue10()
   return arg1
 end
 eventRegistration.isInsideLsCustoms = textValue10
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
 function eventRegistration(arg1)
   local arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall
   arg2 = "Not Set"
@@ -5201,6 +5428,8 @@ textValue10 = textValue10.registerDevMenuEntityEditor
 textValue11 = "LS Customs"
 cmgCall4 = "vehicle"
 textValue12 = eventRegistration
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2
 end
@@ -5219,6 +5448,8 @@ textValue10[9] = "cfg.beenysTwoWheels"
 textValue10[10] = "cfg.openWheels"
 textValue10[11] = "cfg.streetWheels"
 textValue10[12] = "cfg.trackWheels"
+
+-- === HELPER FUNCTION (decompiler name: textValue11; parameters: none) ===
 function textValue11()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue, flag7, numberValue2, stringHelper, textValue4, workValue12, workValue14, workValue16
   arg1 = CMG
@@ -5337,6 +5568,8 @@ end
 cmgCall4 = CMG
 cmgCall4 = cmgCall4.registerDevMenuItems
 textValue12 = "LS Customs"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18
   arg1 = RageUI
@@ -5344,6 +5577,8 @@ function cmgCall5()
   arg2 = "Copy Wheels Config"
   arg3 = "Copies the wheels config to the clipboard."
   textValue7 = true
+
+  -- === HELPER FUNCTION: stringHelper2(arg12, arg22, arg32) ===
   function stringHelper2(arg12, arg22, arg32)
     local arg4
     if arg32 then
@@ -5368,6 +5603,8 @@ function cmgCall5()
   rageUiCall4, nameValue, textValue17, textValue18 = rageUiCall4(nameValue)
   textValue7 = textValue7(stringHelper2, rageUiCall4, nameValue, textValue17, textValue18)
   stringHelper2 = true
+
+  -- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: arg12, arg22, arg32) ===
   function rageUiCall4(arg12, arg22, arg32)
     local arg4, flag8, flag10, workValue49
     if arg32 then
@@ -5375,6 +5612,8 @@ function cmgCall5()
       arg4 = arg4.clientPrompt
       flag8 = "Wheel Type"
       flag10 = ""
+
+      -- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg13) ===
       function workValue49(arg13)
         local arg23, arg33, numberValue4, flag9
         arg23 = tonumber
@@ -5404,6 +5643,8 @@ function cmgCall5()
   rageUiCall4, nameValue, textValue17, textValue18 = rageUiCall4(nameValue, textValue17)
   textValue7 = textValue7(stringHelper2, rageUiCall4, nameValue, textValue17, textValue18)
   stringHelper2 = true
+
+  -- === HELPER FUNCTION (decompiler name: rageUiCall4; parameters: arg12, arg22, arg32) ===
   function rageUiCall4(arg12, arg22, arg32)
     local arg4, flag8, flag10, workValue49
     if arg32 then
@@ -5411,6 +5652,8 @@ function cmgCall5()
       arg4 = arg4.clientPrompt
       flag8 = "Wheel Index"
       flag10 = ""
+
+      -- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg13) ===
       function workValue49(arg13)
         local arg23, arg33, numberValue4, flag9, flag11, numberValue5
         arg23 = tonumber
@@ -5440,6 +5683,8 @@ function cmgCall5()
   stringHelper2 = "Whether the vehicle you are currently in can burst its tyres."
   rageUiCall4 = arg2
   nameValue = {}
+
+  -- === HELPER FUNCTION (decompiler name: textValue17; parameters: arg12, arg22, arg32, arg4) ===
   function textValue17(arg12, arg22, arg32, arg4)
     local flag8, flag10, workValue49
     flag8 = arg2
@@ -5462,6 +5707,8 @@ function cmgCall5()
   rageUiCall4 = "Whether the vehicle you are currently has the bulletproof decor."
   nameValue = arg3
   textValue17 = {}
+
+  -- === HELPER FUNCTION (decompiler name: textValue18; parameters: arg12, arg22, arg32, arg4) ===
   function textValue18(arg12, arg22, arg32, arg4)
     local flag8, flag10, workValue49, workValue50
     flag8 = arg3
@@ -5486,6 +5733,8 @@ cmgCall4[1] = textValue12
 cmgCall4[2] = cmgCall5
 cmgCall4[3] = textValue13
 cmgCall4[4] = textValue14
+
+-- === HELPER FUNCTION (decompiler name: textValue12; parameters: none) ===
 function textValue12()
   local arg1, arg2, arg3, textValue7, stringHelper2, rageUiCall4, nameValue, textValue17, textValue18, rageUiCall7, rageUiCall, workValue, workValue2, flag5, flag6, numberValue
   arg1 = CMG

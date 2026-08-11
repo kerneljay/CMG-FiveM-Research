@@ -1,47 +1,56 @@
 --[[
-    Beginner Guide: cl_heli.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Heli
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Heli
+    ==================================
 
     File: cmg/prod/client/police/cl_heli.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Heli feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 21
+      * Background threads: 0
+      * Always-running loops: 5
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 1
-      They are intentionally left unchanged because matching server code may use them.
-      * 9c20140c50
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local numberValue, numberValue6, numberValue25, numberValue33, numberValue35, numberValue37, numberValue39, numberValue41, numberValue42, numberValue44, flag, flag2, flag3, numberValue2, flag4, numberValue3, dataTable, cmgCall, numberValue4, numberValue5, numberValue7, numberValue8, numberValue9, numberValue11, numberValue13, numberValue15, numberValue17, numberValue19, numberValue21, numberValue23, numberValue26, numberValue27, numberValue28, numberValue29, numberValue30, numberValue31, threadCall, eventRegistration, cmgCall2, numberValue32, textValue2
 numberValue = 80.0
@@ -108,6 +117,8 @@ dataTable[21] = eventRegistration
 dataTable[22] = cmgCall2
 dataTable[23] = numberValue32
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
 function numberValue4()
   local arg1, arg2
   arg1 = flag
@@ -115,6 +126,8 @@ function numberValue4()
 end
 cmgCall.isPlayerRappeling = numberValue4
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
 function numberValue4()
   local arg1, arg2
   arg1 = flag2
@@ -124,6 +137,8 @@ cmgCall.isPlayerInPoliceHeli = numberValue4
 cmgCall = numberValue + numberValue6
 cmgCall = cmgCall * 0.5
 numberValue4 = 0
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg1) ===
 function numberValue5(arg1)
   local arg2, textValue
   arg2 = GetEntityHeightAboveGround
@@ -133,6 +148,8 @@ function numberValue5(arg1)
   arg2 = arg2 > textValue
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2, textValue
   arg1 = BeginScaleformMovieMethod
@@ -177,6 +194,8 @@ function numberValue7()
   arg1 = EndScaleformMovieMethod
   arg1()
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: none) ===
 function numberValue8()
   local arg1, arg2
   arg1 = HideHelpTextThisFrame
@@ -214,6 +233,8 @@ function numberValue8()
   arg2 = 18
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue9; parameters: arg1, arg2) ===
 function numberValue9(arg1, arg2)
   local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle
   textValue = GetDisabledControlNormal
@@ -260,6 +281,8 @@ function numberValue9(arg1, arg2)
     mathHelper(numberValue43, workValue3, workValue, workValue2, vehicle)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue11; parameters: arg1) ===
 function numberValue11(arg1)
   local arg2, textValue, numberValue34, numberValue36
   arg2 = IsControlJustPressed
@@ -310,6 +333,8 @@ function numberValue11(arg1)
   numberValue36 = arg2 + numberValue36
   textValue(numberValue34, numberValue36)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue13; parameters: arg1) ===
 function numberValue13(arg1)
   local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43
   arg2 = math
@@ -345,6 +370,8 @@ function numberValue13(arg1)
   mathHelper, numberValue43 = mathHelper(numberValue43)
   return numberValue36(numberValue38, numberValue40, mathHelper, numberValue43)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue15; parameters: arg1) ===
 function numberValue15(arg1)
   local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5
   arg2 = GetCamCoord
@@ -392,6 +419,8 @@ function numberValue15(arg1)
     return workValue
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue17; parameters: arg1) ===
 function numberValue17(arg1)
   local arg2, textValue, numberValue34, numberValue36
   arg1 = arg1 + 2000
@@ -410,6 +439,8 @@ function numberValue17(arg1)
   numberValue34 = 0
   return arg2(textValue, numberValue34)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue19; parameters: arg1, arg2) ===
 function numberValue19(arg1, arg2)
   local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3
   textValue = math
@@ -464,6 +495,8 @@ function numberValue19(arg1, arg2)
   mathHelper = EndScaleformMovieMethod
   mathHelper()
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue21; parameters: arg1) ===
 function numberValue21(arg1)
   local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle
   arg2 = GetCamCoord
@@ -545,6 +578,8 @@ function numberValue21(arg1)
     mathHelper()
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue23; parameters: arg1) ===
 function numberValue23(arg1)
   local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40
   arg2 = math
@@ -586,6 +621,8 @@ function numberValue23(arg1)
   numberValue36 = EndScaleformMovieMethod
   numberValue36()
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue26; parameters: arg1) ===
 function numberValue26(arg1)
   local arg2, textValue, numberValue34, numberValue36
   arg2 = GetCamRot
@@ -611,6 +648,8 @@ function numberValue26(arg1)
   textValue = EndScaleformMovieMethod
   textValue()
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue27; parameters: arg1) ===
 function numberValue27(arg1)
   local arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue
   arg2 = GetEntityModel
@@ -642,6 +681,8 @@ Plate: ]]
   numberValue43 = 0.55
   numberValue36(numberValue38, numberValue40, mathHelper, numberValue43)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue28; parameters: none) ===
 function numberValue28()
   local arg1, arg2, textValue, numberValue34, numberValue36
   arg1 = PlaySoundFrontend
@@ -662,6 +703,8 @@ function numberValue28()
   arg1(arg2, textValue, numberValue34, numberValue36)
 end
 numberValue29 = 0
+
+-- === HELPER FUNCTION (decompiler name: numberValue30; parameters: arg1, arg2) ===
 function numberValue30(arg1, arg2)
   local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed
   textValue = GetCamCoord
@@ -712,6 +755,8 @@ function numberValue30(arg1, arg2)
     return mathHelper
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue31; parameters: none) ===
 function numberValue31()
   local arg1, arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20, numberValue22, numberValue24
   while true do
@@ -1314,6 +1359,8 @@ eventRegistration = numberValue31
 threadCall(eventRegistration)
 threadCall = Citizen
 threadCall = threadCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
 function eventRegistration()
   local arg1, arg2, textValue, numberValue34, numberValue36, numberValue38
   while true do
@@ -1353,6 +1400,8 @@ threadCall = {}
 eventRegistration = RegisterNetEvent
 cmgCall2 = "9c20140c50"
 -- Beginner: this function handles network event "9c20140c50".
+
+-- === HELPER FUNCTION (decompiler name: numberValue32; parameters: arg1, arg2) ===
 function numberValue32(arg1, arg2)
   local textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43
   textValue = GetPlayerFromServerId
@@ -1415,6 +1464,8 @@ function numberValue32(arg1, arg2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9c20140c50".
 eventRegistration(cmgCall2, numberValue32)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
 function eventRegistration()
   local arg1, arg2, textValue, numberValue34, numberValue36, numberValue38, numberValue40, mathHelper, numberValue43, workValue3, workValue, workValue2, vehicle, playerPed, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, numberValue10, numberValue12, numberValue14, numberValue16, numberValue18, numberValue20
   arg1 = GetGameTimer

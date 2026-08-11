@@ -1,27 +1,40 @@
 --[[
-    BEGINNER GUIDE — Ffa
-    ====================
+    LEVEL 1 BEGINNER GUIDE — Ffa
+    =================================
 
     File: cmg/prod/cfg/events/cfg_ffa.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Config/shared data — is mainly loaded as data/configuration by other scripts.
+    Purpose: server event/minigame gameplay, specifically the Ffa feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/rockstarmaps/uD0quPgN_0GibsuXc-vHCQ.json
-      * cfg/rockstarmaps/JVpo9ed5Gku01nsF-AFYsw.json
-      * cfg/rockstarmaps/iJfXEtpe7EebvGx0I6yEWg.json
-      * cfg/rockstarmaps/GAk_mipJLEOyJ89p3YWuww.json
-      * cfg/rockstarmaps/ZQzGpChbwkG27IL2a7-Giw.json
-      * cfg/rockstarmaps/wIXfIjik5UOhPD-zkXxDKQ.json
-      * cfg/rockstarmaps/cZDFK2musUa994jkD5v9pw.json
+    Quick map of this file (automatic static scan):
+      * Named functions: 0
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cfg = {}
 

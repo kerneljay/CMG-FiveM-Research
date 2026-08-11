@@ -1,66 +1,56 @@
 --[[
-    Beginner Guide: cl_vending.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Vending
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Vending
+    =====================================
 
     File: cmg/prod/client/misc/cl_vending.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Vending feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 120
+      * Background threads: 0
+      * Always-running loops: 24
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Config/data used:
-      * cfg/cfg_vending
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 7
-      They are intentionally left unchanged because matching server code may use them.
-      * 60eadad9f8
-      * 4e2aeb078b
-      * a3f2099a04
-      * 32e4f00ebc
-      * 6b2c902639
-      * 1bb98aff8b
-      * c82f62b8de
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Named framework/network events found:
-      * Utility:On:
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
-    Example player-facing text in this file:
-      * ~INPUT_VEH_FLY_YAW_LEFT~
-      * ~INPUT_SPECIAL_ABILITY_SECONDARY~
-      * ~INPUT_LOOK_BEHIND~
-      * ~INPUT_MOVE_RIGHT_ONLY~
-      * ~INPUT_CONTEXT~
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, textValue, workValue25, workValue41, coords, workValue59, workValue72, workValue83, workValue92, workValue102, workValue, workValue5, localEventCall, dataTable, dataTable2, numberValue4, numberValue6, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue26, workValue27, workValue29, workValue31, workValue33, workValue35, workValue36, workValue37, workValue38, workValue39, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, numberValue10, threadCall, threadCall2, numberValue11, workValue52, workValue53, workValue54, workValue55, dataTable6, workValue56, workValue57, workValue58, workValue62, workValue63, workValue64, workValue65, workValue66, workValue67, workValue68, workValue69, workValue70, workValue71, dataTable7, workValue74, workValue75, workValue76, workValue77, workValue78, workValue79, workValue80, workValue81, workValue82, workValue85, workValue86, eventRegistration, textValue8, workValue87, iterator3, workValue88, workValue89, workValue90, workValue91, workValue96, iterator4, dataTable8, workValue97, workValue98, workValue99, workValue100, workValue101
 cmgCall = CMG
@@ -91,6 +81,8 @@ dataTable2 = {}
 dataTable.SliceGroups = dataTable2
 dataTable2 = {}
 dataTable.Events = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1, arg2, arg3) ===
 function dataTable2(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg4 = 1
@@ -113,6 +105,8 @@ end
 numberValue4 = 100.0
 numberValue6 = 8100
 workValue12 = numberValue6 / numberValue4
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1) ===
 function workValue13(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = math
@@ -131,6 +125,8 @@ function workValue13(arg1)
   arg5 = arg2
   return arg4, arg5
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
 function workValue14(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = workValue13
@@ -143,6 +139,8 @@ function workValue14(arg1)
   arg5 = arg5 + arg3
   return arg4(arg5)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
 function workValue15()
   local arg1, arg2, arg3
   arg1 = workValue14
@@ -153,6 +151,8 @@ function workValue15()
   arg2, arg3 = arg2(arg3)
   return arg1(arg2, arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
 function workValue16(arg1)
   local arg2
   arg2 = dataTable.SliceGroups
@@ -162,6 +162,8 @@ function workValue16(arg1)
   end
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg1, arg2) ===
 function workValue17(arg1, arg2)
   local arg3, arg4
   arg3 = tonumber
@@ -179,6 +181,8 @@ function workValue17(arg1, arg2)
     arg3[arg1] = nil
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
 function workValue18(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   local workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3
   workValue93 = HasAnimDictLoaded
@@ -234,6 +238,8 @@ function workValue18(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   workValue103 = arg2
   workValue93(workValue103)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue19; parameters: arg1, arg2, arg3, arg4) ===
 function workValue19(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
   if nil == arg3 then
@@ -255,6 +261,8 @@ function workValue19(arg1, arg2, arg3, arg4)
   numberValue = 0
   arg5(arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue20; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function workValue20(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag
   if arg1 then
@@ -313,6 +321,8 @@ function workValue20(arg1, arg2, arg3, arg4, arg5)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1, arg2) ===
 function workValue21(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7
   arg3 = textValue
@@ -332,6 +342,8 @@ function workValue21(arg1, arg2)
   arg7 = -1
   arg3(arg4, arg5, arg6, arg7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue22; parameters: arg1, arg2) ===
 function workValue22(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7
   arg3 = string
@@ -466,6 +478,8 @@ function workValue22(arg1, arg2)
   arg7 = -1
   arg3(arg4, arg5, arg6, arg7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue23; parameters: arg1, arg2) ===
 function workValue23(arg1, arg2)
   local arg3, arg4, arg5
   arg3 = GetGameTimer
@@ -473,6 +487,8 @@ function workValue23(arg1, arg2)
   arg3 = arg3()
   arg4 = Citizen
   arg4 = arg4.CreateThread
+
+  -- === HELPER FUNCTION: arg5() ===
   function arg5()
     local arg12, arg22
     while true do
@@ -500,6 +516,8 @@ function workValue23(arg1, arg2)
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg4(arg5)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue24; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function workValue24(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32, workValue34, flag4, flag5, flag6, flag7, workValue40
   arg6 = 10
@@ -510,6 +528,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
   workValue2 = workValue103 - 1.0
   workValue6 = 1.0
   workValue2 = workValue6 / workValue2
+
+  -- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg12, arg22) ===
   function workValue6(arg12, arg22)
     local arg32, arg42
     arg32 = 3.0 * arg22
@@ -519,6 +539,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
     arg32 = arg32 + arg42
     return arg32
   end
+
+  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: arg12, arg22) ===
   function numberValue(arg12, arg22)
     local arg32, arg42
     arg32 = 3.0 * arg22
@@ -526,11 +548,15 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
     arg32 = arg32 - arg42
     return arg32
   end
+
+  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: arg12) ===
   function numberValue2(arg12)
     local arg22
     arg22 = 3.0 * arg12
     return arg22
   end
+
+  -- === HELPER FUNCTION (decompiler name: numberValue3; parameters: arg12, arg22, arg32) ===
   function numberValue3(arg12, arg22, arg32)
     local arg42, arg52, workValue60, numberValue12
     arg42 = workValue6
@@ -551,6 +577,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
     arg42 = arg42 * arg12
     return arg42
   end
+
+  -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: arg12, arg22, arg32) ===
   function numberValue5(arg12, arg22, arg32)
     local arg42, arg52, workValue60, numberValue12
     arg42 = workValue6
@@ -573,6 +601,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
     arg42 = arg42 + arg52
     return arg42
   end
+
+  -- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg12, arg22, arg32, arg42, arg52) ===
   function numberValue7(arg12, arg22, arg32, arg42, arg52)
     local workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7
     workValue60 = 0
@@ -606,6 +636,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
     until numberValue13 >= workValue94
     return numberValue12
   end
+
+  -- === HELPER FUNCTION (decompiler name: flag; parameters: arg12, arg22, arg32, arg42) ===
   function flag(arg12, arg22, arg32, arg42)
     local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7, workValue9
     arg52 = 1
@@ -631,9 +663,13 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
     end
     return arg22
   end
+
+  -- === HELPER FUNCTION (decompiler name: flag2; parameters: arg12, arg22, arg32, arg42) ===
   function flag2(arg12, arg22, arg32, arg42)
     local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7, workValue9
     if arg12 == arg22 and arg32 == arg42 then
+
+      -- === HELPER FUNCTION: arg52(arg13) ===
       function arg52(arg13)
         local numberValue8
         return arg13
@@ -654,6 +690,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
       workValue104 = workValue104(workValue3, workValue7, workValue9)
       arg52[workValue94] = workValue104
     end
+
+    -- === HELPER FUNCTION (decompiler name: workValue60; parameters: arg13) ===
     function workValue60(arg13)
       local numberValue8, numberValue9, workValue42, workValue51, workValue61, workValue73, workValue84, workValue95, workValue105, workValue4, workValue8, workValue10, workValue11
       numberValue8 = 0.0
@@ -721,6 +759,8 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
         return workValue95(workValue105, workValue4, workValue8, workValue10, workValue11)
       end
     end
+
+    -- === HELPER FUNCTION (decompiler name: numberValue12; parameters: arg13) ===
     function numberValue12(arg13)
       local numberValue8, numberValue9, workValue42, workValue51
       if arg13 <= 0 then
@@ -929,12 +969,16 @@ function workValue24(arg1, arg2, arg3, arg4, arg5)
   -- Beginner: Move/teleport an entity to new coordinates.
   iterator(textValue7, dataTable5, iterator2, workValue28, workValue30, workValue32, workValue34, flag4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue26; parameters: none) ===
 function workValue26()
   local arg1, arg2
   arg1 = ClearHelp
   arg2 = true
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg1, arg2, arg3) ===
 function workValue27(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
   arg4 = dataTable.SetData
@@ -962,6 +1006,8 @@ function workValue27(arg1, arg2, arg3)
     arg4[arg2] = arg3
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue29; parameters: arg1, arg2) ===
 function workValue29(arg1, arg2)
   local arg3
   if nil == arg2 then
@@ -984,6 +1030,8 @@ function workValue29(arg1, arg2)
   arg3 = nil
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1, arg2) ===
 function workValue31(arg1, arg2)
   local arg3, arg4
   arg4 = arg1
@@ -1027,6 +1075,8 @@ function workValue31(arg1, arg2)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
 function workValue33(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8
   if not arg1 then
@@ -1053,6 +1103,8 @@ function workValue33(arg1)
   end
   return arg3(arg4, arg5)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue35; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function workValue35(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28, workValue30
   arg6 = workValue31
@@ -1277,6 +1329,8 @@ function workValue35(arg1, arg2, arg3, arg4, arg5)
     arg7(arg8, workValue93)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1, arg2) ===
 function workValue36(arg1, arg2)
   local arg3
   arg3 = dataTable.Marker
@@ -1287,6 +1341,8 @@ function workValue36(arg1, arg2)
     arg3.interaction_distance = arg2
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue37; parameters: arg1) ===
 function workValue37(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = workValue31
@@ -1319,6 +1375,8 @@ function workValue37(arg1)
   arg3 = workValue26
   arg3()
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue38; parameters: arg1) ===
 function workValue38(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = GetEntityModel
@@ -1331,6 +1389,8 @@ function workValue38(arg1)
   arg5 = arg4 - arg3
   return arg5
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue39; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function workValue39(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, workValue93
   arg6 = AddBlipForCoord
@@ -1372,6 +1432,8 @@ function workValue39(arg1, arg2, arg3, arg4, arg5)
   arg7(arg8)
   return arg6
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue43; parameters: arg1, arg2, arg3) ===
 function workValue43(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8
   arg4 = "Utility:On:"
@@ -1401,6 +1463,8 @@ function workValue43(arg1, arg2, arg3)
   return arg5
 end
 -- Beginner: this function runs when client event (event above) fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue44; parameters: arg1, arg2, ...) ===
 function workValue44(arg1, arg2, ...)
   local arg3, arg4, arg5, arg6
   arg3 = localEventCall
@@ -1419,6 +1483,8 @@ function workValue44(arg1, arg2, ...)
   -- Beginner: Trigger another client-side event in this resource/framework.
   arg3(arg4, arg5, arg6)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue45; parameters: none) ===
 function workValue45()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg1 = pairs
@@ -1447,6 +1513,8 @@ function workValue45()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue46; parameters: arg1, arg2) ===
 function workValue46(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2
   if 0 == arg1 then
@@ -1574,6 +1642,8 @@ function workValue46(arg1, arg2)
     arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue47; parameters: arg1) ===
 function workValue47(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
   arg2 = false
@@ -1641,6 +1711,8 @@ function workValue47(arg1)
   return arg2
 end
 workValue48 = RequestScaleformMovie
+
+-- === HELPER FUNCTION (decompiler name: workValue49; parameters: arg1) ===
 function workValue49(arg1)
   local arg2, arg3, arg4, arg5, arg6
   arg2 = pcall
@@ -1661,6 +1733,8 @@ function workValue49(arg1)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue50; parameters: arg1, arg2) ===
 function workValue50(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6
   arg3 = tostring
@@ -1800,6 +1874,8 @@ function workValue50(arg1, arg2)
   end
   arg6 = {}
   arg6.__index = arg6
+
+  -- === HELPER FUNCTION: arg7(arg12, arg22, arg32, arg42) ===
   function arg7(arg12, arg22, arg32, arg42)
     local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3
     arg52 = CreateRuntimeTxd
@@ -1904,6 +1980,8 @@ function workValue50(arg1, arg2)
     end
   end
   arg6.init = arg7
+
+  -- === HELPER FUNCTION: arg7(arg12, arg22) ===
   function arg7(arg12, arg22)
     local arg32, arg42, arg52, workValue60
     arg32 = dataTable.N3d
@@ -1929,6 +2007,8 @@ function workValue50(arg1, arg2)
     end
   end
   arg6.msg = arg7
+
+  -- === HELPER FUNCTION: arg7(arg12, arg22, arg32, arg42) ===
   function arg7(arg12, arg22, arg32, arg42)
     local arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104
     if arg42 then
@@ -1949,6 +2029,8 @@ function workValue50(arg1, arg2)
     arg52(workValue60, numberValue12, numberValue13, workValue94)
   end
   arg6.replaceTexture = arg7
+
+  -- === HELPER FUNCTION: arg7(arg12) ===
   function arg7(arg12)
     local arg22, arg32, arg42
     arg22 = dataTable.N3d
@@ -1995,6 +2077,8 @@ end
 numberValue10 = 0
 threadCall = Citizen
 threadCall = threadCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
 function threadCall2()
   local arg1, arg2
   while true do
@@ -2009,6 +2093,8 @@ function threadCall2()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 threadCall(threadCall2)
+
+-- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
 function threadCall()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = pairs
@@ -2026,6 +2112,8 @@ function threadCall()
 end
 threadCall2 = Citizen
 threadCall2 = threadCall2.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
 function numberValue11()
   local arg1, arg2, arg3
   while true do
@@ -2061,6 +2149,8 @@ end
 threadCall2(numberValue11)
 threadCall2 = Citizen
 threadCall2 = threadCall2.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
 function numberValue11()
   local arg1, arg2, arg3
   while true do
@@ -2126,6 +2216,8 @@ if not numberValue11 then
 end
 threadCall2.PlaceVendings = numberValue11
 numberValue11 = {}
+
+-- === HELPER FUNCTION (decompiler name: workValue52; parameters: none) ===
 function workValue52()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2
   arg1 = pairs
@@ -2151,6 +2243,8 @@ function workValue52()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue53; parameters: none) ===
 function workValue53()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = pairs
@@ -2160,6 +2254,8 @@ function workValue53()
     arg6.name = arg5
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue54; parameters: arg1, arg2) ===
 function workValue54(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg3 = GetEntityCoords
@@ -2189,6 +2285,8 @@ function workValue54(arg1, arg2)
   arg4 = arg1.exhibition
   return arg4
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue55; parameters: arg1, arg2) ===
 function workValue55(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93
   if not arg2 then
@@ -2214,6 +2312,8 @@ function workValue55(arg1, arg2)
   return arg5
 end
 dataTable6 = {}
+
+-- === HELPER FUNCTION (decompiler name: workValue56; parameters: none) ===
 function workValue56()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2
   arg1 = next
@@ -2237,6 +2337,8 @@ function workValue56()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue57; parameters: arg1) ===
 function workValue57(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3
   arg2 = workValue56
@@ -2268,6 +2370,8 @@ function workValue57(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue58; parameters: arg1, arg2, arg3) ===
 function workValue58(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5
   arg4 = GetEntityCoords
@@ -2359,6 +2463,8 @@ function workValue58(arg1, arg2, arg3)
   workValue93(workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3)
   return arg6
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue62; parameters: arg1, arg2) ===
 function workValue62(arg1, arg2)
   local arg3, arg4, arg5, arg6
   arg3 = GetEntityBoneIndexByName
@@ -2370,6 +2476,8 @@ function workValue62(arg1, arg2)
   arg6 = arg3
   return arg4(arg5, arg6)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue63; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
 function workValue63(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   local arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator
   arg8 = threadCall2.Vendings
@@ -2505,6 +2613,8 @@ function workValue63(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   textValue2(textValue3, textValue4, textValue5, dataTable4, textValue6, iterator)
   return flag2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue64; parameters: arg1, arg2, arg3, arg4) ===
 function workValue64(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
   arg5 = GetEntityCoords
@@ -2525,6 +2635,8 @@ function workValue64(arg1, arg2, arg3, arg4)
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "60eadad9f8".
   arg7(arg8, workValue93, workValue103, workValue2, workValue6, numberValue)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue65; parameters: arg1, arg2, arg3) ===
 function workValue65(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg4 = GetEntityCoords
@@ -2543,6 +2655,8 @@ function workValue65(arg1, arg2, arg3)
   workValue2 = arg3
   arg6(arg7, arg8, workValue93, workValue103, workValue2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue66; parameters: arg1, arg2, arg3) ===
 function workValue66(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2
   arg4 = GetGameTimer
@@ -2634,6 +2748,8 @@ function workValue66(arg1, arg2, arg3)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue67; parameters: arg1) ===
 function workValue67(arg1)
   local arg2, arg3, arg4, arg5, arg6
   arg2 = GetGameTimer
@@ -2671,6 +2787,8 @@ function workValue67(arg1)
     arg3(arg4)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue68; parameters: arg1, arg2, arg3, arg4) ===
 function workValue68(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2, workValue28
   arg5 = Entity
@@ -2735,6 +2853,8 @@ function workValue68(arg1, arg2, arg3, arg4)
   workValue6 = false
   arg8(workValue93, workValue103, workValue2, workValue6)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue69; parameters: arg1, arg2) ===
 function workValue69(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2
   arg3 = Entity
@@ -2775,6 +2895,8 @@ function workValue69(arg1, arg2)
   arg8 = false
   arg4(arg5, arg6, arg7, arg8)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue70; parameters: arg1) ===
 function workValue70(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93
   arg2 = nil
@@ -2805,6 +2927,8 @@ function workValue70(arg1)
   workValue93 = 1
   arg4(arg5, arg6, arg7, arg8, workValue93)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue71; parameters: arg1, arg2) ===
 function workValue71(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2
   arg3 = workValue50
@@ -2827,6 +2951,8 @@ function workValue71(arg1, arg2)
   arg5 = "code"
   arg6 = ""
   arg7 = {}
+
+  -- === HELPER FUNCTION: arg8() ===
   function arg8()
     local arg12, arg22, arg32, arg42
     arg12 = arg3
@@ -2838,6 +2964,8 @@ function workValue71(arg1, arg2)
     arg32.code = arg42
     arg12(arg22, arg32)
   end
+
+  -- === HELPER FUNCTION (decompiler name: workValue93; parameters: arg12) ===
   function workValue93(arg12)
     local arg22, arg32, arg42, arg52
     arg22 = arg6
@@ -2972,6 +3100,8 @@ function workValue71(arg1, arg2)
   workValue2 = Citizen
   workValue2 = workValue2.SetTimeout
   workValue6 = 1500
+
+  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
   function numberValue()
     local arg12, arg22, arg32, arg42
     arg12 = arg3
@@ -3174,6 +3304,8 @@ function workValue71(arg1, arg2)
   workValue6 = Citizen
   workValue6 = workValue6.SetTimeout
   numberValue = 1500
+
+  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
   function numberValue2()
     local arg12, arg22, arg32
     arg12 = DestroyCam
@@ -3189,6 +3321,8 @@ function workValue71(arg1, arg2)
   workValue6 = Citizen
   workValue6 = workValue6.SetTimeout
   numberValue = 2000
+
+  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
   function numberValue2()
     local arg12, arg22, arg32
     arg12 = arg3
@@ -3238,6 +3372,8 @@ function workValue71(arg1, arg2)
   return arg6
 end
 dataTable7 = {}
+
+-- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1, arg2, arg3, arg4) ===
 function workValue74(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, workValue93
   arg5 = CMG
@@ -3284,6 +3420,8 @@ function workValue74(arg1, arg2, arg3, arg4)
   end
 end
 dataTable7.TryToBuy = workValue74
+
+-- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1, arg2, arg3) ===
 function workValue74(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8
   arg4 = threadCall2.Sounds
@@ -3317,6 +3455,8 @@ function workValue74(arg1, arg2, arg3)
 end
 dataTable7.PlaySound = workValue74
 threadCall2.Functions = dataTable7
+
+-- === HELPER FUNCTION (decompiler name: dataTable7; parameters: arg1, arg2) ===
 function dataTable7(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg3 = Entity
@@ -3355,6 +3495,8 @@ function dataTable7(arg1, arg2)
   workValue103 = arg4
   arg6(arg7, arg8, workValue93, workValue103)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue74; parameters: arg1, arg2) ===
 function workValue74(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8
   arg3 = Entity
@@ -3401,6 +3543,8 @@ function workValue74(arg1, arg2)
   arg8 = false
   arg4(arg5, arg6, arg7, arg8)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue75; parameters: arg1, arg2, arg3) ===
 function workValue75(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6
   arg4 = Entity
@@ -3554,6 +3698,8 @@ function workValue75(arg1, arg2, arg3)
   workValue6 = Citizen
   workValue6 = workValue6.SetTimeout
   numberValue = arg6 - 300
+
+  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
   function numberValue2()
     local arg12, arg22, arg32, arg42
     arg12 = threadCall2.Functions
@@ -3690,6 +3836,8 @@ function workValue75(arg1, arg2, arg3)
     numberValue2(numberValue3, numberValue5)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue76; parameters: arg1, arg2, arg3) ===
 function workValue76(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
   arg4 = Entity
@@ -3713,6 +3861,8 @@ function workValue76(arg1, arg2, arg3)
   workValue103 = arg5
   arg6(arg7, arg8, workValue93, workValue103)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue77; parameters: arg1, arg2) ===
 function workValue77(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8
   arg3 = Entity
@@ -3742,6 +3892,8 @@ function workValue77(arg1, arg2)
   arg8 = false
   arg4(arg5, arg6, arg7, arg8)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue78; parameters: arg1, arg2, arg3) ===
 function workValue78(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6
   arg4 = Entity
@@ -3902,6 +4054,8 @@ function workValue78(arg1, arg2, arg3)
   workValue2 = Citizen
   workValue2 = workValue2.SetTimeout
   workValue6 = arg5 - 3000
+
+  -- === HELPER FUNCTION (decompiler name: numberValue; parameters: none) ===
   function numberValue()
     local arg12, arg22, arg32, arg42
     arg12 = threadCall2.Functions
@@ -4029,6 +4183,8 @@ function workValue78(arg1, arg2, arg3)
     numberValue2(numberValue3, numberValue5)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue79; parameters: arg1, arg2, arg3) ===
 function workValue79(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator, textValue7, dataTable5, iterator2
   arg4 = RequestAnimDict
@@ -4186,6 +4342,8 @@ function workValue79(arg1, arg2, arg3)
   workValue6 = Citizen
   workValue6 = workValue6.SetTimeout
   numberValue = 2500
+
+  -- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
   function numberValue2()
     local arg12, arg22, arg32, arg42
     arg12 = threadCall2.Functions
@@ -4318,6 +4476,8 @@ function workValue79(arg1, arg2, arg3)
     numberValue5(numberValue7, flag)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue80; parameters: arg1, arg2) ===
 function workValue80(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator
   arg3 = RequestAnimDict
@@ -4430,6 +4590,8 @@ function workValue80(arg1, arg2)
   workValue93 = Citizen
   workValue93 = workValue93.SetTimeout
   workValue103 = 500
+
+  -- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
   function workValue2()
     local arg12, arg22, arg32, arg42
     arg12 = threadCall2.Functions
@@ -4595,6 +4757,8 @@ function workValue80(arg1, arg2)
   -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "c82f62b8de".
   numberValue(numberValue2, numberValue3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue81; parameters: arg1, arg2) ===
 function workValue81(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
   arg3 = PlayerPedId
@@ -4641,6 +4805,8 @@ function workValue81(arg1, arg2)
   arg8 = arg3
   arg7(arg8)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue82; parameters: arg1, arg2, arg3) ===
 function workValue82(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag
   arg4 = workValue54
@@ -4737,6 +4903,8 @@ function workValue82(arg1, arg2, arg3)
   workValue2(workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7)
   return workValue93
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue85; parameters: arg1) ===
 function workValue85(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7
   arg2 = GetOffsetFromEntityInWorldCoords
@@ -4762,6 +4930,8 @@ function workValue85(arg1)
   arg5 = 1200
   arg4(arg5)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue86; parameters: arg1, arg2, arg3) ===
 function workValue86(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2
   arg4 = PlayerPedId
@@ -4858,6 +5028,8 @@ end
 eventRegistration = RegisterNetEvent
 textValue8 = "60eadad9f8"
 -- Beginner: this function handles network event "60eadad9f8".
+
+-- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function workValue87(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5
   arg6 = GetClosestObjectOfType
@@ -4914,6 +5086,8 @@ eventRegistration(textValue8, workValue87)
 eventRegistration = RegisterNetEvent
 textValue8 = "4e2aeb078b"
 -- Beginner: this function handles network event "4e2aeb078b".
+
+-- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2, arg3, arg4) ===
 function workValue87(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
   arg5 = GetClosestObjectOfType
@@ -4944,6 +5118,8 @@ eventRegistration(textValue8, workValue87)
 eventRegistration = RegisterNetEvent
 textValue8 = "1bb98aff8b"
 -- Beginner: this function handles network event "1bb98aff8b".
+
+-- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1) ===
 function workValue87(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
   arg2 = GetClosestObjectOfType
@@ -5002,6 +5178,8 @@ eventRegistration(textValue8, workValue87)
 eventRegistration = RegisterNetEvent
 textValue8 = "32e4f00ebc"
 -- Beginner: this function handles network event "32e4f00ebc".
+
+-- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2) ===
 function workValue87(arg1, arg2)
   local arg3
   arg3 = numberValue11
@@ -5009,6 +5187,8 @@ function workValue87(arg1, arg2)
 end
 eventRegistration(textValue8, workValue87)
 -- Beginner: this function handles network event "32e4f00ebc".
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3, arg4) ===
 function eventRegistration(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
   arg5 = workValue27
@@ -5051,6 +5231,8 @@ function eventRegistration(arg1, arg2, arg3, arg4)
   numberValue.slice = "ignore"
   arg8(workValue93, workValue103, workValue2, workValue6, numberValue)
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue8; parameters: arg1) ===
 function textValue8(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = workValue27
@@ -5069,6 +5251,8 @@ function textValue8(arg1)
   arg3 = arg3 .. arg4
   arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue87; parameters: arg1, arg2, arg3) ===
 function workValue87(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7
   arg4 = LocalPlayer
@@ -5152,6 +5336,8 @@ for workValue91, workValue96 in iterator3, workValue88, workValue89, workValue90
 end
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.snack
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6
   arg4 = dataTable7
@@ -5162,6 +5348,8 @@ end
 iterator3.Near = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.snack
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6
   arg4 = workValue74
@@ -5172,6 +5360,8 @@ end
 iterator3.Far = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.snack
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93
   arg4 = workValue71
@@ -5184,6 +5374,8 @@ function workValue88(arg1, arg2, arg3)
     arg6 = arg1
     arg7 = arg4
     arg8 = arg3
+
+    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
     function workValue93()
       local arg12, arg22, arg32, arg42
       arg12 = workValue75
@@ -5205,6 +5397,8 @@ end
 iterator3.OnInteraction = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.soda
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7
   arg4 = workValue76
@@ -5219,6 +5413,8 @@ end
 iterator3.Near = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.soda
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6
   arg4 = workValue77
@@ -5229,6 +5425,8 @@ end
 iterator3.Far = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.soda
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93
   arg4 = workValue71
@@ -5241,6 +5439,8 @@ function workValue88(arg1, arg2, arg3)
     arg6 = arg1
     arg7 = arg4
     arg8 = arg3
+
+    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
     function workValue93()
       local arg12, arg22, arg32, arg42
       arg12 = workValue78
@@ -5262,6 +5462,8 @@ end
 iterator3.OnInteraction = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.soda_2
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7
   arg4 = workValue76
@@ -5276,6 +5478,8 @@ end
 iterator3.Near = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.soda_2
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6
   arg4 = workValue77
@@ -5286,6 +5490,8 @@ end
 iterator3.Far = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.soda_2
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93
   arg4 = workValue71
@@ -5298,6 +5504,8 @@ function workValue88(arg1, arg2, arg3)
     arg6 = arg1
     arg7 = arg4
     arg8 = arg3
+
+    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
     function workValue93()
       local arg12, arg22, arg32, arg42
       arg12 = workValue78
@@ -5319,6 +5527,8 @@ end
 iterator3.OnInteraction = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.coffee
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8
   arg4 = threadCall2.Functions
@@ -5326,6 +5536,8 @@ function workValue88(arg1, arg2, arg3)
   arg5 = arg1
   arg6 = arg1.item
   arg7 = arg3
+
+  -- === HELPER FUNCTION: arg8() ===
   function arg8()
     local arg12, arg22, arg32, arg42
     arg12 = workValue79
@@ -5339,6 +5551,8 @@ end
 iterator3.OnInteraction = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.water
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8
   arg4 = threadCall2.Functions
@@ -5346,6 +5560,8 @@ function workValue88(arg1, arg2, arg3)
   arg5 = arg1
   arg6 = arg1.item
   arg7 = arg3
+
+  -- === HELPER FUNCTION: arg8() ===
   function arg8()
     local arg12, arg22, arg32
     arg12 = workValue80
@@ -5358,6 +5574,8 @@ end
 iterator3.OnInteraction = workValue88
 iterator3 = threadCall2.Vendings
 iterator3 = iterator3.cigarettes
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: arg1, arg2, arg3) ===
 function workValue88(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93
   arg4 = workValue71
@@ -5370,6 +5588,8 @@ function workValue88(arg1, arg2, arg3)
     arg6 = arg1
     arg7 = arg4
     arg8 = arg3
+
+    -- === HELPER FUNCTION (decompiler name: workValue93; parameters: none) ===
     function workValue93()
       local arg12, arg22, arg32, arg42
       arg12 = workValue86
@@ -5416,6 +5636,8 @@ iterator3 = iterator3.state
 iterator3.interactingVending = false
 iterator3 = workValue43
 workValue88 = "marker"
+
+-- === HELPER FUNCTION (decompiler name: workValue89; parameters: arg1) ===
 function workValue89(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8
   arg3 = arg1
@@ -5447,6 +5669,8 @@ end
 iterator3(workValue88, workValue89)
 iterator3 = Citizen
 iterator3 = iterator3.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: workValue88; parameters: none) ===
 function workValue88()
   local arg1, arg2, arg3
   while true do
@@ -5455,6 +5679,8 @@ function workValue88()
     -- Beginner: result below is playerCoords.
     arg1 = arg1()
     arg2 = workValue57
+
+    -- === HELPER FUNCTION: arg3(arg12, arg22, arg32) ===
     function arg3(arg12, arg22, arg32)
       local arg42, arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104, workValue3, workValue7, workValue9
       arg42 = GetEntityCoords
@@ -5590,6 +5816,8 @@ iterator3(workValue88)
 iterator3 = AddEventHandler
 workValue88 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue89; parameters: arg1) ===
 function workValue89(arg1)
   local arg2, arg3
   arg2 = GetCurrentResourceName
@@ -5599,6 +5827,8 @@ function workValue89(arg1)
     arg2()
     arg2 = workValue57
     -- Beginner: this function runs when client event "onResourceStop" fires.
+
+    -- === HELPER FUNCTION: arg3(arg12, arg22, arg32) ===
     function arg3(arg12, arg22, arg32)
       local arg42, arg52, workValue60, numberValue12, numberValue13, workValue94, workValue104
       arg42 = workValue55

@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Knifearch
+    =======================================
+
+    File: cmg/prod/client/police/cl_knifearch.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Knifearch feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 0
+      * Background threads: 1
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: 3167b12587, f1a982d264, e4b1cfaa9e, 84acbce207, 59118ecc97, 3eb79decde
+      * Local event handlers: none found by static scan
+      * Server events sent: 409cde8b69, 0817bcb014, e8ecf4fc28, 20711efe1d, b6d9f40b37
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Police Knife Arch / Metal Detector
     ==================================
 
@@ -213,6 +251,7 @@ RegisterNetEvent(
             - coords
         ) <= 20.0 then
 
+            -- Beginner: sends a Lua table to the HTML/JavaScript UI.
             SendNUIMessage({
                 transactionType =
                     "knifeArch"
@@ -280,6 +319,7 @@ RegisterNetEvent(
 local lastEmptyScanAt = 0
 
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     while true do
         if hasKnownArches then

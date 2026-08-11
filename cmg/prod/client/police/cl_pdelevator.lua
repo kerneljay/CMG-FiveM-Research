@@ -1,44 +1,56 @@
 --[[
-    Beginner Guide: cl_pdelevator.lua
-    =================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Pdelevator
-    ===========================
+    LEVEL 1 BEGINNER GUIDE — Pdelevator
+    ========================================
 
     File: cmg/prod/client/police/cl_pdelevator.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Pdelevator feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * ~w~You are on ~b~%s
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, vector3Builder, numberValue16, numberValue17, numberValue18, numberValue20, numberValue22, numberValue24, numberValue25, numberValue
 dataTable = {}
@@ -422,6 +434,8 @@ numberValue22 = "main"
 -- Beginner: result below is menu.
 numberValue17 = numberValue17(numberValue18, numberValue20, numberValue22)
 numberValue18 = nil
+
+-- === HELPER FUNCTION (decompiler name: numberValue20; parameters: none) ===
 function numberValue20()
   local arg1, arg2, flag8, flag9, flag10, iterator, workValue6
   arg1 = RageUI
@@ -436,6 +450,8 @@ function numberValue20()
   flag8 = true
   flag9 = false
   flag10 = true
+
+  -- === HELPER FUNCTION: iterator() ===
   function iterator()
     local rageUiCall, workValue2, numberValue13, textValue2, workValue5, rageUiCall2, nameValue, workValue8, flag11, workValue12
     rageUiCall = 1
@@ -460,6 +476,8 @@ function numberValue20()
       workValue8 = workValue8[workValue5]
       workValue8 = workValue8.desc
       flag11 = true
+
+      -- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg12, arg22, arg3) ===
       function workValue12(arg12, arg22, arg3)
         local cmgCall2, waitCall, numberValue19, numberValue21, numberValue23, workValue10, workValue13, flag, flag2, flag3, flag4
         if arg3 then
@@ -507,6 +525,8 @@ function numberValue20()
       rageUiCall2(nameValue, workValue8, flag11, workValue12)
     end
   end
+
+  -- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
   function workValue6()
     local rageUiCall, workValue2
   end
@@ -516,10 +536,14 @@ vector3Builder(numberValue16, numberValue17, numberValue18, numberValue20)
 vector3Builder = AddEventHandler
 numberValue16 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: numberValue17; parameters: arg1, arg2) ===
 function numberValue17(arg1, arg2)
   local flag8, flag9, flag10, iterator, workValue6, workValue7, workValue9, workValue11, workValue, cmgCall, textValue, position, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, flag5, flag6, flag7, workValue3, workValue4, numberValue12, numberValue14, numberValue15
   if arg2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+    -- === HELPER FUNCTION (decompiler name: flag8; parameters: none) ===
     function flag8()
       local rageUiCall, workValue2, numberValue13, textValue2, workValue5
       rageUiCall = RageUI
@@ -534,6 +558,8 @@ function numberValue17(arg1, arg2)
       numberValue13 = true
       rageUiCall(workValue2, numberValue13)
     end
+
+    -- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
     function flag9()
       local rageUiCall, workValue2, numberValue13, textValue2, workValue5
       rageUiCall = RageUI
@@ -548,6 +574,8 @@ function numberValue17(arg1, arg2)
       numberValue13 = false
       rageUiCall(workValue2, numberValue13)
     end
+
+    -- === HELPER FUNCTION (decompiler name: flag10; parameters: none) ===
     function flag10()
       local rageUiCall, workValue2, numberValue13, textValue2, workValue5, rageUiCall2
       rageUiCall = RMenu

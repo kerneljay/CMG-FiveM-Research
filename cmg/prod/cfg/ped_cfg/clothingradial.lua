@@ -1,18 +1,40 @@
 --[[
-    BEGINNER GUIDE — Clothingradial
-    ===============================
+    LEVEL 1 BEGINNER GUIDE — Clothingradial
+    ============================================
 
     File: cmg/prod/cfg/ped_cfg/clothingradial.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Config/shared data — is mainly loaded as data/configuration by other scripts.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
+    Quick map of this file (automatic static scan):
+      * Named functions: 1
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cfg = {}
 
@@ -369,6 +391,7 @@ cfg.Variations = {
 	}
 }
 
+-- === HELPER FUNCTION: AddNewVariation(which, gender, one, two, single) ===
 local function AddNewVariation(which, gender, one, two, single)
 	local Where = cfg.Variations[which][gender]
 	if not single then
@@ -397,6 +420,7 @@ end
 		Its important for haircuts.
 ]]--
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
 	-- Male Visor/Hat Variations
 	AddNewVariation("Visor", "Male", 9, 10)

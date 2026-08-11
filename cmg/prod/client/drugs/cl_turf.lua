@@ -1,54 +1,56 @@
 --[[
-    Beginner Guide: cl_turf.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Turf
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Turf
+    ==================================
 
     File: cmg/prod/client/drugs/cl_turf.lua
-    Purpose: This file contains drug gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: drug-related gameplay systems, specifically the Turf feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 56
+      * Background threads: 0
+      * Always-running loops: 12
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Config/data used:
-      * cfg/cfg_turf
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 28
-      They are intentionally left unchanged because matching server code may use them.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * CMG:onClientSpawn
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * Enter new commission rate(0-
-      * ~g~Press E to capture this turf!
-      * ~r~You need to be in a gang to capture a turf!
-      * ~r~You need a proper weapon to capture a turf!
-      * ~r~You cannot capture a turf while using an emote!
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, textValue2, dataTable6, dataTable7, dataTable8, flag3, flag5, numberValue15, numberValue16, numberValue18, numberValue, dataTable, dataTable2, cmgCall2, workValue3, workValue4, cmgCall3, textValue, cmgCall4, cmgCall5, workValue6, workValue7, tableHelper, cmgCall6, dataTable4, workValue10, eventRegistration, eventRegistration2, eventRegistration3, cmgCall7, textValue3, workValue13
 cmgCall = CMG
@@ -69,6 +71,8 @@ numberValue = 10.0
 dataTable = {}
 dataTable2 = {}
 cmgCall2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2
   arg1 = flag5
@@ -78,6 +82,8 @@ function workValue3()
   return arg1
 end
 cmgCall2.isInTurfContest = workValue3
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3
   if -1569615261 == arg1 or 126349499 == arg1 then
@@ -94,6 +100,8 @@ function cmgCall2(arg1)
   arg3 = true
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
 function workValue3(arg1, arg2)
   local arg3, arg4, arg5, flag4
   arg3 = GetEntityCoords
@@ -154,6 +162,8 @@ function workValue3(arg1, arg2)
   arg4 = nil
   return arg4
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2) ===
 function workValue4(arg1, arg2)
   local arg3, arg4, arg5, flag4
   arg3 = GetEntityCoords
@@ -261,6 +271,8 @@ textValue = 0
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "7caa981020"
 -- Beginner: this function handles network event "7caa981020".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2
   textValue = arg1
@@ -269,6 +281,8 @@ end
 cmgCall4(cmgCall5, workValue6)
 cmgCall4 = CMG
 -- Beginner: this function handles network event "7caa981020".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2
   arg1 = textValue
@@ -276,6 +290,8 @@ function cmgCall5()
 end
 cmgCall4.getNextMoneyTurfPayoutEpoch = cmgCall5
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1) ===
 function cmgCall5(arg1)
   local arg2, arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10
   arg2 = pairs
@@ -300,6 +316,8 @@ end
 cmgCall4.getTurfOwnerAndProfit = cmgCall5
 cmgCall4 = Citizen
 cmgCall4 = cmgCall4.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2, nameValue2, numberValue6
   arg1 = {}
@@ -417,6 +435,8 @@ cmgCall4(cmgCall5)
 cmgCall4 = AddEventHandler
 cmgCall5 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3, arg4
   if arg2 then
@@ -441,6 +461,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "e6dba9aa45"
 -- Beginner: this function handles network event "e6dba9aa45".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3, arg4
   arg3 = dataTable7
@@ -456,6 +478,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "1ad2c58ae3"
 -- Beginner: this function handles network event "1ad2c58ae3".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = false
@@ -465,6 +489,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "c680350573"
 -- Beginner: this function handles network event "c680350573".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3
   arg3 = dataTable7
@@ -476,6 +502,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "b584e10b3d"
 -- Beginner: this function handles network event "b584e10b3d".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3
   arg3 = dataTable6
@@ -485,6 +513,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "e9971176c5"
 -- Beginner: this function handles network event "e9971176c5".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue
   arg2 = pairs
@@ -540,6 +570,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = AddEventHandler
 cmgCall5 = "5afc35de9e"
 -- Beginner: this function runs when client event "5afc35de9e" fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function workValue6(arg1, arg2, arg3, arg4, arg5)
   local flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2
   flag4 = pairs
@@ -585,6 +617,8 @@ cmgCall4(cmgCall5, workValue6)
 cmgCall4 = RegisterNetEvent
 cmgCall5 = "36a11b5878"
 -- Beginner: this function handles network event "36a11b5878".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local arg3, arg4, arg5
   arg3 = dataTable7
@@ -598,6 +632,8 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "36a11b5878".
 cmgCall4(cmgCall5, workValue6)
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2, nameValue2
   arg1 = {}
@@ -661,6 +697,8 @@ function cmgCall5()
 end
 cmgCall4.getDrugTurfsUiPayload = cmgCall5
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2
   arg1 = CMG
@@ -709,6 +747,8 @@ end
 cmgCall4.isPlayerInTurf = cmgCall5
 cmgCall4 = Citizen
 cmgCall4 = cmgCall4.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: none) ===
 function cmgCall5()
   local arg1, arg2, arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2, nameValue2, numberValue6, numberValue8, numberValue10, numberValue11, numberValue12, dataTable3, flag, flag2
   arg1 = pairs
@@ -771,6 +811,8 @@ cmgCall4 = -1
 cmgCall5 = GetGameTimer
 -- Beginner: result below is gameTimeMs.
 cmgCall5 = cmgCall5()
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = CMG
@@ -784,12 +826,18 @@ function workValue6(arg1)
   arg4 = "10"
   return arg2(arg3, arg4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2
   arg1 = Citizen
   arg1 = arg1.CreateThread
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3, numberValue4, numberValue5, numberValue7, numberValue9
+
+    -- === HELPER FUNCTION: arg12(arg13) ===
     function arg12(arg13)
       local workValue5, workValue12, numberValue13, textValue5
       workValue5 = RequestScaleformMovie
@@ -857,10 +905,14 @@ end
 tableHelper = AddEventHandler
 cmgCall6 = "CMG:onClientSpawn"
 -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2) ===
 function dataTable4(arg1, arg2)
   local arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2, nameValue2, numberValue6, numberValue8, numberValue10, numberValue11, numberValue12, dataTable3, flag, flag2, workValue8, workValue9, dataTable5, workValue11
   if arg2 then
     -- Beginner: this function runs when client event "CMG:onClientSpawn" fires.
+
+    -- === HELPER FUNCTION: arg3(arg12) ===
     function arg3(arg12)
       local arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6
       arg22 = PlaySound
@@ -876,11 +928,15 @@ function dataTable4(arg1, arg2)
       arg22 = arg12.turfId
       cmgCall4 = arg22
     end
+
+    -- === HELPER FUNCTION: arg4() ===
     function arg4()
       local arg12, arg22
       arg12 = -1
       cmgCall4 = arg12
     end
+
+    -- === HELPER FUNCTION: arg5(arg12) ===
     function arg5(arg12)
       local arg22, arg32, arg42
       arg22 = IsControlJustPressed
@@ -993,18 +1049,24 @@ function dataTable4(arg1, arg2)
       textValue6 = flag4.turfCoords
       workValue = cmgCall8
       nameValue = cmgCall8
+
+      -- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
       function workValue2()
         local arg12, arg22
         arg12 = StartAudioScene
         arg22 = "CHARACTER_CHANGE_IN_SKY_SCENE"
         arg12(arg22)
       end
+
+      -- === HELPER FUNCTION: nameValue2() ===
       function nameValue2()
         local arg12, arg22
         arg12 = StopAudioScene
         arg22 = "CHARACTER_CHANGE_IN_SKY_SCENE"
         arg12(arg22)
       end
+
+      -- === HELPER FUNCTION (decompiler name: numberValue6; parameters: none) ===
       function numberValue6()
         local arg12, arg22
       end
@@ -1012,6 +1074,8 @@ function dataTable4(arg1, arg2)
       -- Beginner: Create an interaction area around a world position.
       cmgCall9(cmgCall10, textValue6, workValue, nameValue, workValue2, nameValue2, numberValue6, numberValue8)
     end
+
+    -- === HELPER FUNCTION (decompiler name: cmgCall8; parameters: arg12) ===
     function cmgCall8(arg12)
       local arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6
       arg22 = PlaySound
@@ -1038,6 +1102,8 @@ function dataTable4(arg1, arg2)
         arg12.draw = true
       end
     end
+
+    -- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg12) ===
     function cmgCall9(arg12)
       local arg22, arg32
       arg22 = CMG
@@ -1050,6 +1116,8 @@ function dataTable4(arg1, arg2)
       arg22(arg32)
       arg12.draw = false
     end
+
+    -- === HELPER FUNCTION (decompiler name: cmgCall10; parameters: arg12) ===
     function cmgCall10(arg12)
       local arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3, numberValue4, numberValue5, numberValue7
       arg22 = arg12.draw
@@ -1388,6 +1456,8 @@ function dataTable4(arg1, arg2)
 end
 -- Beginner: Register a client-side event handler. Event/command: "CMG:onClientSpawn".
 tableHelper(cmgCall6, dataTable4)
+
+-- === HELPER FUNCTION: tableHelper(arg1, arg2) ===
 function tableHelper(arg1, arg2)
   local arg3, arg4, arg5
   arg3 = dataTable7
@@ -1399,6 +1469,8 @@ function tableHelper(arg1, arg2)
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "b7983f45aa".
   arg3(arg4, arg5)
 end
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2, arg3
   arg1 = TriggerServerEvent
@@ -1406,6 +1478,8 @@ function cmgCall6()
   arg3 = textValue2
   arg1(arg2, arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
 function dataTable4()
   local arg1, arg2, arg3, arg4, arg5, flag4, cmgCall8
   arg1 = cmgCall3.quickCapturing
@@ -1432,6 +1506,8 @@ function dataTable4()
   arg5, flag4, cmgCall8 = arg5(flag4)
   return arg3(arg4, arg5, flag4, cmgCall8)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1, arg2, arg3) ===
 function workValue10(arg1, arg2, arg3)
   local arg4, arg5, flag4
   arg4 = dataTable6
@@ -1443,6 +1519,8 @@ function workValue10(arg1, arg2, arg3)
     arg4 = arg4()
     arg5 = Citizen
     arg5 = arg5.CreateThread
+
+    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
     function flag4()
       local arg12, arg22, arg32
       while true do
@@ -1481,6 +1559,8 @@ function workValue10(arg1, arg2, arg3)
     arg5(flag4)
     arg5 = Citizen
     arg5 = arg5.CreateThread
+
+    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
     function flag4()
       local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3
       arg12 = tCMG
@@ -1556,6 +1636,8 @@ function workValue10(arg1, arg2, arg3)
     arg5(flag4)
     arg5 = Citizen
     arg5 = arg5.CreateThread
+
+    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
     function flag4()
       local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3, numberValue4
       while true do
@@ -1612,6 +1694,8 @@ end
 eventRegistration = RegisterNetEvent
 eventRegistration2 = "4d614a25fe"
 -- Beginner: this function handles network event "4d614a25fe".
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: arg1, arg2) ===
 function eventRegistration3(arg1, arg2)
   local arg3, arg4, arg5, flag4
   arg3 = true
@@ -1627,6 +1711,8 @@ function eventRegistration3(arg1, arg2)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "4d614a25fe".
 eventRegistration(eventRegistration2, eventRegistration3)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3) ===
 function eventRegistration(arg1, arg2, arg3)
   local arg4, arg5, flag4, cmgCall8
   arg4 = dataTable7
@@ -1663,6 +1749,8 @@ function eventRegistration(arg1, arg2, arg3)
       flag5 = arg5
       arg5 = Citizen
       arg5 = arg5.CreateThread
+
+      -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
       function flag4()
         local arg12, arg22, arg32
         while true do
@@ -1701,6 +1789,8 @@ function eventRegistration(arg1, arg2, arg3)
       arg5(flag4)
       arg5 = Citizen
       arg5 = arg5.CreateThread
+
+      -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
       function flag4()
         local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3
         arg12 = tCMG
@@ -1776,6 +1866,8 @@ function eventRegistration(arg1, arg2, arg3)
       arg5(flag4)
       arg5 = Citizen
       arg5 = arg5.CreateThread
+
+      -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
       function flag4()
         local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3, numberValue4
         while true do
@@ -1833,6 +1925,8 @@ end
 eventRegistration2 = RegisterNetEvent
 eventRegistration3 = "d11bd04ad0"
 -- Beginner: this function handles network event "d11bd04ad0".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall7; parameters: arg1, arg2, arg3) ===
 function cmgCall7(arg1, arg2, arg3)
   local arg4, arg5, flag4, cmgCall8
   if not arg2 then
@@ -1853,12 +1947,16 @@ function cmgCall7(arg1, arg2, arg3)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "d11bd04ad0".
 eventRegistration2(eventRegistration3, cmgCall7)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function eventRegistration2(arg1, arg2, arg3, arg4, arg5)
   local flag4, cmgCall8, cmgCall9
   flag4 = dataTable4
   flag4 = flag4()
   cmgCall8 = Citizen
   cmgCall8 = cmgCall8.CreateThread
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
   function cmgCall9()
     local arg12, arg22
     while true do
@@ -1891,6 +1989,8 @@ function eventRegistration2(arg1, arg2, arg3, arg4, arg5)
   cmgCall8(cmgCall9)
   cmgCall8 = Citizen
   cmgCall8 = cmgCall8.CreateThread
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
   function cmgCall9()
     local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3, numberValue4
     while true do
@@ -1944,6 +2044,8 @@ function eventRegistration2(arg1, arg2, arg3, arg4, arg5)
   cmgCall8(cmgCall9)
   cmgCall8 = Citizen
   cmgCall8 = cmgCall8.CreateThread
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
   function cmgCall9()
     local arg12, arg22, arg32, arg42, textValue4, waitCall, numberValue14, flag6, numberValue17, numberValue19, numberValue2, numberValue3
     arg12 = tCMG
@@ -2042,6 +2144,8 @@ end
 eventRegistration3 = RegisterNetEvent
 cmgCall7 = "75bfa7b124"
 -- Beginner: this function handles network event "75bfa7b124".
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1, arg2) ===
 function textValue3(arg1, arg2)
   local arg3, arg4, arg5, flag4, cmgCall8, cmgCall9, cmgCall10, textValue6, workValue, nameValue, workValue2
   textValue2 = arg2
@@ -2076,6 +2180,8 @@ eventRegistration3(cmgCall7, textValue3)
 eventRegistration3 = RegisterNetEvent
 cmgCall7 = "d642fa2574"
 -- Beginner: this function handles network event "d642fa2574".
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1, arg2) ===
 function textValue3(arg1, arg2)
   local arg3
   arg3 = dataTable8
@@ -2086,6 +2192,8 @@ eventRegistration3(cmgCall7, textValue3)
 eventRegistration3 = RegisterNetEvent
 cmgCall7 = "2ca4f37fe2"
 -- Beginner: this function handles network event "2ca4f37fe2".
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2
   arg1 = false
@@ -2097,6 +2205,8 @@ cmgCall7 = CMG
 cmgCall7 = cmgCall7.registerDevMenuItems
 textValue3 = "Turf"
 -- Beginner: this function handles network event "2ca4f37fe2".
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: none) ===
 function workValue13()
   local arg1, arg2, arg3, arg4, arg5, flag4
   arg1 = RageUI
@@ -2105,6 +2215,8 @@ function workValue13()
   arg3 = "Captures a turf in 10 seconds."
   arg4 = cmgCall3.quickCapturing
   arg5 = {}
+
+  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32, arg42) ===
   function flag4(arg12, arg22, arg32, arg42)
     cmgCall3.quickCapturing = arg42
   end
@@ -2120,6 +2232,8 @@ function workValue13()
   arg3 = arg3(arg4, arg5)
   arg4 = cmgCall3.ignoreCooldown
   arg5 = {}
+
+  -- === HELPER FUNCTION (decompiler name: flag4; parameters: arg12, arg22, arg32, arg42) ===
   function flag4(arg12, arg22, arg32, arg42)
     local textValue4, waitCall, numberValue14
     textValue4 = eventRegistration3

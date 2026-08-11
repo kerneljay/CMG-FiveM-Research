@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Wheelchair
+    ========================================
+
+    File: cmg/prod/client/nhs/cl_wheelchair.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: health-service/medical gameplay, specifically the Wheelchair feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 2
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 0b5b9ba4db, 05e4b09a9e
+      * Local event handlers: none found by static scan
+      * Server events sent: ce24d993d8, 607b2e0073, 895f60bda9
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_wheelchair, cfg/cfg_forcedequipment
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Forced Wheelchair
     =================
 
@@ -57,6 +95,7 @@ local activeWheelchair = nil
 -- MODEL / VEHICLE HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: getWheelchairModelHash() ===
 local function getWheelchairModelHash()
     if not wheelchairModelHash then
         wheelchairModelHash =
@@ -125,6 +164,7 @@ function CMG.isWheelchairVehicle(
 end
 
 
+-- === HELPER FUNCTION: CMG.isForcedWheelchair() ===
 function CMG.isForcedWheelchair()
     return
         CMG.isForcedEquipment
@@ -138,6 +178,7 @@ end
 -- CLEANUP
 -- ============================================================
 
+-- === HELPER FUNCTION: notifyWheelchairNetworkId() ===
 local function notifyWheelchairNetworkId()
     if not activeWheelchair
         or not DoesEntityExist(
@@ -164,6 +205,8 @@ local function notifyWheelchairNetworkId()
     end
 
     -- Network ID can appear one frame later after spawning.
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         Wait(100)
 
@@ -191,6 +234,7 @@ local function notifyWheelchairNetworkId()
 end
 
 
+-- === HELPER FUNCTION: removeWheelchairVehicle() ===
 local function removeWheelchairVehicle()
     if activeWheelchair
         and DoesEntityExist(
@@ -231,6 +275,7 @@ local function removeWheelchairVehicle()
 end
 
 
+-- === HELPER FUNCTION: forcedWheelchairExpired() ===
 local function forcedWheelchairExpired()
     removeWheelchairVehicle()
 end
@@ -240,7 +285,10 @@ end
 -- DISABLE EXIT WHILE FORCED
 -- ============================================================
 
+-- === HELPER FUNCTION: startForcedWheelchairControlThread() ===
 local function startForcedWheelchairControlThread()
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         while CMG.isForcedEquipment
             and CMG.isForcedEquipment(

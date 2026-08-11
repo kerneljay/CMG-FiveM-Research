@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Hospital
+    ======================================
+
+    File: cmg/prod/client/core/cl_hospital.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Hospital feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 5
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: a5747e8851, d864a7ba56
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Hospital / Prison Bed Healing
     =============================
 
@@ -47,6 +85,7 @@ local prisonBedStartedAt = 0
 -- PRISON BED SYSTEM
 -- ============================================================
 
+-- === HELPER FUNCTION: startUsingPrisonBed(bed) ===
 local function startUsingPrisonBed(bed)
     if not globalInPrison or usingPrisonBed then
         return
@@ -116,6 +155,7 @@ local function startUsingPrisonBed(bed)
 
     RemoveAnimDict("lying@on_grass")
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         Citizen.Wait(0)
 
@@ -133,6 +173,7 @@ local function startUsingPrisonBed(bed)
     end)
 end
 
+-- === HELPER FUNCTION: updatePrisonBed() ===
 local function updatePrisonBed()
     if not usingPrisonBed or not currentPrisonBed then
         return
@@ -199,14 +240,17 @@ end
 -- PUBLIC HOSPITAL HEAL POINTS
 -- ============================================================
 
+-- === HELPER FUNCTION: showHospitalPrompt() ===
 local function showHospitalPrompt()
     drawNativeNotification("Press ~INPUT_PICKUP~ to recieve medical attention.")
 end
 
+-- === HELPER FUNCTION: leaveHospitalArea() ===
 local function leaveHospitalArea()
     -- Empty in the original script.
 end
 
+-- === HELPER FUNCTION: tryUseHospital(hospitalData) ===
 local function tryUseHospital(hospitalData)
     if not IsControlJustPressed(1, 51) then
         return
@@ -255,8 +299,10 @@ local function tryUseHospital(hospitalData)
     -- Different server event depending on whether this is a coma/revive heal
     -- or an ordinary health refill.
     if tCMG.isInComa() then
+        -- Beginner: sends the "a5747e8851" event to the server.
         TriggerServerEvent("a5747e8851")
     else
+        -- Beginner: sends the "d864a7ba56" event to the server.
         TriggerServerEvent("d864a7ba56")
     end
 
@@ -270,6 +316,7 @@ end
 -- CREATE AREAS ON FIRST SPAWN
 -- ============================================================
 
+-- === EVENT HANDLER: runs when "CMG:onClientSpawn" fires ===
 AddEventHandler("CMG:onClientSpawn", function(_, firstSpawn)
     if not firstSpawn then
         return

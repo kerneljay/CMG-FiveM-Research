@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Buytrucks
+    =======================================
+
+    File: cmg/prod/client/jobs/cl_buytrucks.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: civilian/job gameplay, specifically the Buytrucks feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 4
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 4fd18e8fe3, 55dd309134, cddad45dd3
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: dad36733a1, c0a43cc041
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_trucking
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Truck Dealership / Rental
     =========================
 
@@ -290,6 +328,7 @@ RegisterNetEvent(
 -- WORLD DEALERSHIP MARKERS
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     for _, location
         in ipairs(
@@ -347,6 +386,7 @@ AddEventHandler(
             return
         end
 
+        -- === HELPER FUNCTION: onEnter() ===
         local function onEnter()
             local ped =
                 PlayerPedId()
@@ -366,6 +406,7 @@ AddEventHandler(
             end
         end
 
+        -- === HELPER FUNCTION: onLeave() ===
         local function onLeave()
             RageUI.CloseAll()
         end

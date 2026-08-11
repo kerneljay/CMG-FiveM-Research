@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Pava
+    ==================================
+
+    File: cmg/prod/client/police/cl_pava.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Pava feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 2
+      * Background threads: 2
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: 44abcb0ccb, 2b5ec979de, 2585ce9e7e
+      * Local event handlers: none found by static scan
+      * Server events sent: 3d1541f44f, fa6b8620ec, adc0b1e4ab
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Police PAVA Spray
     =================
 
@@ -58,6 +96,7 @@ local PTFX_NAME =
 -- FIND ENTITY DIRECTLY IN FRONT
 -- ============================================================
 
+-- === HELPER FUNCTION: getSprayTargetEntity() ===
 local function getSprayTargetEntity()
     local ped =
         PlayerPedId()
@@ -103,7 +142,10 @@ end
 -- ONE SPRAY CYCLE
 -- ============================================================
 
+-- === HELPER FUNCTION: startSpraying() ===
 local function startSpraying()
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     CreateThread(function()
         local secondsLeft =
             settings.timeUntilReload
@@ -165,6 +207,7 @@ end
 -- EQUIPPED-WEAPON CONTROL THREAD
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     while true do
         local ped =

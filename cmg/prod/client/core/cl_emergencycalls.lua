@@ -1,29 +1,40 @@
 --[[
-    Beginner Guide: cl_emergencycalls.lua
-    =====================================
+    LEVEL 1 BEGINNER GUIDE — Emergencycalls
+    ============================================
 
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
+    File: cmg/prod/client/core/cl_emergencycalls.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Emergencycalls feature.
 
-    Commands:
-      * /devfillcalls
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Important events used:
-      * 00e0b9aa86
-      * 16fb6425b4
-      * 1d88d0efdf
-      * 5aef5d0989
-      * a6f59b89aa
-      * e00697b79f
-      * e1c61fbba4
-      * fbf6b45bc8
+    Quick map of this file (automatic static scan):
+      * Named functions: 27
+      * Background threads: 3
+      * Always-running loops: 2
+      * Commands: devfillcalls
+      * Incoming network events: fbf6b45bc8, e1c61fbba4, 16fb6425b4, 1d88d0efdf
+      * Local event handlers: 00e0b9aa86
+      * Server events sent: 5aef5d0989, a6f59b89aa, e00697b79f
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     Call Manager (cleaned/readable version)
@@ -101,10 +112,12 @@ local localServerId = nil
 -- Public state helpers
 -- ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.isEmergencyCallUIHidden() ===
 function CMG.isEmergencyCallUIHidden()
     return emergencyCallUiHidden
 end
 
+-- === HELPER FUNCTION: CMG.isCallManagerOpen() ===
 function CMG.isCallManagerOpen()
     return callManagerOpen
 end
@@ -114,12 +127,16 @@ end
 -- ---------------------------------------------------------------------------
 
 -- New calls are inserted at the front so the newest call appears first.
+
+-- === HELPER FUNCTION: insertCall(rawCall) ===
 local function insertCall(rawCall)
     table.insert(calls, 1, rawCall)
 end
 
 -- Find a call by caller ID.
 -- Returns: index, rawCall
+
+-- === HELPER FUNCTION: findCall(callerId) ===
 local function findCall(callerId)
     for index, rawCall in pairs(calls) do
         if rawCall[1] == callerId then
@@ -132,6 +149,8 @@ end
 
 -- Admin calls sometimes hide the original player message and simply display
 -- "Admin Ticket" instead. Other call types use the supplied message.
+
+-- === HELPER FUNCTION: getDisplayMessage(callType, originalMessage, priority) ===
 local function getDisplayMessage(callType, originalMessage, priority)
     if callType == "admin" then
         local canManageAdmins = CMG.hasClientPermission("admin.management")
@@ -150,6 +169,8 @@ local function getDisplayMessage(callType, originalMessage, priority)
 end
 
 -- Can this player see staff-ticket call types?
+
+-- === HELPER FUNCTION: canSeeStaffCalls() ===
 local function canSeeStaffCalls()
     return CMG.hasClientPermission("admin.tickets")
         or CMG.hasClientPermission("rp.tickets")
@@ -158,6 +179,8 @@ end
 
 -- A player who asks for the STAFF filter but cannot view staff tickets is
 -- silently moved onto the normal JOB filter instead.
+
+-- === HELPER FUNCTION: normaliseCallMode(mode) ===
 local function normaliseCallMode(mode)
     if mode == "STAFF" and not canSeeStaffCalls() then
         return "JOB"
@@ -167,6 +190,8 @@ local function normaliseCallMode(mode)
 end
 
 -- Convert the compact/raw call table into an easy-to-use object for NUI.
+
+-- === HELPER FUNCTION: callToUiObject(rawCall) ===
 local function callToUiObject(rawCall)
     local coords = rawCall[4]
 
@@ -190,6 +215,8 @@ end
 -- ---------------------------------------------------------------------------
 
 -- Send the entire current Call Manager state to the browser UI.
+
+-- === HELPER FUNCTION: sendCallManagerState() ===
 local function sendCallManagerState()
     local uiCalls = {}
 
@@ -231,6 +258,7 @@ local function sendCallManagerState()
     lastPlayerHeading = playerHeading
 end
 
+-- === HELPER FUNCTION: sendOfficersUpdate() ===
 local function sendOfficersUpdate()
     CMG.uiSendMessage({
         action = "CALLMANAGER_OFFICERS_UPDATE",
@@ -240,6 +268,7 @@ local function sendOfficersUpdate()
     })
 end
 
+-- === HELPER FUNCTION: sendCallAdded(rawCall) ===
 local function sendCallAdded(rawCall)
     CMG.uiSendMessage({
         action = "CALLMANAGER_CALL_ADD",
@@ -247,6 +276,7 @@ local function sendCallAdded(rawCall)
     })
 end
 
+-- === HELPER FUNCTION: sendCallRemoved(callerId) ===
 local function sendCallRemoved(callerId)
     CMG.uiSendMessage({
         action = "CALLMANAGER_CALL_REMOVE",
@@ -256,6 +286,7 @@ local function sendCallRemoved(callerId)
     })
 end
 
+-- === HELPER FUNCTION: sendRespondersUpdate(callerId) ===
 local function sendRespondersUpdate(callerId)
     CMG.uiSendMessage({
         action = "CALLMANAGER_RESPONDERS_UPDATE",
@@ -275,6 +306,8 @@ end
 -- Parameters from the original event:
 --   callerId, callerName, callerUserId, coords, message,
 --   callType, minutesPast, priority, simpleDispatchUi
+
+-- === NETWORK EVENT: receives "fbf6b45bc8" from server/another network source ===
 RegisterNetEvent("fbf6b45bc8", function(
     callerId,
     callerName,
@@ -359,6 +392,8 @@ RegisterNetEvent("fbf6b45bc8", function(
 end)
 
 -- Remove a call completely.
+
+-- === NETWORK EVENT: receives "e1c61fbba4" from server/another network source ===
 RegisterNetEvent("e1c61fbba4", function(callerId)
     local index = findCall(callerId)
 
@@ -374,6 +409,8 @@ end)
 
 -- The accepted call has ended/changed. The original code clears its route by
 -- placing a waypoint on the player's own current position.
+
+-- === NETWORK EVENT: receives "16fb6425b4" from server/another network source ===
 RegisterNetEvent("16fb6425b4", function(callerId)
     if acceptedCallId ~= callerId then
         return
@@ -386,6 +423,8 @@ RegisterNetEvent("16fb6425b4", function(callerId)
 end)
 
 -- Server sends the latest list of responders for one call.
+
+-- === NETWORK EVENT: receives "1d88d0efdf" from server/another network source ===
 RegisterNetEvent("1d88d0efdf", function(callerId, responders)
     if type(responders) ~= "table" then
         responders = {}
@@ -399,6 +438,8 @@ end)
 -- Manager. The original event supplies compact player rows:
 --   [1] serverId, [2] coords, [3] heading, [4] deadFlag,
 --   [5] colour, [6] routingBucket
+
+-- === EVENT HANDLER: runs when "00e0b9aa86" fires ===
 AddEventHandler("00e0b9aa86", function(playerRows, _, category)
     if category ~= "emergency" or type(playerRows) ~= "table" then
         return
@@ -446,6 +487,8 @@ end)
 -- ---------------------------------------------------------------------------
 
 -- NHS calls also get a temporary map blip for 5 minutes when accepted.
+
+-- === HELPER FUNCTION: addTemporaryNhsBlip(callType, coords) ===
 local function addTemporaryNhsBlip(callType, coords)
     if callType ~= "nhs" or not coords then
         return
@@ -462,6 +505,7 @@ local function addTemporaryNhsBlip(callType, coords)
         false
     )
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         Citizen.Wait(300000) -- 5 minutes
         tCMG.removeBlip(blip)
@@ -470,6 +514,8 @@ end
 
 -- Does the local player have any permission that gives access to the Call
 -- Manager at all?
+
+-- === HELPER FUNCTION: canUseCallManager() ===
 local function canUseCallManager()
     return CMG.hasClientPermission("newplayer.tickets")
         or CMG.hasClientPermission("rp.tickets")
@@ -481,6 +527,7 @@ local function canUseCallManager()
         or CMG.hasClientPermission("aa.onduty.permission")
 end
 
+-- === HELPER FUNCTION: showHiddenHudDisplays() ===
 local function showHiddenHudDisplays()
     for _, displayName in pairs(hiddenHudDisplays) do
         CMG.showDisplay(displayName, "callmanager")
@@ -489,6 +536,7 @@ local function showHiddenHudDisplays()
     CMG.setHudCallManagerNotificationsOnlyMode(false)
 end
 
+-- === HELPER FUNCTION: hideHudDisplaysForCallManager() ===
 local function hideHudDisplaysForCallManager()
     for _, displayName in pairs(hiddenHudDisplays) do
         CMG.hideDisplay(displayName, "callmanager")
@@ -498,6 +546,8 @@ local function hideHudDisplaysForCallManager()
 end
 
 -- Open the Call Manager UI.
+
+-- === HELPER FUNCTION: openCallManager(initialMode) ===
 local function openCallManager(initialMode)
     if callManagerOpen or not canUseCallManager() then
         return
@@ -528,10 +578,13 @@ local function openCallManager(initialMode)
     CMG.uiSetFocus(true, true, true)
 
     -- Tell the server the Call Manager was opened.
+    -- Beginner: sends the "5aef5d0989" event to the server.
     TriggerServerEvent("5aef5d0989")
 end
 
 -- Close the Call Manager UI.
+
+-- === HELPER FUNCTION: closeCallManager() ===
 local function closeCallManager()
     if not callManagerOpen then
         return
@@ -561,11 +614,15 @@ local function closeCallManager()
 end
 
 -- Other job menus can call this helper directly.
+
+-- === HELPER FUNCTION: CMG.openCallManagerFromJobMenu() ===
 function CMG.openCallManagerFromJobMenu()
     openCallManager("JOB")
 end
 
 -- Accept a call and route the player to it.
+
+-- === HELPER FUNCTION: acceptCall(callerId) ===
 local function acceptCall(callerId)
     if not callerId then
         return
@@ -580,6 +637,7 @@ local function acceptCall(callerId)
     local coords = callCoords[callerId]
 
     -- Tell the server that this call has been accepted.
+    -- Beginner: sends the "a6f59b89aa" event to the server.
     TriggerServerEvent("a6f59b89aa", callerId)
 
     acceptedCallId = callerId
@@ -595,6 +653,8 @@ end
 
 -- "Deny" in the NUI means remove the call locally. Admin/RP tickets are not
 -- removable here in the original script, so those are ignored.
+
+-- === HELPER FUNCTION: denyCall(callerId) ===
 local function denyCall(callerId)
     local index, rawCall = findCall(callerId)
     if not rawCall then
@@ -616,6 +676,8 @@ local function denyCall(callerId)
 end
 
 -- Place a GPS waypoint on a call without accepting it.
+
+-- === HELPER FUNCTION: setCallWaypoint(callerId) ===
 local function setCallWaypoint(callerId)
     local coords = callCoords[callerId]
     if not coords then
@@ -694,6 +756,7 @@ CMG.uiRegisterCallback("callmanagerRespond", function(data)
     local isResponding = data.isResponding == true
 
     -- Tell the server whether this player is responding to the call.
+    -- Beginner: sends the "e00697b79f" event to the server.
     TriggerServerEvent("e00697b79f", callerId, isResponding)
 
     if isResponding then
@@ -709,6 +772,8 @@ end)
 
 -- Prevent normal game camera/weapon controls from fighting with the NUI while
 -- the Call Manager has focus.
+
+-- === HELPER FUNCTION: disableControlsWhileOpen() ===
 local function disableControlsWhileOpen()
     DisableControlAction(0, 1, true)
     DisableControlAction(0, 2, true)
@@ -727,6 +792,7 @@ local function disableControlsWhileOpen()
     DisableControlAction(0, 37, true)
 end
 
+-- === HELPER FUNCTION: callManagerTick() ===
 local function callManagerTick()
     if not canUseCallManager() then
         return
@@ -762,6 +828,8 @@ CMG.createThreadOnTick(callManagerTick, "Call Manager")
 -- ---------------------------------------------------------------------------
 
 -- While the UI is open, update the player's position/heading on its map.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if callManagerOpen then
@@ -800,6 +868,8 @@ Citizen.CreateThread(function()
 end)
 
 -- Every minute, increase each call's "minutesPast" counter.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         local minuteUpdates = {}
@@ -896,6 +966,7 @@ local devTestCalls = {
     }
 }
 
+-- === HELPER FUNCTION: clearDevCalls() ===
 local function clearDevCalls()
     -- Walk backwards because items are being removed from the table.
     for index = #calls, 1, -1 do
@@ -909,6 +980,7 @@ local function clearDevCalls()
     sendCallManagerState()
 end
 
+-- === HELPER FUNCTION: addDevCall(callerId, data, coords) ===
 local function addDevCall(callerId, data, coords)
     local rawCall = {
         callerId,
@@ -936,6 +1008,7 @@ local function addDevCall(callerId, data, coords)
     end
 end
 
+-- === COMMAND /devfillcalls: runs when that command is entered ===
 RegisterCommand("devfillcalls", function(_, args)
     local userId = CMG.getClientUserId()
 

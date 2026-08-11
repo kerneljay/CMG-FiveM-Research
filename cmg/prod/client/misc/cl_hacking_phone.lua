@@ -1,52 +1,56 @@
 --[[
-    Beginner Guide: cl_hacking_phone.lua
-    ====================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Hacking Phone
-    ==============================
+    LEVEL 1 BEGINNER GUIDE — Hacking Phone
+    ===========================================
 
     File: cmg/prod/client/misc/cl_hacking_phone.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Hacking Phone feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 8
+      * Background threads: 0
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * f65acb9738
-      * 70c51a178a
-      * ee4d898632
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * CMG:hackingPhoneActionResult
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable12, dataTable23, dataTable31, eventRegistration, dataTable32, dataTable33, dataTable34, dataTable35, dataTable36, dataTable2, dataTable3, dataTable4, dataTable5, dataTable6, dataTable7, dataTable8, dataTable9, dataTable10, dataTable11, dataTable13, dataTable14, dataTable15, dataTable16, dataTable17, dataTable18, dataTable19, dataTable20, dataTable21, dataTable22, dataTable24, dataTable25, dataTable26, dataTable27, dataTable28, dataTable29, dataTable30
 dataTable = {}
@@ -493,6 +497,8 @@ dataTable12[31] = dataTable26
 dataTable12[32] = dataTable27
 dataTable12[33] = dataTable28
 dataTable12[34] = dataTable29
+
+-- === HELPER FUNCTION (decompiler name: dataTable23; parameters: none) ===
 function dataTable23()
   local arg1, workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21
   arg1 = ipairs
@@ -511,6 +517,8 @@ function dataTable23()
   arg1 = {}
   dataTable = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable31; parameters: arg1) ===
 function dataTable31(arg1)
   local workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2
   if arg1 then
@@ -592,6 +600,8 @@ end
 eventRegistration = RegisterNetEvent
 dataTable32 = "f65acb9738"
 -- Beginner: this function handles network event "f65acb9738".
+
+-- === HELPER FUNCTION (decompiler name: dataTable33; parameters: arg1) ===
 function dataTable33(arg1)
   local workValue9, workValue12, workValue14, workValue16, workValue19, workValue20, workValue21, workValue23, workValue24, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, numberValue, workValue7, workValue8, numberValue2, numberValue3
   workValue9 = type
@@ -678,6 +688,8 @@ eventRegistration(dataTable32, dataTable33)
 eventRegistration = RegisterNetEvent
 dataTable32 = "70c51a178a"
 -- Beginner: this function handles network event "70c51a178a".
+
+-- === HELPER FUNCTION (decompiler name: dataTable33; parameters: none) ===
 function dataTable33()
   local arg1, workValue9
   arg1 = dataTable23
@@ -688,6 +700,8 @@ eventRegistration(dataTable32, dataTable33)
 eventRegistration = RegisterNetEvent
 dataTable32 = "CMG:hackingPhoneActionResult"
 -- Beginner: this function handles network event "CMG:hackingPhoneActionResult".
+
+-- === HELPER FUNCTION (decompiler name: dataTable33; parameters: arg1) ===
 function dataTable33(arg1)
   local workValue9, workValue12, workValue14
   if arg1 then
@@ -720,6 +734,8 @@ eventRegistration = 0
 dataTable32 = RegisterNetEvent
 dataTable33 = "ee4d898632"
 -- Beginner: this function handles network event "ee4d898632".
+
+-- === HELPER FUNCTION (decompiler name: dataTable34; parameters: arg1) ===
 function dataTable34(arg1)
   local workValue9, workValue12, workValue14, workValue16
   workValue9 = tonumber
@@ -737,6 +753,8 @@ function dataTable34(arg1)
   workValue12 = eventRegistration
   workValue14 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
   function workValue16()
     local playerPed, workValue10, flag3, gameTime, workValue17, flag4, gameTime2, workValue22, numberValue6, numberValue7, flag, flag2
     playerPed = PlayerPedId
@@ -767,6 +785,8 @@ function dataTable34(arg1)
     gameTime = gameTime()
     workValue17 = workValue9
     gameTime = gameTime + workValue17
+
+    -- === HELPER FUNCTION (decompiler name: workValue17; parameters: arg12) ===
     function workValue17(arg12)
       local workValue11, workValue13, workValue15, workValue18, numberValue4, flag5, numberValue5
       if not arg12 then

@@ -1,57 +1,56 @@
 --[[
-    Beginner Guide: cl_unstuck.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Unstuck
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Unstuck
+    =====================================
 
     File: cmg/prod/client/misc/cl_unstuck.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Unstuck feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 10
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * unstuck
-      * reset
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 1
-      They are intentionally left unchanged because matching server code may use them.
-      * 021f583c2c
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * You moved during the countdown so the teleportation was cancelled.
-      * You will be telported to the surface in 
-      * You moved during the countdown.
-      * You are unable to use this right now. Use /calladmin if you still need assistance.
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, vector3Builder, vector3Builder2, vector3Builder3, vector3Builder4, vector3Builder5, vector3Builder6, numberValue5, numberValue6, textValue, workValue2, flag2
 dataTable = {}
@@ -110,6 +109,8 @@ dataTable[4] = vector3Builder3
 dataTable[5] = vector3Builder4
 dataTable[6] = vector3Builder5
 dataTable2 = 0
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder; parameters: arg1, arg2, arg3) ===
 function vector3Builder(arg1, arg2, arg3)
   local cmgCall, flag8, playerPed, threadCall, position
   cmgCall = true
@@ -119,6 +120,8 @@ function vector3Builder(arg1, arg2, arg3)
   playerPed = playerPed()
   threadCall = Citizen
   threadCall = threadCall.CreateThread
+
+  -- === HELPER FUNCTION: position() ===
   function position()
     local workValue, numberValue4, textValue2, textValue3, flag9, flag10, flag11, flag12, flag13
     repeat
@@ -185,7 +188,7 @@ function vector3Builder(arg1, arg2, arg3)
       numberValue4 = "polnotification"
       textValue2 = "notification"
       textValue3 = [[
-Attempting to telport to surface... 
+Attempting to telport to surface...
 
 If you are still not on the surface please use /calladmin.]]
       flag9 = "CMG"
@@ -220,6 +223,8 @@ If you are still not on the surface please use /calladmin.]]
   threadCall(position)
   threadCall = Citizen
   threadCall = threadCall.CreateThread
+
+  -- === HELPER FUNCTION: position() ===
   function position()
     local workValue, numberValue4, textValue2, textValue3, flag9, flag10, flag11, flag12, flag13, numberValue8, numberValue2, flag, flag4, flag6
     workValue = Scaleform
@@ -395,6 +400,8 @@ If you are still not on the surface please use /calladmin.]]
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   threadCall(position)
 end
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder2; parameters: arg1) ===
 function vector3Builder2(arg1)
   local arg2, arg3, cmgCall, flag8, playerPed, threadCall, position, textValue4
   arg2 = ipairs
@@ -413,6 +420,8 @@ function vector3Builder2(arg1)
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder3; parameters: none) ===
 function vector3Builder3()
   local arg1, arg2, arg3, cmgCall, flag8, playerPed, threadCall, position
   arg1 = PlayerPedId
@@ -475,6 +484,8 @@ end
 vector3Builder4 = RegisterCommand
 vector3Builder5 = "unstuck"
 -- Beginner: this function is the command handler for "unstuck".
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder6; parameters: none) ===
 function vector3Builder6()
   local arg1, arg2, arg3, cmgCall, flag8, playerPed, threadCall, position, textValue4, numberValue7, numberValue, numberValue3, flag3, flag5, flag7
   arg1 = PlayerPedId
@@ -542,6 +553,8 @@ end
 numberValue5 = false
 -- Beginner: Register a chat/console command. Event/command: "unstuck".
 vector3Builder4(vector3Builder5, vector3Builder6, numberValue5)
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder4; parameters: none) ===
 function vector3Builder4()
   local arg1, arg2, arg3, cmgCall, flag8, playerPed, threadCall, position, textValue4
   arg1 = PlayerPedId
@@ -565,6 +578,8 @@ function vector3Builder4()
   return arg2
 end
 vector3Builder5 = false
+
+-- === HELPER FUNCTION (decompiler name: vector3Builder6; parameters: none) ===
 function vector3Builder6()
   local arg1, arg2
   arg1 = CMG
@@ -621,6 +636,8 @@ function vector3Builder6()
   end
   return arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
 function numberValue5()
   local arg1, arg2, arg3
   arg1 = GetGameTimer
@@ -652,6 +669,8 @@ end
 numberValue6 = RegisterCommand
 textValue = "reset"
 -- Beginner: this function is the command handler for "reset".
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2, arg3, cmgCall, flag8, playerPed, threadCall, position
   arg1 = vector3Builder5

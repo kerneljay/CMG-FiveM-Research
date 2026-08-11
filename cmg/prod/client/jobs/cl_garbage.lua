@@ -1,31 +1,56 @@
 --[[
-    BEGINNER GUIDE — Garbage
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Garbage
+    =====================================
 
     File: cmg/prod/client/jobs/cl_garbage.lua
-    Purpose: This file contains job gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: civilian/job gameplay, specifically the Garbage feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/cfg_garbage
+    Quick map of this file (automatic static scan):
+      * Named functions: 51
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_garbage
 
-    Network/hash identifiers found: 38
-      They are intentionally left unchanged because matching server code may use them.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * garbageJob
-      * Vehicle 
-      * Open the back of the truck first.
-      * garbageSearchPlayers
-      * garbageInvitePlayer
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     CMG GARBAGE JOB
@@ -372,6 +397,7 @@ local BagBlips = {}
 -- 7. HOW MANY BAGS CAN THIS PLAYER CARRY?
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getMaxCarryBags() ===
 local function getMaxCarryBags()
     if CMG.hasClientSkill(
         "garbage_dual_bag_carry"
@@ -382,6 +408,7 @@ local function getMaxCarryBags()
     return 1
 end
 
+-- === HELPER FUNCTION: isCarryingTwoBags() ===
 local function isCarryingTwoBags()
     return #GarbageJob.localCarryKeys == 2
 end
@@ -517,6 +544,7 @@ local function styleBagBlip(
     )
 end
 
+-- === HELPER FUNCTION: clearBagBlips() ===
 local function clearBagBlips()
     local keys = {}
 
@@ -649,6 +677,7 @@ end
 -- 11. CLEAR CARRIED BAG OBJECTS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: clearCarryObjects() ===
 local function clearCarryObjects()
     local first =
         GarbageJob.carryObject
@@ -718,6 +747,7 @@ local function removeCarryWeapon(
     end
 end
 
+-- === HELPER FUNCTION: clearLocalCarry() ===
 local function clearLocalCarry()
     GarbageJob.localCarryKeys = {}
 
@@ -832,6 +862,7 @@ local AXIS_FIELDS = {
     "rz",
 }
 
+-- === HELPER FUNCTION: readPrimaryBagAttach() ===
 local function readPrimaryBagAttach()
     local attach =
         GarbageConfig.bagAttach
@@ -857,6 +888,7 @@ local function readPrimaryBagAttach()
         0.0
 end
 
+-- === HELPER FUNCTION: loadSecondBagDevValuesFromConfig() ===
 local function loadSecondBagDevValuesFromConfig()
     local second =
         GarbageConfig.bagAttachSecond
@@ -920,6 +952,7 @@ end
 
 loadSecondBagDevValuesFromConfig()
 
+-- === HELPER FUNCTION: getSecondBagAttach() ===
 local function getSecondBagAttach()
     -------------------------------------------------------------
     -- Developers can use the live dev override.
@@ -1104,6 +1137,7 @@ end
 local rebuildingCarryProps = false
 local rebuildCarryPropsAgain = false
 
+-- === HELPER FUNCTION: rebuildCarriedBags() ===
 local function rebuildCarriedBags()
     if rebuildingCarryProps then
         rebuildCarryPropsAgain =
@@ -1114,6 +1148,7 @@ local function rebuildCarriedBags()
 
     rebuildingCarryProps = true
 
+    -- === HELPER FUNCTION: finished() ===
     local function finished()
         rebuildingCarryProps = false
 
@@ -1254,6 +1289,7 @@ end
 
 local rebuildScheduled = false
 
+-- === HELPER FUNCTION: scheduleCarryRebuild() ===
 local function scheduleCarryRebuild()
     if rebuildScheduled then
         return
@@ -1276,6 +1312,7 @@ end
 -- 16. JOB RESET
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: resetGarbageJobRuntime() ===
 local function resetGarbageJobRuntime()
     GarbageJob.depositInProgress =
         false
@@ -1366,6 +1403,7 @@ local function deleteNetworkTruck(
         return
     end
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         local vehicle =
             NetworkGetEntityFromNetworkId(
@@ -1464,6 +1502,7 @@ end
 -- 18. ROUTE / STOP HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getTruckSpawnPoint() ===
 local function getTruckSpawnPoint()
     if GarbageJob.truckSpawnPoint then
         return GarbageJob.truckSpawnPoint
@@ -1479,6 +1518,7 @@ local function getTruckSpawnPoint()
     return GarbageConfig.truckSpawn
 end
 
+-- === HELPER FUNCTION: getCurrentRoute() ===
 local function getCurrentRoute()
     if not GarbageJob.routeIndex
         or not GarbageConfig.routes
@@ -1491,6 +1531,7 @@ local function getCurrentRoute()
     ]
 end
 
+-- === HELPER FUNCTION: getCurrentStop() ===
 local function getCurrentStop()
     local route =
         getCurrentRoute()
@@ -1507,6 +1548,7 @@ local function getCurrentStop()
     ]
 end
 
+-- === HELPER FUNCTION: countDepositedBags() ===
 local function countDepositedBags()
     local count = 0
 
@@ -1522,6 +1564,7 @@ local function countDepositedBags()
     return count
 end
 
+-- === HELPER FUNCTION: getTotalRouteBags() ===
 local function getTotalRouteBags()
     local route =
         getCurrentRoute()
@@ -1583,6 +1626,7 @@ CMG.registerHudTimerBarProvider(
 -- 20. UPDATE CURRENT STOP BLIPS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: updateStopBlips() ===
 local function updateStopBlips()
     clearBagBlips()
 
@@ -1689,6 +1733,7 @@ end
 -- 21. RETURN-TO-DEPOT GUIDANCE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: updateDepotGuidance() ===
 local function updateDepotGuidance()
     if GarbageJob.baseBlip ~= 0 then
         RemoveBlip(
@@ -1764,6 +1809,7 @@ end
 -- 22. RESOLVE TRUCK NETWORK ID -> ENTITY
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: resolveTruckEntity() ===
 local function resolveTruckEntity()
     if GarbageJob.truckNetId
         and GarbageJob.truckNetId
@@ -1788,6 +1834,7 @@ end
 -- 23. ARE WE CURRENTLY INSIDE THE JOB TRUCK?
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: isPlayerInsideJobTruck() ===
 local function isPlayerInsideJobTruck()
     resolveTruckEntity()
 
@@ -1834,6 +1881,7 @@ end
 -- 24. JOB TRUCK BLIP
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: clearTruckBlip() ===
 local function clearTruckBlip()
     if GarbageJob.truckJobBlip ~= 0
         and DoesBlipExist(
@@ -1849,6 +1897,7 @@ local function clearTruckBlip()
     GarbageJob.truckJobBlipEntity = 0
 end
 
+-- === HELPER FUNCTION: updateTruckBlip() ===
 local function updateTruckBlip()
     if not GarbageJob.active
         or not GarbageJob.truckNetId
@@ -2034,6 +2083,7 @@ end
 -- 26. TRUCK DEPOSIT POSITION
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getTruckDepositCoords() ===
 local function getTruckDepositCoords()
     resolveTruckEntity()
 
@@ -2149,6 +2199,7 @@ end
 -- 28. THROW BAG INTO TRUCK
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: tryDepositBag() ===
 local function tryDepositBag()
     if GarbageJob.depositInProgress
         or #GarbageJob.localCarryKeys
@@ -2278,6 +2329,7 @@ end
 -- 29. SPAWN JOB TRUCK
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: spawnGarbageTruck() ===
 local function spawnGarbageTruck()
     if not GarbageJob.isLeader then
         return
@@ -3163,6 +3215,7 @@ AddEventHandler(
 -- Others can receive JSON text.
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: parseUiData(data) ===
 local function parseUiData(data)
     if type(data) == "table" then
         return data
@@ -3508,6 +3561,7 @@ AddEventHandler(
 -- 47. DISABLE COMBAT WHILE CARRYING BAGS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: garbageBagCarryControlsTick() ===
 local function garbageBagCarryControlsTick()
     if #GarbageJob.localCarryKeys < 1 then
         return
@@ -3543,6 +3597,7 @@ CMG.createThreadOnTick(
 -- 48. MAIN GARBAGE JOB TICK
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: garbageJobTick() ===
 local function garbageJobTick()
     if not GarbageJob.active then
         return
@@ -3958,6 +4013,7 @@ CMG.createThreadOnTick(
 -- 49. DEVELOPMENT PREVIEW HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: clearOffJobDevPreview() ===
 local function clearOffJobDevPreview()
     if GarbageJob.active then
         return
@@ -3971,6 +4027,7 @@ local function clearOffJobDevPreview()
     scheduleCarryRebuild()
 end
 
+-- === HELPER FUNCTION: spawnOffJobDevPreview() ===
 local function spawnOffJobDevPreview()
     local userId =
         CMG.getClientUserId()
@@ -3992,6 +4049,7 @@ local function spawnOffJobDevPreview()
     scheduleCarryRebuild()
 end
 
+-- === HELPER FUNCTION: refreshSecondBagDevPreview() ===
 local function refreshSecondBagDevPreview()
     if not SecondBagDev.useOverride then
         return
@@ -4026,6 +4084,7 @@ local function nudgeSecondBagValue(
     refreshSecondBagDevPreview()
 end
 
+-- === HELPER FUNCTION: printSecondBagConfig() ===
 local function printSecondBagConfig()
     local bone =
         tonumber(
@@ -4386,6 +4445,7 @@ local GARBAGE_JOB_START =
         27.731037139893
     )
 
+-- === HELPER FUNCTION: showGarbageJobStartInfo() ===
 local function showGarbageJobStartInfo()
     drawNativeNotification(
         "Press ~INPUT_SELECT_CHARACTER_FRANKLIN~ to start your Garbage job."

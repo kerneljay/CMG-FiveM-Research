@@ -1,48 +1,60 @@
 --[[
-    Beginner Guide: cl_thor.lua
-    ===========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Thor
-    =====================
+    LEVEL 1 BEGINNER GUIDE — Thor
+    ==================================
 
     File: cmg/prod/client/misc/cl_thor.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Thor feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 6
+      * Background threads: 0
+      * Always-running loops: 7
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 5
-      They are intentionally left unchanged because matching server code may use them.
-      * c714651523
-      * b96db67b48
-      * 63b35ed831
-      * 9fd1729b1a
-      * b47f9b0085
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local workValue, cmgCall, textValue, workValue5, flag11
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2
   arg2 = GetActivePlayers
@@ -87,6 +99,8 @@ end
 cmgCall = RegisterNetEvent
 textValue = "c714651523"
 -- Beginner: this function handles network event "c714651523".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder
   arg1 = FreezeEntityPosition
@@ -147,6 +161,8 @@ cmgCall(textValue, workValue5)
 cmgCall = RegisterNetEvent
 textValue = "b96db67b48"
 -- Beginner: this function handles network event "b96db67b48".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
 function workValue5(arg1, arg2)
   local flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6
   flag10 = GetEntityCoords
@@ -289,6 +305,8 @@ cmgCall(textValue, workValue5)
 cmgCall = RegisterNetEvent
 textValue = "63b35ed831"
 -- Beginner: this function handles network event "63b35ed831".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
 function workValue5(arg1, arg2)
   local flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7
   flag10 = GetEntityCoords
@@ -439,6 +457,8 @@ cmgCall(textValue, workValue5)
 cmgCall = CMG
 cmgCall = cmgCall.registerCommand
 textValue = "theforce"
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9
   arg1 = CMG
@@ -684,6 +704,8 @@ cmgCall(textValue, workValue5, flag11)
 cmgCall = RegisterNetEvent
 textValue = "b47f9b0085"
 -- Beginner: this function handles network event "b47f9b0085".
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, flag10, playerPed2, playerPed3, coords2, iterator, numberValue5, waitCall, tableHelper, flag, vector3Builder, playerPed, coords, workValue2, workValue3, workValue4, numberValue, numberValue2, numberValue3, numberValue4, flag2, flag3, flag4
   arg1 = PlayerPedId

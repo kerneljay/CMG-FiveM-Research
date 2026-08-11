@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Halloween
+    =======================================
+
+    File: cmg/prod/client/events/cl_halloween.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Halloween feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 3
+      * Background threads: 2
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: 69c2ae77f7, fb145a1459, c771c826dd
+      * Local event handlers: none found by static scan
+      * Server events sent: 89653ddee4
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Halloween Zombie Events
     =======================
 
@@ -79,6 +117,7 @@ RegisterNetEvent(
 -- PARTICLE / JUMPSCARE HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: playZombieAppearanceParticle() ===
 local function playZombieAppearanceParticle()
     CMG.loadPtfx(
         "scr_rcbarry2"
@@ -111,9 +150,11 @@ local function playZombieAppearanceParticle()
 end
 
 
+-- === HELPER FUNCTION: playZombieJumpScare() ===
 local function playZombieJumpScare()
     DoScreenFadeOut(100)
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         transactionType =
             "zombiescream"
@@ -121,6 +162,7 @@ local function playZombieJumpScare()
 end
 
 
+-- === HELPER FUNCTION: startZombieSound(ped) ===
 local function startZombieSound(ped)
     if not DoesEntityExist(ped) then
         return
@@ -245,6 +287,7 @@ RegisterNetEvent(
 -- ZOMBIE ANIMATION / KILL DISTANCE
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     if not CMG.isHalloween() then
         return
@@ -358,6 +401,7 @@ end)
 -- START ZOMBIE SOUND WHEN ONE GETS WITHIN 30M
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     if not CMG.isHalloween() then
         return

@@ -1,50 +1,56 @@
 --[[
-    Beginner Guide: cl_fingerprintHacking.lua
-    =========================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Fingerprint Hacking
-    ====================================
+    LEVEL 1 BEGINNER GUIDE — Fingerprint Hacking
+    =================================================
 
     File: cmg/prod/client/misc/cl_fingerprintHacking.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Fingerprint Hacking feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 29
+      * Background threads: 0
+      * Always-running loops: 12
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Named framework/network events found:
-      * utk_fingerprint:startGame
-      * utk_fingerprint:Start
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Example player-facing text in this file:
-      * ScaleformMovieMethodAddParamPlayerNameString
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, dataTable3, dataTable4
 dataTable = {}
@@ -17433,10 +17439,14 @@ dataTable[35] = 0.67
 G_14 = dataTable
 G_20 = false
 dataTable = false
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2
   arg1 = Citizen
   arg1 = arg1.CreateThread
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local threadCall, numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7
     threadCall = 1
@@ -17494,6 +17504,8 @@ Generate = dataTable2
 dataTable2 = AddEventHandler
 dataTable3 = "utk_fingerprint:startGame"
 -- Beginner: this function runs when client event "utk_fingerprint:startGame" fires.
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
 function dataTable4()
   local arg1, arg2
   arg1 = Generate
@@ -17521,6 +17533,8 @@ dataTable2(dataTable3, dataTable4)
 dataTable2 = AddEventHandler
 dataTable3 = "StartHack"
 -- Beginner: this function runs when client event "StartHack" fires.
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
 function dataTable4()
   local arg1, arg2, arg3, arg4, arg5, arg6
   G_0 = 1
@@ -17645,11 +17659,15 @@ function dataTable4()
   arg1 = F_13
   arg2 = "instructional_buttons"
   arg1 = arg1(arg2)
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local threadCall, numberValue9
     G_19 = true
     threadCall = Citizen
     threadCall = threadCall.CreateThread
+
+    -- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
     function numberValue9()
       local waitCall, numberValue10, textValue2, textValue4, flag2
       G_19 = false
@@ -17704,6 +17722,8 @@ function dataTable4()
   G_18 = arg2
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local threadCall, numberValue9
     while true do
@@ -17723,6 +17743,8 @@ function dataTable4()
   arg2(arg3)
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local threadCall, numberValue9, textValue, textValue3, flag
     while true do
@@ -17904,6 +17926,8 @@ function dataTable4()
   arg2(arg3, arg4, arg5, arg6)
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local threadCall, numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7, numberValue8
     while true do
@@ -18557,6 +18581,8 @@ function dataTable4()
   arg2()
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local threadCall, numberValue9, textValue, textValue3, flag, numberValue11
     while true do
@@ -18591,6 +18617,8 @@ function dataTable4()
   arg2(arg3)
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local threadCall, numberValue9
     while true do
@@ -18643,6 +18671,8 @@ function dataTable4()
   arg2(arg3)
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local threadCall, numberValue9
     while true do
@@ -18693,6 +18723,8 @@ function dataTable4()
 end
 -- Beginner: Register a client-side event handler. Event/command: "StartHack".
 dataTable2(dataTable3, dataTable4)
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, numberValue3
   arg1 = nil
@@ -18704,6 +18736,8 @@ function dataTable2()
   G_20 = true
   arg3 = Citizen
   arg3 = arg3.CreateThread
+
+  -- === HELPER FUNCTION: arg4() ===
   function arg4()
     local threadCall, numberValue9
     while true do
@@ -18763,6 +18797,8 @@ function dataTable2()
     arg3(arg4)
     arg3 = Citizen
     arg3 = arg3.CreateThread
+
+    -- === HELPER FUNCTION: arg4() ===
     function arg4()
       local threadCall, numberValue9, textValue, textValue3, flag
       while true do
@@ -18869,6 +18905,8 @@ function dataTable2()
   end
 end
 F_3 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2
   G_1 = true
@@ -18899,6 +18937,8 @@ function dataTable2()
   G_15 = false
 end
 F_7 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, arg4
   arg2 = true
@@ -18926,6 +18966,8 @@ function dataTable2(arg1)
   G_15 = false
 end
 F_8 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, arg4, arg5
   arg1 = PlaySoundFrontend
@@ -18936,6 +18978,8 @@ function dataTable2()
   arg1(arg2, arg3, arg4, arg5)
 end
 F_2 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, arg4, arg5
   arg1 = 1
@@ -18948,6 +18992,8 @@ function dataTable2()
   end
 end
 F_6 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, arg4
   arg1 = false
@@ -18973,6 +19019,8 @@ function dataTable2()
   G_13 = arg3
 end
 F_0 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) ===
 function dataTable2(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
   local numberValue3, workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11
   numberValue3 = DrawSprite
@@ -18998,6 +19046,8 @@ function dataTable2(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,
   numberValue3(workValue, workValue2, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11)
 end
 F_4 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, numberValue3
   arg1 = Seconds2
@@ -19035,6 +19085,8 @@ function dataTable2()
   end
 end
 F_5 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
   local arg1, arg2, arg3, arg4
   arg1 = DisableControlAction
@@ -19174,6 +19226,8 @@ function dataTable2()
   arg1(arg2, arg3, arg4)
 end
 F_1 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3
   arg2 = 0.5
@@ -19185,12 +19239,16 @@ function dataTable2(arg1)
   return arg2
 end
 F_9 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2
   arg2 = arg1 / 1920.0
   return arg2
 end
 F_10 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3
   arg2 = _ENV
@@ -19200,6 +19258,8 @@ function dataTable2(arg1)
   arg2(arg3)
 end
 F_11 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3
   arg2 = BeginTextCommandScaleformString
@@ -19212,6 +19272,8 @@ function dataTable2(arg1)
   arg2()
 end
 F_12 = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7
   arg2 = RequestScaleformMovie
@@ -19408,6 +19470,8 @@ F_13 = dataTable2
 dataTable2 = AddEventHandler
 dataTable3 = "utk_fingerprint:Start"
 -- Beginner: this function runs when client event "utk_fingerprint:Start" fires.
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4) ===
 function dataTable4(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, arg9, arg10, arg11
   Callback = arg4

@@ -1,52 +1,56 @@
 --[[
-    Beginner Guide: cl_cuffs.lua
-    ============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Cuffs
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Cuffs
+    ===================================
 
     File: cmg/prod/client/police/cl_cuffs.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Cuffs feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 21
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Commands/command-like entries found:
-      * /cuff
-      * /frontcuff
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 12
-      They are intentionally left unchanged because matching server code may use them.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * chat:addSuggestion
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~r~You have failed to break out in time.
-      * Press ~INPUT_VEH_DUCK~ to attempt breaking out of cuffs
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, flag10, numberValue10, flag12, numberValue11, flag13, numberValue13, numberValue15, flag16, workValue4, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, cmgCall, textValue, cmgCall2, textValue2, textValue3, numberValue7, numberValue8, eventRegistration, textValue4, cmgCall3, textValue5, cmgCall4, numberValue9, textValue6, workValue, workValue2, workValue3, dataTable2
 flag = false
@@ -65,6 +69,8 @@ numberValue3 = 4000
 numberValue4 = 2500
 numberValue5 = 6000
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2
   arg1 = flag
@@ -127,6 +133,8 @@ cmgCall[14] = workValue
 cmgCall[15] = workValue2
 cmgCall[16] = workValue3
 cmgCall[17] = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2
   arg1 = flag
@@ -137,6 +145,8 @@ function textValue()
     arg1(arg2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2
   arg1 = flag
@@ -163,6 +173,8 @@ for eventRegistration, textValue4 in textValue2, textValue3, numberValue7, numbe
   textValue6 = 5.0
   workValue = textValue
   workValue2 = cmgCall2
+
+  -- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
   function workValue3()
     local arg1, arg2
   end
@@ -171,6 +183,8 @@ for eventRegistration, textValue4 in textValue2, textValue3, numberValue7, numbe
   cmgCall3(textValue5, cmgCall4, numberValue9, textValue6, workValue, workValue2, workValue3, dataTable2)
 end
 textValue2 = false
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: none) ===
 function textValue3()
   local arg1, arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15
   arg1 = 7
@@ -184,6 +198,8 @@ function textValue3()
     numberValue12(flag14, textValue9, flag15)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2, cmgCall5
   arg1 = textValue2
@@ -206,6 +222,8 @@ function numberValue7()
     arg1(arg2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: none) ===
 function numberValue8()
   local arg1, arg2
   arg1 = textValue2
@@ -229,6 +247,8 @@ end
 eventRegistration = RegisterNetEvent
 textValue4 = "979a90e0cf"
 -- Beginner: this function handles network event "979a90e0cf".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
 function cmgCall3(arg1)
   local arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16, numberValue17, flag2, flag3, flag4, flag5, flag6, flag7, flag8, numberValue6, flag9
   arg2 = TriggerEvent
@@ -314,6 +334,8 @@ eventRegistration(textValue4, cmgCall3)
 eventRegistration = RegisterNetEvent
 textValue4 = "c22d4065c2"
 -- Beginner: this function handles network event "c22d4065c2".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16, numberValue17, flag2, flag3, flag4
   arg1 = numberValue7
@@ -360,6 +382,8 @@ function cmgCall3()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "c22d4065c2".
 eventRegistration(textValue4, cmgCall3)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
 function eventRegistration(arg1)
   local arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16, numberValue17, flag2, flag3, flag4, flag5, flag6, flag7, flag8, numberValue6, flag9
   if arg1 then
@@ -489,6 +513,8 @@ function eventRegistration(arg1)
   playerIndex = numberValue11
   numberValue10 = playerIndex
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
 function textValue4(arg1)
   local arg2, cmgCall5, playerIndex, numberValue12, flag14
   arg2 = CMG
@@ -521,6 +547,8 @@ end
 cmgCall3 = RegisterNetEvent
 textValue5 = "667b6c018e"
 -- Beginner: this function handles network event "667b6c018e".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1, arg2) ===
 function cmgCall4(arg1, arg2)
   local cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16
   cmgCall5 = TriggerEvent
@@ -598,6 +626,8 @@ function cmgCall4(arg1, arg2)
     cmgCall5(playerIndex)
     cmgCall5 = Citizen
     cmgCall5 = cmgCall5.CreateThread
+
+    -- === HELPER FUNCTION: playerIndex() ===
     function playerIndex()
       local arg12, flag11, dataTable, dataTable3, textValue7, textValue8, numberValue14
       arg12 = Wait
@@ -673,6 +703,8 @@ cmgCall3(textValue5, cmgCall4)
 cmgCall3 = RegisterNetEvent
 textValue5 = "edd7dc445b"
 -- Beginner: this function handles network event "edd7dc445b".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
 function cmgCall4(arg1)
   local arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15
   arg2 = true
@@ -748,6 +780,8 @@ function cmgCall4(arg1)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "edd7dc445b".
 cmgCall3(textValue5, cmgCall4)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16, numberValue17, flag2, flag3, flag4, flag5
   arg1 = false
@@ -757,6 +791,8 @@ function cmgCall3()
   playerIndex = {}
   playerIndex.Difficulty = "VeryHard"
   playerIndex.Timeout = 10000
+
+  -- === HELPER FUNCTION (decompiler name: numberValue12; parameters: arg12) ===
   function numberValue12(arg12)
     local flag11
     arg1 = arg12
@@ -764,6 +800,8 @@ function cmgCall3()
     arg2 = flag11
   end
   playerIndex.onComplete = numberValue12
+
+  -- === HELPER FUNCTION (decompiler name: numberValue12; parameters: none) ===
   function numberValue12()
     local arg12, flag11
     arg12 = false
@@ -850,6 +888,8 @@ function cmgCall3()
   cmgCall5 = false
   flag16 = cmgCall5
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2, cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16, numberValue17
   arg1 = flag
@@ -1188,6 +1228,8 @@ cmgCall4(numberValue9, textValue6)
 cmgCall4 = RegisterNetEvent
 numberValue9 = "ce0419a8ee"
 -- Beginner: this function handles network event "ce0419a8ee".
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1, arg2) ===
 function textValue6(arg1, arg2)
   local cmgCall5, playerIndex, numberValue12, flag14, textValue9, flag15, numberValue16, numberValue17, flag2, flag3, flag4, flag5, flag6, flag7, flag8, numberValue6, flag9
   cmgCall5 = numberValue7
@@ -1282,6 +1324,8 @@ cmgCall4(numberValue9, textValue6)
 cmgCall4 = RegisterNetEvent
 numberValue9 = "b88765332f"
 -- Beginner: this function handles network event "b88765332f".
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: arg1) ===
 function textValue6(arg1)
   local arg2, cmgCall5, playerIndex, numberValue12
   arg2 = GetEntityCoords
@@ -1305,6 +1349,8 @@ cmgCall4(numberValue9, textValue6)
 cmgCall4 = RegisterNetEvent
 numberValue9 = "f5674fc7a7"
 -- Beginner: this function handles network event "f5674fc7a7".
+
+-- === HELPER FUNCTION (decompiler name: textValue6; parameters: none) ===
 function textValue6()
   local arg1, arg2
   arg1 = numberValue7

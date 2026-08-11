@@ -1,49 +1,56 @@
 --[[
-    Beginner Guide: cl_cleaner.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Cleaner
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Cleaner
+    =====================================
 
     File: cmg/prod/client/business/cl_cleaner.lua
-    Purpose: This file contains FiveM client/resource logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: business gameplay and business job logic, specifically the Cleaner feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 40
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 1
-      They are intentionally left unchanged because matching server code may use them.
-      * bf3f551598
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * businessCleanerJob
-      * Press ~INPUT_CONTEXT~ to pick up the trash
-      * Press ~INPUT_CONTEXT~ to clean the table
-      * Press ~INPUT_CONTEXT~ to mop the floor
-      * Press ~INPUT_CONTEXT~ to plunge the toilet
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local workValue, workValue12, workValue21, workValue25, workValue26, flag12, numberValue9, workValue28, flag14, numberValue10, workValue3, workValue5, workValue6, workValue7, cmgCall, textValue, workValue8, workValue9, workValue10, workValue11, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, dataTable3, dataTable4, textValue4, workValue22, textValue6, workValue23, workValue24
 workValue = nil
@@ -63,6 +70,8 @@ workValue7 = nil
 cmgCall = CMG
 cmgCall = cmgCall.registerHudTimerBarProvider
 textValue = "businessCleanerJob"
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
 function workValue8(arg1)
   local workValue13, textValue5, flag11
   workValue13 = workValue6
@@ -74,11 +83,15 @@ function workValue8(arg1)
   end
 end
 cmgCall(textValue, workValue8)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: arg1) ===
 function cmgCall(arg1)
   local workValue13
   workValue13 = arg1.jobMetadata
   workValue = workValue13
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2, numberValue6, numberValue7
   arg1 = {}
@@ -167,12 +180,18 @@ function textValue()
     flag2 = cmgCall2
     flag4 = 1.0
     flag6 = 1.5
+
+    -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
     function numberValue4()
       local workValue2, textValue2
     end
+
+    -- === HELPER FUNCTION (decompiler name: dataTable; parameters: none) ===
     function dataTable()
       local workValue2, textValue2
     end
+
+    -- === HELPER FUNCTION (decompiler name: numberValue5; parameters: none) ===
     function numberValue5()
       local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
       workValue2 = arg1
@@ -217,6 +236,8 @@ function textValue()
               workValue2(textValue2, dataTable5, dataTable6)
               workValue2 = Citizen
               workValue2 = workValue2.CreateThread
+
+              -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
               function textValue2()
                 local serverEventCall, textValue3
                 serverEventCall = Citizen
@@ -266,6 +287,8 @@ function textValue()
     mathHelper(numberValue3, flag2)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
 function workValue8()
   local arg1, workValue13, textValue5, flag11
   arg1 = drawNativeText
@@ -299,6 +322,8 @@ function workValue8()
   workValue13 = 0 == arg1
   return workValue13
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
   arg1 = nil
@@ -353,6 +378,8 @@ function workValue9()
   arg1 = nil
   workValue25 = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
 function workValue10()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
   arg1 = {}
@@ -400,12 +427,18 @@ function workValue10()
     mathHelper = cmgCall2
     numberValue3 = 2.0
     flag2 = 1.5
+
+    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
     function flag4()
       local workValue2, textValue2
     end
+
+    -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
     function flag6()
       local workValue2, textValue2
     end
+
+    -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
     function numberValue4()
       local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13
       workValue2 = arg1
@@ -455,6 +488,8 @@ function workValue10()
                 textValue2(dataTable5, dataTable6, dataTable7)
                 textValue2 = Citizen
                 textValue2 = textValue2.CreateThread
+
+                -- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
                 function dataTable5()
                   local serverEventCall, textValue3
                   serverEventCall = Citizen
@@ -507,6 +542,8 @@ function workValue10()
     workValue31(workValue4, mathHelper)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
 function workValue11()
   local arg1, workValue13, textValue5, flag11
   arg1 = drawNativeText
@@ -540,6 +577,8 @@ function workValue11()
   workValue13 = 0 == arg1
   return workValue13
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
 function workValue14()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
   arg1 = nil
@@ -580,6 +619,8 @@ function workValue14()
   arg1 = nil
   workValue25 = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
 function workValue15()
   local arg1, workValue13
   arg1 = "floor"
@@ -596,6 +637,8 @@ function workValue15()
     workValue28 = arg1
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
 function workValue16()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
   arg1 = workValue26
@@ -647,12 +690,18 @@ function workValue16()
         mathHelper = cmgCall2
         numberValue3 = 1.0
         flag2 = 1.5
+
+        -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
         function flag4()
           local workValue2, textValue2
         end
+
+        -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
         function flag6()
           local workValue2, textValue2
         end
+
+        -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
         function numberValue4()
           local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9, flag10
           workValue2 = arg1
@@ -747,6 +796,8 @@ function workValue16()
                   dataTable6(dataTable7)
                   dataTable6 = Citizen
                   dataTable6 = dataTable6.CreateThread
+
+                  -- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
                   function dataTable7()
                     local serverEventCall, textValue3
                     serverEventCall = Citizen
@@ -894,12 +945,18 @@ function workValue16()
         numberValue8 = numberValue8.xyz
         cmgCall2 = 1.0
         workValue29 = 1.5
+
+        -- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
         function workValue30()
           local workValue2, textValue2
         end
+
+        -- === HELPER FUNCTION (decompiler name: workValue31; parameters: none) ===
         function workValue31()
           local workValue2, textValue2
         end
+
+        -- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
         function workValue4()
           local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
           workValue2 = arg1
@@ -943,6 +1000,8 @@ function workValue16()
                   workValue2(textValue2, dataTable5, dataTable6)
                   workValue2 = Citizen
                   workValue2 = workValue2.CreateThread
+
+                  -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
                   function textValue2()
                     local serverEventCall, textValue3
                     serverEventCall = Citizen
@@ -1084,12 +1143,18 @@ function workValue16()
           numberValue8 = numberValue8.xyz
           cmgCall2 = 1.0
           workValue29 = 1.5
+
+          -- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
           function workValue30()
             local workValue2, textValue2
           end
+
+          -- === HELPER FUNCTION (decompiler name: workValue31; parameters: none) ===
           function workValue31()
             local workValue2, textValue2
           end
+
+          -- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
           function workValue4()
             local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7
             workValue2 = arg1
@@ -1133,6 +1198,8 @@ function workValue16()
                     workValue2(textValue2, dataTable5, dataTable6)
                     workValue2 = Citizen
                     workValue2 = workValue2.CreateThread
+
+                    -- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
                     function textValue2()
                       local serverEventCall, textValue3
                       serverEventCall = Citizen
@@ -1256,6 +1323,8 @@ function workValue16()
   arg1 = false
   return arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue17; parameters: none) ===
 function workValue17()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
   arg1 = workValue21
@@ -1295,6 +1364,8 @@ function workValue17()
   arg1 = nil
   workValue26 = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue18; parameters: none) ===
 function workValue18()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2, flag4, flag6, numberValue4, dataTable, numberValue5, dataTable2
   arg1 = {}
@@ -1346,12 +1417,18 @@ function workValue18()
     mathHelper = cmgCall2.xyz
     numberValue3 = 1.0
     flag2 = 1.5
+
+    -- === HELPER FUNCTION (decompiler name: flag4; parameters: none) ===
     function flag4()
       local workValue2, textValue2
     end
+
+    -- === HELPER FUNCTION (decompiler name: flag6; parameters: none) ===
     function flag6()
       local workValue2, textValue2
     end
+
+    -- === HELPER FUNCTION (decompiler name: numberValue4; parameters: none) ===
     function numberValue4()
       local workValue2, textValue2, dataTable5, dataTable6, dataTable7, tableHelper, textValue7, flag13, flag15, numberValue11, numberValue, numberValue2, flag, flag3, flag5, flag7, flag8, flag9
       workValue2 = arg1
@@ -1498,12 +1575,18 @@ function workValue18()
   flag11 = workValue.binDeliveryPoint
   workValue27 = 1.0
   numberValue8 = 1.5
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
   function cmgCall2()
     local workValue2, textValue2
   end
+
+  -- === HELPER FUNCTION (decompiler name: workValue29; parameters: none) ===
   function workValue29()
     local workValue2, textValue2
   end
+
+  -- === HELPER FUNCTION (decompiler name: workValue30; parameters: none) ===
   function workValue30()
     local workValue2, textValue2, dataTable5
     workValue2 = flag14
@@ -1577,6 +1660,8 @@ function workValue18()
   workValue13 = workValue13(textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29, workValue30, workValue31, workValue4, mathHelper, numberValue3, flag2)
   workValue5 = workValue13
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue19; parameters: none) ===
 function workValue19()
   local arg1, workValue13, textValue5, flag11
   arg1 = flag14
@@ -1617,6 +1702,8 @@ function workValue19()
   workValue13 = 0 == arg1
   return workValue13
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue20; parameters: none) ===
 function workValue20()
   local arg1, workValue13, textValue5, flag11, workValue27, numberValue8, cmgCall2, workValue29
   arg1 = nil

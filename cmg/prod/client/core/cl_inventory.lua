@@ -1,4 +1,58 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Inventory
+    =======================================
+
+    File: cmg/prod/client/core/cl_inventory.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Inventory feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 56
+      * Background threads: 2
+      * Always-running loops: 1
+      * Commands: inventory
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: 72490db2b8
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_inventory, cfg/weapons
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     CMG INVENTORY
     Beginner-Friendly Rewrite
     =====================================================================
@@ -325,6 +379,7 @@ local Inventory = {
 -- 5. SIMPLE HELPERS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: isWeaponItem(itemId) ===
 local function isWeaponItem(itemId)
     return
         type(itemId) == "string"
@@ -336,6 +391,7 @@ local function isWeaponItem(itemId)
         ) ~= nil
 end
 
+-- === HELPER FUNCTION: isAmmoItem(itemId) ===
 local function isAmmoItem(itemId)
     return
         InventoryConfig.ammoItems
@@ -344,6 +400,7 @@ local function isAmmoItem(itemId)
         ] ~= nil
 end
 
+-- === HELPER FUNCTION: isEquippableItem(itemId) ===
 local function isEquippableItem(itemId)
     return
         isWeaponItem(itemId)
@@ -443,6 +500,7 @@ end
 -- 6. FREE SPACE HELPERS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.getSpaceInFirstChest() ===
 function CMG.getSpaceInFirstChest()
     return
         Inventory.primaryMaxMass
@@ -451,6 +509,7 @@ function CMG.getSpaceInFirstChest()
         )
 end
 
+-- === HELPER FUNCTION: CMG.getSpaceInSecondChest() ===
 function CMG.getSpaceInSecondChest()
     return
         Inventory.secondaryMaxMass
@@ -463,6 +522,7 @@ end
 -- 7. PUBLIC INVENTORY HELPERS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.getClientInventoryItemList() ===
 function CMG.getClientInventoryItemList()
     return
         Inventory.primaryItems
@@ -478,6 +538,7 @@ function CMG.hasClientInventoryItem(
         ) > 0
 end
 
+-- === HELPER FUNCTION: CMG.isDrawingInventoryUI() ===
 function CMG.isDrawingInventoryUI()
     return
         Inventory.isOpen
@@ -650,6 +711,7 @@ local function setInventorySide(
     )
 end
 
+-- === HELPER FUNCTION: clearInventorySide(side) ===
 local function clearInventorySide(side)
     CMG.uiSendMessage({
         type =
@@ -803,6 +865,7 @@ AddEventHandler(
 -- 12. CLEAR GIVE-PLAYER REQUEST
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: clearGiveRequest() ===
 local function clearGiveRequest()
     CMG.uiSendMessage({
         type =
@@ -817,6 +880,7 @@ end
 -- 13. CLOSE / RESET SECONDARY INVENTORY
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: clearSecondaryContext() ===
 local function clearSecondaryContext()
     clearInventorySide(
         "SECONDARY"
@@ -841,12 +905,14 @@ AddEventHandler(
     end
 )
 
+-- === HELPER FUNCTION: tellServerInventoryClosed() ===
 local function tellServerInventoryClosed()
     ---------------------------------------------------------------
     -- The source fires the local clear event in a new thread, then
     -- notifies the server.
     ---------------------------------------------------------------
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(
         function()
             TriggerEvent(
@@ -972,6 +1038,7 @@ end
 -- 17. INVENTORY COMMAND
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: toggleInventoryCommand() ===
 local function toggleInventoryCommand()
     ---------------------------------------------------------------
     -- Do not open inventory during the Spelling Bee minigame.
@@ -1080,6 +1147,7 @@ AddEventHandler(
         -- This is consistent with a pre-restart lockdown.
         -----------------------------------------------------------
 
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(
             function()
                 while Inventory.restartLocked do
@@ -1102,6 +1170,7 @@ AddEventHandler(
 -- 20. EQUIPPED WEAPONS LIST
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: refreshEquippedWeapons() ===
 local function refreshEquippedWeapons()
     local equippedWeapons = {}
 
@@ -1161,6 +1230,7 @@ end
 -- 21. GARAGE TRUNK SPECIAL CASE
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.setOpeningBootFromGarage() ===
 function CMG.setOpeningBootFromGarage()
     Inventory.garageTrunkOpenedAt =
         GetEntityCoords(
@@ -1201,6 +1271,7 @@ end
 -- 22. SECONDARY INVENTORY DISTANCE CHECKS
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: closeIfTooFarFromSecondary() ===
 local function closeIfTooFarFromSecondary()
     local playerCoords =
         CMG.getPlayerCoords()
@@ -1482,6 +1553,7 @@ end
 -- 26. BULK EQUIP ALL
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: equipAll() ===
 local function equipAll()
     if Inventory.bulkActionBusy then
         return
@@ -1505,6 +1577,8 @@ local function equipAll()
     table.sort(
         sorted,
         function(a, b)
+
+            -- === HELPER FUNCTION: priority(itemId) ===
             local function priority(itemId)
                 if isWeaponItem(itemId) then
                     return 2
@@ -1559,6 +1633,7 @@ end
 -- 27. LOOT ALL: SECONDARY -> PLAYER
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: lootAll() ===
 local function lootAll()
     if Inventory.bulkActionBusy then
         return
@@ -1584,6 +1659,8 @@ local function lootAll()
     table.sort(
         sorted,
         function(a, b)
+
+            -- === HELPER FUNCTION: priority(itemId) ===
             local function priority(itemId)
                 if isWeaponItem(itemId) then
                     return 2
@@ -1635,6 +1712,7 @@ end
 -- 28. TRANSFER ALL: PLAYER -> SECONDARY
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: transferAll() ===
 local function transferAll()
     if Inventory.bulkActionBusy then
         return
@@ -1660,6 +1738,8 @@ local function transferAll()
     table.sort(
         sorted,
         function(a, b)
+
+            -- === HELPER FUNCTION: priority(itemId) ===
             local function priority(itemId)
                 if isWeaponItem(itemId) then
                     return 2
@@ -1844,6 +1924,7 @@ end
 -- 30. FIND NEARBY PLAYERS FOR GIVE MENU
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: buildNearbyPlayerList() ===
 local function buildNearbyPlayerList()
     local nearby = {}
     local myPed = PlayerPedId()
@@ -2239,6 +2320,7 @@ end
 -- 36. MODERN ACTION: STORE EQUIPPED WEAPON
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: storeEquippedWeapon(data) ===
 local function storeEquippedWeapon(data)
     TriggerServerEvent(
         EVENTS.STORE_EQUIPPED_WEAPON,
@@ -2248,6 +2330,7 @@ local function storeEquippedWeapon(data)
     )
 end
 
+-- === HELPER FUNCTION: storeAllEquippedWeapons() ===
 local function storeAllEquippedWeapons()
     ExecuteCommand(
         "storeallweapons"
@@ -2520,6 +2603,7 @@ end
 -- 43. MODERN INVENTORY PER-FRAME LOGIC
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: modernInventoryTick() ===
 local function modernInventoryTick()
     CMG.disableStandardControlsForUI()
 
@@ -2590,6 +2674,7 @@ end
 -- separately into named rendering helpers.
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: legacyInventoryTick() ===
 local function legacyInventoryTick()
     CMG.setInGUI(true)
 
@@ -2676,6 +2761,7 @@ end
 -- 45. MAIN INVENTORY TICK
 ---------------------------------------------------------------------------
 
+-- === HELPER FUNCTION: inventoryTick() ===
 local function inventoryTick()
     if Inventory.secondaryItems then
         closeIfTooFarFromSecondary()
@@ -2747,6 +2833,7 @@ function CMG.setLegacyInventoryEnabled(
         enabled
 end
 
+-- === HELPER FUNCTION: CMG.isLegacyInventoryEnabled() ===
 function CMG.isLegacyInventoryEnabled()
     return
         Inventory.legacyEnabled
@@ -2896,12 +2983,14 @@ local UserListPrompt = {
         ),
 }
 
+-- === HELPER FUNCTION: CMG.isUserListPromptActive() ===
 function CMG.isUserListPromptActive()
     return
         UserListPrompt.entries
         ~= nil
 end
 
+-- === HELPER FUNCTION: drawUserListPrompt() ===
 local function drawUserListPrompt()
     if not UserListPrompt.entries then
         return
@@ -3030,6 +3119,7 @@ CMG.createThreadOnTick(
     "User List Prompt"
 )
 
+-- === HELPER FUNCTION: tCMG.promptUserList(entries) ===
 function tCMG.promptUserList(entries)
     if UserListPrompt.entries then
         return

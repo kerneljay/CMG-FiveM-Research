@@ -1,57 +1,56 @@
 --[[
-    Beginner Guide: cl_stuntsmoke.lua
-    =================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Stuntsmoke
-    ===========================
+    LEVEL 1 BEGINNER GUIDE — Stuntsmoke
+    ========================================
 
     File: cmg/prod/client/vehicles/cl_stuntsmoke.lua
-    Purpose: This file contains vehicle-related gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: vehicle gameplay and vehicle systems, specifically the Stuntsmoke feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 7
+      * Background threads: 0
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * setsmoke
-      * togglesmoke
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * 916cd57ed7
-      * b67d156704
-      * 0a6cf607ed
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * ~r~You can not set the smoke colour of this vehicle
-      * ~r~You have not purchased this colour in LS Customs
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, numberValue6, dataTable2, dataTable3, numberValue7, numberValue8, numberValue9, flag5, textValue4, workValue
 dataTable = {}
@@ -161,6 +160,8 @@ dataTable2.debugName = "White"
 dataTable[numberValue6] = dataTable2
 numberValue6 = {}
 dataTable2 = {}
+
+-- === HELPER FUNCTION (decompiler name: dataTable3; parameters: arg1) ===
 function dataTable3(arg1)
   local arg2, arg3, textValue, textValue2, cmgCall, textValue3, numberValue10, numberValue11, numberValue12, flag, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag2, flag3, flag4
   arg2 = DecorGetBool
@@ -246,6 +247,8 @@ function dataTable3(arg1)
 end
 numberValue7 = Citizen
 numberValue7 = numberValue7.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: none) ===
 function numberValue8()
   local arg1, arg2, arg3, textValue, textValue2, cmgCall, textValue3, numberValue10, numberValue11, numberValue12
   arg1 = DecorRegister
@@ -304,6 +307,8 @@ numberValue7(numberValue8)
 numberValue7 = RegisterCommand
 numberValue8 = "setsmoke"
 -- Beginner: this function is the command handler for "setsmoke".
+
+-- === HELPER FUNCTION (decompiler name: numberValue9; parameters: arg1, arg2) ===
 function numberValue9(arg1, arg2)
   local arg3, textValue, textValue2, cmgCall, textValue3, numberValue10, numberValue11, numberValue12
   arg3 = CMG
@@ -379,6 +384,8 @@ numberValue7(numberValue8, numberValue9, flag5)
 numberValue7 = RegisterCommand
 numberValue8 = "togglesmoke"
 -- Beginner: this function is the command handler for "togglesmoke".
+
+-- === HELPER FUNCTION (decompiler name: numberValue9; parameters: none) ===
 function numberValue9()
   local arg1, arg2, arg3, textValue, textValue2, cmgCall, textValue3
   arg1 = CMG
@@ -431,6 +438,8 @@ textValue4 = "G"
 -- Beginner: Bind a command to a keyboard/controller key.
 numberValue7(numberValue8, numberValue9, flag5, textValue4)
 numberValue7 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue8; parameters: arg1, arg2, arg3) ===
 function numberValue8(arg1, arg2, arg3)
   local textValue, textValue2, cmgCall, textValue3, numberValue10, numberValue11, numberValue12, flag, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, flag2, flag3, flag4
   textValue = numberValue6
@@ -461,6 +470,8 @@ function numberValue8(arg1, arg2, arg3)
   end
 end
 numberValue7.setVehicleIdPlaneSmoke = numberValue8
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1) ===
 function numberValue7(arg1)
   local arg2, arg3, textValue, textValue2, cmgCall, textValue3, numberValue10, numberValue11
   arg2 = GetEntityModel
@@ -518,6 +529,8 @@ numberValue8 = numberValue8.registerDevMenuEntityEditor
 numberValue9 = "Stunt Smoke"
 flag5 = "vehicle"
 textValue4 = numberValue7
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2
 end

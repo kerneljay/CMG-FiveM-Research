@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Discordnitro
+    ==========================================
+
+    File: cmg/prod/client/core/cl_discordnitro.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Discordnitro feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 6
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: unicycle, skate
+      * Incoming network events: 739ff0bbbe, c185d91d8b
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Discord Nitro / Special Vehicle Crafting
     ========================================
 
@@ -18,15 +56,19 @@ local lastCraftTime = GetGameTimer()
 local CRAFT_COOLDOWN_MS = 10000
 local CRAFT_ANIMATION_MS = 5000
 
+-- === HELPER FUNCTION: isPlayerInWater() ===
 local function isPlayerInWater()
     return IsEntityInWater(CMG.getPlayerPed())
 end
 
+-- === HELPER FUNCTION: isCraftCooldownReady() ===
 local function isCraftCooldownReady()
     return GetTimeDifference(GetGameTimer(), lastCraftTime) > CRAFT_COOLDOWN_MS
 end
 
 -- Restrictions shared by all four craftable vehicles.
+
+-- === HELPER FUNCTION: isGeneralCraftingAllowed() ===
 local function isGeneralCraftingAllowed()
     if tCMG.isInComa() then
         return false
@@ -47,6 +89,7 @@ local function isGeneralCraftingAllowed()
     return true
 end
 
+-- === HELPER FUNCTION: startHammering(playerPed, message) ===
 local function startHammering(playerPed, message)
     lastCraftTime = GetGameTimer()
     tCMG.notify(message)
@@ -63,6 +106,8 @@ end
 
 -- Used by BMX and moped. These two have extra water/vehicle checks before and
 -- after the 5-second crafting animation.
+
+-- === HELPER FUNCTION: craftNitroVehicle(options) ===
 local function craftNitroVehicle(options)
     if not isGeneralCraftingAllowed() then
         -- The original file only explicitly showed this message for the coma
@@ -127,6 +172,7 @@ local function craftNitroVehicle(options)
     )
 end
 
+-- === NETWORK EVENT: receives "739ff0bbbe" from server/another network source ===
 RegisterNetEvent("739ff0bbbe", function()
     craftNitroVehicle({
         displayName = "BMX",
@@ -137,6 +183,7 @@ RegisterNetEvent("739ff0bbbe", function()
     })
 end)
 
+-- === NETWORK EVENT: receives "c185d91d8b" from server/another network source ===
 RegisterNetEvent("c185d91d8b", function()
     craftNitroVehicle({
         displayName = "moped",
@@ -149,6 +196,8 @@ RegisterNetEvent("c185d91d8b", function()
 end)
 
 -- Unicycle/skateboard use CreateVehicle directly instead of CMG.spawnVehicle.
+
+-- === HELPER FUNCTION: craftWhitelistedVehicle(options) ===
 local function craftWhitelistedVehicle(options)
     if not CMG.hasClientPermission(options.permission) then
         return
@@ -195,6 +244,7 @@ local function craftWhitelistedVehicle(options)
     SetModelAsNoLongerNeeded(loadedModel)
 end
 
+-- === COMMAND /unicycle: runs when that command is entered ===
 RegisterCommand("unicycle", function()
     craftWhitelistedVehicle({
         permission = "unicycle.whitelisted",
@@ -206,6 +256,7 @@ RegisterCommand("unicycle", function()
     })
 end, false)
 
+-- === COMMAND /skate: runs when that command is entered ===
 RegisterCommand("skate", function()
     craftWhitelistedVehicle({
         permission = "skate.whitelisted",

@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Playerlist
+    ========================================
+
+    File: cmg/prod/client/core/cl_playerlist.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Playerlist feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 19
+      * Background threads: 1
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: 9655ebd710, 850f6ce5d9, 9d9f92b5ce, 30043bf5b4, d86ba438f2, 44e6d4fc95
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: 120fba9e89
+      * NUI callbacks: closeCMGPlayerList
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Player List / Scoreboard Client
     ===============================
 
@@ -46,6 +84,7 @@ local serverSourceToUserId = {}
 
 local lastToggleAt = 0
 
+-- Beginner: changes whether the NUI owns keyboard/mouse input.
 SetNuiFocus(false, false)
 
 
@@ -169,16 +208,19 @@ local borderForceJobs = {
 -- PUBLIC LOOKUP HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.getSortedFullPlayerListData() ===
 function CMG.getSortedFullPlayerListData()
     return sortedPlayerListData
 end
 
 
+-- === HELPER FUNCTION: CMG.clientGetUserIdFromSource(serverSource) ===
 function CMG.clientGetUserIdFromSource(serverSource)
     return serverSourceToUserId[serverSource] or 0
 end
 
 
+-- === HELPER FUNCTION: CMG.clientGetPlayerIsStaff(serverSource) ===
 function CMG.clientGetPlayerIsStaff(serverSource)
     local userId =
         serverSourceToUserId[serverSource]
@@ -199,6 +241,8 @@ end
 --
 -- serviceType examples:
 --   "nhs", "lfb", "hmp", "borderforce", "metpd", "aa", ""
+
+-- === HELPER FUNCTION: CMG.getJobType(userId) ===
 function CMG.getJobType(userId)
     local data =
         fullPlayerListData[userId]
@@ -240,6 +284,7 @@ function CMG.getJobType(userId)
 end
 
 
+-- === HELPER FUNCTION: CMG.getPlayerName(playerIndex) ===
 function CMG.getPlayerName(playerIndex)
     local serverSource =
         GetPlayerServerId(playerIndex)
@@ -271,6 +316,7 @@ function CMG.getPlayerName(playerIndex)
 end
 
 
+-- === HELPER FUNCTION: CMG.getClientPlayerNameFromPlayerSrc(serverSource) ===
 function CMG.getClientPlayerNameFromPlayerSrc(serverSource)
     if not serverSource
         or serverSource <= 0 then
@@ -299,6 +345,7 @@ function CMG.getClientPlayerNameFromPlayerSrc(serverSource)
 end
 
 
+-- === HELPER FUNCTION: CMG.getClientPlaytimeHours(userId) ===
 function CMG.getClientPlaytimeHours(userId)
     userId =
         userId or
@@ -319,6 +366,7 @@ function CMG.getClientPlaytimeHours(userId)
 end
 
 
+-- === HELPER FUNCTION: CMG.getClientUserSource(userId) ===
 function CMG.getClientUserSource(userId)
     local data =
         fullPlayerListData[userId]
@@ -342,6 +390,7 @@ exports(
 -- SORT PLAYER DATA INTO SECTIONS
 -- ============================================================
 
+-- === HELPER FUNCTION: displayJob(job) ===
 local function displayJob(job)
     -- These specialist roles are deliberately displayed as Unemployed
     -- in some scoreboard sections by the original client.
@@ -356,6 +405,7 @@ local function displayJob(job)
 end
 
 
+-- === HELPER FUNCTION: sortNumericKeys(tbl) ===
 local function sortNumericKeys(tbl)
     local keys = {}
 
@@ -370,6 +420,7 @@ local function sortNumericKeys(tbl)
 end
 
 
+-- === HELPER FUNCTION: categorisePlayers(data) ===
 local function categorisePlayers(data)
     local result = {
         staff = {},
@@ -451,6 +502,7 @@ local function categorisePlayers(data)
 end
 
 
+-- === HELPER FUNCTION: rebuildSortedPlayerList() ===
 local function rebuildSortedPlayerList()
     sortedPlayerListData =
         categorisePlayers(
@@ -465,6 +517,7 @@ end
 -- NUI RENDER HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: getPlayerRenderFields(playerData) ===
 local function getPlayerRenderFields(playerData)
     local name = playerData[2]
 
@@ -481,12 +534,14 @@ local function getPlayerRenderFields(playerData)
 end
 
 
+-- === HELPER FUNCTION: appendPlayerRow(playerData) ===
 local function appendPlayerRow(playerData)
     local name, job, playtime =
         getPlayerRenderFields(
             playerData
         )
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         appendToContentPlayerList =
             '<span class="username">' ..
@@ -514,6 +569,7 @@ local function appendPlayerSection(
         return
     end
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         appendToContentPlayerList =
             '<span id="' ..
@@ -546,10 +602,12 @@ local function appendServerMetadata(
     local serverNumber =
         meta[5] or ""
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         wipeFooterPlayerList = true
     })
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         appendToFooterPlayerList =
             '<span class="foot">Server #' ..
@@ -557,6 +615,7 @@ local function appendServerMetadata(
             ' | </span>'
     })
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         appendToFooterPlayerList =
             '<span class="foot" style="color: rgb(0, 255, 20);">Server uptime ' ..
@@ -564,6 +623,7 @@ local function appendServerMetadata(
             '</span>'
     })
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         appendToFooterPlayerList =
             '<span class="foot">  |  Number of players ' ..
@@ -575,14 +635,17 @@ local function appendServerMetadata(
 end
 
 
+-- === HELPER FUNCTION: renderPlayerList() ===
 local function renderPlayerList()
     local sorted =
         rebuildSortedPlayerList()
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         wipePlayerList = true
     })
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         clearServerMetaData = true
     })
@@ -597,6 +660,7 @@ local function renderPlayerList()
     }
 
     for _, counter in ipairs(counters) do
+        -- Beginner: sends a Lua table to the HTML/JavaScript UI.
         SendNUIMessage({
             setServerMetaData =
                 '<img src="' ..
@@ -665,6 +729,7 @@ end
 -- OPEN / CLOSE CONTROLS
 -- ============================================================
 
+-- === HELPER FUNCTION: playerListControlTick() ===
 local function playerListControlTick()
     if not CMG.isUsingKeyboard(2) then
         return
@@ -698,8 +763,10 @@ local function playerListControlTick()
 
         renderPlayerList()
 
+        -- Beginner: changes whether the NUI owns keyboard/mouse input.
         SetNuiFocus(true, true)
 
+        -- Beginner: sends a Lua table to the HTML/JavaScript UI.
         SendNUIMessage({
             showPlayerList = true
         })
@@ -719,6 +786,7 @@ RegisterNUICallback(
     "closeCMGPlayerList",
     function()
         if playerListOpen then
+            -- Beginner: changes whether the NUI owns keyboard/mouse input.
             SetNuiFocus(false, false)
             playerListOpen = false
         end
@@ -742,6 +810,7 @@ AddEventHandler(
 )
 
 
+-- === HELPER FUNCTION: rebuildSourceLookup() ===
 local function rebuildSourceLookup()
     serverSourceToUserId = {}
 
@@ -758,6 +827,8 @@ end
 
 
 -- Complete replacement of the list.
+
+-- === NETWORK EVENT: receives "9655ebd710" from server/another network source ===
 RegisterNetEvent("9655ebd710", function(serverData)
     fullPlayerListData =
         serverData or {}
@@ -772,6 +843,8 @@ end)
 --
 -- incomingPlayer format:
 --   {userId, source, name, job, playtime, isStaff, optionalDisplayJob}
+
+-- === NETWORK EVENT: receives "850f6ce5d9" from server/another network source ===
 RegisterNetEvent("850f6ce5d9", function(incomingPlayer)
     local userId,
           source,
@@ -806,6 +879,8 @@ end)
 
 
 -- Remove one player by permanent user ID.
+
+-- === NETWORK EVENT: receives "9d9f92b5ce" from server/another network source ===
 RegisterNetEvent("9d9f92b5ce", function(userId)
     local old =
         fullPlayerListData[userId]
@@ -823,6 +898,8 @@ end)
 
 
 -- Replace server footer metadata.
+
+-- === NETWORK EVENT: receives "30043bf5b4" from server/another network source ===
 RegisterNetEvent("30043bf5b4", function(meta)
     fullPlayerListData._meta = {
         meta[1],
@@ -839,6 +916,8 @@ end)
 
 
 -- Update only the uptime value.
+
+-- === NETWORK EVENT: receives "d86ba438f2" from server/another network source ===
 RegisterNetEvent("d86ba438f2", function(uptime)
     if fullPlayerListData
         and fullPlayerListData._meta then
@@ -871,6 +950,7 @@ RegisterNetEvent(
 -- DISCORD RICH PRESENCE
 -- ============================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         Wait(5000)

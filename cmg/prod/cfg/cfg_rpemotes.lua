@@ -1,28 +1,40 @@
 --[[
-    BEGINNER GUIDE — Rpemotes
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Rpemotes
+    ======================================
 
     File: cmg/prod/cfg/cfg_rpemotes.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Config/shared data — is mainly loaded as data/configuration by other scripts.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/cfg_pazeee_emotes
+    Quick map of this file (automatic static scan):
+      * Named functions: 1
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_pazeee_emotes
 
-    Example player-facing text in this file:
-      * Select an emote here to set it as your favorite.
-      * Open animation menu
-      * Press ~y~G~w~ to use the leaf blower.
-      * Press ~y~G~w~ to use camera flash.
-      * Press ~y~G~w~ to make it rain.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local Config = {
     MenuLanguage = 'en',
@@ -135,6 +147,7 @@ Config.Languages = {
     }
 }
 
+-- === HELPER FUNCTION: Translate(message) ===
 local function Translate(message)
     local pack = Config.Languages[Config.MenuLanguage]
     if type(pack) == "table" then

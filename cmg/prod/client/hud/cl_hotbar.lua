@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Hotbar
+    ====================================
+
+    File: cmg/prod/client/hud/cl_hotbar.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: HUD and on-screen player information, specifically the Hotbar feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 10
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: 0c20c62dc8
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_trapper
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Inventory Hotbar
     ================
 
@@ -54,6 +92,7 @@ local selectionListeners = {}
 -- LISTENER API
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.onHotbarSelect(callback) ===
 function CMG.onHotbarSelect(callback)
     if type(callback)
         ~= "function" then
@@ -86,6 +125,7 @@ function CMG.onHotbarSelect(callback)
 end
 
 
+-- === HELPER FUNCTION: CMG.getCurrentHotbarItem() ===
 function CMG.getCurrentHotbarItem()
     if selectedSlotIndex >= 0 then
         return
@@ -113,6 +153,7 @@ local function sendHotbarMessage(
 end
 
 
+-- === HELPER FUNCTION: notifySelectionListeners() ===
 local function notifySelectionListeners()
     local selectedItem =
         CMG.getCurrentHotbarItem()
@@ -130,6 +171,7 @@ local function notifySelectionListeners()
 end
 
 
+-- === HELPER FUNCTION: sortItemsByName(items) ===
 local function sortItemsByName(items)
     table.sort(
         items,
@@ -155,6 +197,7 @@ end
 -- SET HOTBAR CONTENTS
 -- ============================================================
 
+-- === HELPER FUNCTION: setHotbarItems(items) ===
 local function setHotbarItems(items)
     sortItemsByName(items)
 
@@ -326,6 +369,7 @@ end
 -- HOTBAR ENABLE / DISABLE
 -- ============================================================
 
+-- === HELPER FUNCTION: hotbarControlTick() ===
 local function hotbarControlTick()
     if hotbarEnabled then
         HudWeaponWheelIgnoreSelection()
@@ -338,6 +382,7 @@ CMG.createThreadOnTick(
 )
 
 
+-- === HELPER FUNCTION: CMG.setHotBarEnabled(enabled) ===
 function CMG.setHotBarEnabled(enabled)
     hotbarEnabled =
         enabled == true
@@ -365,6 +410,7 @@ function CMG.setHotBarEnabled(enabled)
 end
 
 
+-- === HELPER FUNCTION: CMG.getHotBarEnabled() ===
 function CMG.getHotBarEnabled()
     return hotbarEnabled
 end

@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Hudmoney
+    ======================================
+
+    File: cmg/prod/client/hud/cl_hudmoney.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: HUD and on-screen player information, specifically the Hudmoney feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 6
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 9c15108c11, CMG:setDisplayBankMoney, dba3e00154, 84cbcfbf61, 8afb93c3a0, CMG:initMoney
+      * Local event handlers: 9c15108c11, CMG:setDisplayBankMoney, dba3e00154, CMG:initMoney, pma-voice:setTalkingMode, mumbleConnected, mumbleDisconnected
+      * Server events sent: none found by static scan
+      * NUI callbacks: moneyUILoaded
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Money HUD / Legacy Voice Indicator
     ==================================
 
@@ -54,6 +92,7 @@ local legacyTalking = false
 -- PUBLIC MONEY GETTER
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.getClientDisplayMoney() ===
 function CMG.getClientDisplayMoney()
     return
         cash,
@@ -68,6 +107,7 @@ end
 -- VOICE TEXT
 -- ============================================================
 
+-- === HELPER FUNCTION: getVoiceProximityText() ===
 local function getVoiceProximityText()
     if not MumbleIsConnected() then
         return "Voice Disabled"
@@ -85,7 +125,9 @@ end
 -- LEGACY MONEY HUD
 -- ============================================================
 
+-- === HELPER FUNCTION: refreshLegacyMoneyHud() ===
 local function refreshLegacyMoneyHud()
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         updateMoney = true,
 
@@ -125,10 +167,12 @@ local function refreshLegacyMoneyHud()
             false
     })
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         showMoney = true
     })
 
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         moneyTalking =
             legacyTalking
@@ -140,7 +184,9 @@ end
 -- NEW MONEY HUD
 -- ============================================================
 
+-- === HELPER FUNCTION: refreshModernMoneyHud() ===
 local function refreshModernMoneyHud()
+    -- Beginner: sends a Lua table to the HTML/JavaScript UI.
     SendNUIMessage({
         showMoney = false
     })
@@ -186,6 +232,7 @@ local function refreshModernMoneyHud()
 end
 
 
+-- === HELPER FUNCTION: CMG.refreshMoneyUI() ===
 function CMG.refreshMoneyUI()
     if CMG.isLegacyHudEnabled() then
         refreshLegacyMoneyHud()
@@ -205,6 +252,7 @@ RegisterNUICallback(
         if CMG.isLegacyHudEnabled() then
             refreshLegacyMoneyHud()
         else
+            -- Beginner: sends a Lua table to the HTML/JavaScript UI.
             SendNUIMessage({
                 showMoney = false
             })
@@ -219,6 +267,7 @@ RegisterNUICallback(
 -- MONEY EVENTS
 -- ============================================================
 
+-- === NETWORK EVENT: receives "9c15108c11" from server/another network source ===
 RegisterNetEvent("9c15108c11")
 
 AddEventHandler(
@@ -247,6 +296,7 @@ AddEventHandler(
 )
 
 
+-- === NETWORK EVENT: receives "dba3e00154" from server/another network source ===
 RegisterNetEvent("dba3e00154")
 
 AddEventHandler(
@@ -357,11 +407,13 @@ AddEventHandler(
 -- LEGACY "CURRENTLY TALKING" INDICATOR
 -- ============================================================
 
+-- === HELPER FUNCTION: legacyTalkingTick() ===
 local function legacyTalkingTick()
     if not CMG.isLegacyHudEnabled() then
         if legacyTalking then
             legacyTalking = false
 
+            -- Beginner: sends a Lua table to the HTML/JavaScript UI.
             SendNUIMessage({
                 moneyTalking =
                     false
@@ -380,6 +432,7 @@ local function legacyTalkingTick()
         legacyTalking =
             talking
 
+        -- Beginner: sends a Lua table to the HTML/JavaScript UI.
         SendNUIMessage({
             moneyTalking =
                 legacyTalking

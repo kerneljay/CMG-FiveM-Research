@@ -1,54 +1,56 @@
 --[[
-    Beginner Guide: cl_crouch.lua
-    =============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Crouch
-    =======================
+    LEVEL 1 BEGINNER GUIDE — Crouch
+    ====================================
 
     File: cmg/prod/client/misc/cl_crouch.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Crouch feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 27
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * /crouch
-      * crouch
-      * crawl
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * chat:addSuggestion
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * SetPlayerClipset
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, numberValue13, textValue2, flag10, flag12, flag13, textValue4, numberValue16, workValue19, numberValue, workValue2, workValue4, textValue, workValue5, workValue6, workValue7, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, threadCall
 dataTable = {}
@@ -423,6 +425,8 @@ dataTable2[numberValue13] = textValue2
 numberValue13 = -289665739
 textValue2 = "RETRIEVER@MOVE"
 dataTable2[numberValue13] = textValue2
+
+-- === HELPER FUNCTION (decompiler name: numberValue13; parameters: arg1) ===
 function numberValue13(arg1)
   local arg2, arg3
   arg2 = GetPedMovementClipset
@@ -447,6 +451,8 @@ textValue4 = "onfront"
 numberValue16 = 0
 workValue19 = nil
 numberValue = 0
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
 function workValue2(arg1, arg2)
   local arg3, arg4, arg5, arg6
   arg3 = IsPedOnFoot
@@ -522,6 +528,8 @@ function workValue2(arg1, arg2)
 end
 workValue4 = _ENV
 textValue = "SetPlayerClipset"
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = CMG
@@ -540,6 +548,8 @@ function workValue5(arg1)
   arg2(arg3)
 end
 workValue4[textValue] = workValue5
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
 function workValue4(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   local cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3
   cmgCall = CMG
@@ -577,6 +587,8 @@ function workValue4(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   workValue18 = arg2
   cmgCall(workValue18)
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2, arg3) ===
 function textValue(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4
   arg4 = math
@@ -603,6 +615,8 @@ function textValue(arg1, arg2, arg3)
     waitCall(numberValue2, heading)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
 function workValue5()
   local arg1, arg2, arg3, arg4
   arg1 = PlayerPedId
@@ -637,10 +651,14 @@ function workValue5()
   arg3 = "move_ped_crouched"
   arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local playerPed, flag5, numberValue14, flag9, flag11, textValue3
     while true do
@@ -690,6 +708,8 @@ function workValue6()
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, arg4, arg5
   arg1 = true
@@ -740,6 +760,8 @@ function workValue7()
   arg2 = workValue6
   arg2()
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
 function workValue8(arg1)
   local arg2, arg3, arg4
   arg2 = workValue2
@@ -756,6 +778,8 @@ function workValue8(arg1)
     return arg2
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
 function workValue9()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, cmgCall
   arg1 = CMG
@@ -874,6 +898,8 @@ function workValue9()
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
 function workValue10(arg1)
   local arg2, arg3
   arg2 = IsPedRunning
@@ -893,6 +919,8 @@ function workValue10(arg1)
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: arg1, arg2, arg3) ===
 function workValue11(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3, flag4, flag6
   arg4 = GetEntityCoords
@@ -929,6 +957,8 @@ function workValue11(arg1, arg2, arg3)
   flag6 = false
   arg5(arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6, numberValue7, flag, flag2, flag3, flag4, flag6)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1) ===
 function workValue12(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall, workValue18
   if not arg1 then
@@ -987,6 +1017,8 @@ function workValue12(arg1)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue13; parameters: arg1, arg2, arg3) ===
 function workValue13(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17, waitCall, numberValue2, heading, numberValue4, numberValue6
   arg4 = true
@@ -1020,6 +1052,8 @@ function workValue13(arg1, arg2, arg3)
   arg5 = SetTimeout
   arg6 = arg4[arg2]
   arg6 = arg6[arg3]
+
+  -- === HELPER FUNCTION: arg7() ===
   function arg7()
     local playerPed, flag5
     playerPed = false
@@ -1027,6 +1061,8 @@ function workValue13(arg1, arg2, arg3)
   end
   arg5(arg6, arg7)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1) ===
 function workValue14(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall, workValue18
   arg2 = true
@@ -1077,10 +1113,14 @@ function workValue14(arg1)
   arg3 = false
   flag13 = arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: none) ===
 function workValue15()
   local arg1, arg2
   arg1 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg2() ===
   function arg2()
     local playerPed, flag5, numberValue14, flag9, flag11, textValue3, numberValue15, heading3, textValue5, workValue20, workValue, workValue3, numberValue3, numberValue5, heading2, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag7, flag8
     playerPed = Wait
@@ -1357,6 +1397,8 @@ function workValue15()
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue16; parameters: none) ===
 function workValue16()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, cmgCall, workValue18, numberValue17
   arg1 = flag13
@@ -1510,6 +1552,8 @@ end
 workValue17 = _ENV
 threadCall = "CreateThread"
 workValue17 = workValue17[threadCall]
+
+-- === HELPER FUNCTION (decompiler name: threadCall; parameters: none) ===
 function threadCall()
   local arg1, arg2, arg3, arg4, arg5
   arg1 = dataTable.crouchKeybindEnabled
@@ -1525,6 +1569,8 @@ function threadCall()
     arg1 = CMG
     arg1 = arg1.registerCommand
     arg2 = "+crouch"
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local playerPed, flag5
       playerPed = workValue9
@@ -1535,6 +1581,8 @@ function threadCall()
     arg1 = CMG
     arg1 = arg1.registerCommand
     arg2 = "-crouch"
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local playerPed, flag5
     end
@@ -1544,6 +1592,8 @@ function threadCall()
   arg1 = RegisterCommand
   arg2 = "crouch"
   -- Beginner: this function is the command handler for "crouch".
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local playerPed, flag5
     playerPed = GetFrameCount
@@ -1590,6 +1640,8 @@ function threadCall()
     arg1 = CMG
     arg1 = arg1.registerCommand
     arg2 = "+crawl"
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local playerPed, flag5
       playerPed = workValue16
@@ -1600,6 +1652,8 @@ function threadCall()
     arg1 = CMG
     arg1 = arg1.registerCommand
     arg2 = "-crawl"
+
+    -- === HELPER FUNCTION: arg3() ===
     function arg3()
       local playerPed, flag5
     end
@@ -1609,6 +1663,8 @@ function threadCall()
   arg1 = RegisterCommand
   arg2 = "crawl"
   -- Beginner: this function is the command handler for "crawl".
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local playerPed, flag5
     playerPed = workValue16

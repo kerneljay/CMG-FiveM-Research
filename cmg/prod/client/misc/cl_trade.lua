@@ -1,48 +1,56 @@
 --[[
-    Beginner Guide: cl_trade.lua
-    ============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Trade
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Trade
+    ===================================
 
     File: cmg/prod/client/misc/cl_trade.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Trade feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 25
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Config/data used:
-      * cfg/cfg_trade
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 21
-      They are intentionally left unchanged because matching server code may use them.
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Example player-facing text in this file:
-      * ~r~You must be in a greenzone to open a secure trade.
-      * tradeSearchPlayers
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cmgCall, flag, workValue2, workValue3, workValue4, cmgCall3, textValue2, workValue6, flag2
 cmgCall = CMG
@@ -51,6 +59,8 @@ flag = "cfg/cfg_trade"
 -- Beginner: result below is config.
 cmgCall = cmgCall(flag)
 flag = false
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
 function workValue2(arg1, arg2)
   local cmgCall2, dataTable
   cmgCall2 = CMG
@@ -60,6 +70,8 @@ function workValue2(arg1, arg2)
   dataTable.payload = arg2
   cmgCall2(dataTable)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2, cmgCall2, dataTable
   arg1 = flag
@@ -116,6 +128,8 @@ function workValue3()
   -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "a059ad9b7e".
   arg1(arg2)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, cmgCall2, dataTable
   arg1 = flag
@@ -143,6 +157,8 @@ end
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.registerCommand
 textValue2 = "trade"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = cmgCall.requireGreenzone
@@ -167,6 +183,8 @@ cmgCall3(textValue2, workValue6, flag2)
 cmgCall3 = RegisterNetEvent
 textValue2 = "ba8e9e6cb6"
 -- Beginner: this function handles network event "ba8e9e6cb6".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable
   arg2 = workValue3
@@ -182,6 +200,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "ef22611740"
 -- Beginner: this function handles network event "ef22611740".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3
   arg2 = flag
@@ -206,6 +226,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "910d817f7c"
 -- Beginner: this function handles network event "910d817f7c".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3, textValue
   arg2 = flag
@@ -239,6 +261,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "8065ef8ec9"
 -- Beginner: this function handles network event "8065ef8ec9".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local cmgCall2, dataTable, stringHelper3
   cmgCall2 = flag
@@ -263,6 +287,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "b9cdb13387"
 -- Beginner: this function handles network event "b9cdb13387".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3
   arg2 = workValue2
@@ -280,6 +306,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "fe689155ce"
 -- Beginner: this function handles network event "fe689155ce".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3, textValue, workValue5, workValue7, workValue8, workValue9, stringHelper, stringHelper2, workValue
   if arg1 then
@@ -338,6 +366,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "9fde748e2f"
 -- Beginner: this function handles network event "9fde748e2f".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3
   arg2 = workValue2
@@ -355,6 +385,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "37caf2095f"
 -- Beginner: this function handles network event "37caf2095f".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3
   arg2 = workValue2
@@ -372,6 +404,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "d814734263"
 -- Beginner: this function handles network event "d814734263".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3
   arg2 = workValue2
@@ -389,6 +423,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = RegisterNetEvent
 textValue2 = "4f46039970"
 -- Beginner: this function handles network event "4f46039970".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2) ===
 function workValue6(arg1, arg2)
   local cmgCall2, dataTable, stringHelper3, textValue
   cmgCall2 = flag
@@ -424,6 +460,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeClose"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = workValue4
@@ -435,6 +473,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeRequestAssets"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = TriggerServerEvent
@@ -448,6 +488,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeRequestNearby"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = TriggerServerEvent
@@ -461,6 +503,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeRequestHistory"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2
   arg1 = TriggerServerEvent
@@ -474,6 +518,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeSearchPlayers"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3
   arg2 = arg1 or nil
@@ -497,6 +543,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeSendRequest"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable, stringHelper3, textValue
   arg2 = arg1 or nil
@@ -525,6 +573,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeAddEntry"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable
   arg2 = type
@@ -544,6 +594,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeRemoveEntry"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable
   arg2 = type
@@ -566,6 +618,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeSetLock"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable
   arg2 = type
@@ -585,6 +639,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeConfirm"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable
   arg2 = TriggerServerEvent
@@ -602,6 +658,8 @@ cmgCall3(textValue2, workValue6)
 cmgCall3 = CMG
 cmgCall3 = cmgCall3.uiRegisterCallback
 textValue2 = "tradeCancel"
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, cmgCall2, dataTable
   arg2 = TriggerServerEvent

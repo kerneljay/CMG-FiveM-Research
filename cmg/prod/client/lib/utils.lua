@@ -1,48 +1,63 @@
 --[[
-    Beginner Guide: utils.lua
-    =========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Utils
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Utils
+    ===================================
 
     File: cmg/prod/client/lib/utils.lua
-    Purpose: This file contains shared helper/library code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: the Utils feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 22
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, flag, cmgCall5, workValue2, workValue4, workValue6, stringHelper, tableHelper2, workValue7, workValue9, cmgCall, cmgCall2, cmgCall3, cmgCall4, textValue5, workValue
 dataTable = {}
 flag = true
 cmgCall5 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2) ===
 function workValue2(arg1, arg2)
   local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4
   if nil == arg2 then
@@ -153,6 +168,8 @@ function workValue2(arg1, arg2)
   return textValue32
 end
 cmgCall5.loadModule = workValue2
+
+-- === HELPER FUNCTION (decompiler name: cmgCall5; parameters: arg1, arg2, arg3) ===
 function cmgCall5(arg1, arg2, arg3)
   local textValue32, workValue5
   textValue32 = arg1 >> arg2
@@ -161,6 +178,8 @@ function cmgCall5(arg1, arg2, arg3)
   textValue32 = textValue32 & workValue5
   return textValue32
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: arg1, arg2, arg3) ===
 function workValue2(arg1, arg2, arg3)
   local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue27, textValue28, textValue29, textValue30, textValue31, textValue33, textValue34, textValue35, textValue36, textValue37, textValue38, textValue39, textValue40, textValue41, textValue42, textValue43, textValue44, textValue45, textValue46, textValue47, textValue48
   textValue32 = {}
@@ -314,6 +333,8 @@ function workValue2(arg1, arg2, arg3)
   end
   return textValue32
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
 function workValue4(arg1, arg2, arg3)
   local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue
   textValue32 = {}
@@ -335,6 +356,8 @@ stringHelper = string
 stringHelper = stringHelper.char
 tableHelper2 = table
 tableHelper2 = tableHelper2.concat
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1, arg2, arg3) ===
 function workValue7(arg1, arg2, arg3)
   local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18
   if not arg2 then
@@ -541,6 +564,8 @@ function workValue7(arg1, arg2, arg3)
   textValue = cmgCall6
   return textValue51(textValue)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1, arg2) ===
 function workValue9(arg1, arg2)
   local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7
   arg3 = flag
@@ -601,6 +626,8 @@ function workValue9(arg1, arg2)
   return textValue49(textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4, textValue6, textValue7)
 end
 cmgCall = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2) ===
 function cmgCall2(arg1, arg2)
   local arg3, textValue32, workValue5, cmgCall6, textValue49
   arg3 = nil
@@ -653,6 +680,8 @@ end
 cmgCall.loadResourceFile = cmgCall2
 cmgCall = nil
 cmgCall2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
 function cmgCall3(arg1, arg2)
   local arg3, textValue32
   arg3 = type
@@ -691,6 +720,8 @@ cmgCall2 = cmgCall2()
 if not cmgCall2 then
   cmgCall2 = Citizen
   cmgCall2 = cmgCall2.CreateThread
+
+  -- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
   function cmgCall3()
     local arg1, arg2
     arg1 = Citizen
@@ -703,6 +734,8 @@ if not cmgCall2 then
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   cmgCall2(cmgCall3)
 end
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1, arg2, arg3) ===
 function cmgCall2(arg1, arg2, arg3)
   local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8
   if nil == arg3 then
@@ -710,6 +743,8 @@ function cmgCall2(arg1, arg2, arg3)
   end
   textValue32 = {}
   textValue32.done = false
+
+  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg12) ===
   function workValue5(arg12)
     local arg22, tableHelper, workValue3
     arg22 = textValue32.done
@@ -734,6 +769,8 @@ function cmgCall2(arg1, arg2, arg3)
   cmgCall6 = setmetatable
   textValue49 = textValue32
   textValue50 = {}
+
+  -- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg12, arg22) ===
   function workValue8(arg12, arg22)
     local tableHelper, workValue3
     tableHelper = workValue5
@@ -744,6 +781,8 @@ function cmgCall2(arg1, arg2, arg3)
   cmgCall6(textValue49, textValue50)
   cmgCall6 = SetTimeout
   textValue49 = arg3
+
+  -- === HELPER FUNCTION (decompiler name: textValue50; parameters: none) ===
   function textValue50()
     local arg12, arg22
     arg12 = workValue5
@@ -754,6 +793,8 @@ function cmgCall2(arg1, arg2, arg3)
   return textValue32
 end
 Task = cmgCall2
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, textValue32
   arg2 = tonumber
@@ -770,6 +811,8 @@ function cmgCall2(arg1)
   end
 end
 parseInt = cmgCall2
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3
   arg2 = tonumber
@@ -781,6 +824,8 @@ function cmgCall2(arg1)
   return arg2
 end
 parseDouble = cmgCall2
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3
   arg2 = parseDouble
@@ -789,6 +834,8 @@ function cmgCall2(arg1)
 end
 parseFloat = cmgCall2
 cmgCall2 = {}
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2, arg3) ===
 function cmgCall3(arg1, arg2, arg3)
   local textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3, textValue4
   textValue32 = ""
@@ -850,6 +897,8 @@ function cmgCall3(arg1, arg2, arg3)
   return textValue32
 end
 sanitizeString = cmgCall3
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
 function cmgCall3(arg1, arg2)
   local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue
   if nil == arg2 then
@@ -872,6 +921,8 @@ function cmgCall3(arg1, arg2)
   return arg3
 end
 splitString = cmgCall3
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
 function cmgCall3(arg1, arg2)
   local arg3, textValue32, workValue5, cmgCall6, textValue49, textValue50, workValue8, textValue51, textValue, textValue2, textValue3
   if nil == arg2 then
@@ -900,6 +951,8 @@ function cmgCall3(arg1, arg2)
 end
 joinStrings = cmgCall3
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
 function cmgCall4(arg1)
   local arg2, arg3, textValue32
   arg2 = dataTable
@@ -926,6 +979,8 @@ end
 cmgCall3.loadJsonModule = cmgCall4
 cmgCall3 = {}
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: arg1, arg2, arg3) ===
 function textValue5(arg1, arg2, arg3)
   local textValue32, workValue5, cmgCall6, textValue49
   textValue32 = cmgCall3
@@ -941,6 +996,8 @@ cmgCall4.registerCommand = textValue5
 cmgCall4 = exports
 textValue5 = "isCommandHidden"
 -- Beginner: this function is the command handler for "isCommandHidden".
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, textValue32
   arg2 = string

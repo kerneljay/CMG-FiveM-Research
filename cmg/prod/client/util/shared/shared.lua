@@ -1,46 +1,61 @@
 --[[
-    Beginner Guide: shared.lua
-    ==========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Shared
-    =======================
+    LEVEL 1 BEGINNER GUIDE — Shared
+    ====================================
 
     File: cmg/prod/client/util/shared/shared.lua
-    Purpose: This file contains shared utility code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: shared utility/framework helper code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 42
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local tableHelper, dataTable, dataTable2, textValue21, textValue22, textValue23, textValue24, textValue25, textValue26, textValue28, textValue, textValue2, textValue3, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue12, textValue13, textValue14, textValue15, textValue16, textValue17, textValue18, textValue19, textValue20
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag
   arg3 = 1
@@ -58,6 +73,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.has = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27
   arg3 = pairs
@@ -73,6 +90,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.find = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3
   arg3 = #arg1
@@ -81,6 +100,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.add = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27
   arg3 = {}
@@ -105,6 +126,8 @@ function dataTable(arg1, arg2)
   return arg3
 end
 tableHelper.join = dataTable
+
+-- === HELPER FUNCTION: tableHelper(arg1, arg2) ===
 function tableHelper(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2
   if nil == arg2 then
@@ -128,6 +151,8 @@ function tableHelper(arg1, arg2)
 end
 stringsplit = tableHelper
 tableHelper = string
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag
   arg3 = string
@@ -144,6 +169,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.starts = dataTable
 tableHelper = string
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag
   arg3 = type
@@ -172,6 +199,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.contains = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1) ===
 function dataTable(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27
   arg2 = 0
@@ -185,6 +214,8 @@ function dataTable(arg1)
 end
 tableHelper.count = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3, workValue, workValue2
   arg3 = type
@@ -230,6 +261,8 @@ function dataTable(arg1, arg2)
   return arg4
 end
 tableHelper.copy = dataTable
+
+-- === HELPER FUNCTION: tableHelper(arg1, arg2) ===
 function tableHelper(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2
   arg3 = {}
@@ -250,6 +283,8 @@ function tableHelper(arg1, arg2)
 end
 sortedKeys = tableHelper
 tableHelper = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3, workValue, workValue2
   arg3 = {}
@@ -270,6 +305,8 @@ function dataTable(arg1, arg2)
   arg4 = table
   arg4 = arg4.sort
   arg5 = arg3
+
+  -- === HELPER FUNCTION: stringHelper2(arg12, arg22) ===
   function stringHelper2(arg12, arg22)
     local workValue6, workValue7
     workValue6 = arg2
@@ -287,6 +324,8 @@ function dataTable(arg1, arg2)
   end
   arg4(arg5, stringHelper2)
   arg4 = 0
+
+  -- === HELPER FUNCTION: arg5() ===
   function arg5()
     local arg12, arg22, workValue6
     arg12 = arg4
@@ -314,6 +353,8 @@ function dataTable(arg1, arg2)
   return arg5
 end
 tableHelper.keySortedPairs = dataTable
+
+-- === HELPER FUNCTION: tableHelper(arg1) ===
 function tableHelper(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2
   arg2 = string
@@ -346,6 +387,8 @@ function tableHelper(arg1)
   return flag
 end
 getMoneyStringFormatted = tableHelper
+
+-- === HELPER FUNCTION: tableHelper(arg1) ===
 function tableHelper(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3, workValue, workValue2
   arg2 = type
@@ -390,6 +433,8 @@ function tableHelper(arg1)
 end
 dump = tableHelper
 tableHelper = math
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4
   arg3 = math
@@ -401,6 +446,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.round = dataTable
 tableHelper = math
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2) ===
 function dataTable(arg1, arg2)
   local arg3, arg4
   if not arg2 then
@@ -420,6 +467,8 @@ function dataTable(arg1, arg2)
 end
 tableHelper.rounddp = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1, arg2, arg3) ===
 function dataTable(arg1, arg2, arg3)
   local arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3, workValue, workValue2, workValue3, stringHelper, workValue4
   if arg1 == arg2 then
@@ -489,6 +538,8 @@ function dataTable(arg1, arg2, arg3)
 end
 tableHelper.contentEquals = dataTable
 tableHelper = table
+
+-- === HELPER FUNCTION (decompiler name: dataTable; parameters: arg1) ===
 function dataTable(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8
   arg2 = pairs
@@ -542,6 +593,8 @@ dataTable[9] = textValue
 dataTable[10] = textValue2
 dataTable[11] = textValue3
 dataTable[12] = textValue4
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, arg4
   arg3 = arg1
@@ -572,6 +625,8 @@ function dataTable2(arg1)
   return arg2
 end
 getDaySuffix = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2
   arg2 = tableHelper
@@ -579,6 +634,8 @@ function dataTable2(arg1)
   return arg2
 end
 getDayName = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2
   arg2 = dataTable
@@ -586,6 +643,8 @@ function dataTable2(arg1)
   return arg2
 end
 getMonthName = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = {}
@@ -627,6 +686,8 @@ function dataTable2(arg1)
   return arg2
 end
 formatTime = dataTable2
+
+-- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1) ===
 function dataTable2(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2
   arg2 = ""
@@ -895,6 +956,8 @@ textValue21[13] = textValue7
 textValue21[14] = textValue8
 textValue21[15] = textValue9
 textValue22 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue23; parameters: arg1, arg2) ===
 function textValue23(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3, workValue
   if nil == arg1 then
@@ -934,6 +997,8 @@ function textValue23(arg1, arg2)
 end
 textValue22.sanitizeString = textValue23
 textValue22 = GetPlayerName
+
+-- === HELPER FUNCTION (decompiler name: textValue23; parameters: arg1) ===
 function textValue23(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = textValue22
@@ -950,6 +1015,8 @@ textValue23 = {}
 textValue23[1] = true
 textValue23[2] = true
 textValue24 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
 function textValue25(arg1)
   local arg2
   arg2 = textValue23
@@ -961,6 +1028,8 @@ function textValue25(arg1)
 end
 textValue24.isDeveloper = textValue25
 textValue24 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue25; parameters: arg1) ===
 function textValue25(arg1)
   local arg2, arg3, arg4
   arg2 = arg1 % 6
@@ -1005,6 +1074,8 @@ textValue24.Q = true
 textValue24.K = true
 textValue24.P = true
 textValue25 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3, workValue, workValue2, workValue3, stringHelper, workValue4, tableHelper4, workValue5, textValue11
   arg2 = {}
@@ -1147,6 +1218,8 @@ function textValue26(arg1)
 end
 textValue25.parseChessFEN = textValue26
 textValue25 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2
   arg2 = nil
@@ -1175,6 +1248,8 @@ function textValue26(arg1)
 end
 textValue25.getFlatLicensePlate = textValue26
 textValue25 = string
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2, arg3) ===
 function textValue26(arg1, arg2, arg3)
   local arg4, arg5, stringHelper2, flag
   arg4 = arg1
@@ -1189,6 +1264,8 @@ function textValue26(arg1, arg2, arg3)
 end
 textValue25.lpad = textValue26
 textValue25 = string
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2, arg3) ===
 function textValue26(arg1, arg2, arg3)
   local arg4, arg5, stringHelper2
   arg4 = string
@@ -1205,6 +1282,8 @@ textValue25.rpad = textValue26
 textValue25 = math
 textValue25.pi = 3.141592653589793
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2) ===
 function textValue26(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5
   arg3 = 1
@@ -1231,6 +1310,8 @@ function textValue26(arg1, arg2)
 end
 textValue25.keyat = textValue26
 textValue25 = string
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function textValue26(arg1, arg2, arg3, arg4, arg5)
   local stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3
   stringHelper2 = string
@@ -1259,6 +1340,8 @@ function textValue26(arg1, arg2, arg3, arg4, arg5)
 end
 textValue25.indexedgsub = textValue26
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2
   arg2 = {}
@@ -1283,6 +1366,8 @@ function textValue26(arg1)
 end
 textValue25.indicies = textValue26
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2) ===
 function textValue26(arg1, arg2)
   local arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27, tableHelper5, tableHelper2, tableHelper3
   arg3 = {}
@@ -1305,9 +1390,13 @@ function textValue26(arg1, arg2)
 end
 textValue25.filter = textValue26
 textValue25 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1, arg2, arg3) ===
 function textValue26(arg1, arg2, arg3)
   local arg4, arg5
   arg4 = _G
+
+  -- === HELPER FUNCTION: arg5(...) ===
   function arg5(...)
     local arg12, arg22, workValue6
     arg12 = arg3
@@ -1319,6 +1408,8 @@ function textValue26(arg1, arg2, arg3)
 end
 textValue25.patchFunction = textValue26
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2, flag, workValue8, textValue27
   arg2 = #arg1
@@ -1338,6 +1429,8 @@ function textValue26(arg1)
 end
 textValue25.shuffle = textValue26
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4
   arg2 = arg1.x
@@ -1356,6 +1449,8 @@ function textValue26(arg1)
 end
 textValue25.vector2 = textValue26
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = arg1.x
@@ -1378,6 +1473,8 @@ function textValue26(arg1)
 end
 textValue25.vector3 = textValue26
 textValue25 = table
+
+-- === HELPER FUNCTION (decompiler name: textValue26; parameters: arg1) ===
 function textValue26(arg1)
   local arg2, arg3, arg4, arg5, stringHelper2
   arg2 = arg1.x

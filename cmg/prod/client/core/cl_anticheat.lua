@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Anticheat
+    =======================================
+
+    File: cmg/prod/client/core/cl_anticheat.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Anticheat feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 25
+      * Background threads: 11
+      * Always-running loops: 9
+      * Commands: none found by static scan
+      * Incoming network events: 8abfbe8340, 3409ae98a5, 49e649276d, 0624c04072, 5bb4fd310c, 080ad343ae
+      * Local event handlers: onClientResourceStart, esx:getSharedObject, CMG:hookA, CMG:hookB, CMG:onClientSpawn
+      * Server events sent: 58d77596cf, d750e699a1, e744d8fa9f, 28293849cf, c9c6eee377, c103fac35f, 14c26e54a6, 778408e37d, 931db808c1, 3f71c3e3da (+14 more)
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     cl_anticheat.lua — readable reconstruction
 
     This is a hand-cleaned version of the decompiled `cl_anticheat.lua`. The
@@ -49,6 +87,7 @@ local PARACHUTE_ALLOWED_VEHICLES = {
 -- the script, and delete networked vehicles that have fallen out of the world.
 --=============================================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if not CMG.isPlayerInBankHeistSetup()
@@ -103,6 +142,8 @@ end)
 
 --- Stamps the anti-cheat decor onto a locally spawned vehicle so the cleanup
 --- thread above leaves it alone.
+
+-- === HELPER FUNCTION: CMG.initLocalVehicle(entity) ===
 function CMG.initLocalVehicle(entity)
     DecorSetInt(entity, AC_DECOR, entity % AC_DECOR_MODULO)
 end
@@ -120,6 +161,7 @@ SetWeaponDamageModifier(-1323279794, 0.0)
 SetWeaponDamageModifier(-1569615261, 0.5)
 SetWeaponDamageModifier(126349499, 0.0)
 
+-- === HELPER FUNCTION: antiCheatDefaultsTick() ===
 local function antiCheatDefaultsTick()
     local ped = CMG.getPlayerPed()
     local playerId = CMG.getPlayerId()
@@ -146,6 +188,7 @@ local function antiCheatDefaultsTick()
                 and not CMG.isPlayerUsingRobot()
                 and not CMG.isUsingPoliceRobot()
             then
+                -- Beginner: sends the "58d77596cf" event to the server.
                 TriggerServerEvent("58d77596cf")
                 seeThroughReported = true
             end
@@ -304,13 +347,16 @@ local ALLOWED_RESOURCES = {
     punish_emotes = true,
 }
 
+-- === EVENT HANDLER: runs when "onClientResourceStart" fires ===
 AddEventHandler("onClientResourceStart", function(resourceName)
     -- Injected resources tend to have long random names.
     if #resourceName >= 30 then
+        -- Beginner: sends the "d750e699a1" event to the server.
         TriggerServerEvent("d750e699a1", resourceName)
     end
 
     if not ALLOWED_RESOURCES[resourceName] then
+        -- Beginner: sends the "e744d8fa9f" event to the server.
         TriggerServerEvent("e744d8fa9f", resourceName)
     end
 end)
@@ -326,6 +372,7 @@ end)
 local esxSharedObjectReported = false
 local suspiciousEventReported = false
 
+-- === EVENT HANDLER: runs when "esx:getSharedObject" fires ===
 AddEventHandler("esx:getSharedObject", function(callback)
     if esxSharedObjectReported == true then
         CancelEvent()
@@ -333,6 +380,7 @@ AddEventHandler("esx:getSharedObject", function(callback)
         return
     end
 
+    -- Beginner: sends the "28293849cf" event to the server.
     TriggerServerEvent("28293849cf", "esx:getSharedObject")
     esxSharedObjectReported = true
     callback(nil)
@@ -376,6 +424,7 @@ for _, eventName in ipairs(SUSPICIOUS_EVENTS) do
             return
         end
 
+        -- Beginner: sends the "28293849cf" event to the server.
         TriggerServerEvent("28293849cf", eventName)
         suspiciousEventReported = true
     end)
@@ -390,13 +439,16 @@ end
 local cachedCustomization = nil
 local customizationReported = false
 
+-- === HELPER FUNCTION: reportCustomizationChange(expected, actual) ===
 local function reportCustomizationChange(expected, actual)
     if not customizationReported then
+        -- Beginner: sends the "c9c6eee377" event to the server.
         TriggerServerEvent("c9c6eee377", expected, actual)
         customizationReported = true
     end
 end
 
+-- === HELPER FUNCTION: checkCustomization() ===
 local function checkCustomization()
     if not cachedCustomization then
         return
@@ -429,6 +481,7 @@ end
 -- Damage / defense modifier polling (1s)
 --=============================================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000)
@@ -447,30 +500,37 @@ Citizen.CreateThread(function()
         local meleeDamage = GetPlayerMeleeWeaponDamageModifier(PlayerId())
 
         if weaponDamage > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "PlayerWeaponDamageModifier", weaponDamage)
         end
 
         if weaponDefense > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "PlayerWeaponDefenseModifier", weaponDefense)
         end
 
         if weaponDefense2 > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "PlayerWeaponDefenseModifier_2", weaponDefense2)
         end
 
         if vehicleDamage > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "PlayerVehicleDamageModifier", vehicleDamage)
         end
 
         if vehicleDefense > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "PlayerVehicleDefenseModifier", vehicleDefense)
         end
 
         if currentWeaponDamage > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "GetWeaponDamageModifier", currentWeaponDamage)
         end
 
         if meleeDamage > 1.0 then
+            -- Beginner: sends the "c103fac35f" event to the server.
             TriggerServerEvent("c103fac35f", "GetPlayerMeleeWeaponDamageModifier", meleeDamage)
         end
 
@@ -488,6 +548,8 @@ end)
 --- Returns GetGroundZFor_3dCoord for the player's position.
 --- NOTE: despite the name this returns (found, groundZ), not a boolean height
 --- comparison — callers below use it purely for truthiness of `found`.
+
+-- === HELPER FUNCTION: CMG.isPlayerAboveGround() ===
 function CMG.isPlayerAboveGround()
     local coords = CMG.getPlayerCoords()
     local found, groundZ = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z, 0.0, false)
@@ -500,6 +562,7 @@ local vehicleStuckTicks = 0
 local lastCheckedVehicle = 0
 local lastVehicleSpeedReport = 0
 
+-- === HELPER FUNCTION: getMaxWheelSpeed(vehicle) ===
 local function getMaxWheelSpeed(vehicle)
     local wheelCount = GetVehicleNumberOfWheels(vehicle)
     local maxSpeed = 0.0
@@ -517,6 +580,8 @@ end
 
 --- Deletes every CObject attached to the local ped (props used to drag the
 --- player around).
+
+-- === HELPER FUNCTION: deleteObjectsAttachedToPlayer() ===
 local function deleteObjectsAttachedToPlayer()
     local ped = PlayerPedId()
 
@@ -529,6 +594,7 @@ end
 
 local lastPlayerCoords = GetEntityCoords(PlayerPedId())
 
+-- === HELPER FUNCTION: speedCheckTick() ===
 local function speedCheckTick()
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
@@ -558,6 +624,7 @@ local function speedCheckTick()
             footSpeedViolations = footSpeedViolations + 1
 
             if footSpeedViolations > 100 then
+                -- Beginner: sends the "14c26e54a6" event to the server.
                 TriggerServerEvent("14c26e54a6", false)
                 footSpeedViolations = 0
             end
@@ -586,6 +653,7 @@ local function speedCheckTick()
                 deleteObjectsAttachedToPlayer()
 
                 if vehicleStuckTicks > 100 and GetGameTimer() - lastVehicleSpeedReport > 4000 then
+                    -- Beginner: sends the "14c26e54a6" event to the server.
                     TriggerServerEvent("14c26e54a6", true)
                     vehicleStuckTicks = 0
                     lastVehicleSpeedReport = GetGameTimer()
@@ -637,6 +705,7 @@ local TRACKED_DECORS = {
 local decorReportedEntities = {}
 local foundDecors = {}
 
+-- === HELPER FUNCTION: checkEntityDecors(entity) ===
 local function checkEntityDecors(entity)
     if decorReportedEntities[entity] then
         return
@@ -649,12 +718,14 @@ local function checkEntityDecors(entity)
     end
 
     if #foundDecors > 0 then
+        -- Beginner: sends the "778408e37d" event to the server.
         TriggerServerEvent("778408e37d", entity, foundDecors)
         decorReportedEntities[entity] = true
         table.clear(foundDecors)
     end
 end
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     for decorName, decorType in pairs(TRACKED_DECORS) do
         DecorRegister(decorName, decorType)
@@ -663,6 +734,7 @@ Citizen.CreateThread(function()
     while true do
         for _, label in pairs(LABELS_TO_CHECK) do
             if GetLabelText(label) ~= "NULL" then
+                -- Beginner: sends the "931db808c1" event to the server.
                 TriggerServerEvent("931db808c1", label)
             end
         end
@@ -683,9 +755,11 @@ end)
 -- Blacklisted weapon possession
 --=============================================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if HasPedGotWeapon(PlayerPedId(), -2093086099, false) then
+            -- Beginner: sends the "3f71c3e3da" event to the server.
             TriggerServerEvent("3f71c3e3da")
             return
         end
@@ -735,6 +809,7 @@ CMG.patchFunction("ResurrectPed", ResurrectPed, function(original, ped)
     original(ped)
 end)
 
+-- === HELPER FUNCTION: syncHealthBaseline() ===
 local function syncHealthBaseline()
     local ped = PlayerPedId()
 
@@ -743,6 +818,7 @@ local function syncHealthBaseline()
 
         if health - lastKnownHealth > 2 then
             if GetGameTimer() - lastHealthReport > 30000 then
+                -- Beginner: sends the "f4ad66ccb9" event to the server.
                 TriggerServerEvent("f4ad66ccb9", health, lastKnownHealth)
                 lastHealthReport = GetGameTimer()
             end
@@ -809,6 +885,8 @@ CMG.patchFunction("SetCamParams", SetCamParams,
         lastCameraFrame = GetFrameCount()
 
         -- Whatever ends up rendering next frame was set up by us.
+
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(function()
             Citizen.Wait(0)
 
@@ -821,14 +899,18 @@ CMG.patchFunction("SetCamParams", SetCamParams,
     end)
 
 -- Escape hatches for other scripts that create cameras through their own means.
+
+-- === EVENT HANDLER: runs when "CMG:hookA" fires ===
 AddEventHandler("CMG:hookA", function(cam)
     lastCameraFrame = GetFrameCount()
     knownCameras[cam] = true
 end)
 
+-- === EVENT HANDLER: runs when "CMG:hookB" fires ===
 AddEventHandler("CMG:hookB", function()
     lastCameraFrame = GetFrameCount()
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         Citizen.Wait(0)
 
@@ -840,6 +922,7 @@ AddEventHandler("CMG:hookB", function()
     end)
 end)
 
+-- === HELPER FUNCTION: checkRenderingCamera() ===
 local function checkRenderingCamera()
     if CMG.isInsideDiamondCasino() then
         return
@@ -855,6 +938,7 @@ local function checkRenderingCamera()
 
     if cam ~= -1 and not knownCameras[cam] then
         if GetFrameCount() - lastCameraFrame > 3 and lastReportedCamera ~= cam then
+            -- Beginner: sends the "8950382fbc" event to the server.
             TriggerServerEvent("8950382fbc", cam)
             lastReportedCamera = cam
         end
@@ -882,6 +966,7 @@ local attackInputTimestamps = CMG.createCircularBuffer(500, 0)
 local attackWasPressed = false
 local lastArmedAttackTime = 0
 
+-- === HELPER FUNCTION: recordShootingInput() ===
 local function recordShootingInput()
     local ped = PlayerPedId()
 
@@ -910,6 +995,7 @@ local function recordShootingInput()
     end
 end
 
+-- === NETWORK EVENT: receives "8abfbe8340" from server/another network source ===
 RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash, latency)
     if GetNetworkTime() - serverTime > 5000 or SHOT_TIMING_IGNORED_WEAPONS[weaponHash] then
         return
@@ -928,6 +1014,7 @@ RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash, latenc
     end
 
     if not matchedShot then
+        -- Beginner: sends the "fee5e0be83" event to the server.
         TriggerServerEvent("fee5e0be83", weaponHash, shotTime, shotTimestamps.get(), "Native", latency)
         return
     end
@@ -942,11 +1029,13 @@ RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash, latenc
     end
 
     if not matchedInput then
+        -- Beginner: sends the "fee5e0be83" event to the server.
         TriggerServerEvent("fee5e0be83", weaponHash, shotTime, attackInputTimestamps.get(), "Control", latency)
         return
     end
 end)
 
+-- === HELPER FUNCTION: healthCheckTick() ===
 local function healthCheckTick()
     syncHealthBaseline()
 
@@ -969,6 +1058,7 @@ CMG.createThreadOnTick(healthCheckTick, "AntiCheat Health Check Tick")
 -- consecutive failures means health is being forced.
 --=============================================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     Wait(10000)
 
@@ -977,6 +1067,7 @@ Citizen.CreateThread(function()
     while true do
         if strikes >= 100 then
             if not tCMG.isInComa() then
+                -- Beginner: sends the "825a34ce28" event to the server.
                 TriggerServerEvent("825a34ce28")
                 Citizen.Wait(5000)
             end
@@ -1038,6 +1129,7 @@ local INFINITE_AMMO_IGNORED_WEAPONS = {
 local lastAmmoWeapon = 0
 local ammoCheckEnabled = true
 
+-- === HELPER FUNCTION: infiniteAmmoTick() ===
 local function infiniteAmmoTick()
     if CMG.isAimTraining() or CMG.inArena() or CMG.inArenaWarmup() then
         return
@@ -1054,6 +1146,7 @@ local function infiniteAmmoTick()
             if ammoInClip == maxAmmoInClip and lastAmmoWeapon == weapon then
                 -- Cam view mode 4 = first person; excluded to avoid false hits.
                 if GetFollowPedCamViewMode() ~= 4 then
+                    -- Beginner: sends the "0604fef3b6" event to the server.
                     TriggerServerEvent("0604fef3b6")
 
                     ammoCheckEnabled = false
@@ -1091,6 +1184,8 @@ local lastTeleportReport = 0
 
 --- Records an authorised teleport. Returns true if it was a long-distance
 --- jump (the caller then forces a streaming reload).
+
+-- === HELPER FUNCTION: registerTeleport(x, y, z) ===
 local function registerTeleport(x, y, z)
     if type(x) == "vector3" then
         lastTeleportCoords = x
@@ -1146,6 +1241,8 @@ CMG.patchFunction("StartPlayerTeleport", StartPlayerTeleport,
     end)
 
 --- True if any component of `vec` exceeds `limit` in magnitude.
+
+-- === HELPER FUNCTION: exceedsAxisLimit(vec, limit) ===
 local function exceedsAxisLimit(vec, limit)
     if limit < math.abs(vec.x) or limit < math.abs(vec.y) or limit < math.abs(vec.z) then
         return true
@@ -1154,6 +1251,7 @@ local function exceedsAxisLimit(vec, limit)
     return false
 end
 
+-- === HELPER FUNCTION: teleportCheck() ===
 local function teleportCheck()
     local ped = PlayerPedId()
 
@@ -1231,6 +1329,7 @@ local function teleportCheck()
 
     if exceedsAxisLimit(velocity - impliedVelocity, 100.0) then
         if now - lastTeleportReport > 5000 then
+            -- Beginner: sends the "5b43d997e4" event to the server.
             TriggerServerEvent("5b43d997e4", previousCoords, lastPedCoords)
             lastTeleportReport = now
         end
@@ -1238,6 +1337,8 @@ local function teleportCheck()
 end
 
 -- Server-authorised teleport: suppress the check for the next 5 seconds.
+
+-- === NETWORK EVENT: receives "3409ae98a5" from server/another network source ===
 RegisterNetEvent("3409ae98a5", function()
     lastTeleportTime = GetGameTimer()
 end)
@@ -1263,6 +1364,8 @@ CMG.patchFunction("SetVehicleFixed", SetVehicleFixed, function(original, vehicle
 end)
 
 -- Server grants a repair window.
+
+-- === NETWORK EVENT: receives "49e649276d" from server/another network source ===
 RegisterNetEvent("49e649276d", function()
     lastVehicleFixTime = GetGameTimer() + 5000
 end)
@@ -1302,6 +1405,8 @@ CMG.patchFunction("SetEntityHealth", SetEntityHealth, function(original, entity,
 end)
 
 --- Returns { {seatIndex, serverId}, ... } for every player in the vehicle.
+
+-- === HELPER FUNCTION: getVehiclePlayerOccupants(vehicle) ===
 local function getVehiclePlayerOccupants(vehicle)
     local occupants = {}
     local model = GetEntityModel(vehicle)
@@ -1324,6 +1429,8 @@ end
 
 --- True when a health value went *up* by an amount that cannot be explained
 --- by normal gameplay (i.e. an unauthorised repair).
+
+-- === HELPER FUNCTION: isSuspiciousHealthChange(current, previous) ===
 local function isSuspiciousHealthChange(current, previous)
     if current == 0 or (current < 0 and previous < 0) then
         return false
@@ -1343,6 +1450,7 @@ local function isSuspiciousHealthChange(current, previous)
     return previous < current
 end
 
+-- === HELPER FUNCTION: vehicleHealthCheck() ===
 local function vehicleHealthCheck()
     local vehicle, isDriver = CMG.getPlayerVehicle()
 
@@ -1389,6 +1497,7 @@ local function vehicleHealthCheck()
                     local occupants = getVehiclePlayerOccupants(vehicle)
                     local vehicleId = CMG.getVehicleIdFromModel(GetEntityModel(vehicle)) or "N/A"
 
+                    -- Beginner: sends the "c1490664ed" event to the server.
                     TriggerServerEvent("c1490664ed",
                         bodyHealth, lastBodyHealth,
                         engineHealth, lastEngineHealth,
@@ -1409,12 +1518,15 @@ local function vehicleHealthCheck()
     lastHealthCheckVehicle = vehicle
 end
 
+-- === HELPER FUNCTION: teleportAndVehicleTick() ===
 local function teleportAndVehicleTick()
     teleportCheck()
     vehicleHealthCheck()
 end
 
 -- Only start once the player has fully spawned, plus a minute of grace.
+
+-- === EVENT HANDLER: runs when "CMG:onClientSpawn" fires ===
 AddEventHandler("CMG:onClientSpawn", function(_, isFirstSpawn)
     if isFirstSpawn then
         Citizen.Wait(60000)
@@ -1426,6 +1538,7 @@ end)
 -- Unauthorised vehicle parachutes
 --=============================================================================
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         local vehicle = CMG.getPlayerVehicle()
@@ -1434,6 +1547,7 @@ Citizen.CreateThread(function()
             local model = GetEntityModel(vehicle)
 
             if not table.has(PARACHUTE_ALLOWED_VEHICLES, model) then
+                -- Beginner: sends the "8ca67c4052" event to the server.
                 TriggerServerEvent("8ca67c4052", CMG.getVehicleIdFromModel(model))
             end
         end
@@ -1449,10 +1563,12 @@ end)
 local entitySpawnRequestId = 0
 local entitySpawnResponses = {}
 
+-- === HELPER FUNCTION: CMG.requestEntitySpawn(spawnType, ...) ===
 function CMG.requestEntitySpawn(spawnType, ...)
     local requestId = entitySpawnRequestId
     entitySpawnRequestId = entitySpawnRequestId + 1
 
+    -- Beginner: sends the "0624c04072" event to the server.
     TriggerServerEvent("0624c04072", requestId, spawnType, ...)
 
     local startedAt = GetGameTimer()
@@ -1468,6 +1584,7 @@ function CMG.requestEntitySpawn(spawnType, ...)
     entitySpawnResponses[requestId] = nil
 end
 
+-- === NETWORK EVENT: receives "0624c04072" from server/another network source ===
 RegisterNetEvent("0624c04072", function(requestId)
     entitySpawnResponses[requestId] = true
 end)
@@ -1538,12 +1655,15 @@ local CAPTURED_KEYS = {
     F = true,
 }
 
+-- === HELPER FUNCTION: CMG.isKeyboardKeyCaptured(key) ===
 function CMG.isKeyboardKeyCaptured(key)
     return not CAPTURED_KEYS[key]
 end
 
 -- Second handler for the shot-replay event: looks for machine-like click
 -- cadence (triggerbot) and for keys the game never uses.
+
+-- === NETWORK EVENT: receives "8abfbe8340" from server/another network source ===
 RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash)
     local maxClickDelay = CMG.getTunableValue("triggerbot_clicks_max_delay")
     local minClicksRequired = CMG.getTunableValue("triggerbot_clicks_min_required")
@@ -1589,17 +1709,21 @@ RegisterNetEvent("8abfbe8340", function(shotTime, serverTime, weaponHash)
     end
 
     if minClicksRequired <= #fastClicks then
+        -- Beginner: sends the "6db9ca48ea" event to the server.
         TriggerServerEvent("6db9ca48ea", fastClicks)
         lastTriggerbotReport = now
     end
 
     if #unwantedKeys > 0 and CMG.getTunableValue("log_unwanted_buttons") then
+        -- Beginner: sends the "7011667ffc" event to the server.
         TriggerServerEvent("7011667ffc", unwantedKeys, weaponHash)
     end
 end)
 
 -- Ask the NUI layer for its performance counter every 10s so we can keep the
 -- two clocks aligned, and flush any flagged presses.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         CMG.uiSendMessage({
@@ -1612,6 +1736,7 @@ Citizen.CreateThread(function()
                 return a[2] < b[2]
             end)
 
+            -- Beginner: sends the "8877db5ad1" event to the server.
             TriggerServerEvent("8877db5ad1", flaggedPresses)
             flaggedPresses = {}
         end
@@ -1624,6 +1749,7 @@ CMG.uiRegisterCallback("sendPerformanceCounter", function(data)
     -- NOTE: misspelled field in the original — present means the NUI could not
     -- read a counter, so it is reported and the offset is left alone.
     if data.performenceCounter then
+        -- Beginner: sends the "3ec6910688" event to the server.
         TriggerServerEvent("3ec6910688")
         return
     end
@@ -1643,6 +1769,7 @@ end)
 local lastDecoyVehicleReport = 0
 local decoyVehicle = 0
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     decoyVehicle = CMG.spawnVehicle("adder", 500.0, 500.0, 0.0, 0.0, false, false, false)
 
@@ -1660,6 +1787,7 @@ Citizen.CreateThread(function()
                 local exists = DoesEntityExist(decoyVehicle)
 
                 if GetGameTimer() - lastDecoyVehicleReport > 20000 then
+                    -- Beginner: sends the "eaa4e1837c" event to the server.
                     TriggerServerEvent("eaa4e1837c", lockStatus, exists)
                     lastDecoyVehicleReport = GetGameTimer()
                 end
@@ -1680,6 +1808,7 @@ end)
 -- Dev menu integration
 --=============================================================================
 
+-- === HELPER FUNCTION: describeAntiCheatDecor(entity) ===
 local function describeAntiCheatDecor(entity)
     return string.format("AC Token: %s", DecorGetInt(entity, AC_DECOR))
 end
@@ -1876,6 +2005,7 @@ local keyLogBuffer = {}
 local lastKeyLogSend = 0
 local keyLoggingEnabled = false
 
+-- === HELPER FUNCTION: keyCheckTick() ===
 local function keyCheckTick()
     if not CMG.hasClientGroup("keylog") and not keyLoggingEnabled then
         return
@@ -1901,6 +2031,7 @@ local function keyCheckTick()
     end
 
     if keyLoggingEnabled and now - lastKeyLogSend > 1000 then
+        -- Beginner: sends the "b64d75268d" event to the server.
         TriggerServerEvent("b64d75268d", keyLogBuffer)
         table.clear(keyLogBuffer)
         lastKeyLogSend = now
@@ -1910,6 +2041,8 @@ end
 CMG.createThreadOnTick(keyCheckTick, "AntiCheat Key Checks")
 
 -- Staff toggling key logging for this client.
+
+-- === NETWORK EVENT: receives "5bb4fd310c" from server/another network source ===
 RegisterNetEvent("5bb4fd310c", function(enabled)
     keyLoggingEnabled = enabled
 
@@ -1967,6 +2100,7 @@ CMG.patchFunction("SetPedCollectionComponentVariation", SetPedCollectionComponen
 
 local shadowLobbyActive = false
 
+-- === NETWORK EVENT: receives "080ad343ae" from server/another network source ===
 RegisterNetEvent("080ad343ae", function(active)
     shadowLobbyActive = active
 
@@ -1991,6 +2125,7 @@ Please check discord DMs for more information on how to proceed]],
     end
 end)
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     while true do
         if shadowLobbyActive then

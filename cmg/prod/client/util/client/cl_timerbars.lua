@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Timerbars
+    =======================================
+
+    File: cmg/prod/client/util/client/cl_timerbars.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: shared utility/framework helper code.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 15
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     HUD Timer-Bar Manager
     =====================
 
@@ -37,6 +75,7 @@
 -- SIMPLE TIMER-BAR COLLECTION
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.createTimerBars() ===
 function CMG.createTimerBars()
     local collection = {
         timers = {}
@@ -61,6 +100,7 @@ function CMG.createTimerBars()
         )
     end
 
+    -- === HELPER FUNCTION: collection.draw() ===
     function collection.draw()
         for rowIndex, row
             in ipairs(
@@ -78,10 +118,12 @@ function CMG.createTimerBars()
         end
     end
 
+    -- === HELPER FUNCTION: collection.reset() ===
     function collection.reset()
         collection.timers = {}
     end
 
+    -- === HELPER FUNCTION: collection.rowCount() ===
     function collection.rowCount()
         return
             #collection.timers
@@ -135,6 +177,7 @@ local function formatDuration(
 end
 
 
+-- === HELPER FUNCTION: anythingNeedsRendering() ===
 local function anythingNeedsRendering()
     if next(durationTimers) ~= nil then
         return true
@@ -158,6 +201,7 @@ local function anythingNeedsRendering()
 end
 
 
+-- === HELPER FUNCTION: buildAndDrawGlobalBars() ===
 local function buildAndDrawGlobalBars()
     local now =
         GetGameTimer()
@@ -265,6 +309,7 @@ end
 -- START RENDER THREAD WHEN NEEDED
 -- ============================================================
 
+-- === HELPER FUNCTION: ensureRenderThread() ===
 local function ensureRenderThread()
     if renderThreadRunning then
         return
@@ -276,6 +321,7 @@ local function ensureRenderThread()
 
     renderThreadRunning = true
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         while renderThreadRunning do
             if not anythingNeedsRendering() then

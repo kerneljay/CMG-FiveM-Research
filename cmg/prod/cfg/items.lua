@@ -1,37 +1,45 @@
 --[[
-    BEGINNER GUIDE — Items
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Items
+    ===================================
 
     File: cmg/prod/cfg/items.lua
-    Purpose: This file contains configuration/data.
+    Runs as: Config/shared data — is mainly loaded as data/configuration by other scripts.
+    Purpose: configuration/data used by other scripts.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/cfg_backpacks
-      * cfg/cfg_food
-      * cfg/item/
+    Quick map of this file (automatic static scan):
+      * Named functions: 47
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_backpacks, cfg/cfg_food, cfg/item/
 
-    Network/hash identifiers found: 29
-      They are intentionally left unchanged because matching server code may use them.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * ~r~You already have a backpack equipped.
-      * ~r~You lack the skills to use this drug.
-      * ~r~You are not bleeding.
-      * ~r~You can not use your own items.
-      * ~r~Player must be on the kneeling on the ground.
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local cfg = {}
 local backpackCfg = CMG.loadModule("cfg/cfg_backpacks")
 
+-- === HELPER FUNCTION: use_backpack(source,user_id,itemId) ===
 local function use_backpack(source,user_id,itemId)
     if CMG.getExtraStorageSize(user_id) == 0 then
         if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
@@ -54,6 +62,7 @@ local function use_backpack(source,user_id,itemId)
     end
 end
 
+-- === HELPER FUNCTION: play_smell(player) ===
 local function play_smell(player)
     local seq3 = {
         {"mp_player_intdrink", "intro_bottle", 1},
@@ -64,6 +73,7 @@ local function play_smell(player)
     CMGclient.playAnim(player, {true, seq3, false})
 end
 
+-- === HELPER FUNCTION: play_eat(player) ===
 local function play_eat(player)
     local seq = {
         {"mp_player_inteat@burger", "mp_player_int_eat_burger_enter", 1},
@@ -75,16 +85,19 @@ local function play_eat(player)
     CMGclient.playAnim(player, {true, seq, false})
 end
 
+-- === HELPER FUNCTION: use_firework(source, user_id) ===
 local function use_firework(source, user_id)
     CMG.useFireworkBox(user_id, source)
 end
 
+-- === HELPER FUNCTION: use_morphine(source,user_id,itemId) ===
 local function use_morphine(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
 		TriggerClientEvent("30b690a8dd",source)
 	end
 end
 
+-- === HELPER FUNCTION: use_nhsmorphine(source, user_id) ===
 local function use_nhsmorphine(source, user_id)
     if CMG.hasPermission(user_id, "nhs.onduty.permission") then
         TriggerClientEvent("676d7f86f9", source)
@@ -93,6 +106,7 @@ local function use_nhsmorphine(source, user_id)
     end
 end
 
+-- === HELPER FUNCTION: use_bandage(source, user_id, itemId) ===
 local function use_bandage(source, user_id, itemId)
     local state = CMG.TriggerClientCallback(source, "79d0fa347c")
     if not state or not state.bleeding then
@@ -104,12 +118,14 @@ local function use_bandage(source, user_id, itemId)
     end
 end
 
+-- === HELPER FUNCTION: use_binoculars(source,user_id,itemId) ===
 local function use_binoculars(source,user_id,itemId)
 	if CMG.getInventoryItemAmount(user_id, itemId) > 0 then
 		TriggerClientEvent("dfb83eb4ef", source)
 	end
 end
 
+-- === HELPER FUNCTION: use_handcuffkeys(source,user_id,itemId) ===
 local function use_handcuffkeys(source,user_id,itemId)
     CMGclient.getNearestPlayer(source,{6},function(targetSrc)
         local targetId = CMG.getUserId(targetSrc)
@@ -121,6 +137,7 @@ local function use_handcuffkeys(source,user_id,itemId)
     end)
 end
 
+-- === HELPER FUNCTION: use_handcuffs(source,user_id,itemId) ===
 local function use_handcuffs(source,user_id,itemId)
     CMGclient.getNearestPlayer(source,{6},function(targetSrc)
         local targetId = CMG.getUserId(targetSrc)
@@ -132,6 +149,7 @@ local function use_handcuffs(source,user_id,itemId)
     end)
 end
 
+-- === HELPER FUNCTION: use_taco(source,user_id,itemId) ===
 local function use_taco(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
 		TriggerClientEvent("49921b1e25", source)
@@ -140,6 +158,7 @@ end
 
 local foodCfg = CMG.loadModule("cfg/cfg_food")
 
+-- === HELPER FUNCTION: use_business_effect(source, user_id, itemId) ===
 local function use_business_effect(source, user_id, itemId)
 	if CMG.isBusinessFoodBlockedForUser(user_id, itemId) then
 		notify(source, "~r~You can not use your own items.")
@@ -150,6 +169,7 @@ local function use_business_effect(source, user_id, itemId)
 	end
 end
 
+-- === HELPER FUNCTION: use_food(source, user_id, itemId) ===
 local function use_food(source, user_id, itemId)
 	if CMG.isPlayerEating(user_id) then
 		return
@@ -165,12 +185,14 @@ local function use_food(source, user_id, itemId)
 	end
 end
 
+-- === HELPER FUNCTION: use_camera(source,user_id,itemId) ===
 local function use_camera(source,user_id,itemId)
 	if CMG.getInventoryItemAmount(user_id, itemId) >= 1 then
 		TriggerClientEvent("f55afa9558", source, "camera")
 	end
 end
 
+-- === HELPER FUNCTION: use_zombiemeat(source,user_id,itemId) ===
 local function use_zombiemeat(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
 		play_eat(source)
@@ -178,18 +200,21 @@ local function use_zombiemeat(source,user_id,itemId)
 	end
 end
 
+-- === HELPER FUNCTION: use_mic(source,user_id,itemId) ===
 local function use_mic(source,user_id,itemId)
 	if CMG.getInventoryItemAmount(user_id, itemId) >= 1 then
 		TriggerClientEvent("f55afa9558", source, "micA")
 	end
 end
 
+-- === HELPER FUNCTION: use_boomarm(source,user_id,itemId) ===
 local function use_boomarm(source,user_id,itemId)
 	if CMG.getInventoryItemAmount(user_id, itemId) >= 1 then
 		TriggerClientEvent("f55afa9558", source, "micB")
 	end
 end
 
+-- === HELPER FUNCTION: use_cocaine(source,user_id,itemId) ===
 local function use_cocaine(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         play_smell(source)
@@ -197,6 +222,7 @@ local function use_cocaine(source,user_id,itemId)
 	end
 end
 
+-- === HELPER FUNCTION: use_heroin(source,user_id,itemId) ===
 local function use_heroin(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         play_smell(source)
@@ -204,6 +230,7 @@ local function use_heroin(source,user_id,itemId)
 	end
 end
 
+-- === HELPER FUNCTION: use_lsd(source,user_id,itemId) ===
 local function use_lsd(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("2155168724",source,30000)
@@ -211,42 +238,49 @@ local function use_lsd(source,user_id,itemId)
 	end
 end
 
+-- === HELPER FUNCTION: drink_gin(source,user_id,itemId) ===
 local function drink_gin(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("a72f22e19a",source)
 	end
 end
 
+-- === HELPER FUNCTION: drink_fosters(source,user_id,itemId) ===
 local function drink_fosters(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("6c304cd42b",source, "w_me_fosters")
 	end
 end
 
+-- === HELPER FUNCTION: drink_darkfruit(source,user_id,itemId) ===
 local function drink_darkfruit(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("6c304cd42b",source, "w_me_darkfruit")
 	end
 end
 
+-- === HELPER FUNCTION: drink_stella(source,user_id,itemId) ===
 local function drink_stella(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("6c304cd42b",source, "w_me_stella")
 	end
 end
 
+-- === HELPER FUNCTION: drink_coors(source,user_id,itemId) ===
 local function drink_coors(source,user_id,itemId)
 	if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("6c304cd42b",source, "w_me_coors")
 	end
 end
 
+-- === HELPER FUNCTION: use_unknownsweet(source,user_id,itemId) ===
 local function use_unknownsweet(source,user_id,itemId)
     if CMG.tryGetInventoryItem(user_id, itemId, 1, true) then
         TriggerClientEvent("46214fe8ae", source)
 	end
 end
 
+-- === HELPER FUNCTION: use_shaver(source, user_id, itemId) ===
 local function use_shaver(source, user_id, itemId)
     CMGclient.getNearestPlayer(source, {4}, function(targetPlayerSrc)
         if not targetPlayerSrc then
@@ -276,10 +310,12 @@ local function use_shaver(source, user_id, itemId)
     end)
 end
 
+-- === HELPER FUNCTION: use_burner_phone(source) ===
 local function use_burner_phone(source)
     TriggerEvent("d19508f3d9", source)
 end
 
+-- === HELPER FUNCTION: use_armour_plate(source, user_id, itemId) ===
 local function use_armour_plate(source, user_id, itemId)
     if not CMG.hasPermission(user_id, "rebellicense.whitelisted") and not select(1, CMG.isPlayerInEvent(source)) then
         notify(source, "~r~You require the rebel license and advanced rebel license to use this.")
@@ -311,6 +347,7 @@ local function use_armour_plate(source, user_id, itemId)
     end)
 end
 
+-- === HELPER FUNCTION: use_police_armour_plate(source, user_id, itemId) ===
 local function use_police_armour_plate(source, user_id, itemId)
     if not CMG.hasPermission(user_id, "police.onduty.permission") then
         notify(source, "~r~This armour plate can only be used by police.")
@@ -330,6 +367,7 @@ local function use_police_armour_plate(source, user_id, itemId)
     end
 end
 
+-- === HELPER FUNCTION: use_purge_armour_plate(source, user_id, itemId) ===
 local function use_purge_armour_plate(source, user_id, itemId)
     if not CMG.hasPermission(user_id, "purge.active") then
         notify(source, "~r~You must be in purge to use this.")
@@ -356,6 +394,7 @@ local function use_purge_armour_plate(source, user_id, itemId)
     end)
 end
 
+-- === HELPER FUNCTION: use_vigilante_armour_plate(source, user_id, itemId) ===
 local function use_vigilante_armour_plate(source, user_id, itemId)
     if not CMG.hasPermission(user_id, "vigilante.onduty.permission") then
         notify(source, "~r~This armour plate can only be used by vigilantes on duty.")
@@ -391,6 +430,7 @@ local function use_vigilante_armour_plate(source, user_id, itemId)
     end)
 end
 
+-- === HELPER FUNCTION: use_megaphone(source, user_id) ===
 local function use_megaphone(source, user_id)
     if (CMG.hasPermission(user_id, "police.onduty.permission") or CMG.hasPermission(user_id, "prisonguard.onduty.permission")) and CMG.hasPermission(user_id, "megaphone.permission") then
         TriggerClientEvent("2ba3a046fc", source)
@@ -399,6 +439,7 @@ local function use_megaphone(source, user_id)
     end
 end
 
+-- === HELPER FUNCTION: use_hmpgatekeyfob(source, user_id, itemId) ===
 local function use_hmpgatekeyfob(source, user_id, itemId)
     if CMG.getInventoryItemAmount(user_id, itemId) > 0 then
         if CMG.hasPermission(user_id, "prisonguard.onduty.permission") or CMG.hasPermission(user_id, "police.onduty.permission") or CMG.hasPermission(user_id, "borderforce.onduty.permission") then
@@ -411,24 +452,29 @@ local function use_hmpgatekeyfob(source, user_id, itemId)
     end
 end
 
+-- === HELPER FUNCTION: use_diyrepairkit(source) ===
 local function use_diyrepairkit(source)
     TriggerClientEvent("a37e8d69f4", source, "diy")
 end
 
+-- === HELPER FUNCTION: use_transportrepairkit(source) ===
 local function use_transportrepairkit(source)
     TriggerClientEvent("a37e8d69f4", source, "transport")
 end
 
+-- === HELPER FUNCTION: use_truckrepairkit(source) ===
 local function use_truckrepairkit(source)
     TriggerClientEvent("a37e8d69f4", source, "trucking")
 end
 
+-- === HELPER FUNCTION: use_letter(source, user_id, itemId) ===
 local function use_letter(source, user_id, itemId)
     if CMG.getInventoryItemAmount(user_id, itemId) > 0 then
         TriggerClientEvent("5a1808605d", source)
     end
 end
 
+-- === HELPER FUNCTION: use_evidencebag(source, user_id, uniqueItemId) ===
 local function use_evidencebag(source, user_id, uniqueItemId)
     if CMG.getInventoryItemAmount(user_id, uniqueItemId) == 1 then
         CMG.tryOpenEvidenceBag(source, user_id, uniqueItemId)
@@ -457,6 +503,7 @@ local POIs =
     ["AsylumIsland"] = {position=vector3(4019.1638183594,4952.9575195312,26.555746078491),radius=700.0},
 }
 
+-- === HELPER FUNCTION: use_airdropflare(source, user_id, itemId) ===
 local function use_airdropflare(source, user_id, itemId)
     if CMG.isPlayerInCityZone(source) then
         notify(source, "~r~Airdrops cannot be called in the city")
@@ -506,18 +553,21 @@ local function use_airdropflare(source, user_id, itemId)
     end
 end
 
+-- === HELPER FUNCTION: use_spraycan(source, user_id, itemId) ===
 local function use_spraycan(source, user_id, itemId)
     if CMG.getInventoryItemAmount(user_id, itemId) > 0 then
         TriggerClientEvent("2fa07a16b3", source, false)
     end
 end
 
+-- === HELPER FUNCTION: use_sponge(source, user_id, itemId) ===
 local function use_sponge(source, user_id, itemId)
     if CMG.getInventoryItemAmount(user_id, itemId) > 0 then
         TriggerClientEvent("10f402facb", source)
     end
 end
 
+-- === HELPER FUNCTION: use_vigijammer(source, user_id, itemId, hours) ===
 local function use_vigijammer(source, user_id, itemId, hours)
     if CMG.isUserImmuneFromVigilantes(user_id) then
         notify(source, "~r~You are already jamming vigilantes, immunity expires in " .. CMG.getVigilanteImmunityTimeLeftFormatted(user_id))
@@ -540,14 +590,17 @@ local function use_vigijammer(source, user_id, itemId, hours)
     end
 end
 
+-- === HELPER FUNCTION: use_vigijammer_1hour(source, user_id, itemId) ===
 local function use_vigijammer_1hour(source, user_id, itemId)
     use_vigijammer(source, user_id, itemId, 1)
 end
 
+-- === HELPER FUNCTION: use_vigijammer_2hours(source, user_id, itemId) ===
 local function use_vigijammer_2hours(source, user_id, itemId)
     use_vigijammer(source, user_id, itemId, 2)
 end
 
+-- === HELPER FUNCTION: use_vigijammer_4hours(source, user_id, itemId) ===
 local function use_vigijammer_4hours(source, user_id, itemId)
     use_vigijammer(source, user_id, itemId, 4)
 end
@@ -696,6 +749,8 @@ cfg.items = {
 }
 
 -- load more items function
+
+-- === HELPER FUNCTION: load_item_pack(name) ===
 local function load_item_pack(name)
     local items = CMG.loadModule("cfg/item/"..name)
     if items then

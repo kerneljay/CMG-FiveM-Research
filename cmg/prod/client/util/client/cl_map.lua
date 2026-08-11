@@ -1,43 +1,56 @@
 --[[
-    Beginner Guide: cl_map.lua
-    ==========================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Map
-    ====================
+    LEVEL 1 BEGINNER GUIDE — Map
+    =================================
 
     File: cmg/prod/client/util/client/cl_map.lua
-    Purpose: This file contains shared utility code.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: shared utility/framework helper code.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 47
+      * Background threads: 0
+      * Always-running loops: 5
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable6, dataTable7, dataTable8, numberValue8, cmgCall8, cmgCall9, workValue15, dataTable9, dataTable10, dataTable2, dataTable3, cmgCall, dataTable4, cmgCall2, cmgCall3, dataTable5, flag, numberValue, cmgCall4, workValue, threadCall, numberValue2, cmgCall5, cmgCall6, cmgCall7, flag2, workValue5
 dataTable = {}
@@ -46,6 +59,8 @@ dataTable7 = {}
 dataTable8 = {}
 numberValue8 = 250.0
 cmgCall8 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: none) ===
 function cmgCall9()
   local arg1, arg2
   arg1 = dataTable
@@ -53,6 +68,8 @@ function cmgCall9()
 end
 cmgCall8.getGlobalBlips = cmgCall9
 cmgCall8 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
 function cmgCall9(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   local arg9, arg10, arg11, arg122
   arg9 = AddBlipForCoord
@@ -135,6 +152,8 @@ function cmgCall9(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 end
 cmgCall8.addBlip = cmgCall9
 cmgCall8 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall9; parameters: arg1) ===
 function cmgCall9(arg1)
   local arg2, arg3
   arg2 = RemoveBlip
@@ -144,6 +163,8 @@ end
 cmgCall8.removeBlip = cmgCall9
 cmgCall8 = {}
 cmgCall9 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
 function workValue15(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   local arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17
   arg9 = tCMG
@@ -168,6 +189,8 @@ function workValue15(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 end
 cmgCall9.setNamedBlip = workValue15
 cmgCall9 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
 function workValue15(arg1)
   local arg2, arg3
   arg2 = cmgCall8
@@ -184,6 +207,8 @@ function workValue15(arg1)
 end
 cmgCall9.removeNamedBlip = workValue15
 cmgCall9 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1, arg2) ===
 function workValue15(arg1, arg2)
   local arg3, arg4, arg5
   arg3 = SetNewWaypoint
@@ -193,6 +218,8 @@ function workValue15(arg1, arg2)
 end
 cmgCall9.setGPS = workValue15
 cmgCall9 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: workValue15; parameters: arg1) ===
 function workValue15(arg1)
   local arg2, arg3, arg4
   arg2 = SetBlipRoute
@@ -210,6 +237,8 @@ dataTable10 = {}
 dataTable2 = {}
 dataTable3 = {}
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20) ===
 function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20)
   local arg21, vector3Builder, workValue2, workValue3, workValue4
   arg21 = {}
@@ -289,6 +318,8 @@ function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,
 end
 cmgCall.addMarker = dataTable4
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5) ===
 function dataTable4(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, arg9, arg10
   arg4 = arg4 - 0.2
@@ -314,6 +345,8 @@ function dataTable4(arg1, arg2, arg3, arg4, arg5)
 end
 cmgCall.addPropMarker = dataTable4
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3, arg4
   arg2 = cmgCall9
@@ -338,6 +371,8 @@ function dataTable4(arg1)
 end
 cmgCall.removeMarker = dataTable4
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6)
   local arg7, arg8, arg9, arg10, arg11, arg122, arg13
   arg7 = tCMG
@@ -360,6 +395,8 @@ function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6)
 end
 cmgCall.setNamedPropMarker = dataTable4
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3
   arg2 = dataTable10
@@ -376,6 +413,8 @@ function dataTable4(arg1)
 end
 cmgCall.removeNamedPropMarker = dataTable4
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21) ===
 function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21)
   local vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6, workValue8, workValue9, workValue10, workValue11, workValue12, workValue13, workValue14
   vector3Builder = tCMG
@@ -413,6 +452,8 @@ function dataTable4(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,
 end
 cmgCall.setNamedMarker = dataTable4
 cmgCall = tCMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3
   arg2 = dataTable9
@@ -431,6 +472,8 @@ cmgCall.removeNamedMarker = dataTable4
 cmgCall = {}
 dataTable4 = {}
 cmgCall2 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1, arg2) ===
 function cmgCall3(arg1, arg2)
   local arg3, arg4, arg5
   arg3 = cmgCall9
@@ -458,6 +501,8 @@ function cmgCall3(arg1, arg2)
   end
 end
 cmgCall2.setMarkerHidden = cmgCall3
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: none) ===
 function cmgCall2()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4
   arg1 = pairs
@@ -573,6 +618,8 @@ end
 cmgCall3 = AddEventHandler
 dataTable5 = "onResourceStop"
 -- Beginner: this function runs when client event "onResourceStop" fires.
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
 function flag(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   arg2 = GetCurrentResourceName
@@ -600,6 +647,8 @@ flag = "Util Markers"
 cmgCall3(dataTable5, flag)
 cmgCall3 = Citizen
 cmgCall3 = cmgCall3.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
 function dataTable5()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   while true do
@@ -649,6 +698,8 @@ end
 cmgCall3(dataTable5)
 cmgCall3 = Citizen
 cmgCall3 = cmgCall3.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
 function dataTable5()
   local arg1, arg2
   while true do
@@ -665,6 +716,8 @@ end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 cmgCall3(dataTable5)
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
 function dataTable5()
   local arg1, arg2
   arg1 = CMG
@@ -674,6 +727,8 @@ function dataTable5()
 end
 cmgCall3.refreshNearbyMarkers = dataTable5
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: none) ===
 function dataTable5()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
   arg1 = {}
@@ -713,6 +768,8 @@ dataTable5 = {}
 flag = false
 numberValue = 0
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13
   arg2 = {}
@@ -762,6 +819,8 @@ function workValue(arg1)
 end
 cmgCall4.getNearbyAreas = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2
   arg1 = CMG
@@ -772,6 +831,8 @@ function workValue()
 end
 cmgCall4.forceNearbyAreasReload = workValue
 cmgCall4 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function workValue(arg1, arg2, arg3, arg4, arg5, arg6)
   local arg7, arg8, arg9, arg10, arg11
   arg7 = {}
@@ -792,6 +853,8 @@ function workValue(arg1, arg2, arg3, arg4, arg5, arg6)
 end
 cmgCall4.setArea = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
 function workValue(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   local arg9, arg10
   arg9 = {}
@@ -816,6 +879,8 @@ function workValue(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 end
 cmgCall4.createArea = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3
   arg2 = cmgCall3
@@ -830,6 +895,8 @@ function workValue(arg1)
 end
 cmgCall4.isPlayerInClientArea = workValue
 cmgCall4 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2
   arg2 = cmgCall3
@@ -847,6 +914,8 @@ function workValue(arg1)
 end
 cmgCall4.removeArea = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
 function workValue(arg1, arg2)
   local arg3
   arg3 = cmgCall3
@@ -859,6 +928,8 @@ function workValue(arg1, arg2)
 end
 cmgCall4.updateAreaMetaData = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2
   arg2 = cmgCall3
@@ -872,6 +943,8 @@ function workValue(arg1)
 end
 cmgCall4.doesAreaExist = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
 function workValue(arg1, arg2)
   local arg3
   arg3 = cmgCall3
@@ -884,6 +957,8 @@ function workValue(arg1, arg2)
 end
 cmgCall4.setAreaMetaData = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2
   arg2 = cmgCall3
@@ -900,12 +975,16 @@ function workValue(arg1)
 end
 cmgCall4.getAreaMetaData = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2
   flag = arg1
 end
 cmgCall4.useIncreasedAreaRefreshRate = workValue
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
   arg2 = pairs
@@ -931,6 +1010,8 @@ end
 cmgCall4.isInAnyAreaOfType = workValue
 cmgCall4 = Citizen
 cmgCall4 = cmgCall4.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14
   while true do
@@ -1015,6 +1096,8 @@ end
 cmgCall4(workValue)
 cmgCall4 = Citizen
 cmgCall4 = cmgCall4.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
   while true do
@@ -1060,6 +1143,8 @@ function workValue()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 cmgCall4(workValue)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: arg1) ===
 function cmgCall4(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
   arg2 = dataTable7
@@ -1078,6 +1163,8 @@ function cmgCall4(arg1)
   arg3 = dataTable8
   arg3[arg1] = nil
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
   arg2 = dataTable7
@@ -1098,6 +1185,8 @@ function workValue(arg1)
 end
 threadCall = Citizen
 threadCall = threadCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: numberValue2; parameters: none) ===
 function numberValue2()
   local arg1, arg2
   while true do
@@ -1166,6 +1255,8 @@ numberValue2 = 617
 cmgCall5 = CMG
 cmgCall5 = cmgCall5.registerCommand
 cmgCall6 = "nextblip"
+
+-- === HELPER FUNCTION (decompiler name: cmgCall7; parameters: none) ===
 function cmgCall7()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   arg1 = numberValue2
@@ -1198,6 +1289,8 @@ end
 flag2 = false
 cmgCall5(cmgCall6, cmgCall7, flag2)
 cmgCall5 = CMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: arg1, arg2) ===
 function cmgCall6(arg1, arg2)
   local arg3, arg4, arg5, arg6
   arg3 = dataTable7
@@ -1244,6 +1337,8 @@ cmgCall5 = cmgCall5(cmgCall6, cmgCall7)
 cmgCall6 = CMG
 cmgCall6 = cmgCall6.registerDevMenuItems
 cmgCall7 = "Areas"
+
+-- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
 function flag2()
   local arg1, arg2, arg3, arg4, arg5, arg6
   arg1 = RageUI
@@ -1252,6 +1347,8 @@ function flag2()
   arg3 = "Whether to display markers and text for areas."
   arg4 = cmgCall5.enabled
   arg5 = {}
+
+  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
   function arg6(arg12, arg22, arg32, arg42)
     cmgCall5.enabled = arg42
   end
@@ -1267,6 +1364,8 @@ function flag2()
   arg3 = "Whether to show areas with a radius greater than 250 units."
   arg4 = cmgCall5.showLargeAreas
   arg5 = {}
+
+  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
   function arg6(arg12, arg22, arg32, arg42)
     cmgCall5.showLargeAreas = arg42
   end
@@ -1278,6 +1377,8 @@ function flag2()
   arg3 = "Whether to continue drawing the debug sphere when inside of it."
   arg4 = cmgCall5.showMarkerInside
   arg5 = {}
+
+  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
   function arg6(arg12, arg22, arg32, arg42)
     cmgCall5.showMarkerInside = arg42
   end
@@ -1288,6 +1389,8 @@ function flag2()
   arg3 = "Whether to double the nearby distance check."
   arg4 = cmgCall5.expandNearbyCheck
   arg5 = {}
+
+  -- === HELPER FUNCTION: arg6(arg12, arg22, arg32, arg42) ===
   function arg6(arg12, arg22, arg32, arg42)
     cmgCall5.expandNearbyCheck = arg42
   end
@@ -1295,6 +1398,8 @@ function flag2()
   arg1(arg2, arg3, arg4, arg5, arg6)
 end
 cmgCall6(cmgCall7, flag2)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall6; parameters: none) ===
 function cmgCall6()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg122, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, vector3Builder, workValue2, workValue3, workValue4, numberValue3, numberValue4, numberValue5, numberValue6, flag3, flag4, numberValue7, flag5, workValue6, workValue7, flag6
   arg1 = cmgCall5.expandNearbyCheck
@@ -1342,6 +1447,8 @@ function cmgCall6()
   arg3 = table
   arg3 = arg3.sort
   arg4 = arg1
+
+  -- === HELPER FUNCTION: arg5(arg12, arg22) ===
   function arg5(arg12, arg22)
     local arg32, arg42
     arg32 = arg12.distance

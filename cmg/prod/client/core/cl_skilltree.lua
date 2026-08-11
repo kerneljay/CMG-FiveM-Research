@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Skilltree
+    =======================================
+
+    File: cmg/prod/client/core/cl_skilltree.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Skilltree feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 14
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: skilltree
+      * Incoming network events: e298dff343, 9ec6bde351
+      * Local event handlers: none found by static scan
+      * Server events sent: CMG:hackingPhoneRequestCapabilities
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_skilltree
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Skill Tree Client
     =================
 
@@ -35,6 +73,7 @@ local skillTreeOpen = false
 -- SEND THE CATEGORY OVERVIEW TO THE UI
 -- ============================================================
 
+-- === HELPER FUNCTION: sendSkillTreeOverview() ===
 local function sendSkillTreeOverview()
     local categoriesForUi = {}
 
@@ -98,6 +137,7 @@ end
 -- OPEN / CLOSE
 -- ============================================================
 
+-- === HELPER FUNCTION: toggleSkillTree() ===
 local function toggleSkillTree()
     -- Do not fight with the vehicle-HUD cursor.
     if CMG.isHudVehicleCursorEnabled() then
@@ -396,6 +436,7 @@ end
 -- GAMEPLAY BONUS HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.getPilotingFuelCapacityPercent() ===
 function CMG.getPilotingFuelCapacityPercent()
     local bonuses = {
         5,
@@ -420,6 +461,7 @@ function CMG.getPilotingFuelCapacityPercent()
 end
 
 
+-- === HELPER FUNCTION: CMG.getMechanicFuelUsageReductionPercent() ===
 function CMG.getMechanicFuelUsageReductionPercent()
     for level = 5, 1, -1 do
         if CMG.hasClientSkill(
@@ -434,6 +476,7 @@ function CMG.getMechanicFuelUsageReductionPercent()
 end
 
 
+-- === HELPER FUNCTION: CMG.getMechanicRepairStationSpeedPercentClient() ===
 function CMG.getMechanicRepairStationSpeedPercentClient()
     for level = 5, 1, -1 do
         if CMG.hasClientSkill(
@@ -448,6 +491,7 @@ function CMG.getMechanicRepairStationSpeedPercentClient()
 end
 
 
+-- === HELPER FUNCTION: CMG.getMoneyLaunderingBurnerPhoneDiscountPercentClient() ===
 function CMG.getMoneyLaunderingBurnerPhoneDiscountPercentClient()
     for level = 5, 1, -1 do
         if CMG.hasClientSkill(
@@ -462,6 +506,7 @@ function CMG.getMoneyLaunderingBurnerPhoneDiscountPercentClient()
 end
 
 
+-- === HELPER FUNCTION: CMG.getTrapperSupplyDiscountPercentClient() ===
 function CMG.getTrapperSupplyDiscountPercentClient()
     for level = 4, 1, -1 do
         if CMG.hasClientSkill(
@@ -481,6 +526,7 @@ exports(
 )
 
 
+-- === HELPER FUNCTION: CMG.getTruckingMaxSpeedBonusMph() ===
 function CMG.getTruckingMaxSpeedBonusMph()
     local bonuses = {
         2,
@@ -505,6 +551,7 @@ function CMG.getTruckingMaxSpeedBonusMph()
 end
 
 
+-- === HELPER FUNCTION: CMG.getGarbageMaxSpeedBonusMph() ===
 function CMG.getGarbageMaxSpeedBonusMph()
     local bonuses = {
         2,
@@ -530,6 +577,8 @@ end
 
 
 -- Does this client have a specific unlocked perk anywhere?
+
+-- === HELPER FUNCTION: CMG.hasClientSkill(skillId) ===
 function CMG.hasClientSkill(skillId)
     if not skillId or skillId == "" then
         return false

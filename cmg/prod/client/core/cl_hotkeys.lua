@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Hotkeys
+    =====================================
+
+    File: cmg/prod/client/core/cl_hotkeys.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Hotkeys feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 4
+      * Background threads: 2
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: a02d917ea8
+      * Local event handlers: none found by static scan
+      * Server events sent: ef297ed60b, c5274515e4, 1fccdc61f1, 42cf043256, a02d917ea8, c7887567db
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Modifier Hotkeys
     ================
 
@@ -13,6 +51,8 @@
 local nearbyPhoneOwnerPed = 0
 
 -- Draw the "slap phone" prompt and perform the action.
+
+-- === HELPER FUNCTION: handlePhoneSlap() ===
 local function handlePhoneSlap()
     local playerPed = PlayerPedId()
     local currentWeapon = GetSelectedPedWeapon(playerPed)
@@ -55,6 +95,7 @@ local function handlePhoneSlap()
     CMG.setWeapon(playerPed, -1569615261, true)
     CMG.playEmote("slap")
 
+    -- Beginner: sends the "ef297ed60b" event to the server.
     TriggerServerEvent("ef297ed60b", targetServerId)
     notify("~y~Slapped phone out of persons hands.")
 
@@ -67,6 +108,7 @@ end
 -- Prevent several modifier hotkeys triggering repeatedly within one second.
 local hotkeyCooldown = false
 
+-- === HELPER FUNCTION: startHotkeyCooldown() ===
 local function startHotkeyCooldown()
     hotkeyCooldown = true
 
@@ -75,10 +117,12 @@ local function startHotkeyCooldown()
     end)
 end
 
+-- === HELPER FUNCTION: modifierHeld() ===
 local function modifierHeld()
     return IsControlPressed(1, 19)
 end
 
+-- === HELPER FUNCTION: processHotkeys() ===
 local function processHotkeys()
     if hotkeyCooldown then
         return
@@ -94,6 +138,7 @@ local function processHotkeys()
             local serverId = GetPlayerServerId(closestPlayer)
 
             if serverId > 0 then
+                -- Beginner: sends the "c5274515e4" event to the server.
                 TriggerServerEvent("c5274515e4", serverId)
             end
         end
@@ -114,6 +159,7 @@ local function processHotkeys()
                 local serverId = GetPlayerServerId(playerIndex)
 
                 if serverId > 0 then
+                    -- Beginner: sends the "1fccdc61f1" event to the server.
                     TriggerServerEvent("1fccdc61f1", serverId)
                 end
             end
@@ -145,6 +191,7 @@ local function processHotkeys()
                 if weaponGroup ~= -1609580060
                     and weaponGroup ~= -728555052
                     and weaponGroup ~= 1548507267 then
+                    -- Beginner: sends the "42cf043256" event to the server.
                     TriggerServerEvent("42cf043256")
                 end
             end
@@ -194,6 +241,7 @@ local function processHotkeys()
                 local serverId = GetPlayerServerId(closestPlayer)
 
                 if serverId > 0 then
+                    -- Beginner: sends the "a02d917ea8" event to the server.
                     TriggerServerEvent("a02d917ea8", serverId)
                 end
             end
@@ -211,6 +259,8 @@ CMG.createThreadOnTick(processHotkeys, "Hotkeys")
 
 -- Every second, find the nearest phone prop attached to another player.
 -- Model hash 108397254 is the phone object used by this resource.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         local closestDistance = 10.0
@@ -245,7 +295,11 @@ end)
 local HEADBAG_PROGRESS_MS = 5000
 
 -- Server tells this client to begin a 5-second "headbag" action.
+
+-- === NETWORK EVENT: receives "a02d917ea8" from server/another network source ===
 RegisterNetEvent("a02d917ea8", function(targetServerId)
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         CMG.startCircularProgressBar(
             "",
@@ -269,5 +323,6 @@ RegisterNetEvent("a02d917ea8", function(targetServerId)
         Wait(0)
     end
 
+    -- Beginner: sends the "c7887567db" event to the server.
     TriggerServerEvent("c7887567db", targetServerId)
 end)

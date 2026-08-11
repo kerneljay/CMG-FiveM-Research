@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Koth
+    ==================================
+
+    File: cmg/prod/client/crime/cl_koth.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: crime, robbery, gang, and criminal gameplay, specifically the Koth feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 3
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 32da7fdffa, 31cdb976ff, 5fc8d085a5
+      * Local event handlers: none found by static scan
+      * Server events sent: f60854b55a, 8ef29fe4c8, 2c0f07cb87, ee55bf95bd
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_koth
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     King Of The Hill (KOTH)
     =======================
 
@@ -41,6 +79,7 @@ local radiusBlip = nil
 local markerHandle = nil
 
 
+-- === HELPER FUNCTION: onEnterKothArea() ===
 local function onEnterKothArea()
     TriggerServerEvent(
         "f60854b55a"
@@ -48,6 +87,7 @@ local function onEnterKothArea()
 end
 
 
+-- === HELPER FUNCTION: onLeaveKothArea() ===
 local function onLeaveKothArea()
     TriggerServerEvent(
         "8ef29fe4c8"
@@ -55,6 +95,7 @@ local function onLeaveKothArea()
 end
 
 
+-- === HELPER FUNCTION: kothAreaTick(areaData) ===
 local function kothAreaTick(areaData)
     local location =
         kothConfig.locations[

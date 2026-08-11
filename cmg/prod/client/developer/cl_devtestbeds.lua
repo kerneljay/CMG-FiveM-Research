@@ -1,44 +1,56 @@
 --[[
-    Beginner Guide: cl_devtestbeds.lua
-    ==================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Devtestbeds
-    ============================
+    LEVEL 1 BEGINNER GUIDE — Devtestbeds
+    =========================================
 
     File: cmg/prod/client/developer/cl_devtestbeds.lua
-    Purpose: This file contains developer/debug tooling.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: developer/admin testing utilities, specifically the Devtestbeds feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 11
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Example player-facing text in this file:
-      * View Vehicles (CMG)
-      * View Vehicles (GTA)
-      * View Vehicles & Peds (CMG)
-      * Press ~INPUT_CONTEXT~ to exit the test bed.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable2, numberValue25, vector3Builder2, dataTable3, numberValue56, dataTable4, dataTable5, numberValue61, numberValue64, textValue, workValue
 dataTable = {}
@@ -98,6 +110,8 @@ numberValue61 = 159
 dataTable5[1] = numberValue61
 dataTable4[6] = dataTable5
 dataTable3[numberValue56] = dataTable4
+
+-- === HELPER FUNCTION (decompiler name: numberValue56; parameters: arg1, arg2, arg3) ===
 function numberValue56(arg1, arg2, arg3)
   local numberValue38, numberValue49, numberValue57, numberValue58, iterator, numberValue62, numberValue65, numberValue, cmgCall, mathHelper, cmgCall2, mathHelper2, vector3Builder, workValue2, cmgCall3, numberValue10, cmgCall4, flag, flag2, flag3, flag4, workValue3, numberValue18, flag5, mathHelper3, workValue4, numberValue23, workValue5, workValue6, mathHelper4, numberValue29, numberValue31
   numberValue38 = 8
@@ -224,6 +238,8 @@ function numberValue56(arg1, arg2, arg3)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1) ===
 function dataTable4(arg1)
   local arg2, arg3, numberValue38, numberValue49, numberValue57, numberValue58, iterator, numberValue62, numberValue65, numberValue, cmgCall, mathHelper, cmgCall2, mathHelper2, vector3Builder, workValue2, cmgCall3, numberValue10, cmgCall4, flag, flag2, flag3, flag4, workValue3, numberValue18, flag5, mathHelper3, workValue4, numberValue23
   arg2 = 8
@@ -310,6 +326,8 @@ function dataTable4(arg1)
     vector3Builder(workValue2, cmgCall3)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: dataTable5; parameters: arg1, arg2) ===
 function dataTable5(arg1, arg2)
   local arg3, numberValue38, numberValue49, numberValue57, numberValue58, iterator, numberValue62, numberValue65, numberValue, cmgCall, mathHelper
   arg3 = CreateCamWithParams
@@ -378,6 +396,8 @@ function dataTable5(arg1, arg2)
   numberValue38 = numberValue38.CloseAll
   numberValue38()
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue61; parameters: none) ===
 function numberValue61()
   local arg1, arg2, arg3, numberValue38, numberValue49, numberValue57, numberValue58, iterator, numberValue62
   arg1 = pairs
@@ -458,6 +478,8 @@ end
 numberValue64 = CMG
 numberValue64 = numberValue64.registerDevMenuItems
 textValue = "Testbeds"
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2, arg3, numberValue38, numberValue49
   arg1 = RageUI
@@ -465,6 +487,8 @@ function workValue()
   arg2 = "Empty Testbed"
   arg3 = "Creates a test bed with no vehicles"
   numberValue38 = true
+
+  -- === HELPER FUNCTION (decompiler name: numberValue49; parameters: arg12, arg22, arg32) ===
   function numberValue49(arg12, arg22, arg32)
     local workValue7, vector3Builder3, vector3Builder4, numberValue59, numberValue60, numberValue63
     if arg32 then
@@ -489,6 +513,8 @@ function workValue()
   arg2 = "View Vehicles (CMG)"
   arg3 = "Creates a test bed of hardcoded spawncodes from CMG"
   numberValue38 = true
+
+  -- === HELPER FUNCTION (decompiler name: numberValue49; parameters: arg12, arg22, arg32) ===
   function numberValue49(arg12, arg22, arg32)
     local workValue7, vector3Builder3, vector3Builder4, numberValue59, numberValue60, numberValue63, numberValue66, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue24, numberValue26, numberValue27, numberValue28, numberValue30, numberValue32, numberValue33, numberValue34, numberValue35, numberValue36, numberValue37, numberValue39, numberValue40, numberValue41, numberValue42, numberValue43, numberValue44, numberValue45, numberValue46, numberValue47, numberValue48, numberValue50, numberValue51, numberValue52, numberValue53, numberValue54, numberValue55
     if arg32 then
@@ -644,6 +670,8 @@ function workValue()
   arg2 = "View Vehicles (GTA)"
   arg3 = "Creates a test bed of hardcoded spawncodes from GTA"
   numberValue38 = true
+
+  -- === HELPER FUNCTION (decompiler name: numberValue49; parameters: arg12, arg22, arg32) ===
   function numberValue49(arg12, arg22, arg32)
     local workValue7, vector3Builder3, vector3Builder4, numberValue59, numberValue60, numberValue63, numberValue66, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue24, numberValue26, numberValue27, numberValue28, numberValue30, numberValue32, numberValue33, numberValue34, numberValue35, numberValue36, numberValue37, numberValue39, numberValue40, numberValue41, numberValue42, numberValue43, numberValue44, numberValue45, numberValue46, numberValue47, numberValue48, numberValue50, numberValue51, numberValue52, numberValue53, numberValue54, numberValue55
     if arg32 then
@@ -807,6 +835,8 @@ function workValue()
   arg2 = "View Peds (CMG)"
   arg3 = "Creates a test bed of hardcoded components from CMG"
   numberValue38 = true
+
+  -- === HELPER FUNCTION (decompiler name: numberValue49; parameters: arg12, arg22, arg32) ===
   function numberValue49(arg12, arg22, arg32)
     local workValue7, vector3Builder3, vector3Builder4, numberValue59, numberValue60, numberValue63
     if arg32 then
@@ -838,6 +868,8 @@ function workValue()
   arg2 = "View Vehicles & Peds (CMG)"
   arg3 = "Creates a test bed of hardcoded components from CMG"
   numberValue38 = true
+
+  -- === HELPER FUNCTION (decompiler name: numberValue49; parameters: arg12, arg22, arg32) ===
   function numberValue49(arg12, arg22, arg32)
     local workValue7, vector3Builder3, vector3Builder4, numberValue59, numberValue60, numberValue63, numberValue66, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue19, numberValue20, numberValue21, numberValue22, numberValue24, numberValue26, numberValue27, numberValue28, numberValue30, numberValue32, numberValue33, numberValue34, numberValue35, numberValue36, numberValue37, numberValue39, numberValue40, numberValue41, numberValue42, numberValue43, numberValue44, numberValue45, numberValue46, numberValue47, numberValue48, numberValue50, numberValue51, numberValue52, numberValue53, numberValue54, numberValue55
     if arg32 then
@@ -993,6 +1025,8 @@ numberValue64(textValue, workValue)
 numberValue64 = CMG
 numberValue64 = numberValue64.registerDevMenuThread
 textValue = "Testbeds"
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2, arg3
   arg1 = numberValue25

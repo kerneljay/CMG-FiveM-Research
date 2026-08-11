@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Identity
+    ======================================
+
+    File: cmg/prod/client/core/cl_identity.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Identity feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 5
+      * Background threads: 0
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: 24e267197d, d47617dc0c
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: e58e55199b, 509b447bd2, c9701a471a
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_identity
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Identity / City Hall Client
     ===========================
 
@@ -46,11 +84,13 @@ identityMenu:SetSubtitle("~b~Identity Services")
 -- CITY HALL WORLD MARKERS
 -- ============================================================
 
+-- === EVENT HANDLER: runs when "CMG:onClientSpawn" fires ===
 AddEventHandler("CMG:onClientSpawn", function(_, firstSpawn)
     if not firstSpawn then
         return
     end
 
+    -- === HELPER FUNCTION: onEnterCityHall() ===
     local function onEnterCityHall()
         drawNativeNotification(
             "Press ~INPUT_PICKUP~ to access the City Hall."
@@ -66,11 +106,13 @@ AddEventHandler("CMG:onClientSpawn", function(_, firstSpawn)
         )
     end
 
+    -- === HELPER FUNCTION: onLeaveCityHall() ===
     local function onLeaveCityHall()
         RageUI.CloseAll()
         RageUI.Visible(identityMenu, false)
     end
 
+    -- === HELPER FUNCTION: whileInsideCityHall() ===
     local function whileInsideCityHall()
         -- Control 51 = INPUT_CONTEXT / usually E.
         if IsControlJustPressed(1, 51) then
@@ -119,6 +161,7 @@ AddEventHandler("CMG:onClientSpawn", function(_, firstSpawn)
     end
 
     -- Ask the server for the player's current City Hall information.
+    -- Beginner: sends the "e58e55199b" event to the server.
     TriggerServerEvent("e58e55199b")
 end)
 
@@ -145,6 +188,7 @@ RageUI.CreateWhile(
                     true,
                     function(_, _, selected)
                         if selected then
+                            -- Beginner: sends the "509b447bd2" event to the server.
                             TriggerServerEvent("509b447bd2")
                         end
                     end,
@@ -163,6 +207,7 @@ RageUI.CreateWhile(
                         true,
                         function(_, _, selected)
                             if selected then
+                                -- Beginner: sends the "c9701a471a" event to the server.
                                 TriggerServerEvent("c9701a471a")
                             end
                         end
@@ -184,6 +229,7 @@ RageUI.CreateWhile(
                         true,
                         function(_, _, selected)
                             if selected then
+                                -- Beginner: sends the "e58e55199b" event to the server.
                                 TriggerServerEvent("e58e55199b")
                             end
                         end
@@ -208,6 +254,8 @@ RageUI.CreateWhile(
 --   textureName, headshotHandle
 --
 -- If the player cannot be resolved, "CHAR_BLOCKED", nil is returned.
+
+-- === HELPER FUNCTION: getPlayerHeadshot(serverId) ===
 local function getPlayerHeadshot(serverId)
     local playerIndex = GetPlayerFromServerId(serverId)
 
@@ -327,6 +375,7 @@ RegisterNetEvent(
                 255
             )
 
+            -- === HELPER FUNCTION: drawLicenceText(x, y, text) ===
             local function drawLicenceText(x, y, text)
                 DrawAdvancedTextNoOutline(
                     x,
@@ -409,6 +458,8 @@ RegisterNetEvent(
 
 
 -- Server tells us to stop drawing the licence.
+
+-- === NETWORK EVENT: receives "d47617dc0c" from server/another network source ===
 RegisterNetEvent("d47617dc0c", function()
     showingDrivingLicence = false
 end)

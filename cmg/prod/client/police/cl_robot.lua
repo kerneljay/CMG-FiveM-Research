@@ -1,47 +1,56 @@
 --[[
-    Beginner Guide: cl_robot.lua
-    ============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Robot
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Robot
+    ===================================
 
     File: cmg/prod/client/police/cl_robot.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Robot feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 11
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 3
-      They are intentionally left unchanged because matching server code may use them.
-      * b1b3d23e07
-      * b7edeadea5
-      * 71c20e82b7
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * ScaleformMovieMethodAddParamPlayerNameString
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local numberValue, numberValue2, numberValue3, numberValue4, flag3, workValue2, numberValue7, cmgCall2, workValue3, workValue4, eventRegistration, eventRegistration2, textValue, eventRegistration3, cmgCall, workValue, textValue2
 numberValue = 0
@@ -52,6 +61,8 @@ flag3 = false
 workValue2 = nil
 numberValue7 = 0
 cmgCall2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: none) ===
 function workValue3()
   local arg1, arg2
   arg1 = numberValue
@@ -59,6 +70,8 @@ function workValue3()
   return arg1
 end
 cmgCall2.isUsingPoliceRobot = workValue3
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3
   arg2 = _ENV
@@ -67,6 +80,8 @@ function cmgCall2(arg1)
   arg3 = arg1
   arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
 function workValue3(arg1)
   local arg2, arg3
   arg2 = BeginTextCommandScaleformString
@@ -78,6 +93,8 @@ function workValue3(arg1)
   arg2 = EndTextCommandScaleformString
   arg2()
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: none) ===
 function workValue4()
   local arg1, arg2, arg3, numberValue5, flag4
   arg1 = RequestScaleformMovie
@@ -254,6 +271,8 @@ end
 eventRegistration = RegisterNetEvent
 eventRegistration2 = "b1b3d23e07"
 -- Beginner: this function handles network event "b1b3d23e07".
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, arg3, numberValue5, flag4, numberValue6, flag5, flag6, flag7, flag8, flag, flag2
   arg1 = PlayerPedId
@@ -380,6 +399,8 @@ function textValue()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b1b3d23e07".
 eventRegistration(eventRegistration2, textValue)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1, arg2, arg3) ===
 function eventRegistration(arg1, arg2, arg3)
   local numberValue5, flag4, numberValue6, flag5, flag6, flag7, flag8
   if arg3 then
@@ -476,6 +497,8 @@ end
 eventRegistration2 = RegisterNetEvent
 textValue = "b7edeadea5"
 -- Beginner: this function handles network event "b7edeadea5".
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: arg1, arg2) ===
 function eventRegistration3(arg1, arg2)
   local arg3, numberValue5, flag4, numberValue6, flag5
   arg3 = NetworkDoesEntityExistWithNetworkId
@@ -501,6 +524,8 @@ function eventRegistration3(arg1, arg2)
   end
 end
 eventRegistration2(textValue, eventRegistration3)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration2; parameters: arg1) ===
 function eventRegistration2(arg1)
   local arg2, arg3, numberValue5, flag4
   arg2 = NetworkHasControlOfEntity
@@ -536,6 +561,8 @@ function eventRegistration2(arg1)
   end
   ::flow_label_29::
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, arg3, numberValue5, flag4, numberValue6, flag5
   arg1 = numberValue3
@@ -601,6 +628,8 @@ end
 eventRegistration3 = RegisterNetEvent
 cmgCall = "71c20e82b7"
 -- Beginner: this function handles network event "71c20e82b7".
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: none) ===
 function workValue()
   local arg1, arg2
   arg1 = numberValue3
@@ -623,6 +652,8 @@ function workValue()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "71c20e82b7".
 eventRegistration3(cmgCall, workValue)
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration3; parameters: none) ===
 function eventRegistration3()
   local arg1, arg2, arg3, numberValue5, flag4, numberValue6, flag5
   arg1 = numberValue

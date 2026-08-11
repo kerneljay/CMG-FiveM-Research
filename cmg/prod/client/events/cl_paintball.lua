@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Paintball
+    =======================================
+
+    File: cmg/prod/client/events/cl_paintball.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Paintball feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 22
+      * Background threads: 2
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: a03486a46f, 58660fc55e, 0fecd97ab6, 676a4b301f, 3037bb1df5, 1d3fc5c779, cbb83f5f31
+      * Local event handlers: entityDamaged
+      * Server events sent: a03486a46f, 1abb79cabe, 8706f69943, a97ea54703, b1d2dcc17a, d57bbe5e17, 7b83c91fe1
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_paintball
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Paintball Client - Readable / Beginner-Friendly Version
     ========================================================
 
@@ -33,12 +71,14 @@ local paintballState = nil
 -- SMALL GENERIC HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: emptyAreaCallback() ===
 local function emptyAreaCallback()
     -- Some CMG.createArea calls expect enter/leave callbacks.
     -- The original script supplied empty functions here.
 end
 
 
+-- === HELPER FUNCTION: addWorldMarker(position, colour, markerType, zOffset) ===
 local function addWorldMarker(position, colour, markerType, zOffset)
     zOffset = zOffset or 0.0
 
@@ -62,6 +102,7 @@ local function addWorldMarker(position, colour, markerType, zOffset)
 end
 
 
+-- === HELPER FUNCTION: teleportTo(position) ===
 local function teleportTo(position)
     tCMG.teleport(position.x, position.y, position.z)
 end
@@ -71,6 +112,7 @@ end
 -- PUBLIC PAINTBALL CHECK
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.isInPaintball() ===
 function CMG.isInPaintball()
     return paintballState ~= nil
 end
@@ -84,6 +126,8 @@ end
 --
 -- data[1] = arena index
 -- data[2] = team index
+
+-- === HELPER FUNCTION: handleJoinTeamArea(data) ===
 local function handleJoinTeamArea(data)
     local arenaIndex = data[1]
     local teamIndex = data[2]
@@ -113,6 +157,7 @@ local function handleJoinTeamArea(data)
 
     -- INPUT_PICKUP = E by default.
     if IsControlJustPressed(0, 38) then
+        -- Beginner: sends the "a03486a46f" event to the server.
         TriggerServerEvent("a03486a46f", arenaIndex, teamIndex)
     end
 end
@@ -120,6 +165,8 @@ end
 
 -- Create relationship groups and the public join markers when this
 -- client script starts.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     -- Each paintball team gets its own GTA relationship group.
     for teamName, teamConfig in pairs(paintballConfig.teamConfigs) do
@@ -166,56 +213,66 @@ end)
 -- ARENA INTERACTION PROMPTS
 -- ============================================================
 
+-- === HELPER FUNCTION: handleStartVoteArea() ===
 local function handleStartVoteArea()
     drawNativeNotification(
         "Press ~INPUT_PICKUP~ to submit a vote to start"
     )
 
     if IsControlJustPressed(0, 38) then
+        -- Beginner: sends the "1abb79cabe" event to the server.
         TriggerServerEvent("1abb79cabe")
     end
 end
 
 
+-- === HELPER FUNCTION: handleEndVoteArea() ===
 local function handleEndVoteArea()
     drawNativeNotification(
         "Press ~INPUT_PICKUP~ to submit a vote to end"
     )
 
     if IsControlJustPressed(0, 38) then
+        -- Beginner: sends the "8706f69943" event to the server.
         TriggerServerEvent("8706f69943")
     end
 end
 
 
+-- === HELPER FUNCTION: handleExitArea() ===
 local function handleExitArea()
     drawNativeNotification(
         "Press ~INPUT_PICKUP~ to exit the arena"
     )
 
     if IsControlJustPressed(0, 38) then
+        -- Beginner: sends the "a97ea54703" event to the server.
         TriggerServerEvent("a97ea54703")
     end
 end
 
 
+-- === HELPER FUNCTION: handlePaintballAmmoArea() ===
 local function handlePaintballAmmoArea()
     drawNativeNotification(
         "~r~Press ~INPUT_PICKUP~ to pick up paintballs!"
     )
 
     if IsControlJustPressed(0, 38) then
+        -- Beginner: sends the "b1d2dcc17a" event to the server.
         TriggerServerEvent("b1d2dcc17a")
     end
 end
 
 
+-- === HELPER FUNCTION: handlePlasmaGunArea() ===
 local function handlePlasmaGunArea()
     drawNativeNotification(
         "~r~Press ~INPUT_PICKUP~ to buy an plasma gun. (£1,000)"
     )
 
     if IsControlJustPressed(0, 38) then
+        -- Beginner: sends the "d57bbe5e17" event to the server.
         TriggerServerEvent("d57bbe5e17")
     end
 end
@@ -225,6 +282,7 @@ end
 -- INTRO MESSAGE
 -- ============================================================
 
+-- === HELPER FUNCTION: showPaintballIntro() ===
 local function showPaintballIntro()
     local scaleform = RequestScaleformMovie("mp_big_message_freemode")
 
@@ -289,6 +347,7 @@ end
 -- TEAM RELATIONSHIPS / FRIENDLY FIRE
 -- ============================================================
 
+-- === HELPER FUNCTION: setupPaintballRelationships() ===
 local function setupPaintballRelationships()
     -- Same-team relationship = 0.
     -- Different-team relationship = 5.
@@ -316,6 +375,7 @@ local function setupPaintballRelationships()
 end
 
 
+-- === HELPER FUNCTION: clearPaintballRelationships() ===
 local function clearPaintballRelationships()
     for _, firstTeamConfig in pairs(paintballConfig.teamConfigs) do
         for _, secondTeamConfig in pairs(paintballConfig.teamConfigs) do
@@ -343,6 +403,7 @@ end
 -- LEADERBOARD
 -- ============================================================
 
+-- === HELPER FUNCTION: createPaintballLeaderboard() ===
 local function createPaintballLeaderboard()
     local leaderboard = Scaleform("SC_LEADERBOARD")
 
@@ -371,6 +432,7 @@ local function createPaintballLeaderboard()
 end
 
 
+-- === HELPER FUNCTION: buildLeaderboardRows() ===
 local function buildLeaderboardRows()
     local rows = {}
 
@@ -422,6 +484,7 @@ local function buildLeaderboardRows()
 end
 
 
+-- === HELPER FUNCTION: drawLeaderboard() ===
 local function drawLeaderboard()
     if not paintballState or not paintballState.leaderboard then
         return
@@ -453,6 +516,7 @@ end
 -- MATCH MARKERS / AREAS
 -- ============================================================
 
+-- === HELPER FUNCTION: createArenaMarkersAndAreas() ===
 local function createArenaMarkersAndAreas()
     if not paintballState then
         return
@@ -556,6 +620,7 @@ end
 -- PLAYER BLIPS
 -- ============================================================
 
+-- === HELPER FUNCTION: removePaintballPlayerBlip(serverId) ===
 local function removePaintballPlayerBlip(serverId)
     local playerIndex = GetPlayerFromServerId(serverId)
 
@@ -577,6 +642,7 @@ local function removePaintballPlayerBlip(serverId)
 end
 
 
+-- === HELPER FUNCTION: ensureTeammateBlips() ===
 local function ensureTeammateBlips()
     if not paintballState then
         return
@@ -626,6 +692,8 @@ end
 --
 -- arenaIndex = selected arena in paintballConfig.arenas
 -- teamIndex  = selected team in that arena
+
+-- === NETWORK EVENT: receives "a03486a46f" from server/another network source ===
 RegisterNetEvent("a03486a46f", function(arenaIndex, teamIndex)
     local arenaInfo = paintballConfig.arenas[arenaIndex]
 
@@ -663,6 +731,7 @@ RegisterNetEvent("a03486a46f", function(arenaIndex, teamIndex)
 
     createArenaMarkersAndAreas()
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(showPaintballIntro)
 
     notify(
@@ -708,6 +777,7 @@ end)
 -- START MATCH
 -- ============================================================
 
+-- === NETWORK EVENT: receives "58660fc55e" from server/another network source ===
 RegisterNetEvent("58660fc55e", function()
     if not paintballState then
         return
@@ -747,6 +817,7 @@ end)
 -- END / LEAVE PAINTBALL
 -- ============================================================
 
+-- === NETWORK EVENT: receives "0fecd97ab6" from server/another network source ===
 RegisterNetEvent("0fecd97ab6", function()
     if not paintballState then
         return
@@ -865,6 +936,8 @@ RegisterNetEvent(
 
 
 -- Remove a player from whichever team currently contains them.
+
+-- === NETWORK EVENT: receives "1d3fc5c779" from server/another network source ===
 RegisterNetEvent("1d3fc5c779", function(playerServerId)
     if paintballState then
         for _, team in pairs(paintballState.teams) do
@@ -905,6 +978,7 @@ RegisterNetEvent(
 -- MAIN PAINTBALL TICK
 -- ============================================================
 
+-- === HELPER FUNCTION: paintballTick() ===
 local function paintballTick()
     if not paintballState then
         return
@@ -984,6 +1058,8 @@ CMG.createThreadOnTick(
 -- ============================================================
 
 -- Keeps the local player in ghost mode for the supplied duration.
+
+-- === HELPER FUNCTION: keepGhostedFor(durationMs) ===
 local function keepGhostedFor(durationMs)
     local startedAt = GetGameTimer()
 
@@ -996,6 +1072,8 @@ end
 
 -- Respawn sequence used when another player hits us with one of the
 -- recognised paintball weapon hashes.
+
+-- === HELPER FUNCTION: respawnPaintballPlayer() ===
 local function respawnPaintballPlayer()
     Citizen.Wait(1000)
 

@@ -1,82 +1,40 @@
 --[[
-    Beginner Guide: cl_trapper.lua
-    ==============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Config/modules used:
-      * cfg/cfg_trapper
-
-    Commands:
-      * /trapnetspeech
-
-    Important events used:
-      * CMG:requestTrapperConfig
-      * CMG:trapNetContacts
-      * CMG:trapNetOpened
-      * CMG:trapNetOrder
-      * CMG:trapNetOrderLegalSupply
-      * CMG:trapNetRequestContacts
-      * ae47027072
-      * onResourceStop
-
-    Exports:
-      * getTrapperNPC
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Trapper
-    ========================
+    LEVEL 1 BEGINNER GUIDE — Trapper
+    =====================================
 
     File: cmg/prod/client/jobs/trapper/cl_trapper.lua
-    Purpose: This file contains job gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: civilian/job gameplay, specifically the Trapper feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 44
+      * Background threads: 3
+      * Always-running loops: 0
+      * Commands: trapnetspeech
+      * Incoming network events: none found by static scan
+      * Local event handlers: CMG:trapNetOpened, CMG:trapNetOrder, CMG:trapNetOrderLegalSupply, CMG:requestTrapperConfig, CMG:trapNetContacts, onResourceStop
+      * Server events sent: ae47027072, CMG:trapNetRequestContacts
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_trapper
 
-    Config/data used:
-      * cfg/cfg_trapper
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * trapnetspeech
-
-    Network/hash identifiers found: 61
-      They are intentionally left unchanged because matching server code may use them.
-
-    Named framework/network events found:
-      * CMG:trapNetOpened
-      * CMG:trapNetOrder
-      * CMG:trapNetOrderLegalSupply
-      * CMG:requestTrapperConfig
-      * CMG:trapNetGotConfig
-      * CMG:trapNetContacts
-      * CMG:trapNetRequestContacts
-
-    Example player-facing text in this file:
-      * Press F6 to get started
-      * ~r~You are already inside a warehouse.
-      * ~r~You can not enter a warehouse with a combat timer.
-      * Press [F] to enter warehouse
-      * ~r~You must be on the Trapper job to use the warehouse seller.
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     CMG TRAPPER / DRUG DEN WAREHOUSE
@@ -405,10 +363,12 @@ local WarehouseRuntime = {
 -- 6. SAFE LITTLE HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: toNumberIfPossible(value) ===
 local function toNumberIfPossible(value)
     return tonumber(value) or value
 end
 
+-- === HELPER FUNCTION: sendUiMessage(messageType, payload) ===
 local function sendUiMessage(messageType, payload)
     CMG.uiSendMessage({
         type = messageType,
@@ -416,6 +376,7 @@ local function sendUiMessage(messageType, payload)
     })
 end
 
+-- === HELPER FUNCTION: closeWarehousePicker() ===
 local function closeWarehousePicker()
     CMG.uiSendMessage({
         type = "TRAPPER_WAREHOUSE_PICKER_CLOSE",
@@ -428,6 +389,7 @@ local function closeWarehousePicker()
     )
 end
 
+-- === HELPER FUNCTION: getWarehouseDefinition(warehouseName) ===
 local function getWarehouseDefinition(warehouseName)
     return TrapperConfig.warehouses
         and TrapperConfig.warehouses[warehouseName]
@@ -534,6 +496,7 @@ AddEventHandler(
 -- 8. ENTER A WAREHOUSE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: requestEnterWarehouse(warehouseDbId) ===
 local function requestEnterWarehouse(warehouseDbId)
     -------------------------------------------------------------
     -- Do not try loading a second warehouse on top of the first.
@@ -580,14 +543,17 @@ local function createWarehouseEntrance(
         "warehouse_entrance_"
         .. tostring(entranceKey)
 
+    -- === HELPER FUNCTION: onEnter() ===
     local function onEnter()
         -- Nothing needed.
     end
 
+    -- === HELPER FUNCTION: onExit() ===
     local function onExit()
         -- Nothing needed.
     end
 
+    -- === HELPER FUNCTION: onTick() ===
     local function onTick()
         if CMG.isPurge()
             or CMG.isPlayerInPrison()
@@ -688,6 +654,7 @@ local function createWarehouseEntrance(
     )
 end
 
+-- === HELPER FUNCTION: clearWarehouseEntrances() ===
 local function clearWarehouseEntrances()
     for _, marker in pairs(
         WarehouseRuntime.entranceMarkers
@@ -714,6 +681,7 @@ local function clearWarehouseEntrances()
     WarehouseRuntime.entranceBlips = {}
 end
 
+-- === HELPER FUNCTION: rebuildWarehouseEntrances() ===
 local function rebuildWarehouseEntrances()
     clearWarehouseEntrances()
 
@@ -816,6 +784,7 @@ end
 -- 10. BUILD WAREHOUSE DATA FOR THE NUI
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: buildWarehouseUiData() ===
 local function buildWarehouseUiData()
     local warehouseIds = {}
 
@@ -999,6 +968,7 @@ AddEventHandler(
 -- 12. WAREHOUSE SELLER
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: createWarehouseSeller() ===
 local function createWarehouseSeller()
     if not TrapperConfig.purchaseWarehouse then
         return
@@ -1013,14 +983,17 @@ local function createWarehouseSeller()
             TrapperConfig.jobName
         )
 
+    -- === HELPER FUNCTION: onEnter() ===
     local function onEnter()
         atWarehouseSeller = true
     end
 
+    -- === HELPER FUNCTION: onExit() ===
     local function onExit()
         atWarehouseSeller = false
     end
 
+    -- === HELPER FUNCTION: onTick() ===
     local function onTick()
         if CMG.isPurge()
             or CMG.isPlayerInPrison()
@@ -1185,6 +1158,7 @@ CMG.uiRegisterCallback(
 -- 15. NUI CALLBACK: NPC WEED PRICES
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: buildSellableItemPriceList() ===
 local function buildSellableItemPriceList()
     local prices = {}
 
@@ -1462,6 +1436,8 @@ CMG.uiRegisterCallback(
         TriggerEvent("b4fcca60d5")
 
         -- Beginner: Start a separate FiveM thread so this code can run independently.
+
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(function()
             Wait(400)
 
@@ -2244,6 +2220,7 @@ local trapNetContacts = {}
 
 local buyerBlips = {}
 
+-- === HELPER FUNCTION: clearBuyerBlips() ===
 local function clearBuyerBlips()
     for _, blip in pairs(
         buyerBlips
@@ -2301,6 +2278,7 @@ local function validBuyerEntity(
     return true
 end
 
+-- === HELPER FUNCTION: refreshBuyerBlips() ===
 local function refreshBuyerBlips()
     clearBuyerBlips()
 
@@ -2577,6 +2555,7 @@ AddEventHandler(
 -- 33. GET CONFIGURED TRAPPER NPC
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.getTrapperNPC(npcId) ===
 function CMG.getTrapperNPC(npcId)
     return TrapperConfig.NPCs
         and TrapperConfig.NPCs[npcId]
@@ -2607,12 +2586,14 @@ exports(
 -- }
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: getPlacedObject(plantId) ===
 local function getPlacedObject(plantId)
     return WarehouseRuntime.objects[
         plantId
     ]
 end
 
+-- === HELPER FUNCTION: deleteExtraObjects(runtimeObject) ===
 local function deleteExtraObjects(runtimeObject)
     for _, entity in pairs(
         runtimeObject.extraObjects
@@ -2776,6 +2757,7 @@ end
 -- 38. SHELVES
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: normaliseShelfSlots(slots) ===
 local function normaliseShelfSlots(slots)
     local result = {}
 
@@ -2978,6 +2960,7 @@ local WaterHose = {
         "weed_spraybottle_crouch_spraying_02_inspector",
 }
 
+-- === HELPER FUNCTION: stopWaterHose() ===
 local function stopWaterHose()
     WaterHose.active = false
     WaterHose.targetPlantId = nil
@@ -3014,6 +2997,7 @@ local function stopWaterHose()
     )
 end
 
+-- === HELPER FUNCTION: startWaterHose(plantId) ===
 local function startWaterHose(plantId)
     if WaterHose.active then
         stopWaterHose()
@@ -3063,6 +3047,7 @@ end
 -- 42. HOTBAR CHANGE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.onTrapperHotbarSelect() ===
 function CMG.onTrapperHotbarSelect()
     -- Changing items should not leave old hose/placement state running.
     if WaterHose.active then
@@ -3127,6 +3112,7 @@ local function findNearbyWorkbench(
     return closest
 end
 
+-- === HELPER FUNCTION: resetWeedProcessingState() ===
 local function resetWeedProcessingState()
     WeedProcessing.active = false
     WeedProcessing.phase = "idle"
@@ -3256,6 +3242,8 @@ local function beginWeedWorkbenchSession(
     )
 
     -- Beginner: Start a separate FiveM thread so this code can run independently.
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         if mode == "trim" then
             drawNativeNotification(
@@ -3290,6 +3278,7 @@ end
 -- 44. PUBLIC WORKBENCH FUNCTIONS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.processWeedBud(plantId) ===
 function CMG.processWeedBud(plantId)
     if not findNearbyWorkbench(6.0) then
         notify(
@@ -3305,6 +3294,7 @@ function CMG.processWeedBud(plantId)
     )
 end
 
+-- === HELPER FUNCTION: CMG.processWeedBag(plantId) ===
 function CMG.processWeedBag(plantId)
     if not findNearbyWorkbench(6.0) then
         notify(
@@ -3379,6 +3369,7 @@ AddEventHandler(
 -- 47. WAREHOUSE SHELL CLEANUP
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: cleanupCurrentWarehouse() ===
 local function cleanupCurrentWarehouse()
     -------------------------------------------------------------
     -- Stop first-person/hose systems first.
@@ -3665,6 +3656,7 @@ AddEventHandler(
 -- 50. PUBLIC WAREHOUSE HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.inTrappingWarehouse() ===
 function CMG.inTrappingWarehouse()
     return WarehouseRuntime.shellObject
         ~= nil
@@ -3673,6 +3665,7 @@ function CMG.inTrappingWarehouse()
         )
 end
 
+-- === HELPER FUNCTION: CMG.getCurrentTrapperWarehouseId() ===
 function CMG.getCurrentTrapperWarehouseId()
     return WarehouseRuntime.lastUsedWarehouseId
 end
@@ -3703,6 +3696,7 @@ end
 -- 51. FIND THE TYPE OF THE LAST-USED WAREHOUSE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: CMG.getLastUsedTrapperWarehouseName() ===
 function CMG.getLastUsedTrapperWarehouseName()
     local warehouseDbId =
         WarehouseRuntime.lastUsedWarehouseId
@@ -3739,6 +3733,8 @@ end
 ---------------------------------------------------------------------
 
 -- Beginner: Start a separate FiveM thread so this code can run independently.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     -------------------------------------------------------------
     -- Build seller + currently known entrances.

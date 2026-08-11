@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Carry
+    ===================================
+
+    File: cmg/prod/client/core/cl_carry.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Carry feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 7
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: carry
+      * Incoming network events: CarryPeople:carryRequest, CarryPeople:syncTarget, CarryPeople:syncMe, CarryPeople:cl_stop
+      * Local event handlers: none found by static scan
+      * Server events sent: CarryPeople:stop, CarryPeople:sync, CarryPeople:requestCarry
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Player Carry System
     ===================
 
@@ -49,10 +87,12 @@ local attachedPlayerServerId = 0
 -- PUBLIC HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.isCarrying() ===
 function CMG.isCarrying()
     return isCarrying
 end
 
+-- === HELPER FUNCTION: CMG.getCarryingPlayerSrc() ===
 function CMG.getCarryingPlayerSrc()
     if isCarrying then
         return carriedPlayerServerId or 0
@@ -73,6 +113,7 @@ TriggerEvent(
 -- WHERE CARRYING IS ALLOWED
 -- ============================================================
 
+-- === HELPER FUNCTION: canUseCarry() ===
 local function canUseCarry()
     -- Staff are allowed anywhere this client checks.
     if CMG.isStaffedOnClient() then
@@ -279,6 +320,7 @@ RegisterCommand(
 -- ACCEPTING A CARRY WHILE IN COMA
 -- ============================================================
 
+-- === HELPER FUNCTION: shouldAutoAcceptCarry() ===
 local function shouldAutoAcceptCarry()
     local playerPed = PlayerPedId()
 
@@ -307,6 +349,7 @@ RegisterNetEvent(
 
         carryRequestPending = true
 
+        -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
         Citizen.CreateThread(function()
             while carryRequestPending do
                 -- Y, or the original coma auto-accept condition.
@@ -354,6 +397,7 @@ RegisterNetEvent(
 -- SAFETY CHECK WHILE CARRYING
 -- ============================================================
 
+-- === HELPER FUNCTION: carrySafetyTick() ===
 local function carrySafetyTick()
     if not isCarrying then
         return
@@ -590,6 +634,7 @@ RegisterNetEvent(
 -- KEEP THE CARRY ANIMATION ALIVE
 -- ============================================================
 
+-- === HELPER FUNCTION: carryAnimationTick(context) ===
 local function carryAnimationTick(context)
     if not isCarrying then
         return

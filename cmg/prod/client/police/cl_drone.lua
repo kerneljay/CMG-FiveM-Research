@@ -1,54 +1,56 @@
 --[[
-    Beginner Guide: cl_drone.lua
-    ============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Drone
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Drone
+    ===================================
 
     File: cmg/prod/client/police/cl_drone.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Drone feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 12
+      * Background threads: 0
+      * Always-running loops: 6
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Commands/command-like entries found:
-      * /drone
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Network/hash identifiers found: 1
-      They are intentionally left unchanged because matching server code may use them.
-      * 2af187bc60
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Named framework/network events found:
-      * chat:addSuggestion
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * You have ~b~lost control ~w~of the drone, after going out of range
-      * ScaleformMovieMethodAddParamPlayerNameString
-      * You are not able to use a drone right now.
-      * You must be near the ~y~start position~w~ to exit.
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local numberValue, numberValue4, localEventCall, cmgCall3, textValue2, textValue3, threadCall, threadCall2, eventRegistration, textValue4, workValue2, cmgCall, workValue3, textValue
 numberValue = 948655685
@@ -70,12 +72,16 @@ localEventCall.thermalEnabled = false
 localEventCall.landing = false
 localEventCall.tablet = 0
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, workValue4
   arg1 = localEventCall.active
   return arg1
 end
 cmgCall3.isPlayerInDrone = textValue2
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10
   arg1 = CMG
@@ -240,6 +246,8 @@ function cmgCall3()
     tableHelper(flag13, flag14, flag15, flag16, flag, flag3)
     tableHelper = Citizen
     tableHelper = tableHelper.CreateThread
+
+    -- === HELPER FUNCTION (decompiler name: flag13; parameters: none) ===
     function flag13()
       local workValue, workValue5, numberValue6, numberValue7, flag12, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, flag2, flag4, flag6
       while true do
@@ -450,6 +458,8 @@ function cmgCall3()
     flag13(flag14)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, workValue4, cmgCall2, coords
   arg1 = Wait
@@ -482,6 +492,8 @@ function textValue2()
   -- Beginner: Show a notification to the player.
   arg1(workValue4)
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
 function textValue3(arg1)
   local workValue4, cmgCall2, coords, flag11, tableHelper, flag13
   workValue4 = RequestScaleformMovie
@@ -752,6 +764,8 @@ function textValue3(arg1)
 end
 threadCall = Citizen
 threadCall = threadCall.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
 function threadCall2()
   local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8, flag9, heading, numberValue2, flag10, numberValue3, numberValue5
   arg1 = textValue3
@@ -1047,6 +1061,8 @@ threadCall(threadCall2)
 threadCall = 0
 threadCall2 = Citizen
 threadCall2 = threadCall2.CreateThread
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
 function eventRegistration()
   local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5
   while true do
@@ -1150,6 +1166,8 @@ function eventRegistration()
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
 threadCall2(eventRegistration)
+
+-- === HELPER FUNCTION (decompiler name: threadCall2; parameters: arg1) ===
 function threadCall2(arg1)
   local workValue4, cmgCall2
   workValue4 = BeginTextCommandScaleformString
@@ -1162,6 +1180,8 @@ function threadCall2(arg1)
   workValue4()
 end
 ButtonMessage = threadCall2
+
+-- === HELPER FUNCTION (decompiler name: threadCall2; parameters: arg1) ===
 function threadCall2(arg1)
   local workValue4, cmgCall2
   workValue4 = _ENV
@@ -1171,6 +1191,8 @@ function threadCall2(arg1)
   workValue4(cmgCall2)
 end
 Button = threadCall2
+
+-- === HELPER FUNCTION (decompiler name: threadCall2; parameters: none) ===
 function threadCall2()
   local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16, flag, flag3, flag5, flag7, flag8
   arg1 = CMG
@@ -1340,6 +1362,8 @@ end
 eventRegistration = RegisterNetEvent
 textValue4 = "toggleDrone"
 -- Beginner: this function handles network event "toggleDrone".
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, workValue4, cmgCall2
   arg1 = localEventCall.active
@@ -1383,6 +1407,8 @@ end
 eventRegistration(textValue4, workValue2)
 eventRegistration = nil
 textValue4 = nil
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, workValue4, cmgCall2, coords, flag11, tableHelper, flag13, flag14, flag15, flag16
   arg1 = CMG

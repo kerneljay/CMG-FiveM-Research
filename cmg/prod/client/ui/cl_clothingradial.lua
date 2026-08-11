@@ -1,38 +1,40 @@
 --[[
-    BEGINNER GUIDE — Clothingradial
-    ===============================
+    LEVEL 1 BEGINNER GUIDE — Clothingradial
+    ============================================
 
     File: cmg/prod/client/ui/cl_clothingradial.lua
-    Purpose: This file contains menu/UI logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: NUI/menu/interface behaviour, specifically the Clothingradial feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Config/data used:
-      * cfg/ped_cfg/clothingradial
+    Quick map of this file (automatic static scan):
+      * Named functions: 29
+      * Background threads: 4
+      * Always-running loops: 0
+      * Commands: +clothingmenu, -clothingmenu
+      * Incoming network events: dpc:EquipLast, dpc:ResetClothing, dpc:ToggleMenu, dpc:Menu
+      * Local event handlers: dpc:EquipLast, dpc:ResetClothing, dpc:ToggleMenu, dpc:Menu, onResourceStop
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/ped_cfg/clothingradial
 
-    Commands/command-like entries found:
-      * chat:addSuggestion
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Named framework/network events found:
-      * dpc:EquipLast
-      * dpc:ResetClothing
-      * dpc:ToggleMenu
-      * dpc:Menu
-      * chat:addSuggestion
-
-    Example player-facing text in this file:
-      * You are already wearing that.
-      * You dont appear to have anything to remove.
-      * You cannot do this without your shirt on.
-      * dpc:ToggleMenu
-      * dpc:Menu
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     Clothing Radial Menu - beginner-friendly rewrite
@@ -252,6 +254,7 @@ local Config = {
 -- SMALL GENERAL HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: debugPrint(value) ===
 local function debugPrint(value)
     if value == nil then
         print("nil")
@@ -271,12 +274,17 @@ local function debugPrint(value)
     end
 end
 
+-- === HELPER FUNCTION: getInputKey(keyName) ===
 local function getInputKey(keyName)
     return INPUT_KEYS[string.upper(keyName)] or false
 end
 
 -- Blocks clothing actions for a short time while an animation is running.
+
+-- === HELPER FUNCTION: markActionBusy(milliseconds) ===
 local function markActionBusy(milliseconds)
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         actionBusy = true
         Wait(milliseconds)
@@ -286,6 +294,8 @@ end
 
 -- pairs() does not guarantee order.
 -- This helper gives us an iterator over sorted keys.
+
+-- === HELPER FUNCTION: sortedPairs(tbl, sorter) ===
 local function sortedPairs(tbl, sorter)
     local keys = {}
 
@@ -309,6 +319,7 @@ local function sortedPairs(tbl, sorter)
     end
 end
 
+-- === HELPER FUNCTION: drawText(x, y, size, text, color, justification, outline, wrap) ===
 local function drawText(x, y, size, text, color, justification, outline, wrap)
     justification = justification or 0
     color = color or Config.GUI.TextColor
@@ -331,10 +342,12 @@ local function drawText(x, y, size, text, color, justification, outline, wrap)
     EndTextCommandDisplayText(x, y)
 end
 
+-- === HELPER FUNCTION: capitalizeFirst(text) ===
 local function capitalizeFirst(text)
     return text:gsub("^%l", string.upper)
 end
 
+-- === HELPER FUNCTION: translate(key) ===
 local function translate(key)
     local selectedLanguage = Languages[Config.Language]
     local translated = selectedLanguage and selectedLanguage[key]
@@ -346,12 +359,15 @@ local function translate(key)
     return translated
 end
 
+-- === HELPER FUNCTION: showNotification(message) ===
 local function showNotification(message)
     notify(message)
 end
 
 -- Only the normal GTA Online freemode male/female peds support all
 -- the variation tables used by this clothing script.
+
+-- === HELPER FUNCTION: getFreemodeGender(ped) ===
 local function getFreemodeGender(ped)
     local maleModel = GetHashKey("mp_m_freemode_01")
     local femaleModel = GetHashKey("mp_f_freemode_01")
@@ -370,6 +386,7 @@ end
 -- SAVING / RESTORING CLOTHING
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: equipSavedOutfit() ===
 local function equipSavedOutfit()
     local ped = PlayerPedId()
 
@@ -404,10 +421,16 @@ local function equipSavedOutfit()
     savedOutfit = {}
 end
 
+-- === NETWORK EVENT: receives "dpc:EquipLast" from server/another network source ===
 RegisterNetEvent("dpc:EquipLast")
+
+-- === EVENT HANDLER: runs when "dpc:EquipLast" fires ===
 AddEventHandler("dpc:EquipLast", equipSavedOutfit)
 
+-- === NETWORK EVENT: receives "dpc:ResetClothing" from server/another network source ===
 RegisterNetEvent("dpc:ResetClothing")
+
+-- === EVENT HANDLER: runs when "dpc:ResetClothing" fires ===
 AddEventHandler("dpc:ResetClothing", function()
     -- This event forgets the stored "before" clothing.
     -- It does not change what the player currently has equipped.
@@ -424,6 +447,7 @@ local MENU_SOUNDS = {
     Select = { "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET" },
 }
 
+-- === HELPER FUNCTION: playMenuSound(soundName) ===
 local function playMenuSound(soundName)
     if not Config.GUI.Sound then
         return
@@ -437,7 +461,10 @@ local function playMenuSound(soundName)
     PlaySoundFrontend(-1, sound[1], sound[2], false)
 end
 
+-- === NETWORK EVENT: receives "dpc:ToggleMenu" from server/another network source ===
 RegisterNetEvent("dpc:ToggleMenu")
+
+-- === EVENT HANDLER: runs when "dpc:ToggleMenu" fires ===
 AddEventHandler("dpc:ToggleMenu", function()
     menuOpen = not menuOpen
 
@@ -449,7 +476,10 @@ AddEventHandler("dpc:ToggleMenu", function()
     end
 end)
 
+-- === NETWORK EVENT: receives "dpc:Menu" from server/another network source ===
 RegisterNetEvent("dpc:Menu")
+
+-- === EVENT HANDLER: runs when "dpc:Menu" fires ===
 AddEventHandler("dpc:Menu", function(shouldOpen)
     menuOpen = shouldOpen
 
@@ -466,6 +496,8 @@ end)
 
 -- Plays the animation first, then runs callback() when the item
 -- should actually be changed.
+
+-- === HELPER FUNCTION: playClothingAnimation(animation, callback) ===
 local function playClothingAnimation(animation, callback)
     local ped = PlayerPedId()
 
@@ -512,6 +544,7 @@ end
 -- RESTORE EVERYTHING THE PLAYER TOGGLED
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: restoreSavedClothing(playAnimation) ===
 local function restoreSavedClothing(playAnimation)
     local ped = PlayerPedId()
 
@@ -569,6 +602,8 @@ end
 --
 -- isExtra tells the function to read ClothingData.Extras instead of
 -- ClothingData.Drawables.
+
+-- === HELPER FUNCTION: toggleDrawable(itemName, isExtra) ===
 local function toggleDrawable(itemName, isExtra)
     if actionBusy then
         return
@@ -768,6 +803,8 @@ end
 
 -- Props are separate from normal clothing components.
 -- Examples: Hat, Glasses, Ear, Watch, Bracelet, Visor.
+
+-- === HELPER FUNCTION: toggleProp(itemName) ===
 local function toggleProp(itemName)
     if actionBusy then
         return
@@ -863,6 +900,8 @@ end
 ---------------------------------------------------------------------
 
 -- Draws the player's current clothing IDs on-screen.
+
+-- === HELPER FUNCTION: drawDebugClothingState() ===
 local function drawDebugClothingState()
     local entries = {}
 
@@ -930,12 +969,15 @@ local function drawDebugClothingState()
 end
 
 -- Cycles through configured variants to make development/testing easier.
+
+-- === HELPER FUNCTION: testVariants(itemName) ===
 local function testVariants(itemName)
     if testingVariants then
         showNotification("Already testing variants.")
         return
     end
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         testingVariants = true
 
@@ -1020,6 +1062,7 @@ end
 -- COMMAND DEFINITIONS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: takeOffDescription(name) ===
 local function takeOffDescription(name)
     return string.format(translate("TakeOffOn"), string.lower(name))
 end
@@ -1268,6 +1311,7 @@ Config.ExtraCommands[translate("BAGOFF")] = {
 -- REGISTER THE TEXT COMMANDS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: canRunClothingCommand() ===
 local function canRunClothingCommand()
     if IsPlayerFreeAiming(PlayerId()) then
         return false
@@ -1312,6 +1356,8 @@ end
 
 -- If the resource is stopped/restarted while somebody has clothing
 -- temporarily removed, restore it.
+
+-- === EVENT HANDLER: runs when "onResourceStop" fires ===
 AddEventHandler("onResourceStop", function(resourceName)
     if resourceName == GetCurrentResourceName() then
         restoreSavedClothing()
@@ -1326,6 +1372,7 @@ if not Config.GUI.Enabled then
     return
 end
 
+-- === HELPER FUNCTION: distance2D(x1, y1, x2, y2) ===
 local function distance2D(x1, y1, x2, y2)
     local x = x1 - x2
     local y = y1 - y2
@@ -1333,6 +1380,7 @@ local function distance2D(x1, y1, x2, y2)
     return math.sqrt((x * x) + (y * y))
 end
 
+-- === HELPER FUNCTION: disableMenuControls() ===
 local function disableMenuControls()
     local controls = {
         1, 2, 18, 68, 69, 70, 91, 92,
@@ -1349,6 +1397,8 @@ end
 
 -- FiveM returns the cursor in pixels. The menu is drawn using normalised
 -- 0.0 -> 1.0 screen coordinates, so convert the cursor here.
+
+-- === HELPER FUNCTION: getNormalisedCursorPosition() ===
 local function getNormalisedCursorPosition()
     local screenWidth, screenHeight = GetActiveScreenResolution()
     local cursorX, cursorY = GetNuiCursorPosition()
@@ -1361,6 +1411,8 @@ end
 
 -- Draws one clickable radial-menu icon.
 -- Returns true when the player left-clicks the icon.
+
+-- === HELPER FUNCTION: drawRadialButton(button) ===
 local function drawRadialButton(button)
     local circleRotation = button.Rotate or 0.0
 
@@ -1433,6 +1485,8 @@ local function drawRadialButton(button)
 end
 
 -- Checks whether the radial menu is allowed to open right now.
+
+-- === HELPER FUNCTION: canOpenMenu(ped) ===
 local function canOpenMenu(ped)
     if IsPedInAnyVehicle(ped, true) and not Config.GUI.AllowInCars then
         return false
@@ -1482,6 +1536,7 @@ local extraButtons = {}
 
 local infoRotation = 0.0
 
+-- === HELPER FUNCTION: buildRadialButtons() ===
 local function buildRadialButtons()
     local centerX = Config.GUI.Position.x
     local centerY = Config.GUI.Position.y
@@ -1556,7 +1611,10 @@ end
 -- LITTLE BUTTON CLICK ANIMATION
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: animateButton(commandKey, isExtraButton, rotate, isInfoButton) ===
 local function animateButton(commandKey, isExtraButton, rotate, isInfoButton)
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         playMenuSound("Select")
 
@@ -1640,6 +1698,7 @@ end
 -- HOVER TEXT
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawHoverInformation() ===
 local function drawHoverInformation()
     local mouseX, mouseY = getNormalisedCursorPosition()
 
@@ -1739,6 +1798,7 @@ end
 -- DRAW THE WHOLE MENU
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: drawClothingMenu() ===
 local function drawClothingMenu()
     disableMenuControls()
     drawHoverInformation()
@@ -1971,6 +2031,7 @@ local TEXTURE_DICTIONARIES = {
     "dp_wheel",
 }
 
+-- === HELPER FUNCTION: clothingMenuTick() ===
 local function clothingMenuTick()
     -- This branch is only used when Config.GUI.Toggle is enabled.
     if Config.GUI.Toggle then
@@ -1994,6 +2055,7 @@ local function clothingMenuTick()
     end
 end
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     for _, textureDictionary in pairs(TEXTURE_DICTIONARIES) do
         while not HasStreamedTextureDictLoaded(textureDictionary) do

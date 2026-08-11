@@ -1,38 +1,40 @@
 --[[
-    BEGINNER GUIDE — Eod
-    ====================
+    LEVEL 1 BEGINNER GUIDE — Eod
+    =================================
 
     File: cmg/prod/client/misc/cl_eod.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Eod feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Commands/command-like entries found:
-      * eodvisorup
-      * eodvisordown
-      * /eod
+    Quick map of this file (automatic static scan):
+      * Named functions: 20
+      * Background threads: 3
+      * Always-running loops: 1
+      * Commands: eodvisorup, eodvisordown
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 6
-      They are intentionally left unchanged because matching server code may use them.
-      * 6303abd345
-      * a2c6350ee0
-      * baeeded899
-      * 620bb841c2
-      * c8662fcaa0
-      * 879e33c266
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Named framework/network events found:
-      * chat:addSuggestion
-
-    Example player-facing text in this file:
-      * Press ~INPUT_FRONTEND_LT~ to cancel.
-
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 --[[
     CMG EOD Robot - Beginner-Friendly Rewrite
@@ -166,6 +168,8 @@ local activeHoseEffects = {}
 --         ...
 --     end
 --
+
+-- === HELPER FUNCTION: CMG.isPlayerUsingRobot() ===
 function CMG.isPlayerUsingRobot()
     return robot.active
 end
@@ -174,16 +178,19 @@ end
 -- SMALL HELPERS
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: robotExists() ===
 local function robotExists()
     return robot.vehicleHandle ~= 0
         and DoesEntityExist(robot.vehicleHandle)
 end
 
+-- === HELPER FUNCTION: driverExists() ===
 local function driverExists()
     return robot.driverHandle ~= 0
         and DoesEntityExist(robot.driverHandle)
 end
 
+-- === HELPER FUNCTION: getRobotNetworkId() ===
 local function getRobotNetworkId()
     if not robotExists() then
         return 0
@@ -192,6 +199,7 @@ local function getRobotNetworkId()
     return NetworkGetNetworkIdFromEntity(robot.vehicleHandle)
 end
 
+-- === HELPER FUNCTION: getDistanceToRobot() ===
 local function getDistanceToRobot()
     if not robotExists() then
         return 0.0
@@ -205,6 +213,8 @@ end
 
 -- The original script makes the camera transition longer when the robot is
 -- farther away from the player.
+
+-- === HELPER FUNCTION: getCameraTransitionTime() ===
 local function getCameraTransitionTime()
     local distance = getDistanceToRobot()
 
@@ -217,6 +227,7 @@ end
 -- CAMERA
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: disableRobotCamera() ===
 local function disableRobotCamera()
     if not robot.cameraEnabled then
         return
@@ -250,6 +261,7 @@ local function disableRobotCamera()
     end
 end
 
+-- === HELPER FUNCTION: enableRobotCamera() ===
 local function enableRobotCamera()
     if not robotExists() then
         return
@@ -290,6 +302,7 @@ local function enableRobotCamera()
     -- KEEP CAMERA ROTATION MATCHED TO THE ROBOT
     -------------------------------------------------------------
 
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         while DoesCamExist(robot.cameraHandle) do
             Citizen.Wait(2)
@@ -312,6 +325,7 @@ local function enableRobotCamera()
     end)
 end
 
+-- === HELPER FUNCTION: toggleRobotCamera() ===
 local function toggleRobotCamera()
     if robot.cameraEnabled then
         disableRobotCamera()
@@ -324,6 +338,7 @@ end
 -- THERMAL / NIGHT VISION
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: toggleThermalVision() ===
 local function toggleThermalVision()
     -- Original script only allows this while the robot camera is active.
     if not robot.cameraEnabled then
@@ -336,6 +351,7 @@ local function toggleThermalVision()
     SetSeethrough(robot.thermalEnabled)
 end
 
+-- === HELPER FUNCTION: toggleNightVision() ===
 local function toggleNightVision()
     -- Original script only allows this while the robot camera is active.
     if not robot.cameraEnabled then
@@ -365,6 +381,7 @@ TriggerEvent(
 -- REMOVE / CLEAN UP THE ROBOT
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: removeRobot() ===
 local function removeRobot()
     -------------------------------------------------------------
     -- STOP HOSE IF IT IS ACTIVE
@@ -429,6 +446,7 @@ end
 -- SPAWN THE ROBOT
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: spawnRobot() ===
 local function spawnRobot()
     -------------------------------------------------------------
     -- LOAD THE ROBOT + INVISIBLE DRIVER MODELS
@@ -620,7 +638,10 @@ AddEventHandler(
 -- BOMB DISARM SEQUENCE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: beginDisarmSequence() ===
 local function beginDisarmSequence()
+
+    -- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
     Citizen.CreateThread(function()
         disarmCancelled = false
 
@@ -691,6 +712,7 @@ local function beginDisarmSequence()
     end)
 end
 
+-- === HELPER FUNCTION: cancelDisarmSequence(showMessage) ===
 local function cancelDisarmSequence(showMessage)
     disarmCancelled = true
 
@@ -705,6 +727,7 @@ end
 -- NETWORK OWNERSHIP
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: requestRobotNetworkControl() ===
 local function requestRobotNetworkControl()
     if not robot.active then
         return
@@ -735,6 +758,7 @@ end
 -- DISABLE NORMAL PLAYER CONTROLS USED TO DRIVE THE ROBOT
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: disableRobotDrivingControls() ===
 local function disableRobotDrivingControls()
     DisableControlAction(0, CONTROLS.FORWARD, true)
     DisableControlAction(1, CONTROLS.FORWARD, true)
@@ -758,6 +782,7 @@ end
 -- This helper contains the same individual movement cases in normal Lua.
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: driveRobot() ===
 local function driveRobot()
     if not robot.active
         or not robotExists()
@@ -996,6 +1021,7 @@ end
 -- WATER HOSE
 ---------------------------------------------------------------------
 
+-- === HELPER FUNCTION: startRobotHose() ===
 local function startRobotHose()
     if robot.hoseEnabled
         or not robotExists()
@@ -1058,6 +1084,7 @@ end
 -- MAIN EOD CONTROL LOOP
 ---------------------------------------------------------------------
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     while true do
         if robot.active then

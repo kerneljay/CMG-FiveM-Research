@@ -1,56 +1,56 @@
 --[[
-    Beginner Guide: cl_copblips.lua
-    ===============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Copblips
-    =========================
+    LEVEL 1 BEGINNER GUIDE — Copblips
+    ======================================
 
     File: cmg/prod/client/police/cl_copblips.lua
-    Purpose: This file contains police gameplay.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: police gameplay and tools, specifically the Copblips feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 18
+      * Background threads: 0
+      * Always-running loops: 1
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * blipson
-      * blipsoff
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 6
-      They are intentionally left unchanged because matching server code may use them.
-      * 14f010530c
-      * e713d91b70
-      * 62f7fcbe38
-      * 00e0b9aa86
-      * 193ee4e15e
-      * dd39aa0311
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local flag, dataTable, dataTable2, numberValue2, dataTable3, dataTable4, flag4, flag5, flag6, workValue26, workValue, workValue3, workValue5, workValue6, eventRegistration, textValue, cmgCall, serverId, eventRegistration2, textValue2, workValue14
 flag = false
@@ -62,6 +62,8 @@ dataTable4 = {}
 flag4 = false
 flag5 = false
 flag6 = false
+
+-- === HELPER FUNCTION (decompiler name: workValue26; parameters: none) ===
 function workValue26()
   local arg1, arg2, arg3, arg4, arg5, arg6, workValue23, workValue24
   arg1 = pairs
@@ -80,6 +82,8 @@ function workValue26()
   arg1 = {}
   dataTable = arg1
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8
   if arg1 then
@@ -128,6 +132,8 @@ function workValue(arg1)
   arg2 = {}
   dataTable3 = arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function workValue3(arg1, arg2, arg3, arg4, arg5, arg6)
   local workValue23, workValue24, workValue25, numberValue3
   workValue23 = DoesBlipExist
@@ -228,6 +234,8 @@ function workValue3(arg1, arg2, arg3, arg4, arg5, arg6)
     end
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1, arg2) ===
 function workValue5(arg1, arg2)
   local arg3, arg4
   arg3 = CMG
@@ -250,6 +258,8 @@ function workValue5(arg1, arg2)
   end
   return arg3
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function workValue6(arg1, arg2, arg3, arg4, arg5, arg6)
   local workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4
   workValue23 = arg5 or nil
@@ -331,6 +341,8 @@ end
 eventRegistration = RegisterCommand
 textValue = "blipson"
 -- Beginner: this function is the command handler for "blipson".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, arg2
   arg1 = CMG
@@ -355,6 +367,8 @@ eventRegistration(textValue, cmgCall, serverId)
 eventRegistration = RegisterCommand
 textValue = "blipsoff"
 -- Beginner: this function is the command handler for "blipsoff".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, arg2
   arg1 = flag
@@ -379,6 +393,8 @@ eventRegistration(textValue, cmgCall, serverId)
 eventRegistration = RegisterNetEvent
 textValue = "14f010530c"
 -- Beginner: this function handles network event "14f010530c".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, arg2
   arg1 = flag
@@ -405,6 +421,8 @@ eventRegistration(textValue, cmgCall)
 eventRegistration = AddEventHandler
 textValue = "e713d91b70"
 -- Beginner: this function runs when client event "e713d91b70" fires.
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, arg2
   arg1 = workValue26
@@ -416,6 +434,8 @@ end
 -- Beginner: Register a client-side event handler. Event/command: "e713d91b70".
 eventRegistration(textValue, cmgCall)
 -- Beginner: this function runs when client event "e713d91b70" fires.
+
+-- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: none) ===
 function eventRegistration()
   local arg1, arg2, arg3, arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9, workValue10, workValue11, cmgCall2, workValue12, workValue15, workValue16, workValue17
   arg1 = table
@@ -465,6 +485,8 @@ function eventRegistration()
     numberValue2 = arg1
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
 function textValue(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = CMG
@@ -494,6 +516,8 @@ function textValue(arg1)
 end
 cmgCall = Citizen
 cmgCall = cmgCall.CreateThread
+
+-- === HELPER FUNCTION: serverId() ===
 function serverId()
   local arg1, arg2, arg3, arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9, workValue10, workValue11, cmgCall2, workValue12, workValue15, workValue16, workValue17, workValue18, numberValue, workValue19, workValue20, workValue21, workValue22
   while true do
@@ -919,6 +943,8 @@ eventRegistration2, textValue2, workValue14 = eventRegistration2()
 serverId = serverId(eventRegistration2, textValue2, workValue14)
 eventRegistration2 = CreateThread
 -- Beginner: this function is the body of a background FiveM thread.
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, arg2
   arg1 = Wait
@@ -932,6 +958,8 @@ eventRegistration2(textValue2)
 eventRegistration2 = RegisterNetEvent
 textValue2 = "00e0b9aa86"
 -- Beginner: this function handles network event "00e0b9aa86".
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: arg1, arg2, arg3) ===
 function workValue14(arg1, arg2, arg3)
   local arg4, arg5, arg6, workValue23, workValue24, workValue25, numberValue3, workValue2, workValue4, flag3, workValue7, workValue8, workValue9
   arg4 = cmgCall
@@ -1029,6 +1057,8 @@ eventRegistration2(textValue2, workValue14)
 eventRegistration2 = RegisterNetEvent
 textValue2 = "193ee4e15e"
 -- Beginner: this function handles network event "193ee4e15e".
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
 function workValue14()
   local arg1, arg2
   arg1 = flag
@@ -1044,6 +1074,8 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "193ee4e15e".
 eventRegistration2(textValue2, workValue14)
 eventRegistration2 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: none) ===
 function textValue2()
   local arg1, arg2
   arg1 = flag
@@ -1053,6 +1085,8 @@ eventRegistration2.isEmergencyBlipsEnabled = textValue2
 eventRegistration2 = RegisterNetEvent
 textValue2 = "dd39aa0311"
 -- Beginner: this function handles network event "dd39aa0311".
+
+-- === HELPER FUNCTION (decompiler name: workValue14; parameters: none) ===
 function workValue14()
   local arg1, arg2, arg3
   arg1 = true
@@ -1060,6 +1094,8 @@ function workValue14()
   arg1 = SetTimeout
   arg2 = 300000
   -- Beginner: this function handles network event "dd39aa0311".
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local flag2, workValue13
     flag2 = false

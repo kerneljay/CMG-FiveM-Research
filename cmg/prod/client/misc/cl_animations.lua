@@ -1,68 +1,60 @@
 --[[
-    Beginner Guide: cl_animations.lua
-    =================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Animations
-    ===========================
+    LEVEL 1 BEGINNER GUIDE — Animations
+    ========================================
 
     File: cmg/prod/client/misc/cl_animations.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Animations feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 139
+      * Background threads: 0
+      * Always-running loops: 10
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    WARNING:
-      The original decompiler output contains broken goto/label structure.
-      This file is annotated for reading, but the original control flow should be
-      reconstructed/tested before treating it as production-ready Lua.
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Commands/command-like entries found:
-      * anim
-      * bag3
-      * bag2
-      * k
-      * surrender
-      * picture
-      * bong
-      * ma
-      * dance1
-      * dance2
-      * dance3
-      * dance4
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
-    Network/hash identifiers found: 12
-      They are intentionally left unchanged because matching server code may use them.
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
 
-    Example player-facing text in this file:
-      * Press ~r~[E]~w~ to take a picture!
-      * Press ~r~[E]~w~ to take a toke!
-      * You take a huge rip!
-      * Press ~r~[E]~w~ to wave the wand.
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
 
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local workValue, workValue4, textValue6, flag19, flag20, flag21, cmgCall3, workValue7, workValue8, cmgCall4, cmgCall, textValue, flag, flag3, flag4, textValue2, workValue3, textValue3, textValue4, flag9, cmgCall2, textValue5, workValue6
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2) ===
 function workValue(arg1, arg2)
   local arg3, arg4, arg5
   arg3 = ClearPrints
@@ -79,6 +71,8 @@ function workValue(arg1, arg2)
   arg3(arg4, arg5)
 end
 DrawMissionText2 = workValue
+
+-- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1) ===
 function workValue(arg1)
   local arg2, arg3, arg4, arg5
   arg2 = CMG
@@ -169,6 +163,8 @@ end
 workValue4 = RegisterCommand
 textValue6 = "anim"
 -- Beginner: this function is the command handler for "anim".
+
+-- === HELPER FUNCTION (decompiler name: flag19; parameters: arg1, arg2) ===
 function flag19(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
   arg3 = CMG
@@ -210,6 +206,8 @@ workValue4(textValue6, flag19, flag20)
 workValue4 = RegisterCommand
 textValue6 = "bag3"
 -- Beginner: this function is the command handler for "bag3".
+
+-- === HELPER FUNCTION (decompiler name: flag19; parameters: none) ===
 function flag19()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = CMG
@@ -249,6 +247,8 @@ workValue4(textValue6, flag19, flag20)
 workValue4 = RegisterCommand
 textValue6 = "bag2"
 -- Beginner: this function is the command handler for "bag2".
+
+-- === HELPER FUNCTION (decompiler name: flag19; parameters: none) ===
 function flag19()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = CMG
@@ -291,12 +291,16 @@ flag19 = false
 flag20 = false
 flag21 = false
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2
   arg1 = workValue4
   return arg1
 end
 cmgCall3.isSurrendering = workValue7
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: none) ===
 function cmgCall3()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2
   arg1 = GetPlayerPed
@@ -536,6 +540,8 @@ function cmgCall3()
   end
   ::flow_label_223::
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
 function workValue7()
   local arg1, arg2, arg3, arg4, arg5, arg6
   arg1 = CMG
@@ -576,6 +582,8 @@ function workValue7()
   arg2 = false
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1, arg2, arg3, arg4, arg5, arg6) ===
 function workValue8(arg1, arg2, arg3, arg4, arg5, arg6)
   local arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
   arg7 = arg6 / 100
@@ -598,6 +606,8 @@ function workValue8(arg1, arg2, arg3, arg4, arg5, arg6)
   arg9(arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7)
 end
 cmgCall4 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
   arg1 = GetGameTimer
@@ -656,6 +666,8 @@ function cmgCall()
 end
 cmgCall4.isPlayerSurrendered = cmgCall
 cmgCall4 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: cmgCall; parameters: none) ===
 function cmgCall()
   local arg1, arg2
   arg1 = workValue7
@@ -665,6 +677,8 @@ cmgCall4.isPlayerSurrenderedNoProgressBar = cmgCall
 cmgCall4 = RegisterNetEvent
 cmgCall = "617311deed"
 -- Beginner: this function handles network event "617311deed".
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12
   arg1 = CMG
@@ -696,6 +710,8 @@ function textValue()
   arg2 = ""
   arg3 = 5000
   arg4 = nil
+
+  -- === HELPER FUNCTION: arg5() ===
   function arg5()
     local workValue2, workValue5
   end
@@ -706,6 +722,8 @@ cmgCall4(cmgCall, textValue)
 cmgCall4 = RegisterNetEvent
 cmgCall = "750744bff8"
 -- Beginner: this function handles network event "750744bff8".
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: none) ===
 function textValue()
   local arg1, arg2, arg3, arg4, arg5
   arg1 = StopAnimTask
@@ -722,6 +740,8 @@ function textValue()
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "750744bff8".
 cmgCall4(cmgCall, textValue)
+
+-- === HELPER FUNCTION (decompiler name: cmgCall4; parameters: none) ===
 function cmgCall4()
   local arg1, arg2, arg3, arg4
   arg1 = flag19
@@ -762,6 +782,8 @@ cmgCall(textValue, flag)
 cmgCall = RegisterCommand
 textValue = "k"
 -- Beginner: this function is the command handler for "k".
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: none) ===
 function flag()
   local arg1, arg2
   arg1 = textValue6
@@ -776,6 +798,8 @@ cmgCall(textValue, flag, flag3)
 cmgCall = RegisterCommand
 textValue = "surrender"
 -- Beginner: this function is the command handler for "surrender".
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: none) ===
 function flag()
   local arg1, arg2
   arg1 = textValue6
@@ -796,6 +820,8 @@ textValue2 = "prop_amb_phone"
 workValue3 = RegisterCommand
 textValue3 = "picture"
 -- Beginner: this function is the command handler for "picture".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14
   arg1 = CMG
@@ -1026,6 +1052,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "bong"
 -- Beginner: this function is the command handler for "bong".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14
   arg1 = "anim@safehouse@bong"
@@ -1220,6 +1248,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "ma"
 -- Beginner: this function is the command handler for "ma".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13
   arg1 = "amb@world_human_car_park_attendant@male@base"
@@ -1422,6 +1452,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance1"
 -- Beginner: this function is the command handler for "dance1".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
@@ -1504,6 +1536,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance2"
 -- Beginner: this function is the command handler for "dance2".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
@@ -1586,6 +1620,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance3"
 -- Beginner: this function is the command handler for "dance3".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@black_madonna_entourage@"
@@ -1668,6 +1704,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance4"
 -- Beginner: this function is the command handler for "dance4".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -1750,6 +1788,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance5"
 -- Beginner: this function is the command handler for "dance5".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@djs@dixon@"
@@ -1832,6 +1872,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance6"
 -- Beginner: this function is the command handler for "dance6".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@djs@solomun@"
@@ -1914,6 +1956,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance7"
 -- Beginner: this function is the command handler for "dance7".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -1996,6 +2040,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance8"
 -- Beginner: this function is the command handler for "dance8".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2078,6 +2124,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance9"
 -- Beginner: this function is the command handler for "dance9".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2160,6 +2208,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance10"
 -- Beginner: this function is the command handler for "dance10".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2242,6 +2292,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance11"
 -- Beginner: this function is the command handler for "dance11".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2324,6 +2376,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance12"
 -- Beginner: this function is the command handler for "dance12".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2406,6 +2460,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance13"
 -- Beginner: this function is the command handler for "dance13".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2488,6 +2544,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance14"
 -- Beginner: this function is the command handler for "dance14".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2570,6 +2628,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance15"
 -- Beginner: this function is the command handler for "dance15".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2652,6 +2712,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance16"
 -- Beginner: this function is the command handler for "dance16".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2734,6 +2796,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance17"
 -- Beginner: this function is the command handler for "dance17".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2816,6 +2880,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance18"
 -- Beginner: this function is the command handler for "dance18".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2898,6 +2964,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance19"
 -- Beginner: this function is the command handler for "dance19".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -2980,6 +3048,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance20"
 -- Beginner: this function is the command handler for "dance20".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3062,6 +3132,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance21"
 -- Beginner: this function is the command handler for "dance21".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3144,6 +3216,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance22"
 -- Beginner: this function is the command handler for "dance22".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3226,6 +3300,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance23"
 -- Beginner: this function is the command handler for "dance23".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3308,6 +3384,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance24"
 -- Beginner: this function is the command handler for "dance24".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3390,6 +3468,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance25"
 -- Beginner: this function is the command handler for "dance25".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3472,6 +3552,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance26"
 -- Beginner: this function is the command handler for "dance26".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3554,6 +3636,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance27"
 -- Beginner: this function is the command handler for "dance27".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3636,6 +3720,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance28"
 -- Beginner: this function is the command handler for "dance28".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3718,6 +3804,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance29"
 -- Beginner: this function is the command handler for "dance29".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3800,6 +3888,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance30"
 -- Beginner: this function is the command handler for "dance30".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3882,6 +3972,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance31"
 -- Beginner: this function is the command handler for "dance31".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -3964,6 +4056,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance32"
 -- Beginner: this function is the command handler for "dance32".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4046,6 +4140,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance33"
 -- Beginner: this function is the command handler for "dance33".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4128,6 +4224,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance34"
 -- Beginner: this function is the command handler for "dance34".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4210,6 +4308,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance35"
 -- Beginner: this function is the command handler for "dance35".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4292,6 +4392,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance36"
 -- Beginner: this function is the command handler for "dance36".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4374,6 +4476,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance37"
 -- Beginner: this function is the command handler for "dance37".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4456,6 +4560,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance38"
 -- Beginner: this function is the command handler for "dance38".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4538,6 +4644,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance39"
 -- Beginner: this function is the command handler for "dance39".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4620,6 +4728,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance40"
 -- Beginner: this function is the command handler for "dance40".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4702,6 +4812,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance41"
 -- Beginner: this function is the command handler for "dance41".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4784,6 +4896,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance42"
 -- Beginner: this function is the command handler for "dance42".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4866,6 +4980,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance43"
 -- Beginner: this function is the command handler for "dance43".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -4948,6 +5064,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance44"
 -- Beginner: this function is the command handler for "dance44".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5030,6 +5148,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance45"
 -- Beginner: this function is the command handler for "dance45".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5112,6 +5232,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance46"
 -- Beginner: this function is the command handler for "dance46".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5194,6 +5316,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance47"
 -- Beginner: this function is the command handler for "dance47".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5276,6 +5400,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance48"
 -- Beginner: this function is the command handler for "dance48".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5358,6 +5484,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance49"
 -- Beginner: this function is the command handler for "dance49".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5440,6 +5568,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance50"
 -- Beginner: this function is the command handler for "dance50".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5522,6 +5652,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance51"
 -- Beginner: this function is the command handler for "dance51".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5604,6 +5736,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance52"
 -- Beginner: this function is the command handler for "dance52".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5686,6 +5820,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance53"
 -- Beginner: this function is the command handler for "dance53".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5768,6 +5904,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance54"
 -- Beginner: this function is the command handler for "dance54".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5850,6 +5988,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance55"
 -- Beginner: this function is the command handler for "dance55".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -5932,6 +6072,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance56"
 -- Beginner: this function is the command handler for "dance56".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6014,6 +6156,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance57"
 -- Beginner: this function is the command handler for "dance57".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6096,6 +6240,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance58"
 -- Beginner: this function is the command handler for "dance58".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6178,6 +6324,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance59"
 -- Beginner: this function is the command handler for "dance59".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6260,6 +6408,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance60"
 -- Beginner: this function is the command handler for "dance60".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6342,6 +6492,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance61"
 -- Beginner: this function is the command handler for "dance61".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6424,6 +6576,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance62"
 -- Beginner: this function is the command handler for "dance62".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6506,6 +6660,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance63"
 -- Beginner: this function is the command handler for "dance63".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6588,6 +6744,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance64"
 -- Beginner: this function is the command handler for "dance64".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6670,6 +6828,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance65"
 -- Beginner: this function is the command handler for "dance65".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6752,6 +6912,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance66"
 -- Beginner: this function is the command handler for "dance66".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6834,6 +6996,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance67"
 -- Beginner: this function is the command handler for "dance67".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6916,6 +7080,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance68"
 -- Beginner: this function is the command handler for "dance68".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -6998,6 +7164,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance69"
 -- Beginner: this function is the command handler for "dance69".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -7080,6 +7248,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance70"
 -- Beginner: this function is the command handler for "dance70".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -7162,6 +7332,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance71"
 -- Beginner: this function is the command handler for "dance71".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -7244,6 +7416,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance72"
 -- Beginner: this function is the command handler for "dance72".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@"
@@ -7326,6 +7500,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance73"
 -- Beginner: this function is the command handler for "dance73".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
@@ -7408,6 +7584,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance74"
 -- Beginner: this function is the command handler for "dance74".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
@@ -7490,6 +7668,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance75"
 -- Beginner: this function is the command handler for "dance75".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
@@ -7572,6 +7752,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance74"
 -- Beginner: this function is the command handler for "dance74".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
@@ -7654,6 +7836,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance75"
 -- Beginner: this function is the command handler for "dance75".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
@@ -7736,6 +7920,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance76"
 -- Beginner: this function is the command handler for "dance76".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_facedj@hi_intensity"
@@ -7818,6 +8004,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance77"
 -- Beginner: this function is the command handler for "dance77".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
@@ -7900,6 +8088,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance78"
 -- Beginner: this function is the command handler for "dance78".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
@@ -7982,6 +8172,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance79"
 -- Beginner: this function is the command handler for "dance79".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
@@ -8064,6 +8256,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance80"
 -- Beginner: this function is the command handler for "dance80".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
@@ -8146,6 +8340,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance81"
 -- Beginner: this function is the command handler for "dance81".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
@@ -8228,6 +8424,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance82"
 -- Beginner: this function is the command handler for "dance82".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_low_intensity"
@@ -8310,6 +8508,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance83"
 -- Beginner: this function is the command handler for "dance83".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
@@ -8392,6 +8592,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance84"
 -- Beginner: this function is the command handler for "dance84".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
@@ -8474,6 +8676,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance85"
 -- Beginner: this function is the command handler for "dance85".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
@@ -8556,6 +8760,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance86"
 -- Beginner: this function is the command handler for "dance86".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
@@ -8638,6 +8844,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance87"
 -- Beginner: this function is the command handler for "dance87".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
@@ -8720,6 +8928,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance88"
 -- Beginner: this function is the command handler for "dance88".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_groups_transitions@from_med_intensity"
@@ -8802,6 +9012,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance89"
 -- Beginner: this function is the command handler for "dance89".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -8884,6 +9096,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance90"
 -- Beginner: this function is the command handler for "dance90".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -8966,6 +9180,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance91"
 -- Beginner: this function is the command handler for "dance91".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9048,6 +9264,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance92"
 -- Beginner: this function is the command handler for "dance92".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9130,6 +9348,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance93"
 -- Beginner: this function is the command handler for "dance93".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9212,6 +9432,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance94"
 -- Beginner: this function is the command handler for "dance94".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9294,6 +9516,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance95"
 -- Beginner: this function is the command handler for "dance95".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9376,6 +9600,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance96"
 -- Beginner: this function is the command handler for "dance96".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9458,6 +9684,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance97"
 -- Beginner: this function is the command handler for "dance97".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9540,6 +9768,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance98"
 -- Beginner: this function is the command handler for "dance98".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9622,6 +9852,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance99"
 -- Beginner: this function is the command handler for "dance99".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "anim@amb@nightclub@dancers@crowddance_single_props@"
@@ -9704,6 +9936,8 @@ workValue3(textValue3, textValue4, flag9)
 workValue3 = RegisterCommand
 textValue3 = "dance100"
 -- Beginner: this function is the command handler for "dance100".
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = ""
@@ -9785,6 +10019,8 @@ flag9 = false
 workValue3(textValue3, textValue4, flag9)
 workValue3 = false
 textValue3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2
   arg1 = workValue3
@@ -9794,6 +10030,8 @@ textValue3.isBeingNhsDragged = textValue4
 textValue3 = RegisterNetEvent
 textValue4 = "d8597e7d17"
 -- Beginner: this function handles network event "d8597e7d17".
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
 function flag9()
   local arg1, arg2, arg3, arg4
   arg1 = false
@@ -9817,6 +10055,8 @@ textValue3(textValue4, flag9)
 textValue3 = RegisterNetEvent
 textValue4 = "bad02f5164"
 -- Beginner: this function handles network event "bad02f5164".
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) ===
 function flag9(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
   local flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3, flag14, flag15, flag16, flag17, numberValue4, flag18
   flag2 = "combat@drag_ped@" == arg2
@@ -9931,6 +10171,8 @@ textValue3(textValue4, flag9)
 textValue3 = RegisterNetEvent
 textValue4 = "72c704cb58"
 -- Beginner: this function handles network event "72c704cb58".
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1, arg2, arg3, arg4) ===
 function flag9(arg1, arg2, arg3, arg4)
   local arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
   arg5 = CMG
@@ -9981,6 +10223,8 @@ textValue3(textValue4, flag9)
 textValue3 = RegisterCommand
 textValue4 = "rope"
 -- Beginner: this function is the command handler for "rope".
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
 function flag9()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5
   arg1 = "random@burial"
@@ -10372,6 +10616,8 @@ textValue3(textValue4, flag9, cmgCall2)
 textValue3 = RegisterNetEvent
 textValue4 = "a72f22e19a"
 -- Beginner: this function handles network event "a72f22e19a".
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
 function flag9()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13
   arg1 = "mp_safehousebeer@"
@@ -10579,6 +10825,8 @@ textValue3(textValue4, flag9)
 textValue3 = RegisterNetEvent
 textValue4 = "6c304cd42b"
 -- Beginner: this function handles network event "6c304cd42b".
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: arg1) ===
 function flag9(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13, numberValue3
   arg2 = "mp_safehousebeer@"
@@ -10787,6 +11035,8 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "6c304cd42b".
 textValue3(textValue4, flag9)
 textValue3 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: none) ===
 function textValue4()
   local arg1, arg2, arg3, arg4, arg5
   arg1 = IsEntityPlayingAnim
@@ -10803,6 +11053,8 @@ textValue3 = false
 textValue4 = RegisterNetEvent
 flag9 = "e4bcfd6526"
 -- Beginner: this function handles network event "e4bcfd6526".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7, numberValue2, flag8, flag10, flag11, flag12, flag13
   arg2 = GetPlayerFromServerId
@@ -10995,6 +11247,8 @@ textValue4(flag9, cmgCall2)
 textValue4 = RegisterNetEvent
 flag9 = "05f833428d"
 -- Beginner: this function handles network event "05f833428d".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, flag2, numberValue, flag5, flag6, flag7
   arg2 = GetPlayerFromServerId
@@ -11096,6 +11350,8 @@ textValue4(flag9, cmgCall2)
 textValue4 = RegisterNetEvent
 flag9 = "c38ea56445"
 -- Beginner: this function handles network event "c38ea56445".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7
   arg2 = GetPlayerFromServerId
@@ -11136,6 +11392,8 @@ textValue4(flag9, cmgCall2)
 textValue4 = RegisterNetEvent
 flag9 = "aecf5d3044"
 -- Beginner: this function handles network event "aecf5d3044".
+
+-- === HELPER FUNCTION (decompiler name: cmgCall2; parameters: arg1) ===
 function cmgCall2(arg1)
   local arg2, arg3
   arg2 = true
@@ -11149,6 +11407,8 @@ function cmgCall2(arg1)
 end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "aecf5d3044".
 textValue4(flag9, cmgCall2)
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
 function textValue4(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7
   arg2 = textValue3
@@ -11180,6 +11440,8 @@ cmgCall2 = textValue4
 textValue5 = "Shaver"
 -- Beginner: Run a helper every game frame while this script is active.
 flag9(cmgCall2, textValue5)
+
+-- === HELPER FUNCTION (decompiler name: flag9; parameters: none) ===
 function flag9()
   local arg1, arg2, arg3, arg4, arg5, arg6
   arg1 = GetSoundId
@@ -11198,6 +11460,8 @@ end
 cmgCall2 = RegisterNetEvent
 textValue5 = "b44d4efa87"
 -- Beginner: this function handles network event "b44d4efa87".
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: none) ===
 function workValue6()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12
   arg1 = CMG
@@ -11236,6 +11500,8 @@ function workValue6()
   arg2 = ""
   arg3 = 5000
   arg4 = nil
+
+  -- === HELPER FUNCTION: arg5() ===
   function arg5()
     local workValue2, workValue5
   end
@@ -11248,6 +11514,8 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "b44d4efa87".
 cmgCall2(textValue5, workValue6)
 cmgCall2 = tCMG
+
+-- === HELPER FUNCTION (decompiler name: textValue5; parameters: none) ===
 function textValue5()
   local arg1, arg2
   arg1 = GetEntitySpeed

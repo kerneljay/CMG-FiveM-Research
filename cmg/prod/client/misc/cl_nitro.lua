@@ -1,47 +1,56 @@
 --[[
-    Beginner Guide: cl_nitro.lua
-    ============================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Nitro
-    ======================
+    LEVEL 1 BEGINNER GUIDE — Nitro
+    ===================================
 
     File: cmg/prod/client/misc/cl_nitro.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Nitro feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 16
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 2
-      They are intentionally left unchanged because matching server code may use them.
-      * 0a6cf607ed
-      * 7ba632fd51
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
-    Example player-facing text in this file:
-      * Vehicle Nitro
-      * Vehicle Nitro Text
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
 
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, dataTable3, flag8, workValue13, flag10, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue, numberValue2, numberValue4, workValue2, cmgCall, textValue, textValue2, textValue3, dataTable2, textValue4, textValue5, numberValue6, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, cmgCall3, workValue9, workValue10, workValue11, cmgCall4, workValue12, textValue6
 dataTable = {}
@@ -57,6 +66,8 @@ numberValue11 = 4
 numberValue = 0.5
 numberValue2 = 0.9
 numberValue4 = 0.92
+
+-- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
 function workValue2()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = CMG
@@ -102,6 +113,8 @@ function workValue2()
             flag8 = arg6
             arg6 = Citizen
             arg6 = arg6.CreateThread
+
+            -- === HELPER FUNCTION: arg7() ===
             function arg7()
               local vehicle, cmgCall2, flag9, workValue14, workValue15
               while true do
@@ -166,6 +179,8 @@ dataTable2[1] = textValue4
 textValue4 = "ent_sht_steam"
 textValue5 = "core"
 numberValue6 = 0.4
+
+-- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
 function workValue3(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3
   arg3 = GetEntityBoneIndexByName
@@ -205,6 +220,8 @@ function workValue3(arg1, arg2)
   arg5(arg6)
   return arg4
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
 function workValue4(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   local cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6
   cmgCall5 = CMG
@@ -233,6 +250,8 @@ function workValue4(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   flag11(textValue7)
   return cmgCall5
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
 function workValue5(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4
   arg2 = dataTable3
@@ -307,10 +326,14 @@ function workValue5(arg1)
   arg6 = dataTable3
   arg6[arg1] = arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
 function workValue6(arg1)
   local arg2, arg3
   arg2 = Citizen
   arg2 = arg2.CreateThread
+
+  -- === HELPER FUNCTION: arg3() ===
   function arg3()
     local vehicle, cmgCall2, flag9, workValue14, workValue15, workValue16
     vehicle = GetGameTimer
@@ -350,6 +373,8 @@ function workValue6(arg1)
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg2(arg3)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
 function workValue7(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper
   arg2 = dataTable3
@@ -373,6 +398,8 @@ function workValue7(arg1)
     flag11(textValue7, tableHelper)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
 function workValue8(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5
   arg2 = IsVehicleStopped
@@ -399,6 +426,8 @@ function workValue8(arg1)
   end
 end
 cmgCall3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
 function workValue9(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6, flag7
   arg2 = pairs
@@ -433,6 +462,8 @@ function workValue9(arg1)
   end
 end
 cmgCall3.playVehicleFlameExhaustEffect = workValue9
+
+-- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
 function cmgCall3(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6, flag7
   arg2 = pairs
@@ -466,6 +497,8 @@ function cmgCall3(arg1)
     flag11(textValue7, tableHelper)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
 function workValue9(arg1)
   local arg2, arg3, arg4
   arg2 = SetVehicleBoostActive
@@ -473,6 +506,8 @@ function workValue9(arg1)
   arg4 = true
   arg2(arg3, arg4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
 function workValue10(arg1)
   local arg2, arg3, arg4
   arg2 = SetVehicleBoostActive
@@ -480,6 +515,8 @@ function workValue10(arg1)
   arg4 = false
   arg2(arg3, arg4)
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
 function workValue11()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue
   arg1 = flag8
@@ -576,6 +613,8 @@ function workValue11()
             arg3(arg4)
             arg3 = SetTimeout
             arg4 = 100
+
+            -- === HELPER FUNCTION: arg5() ===
             function arg5()
               local vehicle, cmgCall2
               vehicle = false
@@ -624,6 +663,8 @@ textValue6 = "Vehicle Nitro Text"
 -- Beginner: Run a helper every game frame while this script is active.
 cmgCall4(workValue12, textValue6)
 cmgCall4 = CMG
+
+-- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
 function workValue12(arg1, arg2)
   local arg3
   arg3 = dataTable

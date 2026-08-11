@@ -1,43 +1,56 @@
 --[[
-    Beginner Guide: cl_leaderboard.lua
-    ==================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Leaderboard
-    ============================
+    LEVEL 1 BEGINNER GUIDE — Leaderboard
+    =========================================
 
     File: cmg/prod/client/events/cl_leaderboard.lua
-    Purpose: This file contains event/minigame logic.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: server event/minigame gameplay, specifically the Leaderboard feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 20
+      * Background threads: 0
+      * Always-running loops: 2
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Network/hash identifiers found: 2
-      They are intentionally left unchanged because matching server code may use them.
-      * a8ac0d4162
-      * 35a2f746a5
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local dataTable, cmgCall, dataTable5, dataTable6, textValue12, textValue13, flag, flag2, flag3, numberValue7, textValue, textValue4, textValue5, textValue6, textValue7, textValue8, textValue9, textValue10, textValue11
 dataTable = {}
@@ -220,6 +233,8 @@ dataTable.rows = cmgCall
 cmgCall = CMG
 cmgCall = cmgCall.registerCommand
 dataTable5 = "leaderboardtest"
+
+-- === HELPER FUNCTION (decompiler name: dataTable6; parameters: none) ===
 function dataTable6()
   local arg1, arg2, arg3
   arg1 = CMG
@@ -250,6 +265,8 @@ textValue12 = {}
 dataTable6.rows = textValue12
 textValue12 = false
 textValue13 = -1
+
+-- === HELPER FUNCTION (decompiler name: flag; parameters: arg1) ===
 function flag(arg1)
   local arg2, arg3, stringHelper, dataTable7, dataTable8, stringHelper2, workValue19
   arg2 = math
@@ -272,6 +289,8 @@ function flag(arg1)
   workValue19 = arg1
   return stringHelper(dataTable7, dataTable8, stringHelper2, workValue19)
 end
+
+-- === HELPER FUNCTION (decompiler name: flag2; parameters: arg1) ===
 function flag2(arg1)
   local arg2, arg3, stringHelper
   arg2 = "th"
@@ -292,6 +311,8 @@ function flag2(arg1)
   return arg3
 end
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1) ===
 function numberValue7(arg1)
   local arg2
   arg2 = dataTable5
@@ -299,6 +320,8 @@ function numberValue7(arg1)
 end
 flag3.closeLeaderboard = numberValue7
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1) ===
 function numberValue7(arg1)
   local arg2, arg3, stringHelper, dataTable7, dataTable8, stringHelper2, workValue19, textValue15, workValue21, textValue2, workValue, dataTable3, dataTable4, numberValue2, numberValue4, workValue4, workValue6, workValue8, workValue10, workValue12, workValue14, workValue15
   arg2 = Scaleform
@@ -421,6 +444,8 @@ function numberValue7(arg1)
   cmgCall = stringHelper
   stringHelper = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION (decompiler name: dataTable7; parameters: none) ===
   function dataTable7()
     local arg12, arg22, numberValue5, numberValue6, workValue16, workValue17, workValue18, textValue14, workValue20, workValue22, textValue3, dataTable2, workValue2, numberValue, numberValue3, workValue3, workValue5, workValue7, workValue9, workValue11, workValue13
     arg22 = cmgCall
@@ -537,6 +562,8 @@ flag3.createLeaderboard = numberValue7
 flag3 = RegisterNetEvent
 numberValue7 = "a8ac0d4162"
 -- Beginner: this function handles network event "a8ac0d4162".
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1) ===
 function textValue(arg1)
   local arg2
   dataTable6 = arg1
@@ -545,6 +572,8 @@ end
 flag3(numberValue7, textValue)
 flag3 = CMG
 -- Beginner: this function handles network event "a8ac0d4162".
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1, arg2, arg3) ===
 function numberValue7(arg1, arg2, arg3)
   local stringHelper, dataTable7, dataTable8, stringHelper2, workValue19, textValue15, workValue21, textValue2, workValue
   stringHelper = nil
@@ -638,6 +667,8 @@ function numberValue7(arg1, arg2, arg3)
       dataTable7 = table
       dataTable7 = dataTable7.sort
       dataTable8 = dataTable6.rows
+
+      -- === HELPER FUNCTION: stringHelper2(arg12, arg22) ===
       function stringHelper2(arg12, arg22)
         local numberValue5, numberValue6
         numberValue5 = dataTable6.sortColumn
@@ -658,6 +689,8 @@ function numberValue7(arg1, arg2, arg3)
       dataTable7 = table
       dataTable7 = dataTable7.sort
       dataTable8 = dataTable6.rows
+
+      -- === HELPER FUNCTION: stringHelper2(arg12, arg22) ===
       function stringHelper2(arg12, arg22)
         local numberValue5, numberValue6
         numberValue5 = dataTable6.sortColumn
@@ -688,6 +721,8 @@ flag3.updateScoreboard = numberValue7
 flag3 = RegisterNetEvent
 numberValue7 = "35a2f746a5"
 -- Beginner: this function handles network event "35a2f746a5".
+
+-- === HELPER FUNCTION (decompiler name: textValue; parameters: arg1, arg2, arg3) ===
 function textValue(arg1, arg2, arg3)
   local stringHelper, dataTable7, dataTable8, stringHelper2
   stringHelper = CMG
@@ -700,12 +735,16 @@ end
 -- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "35a2f746a5".
 flag3(numberValue7, textValue)
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1) ===
 function numberValue7(arg1)
   local arg2
   textValue12 = arg1
 end
 flag3.setPlayerCanOpenLeaderboard = numberValue7
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2
   arg1 = textValue12
@@ -713,6 +752,8 @@ function numberValue7()
 end
 flag3.canPlayerOpenLeaderboard = numberValue7
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2
   arg1 = {}
@@ -726,6 +767,8 @@ function numberValue7()
 end
 flag3.clearLeaderboardData = numberValue7
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2
   arg1 = table
@@ -738,6 +781,8 @@ function numberValue7()
 end
 flag3.isLeaderboardSetup = numberValue7
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1) ===
 function numberValue7(arg1)
   local arg2, arg3, stringHelper, dataTable7, dataTable8, stringHelper2, workValue19, textValue15
   arg2 = pairs
@@ -758,6 +803,8 @@ function numberValue7(arg1)
 end
 flag3.addPlayerToLeaderboard = numberValue7
 flag3 = CMG
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: arg1) ===
 function numberValue7(arg1)
   local arg2, arg3, stringHelper, dataTable7, dataTable8, stringHelper2, workValue19, textValue15, workValue21
   arg2 = pairs
@@ -777,6 +824,8 @@ function numberValue7(arg1)
 end
 flag3.removePlayerFromLeaderboard = numberValue7
 flag3 = false
+
+-- === HELPER FUNCTION (decompiler name: numberValue7; parameters: none) ===
 function numberValue7()
   local arg1, arg2, arg3
   arg1 = textValue12
@@ -792,6 +841,8 @@ function numberValue7()
         flag3 = arg1
         arg1 = Citizen
         arg1 = arg1.CreateThreadNow
+
+        -- === HELPER FUNCTION: arg2() ===
         function arg2()
           local arg12, arg22, numberValue5
           arg12 = CMG
@@ -833,6 +884,8 @@ textValue5 = "Event Leaderboard"
 -- Beginner: Run a helper every game frame while this script is active.
 textValue(textValue4, textValue5)
 textValue = CMG
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1) ===
 function textValue4(arg1)
   local arg2
   textValue13 = arg1

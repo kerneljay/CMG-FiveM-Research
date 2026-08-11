@@ -1,41 +1,56 @@
 --[[
-    Beginner Guide: cl_voltlabHacking.lua
-    =====================================
-
-    This file came from decompiled Lua. It has been cleaned so the
-    temporary SHX names are replaced with role-based names. Where the
-    exact server-side meaning cannot be proven from this client file,
-    neutral names such as stateValue/workValue are used instead of
-    inventing a misleading meaning.
-
-    Compatibility:
-      * Event/hash strings and public framework calls are unchanged.
-      * This pass intentionally avoids guessing unknown server meanings.
-]]
---[[
-    BEGINNER GUIDE — Voltlab Hacking
-    ================================
+    LEVEL 1 BEGINNER GUIDE — Voltlab Hacking
+    =============================================
 
     File: cmg/prod/client/misc/cl_voltlabHacking.lua
-    Purpose: This file contains general gameplay utility.
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: miscellaneous gameplay feature, specifically the Voltlab Hacking feature.
 
-    How to read FiveM Lua:
-      * RegisterNetEvent/AddEventHandler = code that runs when an event happens.
-      * TriggerServerEvent = this client asks/tells the server to do something.
-      * PlayerPedId() = your local GTA character (called a 'ped').
-      * vector3/vector4 = world coordinates; vector4 also normally includes heading.
-      * RageUI/NUI = menu or browser-based UI code.
-      * CreateThread/Wait = code that can keep running without freezing the game.
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
 
-    Decompiled-code note:
-      This file came from decompiled Lua. The repeated AI-cleanup boilerplate
-      has been removed. Any remaining SHX-style values are compiler/decompiler
-      temporaries whose meaning changes repeatedly; follow the surrounding API
-      call and the comments rather than treating one SHX variable as one concept.
+    Quick map of this file (automatic static scan):
+      * Named functions: 20
+      * Background threads: 0
+      * Always-running loops: 10
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
 
-    Example player-facing text in this file:
-      * ScaleformMovieMethodAddParamPlayerNameString
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
 
+    IMPORTANT — this file still contains decompiler temporary names.
+      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
+      A decompiler invented them while rebuilding source code.
+
+      For a beginner, read the API call on the right-hand side first.
+      Example:
+        workValue = GetEntityCoords
+        dataTable2 = workValue(playerPed)
+      means roughly:
+        local playerCoords = GetEntityCoords(playerPed)
+
+      I have deliberately NOT mass-renamed these reused temporary variables:
+      doing that without full control-flow reconstruction can silently change
+      behaviour. Comments/section labels below explain the code safely.
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
 ]]
 local workValue, workValue16, flag, flag2, workValue27, numberValue23, numberValue26, dataTable10, numberValue29, dataTable11, numberValue, dataTable, dataTable2, dataTable3, textValue, workValue7, dataTable4, dataTable5, dataTable6, dataTable7, numberValue9, numberValue10, numberValue11, dataTable9, textValue2, textValue3, textValue4, numberValue12, numberValue13, numberValue14, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, textValue6, workValue23, workValue24, eventHandlerRegistration, textValue7, workValue26
 workValue = DrawSprite
@@ -984,6 +999,8 @@ textValue4[4] = numberValue16
 textValue3.line1 = textValue4
 textValue2["3"] = textValue3
 dataTable9["3"] = textValue2
+
+-- === HELPER FUNCTION (decompiler name: textValue2; parameters: arg1) ===
 function textValue2(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   arg2 = {}
@@ -1009,6 +1026,8 @@ function textValue2(arg1)
   end
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
 function textValue3(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   arg2 = 0
@@ -1020,6 +1039,8 @@ function textValue3(arg1)
   end
   return arg2
 end
+
+-- === HELPER FUNCTION (decompiler name: textValue4; parameters: arg1, arg2) ===
 function textValue4(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7
   arg3 = PlaySoundFrontend
@@ -1029,6 +1050,8 @@ function textValue4(arg1, arg2)
   arg7 = true
   arg3(arg4, arg5, arg6, arg7)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue12; parameters: none) ===
 function numberValue12()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
   arg1 = 0
@@ -1059,6 +1082,8 @@ function numberValue12()
     numberValue29 = arg5
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue13; parameters: arg1) ===
 function numberValue13(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11
   if not arg1 then
@@ -1100,6 +1125,8 @@ function numberValue13(arg1)
     arg7[arg6] = arg8
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue14; parameters: none) ===
 function numberValue14()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
   arg1 = tostring
@@ -1138,6 +1165,8 @@ function numberValue14()
     arg6[arg5] = arg7
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue16; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) ===
 function numberValue16(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   local arg9, arg10, arg11, workValue2, workValue3, workValue5, workValue6, workValue8, workValue9
   arg9 = workValue16
@@ -1151,6 +1180,8 @@ function numberValue16(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
   workValue9 = arg8
   arg9(arg10, arg11, workValue2, workValue3, workValue5, workValue6, workValue8, workValue9)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue17; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) ===
 function numberValue17(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
   local workValue2, workValue3, workValue5, workValue6, workValue8, workValue9, workValue10, workValue12, workValue14, workValue17, workValue19, workValue21
   workValue2 = workValue
@@ -1167,6 +1198,8 @@ function numberValue17(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg
   workValue21 = arg11
   workValue2(workValue3, workValue5, workValue6, workValue8, workValue9, workValue10, workValue12, workValue14, workValue17, workValue19, workValue21)
 end
+
+-- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
 function numberValue18(arg1)
   local arg2, arg3
   arg2 = BeginTextCommandScaleformString
@@ -1179,6 +1212,8 @@ function numberValue18(arg1)
   arg2()
 end
 ButtonMessage = numberValue18
+
+-- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
 function numberValue18(arg1)
   local arg2, arg3
   arg2 = _ENV
@@ -1188,6 +1223,8 @@ function numberValue18(arg1)
   arg2(arg3)
 end
 Button = numberValue18
+
+-- === HELPER FUNCTION (decompiler name: numberValue18; parameters: arg1) ===
 function numberValue18(arg1)
   local arg2, arg3, arg4, arg5, arg6, arg7
   arg2 = RequestScaleformMovie
@@ -1332,6 +1369,8 @@ numberValue19[1] = numberValue20
 numberValue19[2] = textValue6
 numberValue20 = "DLC_HEI4\\DLC_HEI4_V_MG"
 textValue6 = "DLC_HEI4\\DLC_HEI4_FH_MG"
+
+-- === HELPER FUNCTION (decompiler name: workValue23; parameters: none) ===
 function workValue23()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = 1
@@ -1418,6 +1457,8 @@ function workValue23()
     arg3(arg4)
   end
 end
+
+-- === HELPER FUNCTION (decompiler name: workValue24; parameters: none) ===
 function workValue24()
   local arg1, arg2, arg3, arg4, arg5, arg6
   arg1 = ReleaseNamedScriptAudioBank
@@ -1440,6 +1481,8 @@ end
 eventHandlerRegistration = AddEventHandler
 textValue7 = "ultra-voltlab"
 -- Beginner: this function runs when client event "ultra-voltlab" fires.
+
+-- === HELPER FUNCTION (decompiler name: workValue26; parameters: arg1, arg2) ===
 function workValue26(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10
   arg3 = workValue23
@@ -1456,6 +1499,8 @@ function workValue26(arg1, arg2)
   numberValue26 = arg3
   arg3 = 6
   textValue = arg3
+
+  -- === HELPER FUNCTION: arg3(...) ===
   function arg3(...)
     local waitCall, dataTable8
     waitCall = workValue24
@@ -1536,6 +1581,8 @@ function workValue26(arg1, arg2)
   arg6(arg7)
   arg6 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg7() ===
   function arg7()
     local waitCall, dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31, numberValue2, numberValue3, workValue4, numberValue4, numberValue5, numberValue6, numberValue7, workValue11, workValue13, workValue15, workValue18, workValue20, workValue22
     waitCall = Wait
@@ -2087,6 +2134,8 @@ function workValue26(arg1, arg2)
   arg6(arg7)
   arg6 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg7() ===
   function arg7()
     local waitCall, dataTable8, textValue5, numberValue21, numberValue22, numberValue24, numberValue27, numberValue28, numberValue30, numberValue31
     waitCall = 0
@@ -2346,6 +2395,8 @@ function workValue26(arg1, arg2)
                     numberValue24(numberValue27, numberValue28)
                     numberValue24 = CreateThread
                     -- Beginner: this function is the body of a background FiveM thread.
+
+                    -- === HELPER FUNCTION (decompiler name: numberValue27; parameters: none) ===
                     function numberValue27()
                       local waitCall2, numberValue8, numberValue15, workValue25, workValue28, numberValue25
                       while true do
@@ -2431,6 +2482,8 @@ function workValue26(arg1, arg2)
                         numberValue24 = 1
                         numberValue27 = CreateThread
                         -- Beginner: this function is the body of a background FiveM thread.
+
+                        -- === HELPER FUNCTION (decompiler name: numberValue28; parameters: none) ===
                         function numberValue28()
                           local waitCall2, numberValue8
                           while true do
@@ -2523,6 +2576,8 @@ function workValue26(arg1, arg2)
   arg6(arg7)
   arg6 = CreateThread
   -- Beginner: this function is the body of a background FiveM thread.
+
+  -- === HELPER FUNCTION: arg7() ===
   function arg7()
     local waitCall, dataTable8, textValue5, numberValue21
     waitCall = Wait

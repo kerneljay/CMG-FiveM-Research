@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Greenzones
+    ========================================
+
+    File: cmg/prod/client/core/cl_greenzones.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: core player/framework behaviour, specifically the Greenzones feature.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 26
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: ba2b490138
+      * Local event handlers: CMG:onClientSpawn
+      * Server events sent: 4e7e11df5d, eb54cb2feb
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: cfg/cfg_vehicles, cfg/cfg_garages, data/vehicles.json
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Greenzone / Safe-Zone Client
     ============================
 
@@ -316,6 +354,7 @@ local permanentBlips = {}
 -- BASIC QUERY HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: arenaBlocksGreenzone() ===
 local function arenaBlocksGreenzone()
     return
         CMG.inArena()
@@ -325,6 +364,7 @@ local function arenaBlocksGreenzone()
 end
 
 
+-- === HELPER FUNCTION: horizontalDistance(a, b) ===
 local function horizontalDistance(a, b)
     return #(
         vector2(a.x, a.y) -
@@ -333,6 +373,7 @@ local function horizontalDistance(a, b)
 end
 
 
+-- === HELPER FUNCTION: zoneIsCurrentlyEnabled(zone) ===
 local function zoneIsCurrentlyEnabled(zone)
     if zone.purgeOnly then
         return CMG.isPurge()
@@ -348,6 +389,7 @@ local function zoneIsCurrentlyEnabled(zone)
 end
 
 
+-- === HELPER FUNCTION: isInsideZone(position, zone) ===
 local function isInsideZone(position, zone)
     if not zoneIsCurrentlyEnabled(zone) then
         return false
@@ -371,6 +413,7 @@ local function isInsideZone(position, zone)
 end
 
 
+-- === HELPER FUNCTION: CMG.isPositionInGreenzone(position) ===
 function CMG.isPositionInGreenzone(position)
     for _, zone in ipairs(simpleGreenzones) do
         if zoneIsCurrentlyEnabled(zone)
@@ -395,11 +438,13 @@ function CMG.isPositionInGreenzone(position)
 end
 
 
+-- === HELPER FUNCTION: CMG.areGreenzonesDisabled() ===
 function CMG.areGreenzonesDisabled()
     return greenzonesDisabled
 end
 
 
+-- === HELPER FUNCTION: CMG.setGreenzonesDisabled(disabled) ===
 function CMG.setGreenzonesDisabled(disabled)
     greenzonesDisabled =
         disabled == true
@@ -414,6 +459,7 @@ end
 -- MAP BLIPS
 -- ============================================================
 
+-- === HELPER FUNCTION: removePermanentGreenzoneBlips() ===
 local function removePermanentGreenzoneBlips()
     for _, blip in ipairs(permanentBlips) do
         if DoesBlipExist(blip) then
@@ -425,6 +471,7 @@ local function removePermanentGreenzoneBlips()
 end
 
 
+-- === HELPER FUNCTION: CMG.initGreenzones() ===
 function CMG.initGreenzones()
     removePermanentGreenzoneBlips()
 
@@ -459,6 +506,7 @@ function CMG.initGreenzones()
 end
 
 
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 Citizen.CreateThread(function()
     CMG.initGreenzones()
 end)
@@ -507,6 +555,7 @@ AddEventHandler(
 -- ENTER / LEAVE NOTIFICATIONS
 -- ============================================================
 
+-- === HELPER FUNCTION: notifyEnteredGreenzone() ===
 local function notifyEnteredGreenzone()
     TriggerEvent(
         "371eab1d3a",
@@ -529,6 +578,7 @@ local function notifyEnteredGreenzone()
 end
 
 
+-- === HELPER FUNCTION: notifyLeftGreenzone() ===
 local function notifyLeftGreenzone()
     TriggerEvent(
         "371eab1d3a",
@@ -555,6 +605,7 @@ end
 -- FIND CURRENT ZONE
 -- ============================================================
 
+-- === HELPER FUNCTION: findCurrentGreenzone(position) ===
 local function findCurrentGreenzone(position)
     for _, zone in ipairs(permanentGreenzones) do
         if isInsideZone(position, zone) then
@@ -598,6 +649,7 @@ local blockedControls = {
 }
 
 
+-- === HELPER FUNCTION: applyGreenzoneProtection() ===
 local function applyGreenzoneProtection()
     local ped = PlayerPedId()
 
@@ -640,6 +692,7 @@ local function applyGreenzoneProtection()
 end
 
 
+-- === HELPER FUNCTION: clearGreenzoneProtection() ===
 local function clearGreenzoneProtection()
     local ped = PlayerPedId()
 
@@ -676,6 +729,7 @@ local lastSpeedCappedVehicle = 0
 local showSpeedCapNotification = true
 
 
+-- === HELPER FUNCTION: notifySpeedCap(vehicle, targetSpeed) ===
 local function notifySpeedCap(vehicle, targetSpeed)
     if GetPedInVehicleSeat(
         vehicle,
@@ -713,6 +767,7 @@ local function notifySpeedCap(vehicle, targetSpeed)
 end
 
 
+-- === HELPER FUNCTION: getJobVehicleSpeedCap(vehicle) ===
 local function getJobVehicleSpeedCap(vehicle)
     if not vehicle or vehicle == 0 then
         return nil
@@ -778,6 +833,7 @@ local function getJobVehicleSpeedCap(vehicle)
 end
 
 
+-- === HELPER FUNCTION: applyJobSpeedCap() ===
 local function applyJobSpeedCap()
     local ped = PlayerPedId()
     local vehicle =
@@ -829,6 +885,7 @@ local wasInGreenzone = false
 local wasInNonRpZone = false
 
 
+-- === HELPER FUNCTION: greenzoneTick() ===
 local function greenzoneTick()
     applyJobSpeedCap()
 
@@ -979,6 +1036,7 @@ function CMG.createGreenzone(
 end
 
 
+-- === HELPER FUNCTION: CMG.deleteGreenzone(name) ===
 function CMG.deleteGreenzone(name)
     local zone =
         dynamicGreenzones[name]
@@ -1190,6 +1248,7 @@ RegisterNetEvent(
 -- SIMPLE CITY / GREENZONE HELPERS
 -- ============================================================
 
+-- === HELPER FUNCTION: CMG.isInCityZone() ===
 function CMG.isInCityZone()
     -- This is exactly how the original helper decided it:
     -- anything south of Y=600 counts as the city.
@@ -1199,6 +1258,7 @@ function CMG.isInCityZone()
 end
 
 
+-- === HELPER FUNCTION: CMG.isInGreenzone() ===
 function CMG.isInGreenzone()
     if arenaBlocksGreenzone() then
         return false

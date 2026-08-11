@@ -1,4 +1,42 @@
 --[[
+    LEVEL 1 BEGINNER GUIDE — Text
+    ==================================
+
+    File: cmg/prod/client/util/client/cl_text.lua
+    Runs as: Client — runs on each player's FiveM client.
+    Purpose: shared utility/framework helper code.
+
+    FiveM words used in this project:
+      * ped = a GTA character/entity (your player character is a ped).
+      * entity = a ped, vehicle, or object that exists in the GTA world.
+      * native = a GTA/FiveM function such as GetEntityCoords().
+      * event = a named message that causes code to run.
+      * client event = stays on this player; server event = crosses to the server.
+      * NUI = the HTML/CSS/JavaScript interface shown over the game.
+      * thread = code that can keep running over time; Wait() prevents it freezing the game.
+
+    Quick map of this file (automatic static scan):
+      * Named functions: 10
+      * Background threads: 1
+      * Always-running loops: 0
+      * Commands: none found by static scan
+      * Incoming network events: none found by static scan
+      * Local event handlers: none found by static scan
+      * Server events sent: none found by static scan
+      * NUI callbacks: none found by static scan
+      * Modules/config loaded: none found by static scan
+
+    Read it in this order:
+      1. Top-level config/state variables.
+      2. Helper functions (small reusable pieces of logic).
+      3. Commands/events/UI callbacks (what starts the logic).
+      4. Threads/loops last (what keeps checking in the background).
+
+    Safety note for editing:
+      Keep event names, decorator keys, exported names, and config keys unchanged
+      unless you also update every place that uses them.
+]]
+--[[
     Shared Text Drawing Helpers
     ===========================
 
@@ -182,6 +220,7 @@ end
 -- SUBTITLE / NATIVE HELP
 -- ============================================================
 
+-- === HELPER FUNCTION: subtitleText(text) ===
 function subtitleText(text)
     SetTextEntry_2("STRING")
     AddTextComponentString(
@@ -194,6 +233,7 @@ function subtitleText(text)
 end
 
 
+-- === HELPER FUNCTION: drawNativeText(text) ===
 function drawNativeText(text)
     SetTextFont(0)
     SetTextProportional(1)
@@ -338,6 +378,7 @@ function CMG.drawDebugText(
 end
 
 
+-- === HELPER FUNCTION: drawDebugLines() ===
 local function drawDebugLines()
     if #debugLines == 0 then
         return
@@ -369,6 +410,8 @@ end
 
 
 -- Wait because this utility can be loaded before cl_thread.lua.
+
+-- === BACKGROUND THREAD: this code runs independently; check its Wait() calls carefully ===
 CreateThread(function()
     while not CMG.createThreadOnTick do
         Wait(0)
@@ -385,6 +428,7 @@ end)
 -- TEXT WIDTH
 -- ============================================================
 
+-- === HELPER FUNCTION: TextWidth(text) ===
 function TextWidth(text)
     BeginTextCommandWidth(
         "STRING"
