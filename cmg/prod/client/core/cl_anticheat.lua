@@ -57,8 +57,8 @@
 -- Decor key stamped onto every vehicle spawned by the script. The value is
 -- derived from the entity handle so it cannot simply be copied between
 -- entities: DecorGetInt(veh, AC_DECOR) must equal veh % AC_DECOR_MODULO.
-local AC_DECOR = "4538025922"
-local AC_DECOR_MODULO = 1926
+local AC_DECOR = "4538025922" -- This value gets regenerated
+local AC_DECOR_MODULO = 1926 -- This value gets regenerated
 
 DecorRegister(AC_DECOR, 3)
 
