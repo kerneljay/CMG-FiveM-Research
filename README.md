@@ -45,3 +45,5 @@ This repository documents our ongoing reverse engineering and analysis of the CM
 | Client De-scrambling | ✅ Complete    |
 | Code Cleanup         | 🚧 In Progress |
 | Documentation        | 🚧 Ongoing     |
+
+anyone need assets dm on discord @mosinkernel
