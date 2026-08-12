@@ -20,13 +20,17 @@ This repository documents our ongoing reverse engineering and analysis of the CM
 - Document CMG's custom encryption and obfuscation techniques.
 - Develop tooling for decrypting and de-scrambling framework files.
 - Publish research findings and technical documentation.
-- Keep restored client resources organized and readable as analysis continues.
+- Continue simplifying restored client resources until the messy files are readable at a beginner level.
 
 ## Todo
 
-- Finish documenting the cleaned client code and notable implementation details.
-- Capture any remaining encryption, obfuscation, or anti-cheat findings in dedicated research notes.
-- Keep exploit and tooling notes current as new behavior is confirmed.
+- [x] Clean `cl_realisticvehiclefailure.lua` to a level 1 beginner reading level.
+- [x] Identify the next messy decompiled vehicle files that still need level 1 cleanup.
+- [ ] Clean vehicle cleanup candidates: `cl_licenseplate.lua`, `cl_lscustoms.lua`, `cl_els.lua`, `cl_simeons.lua`, `cl_garages.lua`, `cl_fuel.lua`, `cl_stancer.lua`, `cl_stuntsmoke.lua`, `cl_vehicle_crush_trade.lua`.
+- [ ] Clean remaining decompiled client files to a level 1 beginner reading level.
+- [ ] Finish documenting cleaned client code and notable implementation details.
+- [ ] Capture any remaining encryption, obfuscation, or anti-cheat findings in dedicated research notes.
+- [ ] Keep exploit and tooling notes current as new behavior is confirmed.
 
 ## Project Status
 
@@ -36,5 +40,5 @@ This repository documents our ongoing reverse engineering and analysis of the CM
 | Config De-scrambling | ✅ Complete    |
 | Client Decryption    | ✅ Complete    |
 | Client De-scrambling | ✅ Complete    |
-| Code Cleanup         | ✅ Complete    |
+| Code Cleanup         | 🚧 In Progress |
 | Documentation        | 🚧 Ongoing     |
