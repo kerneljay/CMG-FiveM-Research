@@ -69,7 +69,7 @@
 
     There are NO server events in this file.
 
-    The original decompile used names such as workValue, workValue3 and workValue2.
+    The original decompile used names such as temporaryValue, temporaryValue3 and temporaryValue2.
     Those were temporary decompiler register names, not meaningful names from
     the original developer.
 ]]

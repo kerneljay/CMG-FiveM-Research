@@ -124,7 +124,7 @@ local EVENTS = {
 -- 3. JOB STATE
 ---------------------------------------------------------------------
 --
--- Instead of workValue.tempVehicle / workValue.cashEarned etc,
+-- Instead of temporaryValue.tempVehicle / temporaryValue.cashEarned etc,
 -- keep everything in one clearly named table.
 ---------------------------------------------------------------------
 

@@ -1,683 +1,233 @@
 --[[
-    LEVEL 1 BEGINNER GUIDE — Dirtycash
-    =======================================
+    LEVEL 1 BEGINNER GUIDE - Dirty Cash
 
-    File: cmg/prod/client/crime/cl_dirtycash.lua
-    Runs as: Client — runs on each player's FiveM client.
-    Purpose: crime, robbery, gang, and criminal gameplay, specifically the Dirtycash feature.
+    This client script handles the visible dirty-cash cleaner handoff:
+      1. The server creates a cleaner ped area for a player.
+      2. The owning player gets a small local interaction area.
+      3. Pressing E asks the server to start the handoff.
+      4. The player and nearby cleaner play give/take animations.
+      5. The server ends or cancels the handoff with event hashes below.
 
-    FiveM words used in this project:
-      * ped = a GTA character/entity (your player character is a ped).
-      * entity = a ped, vehicle, or object that exists in the GTA world.
-      * native = a GTA/FiveM function such as GetEntityCoords().
-      * event = a named message that causes code to run.
-      * client event = stays on this player; server event = crosses to the server.
-      * NUI = the HTML/CSS/JavaScript interface shown over the game.
-      * thread = code that can keep running over time; Wait() prevents it freezing the game.
-
-    Quick map of this file (automatic static scan):
-      * Named functions: 16
-      * Background threads: 0
-      * Always-running loops: 1
-      * Commands: none found by static scan
-      * Incoming network events: none found by static scan
-      * Local event handlers: none found by static scan
-      * Server events sent: none found by static scan
-      * NUI callbacks: none found by static scan
-      * Modules/config loaded: none found by static scan
-
-    Read it in this order:
-      1. Top-level config/state variables.
-      2. Helper functions (small reusable pieces of logic).
-      3. Commands/events/UI callbacks (what starts the logic).
-      4. Threads/loops last (what keeps checking in the background).
-
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
-      A decompiler invented them while rebuilding source code.
-
-      For a beginner, read the API call on the right-hand side first.
-      Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
-      means roughly:
-        local playerCoords = GetEntityCoords(playerPed)
-
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
-
-    Safety note for editing:
-      Keep event names, decorator keys, exported names, and config keys unchanged
-      unless you also update every place that uses them.
+    Keep the hashed event names unchanged unless the server is updated too.
 ]]
-local textValue, flag9, workValue3, workValue5, workValue7, workValue9, eventRegistration, eventRegistration2, textValue3, workValue10
-textValue = "IDLE"
-flag9 = false
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1) ===
-function workValue3(arg1)
-  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3
-  arg2 = CMG
-  arg2 = arg2.loadModel
-  arg3 = arg1.model
-  -- Beginner: Request/load a GTA model before spawning or applying it.
-  arg2(arg3)
-  arg2 = CreatePed
-  arg3 = 0
-  flag10 = arg1.model
-  flag11 = arg1.position
-  flag11 = flag11.x
-  flag12 = arg1.position
-  flag12 = flag12.y
-  position = arg1.position
-  position = position.z
-  position = position - 1.0
-  numberValue2 = arg1.position
-  numberValue2 = numberValue2.w
-  flag13 = false
-  flag14 = false
-  -- Beginner: result below is pedEntity.
-  arg2 = arg2(arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14)
-  arg1.ped = arg2
-  arg2 = SetModelAsNoLongerNeeded
-  arg3 = arg1.model
-  arg2(arg3)
-  arg2 = FreezeEntityPosition
-  arg3 = arg1.ped
-  flag10 = true
-  -- Beginner: Freeze or unfreeze an entity in place.
-  arg2(arg3, flag10)
-  arg2 = SetEntityInvincible
-  arg3 = arg1.ped
-  flag10 = true
-  arg2(arg3, flag10)
-  arg2 = SetEntityCanBeDamaged
-  arg3 = arg1.ped
-  flag10 = false
-  arg2(arg3, flag10)
-  arg2 = SetPedAlertness
-  arg3 = arg1.ped
-  flag10 = 0
-  arg2(arg3, flag10)
-  arg2 = SetBlockingOfNonTemporaryEvents
-  arg3 = arg1.ped
-  flag10 = true
-  arg2(arg3, flag10)
-  arg2 = SetEntityCollision
-  arg3 = arg1.ped
-  flag10 = false
-  flag11 = false
-  arg2(arg3, flag10, flag11)
-  arg2 = GiveWeaponToPed
-  arg3 = arg1.ped
-  flag10 = 28811031
-  flag11 = 1
-  flag12 = false
-  position = true
-  arg2(arg3, flag10, flag11, flag12, position)
-  arg2 = SetCurrentPedWeapon
-  arg3 = arg1.ped
-  flag10 = 28811031
-  flag11 = true
-  arg2(arg3, flag10, flag11)
-  arg2 = CMG
-  arg2 = arg2.loadAnimDict
-  arg3 = "anim@heists@heist_corona@team_idles@female_a"
-  -- Beginner: Load a GTA animation dictionary before using it.
-  arg2(arg3)
-  arg2 = TaskPlayAnim
-  arg3 = arg1.ped
-  flag10 = "anim@heists@heist_corona@team_idles@female_a"
-  flag11 = "idle"
-  flag12 = 8.0
-  position = 8.0
-  numberValue2 = -1
-  flag13 = 1
-  flag14 = 0
-  flag = false
-  flag2 = false
-  flag3 = false
-  -- Beginner: Play an animation on a ped.
-  arg2(arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3)
-  arg2 = RemoveAnimDict
-  arg3 = "anim@heists@heist_corona@team_idles@female_a"
-  arg2(arg3)
-  arg2 = CMG
-  arg2 = arg2.getLocalPlayerSrc
-  arg2 = arg2()
-  arg3 = arg1.playerSrc
-  if arg2 == arg3 then
-    arg2 = AddBlipForRadius
-    arg3 = arg1.position
-    arg3 = arg3.x
-    flag10 = arg1.position
-    flag10 = flag10.y
-    flag11 = arg1.position
-    flag11 = flag11.z
-    flag12 = 10.0
-    -- Beginner: result below is blipHandle.
-    arg2 = arg2(arg3, flag10, flag11, flag12)
-    arg1.blip = arg2
-    arg2 = SetBlipColour
-    arg3 = arg1.blip
-    flag10 = 5
-    arg2(arg3, flag10)
-    arg2 = SetBlipAlpha
-    arg3 = arg1.blip
-    flag10 = 150
-    arg2(arg3, flag10)
-    arg2 = SetWaypointOff
-    arg2()
+local HANDOVER_IDLE = "IDLE"
+local HANDOVER_ACTIVE = "HANDING_OVER"
+
+local handoverState = HANDOVER_IDLE
+local phoneCallActive = false
+
+local function doNothing()
+end
+
+local function spawnCleanerPed(cleanerData)
+  CMG.loadModel(cleanerData.model)
+
+  local position = cleanerData.position
+  local ped = CreatePed(0, cleanerData.model, position.x, position.y, position.z - 1.0, position.w, false, false)
+  cleanerData.ped = ped
+
+  SetModelAsNoLongerNeeded(cleanerData.model)
+  FreezeEntityPosition(ped, true)
+  SetEntityInvincible(ped, true)
+  SetEntityCanBeDamaged(ped, false)
+  SetPedAlertness(ped, 0)
+  SetBlockingOfNonTemporaryEvents(ped, true)
+  SetEntityCollision(ped, false, false)
+  GiveWeaponToPed(ped, 28811031, 1, false, true)
+  SetCurrentPedWeapon(ped, 28811031, true)
+
+  CMG.loadAnimDict("anim@heists@heist_corona@team_idles@female_a")
+  TaskPlayAnim(ped, "anim@heists@heist_corona@team_idles@female_a", "idle", 8.0, 8.0, -1, 1, 0, false, false, false)
+  RemoveAnimDict("anim@heists@heist_corona@team_idles@female_a")
+
+  if CMG.getLocalPlayerSrc() == cleanerData.playerSrc then
+    cleanerData.blip = AddBlipForRadius(position.x, position.y, position.z, 10.0)
+    SetBlipColour(cleanerData.blip, 5)
+    SetBlipAlpha(cleanerData.blip, 150)
+    SetWaypointOff()
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, arg3
-  arg2 = arg1.blip
-  if arg2 then
-    arg2 = RemoveBlip
-    arg3 = arg1.blip
-    arg2(arg3)
+local function cleanupCleanerPed(cleanerData)
+  if cleanerData.blip then
+    RemoveBlip(cleanerData.blip)
   end
-  arg2 = DeleteEntity
-  arg3 = arg1.ped
-  -- Beginner: Delete a GTA entity.
-  arg2(arg3)
+
+  DeleteEntity(cleanerData.ped)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: none) ===
-function workValue7()
-  local arg1, arg2, arg3
-  arg1 = textValue
-  if "IDLE" == arg1 then
-    arg1 = drawNativeNotification
-    arg2 = "Press ~INPUT_CONTEXT~ to hand over the dirty cash."
-    -- Beginner: Show a GTA-style notification/help prompt.
-    arg1(arg2)
-    arg1 = IsControlJustPressed
-    arg2 = 0
-    arg3 = 51
-    arg1 = arg1(arg2, arg3)
-    if arg1 then
-      arg1 = CMG
-      arg1 = arg1.disableSittingOnChairThisFrame
-      arg1()
-      arg1 = TriggerServerEvent
-      arg2 = "8ac077847b"
-      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "8ac077847b".
-      arg1(arg2)
+local function drawCleanerInteractionPrompt()
+  if handoverState == HANDOVER_IDLE then
+    drawNativeNotification("Press ~INPUT_CONTEXT~ to hand over the dirty cash.")
+
+    if IsControlJustPressed(0, 51) then
+      CMG.disableSittingOnChairThisFrame()
+      TriggerServerEvent("8ac077847b")
     end
-  else
-    arg1 = textValue
-    if "HANDING_OVER" == arg1 then
-      arg1 = subtitleText
-      arg2 = "~b~Handing over cash..."
-      arg1(arg2)
-    end
+  elseif handoverState == HANDOVER_ACTIVE then
+    subtitleText("~b~Handing over cash...")
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: none) ===
-function workValue9()
-  local arg1, arg2
-  arg1 = textValue
-  if "HANDING_OVER" == arg1 then
-    arg1 = TriggerServerEvent
-    arg2 = "28586dd690"
-    -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "28586dd690".
-    arg1(arg2)
+local function submitHandoverIfStillActive()
+  if handoverState == HANDOVER_ACTIVE then
+    TriggerServerEvent("28586dd690")
   end
 end
-eventRegistration = RegisterNetEvent
-eventRegistration2 = "8dfaa23b61"
--- Beginner: this function handles network event "8dfaa23b61".
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1, arg2, arg3) ===
-function textValue3(arg1, arg2, arg3)
-  local flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3
-  flag10 = {}
-  flag10.playerSrc = arg1
-  flag10.position = arg2
-  flag10.model = arg3
-  flag11 = CMG
-  flag11 = flag11.createArea
-  flag12 = "dirtycash_"
-  position = tostring
-  numberValue2 = arg1
-  position = position(numberValue2)
-  flag12 = flag12 .. position
-  position = arg2.xyz
-  numberValue2 = 50.0
-  flag13 = 6.0
-  flag14 = workValue3
-  flag = workValue5
+RegisterNetEvent("8dfaa23b61", function(playerSrc, position, model)
+  local cleanerData = {
+    playerSrc = playerSrc,
+    position = position,
+    model = model
+  }
 
-  -- === HELPER FUNCTION (decompiler name: flag2; parameters: none) ===
-  function flag2()
-    local cmgCall, textValue2
-  end
-  flag3 = flag10
-  -- Beginner: Create an interaction area around a world position.
-  flag11(flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3)
-  flag11 = CMG
-  flag11 = flag11.getLocalPlayerSrc
-  flag11 = flag11()
-  if flag11 == arg1 then
-    flag11 = CMG
-    flag11 = flag11.createArea
-    flag12 = "dirtycash_local"
-    position = arg2.xyz
-    numberValue2 = 1.5
-    flag13 = 6.0
+  CMG.createArea(
+    "dirtycash_" .. tostring(playerSrc),
+    position.xyz,
+    50.0,
+    6.0,
+    spawnCleanerPed,
+    cleanupCleanerPed,
+    doNothing,
+    cleanerData
+  )
 
-    -- === HELPER FUNCTION (decompiler name: flag14; parameters: none) ===
-    function flag14()
-      local cmgCall, textValue2
-    end
-    flag = workValue9
-    flag2 = workValue7
-    flag3 = nil
-    flag11(flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3)
+  if CMG.getLocalPlayerSrc() == playerSrc then
+    CMG.createArea(
+      "dirtycash_local",
+      position.xyz,
+      1.5,
+      6.0,
+      doNothing,
+      submitHandoverIfStillActive,
+      drawCleanerInteractionPrompt,
+      nil
+    )
   end
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8dfaa23b61".
-eventRegistration(eventRegistration2, textValue3)
-eventRegistration = RegisterNetEvent
-eventRegistration2 = "fa2dcfab18"
--- Beginner: this function handles network event "fa2dcfab18".
+end)
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, flag10, flag11, flag12
-  arg2 = CMG
-  arg2 = arg2.getLocalPlayerSrc
-  arg2 = arg2()
-  if arg2 == arg1 then
-    arg2 = tCMG
-    arg2 = arg2.removeArea
-    arg3 = "dirtycash_local"
-    arg2(arg3)
+RegisterNetEvent("fa2dcfab18", function(playerSrc)
+  if CMG.getLocalPlayerSrc() == playerSrc then
+    tCMG.removeArea("dirtycash_local")
   end
-  arg2 = CMG
-  arg2 = arg2.getAreaMetaData
-  arg3 = "dirtycash_"
-  flag10 = tostring
-  flag11 = arg1
-  flag10 = flag10(flag11)
-  arg3 = arg3 .. flag10
-  arg2 = arg2(arg3)
-  arg3 = arg2.ped
-  if arg3 then
-    arg3 = ClearPedTasksImmediately
-    flag10 = arg2.ped
-    arg3(flag10)
-    arg3 = SetEntityAsNoLongerNeeded
-    flag10 = arg2.ped
-    arg3(flag10)
-  end
-  arg3 = arg2.blip
-  if arg3 then
-    arg3 = RemoveBlip
-    flag10 = arg2.blip
-    arg3(flag10)
-  end
-  arg3 = tCMG
-  arg3 = arg3.removeArea
-  flag10 = "dirtycash_"
-  flag11 = tostring
-  flag12 = arg1
-  flag11 = flag11(flag12)
-  flag10 = flag10 .. flag11
-  arg3(flag10)
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "fa2dcfab18".
-eventRegistration(eventRegistration2, textValue3)
-eventRegistration = RegisterNetEvent
-eventRegistration2 = "e16d390302"
--- Beginner: this function handles network event "e16d390302".
 
--- === HELPER FUNCTION (decompiler name: textValue3; parameters: arg1) ===
-function textValue3(arg1)
-  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5, flag6, flag7, numberValue, flag8
-  arg2 = flag9
-  if arg2 then
+  local areaName = "dirtycash_" .. tostring(playerSrc)
+  local cleanerData = CMG.getAreaMetaData(areaName)
+
+  if cleanerData.ped then
+    ClearPedTasksImmediately(cleanerData.ped)
+    SetEntityAsNoLongerNeeded(cleanerData.ped)
+  end
+
+  if cleanerData.blip then
+    RemoveBlip(cleanerData.blip)
+  end
+
+  tCMG.removeArea(areaName)
+end)
+
+RegisterNetEvent("e16d390302", function(cleanerCoords)
+  if phoneCallActive then
     return
   end
-  arg2 = true
-  flag9 = arg2
-  arg2 = PlayerPedId
-  -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = SendNUIMessage
-  flag10 = {}
-  flag10.transactionType = "ring"
-  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg3(flag10)
-  arg3 = CMG
-  arg3 = arg3.loadAnimDict
-  flag10 = "cellphone@"
-  -- Beginner: Load a GTA animation dictionary before using it.
-  arg3(flag10)
-  arg3 = TaskPlayAnim
-  flag10 = arg2
-  flag11 = "cellphone@"
-  flag12 = "cellphone_call_listen_base"
-  position = 3.0
-  numberValue2 = -1
-  flag13 = -1
-  flag14 = 50
-  flag = 0
-  flag2 = false
-  flag3 = false
-  flag4 = false
-  -- Beginner: Play an animation on a ped.
-  arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4)
-  arg3 = RemoveAnimDict
-  flag10 = "cellphone@"
-  arg3(flag10)
-  arg3 = CMG
-  arg3 = arg3.loadModel
-  flag10 = "prop_amb_phone"
-  -- Beginner: Request/load a GTA model before spawning or applying it.
-  arg3(flag10)
-  arg3 = CMG
-  arg3 = arg3.requestEntitySpawn
-  flag10 = "dirtycash_phone"
-  arg3(flag10)
-  arg3 = CreateObject
-  flag10 = 974883178
-  flag11 = arg1.x
-  flag12 = arg1.y
-  position = arg1.z
-  numberValue2 = true
-  flag13 = true
-  flag14 = false
-  -- Beginner: result below is objectEntity.
-  arg3 = arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14)
-  flag10 = AttachEntityToEntity
-  flag11 = arg3
-  flag12 = arg2
-  position = GetPedBoneIndex
-  numberValue2 = arg2
-  flag13 = 28422
-  position = position(numberValue2, flag13)
-  numberValue2 = 0.0
-  flag13 = 0.0
-  flag14 = 0.0
-  flag = 0.0
-  flag2 = 0.0
-  flag3 = 0.0
-  flag4 = true
-  flag5 = true
-  flag6 = false
-  flag7 = false
-  numberValue = 0
-  flag8 = true
-  -- Beginner: Attach one entity to another entity.
-  flag10(flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5, flag6, flag7, numberValue, flag8)
-  flag10 = SetModelAsNoLongerNeeded
-  flag11 = "prop_amb_phone"
-  flag10(flag11)
-  flag10 = Citizen
-  flag10 = flag10.Wait
-  flag11 = 9000
-  flag10(flag11)
-  flag10 = StopAnimTask
-  flag11 = arg2
-  flag12 = "cellphone@"
-  position = "cellphone_call_listen_base"
-  numberValue2 = 1.0
-  flag10(flag11, flag12, position, numberValue2)
-  flag10 = DeleteEntity
-  flag11 = arg3
-  -- Beginner: Delete a GTA entity.
-  flag10(flag11)
-  flag10 = SetNewWaypoint
-  flag11 = arg1.x
-  flag12 = arg1.y
-  flag10(flag11, flag12)
-  flag10 = drawNativeNotification
-  flag11 = "A marker has been set to the cleaners location."
-  -- Beginner: Show a GTA-style notification/help prompt.
-  flag10(flag11)
-  flag10 = false
-  flag9 = flag10
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "e16d390302".
-eventRegistration(eventRegistration2, textValue3)
 
--- === HELPER FUNCTION (decompiler name: eventRegistration; parameters: arg1) ===
-function eventRegistration(arg1)
-  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2
-  arg2 = 5.0
-  arg3 = 0
-  flag10 = pairs
-  flag11 = GetGamePool
-  flag12 = "CPed"
-  flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2 = flag11(flag12)
-  flag10, flag11, flag12, position = flag10(flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2)
-  for numberValue2, flag13 in flag10, flag11, flag12, position do
-    flag14 = IsPedAPlayer
-    flag = flag13
-    flag14 = flag14(flag)
-    if not flag14 then
-      flag14 = NetworkGetEntityIsLocal
-      flag = flag13
-      flag14 = flag14(flag)
-      if flag14 then
-        flag14 = GetEntityCoords
-        flag = flag13
-        flag2 = true
-        -- Beginner: result below is entityCoords.
-        flag14 = flag14(flag, flag2)
-        flag = arg1.xyz
-        flag14 = flag14 - flag
-        flag14 = #flag14
-        if arg2 > flag14 then
-          arg2 = flag14
-          arg3 = flag13
-        end
+  phoneCallActive = true
+
+  local playerPed = PlayerPedId()
+  SendNUIMessage({ transactionType = "ring" })
+
+  CMG.loadAnimDict("cellphone@")
+  TaskPlayAnim(playerPed, "cellphone@", "cellphone_call_listen_base", 3.0, -1, -1, 50, 0, false, false, false)
+  RemoveAnimDict("cellphone@")
+
+  CMG.loadModel("prop_amb_phone")
+  CMG.requestEntitySpawn("dirtycash_phone")
+
+  local phone = CreateObject(974883178, cleanerCoords.x, cleanerCoords.y, cleanerCoords.z, true, true, false)
+  AttachEntityToEntity(phone, playerPed, GetPedBoneIndex(playerPed, 28422), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, false, 0, true)
+  SetModelAsNoLongerNeeded("prop_amb_phone")
+
+  Citizen.Wait(9000)
+
+  StopAnimTask(playerPed, "cellphone@", "cellphone_call_listen_base", 1.0)
+  DeleteEntity(phone)
+  SetNewWaypoint(cleanerCoords.x, cleanerCoords.y)
+  drawNativeNotification("A marker has been set to the cleaners location.")
+
+  phoneCallActive = false
+end)
+
+local function getClosestLocalNonPlayerPed(coords)
+  local closestDistance = 5.0
+  local closestPed = 0
+
+  for _, ped in pairs(GetGamePool("CPed")) do
+    if not IsPedAPlayer(ped) and NetworkGetEntityIsLocal(ped) then
+      local distance = #(GetEntityCoords(ped, true) - coords.xyz)
+
+      if distance < closestDistance then
+        closestDistance = distance
+        closestPed = ped
       end
     end
   end
-  return arg3
+
+  return closestPed
 end
-eventRegistration2 = RegisterNetEvent
-textValue3 = "8ac077847b"
--- Beginner: this function handles network event "8ac077847b".
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5
-  arg2 = "HANDING_OVER"
-  textValue = arg2
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
-  -- Beginner: this function handles network event "8ac077847b".
+RegisterNetEvent("8ac077847b", function(duration)
+  handoverState = HANDOVER_ACTIVE
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local cmgCall, textValue2, workValue4, workValue6, workValue8
-    cmgCall = CMG
-    cmgCall = cmgCall.startCircularProgressBar
-    textValue2 = ""
-    workValue4 = arg1
-    workValue6 = nil
+  Citizen.CreateThread(function()
+    CMG.startCircularProgressBar("", duration, nil, doNothing)
+  end)
 
-    -- === HELPER FUNCTION (decompiler name: workValue8; parameters: none) ===
-    function workValue8()
-      local workValue, workValue2
-    end
-    cmgCall(textValue2, workValue4, workValue6, workValue8)
-  end
-  -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
-  arg2 = PlayerPedId
-  -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = eventRegistration
-  flag10 = CMG
-  flag10 = flag10.getPlayerCoords
-  flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5 = flag10()
-  arg3 = arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5)
-  flag10 = TaskTurnPedToFaceEntity
-  flag11 = arg2
-  flag12 = arg3
-  position = 1000
-  flag10(flag11, flag12, position)
-  flag10 = Citizen
-  flag10 = flag10.Wait
-  flag11 = 1000
-  flag10(flag11)
-  flag10 = CMG
-  flag10 = flag10.loadAnimDict
-  flag11 = "mp_common"
-  -- Beginner: Load a GTA animation dictionary before using it.
-  flag10(flag11)
-  flag10 = TaskPlayAnim
-  flag11 = arg2
-  flag12 = "mp_common"
-  position = "givetake1_a"
-  numberValue2 = 8.0
-  flag13 = 8.0
-  flag14 = -1
-  flag = 1
-  flag2 = 0
-  flag3 = false
-  flag4 = false
-  flag5 = false
-  -- Beginner: Play an animation on a ped.
-  flag10(flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4, flag5)
-  flag10 = RemoveAnimDict
-  flag11 = "mp_common"
-  flag10(flag11)
-  flag10 = Citizen
-  flag10 = flag10.Wait
-  flag11 = 2000
-  flag10(flag11)
-  while true do
-    flag10 = textValue
-    if "HANDING_OVER" ~= flag10 then
+  local playerPed = PlayerPedId()
+  local closestPed = getClosestLocalNonPlayerPed(CMG.getPlayerCoords())
+
+  TaskTurnPedToFaceEntity(playerPed, closestPed, 1000)
+  Citizen.Wait(1000)
+
+  CMG.loadAnimDict("mp_common")
+  TaskPlayAnim(playerPed, "mp_common", "givetake1_a", 8.0, 8.0, -1, 1, 0, false, false, false)
+  RemoveAnimDict("mp_common")
+
+  Citizen.Wait(2000)
+
+  while handoverState == HANDOVER_ACTIVE do
+    if not IsEntityPlayingAnim(playerPed, "mp_common", "givetake1_a", 3) then
+      TriggerServerEvent("28586dd690")
       break
     end
-    flag10 = IsEntityPlayingAnim
-    flag11 = arg2
-    flag12 = "mp_common"
-    position = "givetake1_a"
-    numberValue2 = 3
-    flag10 = flag10(flag11, flag12, position, numberValue2)
-    if not flag10 then
-      flag10 = TriggerServerEvent
-      flag11 = "28586dd690"
-      -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "28586dd690".
-      flag10(flag11)
-      break
-    end
-    flag10 = Citizen
-    flag10 = flag10.Wait
-    flag11 = 0
-    flag10(flag11)
-  end
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "8ac077847b".
-eventRegistration2(textValue3, workValue10)
-eventRegistration2 = RegisterNetEvent
-textValue3 = "28586dd690"
--- Beginner: this function handles network event "28586dd690".
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: none) ===
-function workValue10()
-  local arg1, arg2, arg3, flag10, flag11
-  arg1 = "IDLE"
-  textValue = arg1
-  arg1 = StopAnimTask
-  arg2 = PlayerPedId
-  -- Beginner: result below is localPlayerPed.
-  arg2 = arg2()
-  arg3 = "mp_common"
-  flag10 = "givetake1_a"
-  flag11 = 1.0
-  arg1(arg2, arg3, flag10, flag11)
-  arg1 = CMG
-  arg1 = arg1.stopCircularProgressBar
-  arg1()
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "28586dd690".
-eventRegistration2(textValue3, workValue10)
-eventRegistration2 = RegisterNetEvent
-textValue3 = "429c274229"
--- Beginner: this function handles network event "429c274229".
-
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4
-  arg2 = eventRegistration
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 ~= arg2 then
-    arg3 = CMG
-    arg3 = arg3.loadAnimDict
-    flag10 = "mp_common"
-    -- Beginner: Load a GTA animation dictionary before using it.
-    arg3(flag10)
-    arg3 = TaskPlayAnim
-    flag10 = arg2
-    flag11 = "mp_common"
-    flag12 = "givetake2_a"
-    position = 8.0
-    numberValue2 = 8.0
-    flag13 = -1
-    flag14 = 1
-    flag = 0
-    flag2 = false
-    flag3 = false
-    flag4 = false
-    -- Beginner: Play an animation on a ped.
-    arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4)
-    arg3 = RemoveAnimDict
-    flag10 = "mp_common"
-    arg3(flag10)
+    Citizen.Wait(0)
   end
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "429c274229".
-eventRegistration2(textValue3, workValue10)
-eventRegistration2 = RegisterNetEvent
-textValue3 = "9ebeeadd8b"
--- Beginner: this function handles network event "9ebeeadd8b".
+end)
 
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4
-  arg2 = eventRegistration
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if 0 ~= arg2 then
-    arg3 = CMG
-    arg3 = arg3.loadAnimDict
-    flag10 = "anim@heists@heist_corona@team_idles@female_a"
-    -- Beginner: Load a GTA animation dictionary before using it.
-    arg3(flag10)
-    arg3 = TaskPlayAnim
-    flag10 = arg2
-    flag11 = "anim@heists@heist_corona@team_idles@female_a"
-    flag12 = "idle"
-    position = 8.0
-    numberValue2 = 8.0
-    flag13 = -1
-    flag14 = 1
-    flag = 0
-    flag2 = false
-    flag3 = false
-    flag4 = false
-    -- Beginner: Play an animation on a ped.
-    arg3(flag10, flag11, flag12, position, numberValue2, flag13, flag14, flag, flag2, flag3, flag4)
-    arg3 = RemoveAnimDict
-    flag10 = "anim@heists@heist_corona@team_idles@female_a"
-    arg3(flag10)
+RegisterNetEvent("28586dd690", function()
+  handoverState = HANDOVER_IDLE
+  StopAnimTask(PlayerPedId(), "mp_common", "givetake1_a", 1.0)
+  CMG.stopCircularProgressBar()
+end)
+
+RegisterNetEvent("429c274229", function(cleanerCoords)
+  local closestPed = getClosestLocalNonPlayerPed(cleanerCoords)
+
+  if closestPed ~= 0 then
+    CMG.loadAnimDict("mp_common")
+    TaskPlayAnim(closestPed, "mp_common", "givetake2_a", 8.0, 8.0, -1, 1, 0, false, false, false)
+    RemoveAnimDict("mp_common")
   end
-end
--- Beginner: Register a network event handler that the server/other clients can trigger. Event/command: "9ebeeadd8b".
-eventRegistration2(textValue3, workValue10)
+end)
+
+RegisterNetEvent("9ebeeadd8b", function(cleanerCoords)
+  local closestPed = getClosestLocalNonPlayerPed(cleanerCoords)
+
+  if closestPed ~= 0 then
+    CMG.loadAnimDict("anim@heists@heist_corona@team_idles@female_a")
+    TaskPlayAnim(closestPed, "anim@heists@heist_corona@team_idles@female_a", "idle", 8.0, 8.0, -1, 1, 0, false, false, false)
+    RemoveAnimDict("anim@heists@heist_corona@team_idles@female_a")
+  end
+end)

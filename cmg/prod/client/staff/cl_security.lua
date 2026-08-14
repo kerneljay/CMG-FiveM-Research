@@ -1,15 +1,28 @@
 --[[
-  LEVEL 1 BEGINNER NOTES - Security
+    LEVEL 1 BEGINNER GUIDE - Security
+    =================================
 
-  This file connects the game client to the security recorder UI.
+    File: cmg/prod/client/staff/cl_security.lua
+    Runs as: Client - runs on each player's FiveM client.
+    Purpose: connects Lua to the security recorder and staff screen-view UI.
 
-  Big idea:
-    1. The Lua side asks the UI to take screenshots or videos.
-    2. Each request gets an id.
-    3. When the UI finishes, it sends that id back.
-    4. The Lua side calls the matching callback.
+    Big idea:
+      1. Lua asks the UI to take screenshots or videos.
+      2. Each request gets a callback id.
+      3. When the UI finishes, it sends that id back.
+      4. Lua runs the matching callback once and then forgets it.
 
-  Keep the event names exactly as they are. They are shared with the server/UI.
+    FiveM words used here:
+      * NUI/UI callback = a message coming back from the browser UI.
+      * server event = a message sent to the server with TriggerServerEvent().
+      * callback = a function saved now and called later when work finishes.
+
+    Quick map of this file:
+      * Public CMG functions: CMG.requestScreenshotUpload(), CMG.requestVideoUpload()
+      * UI callbacks: screenshot/video results, keep-alive, screen-view controls
+      * Server events sent: recorder status, screen-view, sync, security alerts
+
+    Keep event names and UI callback names exactly as they are.
 ]]
 
 Wait(0)

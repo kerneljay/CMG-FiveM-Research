@@ -1,15 +1,28 @@
 --[[
-  LEVEL 1 BEGINNER NOTES - Stunt Smoke
+    LEVEL 1 BEGINNER GUIDE - Stunt Smoke
+    ====================================
 
-  This file adds coloured smoke trails for planes.
+    File: cmg/prod/client/vehicles/cl_stuntsmoke.lua
+    Runs as: Client - runs on each player's FiveM client.
+    Purpose: adds coloured smoke trails to planes.
 
-  Big idea:
-    1. A plane stores its selected smoke colour in decorators.
-    2. A command lets the driver choose a colour they own.
-    3. Another command toggles smoke on and off.
-    4. A background loop shows smoke for active players' planes.
+    Big idea:
+      1. A plane stores its selected smoke colour in decorators.
+      2. /setsmoke lets the driver choose a colour they own.
+      3. /togglesmoke turns smoke on or off for the current plane.
+      4. A background loop shows smoke for active players' planes.
 
-  Keep the decorator names and command names exactly as they are.
+    FiveM words used here:
+      * decorator = hidden data saved on an entity, such as a vehicle.
+      * particle effect = GTA visual effect, used here for the smoke trail.
+      * thread = code that keeps checking over time; Wait() prevents freezing.
+
+    Quick map of this file:
+      * Background threads: 1
+      * Commands: /setsmoke, /togglesmoke
+      * Public CMG function: CMG.setVehicleIdPlaneSmoke()
+
+    Keep the decorator names and command names exactly as they are.
 ]]
 
 local SMOKE_COLOUR_DECOR = "b67d156704"

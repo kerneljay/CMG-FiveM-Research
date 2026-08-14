@@ -1,679 +1,340 @@
 --[[
-    LEVEL 1 BEGINNER GUIDE — Nitro
-    ===================================
+    LEVEL 1 BEGINNER GUIDE - Nitro
 
-    File: cmg/prod/client/misc/cl_nitro.lua
-    Runs as: Client — runs on each player's FiveM client.
-    Purpose: miscellaneous gameplay feature, specifically the Nitro feature.
+    Client-side vehicle nitro handling.
 
-    FiveM words used in this project:
-      * ped = a GTA character/entity (your player character is a ped).
-      * entity = a ped, vehicle, or object that exists in the GTA world.
-      * native = a GTA/FiveM function such as GetEntityCoords().
-      * event = a named message that causes code to run.
-      * client event = stays on this player; server event = crosses to the server.
-      * NUI = the HTML/CSS/JavaScript interface shown over the game.
-      * thread = code that can keep running over time; Wait() prevents it freezing the game.
-
-    Quick map of this file (automatic static scan):
-      * Named functions: 16
-      * Background threads: 0
-      * Always-running loops: 2
-      * Commands: none found by static scan
-      * Incoming network events: none found by static scan
-      * Local event handlers: none found by static scan
-      * Server events sent: none found by static scan
-      * NUI callbacks: none found by static scan
-      * Modules/config loaded: none found by static scan
-
-    Read it in this order:
-      1. Top-level config/state variables.
-      2. Helper functions (small reusable pieces of logic).
-      3. Commands/events/UI callbacks (what starts the logic).
-      4. Threads/loops last (what keeps checking in the background).
-
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
-      A decompiler invented them while rebuilding source code.
-
-      For a beginner, read the API call on the right-hand side first.
-      Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
-      means roughly:
-        local playerCoords = GetEntityCoords(playerPed)
-
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
-
-    Safety note for editing:
-      Keep event names, decorator keys, exported names, and config keys unchanged
-      unless you also update every place that uses them.
+    The server owns the saved nitro amount. This client:
+      1. Detects when the player is driving a nitro-equipped vehicle.
+      2. Lets the driver hold sprint/shift to use nitro.
+      3. Draws the nitro percentage while driving.
+      4. Plays boost, exhaust flame, trail, and purge effects.
+      5. Reports the amount used back to the server when the driver exits.
 ]]
-local dataTable, dataTable3, flag8, workValue13, flag10, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue, numberValue2, numberValue4, workValue2, cmgCall, textValue, textValue2, textValue3, dataTable2, textValue4, textValue5, numberValue6, workValue3, workValue4, workValue5, workValue6, workValue7, workValue8, cmgCall3, workValue9, workValue10, workValue11, cmgCall4, workValue12, textValue6
-dataTable = {}
-dataTable3 = {}
-flag8 = false
-workValue13 = nil
-flag10 = false
-numberValue7 = 219
-numberValue8 = 105
-numberValue9 = 97
-numberValue10 = 255
-numberValue11 = 4
-numberValue = 0.5
-numberValue2 = 0.9
-numberValue4 = 0.92
 
--- === HELPER FUNCTION (decompiler name: workValue2; parameters: none) ===
-function workValue2()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7
-  arg1 = CMG
-  arg1 = arg1.getPlayerPed
-  -- Beginner: result below is localPlayerPed.
-  arg1 = arg1()
-  arg2 = GetVehiclePedIsIn
-  arg3 = CMG
-  arg3 = arg3.getPlayerPed
-  -- Beginner: result below is localPlayerPed.
-  arg3 = arg3()
-  arg4 = false
-  -- Beginner: result below is currentVehicle.
-  arg2 = arg2(arg3, arg4)
-  if 0 ~= arg2 then
-    arg3 = GetPedInVehicleSeat
-    arg4 = arg2
-    arg5 = -1
-    arg3 = arg3(arg4, arg5)
-    if arg3 == arg1 then
-      arg3 = tCMG
-      arg3 = arg3.getVehicleInfos
-      arg4 = arg2
-      arg3 = arg3(arg4)
-      arg4 = DecorGetInt
-      arg5 = arg2
-      arg6 = "0a6cf607ed"
-      arg4 = arg4(arg5, arg6)
-      arg5 = CMG
-      arg5 = arg5.getClientUserId
-      -- Beginner: result below is userId.
-      arg5 = arg5()
-      if arg3 == arg5 and arg4 > 0 then
-        arg5 = dataTable
-        arg5 = arg5[arg4]
-        if arg5 then
-          arg5 = flag8
-          if not arg5 then
-            arg5 = dataTable
-            arg5 = arg5[arg4]
-            workValue13 = arg4
-            arg6 = true
-            flag8 = arg6
-            arg6 = Citizen
-            arg6 = arg6.CreateThread
+local nitroByVehicleId = {}
+local activeNitroEffectsByVehicle = {}
 
-            -- === HELPER FUNCTION: arg7() ===
-            function arg7()
-              local vehicle, cmgCall2, flag9, workValue14, workValue15
-              while true do
-                vehicle = GetVehiclePedIsIn
-                cmgCall2 = CMG
-                cmgCall2 = cmgCall2.getPlayerPed
-                -- Beginner: result below is localPlayerPed.
-                cmgCall2 = cmgCall2()
-                flag9 = false
-                -- Beginner: result below is currentVehicle.
-                vehicle = vehicle(cmgCall2, flag9)
-                if 0 == vehicle then
-                  break
-                end
-                vehicle = Wait
-                cmgCall2 = 1000
-                vehicle(cmgCall2)
-              end
-              vehicle = false
-              flag8 = vehicle
-              vehicle = arg5
-              flag9 = arg4
-              cmgCall2 = dataTable
-              cmgCall2 = cmgCall2[flag9]
-              vehicle = vehicle - cmgCall2
-              cmgCall2 = TriggerServerEvent
-              flag9 = "7ba632fd51"
-              workValue14 = arg4
-              workValue15 = -vehicle
-              -- Beginner: Tell the server that something happened or request a server-side action. Event/command: "7ba632fd51".
-              cmgCall2(flag9, workValue14, workValue15)
-            end
-            -- Beginner: Start a separate FiveM thread so this code can run independently.
-            arg6(arg7)
-          end
-        end
-      end
-    end
+local isDrivingNitroVehicle = false
+local activeVehicleId = nil
+local exhaustEffectThrottled = false
+
+local NITRO_TEXT_COLOUR = { 219, 105, 97, 255 }
+local NITRO_TEXT_X = 0.9
+local NITRO_TEXT_Y = 0.92
+local NITRO_TEXT_SCALE = 0.5
+local NITRO_TEXT_FONT = 4
+
+local EXHAUST_BONES = {
+  "exhaust",
+  "exhaust_2",
+  "exhaust_3",
+  "exhaust_4"
+}
+
+local BACKFIRE_EFFECT = "veh_backfire"
+local BACKFIRE_ASSET = "core"
+local BACKFIRE_SCALE = 2.4
+
+local PURGE_BONES = {
+  "overheat"
+}
+local PURGE_EFFECT = "ent_sht_steam"
+local PURGE_ASSET = "core"
+local PURGE_SCALE = 0.4
+
+local function getDrivenVehicleWithNitro()
+  local playerPed = CMG.getPlayerPed()
+  local vehicle = GetVehiclePedIsIn(playerPed, false)
+
+  if vehicle == 0 or GetPedInVehicleSeat(vehicle, -1) ~= playerPed then
+    return nil, nil
   end
-end
-cmgCall = CMG
-cmgCall = cmgCall.createThreadOnTick
-textValue = workValue2
-textValue2 = "Vehicle Nitro"
--- Beginner: Run a helper every game frame while this script is active.
-cmgCall(textValue, textValue2)
-cmgCall = {}
-textValue = "exhaust"
-textValue2 = "exhaust_2"
-textValue3 = "exhaust_3"
-dataTable2 = "exhaust_4"
-cmgCall[1] = textValue
-cmgCall[2] = textValue2
-cmgCall[3] = textValue3
-cmgCall[4] = dataTable2
-textValue = "veh_backfire"
-textValue2 = "core"
-textValue3 = 2.4
-dataTable2 = {}
-textValue4 = "overheat"
-dataTable2[1] = textValue4
-textValue4 = "ent_sht_steam"
-textValue5 = "core"
-numberValue6 = 0.4
 
--- === HELPER FUNCTION (decompiler name: workValue3; parameters: arg1, arg2) ===
-function workValue3(arg1, arg2)
-  local arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3
-  arg3 = GetEntityBoneIndexByName
-  arg4 = arg1
-  arg5 = arg2
-  arg3 = arg3(arg4, arg5)
-  arg4 = CMG
-  arg4 = arg4.loadPtfx
-  arg5 = "core"
-  arg4(arg5)
-  arg4 = UseParticleFxAsset
-  arg5 = "core"
-  arg4(arg5)
-  arg4 = StartParticleFxLoopedOnEntityBone
-  arg5 = "veh_light_red_trail"
-  arg6 = arg1
-  arg7 = 0.0
-  cmgCall5 = 0.0
-  flag11 = 0.0
-  textValue7 = 0.0
-  tableHelper = 0.0
-  numberValue3 = 0.0
-  workValue = arg3
-  numberValue5 = 1.0
-  flag = false
-  flag2 = false
-  flag3 = false
-  arg4 = arg4(arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3)
-  arg5 = SetParticleFxLoopedEvolution
-  arg6 = arg4
-  arg7 = "speed"
-  cmgCall5 = 1.0
-  flag11 = false
-  arg5(arg6, arg7, cmgCall5, flag11)
-  arg5 = RemoveNamedPtfxAsset
-  arg6 = "core"
-  arg5(arg6)
-  return arg4
+  local vehicleOwnerId = tCMG.getVehicleInfos(vehicle)
+  local vehicleId = DecorGetInt(vehicle, "0a6cf607ed")
+
+  if vehicleOwnerId ~= CMG.getClientUserId() or vehicleId <= 0 or not nitroByVehicleId[vehicleId] then
+    return nil, nil
+  end
+
+  return vehicle, vehicleId
 end
 
--- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3, arg4, arg5, arg6, arg7) ===
-function workValue4(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-  local cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6
-  cmgCall5 = CMG
-  cmgCall5 = cmgCall5.loadPtfx
-  flag11 = "core"
-  cmgCall5(flag11)
-  cmgCall5 = UseParticleFxAsset
-  flag11 = "core"
-  cmgCall5(flag11)
-  cmgCall5 = StartParticleFxLoopedOnEntity
-  flag11 = "ent_sht_steam"
-  textValue7 = arg1
-  tableHelper = arg2
-  numberValue3 = arg3
-  workValue = arg4
-  numberValue5 = arg5
-  flag = arg6
-  flag2 = arg7
-  flag3 = 0.5
-  flag4 = false
-  flag5 = false
-  flag6 = false
-  cmgCall5 = cmgCall5(flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6)
-  flag11 = RemoveNamedPtfxAsset
-  textValue7 = "core"
-  flag11(textValue7)
-  return cmgCall5
-end
+local function updateActiveNitroVehicle()
+  local _, vehicleId = getDrivenVehicleWithNitro()
 
--- === HELPER FUNCTION (decompiler name: workValue5; parameters: arg1) ===
-function workValue5(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4
-  arg2 = dataTable3
-  arg2 = arg2[arg1]
-  if arg2 then
+  if not vehicleId or isDrivingNitroVehicle then
     return
   end
-  arg2 = {}
-  arg3 = workValue3
-  arg4 = arg1
-  arg5 = "taillight_l"
-  arg3 = arg3(arg4, arg5)
-  arg2.leftTrail = arg3
-  arg3 = workValue3
-  arg4 = arg1
-  arg5 = "taillight_r"
-  arg3 = arg3(arg4, arg5)
-  arg2.rightTrail = arg3
-  arg3 = GetEntityBoneIndexByName
-  arg4 = arg1
-  arg5 = "bonnet"
-  arg3 = arg3(arg4, arg5)
-  arg4 = GetWorldPositionOfEntityBone
-  arg5 = arg1
-  arg6 = arg3
-  arg4 = arg4(arg5, arg6)
-  arg5 = GetOffsetFromEntityGivenWorldCoords
-  arg6 = arg1
-  arg7 = arg4.x
-  cmgCall5 = arg4.y
-  flag11 = arg4.z
-  arg5 = arg5(arg6, arg7, cmgCall5, flag11)
-  arg6 = {}
-  arg2.purge = arg6
-  arg6 = 0
-  arg7 = 3
-  cmgCall5 = 1
-  for flag11 = arg6, arg7, cmgCall5 do
-    textValue7 = workValue4
-    tableHelper = arg1
-    numberValue3 = arg5.x
-    numberValue3 = numberValue3 - 0.5
-    workValue = arg5.y
-    workValue = workValue + 0.05
-    numberValue5 = arg5.z
-    flag = 40.0
-    flag2 = -20.0
-    flag3 = 0.0
-    textValue7 = textValue7(tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3)
-    tableHelper = table
-    tableHelper = tableHelper.insert
-    numberValue3 = arg2.purge
-    workValue = textValue7
-    tableHelper(numberValue3, workValue)
-    tableHelper = workValue4
-    numberValue3 = arg1
-    workValue = arg5.x
-    workValue = workValue + 0.5
-    numberValue5 = arg5.y
-    numberValue5 = numberValue5 + 0.05
-    flag = arg5.z
-    flag2 = 40.0
-    flag3 = 20.0
-    flag4 = 0.0
-    tableHelper = tableHelper(numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4)
-    numberValue3 = table
-    numberValue3 = numberValue3.insert
-    workValue = arg2.purge
-    numberValue5 = tableHelper
-    numberValue3(workValue, numberValue5)
-  end
-  arg6 = dataTable3
-  arg6[arg1] = arg2
-end
 
--- === HELPER FUNCTION (decompiler name: workValue6; parameters: arg1) ===
-function workValue6(arg1)
-  local arg2, arg3
-  arg2 = Citizen
-  arg2 = arg2.CreateThread
+  local startingNitroAmount = nitroByVehicleId[vehicleId]
 
-  -- === HELPER FUNCTION: arg3() ===
-  function arg3()
-    local vehicle, cmgCall2, flag9, workValue14, workValue15, workValue16
-    vehicle = GetGameTimer
-    -- Beginner: result below is gameTimeMs.
-    vehicle = vehicle()
-    vehicle = vehicle + 500
-    while true do
-      cmgCall2 = GetGameTimer
-      -- Beginner: result below is gameTimeMs.
-      cmgCall2 = cmgCall2()
-      if not (vehicle > cmgCall2) then
-        break
-      end
-      cmgCall2 = GetGameTimer
-      -- Beginner: result below is gameTimeMs.
-      cmgCall2 = cmgCall2()
-      flag9 = vehicle - cmgCall2
-      flag9 = flag9 / 500
-      workValue14 = SetParticleFxLoopedScale
-      workValue15 = arg1
-      workValue16 = flag9
-      workValue14(workValue15, workValue16)
-      workValue14 = SetParticleFxLoopedAlpha
-      workValue15 = arg1
-      workValue16 = flag9
-      workValue14(workValue15, workValue16)
-      workValue14 = Citizen
-      workValue14 = workValue14.Wait
-      workValue15 = 0
-      workValue14(workValue15)
+  activeVehicleId = vehicleId
+  isDrivingNitroVehicle = true
+
+  Citizen.CreateThread(function()
+    while GetVehiclePedIsIn(CMG.getPlayerPed(), false) ~= 0 do
+      Wait(1000)
     end
-    cmgCall2 = StopParticleFxLooped
-    flag9 = arg1
-    workValue14 = false
-    cmgCall2(flag9, workValue14)
-  end
-  -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg2(arg3)
+
+    isDrivingNitroVehicle = false
+
+    local usedNitroAmount = startingNitroAmount - nitroByVehicleId[vehicleId]
+    TriggerServerEvent("7ba632fd51", vehicleId, -usedNitroAmount)
+  end)
 end
 
--- === HELPER FUNCTION (decompiler name: workValue7; parameters: arg1) ===
-function workValue7(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper
-  arg2 = dataTable3
-  arg2 = arg2[arg1]
-  if not arg2 then
+CMG.createThreadOnTick(updateActiveNitroVehicle, "Vehicle Nitro")
+
+local function startTrailEffect(vehicle, boneName)
+  local boneIndex = GetEntityBoneIndexByName(vehicle, boneName)
+
+  CMG.loadPtfx("core")
+  UseParticleFxAsset("core")
+
+  local effect = StartParticleFxLoopedOnEntityBone(
+    "veh_light_red_trail",
+    vehicle,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    boneIndex,
+    1.0,
+    false,
+    false,
+    false
+  )
+
+  SetParticleFxLoopedEvolution(effect, "speed", 1.0, false)
+  RemoveNamedPtfxAsset("core")
+
+  return effect
+end
+
+local function startPurgeEffect(vehicle, x, y, z, rotX, rotY, rotZ)
+  CMG.loadPtfx(PURGE_ASSET)
+  UseParticleFxAsset(PURGE_ASSET)
+
+  local effect = StartParticleFxLoopedOnEntity(
+    PURGE_EFFECT,
+    vehicle,
+    x,
+    y,
+    z,
+    rotX,
+    rotY,
+    rotZ,
+    0.5,
+    false,
+    false,
+    false
+  )
+
+  RemoveNamedPtfxAsset(PURGE_ASSET)
+
+  return effect
+end
+
+local function ensureNitroEffects(vehicle)
+  if activeNitroEffectsByVehicle[vehicle] then
     return
   end
-  arg3 = workValue6
-  arg4 = arg2.leftTrail
-  arg3(arg4)
-  arg3 = workValue6
-  arg4 = arg2.rightTrail
-  arg3(arg4)
-  arg3 = pairs
-  arg4 = arg2.purge
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, cmgCall5 in arg3, arg4, arg5, arg6 do
-    flag11 = StopParticleFxLooped
-    textValue7 = cmgCall5
-    tableHelper = false
-    flag11(textValue7, tableHelper)
+
+  local effects = {
+    leftTrail = startTrailEffect(vehicle, "taillight_l"),
+    rightTrail = startTrailEffect(vehicle, "taillight_r"),
+    purge = {}
+  }
+
+  local bonnetBone = GetEntityBoneIndexByName(vehicle, "bonnet")
+  local bonnetCoords = GetWorldPositionOfEntityBone(vehicle, bonnetBone)
+  local bonnetOffset = GetOffsetFromEntityGivenWorldCoords(vehicle, bonnetCoords.x, bonnetCoords.y, bonnetCoords.z)
+
+  for _ = 0, 3 do
+    table.insert(effects.purge, startPurgeEffect(vehicle, bonnetOffset.x - 0.5, bonnetOffset.y + 0.05, bonnetOffset.z, 40.0, -20.0, 0.0))
+    table.insert(effects.purge, startPurgeEffect(vehicle, bonnetOffset.x + 0.5, bonnetOffset.y + 0.05, bonnetOffset.z, 40.0, 20.0, 0.0))
   end
+
+  activeNitroEffectsByVehicle[vehicle] = effects
 end
 
--- === HELPER FUNCTION (decompiler name: workValue8; parameters: arg1) ===
-function workValue8(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5
-  arg2 = IsVehicleStopped
-  arg3 = arg1
-  arg2 = arg2(arg3)
-  if not arg2 then
-    arg2 = GetEntityModel
-    arg3 = arg1
-    -- Beginner: result below is modelHash.
-    arg2 = arg2(arg3)
-    arg3 = GetEntitySpeed
-    arg4 = arg1
-    -- Beginner: result below is speed.
-    arg3 = arg3(arg4)
-    arg4 = GetVehicleModelEstimatedMaxSpeed
-    arg5 = arg2
-    arg4 = arg4(arg5)
-    arg5 = 4.0 * arg4
-    arg5 = arg5 / arg3
-    arg6 = SetVehicleCheatPowerIncrease
-    arg7 = arg1
-    cmgCall5 = arg5
-    arg6(arg7, cmgCall5)
-  end
-end
-cmgCall3 = CMG
+local function fadeAndStopEffect(effect)
+  Citizen.CreateThread(function()
+    local endTime = GetGameTimer() + 500
 
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6, flag7
-  arg2 = pairs
-  arg3 = cmgCall
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    cmgCall5 = UseParticleFxAsset
-    flag11 = textValue2
-    cmgCall5(flag11)
-    cmgCall5 = StartParticleFxLoopedOnEntityBone
-    flag11 = textValue
-    textValue7 = arg1
-    tableHelper = 0.0
-    numberValue3 = 0.0
-    workValue = 0.0
-    numberValue5 = 0.0
-    flag = 0.0
-    flag2 = 0.0
-    flag3 = GetEntityBoneIndexByName
-    flag4 = arg1
-    flag5 = arg7
-    flag3 = flag3(flag4, flag5)
-    flag4 = textValue3
-    flag5 = false
-    flag6 = false
-    flag7 = false
-    cmgCall5 = cmgCall5(flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6, flag7)
-    flag11 = StopParticleFxLooped
-    textValue7 = cmgCall5
-    tableHelper = true
-    flag11(textValue7, tableHelper)
-  end
-end
-cmgCall3.playVehicleFlameExhaustEffect = workValue9
-
--- === HELPER FUNCTION (decompiler name: cmgCall3; parameters: arg1) ===
-function cmgCall3(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6, flag7
-  arg2 = pairs
-  arg3 = dataTable2
-  arg2, arg3, arg4, arg5 = arg2(arg3)
-  for arg6, arg7 in arg2, arg3, arg4, arg5 do
-    cmgCall5 = UseParticleFxAsset
-    flag11 = textValue5
-    cmgCall5(flag11)
-    cmgCall5 = StartParticleFxLoopedOnEntityBone
-    flag11 = textValue4
-    textValue7 = arg1
-    tableHelper = 0.0
-    numberValue3 = 0.0
-    workValue = 0.0
-    numberValue5 = 0.0
-    flag = 0.0
-    flag2 = 0.0
-    flag3 = GetEntityBoneIndexByName
-    flag4 = arg1
-    flag5 = arg7
-    flag3 = flag3(flag4, flag5)
-    flag4 = numberValue6
-    flag5 = false
-    flag6 = false
-    flag7 = false
-    cmgCall5 = cmgCall5(flag11, textValue7, tableHelper, numberValue3, workValue, numberValue5, flag, flag2, flag3, flag4, flag5, flag6, flag7)
-    flag11 = StopParticleFxLooped
-    textValue7 = cmgCall5
-    tableHelper = true
-    flag11(textValue7, tableHelper)
-  end
-end
-
--- === HELPER FUNCTION (decompiler name: workValue9; parameters: arg1) ===
-function workValue9(arg1)
-  local arg2, arg3, arg4
-  arg2 = SetVehicleBoostActive
-  arg3 = arg1
-  arg4 = true
-  arg2(arg3, arg4)
-end
-
--- === HELPER FUNCTION (decompiler name: workValue10; parameters: arg1) ===
-function workValue10(arg1)
-  local arg2, arg3, arg4
-  arg2 = SetVehicleBoostActive
-  arg3 = arg1
-  arg4 = false
-  arg2(arg3, arg4)
-end
-
--- === HELPER FUNCTION (decompiler name: workValue11; parameters: none) ===
-function workValue11()
-  local arg1, arg2, arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7, tableHelper, numberValue3, workValue
-  arg1 = flag8
-  if arg1 then
-    arg2 = workValue13
-    arg1 = dataTable
-    arg1 = arg1[arg2]
-    if arg1 > 0 then
-      arg2 = workValue13
-      arg1 = dataTable
-      arg1 = arg1[arg2]
-      if arg1 < 0 then
-        arg1 = 0
-      end
-      arg2 = CMG
-      arg2 = arg2.DrawText
-      arg3 = numberValue2
-      arg4 = numberValue4
-      arg5 = "Nitro: "
-      arg6 = math
-      arg6 = arg6.floor
-      arg7 = tonumber
-      cmgCall5 = arg1
-      arg7 = arg7(cmgCall5)
-      if not arg7 then
-        arg7 = 0
-      end
-      arg6 = arg6(arg7)
-      arg7 = "%"
-      arg5 = arg5 .. arg6 .. arg7
-      arg6 = numberValue
-      arg7 = numberValue11
-      cmgCall5 = 1
-      flag11 = {}
-      textValue7 = numberValue7
-      tableHelper = numberValue8
-      numberValue3 = numberValue9
-      workValue = numberValue10
-      flag11[1] = textValue7
-      flag11[2] = tableHelper
-      flag11[3] = numberValue3
-      flag11[4] = workValue
-      textValue7 = true
-      arg2(arg3, arg4, arg5, arg6, arg7, cmgCall5, flag11, textValue7)
-      arg2 = GetVehiclePedIsIn
-      arg3 = CMG
-      arg3 = arg3.getPlayerPed
-      -- Beginner: result below is localPlayerPed.
-      arg3 = arg3()
-      arg4 = false
-      -- Beginner: result below is currentVehicle.
-      arg2 = arg2(arg3, arg4)
-      arg3 = IsControlPressed
-      arg4 = 0
-      arg5 = 21
-      arg3 = arg3(arg4, arg5)
-      if arg3 then
-        arg4 = workValue13
-        arg3 = dataTable
-        arg3 = arg3[arg4]
-        arg3 = arg3 - 0.05
-        if arg3 >= 0 then
-          arg3 = workValue5
-          arg4 = arg2
-          arg3(arg4)
-          arg3 = workValue8
-          arg4 = arg2
-          arg3(arg4)
-          arg3 = AnimpostfxPlay
-          arg4 = "RaceTurbo"
-          arg5 = 0
-          arg6 = false
-          arg3(arg4, arg5, arg6)
-          arg4 = workValue13
-          arg3 = dataTable
-          arg6 = workValue13
-          arg5 = dataTable
-          arg5 = arg5[arg6]
-          arg5 = arg5 - 0.05
-          arg3[arg4] = arg5
-          arg3 = flag10
-          if not arg3 then
-            arg3 = true
-            flag10 = arg3
-            arg3 = CMG
-            arg3 = arg3.playVehicleFlameExhaustEffect
-            arg4 = arg2
-            arg3(arg4)
-            arg3 = cmgCall3
-            arg4 = arg2
-            arg3(arg4)
-            arg3 = workValue9
-            arg4 = arg2
-            arg3(arg4)
-            arg3 = SetTimeout
-            arg4 = 100
-
-            -- === HELPER FUNCTION: arg5() ===
-            function arg5()
-              local vehicle, cmgCall2
-              vehicle = false
-              flag10 = vehicle
-            end
-            arg3(arg4, arg5)
-          end
-        else
-          arg4 = workValue13
-          arg3 = dataTable
-          arg3[arg4] = 0
-          arg3 = StopGameplayCamShaking
-          arg4 = true
-          arg3(arg4)
-          arg3 = SetVehicleCheatPowerIncrease
-          arg4 = arg2
-          arg5 = 1.0
-          arg3(arg4, arg5)
-          arg3 = SetVehicleBoostActive
-          arg4 = arg2
-          arg5 = false
-          arg3(arg4, arg5)
-          arg3 = AnimpostfxStop
-          arg4 = "RaceTurbo"
-          arg3(arg4)
-        end
-      else
-        arg3 = SetVehicleCheatPowerIncrease
-        arg4 = arg2
-        arg5 = 1.0
-        arg3(arg4, arg5)
-        arg3 = workValue10
-        arg4 = arg2
-        arg3(arg4)
-        arg3 = workValue7
-        arg4 = arg2
-        arg3(arg4)
-      end
+    while endTime > GetGameTimer() do
+      local remainingRatio = (endTime - GetGameTimer()) / 500
+      SetParticleFxLoopedScale(effect, remainingRatio)
+      SetParticleFxLoopedAlpha(effect, remainingRatio)
+      Citizen.Wait(0)
     end
-  end
-end
-cmgCall4 = CMG
-cmgCall4 = cmgCall4.createThreadOnTick
-workValue12 = workValue11
-textValue6 = "Vehicle Nitro Text"
--- Beginner: Run a helper every game frame while this script is active.
-cmgCall4(workValue12, textValue6)
-cmgCall4 = CMG
 
--- === HELPER FUNCTION (decompiler name: workValue12; parameters: arg1, arg2) ===
-function workValue12(arg1, arg2)
-  local arg3
-  arg3 = dataTable
-  arg3[arg1] = arg2
-  arg3 = dataTable
-  arg3 = arg3[arg1]
-  if arg3 > 100 then
-    arg3 = dataTable
-    arg3[arg1] = 100
+    StopParticleFxLooped(effect, false)
+  end)
+end
+
+local function stopNitroEffects(vehicle)
+  local effects = activeNitroEffectsByVehicle[vehicle]
+  if not effects then
+    return
+  end
+
+  fadeAndStopEffect(effects.leftTrail)
+  fadeAndStopEffect(effects.rightTrail)
+
+  for _, purgeEffect in pairs(effects.purge) do
+    StopParticleFxLooped(purgeEffect, false)
+  end
+
+  activeNitroEffectsByVehicle[vehicle] = nil
+end
+
+local function applyNitroPower(vehicle)
+  if IsVehicleStopped(vehicle) then
+    return
+  end
+
+  local vehicleModel = GetEntityModel(vehicle)
+  local currentSpeed = GetEntitySpeed(vehicle)
+  local estimatedMaxSpeed = GetVehicleModelEstimatedMaxSpeed(vehicleModel)
+
+  SetVehicleCheatPowerIncrease(vehicle, 4.0 * estimatedMaxSpeed / currentSpeed)
+end
+
+function CMG.playVehicleFlameExhaustEffect(vehicle)
+  CMG.loadPtfx(BACKFIRE_ASSET)
+
+  for _, exhaustBone in pairs(EXHAUST_BONES) do
+    UseParticleFxAsset(BACKFIRE_ASSET)
+
+    local effect = StartParticleFxLoopedOnEntityBone(
+      BACKFIRE_EFFECT,
+      vehicle,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      GetEntityBoneIndexByName(vehicle, exhaustBone),
+      BACKFIRE_SCALE,
+      false,
+      false,
+      false
+    )
+
+    StopParticleFxLooped(effect, true)
   end
 end
-cmgCall4.setVehicleIdNitro = workValue12
+
+local function playPurgeBurst(vehicle)
+  CMG.loadPtfx(PURGE_ASSET)
+
+  for _, purgeBone in pairs(PURGE_BONES) do
+    UseParticleFxAsset(PURGE_ASSET)
+
+    local effect = StartParticleFxLoopedOnEntityBone(
+      PURGE_EFFECT,
+      vehicle,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      GetEntityBoneIndexByName(vehicle, purgeBone),
+      PURGE_SCALE,
+      false,
+      false,
+      false
+    )
+
+    StopParticleFxLooped(effect, true)
+  end
+end
+
+local function setBoostActive(vehicle)
+  SetVehicleBoostActive(vehicle, true)
+end
+
+local function setBoostInactive(vehicle)
+  SetVehicleBoostActive(vehicle, false)
+end
+
+local function resetVehicleBoost(vehicle)
+  SetVehicleCheatPowerIncrease(vehicle, 1.0)
+  setBoostInactive(vehicle)
+end
+
+local function drawAndHandleNitro()
+  if not isDrivingNitroVehicle or not activeVehicleId then
+    return
+  end
+
+  local nitroAmount = nitroByVehicleId[activeVehicleId]
+  if not nitroAmount or nitroAmount <= 0 then
+    return
+  end
+
+  if nitroAmount < 0 then
+    nitroAmount = 0
+  end
+
+  CMG.DrawText(
+    NITRO_TEXT_X,
+    NITRO_TEXT_Y,
+    "Nitro: " .. math.floor(tonumber(nitroAmount) or 0) .. "%",
+    NITRO_TEXT_SCALE,
+    NITRO_TEXT_FONT,
+    1,
+    NITRO_TEXT_COLOUR,
+    true
+  )
+
+  local vehicle = GetVehiclePedIsIn(CMG.getPlayerPed(), false)
+
+  if IsControlPressed(0, 21) then
+    local nextNitroAmount = nitroByVehicleId[activeVehicleId] - 0.05
+
+    if nextNitroAmount >= 0 then
+      ensureNitroEffects(vehicle)
+      applyNitroPower(vehicle)
+      AnimpostfxPlay("RaceTurbo", 0, false)
+
+      nitroByVehicleId[activeVehicleId] = nextNitroAmount
+
+      if not exhaustEffectThrottled then
+        exhaustEffectThrottled = true
+
+        CMG.playVehicleFlameExhaustEffect(vehicle)
+        playPurgeBurst(vehicle)
+        setBoostActive(vehicle)
+
+        SetTimeout(100, function()
+          exhaustEffectThrottled = false
+        end)
+      end
+    else
+      nitroByVehicleId[activeVehicleId] = 0
+      StopGameplayCamShaking(true)
+      resetVehicleBoost(vehicle)
+      AnimpostfxStop("RaceTurbo")
+    end
+  else
+    resetVehicleBoost(vehicle)
+    stopNitroEffects(vehicle)
+  end
+end
+
+CMG.createThreadOnTick(drawAndHandleNitro, "Vehicle Nitro Text")
+
+function CMG.setVehicleIdNitro(vehicleId, nitroAmount)
+  nitroByVehicleId[vehicleId] = nitroAmount
+
+  if nitroByVehicleId[vehicleId] > 100 then
+    nitroByVehicleId[vehicleId] = 100
+  end
+end

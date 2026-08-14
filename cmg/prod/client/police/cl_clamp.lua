@@ -1,15 +1,28 @@
 --[[
-  LEVEL 1 BEGINNER NOTES - Vehicle Clamp
+    LEVEL 1 BEGINNER GUIDE - Vehicle Clamp
+    ======================================
 
-  This file lets police clamp a nearby vehicle.
+    File: cmg/prod/client/police/cl_clamp.lua
+    Runs as: Client - runs on each player's FiveM client.
+    Purpose: lets police clamp a nearby vehicle.
 
-  Big idea:
-    1. Find a nearby vehicle.
-    2. Ask the server if clamping can start.
-    3. Place a clamp object on the closest wheel.
-    4. Tell the server about the clamp object so everyone can see it.
+    Big idea:
+      1. Find a nearby vehicle.
+      2. Ask the server if clamping can start.
+      3. Place a clamp object on the closest wheel.
+      4. Tell the server about the clamp object so everyone can see it.
 
-  Keep the event names exactly as they are. They are shared with the server.
+    FiveM words used here:
+      * network id = shared id for an entity so server/clients can refer to it.
+      * bone = named part of a vehicle model, such as wheel_lf.
+      * event = a named message that causes code to run.
+
+    Quick map of this file:
+      * Incoming network events: start clamp, place clamp, freeze/unfreeze vehicle
+      * Server events sent: clamp request, clamp object created
+      * Main helpers: findClosestWheel(), restorePlayerAfterClamp(), failClamp()
+
+    Keep the event names exactly as they are. They are shared with the server.
 ]]
 
 local WHEEL_BONES = {

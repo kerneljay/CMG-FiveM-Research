@@ -1,17284 +1,3474 @@
 --[[
-    LEVEL 1 BEGINNER GUIDE — Fingerprint Hacking
-    =================================================
+    LEVEL 1 BEGINNER GUIDE - Fingerprint Hacking
 
-    File: cmg/prod/client/misc/cl_fingerprintHacking.lua
-    Runs as: Client — runs on each player's FiveM client.
-    Purpose: miscellaneous gameplay feature, specifically the Fingerprint Hacking feature.
-
-    FiveM words used in this project:
-      * ped = a GTA character/entity (your player character is a ped).
-      * entity = a ped, vehicle, or object that exists in the GTA world.
-      * native = a GTA/FiveM function such as GetEntityCoords().
-      * event = a named message that causes code to run.
-      * client event = stays on this player; server event = crosses to the server.
-      * NUI = the HTML/CSS/JavaScript interface shown over the game.
-      * thread = code that can keep running over time; Wait() prevents it freezing the game.
-
-    Quick map of this file (automatic static scan):
-      * Named functions: 29
-      * Background threads: 0
-      * Always-running loops: 12
-      * Commands: none found by static scan
-      * Incoming network events: none found by static scan
-      * Local event handlers: none found by static scan
-      * Server events sent: none found by static scan
-      * NUI callbacks: none found by static scan
-      * Modules/config loaded: none found by static scan
-
-    Read it in this order:
-      1. Top-level config/state variables.
-      2. Helper functions (small reusable pieces of logic).
-      3. Commands/events/UI callbacks (what starts the logic).
-      4. Threads/loops last (what keeps checking in the background).
-
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
-      A decompiler invented them while rebuilding source code.
-
-      For a beginner, read the API call on the right-hand side first.
-      Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
-      means roughly:
-        local playerCoords = GetEntityCoords(playerPed)
-
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
-
-    Safety note for editing:
-      Keep event names, decorator keys, exported names, and config keys unchanged
-      unless you also update every place that uses them.
+    Client-side fingerprint hacking minigame.
+    The first table is static puzzle layout data: each entry is
+    { x, y, selected, expectedNumber } for one clickable fingerprint square.
 ]]
-local dataTable, dataTable2, dataTable3, dataTable4
-dataTable = {}
-dataTable2 = {}
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[1] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[8] = dataTable4
-dataTable2[2] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[8] = dataTable4
-dataTable2[3] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[8] = dataTable4
-dataTable2[4] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[5] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[6] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[7] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[8] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[9] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[10] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[11] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[12] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[13] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[14] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[15] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[16] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[17] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[18] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[19] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[20] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[21] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[22] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[23] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[24] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[25] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[26] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[27] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[28] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[29] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[30] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[31] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[32] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[33] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[34] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[35] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[36] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[37] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[38] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[39] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[40] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[41] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[42] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[43] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[44] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[45] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[46] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[47] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[48] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[49] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[50] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[51] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[52] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[53] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[54] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[55] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[56] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[57] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[58] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[59] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[60] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[61] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[62] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[63] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[64] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[65] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[66] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[67] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[68] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[69] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[70] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[71] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[72] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[73] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[74] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[75] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[76] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[77] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[78] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[79] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[80] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[81] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[82] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[83] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[84] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[85] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[86] = dataTable3
-dataTable[1] = dataTable2
-dataTable2 = {}
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[1] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[8] = dataTable4
-dataTable2[2] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[8] = dataTable4
-dataTable2[3] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[8] = dataTable4
-dataTable2[4] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[5] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[6] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[7] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[8] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[9] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[10] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[11] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[12] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[13] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[14] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[15] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[16] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[17] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[18] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[19] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[20] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[21] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[22] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[23] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[24] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[25] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[26] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[27] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[28] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[29] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[30] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[31] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[32] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[33] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[34] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[35] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[36] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[37] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[38] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[39] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[40] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[41] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[42] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[43] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[44] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[45] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[46] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[47] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[48] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[49] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[50] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[51] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[52] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[53] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[54] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[55] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[56] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[57] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[58] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[59] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[60] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[61] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[62] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[63] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[64] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[65] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[66] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[67] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[68] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[69] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[70] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[71] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[72] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[73] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[74] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[75] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[76] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[77] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[78] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[79] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[80] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[81] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[82] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[83] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[84] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[85] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[86] = dataTable3
-dataTable[2] = dataTable2
-dataTable2 = {}
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[1] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[8] = dataTable4
-dataTable2[2] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[8] = dataTable4
-dataTable2[3] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[8] = dataTable4
-dataTable2[4] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[5] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[6] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[7] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[8] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[9] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[10] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[11] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[12] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[13] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[14] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[15] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[16] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[17] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[18] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[19] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[20] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[21] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[22] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[23] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[24] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[25] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[26] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[27] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[28] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[29] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[30] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[31] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[32] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[33] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[34] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[35] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[36] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[37] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[38] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[39] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[40] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[41] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[42] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[43] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[44] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[45] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[46] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[47] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[48] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[49] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[50] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[51] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[52] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[53] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[54] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[55] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[56] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[57] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[58] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[59] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[60] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[61] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[62] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[63] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[64] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[65] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[66] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[67] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[68] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[69] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[70] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[71] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[72] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[73] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[74] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[75] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[76] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[77] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[78] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[79] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[80] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[81] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[82] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[83] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[84] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[85] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[86] = dataTable3
-dataTable[3] = dataTable2
-dataTable2 = {}
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[1] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[8] = dataTable4
-dataTable2[2] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[8] = dataTable4
-dataTable2[3] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[8] = dataTable4
-dataTable2[4] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[5] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[6] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[7] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[8] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[9] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[10] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[11] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[12] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[13] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[14] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[15] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[16] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[17] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[18] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[19] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[20] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[21] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[22] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[23] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[24] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[25] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[26] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[27] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[28] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[29] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[30] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[31] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[32] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[33] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[34] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[35] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[36] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[37] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[38] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[39] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[40] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[41] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[42] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[43] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[44] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[45] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[46] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[47] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[48] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[49] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[50] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[51] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[52] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[53] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[54] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[55] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[56] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[57] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[58] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[59] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[60] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[61] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[62] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[63] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[64] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[65] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[66] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[67] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[68] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[69] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[70] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[71] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[72] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[73] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[74] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[75] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[76] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[77] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[78] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[79] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[80] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[81] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[82] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[83] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[84] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[85] = dataTable3
-dataTable3 = {}
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 1
-dataTable3[1] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.315
-dataTable4[3] = false
-dataTable4[4] = 2
-dataTable3[2] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 3
-dataTable3[3] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.44
-dataTable4[3] = false
-dataTable4[4] = 4
-dataTable3[4] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 5
-dataTable3[5] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.569
-dataTable4[3] = false
-dataTable4[4] = 6
-dataTable3[6] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.105
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 7
-dataTable3[7] = dataTable4
-dataTable4 = {}
-dataTable4[1] = 0.239
-dataTable4[2] = 0.695
-dataTable4[3] = false
-dataTable4[4] = 8
-dataTable3[8] = dataTable4
-dataTable2[86] = dataTable3
-dataTable[4] = dataTable2
-G_Table = dataTable
-dataTable = {}
-Callback = dataTable
+
+local fingerprintPuzzleLayouts =
+{
+  {
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 6 },
+      { 0.239, 0.315, false, 4 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 5 },
+      { 0.105, 0.569, false, 3 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 8 },
+      { 0.239, 0.695, false, 2 },
+    },
+    {
+      { 0.105, 0.315, false, 4 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 8 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 5 },
+      { 0.239, 0.695, false, 3 },
+    },
+    {
+      { 0.105, 0.315, false, 8 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 5 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 3 },
+      { 0.105, 0.695, false, 1 },
+      { 0.239, 0.695, false, 7 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+  },
+  {
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 6 },
+      { 0.239, 0.315, false, 4 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 5 },
+      { 0.105, 0.569, false, 3 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 8 },
+      { 0.239, 0.695, false, 2 },
+    },
+    {
+      { 0.105, 0.315, false, 4 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 8 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 5 },
+      { 0.239, 0.695, false, 3 },
+    },
+    {
+      { 0.105, 0.315, false, 8 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 5 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 3 },
+      { 0.105, 0.695, false, 1 },
+      { 0.239, 0.695, false, 7 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+  },
+  {
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 6 },
+      { 0.239, 0.315, false, 4 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 5 },
+      { 0.105, 0.569, false, 3 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 8 },
+      { 0.239, 0.695, false, 2 },
+    },
+    {
+      { 0.105, 0.315, false, 4 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 8 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 5 },
+      { 0.239, 0.695, false, 3 },
+    },
+    {
+      { 0.105, 0.315, false, 8 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 5 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 3 },
+      { 0.105, 0.695, false, 1 },
+      { 0.239, 0.695, false, 7 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+  },
+  {
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 6 },
+      { 0.239, 0.315, false, 4 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 5 },
+      { 0.105, 0.569, false, 3 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 8 },
+      { 0.239, 0.695, false, 2 },
+    },
+    {
+      { 0.105, 0.315, false, 4 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 1 },
+      { 0.239, 0.44, false, 8 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 7 },
+      { 0.105, 0.695, false, 5 },
+      { 0.239, 0.695, false, 3 },
+    },
+    {
+      { 0.105, 0.315, false, 8 },
+      { 0.239, 0.315, false, 6 },
+      { 0.105, 0.44, false, 5 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 2 },
+      { 0.239, 0.569, false, 3 },
+      { 0.105, 0.695, false, 1 },
+      { 0.239, 0.695, false, 7 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+    {
+      { 0.105, 0.315, false, 1 },
+      { 0.239, 0.315, false, 2 },
+      { 0.105, 0.44, false, 3 },
+      { 0.239, 0.44, false, 4 },
+      { 0.105, 0.569, false, 5 },
+      { 0.239, 0.569, false, 6 },
+      { 0.105, 0.695, false, 7 },
+      { 0.239, 0.695, false, 8 },
+    },
+  },
+}
+
+G_Table = fingerprintPuzzleLayouts
+
+Callback = {}
 Minutes = 3
 Seconds = 0
 Seconds2 = 0
 Ms = 0
 Ms2 = 0
 Lifes = 6
-dataTable = GetAspectRatio
-dataTable2 = false
-dataTable = dataTable(dataTable2)
-Ar = dataTable
-dataTable = Ar
-dataTable2 = 1.778
-dataTable = dataTable2 / dataTable
-Ard = dataTable
+Ar = GetAspectRatio(false)
+Ard = 1.778 / Ar
 G_0 = 1
 G_1 = false
 G_2 = false
@@ -17286,256 +3476,85 @@ G_3 = ""
 G_4 = 1
 G_5 = 0
 G_6 = 0
-dataTable = {}
-dataTable2 = {}
-dataTable2[1] = 1
-dataTable2[2] = 4
-dataTable2[3] = 6
-dataTable2[4] = 7
-dataTable2[5] = 0
-dataTable[1] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 1
-dataTable2[2] = 2
-dataTable2[3] = 3
-dataTable2[4] = 4
-dataTable2[5] = 1
-dataTable[2] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 1
-dataTable2[2] = 2
-dataTable2[3] = 3
-dataTable2[4] = 4
-dataTable2[5] = 2
-dataTable[3] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 1
-dataTable2[2] = 2
-dataTable2[3] = 3
-dataTable2[4] = 4
-dataTable2[5] = 3
-dataTable[4] = dataTable2
-G_7 = dataTable
-dataTable = {}
-dataTable2 = {}
-dataTable2[1] = 0.536
-dataTable2[2] = true
-dataTable[1] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.662
-dataTable2[2] = true
-dataTable[2] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.782
-dataTable2[2] = true
-dataTable[3] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.905
-dataTable2[2] = true
-dataTable[4] = dataTable2
-G_8 = dataTable
+
+local fingerprintAnswerGroups = {
+  { 1, 4, 6, 7, 0 },
+  { 1, 2, 3, 4, 1 },
+  { 1, 2, 3, 4, 2 },
+  { 1, 2, 3, 4, 3 }
+}
+G_7 = fingerprintAnswerGroups
+
+local levelRows = {
+  { 0.536, true },
+  { 0.662, true },
+  { 0.782, true },
+  { 0.905, true }
+}
+G_8 = levelRows
+
 G_9 = 31
-dataTable = {}
-dataTable[1] = -0.0035
-dataTable[2] = 0.008
-dataTable[3] = 0.0195
-dataTable[4] = 0.031
-dataTable[5] = 0.0425
-dataTable[6] = 0.054
-dataTable[7] = 0.0655
-dataTable[8] = 0.077
-dataTable[9] = 0.0885
-dataTable[10] = 0.1
-dataTable[11] = 0.1115
-dataTable[12] = 0.123
-dataTable[13] = 0.1345
-dataTable[14] = 0.146
-dataTable[15] = 0.1575
-dataTable[16] = 0.169
-dataTable[17] = 0.1805
-dataTable[18] = 0.192
-dataTable[19] = 0.2035
-dataTable[20] = 0.215
-dataTable[21] = 0.2265
-dataTable[22] = 0.238
-dataTable[23] = 0.2495
-dataTable[24] = 0.261
-dataTable[25] = 0.2725
-dataTable[26] = 0.284
-dataTable[27] = 0.2955
-dataTable[28] = 0.307
-dataTable[29] = 0.3185
-dataTable[30] = 0.33
-dataTable[31] = 0.3415
-G_10 = dataTable
-dataTable = {}
-dataTable2 = {}
-dataTable2[1] = 0.983
-dataTable2[2] = 0.255
-dataTable[1] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.983
-dataTable2[2] = 0.308
-dataTable[2] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.983
-dataTable2[2] = 0.361
-dataTable[3] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.983
-dataTable2[2] = 0.414
-dataTable[4] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.983
-dataTable2[2] = 0.467
-dataTable[5] = dataTable2
-dataTable2 = {}
-dataTable2[1] = 0.983
-dataTable2[2] = 0.52
-dataTable[6] = dataTable2
-G_11 = dataTable
-dataTable = {}
-dataTable[1] = 0
-dataTable[2] = 1
-dataTable[3] = 2
-G_12 = dataTable
+
+local countdownTickOffsets = {
+  -0.0035, 0.008, 0.0195, 0.031, 0.0425, 0.054, 0.0655, 0.077,
+  0.0885, 0.1, 0.1115, 0.123, 0.1345, 0.146, 0.1575, 0.169,
+  0.1805, 0.192, 0.2035, 0.215, 0.2265, 0.238, 0.2495, 0.261,
+  0.2725, 0.284, 0.2955, 0.307, 0.3185, 0.33, 0.3415
+}
+G_10 = countdownTickOffsets
+
+local lifeIconPositions = {
+  { 0.983, 0.255 },
+  { 0.983, 0.308 },
+  { 0.983, 0.361 },
+  { 0.983, 0.414 },
+  { 0.983, 0.467 },
+  { 0.983, 0.52 }
+}
+G_11 = lifeIconPositions
+
+local timerDigitTextures = { 0, 1, 2 }
+G_12 = timerDigitTextures
+
 G_13 = nil
-dataTable = {}
-dataTable[1] = 0.33
-dataTable[2] = 0.34
-dataTable[3] = 0.35
-dataTable[4] = 0.36
-dataTable[5] = 0.37
-dataTable[6] = 0.38
-dataTable[7] = 0.39
-dataTable[8] = 0.4
-dataTable[9] = 0.41
-dataTable[10] = 0.42
-dataTable[11] = 0.43
-dataTable[12] = 0.44
-dataTable[13] = 0.45
-dataTable[14] = 0.46
-dataTable[15] = 0.47
-dataTable[16] = 0.48
-dataTable[17] = 0.49
-dataTable[18] = 0.5
-dataTable[19] = 0.51
-dataTable[20] = 0.52
-dataTable[21] = 0.53
-dataTable[22] = 0.54
-dataTable[23] = 0.55
-dataTable[24] = 0.56
-dataTable[25] = 0.57
-dataTable[26] = 0.58
-dataTable[27] = 0.59
-dataTable[28] = 0.6
-dataTable[29] = 0.61
-dataTable[30] = 0.62
-dataTable[31] = 0.63
-dataTable[32] = 0.64
-dataTable[33] = 0.65
-dataTable[34] = 0.66
-dataTable[35] = 0.67
-G_14 = dataTable
+
+local selectorXOffsets = {
+  0.33, 0.34, 0.35, 0.36, 0.37, 0.38, 0.39, 0.4, 0.41,
+  0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.48, 0.49, 0.5,
+  0.51, 0.52, 0.53, 0.54, 0.55, 0.56, 0.57, 0.58, 0.59,
+  0.6, 0.61, 0.62, 0.63, 0.64, 0.65, 0.66, 0.67
+}
+G_14 = selectorXOffsets
+
 G_20 = false
-dataTable = false
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
-function dataTable2()
-  local arg1, arg2
-  arg1 = Citizen
-  arg1 = arg1.CreateThread
+function Generate()
+  Citizen.CreateThread(function()
+    for levelIndex = 1, 4 do
+      for puzzleIndex = 1, 86 do
+        local availableNumbers = { 1, 2, 3, 4, 5, 6, 7, 8 }
 
-  -- === HELPER FUNCTION: arg2() ===
-  function arg2()
-    local threadCall, numberValue9, textValue, textValue3, flag, numberValue11, numberValue12, numberValue13, dataTable5, numberValue14, numberValue, numberValue2, numberValue4, mathHelper, numberValue5, numberValue6, numberValue7
-    threadCall = 1
-    numberValue9 = 4
-    textValue = 1
-    for textValue3 = threadCall, numberValue9, textValue do
-      flag = 1
-      numberValue11 = 86
-      numberValue12 = 1
-      for numberValue13 = flag, numberValue11, numberValue12 do
-        dataTable5 = {}
-        numberValue14 = 1
-        numberValue = 2
-        numberValue2 = 3
-        numberValue4 = 4
-        mathHelper = 5
-        numberValue5 = 6
-        numberValue6 = 7
-        numberValue7 = 8
-        dataTable5[1] = numberValue14
-        dataTable5[2] = numberValue
-        dataTable5[3] = numberValue2
-        dataTable5[4] = numberValue4
-        dataTable5[5] = mathHelper
-        dataTable5[6] = numberValue5
-        dataTable5[7] = numberValue6
-        dataTable5[8] = numberValue7
-        numberValue14 = 1
-        numberValue = 8
-        numberValue2 = 1
-        for numberValue4 = numberValue14, numberValue, numberValue2 do
-          mathHelper = math
-          mathHelper = mathHelper.random
-          numberValue5 = #dataTable5
-          mathHelper = mathHelper(numberValue5)
-          numberValue5 = G_Table
-          numberValue5 = numberValue5[textValue3]
-          numberValue5 = numberValue5[numberValue13]
-          numberValue5 = numberValue5[numberValue4]
-          numberValue6 = dataTable5[mathHelper]
-          numberValue5[4] = numberValue6
-          numberValue5 = table
-          numberValue5 = numberValue5.remove
-          numberValue6 = dataTable5
-          numberValue7 = mathHelper
-          numberValue5(numberValue6, numberValue7)
+        for cellIndex = 1, 8 do
+          local randomIndex = math.random(#availableNumbers)
+          G_Table[levelIndex][puzzleIndex][cellIndex][4] = availableNumbers[randomIndex]
+          table.remove(availableNumbers, randomIndex)
         end
       end
     end
-  end
-  -- Beginner: Start a separate FiveM thread so this code can run independently.
-  arg1(arg2)
+  end)
 end
-Generate = dataTable2
-dataTable2 = AddEventHandler
-dataTable3 = "utk_fingerprint:startGame"
--- Beginner: this function runs when client event "utk_fingerprint:startGame" fires.
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
-function dataTable4()
-  local arg1, arg2
-  arg1 = Generate
-  arg1()
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg2.type = "intro"
-  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg1(arg2)
-  arg1 = SendNUIMessage
-  arg2 = {}
-  arg2.transactionType = "hackingIntro"
-  arg1(arg2)
-  arg1 = Citizen
-  arg1 = arg1.Wait
-  arg2 = 3350
-  arg1(arg2)
-  arg1 = TriggerEvent
-  arg2 = "StartHack"
-  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "StartHack".
-  arg1(arg2)
-end
--- Beginner: Register a client-side event handler. Event/command: "utk_fingerprint:startGame".
-dataTable2(dataTable3, dataTable4)
-dataTable2 = AddEventHandler
-dataTable3 = "StartHack"
--- Beginner: this function runs when client event "StartHack" fires.
+AddEventHandler("utk_fingerprint:startGame", function()
+  Generate()
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: none) ===
-function dataTable4()
+  SendNUIMessage({ type = "intro" })
+  SendNUIMessage({ transactionType = "hackingIntro" })
+
+  Citizen.Wait(3350)
+  TriggerEvent("StartHack")
+end)
+
+AddEventHandler("StartHack", function()
   local arg1, arg2, arg3, arg4, arg5, arg6
   G_0 = 1
   G_6 = 0
@@ -17673,15 +3692,10 @@ function dataTable4()
       G_19 = false
       G_9 = 31
       while true do
-        waitCall = G_1
-        if true ~= waitCall then
-          waitCall = G_19
-          if true ~= waitCall then
-            goto flow_label_10
-          end
+        if G_1 == true or G_19 == true then
+          return
         end
-        return
-        ::flow_label_10::
+
         waitCall = Citizen
         waitCall = waitCall.Wait
         numberValue10 = 1920
@@ -18720,9 +4734,7 @@ function dataTable4()
   end
   -- Beginner: Start a separate FiveM thread so this code can run independently.
   arg2(arg3)
-end
--- Beginner: Register a client-side event handler. Event/command: "StartHack".
-dataTable2(dataTable3, dataTable4)
+end)
 
 -- === HELPER FUNCTION (decompiler name: dataTable2; parameters: none) ===
 function dataTable2()
@@ -18841,15 +4853,10 @@ function dataTable2()
             threadCall(numberValue9)
           end
         end
-        threadCall = G_1
-        if true ~= threadCall then
-          threadCall = G_2
-          if true ~= threadCall then
-            goto flow_label_47
-          end
+        if G_1 == true or G_2 == true then
+          return
         end
-        return
-        ::flow_label_47::
+
         threadCall = Citizen
         threadCall = threadCall.Wait
         numberValue9 = 1
@@ -19467,82 +5474,58 @@ function dataTable2(arg1)
   return arg2
 end
 F_13 = dataTable2
-dataTable2 = AddEventHandler
-dataTable3 = "utk_fingerprint:Start"
--- Beginner: this function runs when client event "utk_fingerprint:Start" fires.
 
--- === HELPER FUNCTION (decompiler name: dataTable4; parameters: arg1, arg2, arg3, arg4) ===
-function dataTable4(arg1, arg2, arg3, arg4)
-  local arg5, arg6, arg7, arg8, arg9, arg10, arg11
-  Callback = arg4
-  if nil ~= arg1 then
-    if arg1 <= 0 then
+AddEventHandler("utk_fingerprint:Start", function(requestedLevelCount, requestedLives, requestedMinutes, callback)
+  Callback = callback
+
+  if requestedLevelCount ~= nil then
+    if requestedLevelCount <= 0 then
       LevelCount = 1
-    elseif arg1 > 3 then
+    elseif requestedLevelCount > 3 then
       LevelCount = 4
     else
-      LevelCount = arg1
+      LevelCount = requestedLevelCount
     end
   else
     LevelCount = 4
   end
-  if nil ~= arg2 then
-    if arg2 <= 0 then
+
+  if requestedLives ~= nil then
+    if requestedLives <= 0 then
       Lifes = 1
-    elseif arg2 > 6 then
+    elseif requestedLives > 6 then
       Lifes = 6
     else
-      Lifes = arg2
+      Lifes = requestedLives
     end
   else
     Lifes = 5
   end
-  if nil ~= arg3 then
-    if arg3 < 1 then
+
+  if requestedMinutes ~= nil then
+    if requestedMinutes < 1 then
       CountdownTime = 60000
       Minutes = 1
-    elseif arg3 > 9 then
+    elseif requestedMinutes > 9 then
       CountdownTime = 540000
       Minutes = 9
     else
-      arg5 = arg3 * 60000
-      CountdownTime = arg5
-      Minutes = arg3
+      CountdownTime = requestedMinutes * 60000
+      Minutes = requestedMinutes
     end
   else
     CountdownTime = 180000
     Minutes = 3
   end
-  arg5 = ipairs
-  arg6 = G_8
-  arg5, arg6, arg7, arg8 = arg5(arg6)
-  for arg9, arg10 in arg5, arg6, arg7, arg8 do
-    arg11 = LevelCount
-    if arg9 > arg11 then
-      arg10[2] = false
-    else
-      arg10[2] = true
-    end
+
+  for levelIndex, levelRow in ipairs(G_8) do
+    levelRow[2] = levelIndex <= LevelCount
   end
-  arg5 = Generate
-  arg5()
-  arg5 = SendNUIMessage
-  arg6 = {}
-  arg6.type = "intro"
-  -- Beginner: Send data from Lua to an HTML/JavaScript NUI interface.
-  arg5(arg6)
-  arg5 = SendNUIMessage
-  arg6 = {}
-  arg6.transactionType = "hackingIntro"
-  arg5(arg6)
-  arg5 = Citizen
-  arg5 = arg5.Wait
-  arg6 = 3350
-  arg5(arg6)
-  arg5 = TriggerEvent
-  arg6 = "StartHack"
-  -- Beginner: Trigger another client-side event in this resource/framework. Event/command: "StartHack".
-  arg5(arg6)
-end
--- Beginner: Register a client-side event handler. Event/command: "utk_fingerprint:Start".
-dataTable2(dataTable3, dataTable4)
+
+  Generate()
+  SendNUIMessage({ type = "intro" })
+  SendNUIMessage({ transactionType = "hackingIntro" })
+
+  Citizen.Wait(3350)
+  TriggerEvent("StartHack")
+end)

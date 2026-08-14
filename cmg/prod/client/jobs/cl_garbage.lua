@@ -33,14 +33,14 @@
       4. Threads/loops last (what keeps checking in the background).
 
     IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
+      Names like temporaryValue12, temporaryText4, temporaryTable7, flag3, temporaryCmgCall2,
       arg1/arg2, or flow_label_* are NOT meaningful original developer names.
       A decompiler invented them while rebuilding source code.
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        temporaryValue = GetEntityCoords
+        temporaryTable2 = temporaryValue(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 

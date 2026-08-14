@@ -46,9 +46,9 @@
     The supplied file was a very large Lua decompile.  It used temporary
     variables such as:
 
-        workValue
-        workValue4
-        workValue2
+        temporaryValue
+        temporaryValue4
+        temporaryValue2
 
     Those are decompiler "register" names, not names written by the original
     developer, so they make a simple idea extremely hard to understand.
@@ -3806,7 +3806,7 @@ AddEventHandler(
 --   G. CMG.processWeedBud() / CMG.processWeedBag()
 --      Starts the first-person workbench minigames.
 --
--- This is far easier than trying to follow workValue -> workValue5 -> workValue3.
+-- This is far easier than trying to follow temporaryValue -> temporaryValue5 -> temporaryValue3.
 --
 -- FOR EXACT ANIMATION / PLACEMENT GEOMETRY:
 --

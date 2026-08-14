@@ -40,7 +40,7 @@
     Call Manager (cleaned/readable version)
 
     This file was reconstructed from a decompiled Lua script.
-    The original used temporary names such as workValue, workValue2, etc.
+    The original used temporary names such as temporaryValue, temporaryValue2, etc.
     Those have been replaced with descriptive names and the decompiler's
     goto/label noise has been removed.
 

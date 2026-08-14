@@ -57,7 +57,7 @@
       - A "native" is a built-in GTA/FiveM function.
       - RageUI is the menu library used by the developer menu.
 
-    The strange workValue / workValue2 decompiler variable names have been removed.
+    The strange temporaryValue / temporaryValue2 decompiler variable names have been removed.
     The CMG function names and server event hash used by the original script
     are intentionally kept so this can still fit into the same resource.
 ]]

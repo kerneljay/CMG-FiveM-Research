@@ -1,19 +1,30 @@
 --[[
-  LEVEL 1 BEGINNER NOTES - Realistic Vehicle Failure
+    LEVEL 1 BEGINNER GUIDE - Realistic Vehicle Failure
+    ==================================================
 
-  This file makes cars break in a more realistic way.
+    File: cmg/prod/client/vehicles/cl_realisticvehiclefailure.lua
+    Runs as: Client - runs on each player's FiveM client.
+    Purpose: makes vehicle damage affect how vehicles drive and repair.
 
-  Big idea:
-    1. Watch the car the player is driving.
-    2. Read the car's engine, body, and petrol tank health.
-    3. If the car got damaged, make that damage affect how the car drives.
-    4. Add mechanic spots where players can repair their car.
+    Big idea:
+      1. Watch the vehicle the player is driving.
+      2. Read engine, body, and petrol tank health.
+      3. Convert new damage into weaker handling, torque, and health.
+      4. Add mechanic stations where players can repair their vehicle.
 
-  Beginner words:
-    ped = a GTA character. The player and mechanic NPCs are both peds.
-    vehicle = a GTA vehicle entity.
-    native = a FiveM/GTA function like GetVehicleEngineHealth().
-    thread = a loop that keeps running without freezing the game.
+    FiveM words used here:
+      * ped = a GTA character. The player and mechanic NPCs are both peds.
+      * vehicle = a GTA vehicle entity.
+      * native = a FiveM/GTA function like GetVehicleEngineHealth().
+      * thread = code that keeps checking over time; Wait() prevents freezing.
+
+    Quick map of this file:
+      * Public CMG functions: CMG.isVehicleFailureDisabled(), CMG.setVehicleFailureDisabled()
+      * Background threads: vehicle damage loop, anti-flip loop, mechanic station loop
+      * Server event sent: repair payment/request event near mechanic stations
+
+    Edit the config table first when changing damage strength. The helper
+    functions below mostly translate that config into GTA native calls.
 ]]
 
 local config = {

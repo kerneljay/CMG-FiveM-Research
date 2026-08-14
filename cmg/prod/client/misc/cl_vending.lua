@@ -39,8 +39,7 @@
 
       For a beginner, read the API call on the right-hand side first.
       Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
+        playerCoords = GetEntityCoords(playerPed)
       means roughly:
         local playerCoords = GetEntityCoords(playerPed)
 
@@ -52,38 +51,32 @@
       Keep event names, decorator keys, exported names, and config keys unchanged
       unless you also update every place that uses them.
 ]]
-local cmgCall, textValue, workValue25, workValue41, coords, workValue59, workValue72, workValue83, workValue92, workValue102, workValue, workValue5, localEventCall, dataTable, dataTable2, numberValue4, numberValue6, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue26, workValue27, workValue29, workValue31, workValue33, workValue35, workValue36, workValue37, workValue38, workValue39, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, numberValue10, threadCall, threadCall2, numberValue11, workValue52, workValue53, workValue54, workValue55, dataTable6, workValue56, workValue57, workValue58, workValue62, workValue63, workValue64, workValue65, workValue66, workValue67, workValue68, workValue69, workValue70, workValue71, dataTable7, workValue74, workValue75, workValue76, workValue77, workValue78, workValue79, workValue80, workValue81, workValue82, workValue85, workValue86, eventRegistration, textValue8, workValue87, iterator3, workValue88, workValue89, workValue90, workValue91, workValue96, iterator4, dataTable8, workValue97, workValue98, workValue99, workValue100, workValue101
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-textValue = "cfg/cfg_vending"
--- Beginner: result below is config.
-cmgCall = cmgCall(textValue)
-textValue = AddTextEntry
-workValue25 = BeginTextCommandDisplayHelp
-workValue41 = EndTextCommandDisplayHelp
-coords = GetEntityCoords
-workValue59 = World3dToScreen2d
-workValue72 = SetTextScale
-workValue83 = SetTextFont
-workValue92 = SetTextEntry
-workValue102 = SetTextCentre
-workValue = AddTextComponentString
-workValue5 = DrawText
-localEventCall = TriggerEvent
-dataTable = {}
-dataTable2 = {}
-dataTable.Marker = dataTable2
-dataTable2 = {}
-dataTable.N3d = dataTable2
-dataTable2 = {}
-dataTable.SetData = dataTable2
-dataTable2 = {}
-dataTable.SliceGroups = dataTable2
-dataTable2 = {}
-dataTable.Events = dataTable2
+local vendingConfig, addTextEntry, beginHelpText, endHelpText, getEntityCoords, world3dToScreen2d, setTextScale, setTextFont, setTextEntry, setTextCentre, addTextComponentString, drawText, triggerClientEvent, vendingRuntime, replaceTextTokens, numberValue4, numberValue6, workValue12, workValue13, workValue14, workValue15, workValue16, workValue17, workValue18, workValue19, workValue20, workValue21, workValue22, workValue23, workValue24, workValue26, workValue27, workValue29, workValue31, workValue33, workValue35, workValue36, workValue37, workValue38, workValue39, workValue43, workValue44, workValue45, workValue46, workValue47, workValue48, workValue49, workValue50, numberValue10, threadCall, threadCall2, numberValue11, workValue52, workValue53, workValue54, workValue55, dataTable6, workValue56, workValue57, workValue58, workValue62, workValue63, workValue64, workValue65, workValue66, workValue67, workValue68, workValue69, workValue70, workValue71, dataTable7, workValue74, workValue75, workValue76, workValue77, workValue78, workValue79, workValue80, workValue81, workValue82, workValue85, workValue86, eventRegistration, textValue8, workValue87, iterator3, workValue88, workValue89, workValue90, workValue91, workValue96, iterator4, dataTable8, workValue97, workValue98, workValue99, workValue100, workValue101
 
--- === HELPER FUNCTION (decompiler name: dataTable2; parameters: arg1, arg2, arg3) ===
-function dataTable2(arg1, arg2, arg3)
+vendingConfig = CMG.loadModule("cfg/cfg_vending")
+addTextEntry = AddTextEntry
+beginHelpText = BeginTextCommandDisplayHelp
+endHelpText = EndTextCommandDisplayHelp
+getEntityCoords = GetEntityCoords
+world3dToScreen2d = World3dToScreen2d
+setTextScale = SetTextScale
+setTextFont = SetTextFont
+setTextEntry = SetTextEntry
+setTextCentre = SetTextCentre
+addTextComponentString = AddTextComponentString
+drawText = DrawText
+triggerClientEvent = TriggerEvent
+
+vendingRuntime = {
+  Marker = {},
+  N3d = {},
+  SetData = {},
+  SliceGroups = {},
+  Events = {}
+}
+
+-- Replaces template tokens such as "%s" with values from the supplied list/table.
+function replaceTextTokens(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg4 = 1
   arg5 = #arg2
@@ -155,7 +148,7 @@ end
 -- === HELPER FUNCTION (decompiler name: workValue16; parameters: arg1) ===
 function workValue16(arg1)
   local arg2
-  arg2 = dataTable.SliceGroups
+  arg2 = vendingRuntime.SliceGroups
   arg2 = arg2[arg1]
   if not arg2 then
     arg2 = false
@@ -174,10 +167,10 @@ function workValue17(arg1, arg2)
     return
   end
   if arg2 then
-    arg3 = dataTable.SliceGroups
+    arg3 = vendingRuntime.SliceGroups
     arg3[arg1] = arg2
   else
-    arg3 = dataTable.SliceGroups
+    arg3 = vendingRuntime.SliceGroups
     arg3[arg1] = nil
   end
 end
@@ -266,13 +259,13 @@ end
 function workValue20(arg1, arg2, arg3, arg4, arg5)
   local arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag
   if arg1 then
-    arg6 = workValue59
+    arg6 = world3dToScreen2d
     arg7 = arg1.x
     arg8 = arg1.y
     workValue93 = arg1.z
     arg6, arg7, arg8 = arg6(arg7, arg8, workValue93)
     if arg6 then
-      workValue93 = workValue72
+      workValue93 = setTextScale
       workValue103 = arg3 or workValue103
       if not arg3 then
         workValue103 = 0.35
@@ -282,22 +275,22 @@ function workValue20(arg1, arg2, arg3, arg4, arg5)
         workValue2 = 0.35
       end
       workValue93(workValue103, workValue2)
-      workValue93 = workValue83
+      workValue93 = setTextFont
       workValue103 = arg4 or workValue103
       if not arg4 then
         workValue103 = 4
       end
       workValue93(workValue103)
-      workValue93 = workValue92
+      workValue93 = setTextEntry
       workValue103 = "STRING"
       workValue93(workValue103)
-      workValue93 = workValue102
+      workValue93 = setTextCentre
       workValue103 = true
       workValue93(workValue103)
-      workValue93 = workValue
+      workValue93 = addTextComponentString
       workValue103 = arg2
       workValue93(workValue103)
-      workValue93 = workValue5
+      workValue93 = drawText
       workValue103 = arg7
       workValue2 = arg8
       workValue93(workValue103, workValue2)
@@ -325,14 +318,14 @@ end
 -- === HELPER FUNCTION (decompiler name: workValue21; parameters: arg1, arg2) ===
 function workValue21(arg1, arg2)
   local arg3, arg4, arg5, arg6, arg7
-  arg3 = textValue
+  arg3 = addTextEntry
   arg4 = "ButtonNotificationInternal"
   arg5 = arg1
   arg3(arg4, arg5)
-  arg3 = workValue25
+  arg3 = beginHelpText
   arg4 = "ButtonNotificationInternal"
   arg3(arg4)
-  arg3 = workValue41
+  arg3 = endHelpText
   arg4 = 0
   arg5 = true
   arg6 = arg2 or arg6
@@ -352,7 +345,7 @@ function workValue22(arg1, arg2)
   arg5 = "{.*}"
   arg3 = arg3(arg4, arg5)
   if arg3 then
-    arg3 = dataTable2
+    arg3 = replaceTextTokens
     arg4 = arg1
     arg5 = {}
     arg6 = "{A}"
@@ -454,7 +447,7 @@ function workValue22(arg1, arg2)
   if nil == arg2 then
     arg2 = true
   end
-  arg3 = textValue
+  arg3 = addTextEntry
   arg4 = "ButtonNotification"
   arg5 = string
   arg5 = arg5.len
@@ -463,7 +456,7 @@ function workValue22(arg1, arg2)
   arg4 = arg4 .. arg5
   arg5 = arg1
   arg3(arg4, arg5)
-  arg3 = workValue25
+  arg3 = beginHelpText
   arg4 = "ButtonNotification"
   arg5 = string
   arg5 = arg5.len
@@ -471,7 +464,7 @@ function workValue22(arg1, arg2)
   arg5 = arg5(arg6)
   arg4 = arg4 .. arg5
   arg3(arg4)
-  arg3 = workValue41
+  arg3 = endHelpText
   arg4 = 0
   arg5 = false
   arg6 = arg2
@@ -981,10 +974,10 @@ end
 -- === HELPER FUNCTION (decompiler name: workValue27; parameters: arg1, arg2, arg3) ===
 function workValue27(arg1, arg2, arg3)
   local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103
-  arg4 = dataTable.SetData
+  arg4 = vendingRuntime.SetData
   arg4 = arg4[arg1]
   if nil == arg4 then
-    arg4 = dataTable.SetData
+    arg4 = vendingRuntime.SetData
     arg5 = {}
     arg4[arg1] = arg5
   end
@@ -996,12 +989,12 @@ function workValue27(arg1, arg2, arg3)
     arg5 = arg2
     arg4, arg5, arg6, arg7 = arg4(arg5)
     for arg8, workValue93 in arg4, arg5, arg6, arg7 do
-      workValue103 = dataTable.SetData
+      workValue103 = vendingRuntime.SetData
       workValue103 = workValue103[arg1]
       workValue103[arg8] = workValue93
     end
   else
-    arg4 = dataTable.SetData
+    arg4 = vendingRuntime.SetData
     arg4 = arg4[arg1]
     arg4[arg2] = arg3
   end
@@ -1013,15 +1006,15 @@ function workValue29(arg1, arg2)
   if nil == arg2 then
     arg2 = "not defined"
   end
-  arg3 = dataTable.SetData
+  arg3 = vendingRuntime.SetData
   arg3 = arg3[arg1]
   if nil ~= arg3 then
     if "not defined" == arg2 then
-      arg3 = dataTable.SetData
+      arg3 = vendingRuntime.SetData
       arg3 = arg3[arg1]
       return arg3
     else
-      arg3 = dataTable.SetData
+      arg3 = vendingRuntime.SetData
       arg3 = arg3[arg1]
       arg3 = arg3[arg2]
       return arg3
@@ -1031,49 +1024,24 @@ function workValue29(arg1, arg2)
   return arg3
 end
 
--- === HELPER FUNCTION (decompiler name: workValue31; parameters: arg1, arg2) ===
-function workValue31(arg1, arg2)
-  local arg3, arg4
-  arg4 = arg1
-  arg3 = arg1.lower
-  arg3 = arg3(arg4)
-  if "marker" ~= arg3 then
-    arg4 = arg1
-    arg3 = arg1.lower
-    arg3 = arg3(arg4)
-    if "m" ~= arg3 then
-      goto flow_label_11
-    end
+function workValue31(markerType, markerId)
+  local runtimeGroupName
+  local markerTypeLower = markerType:lower()
+
+  if markerTypeLower == "marker" or markerTypeLower == "m" then
+    runtimeGroupName = "Marker"
+  elseif markerTypeLower == "n3d" or markerTypeLower == "n" then
+    runtimeGroupName = "N3d"
+  else
+    return nil
   end
-  arg1 = "Marker"
-  goto flow_label_23
-  ::flow_label_11::
-  arg4 = arg1
-  arg3 = arg1.lower
-  arg3 = arg3(arg4)
-  if "n3d" ~= arg3 then
-    arg4 = arg1
-    arg3 = arg1.lower
-    arg3 = arg3(arg4)
-    if "n" ~= arg3 then
-      goto flow_label_21
-    end
+
+  local runtimeGroup = vendingRuntime[runtimeGroupName]
+  if runtimeGroup then
+    return runtimeGroup[markerId] ~= nil
   end
-  arg1 = "N3d"
-  goto flow_label_23
-  ::flow_label_21::
-  arg3 = nil
-  return arg3
-  ::flow_label_23::
-  arg3 = dataTable
-  arg3 = arg3[arg1]
-  if arg3 then
-    arg3 = dataTable
-    arg3 = arg3[arg1]
-    arg3 = arg3[arg2]
-    arg3 = nil ~= arg3
-  end
-  return arg3
+
+  return runtimeGroup
 end
 
 -- === HELPER FUNCTION (decompiler name: workValue33; parameters: arg1) ===
@@ -1118,20 +1086,10 @@ function workValue35(arg1, arg2, arg3, arg4, arg5)
     arg6(arg7)
     return
   end
-  if arg2 then
-    arg6 = arg2.x
-    if arg6 then
-      arg6 = arg2.y
-      if arg6 then
-        arg6 = arg2.z
-        if arg6 then
-          goto flow_label_24
-        end
-      end
-    end
+  if not (arg2 and arg2.x and arg2.y and arg2.z) then
+    return
   end
-  return
-  ::flow_label_24::
+
   arg6 = string
   arg6 = arg6.gsub
   arg7 = arg1
@@ -1144,19 +1102,11 @@ function workValue35(arg1, arg2, arg3, arg4, arg5)
   arg6.render_distance = arg3
   arg6.interaction_distance = arg4
   arg6.coords = arg2
-  if arg5 then
-    arg7 = arg5.slice
-    if "ignore" == arg7 then
-      arg7 = "ignore"
-      if arg7 then
-        goto flow_label_48
-      end
-    end
+  if arg5 and arg5.slice == "ignore" then
+    arg7 = "ignore"
+  else
+    arg7 = workValue14(arg2)
   end
-  arg7 = workValue14
-  arg8 = arg2
-  arg7 = arg7(arg8)
-  ::flow_label_48::
   arg6.slice = arg7
   arg6.candraw = true
   arg6.near = false
@@ -1201,7 +1151,7 @@ function workValue35(arg1, arg2, arg3, arg4, arg5)
     end
     arg7 = arg5.notify
     if nil ~= arg7 then
-      arg7 = dataTable2
+      arg7 = replaceTextTokens
       arg8 = arg5.notify
       workValue93 = {}
       workValue103 = "{A}"
@@ -1319,7 +1269,7 @@ function workValue35(arg1, arg2, arg3, arg4, arg5)
       arg6.rgb = arg7
     end
   end
-  arg7 = dataTable.Marker
+  arg7 = vendingRuntime.Marker
   arg7[arg1] = arg6
   arg7 = arg6.slice
   if "ignore" ~= arg7 then
@@ -1333,10 +1283,10 @@ end
 -- === HELPER FUNCTION (decompiler name: workValue36; parameters: arg1, arg2) ===
 function workValue36(arg1, arg2)
   local arg3
-  arg3 = dataTable.Marker
+  arg3 = vendingRuntime.Marker
   arg3 = arg3[arg1]
   if arg3 then
-    arg3 = dataTable.Marker
+    arg3 = vendingRuntime.Marker
     arg3 = arg3[arg1]
     arg3.interaction_distance = arg2
   end
@@ -1356,7 +1306,7 @@ function workValue37(arg1)
     arg2(arg3)
     return
   end
-  arg2 = dataTable.Marker
+  arg2 = vendingRuntime.Marker
   arg2 = arg2[arg1]
   if arg2 then
     arg3 = arg2.slice
@@ -1370,7 +1320,7 @@ function workValue37(arg1)
       end
     end
   end
-  arg3 = dataTable.Marker
+  arg3 = vendingRuntime.Marker
   arg3[arg1] = nil
   arg3 = workValue26
   arg3()
@@ -1433,62 +1383,30 @@ function workValue39(arg1, arg2, arg3, arg4, arg5)
   return arg6
 end
 
--- === HELPER FUNCTION (decompiler name: workValue43; parameters: arg1, arg2, arg3) ===
-function workValue43(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8
-  arg4 = "Utility:On:"
-  if arg3 then
-    arg5 = "!"
-    if arg5 then
-      goto flow_label_8
-    end
-  end
-  arg5 = ""
-  ::flow_label_8::
-  arg6 = arg1
-  arg4 = arg4 .. arg5 .. arg6
-  arg5 = RegisterNetEvent
-  arg6 = arg4
+function workValue43(eventName, callback, useBangPrefix)
+  local fullEventName = "Utility:On:" .. (useBangPrefix and "!" or "") .. eventName
+
   -- Beginner: Register a network event handler that the server/other clients can trigger.
-  arg5(arg6)
-  arg5 = AddEventHandler
-  arg6 = arg4
-  arg7 = arg2
-  arg5 = arg5(arg6, arg7)
-  arg6 = table
-  arg6 = arg6.insert
-  arg7 = dataTable.Events
-  arg8 = arg5
-  arg6(arg7, arg8)
-  return arg5
+  RegisterNetEvent(fullEventName)
+
+  local eventHandler = AddEventHandler(fullEventName, callback)
+  table.insert(vendingRuntime.Events, eventHandler)
+  return eventHandler
 end
 -- Beginner: this function runs when client event (event above) fires.
 
--- === HELPER FUNCTION (decompiler name: workValue44; parameters: arg1, arg2, ...) ===
-function workValue44(arg1, arg2, ...)
-  local arg3, arg4, arg5, arg6
-  arg3 = localEventCall
-  arg4 = "Utility:On:"
-  if arg2 then
-    arg5 = "!"
-    if arg5 then
-      goto flow_label_10
-    end
-  end
-  arg5 = ""
-  ::flow_label_10::
-  arg6 = arg1
-  arg4 = arg4 .. arg5 .. arg6
-  arg5, arg6 = ...
+function workValue44(eventName, useBangPrefix, ...)
+  local fullEventName = "Utility:On:" .. (useBangPrefix and "!" or "") .. eventName
+
   -- Beginner: Trigger another client-side event in this resource/framework.
-  arg3(arg4, arg5, arg6)
+  triggerClientEvent(fullEventName, ...)
 end
 
 -- === HELPER FUNCTION (decompiler name: workValue45; parameters: none) ===
 function workValue45()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2
   arg1 = pairs
-  arg2 = dataTable.Marker
+  arg2 = vendingRuntime.Marker
   arg1, arg2, arg3, arg4 = arg1(arg2)
   for arg5, arg6 in arg1, arg2, arg3, arg4 do
     arg7 = GetEntityCoords
@@ -1643,72 +1561,40 @@ function workValue46(arg1, arg2)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue47; parameters: arg1) ===
-function workValue47(arg1)
-  local arg2, arg3, arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue
-  arg2 = false
-  arg3 = pairs
-  arg4 = dataTable.Marker
-  arg3, arg4, arg5, arg6 = arg3(arg4)
-  for arg7, arg8 in arg3, arg4, arg5, arg6 do
-    workValue93 = tonumber
-    workValue103 = arg8.slice
-    workValue93 = workValue93(workValue103)
-    if workValue93 ~= arg1 then
-      workValue93 = arg8.slice
-      if "ignore" ~= workValue93 then
-        goto flow_label_59
+function workValue47(currentSlice)
+  local drewAnyMarker = false
+
+  for markerId, markerData in pairs(vendingRuntime.Marker) do
+    local markerSlice = tonumber(markerData.slice)
+    local isInCurrentSlice = markerSlice == currentSlice or markerData.slice == "ignore"
+
+    if isInCurrentSlice and markerData.candraw then
+      local playerPed = PlayerPedId()
+      local playerCoords = GetEntityCoords(playerPed)
+      local distance = #(playerCoords - markerData.coords)
+      local renderDistance = markerData.render_distance or 0
+
+      if distance < renderDistance then
+        drewAnyMarker = true
+        workValue46(markerData.type, markerData)
+      end
+
+      if distance < markerData.interaction_distance then
+        if markerData.notify ~= nil then
+          workValue21(markerData.notify, not markerData.near)
+        end
+
+        if not markerData.near then
+          markerData.near = true
+        end
+      elseif markerData.near then
+        markerData.near = false
+        workValue26()
       end
     end
-    workValue93 = arg8.candraw
-    if workValue93 then
-      workValue93 = PlayerPedId
-      -- Beginner: result below is localPlayerPed.
-      workValue93 = workValue93()
-      workValue103 = GetEntityCoords
-      workValue2 = workValue93
-      -- Beginner: result below is entityCoords.
-      workValue103 = workValue103(workValue2)
-      workValue2 = arg8.coords
-      workValue103 = workValue103 - workValue2
-      workValue103 = #workValue103
-      workValue2 = arg8.render_distance
-      if not workValue2 then
-        workValue2 = 0
-      end
-      if workValue103 < workValue2 then
-        arg2 = true
-        workValue2 = workValue46
-        workValue6 = arg8.type
-        numberValue = arg8
-        workValue2(workValue6, numberValue)
-      end
-      workValue2 = arg8.interaction_distance
-      if workValue103 < workValue2 then
-        workValue2 = arg8.notify
-        if nil ~= workValue2 then
-          workValue2 = workValue21
-          workValue6 = arg8.notify
-          numberValue = arg8.near
-          numberValue = not numberValue
-          workValue2(workValue6, numberValue)
-        end
-        workValue2 = arg8.near
-        if not workValue2 then
-          arg8.near = true
-        end
-      else
-        workValue2 = arg8.near
-        if workValue2 then
-          arg8.near = false
-          workValue2 = workValue26
-          workValue2()
-        end
-      end
-    end
-    ::flow_label_59::
   end
-  return arg2
+
+  return drewAnyMarker
 end
 workValue48 = RequestScaleformMovie
 
@@ -1744,7 +1630,7 @@ function workValue50(arg1, arg2)
   arg6 = 9999
   arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6 = arg4(arg5, arg6)
   arg3 = arg3(arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6)
-  arg4 = dataTable.N3d
+  arg4 = vendingRuntime.N3d
   arg5 = {}
   arg5.txd = false
   arg5.show = false
@@ -1783,7 +1669,7 @@ function workValue50(arg1, arg2)
   arg6 = arg6 - arg5
   arg7 = 4000
   if arg6 <= arg7 then
-    arg6 = dataTable.N3d
+    arg6 = vendingRuntime.N3d
     arg6 = arg6[arg3]
     arg6.scaleform = arg4
   end
@@ -1793,7 +1679,7 @@ function workValue50(arg1, arg2)
     arg8 = arg3
     arg7 = arg7 .. arg8
     arg6 = arg6(arg7)
-    arg7 = dataTable.N3d
+    arg7 = vendingRuntime.N3d
     arg7 = arg7[arg3]
     arg8 = CreateDui
     workValue93 = "nui://"
@@ -1808,7 +1694,7 @@ function workValue50(arg1, arg2)
     arg7.dui = arg8
     while true do
       arg7 = IsDuiAvailable
-      arg8 = dataTable.N3d
+      arg8 = vendingRuntime.N3d
       arg8 = arg8[arg3]
       arg8 = arg8.dui
       arg7 = arg7(arg8)
@@ -1821,7 +1707,7 @@ function workValue50(arg1, arg2)
       arg7(arg8)
     end
     arg7 = GetDuiHandle
-    arg8 = dataTable.N3d
+    arg8 = vendingRuntime.N3d
     arg8 = arg8[arg3]
     arg8 = arg8.dui
     arg7 = arg7(arg8)
@@ -1832,12 +1718,12 @@ function workValue50(arg1, arg2)
     workValue103 = workValue103 .. workValue2
     workValue2 = arg7
     arg8(workValue93, workValue103, workValue2)
-    arg8 = dataTable.N3d
+    arg8 = vendingRuntime.N3d
     arg8 = arg8[arg3]
     arg8 = arg8.scaleform
     if nil ~= arg8 then
       arg8 = BeginScaleformMovieMethod
-      workValue93 = dataTable.N3d
+      workValue93 = vendingRuntime.N3d
       workValue93 = workValue93[arg3]
       workValue93 = workValue93.scaleform
       workValue103 = "SET_TEXTURE"
@@ -1883,7 +1769,7 @@ function workValue50(arg1, arg2)
     numberValue12 = arg3
     workValue60 = workValue60 .. numberValue12
     arg52 = arg52(workValue60)
-    workValue60 = dataTable.N3d
+    workValue60 = vendingRuntime.N3d
     numberValue12 = arg3
     workValue60 = workValue60[numberValue12]
     numberValue12 = CreateDui
@@ -1905,7 +1791,7 @@ function workValue50(arg1, arg2)
     workValue60.dui = numberValue12
     while true do
       workValue60 = IsDuiAvailable
-      numberValue12 = dataTable.N3d
+      numberValue12 = vendingRuntime.N3d
       numberValue13 = arg3
       numberValue12 = numberValue12[numberValue13]
       numberValue12 = numberValue12.dui
@@ -1919,7 +1805,7 @@ function workValue50(arg1, arg2)
       workValue60(numberValue12)
     end
     workValue60 = GetDuiHandle
-    numberValue12 = dataTable.N3d
+    numberValue12 = vendingRuntime.N3d
     numberValue13 = arg3
     numberValue12 = numberValue12[numberValue13]
     numberValue12 = numberValue12.dui
@@ -1931,13 +1817,13 @@ function workValue50(arg1, arg2)
     workValue94 = workValue94 .. workValue104
     workValue104 = workValue60
     numberValue12(numberValue13, workValue94, workValue104)
-    numberValue12 = dataTable.N3d
+    numberValue12 = vendingRuntime.N3d
     numberValue13 = arg3
     numberValue12 = numberValue12[numberValue13]
     numberValue12 = numberValue12.scaleform
     if nil ~= numberValue12 then
       numberValue12 = BeginScaleformMovieMethod
-      numberValue13 = dataTable.N3d
+      numberValue13 = vendingRuntime.N3d
       workValue94 = arg3
       numberValue13 = numberValue13[workValue94]
       numberValue13 = numberValue13.scaleform
@@ -1984,17 +1870,17 @@ function workValue50(arg1, arg2)
   -- === HELPER FUNCTION: arg7(arg12, arg22) ===
   function arg7(arg12, arg22)
     local arg32, arg42, arg52, workValue60
-    arg32 = dataTable.N3d
+    arg32 = vendingRuntime.N3d
     arg42 = arg3
     arg32 = arg32[arg42]
     if arg32 then
-      arg32 = dataTable.N3d
+      arg32 = vendingRuntime.N3d
       arg42 = arg3
       arg32 = arg32[arg42]
       arg32 = arg32.dui
       if arg32 then
         arg32 = SendDuiMessage
-        arg42 = dataTable.N3d
+        arg42 = vendingRuntime.N3d
         arg52 = arg3
         arg42 = arg42[arg52]
         arg42 = arg42.dui
@@ -2033,34 +1919,34 @@ function workValue50(arg1, arg2)
   -- === HELPER FUNCTION: arg7(arg12) ===
   function arg7(arg12)
     local arg22, arg32, arg42
-    arg22 = dataTable.N3d
+    arg22 = vendingRuntime.N3d
     arg32 = arg3
     arg22 = arg22[arg32]
     if arg22 then
-      arg22 = dataTable.N3d
+      arg22 = vendingRuntime.N3d
       arg32 = arg3
       arg22 = arg22[arg32]
       arg22 = arg22.dui
       if arg22 then
         arg22 = DestroyDui
-        arg32 = dataTable.N3d
+        arg32 = vendingRuntime.N3d
         arg42 = arg3
         arg32 = arg32[arg42]
         arg32 = arg32.dui
         arg22(arg32)
-        arg22 = dataTable.N3d
+        arg22 = vendingRuntime.N3d
         arg32 = arg3
         arg22 = arg22[arg32]
         arg22 = arg22.scaleform
         if arg22 then
           arg22 = SetScaleformMovieAsNoLongerNeeded
-          arg32 = dataTable.N3d
+          arg32 = vendingRuntime.N3d
           arg42 = arg3
           arg32 = arg32[arg42]
           arg32 = arg32.scaleform
           arg22(arg32)
         end
-        arg22 = dataTable.N3d
+        arg22 = vendingRuntime.N3d
         arg32 = arg3
         arg22[arg32] = nil
       end
@@ -2098,7 +1984,7 @@ threadCall(threadCall2)
 function threadCall()
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7
   arg1 = pairs
-  arg2 = dataTable.Marker
+  arg2 = vendingRuntime.Marker
   arg1, arg2, arg3, arg4 = arg1(arg2)
   for arg5, arg6 in arg1, arg2, arg3, arg4 do
     arg7 = arg6.slice
@@ -2113,36 +1999,19 @@ end
 threadCall2 = Citizen
 threadCall2 = threadCall2.CreateThread
 
--- === HELPER FUNCTION (decompiler name: numberValue11; parameters: none) ===
 function numberValue11()
-  local arg1, arg2, arg3
   while true do
-    arg1 = false
-    arg2 = workValue16
-    arg3 = numberValue10
-    arg2 = arg2(arg3)
-    if not arg2 then
-      arg2 = threadCall
-      arg2 = arg2()
-      if not arg2 then
-        goto flow_label_15
-      end
+    local drewAnyMarker = false
+
+    if workValue16(numberValue10) or threadCall() then
+      drewAnyMarker = workValue47(numberValue10)
     end
-    arg2 = workValue47
-    arg3 = numberValue10
-    arg2 = arg2(arg3)
-    arg1 = arg2
-    ::flow_label_15::
-    if not arg1 then
-      arg2 = Citizen
-      arg2 = arg2.Wait
-      arg3 = 500
-      arg2(arg3)
+
+    if not drewAnyMarker then
+      Citizen.Wait(500)
     end
-    arg2 = Citizen
-    arg2 = arg2.Wait
-    arg3 = 0
-    arg2(arg3)
+
+    Citizen.Wait(0)
   end
 end
 -- Beginner: Start a separate FiveM thread so this code can run independently.
@@ -2172,45 +2041,45 @@ end
 threadCall2(numberValue11)
 threadCall2 = {}
 threadCall2.Debug = false
-numberValue11 = cmgCall.renderDistance
+numberValue11 = vendingConfig.renderDistance
 if not numberValue11 then
   numberValue11 = 40.0
 end
 threadCall2.RenderDistance = numberValue11
-numberValue11 = cmgCall.defaultInteractionDistance
+numberValue11 = vendingConfig.defaultInteractionDistance
 if not numberValue11 then
   numberValue11 = 2.0
 end
 threadCall2.DefaultInteractionDistance = numberValue11
-numberValue11 = cmgCall.blips
+numberValue11 = vendingConfig.blips
 numberValue11 = false ~= numberValue11
 threadCall2.Blips = numberValue11
-numberValue11 = cmgCall.sounds
+numberValue11 = vendingConfig.sounds
 numberValue11 = false ~= numberValue11
 threadCall2.Sounds = numberValue11
-numberValue11 = cmgCall.overrideExhibition
+numberValue11 = vendingConfig.overrideExhibition
 if not numberValue11 then
   numberValue11 = {}
 end
 threadCall2.OverrideExhibition = numberValue11
-numberValue11 = cmgCall.items
+numberValue11 = vendingConfig.items
 if not numberValue11 then
   numberValue11 = {}
 end
 threadCall2.Items = numberValue11
 numberValue11 = {}
 threadCall2.Vendings = numberValue11
-numberValue11 = cmgCall.translations
+numberValue11 = vendingConfig.translations
 if not numberValue11 then
   numberValue11 = {}
 end
 threadCall2.Translations = numberValue11
-numberValue11 = cmgCall.audiosVolumes
+numberValue11 = vendingConfig.audiosVolumes
 if not numberValue11 then
   numberValue11 = {}
 end
 threadCall2.AudiosVolumes = numberValue11
-numberValue11 = cmgCall.placeVendings
+numberValue11 = vendingConfig.placeVendings
 if not numberValue11 then
   numberValue11 = {}
 end
@@ -2371,97 +2240,31 @@ function workValue57(arg1)
   end
 end
 
--- === HELPER FUNCTION (decompiler name: workValue58; parameters: arg1, arg2, arg3) ===
-function workValue58(arg1, arg2, arg3)
-  local arg4, arg5, arg6, arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5
-  arg4 = GetEntityCoords
-  arg5 = arg1
-  -- Beginner: result below is entityCoords.
-  arg4 = arg4(arg5)
-  arg5 = type
-  arg6 = arg2
-  arg5 = arg5(arg6)
-  if "string" == arg5 then
-    arg5 = GetHashKey
-    arg6 = arg2
-    -- Beginner: result below is hash.
-    arg5 = arg5(arg6)
-    if arg5 then
-      goto flow_label_15
+function workValue58(parentEntity, model, offset)
+  local parentCoords = GetEntityCoords(parentEntity)
+  local modelHash = type(model) == "string" and GetHashKey(model) or model
+
+  if not HasModelLoaded(modelHash) then
+    RequestModel(modelHash)
+    while not HasModelLoaded(modelHash) do
+      Citizen.Wait(1)
     end
   end
-  arg5 = arg2
-  ::flow_label_15::
-  arg6 = HasModelLoaded
-  arg7 = arg5
-  arg6 = arg6(arg7)
-  if not arg6 then
-    arg6 = RequestModel
-    arg7 = arg5
-    arg6(arg7)
-    while true do
-      arg6 = HasModelLoaded
-      arg7 = arg5
-      arg6 = arg6(arg7)
-      if arg6 then
-        break
-      end
-      arg6 = Citizen
-      arg6 = arg6.Wait
-      arg7 = 1
-      arg6(arg7)
-    end
+
+  local objectEntity = CreateObject(modelHash, parentCoords.x, parentCoords.y, parentCoords.z, false, false, true)
+  SetModelAsNoLongerNeeded(modelHash)
+
+  local spawnCoords = parentCoords
+  if offset then
+    spawnCoords = GetOffsetFromEntityInWorldCoords(parentEntity, offset.x, offset.y, offset.z)
   end
-  arg6 = CreateObject
-  arg7 = arg5
-  arg8 = arg4.x
-  workValue93 = arg4.y
-  workValue103 = arg4.z
-  workValue2 = false
-  workValue6 = false
-  numberValue = true
-  -- Beginner: result below is objectEntity.
-  arg6 = arg6(arg7, arg8, workValue93, workValue103, workValue2, workValue6, numberValue)
-  arg7 = SetModelAsNoLongerNeeded
-  arg8 = arg5
-  arg7(arg8)
-  if arg3 then
-    arg7 = GetOffsetFromEntityInWorldCoords
-    arg8 = arg1
-    workValue93 = arg3.x
-    workValue103 = arg3.y
-    workValue2 = arg3.z
-    arg7 = arg7(arg8, workValue93, workValue103, workValue2)
-    if arg7 then
-      goto flow_label_56
-    end
-  end
-  arg7 = arg4
-  ::flow_label_56::
-  arg8 = SetEntityCoords
-  workValue93 = arg6
-  workValue103 = arg7.x
-  workValue2 = arg7.y
-  workValue6 = arg7.z
-  numberValue = false
-  numberValue2 = false
-  numberValue3 = false
-  numberValue5 = false
+
   -- Beginner: Move/teleport an entity to new coordinates.
-  arg8(workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5)
-  arg8 = GetEntityRotation
-  workValue93 = arg1
-  workValue103 = 1
-  arg8 = arg8(workValue93, workValue103)
-  workValue93 = SetEntityRotation
-  workValue103 = arg6
-  workValue2 = arg8.x
-  workValue6 = arg8.y
-  numberValue = arg8.z
-  numberValue2 = 1
-  numberValue3 = false
-  workValue93(workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3)
-  return arg6
+  SetEntityCoords(objectEntity, spawnCoords.x, spawnCoords.y, spawnCoords.z, false, false, false, false)
+
+  local parentRotation = GetEntityRotation(parentEntity, 1)
+  SetEntityRotation(objectEntity, parentRotation.x, parentRotation.y, parentRotation.z, 1, false)
+  return objectEntity
 end
 
 -- === HELPER FUNCTION (decompiler name: workValue62; parameters: arg1, arg2) ===
@@ -2482,26 +2285,10 @@ function workValue63(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
   local arg8, workValue93, workValue103, workValue2, workValue6, numberValue, numberValue2, numberValue3, numberValue5, numberValue7, flag, flag2, flag3, dataTable3, textValue2, textValue3, textValue4, textValue5, dataTable4, textValue6, iterator
   arg8 = threadCall2.Vendings
   arg8 = arg8[arg5]
-  if arg8 then
-    workValue93 = arg8.stands
-    if workValue93 then
-      workValue93 = arg8.stands
-      workValue93 = workValue93[arg2]
-      if workValue93 then
-        workValue93 = arg8.slots
-        if workValue93 then
-          workValue93 = arg8.slots
-          workValue93 = workValue93[arg3]
-          if workValue93 then
-            goto flow_label_21
-          end
-        end
-      end
-    end
+  if not (arg8 and arg8.stands and arg8.stands[arg2] and arg8.slots and arg8.slots[arg3]) then
+    return nil
   end
-  workValue93 = nil
-  return workValue93
-  ::flow_label_21::
+
   workValue93 = arg8.stands
   workValue93 = workValue93[arg2]
   workValue103 = workValue62
@@ -3216,15 +3003,12 @@ function workValue71(arg1, arg2)
     numberValue3 = 37
     numberValue = numberValue(numberValue2, numberValue3)
     if numberValue then
-      if "code" == arg5 then
-        numberValue = "products"
-        if numberValue then
-          goto flow_label_227
-          arg5 = numberValue or arg5
-        end
+      if arg5 == "code" then
+        arg5 = "products"
+      else
+        arg5 = "code"
       end
-      arg5 = "code"
-      ::flow_label_227::
+
       numberValue = workValue70
       numberValue2 = arg7
       numberValue(numberValue2)
@@ -3585,26 +3369,15 @@ function workValue75(arg1, arg2, arg3)
   -- Beginner: result below is localPlayerPed.
   arg7 = arg7()
   arg8 = arg4.springs
-  if arg8 then
-    arg8 = DoesEntityExist
-    workValue93 = arg4.springs
-    arg8 = arg8(workValue93)
-    if arg8 then
-      goto flow_label_44
-    end
+  if not (arg8 and DoesEntityExist(arg4.springs)) then
+    return
   end
-  return
-  ::flow_label_44::
+
   arg8 = arg4.objects
-  if arg8 then
-    arg8 = arg4.objects
-    arg8 = arg8[arg3]
-    if arg8 then
-      goto flow_label_52
-    end
+  if not (arg8 and arg4.objects[arg3]) then
+    return
   end
-  return
-  ::flow_label_52::
+
   arg8 = GetOffsetFromEntityInWorldCoords
   workValue93 = arg4.springs
   workValue103 = 0.0
@@ -3944,26 +3717,15 @@ function workValue78(arg1, arg2, arg3)
   -- Beginner: result below is localPlayerPed.
   arg6 = arg6()
   arg7 = arg4.shelf
-  if arg7 then
-    arg7 = DoesEntityExist
-    arg8 = arg4.shelf
-    arg7 = arg7(arg8)
-    if arg7 then
-      goto flow_label_53
-    end
+  if not (arg7 and DoesEntityExist(arg4.shelf)) then
+    return
   end
-  return
-  ::flow_label_53::
+
   arg7 = arg4.objects
-  if arg7 then
-    arg7 = arg4.objects
-    arg7 = arg7[arg3]
-    if arg7 then
-      goto flow_label_61
-    end
+  if not (arg7 and arg4.objects[arg3]) then
+    return
   end
-  return
-  ::flow_label_61::
+
   arg7 = GetOffsetFromEntityInWorldCoords
   arg8 = arg4.shelf
   workValue93 = 0.0
@@ -4389,12 +4151,10 @@ function workValue79(arg1, arg2, arg3)
   numberValue(numberValue2, numberValue3, numberValue5)
   if arg3 then
     numberValue = "prop_fib_coffee"
-    if numberValue then
-      goto flow_label_188
-    end
+  else
+    numberValue = "mxc_vend_prop_item_cofferefill"
   end
-  numberValue = "mxc_vend_prop_item_cofferefill"
-  ::flow_label_188::
+
   numberValue2 = GetHashKey
   numberValue3 = numberValue
   -- Beginner: result below is hash.
@@ -4767,17 +4527,12 @@ function workValue81(arg1, arg2)
   arg4 = threadCall2.Vendings
   arg4 = arg4.cigarettes
   arg4 = arg4.startAnimXOffset
-  if arg4 then
-    arg4 = threadCall2.Vendings
-    arg4 = arg4.cigarettes
-    arg4 = arg4.startAnimXOffset
-    arg4 = arg4[arg2]
-    if arg4 then
-      goto flow_label_15
-    end
+  if arg4 and threadCall2.Vendings.cigarettes.startAnimXOffset[arg2] then
+    arg4 = threadCall2.Vendings.cigarettes.startAnimXOffset[arg2]
+  else
+    arg4 = -0.5
   end
-  arg4 = -0.5
-  ::flow_label_15::
+
   arg5 = GetOffsetFromEntityInWorldCoords
   arg6 = arg1
   arg7 = arg4
@@ -4817,20 +4572,12 @@ function workValue82(arg1, arg2, arg3)
   if arg4 then
     arg5 = arg4[arg3]
   end
-  if arg5 then
-    arg6 = threadCall2.Items
-    arg6 = arg6[arg5]
-    if arg6 then
-      arg6 = threadCall2.Items
-      arg6 = arg6[arg5]
-      arg6 = arg6.model
-      if arg6 then
-        goto flow_label_20
-      end
-    end
+  if arg5 and threadCall2.Items[arg5] and threadCall2.Items[arg5].model then
+    arg6 = threadCall2.Items[arg5].model
+  else
+    arg6 = "v_ret_ml_cigs"
   end
-  arg6 = "v_ret_ml_cigs"
-  ::flow_label_20::
+
   arg7 = GetEntityCoords
   arg8 = arg2
   -- Beginner: result below is entityCoords.
@@ -5319,7 +5066,7 @@ function workValue87(arg1, arg2, arg3)
   arg5.interactingVending = false
 end
 iterator3 = pairs
-workValue88 = cmgCall.vendings
+workValue88 = vendingConfig.vendings
 iterator3, workValue88, workValue89, workValue90 = iterator3(workValue88)
 for workValue91, workValue96 in iterator3, workValue88, workValue89, workValue90 do
   iterator4 = threadCall2.Vendings

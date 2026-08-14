@@ -1,572 +1,75 @@
 --[[
-    LEVEL 1 BEGINNER GUIDE — Panel Colour
-    ==========================================
+    LEVEL 1 BEGINNER GUIDE - Panel Colour
 
-    File: cmg/prod/client/rageui/menu/elements/PanelColour.lua
-    Runs as: Client — runs on each player's FiveM client.
-    Purpose: RageUI menu framework/library code.
-
-    FiveM words used in this project:
-      * ped = a GTA character/entity (your player character is a ped).
-      * entity = a ped, vehicle, or object that exists in the GTA world.
-      * native = a GTA/FiveM function such as GetEntityCoords().
-      * event = a named message that causes code to run.
-      * client event = stays on this player; server event = crosses to the server.
-      * NUI = the HTML/CSS/JavaScript interface shown over the game.
-      * thread = code that can keep running over time; Wait() prevents it freezing the game.
-
-    Quick map of this file (automatic static scan):
-      * Named functions: 0
-      * Background threads: 0
-      * Always-running loops: 0
-      * Commands: none found by static scan
-      * Incoming network events: none found by static scan
-      * Local event handlers: none found by static scan
-      * Server events sent: none found by static scan
-      * NUI callbacks: none found by static scan
-      * Modules/config loaded: none found by static scan
-
-    Read it in this order:
-      1. Top-level config/state variables.
-      2. Helper functions (small reusable pieces of logic).
-      3. Commands/events/UI callbacks (what starts the logic).
-      4. Threads/loops last (what keeps checking in the background).
-
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
-      A decompiler invented them while rebuilding source code.
-
-      For a beginner, read the API call on the right-hand side first.
-      Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
-      means roughly:
-        local playerCoords = GetEntityCoords(playerPed)
-
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
-
-    Safety note for editing:
-      Keep event names, decorator keys, exported names, and config keys unchanged
-      unless you also update every place that uses them.
+    This file is a plain RageUI colour table.
+    Each entry is an RGB or RGBA value used by menu items/panels.
 ]]
-local rageUiCall, dataTable, dataTable2, dataTable3, dataTable4, dataTable5, numberValue47, numberValue48, numberValue49, numberValue50, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, numberValue24, numberValue25, numberValue26, numberValue27, numberValue28, numberValue29, numberValue30, numberValue31, numberValue32, numberValue33, numberValue34, numberValue35, numberValue36, numberValue37, numberValue38, numberValue39, numberValue40, numberValue41, numberValue42, numberValue43, numberValue44, numberValue45, numberValue46
-rageUiCall = RageUI
-dataTable = {}
-dataTable2 = {}
-dataTable3 = {}
-dataTable4 = 22
-dataTable5 = 19
-numberValue47 = 19
-dataTable3[1] = dataTable4
-dataTable3[2] = dataTable5
-dataTable3[3] = numberValue47
-dataTable4 = {}
-dataTable5 = 30
-numberValue47 = 28
-numberValue48 = 25
-dataTable4[1] = dataTable5
-dataTable4[2] = numberValue47
-dataTable4[3] = numberValue48
-dataTable5 = {}
-numberValue47 = 76
-numberValue48 = 56
-numberValue49 = 45
-dataTable5[1] = numberValue47
-dataTable5[2] = numberValue48
-dataTable5[3] = numberValue49
-numberValue47 = {}
-numberValue48 = 69
-numberValue49 = 34
-numberValue50 = 24
-numberValue47[1] = numberValue48
-numberValue47[2] = numberValue49
-numberValue47[3] = numberValue50
-numberValue48 = {}
-numberValue49 = 123
-numberValue50 = 59
-numberValue = 31
-numberValue48[1] = numberValue49
-numberValue48[2] = numberValue50
-numberValue48[3] = numberValue
-numberValue49 = {}
-numberValue50 = 149
-numberValue = 68
-numberValue2 = 35
-numberValue49[1] = numberValue50
-numberValue49[2] = numberValue
-numberValue49[3] = numberValue2
-numberValue50 = {}
-numberValue = 165
-numberValue2 = 87
-numberValue3 = 50
-numberValue50[1] = numberValue
-numberValue50[2] = numberValue2
-numberValue50[3] = numberValue3
-numberValue = {}
-numberValue2 = 175
-numberValue3 = 111
-numberValue4 = 72
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = 159
-numberValue4 = 105
-numberValue5 = 68
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = 198
-numberValue5 = 152
-numberValue6 = 108
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = 213
-numberValue6 = 170
-numberValue7 = 115
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = 223
-numberValue7 = 187
-numberValue8 = 132
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = 202
-numberValue8 = 164
-numberValue9 = 110
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = 238
-numberValue9 = 204
-numberValue10 = 130
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = 229
-numberValue10 = 190
-numberValue11 = 126
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = 250
-numberValue11 = 225
-numberValue12 = 167
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = 187
-numberValue12 = 140
-numberValue13 = 96
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = 163
-numberValue13 = 92
-numberValue14 = 60
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = 144
-numberValue14 = 52
-numberValue15 = 37
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = 134
-numberValue15 = 21
-numberValue16 = 17
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = 164
-numberValue16 = 24
-numberValue17 = 18
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = 195
-numberValue17 = 33
-numberValue18 = 24
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = 221
-numberValue18 = 69
-numberValue19 = 34
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = 229
-numberValue19 = 71
-numberValue20 = 30
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = 208
-numberValue20 = 97
-numberValue21 = 56
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = 113
-numberValue21 = 79
-numberValue22 = 38
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = 132
-numberValue22 = 107
-numberValue23 = 95
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = 185
-numberValue23 = 164
-numberValue24 = 150
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = 218
-numberValue24 = 196
-numberValue25 = 180
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = 247
-numberValue25 = 230
-numberValue26 = 217
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = 102
-numberValue26 = 72
-numberValue27 = 93
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = numberValue27
-numberValue25 = {}
-numberValue26 = 162
-numberValue27 = 105
-numberValue28 = 138
-numberValue25[1] = numberValue26
-numberValue25[2] = numberValue27
-numberValue25[3] = numberValue28
-numberValue26 = {}
-numberValue27 = 171
-numberValue28 = 174
-numberValue29 = 11
-numberValue26[1] = numberValue27
-numberValue26[2] = numberValue28
-numberValue26[3] = numberValue29
-numberValue27 = {}
-numberValue28 = 239
-numberValue29 = 61
-numberValue30 = 200
-numberValue27[1] = numberValue28
-numberValue27[2] = numberValue29
-numberValue27[3] = numberValue30
-numberValue28 = {}
-numberValue29 = 255
-numberValue30 = 69
-numberValue31 = 152
-numberValue28[1] = numberValue29
-numberValue28[2] = numberValue30
-numberValue28[3] = numberValue31
-numberValue29 = {}
-numberValue30 = 255
-numberValue31 = 178
-numberValue32 = 191
-numberValue29[1] = numberValue30
-numberValue29[2] = numberValue31
-numberValue29[3] = numberValue32
-numberValue30 = {}
-numberValue31 = 12
-numberValue32 = 168
-numberValue33 = 146
-numberValue30[1] = numberValue31
-numberValue30[2] = numberValue32
-numberValue30[3] = numberValue33
-numberValue31 = {}
-numberValue32 = 8
-numberValue33 = 146
-numberValue34 = 165
-numberValue31[1] = numberValue32
-numberValue31[2] = numberValue33
-numberValue31[3] = numberValue34
-numberValue32 = {}
-numberValue33 = 11
-numberValue34 = 82
-numberValue35 = 134
-numberValue32[1] = numberValue33
-numberValue32[2] = numberValue34
-numberValue32[3] = numberValue35
-numberValue33 = {}
-numberValue34 = 118
-numberValue35 = 190
-numberValue36 = 117
-numberValue33[1] = numberValue34
-numberValue33[2] = numberValue35
-numberValue33[3] = numberValue36
-numberValue34 = {}
-numberValue35 = 52
-numberValue36 = 156
-numberValue37 = 104
-numberValue34[1] = numberValue35
-numberValue34[2] = numberValue36
-numberValue34[3] = numberValue37
-numberValue35 = {}
-numberValue36 = 22
-numberValue37 = 86
-numberValue38 = 85
-numberValue35[1] = numberValue36
-numberValue35[2] = numberValue37
-numberValue35[3] = numberValue38
-numberValue36 = {}
-numberValue37 = 152
-numberValue38 = 177
-numberValue39 = 40
-numberValue36[1] = numberValue37
-numberValue36[2] = numberValue38
-numberValue36[3] = numberValue39
-numberValue37 = {}
-numberValue38 = 127
-numberValue39 = 162
-numberValue40 = 23
-numberValue37[1] = numberValue38
-numberValue37[2] = numberValue39
-numberValue37[3] = numberValue40
-numberValue38 = {}
-numberValue39 = 241
-numberValue40 = 200
-numberValue41 = 98
-numberValue38[1] = numberValue39
-numberValue38[2] = numberValue40
-numberValue38[3] = numberValue41
-numberValue39 = {}
-numberValue40 = 238
-numberValue41 = 178
-numberValue42 = 16
-numberValue39[1] = numberValue40
-numberValue39[2] = numberValue41
-numberValue39[3] = numberValue42
-numberValue40 = {}
-numberValue41 = 224
-numberValue42 = 134
-numberValue43 = 14
-numberValue40[1] = numberValue41
-numberValue40[2] = numberValue42
-numberValue40[3] = numberValue43
-numberValue41 = {}
-numberValue42 = 247
-numberValue43 = 157
-numberValue44 = 15
-numberValue41[1] = numberValue42
-numberValue41[2] = numberValue43
-numberValue41[3] = numberValue44
-numberValue42 = {}
-numberValue43 = 243
-numberValue44 = 143
-numberValue45 = 16
-numberValue42[1] = numberValue43
-numberValue42[2] = numberValue44
-numberValue42[3] = numberValue45
-numberValue43 = {}
-numberValue44 = 231
-numberValue45 = 70
-numberValue46 = 15
-numberValue43[1] = numberValue44
-numberValue43[2] = numberValue45
-numberValue43[3] = numberValue46
-dataTable2[1] = dataTable3
-dataTable2[2] = dataTable4
-dataTable2[3] = dataTable5
-dataTable2[4] = numberValue47
-dataTable2[5] = numberValue48
-dataTable2[6] = numberValue49
-dataTable2[7] = numberValue50
-dataTable2[8] = numberValue
-dataTable2[9] = numberValue2
-dataTable2[10] = numberValue3
-dataTable2[11] = numberValue4
-dataTable2[12] = numberValue5
-dataTable2[13] = numberValue6
-dataTable2[14] = numberValue7
-dataTable2[15] = numberValue8
-dataTable2[16] = numberValue9
-dataTable2[17] = numberValue10
-dataTable2[18] = numberValue11
-dataTable2[19] = numberValue12
-dataTable2[20] = numberValue13
-dataTable2[21] = numberValue14
-dataTable2[22] = numberValue15
-dataTable2[23] = numberValue16
-dataTable2[24] = numberValue17
-dataTable2[25] = numberValue18
-dataTable2[26] = numberValue19
-dataTable2[27] = numberValue20
-dataTable2[28] = numberValue21
-dataTable2[29] = numberValue22
-dataTable2[30] = numberValue23
-dataTable2[31] = numberValue24
-dataTable2[32] = numberValue25
-dataTable2[33] = numberValue26
-dataTable2[34] = numberValue27
-dataTable2[35] = numberValue28
-dataTable2[36] = numberValue29
-dataTable2[37] = numberValue30
-dataTable2[38] = numberValue31
-dataTable2[39] = numberValue32
-dataTable2[40] = numberValue33
-dataTable2[41] = numberValue34
-dataTable2[42] = numberValue35
-dataTable2[43] = numberValue36
-dataTable2[44] = numberValue37
-dataTable2[45] = numberValue38
-dataTable2[46] = numberValue39
-dataTable2[47] = numberValue40
-dataTable2[48] = numberValue41
-dataTable2[49] = numberValue42
-dataTable2[50] = numberValue43
-dataTable3 = {}
-dataTable4 = 255
-dataTable5 = 101
-numberValue47 = 21
-dataTable3[1] = dataTable4
-dataTable3[2] = dataTable5
-dataTable3[3] = numberValue47
-dataTable4 = {}
-dataTable5 = 254
-numberValue47 = 91
-numberValue48 = 34
-dataTable4[1] = dataTable5
-dataTable4[2] = numberValue47
-dataTable4[3] = numberValue48
-dataTable5 = {}
-numberValue47 = 252
-numberValue48 = 67
-numberValue49 = 21
-dataTable5[1] = numberValue47
-dataTable5[2] = numberValue48
-dataTable5[3] = numberValue49
-numberValue47 = {}
-numberValue48 = 196
-numberValue49 = 12
-numberValue50 = 15
-numberValue47[1] = numberValue48
-numberValue47[2] = numberValue49
-numberValue47[3] = numberValue50
-numberValue48 = {}
-numberValue49 = 143
-numberValue50 = 10
-numberValue = 14
-numberValue48[1] = numberValue49
-numberValue48[2] = numberValue50
-numberValue48[3] = numberValue
-numberValue49 = {}
-numberValue50 = 44
-numberValue = 27
-numberValue2 = 22
-numberValue49[1] = numberValue50
-numberValue49[2] = numberValue
-numberValue49[3] = numberValue2
-numberValue50 = {}
-numberValue = 80
-numberValue2 = 51
-numberValue3 = 37
-numberValue50[1] = numberValue
-numberValue50[2] = numberValue2
-numberValue50[3] = numberValue3
-numberValue = {}
-numberValue2 = 98
-numberValue3 = 54
-numberValue4 = 37
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = 60
-numberValue4 = 31
-numberValue5 = 24
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = 69
-numberValue5 = 43
-numberValue6 = 32
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = 8
-numberValue6 = 10
-numberValue7 = 14
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = 212
-numberValue7 = 185
-numberValue8 = 158
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = 212
-numberValue8 = 185
-numberValue9 = 158
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = 213
-numberValue9 = 170
-numberValue10 = 115
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-dataTable2[51] = dataTable3
-dataTable2[52] = dataTable4
-dataTable2[53] = dataTable5
-dataTable2[54] = numberValue47
-dataTable2[55] = numberValue48
-dataTable2[56] = numberValue49
-dataTable2[57] = numberValue50
-dataTable2[58] = numberValue
-dataTable2[59] = numberValue2
-dataTable2[60] = numberValue3
-dataTable2[61] = numberValue4
-dataTable2[62] = numberValue5
-dataTable2[63] = numberValue6
-dataTable2[64] = numberValue7
-dataTable.HairCut = dataTable2
-rageUiCall.PanelColour = dataTable
+
+RageUI.PanelColour = {
+  HairCut = {
+    { 22, 19, 19 },
+    { 30, 28, 25 },
+    { 76, 56, 45 },
+    { 69, 34, 24 },
+    { 123, 59, 31 },
+    { 149, 68, 35 },
+    { 165, 87, 50 },
+    { 175, 111, 72 },
+    { 159, 105, 68 },
+    { 198, 152, 108 },
+    { 213, 170, 115 },
+    { 223, 187, 132 },
+    { 202, 164, 110 },
+    { 238, 204, 130 },
+    { 229, 190, 126 },
+    { 250, 225, 167 },
+    { 187, 140, 96 },
+    { 163, 92, 60 },
+    { 144, 52, 37 },
+    { 134, 21, 17 },
+    { 164, 24, 18 },
+    { 195, 33, 24 },
+    { 221, 69, 34 },
+    { 229, 71, 30 },
+    { 208, 97, 56 },
+    { 113, 79, 38 },
+    { 132, 107, 95 },
+    { 185, 164, 150 },
+    { 218, 196, 180 },
+    { 247, 230, 217 },
+    { 102, 72, 93 },
+    { 162, 105, 138 },
+    { 171, 174, 11 },
+    { 239, 61, 200 },
+    { 255, 69, 152 },
+    { 255, 178, 191 },
+    { 12, 168, 146 },
+    { 8, 146, 165 },
+    { 11, 82, 134 },
+    { 118, 190, 117 },
+    { 52, 156, 104 },
+    { 22, 86, 85 },
+    { 152, 177, 40 },
+    { 127, 162, 23 },
+    { 241, 200, 98 },
+    { 238, 178, 16 },
+    { 224, 134, 14 },
+    { 247, 157, 15 },
+    { 243, 143, 16 },
+    { 231, 70, 15 },
+    { 255, 101, 21 },
+    { 254, 91, 34 },
+    { 252, 67, 21 },
+    { 196, 12, 15 },
+    { 143, 10, 14 },
+    { 44, 27, 22 },
+    { 80, 51, 37 },
+    { 98, 54, 37 },
+    { 60, 31, 24 },
+    { 69, 43, 32 },
+    { 8, 10, 14 },
+    { 212, 185, 158 },
+    { 212, 185, 158 },
+    { 213, 170, 115 },
+  },
+}

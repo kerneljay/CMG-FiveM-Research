@@ -1,11419 +1,6722 @@
 --[[
-    LEVEL 1 BEGINNER GUIDE — Devpreviews
-    =========================================
+    LEVEL 1 BEGINNER GUIDE - Dev Previews
 
-    File: cmg/prod/client/developer/cl_devpreviews.lua
-    Runs as: Client — runs on each player's FiveM client.
-    Purpose: developer/admin testing utilities, specifically the Devpreviews feature.
-
-    FiveM words used in this project:
-      * ped = a GTA character/entity (your player character is a ped).
-      * entity = a ped, vehicle, or object that exists in the GTA world.
-      * native = a GTA/FiveM function such as GetEntityCoords().
-      * event = a named message that causes code to run.
-      * client event = stays on this player; server event = crosses to the server.
-      * NUI = the HTML/CSS/JavaScript interface shown over the game.
-      * thread = code that can keep running over time; Wait() prevents it freezing the game.
-
-    Quick map of this file (automatic static scan):
-      * Named functions: 11
-      * Background threads: 0
-      * Always-running loops: 0
-      * Commands: none found by static scan
-      * Incoming network events: none found by static scan
-      * Local event handlers: none found by static scan
-      * Server events sent: none found by static scan
-      * NUI callbacks: none found by static scan
-      * Modules/config loaded: none found by static scan
-
-    Read it in this order:
-      1. Top-level config/state variables.
-      2. Helper functions (small reusable pieces of logic).
-      3. Commands/events/UI callbacks (what starts the logic).
-      4. Threads/loops last (what keeps checking in the background).
-
-    IMPORTANT — this file still contains decompiler temporary names.
-      Names like workValue12, textValue4, dataTable7, flag3, cmgCall2,
-      arg1/arg2, or flow_label_* are NOT meaningful original developer names.
-      A decompiler invented them while rebuilding source code.
-
-      For a beginner, read the API call on the right-hand side first.
-      Example:
-        workValue = GetEntityCoords
-        dataTable2 = workValue(playerPed)
-      means roughly:
-        local playerCoords = GetEntityCoords(playerPed)
-
-      I have deliberately NOT mass-renamed these reused temporary variables:
-      doing that without full control-flow reconstruction can silently change
-      behaviour. Comments/section labels below explain the code safely.
-
-    Safety note for editing:
-      Keep event names, decorator keys, exported names, and config keys unchanged
-      unless you also update every place that uses them.
+    Developer/admin preview menus for IPLs, teleport spots, native sounds,
+    music events, and clothing presets.
 ]]
-local cmgCall, dataTable5, dataTable6, dataTable7, dataTable8, dataTable9, dataTable10, dataTable11, dataTable12, dataTable13, dataTable, dataTable2, dataTable3, textValue, textValue2, numberValue, numberValue2, numberValue3, numberValue4, numberValue5, numberValue6, numberValue7, numberValue8, numberValue9, numberValue10, numberValue11, numberValue12, numberValue13, numberValue14, numberValue15, numberValue16, numberValue17, numberValue18, numberValue19, numberValue20, numberValue21, numberValue22, numberValue23, numberValue24, numberValue25, numberValue26, textValue3, flag6, flag7, flag8, flag9, flag10, flag11, flag12, flag13, flag14, flag15, flag16, flag17, flag18, flag19, flag20
-cmgCall = CMG
-cmgCall = cmgCall.loadModule
-dataTable5 = "cfg/cfg_clothing"
--- Beginner: result below is config.
-cmgCall = cmgCall(dataTable5)
-dataTable5 = {}
-dataTable6 = {}
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Old Spice Warm"
-dataTable10 = "ex_dt1_11_office_01a"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Old Spice Classical"
-dataTable11 = "ex_dt1_11_office_01b"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Old Spice Vintage"
-dataTable12 = "ex_dt1_11_office_01c"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Executive Contrast"
-dataTable13 = "ex_dt1_11_office_02a"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Executive Rich"
-dataTable = "ex_dt1_11_office_02b"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Executive Cool"
-dataTable2 = "ex_dt1_11_office_02c"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Power Broker Ice"
-dataTable3 = "ex_dt1_11_office_03a"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Power Broker Conservative"
-textValue = "ex_dt1_11_office_03b"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable3 = {}
-textValue = "Power Broker Polished"
-textValue2 = "ex_dt1_11_office_03c"
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable7[9] = dataTable3
-dataTable6["Maze Bank Tower"] = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Old Spice Warm"
-dataTable10 = "ex_dt1_02_office_01a"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Old Spice Classical"
-dataTable11 = "ex_dt1_02_office_01b"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Old Spice Vintage"
-dataTable12 = "ex_dt1_02_office_01c"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Executive Contrast"
-dataTable13 = "ex_dt1_02_office_02a"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Executive Rich"
-dataTable = "ex_dt1_02_office_02b"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Executive Cool"
-dataTable2 = "ex_dt1_02_office_02c"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Power Broker Ice"
-dataTable3 = "ex_dt1_02_office_03a"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Power Broker Conservative"
-textValue = "ex_dt1_02_office_03b"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable3 = {}
-textValue = "Power Broker Polished"
-textValue2 = "ex_dt1_02_office_03c"
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable7[9] = dataTable3
-dataTable6["Arcadius Business Centre"] = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Old Spice Warm"
-dataTable10 = "ex_dt1_13_office_01a"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Old Spice Classical"
-dataTable11 = "ex_dt1_13_office_01b"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Old Spice Vintage"
-dataTable12 = "ex_dt1_13_office_01c"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Executive Contrast"
-dataTable13 = "ex_dt1_13_office_02a"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Executive Rich"
-dataTable = "ex_dt1_13_office_02b"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Executive Cool"
-dataTable2 = "ex_dt1_13_office_02c"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Power Broker Ice"
-dataTable3 = "ex_dt1_13_office_03a"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Power Broker Conservative"
-textValue = "ex_dt1_13_office_03b"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable3 = {}
-textValue = "Power Broker Polished"
-textValue2 = "ex_dt1_13_office_03c"
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable7[9] = dataTable3
-dataTable6["Lombank West"] = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Old Spice Warm"
-dataTable10 = "ex_dt1_15_office_01a"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Old Spice Classical"
-dataTable11 = "ex_dt1_15_office_01b"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Old Spice Vintage"
-dataTable12 = "ex_dt1_15_office_01c"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Executive Contrast"
-dataTable13 = "ex_dt1_15_office_02a"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Executive Rich"
-dataTable = "ex_dt1_15_office_02b"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Executive Cool"
-dataTable2 = "ex_dt1_15_office_02c"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Power Broker Ice"
-dataTable3 = "ex_dt1_15_office_03a"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Power Broker Conservative"
-textValue = "ex_dt1_15_office_03b"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable3 = {}
-textValue = "Power Broker Polished"
-textValue2 = "ex_dt1_15_office_03c"
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable7[9] = dataTable3
-dataTable6["Maze Bank West"] = dataTable7
-dataTable5.Offices = dataTable6
-dataTable6 = {}
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Modern 1"
-dataTable10 = "apa_v_mp_h_01_a"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Moody 1"
-dataTable11 = "apa_v_mp_h_02_a"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Vibrant 1"
-dataTable12 = "apa_v_mp_h_03_a"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Sharp 1"
-dataTable13 = "apa_v_mp_h_04_a"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Monochrome 1"
-dataTable = "apa_v_mp_h_05_a"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Seductive 1"
-dataTable2 = "apa_v_mp_h_06_a"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Regal 1"
-dataTable3 = "apa_v_mp_h_07_a"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Aqua 1"
-textValue = "apa_v_mp_h_08_a"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable6["MP One"] = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Modern 2"
-dataTable10 = "apa_v_mp_h_01_c"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Moody 2"
-dataTable11 = "apa_v_mp_h_02_c"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Vibrant 2"
-dataTable12 = "apa_v_mp_h_03_c"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Sharp 2"
-dataTable13 = "apa_v_mp_h_04_c"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Monochrome 2"
-dataTable = "apa_v_mp_h_05_c"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Seductive 2"
-dataTable2 = "apa_v_mp_h_06_c"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Regal 2"
-dataTable3 = "apa_v_mp_h_07_c"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Aqua 2"
-textValue = "apa_v_mp_h_08_c"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable6["MP Two"] = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Modern 3"
-dataTable10 = "apa_v_mp_h_01_b"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable9 = {}
-dataTable10 = "Moody 3"
-dataTable11 = "apa_v_mp_h_02_b"
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable10 = {}
-dataTable11 = "Vibrant 3"
-dataTable12 = "apa_v_mp_h_03_b"
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable11 = {}
-dataTable12 = "Sharp 3"
-dataTable13 = "apa_v_mp_h_04_b"
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable12 = {}
-dataTable13 = "Monochrome 3"
-dataTable = "apa_v_mp_h_05_b"
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable13 = {}
-dataTable = "Seductive 3"
-dataTable2 = "apa_v_mp_h_06_b"
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable = {}
-dataTable2 = "Regal 3"
-dataTable3 = "apa_v_mp_h_07_b"
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable2 = {}
-dataTable3 = "Aqua 3"
-textValue = "apa_v_mp_h_08_b"
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable6["MP Three"] = dataTable7
-dataTable5.Apartments = dataTable6
-dataTable6 = {}
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Scuba Diving"
-dataTable10 = -2185.7143554688
-dataTable11 = -406.33847045898
-dataTable12 = 13.60400390625
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable8[4] = dataTable12
-dataTable9 = {}
-dataTable10 = "Pilot Job"
-dataTable11 = -991.31866455078
-dataTable12 = -2957.7099609375
-dataTable13 = 14.4296875
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable9[4] = dataTable13
-dataTable10 = {}
-dataTable11 = "Trucking (Illegal)"
-dataTable12 = 149.49890136719
-dataTable13 = -3101.4987792969
-dataTable = 6.392333984375
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable10[4] = dataTable
-dataTable11 = {}
-dataTable12 = "Trucking (Legal)"
-dataTable13 = 860.22857666016
-dataTable = -3182.3471679688
-dataTable2 = 6.51025390625
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable11[4] = dataTable2
-dataTable12 = {}
-dataTable13 = "Cash Driver Depot"
-dataTable = -693.46813964844
-dataTable2 = 273.1516418457
-dataTable3 = 82.6376953125
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable12[4] = dataTable3
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable6.CMG = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Low End Apartment"
-dataTable10 = 260.5322
-dataTable11 = -999.1339
-dataTable12 = -99.0087
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable8[4] = dataTable12
-dataTable9 = {}
-dataTable10 = "Mid Range Apartment"
-dataTable11 = 343.85
-dataTable12 = -999.08
-dataTable13 = -99.1977
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable9[4] = dataTable13
-dataTable10 = {}
-dataTable11 = "3 Alta Street Apt 10"
-dataTable12 = -262.46
-dataTable13 = -951.89
-dataTable = 75.83
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable10[4] = dataTable
-dataTable11 = {}
-dataTable12 = "3 Alta Street Apt 57"
-dataTable13 = -280.74
-dataTable = -961.5
-dataTable2 = 91.11
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable11[4] = dataTable2
-dataTable12 = {}
-dataTable13 = "Weazel Plaza Apt 26"
-dataTable = -895.85
-dataTable2 = -433.9
-dataTable3 = 94.06
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable12[4] = dataTable3
-dataTable13 = {}
-dataTable = "Weazel Plaza Apt 70"
-dataTable2 = -909.054
-dataTable3 = -441.466
-textValue = 120.205
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable13[4] = textValue
-dataTable = {}
-dataTable2 = "Weazel Plaza Apt 101"
-dataTable3 = -884.301
-textValue = -454.515
-textValue2 = 125.132
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable[4] = textValue2
-dataTable2 = {}
-dataTable3 = "Richard Majestic Apt 4"
-textValue = -897.197
-textValue2 = -369.246
-numberValue = 84.0779
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable2[4] = numberValue
-dataTable3 = {}
-textValue = "Richard Majestic Apt 51"
-textValue2 = -932.29
-numberValue = -385.88
-numberValue2 = 108.03
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-dataTable3[4] = numberValue2
-textValue = {}
-textValue2 = "Tinsel Towers Apt 29"
-numberValue = -575.305
-numberValue2 = 42.3233
-numberValue3 = 92.2236
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue[4] = numberValue3
-textValue2 = {}
-numberValue = "Tinsel Towers Apt 45"
-numberValue2 = -617.609
-numberValue3 = 63.024
-numberValue4 = 106.624
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-textValue2[4] = numberValue4
-numberValue = {}
-numberValue2 = "Eclipse Towers Apt 5"
-numberValue3 = -795.04
-numberValue4 = 342.37
-numberValue5 = 206.22
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue[4] = numberValue5
-numberValue2 = {}
-numberValue3 = "Eclipse Towers Apt 9"
-numberValue4 = -759.79
-numberValue5 = 315.71
-numberValue6 = 175.4
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue2[4] = numberValue6
-numberValue3 = {}
-numberValue4 = "Eclipse Towers Apt 31"
-numberValue5 = -797.095
-numberValue6 = 335.069
-numberValue7 = 158.599
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue3[4] = numberValue7
-numberValue4 = {}
-numberValue5 = "Eclipse Towers Apt 40"
-numberValue6 = -752.605
-numberValue7 = 320.821
-numberValue8 = 221.855
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue4[4] = numberValue8
-numberValue5 = {}
-numberValue6 = "4 Integrity Way Apt 28"
-numberValue7 = -14.7964
-numberValue8 = -581.709
-numberValue9 = 79.4307
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue5[4] = numberValue9
-numberValue6 = {}
-numberValue7 = "4 Integrity Way Apt 30"
-numberValue8 = -37.41
-numberValue9 = -582.82
-numberValue10 = 88.71
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue6[4] = numberValue10
-numberValue7 = {}
-numberValue8 = "4 Integrity Way Apt 35"
-numberValue9 = -10.58
-numberValue10 = -581.26
-numberValue11 = 98.83
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue7[4] = numberValue11
-numberValue8 = {}
-numberValue9 = "Del Perro Heights Apt 7"
-numberValue10 = -10.58
-numberValue11 = -581.26
-numberValue12 = 98.83
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue8[4] = numberValue12
-numberValue9 = {}
-numberValue10 = "Del Perro Heights Apt 20"
-numberValue11 = -1474.17
-numberValue12 = -528.124
-numberValue13 = 68.1541
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue9[4] = numberValue13
-numberValue10 = {}
-numberValue11 = "Del Perro Heights Apt 4"
-numberValue12 = -1468.14
-numberValue13 = -541.815
-numberValue14 = 73.4442
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue10[4] = numberValue14
-numberValue11 = {}
-numberValue12 = "Richard Majestic Apt 2"
-numberValue13 = -915.811
-numberValue14 = -379.432
-numberValue15 = 113.675
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue11[4] = numberValue15
-numberValue12 = {}
-numberValue13 = "Tinsel Towers Apt 42"
-numberValue14 = -614.86
-numberValue15 = 40.6783
-numberValue16 = 97.6001
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue12[4] = numberValue16
-numberValue13 = {}
-numberValue14 = "Eclipse Towers Apt 3"
-numberValue15 = -773.407
-numberValue16 = 341.766
-numberValue17 = 211.397
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue13[4] = numberValue17
-numberValue14 = {}
-numberValue15 = "3655 Wild Oats Drive"
-numberValue16 = -172.983
-numberValue17 = 494.033
-numberValue18 = 137.654
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue14[4] = numberValue18
-numberValue15 = {}
-numberValue16 = "2044 North Conker Avenue"
-numberValue17 = 340.941
-numberValue18 = 437.18
-numberValue19 = 149.39
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue15[4] = numberValue19
-numberValue16 = {}
-numberValue17 = "2045 North Conker Avenue"
-numberValue18 = 340.941
-numberValue19 = 437.18
-numberValue20 = 149.39
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue16[4] = numberValue20
-numberValue17 = {}
-numberValue18 = "2862 Hillcrest Avenue"
-numberValue19 = -676.127
-numberValue20 = 588.612
-numberValue21 = 145.17
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue17[4] = numberValue21
-numberValue18 = {}
-numberValue19 = "2868 Hillcrest Avenue"
-numberValue20 = -763.107
-numberValue21 = 615.906
-numberValue22 = 144.14
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue18[4] = numberValue22
-numberValue19 = {}
-numberValue20 = "2874 Hillcrest Avenue"
-numberValue21 = -857.798
-numberValue22 = 682.563
-numberValue23 = 152.653
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue19[4] = numberValue23
-numberValue20 = {}
-numberValue21 = "3677 Whispymound Drive"
-numberValue22 = 120.5
-numberValue23 = 549.952
-numberValue24 = 184.097
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue20[4] = numberValue24
-numberValue21 = {}
-numberValue22 = "2113 Mad Wayne Thunder"
-numberValue23 = -1288.0
-numberValue24 = 440.748
-numberValue25 = 97.6946
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue21[4] = numberValue25
-numberValue22 = {}
-numberValue23 = "Eclispe Towers MP 1"
-numberValue24 = -788.28
-numberValue25 = 340.97
-numberValue26 = 216.84
-textValue3 = "Customizable Apartment via Ipls"
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue22[4] = numberValue26
-numberValue22[5] = textValue3
-numberValue23 = {}
-numberValue24 = "Eclispe Towers MP 2"
-numberValue25 = -786.73
-numberValue26 = 342.81
-textValue3 = 187.11
-flag6 = "Customizable Apartment via Ipls"
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue23[4] = textValue3
-numberValue23[5] = flag6
-numberValue24 = {}
-numberValue25 = "Eclispe Towers MP 3"
-numberValue26 = -773.425
-textValue3 = 332.38
-flag6 = 196.086
-flag7 = "Customizable Apartment via Ipls"
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue24[4] = flag6
-numberValue24[5] = flag7
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable7[9] = dataTable3
-dataTable7[10] = textValue
-dataTable7[11] = textValue2
-dataTable7[12] = numberValue
-dataTable7[13] = numberValue2
-dataTable7[14] = numberValue3
-dataTable7[15] = numberValue4
-dataTable7[16] = numberValue5
-dataTable7[17] = numberValue6
-dataTable7[18] = numberValue7
-dataTable7[19] = numberValue8
-dataTable7[20] = numberValue9
-dataTable7[21] = numberValue10
-dataTable7[22] = numberValue11
-dataTable7[23] = numberValue12
-dataTable7[24] = numberValue13
-dataTable7[25] = numberValue14
-dataTable7[26] = numberValue15
-dataTable7[27] = numberValue16
-dataTable7[28] = numberValue17
-dataTable7[29] = numberValue18
-dataTable7[30] = numberValue19
-dataTable7[31] = numberValue20
-dataTable7[32] = numberValue21
-dataTable7[33] = numberValue22
-dataTable7[34] = numberValue23
-dataTable7[35] = numberValue24
-dataTable6["GTA Apartments"] = dataTable7
-dataTable7 = {}
-dataTable8 = {}
-dataTable9 = "Crash"
-dataTable10 = "DLC_EXEC_ARC_MAC_SOUNDS"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Crash_NPC"
-dataTable11 = "DLC_EXEC_ARC_MAC_SOUNDS"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Trail_1"
-dataTable12 = "DLC_EXEC_ARC_MAC_SOUNDS"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Trail_2"
-dataTable13 = "DLC_EXEC_ARC_MAC_SOUNDS"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Trail_3"
-dataTable = "DLC_EXEC_ARC_MAC_SOUNDS"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Trail_4"
-dataTable2 = "DLC_EXEC_ARC_MAC_SOUNDS"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Turn"
-dataTable3 = "DLC_EXEC_ARC_MAC_SOUNDS"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Turn_NPC"
-textValue = "DLC_EXEC_ARC_MAC_SOUNDS"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Recharging_Loop"
-textValue2 = "DLC_AW_Machine_Gun_Ammo_Counter_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "CHECKPOINT_MISSED"
-numberValue = "HUD_MINI_GAME_SOUNDSET"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "CHECKPOINT_NORMAL"
-numberValue2 = "HUD_MINI_GAME_SOUNDSET"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "hangar_doors_loop"
-numberValue3 = "dlc_xm_facility_entry_exit_sounds"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Recharging_Loop"
-numberValue4 = "DLC_AW_Machine_Gun_Ammo_Counter_Sounds"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Timer_10s"
-numberValue5 = "GTAO_FM_Events_Soundset"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "10_SEC_WARNING"
-numberValue6 = "HUD_MINI_GAME_SOUNDSET"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "10s"
-numberValue7 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue8 = false
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "1st_Person_Transition"
-numberValue8 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "1st_Place_Gain"
-numberValue9 = "DLC_Stunt_Race_Frontend_Sounds"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "1st_Place_Lose"
-numberValue10 = "DLC_Stunt_Race_Frontend_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "321"
-numberValue11 = "DLC_EXEC_ARC_MAC_SOUNDS"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "3_2_1"
-numberValue12 = "HUD_MINI_GAME_SOUNDSET"
-numberValue13 = false
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "3_2_1"
-numberValue13 = "HUD_MINI_GAME_SOUNDSET"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "3_2_1_NON_RACE"
-numberValue14 = "HUD_MINI_GAME_SOUNDSET"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "5_SEC_WARNING"
-numberValue15 = "HUD_MINI_GAME_SOUNDSET"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "5_Second_Timer"
-numberValue16 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue17 = false
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "5s"
-numberValue17 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue18 = false
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "5S"
-numberValue18 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "5s_To_Event_Start_Countdown"
-numberValue19 = "GTAO_FM_Events_Soundset"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Accept_Ghosting_Mode"
-numberValue20 = "RESPAWN_ONLINE_SOUNDSET"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Activate_Trap"
-numberValue21 = "DLC_AW_Trap_Controller_Sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Airhorn"
-numberValue22 = "DLC_BTL_RB_Remix_Sounds"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Airhorn"
-numberValue23 = "DLC_TG_Running_Back_Sounds"
-numberValue24 = false
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Apt_Style_Purchase"
-numberValue24 = "DLC_APT_Apartment_SoundSet"
-numberValue25 = false
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "ARM_3_CAR_GLASS_CRASH"
-numberValue25 = 0
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "ARM_3_PISTOL_COCK"
-numberValue26 = 0
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "ARM_WRESTLING_WHOOSH_MASTER"
-textValue3 = 0
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Armour_Off"
-flag6 = "DLC_GR_Steal_Miniguns_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Armour_On"
-flag7 = "DLC_GR_Steal_Miniguns_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "ASSASSINATIONS_HOTEL_TIMER_COUNTDOWN"
-flag8 = "ASSASSINATION_MULTI"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "ATM_WINDOW"
-flag9 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "BACK"
-flag10 = "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "BACK"
-flag11 = "HUD_AMMO_SHOP_SOUNDSET"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "BACK"
-flag12 = "HUD_FREEMODE_SOUNDSET"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "BACK"
-flag13 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "BACK"
-flag14 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Back"
-flag15 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "BACK"
-flag16 = "HUD_FRONTEND_MP_SOUNDSET"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Banshee2_Upgrade"
-flag17 = "JA16_Super_Mod_Garage_Sounds"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Barge_Door"
-flag18 = "dlc_h4_Prep_FC_Sounds"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Barge_Door_Glass"
-flag19 = "dlc_h4_Prep_FC_Sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[1] = dataTable8
-dataTable7[2] = dataTable9
-dataTable7[3] = dataTable10
-dataTable7[4] = dataTable11
-dataTable7[5] = dataTable12
-dataTable7[6] = dataTable13
-dataTable7[7] = dataTable
-dataTable7[8] = dataTable2
-dataTable7[9] = dataTable3
-dataTable7[10] = textValue
-dataTable7[11] = textValue2
-dataTable7[12] = numberValue
-dataTable7[13] = numberValue2
-dataTable7[14] = numberValue3
-dataTable7[15] = numberValue4
-dataTable7[16] = numberValue5
-dataTable7[17] = numberValue6
-dataTable7[18] = numberValue7
-dataTable7[19] = numberValue8
-dataTable7[20] = numberValue9
-dataTable7[21] = numberValue10
-dataTable7[22] = numberValue11
-dataTable7[23] = numberValue12
-dataTable7[24] = numberValue13
-dataTable7[25] = numberValue14
-dataTable7[26] = numberValue15
-dataTable7[27] = numberValue16
-dataTable7[28] = numberValue17
-dataTable7[29] = numberValue18
-dataTable7[30] = numberValue19
-dataTable7[31] = numberValue20
-dataTable7[32] = numberValue21
-dataTable7[33] = numberValue22
-dataTable7[34] = numberValue23
-dataTable7[35] = numberValue24
-dataTable7[36] = numberValue25
-dataTable7[37] = numberValue26
-dataTable7[38] = textValue3
-dataTable7[39] = flag6
-dataTable7[40] = flag7
-dataTable7[41] = flag8
-dataTable7[42] = flag9
-dataTable7[43] = flag10
-dataTable7[44] = flag11
-dataTable7[45] = flag12
-dataTable7[46] = flag13
-dataTable7[47] = flag14
-dataTable7[48] = flag15
-dataTable7[49] = flag16
-dataTable7[50] = flag17
-dataTable8 = {}
-dataTable9 = "Barge_Door_Metal"
-dataTable10 = "dlc_h4_Prep_FC_Sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Barge_Door_Metal_Bars"
-dataTable11 = "dlc_h4_Prep_FC_Sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "BASE_JUMP_PASSED"
-dataTable12 = "HUD_AWARDS"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Beat_Pulse_Default"
-dataTable13 = "GTAO_Dancing_Sounds"
-dataTable = false
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Become_Attacker"
-dataTable = "DLC_BTL_TP_Remix_Juggernaut_Player_Sounds"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Become_Attacker"
-dataTable2 = "DLC_IE_JN_Player_Sounds"
-dataTable3 = false
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Become_Hunted"
-dataTable3 = "dlc_xm_sls_Sounds"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Become_JN"
-textValue = "DLC_BTL_TP_Remix_Juggernaut_Player_Sounds"
-textValue2 = false
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Become_JN"
-textValue2 = "DLC_IE_JN_Player_Sounds"
-numberValue = false
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Become_Slasher"
-numberValue = "dlc_xm_sls_Sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Become_Target"
-numberValue2 = "dlc_xm_hata_Sounds"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Bed"
-numberValue3 = "WastedSounds"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Beep_Green"
-numberValue4 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Beep_Red"
-numberValue5 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Blue_Target_Explode"
-numberValue6 = "dlc_xm_silo_laser_hack_sounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "BOATS_PLANES_HELIS_BOOM"
-numberValue7 = "MP_LOBBY_SOUNDS"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Bomb_Collect"
-numberValue8 = "DLC_SR_TR_Bomb_Player_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Bomb_Collected"
-numberValue9 = "DLC_AW_PTB_Sounds"
-numberValue10 = false
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "bomb_deployed"
-numberValue10 = "DLC_SM_Bomb_Bay_Bombs_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Bomb_Disarmed"
-numberValue11 = "GTAO_Speed_Convoy_Soundset"
-numberValue12 = false
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Bomb_Passed"
-numberValue12 = "DLC_AW_PTB_Sounds"
-numberValue13 = false
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "bombs_empty"
-numberValue13 = "DLC_SM_Bomb_Bay_Bombs_Sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "boot_pop"
-numberValue14 = "dlc_vw_body_disposal_sounds"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Boss_Message_Orange"
-numberValue15 = "GTAO_Biker_FM_Soundset"
-numberValue16 = false
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Boss_Message_Orange"
-numberValue16 = "GTAO_Boss_Goons_FM_Soundset"
-numberValue17 = false
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Bounds_Timer_Pulse"
-numberValue17 = "DLC_SM_VEHWA_Player_Sounds"
-numberValue18 = false
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Bounds_Timer_Reset"
-numberValue18 = "DLC_SM_VEHWA_Player_Sounds"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "BULL_SHARK_TESTOSTERONE_END_MASTER"
-numberValue19 = ""
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "BULL_SHARK_TESTOSTERONE_START_MASTER"
-numberValue20 = ""
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Bunker_Hatch"
-numberValue21 = "GTAO_Script_Doors_Faded_Screen_Sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Bus_Schedule_Pickup"
-numberValue22 = "DLC_PRISON_BREAK_HEIST_SOUNDS"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Business_Restart"
-numberValue23 = "DLC_Biker_Computer_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Business_Restart"
-numberValue24 = "DLC_GR_Disruption_Logistics_Sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Business_Shutdown"
-numberValue25 = "DLC_Biker_Computer_Sounds"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Business_Shutdown"
-numberValue26 = "DLC_GR_Disruption_Logistics_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "BUTTON"
-textValue3 = "MP_PROPERTIES_ELEVATOR_DOORS"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "CAM_PAN_DARTS"
-flag6 = "HUD_MINI_GAME_SOUNDSET"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Camera_Shoot"
-flag7 = "Phone_Soundset_Franklin"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "CANCEL"
-flag8 = "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Cancel"
-flag9 = "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "CANCEL"
-flag10 = "HUD_FREEMODE_SOUNDSET"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "CANCEL"
-flag11 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "CANCEL"
-flag12 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag13 = false
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "CANCEL"
-flag13 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "CANCEL"
-flag14 = "HUD_LIQUOR_STORE_SOUNDSET"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "cannon_active"
-flag15 = "dlc_xm_orbital_cannon_sounds"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "CAR_BIKE_WHOOSH"
-flag16 = "MP_LOBBY_SOUNDS"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "car_crushed"
-flag17 = "dlc_vw_body_disposal_sounds"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "chaff_cooldown"
-flag18 = "DLC_SM_Countermeasures_Sounds"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "chaff_empty"
-flag19 = "DLC_SM_Countermeasures_Sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[51] = dataTable8
-dataTable7[52] = dataTable9
-dataTable7[53] = dataTable10
-dataTable7[54] = dataTable11
-dataTable7[55] = dataTable12
-dataTable7[56] = dataTable13
-dataTable7[57] = dataTable
-dataTable7[58] = dataTable2
-dataTable7[59] = dataTable3
-dataTable7[60] = textValue
-dataTable7[61] = textValue2
-dataTable7[62] = numberValue
-dataTable7[63] = numberValue2
-dataTable7[64] = numberValue3
-dataTable7[65] = numberValue4
-dataTable7[66] = numberValue5
-dataTable7[67] = numberValue6
-dataTable7[68] = numberValue7
-dataTable7[69] = numberValue8
-dataTable7[70] = numberValue9
-dataTable7[71] = numberValue10
-dataTable7[72] = numberValue11
-dataTable7[73] = numberValue12
-dataTable7[74] = numberValue13
-dataTable7[75] = numberValue14
-dataTable7[76] = numberValue15
-dataTable7[77] = numberValue16
-dataTable7[78] = numberValue17
-dataTable7[79] = numberValue18
-dataTable7[80] = numberValue19
-dataTable7[81] = numberValue20
-dataTable7[82] = numberValue21
-dataTable7[83] = numberValue22
-dataTable7[84] = numberValue23
-dataTable7[85] = numberValue24
-dataTable7[86] = numberValue25
-dataTable7[87] = numberValue26
-dataTable7[88] = textValue3
-dataTable7[89] = flag6
-dataTable7[90] = flag7
-dataTable7[91] = flag8
-dataTable7[92] = flag9
-dataTable7[93] = flag10
-dataTable7[94] = flag11
-dataTable7[95] = flag12
-dataTable7[96] = flag13
-dataTable7[97] = flag14
-dataTable7[98] = flag15
-dataTable7[99] = flag16
-dataTable7[100] = flag17
-dataTable8 = {}
-dataTable9 = "CHALLENGE_UNLOCKED"
-dataTable10 = "HUD_AWARDS"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Checkpoint"
-dataTable11 = "DLC_AW_Frontend_Sounds"
-dataTable12 = false
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Checkpoint"
-dataTable12 = "DLC_Stunt_Race_Frontend_Sounds"
-dataTable13 = false
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Checkpoint"
-dataTable13 = "DLC_sum20_Open_Wheel_Racing_Sounds"
-dataTable = false
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "CHECKPOINT_AHEAD"
-dataTable = "HUD_MINI_GAME_SOUNDSET"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Checkpoint_Beast_Hit"
-dataTable2 = "FM_Events_Sasquatch_Sounds"
-dataTable3 = false
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "CHECKPOINT_BEHIND"
-dataTable3 = "HUD_MINI_GAME_SOUNDSET"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Checkpoint_Buzz"
-textValue = "DLC_AW_Frontend_Sounds"
-textValue2 = false
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Checkpoint_Cash_Hit"
-textValue2 = "GTAO_FM_Events_Soundset"
-numberValue = false
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Checkpoint_Finish"
-numberValue = "DLC_AW_Frontend_Sounds"
-numberValue2 = false
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Checkpoint_Finish"
-numberValue2 = "DLC_Stunt_Race_Frontend_Sounds"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Checkpoint_Finish"
-numberValue3 = "DLC_sum20_Open_Wheel_Racing_Sounds"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Checkpoint_Hit"
-numberValue4 = "GTAO_FM_Events_Soundset"
-numberValue5 = false
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Checkpoint_Lap"
-numberValue5 = "DLC_AW_Frontend_Sounds"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Checkpoint_Lap"
-numberValue6 = "DLC_AW_Frontend_Sounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Checkpoint_Lap"
-numberValue7 = "DLC_Stunt_Race_Frontend_Sounds"
-numberValue8 = false
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Checkpoint_Lap"
-numberValue8 = "DLC_Stunt_Race_Frontend_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Checkpoint_Lap"
-numberValue9 = "DLC_sum20_Open_Wheel_Racing_Sounds"
-numberValue10 = false
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "CHECKPOINT_MISSED"
-numberValue10 = "HUD_MINI_GAME_SOUNDSET"
-numberValue11 = false
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "CHECKPOINT_NORMAL"
-numberValue11 = "HUD_MINI_GAME_SOUNDSET"
-numberValue12 = false
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "CHECKPOINT_NORMAL"
-numberValue12 = "HUD_MINI_GAME_SOUNDSET"
-numberValue13 = false
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "CHECKPOINT_PERFECT"
-numberValue13 = "HUD_MINI_GAME_SOUNDSET"
-numberValue14 = false
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Checkpoint_Teammate"
-numberValue14 = "GTAO_Shepherd_Sounds"
-numberValue15 = false
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "CHECKPOINT_UNDER_THE_BRIDGE"
-numberValue15 = "HUD_MINI_GAME_SOUNDSET"
-numberValue16 = false
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Cheers"
-numberValue16 = "DLC_TG_Running_Back_Sounds"
-numberValue17 = false
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Click"
-numberValue17 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Click_Back"
-numberValue18 = "DLC_Biker_Computer_Sounds"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "Click_Back"
-numberValue19 = "DLC_H3_Arcade_Laptop_Sounds"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Click_Back"
-numberValue20 = "GTAO_SMG_Hangar_Computer_Sounds"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "CLICK_BACK"
-numberValue21 = "WEB_NAVIGATION_SOUNDS_PHONE"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Click_Cancel"
-numberValue22 = "DLC_Biker_Computer_Sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Click_Fail"
-numberValue23 = "DLC_Biker_Computer_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Click_Fail"
-numberValue24 = "DLC_GR_Disruption_Logistics_Sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Click_Fail"
-numberValue25 = "DLC_H3_Arcade_Laptop_Sounds"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Click_Fail"
-numberValue26 = "GTAO_SMG_Hangar_Computer_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Click_Fail"
-textValue3 = "WEB_NAVIGATION_SOUNDS_PHONE"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Click_Link"
-flag6 = "DLC_GR_Disruption_Logistics_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Click_Link"
-flag7 = "DLC_H3_Arcade_Laptop_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Click_Link"
-flag8 = "GTAO_SMG_Hangar_Computer_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Click_Special"
-flag9 = " WEB_NAVIGATION_SOUNDS_PHONE"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Click_Special"
-flag10 = "DLC_Biker_Computer_Sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Click_Special"
-flag11 = "DLC_GR_Disruption_Logistics_Sounds"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Click_Special"
-flag12 = "DLC_H3_Arcade_Laptop_Sounds"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Click_Special"
-flag13 = "GTAO_SMG_Hangar_Computer_Sounds"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Click_Special"
-flag14 = "WEB_NAVIGATION_SOUNDS_PHONE"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Close"
-flag15 = "DLC_H3_Tracker_App_Sounds"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Closed"
-flag16 = "DLC_APT_YACHT_DOOR_SOUNDS"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "CLOSED"
-flag17 = "DLC_APT_YACHT_DOOR_SOUNDS"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "CLOSED"
-flag18 = "MP_PROPERTIES_ELEVATOR_DOORS"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "CLOSING"
-flag19 = "MP_PROPERTIES_ELEVATOR_DOORS"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[101] = dataTable8
-dataTable7[102] = dataTable9
-dataTable7[103] = dataTable10
-dataTable7[104] = dataTable11
-dataTable7[105] = dataTable12
-dataTable7[106] = dataTable13
-dataTable7[107] = dataTable
-dataTable7[108] = dataTable2
-dataTable7[109] = dataTable3
-dataTable7[110] = textValue
-dataTable7[111] = textValue2
-dataTable7[112] = numberValue
-dataTable7[113] = numberValue2
-dataTable7[114] = numberValue3
-dataTable7[115] = numberValue4
-dataTable7[116] = numberValue5
-dataTable7[117] = numberValue6
-dataTable7[118] = numberValue7
-dataTable7[119] = numberValue8
-dataTable7[120] = numberValue9
-dataTable7[121] = numberValue10
-dataTable7[122] = numberValue11
-dataTable7[123] = numberValue12
-dataTable7[124] = numberValue13
-dataTable7[125] = numberValue14
-dataTable7[126] = numberValue15
-dataTable7[127] = numberValue16
-dataTable7[128] = numberValue17
-dataTable7[129] = numberValue18
-dataTable7[130] = numberValue19
-dataTable7[131] = numberValue20
-dataTable7[132] = numberValue21
-dataTable7[133] = numberValue22
-dataTable7[134] = numberValue23
-dataTable7[135] = numberValue24
-dataTable7[136] = numberValue25
-dataTable7[137] = numberValue26
-dataTable7[138] = textValue3
-dataTable7[139] = flag6
-dataTable7[140] = flag7
-dataTable7[141] = flag8
-dataTable7[142] = flag9
-dataTable7[143] = flag10
-dataTable7[144] = flag11
-dataTable7[145] = flag12
-dataTable7[146] = flag13
-dataTable7[147] = flag14
-dataTable7[148] = flag15
-dataTable7[149] = flag16
-dataTable7[150] = flag17
-dataTable8 = {}
-dataTable9 = "club_crowd_transition"
-dataTable10 = "dlc_btl_club_open_transition_crowd_sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "clue_complete_shard"
-dataTable11 = "dlc_btl_fm_th_sounds"
-dataTable12 = false
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "clue_complete_shard"
-dataTable12 = "dlc_xm_fm_th_sounds"
-dataTable13 = false
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "clue_seen"
-dataTable13 = "dlc_ch_hidden_collectibles_sk_sounds"
-dataTable = false
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "collect_chips_handed"
-dataTable = "dlc_vw_tracking_chips_sounds"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "collect_part"
-dataTable2 = "DLC_sum20_BB_Captured_Sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Collect_Pickup"
-dataTable3 = "DLC_IE_PL_Player_Sounds"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "collect_water"
-textValue = "dlc_sum20_yacht_missions_ah_sounds"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Condemned"
-textValue2 = "DLC_SM_CND_Player_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Confirm"
-numberValue = "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "CONTINUE"
-numberValue2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "continue"
-numberValue3 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "CONTINUE"
-numberValue4 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Continue_Accepted"
-numberValue5 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Continue_Appears"
-numberValue6 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Countdown_1"
-numberValue7 = "DLC_AW_Frontend_Sounds"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Countdown_1"
-numberValue8 = "DLC_SR_TR_General_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Countdown_2"
-numberValue9 = "DLC_AW_Frontend_Sounds"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Countdown_2"
-numberValue10 = "DLC_SR_TR_General_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Countdown_3"
-numberValue11 = "DLC_AW_Frontend_Sounds"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Countdown_3"
-numberValue12 = "DLC_SR_TR_General_Sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Countdown_GO"
-numberValue13 = "DLC_AW_Frontend_Sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Countdown_GO"
-numberValue14 = "DLC_SR_TR_General_Sounds"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Countdown_Timer_Bleep"
-numberValue15 = "DLC_AW_Arena_Spin_Wheel_Game_Frontend_Sounds"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Countdown_Timer_Bleep_Red"
-numberValue16 = "DLC_AW_Arena_Spin_Wheel_Game_Frontend_Sounds"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Counter_Tick"
-numberValue17 = "DLC_Biker_Burn_Assets_Sounds"
-numberValue18 = false
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Crash"
-numberValue18 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "Crate_Destroy_Remote"
-numberValue19 = "DLC_IE_Vip_Stockpile_Sounds"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Crate_Pickup_Remote"
-numberValue20 = "DLC_IE_Vip_Stockpile_Sounds"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Crates_Blipped"
-numberValue21 = "GTAO_Biker_Modes_Soundset"
-numberValue22 = false
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Crates_Blipped"
-numberValue22 = "GTAO_Magnate_Boss_Modes_Soundset"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Creator_Snap"
-numberValue23 = "DLC_Stunt_Race_Frontend_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Criminal_Damage_High_Value"
-numberValue24 = "GTAO_FM_Events_Soundset"
-numberValue25 = false
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Criminal_Damage_Kill_Player"
-numberValue25 = "GTAO_FM_Events_Soundset"
-numberValue26 = false
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Criminal_Damage_Low_Value"
-numberValue26 = "GTAO_FM_Events_Soundset"
-textValue3 = false
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Crush"
-textValue3 = "DLC_H4_Submarine_Crush_Depth_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "CUTSCENE_DIALOGUE_OVERRIDE_SOUND_01"
-flag6 = 0
-flag7 = false
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "CUTSCENE_DIALOGUE_OVERRIDE_SOUND_02"
-flag7 = 0
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Cycle_Item"
-flag8 = "DLC_Dmod_Prop_Editor_Sounds"
-flag9 = false
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "DayBreak_Stinger"
-flag9 = "DLC_Biker_LostAndDamned_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Degenatron_Logo"
-flag10 = "DLC_EXEC_ARC_MAC_SOUNDS"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Degenatron_Star"
-flag11 = "DLC_EXEC_ARC_MAC_SOUNDS"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "DELETE"
-flag12 = "HUD_DEATHMATCH_SOUNDSET"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Delete_Placed_Prop"
-flag13 = "DLC_Dmod_Prop_Editor_Sounds"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Deliver"
-flag14 = "In_And_Out_Attacker_Sounds"
-flag15 = false
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Deliver_Item"
-flag15 = "GTAO_Biker_Modes_Soundset"
-flag16 = false
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Deliver_Item"
-flag16 = "GTAO_Biker_Modes_Soundset"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Deliver_Pick_Up"
-flag17 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "DLC_VW_BET_MAX"
-flag18 = "dlc_vw_table_games_frontend_sounds"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "DLC_VW_BET_UP"
-flag19 = "dlc_vw_table_games_frontend_sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[151] = dataTable8
-dataTable7[152] = dataTable9
-dataTable7[153] = dataTable10
-dataTable7[154] = dataTable11
-dataTable7[155] = dataTable12
-dataTable7[156] = dataTable13
-dataTable7[157] = dataTable
-dataTable7[158] = dataTable2
-dataTable7[159] = dataTable3
-dataTable7[160] = textValue
-dataTable7[161] = textValue2
-dataTable7[162] = numberValue
-dataTable7[163] = numberValue2
-dataTable7[164] = numberValue3
-dataTable7[165] = numberValue4
-dataTable7[166] = numberValue5
-dataTable7[167] = numberValue6
-dataTable7[168] = numberValue7
-dataTable7[169] = numberValue8
-dataTable7[170] = numberValue9
-dataTable7[171] = numberValue10
-dataTable7[172] = numberValue11
-dataTable7[173] = numberValue12
-dataTable7[174] = numberValue13
-dataTable7[175] = numberValue14
-dataTable7[176] = numberValue15
-dataTable7[177] = numberValue16
-dataTable7[178] = numberValue17
-dataTable7[179] = numberValue18
-dataTable7[180] = numberValue19
-dataTable7[181] = numberValue20
-dataTable7[182] = numberValue21
-dataTable7[183] = numberValue22
-dataTable7[184] = numberValue23
-dataTable7[185] = numberValue24
-dataTable7[186] = numberValue25
-dataTable7[187] = numberValue26
-dataTable7[188] = textValue3
-dataTable7[189] = flag6
-dataTable7[190] = flag7
-dataTable7[191] = flag8
-dataTable7[192] = flag9
-dataTable7[193] = flag10
-dataTable7[194] = flag11
-dataTable7[195] = flag12
-dataTable7[196] = flag13
-dataTable7[197] = flag14
-dataTable7[198] = flag15
-dataTable7[199] = flag16
-dataTable7[200] = flag17
-dataTable8 = {}
-dataTable9 = "DLC_VW_CONTINUE"
-dataTable10 = "dlc_vw_table_games_frontend_sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "DLC_VW_ERROR_MAX"
-dataTable11 = "dlc_vw_table_games_frontend_sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "DLC_VW_RULES"
-dataTable12 = "dlc_vw_table_games_frontend_sounds"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "DLC_VW_WIN_CHIPS"
-dataTable13 = "dlc_vw_table_games_frontend_sounds"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Door_Open"
-dataTable = "DOCKS_HEIST_FINALE_2B_SOUNDS"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Door_Open_Limit"
-dataTable2 = "DLC_GR_Bunker_Door_Sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Door_Open_Limit"
-dataTable3 = "DLC_SM_Hangar_Door_Sounds"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Door_Open_Limit"
-textValue = "DLC_XM_Silo_Secret_Door_Sounds"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "download_complete"
-textValue2 = "DLC_BTL_Break_In_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "download_start"
-numberValue = "DLC_BTL_Break_In_Sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "DPAD_WEAPON_SCROLL"
-numberValue2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Drill_Pin_Break"
-numberValue3 = "DLC_HEIST_FLEECA_SOUNDSET"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Drop_Pickup"
-numberValue4 = "DLC_IE_PL_Enemy_Sounds"
-numberValue5 = false
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Drop_Pickup"
-numberValue5 = "DLC_IE_PL_Player_Sounds"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Drop_Pickup"
-numberValue6 = "DLC_IE_PL_Team_Sounds"
-numberValue7 = false
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Dropped"
-numberValue7 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Dropped"
-numberValue8 = "In_And_Out_Attacker_Sounds"
-numberValue9 = false
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Dropped"
-numberValue9 = "In_And_Out_Defender_Sounds"
-numberValue10 = false
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "EDIT"
-numberValue10 = "HUD_DEATHMATCH_SOUNDSET"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "emp_activate"
-numberValue11 = "dlc_ch_heist_finale_sounds"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "EMP_vehicle_affected"
-numberValue12 = "DLC_AW_EMP_Sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Empty_Fire_Fail"
-numberValue13 = "DLC_AW_Machine_Gun_Ammo_Counter_Sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "End_Squelch"
-numberValue14 = "CB_RADIO_SFX"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "End_Zone_Flash"
-numberValue15 = "DLC_BTL_RB_Remix_Sounds"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Enemy_Deliver"
-numberValue16 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Enemy_Deliver"
-numberValue17 = "In_And_Out_Defender_Sounds"
-numberValue18 = false
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Enemy_Killed_1p"
-numberValue18 = "dlc_xm_hata_Sounds"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "Enemy_Killed_3p"
-numberValue19 = "dlc_xm_hata_Sounds"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Enemy_Pick_Up"
-numberValue20 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Enemy_Pick_Up"
-numberValue21 = "In_And_Out_Defender_Sounds"
-numberValue22 = false
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Enter_1st"
-numberValue22 = "GTAO_Biker_Modes_Soundset"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Enter_1st"
-numberValue23 = "GTAO_FM_Events_Soundset"
-numberValue24 = false
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Enter_1st"
-numberValue24 = "GTAO_Magnate_Boss_Modes_Soundset"
-numberValue25 = false
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Enter_Area"
-numberValue25 = "DLC_Lowrider_Relay_Race_Sounds"
-numberValue26 = false
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Enter_On_Foot"
-numberValue26 = "GTAO_ImpExp_Enter_Exit_Garage_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Enter_Zone"
-textValue3 = "DLC_Biker_SYG_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "ERROR"
-flag6 = "DLC_Biker_Mission_Wall_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "ERROR"
-flag7 = "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Error"
-flag8 = "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "ERROR"
-flag9 = "HUD_AMMO_SHOP_SOUNDSET"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "ERROR"
-flag10 = "HUD_FREEMODE_SOUNDSET"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "ERROR"
-flag11 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "ERROR"
-flag12 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "ERROR"
-flag13 = "HUD_LIQUOR_STORE_SOUNDSET"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Event_Message_Purple"
-flag14 = "GTAO_FM_Events_Soundset"
-flag15 = false
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Event_Start_Text"
-flag15 = "GTAO_FM_Events_Soundset"
-flag16 = false
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "EXILE_3_TRAIN_BRAKE_PULL_MASTER"
-flag16 = 0
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "EXILE_3_TRAIN_BRAKE_RELEASE_MASTER"
-flag17 = 0
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Exit"
-flag18 = "DLC_Biker_Computer_Sounds"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Exit"
-flag19 = "DLC_GR_Disruption_Logistics_Sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[201] = dataTable8
-dataTable7[202] = dataTable9
-dataTable7[203] = dataTable10
-dataTable7[204] = dataTable11
-dataTable7[205] = dataTable12
-dataTable7[206] = dataTable13
-dataTable7[207] = dataTable
-dataTable7[208] = dataTable2
-dataTable7[209] = dataTable3
-dataTable7[210] = textValue
-dataTable7[211] = textValue2
-dataTable7[212] = numberValue
-dataTable7[213] = numberValue2
-dataTable7[214] = numberValue3
-dataTable7[215] = numberValue4
-dataTable7[216] = numberValue5
-dataTable7[217] = numberValue6
-dataTable7[218] = numberValue7
-dataTable7[219] = numberValue8
-dataTable7[220] = numberValue9
-dataTable7[221] = numberValue10
-dataTable7[222] = numberValue11
-dataTable7[223] = numberValue12
-dataTable7[224] = numberValue13
-dataTable7[225] = numberValue14
-dataTable7[226] = numberValue15
-dataTable7[227] = numberValue16
-dataTable7[228] = numberValue17
-dataTable7[229] = numberValue18
-dataTable7[230] = numberValue19
-dataTable7[231] = numberValue20
-dataTable7[232] = numberValue21
-dataTable7[233] = numberValue22
-dataTable7[234] = numberValue23
-dataTable7[235] = numberValue24
-dataTable7[236] = numberValue25
-dataTable7[237] = numberValue26
-dataTable7[238] = textValue3
-dataTable7[239] = flag6
-dataTable7[240] = flag7
-dataTable7[241] = flag8
-dataTable7[242] = flag9
-dataTable7[243] = flag10
-dataTable7[244] = flag11
-dataTable7[245] = flag12
-dataTable7[246] = flag13
-dataTable7[247] = flag14
-dataTable7[248] = flag15
-dataTable7[249] = flag16
-dataTable7[250] = flag17
-dataTable8 = {}
-dataTable9 = "Exit"
-dataTable10 = "DLC_H3_Arcade_Laptop_Sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Exit"
-dataTable11 = "GTAO_SMG_Hangar_Computer_Sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "EXIT"
-dataTable12 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Faction3_Upgrade"
-dataTable13 = "Low2_Super_Mod_Garage_Sounds"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Fail"
-dataTable = "dlc_xm_silo_laser_hack_sounds"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Failure"
-dataTable2 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "FAKE_ARRIVE"
-dataTable3 = "MP_PROPERTIES_ELEVATOR_DOORS"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Falling_Crates"
-textValue = "EXILE_1"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "FAMILY_1_CAR_BREAKDOWN"
-textValue2 = "FAMILY1_BOAT"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "FAMILY_1_CAR_BREAKDOWN_ADDITIONAL"
-numberValue = "FAMILY1_BOAT"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Faster_Bar_Full"
-numberValue2 = "RESPAWN_ONLINE_SOUNDSET"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Faster_Click"
-numberValue3 = "RESPAWN_ONLINE_SOUNDSET"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "FestiveGift"
-numberValue4 = "Feed_Message_Sounds"
-numberValue5 = false
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Finish_Default"
-numberValue5 = "DLC_AW_Frontend_Sounds"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Finish_Win"
-numberValue6 = "DLC_AW_Frontend_Sounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "FIRST_PLACE"
-numberValue7 = "HUD_MINI_GAME_SOUNDSET"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Flag_Collected"
-numberValue8 = "DLC_SM_STPI_Enemy_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Flag_Collected"
-numberValue9 = "DLC_SM_STPI_Player_Sounds"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Flag_Delivered"
-numberValue10 = "DLC_SM_STPI_Enemy_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Flag_Delivered"
-numberValue11 = "DLC_SM_STPI_Player_Sounds"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Flag_Dropped"
-numberValue12 = "DLC_SM_STPI_Enemy_Sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Flag_Dropped"
-numberValue13 = "DLC_SM_STPI_Player_Sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "flares_empty"
-numberValue14 = "DLC_SM_Countermeasures_Sounds"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Flight_Unlock"
-numberValue15 = "DLC_XM17_IAA_Deluxos_Sounds"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "FLYING_STREAM_END_INSTANT"
-numberValue16 = "FAMILY_5_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Focus"
-numberValue17 = "DLC_AW_Trap_Controller_Sounds"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "FocusIn"
-numberValue18 = "HintCamSounds"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "FocusOut"
-numberValue19 = "HintCamSounds"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "formation_active"
-numberValue20 = "formation_flying_blips_soundset"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "formation_inactive"
-numberValue21 = "formation_flying_blips_soundset"
-numberValue22 = false
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Friend_Deliver"
-numberValue22 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Friend_Pick_Up"
-numberValue23 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-numberValue24 = false
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Friend_Pick_Up"
-numberValue24 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Friend_Pick_Up"
-numberValue25 = "In_And_Out_Attacker_Sounds"
-numberValue26 = false
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Frontend_Beast_Fade_Screen"
-numberValue26 = "FM_Events_Sasquatch_Sounds"
-textValue3 = false
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Frontend_Beast_Freeze_Screen"
-textValue3 = "FM_Events_Sasquatch_Sounds"
-flag6 = false
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Frontend_Beast_Text_Hit"
-flag6 = "FM_Events_Sasquatch_Sounds"
-flag7 = false
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Frontend_Beast_Transform_Back"
-flag7 = "FM_Events_Sasquatch_Sounds"
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "gadget_pistol_shard"
-flag8 = "dlc_hei4_hidden_collectibles_sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Gain_Point"
-flag9 = "dlc_xm_aqo_sounds"
-flag10 = false
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Garage_Door_Close"
-flag10 = "GTAO_Script_Doors_Faded_Screen_Sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Garage_Door_Open"
-flag11 = "GTAO_Script_Doors_Faded_Screen_Sounds"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Generic_Door_Closed"
-flag12 = "GTAO_Script_Doors_Sounds"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Generic_Negative_Event"
-flag13 = "GTAO_Biker_Modes_Soundset"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Generic_Positive_Event"
-flag14 = "GTAO_Biker_Modes_Soundset"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Go"
-flag15 = "DLC_EXEC_ARC_MAC_SOUNDS"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "GO"
-flag16 = "HUD_MINI_GAME_SOUNDSET"
-flag17 = false
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "GO"
-flag17 = "HUD_MINI_GAME_SOUNDSET"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "GO_NON_RACE"
-flag18 = "HUD_MINI_GAME_SOUNDSET"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Go_To_Target"
-flag19 = "DLC_AW_Trap_Controller_Sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[251] = dataTable8
-dataTable7[252] = dataTable9
-dataTable7[253] = dataTable10
-dataTable7[254] = dataTable11
-dataTable7[255] = dataTable12
-dataTable7[256] = dataTable13
-dataTable7[257] = dataTable
-dataTable7[258] = dataTable2
-dataTable7[259] = dataTable3
-dataTable7[260] = textValue
-dataTable7[261] = textValue2
-dataTable7[262] = numberValue
-dataTable7[263] = numberValue2
-dataTable7[264] = numberValue3
-dataTable7[265] = numberValue4
-dataTable7[266] = numberValue5
-dataTable7[267] = numberValue6
-dataTable7[268] = numberValue7
-dataTable7[269] = numberValue8
-dataTable7[270] = numberValue9
-dataTable7[271] = numberValue10
-dataTable7[272] = numberValue11
-dataTable7[273] = numberValue12
-dataTable7[274] = numberValue13
-dataTable7[275] = numberValue14
-dataTable7[276] = numberValue15
-dataTable7[277] = numberValue16
-dataTable7[278] = numberValue17
-dataTable7[279] = numberValue18
-dataTable7[280] = numberValue19
-dataTable7[281] = numberValue20
-dataTable7[282] = numberValue21
-dataTable7[283] = numberValue22
-dataTable7[284] = numberValue23
-dataTable7[285] = numberValue24
-dataTable7[286] = numberValue25
-dataTable7[287] = numberValue26
-dataTable7[288] = textValue3
-dataTable7[289] = flag6
-dataTable7[290] = flag7
-dataTable7[291] = flag8
-dataTable7[292] = flag9
-dataTable7[293] = flag10
-dataTable7[294] = flag11
-dataTable7[295] = flag12
-dataTable7[296] = flag13
-dataTable7[297] = flag14
-dataTable7[298] = flag15
-dataTable7[299] = flag16
-dataTable7[300] = flag17
-dataTable8 = {}
-dataTable9 = "Goal"
-dataTable10 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Goal_Reached"
-dataTable11 = "dlc_xm_aqo_sounds"
-dataTable12 = false
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Goggles_Update"
-dataTable12 = "DLC_XM17_Silo_Pred_Sounds"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "GOLF_NEW_RECORD"
-dataTable13 = "HUD_AWARDS"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Goon_Paid_Small"
-dataTable = "GTAO_Boss_Goons_FM_Soundset"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Gun_Collect"
-dataTable2 = "DLC_SR_TR_Gun_Player_Sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Hack_Complete"
-dataTable3 = "DLC_IE_SVM_Voltic2_Hacking_Sounds"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Hack_Complete"
-textValue = "dlc_xm_deluxos_hacking_Hacking_Sounds"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Hack_Fail"
-textValue2 = "DLC_sum20_Business_Battle_AC_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Hack_Failed"
-numberValue = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue2 = false
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Hack_Start"
-numberValue2 = "DLC_IE_SVM_Voltic2_Hacking_Sounds"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Hack_Start"
-numberValue3 = "dlc_xm_deluxos_hacking_Hacking_Sounds"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Hack_Stop"
-numberValue4 = "DLC_IE_SVM_Voltic2_Hacking_Sounds"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Hack_Stop"
-numberValue5 = "dlc_xm_deluxos_hacking_Hacking_Sounds"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Hack_Success"
-numberValue6 = "DLC_GR_Steal_Railguns_Sounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Hack_Success"
-numberValue7 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Hack_Success"
-numberValue8 = "DLC_sum20_Business_Battle_AC_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "HACKING_CLICK"
-numberValue9 = 0
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "HACKING_CLICK_BAD"
-numberValue10 = 0
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "HACKING_CLICK_GOOD"
-numberValue11 = 0
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "HACKING_FAILURE"
-numberValue12 = 0
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "HACKING_MOVE_CURSOR"
-numberValue13 = 0
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "HACKING_SUCCESS"
-numberValue14 = 0
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Hang_Up"
-numberValue15 = "Phone_SoundSet_Michael"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "hangar_doors_close"
-numberValue16 = "dlc_xm_facility_entry_exit_sounds"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "hangar_doors_limit"
-numberValue17 = "dlc_xm_facility_entry_exit_sounds"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "hangar_doors_open"
-numberValue18 = "dlc_xm_facility_entry_exit_sounds"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "health_lost"
-numberValue19 = "DLC_sum20_Open_Wheel_Racing_Sounds"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Highlight_Accept"
-numberValue20 = "DLC_AW_Arena_Office_Planning_Wall_Sounds"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Highlight_Accept"
-numberValue21 = "DLC_Biker_Mission_Wall_Sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Highlight_Accept"
-numberValue22 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Highlight_Back"
-numberValue23 = "DLC_AW_Arena_Office_Planning_Wall_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Highlight_Back"
-numberValue24 = "DLC_Biker_Mission_Wall_Sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Highlight_Cancel"
-numberValue25 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Highlight_Error"
-numberValue26 = "DLC_Biker_Mission_Wall_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Highlight_Error"
-textValue3 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Highlight_Move"
-flag6 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Highlight_Move_Left_Right"
-flag7 = "DLC_Biker_Mission_Wall_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Highlight_Move_Up_Down"
-flag8 = "DLC_AW_Arena_Office_Planning_Wall_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Highlight_Move_Up_Down"
-flag9 = "DLC_Biker_Mission_Wall_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Hit"
-flag10 = "RESPAWN_ONLINE_SOUNDSET"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Hit"
-flag11 = "RESPAWN_SOUNDSET"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Hit"
-flag12 = "RESPAWN_SOUNDSET"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Hit_1"
-flag13 = "LONG_PLAYER_SWITCH_SOUNDS"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Hit_1"
-flag14 = "LONG_PLAYER_SWITCH_SOUNDS"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Hit_In"
-flag15 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Hit_Mirror"
-flag16 = "dlc_xm_silo_laser_hack_sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Hit_out"
-flag17 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Hit_Out"
-flag18 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "HOORAY"
-flag19 = "BARRY_02_SOUNDSET"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[301] = dataTable8
-dataTable7[302] = dataTable9
-dataTable7[303] = dataTable10
-dataTable7[304] = dataTable11
-dataTable7[305] = dataTable12
-dataTable7[306] = dataTable13
-dataTable7[307] = dataTable
-dataTable7[308] = dataTable2
-dataTable7[309] = dataTable3
-dataTable7[310] = textValue
-dataTable7[311] = textValue2
-dataTable7[312] = numberValue
-dataTable7[313] = numberValue2
-dataTable7[314] = numberValue3
-dataTable7[315] = numberValue4
-dataTable7[316] = numberValue5
-dataTable7[317] = numberValue6
-dataTable7[318] = numberValue7
-dataTable7[319] = numberValue8
-dataTable7[320] = numberValue9
-dataTable7[321] = numberValue10
-dataTable7[322] = numberValue11
-dataTable7[323] = numberValue12
-dataTable7[324] = numberValue13
-dataTable7[325] = numberValue14
-dataTable7[326] = numberValue15
-dataTable7[327] = numberValue16
-dataTable7[328] = numberValue17
-dataTable7[329] = numberValue18
-dataTable7[330] = numberValue19
-dataTable7[331] = numberValue20
-dataTable7[332] = numberValue21
-dataTable7[333] = numberValue22
-dataTable7[334] = numberValue23
-dataTable7[335] = numberValue24
-dataTable7[336] = numberValue25
-dataTable7[337] = numberValue26
-dataTable7[338] = textValue3
-dataTable7[339] = flag6
-dataTable7[340] = flag7
-dataTable7[341] = flag8
-dataTable7[342] = flag9
-dataTable7[343] = flag10
-dataTable7[344] = flag11
-dataTable7[345] = flag12
-dataTable7[346] = flag13
-dataTable7[347] = flag14
-dataTable7[348] = flag15
-dataTable7[349] = flag16
-dataTable7[350] = flag17
-dataTable8 = {}
-dataTable9 = "HORDE_COOL_DOWN_TIMER"
-dataTable10 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Hover_Unlock"
-dataTable11 = "DLC_XM17_IAA_Deluxos_Sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "HUD_FREEMODE_CANCEL_MASTER"
-dataTable12 = 0
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Idcnput_Code_Enter_Correct_Final"
-dataTable13 = "Safe_Minigame_Sounds"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "In_Range"
-dataTable = "DLC_Biker_SL_Sounds"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "inactive_fire_fail"
-dataTable2 = "dlc_xm_orbital_cannon_sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "INFO"
-dataTable3 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Input_Code_Down"
-textValue = "Safe_Minigame_Sounds"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Input_Code_Enter_Correct"
-textValue2 = "Safe_Minigame_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Input_Code_Enter_Wrong"
-numberValue = "Safe_Minigame_Sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Input_Code_Up"
-numberValue2 = "Safe_Minigame_Sounds"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "item_found"
-numberValue3 = "dlc_btl_fm_th_sounds"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "item_found"
-numberValue4 = "dlc_xm_fm_th_sounds"
-numberValue5 = false
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Kill_List_Counter"
-numberValue5 = "GTAO_FM_Events_Soundset"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "killer_down"
-numberValue6 = "dlc_ch_hidden_collectibles_sk_sounds"
-numberValue7 = false
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "laser_pin_break"
-numberValue7 = "dlc_ch_heist_finale_laser_drill_sounds"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Launch"
-numberValue8 = "DLC_H3_Tracker_App_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "LEADER_BOARD"
-numberValue9 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Leave_Zone"
-numberValue10 = "DLC_Biker_SYG_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Lester_Laugh_Phone"
-numberValue11 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "lights_on"
-numberValue12 = "dlc_xm_stealavg_sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "LIMIT"
-numberValue13 = "DLC_APT_YACHT_DOOR_SOUNDS"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "LIMIT"
-numberValue14 = "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "LIMIT"
-numberValue15 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "LIMIT"
-numberValue16 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "LIMIT"
-numberValue17 = "GTAO_APT_DOOR_ROOF_METAL_SOUNDS"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Load_Scene"
-numberValue18 = "DLC_Dmod_Prop_Editor_Sounds"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "LOCAL_PLYR_CASH_COUNTER_COMPLETE"
-numberValue19 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "LOCAL_PLYR_CASH_COUNTER_INCREASE"
-numberValue20 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Log_In"
-numberValue21 = "DLC_GR_MOC_Computer_Sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Login"
-numberValue22 = "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Logout"
-numberValue23 = "DLC_GR_MOC_Computer_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Logout"
-numberValue24 = "GTAO_Exec_SecuroServ_Computer_Sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "LOOSE_MATCH"
-numberValue25 = "HUD_MINI_GAME_SOUNDSET"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Lose_1st"
-numberValue26 = "GTAO_Biker_Modes_Soundset"
-textValue3 = false
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Lose_1st"
-textValue3 = "GTAO_FM_Events_Soundset"
-flag6 = false
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Lose_1st"
-flag6 = "GTAO_Magnate_Boss_Modes_Soundset"
-flag7 = false
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Lose_First"
-flag7 = "DLC_Biker_SL_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Lose_Powerup"
-flag8 = "DLC_IE_VV_General_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "LOSER"
-flag9 = "CELEBRATION_SOUNDSET"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "LOSER"
-flag10 = "HUD_AWARDS"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Losing_Team_Shard"
-flag11 = "DLC_Exec_TP_SoundSet"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Lowrider_Upgrade"
-flag12 = "Lowrider_Super_Mod_Garage_Sounds"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Map_Roll_Down"
-flag13 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Map_Roll_Up"
-flag14 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Match_End"
-flag15 = "DLC_Low2_Ibi_Sounds"
-flag16 = false
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Match_Start"
-flag16 = "DLC_Low2_Ibi_Sounds"
-flag17 = false
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "MEDAL_UP"
-flag17 = "HUD_MINI_GAME_SOUNDSET"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Menu_Accept"
-flag18 = "Phone_SoundSet_Default"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "menu_back"
-flag19 = "dlc_xm_orbital_cannon_sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[351] = dataTable8
-dataTable7[352] = dataTable9
-dataTable7[353] = dataTable10
-dataTable7[354] = dataTable11
-dataTable7[355] = dataTable12
-dataTable7[356] = dataTable13
-dataTable7[357] = dataTable
-dataTable7[358] = dataTable2
-dataTable7[359] = dataTable3
-dataTable7[360] = textValue
-dataTable7[361] = textValue2
-dataTable7[362] = numberValue
-dataTable7[363] = numberValue2
-dataTable7[364] = numberValue3
-dataTable7[365] = numberValue4
-dataTable7[366] = numberValue5
-dataTable7[367] = numberValue6
-dataTable7[368] = numberValue7
-dataTable7[369] = numberValue8
-dataTable7[370] = numberValue9
-dataTable7[371] = numberValue10
-dataTable7[372] = numberValue11
-dataTable7[373] = numberValue12
-dataTable7[374] = numberValue13
-dataTable7[375] = numberValue14
-dataTable7[376] = numberValue15
-dataTable7[377] = numberValue16
-dataTable7[378] = numberValue17
-dataTable7[379] = numberValue18
-dataTable7[380] = numberValue19
-dataTable7[381] = numberValue20
-dataTable7[382] = numberValue21
-dataTable7[383] = numberValue22
-dataTable7[384] = numberValue23
-dataTable7[385] = numberValue24
-dataTable7[386] = numberValue25
-dataTable7[387] = numberValue26
-dataTable7[388] = textValue3
-dataTable7[389] = flag6
-dataTable7[390] = flag7
-dataTable7[391] = flag8
-dataTable7[392] = flag9
-dataTable7[393] = flag10
-dataTable7[394] = flag11
-dataTable7[395] = flag12
-dataTable7[396] = flag13
-dataTable7[397] = flag14
-dataTable7[398] = flag15
-dataTable7[399] = flag16
-dataTable7[400] = flag17
-dataTable8 = {}
-dataTable9 = "menu_reset"
-dataTable10 = "dlc_xm_orbital_cannon_sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "menu_select"
-dataTable11 = "dlc_xm_orbital_cannon_sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "menu_up_down"
-dataTable12 = "dlc_xm_orbital_cannon_sounds"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "MICHAEL_LONG_SCREAM"
-dataTable13 = "FAMILY_5_SOUNDS"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Mission_Pass_Notify"
-dataTable = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Mission_Pass_Notify"
-dataTable2 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Mouse_Click"
-dataTable3 = "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "movie_prop"
-textValue = "DLC_SUM20_HIDDEN_COLLECTIBLES"
-textValue2 = false
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "movie_prop_reward_cut_roar"
-textValue2 = "DLC_sum20_hidden_collectible_sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "MP_5_SECOND_TIMER"
-numberValue = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "MP_AWARD"
-numberValue2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "MP_AWARD"
-numberValue3 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "MP_Flash"
-numberValue4 = "WastedSounds"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "MP_IDLE_KICK"
-numberValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "MP_IDLE_TIMER"
-numberValue6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "MP_Impact"
-numberValue7 = "WastedSounds"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "MP_RANK_UP"
-numberValue8 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue9 = false
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "MP_WAVE_COMPLETE"
-numberValue9 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Music_Game_Over"
-numberValue10 = "DLC_EXEC_ARC_MAC_SOUNDS"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Music_Win"
-numberValue11 = "DLC_EXEC_ARC_MAC_SOUNDS"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "NAV"
-numberValue12 = "HUD_AMMO_SHOP_SOUNDSET"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Nav_Arrow_Ahead"
-numberValue13 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Nav_Arrow_Behind"
-numberValue14 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Nav_Arrow_Left"
-numberValue15 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Nav_Arrow_Right"
-numberValue16 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "NAV_LEFT_RIGHT"
-numberValue17 = "HUD_FREEMODE_SOUNDSET"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "NAV_LEFT_RIGHT"
-numberValue18 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "NAV_LEFT_RIGHT"
-numberValue19 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "NAV_UP_DOWN"
-numberValue20 = "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "NAV_UP_DOWN"
-numberValue21 = "HUD_FREEMODE_SOUNDSET"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "NAV_UP_DOWN"
-numberValue22 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "NAV_UP_DOWN"
-numberValue23 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue24 = false
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "NAV_UP_DOWN"
-numberValue24 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "NAV_UP_DOWN"
-numberValue25 = "HUD_LIQUOR_STORE_SOUNDSET"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Navigate"
-numberValue26 = "GTAO_Exec_SecuroServ_Computer_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Near_Miss_Counter_Reset"
-textValue3 = "GTAO_FM_Events_Soundset"
-flag6 = false
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "NET_RACE_START_EVENT_MASTER"
-flag6 = 0
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Next_Level_Explosive"
-flag7 = "DLC_Biker_KQ_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Next_Level_Generic"
-flag8 = "DLC_Biker_KQ_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Next_Level_Gun"
-flag9 = "DLC_Biker_KQ_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Next_Level_Melee"
-flag10 = "DLC_Biker_KQ_Sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Next_Trap"
-flag11 = "DLC_AW_Trap_Controller_Sounds"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "NightFall_Stinger"
-flag12 = "DLC_Biker_LostAndDamned_Sounds"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "NO"
-flag13 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "No_Longer_Target"
-flag14 = "dlc_xm_hata_Sounds"
-flag15 = false
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Node_Release"
-flag15 = "dlc_xm_silo_laser_hack_sounds"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Node_Select"
-flag16 = "dlc_xm_silo_laser_hack_sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Object_Collect_Player"
-flag17 = "GTAO_FM_Events_Soundset"
-flag18 = false
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Object_Collect_Remote"
-flag18 = "GTAO_FM_Events_Soundset"
-flag19 = false
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Object_Dropped_Remote"
-flag19 = "GTAO_FM_Events_Soundset"
-flag20 = false
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[401] = dataTable8
-dataTable7[402] = dataTable9
-dataTable7[403] = dataTable10
-dataTable7[404] = dataTable11
-dataTable7[405] = dataTable12
-dataTable7[406] = dataTable13
-dataTable7[407] = dataTable
-dataTable7[408] = dataTable2
-dataTable7[409] = dataTable3
-dataTable7[410] = textValue
-dataTable7[411] = textValue2
-dataTable7[412] = numberValue
-dataTable7[413] = numberValue2
-dataTable7[414] = numberValue3
-dataTable7[415] = numberValue4
-dataTable7[416] = numberValue5
-dataTable7[417] = numberValue6
-dataTable7[418] = numberValue7
-dataTable7[419] = numberValue8
-dataTable7[420] = numberValue9
-dataTable7[421] = numberValue10
-dataTable7[422] = numberValue11
-dataTable7[423] = numberValue12
-dataTable7[424] = numberValue13
-dataTable7[425] = numberValue14
-dataTable7[426] = numberValue15
-dataTable7[427] = numberValue16
-dataTable7[428] = numberValue17
-dataTable7[429] = numberValue18
-dataTable7[430] = numberValue19
-dataTable7[431] = numberValue20
-dataTable7[432] = numberValue21
-dataTable7[433] = numberValue22
-dataTable7[434] = numberValue23
-dataTable7[435] = numberValue24
-dataTable7[436] = numberValue25
-dataTable7[437] = numberValue26
-dataTable7[438] = textValue3
-dataTable7[439] = flag6
-dataTable7[440] = flag7
-dataTable7[441] = flag8
-dataTable7[442] = flag9
-dataTable7[443] = flag10
-dataTable7[444] = flag11
-dataTable7[445] = flag12
-dataTable7[446] = flag13
-dataTable7[447] = flag14
-dataTable7[448] = flag15
-dataTable7[449] = flag16
-dataTable7[450] = flag17
-dataTable8 = {}
-dataTable9 = "Off_High"
-dataTable10 = "MP_RADIO_SFX"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Off_Low"
-dataTable11 = "MP_RADIO_SFX"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "OK"
-dataTable12 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "On_Call_Player_Join"
-dataTable13 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Oneshot_Final"
-dataTable = "MP_MISSION_COUNTDOWN_SOUNDSET"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "OOB_Cancel"
-dataTable2 = "GTAO_FM_Events_Soundset"
-dataTable3 = false
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "OOB_Start"
-dataTable3 = "GTAO_FM_Events_Soundset"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "OPENED"
-textValue = "MP_PROPERTIES_ELEVATOR_DOORS"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "OPENING"
-textValue2 = "MP_PROPERTIES_ELEVATOR_DOORS"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Orientation_Fail"
-numberValue = "DLC_Air_Race_Sounds_Player"
-numberValue2 = false
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Orientation_Fail"
-numberValue2 = "DLC_Air_Race_Sounds_Player"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Orientation_Success"
-numberValue3 = "DLC_Air_Race_Sounds_Player"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Orientation_Success"
-numberValue4 = "DLC_Air_Race_Sounds_Player"
-numberValue5 = false
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Out_Of_Ammo"
-numberValue5 = "DLC_AW_Machine_Gun_Ammo_Counter_Sounds"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Out_Of_Area"
-numberValue6 = "DLC_Lowrider_Relay_Race_Sounds"
-numberValue7 = false
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Out_Of_Range"
-numberValue7 = "DLC_Biker_SL_Sounds"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "package_delivered_success"
-numberValue8 = "DLC_GR_Generic_Mission_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "package_delivered_success_remote"
-numberValue9 = "DLC_GR_Generic_Mission_Sounds"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Paper_Shuffle"
-numberValue10 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Paper_Stick"
-numberValue11 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Parcel_Vehicle_Lost"
-numberValue12 = "GTAO_FM_Events_Soundset"
-numberValue13 = false
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Pass"
-numberValue13 = "dlc_xm_silo_laser_hack_sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Payment_Non_Player"
-numberValue14 = "DLC_HEISTS_GENERIC_SOUNDS"
-numberValue15 = false
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Payment_Player"
-numberValue15 = "DLC_HEISTS_GENERIC_SOUNDS"
-numberValue16 = false
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Pen_Tick"
-numberValue16 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Period_Start"
-numberValue17 = "DLC_AW_BB_Sounds"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Phone_Text_Arrive"
-numberValue18 = "DLC_H4_MM_Sounds"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "PICK_UP"
-numberValue19 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Pickup_Keyring"
-numberValue20 = "dlc_h4_heist_finale_sounds_soundset"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Pickup_Standard"
-numberValue21 = "GTAO_Biker_Modes_Soundset"
-numberValue22 = false
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Pilot_Perspective_Fire"
-numberValue22 = "DLC_H3_Drone_Tranq_Weapon_Sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Pin_Bad"
-numberValue23 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "PIN_BUTTON"
-numberValue24 = "ATM_SOUNDS"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Pin_Centred"
-numberValue25 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Pin_Good"
-numberValue26 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Place_Gain"
-textValue3 = "DLC_Stunt_Race_Frontend_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Place_Lose"
-flag6 = "DLC_Stunt_Race_Frontend_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Place_Prop_Fail"
-flag7 = "DLC_Dmod_Prop_Editor_Sounds"
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Place_Prop_Success"
-flag8 = "DLC_Dmod_Prop_Editor_Sounds"
-flag9 = false
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Player_Collect"
-flag9 = "DLC_PILOT_MP_HUD_SOUNDS"
-flag10 = false
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Player_Enter_Line"
-flag10 = "GTAO_FM_Cross_The_Line_Soundset"
-flag11 = false
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Player_Exit_Line"
-flag11 = "GTAO_FM_Cross_The_Line_Soundset"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Player_Pick_Up"
-flag12 = "In_And_Out_Attacker_Sounds"
-flag13 = false
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "playing_card"
-flag13 = "dlc_vw_hidden_collectible_sounds"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "police_notification"
-flag14 = "DLC_AS_VNT_Sounds"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Popup_Cancel"
-flag15 = "GTAO_Exec_SecuroServ_Computer_Sounds"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Popup_Confirm_Fail"
-flag16 = "GTAO_Exec_SecuroServ_Computer_Sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Popup_Confirm_Success"
-flag17 = "GTAO_Exec_SecuroServ_Computer_Sounds"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Power_Down"
-flag18 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "power_on"
-flag19 = "dlc_ch_heist_finale_sounds"
-flag20 = false
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[451] = dataTable8
-dataTable7[452] = dataTable9
-dataTable7[453] = dataTable10
-dataTable7[454] = dataTable11
-dataTable7[455] = dataTable12
-dataTable7[456] = dataTable13
-dataTable7[457] = dataTable
-dataTable7[458] = dataTable2
-dataTable7[459] = dataTable3
-dataTable7[460] = textValue
-dataTable7[461] = textValue2
-dataTable7[462] = numberValue
-dataTable7[463] = numberValue2
-dataTable7[464] = numberValue3
-dataTable7[465] = numberValue4
-dataTable7[466] = numberValue5
-dataTable7[467] = numberValue6
-dataTable7[468] = numberValue7
-dataTable7[469] = numberValue8
-dataTable7[470] = numberValue9
-dataTable7[471] = numberValue10
-dataTable7[472] = numberValue11
-dataTable7[473] = numberValue12
-dataTable7[474] = numberValue13
-dataTable7[475] = numberValue14
-dataTable7[476] = numberValue15
-dataTable7[477] = numberValue16
-dataTable7[478] = numberValue17
-dataTable7[479] = numberValue18
-dataTable7[480] = numberValue19
-dataTable7[481] = numberValue20
-dataTable7[482] = numberValue21
-dataTable7[483] = numberValue22
-dataTable7[484] = numberValue23
-dataTable7[485] = numberValue24
-dataTable7[486] = numberValue25
-dataTable7[487] = numberValue26
-dataTable7[488] = textValue3
-dataTable7[489] = flag6
-dataTable7[490] = flag7
-dataTable7[491] = flag8
-dataTable7[492] = flag9
-dataTable7[493] = flag10
-dataTable7[494] = flag11
-dataTable7[495] = flag12
-dataTable7[496] = flag13
-dataTable7[497] = flag14
-dataTable7[498] = flag15
-dataTable7[499] = flag16
-dataTable7[500] = flag17
-dataTable8 = {}
-dataTable9 = "Pre_Screen_Stinger"
-dataTable10 = "DLC_HEISTS_FAILED_SCREEN_SOUNDS"
-dataTable11 = false
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Pre_Screen_Stinger"
-dataTable11 = "DLC_HEISTS_FINALE_SCREEN_SOUNDS"
-dataTable12 = false
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Pre_Screen_Stinger"
-dataTable12 = "DLC_HEISTS_FINALE_SCREEN_SOUNDS"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Pre_Screen_Stinger"
-dataTable13 = "DLC_HEISTS_PREP_SCREEN_SOUNDS"
-dataTable = false
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Pre_Screen_Stinger"
-dataTable = "DLC_HEISTS_PREP_SCREEN_SOUNDS"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Previous_Trap"
-dataTable2 = "DLC_AW_Trap_Controller_Sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "PROPERTY_PURCHASE"
-dataTable3 = "HUD_AWARDS"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "PURCHASE"
-textValue = "HUD_LIQUOR_STORE_SOUNDSET"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Purchase_Upgrade"
-textValue2 = "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "PUSH"
-numberValue = "DLC_APT_YACHT_DOOR_SOUNDS"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "PUSH"
-numberValue2 = "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Push"
-numberValue3 = "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "PUSH"
-numberValue4 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "PUSH"
-numberValue5 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "PUSH"
-numberValue6 = "GTAO_APT_DOOR_ROOF_METAL_SOUNDS"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Put_Away"
-numberValue7 = "Phone_SoundSet_Michael"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "R2_Boost"
-numberValue8 = "DLC_Biker_SL_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "RACE_PLACED"
-numberValue9 = "HUD_AWARDS"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Radar_Beast_Blip"
-numberValue10 = "FM_Events_Sasquatch_Sounds"
-numberValue11 = false
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "RANK_UP"
-numberValue11 = "HUD_AWARDS"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Rappel_Land"
-numberValue12 = "GTAO_Rappel_Sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Rappel_Stop"
-numberValue13 = "GTAO_Rappel_Sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "rc_mines_empty"
-numberValue14 = "DLC_AW_RCBandito_Mine_Sounds"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Ready"
-numberValue15 = "DLC_EXEC_ARC_MAC_SOUNDS"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Recharged"
-numberValue16 = "DLC_AW_Machine_Gun_Ammo_Counter_Sounds"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Red_Target_Explode"
-numberValue17 = "dlc_xm_silo_laser_hack_sounds"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "REMOTE_PLYR_CASH_COUNTER_COMPLETE"
-numberValue18 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "REMOTE_PLYR_CASH_COUNTER_INCREASE"
-numberValue19 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Remote_Sniper_Rifle_Fire"
-numberValue20 = 0
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Remove_Tracker"
-numberValue21 = "DLC_IO_Warehouse_Mod_Garage_Sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Reset_Prop_Position"
-numberValue22 = "DLC_Dmod_Prop_Editor_Sounds"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Reset_Win"
-numberValue23 = "DLC_SR_RS_Enemy_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Reset_Win"
-numberValue24 = "DLC_SR_RS_Team_Sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Resurrected"
-numberValue25 = "DLC_SR_RS_Enemy_Sounds"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Resurrected"
-numberValue26 = "DLC_SR_RS_Player_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Resurrected"
-textValue3 = "DLC_SR_RS_Team_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Retune_High"
-flag6 = "MP_RADIO_SFX"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Retune_Low"
-flag7 = "MP_RADIO_SFX"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "ROBBERY_MONEY_TOTAL"
-flag8 = "HUD_FRONTEND_CUSTOM_SOUNDSET"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Rocket_Collect"
-flag9 = "DLC_SR_TR_Rocket_Player_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Round_End"
-flag10 = "DLC_BTL_SM_Remix_Soundset"
-flag11 = false
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Round_End"
-flag11 = "DLC_LOW2_Sumo_Soundset"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "ROUND_ENDING_STINGER_CUSTOM"
-flag12 = "CELEBRATION_SOUNDSET"
-flag13 = false
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Round_Start"
-flag13 = "DLC_BTL_SM_Remix_Soundset"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Round_Start"
-flag14 = "DLC_LOW2_Sumo_Soundset"
-flag15 = false
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Round_Start_Blade"
-flag15 = "POWER_PLAY_General_Soundset"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Save_Scene"
-flag16 = "DLC_Dmod_Prop_Editor_Sounds"
-flag17 = false
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Scope_Spot_POI"
-flag17 = "GTAO_Heists_HUD_Sounds"
-flag18 = false
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Score"
-flag18 = "DLC_Low2_Ibi_Sounds"
-flag19 = false
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Score_Down"
-flag19 = "DLC_IE_PL_Enemy_Sounds"
-flag20 = false
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[501] = dataTable8
-dataTable7[502] = dataTable9
-dataTable7[503] = dataTable10
-dataTable7[504] = dataTable11
-dataTable7[505] = dataTable12
-dataTable7[506] = dataTable13
-dataTable7[507] = dataTable
-dataTable7[508] = dataTable2
-dataTable7[509] = dataTable3
-dataTable7[510] = textValue
-dataTable7[511] = textValue2
-dataTable7[512] = numberValue
-dataTable7[513] = numberValue2
-dataTable7[514] = numberValue3
-dataTable7[515] = numberValue4
-dataTable7[516] = numberValue5
-dataTable7[517] = numberValue6
-dataTable7[518] = numberValue7
-dataTable7[519] = numberValue8
-dataTable7[520] = numberValue9
-dataTable7[521] = numberValue10
-dataTable7[522] = numberValue11
-dataTable7[523] = numberValue12
-dataTable7[524] = numberValue13
-dataTable7[525] = numberValue14
-dataTable7[526] = numberValue15
-dataTable7[527] = numberValue16
-dataTable7[528] = numberValue17
-dataTable7[529] = numberValue18
-dataTable7[530] = numberValue19
-dataTable7[531] = numberValue20
-dataTable7[532] = numberValue21
-dataTable7[533] = numberValue22
-dataTable7[534] = numberValue23
-dataTable7[535] = numberValue24
-dataTable7[536] = numberValue25
-dataTable7[537] = numberValue26
-dataTable7[538] = textValue3
-dataTable7[539] = flag6
-dataTable7[540] = flag7
-dataTable7[541] = flag8
-dataTable7[542] = flag9
-dataTable7[543] = flag10
-dataTable7[544] = flag11
-dataTable7[545] = flag12
-dataTable7[546] = flag13
-dataTable7[547] = flag14
-dataTable7[548] = flag15
-dataTable7[549] = flag16
-dataTable7[550] = flag17
-dataTable8 = {}
-dataTable9 = "Score_Down"
-dataTable10 = "DLC_IE_PL_Player_Sounds"
-dataTable11 = false
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Score_Down"
-dataTable11 = "DLC_IE_PL_Team_Sounds"
-dataTable12 = false
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Score_Opponent"
-dataTable12 = "DLC_Biker_KQ_Sounds"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Score_Team"
-dataTable13 = "DLC_Biker_KQ_Sounds"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Score_Up"
-dataTable = "DLC_IE_PL_Enemy_Sounds"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Score_Up"
-dataTable2 = "DLC_IE_PL_Player_Sounds"
-dataTable3 = false
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Score_Up"
-dataTable3 = "DLC_IE_PL_Team_Sounds"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "SCREEN_FLASH"
-textValue = "CELEBRATION_SOUNDSET"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "ScreenFlash"
-textValue2 = "MissionFailedSounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "ScreenFlash"
-numberValue = "WastedSounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "SELECT"
-numberValue2 = "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "SELECT"
-numberValue3 = "HUD_FREEMODE_SOUNDSET"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "SELECT"
-numberValue4 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "SELECT"
-numberValue5 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "SELECT"
-numberValue6 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "SELECT"
-numberValue7 = "HUD_FRONTEND_MP_SOUNDSET"
-numberValue8 = false
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "SELECT"
-numberValue8 = "HUD_FRONTEND_MP_SOUNDSET"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "SELECT"
-numberValue9 = "HUD_LIQUOR_STORE_SOUNDSET"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Select_Mission_Are_You_Sure"
-numberValue10 = "DLC_GR_MOC_Computer_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Select_Mission_Cancel"
-numberValue11 = "DLC_GR_MOC_Computer_Sounds"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Select_Mission_Launch"
-numberValue12 = "DLC_GR_MOC_Computer_Sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Select_Mission_Unavailable"
-numberValue13 = "DLC_GR_MOC_Computer_Sounds"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Select_Mission_Unavailable_OK"
-numberValue14 = "DLC_GR_MOC_Computer_Sounds"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Select_Placed_Prop"
-numberValue15 = "DLC_Dmod_Prop_Editor_Sounds"
-numberValue16 = false
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Sell"
-numberValue16 = "GTAO_Exec_SecuroServ_Computer_Sounds"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Sell"
-numberValue17 = "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "shard"
-numberValue18 = "dlc_ch_hidden_collectibles_sj_sounds"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "shard"
-numberValue19 = "dlc_vw_hidden_collectible_sounds"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Shard_Disappear"
-numberValue20 = "GTAO_Biker_FM_Shard_Sounds"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Shard_Disappear"
-numberValue21 = "GTAO_Boss_Goons_FM_Shard_Sounds"
-numberValue22 = false
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Shard_Disappear"
-numberValue22 = "GTAO_FM_Events_Soundset"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Short_Transition_In"
-numberValue23 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Short_Transition_Out"
-numberValue24 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "shotgun_shard"
-numberValue25 = "dlc_hei4_hidden_collectibles_sounds"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Show_Overview_Menu"
-numberValue26 = "GTAO_SMG_Hangar_Computer_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Show_Sell_Menu"
-textValue3 = "GTAO_SMG_Hangar_Computer_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Show_Source_Menu"
-flag6 = "GTAO_SMG_Hangar_Computer_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Speech_Floor_1"
-flag7 = "DLC_IE_Garage_Elevator_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Speech_Floor_2"
-flag8 = "DLC_IE_Garage_Elevator_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Speech_Floor_3"
-flag9 = "DLC_IE_Garage_Elevator_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Start"
-flag10 = "DLC_AW_Frontend_Sounds"
-flag11 = false
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Start"
-flag11 = "DLC_AW_Frontend_Sounds"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Start"
-flag12 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Start_Squelch"
-flag13 = "CB_RADIO_SFX"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Steal_Powerup"
-flag14 = "DLC_IE_VV_General_Sounds"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Success"
-flag15 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "SultanRS_Upgrade"
-flag16 = "JA16_Super_Mod_Garage_Sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Super_Mod_Garage_Upgrade_Car_Default"
-flag17 = 0
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "supermod_consumer"
-flag18 = "Arena_Vehicle_Mod_Shop_Sounds"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "supermod_scifi"
-flag19 = "Arena_Vehicle_Mod_Shop_Sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[551] = dataTable8
-dataTable7[552] = dataTable9
-dataTable7[553] = dataTable10
-dataTable7[554] = dataTable11
-dataTable7[555] = dataTable12
-dataTable7[556] = dataTable13
-dataTable7[557] = dataTable
-dataTable7[558] = dataTable2
-dataTable7[559] = dataTable3
-dataTable7[560] = textValue
-dataTable7[561] = textValue2
-dataTable7[562] = numberValue
-dataTable7[563] = numberValue2
-dataTable7[564] = numberValue3
-dataTable7[565] = numberValue4
-dataTable7[566] = numberValue5
-dataTable7[567] = numberValue6
-dataTable7[568] = numberValue7
-dataTable7[569] = numberValue8
-dataTable7[570] = numberValue9
-dataTable7[571] = numberValue10
-dataTable7[572] = numberValue11
-dataTable7[573] = numberValue12
-dataTable7[574] = numberValue13
-dataTable7[575] = numberValue14
-dataTable7[576] = numberValue15
-dataTable7[577] = numberValue16
-dataTable7[578] = numberValue17
-dataTable7[579] = numberValue18
-dataTable7[580] = numberValue19
-dataTable7[581] = numberValue20
-dataTable7[582] = numberValue21
-dataTable7[583] = numberValue22
-dataTable7[584] = numberValue23
-dataTable7[585] = numberValue24
-dataTable7[586] = numberValue25
-dataTable7[587] = numberValue26
-dataTable7[588] = textValue3
-dataTable7[589] = flag6
-dataTable7[590] = flag7
-dataTable7[591] = flag8
-dataTable7[592] = flag9
-dataTable7[593] = flag10
-dataTable7[594] = flag11
-dataTable7[595] = flag12
-dataTable7[596] = flag13
-dataTable7[597] = flag14
-dataTable7[598] = flag15
-dataTable7[599] = flag16
-dataTable7[600] = flag17
-dataTable8 = {}
-dataTable9 = "supermod_wasteland"
-dataTable10 = "Arena_Vehicle_Mod_Shop_Sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Survival_Failed"
-dataTable11 = "DLC_VW_AS_Sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Swap_Sides"
-dataTable12 = "DLC_HALLOWEEN_FVJ_Sounds"
-dataTable13 = false
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "SWING_SHUT"
-dataTable13 = "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "SWING_SHUT"
-dataTable = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "SWING_SHUT"
-dataTable2 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "SWING_SHUT"
-dataTable3 = "GTAO_APT_DOOR_ROOF_METAL_SOUNDS"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "tag_entity"
-textValue = "dlc_xm_heists_iaa_morgue_sounds"
-textValue2 = false
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Take_First"
-textValue2 = "DLC_Biker_SL_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Target_Counter_Tick"
-numberValue = "DLC_SM_Generic_Mission_Sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Team_Killed_1p"
-numberValue2 = "dlc_xm_hata_Sounds"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Team_Killed_3p"
-numberValue3 = "dlc_xm_hata_Sounds"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Teammate_Checkpoint"
-numberValue4 = "DLC_Biker_SL_Sounds"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "TENNIS_POINT_WON"
-numberValue5 = "HUD_AWARDS"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "TextHit"
-numberValue6 = "WastedSounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Thermal_Off"
-numberValue7 = "CAR_STEAL_2_SOUNDSET"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Thermal_On"
-numberValue8 = "CAR_STEAL_2_SOUNDSET"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "TIME_LAPSE_MASTER"
-numberValue9 = 0
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "TIMER_RADIAL_Pulse"
-numberValue10 = "DLC_AS_TRP_Sounds"
-numberValue11 = false
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "TIMER_RADIAL_Pulse"
-numberValue11 = "DLC_BTL_SM_Remix_Soundset"
-numberValue12 = false
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "TIMER_RADIAL_Reset"
-numberValue12 = "DLC_AS_TRP_Sounds"
-numberValue13 = false
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "TIMER_RADIAL_Reset"
-numberValue13 = "DLC_BTL_SM_Remix_Soundset"
-numberValue14 = false
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "TIMER_STOP"
-numberValue14 = "HUD_MINI_GAME_SOUNDSET"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "TOGGLE_ON"
-numberValue15 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue16 = false
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "TOGGLE_ON"
-numberValue16 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Traffic_Control_Fail"
-numberValue17 = "BIG_SCORE_3A_SOUNDS"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Traffic_Control_Fail_Blank"
-numberValue18 = "BIG_SCORE_3A_SOUNDS"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "Traffic_Control_Light_Switch_Back"
-numberValue19 = "BIG_SCORE_3A_SOUNDS"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "TRAFFIC_CONTROL_MOVE_CROSSHAIR"
-numberValue20 = "BIG_SCORE_3A_SOUNDS"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Transform_Local_Player"
-numberValue21 = "DLC_Exec_TP_SoundSet"
-numberValue22 = false
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Transform_Loser_Local_Player"
-numberValue22 = "DLC_Exec_TP_SoundSet"
-numberValue23 = false
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "transform_oneshot"
-numberValue23 = "dlc_xm_stromberg_sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Turn"
-numberValue24 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "tyre_health_warning"
-numberValue25 = "DLC_sum20_Open_Wheel_Racing_Sounds"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Uncondemned"
-numberValue26 = "DLC_SM_CND_Player_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "UNDER_THE_BRIDGE"
-textValue3 = "HUD_AWARDS"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Use_Boost"
-flag6 = "DLC_Biker_DL_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Use_Bunnyhop"
-flag7 = "DLC_Biker_DL_Sounds"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Use_Zoned"
-flag8 = "DLC_Biker_DL_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Wasted"
-flag9 = "DLC_IE_VV_General_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Wasted"
-flag10 = "POWER_PLAY_General_Soundset"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "WAYPOINT_SET"
-flag11 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Weapon_Disabled"
-flag12 = "DLC_SR_LG_Player_Sounds"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Weapon_Enabled"
-flag13 = "DLC_SR_LG_Player_Sounds"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "WEAPON_PURCHASE"
-flag14 = "HUD_AMMO_SHOP_SOUNDSET"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "WEAPON_SELECT_ARMOR"
-flag15 = "HUD_AMMO_SHOP_SOUNDSET"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Weapon_Upgrade"
-flag16 = "DLC_GR_Weapon_Upgrade_Soundset"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Wheel_Spin_Start"
-flag17 = "DLC_AW_Arena_Spin_Wheel_Game_Frontend_Sounds"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Whistle"
-flag18 = "DLC_TG_Running_Back_Sounds"
-flag19 = false
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Whoosh_1s_L_to_R"
-flag19 = "MP_LOBBY_SOUNDS"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[601] = dataTable8
-dataTable7[602] = dataTable9
-dataTable7[603] = dataTable10
-dataTable7[604] = dataTable11
-dataTable7[605] = dataTable12
-dataTable7[606] = dataTable13
-dataTable7[607] = dataTable
-dataTable7[608] = dataTable2
-dataTable7[609] = dataTable3
-dataTable7[610] = textValue
-dataTable7[611] = textValue2
-dataTable7[612] = numberValue
-dataTable7[613] = numberValue2
-dataTable7[614] = numberValue3
-dataTable7[615] = numberValue4
-dataTable7[616] = numberValue5
-dataTable7[617] = numberValue6
-dataTable7[618] = numberValue7
-dataTable7[619] = numberValue8
-dataTable7[620] = numberValue9
-dataTable7[621] = numberValue10
-dataTable7[622] = numberValue11
-dataTable7[623] = numberValue12
-dataTable7[624] = numberValue13
-dataTable7[625] = numberValue14
-dataTable7[626] = numberValue15
-dataTable7[627] = numberValue16
-dataTable7[628] = numberValue17
-dataTable7[629] = numberValue18
-dataTable7[630] = numberValue19
-dataTable7[631] = numberValue20
-dataTable7[632] = numberValue21
-dataTable7[633] = numberValue22
-dataTable7[634] = numberValue23
-dataTable7[635] = numberValue24
-dataTable7[636] = numberValue25
-dataTable7[637] = numberValue26
-dataTable7[638] = textValue3
-dataTable7[639] = flag6
-dataTable7[640] = flag7
-dataTable7[641] = flag8
-dataTable7[642] = flag9
-dataTable7[643] = flag10
-dataTable7[644] = flag11
-dataTable7[645] = flag12
-dataTable7[646] = flag13
-dataTable7[647] = flag14
-dataTable7[648] = flag15
-dataTable7[649] = flag16
-dataTable7[650] = flag17
-dataTable8 = {}
-dataTable9 = "Whoosh_1s_R_to_L"
-dataTable10 = "MP_LOBBY_SOUNDS"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "WIN"
-dataTable11 = "HUD_AWARDS"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "WINNER"
-dataTable12 = "CELEBRATION_SOUNDSET"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Winning_Team_Shard"
-dataTable13 = "DLC_Exec_TP_SoundSet"
-dataTable = false
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "WOODEN_DOOR_CLOSED_AT"
-dataTable = 0
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "WOODEN_DOOR_CLOSED_AT"
-dataTable2 = 0
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "WOODEN_DOOR_CLOSING_AT"
-dataTable3 = 0
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "WOODEN_DOOR_CLOSING_AT"
-textValue = 0
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "WOODEN_DOOR_OPEN_HANDLE_AT"
-textValue2 = 0
-numberValue = false
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "WOODEN_DOOR_OPEN_HANDLE_AT"
-numberValue = 0
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "WOODEN_DOOR_OPEN_NO_HANDLE_AT"
-numberValue2 = 0
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "YES"
-numberValue3 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Zone_Captured"
-numberValue4 = "dlc_vw_koth_Sounds"
-numberValue5 = false
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Zone_Captured_Remote"
-numberValue5 = "dlc_vw_koth_Sounds"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Zone_Contested"
-numberValue6 = "dlc_vw_koth_Sounds"
-numberValue7 = false
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Zone_Contested"
-numberValue7 = "dlc_vw_koth_Sounds"
-numberValue8 = false
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Zone_Enemy_Capture"
-numberValue8 = "dlc_vw_koth_Sounds"
-numberValue9 = false
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Zone_Enter"
-numberValue9 = "dlc_vw_koth_Sounds"
-numberValue10 = false
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Zone_Held"
-numberValue10 = "dlc_vw_koth_Sounds"
-numberValue11 = false
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Zone_Lost"
-numberValue11 = "dlc_vw_koth_Sounds"
-numberValue12 = false
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Zoom_In"
-numberValue12 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Zoom_Left"
-numberValue13 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Zoom_Out"
-numberValue14 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "Zoom_Right"
-numberValue15 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Off"
-numberValue16 = "GTAO_Vision_Modes_SoundSet"
-numberValue17 = false
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Off"
-numberValue17 = "GTAO_Vision_Modes_SoundSet"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "On"
-numberValue18 = "GTAO_Vision_Modes_SoundSet"
-numberValue19 = false
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "On"
-numberValue19 = "GTAO_Vision_Modes_SoundSet"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Switch"
-numberValue20 = "GTAO_Vision_Modes_SoundSet"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Switch"
-numberValue21 = "GTAO_Vision_Modes_SoundSet"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "hangar_doors_loop"
-numberValue22 = "dlc_xm_facility_entry_exit_sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "elevator_descend_loop"
-numberValue23 = "dlc_xm_facility_entry_exit_sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "launch_power_up_loop"
-numberValue24 = "dlc_xm_silo_finale_sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "10S"
-numberValue25 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue26 = false
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Crates_Blipped"
-numberValue26 = "GTAO_Biker_Modes_Soundset"
-textValue3 = false
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Enemy_In_Zone"
-textValue3 = "DLC_Biker_SYG_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Background"
-flag6 = "MP_CCTV_SOUNDSET"
-flag7 = false
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Pan"
-flag7 = "MP_CCTV_SOUNDSET"
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Zoom"
-flag8 = "MP_CCTV_SOUNDSET"
-flag9 = false
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Change_Cam"
-flag9 = "MP_CCTV_SOUNDSET"
-flag10 = false
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "elevator_descend_loop"
-flag10 = "dlc_xm_IAA_Finale_sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Elevation_Loop"
-flag11 = "DLC_Dmod_Prop_Editor_Sounds"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Move_Loop"
-flag12 = "DLC_Dmod_Prop_Editor_Sounds"
-flag13 = false
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Rotate_Loop"
-flag13 = "DLC_Dmod_Prop_Editor_Sounds"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Boss_Message_Orange"
-flag14 = "GTAO_Biker_FM_Soundset"
-flag15 = false
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Crates_Blipped"
-flag15 = "GTAO_Biker_Modes_Soundset"
-flag16 = false
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Drone_View"
-flag16 = "DLC_GR_WVM_APC_Sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "CLOSING"
-flag17 = "MP_PROPERTIES_ELEVATOR_DOORS"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "OPENING"
-flag18 = "MP_PROPERTIES_ELEVATOR_DOORS"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "laptop_download"
-flag19 = "dlc_vw_heisters_sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[651] = dataTable8
-dataTable7[652] = dataTable9
-dataTable7[653] = dataTable10
-dataTable7[654] = dataTable11
-dataTable7[655] = dataTable12
-dataTable7[656] = dataTable13
-dataTable7[657] = dataTable
-dataTable7[658] = dataTable2
-dataTable7[659] = dataTable3
-dataTable7[660] = textValue
-dataTable7[661] = textValue2
-dataTable7[662] = numberValue
-dataTable7[663] = numberValue2
-dataTable7[664] = numberValue3
-dataTable7[665] = numberValue4
-dataTable7[666] = numberValue5
-dataTable7[667] = numberValue6
-dataTable7[668] = numberValue7
-dataTable7[669] = numberValue8
-dataTable7[670] = numberValue9
-dataTable7[671] = numberValue10
-dataTable7[672] = numberValue11
-dataTable7[673] = numberValue12
-dataTable7[674] = numberValue13
-dataTable7[675] = numberValue14
-dataTable7[676] = numberValue15
-dataTable7[677] = numberValue16
-dataTable7[678] = numberValue17
-dataTable7[679] = numberValue18
-dataTable7[680] = numberValue19
-dataTable7[681] = numberValue20
-dataTable7[682] = numberValue21
-dataTable7[683] = numberValue22
-dataTable7[684] = numberValue23
-dataTable7[685] = numberValue24
-dataTable7[686] = numberValue25
-dataTable7[687] = numberValue26
-dataTable7[688] = textValue3
-dataTable7[689] = flag6
-dataTable7[690] = flag7
-dataTable7[691] = flag8
-dataTable7[692] = flag9
-dataTable7[693] = flag10
-dataTable7[694] = flag11
-dataTable7[695] = flag12
-dataTable7[696] = flag13
-dataTable7[697] = flag14
-dataTable7[698] = flag15
-dataTable7[699] = flag16
-dataTable7[700] = flag17
-dataTable8 = {}
-dataTable9 = "HACKING_COUNTDOWN_IP_FIND"
-dataTable10 = 0
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "HACKING_COUNTDOWN_CRACK_PASS"
-dataTable11 = 0
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Pin_Movement"
-dataTable12 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "HACKING_COUNTDOWN_IP_FIND"
-dataTable13 = 0
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "HACKING_COUNTDOWN_CRACK_PASS"
-dataTable = 0
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "1st_Person_Transition"
-dataTable2 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Hit_In"
-dataTable3 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "HIT_OUT"
-textValue = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "TIME_LAPSE_MASTER"
-textValue2 = 0
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Short_Transition_In"
-numberValue = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Pin_Movement"
-numberValue2 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "HACKING_COUNTDOWN_IP_FIND"
-numberValue3 = 0
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "HACKING_COUNTDOWN_CRACK_PASS"
-numberValue4 = 0
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "OPENED"
-numberValue5 = "DOOR_GARAGE"
-numberValue6 = false
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "OPENING"
-numberValue6 = "DOOR_GARAGE"
-numberValue7 = false
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Pin_Movement"
-numberValue7 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Rappel_Loop"
-numberValue8 = "GTAO_Rappel_Sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Change_Cam"
-numberValue9 = "MP_CCTV_SOUNDSET"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "DOOR_BUZZ"
-numberValue10 = "MP_PLAYER_APARTMENT"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Pan"
-numberValue11 = "MP_CCTV_SOUNDSET"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Zoom"
-numberValue12 = "MP_CCTV_SOUNDSET"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Background"
-numberValue13 = "MP_CCTV_SOUNDSET"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Change_Cam"
-numberValue14 = "MP_CCTV_SOUNDSET"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "uw_ambience"
-numberValue15 = 0
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "OOB_Timer_Dynamic"
-numberValue16 = "GTAO_FM_Events_Soundset"
-numberValue17 = false
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Pin_Movement"
-numberValue17 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "Signal_Loop"
-numberValue18 = "DLC_H3_Tracker_App_Sounds"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "Pin_Movement"
-numberValue19 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Pin_Movement"
-numberValue20 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Fly_Loop"
-numberValue21 = "dlc_xm_avngr_sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Hack_Loop"
-numberValue22 = "dlc_xm_deluxos_hacking_Hacking_Sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Background_Hum"
-numberValue23 = "DLC_XM_Vehicle_Interior_Security_Camera_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "laptop_download_loop"
-numberValue24 = "dlc_xm_heists_iaa_morgue_sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Out_of_Bounds"
-numberValue25 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue26 = false
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Hack_Loop"
-numberValue26 = "DLC_IE_SVM_Voltic2_Hacking_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Change_Station_Loud"
-textValue3 = "Radio_Soundset"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "OOB_Timer_Dynamic"
-flag6 = "GTAO_FM_Events_Soundset"
-flag7 = false
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "EMP"
-flag7 = "DLC_HALLOWEEN_FVJ_Sounds"
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "EMP_Blast"
-flag8 = "DLC_HEISTS_BIOLAB_FINALE_SOUNDS"
-flag9 = false
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "10S"
-flag9 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-flag10 = false
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "5S"
-flag10 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-flag11 = false
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Timer_10s"
-flag11 = "DLC_TG_Dinner_Sounds"
-flag12 = false
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Timer_5s"
-flag12 = "DLC_TG_Dinner_Sounds"
-flag13 = false
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Timer_To_Day"
-flag13 = "DLC_Biker_LostAndDamned_Sounds"
-flag14 = false
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Timer_To_Night"
-flag14 = "DLC_Biker_LostAndDamned_Sounds"
-flag15 = false
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Arming_Countdown"
-flag15 = "GTAO_Speed_Convoy_Soundset"
-flag16 = false
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Slipstream_Follower"
-flag16 = "DLC_Biker_SL_Sounds"
-flag17 = false
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "SLIPSTREAM_MASTER"
-flag17 = 0
-flag18 = false
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Slipstream_Leader"
-flag18 = "DLC_Biker_SL_Sounds"
-flag19 = false
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "SLIPSTREAM_MASTER"
-flag19 = 0
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[701] = dataTable8
-dataTable7[702] = dataTable9
-dataTable7[703] = dataTable10
-dataTable7[704] = dataTable11
-dataTable7[705] = dataTable12
-dataTable7[706] = dataTable13
-dataTable7[707] = dataTable
-dataTable7[708] = dataTable2
-dataTable7[709] = dataTable3
-dataTable7[710] = textValue
-dataTable7[711] = textValue2
-dataTable7[712] = numberValue
-dataTable7[713] = numberValue2
-dataTable7[714] = numberValue3
-dataTable7[715] = numberValue4
-dataTable7[716] = numberValue5
-dataTable7[717] = numberValue6
-dataTable7[718] = numberValue7
-dataTable7[719] = numberValue8
-dataTable7[720] = numberValue9
-dataTable7[721] = numberValue10
-dataTable7[722] = numberValue11
-dataTable7[723] = numberValue12
-dataTable7[724] = numberValue13
-dataTable7[725] = numberValue14
-dataTable7[726] = numberValue15
-dataTable7[727] = numberValue16
-dataTable7[728] = numberValue17
-dataTable7[729] = numberValue18
-dataTable7[730] = numberValue19
-dataTable7[731] = numberValue20
-dataTable7[732] = numberValue21
-dataTable7[733] = numberValue22
-dataTable7[734] = numberValue23
-dataTable7[735] = numberValue24
-dataTable7[736] = numberValue25
-dataTable7[737] = numberValue26
-dataTable7[738] = textValue3
-dataTable7[739] = flag6
-dataTable7[740] = flag7
-dataTable7[741] = flag8
-dataTable7[742] = flag9
-dataTable7[743] = flag10
-dataTable7[744] = flag11
-dataTable7[745] = flag12
-dataTable7[746] = flag13
-dataTable7[747] = flag14
-dataTable7[748] = flag15
-dataTable7[749] = flag16
-dataTable7[750] = flag17
-dataTable8 = {}
-dataTable9 = "Get_Back_In_Vehicle"
-dataTable10 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-dataTable11 = false
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "UW_Ambience"
-dataTable11 = 0
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Short_Transition_In"
-dataTable12 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Altitude_Warning"
-dataTable13 = "EXILE_1"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Near_Miss_Counter"
-dataTable = "GTAO_FM_Events_Soundset"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "FBI_04_HEAT_C4_DOORS"
-dataTable2 = 0
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Out_of_Bounds"
-dataTable3 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Camera_Hum"
-textValue = "BIG_SCORE_SETUP_SOUNDS"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Camera_Zoom"
-textValue2 = "BIG_SCORE_SETUP_SOUNDS"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "10S"
-numberValue = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue2 = false
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "5S"
-numberValue2 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Carrying"
-numberValue3 = "DLC_Low2_Ibi_Sounds"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "All"
-numberValue4 = "SHORT_PLAYER_SWITCH_SOUND_SET"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Heli_Crash"
-numberValue5 = "FBI_HEIST_FINALE_CHOPPER"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Found_Target"
-numberValue6 = "POLICE_CHOPPER_CAM_SOUNDS"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Lost_Target"
-numberValue7 = "POLICE_CHOPPER_CAM_SOUNDS"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Microphone"
-numberValue8 = "POLICE_CHOPPER_CAM_SOUNDS"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Carrying"
-numberValue9 = "DLC_Low2_Ibi_Sounds"
-numberValue10 = false
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Out_of_Bounds"
-numberValue10 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue11 = false
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Drone_View"
-numberValue11 = "DLC_GR_WVM_APC_Sounds"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "OOB_Timer_Dynamic"
-numberValue12 = "GTAO_FM_Events_Soundset"
-numberValue13 = false
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "DOOR_BUZZ"
-numberValue13 = "MP_PLAYER_APARTMENT"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "DOOR_Intercom_MASTER"
-numberValue14 = 0
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "10s"
-numberValue15 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue16 = false
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Pickup_Briefcase"
-numberValue16 = "GTAO_Biker_Modes_Soundset"
-numberValue17 = false
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Pickup_Briefcase"
-numberValue17 = "GTAO_Magnate_Boss_Modes_Soundset"
-numberValue18 = false
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "PICKUP_WEAPON_BALL"
-numberValue18 = "HUD_FRONTEND_WEAPONS_PICKUPS_SOUNDSET"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "Countdown_To_Win"
-numberValue19 = "DLC_IE_PL_Player_Sounds"
-numberValue20 = false
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "Countdown_To_Win"
-numberValue20 = "DLC_IE_PL_Team_Sounds"
-numberValue21 = false
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "laptop_download_loop"
-numberValue21 = "dlc_xm_heists_iaa_morgue_sounds"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Hack_Loop"
-numberValue22 = "DLC_IE_SVM_Voltic2_Hacking_Sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "Hack_Loop"
-numberValue23 = "dlc_xm_deluxos_hacking_Hacking_Sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "HACKING_COUNTDOWN_IP_FIND"
-numberValue24 = 0
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "HACKING_COUNTDOWN_CRACK_PASS"
-numberValue25 = 0
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Last_Alive"
-numberValue26 = "DLC_SR_RS_Player_Sounds"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Condemned_Heartbeat"
-textValue3 = "DLC_SM_CND_Player_Sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Pin_Movement"
-flag6 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "10s"
-flag7 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Elevator_Doors_Closing_Loop"
-flag8 = "DLC_IE_Garage_Elevator_Sounds"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Elevator_Doors_Opening_Loop"
-flag9 = "DLC_IE_Garage_Elevator_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Garage_Door_Close_Loop"
-flag10 = "GTAO_Script_Doors_Sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "Garage_Door_Open_Loop"
-flag11 = "GTAO_Script_Doors_Sounds"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "Speech_Going_Up"
-flag12 = "DLC_IE_Garage_Elevator_Sounds"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Background_Loop"
-flag13 = "CB_RADIO_SFX"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Change_Cam"
-flag14 = "MP_CCTV_SOUNDSET"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Generic_Alarm_Electronic_01"
-flag15 = 0
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "HACKING_COUNTDOWN_IP_FIND"
-flag16 = 0
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "HACKING_COUNTDOWN_CRACK_PASS"
-flag17 = 0
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "UW_Ambience"
-flag18 = 0
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "UW_Rebreather"
-flag19 = 0
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[751] = dataTable8
-dataTable7[752] = dataTable9
-dataTable7[753] = dataTable10
-dataTable7[754] = dataTable11
-dataTable7[755] = dataTable12
-dataTable7[756] = dataTable13
-dataTable7[757] = dataTable
-dataTable7[758] = dataTable2
-dataTable7[759] = dataTable3
-dataTable7[760] = textValue
-dataTable7[761] = textValue2
-dataTable7[762] = numberValue
-dataTable7[763] = numberValue2
-dataTable7[764] = numberValue3
-dataTable7[765] = numberValue4
-dataTable7[766] = numberValue5
-dataTable7[767] = numberValue6
-dataTable7[768] = numberValue7
-dataTable7[769] = numberValue8
-dataTable7[770] = numberValue9
-dataTable7[771] = numberValue10
-dataTable7[772] = numberValue11
-dataTable7[773] = numberValue12
-dataTable7[774] = numberValue13
-dataTable7[775] = numberValue14
-dataTable7[776] = numberValue15
-dataTable7[777] = numberValue16
-dataTable7[778] = numberValue17
-dataTable7[779] = numberValue18
-dataTable7[780] = numberValue19
-dataTable7[781] = numberValue20
-dataTable7[782] = numberValue21
-dataTable7[783] = numberValue22
-dataTable7[784] = numberValue23
-dataTable7[785] = numberValue24
-dataTable7[786] = numberValue25
-dataTable7[787] = numberValue26
-dataTable7[788] = textValue3
-dataTable7[789] = flag6
-dataTable7[790] = flag7
-dataTable7[791] = flag8
-dataTable7[792] = flag9
-dataTable7[793] = flag10
-dataTable7[794] = flag11
-dataTable7[795] = flag12
-dataTable7[796] = flag13
-dataTable7[797] = flag14
-dataTable7[798] = flag15
-dataTable7[799] = flag16
-dataTable7[800] = flag17
-dataTable8 = {}
-dataTable9 = "FBI_05_RAID_BREATH"
-dataTable10 = 0
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Short_Transition_In"
-dataTable11 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Short_Transition_In"
-dataTable12 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "FBI_02_SNATCH_AND_GRAB_AMB_HELI"
-dataTable13 = 0
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Short_Transition_In"
-dataTable = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Background"
-dataTable2 = "MP_CCTV_SOUNDSET"
-dataTable3 = false
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Pan"
-dataTable3 = "MP_CCTV_SOUNDSET"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Zoom"
-textValue = "MP_CCTV_SOUNDSET"
-textValue2 = false
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Change_Cam"
-textValue2 = "MP_CCTV_SOUNDSET"
-numberValue = false
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "elevator_descend_loop"
-numberValue = "dlc_xm_IAA_Finale_sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Out_of_Bounds"
-numberValue2 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue3 = false
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Out_of_Bounds_Explode"
-numberValue3 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-numberValue4 = false
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Hit_Out"
-numberValue4 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Short_Transition_In"
-numberValue5 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "HACKING_COUNTDOWN_IP_FIND"
-numberValue6 = 0
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "HACKING_COUNTDOWN_CRACK_PASS"
-numberValue7 = 0
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Altitude_Warning"
-numberValue8 = "EXILE_1"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Generic_Alarm_Fire_Electronic"
-numberValue9 = 0
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Background"
-numberValue10 = "DLC_XM17_Facility_Strike_PC_Sounds"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "CHOP_CAM_A"
-numberValue11 = 0
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "CHOP_CAM_B"
-numberValue12 = 0
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "CHOP_CAM_C"
-numberValue13 = 0
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "Pan"
-numberValue14 = "MP_CCTV_SOUNDSET"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "HACKING_MOVE_CURSOR"
-numberValue15 = 0
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Zoom"
-numberValue16 = "MP_CCTV_SOUNDSET"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Change_Cam"
-numberValue17 = "MP_CCTV_SOUNDSET"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "SAFE_DOOR_CLOSE"
-numberValue18 = "SAFE_CRACK_SOUNDSET"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "SAFE_DOOR_OPEN"
-numberValue19 = "SAFE_CRACK_SOUNDSET"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "TUMBLER_PIN_FALL"
-numberValue20 = "SAFE_CRACK_SOUNDSET"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "TUMBLER_PIN_FALL_FINAL"
-numberValue21 = "SAFE_CRACK_SOUNDSET"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "TUMBLER_RESET"
-numberValue22 = "SAFE_CRACK_SOUNDSET"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "TUMBLER_TURN"
-numberValue23 = "SAFE_CRACK_SOUNDSET"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Background"
-numberValue24 = "MP_CCTV_SOUNDSET"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Background"
-numberValue25 = "MP_CCTV_SOUNDSET"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Change_Cam"
-numberValue26 = "MP_CCTV_SOUNDSET"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "elevator_ascend_loop"
-textValue3 = "dlc_xm_facility_entry_exit_sounds"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "hangar_doors_loop"
-flag6 = "dlc_xm_facility_entry_exit_sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "CHECKPOINT_UNDER_THE_BRIDGE"
-flag7 = "HUD_MINI_GAME_SOUNDSET"
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "COLLECTED"
-flag8 = "HUD_AWARDS"
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "Exit_In_Vehicle"
-flag9 = "GTAO_ImpExp_Enter_Exit_Garage_Sounds"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "Garage_Door_Close"
-flag10 = "GTAO_Script_Doors_Faded_Screen_Sounds"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "GARAGE_DOOR_SCRIPTED_CLOSE"
-flag11 = 0
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "GARAGE_DOOR_SCRIPTED_OPEN"
-flag12 = 0
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "PEYOTE_COMPLETED"
-flag13 = "HUD_AWARDS"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "SIGN_DESTROYED"
-flag14 = "HUD_AWARDS"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Lose_1st"
-flag15 = "GTAO_Magnate_Boss_Modes_Soundset"
-flag16 = false
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Goon_Paid_Large"
-flag16 = "GTAO_Boss_Goons_FM_Soundset"
-flag17 = false
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Enter_1st"
-flag17 = "GTAO_Magnate_Boss_Modes_Soundset"
-flag18 = false
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "COP_HELI_CAM_ZOOM"
-flag18 = 0
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "COP_HELI_CAM_TURN"
-flag19 = 0
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[801] = dataTable8
-dataTable7[802] = dataTable9
-dataTable7[803] = dataTable10
-dataTable7[804] = dataTable11
-dataTable7[805] = dataTable12
-dataTable7[806] = dataTable13
-dataTable7[807] = dataTable
-dataTable7[808] = dataTable2
-dataTable7[809] = dataTable3
-dataTable7[810] = textValue
-dataTable7[811] = textValue2
-dataTable7[812] = numberValue
-dataTable7[813] = numberValue2
-dataTable7[814] = numberValue3
-dataTable7[815] = numberValue4
-dataTable7[816] = numberValue5
-dataTable7[817] = numberValue6
-dataTable7[818] = numberValue7
-dataTable7[819] = numberValue8
-dataTable7[820] = numberValue9
-dataTable7[821] = numberValue10
-dataTable7[822] = numberValue11
-dataTable7[823] = numberValue12
-dataTable7[824] = numberValue13
-dataTable7[825] = numberValue14
-dataTable7[826] = numberValue15
-dataTable7[827] = numberValue16
-dataTable7[828] = numberValue17
-dataTable7[829] = numberValue18
-dataTable7[830] = numberValue19
-dataTable7[831] = numberValue20
-dataTable7[832] = numberValue21
-dataTable7[833] = numberValue22
-dataTable7[834] = numberValue23
-dataTable7[835] = numberValue24
-dataTable7[836] = numberValue25
-dataTable7[837] = numberValue26
-dataTable7[838] = textValue3
-dataTable7[839] = flag6
-dataTable7[840] = flag7
-dataTable7[841] = flag8
-dataTable7[842] = flag9
-dataTable7[843] = flag10
-dataTable7[844] = flag11
-dataTable7[845] = flag12
-dataTable7[846] = flag13
-dataTable7[847] = flag14
-dataTable7[848] = flag15
-dataTable7[849] = flag16
-dataTable7[850] = flag17
-dataTable8 = {}
-dataTable9 = "Remote_Enemy_Enter_Line"
-dataTable10 = "GTAO_FM_Cross_The_Line_Soundset"
-dataTable11 = false
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "Remote_Friendly_Enter_Line"
-dataTable11 = "GTAO_FM_Cross_The_Line_Soundset"
-dataTable12 = false
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "COP_HELI_CAM_ZOOM"
-dataTable12 = 0
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "COP_HELI_CAM_TURN"
-dataTable13 = 0
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Background"
-dataTable = "dlc_xm_silo_laser_hack_sounds"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Cursor_Move"
-dataTable2 = "dlc_xm_silo_laser_hack_sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Blue_Target_Charge"
-dataTable3 = "dlc_xm_silo_laser_hack_sounds"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "Red_Target_Charge"
-textValue = "dlc_xm_silo_laser_hack_sounds"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Rotate_Mirror"
-textValue2 = "dlc_xm_silo_laser_hack_sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "VULKAN_LOCK_ON_AMBER"
-numberValue = 0
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "VULKAN_LOCK_ON_RED"
-numberValue2 = 0
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Turret_Camera_Hum_Loop"
-numberValue3 = "DLC_BTL_Terrobyte_Turret_Sounds"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Background"
-numberValue4 = "dlc_xm_silo_laser_hack_sounds"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "Cursor_Move"
-numberValue5 = "dlc_xm_silo_laser_hack_sounds"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "Blue_Target_Charge"
-numberValue6 = "dlc_xm_silo_laser_hack_sounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Red_Target_Charge"
-numberValue7 = "dlc_xm_silo_laser_hack_sounds"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Rotate_Mirror"
-numberValue8 = "dlc_xm_silo_laser_hack_sounds"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Pan"
-numberValue9 = "MP_CCTV_SOUNDSET"
-numberValue10 = true
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Zoom"
-numberValue10 = "MP_CCTV_SOUNDSET"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Change_Cam"
-numberValue11 = "MP_CCTV_SOUNDSET"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "Background"
-numberValue12 = "MP_CCTV_SOUNDSET"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "LIMIT"
-numberValue13 = "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "LIMIT"
-numberValue14 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "LIMIT"
-numberValue15 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "LIMIT"
-numberValue16 = "GTAO_APT_DOOR_ROOF_METAL_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "PUSH"
-numberValue17 = "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "PUSH"
-numberValue18 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "PUSH"
-numberValue19 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "PUSH"
-numberValue20 = "GTAO_APT_DOOR_ROOF_METAL_SOUNDS"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "WOODEN_DOOR_OPEN_NO_HANDLE_AT"
-numberValue21 = 0
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "Altitude_Warning_Loop"
-numberValue22 = "DLC_Exec_Fly_Low_Sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "LIMIT"
-numberValue23 = "DLC_APT_YACHT_DOOR_SOUNDS"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "LIMIT"
-numberValue24 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "PUSH"
-numberValue25 = "DLC_APT_YACHT_DOOR_SOUNDS"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "PUSH"
-numberValue26 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "WOODEN_DOOR_OPEN_NO_HANDLE_AT"
-textValue3 = 0
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Scanner_Loop"
-flag6 = "DLC_BTL_Target_Pursuit_Sounds"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "Delivery_Screen_Fade"
-flag7 = "DLC_Exec1_Buy_Sell_Sounds"
-flag8 = false
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "Delivery_Screen_Fade_On_Foot"
-flag8 = "DLC_Exec1_Buy_Sell_Sounds"
-flag9 = false
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "TRAFFIC_CONTROL_BG_NOISE"
-flag9 = "BIG_SCORE_3A_SOUNDS"
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "TRAFFIC_CONTROL_CHANGE_CAM"
-flag10 = "BIG_SCORE_3A_SOUNDS"
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "TRAFFIC_CONTROL_TOGGLE_LIGHT"
-flag11 = "BIG_SCORE_3A_SOUNDS"
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "DISTANT_DOG_BARK"
-flag12 = "CAR_STEAL_2_SOUNDSET"
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "Elevator_Start"
-flag13 = "DLC_IE_Garage_Elevator_Sounds"
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "Elevator_Stop"
-flag14 = "DLC_IE_Garage_Elevator_Sounds"
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Elevator_Ascending_Loop"
-flag15 = "DLC_IE_Garage_Elevator_Sounds"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "Elevator_Descending_Loop"
-flag16 = "DLC_IE_Garage_Elevator_Sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Speech_Floor_1"
-flag17 = "DLC_IE_Garage_Elevator_Sounds"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Speech_Floor_2"
-flag18 = "DLC_IE_Garage_Elevator_Sounds"
-flag19 = true
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Speech_Floor_3"
-flag19 = "DLC_IE_Garage_Elevator_Sounds"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[851] = dataTable8
-dataTable7[852] = dataTable9
-dataTable7[853] = dataTable10
-dataTable7[854] = dataTable11
-dataTable7[855] = dataTable12
-dataTable7[856] = dataTable13
-dataTable7[857] = dataTable
-dataTable7[858] = dataTable2
-dataTable7[859] = dataTable3
-dataTable7[860] = textValue
-dataTable7[861] = textValue2
-dataTable7[862] = numberValue
-dataTable7[863] = numberValue2
-dataTable7[864] = numberValue3
-dataTable7[865] = numberValue4
-dataTable7[866] = numberValue5
-dataTable7[867] = numberValue6
-dataTable7[868] = numberValue7
-dataTable7[869] = numberValue8
-dataTable7[870] = numberValue9
-dataTable7[871] = numberValue10
-dataTable7[872] = numberValue11
-dataTable7[873] = numberValue12
-dataTable7[874] = numberValue13
-dataTable7[875] = numberValue14
-dataTable7[876] = numberValue15
-dataTable7[877] = numberValue16
-dataTable7[878] = numberValue17
-dataTable7[879] = numberValue18
-dataTable7[880] = numberValue19
-dataTable7[881] = numberValue20
-dataTable7[882] = numberValue21
-dataTable7[883] = numberValue22
-dataTable7[884] = numberValue23
-dataTable7[885] = numberValue24
-dataTable7[886] = numberValue25
-dataTable7[887] = numberValue26
-dataTable7[888] = textValue3
-dataTable7[889] = flag6
-dataTable7[890] = flag7
-dataTable7[891] = flag8
-dataTable7[892] = flag9
-dataTable7[893] = flag10
-dataTable7[894] = flag11
-dataTable7[895] = flag12
-dataTable7[896] = flag13
-dataTable7[897] = flag14
-dataTable7[898] = flag15
-dataTable7[899] = flag16
-dataTable7[900] = flag17
-dataTable8 = {}
-dataTable9 = "movie_prop_reward_cut_music"
-dataTable10 = "DLC_sum20_hidden_collectible_sounds"
-dataTable11 = true
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "VULKAN_LOCK_ON_AMBER"
-dataTable11 = 0
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "VULKAN_LOCK_ON_RED"
-dataTable12 = 0
-dataTable13 = true
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Pan"
-dataTable13 = "DLC_Arena_CCTV_SOUNDSET"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Pan"
-dataTable = "MP_CCTV_SOUNDSET"
-dataTable2 = true
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Blip_Pickup"
-dataTable2 = "GTAO_Biker_Modes_Soundset"
-dataTable3 = false
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Enemy_Pickup_Briefcase"
-dataTable3 = "GTAO_Biker_Modes_Soundset"
-textValue = false
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "pan_loop"
-textValue = "dlc_xm_orbital_cannon_sounds"
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Pickup_Briefcase"
-textValue2 = "GTAO_Biker_Modes_Soundset"
-numberValue = false
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Hit_In"
-numberValue = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "Camera_Move_Loop"
-numberValue2 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-numberValue = {}
-numberValue2 = "Hit_Out"
-numberValue3 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-numberValue4 = true
-numberValue[1] = numberValue2
-numberValue[2] = numberValue3
-numberValue[3] = numberValue4
-numberValue2 = {}
-numberValue3 = "Background"
-numberValue4 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue5 = true
-numberValue2[1] = numberValue3
-numberValue2[2] = numberValue4
-numberValue2[3] = numberValue5
-numberValue3 = {}
-numberValue4 = "cannon_activating_loop"
-numberValue5 = "dlc_xm_orbital_cannon_sounds"
-numberValue6 = true
-numberValue3[1] = numberValue4
-numberValue3[2] = numberValue5
-numberValue3[3] = numberValue6
-numberValue4 = {}
-numberValue5 = "cannon_charge_fire_loop"
-numberValue6 = "dlc_xm_orbital_cannon_sounds"
-numberValue7 = true
-numberValue4[1] = numberValue5
-numberValue4[2] = numberValue6
-numberValue4[3] = numberValue7
-numberValue5 = {}
-numberValue6 = "Change_Cam"
-numberValue7 = "DLC_Arena_CCTV_SOUNDSET"
-numberValue8 = true
-numberValue5[1] = numberValue6
-numberValue5[2] = numberValue7
-numberValue5[3] = numberValue8
-numberValue6 = {}
-numberValue7 = "Change_Cam"
-numberValue8 = "MP_CCTV_SOUNDSET"
-numberValue9 = true
-numberValue6[1] = numberValue7
-numberValue6[2] = numberValue8
-numberValue6[3] = numberValue9
-numberValue7 = {}
-numberValue8 = "Deliver_Item"
-numberValue9 = "GTAO_Biker_Modes_Soundset"
-numberValue10 = false
-numberValue7[1] = numberValue8
-numberValue7[2] = numberValue9
-numberValue7[3] = numberValue10
-numberValue8 = {}
-numberValue9 = "Background"
-numberValue10 = "DLC_Arena_CCTV_SOUNDSET"
-numberValue11 = true
-numberValue8[1] = numberValue9
-numberValue8[2] = numberValue10
-numberValue8[3] = numberValue11
-numberValue9 = {}
-numberValue10 = "Background"
-numberValue11 = "MP_CCTV_SOUNDSET"
-numberValue12 = true
-numberValue9[1] = numberValue10
-numberValue9[2] = numberValue11
-numberValue9[3] = numberValue12
-numberValue10 = {}
-numberValue11 = "background_loop"
-numberValue12 = "dlc_xm_orbital_cannon_sounds"
-numberValue13 = true
-numberValue10[1] = numberValue11
-numberValue10[2] = numberValue12
-numberValue10[3] = numberValue13
-numberValue11 = {}
-numberValue12 = "Change_Cam"
-numberValue13 = "MP_CCTV_SOUNDSET"
-numberValue14 = true
-numberValue11[1] = numberValue12
-numberValue11[2] = numberValue13
-numberValue11[3] = numberValue14
-numberValue12 = {}
-numberValue13 = "zoom_out_loop"
-numberValue14 = "dlc_xm_orbital_cannon_sounds"
-numberValue15 = true
-numberValue12[1] = numberValue13
-numberValue12[2] = numberValue14
-numberValue12[3] = numberValue15
-numberValue13 = {}
-numberValue14 = "zoom_out_loop"
-numberValue15 = "dlc_xm_orbital_cannon_sounds"
-numberValue16 = true
-numberValue13[1] = numberValue14
-numberValue13[2] = numberValue15
-numberValue13[3] = numberValue16
-numberValue14 = {}
-numberValue15 = "Trail_Custom"
-numberValue16 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-numberValue17 = true
-numberValue14[1] = numberValue15
-numberValue14[2] = numberValue16
-numberValue14[3] = numberValue17
-numberValue15 = {}
-numberValue16 = "Scanner_Loop"
-numberValue17 = "DLC_BTL_Target_Pursuit_Sounds"
-numberValue18 = true
-numberValue15[1] = numberValue16
-numberValue15[2] = numberValue17
-numberValue15[3] = numberValue18
-numberValue16 = {}
-numberValue17 = "pan_loop"
-numberValue18 = "dlc_xm_orbital_cannon_sounds"
-numberValue19 = true
-numberValue16[1] = numberValue17
-numberValue16[2] = numberValue18
-numberValue16[3] = numberValue19
-numberValue17 = {}
-numberValue18 = "cannon_activating_loop"
-numberValue19 = "dlc_xm_orbital_cannon_sounds"
-numberValue20 = true
-numberValue17[1] = numberValue18
-numberValue17[2] = numberValue19
-numberValue17[3] = numberValue20
-numberValue18 = {}
-numberValue19 = "background_loop"
-numberValue20 = "dlc_xm_orbital_cannon_sounds"
-numberValue21 = true
-numberValue18[1] = numberValue19
-numberValue18[2] = numberValue20
-numberValue18[3] = numberValue21
-numberValue19 = {}
-numberValue20 = "Background"
-numberValue21 = "DLC_EXEC_ARC_MAC_SOUNDS"
-numberValue22 = true
-numberValue19[1] = numberValue20
-numberValue19[2] = numberValue21
-numberValue19[3] = numberValue22
-numberValue20 = {}
-numberValue21 = "zoom_out_loop"
-numberValue22 = "dlc_xm_orbital_cannon_sounds"
-numberValue23 = true
-numberValue20[1] = numberValue21
-numberValue20[2] = numberValue22
-numberValue20[3] = numberValue23
-numberValue21 = {}
-numberValue22 = "zoom_out_loop"
-numberValue23 = "dlc_xm_orbital_cannon_sounds"
-numberValue24 = true
-numberValue21[1] = numberValue22
-numberValue21[2] = numberValue23
-numberValue21[3] = numberValue24
-numberValue22 = {}
-numberValue23 = "Creaking_Loop"
-numberValue24 = "DLC_H4_Submarine_Crush_Depth_Sounds"
-numberValue25 = true
-numberValue22[1] = numberValue23
-numberValue22[2] = numberValue24
-numberValue22[3] = numberValue25
-numberValue23 = {}
-numberValue24 = "Warning_Alarm_Loop"
-numberValue25 = "DLC_H4_Submarine_Crush_Depth_Sounds"
-numberValue26 = true
-numberValue23[1] = numberValue24
-numberValue23[2] = numberValue25
-numberValue23[3] = numberValue26
-numberValue24 = {}
-numberValue25 = "Knuckle_Crack_Hard_Cel"
-numberValue26 = "MP_SNACKS_SOUNDSET"
-textValue3 = true
-numberValue24[1] = numberValue25
-numberValue24[2] = numberValue26
-numberValue24[3] = textValue3
-numberValue25 = {}
-numberValue26 = "Knuckle_Crack_Slap_Cel"
-textValue3 = "MP_SNACKS_SOUNDSET"
-flag6 = true
-numberValue25[1] = numberValue26
-numberValue25[2] = textValue3
-numberValue25[3] = flag6
-numberValue26 = {}
-textValue3 = "Slow_Clap_Cel"
-flag6 = "MP_SNACKS_SOUNDSET"
-flag7 = true
-numberValue26[1] = textValue3
-numberValue26[2] = flag6
-numberValue26[3] = flag7
-textValue3 = {}
-flag6 = "COP_HELI_CAM_ZOOM"
-flag7 = 0
-flag8 = true
-textValue3[1] = flag6
-textValue3[2] = flag7
-textValue3[3] = flag8
-flag6 = {}
-flag7 = "COP_HELI_CAM_TURN"
-flag8 = 0
-flag9 = true
-flag6[1] = flag7
-flag6[2] = flag8
-flag6[3] = flag9
-flag7 = {}
-flag8 = "COP_HELI_CAM_BLEEP"
-flag9 = 0
-flag10 = true
-flag7[1] = flag8
-flag7[2] = flag9
-flag7[3] = flag10
-flag8 = {}
-flag9 = "COP_HELI_CAM_BACKGROUND"
-flag10 = 0
-flag11 = true
-flag8[1] = flag9
-flag8[2] = flag10
-flag8[3] = flag11
-flag9 = {}
-flag10 = "COP_HELI_CAM_SCAN_PED_LOOP"
-flag11 = 0
-flag12 = true
-flag9[1] = flag10
-flag9[2] = flag11
-flag9[3] = flag12
-flag10 = {}
-flag11 = "COP_HELI_CAM_SCAN_PED_SUCCESS"
-flag12 = 0
-flag13 = true
-flag10[1] = flag11
-flag10[2] = flag12
-flag10[3] = flag13
-flag11 = {}
-flag12 = "COP_HELI_CAM_SCAN_PED_FAILURE"
-flag13 = 0
-flag14 = true
-flag11[1] = flag12
-flag11[2] = flag13
-flag11[3] = flag14
-flag12 = {}
-flag13 = "COP_HELI_CAM_BLEEP_TOO_FAR"
-flag14 = 0
-flag15 = true
-flag12[1] = flag13
-flag12[2] = flag14
-flag12[3] = flag15
-flag13 = {}
-flag14 = "Cancel"
-flag15 = "DLC_EXEC_ARC_MAC_SOUNDS"
-flag16 = true
-flag13[1] = flag14
-flag13[2] = flag15
-flag13[3] = flag16
-flag14 = {}
-flag15 = "cannon_charge_fire_loop"
-flag16 = "dlc_xm_orbital_cannon_sounds"
-flag17 = true
-flag14[1] = flag15
-flag14[2] = flag16
-flag14[3] = flag17
-flag15 = {}
-flag16 = "Insert_Coin"
-flag17 = "DLC_EXEC_ARC_MAC_SOUNDS"
-flag18 = true
-flag15[1] = flag16
-flag15[2] = flag17
-flag15[3] = flag18
-flag16 = {}
-flag17 = "Out_of_Bounds_Explode"
-flag18 = "MP_MISSION_COUNTDOWN_SOUNDSET"
-flag19 = false
-flag16[1] = flag17
-flag16[2] = flag18
-flag16[3] = flag19
-flag17 = {}
-flag18 = "Game_Over_Blink"
-flag19 = "DLC_EXEC_ARC_MAC_SOUNDS"
-flag20 = true
-flag17[1] = flag18
-flag17[2] = flag19
-flag17[3] = flag20
-dataTable7[901] = dataTable8
-dataTable7[902] = dataTable9
-dataTable7[903] = dataTable10
-dataTable7[904] = dataTable11
-dataTable7[905] = dataTable12
-dataTable7[906] = dataTable13
-dataTable7[907] = dataTable
-dataTable7[908] = dataTable2
-dataTable7[909] = dataTable3
-dataTable7[910] = textValue
-dataTable7[911] = textValue2
-dataTable7[912] = numberValue
-dataTable7[913] = numberValue2
-dataTable7[914] = numberValue3
-dataTable7[915] = numberValue4
-dataTable7[916] = numberValue5
-dataTable7[917] = numberValue6
-dataTable7[918] = numberValue7
-dataTable7[919] = numberValue8
-dataTable7[920] = numberValue9
-dataTable7[921] = numberValue10
-dataTable7[922] = numberValue11
-dataTable7[923] = numberValue12
-dataTable7[924] = numberValue13
-dataTable7[925] = numberValue14
-dataTable7[926] = numberValue15
-dataTable7[927] = numberValue16
-dataTable7[928] = numberValue17
-dataTable7[929] = numberValue18
-dataTable7[930] = numberValue19
-dataTable7[931] = numberValue20
-dataTable7[932] = numberValue21
-dataTable7[933] = numberValue22
-dataTable7[934] = numberValue23
-dataTable7[935] = numberValue24
-dataTable7[936] = numberValue25
-dataTable7[937] = numberValue26
-dataTable7[938] = textValue3
-dataTable7[939] = flag6
-dataTable7[940] = flag7
-dataTable7[941] = flag8
-dataTable7[942] = flag9
-dataTable7[943] = flag10
-dataTable7[944] = flag11
-dataTable7[945] = flag12
-dataTable7[946] = flag13
-dataTable7[947] = flag14
-dataTable7[948] = flag15
-dataTable7[949] = flag16
-dataTable7[950] = flag17
-dataTable8 = {}
-dataTable9 = "Nightvision_Loop"
-dataTable10 = "GTAO_Vision_Modes_SoundSet"
-dataTable11 = false
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable9 = {}
-dataTable10 = "player_riding"
-dataTable11 = "biker_formation_sounds"
-dataTable12 = true
-dataTable9[1] = dataTable10
-dataTable9[2] = dataTable11
-dataTable9[3] = dataTable12
-dataTable10 = {}
-dataTable11 = "Thermal_Loop"
-dataTable12 = "GTAO_Vision_Modes_SoundSet"
-dataTable13 = false
-dataTable10[1] = dataTable11
-dataTable10[2] = dataTable12
-dataTable10[3] = dataTable13
-dataTable11 = {}
-dataTable12 = "Sink"
-dataTable13 = "DLC_H4_Submarine_Sinking_Sounds"
-dataTable = true
-dataTable11[1] = dataTable12
-dataTable11[2] = dataTable13
-dataTable11[3] = dataTable
-dataTable12 = {}
-dataTable13 = "Return_To_Vehicle_Timer"
-dataTable = "GTAO_FM_Events_Soundset"
-dataTable2 = false
-dataTable12[1] = dataTable13
-dataTable12[2] = dataTable
-dataTable12[3] = dataTable2
-dataTable13 = {}
-dataTable = "Slipstream"
-dataTable2 = "DLC_Stunt_Race_Frontend_Sounds"
-dataTable3 = true
-dataTable13[1] = dataTable
-dataTable13[2] = dataTable2
-dataTable13[3] = dataTable3
-dataTable = {}
-dataTable2 = "Slipstream_Follower"
-dataTable3 = "DLC_Biker_SL_Sounds"
-textValue = true
-dataTable[1] = dataTable2
-dataTable[2] = dataTable3
-dataTable[3] = textValue
-dataTable2 = {}
-dataTable3 = "SLIPSTREAM_MASTER"
-textValue = 0
-textValue2 = true
-dataTable2[1] = dataTable3
-dataTable2[2] = textValue
-dataTable2[3] = textValue2
-dataTable3 = {}
-textValue = "Slipstream_Leader"
-textValue2 = "DLC_Biker_SL_Sounds"
-numberValue = true
-dataTable3[1] = textValue
-dataTable3[2] = textValue2
-dataTable3[3] = numberValue
-textValue = {}
-textValue2 = "Bomb_Countdown"
-numberValue = "DLC_AW_PTB_Sounds"
-numberValue2 = true
-textValue[1] = textValue2
-textValue[2] = numberValue
-textValue[3] = numberValue2
-textValue2 = {}
-numberValue = "TIME_LAPSE_MASTER"
-numberValue2 = 0
-numberValue3 = true
-textValue2[1] = numberValue
-textValue2[2] = numberValue2
-textValue2[3] = numberValue3
-dataTable7[951] = dataTable8
-dataTable7[952] = dataTable9
-dataTable7[953] = dataTable10
-dataTable7[954] = dataTable11
-dataTable7[955] = dataTable12
-dataTable7[956] = dataTable13
-dataTable7[957] = dataTable
-dataTable7[958] = dataTable2
-dataTable7[959] = dataTable3
-dataTable7[960] = textValue
-dataTable7[961] = textValue2
-dataTable8 = {}
-dataTable9 = "AC_DELIVERED"
-dataTable10 = "AC_DONE"
-dataTable11 = "AC_EN_ROUTE_CULT"
-dataTable12 = "AC_END"
-dataTable13 = "AC_LEFT_AREA"
-dataTable = "AC_START"
-dataTable2 = "AC_STOP"
-dataTable3 = "AH1_BACK_IN_CAR"
-textValue = "AH1_FAIL"
-textValue2 = "AH1_HOLE_RESTART"
-numberValue = "AH1_RESTART"
-numberValue2 = "AH1_START"
-numberValue3 = "AH1_STOP"
-numberValue4 = "AH2A_EXIT_SITE"
-numberValue5 = "AH2A_FIRST_FLOOR_RESTART"
-numberValue6 = "AH2A_FLEE_SITE"
-numberValue7 = "AH2A_MISSION_FAIL"
-numberValue8 = "AH2A_MISSION_START"
-numberValue9 = "AH3A_2ND_STAIRWELL"
-numberValue10 = "AH3A_ABSEIL_DONE"
-numberValue11 = "AH3A_ABSEIL_RT"
-numberValue12 = "AH3A_ABSEILING"
-numberValue13 = "AH3A_BLOW_BACK"
-numberValue14 = "AH3A_C4_PLANTED"
-numberValue15 = "AH3A_DETONATE"
-numberValue16 = "AH3A_DOOR_OPEN"
-numberValue17 = "AH3A_DOORS_EXPLODE"
-numberValue18 = "AH3A_DOWN_ONE"
-numberValue19 = "AH3A_ELEV_CS"
-numberValue20 = "AH3A_EXIT"
-numberValue21 = "AH3A_EXIT_LIFT"
-numberValue22 = "AH3A_EXIT_TRUCK"
-numberValue23 = "AH3A_FIB_DOCS_RT"
-numberValue24 = "AH3A_FIRE_FLOOR_RT"
-numberValue25 = "AH3A_FIRST_BOMB"
-numberValue26 = "AH3A_FLOOR_CRACK"
-textValue3 = "AH3A_GET_DOCS"
-flag6 = "AH3A_GET_TO_ELEV"
-flag7 = "AH3A_HEAD_TO_LOO"
-flag8 = "AH3A_INTO_FLAMES"
-flag9 = "AH3A_LAST_BOMB"
-flag10 = "AH3A_LEAVING"
-flag11 = "AH3A_LIFT_CCTV"
-flag12 = "AH3A_LIFT_LOOK"
-flag13 = "AH3A_MOP_RETURNED"
-flag14 = "AH3A_MOP_RT"
-flag15 = "AH3A_MORE_MOPPING"
-flag16 = "AH3A_RUBBLE_RT"
-flag17 = "AH3A_SKYLIGHT"
-flag18 = "AH3A_STAIRWELL"
-dataTable8[1] = dataTable9
-dataTable8[2] = dataTable10
-dataTable8[3] = dataTable11
-dataTable8[4] = dataTable12
-dataTable8[5] = dataTable13
-dataTable8[6] = dataTable
-dataTable8[7] = dataTable2
-dataTable8[8] = dataTable3
-dataTable8[9] = textValue
-dataTable8[10] = textValue2
-dataTable8[11] = numberValue
-dataTable8[12] = numberValue2
-dataTable8[13] = numberValue3
-dataTable8[14] = numberValue4
-dataTable8[15] = numberValue5
-dataTable8[16] = numberValue6
-dataTable8[17] = numberValue7
-dataTable8[18] = numberValue8
-dataTable8[19] = numberValue9
-dataTable8[20] = numberValue10
-dataTable8[21] = numberValue11
-dataTable8[22] = numberValue12
-dataTable8[23] = numberValue13
-dataTable8[24] = numberValue14
-dataTable8[25] = numberValue15
-dataTable8[26] = numberValue16
-dataTable8[27] = numberValue17
-dataTable8[28] = numberValue18
-dataTable8[29] = numberValue19
-dataTable8[30] = numberValue20
-dataTable8[31] = numberValue21
-dataTable8[32] = numberValue22
-dataTable8[33] = numberValue23
-dataTable8[34] = numberValue24
-dataTable8[35] = numberValue25
-dataTable8[36] = numberValue26
-dataTable8[37] = textValue3
-dataTable8[38] = flag6
-dataTable8[39] = flag7
-dataTable8[40] = flag8
-dataTable8[41] = flag9
-dataTable8[42] = flag10
-dataTable8[43] = flag11
-dataTable8[44] = flag12
-dataTable8[45] = flag13
-dataTable8[46] = flag14
-dataTable8[47] = flag15
-dataTable8[48] = flag16
-dataTable8[49] = flag17
-dataTable8[50] = flag18
-dataTable9 = "AH3A_START"
-dataTable10 = "AH3A_START_ESCAPE"
-dataTable11 = "AH3A_STOP"
-dataTable12 = "AH3A_TRUCK_ENTERED"
-dataTable13 = "AH3B_AFTER_HELI_CS"
-dataTable = "AH3B_ALARM"
-dataTable2 = "AH3B_BURNTOUT_RT"
-dataTable3 = "AH3B_BURNTOUT_TWO_RT"
-textValue = "AH3B_CHOPPER_APPEARS"
-textValue2 = "AH3B_CHOPPER_DEAD"
-numberValue = "AH3B_COPS"
-numberValue2 = "AH3B_DATA_FINISHED"
-numberValue3 = "AH3B_DEAD"
-numberValue4 = "AH3B_DOOR_52"
-numberValue5 = "AH3B_DOWNLOADING_RT"
-numberValue6 = "AH3B_ENEMIES_ARRIVE"
-numberValue7 = "AH3B_ENEMY_DOWN"
-numberValue8 = "AH3B_ENTERED_BURN"
-numberValue9 = "AH3B_EVADE_COPS_RT"
-numberValue10 = "AH3B_GET_TO_VAN_RT"
-numberValue11 = "AH3B_HACK_RT"
-numberValue12 = "AH3B_HACKED_PC"
-numberValue13 = "AH3B_HALF_RAPPEL"
-numberValue14 = "AH3B_HELI_CRASHED"
-numberValue15 = "AH3B_HELI_CS"
-numberValue16 = "AH3B_HELI_FALLS"
-numberValue17 = "AH3B_HELI_HIT"
-numberValue18 = "AH3B_HELI_LIFT_OFF"
-numberValue19 = "AH3B_HELI_SHOOTS_HELI"
-numberValue20 = "AH3B_INSIDE_BUILDING"
-numberValue21 = "AH3B_JUMPED"
-numberValue22 = "AH3B_LANDED"
-numberValue23 = "AH3B_LOCKED_DOOR"
-numberValue24 = "AH3B_LOST_COPS"
-numberValue25 = "AH3B_LOST_COPS_VEH"
-numberValue26 = "AH3B_NO_WANTED_ESCAPE_RT"
-textValue3 = "AH3B_ON_FLOOR"
-flag6 = "AH3B_ON_GROUND"
-flag7 = "AH3B_ON_PC"
-flag8 = "AH3B_RAPPEL_CS"
-flag9 = "AH3B_RAPPEL_RT"
-flag10 = "AH3B_RAPPEL_STARTS"
-flag11 = "AH3B_SKYDIVE_RT"
-flag12 = "AH3B_STAIRWELL"
-flag13 = "AH3B_STAIRWELL_RT"
-flag14 = "AH3B_VAN_ENTERED"
-flag15 = "AH3B_VAN_ENTERED_WANTED"
-flag16 = "AH3B_VAN_READY"
-flag17 = "AHP1_FAIL"
-flag18 = "AHP1_START"
-dataTable8[51] = dataTable9
-dataTable8[52] = dataTable10
-dataTable8[53] = dataTable11
-dataTable8[54] = dataTable12
-dataTable8[55] = dataTable13
-dataTable8[56] = dataTable
-dataTable8[57] = dataTable2
-dataTable8[58] = dataTable3
-dataTable8[59] = textValue
-dataTable8[60] = textValue2
-dataTable8[61] = numberValue
-dataTable8[62] = numberValue2
-dataTable8[63] = numberValue3
-dataTable8[64] = numberValue4
-dataTable8[65] = numberValue5
-dataTable8[66] = numberValue6
-dataTable8[67] = numberValue7
-dataTable8[68] = numberValue8
-dataTable8[69] = numberValue9
-dataTable8[70] = numberValue10
-dataTable8[71] = numberValue11
-dataTable8[72] = numberValue12
-dataTable8[73] = numberValue13
-dataTable8[74] = numberValue14
-dataTable8[75] = numberValue15
-dataTable8[76] = numberValue16
-dataTable8[77] = numberValue17
-dataTable8[78] = numberValue18
-dataTable8[79] = numberValue19
-dataTable8[80] = numberValue20
-dataTable8[81] = numberValue21
-dataTable8[82] = numberValue22
-dataTable8[83] = numberValue23
-dataTable8[84] = numberValue24
-dataTable8[85] = numberValue25
-dataTable8[86] = numberValue26
-dataTable8[87] = textValue3
-dataTable8[88] = flag6
-dataTable8[89] = flag7
-dataTable8[90] = flag8
-dataTable8[91] = flag9
-dataTable8[92] = flag10
-dataTable8[93] = flag11
-dataTable8[94] = flag12
-dataTable8[95] = flag13
-dataTable8[96] = flag14
-dataTable8[97] = flag15
-dataTable8[98] = flag16
-dataTable8[99] = flag17
-dataTable8[100] = flag18
-dataTable9 = "AHP1_STOP"
-dataTable10 = "APT_COUNTDOWN_30S"
-dataTable11 = "APT_COUNTDOWN_30S_KILL"
-dataTable12 = "APT_FADE_IN_RADIO"
-dataTable13 = "APT_PRE_COUNTDOWN_STOP"
-dataTable = "APT_SUDDEN_DEATH_MUSIC_END"
-dataTable2 = "APT_SUDDEN_DEATH_MUSIC_KILL"
-dataTable3 = "APT_SUDDEN_DEATH_START_MUSIC"
-textValue = "APT_YA_ACTION"
-textValue2 = "APT_YA_ATTACK"
-numberValue = "APT_YA_DEFENDING"
-numberValue2 = "APT_YA_START_ATTACK"
-numberValue3 = "APT_YA_START_DEFEND"
-numberValue4 = "APT_YA_STOP"
-numberValue5 = "APT_YA_STOP_LEAVE"
-numberValue6 = "ARM1_RADIO_OFF"
-numberValue7 = "ARM1_RADIO_ON"
-numberValue8 = "ARM2_MISSION_FAIL"
-numberValue9 = "ARM3_CALL"
-numberValue10 = "ARM3_CAR"
-numberValue11 = "ARM3_CS"
-numberValue12 = "ARM3_FAIL"
-numberValue13 = "ARM3_GARAGE_STOP"
-numberValue14 = "ARM3_HIT"
-numberValue15 = "ARM3_HIT_STOP"
-numberValue16 = "ARM3_MIC"
-numberValue17 = "ARM3_RESTART_1"
-numberValue18 = "ARM3_RESTART_2"
-numberValue19 = "ARM3_RESTART_3"
-numberValue20 = "ARM3_RESTART_4"
-numberValue21 = "ARM3_RESTART_5"
-numberValue22 = "ARM3_RESTART_6"
-numberValue23 = "ARM3_RESTART_7"
-numberValue24 = "ARM3_RESTART_8"
-numberValue25 = "ARM3_SPEED"
-numberValue26 = "ARM3_START"
-textValue3 = "ARM3_WINDOW"
-flag6 = "ASS1_ALERT"
-flag7 = "ASS1_FAIL"
-flag8 = "ASS1_LOST"
-flag9 = "ASS1_RESTART1"
-flag10 = "ASS1_START"
-flag11 = "ASS1_STOP"
-flag12 = "ASS3_COPS"
-flag13 = "ASS3_FAIL"
-flag14 = "ASS3_KILL"
-flag15 = "ASS3_RADIO_FADE_OUT"
-flag16 = "ASS3_RADIO_PASS"
-flag17 = "ASS3_RESTART1"
-flag18 = "ASS3_RESTART2"
-dataTable8[101] = dataTable9
-dataTable8[102] = dataTable10
-dataTable8[103] = dataTable11
-dataTable8[104] = dataTable12
-dataTable8[105] = dataTable13
-dataTable8[106] = dataTable
-dataTable8[107] = dataTable2
-dataTable8[108] = dataTable3
-dataTable8[109] = textValue
-dataTable8[110] = textValue2
-dataTable8[111] = numberValue
-dataTable8[112] = numberValue2
-dataTable8[113] = numberValue3
-dataTable8[114] = numberValue4
-dataTable8[115] = numberValue5
-dataTable8[116] = numberValue6
-dataTable8[117] = numberValue7
-dataTable8[118] = numberValue8
-dataTable8[119] = numberValue9
-dataTable8[120] = numberValue10
-dataTable8[121] = numberValue11
-dataTable8[122] = numberValue12
-dataTable8[123] = numberValue13
-dataTable8[124] = numberValue14
-dataTable8[125] = numberValue15
-dataTable8[126] = numberValue16
-dataTable8[127] = numberValue17
-dataTable8[128] = numberValue18
-dataTable8[129] = numberValue19
-dataTable8[130] = numberValue20
-dataTable8[131] = numberValue21
-dataTable8[132] = numberValue22
-dataTable8[133] = numberValue23
-dataTable8[134] = numberValue24
-dataTable8[135] = numberValue25
-dataTable8[136] = numberValue26
-dataTable8[137] = textValue3
-dataTable8[138] = flag6
-dataTable8[139] = flag7
-dataTable8[140] = flag8
-dataTable8[141] = flag9
-dataTable8[142] = flag10
-dataTable8[143] = flag11
-dataTable8[144] = flag12
-dataTable8[145] = flag13
-dataTable8[146] = flag14
-dataTable8[147] = flag15
-dataTable8[148] = flag16
-dataTable8[149] = flag17
-dataTable8[150] = flag18
-dataTable9 = "ASS3_START"
-dataTable10 = "ASS5_DRIVE"
-dataTable11 = "ASS5_FAIL"
-dataTable12 = "ASS5_KILL"
-dataTable13 = "ASS5_LIFT"
-dataTable = "ASS5_RESTART1"
-dataTable2 = "ASS5_RESTART2"
-dataTable3 = "ASS5_RESTART3"
-textValue = "ASS5_ROOF"
-textValue2 = "ASS5_START"
-numberValue = "ASS5_STOP"
-numberValue2 = "ASS5_TOP"
-numberValue3 = "BG_ASSAULT_COLLECT"
-numberValue4 = "BG_ASSAULT_DELIVER"
-numberValue5 = "BG_ASSAULT_START"
-numberValue6 = "BG_ASSAULT_STOP"
-numberValue7 = "BG_FINDERS_KEEPERS_START"
-numberValue8 = "BG_FINDERS_KEEPERS_STOP"
-numberValue9 = "BG_HUNT_STOP"
-numberValue10 = "BG_SIGHTSEER_FINAL"
-numberValue11 = "BG_SIGHTSEER_MID"
-numberValue12 = "BG_SIGHTSEER_START"
-numberValue13 = "BG_SIGHTSEER_START_ATTACK"
-numberValue14 = "BG_SIGHTSEER_STOP"
-numberValue15 = "BLUE_DOOR"
-numberValue16 = "BST_START"
-numberValue17 = "BST_STOP"
-numberValue18 = "CAR1_APPROACH"
-numberValue19 = "CAR1_BRIDGE"
-numberValue20 = "CAR1_CHASE_RESTART"
-numberValue21 = "CAR1_CHASE_START"
-numberValue22 = "CAR1_COP_BIKES"
-numberValue23 = "CAR1_COPS_RESTART"
-numberValue24 = "CAR1_MISSION_FAIL"
-numberValue25 = "CAR1_MISSION_RESTART"
-numberValue26 = "CAR1_MISSION_START"
-textValue3 = "CAR1_PULL_OVER"
-flag6 = "CAR2_MISSION_FAIL"
-flag7 = "CAR2_STOP"
-flag8 = "CAR3_CAR_RESTART"
-flag9 = "CAR3_DELIVER"
-flag10 = "CAR3_DELIVER_RESTART"
-flag11 = "CAR3_DRIVE"
-flag12 = "CAR3_DROP"
-flag13 = "CAR3_ESCAPE_RESTART"
-flag14 = "CAR3_MISSION_FAIL"
-flag15 = "CAR3_MISSION_START"
-flag16 = "CAR3_SET_ALERT"
-flag17 = "CAR3_STOP_TRACK"
-flag18 = "CAR3_TRAILER"
-dataTable8[151] = dataTable9
-dataTable8[152] = dataTable10
-dataTable8[153] = dataTable11
-dataTable8[154] = dataTable12
-dataTable8[155] = dataTable13
-dataTable8[156] = dataTable
-dataTable8[157] = dataTable2
-dataTable8[158] = dataTable3
-dataTable8[159] = textValue
-dataTable8[160] = textValue2
-dataTable8[161] = numberValue
-dataTable8[162] = numberValue2
-dataTable8[163] = numberValue3
-dataTable8[164] = numberValue4
-dataTable8[165] = numberValue5
-dataTable8[166] = numberValue6
-dataTable8[167] = numberValue7
-dataTable8[168] = numberValue8
-dataTable8[169] = numberValue9
-dataTable8[170] = numberValue10
-dataTable8[171] = numberValue11
-dataTable8[172] = numberValue12
-dataTable8[173] = numberValue13
-dataTable8[174] = numberValue14
-dataTable8[175] = numberValue15
-dataTable8[176] = numberValue16
-dataTable8[177] = numberValue17
-dataTable8[178] = numberValue18
-dataTable8[179] = numberValue19
-dataTable8[180] = numberValue20
-dataTable8[181] = numberValue21
-dataTable8[182] = numberValue22
-dataTable8[183] = numberValue23
-dataTable8[184] = numberValue24
-dataTable8[185] = numberValue25
-dataTable8[186] = numberValue26
-dataTable8[187] = textValue3
-dataTable8[188] = flag6
-dataTable8[189] = flag7
-dataTable8[190] = flag8
-dataTable8[191] = flag9
-dataTable8[192] = flag10
-dataTable8[193] = flag11
-dataTable8[194] = flag12
-dataTable8[195] = flag13
-dataTable8[196] = flag14
-dataTable8[197] = flag15
-dataTable8[198] = flag16
-dataTable8[199] = flag17
-dataTable8[200] = flag18
-dataTable9 = "CAR3_TRAILER_RESTART"
-dataTable10 = "CAR4_CLIMB"
-dataTable11 = "CAR4_MISSION_FAIL"
-dataTable12 = "CAR4_RADIO_1"
-dataTable13 = "CAR4_RADIO_2"
-dataTable = "CAR4_RADIO_2_START_TRACK"
-dataTable2 = "CAR4_REVERSE"
-dataTable3 = "CAR4_TRUCK_RESTART"
-textValue = "CHN1_AFTER_GRENADE_RT"
-textValue2 = "CHN1_BACK_ROOF"
-numberValue = "CHN1_CAR_ARRIVES"
-numberValue2 = "CHN1_CS_SKIP"
-numberValue3 = "CHN1_ENEMIES_FLEE"
-numberValue4 = "CHN1_FAIL"
-numberValue5 = "CHN1_FINAL_CS"
-numberValue6 = "CHN1_FINAL_CS_SKIP"
-numberValue7 = "CHN1_FIRST_FLOOR"
-numberValue8 = "CHN1_FROM_LEFT"
-numberValue9 = "CHN1_G_LAUNCHER"
-numberValue10 = "CHN1_GAMEPLAY_STARTS"
-numberValue11 = "CHN1_GAMEPLAY_STARTS"
-numberValue12 = "CHN1_HEAD_TO_BACK"
-numberValue13 = "CHN1_ICE_BIN"
-numberValue14 = "CHN1_LAST_GUYS"
-numberValue15 = "CHN1_NOW"
-numberValue16 = "CHN1_OUTSIDE_RT"
-numberValue17 = "CHN1_START"
-numberValue18 = "CHN1_WAVE_3_RT"
-numberValue19 = "CHN1_WAVE_ZERO_RT"
-numberValue20 = "CHN2_MISSION_FAIL"
-numberValue21 = "CHN2_TREV_RADIO_1_FRTA"
-numberValue22 = "CHN2_TREV_RADIO_2_FRTA"
-numberValue23 = "CUT_PIPE_END"
-numberValue24 = "CUT_PIPE_START"
-numberValue25 = "debug_stop_oneshot"
-numberValue26 = "DH1_START"
-textValue3 = "DH1_STOP"
-flag6 = "DH2A_1ST_BOMB_RT"
-flag7 = "DH2A_1ST_SWITCH"
-flag8 = "dh2a_2nd_bomb_planted"
-flag9 = "DH2A_2ND_BOMB_RT"
-flag10 = "dh2a_3rd_bomb_planted"
-flag11 = "DH2A_3RD_BOMB_RT"
-flag12 = "DH2A_4TH_BOMB_RT"
-flag13 = "DH2A_ALL_CLEAR"
-flag14 = "DH2A_CHOPPER_DEAD"
-flag15 = "dh2a_clear_path"
-flag16 = "dh2a_dead"
-flag17 = "DH2A_DETONATE"
-flag18 = "DH2A_DETONATE_RT"
-dataTable8[201] = dataTable9
-dataTable8[202] = dataTable10
-dataTable8[203] = dataTable11
-dataTable8[204] = dataTable12
-dataTable8[205] = dataTable13
-dataTable8[206] = dataTable
-dataTable8[207] = dataTable2
-dataTable8[208] = dataTable3
-dataTable8[209] = textValue
-dataTable8[210] = textValue2
-dataTable8[211] = numberValue
-dataTable8[212] = numberValue2
-dataTable8[213] = numberValue3
-dataTable8[214] = numberValue4
-dataTable8[215] = numberValue5
-dataTable8[216] = numberValue6
-dataTable8[217] = numberValue7
-dataTable8[218] = numberValue8
-dataTable8[219] = numberValue9
-dataTable8[220] = numberValue10
-dataTable8[221] = numberValue11
-dataTable8[222] = numberValue12
-dataTable8[223] = numberValue13
-dataTable8[224] = numberValue14
-dataTable8[225] = numberValue15
-dataTable8[226] = numberValue16
-dataTable8[227] = numberValue17
-dataTable8[228] = numberValue18
-dataTable8[229] = numberValue19
-dataTable8[230] = numberValue20
-dataTable8[231] = numberValue21
-dataTable8[232] = numberValue22
-dataTable8[233] = numberValue23
-dataTable8[234] = numberValue24
-dataTable8[235] = numberValue25
-dataTable8[236] = numberValue26
-dataTable8[237] = textValue3
-dataTable8[238] = flag6
-dataTable8[239] = flag7
-dataTable8[240] = flag8
-dataTable8[241] = flag9
-dataTable8[242] = flag10
-dataTable8[243] = flag11
-dataTable8[244] = flag12
-dataTable8[245] = flag13
-dataTable8[246] = flag14
-dataTable8[247] = flag15
-dataTable8[248] = flag16
-dataTable8[249] = flag17
-dataTable8[250] = flag18
-dataTable9 = "DH2A_DIVER"
-dataTable10 = "dh2a_double_guards"
-dataTable11 = "dh2a_early_alarm"
-dataTable12 = "DH2A_FINAL_EXP"
-dataTable13 = "DH2A_FRANK_JUMPS"
-dataTable = "DH2A_GOODS_RT"
-dataTable2 = "dh2a_main_alarm"
-dataTable3 = "DH2A_MINISUB"
-textValue = "DH2A_MISSION_COMPLETE"
-textValue2 = "dh2a_mission_complete"
-numberValue = "DH2A_ON_BRIDGE"
-numberValue2 = "DH2A_READY_FOR_2ND"
-numberValue3 = "DH2A_RIB"
-numberValue4 = "DH2A_SNIPE_GUARDS_RT"
-numberValue5 = "DH2A_START"
-numberValue6 = "DH2A_WAY_OUT_RT"
-numberValue7 = "DH2B_ALL_DEAD"
-numberValue8 = "DH2B_BOATS"
-numberValue9 = "DH2B_CLEAR_MERRY"
-numberValue10 = "DH2B_DROP_SUB_RT"
-numberValue11 = "DH2B_FAIL"
-numberValue12 = "DH2B_FIND_CONT_RT"
-numberValue13 = "DH2B_FLY_AWAY_RT"
-numberValue14 = "DH2B_FLY_SEA_RT"
-numberValue15 = "DH2B_GET_SURFACE_RT"
-numberValue16 = "DH2B_GOT_CONTAINER"
-numberValue17 = "DH2B_GOT_SUB"
-numberValue18 = "DH2B_GOT_SUB_2ND"
-numberValue19 = "DH2B_HELIS_ARRIVE"
-numberValue20 = "DH2B_PICK_SUB_RT"
-numberValue21 = "DH2B_PICK_UP_RT"
-numberValue22 = "DH2B_START"
-numberValue23 = "DH2B_SUB_RETURNED"
-numberValue24 = "DH2B_TREV_SUB"
-numberValue25 = "DHP1_ATTACKED"
-numberValue26 = "DHP1_FAIL"
-textValue3 = "DHP1_RELEASED"
-flag6 = "DHP1_START"
-flag7 = "DHP1_STOP"
-flag8 = "DHP1_SUB"
-flag9 = "DHP1_VEHICLE_ARRIVE"
-flag10 = "DROPZONE_ACTION"
-flag11 = "DROPZONE_ACTION_HIGH"
-flag12 = "DROPZONE_HELI"
-flag13 = "DROPZONE_JUMP"
-flag14 = "DROPZONE_LAND"
-flag15 = "EPS1_FAIL"
-flag16 = "EPS1_START"
-flag17 = "EPS1_STOP"
-flag18 = "EPS2_FAIL"
-dataTable8[251] = dataTable9
-dataTable8[252] = dataTable10
-dataTable8[253] = dataTable11
-dataTable8[254] = dataTable12
-dataTable8[255] = dataTable13
-dataTable8[256] = dataTable
-dataTable8[257] = dataTable2
-dataTable8[258] = dataTable3
-dataTable8[259] = textValue
-dataTable8[260] = textValue2
-dataTable8[261] = numberValue
-dataTable8[262] = numberValue2
-dataTable8[263] = numberValue3
-dataTable8[264] = numberValue4
-dataTable8[265] = numberValue5
-dataTable8[266] = numberValue6
-dataTable8[267] = numberValue7
-dataTable8[268] = numberValue8
-dataTable8[269] = numberValue9
-dataTable8[270] = numberValue10
-dataTable8[271] = numberValue11
-dataTable8[272] = numberValue12
-dataTable8[273] = numberValue13
-dataTable8[274] = numberValue14
-dataTable8[275] = numberValue15
-dataTable8[276] = numberValue16
-dataTable8[277] = numberValue17
-dataTable8[278] = numberValue18
-dataTable8[279] = numberValue19
-dataTable8[280] = numberValue20
-dataTable8[281] = numberValue21
-dataTable8[282] = numberValue22
-dataTable8[283] = numberValue23
-dataTable8[284] = numberValue24
-dataTable8[285] = numberValue25
-dataTable8[286] = numberValue26
-dataTable8[287] = textValue3
-dataTable8[288] = flag6
-dataTable8[289] = flag7
-dataTable8[290] = flag8
-dataTable8[291] = flag9
-dataTable8[292] = flag10
-dataTable8[293] = flag11
-dataTable8[294] = flag12
-dataTable8[295] = flag13
-dataTable8[296] = flag14
-dataTable8[297] = flag15
-dataTable8[298] = flag16
-dataTable8[299] = flag17
-dataTable8[300] = flag18
-dataTable9 = "EPS2_START"
-dataTable10 = "EPS2_STOP"
-dataTable11 = "EPS3_START"
-dataTable12 = "EPS3_STOP"
-dataTable13 = "EPS4_START"
-dataTable = "EPS4_STOP"
-dataTable2 = "EPS5_START"
-dataTable3 = "EPS5_STOP"
-textValue = "EPS6_START"
-textValue2 = "EPS6_STOP"
-numberValue = "EPS7_START"
-numberValue2 = "EPS7_STOP"
-numberValue3 = "EPS8_ESCAPE"
-numberValue4 = "EPS8_FAIL"
-numberValue5 = "EPS8_PASS"
-numberValue6 = "EPS8_START"
-numberValue7 = "EPS_FAIL"
-numberValue8 = "EXL1_CARGO_DOORS_OPEN"
-numberValue9 = "EXL1_JUMPED"
-numberValue10 = "EXL1_LAND_IN_CARGO_PLANE"
-numberValue11 = "EXL1_MISSION_FAILED"
-numberValue12 = "EXL2_DEER"
-numberValue13 = "EXL2_FLY_HELI_RT"
-numberValue14 = "EXL2_HELI_CS"
-numberValue15 = "EXL2_HELI_LIFT"
-numberValue16 = "EXL2_MISSION_FAIL"
-numberValue17 = "EXL2_ON_FOOT"
-numberValue18 = "EXL2_ON_FOOT_RT"
-numberValue19 = "EXL2_RPG_DEAD"
-numberValue20 = "EXL2_RPG_FIRED"
-numberValue21 = "EXL2_RPG_HELI"
-numberValue22 = "EXL2_SNIPE_RT"
-numberValue23 = "EXL2_SNIPE_START"
-numberValue24 = "EXL2_SWITCH_START"
-numberValue25 = "EXL2_TRUCK"
-numberValue26 = "EXL3_BIKE_LAND"
-textValue3 = "EXL3_FIGHT_OS"
-flag6 = "EXL3_MISSION_FAIL"
-flag7 = "EXL3_RAPIDS_START"
-flag8 = "EXL3_SEE_TRAIN"
-flag9 = "EXL3_STOP"
-flag10 = "EXL3_SWITCH_1"
-flag11 = "EXL3_TUNNEL_EXIT"
-flag12 = "EXT4_JUMPED_OS"
-flag13 = "EXTREME1_BIKE"
-flag14 = "EXTREME1_CYCLE"
-flag15 = "EXTREME1_FAIL"
-flag16 = "EXTREME1_JUMP"
-flag17 = "EXTREME1_LAND"
-flag18 = "EXTREME1_RESTART1"
-dataTable8[301] = dataTable9
-dataTable8[302] = dataTable10
-dataTable8[303] = dataTable11
-dataTable8[304] = dataTable12
-dataTable8[305] = dataTable13
-dataTable8[306] = dataTable
-dataTable8[307] = dataTable2
-dataTable8[308] = dataTable3
-dataTable8[309] = textValue
-dataTable8[310] = textValue2
-dataTable8[311] = numberValue
-dataTable8[312] = numberValue2
-dataTable8[313] = numberValue3
-dataTable8[314] = numberValue4
-dataTable8[315] = numberValue5
-dataTable8[316] = numberValue6
-dataTable8[317] = numberValue7
-dataTable8[318] = numberValue8
-dataTable8[319] = numberValue9
-dataTable8[320] = numberValue10
-dataTable8[321] = numberValue11
-dataTable8[322] = numberValue12
-dataTable8[323] = numberValue13
-dataTable8[324] = numberValue14
-dataTable8[325] = numberValue15
-dataTable8[326] = numberValue16
-dataTable8[327] = numberValue17
-dataTable8[328] = numberValue18
-dataTable8[329] = numberValue19
-dataTable8[330] = numberValue20
-dataTable8[331] = numberValue21
-dataTable8[332] = numberValue22
-dataTable8[333] = numberValue23
-dataTable8[334] = numberValue24
-dataTable8[335] = numberValue25
-dataTable8[336] = numberValue26
-dataTable8[337] = textValue3
-dataTable8[338] = flag6
-dataTable8[339] = flag7
-dataTable8[340] = flag8
-dataTable8[341] = flag9
-dataTable8[342] = flag10
-dataTable8[343] = flag11
-dataTable8[344] = flag12
-dataTable8[345] = flag13
-dataTable8[346] = flag14
-dataTable8[347] = flag15
-dataTable8[348] = flag16
-dataTable8[349] = flag17
-dataTable8[350] = flag18
-dataTable9 = "EXTREME1_START"
-dataTable10 = "EXTREME1_STOP"
-dataTable11 = "EXTREME2_ENTER"
-dataTable12 = "EXTREME2_FAIL"
-dataTable13 = "EXTREME2_JUMP"
-dataTable = "EXTREME2_PARA"
-dataTable2 = "EXTREME2_READY"
-dataTable3 = "EXTREME2_RESTART1"
-textValue = "EXTREME2_RESTART2"
-textValue2 = "EXTREME2_RUNWAY"
-numberValue = "EXTREME2_START"
-numberValue2 = "EXTREME2_STOP"
-numberValue3 = "EXTREME3_FAIL"
-numberValue4 = "EXTREME3_RESTART1"
-numberValue5 = "EXTREME3_START"
-numberValue6 = "EXTREME3_STOP"
-numberValue7 = "FAM1_1ST_ENEMY_OS"
-numberValue8 = "FAM1_BROKE_CAR"
-numberValue9 = "FAM1_CLOSE_YACHT"
-numberValue10 = "FAM1_DO_CHASE_RT"
-numberValue11 = "FAM1_FADE_RADIO"
-numberValue12 = "FAM1_FAIL"
-numberValue13 = "FAM1_FRANK_JUMPS_RT"
-numberValue14 = "FAM1_FRANK_LEAPS"
-numberValue15 = "FAM1_FRANKLIN_JUMPS"
-numberValue16 = "FAM1_JIMMY_APPEARS_RT"
-numberValue17 = "FAM1_JIMMY_BOOM"
-numberValue18 = "FAM1_JIMMY_LANDS"
-numberValue19 = "FAM1_RADIO_START"
-numberValue20 = "FAM1_START"
-numberValue21 = "FAM2_CHASE_RT"
-numberValue22 = "FAM2_COMING"
-numberValue23 = "FAM2_COMPLETE"
-numberValue24 = "FAM2_CS_SKIP"
-numberValue25 = "FAM2_GRAB_NECK"
-numberValue26 = "FAM2_LOST_HIM"
-textValue3 = "FAM2_NEAR_YACHT"
-flag6 = "FAM2_NECK_GRAB"
-flag7 = "FAM2_ON_JETSKI"
-flag8 = "FAM2_SHOOTING"
-flag9 = "FAM2_SPLASH"
-flag10 = "FAM2_STOP"
-flag11 = "FAM3_ARRIVE_HOUSE"
-flag12 = "FAM3_BALCONY"
-flag13 = "FAM3_CHASE_RESTART"
-flag14 = "FAM3_CHASE_START"
-flag15 = "FAM3_END"
-flag16 = "FAM3_HOOKED_UP"
-flag17 = "FAM3_HOUSE_COLLAPSE"
-flag18 = "FAM3_HOUSE_RESTART"
-dataTable8[351] = dataTable9
-dataTable8[352] = dataTable10
-dataTable8[353] = dataTable11
-dataTable8[354] = dataTable12
-dataTable8[355] = dataTable13
-dataTable8[356] = dataTable
-dataTable8[357] = dataTable2
-dataTable8[358] = dataTable3
-dataTable8[359] = textValue
-dataTable8[360] = textValue2
-dataTable8[361] = numberValue
-dataTable8[362] = numberValue2
-dataTable8[363] = numberValue3
-dataTable8[364] = numberValue4
-dataTable8[365] = numberValue5
-dataTable8[366] = numberValue6
-dataTable8[367] = numberValue7
-dataTable8[368] = numberValue8
-dataTable8[369] = numberValue9
-dataTable8[370] = numberValue10
-dataTable8[371] = numberValue11
-dataTable8[372] = numberValue12
-dataTable8[373] = numberValue13
-dataTable8[374] = numberValue14
-dataTable8[375] = numberValue15
-dataTable8[376] = numberValue16
-dataTable8[377] = numberValue17
-dataTable8[378] = numberValue18
-dataTable8[379] = numberValue19
-dataTable8[380] = numberValue20
-dataTable8[381] = numberValue21
-dataTable8[382] = numberValue22
-dataTable8[383] = numberValue23
-dataTable8[384] = numberValue24
-dataTable8[385] = numberValue25
-dataTable8[386] = numberValue26
-dataTable8[387] = textValue3
-dataTable8[388] = flag6
-dataTable8[389] = flag7
-dataTable8[390] = flag8
-dataTable8[391] = flag9
-dataTable8[392] = flag10
-dataTable8[393] = flag11
-dataTable8[394] = flag12
-dataTable8[395] = flag13
-dataTable8[396] = flag14
-dataTable8[397] = flag15
-dataTable8[398] = flag16
-dataTable8[399] = flag17
-dataTable8[400] = flag18
-dataTable9 = "FAM3_MEX_CHASE"
-dataTable10 = "FAM3_MEX_LOST"
-dataTable11 = "FAM3_MEX_RESTART"
-dataTable12 = "FAM3_MISSION_FAIL"
-dataTable13 = "FAM3_MISSION_START"
-dataTable = "FAM3_PULL_RESTART"
-dataTable2 = "FAM3_TRUCK_PULL"
-dataTable3 = "FAM4_CHASE_RESTART"
-textValue = "FAM4_CHASE_START"
-textValue2 = "FAM4_MISSION_FAIL"
-numberValue = "FAM4_MISSION_START"
-numberValue2 = "FAM4_STOP_TRACK"
-numberValue3 = "FAM5_YOGA_MOVE_START"
-numberValue4 = "FAM5_YOGA_MUSIC_CHANGE"
-numberValue5 = "FAM5_YOGA_MUSIC_CHANGE_DOWN"
-numberValue6 = "FAM5_YOGA_MUSIC_ENDS"
-numberValue7 = "FAM5_YOGA_MUSIC_RESTART"
-numberValue8 = "FAM5_YOGA_MUSIC_START"
-numberValue9 = "FANATIC2_FAIL"
-numberValue10 = "FANATIC2_RESTART1"
-numberValue11 = "FANATIC2_START"
-numberValue12 = "FANATIC2_STOP"
-numberValue13 = "FANATIC3_CYCLE"
-numberValue14 = "FANATIC3_FAIL"
-numberValue15 = "FANATIC3_RESTART1"
-numberValue16 = "FANATIC3_RESTART2"
-numberValue17 = "FANATIC3_RESTART3"
-numberValue18 = "FANATIC3_RUN"
-numberValue19 = "FANATIC3_START"
-numberValue20 = "FBI1_2ND_STAIRWELL"
-numberValue21 = "FBI1_ALARM"
-numberValue22 = "FBI1_CALL_NORTON"
-numberValue23 = "FBI1_COPS_LOST"
-numberValue24 = "FBI1_DEAD"
-numberValue25 = "FBI1_ESCAPE"
-numberValue26 = "FBI1_FIND_BODY"
-textValue3 = "FBI1_GET_GUN"
-flag6 = "FBI1_JUMP"
-flag7 = "FBI1_LAND_TRUCK"
-flag8 = "FBI1_LEAK"
-flag9 = "FBI1_LIFT_ENEMY"
-flag10 = "FBI1_LOSE_COPS_START"
-flag11 = "FBI1_OUTSIDE_CORONERS_RT"
-flag12 = "FBI1_RADIO"
-flag13 = "FBI1_SHOOTOUT_HALFWAY_RT"
-flag14 = "FBI1_SHOOTOUT_RT"
-flag15 = "FBI1_STAIRWELL"
-flag16 = "FBI1_THREE_DEAD"
-flag17 = "FBI1_TOP_FLOOR"
-flag18 = "FBI1_WAKE_UP"
-dataTable8[401] = dataTable9
-dataTable8[402] = dataTable10
-dataTable8[403] = dataTable11
-dataTable8[404] = dataTable12
-dataTable8[405] = dataTable13
-dataTable8[406] = dataTable
-dataTable8[407] = dataTable2
-dataTable8[408] = dataTable3
-dataTable8[409] = textValue
-dataTable8[410] = textValue2
-dataTable8[411] = numberValue
-dataTable8[412] = numberValue2
-dataTable8[413] = numberValue3
-dataTable8[414] = numberValue4
-dataTable8[415] = numberValue5
-dataTable8[416] = numberValue6
-dataTable8[417] = numberValue7
-dataTable8[418] = numberValue8
-dataTable8[419] = numberValue9
-dataTable8[420] = numberValue10
-dataTable8[421] = numberValue11
-dataTable8[422] = numberValue12
-dataTable8[423] = numberValue13
-dataTable8[424] = numberValue14
-dataTable8[425] = numberValue15
-dataTable8[426] = numberValue16
-dataTable8[427] = numberValue17
-dataTable8[428] = numberValue18
-dataTable8[429] = numberValue19
-dataTable8[430] = numberValue20
-dataTable8[431] = numberValue21
-dataTable8[432] = numberValue22
-dataTable8[433] = numberValue23
-dataTable8[434] = numberValue24
-dataTable8[435] = numberValue25
-dataTable8[436] = numberValue26
-dataTable8[437] = textValue3
-dataTable8[438] = flag6
-dataTable8[439] = flag7
-dataTable8[440] = flag8
-dataTable8[441] = flag9
-dataTable8[442] = flag10
-dataTable8[443] = flag11
-dataTable8[444] = flag12
-dataTable8[445] = flag13
-dataTable8[446] = flag14
-dataTable8[447] = flag15
-dataTable8[448] = flag16
-dataTable8[449] = flag17
-dataTable8[450] = flag18
-dataTable9 = "FBI1_WAKE_UP_RT"
-dataTable10 = "FBI3_BACK_TO_MICHAEL"
-dataTable11 = "FBI3_FAIL"
-dataTable12 = "FBI3_MICHAEL_ARRIVES_1"
-dataTable13 = "FBI3_MICHAEL_ARRIVES_2"
-dataTable = "FBI3_MICHAEL_MUSIC_1"
-dataTable2 = "FBI3_MICHAEL_MUSIC_2"
-dataTable3 = "FBI3_START"
-textValue = "FBI3_TORTURE"
-textValue2 = "FBI3_TORTURE_DONE"
-numberValue = "FBI3_TORTURE_RT"
-numberValue2 = "FBI3_TORTURE_START"
-numberValue3 = "FBI4_COVER_RESTART"
-numberValue4 = "fbi4_DEPOT_STOP_TRACK"
-numberValue5 = "FBI4_ENTER_VEHICLE_MA"
-numberValue6 = "fbi4_EXPLODE_MA"
-numberValue7 = "FBI4_EXPLODE_RESTART_ST"
-numberValue8 = "FBI4_GETAWAY_RESTART"
-numberValue9 = "FBI4_MISSION_FAIL"
-numberValue10 = "fbi4_PARK_AMBULANCE_OS"
-numberValue11 = "FBI4_PETROL"
-numberValue12 = "FBI4_PETROL_EXPLODE"
-numberValue13 = "fbi4_PLANT_BOMB_MA"
-numberValue14 = "fbi4_PRE_TRUCK_RAM_MA"
-numberValue15 = "FBI4_RAM_OS"
-numberValue16 = "fbi4_SHOOTOUT_MA"
-numberValue17 = "fbi4_SHOOTOUT_MID_MA"
-numberValue18 = "FBI4_SWITCH_1"
-numberValue19 = "FBI4_SWITCH_BINOC_ST"
-numberValue20 = "fbi4_TRUCK_RAM_MA"
-numberValue21 = "FBI4_TRUCK_RAM_MA"
-numberValue22 = "fbi4_TRUCK_RAM_RESTART_ST"
-numberValue23 = "FBI5A_ALARM_MA"
-numberValue24 = "FBI5A_BLUE_DOOR"
-numberValue25 = "FBI5A_CHEM_START"
-numberValue26 = "FBI5A_CONTAINER"
-textValue3 = "FBI5A_CUT_PIPE_END"
-flag6 = "FBI5A_CUT_PIPE_RESTART"
-flag7 = "FBI5A_CUT_PIPE_START"
-flag8 = "FBI5A_CUT_SWIM_UP"
-flag9 = "FBI5A_DIVE_OUT_MA"
-flag10 = "FBI5A_ENTER_LAB_STEALTH_ST"
-flag11 = "FBI5A_ENTER_LAB_STOP_TRACK"
-flag12 = "FBI5A_FIGHT_END_MA"
-flag13 = "FBI5A_FIGHT_RAMP_UP_MA"
-flag14 = "FBI5A_FIGHT_RESTART"
-flag15 = "FBI5A_FIGHT_START_MA"
-flag16 = "FBI5A_FLY_RESTART"
-flag17 = "FBI5A_FORKLIFT_RESTART"
-flag18 = "FBI5A_GET_CHEMICALS_MA"
-dataTable8[451] = dataTable9
-dataTable8[452] = dataTable10
-dataTable8[453] = dataTable11
-dataTable8[454] = dataTable12
-dataTable8[455] = dataTable13
-dataTable8[456] = dataTable
-dataTable8[457] = dataTable2
-dataTable8[458] = dataTable3
-dataTable8[459] = textValue
-dataTable8[460] = textValue2
-dataTable8[461] = numberValue
-dataTable8[462] = numberValue2
-dataTable8[463] = numberValue3
-dataTable8[464] = numberValue4
-dataTable8[465] = numberValue5
-dataTable8[466] = numberValue6
-dataTable8[467] = numberValue7
-dataTable8[468] = numberValue8
-dataTable8[469] = numberValue9
-dataTable8[470] = numberValue10
-dataTable8[471] = numberValue11
-dataTable8[472] = numberValue12
-dataTable8[473] = numberValue13
-dataTable8[474] = numberValue14
-dataTable8[475] = numberValue15
-dataTable8[476] = numberValue16
-dataTable8[477] = numberValue17
-dataTable8[478] = numberValue18
-dataTable8[479] = numberValue19
-dataTable8[480] = numberValue20
-dataTable8[481] = numberValue21
-dataTable8[482] = numberValue22
-dataTable8[483] = numberValue23
-dataTable8[484] = numberValue24
-dataTable8[485] = numberValue25
-dataTable8[486] = numberValue26
-dataTable8[487] = textValue3
-dataTable8[488] = flag6
-dataTable8[489] = flag7
-dataTable8[490] = flag8
-dataTable8[491] = flag9
-dataTable8[492] = flag10
-dataTable8[493] = flag11
-dataTable8[494] = flag12
-dataTable8[495] = flag13
-dataTable8[496] = flag14
-dataTable8[497] = flag15
-dataTable8[498] = flag16
-dataTable8[499] = flag17
-dataTable8[500] = flag18
-dataTable9 = "FBI5A_HELI_OS"
-dataTable10 = "FBI5A_HELI_RESTART"
-dataTable11 = "FBI5A_LIFT_EXIT"
-dataTable12 = "FBI5A_LIFT_RESTART"
-dataTable13 = "FBI5A_LOAD_CRATE_MA"
-dataTable = "FBI5A_MISSION_FAIL"
-dataTable2 = "FBI5A_MISSION_START_ST"
-dataTable3 = "FBI5A_STOP_TRACK"
-textValue = "FBI5A_SWIM_UP"
-textValue2 = "FBI5A_SWITCH_HELI_MA"
-numberValue = "FBI5A_TO_AIRPORT"
-numberValue2 = "FBI5A_TREV_RADIO_FRTA"
-numberValue3 = "FBI5A_TREV_RADIO_FRTA"
-numberValue4 = "FBI_04_HEAT_SOUNDS"
-numberValue5 = "FH1_END"
-numberValue6 = "FH1_FAIL"
-numberValue7 = "FH1_ONION86"
-numberValue8 = "FH1_TRUCKS"
-numberValue9 = "FH1_TRUCKS_2"
-numberValue10 = "FH2A_ACCESS_BANK_MA"
-numberValue11 = "FH2A_ACCESS_BANK_RESTART"
-numberValue12 = "FH2A_ARRIVE_BANK"
-numberValue13 = "FH2A_ARRIVE_BANK_2"
-numberValue14 = "FH2A_BANK_MID"
-numberValue15 = "FH2A_BANK_MID_RESTART"
-numberValue16 = "FH2A_CARS"
-numberValue17 = "FH2A_CARTS_MA"
-numberValue18 = "FH2A_CARTS_RESTART"
-numberValue19 = "FH2A_ENTER_BANK_MA"
-numberValue20 = "FH2A_ENTER_LIFT"
-numberValue21 = "FH2A_ENTER_TRUCK"
-numberValue22 = "FH2A_ENTER_TUNNEL"
-numberValue23 = "FH2A_FIGHT_DROP"
-numberValue24 = "FH2A_FIGHT_END"
-numberValue25 = "FH2A_FIGHT_MID"
-numberValue26 = "FH2A_FIGHT_PRE"
-textValue3 = "FH2A_FIGHT_RESTART"
-flag6 = "FH2A_FINAL_DRIVE_RADIO"
-flag7 = "FH2A_GETAWAY_DRIVE_MA"
-flag8 = "FH2A_GETAWAY_RESTART"
-flag9 = "FH2A_GOLD"
-flag10 = "FH2A_JUMP_LAND_MA"
-flag11 = "FH2A_JUMP_START"
-flag12 = "FH2A_LEAVE_BANK_MA"
-flag13 = "FH2A_LEAVE_BANK_RESTART"
-flag14 = "FH2A_MISSION_END"
-flag15 = "FH2A_MISSION_FAIL"
-flag16 = "FH2A_MISSION_RESTART"
-flag17 = "FH2A_MISSION_START_OS"
-flag18 = "FH2A_MISSION_START_ST"
-dataTable8[501] = dataTable9
-dataTable8[502] = dataTable10
-dataTable8[503] = dataTable11
-dataTable8[504] = dataTable12
-dataTable8[505] = dataTable13
-dataTable8[506] = dataTable
-dataTable8[507] = dataTable2
-dataTable8[508] = dataTable3
-dataTable8[509] = textValue
-dataTable8[510] = textValue2
-dataTable8[511] = numberValue
-dataTable8[512] = numberValue2
-dataTable8[513] = numberValue3
-dataTable8[514] = numberValue4
-dataTable8[515] = numberValue5
-dataTable8[516] = numberValue6
-dataTable8[517] = numberValue7
-dataTable8[518] = numberValue8
-dataTable8[519] = numberValue9
-dataTable8[520] = numberValue10
-dataTable8[521] = numberValue11
-dataTable8[522] = numberValue12
-dataTable8[523] = numberValue13
-dataTable8[524] = numberValue14
-dataTable8[525] = numberValue15
-dataTable8[526] = numberValue16
-dataTable8[527] = numberValue17
-dataTable8[528] = numberValue18
-dataTable8[529] = numberValue19
-dataTable8[530] = numberValue20
-dataTable8[531] = numberValue21
-dataTable8[532] = numberValue22
-dataTable8[533] = numberValue23
-dataTable8[534] = numberValue24
-dataTable8[535] = numberValue25
-dataTable8[536] = numberValue26
-dataTable8[537] = textValue3
-dataTable8[538] = flag6
-dataTable8[539] = flag7
-dataTable8[540] = flag8
-dataTable8[541] = flag9
-dataTable8[542] = flag10
-dataTable8[543] = flag11
-dataTable8[544] = flag12
-dataTable8[545] = flag13
-dataTable8[546] = flag14
-dataTable8[547] = flag15
-dataTable8[548] = flag16
-dataTable8[549] = flag17
-dataTable8[550] = flag18
-dataTable9 = "FH2A_RADIO_FADE_OUT"
-dataTable10 = "FH2A_STOP_TRACK"
-dataTable11 = "FH2A_TRAFFIC_END"
-dataTable12 = "FH2A_TRAFFIC_RESTART"
-dataTable13 = "FH2A_TRAFFIC_START"
-dataTable = "FH2A_VAN_RESTART"
-dataTable2 = "FH2A_VAN_ST"
-dataTable3 = "FH2B_BOMBS_RESTART"
-textValue = "FH2B_CARPARK"
-textValue2 = "FH2B_CREW_ESCAPE"
-numberValue = "FH2B_DRILL_RESTART"
-numberValue2 = "FH2B_DRILL_START"
-numberValue3 = "FH2B_DROP_GOLD_RESTART"
-numberValue4 = "FH2B_DROPPED_RESTART"
-numberValue5 = "FH2B_ENTER_VEHICLE"
-numberValue6 = "FH2B_ESCAPE_RESTART"
-numberValue7 = "FH2B_EXPLODE"
-numberValue8 = "FH2B_FIGHT_1_RESTART"
-numberValue9 = "FH2B_FIGHT_START"
-numberValue10 = "FH2B_GOLD_DROPPED"
-numberValue11 = "FH2B_HELI_ARRIVE"
-numberValue12 = "FH2B_HELI_CHASE_RESTART"
-numberValue13 = "FH2B_HELI_RESTART"
-numberValue14 = "FH2B_LEAVE_BANK"
-numberValue15 = "FH2B_LEAVE_RESTART"
-numberValue16 = "FH2B_MISSION_END"
-numberValue17 = "FH2B_MISSION_FAIL"
-numberValue18 = "FH2B_MISSION_START"
-numberValue19 = "FH2B_NOOSE_FIGHT"
-numberValue20 = "FH2B_NOOSE_FIGHT_RESTART"
-numberValue21 = "FH2B_PARK_CUTTER"
-numberValue22 = "FH2B_PLANT_BOMBS"
-numberValue23 = "FH2B_SWITCH_2"
-numberValue24 = "FH2B_SWITCH_3"
-numberValue25 = "FH2B_TANKER"
-numberValue26 = "FH2B_VAN_START"
-textValue3 = "FH2B_WALL_SMASH"
-flag6 = "FHPRA_FAIL"
-flag7 = "FHPRA_START"
-flag8 = "FHPRA_STOP"
-flag9 = "FHPRA_VAN"
-flag10 = "FHPRB_COPS"
-flag11 = "FHPRB_LOST"
-flag12 = "FHPRB_START"
-flag13 = "FHPRB_STOP"
-flag14 = "FHPRB_TRUCK"
-flag15 = "FHPRC_FAIL"
-flag16 = "FHPRD_END"
-flag17 = "FHPRD_FAIL"
-flag18 = "FHPRD_RESTART_1"
-dataTable8[551] = dataTable9
-dataTable8[552] = dataTable10
-dataTable8[553] = dataTable11
-dataTable8[554] = dataTable12
-dataTable8[555] = dataTable13
-dataTable8[556] = dataTable
-dataTable8[557] = dataTable2
-dataTable8[558] = dataTable3
-dataTable8[559] = textValue
-dataTable8[560] = textValue2
-dataTable8[561] = numberValue
-dataTable8[562] = numberValue2
-dataTable8[563] = numberValue3
-dataTable8[564] = numberValue4
-dataTable8[565] = numberValue5
-dataTable8[566] = numberValue6
-dataTable8[567] = numberValue7
-dataTable8[568] = numberValue8
-dataTable8[569] = numberValue9
-dataTable8[570] = numberValue10
-dataTable8[571] = numberValue11
-dataTable8[572] = numberValue12
-dataTable8[573] = numberValue13
-dataTable8[574] = numberValue14
-dataTable8[575] = numberValue15
-dataTable8[576] = numberValue16
-dataTable8[577] = numberValue17
-dataTable8[578] = numberValue18
-dataTable8[579] = numberValue19
-dataTable8[580] = numberValue20
-dataTable8[581] = numberValue21
-dataTable8[582] = numberValue22
-dataTable8[583] = numberValue23
-dataTable8[584] = numberValue24
-dataTable8[585] = numberValue25
-dataTable8[586] = numberValue26
-dataTable8[587] = textValue3
-dataTable8[588] = flag6
-dataTable8[589] = flag7
-dataTable8[590] = flag8
-dataTable8[591] = flag9
-dataTable8[592] = flag10
-dataTable8[593] = flag11
-dataTable8[594] = flag12
-dataTable8[595] = flag13
-dataTable8[596] = flag14
-dataTable8[597] = flag15
-dataTable8[598] = flag16
-dataTable8[599] = flag17
-dataTable8[600] = flag18
-dataTable9 = "FHPRD_RESTART_2"
-dataTable10 = "FHPRD_RESTART_3"
-dataTable11 = "FHPRD_SIDINGS"
-dataTable12 = "FHPRD_START"
-dataTable13 = "FHPRD_STOP"
-dataTable = "FHPRD_TRAIN"
-dataTable2 = "FIB2_DEATH_FAIL"
-dataTable3 = "FIB2_HELICOPTERS_APPROACHING"
-textValue = "FIN1_AT_VEHICLES"
-textValue2 = "FIN1_BEFORE_GUNS"
-numberValue = "FIN1_CS_SKIP"
-numberValue2 = "FIN1_FAIL"
-numberValue3 = "FIN1_GUNS_DONE"
-numberValue4 = "FIN1_PREP"
-numberValue5 = "FIN1_RADIO_FADE"
-numberValue6 = "FIN1_SHOOTOUT_1"
-numberValue7 = "FIN1_SHOOTOUT_2"
-numberValue8 = "FIN1_SHOOTOUT_3"
-numberValue9 = "FIN1_SHOOTOUT_4"
-numberValue10 = "FIN1_SO_1_RT"
-numberValue11 = "FIN1_SO_2_RT"
-numberValue12 = "FIN1_SO_3_RT"
-numberValue13 = "FIN1_SO_4_RT"
-numberValue14 = "FIN1_START"
-numberValue15 = "FIN1_SWAT_ARRIVE"
-numberValue16 = "FIN1_TREV_HELPED"
-numberValue17 = "FINA_CHASE"
-numberValue18 = "FINA_END"
-numberValue19 = "FINA_FAIL"
-numberValue20 = "FINA_KILL_RESTART"
-numberValue21 = "FINA_NITRO_CRASH"
-numberValue22 = "FINA_RESTART_CHASE"
-numberValue23 = "FINA_START"
-numberValue24 = "FINB_ARRIVE"
-numberValue25 = "FINB_CHASE"
-numberValue26 = "FINB_CHOOSE"
-textValue3 = "FINB_CLIMB"
-flag6 = "FINB_FAIL"
-flag7 = "FINB_RESTART_ARRIVE"
-flag8 = "FINB_RESTART_CHASE"
-flag9 = "FINB_RESTART_CLIMB"
-flag10 = "FINB_RESTART_STEPS"
-flag11 = "FINB_START"
-flag12 = "FINB_STEPS"
-flag13 = "FINB_TOWER"
-flag14 = "FINC2_FAIL"
-flag15 = "FM_COUNTDOWN_10S"
-flag16 = "FM_COUNTDOWN_20S"
-flag17 = "FM_COUNTDOWN_30S"
-flag18 = "FM_COUNTDOWN_30S_FIRA"
-dataTable8[601] = dataTable9
-dataTable8[602] = dataTable10
-dataTable8[603] = dataTable11
-dataTable8[604] = dataTable12
-dataTable8[605] = dataTable13
-dataTable8[606] = dataTable
-dataTable8[607] = dataTable2
-dataTable8[608] = dataTable3
-dataTable8[609] = textValue
-dataTable8[610] = textValue2
-dataTable8[611] = numberValue
-dataTable8[612] = numberValue2
-dataTable8[613] = numberValue3
-dataTable8[614] = numberValue4
-dataTable8[615] = numberValue5
-dataTable8[616] = numberValue6
-dataTable8[617] = numberValue7
-dataTable8[618] = numberValue8
-dataTable8[619] = numberValue9
-dataTable8[620] = numberValue10
-dataTable8[621] = numberValue11
-dataTable8[622] = numberValue12
-dataTable8[623] = numberValue13
-dataTable8[624] = numberValue14
-dataTable8[625] = numberValue15
-dataTable8[626] = numberValue16
-dataTable8[627] = numberValue17
-dataTable8[628] = numberValue18
-dataTable8[629] = numberValue19
-dataTable8[630] = numberValue20
-dataTable8[631] = numberValue21
-dataTable8[632] = numberValue22
-dataTable8[633] = numberValue23
-dataTable8[634] = numberValue24
-dataTable8[635] = numberValue25
-dataTable8[636] = numberValue26
-dataTable8[637] = textValue3
-dataTable8[638] = flag6
-dataTable8[639] = flag7
-dataTable8[640] = flag8
-dataTable8[641] = flag9
-dataTable8[642] = flag10
-dataTable8[643] = flag11
-dataTable8[644] = flag12
-dataTable8[645] = flag13
-dataTable8[646] = flag14
-dataTable8[647] = flag15
-dataTable8[648] = flag16
-dataTable8[649] = flag17
-dataTable8[650] = flag18
-dataTable9 = "FM_COUNTDOWN_30S_KILL"
-dataTable10 = "FM_INTRO_DRIVE_END"
-dataTable11 = "FM_INTRO_DRIVE_START"
-dataTable12 = "FM_INTRO_START"
-dataTable13 = "FM_PRE_COUNTDOWN_30S"
-dataTable = "FM_SUDDEN_DEATH_START_MUSIC"
-dataTable2 = "FM_SUDDEN_DEATH_STOP_MUSIC"
-dataTable3 = "FRA0_BADDY"
-textValue = "FRA0_BOY"
-textValue2 = "FRA0_DISMOUNT"
-numberValue = "FRA0_FENCE"
-numberValue2 = "FRA0_FOUND"
-numberValue3 = "FRA0_MISSION_FAIL"
-numberValue4 = "FRA0_MOUNT"
-numberValue5 = "FRA0_OPEN_CAR"
-numberValue6 = "FRA0_SWITCH_1"
-numberValue7 = "FRA1_FIGHT_LEAVE"
-numberValue8 = "FRA1_FIGHT_LEAVE_RESTART"
-numberValue9 = "FRA1_FIGHT_RESTART"
-numberValue10 = "FRA1_FIGHT_START"
-numberValue11 = "FRA1_HUSTLER"
-numberValue12 = "FRA1_MISSION_FAIL"
-numberValue13 = "FRA1_MISSION_START"
-numberValue14 = "FRA1_SPEED"
-numberValue15 = "FRA1_SPEED_RESTART"
-numberValue16 = "FRA1_STOP_TRACK"
-numberValue17 = "FRA1_WATER_ARRIVE"
-numberValue18 = "FRA2_ALERTED"
-numberValue19 = "FRA2_ATTACK_RT"
-numberValue20 = "FRA2_CUT_LAMAR_RT"
-numberValue21 = "FRA2_END_ON_FOOT"
-numberValue22 = "FRA2_END_VEHICLE"
-numberValue23 = "FRA2_FAIL"
-numberValue24 = "FRA2_FLEE_RT"
-numberValue25 = "FRA2_GET_TO_LAMAR"
-numberValue26 = "FRA2_GOT_LAMAR"
-textValue3 = "FRA2_HEAD_TO_POS"
-flag6 = "FRA2_IN_POSITION"
-flag7 = "FRA2_RETURN_LAMAR"
-flag8 = "FRA2_START"
-flag9 = "GA_KILL_ALERTED"
-flag10 = "GA_KILL_ALERTED_RS"
-flag11 = "GA_KILL_COMPLETE"
-flag12 = "GA_KILL_HALF"
-flag13 = "GA_KILL_HALF_RS"
-flag14 = "GA_KILL_LEAVE"
-flag15 = "GA_KILL_LEAVE_RS"
-flag16 = "GA_KILL_START"
-flag17 = "GA_LEAVE_AREA"
-flag18 = "GA_STOP"
-dataTable8[651] = dataTable9
-dataTable8[652] = dataTable10
-dataTable8[653] = dataTable11
-dataTable8[654] = dataTable12
-dataTable8[655] = dataTable13
-dataTable8[656] = dataTable
-dataTable8[657] = dataTable2
-dataTable8[658] = dataTable3
-dataTable8[659] = textValue
-dataTable8[660] = textValue2
-dataTable8[661] = numberValue
-dataTable8[662] = numberValue2
-dataTable8[663] = numberValue3
-dataTable8[664] = numberValue4
-dataTable8[665] = numberValue5
-dataTable8[666] = numberValue6
-dataTable8[667] = numberValue7
-dataTable8[668] = numberValue8
-dataTable8[669] = numberValue9
-dataTable8[670] = numberValue10
-dataTable8[671] = numberValue11
-dataTable8[672] = numberValue12
-dataTable8[673] = numberValue13
-dataTable8[674] = numberValue14
-dataTable8[675] = numberValue15
-dataTable8[676] = numberValue16
-dataTable8[677] = numberValue17
-dataTable8[678] = numberValue18
-dataTable8[679] = numberValue19
-dataTable8[680] = numberValue20
-dataTable8[681] = numberValue21
-dataTable8[682] = numberValue22
-dataTable8[683] = numberValue23
-dataTable8[684] = numberValue24
-dataTable8[685] = numberValue25
-dataTable8[686] = numberValue26
-dataTable8[687] = textValue3
-dataTable8[688] = flag6
-dataTable8[689] = flag7
-dataTable8[690] = flag8
-dataTable8[691] = flag9
-dataTable8[692] = flag10
-dataTable8[693] = flag11
-dataTable8[694] = flag12
-dataTable8[695] = flag13
-dataTable8[696] = flag14
-dataTable8[697] = flag15
-dataTable8[698] = flag16
-dataTable8[699] = flag17
-dataTable8[700] = flag18
-dataTable9 = "GLOBAL_KILL_MUSIC"
-dataTable10 = "GLOBAL_KILL_MUSIC_FADEIN_RADIO"
-dataTable11 = "GTA_ONLINE_STOP_SCORE"
-dataTable12 = "HALLOWEEN_FAST_STOP_MUSIC"
-dataTable13 = "HALLOWEEN_START_MUSIC"
-dataTable = "HEIST_CELEB_APARTMENT"
-dataTable2 = "HEIST_CELEB_STRIP_CLUB"
-dataTable3 = "HEIST_STATS_SCREEN_START"
-textValue = "HEIST_STATS_SCREEN_STOP"
-textValue2 = "HEIST_STATS_SCREEN_STOP_PREP"
-numberValue = "HELI_OS"
-numberValue2 = "JH1_FAIL"
-numberValue3 = "JH1_RESTART_1"
-numberValue4 = "JH1_RESTART_2"
-numberValue5 = "JH1_RESTART_3"
-numberValue6 = "JH1_START"
-numberValue7 = "JH1_STOP_TRACK_ACTION"
-numberValue8 = "JH1_STORE"
-numberValue9 = "JH2A_ARRIVE_DRAIN_MA"
-numberValue10 = "JH2A_ARRIVE_STOP_TRACK"
-numberValue11 = "JH2A_ENTER_SHOP_MA"
-numberValue12 = "JH2A_ENTER_SHOP_RESTART"
-numberValue13 = "JH2A_ENTER_TRUCK"
-numberValue14 = "JH2A_ENTER_TUNNEL_MA"
-numberValue15 = "JH2A_EXIT_SHOP_MA"
-numberValue16 = "JH2A_EXIT_SHOP_RESTART"
-numberValue17 = "JH2A_EXIT_TUNNEL_MA"
-numberValue18 = "JH2A_EXIT_TUNNEL_RESTART"
-numberValue19 = "JH2A_GAS_SHOP_MA"
-numberValue20 = "JH2A_GAS_SHOP_OS"
-numberValue21 = "JH2A_GAS_SHOP_RESTART"
-numberValue22 = "JH2A_JUMP_OS"
-numberValue23 = "JH2A_MISSION_FAIL"
-numberValue24 = "JH2A_MISSION_START_OS"
-numberValue25 = "JH2A_MISSION_START_ST"
-numberValue26 = "JH2A_ONTO_BIKE_MA"
-textValue3 = "JH2A_ONTO_BIKE_RESTART"
-flag6 = "JH2A_RADIO_FADE"
-flag7 = "JH2A_STORM_DRAIN_MA"
-flag8 = "JH2A_TUNNEL_MID"
-flag9 = "JH2A_VEHICLE"
-flag10 = "JH2B_ARRIVE_STOP_TRACK"
-flag11 = "JH2B_ENTER_SHOP_MA"
-flag12 = "JH2B_ENTER_SHOP_RESTART"
-flag13 = "JH2B_ENTER_TRUCK"
-flag14 = "JH2B_ENTER_TUNNEL_MA"
-flag15 = "JH2B_EXIT_SHOP_MA"
-flag16 = "JH2B_EXIT_TUNNEL_MA"
-flag17 = "JH2B_EXIT_TUNNEL_RESTART"
-flag18 = "JH2B_JUMP_OS"
-dataTable8[701] = dataTable9
-dataTable8[702] = dataTable10
-dataTable8[703] = dataTable11
-dataTable8[704] = dataTable12
-dataTable8[705] = dataTable13
-dataTable8[706] = dataTable
-dataTable8[707] = dataTable2
-dataTable8[708] = dataTable3
-dataTable8[709] = textValue
-dataTable8[710] = textValue2
-dataTable8[711] = numberValue
-dataTable8[712] = numberValue2
-dataTable8[713] = numberValue3
-dataTable8[714] = numberValue4
-dataTable8[715] = numberValue5
-dataTable8[716] = numberValue6
-dataTable8[717] = numberValue7
-dataTable8[718] = numberValue8
-dataTable8[719] = numberValue9
-dataTable8[720] = numberValue10
-dataTable8[721] = numberValue11
-dataTable8[722] = numberValue12
-dataTable8[723] = numberValue13
-dataTable8[724] = numberValue14
-dataTable8[725] = numberValue15
-dataTable8[726] = numberValue16
-dataTable8[727] = numberValue17
-dataTable8[728] = numberValue18
-dataTable8[729] = numberValue19
-dataTable8[730] = numberValue20
-dataTable8[731] = numberValue21
-dataTable8[732] = numberValue22
-dataTable8[733] = numberValue23
-dataTable8[734] = numberValue24
-dataTable8[735] = numberValue25
-dataTable8[736] = numberValue26
-dataTable8[737] = textValue3
-dataTable8[738] = flag6
-dataTable8[739] = flag7
-dataTable8[740] = flag8
-dataTable8[741] = flag9
-dataTable8[742] = flag10
-dataTable8[743] = flag11
-dataTable8[744] = flag12
-dataTable8[745] = flag13
-dataTable8[746] = flag14
-dataTable8[747] = flag15
-dataTable8[748] = flag16
-dataTable8[749] = flag17
-dataTable8[750] = flag18
-dataTable9 = "JH2B_MISSION_FAIL"
-dataTable10 = "JH2B_MISSION_RESTART"
-dataTable11 = "JH2B_MISSION_START_ST"
-dataTable12 = "JH2B_ONTO_BIKE_MA"
-dataTable13 = "JH2B_ONTO_BIKE_RESTART"
-dataTable = "JH2B_RADIO_FADE"
-dataTable2 = "JH2B_SECURITY_MA"
-dataTable3 = "JH2B_START"
-textValue = "JH2B_STORM_DRAIN_MA"
-textValue2 = "JH2B_TUNNEL_MID"
-numberValue = "JH2B_VEHICLE"
-numberValue2 = "JHP1A_ATTACK"
-numberValue3 = "JHP1A_FAIL"
-numberValue4 = "JHP1A_RADIO_1"
-numberValue5 = "JHP1A_RADIO_2"
-numberValue6 = "JHP1A_START"
-numberValue7 = "JHP1A_VAN"
-numberValue8 = "JHP1A_WAREHOUSE"
-numberValue9 = "JHP1B_FAIL"
-numberValue10 = "JHP1B_START"
-numberValue11 = "JHP1B_STOP"
-numberValue12 = "JHP1B_VAN"
-numberValue13 = "JHP2A_FAIL"
-numberValue14 = "JHP2A_START"
-numberValue15 = "JHP2A_STOP"
-numberValue16 = "JOSH3_COPS"
-numberValue17 = "JOSH3_COPS_LOST"
-numberValue18 = "JOSH3_COPS_LOST_RADIO"
-numberValue19 = "JOSH3_HOUSE_EXPLODE"
-numberValue20 = "JOSH3_MISSION_FAIL"
-numberValue21 = "JOSH3_PETROL"
-numberValue22 = "JOSH3_RESTART1"
-numberValue23 = "JOSH3_START"
-numberValue24 = "JOSH4_ACTION"
-numberValue25 = "JOSH4_COPS_LOST"
-numberValue26 = "JOSH4_COPS_LOST_RADIO"
-textValue3 = "JOSH4_MISSION_FAIL"
-flag6 = "JOSH4_RESTART1"
-flag7 = "JOSH4_START"
-flag8 = "JOSH4_VEHICLE"
-flag9 = "KILL_LIST_START_MUSIC"
-flag10 = "KILL_LIST_STOP_MUSIC"
-flag11 = "LIFT_EXIT"
-flag12 = "LM1_COPS_LOST_RADIO"
-flag13 = "LM1_TERMINADOR_1ST_DOOR_EXPLODES"
-flag14 = "LM1_TERMINADOR_2ND_DOOR_EXPLODES"
-flag15 = "LM1_TERMINADOR_ALL_WAREHOUSE"
-flag16 = "LM1_TERMINADOR_CLIMB_LADDER"
-flag17 = "LM1_TERMINADOR_CLIMB_LADDER_RESTART"
-flag18 = "LM1_TERMINADOR_CLUMSY_ASS"
-dataTable8[751] = dataTable9
-dataTable8[752] = dataTable10
-dataTable8[753] = dataTable11
-dataTable8[754] = dataTable12
-dataTable8[755] = dataTable13
-dataTable8[756] = dataTable
-dataTable8[757] = dataTable2
-dataTable8[758] = dataTable3
-dataTable8[759] = textValue
-dataTable8[760] = textValue2
-dataTable8[761] = numberValue
-dataTable8[762] = numberValue2
-dataTable8[763] = numberValue3
-dataTable8[764] = numberValue4
-dataTable8[765] = numberValue5
-dataTable8[766] = numberValue6
-dataTable8[767] = numberValue7
-dataTable8[768] = numberValue8
-dataTable8[769] = numberValue9
-dataTable8[770] = numberValue10
-dataTable8[771] = numberValue11
-dataTable8[772] = numberValue12
-dataTable8[773] = numberValue13
-dataTable8[774] = numberValue14
-dataTable8[775] = numberValue15
-dataTable8[776] = numberValue16
-dataTable8[777] = numberValue17
-dataTable8[778] = numberValue18
-dataTable8[779] = numberValue19
-dataTable8[780] = numberValue20
-dataTable8[781] = numberValue21
-dataTable8[782] = numberValue22
-dataTable8[783] = numberValue23
-dataTable8[784] = numberValue24
-dataTable8[785] = numberValue25
-dataTable8[786] = numberValue26
-dataTable8[787] = textValue3
-dataTable8[788] = flag6
-dataTable8[789] = flag7
-dataTable8[790] = flag8
-dataTable8[791] = flag9
-dataTable8[792] = flag10
-dataTable8[793] = flag11
-dataTable8[794] = flag12
-dataTable8[795] = flag13
-dataTable8[796] = flag14
-dataTable8[797] = flag15
-dataTable8[798] = flag16
-dataTable8[799] = flag17
-dataTable8[800] = flag18
-dataTable9 = "LM1_TERMINADOR_CORRIDOR"
-dataTable10 = "LM1_TERMINADOR_CS_DOORS"
-dataTable11 = "LM1_TERMINADOR_DOORS_OPEN"
-dataTable12 = "LM1_TERMINADOR_ENTER_CAR"
-dataTable13 = "LM1_TERMINADOR_ENTER_WAREHOUSE"
-dataTable = "LM1_TERMINADOR_ENTER_WAREHOUSE_RESTART"
-dataTable2 = "LM1_TERMINADOR_ENTERED_ROOM"
-dataTable3 = "LM1_TERMINADOR_EXIT_WAREHOUSE"
-textValue = "LM1_TERMINADOR_GAMEPLAY_BEGINS"
-textValue2 = "LM1_TERMINADOR_GAMEPLAY_BEGINS_RESTART"
-numberValue = "LM1_TERMINADOR_HALF_WAREHOUSE"
-numberValue2 = "LM1_TERMINADOR_HEAD_SHOT"
-numberValue3 = "LM1_TERMINADOR_LANDED"
-numberValue4 = "LM1_TERMINADOR_LOST_ON_FOOT"
-numberValue5 = "LM1_TERMINADOR_MISSION_FAIL"
-numberValue6 = "LM1_TERMINADOR_MISSION_START"
-numberValue7 = "LM1_TERMINADOR_SMOKE"
-numberValue8 = "LOWRIDER_FINALE_START_MUSIC"
-numberValue9 = "LOWRIDER_START_MUSIC"
-numberValue10 = "MGGF_START"
-numberValue11 = "MGGF_STOP"
-numberValue12 = "MGPS_FAIL"
-numberValue13 = "MGPS_START"
-numberValue14 = "MGPS_STOP"
-numberValue15 = "MGSP_END"
-numberValue16 = "MGSP_FAIL"
-numberValue17 = "MGSP_START"
-numberValue18 = "MGSR_BACK_ON"
-numberValue19 = "MGSR_FELL_OFF"
-numberValue20 = "MGSR_START"
-numberValue21 = "MGSR_STOP"
-numberValue22 = "MGTN_END"
-numberValue23 = "MGTN_START"
-numberValue24 = "MGTR_COMPLETE"
-numberValue25 = "MGTR_LAST_CYCLE"
-numberValue26 = "MGTR_LAST_FOOT"
-textValue3 = "MGTR_LAST_SWIM"
-flag6 = "MGTR_MUSIC_START"
-flag7 = "MGTR_ON_BIKE"
-flag8 = "MGTR_ON_FOOT"
-flag9 = "MGTR_STOP"
-flag10 = "MGYG_END"
-flag11 = "MGYG_POSITION_COMPLETE"
-flag12 = "MGYG_START"
-flag13 = "MIC1_1ST_VAN"
-flag14 = "MIC1_ALERTED"
-flag15 = "MIC1_ARGUE_CS_SKIP"
-flag16 = "MIC1_ARRIVED_CHURCH"
-flag17 = "MIC1_DRIVE_TO_GRAVEYARD"
-flag18 = "MIC1_FAIL"
-dataTable8[801] = dataTable9
-dataTable8[802] = dataTable10
-dataTable8[803] = dataTable11
-dataTable8[804] = dataTable12
-dataTable8[805] = dataTable13
-dataTable8[806] = dataTable
-dataTable8[807] = dataTable2
-dataTable8[808] = dataTable3
-dataTable8[809] = textValue
-dataTable8[810] = textValue2
-dataTable8[811] = numberValue
-dataTable8[812] = numberValue2
-dataTable8[813] = numberValue3
-dataTable8[814] = numberValue4
-dataTable8[815] = numberValue5
-dataTable8[816] = numberValue6
-dataTable8[817] = numberValue7
-dataTable8[818] = numberValue8
-dataTable8[819] = numberValue9
-dataTable8[820] = numberValue10
-dataTable8[821] = numberValue11
-dataTable8[822] = numberValue12
-dataTable8[823] = numberValue13
-dataTable8[824] = numberValue14
-dataTable8[825] = numberValue15
-dataTable8[826] = numberValue16
-dataTable8[827] = numberValue17
-dataTable8[828] = numberValue18
-dataTable8[829] = numberValue19
-dataTable8[830] = numberValue20
-dataTable8[831] = numberValue21
-dataTable8[832] = numberValue22
-dataTable8[833] = numberValue23
-dataTable8[834] = numberValue24
-dataTable8[835] = numberValue25
-dataTable8[836] = numberValue26
-dataTable8[837] = textValue3
-dataTable8[838] = flag6
-dataTable8[839] = flag7
-dataTable8[840] = flag8
-dataTable8[841] = flag9
-dataTable8[842] = flag10
-dataTable8[843] = flag11
-dataTable8[844] = flag12
-dataTable8[845] = flag13
-dataTable8[846] = flag14
-dataTable8[847] = flag15
-dataTable8[848] = flag16
-dataTable8[849] = flag17
-dataTable8[850] = flag18
-dataTable9 = "MIC1_FIRST_TWO_DEAD"
-dataTable10 = "MIC1_FLIGHT_ARRIVING"
-dataTable11 = "MIC1_FLIGHT_LANDED"
-dataTable12 = "MIC1_FLY_HOME_RT"
-dataTable13 = "MIC1_GAMEPLAY_STARTS"
-dataTable = "MIC1_GRAVE_CS"
-dataTable2 = "MIC1_INTRO_CS_BEGINS"
-dataTable3 = "MIC1_KIDNAPPED"
-textValue = "MIC1_LEFT_HOUSE"
-textValue2 = "MIC1_PRE_MISSION_MUSIC"
-numberValue = "MIC1_READY_TO_FLY"
-numberValue2 = "MIC1_SHOOTOUT_RT"
-numberValue3 = "MIC1_SHOOTOUT_START"
-numberValue4 = "MIC1_SKIPPED_TO_KIDNAP"
-numberValue5 = "MIC1_TRAIN"
-numberValue6 = "MIC1_TREVOR_PLANE"
-numberValue7 = "MIC2_ABATTOIR_PROGRESS"
-numberValue8 = "MIC2_ACID_BATH_OS"
-numberValue9 = "MIC2_BACK_TO_FRANK"
-numberValue10 = "MIC2_DEAD"
-numberValue11 = "MIC2_FIGHT_BEGINS"
-numberValue12 = "MIC2_FIGHT_BEGINS_RT"
-numberValue13 = "MIC2_FIGHT_CONT"
-numberValue14 = "MIC2_FIND_A_WAY"
-numberValue15 = "MIC2_FIND_MIKE_RT"
-numberValue16 = "MIC2_FRANK_SAVED"
-numberValue17 = "MIC2_FRANK_VEH"
-numberValue18 = "MIC2_HANGING_MICHAEL"
-numberValue19 = "MIC2_HANGING_RT"
-numberValue20 = "MIC2_LOSE_TRIADS"
-numberValue21 = "MIC2_MICHAEL_ESCAPE_RT"
-numberValue22 = "MIC2_MULCHED"
-numberValue23 = "MIC2_OVER"
-numberValue24 = "MIC2_RADIO_SETUP"
-numberValue25 = "MIC2_SPINNING_BLADES"
-numberValue26 = "MIC2_START"
-textValue3 = "MIC2_SWITCHED"
-flag6 = "MIC2_TRIADS_CHASE_RT"
-flag7 = "MIC2_TRIADS_LOST"
-flag8 = "MIC2_VEHICLE_READY"
-flag9 = "MIC3_CRASH"
-flag10 = "MIC3_DAVE_ESCAPES_RESTART"
-flag11 = "MIC3_ESCAPE"
-flag12 = "MIC3_ESCAPE_RESTART"
-flag13 = "MIC3_FIGHT_RESTART"
-flag14 = "MIC3_FIGHT_START"
-flag15 = "MIC3_FOUNTAIN_RESTART"
-flag16 = "MIC3_FRANK_DOWN"
-flag17 = "MIC3_HELI"
-flag18 = "MIC3_INTRO"
-dataTable8[851] = dataTable9
-dataTable8[852] = dataTable10
-dataTable8[853] = dataTable11
-dataTable8[854] = dataTable12
-dataTable8[855] = dataTable13
-dataTable8[856] = dataTable
-dataTable8[857] = dataTable2
-dataTable8[858] = dataTable3
-dataTable8[859] = textValue
-dataTable8[860] = textValue2
-dataTable8[861] = numberValue
-dataTable8[862] = numberValue2
-dataTable8[863] = numberValue3
-dataTable8[864] = numberValue4
-dataTable8[865] = numberValue5
-dataTable8[866] = numberValue6
-dataTable8[867] = numberValue7
-dataTable8[868] = numberValue8
-dataTable8[869] = numberValue9
-dataTable8[870] = numberValue10
-dataTable8[871] = numberValue11
-dataTable8[872] = numberValue12
-dataTable8[873] = numberValue13
-dataTable8[874] = numberValue14
-dataTable8[875] = numberValue15
-dataTable8[876] = numberValue16
-dataTable8[877] = numberValue17
-dataTable8[878] = numberValue18
-dataTable8[879] = numberValue19
-dataTable8[880] = numberValue20
-dataTable8[881] = numberValue21
-dataTable8[882] = numberValue22
-dataTable8[883] = numberValue23
-dataTable8[884] = numberValue24
-dataTable8[885] = numberValue25
-dataTable8[886] = numberValue26
-dataTable8[887] = textValue3
-dataTable8[888] = flag6
-dataTable8[889] = flag7
-dataTable8[890] = flag8
-dataTable8[891] = flag9
-dataTable8[892] = flag10
-dataTable8[893] = flag11
-dataTable8[894] = flag12
-dataTable8[895] = flag13
-dataTable8[896] = flag14
-dataTable8[897] = flag15
-dataTable8[898] = flag16
-dataTable8[899] = flag17
-dataTable8[900] = flag18
-dataTable9 = "MIC3_MEET"
-dataTable10 = "MIC3_MISSION_FAIL"
-dataTable11 = "MIC3_MISSION_START"
-dataTable12 = "MIC3_MT_FIGHT_RESTART"
-dataTable13 = "MIC3_SNIPE"
-dataTable = "MIC3_STEVE_SHOT"
-dataTable2 = "MIC3_STOP_TRACK"
-dataTable3 = "MIC3_TREV_HELI_RESTART"
-textValue = "MIC3_VEHICLE_ESCAPE_RESTART"
-textValue2 = "MICHAELS_HOUSE"
-numberValue = "MICHAELS_HOUSE_STOP"
-numberValue2 = "MM1_FAIL"
-numberValue3 = "MM1_STOP"
-numberValue4 = "MM2_FAIL"
-numberValue5 = "MM2_RESTART1"
-numberValue6 = "MM2_START_FORA"
-numberValue7 = "MM2_START_STA"
-numberValue8 = "MM2_STOP"
-numberValue9 = "MM3_FAIL"
-numberValue10 = "MM3_RESTART1"
-numberValue11 = "MM3_START_FORA"
-numberValue12 = "MM3_START_STA"
-numberValue13 = "MM3_STOP"
-numberValue14 = "MM3_TRACTOR"
-numberValue15 = "MP_DM_COUNTDOWN_30_SEC"
-numberValue16 = "MP_DM_COUNTDOWN_30_SEC_FIRA"
-numberValue17 = "MP_DM_COUNTDOWN_60_SEC_FIRA"
-numberValue18 = "MP_DM_COUNTDOWN_KILL"
-numberValue19 = "MP_DM_LAST"
-numberValue20 = "MP_DM_START_ALL"
-numberValue21 = "MP_DM_STOP_TRACK"
-numberValue22 = "MP_GLOBAL_RADIO_FADE_IN"
-numberValue23 = "MP_LTS"
-numberValue24 = "MP_MC_ACTION_HPREP"
-numberValue25 = "MP_MC_DANGERZONE"
-numberValue26 = "MP_MC_DZ_FADE_OUT_RADIO"
-textValue3 = "MP_MC_DZ_FIRA"
-flag6 = "MP_MC_FAIL"
-flag7 = "MP_MC_GENERAL_1"
-flag8 = "MP_MC_RADIO_FADE"
-flag9 = "MP_MC_RADIO_OUT_SCORE_IN"
-flag10 = "MP_MC_START"
-flag11 = "MP_MC_START_BEYOND_4"
-flag12 = "MP_MC_START_BURNING_BAR_8"
-flag13 = "MP_MC_START_CAR_STEAL_CHIPS_2"
-flag14 = "MP_MC_START_CHOP_8"
-flag15 = "MP_MC_START_CITY"
-flag16 = "MP_MC_START_CITY_8"
-flag17 = "MP_MC_START_COCK_SONG_1"
-flag18 = "MP_MC_START_COUNTRY"
-dataTable8[901] = dataTable9
-dataTable8[902] = dataTable10
-dataTable8[903] = dataTable11
-dataTable8[904] = dataTable12
-dataTable8[905] = dataTable13
-dataTable8[906] = dataTable
-dataTable8[907] = dataTable2
-dataTable8[908] = dataTable3
-dataTable8[909] = textValue
-dataTable8[910] = textValue2
-dataTable8[911] = numberValue
-dataTable8[912] = numberValue2
-dataTable8[913] = numberValue3
-dataTable8[914] = numberValue4
-dataTable8[915] = numberValue5
-dataTable8[916] = numberValue6
-dataTable8[917] = numberValue7
-dataTable8[918] = numberValue8
-dataTable8[919] = numberValue9
-dataTable8[920] = numberValue10
-dataTable8[921] = numberValue11
-dataTable8[922] = numberValue12
-dataTable8[923] = numberValue13
-dataTable8[924] = numberValue14
-dataTable8[925] = numberValue15
-dataTable8[926] = numberValue16
-dataTable8[927] = numberValue17
-dataTable8[928] = numberValue18
-dataTable8[929] = numberValue19
-dataTable8[930] = numberValue20
-dataTable8[931] = numberValue21
-dataTable8[932] = numberValue22
-dataTable8[933] = numberValue23
-dataTable8[934] = numberValue24
-dataTable8[935] = numberValue25
-dataTable8[936] = numberValue26
-dataTable8[937] = textValue3
-dataTable8[938] = flag6
-dataTable8[939] = flag7
-dataTable8[940] = flag8
-dataTable8[941] = flag9
-dataTable8[942] = flag10
-dataTable8[943] = flag11
-dataTable8[944] = flag12
-dataTable8[945] = flag13
-dataTable8[946] = flag14
-dataTable8[947] = flag15
-dataTable8[948] = flag16
-dataTable8[949] = flag17
-dataTable8[950] = flag18
-dataTable9 = "MP_MC_START_DARK_ROBBERY_8"
-dataTable10 = "MP_MC_START_DEBUNKED_8"
-dataTable11 = "MP_MC_START_DIAMOND_DIARY_8"
-dataTable12 = "MP_MC_START_DR_DESTRUCTO_8"
-dataTable13 = "MP_MC_START_DRAGONER_8"
-dataTable = "MP_MC_START_EYE_IN_SKY_3"
-dataTable2 = "MP_MC_START_FUNK_JAM_3"
-dataTable3 = "MP_MC_START_FUNK_JAM_TWO_4"
-textValue = "MP_MC_START_GREYHOUND_8"
-textValue2 = "MP_MC_START_GUN_NOVEL_8"
-numberValue = "MP_MC_START_HEIST_4"
-numberValue2 = "MP_MC_START_HEIST_8"
-numberValue3 = "MP_MC_START_HEIST_FIN_NEW"
-numberValue4 = "MP_MC_START_HEIST_PREP_NEW"
-numberValue5 = "MP_MC_START_MEATY_8"
-numberValue6 = "MP_MC_START_MISSION_SEVEN_8"
-numberValue7 = "MP_MC_START_NINE_BLURT_8"
-numberValue8 = "MP_MC_START_NT_DEF_8"
-numberValue9 = "MP_MC_START_NT_ELC_8"
-numberValue10 = "MP_MC_START_NT_TKB_4"
-numberValue11 = "MP_MC_START_PB1_8"
-numberValue12 = "MP_MC_START_PB2_PUSSYFACE_8"
-numberValue13 = "MP_MC_START_SCRAP_YARD_8"
-numberValue14 = "MP_MC_START_SILVER_PUSSY_8"
-numberValue15 = "MP_MC_START_STREETS_OF_FORTUNE_8"
-numberValue16 = "MP_MC_START_TOUGHT_SEA_RACE_1"
-numberValue17 = "MP_MC_START_TRACK_EIGHT_8"
-numberValue18 = "MP_MC_START_VACUUM_8"
-numberValue19 = "MP_MC_START_VINEGAR_TITS_8"
-numberValue20 = "MP_MC_START_VODKA_8"
-numberValue21 = "MP_MC_START_WAVERY_1"
-numberValue22 = "MP_MC_STOP"
-numberValue23 = "MP_MC_VEHICLE_CHASE_HFIN"
-numberValue24 = "MP_PRE_COUNTDOWN_RADIO"
-numberValue25 = "MP_RADIO_FADE_IN"
-numberValue26 = "MP_RADIO_FADE_OUT"
-textValue3 = "NIGEL1C_END"
-flag6 = "NIGEL1C_FAIL"
-flag7 = "NIGEL1C_FORA"
-flag8 = "NIGEL1C_START"
-flag9 = "NIGEL2_JUMP"
-flag10 = "OJBJ_JUMPED"
-flag11 = "OJBJ_JUMPED_MA"
-flag12 = "OJBJ_LANDED"
-flag13 = "OJBJ_START"
-flag14 = "OJBJ_STOP"
-flag15 = "OJBJ_STOP_TRACK"
-flag16 = "OJDA1_1ST_DROPPED"
-flag17 = "OJDA1_2ND_DROPPED"
-flag18 = "OJDA1_AIRBORNE"
-dataTable8[951] = dataTable9
-dataTable8[952] = dataTable10
-dataTable8[953] = dataTable11
-dataTable8[954] = dataTable12
-dataTable8[955] = dataTable13
-dataTable8[956] = dataTable
-dataTable8[957] = dataTable2
-dataTable8[958] = dataTable3
-dataTable8[959] = textValue
-dataTable8[960] = textValue2
-dataTable8[961] = numberValue
-dataTable8[962] = numberValue2
-dataTable8[963] = numberValue3
-dataTable8[964] = numberValue4
-dataTable8[965] = numberValue5
-dataTable8[966] = numberValue6
-dataTable8[967] = numberValue7
-dataTable8[968] = numberValue8
-dataTable8[969] = numberValue9
-dataTable8[970] = numberValue10
-dataTable8[971] = numberValue11
-dataTable8[972] = numberValue12
-dataTable8[973] = numberValue13
-dataTable8[974] = numberValue14
-dataTable8[975] = numberValue15
-dataTable8[976] = numberValue16
-dataTable8[977] = numberValue17
-dataTable8[978] = numberValue18
-dataTable8[979] = numberValue19
-dataTable8[980] = numberValue20
-dataTable8[981] = numberValue21
-dataTable8[982] = numberValue22
-dataTable8[983] = numberValue23
-dataTable8[984] = numberValue24
-dataTable8[985] = numberValue25
-dataTable8[986] = numberValue26
-dataTable8[987] = textValue3
-dataTable8[988] = flag6
-dataTable8[989] = flag7
-dataTable8[990] = flag8
-dataTable8[991] = flag9
-dataTable8[992] = flag10
-dataTable8[993] = flag11
-dataTable8[994] = flag12
-dataTable8[995] = flag13
-dataTable8[996] = flag14
-dataTable8[997] = flag15
-dataTable8[998] = flag16
-dataTable8[999] = flag17
-dataTable8[1000] = flag18
-dataTable9 = "OJDA1_HATCH_OPEN"
-dataTable10 = "OJDA1_READY_2ND"
-dataTable11 = "OJDA1_START"
-dataTable12 = "OJDA1_TAXI"
-dataTable13 = "OJDA2_1ST_DROPPED"
-dataTable = "OJDA2_AIRBORNE"
-dataTable2 = "OJDA2_HEAD_BACK"
-dataTable3 = "OJDA2_READY_1ST"
-textValue = "OJDA2_START"
-textValue2 = "OJDA3_AIRBORNE"
-numberValue = "OJDA3_BOMB_HIT"
-numberValue2 = "OJDA3_HATCH"
-numberValue3 = "OJDA3_LAST_ONE"
-numberValue4 = "OJDA3_START"
-numberValue5 = "OJDA4_1_LEFT"
-numberValue6 = "OJDA4_AIRBORNE"
-numberValue7 = "OJDA4_BOATS"
-numberValue8 = "OJDA4_RETURN"
-numberValue9 = "OJDA4_START"
-numberValue10 = "OJDA4_TRAIN"
-numberValue11 = "OJDA4_TRAIN_HIT"
-numberValue12 = "OJDA5_AIRBORNE"
-numberValue13 = "OJDA5_AT_BASE"
-numberValue14 = "OJDA5_BASE_DESTROYED"
-numberValue15 = "OJDA5_FIRST_BOMBS"
-numberValue16 = "OJDA5_START"
-numberValue17 = "OJDA_COMPLETE"
-numberValue18 = "OJDA_STOP"
-numberValue19 = "OJDG1_ENEMIES_DEAD"
-numberValue20 = "OJDG1_GOING_LOST"
-numberValue21 = "OJDG1_GOING_WANTED"
-numberValue22 = "OJDG1_PACKAGE"
-numberValue23 = "OJDG1_SAFE_PACKAGE"
-numberValue24 = "OJDG1_START"
-numberValue25 = "OJDG2_1ST_SET_DEAD"
-numberValue26 = "OJDG2_FIRST_ENEMIES_DEAD"
-textValue3 = "OJDG2_MORE_DEAD"
-flag6 = "OJDG2_MORE_ENEMIES"
-flag7 = "OJDG2_PACKAGE_OBTAINED"
-flag8 = "OJDG2_PACKAGE_STOLEN"
-flag9 = "OJDG2_START"
-flag10 = "OJDG2_TREV_FIRST"
-flag11 = "OJDG_COMPLETE"
-flag12 = "OJDG_STOP"
-flag13 = "PAP2_CAR"
-flag14 = "PAP2_CAR_RESTART"
-flag15 = "PAP2_FAIL"
-flag16 = "PAP2_SPOTTED"
-flag17 = "PAP2_SPOTTED_RESTART"
-flag18 = "PAP2_START"
-dataTable8[1001] = dataTable9
-dataTable8[1002] = dataTable10
-dataTable8[1003] = dataTable11
-dataTable8[1004] = dataTable12
-dataTable8[1005] = dataTable13
-dataTable8[1006] = dataTable
-dataTable8[1007] = dataTable2
-dataTable8[1008] = dataTable3
-dataTable8[1009] = textValue
-dataTable8[1010] = textValue2
-dataTable8[1011] = numberValue
-dataTable8[1012] = numberValue2
-dataTable8[1013] = numberValue3
-dataTable8[1014] = numberValue4
-dataTable8[1015] = numberValue5
-dataTable8[1016] = numberValue6
-dataTable8[1017] = numberValue7
-dataTable8[1018] = numberValue8
-dataTable8[1019] = numberValue9
-dataTable8[1020] = numberValue10
-dataTable8[1021] = numberValue11
-dataTable8[1022] = numberValue12
-dataTable8[1023] = numberValue13
-dataTable8[1024] = numberValue14
-dataTable8[1025] = numberValue15
-dataTable8[1026] = numberValue16
-dataTable8[1027] = numberValue17
-dataTable8[1028] = numberValue18
-dataTable8[1029] = numberValue19
-dataTable8[1030] = numberValue20
-dataTable8[1031] = numberValue21
-dataTable8[1032] = numberValue22
-dataTable8[1033] = numberValue23
-dataTable8[1034] = numberValue24
-dataTable8[1035] = numberValue25
-dataTable8[1036] = numberValue26
-dataTable8[1037] = textValue3
-dataTable8[1038] = flag6
-dataTable8[1039] = flag7
-dataTable8[1040] = flag8
-dataTable8[1041] = flag9
-dataTable8[1042] = flag10
-dataTable8[1043] = flag11
-dataTable8[1044] = flag12
-dataTable8[1045] = flag13
-dataTable8[1046] = flag14
-dataTable8[1047] = flag15
-dataTable8[1048] = flag16
-dataTable8[1049] = flag17
-dataTable8[1050] = flag18
-dataTable9 = "PAP2_STOP"
-dataTable10 = "PAP3_FAIL"
-dataTable11 = "PAP3_START"
-dataTable12 = "PAP3_START_FORA"
-dataTable13 = "PAP3_STOP"
-dataTable = "PENNED_IN_70_PERCENT"
-dataTable2 = "PENNED_IN_START_MUSIC"
-dataTable3 = "PENNED_IN_STOP_MUSIC"
-textValue = "PEYOTE_TRIPS_START"
-textValue2 = "PEYOTE_TRIPS_STOP"
-numberValue = "PRE_MP_DM_COUNTDOWN_30_SEC"
-numberValue2 = "PROLOGUE_TEST_AFTER_TRAIN"
-numberValue3 = "PROLOGUE_TEST_BLAST_DOORS_EXPLODE"
-numberValue4 = "PROLOGUE_TEST_BRAD_DOWN"
-numberValue5 = "PROLOGUE_TEST_CAR_CHASE"
-numberValue6 = "PROLOGUE_TEST_COLLECT_CASH"
-numberValue7 = "PROLOGUE_TEST_COLLECT_MONEY"
-numberValue8 = "PROLOGUE_TEST_COP_GUNFIGHT"
-numberValue9 = "PROLOGUE_TEST_COP_GUNFIGHT_PROGRESS"
-numberValue10 = "PROLOGUE_TEST_COP_GUNFIGHT_RT"
-numberValue11 = "PROLOGUE_TEST_COVER_AT_BLAST_DOORS"
-numberValue12 = "PROLOGUE_TEST_FAIL"
-numberValue13 = "PROLOGUE_TEST_FINAL_CUTSCENE"
-numberValue14 = "PROLOGUE_TEST_FINAL_CUTSCENE_MA"
-numberValue15 = "PROLOGUE_TEST_FINALE_RT"
-numberValue16 = "PROLOGUE_TEST_GETAWAY_CUTSCENE"
-numberValue17 = "PROLOGUE_TEST_GETAWAY_RT"
-numberValue18 = "PROLOGUE_TEST_GRAB_WOMAN"
-numberValue19 = "PROLOGUE_TEST_GUARD_HOSTAGE"
-numberValue20 = "PROLOGUE_TEST_GUARD_HOSTAGE_OS"
-numberValue21 = "PROLOGUE_TEST_GUARD_HOSTAGE_RT"
-numberValue22 = "PROLOGUE_TEST_GUARD_SWITCH"
-numberValue23 = "PROLOGUE_TEST_HEAD_TO_GETAWAY_VEHICLE"
-numberValue24 = "PROLOGUE_TEST_HEAD_TO_SECURITY_ROOM_MA"
-numberValue25 = "PROLOGUE_TEST_HOSTAGES"
-numberValue26 = "PROLOGUE_TEST_KILL_ONESHOT"
-textValue3 = "PROLOGUE_TEST_MISSION_CLEANUP"
-flag6 = "PROLOGUE_TEST_MISSION_END"
-flag7 = "PROLOGUE_TEST_MISSION_START"
-flag8 = "PROLOGUE_TEST_POLICE_CAR_CHASE"
-flag9 = "PROLOGUE_TEST_POLICE_CAR_CHASE_OS"
-flag10 = "PROLOGUE_TEST_POLICE_CAR_CRASH"
-flag11 = "PROLOGUE_TEST_POLICE_DRIVE_BY"
-flag12 = "PROLOGUE_TEST_PRE_SAFE_EXPLOSION"
-flag13 = "PROLOGUE_TEST_ROADBLOCK_WARNING"
-flag14 = "PROLOGUE_TEST_SHUTTER_OPEN_OS"
-flag15 = "PROLOGUE_TEST_TRAIN_CRASH"
-flag16 = "PROP_INTRO_START"
-flag17 = "PROP_INTRO_STOP"
-flag18 = "PTP_START"
-dataTable8[1051] = dataTable9
-dataTable8[1052] = dataTable10
-dataTable8[1053] = dataTable11
-dataTable8[1054] = dataTable12
-dataTable8[1055] = dataTable13
-dataTable8[1056] = dataTable
-dataTable8[1057] = dataTable2
-dataTable8[1058] = dataTable3
-dataTable8[1059] = textValue
-dataTable8[1060] = textValue2
-dataTable8[1061] = numberValue
-dataTable8[1062] = numberValue2
-dataTable8[1063] = numberValue3
-dataTable8[1064] = numberValue4
-dataTable8[1065] = numberValue5
-dataTable8[1066] = numberValue6
-dataTable8[1067] = numberValue7
-dataTable8[1068] = numberValue8
-dataTable8[1069] = numberValue9
-dataTable8[1070] = numberValue10
-dataTable8[1071] = numberValue11
-dataTable8[1072] = numberValue12
-dataTable8[1073] = numberValue13
-dataTable8[1074] = numberValue14
-dataTable8[1075] = numberValue15
-dataTable8[1076] = numberValue16
-dataTable8[1077] = numberValue17
-dataTable8[1078] = numberValue18
-dataTable8[1079] = numberValue19
-dataTable8[1080] = numberValue20
-dataTable8[1081] = numberValue21
-dataTable8[1082] = numberValue22
-dataTable8[1083] = numberValue23
-dataTable8[1084] = numberValue24
-dataTable8[1085] = numberValue25
-dataTable8[1086] = numberValue26
-dataTable8[1087] = textValue3
-dataTable8[1088] = flag6
-dataTable8[1089] = flag7
-dataTable8[1090] = flag8
-dataTable8[1091] = flag9
-dataTable8[1092] = flag10
-dataTable8[1093] = flag11
-dataTable8[1094] = flag12
-dataTable8[1095] = flag13
-dataTable8[1096] = flag14
-dataTable8[1097] = flag15
-dataTable8[1098] = flag16
-dataTable8[1099] = flag17
-dataTable8[1100] = flag18
-dataTable9 = "PTP_STOP"
-dataTable10 = "RAMPAGE_1_OS"
-dataTable11 = "RAMPAGE_1_START"
-dataTable12 = "RAMPAGE_2_OS"
-dataTable13 = "RAMPAGE_2_START"
-dataTable = "RAMPAGE_3_OS"
-dataTable2 = "RAMPAGE_3_START"
-dataTable3 = "RAMPAGE_4_OS"
-textValue = "RAMPAGE_4_START"
-textValue2 = "RAMPAGE_5_OS"
-numberValue = "RAMPAGE_5_START"
-numberValue2 = "RAMPAGE_FAIL"
-numberValue3 = "RAMPAGE_STOP"
-numberValue4 = "RC18A_CS_SKIP_AFTER"
-numberValue5 = "RC18A_CS_SKIP_BEFORE"
-numberValue6 = "RC18A_END_OS"
-numberValue7 = "RC18A_INCREASE"
-numberValue8 = "RC18A_RESTART"
-numberValue9 = "RC18A_START"
-numberValue10 = "RC18A_STOP"
-numberValue11 = "RC18B_END"
-numberValue12 = "RC18B_START"
-numberValue13 = "RC6A_FAIL"
-numberValue14 = "RC6A_FINISH"
-numberValue15 = "RC6A_START"
-numberValue16 = "RE14A_FAIL"
-numberValue17 = "RE14A_PIPES"
-numberValue18 = "RE14A_SAFE"
-numberValue19 = "RE14A_START"
-numberValue20 = "RE20_END"
-numberValue21 = "RE20_FADE_RADIO_OUT"
-numberValue22 = "RE20_FAIL"
-numberValue23 = "RE20_START"
-numberValue24 = "RE28_OS"
-numberValue25 = "RE35_OS"
-numberValue26 = "RE51A_SHOP"
-textValue3 = "RE6_BOTH_DEAD"
-flag6 = "RE6_BOTH_DEAD_OS"
-flag7 = "RE6_END"
-flag8 = "RE6_START"
-flag9 = "RE9_SPOTTED"
-flag10 = "RH1_FAIL"
-flag11 = "RH1_RACE"
-flag12 = "RH1_START"
-flag13 = "RH2A_BANK_RESTART"
-flag14 = "RH2A_CLUCK_ARRIVE"
-flag15 = "RH2A_CLUCK_ARRIVE_RESTART"
-flag16 = "RH2A_CLUCK_FIGHT_START"
-flag17 = "RH2A_ENTER_BANK"
-flag18 = "RH2A_ENTER_GATE"
-dataTable8[1101] = dataTable9
-dataTable8[1102] = dataTable10
-dataTable8[1103] = dataTable11
-dataTable8[1104] = dataTable12
-dataTable8[1105] = dataTable13
-dataTable8[1106] = dataTable
-dataTable8[1107] = dataTable2
-dataTable8[1108] = dataTable3
-dataTable8[1109] = textValue
-dataTable8[1110] = textValue2
-dataTable8[1111] = numberValue
-dataTable8[1112] = numberValue2
-dataTable8[1113] = numberValue3
-dataTable8[1114] = numberValue4
-dataTable8[1115] = numberValue5
-dataTable8[1116] = numberValue6
-dataTable8[1117] = numberValue7
-dataTable8[1118] = numberValue8
-dataTable8[1119] = numberValue9
-dataTable8[1120] = numberValue10
-dataTable8[1121] = numberValue11
-dataTable8[1122] = numberValue12
-dataTable8[1123] = numberValue13
-dataTable8[1124] = numberValue14
-dataTable8[1125] = numberValue15
-dataTable8[1126] = numberValue16
-dataTable8[1127] = numberValue17
-dataTable8[1128] = numberValue18
-dataTable8[1129] = numberValue19
-dataTable8[1130] = numberValue20
-dataTable8[1131] = numberValue21
-dataTable8[1132] = numberValue22
-dataTable8[1133] = numberValue23
-dataTable8[1134] = numberValue24
-dataTable8[1135] = numberValue25
-dataTable8[1136] = numberValue26
-dataTable8[1137] = textValue3
-dataTable8[1138] = flag6
-dataTable8[1139] = flag7
-dataTable8[1140] = flag8
-dataTable8[1141] = flag9
-dataTable8[1142] = flag10
-dataTable8[1143] = flag11
-dataTable8[1144] = flag12
-dataTable8[1145] = flag13
-dataTable8[1146] = flag14
-dataTable8[1147] = flag15
-dataTable8[1148] = flag16
-dataTable8[1149] = flag17
-dataTable8[1150] = flag18
-dataTable9 = "RH2A_FENCE"
-dataTable10 = "RH2A_FIGHT_MID"
-dataTable11 = "RH2A_FIGHT_PAUSE"
-dataTable12 = "RH2A_FIGHT_RAMP_UP"
-dataTable13 = "RH2A_FIGHT_START"
-dataTable = "RH2A_HELI_ARRIVE_RESTART"
-dataTable2 = "RH2A_MISSION_FAIL"
-dataTable3 = "RH2A_MISSION_START"
-textValue = "RH2A_MOVE_AWAY_MA"
-textValue2 = "RH2A_PAUSE_RESTART"
-numberValue = "RH2A_PICK_UP"
-numberValue2 = "RH2A_PLATFORM"
-numberValue3 = "RH2A_POST_HELI_CRASH_MA"
-numberValue4 = "RH2A_RADIO_ARRIVAL"
-numberValue5 = "RH2A_RESCUE_RESTART"
-numberValue6 = "RH2A_SHOOT_TANK"
-numberValue7 = "RH2A_STOP_TRACK"
-numberValue8 = "RH2A_SWITCH_1"
-numberValue9 = "RH2A_SWITCH_1_RESTART"
-numberValue10 = "RH2A_SWITCH_2"
-numberValue11 = "RH2A_SWITCH_2_RESTART"
-numberValue12 = "RH2A_SWITCH_3"
-numberValue13 = "RH2A_TRAIN"
-numberValue14 = "RH2A_TREV_DOOR"
-numberValue15 = "RH2A_TREV_FACE"
-numberValue16 = "RHP1_END"
-numberValue17 = "RHP1_FAIL"
-numberValue18 = "RHP1_START"
-numberValue19 = "RHP1_TRUCK"
-numberValue20 = "SOL1_1ST_ENEMY"
-numberValue21 = "SOL1_AIR_TRAFFIC"
-numberValue22 = "SOL1_ALMOST_CRASHED"
-numberValue23 = "SOL1_APP_ACTIVE"
-numberValue24 = "SOL1_BEGIN"
-numberValue25 = "SOL1_BUS_JUMP"
-numberValue26 = "SOL1_CHASE_PLANE_RT"
-textValue3 = "SOL1_CRASH"
-flag6 = "SOL1_CRASHED_PLANE_RT"
-flag7 = "SOL1_DRIVE_TO_OBS_RT"
-flag8 = "SOL1_END"
-flag9 = "SOL1_ENDS"
-flag10 = "SOL1_ENGINE_HIT"
-flag11 = "SOL1_FAIL"
-flag12 = "SOL1_FIGHT_DONE"
-flag13 = "SOL1_FIGHT_RT"
-flag14 = "SOL1_FIST_FIGHT"
-flag15 = "SOL1_FRANKLIN_STARTS"
-flag16 = "SOL1_GAMEPLAY"
-flag17 = "SOL1_GET_SOL_RT"
-flag18 = "SOL1_GOT_IT"
-dataTable8[1151] = dataTable9
-dataTable8[1152] = dataTable10
-dataTable8[1153] = dataTable11
-dataTable8[1154] = dataTable12
-dataTable8[1155] = dataTable13
-dataTable8[1156] = dataTable
-dataTable8[1157] = dataTable2
-dataTable8[1158] = dataTable3
-dataTable8[1159] = textValue
-dataTable8[1160] = textValue2
-dataTable8[1161] = numberValue
-dataTable8[1162] = numberValue2
-dataTable8[1163] = numberValue3
-dataTable8[1164] = numberValue4
-dataTable8[1165] = numberValue5
-dataTable8[1166] = numberValue6
-dataTable8[1167] = numberValue7
-dataTable8[1168] = numberValue8
-dataTable8[1169] = numberValue9
-dataTable8[1170] = numberValue10
-dataTable8[1171] = numberValue11
-dataTable8[1172] = numberValue12
-dataTable8[1173] = numberValue13
-dataTable8[1174] = numberValue14
-dataTable8[1175] = numberValue15
-dataTable8[1176] = numberValue16
-dataTable8[1177] = numberValue17
-dataTable8[1178] = numberValue18
-dataTable8[1179] = numberValue19
-dataTable8[1180] = numberValue20
-dataTable8[1181] = numberValue21
-dataTable8[1182] = numberValue22
-dataTable8[1183] = numberValue23
-dataTable8[1184] = numberValue24
-dataTable8[1185] = numberValue25
-dataTable8[1186] = numberValue26
-dataTable8[1187] = textValue3
-dataTable8[1188] = flag6
-dataTable8[1189] = flag7
-dataTable8[1190] = flag8
-dataTable8[1191] = flag9
-dataTable8[1192] = flag10
-dataTable8[1193] = flag11
-dataTable8[1194] = flag12
-dataTable8[1195] = flag13
-dataTable8[1196] = flag14
-dataTable8[1197] = flag15
-dataTable8[1198] = flag16
-dataTable8[1199] = flag17
-dataTable8[1200] = flag18
-dataTable9 = "SOL1_HELI_ROOF"
-dataTable10 = "SOL1_SCARED_THEM"
-dataTable11 = "SOL1_SHOOT_PLANE_RT"
-dataTable12 = "SOL1_SNIPER_READY"
-dataTable13 = "SOL1_START"
-dataTable = "SOL1_START_FIGHT"
-dataTable2 = "SOL1_STEALTH_RT"
-dataTable3 = "SOL1_TAKE_OFF"
-textValue = "SOL1_TRAIN_JUMP"
-textValue2 = "SOL1_VEH"
-numberValue = "SOL2_CAR"
-numberValue2 = "SOL2_FAIL"
-numberValue3 = "SOL2_RESTART1"
-numberValue4 = "SOL2_START"
-numberValue5 = "SOL2_STOP"
-numberValue6 = "SOL5_AMANDA_SAVED"
-numberValue7 = "SOL5_BACK_TO_TRACEY"
-numberValue8 = "SOL5_BAD_GUYS"
-numberValue9 = "SOL5_ENDING_CS"
-numberValue10 = "SOL5_ENTER_HOUSE_RT"
-numberValue11 = "SOL5_FAIL"
-numberValue12 = "SOL5_FIGHT_BAD_RT"
-numberValue13 = "SOL5_FRONT_DOORS"
-numberValue14 = "SOL5_GAMEPLAY_RT"
-numberValue15 = "SOL5_GAMEPLAY_STARTS"
-numberValue16 = "SOL5_GROUND_FLOOR"
-numberValue17 = "SOL5_HOSTAGE_DEAD"
-numberValue18 = "SOL5_HOSTAGE_TAKER"
-numberValue19 = "SOL5_IN_DRIVEWAY"
-numberValue20 = "SOL5_LIMO_ENTERED"
-numberValue21 = "SOL5_LIMO_RADIO"
-numberValue22 = "SOL5_MICHAEL_CLOBBERED"
-numberValue23 = "SOL5_MORE_MERRY"
-numberValue24 = "SOL5_SAVE_A_RT"
-numberValue25 = "SOL5_SAVE_T_RT"
-numberValue26 = "SOL5_START"
-textValue3 = "START_ELECTRONIC"
-flag6 = "START_RANDOM"
-flag7 = "START_ROCK"
-flag8 = "START_URBAN"
-flag9 = "SWIM_UP"
-flag10 = "TRV1_AT_CARAVAN"
-flag11 = "TRV1_BIKERS_FLEE"
-flag12 = "TRV1_CARAVAN_RT"
-flag13 = "TRV1_CHASE_BIKERS_RT"
-flag14 = "TRV1_CHASE_CS_SKIP"
-flag15 = "TRV1_CHASE_STARTS"
-flag16 = "TRV1_CHASING"
-flag17 = "TRV1_DRIVE_TRAILER_RT"
-flag18 = "TRV1_END_TRUCK"
-dataTable8[1201] = dataTable9
-dataTable8[1202] = dataTable10
-dataTable8[1203] = dataTable11
-dataTable8[1204] = dataTable12
-dataTable8[1205] = dataTable13
-dataTable8[1206] = dataTable
-dataTable8[1207] = dataTable2
-dataTable8[1208] = dataTable3
-dataTable8[1209] = textValue
-dataTable8[1210] = textValue2
-dataTable8[1211] = numberValue
-dataTable8[1212] = numberValue2
-dataTable8[1213] = numberValue3
-dataTable8[1214] = numberValue4
-dataTable8[1215] = numberValue5
-dataTable8[1216] = numberValue6
-dataTable8[1217] = numberValue7
-dataTable8[1218] = numberValue8
-dataTable8[1219] = numberValue9
-dataTable8[1220] = numberValue10
-dataTable8[1221] = numberValue11
-dataTable8[1222] = numberValue12
-dataTable8[1223] = numberValue13
-dataTable8[1224] = numberValue14
-dataTable8[1225] = numberValue15
-dataTable8[1226] = numberValue16
-dataTable8[1227] = numberValue17
-dataTable8[1228] = numberValue18
-dataTable8[1229] = numberValue19
-dataTable8[1230] = numberValue20
-dataTable8[1231] = numberValue21
-dataTable8[1232] = numberValue22
-dataTable8[1233] = numberValue23
-dataTable8[1234] = numberValue24
-dataTable8[1235] = numberValue25
-dataTable8[1236] = numberValue26
-dataTable8[1237] = textValue3
-dataTable8[1238] = flag6
-dataTable8[1239] = flag7
-dataTable8[1240] = flag8
-dataTable8[1241] = flag9
-dataTable8[1242] = flag10
-dataTable8[1243] = flag11
-dataTable8[1244] = flag12
-dataTable8[1245] = flag13
-dataTable8[1246] = flag14
-dataTable8[1247] = flag15
-dataTable8[1248] = flag16
-dataTable8[1249] = flag17
-dataTable8[1250] = flag18
-dataTable9 = "TRV1_EXPLODE"
-dataTable10 = "TRV1_FAIL"
-dataTable11 = "TRV1_ORTEGA_RT"
-dataTable12 = "TRV1_PUSH_TRAILER_RT"
-dataTable13 = "TRV1_RAM_TRAILER"
-dataTable = "TRV1_START"
-dataTable2 = "TRV1_THREATEN"
-dataTable3 = "TRV1_TRAILER"
-textValue = "TRV1_TRAILER_SMASHED"
-textValue2 = "TRV1_TRUCK"
-numberValue = "TRV2_FIGHT_START"
-numberValue2 = "TRV2_FLY"
-numberValue3 = "TRV2_FLY_RESTART"
-numberValue4 = "TRV2_GO_TO_RON"
-numberValue5 = "TRV2_MISSION_END"
-numberValue6 = "TRV2_MISSION_FAIL"
-numberValue7 = "TRV2_MISSION_START"
-numberValue8 = "TRV2_RACE"
-numberValue9 = "TRV2_RACE_RESTART"
-numberValue10 = "TRV2_SNIPE_RESTART"
-numberValue11 = "TRV2_STEAL_PLANE_RESTART"
-numberValue12 = "TRV2_TO_PLANE"
-numberValue13 = "TRV2_TOWER_RESTART"
-numberValue14 = "TRV2_WING_PLANE"
-numberValue15 = "TRV2_WING_RESTART"
-numberValue16 = "TRV3_FAIL"
-numberValue17 = "TRV4_AIRPORT_ENTERED"
-numberValue18 = "TRV4_CAR_ENTERED"
-numberValue19 = "TRV4_CHASE"
-numberValue20 = "TRV4_COPS_LOST"
-numberValue21 = "TRV4_EVADE_RT"
-numberValue22 = "TRV4_EXIT_CARS"
-numberValue23 = "TRV4_FAIL"
-numberValue24 = "TRV4_FOOT_CHASE_RT"
-numberValue25 = "TRV4_GAMEPLAY_START"
-numberValue26 = "TRV4_JET_ENTERED"
-textValue3 = "TRV4_LOSE_COPS"
-flag6 = "TRV4_RUN"
-flag7 = "TRV4_START"
-flag8 = "TRV4_START_CS_SKIP"
-flag9 = "TRV4_START_RT"
-flag10 = "TRV4_SUCK_CS"
-flag11 = "VAL2_COUNTDOWN_30S"
-flag12 = "VAL2_COUNTDOWN_30S_KILL"
-flag13 = "VAL2_FADE_IN_RADIO"
-flag14 = "VAL2_PRE_COUNTDOWN_STOP"
-dataTable8[1251] = dataTable9
-dataTable8[1252] = dataTable10
-dataTable8[1253] = dataTable11
-dataTable8[1254] = dataTable12
-dataTable8[1255] = dataTable13
-dataTable8[1256] = dataTable
-dataTable8[1257] = dataTable2
-dataTable8[1258] = dataTable3
-dataTable8[1259] = textValue
-dataTable8[1260] = textValue2
-dataTable8[1261] = numberValue
-dataTable8[1262] = numberValue2
-dataTable8[1263] = numberValue3
-dataTable8[1264] = numberValue4
-dataTable8[1265] = numberValue5
-dataTable8[1266] = numberValue6
-dataTable8[1267] = numberValue7
-dataTable8[1268] = numberValue8
-dataTable8[1269] = numberValue9
-dataTable8[1270] = numberValue10
-dataTable8[1271] = numberValue11
-dataTable8[1272] = numberValue12
-dataTable8[1273] = numberValue13
-dataTable8[1274] = numberValue14
-dataTable8[1275] = numberValue15
-dataTable8[1276] = numberValue16
-dataTable8[1277] = numberValue17
-dataTable8[1278] = numberValue18
-dataTable8[1279] = numberValue19
-dataTable8[1280] = numberValue20
-dataTable8[1281] = numberValue21
-dataTable8[1282] = numberValue22
-dataTable8[1283] = numberValue23
-dataTable8[1284] = numberValue24
-dataTable8[1285] = numberValue25
-dataTable8[1286] = numberValue26
-dataTable8[1287] = textValue3
-dataTable8[1288] = flag6
-dataTable8[1289] = flag7
-dataTable8[1290] = flag8
-dataTable8[1291] = flag9
-dataTable8[1292] = flag10
-dataTable8[1293] = flag11
-dataTable8[1294] = flag12
-dataTable8[1295] = flag13
-dataTable8[1296] = flag14
-dataTable9 = CMG
-dataTable10 = "registerDevMenuItems"
-dataTable9 = dataTable9[dataTable10]
-dataTable10 = "Previews/TP Locations"
 
--- === HELPER FUNCTION (decompiler name: dataTable11; parameters: none) ===
-function dataTable11()
-  local rageUiCall, workValue5, workValue6, workValue7, workValue8, rageUiCall3, rageUiCall4, stringHelper, textValue4, dataTable14, flag, workValue, rageUiCall2, workValue2, workValue3, dataTable4, flag5, workValue4
-  rageUiCall = pairs
-  workValue5 = dataTable6
-  rageUiCall, workValue5, workValue6, workValue7 = rageUiCall(workValue5)
-  for workValue8, rageUiCall3 in rageUiCall, workValue5, workValue6, workValue7 do
-    rageUiCall4 = RageUI
-    rageUiCall4 = rageUiCall4.Separator
-    stringHelper = string
-    stringHelper = stringHelper.format
-    textValue4 = "~y~%s"
-    dataTable14 = workValue8
-    stringHelper, textValue4, dataTable14, flag, workValue, rageUiCall2, workValue2, workValue3, dataTable4, flag5, workValue4 = stringHelper(textValue4, dataTable14)
-    rageUiCall4(stringHelper, textValue4, dataTable14, flag, workValue, rageUiCall2, workValue2, workValue3, dataTable4, flag5, workValue4)
-    rageUiCall4 = pairs
-    stringHelper = rageUiCall3
-    rageUiCall4, stringHelper, textValue4, dataTable14 = rageUiCall4(stringHelper)
-    for flag, workValue in rageUiCall4, stringHelper, textValue4, dataTable14 do
-      rageUiCall2 = RageUI
-      rageUiCall2 = rageUiCall2.ButtonWithStyle
-      workValue2 = workValue[1]
-      workValue3 = workValue[5]
-      dataTable4 = {}
-      flag5 = true
+local clothingConfig = CMG.loadModule("cfg/cfg_clothing")
 
-      -- === HELPER FUNCTION (decompiler name: workValue4; parameters: arg1, arg2, arg3) ===
-      function workValue4(arg1, arg2, arg3)
-        local cmgCall2, workValue9, workValue10, workValue11
-        if arg3 then
-          cmgCall2 = tCMG
-          cmgCall2 = cmgCall2.teleport
-          workValue9 = workValue
-          workValue9 = workValue9[2]
-          workValue10 = workValue
-          workValue10 = workValue10[3]
-          workValue11 = workValue
-          workValue11 = workValue11[4]
-          cmgCall2(workValue9, workValue10, workValue11)
+local iplPreviewGroups = {
+  Apartments = {
+    ["MP One"] = {
+      {
+        "Modern 1",
+        "apa_v_mp_h_01_a",
+      },
+      {
+        "Moody 1",
+        "apa_v_mp_h_02_a",
+      },
+      {
+        "Vibrant 1",
+        "apa_v_mp_h_03_a",
+      },
+      {
+        "Sharp 1",
+        "apa_v_mp_h_04_a",
+      },
+      {
+        "Monochrome 1",
+        "apa_v_mp_h_05_a",
+      },
+      {
+        "Seductive 1",
+        "apa_v_mp_h_06_a",
+      },
+      {
+        "Regal 1",
+        "apa_v_mp_h_07_a",
+      },
+      {
+        "Aqua 1",
+        "apa_v_mp_h_08_a",
+      },
+    },
+    ["MP Three"] = {
+      {
+        "Modern 3",
+        "apa_v_mp_h_01_b",
+      },
+      {
+        "Moody 3",
+        "apa_v_mp_h_02_b",
+      },
+      {
+        "Vibrant 3",
+        "apa_v_mp_h_03_b",
+      },
+      {
+        "Sharp 3",
+        "apa_v_mp_h_04_b",
+      },
+      {
+        "Monochrome 3",
+        "apa_v_mp_h_05_b",
+      },
+      {
+        "Seductive 3",
+        "apa_v_mp_h_06_b",
+      },
+      {
+        "Regal 3",
+        "apa_v_mp_h_07_b",
+      },
+      {
+        "Aqua 3",
+        "apa_v_mp_h_08_b",
+      },
+    },
+    ["MP Two"] = {
+      {
+        "Modern 2",
+        "apa_v_mp_h_01_c",
+      },
+      {
+        "Moody 2",
+        "apa_v_mp_h_02_c",
+      },
+      {
+        "Vibrant 2",
+        "apa_v_mp_h_03_c",
+      },
+      {
+        "Sharp 2",
+        "apa_v_mp_h_04_c",
+      },
+      {
+        "Monochrome 2",
+        "apa_v_mp_h_05_c",
+      },
+      {
+        "Seductive 2",
+        "apa_v_mp_h_06_c",
+      },
+      {
+        "Regal 2",
+        "apa_v_mp_h_07_c",
+      },
+      {
+        "Aqua 2",
+        "apa_v_mp_h_08_c",
+      },
+    },
+  },
+  Offices = {
+    ["Arcadius Business Centre"] = {
+      {
+        "Old Spice Warm",
+        "ex_dt1_02_office_01a",
+      },
+      {
+        "Old Spice Classical",
+        "ex_dt1_02_office_01b",
+      },
+      {
+        "Old Spice Vintage",
+        "ex_dt1_02_office_01c",
+      },
+      {
+        "Executive Contrast",
+        "ex_dt1_02_office_02a",
+      },
+      {
+        "Executive Rich",
+        "ex_dt1_02_office_02b",
+      },
+      {
+        "Executive Cool",
+        "ex_dt1_02_office_02c",
+      },
+      {
+        "Power Broker Ice",
+        "ex_dt1_02_office_03a",
+      },
+      {
+        "Power Broker Conservative",
+        "ex_dt1_02_office_03b",
+      },
+      {
+        "Power Broker Polished",
+        "ex_dt1_02_office_03c",
+      },
+    },
+    ["Lombank West"] = {
+      {
+        "Old Spice Warm",
+        "ex_dt1_13_office_01a",
+      },
+      {
+        "Old Spice Classical",
+        "ex_dt1_13_office_01b",
+      },
+      {
+        "Old Spice Vintage",
+        "ex_dt1_13_office_01c",
+      },
+      {
+        "Executive Contrast",
+        "ex_dt1_13_office_02a",
+      },
+      {
+        "Executive Rich",
+        "ex_dt1_13_office_02b",
+      },
+      {
+        "Executive Cool",
+        "ex_dt1_13_office_02c",
+      },
+      {
+        "Power Broker Ice",
+        "ex_dt1_13_office_03a",
+      },
+      {
+        "Power Broker Conservative",
+        "ex_dt1_13_office_03b",
+      },
+      {
+        "Power Broker Polished",
+        "ex_dt1_13_office_03c",
+      },
+    },
+    ["Maze Bank Tower"] = {
+      {
+        "Old Spice Warm",
+        "ex_dt1_11_office_01a",
+      },
+      {
+        "Old Spice Classical",
+        "ex_dt1_11_office_01b",
+      },
+      {
+        "Old Spice Vintage",
+        "ex_dt1_11_office_01c",
+      },
+      {
+        "Executive Contrast",
+        "ex_dt1_11_office_02a",
+      },
+      {
+        "Executive Rich",
+        "ex_dt1_11_office_02b",
+      },
+      {
+        "Executive Cool",
+        "ex_dt1_11_office_02c",
+      },
+      {
+        "Power Broker Ice",
+        "ex_dt1_11_office_03a",
+      },
+      {
+        "Power Broker Conservative",
+        "ex_dt1_11_office_03b",
+      },
+      {
+        "Power Broker Polished",
+        "ex_dt1_11_office_03c",
+      },
+    },
+    ["Maze Bank West"] = {
+      {
+        "Old Spice Warm",
+        "ex_dt1_15_office_01a",
+      },
+      {
+        "Old Spice Classical",
+        "ex_dt1_15_office_01b",
+      },
+      {
+        "Old Spice Vintage",
+        "ex_dt1_15_office_01c",
+      },
+      {
+        "Executive Contrast",
+        "ex_dt1_15_office_02a",
+      },
+      {
+        "Executive Rich",
+        "ex_dt1_15_office_02b",
+      },
+      {
+        "Executive Cool",
+        "ex_dt1_15_office_02c",
+      },
+      {
+        "Power Broker Ice",
+        "ex_dt1_15_office_03a",
+      },
+      {
+        "Power Broker Conservative",
+        "ex_dt1_15_office_03b",
+      },
+      {
+        "Power Broker Polished",
+        "ex_dt1_15_office_03c",
+      },
+    },
+  },
+}
+
+local teleportLocations = {
+  CMG = {
+    {
+      "Scuba Diving",
+      -2185.7143554688,
+      -406.33847045898,
+      13.60400390625,
+    },
+    {
+      "Pilot Job",
+      -991.31866455078,
+      -2957.7099609375,
+      14.4296875,
+    },
+    {
+      "Trucking (Illegal)",
+      149.49890136719,
+      -3101.4987792969,
+      6.392333984375,
+    },
+    {
+      "Trucking (Legal)",
+      860.22857666016,
+      -3182.3471679688,
+      6.51025390625,
+    },
+    {
+      "Cash Driver Depot",
+      -693.46813964844,
+      273.1516418457,
+      82.6376953125,
+    },
+  },
+  ["GTA Apartments"] = {
+    {
+      "Low End Apartment",
+      260.5322,
+      -999.1339,
+      -99.0087,
+    },
+    {
+      "Mid Range Apartment",
+      343.85,
+      -999.08,
+      -99.1977,
+    },
+    {
+      "3 Alta Street Apt 10",
+      -262.46,
+      -951.89,
+      75.83,
+    },
+    {
+      "3 Alta Street Apt 57",
+      -280.74,
+      -961.5,
+      91.11,
+    },
+    {
+      "Weazel Plaza Apt 26",
+      -895.85,
+      -433.9,
+      94.06,
+    },
+    {
+      "Weazel Plaza Apt 70",
+      -909.054,
+      -441.466,
+      120.205,
+    },
+    {
+      "Weazel Plaza Apt 101",
+      -884.301,
+      -454.515,
+      125.132,
+    },
+    {
+      "Richard Majestic Apt 4",
+      -897.197,
+      -369.246,
+      84.0779,
+    },
+    {
+      "Richard Majestic Apt 51",
+      -932.29,
+      -385.88,
+      108.03,
+    },
+    {
+      "Tinsel Towers Apt 29",
+      -575.305,
+      42.3233,
+      92.2236,
+    },
+    {
+      "Tinsel Towers Apt 45",
+      -617.609,
+      63.024,
+      106.624,
+    },
+    {
+      "Eclipse Towers Apt 5",
+      -795.04,
+      342.37,
+      206.22,
+    },
+    {
+      "Eclipse Towers Apt 9",
+      -759.79,
+      315.71,
+      175.4,
+    },
+    {
+      "Eclipse Towers Apt 31",
+      -797.095,
+      335.069,
+      158.599,
+    },
+    {
+      "Eclipse Towers Apt 40",
+      -752.605,
+      320.821,
+      221.855,
+    },
+    {
+      "4 Integrity Way Apt 28",
+      -14.7964,
+      -581.709,
+      79.4307,
+    },
+    {
+      "4 Integrity Way Apt 30",
+      -37.41,
+      -582.82,
+      88.71,
+    },
+    {
+      "4 Integrity Way Apt 35",
+      -10.58,
+      -581.26,
+      98.83,
+    },
+    {
+      "Del Perro Heights Apt 7",
+      -10.58,
+      -581.26,
+      98.83,
+    },
+    {
+      "Del Perro Heights Apt 20",
+      -1474.17,
+      -528.124,
+      68.1541,
+    },
+    {
+      "Del Perro Heights Apt 4",
+      -1468.14,
+      -541.815,
+      73.4442,
+    },
+    {
+      "Richard Majestic Apt 2",
+      -915.811,
+      -379.432,
+      113.675,
+    },
+    {
+      "Tinsel Towers Apt 42",
+      -614.86,
+      40.6783,
+      97.6001,
+    },
+    {
+      "Eclipse Towers Apt 3",
+      -773.407,
+      341.766,
+      211.397,
+    },
+    {
+      "3655 Wild Oats Drive",
+      -172.983,
+      494.033,
+      137.654,
+    },
+    {
+      "2044 North Conker Avenue",
+      340.941,
+      437.18,
+      149.39,
+    },
+    {
+      "2045 North Conker Avenue",
+      340.941,
+      437.18,
+      149.39,
+    },
+    {
+      "2862 Hillcrest Avenue",
+      -676.127,
+      588.612,
+      145.17,
+    },
+    {
+      "2868 Hillcrest Avenue",
+      -763.107,
+      615.906,
+      144.14,
+    },
+    {
+      "2874 Hillcrest Avenue",
+      -857.798,
+      682.563,
+      152.653,
+    },
+    {
+      "3677 Whispymound Drive",
+      120.5,
+      549.952,
+      184.097,
+    },
+    {
+      "2113 Mad Wayne Thunder",
+      -1288.0,
+      440.748,
+      97.6946,
+    },
+    {
+      "Eclispe Towers MP 1",
+      -788.28,
+      340.97,
+      216.84,
+      "Customizable Apartment via Ipls",
+    },
+    {
+      "Eclispe Towers MP 2",
+      -786.73,
+      342.81,
+      187.11,
+      "Customizable Apartment via Ipls",
+    },
+    {
+      "Eclispe Towers MP 3",
+      -773.425,
+      332.38,
+      196.086,
+      "Customizable Apartment via Ipls",
+    },
+  },
+}
+
+local nativeSoundPreviews = {
+  {
+    "Crash",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Crash_NPC",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Trail_1",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Trail_2",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Trail_3",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Trail_4",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Turn",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Turn_NPC",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Recharging_Loop",
+    "DLC_AW_Machine_Gun_Ammo_Counter_Sounds",
+    true,
+  },
+  {
+    "CHECKPOINT_MISSED",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "CHECKPOINT_NORMAL",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "hangar_doors_loop",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "Recharging_Loop",
+    "DLC_AW_Machine_Gun_Ammo_Counter_Sounds",
+    true,
+  },
+  {
+    "Timer_10s",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "10_SEC_WARNING",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "10s",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "1st_Person_Transition",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "1st_Place_Gain",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "1st_Place_Lose",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "321",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "3_2_1",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "3_2_1",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "3_2_1_NON_RACE",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "5_SEC_WARNING",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "5_Second_Timer",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    false,
+  },
+  {
+    "5s",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "5S",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "5s_To_Event_Start_Countdown",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Accept_Ghosting_Mode",
+    "RESPAWN_ONLINE_SOUNDSET",
+    false,
+  },
+  {
+    "Activate_Trap",
+    "DLC_AW_Trap_Controller_Sounds",
+    true,
+  },
+  {
+    "Airhorn",
+    "DLC_BTL_RB_Remix_Sounds",
+    false,
+  },
+  {
+    "Airhorn",
+    "DLC_TG_Running_Back_Sounds",
+    false,
+  },
+  {
+    "Apt_Style_Purchase",
+    "DLC_APT_Apartment_SoundSet",
+    false,
+  },
+  {
+    "ARM_3_CAR_GLASS_CRASH",
+    0,
+    true,
+  },
+  {
+    "ARM_3_PISTOL_COCK",
+    0,
+    true,
+  },
+  {
+    "ARM_WRESTLING_WHOOSH_MASTER",
+    0,
+    true,
+  },
+  {
+    "Armour_Off",
+    "DLC_GR_Steal_Miniguns_Sounds",
+    true,
+  },
+  {
+    "Armour_On",
+    "DLC_GR_Steal_Miniguns_Sounds",
+    true,
+  },
+  {
+    "ASSASSINATIONS_HOTEL_TIMER_COUNTDOWN",
+    "ASSASSINATION_MULTI",
+    true,
+  },
+  {
+    "ATM_WINDOW",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "BACK",
+    "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds",
+    true,
+  },
+  {
+    "BACK",
+    "HUD_AMMO_SHOP_SOUNDSET",
+    true,
+  },
+  {
+    "BACK",
+    "HUD_FREEMODE_SOUNDSET",
+    true,
+  },
+  {
+    "BACK",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "BACK",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Back",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "BACK",
+    "HUD_FRONTEND_MP_SOUNDSET",
+    true,
+  },
+  {
+    "Banshee2_Upgrade",
+    "JA16_Super_Mod_Garage_Sounds",
+    true,
+  },
+  {
+    "Barge_Door",
+    "dlc_h4_Prep_FC_Sounds",
+    true,
+  },
+  {
+    "Barge_Door_Glass",
+    "dlc_h4_Prep_FC_Sounds",
+    true,
+  },
+  {
+    "Barge_Door_Metal",
+    "dlc_h4_Prep_FC_Sounds",
+    true,
+  },
+  {
+    "Barge_Door_Metal_Bars",
+    "dlc_h4_Prep_FC_Sounds",
+    true,
+  },
+  {
+    "BASE_JUMP_PASSED",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Beat_Pulse_Default",
+    "GTAO_Dancing_Sounds",
+    false,
+  },
+  {
+    "Become_Attacker",
+    "DLC_BTL_TP_Remix_Juggernaut_Player_Sounds",
+    false,
+  },
+  {
+    "Become_Attacker",
+    "DLC_IE_JN_Player_Sounds",
+    false,
+  },
+  {
+    "Become_Hunted",
+    "dlc_xm_sls_Sounds",
+    true,
+  },
+  {
+    "Become_JN",
+    "DLC_BTL_TP_Remix_Juggernaut_Player_Sounds",
+    false,
+  },
+  {
+    "Become_JN",
+    "DLC_IE_JN_Player_Sounds",
+    false,
+  },
+  {
+    "Become_Slasher",
+    "dlc_xm_sls_Sounds",
+    true,
+  },
+  {
+    "Become_Target",
+    "dlc_xm_hata_Sounds",
+    false,
+  },
+  {
+    "Bed",
+    "WastedSounds",
+    true,
+  },
+  {
+    "Beep_Green",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Beep_Red",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Blue_Target_Explode",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "BOATS_PLANES_HELIS_BOOM",
+    "MP_LOBBY_SOUNDS",
+    true,
+  },
+  {
+    "Bomb_Collect",
+    "DLC_SR_TR_Bomb_Player_Sounds",
+    true,
+  },
+  {
+    "Bomb_Collected",
+    "DLC_AW_PTB_Sounds",
+    false,
+  },
+  {
+    "bomb_deployed",
+    "DLC_SM_Bomb_Bay_Bombs_Sounds",
+    true,
+  },
+  {
+    "Bomb_Disarmed",
+    "GTAO_Speed_Convoy_Soundset",
+    false,
+  },
+  {
+    "Bomb_Passed",
+    "DLC_AW_PTB_Sounds",
+    false,
+  },
+  {
+    "bombs_empty",
+    "DLC_SM_Bomb_Bay_Bombs_Sounds",
+    true,
+  },
+  {
+    "boot_pop",
+    "dlc_vw_body_disposal_sounds",
+    true,
+  },
+  {
+    "Boss_Message_Orange",
+    "GTAO_Biker_FM_Soundset",
+    false,
+  },
+  {
+    "Boss_Message_Orange",
+    "GTAO_Boss_Goons_FM_Soundset",
+    false,
+  },
+  {
+    "Bounds_Timer_Pulse",
+    "DLC_SM_VEHWA_Player_Sounds",
+    false,
+  },
+  {
+    "Bounds_Timer_Reset",
+    "DLC_SM_VEHWA_Player_Sounds",
+    false,
+  },
+  {
+    "BULL_SHARK_TESTOSTERONE_END_MASTER",
+    "",
+    false,
+  },
+  {
+    "BULL_SHARK_TESTOSTERONE_START_MASTER",
+    "",
+    false,
+  },
+  {
+    "Bunker_Hatch",
+    "GTAO_Script_Doors_Faded_Screen_Sounds",
+    true,
+  },
+  {
+    "Bus_Schedule_Pickup",
+    "DLC_PRISON_BREAK_HEIST_SOUNDS",
+    false,
+  },
+  {
+    "Business_Restart",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Business_Restart",
+    "DLC_GR_Disruption_Logistics_Sounds",
+    true,
+  },
+  {
+    "Business_Shutdown",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Business_Shutdown",
+    "DLC_GR_Disruption_Logistics_Sounds",
+    true,
+  },
+  {
+    "BUTTON",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "CAM_PAN_DARTS",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "Camera_Shoot",
+    "Phone_Soundset_Franklin",
+    true,
+  },
+  {
+    "CANCEL",
+    "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds",
+    true,
+  },
+  {
+    "Cancel",
+    "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds",
+    true,
+  },
+  {
+    "CANCEL",
+    "HUD_FREEMODE_SOUNDSET",
+    true,
+  },
+  {
+    "CANCEL",
+    "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET",
+    true,
+  },
+  {
+    "CANCEL",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "CANCEL",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "CANCEL",
+    "HUD_LIQUOR_STORE_SOUNDSET",
+    true,
+  },
+  {
+    "cannon_active",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "CAR_BIKE_WHOOSH",
+    "MP_LOBBY_SOUNDS",
+    true,
+  },
+  {
+    "car_crushed",
+    "dlc_vw_body_disposal_sounds",
+    true,
+  },
+  {
+    "chaff_cooldown",
+    "DLC_SM_Countermeasures_Sounds",
+    true,
+  },
+  {
+    "chaff_empty",
+    "DLC_SM_Countermeasures_Sounds",
+    true,
+  },
+  {
+    "CHALLENGE_UNLOCKED",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Checkpoint",
+    "DLC_AW_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint",
+    "DLC_sum20_Open_Wheel_Racing_Sounds",
+    false,
+  },
+  {
+    "CHECKPOINT_AHEAD",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "Checkpoint_Beast_Hit",
+    "FM_Events_Sasquatch_Sounds",
+    false,
+  },
+  {
+    "CHECKPOINT_BEHIND",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "Checkpoint_Buzz",
+    "DLC_AW_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint_Cash_Hit",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Checkpoint_Finish",
+    "DLC_AW_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint_Finish",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint_Finish",
+    "DLC_sum20_Open_Wheel_Racing_Sounds",
+    false,
+  },
+  {
+    "Checkpoint_Hit",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Checkpoint_Lap",
+    "DLC_AW_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint_Lap",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Checkpoint_Lap",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    false,
+  },
+  {
+    "Checkpoint_Lap",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "Checkpoint_Lap",
+    "DLC_sum20_Open_Wheel_Racing_Sounds",
+    false,
+  },
+  {
+    "CHECKPOINT_MISSED",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "CHECKPOINT_NORMAL",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "CHECKPOINT_NORMAL",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "CHECKPOINT_PERFECT",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "Checkpoint_Teammate",
+    "GTAO_Shepherd_Sounds",
+    false,
+  },
+  {
+    "CHECKPOINT_UNDER_THE_BRIDGE",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "Cheers",
+    "DLC_TG_Running_Back_Sounds",
+    false,
+  },
+  {
+    "Click",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Click_Back",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Back",
+    "DLC_H3_Arcade_Laptop_Sounds",
+    true,
+  },
+  {
+    "Click_Back",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "CLICK_BACK",
+    "WEB_NAVIGATION_SOUNDS_PHONE",
+    true,
+  },
+  {
+    "Click_Cancel",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Fail",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Fail",
+    "DLC_GR_Disruption_Logistics_Sounds",
+    true,
+  },
+  {
+    "Click_Fail",
+    "DLC_H3_Arcade_Laptop_Sounds",
+    true,
+  },
+  {
+    "Click_Fail",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Fail",
+    "WEB_NAVIGATION_SOUNDS_PHONE",
+    true,
+  },
+  {
+    "Click_Link",
+    "DLC_GR_Disruption_Logistics_Sounds",
+    true,
+  },
+  {
+    "Click_Link",
+    "DLC_H3_Arcade_Laptop_Sounds",
+    true,
+  },
+  {
+    "Click_Link",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Special",
+    " WEB_NAVIGATION_SOUNDS_PHONE",
+    true,
+  },
+  {
+    "Click_Special",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Special",
+    "DLC_GR_Disruption_Logistics_Sounds",
+    true,
+  },
+  {
+    "Click_Special",
+    "DLC_H3_Arcade_Laptop_Sounds",
+    true,
+  },
+  {
+    "Click_Special",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "Click_Special",
+    "WEB_NAVIGATION_SOUNDS_PHONE",
+    true,
+  },
+  {
+    "Close",
+    "DLC_H3_Tracker_App_Sounds",
+    true,
+  },
+  {
+    "Closed",
+    "DLC_APT_YACHT_DOOR_SOUNDS",
+    true,
+  },
+  {
+    "CLOSED",
+    "DLC_APT_YACHT_DOOR_SOUNDS",
+    true,
+  },
+  {
+    "CLOSED",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "CLOSING",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "club_crowd_transition",
+    "dlc_btl_club_open_transition_crowd_sounds",
+    true,
+  },
+  {
+    "clue_complete_shard",
+    "dlc_btl_fm_th_sounds",
+    false,
+  },
+  {
+    "clue_complete_shard",
+    "dlc_xm_fm_th_sounds",
+    false,
+  },
+  {
+    "clue_seen",
+    "dlc_ch_hidden_collectibles_sk_sounds",
+    false,
+  },
+  {
+    "collect_chips_handed",
+    "dlc_vw_tracking_chips_sounds",
+    false,
+  },
+  {
+    "collect_part",
+    "DLC_sum20_BB_Captured_Sounds",
+    true,
+  },
+  {
+    "Collect_Pickup",
+    "DLC_IE_PL_Player_Sounds",
+    false,
+  },
+  {
+    "collect_water",
+    "dlc_sum20_yacht_missions_ah_sounds",
+    true,
+  },
+  {
+    "Condemned",
+    "DLC_SM_CND_Player_Sounds",
+    true,
+  },
+  {
+    "Confirm",
+    "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds",
+    true,
+  },
+  {
+    "CONTINUE",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "continue",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "CONTINUE",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Continue_Accepted",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Continue_Appears",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Countdown_1",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Countdown_1",
+    "DLC_SR_TR_General_Sounds",
+    true,
+  },
+  {
+    "Countdown_2",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Countdown_2",
+    "DLC_SR_TR_General_Sounds",
+    true,
+  },
+  {
+    "Countdown_3",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Countdown_3",
+    "DLC_SR_TR_General_Sounds",
+    true,
+  },
+  {
+    "Countdown_GO",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Countdown_GO",
+    "DLC_SR_TR_General_Sounds",
+    true,
+  },
+  {
+    "Countdown_Timer_Bleep",
+    "DLC_AW_Arena_Spin_Wheel_Game_Frontend_Sounds",
+    true,
+  },
+  {
+    "Countdown_Timer_Bleep_Red",
+    "DLC_AW_Arena_Spin_Wheel_Game_Frontend_Sounds",
+    true,
+  },
+  {
+    "Counter_Tick",
+    "DLC_Biker_Burn_Assets_Sounds",
+    false,
+  },
+  {
+    "Crash",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Crate_Destroy_Remote",
+    "DLC_IE_Vip_Stockpile_Sounds",
+    false,
+  },
+  {
+    "Crate_Pickup_Remote",
+    "DLC_IE_Vip_Stockpile_Sounds",
+    false,
+  },
+  {
+    "Crates_Blipped",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Crates_Blipped",
+    "GTAO_Magnate_Boss_Modes_Soundset",
+    false,
+  },
+  {
+    "Creator_Snap",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "Criminal_Damage_High_Value",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Criminal_Damage_Kill_Player",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Criminal_Damage_Low_Value",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Crush",
+    "DLC_H4_Submarine_Crush_Depth_Sounds",
+    true,
+  },
+  {
+    "CUTSCENE_DIALOGUE_OVERRIDE_SOUND_01",
+    0,
+    false,
+  },
+  {
+    "CUTSCENE_DIALOGUE_OVERRIDE_SOUND_02",
+    0,
+    false,
+  },
+  {
+    "Cycle_Item",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "DayBreak_Stinger",
+    "DLC_Biker_LostAndDamned_Sounds",
+    true,
+  },
+  {
+    "Degenatron_Logo",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Degenatron_Star",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "DELETE",
+    "HUD_DEATHMATCH_SOUNDSET",
+    true,
+  },
+  {
+    "Delete_Placed_Prop",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Deliver",
+    "In_And_Out_Attacker_Sounds",
+    false,
+  },
+  {
+    "Deliver_Item",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Deliver_Item",
+    "GTAO_Biker_Modes_Soundset",
+    true,
+  },
+  {
+    "Deliver_Pick_Up",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    true,
+  },
+  {
+    "DLC_VW_BET_MAX",
+    "dlc_vw_table_games_frontend_sounds",
+    true,
+  },
+  {
+    "DLC_VW_BET_UP",
+    "dlc_vw_table_games_frontend_sounds",
+    true,
+  },
+  {
+    "DLC_VW_CONTINUE",
+    "dlc_vw_table_games_frontend_sounds",
+    true,
+  },
+  {
+    "DLC_VW_ERROR_MAX",
+    "dlc_vw_table_games_frontend_sounds",
+    true,
+  },
+  {
+    "DLC_VW_RULES",
+    "dlc_vw_table_games_frontend_sounds",
+    true,
+  },
+  {
+    "DLC_VW_WIN_CHIPS",
+    "dlc_vw_table_games_frontend_sounds",
+    true,
+  },
+  {
+    "Door_Open",
+    "DOCKS_HEIST_FINALE_2B_SOUNDS",
+    true,
+  },
+  {
+    "Door_Open_Limit",
+    "DLC_GR_Bunker_Door_Sounds",
+    true,
+  },
+  {
+    "Door_Open_Limit",
+    "DLC_SM_Hangar_Door_Sounds",
+    true,
+  },
+  {
+    "Door_Open_Limit",
+    "DLC_XM_Silo_Secret_Door_Sounds",
+    true,
+  },
+  {
+    "download_complete",
+    "DLC_BTL_Break_In_Sounds",
+    true,
+  },
+  {
+    "download_start",
+    "DLC_BTL_Break_In_Sounds",
+    true,
+  },
+  {
+    "DPAD_WEAPON_SCROLL",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Drill_Pin_Break",
+    "DLC_HEIST_FLEECA_SOUNDSET",
+    true,
+  },
+  {
+    "Drop_Pickup",
+    "DLC_IE_PL_Enemy_Sounds",
+    false,
+  },
+  {
+    "Drop_Pickup",
+    "DLC_IE_PL_Player_Sounds",
+    false,
+  },
+  {
+    "Drop_Pickup",
+    "DLC_IE_PL_Team_Sounds",
+    false,
+  },
+  {
+    "Dropped",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    true,
+  },
+  {
+    "Dropped",
+    "In_And_Out_Attacker_Sounds",
+    false,
+  },
+  {
+    "Dropped",
+    "In_And_Out_Defender_Sounds",
+    false,
+  },
+  {
+    "EDIT",
+    "HUD_DEATHMATCH_SOUNDSET",
+    true,
+  },
+  {
+    "emp_activate",
+    "dlc_ch_heist_finale_sounds",
+    true,
+  },
+  {
+    "EMP_vehicle_affected",
+    "DLC_AW_EMP_Sounds",
+    true,
+  },
+  {
+    "Empty_Fire_Fail",
+    "DLC_AW_Machine_Gun_Ammo_Counter_Sounds",
+    true,
+  },
+  {
+    "End_Squelch",
+    "CB_RADIO_SFX",
+    true,
+  },
+  {
+    "End_Zone_Flash",
+    "DLC_BTL_RB_Remix_Sounds",
+    true,
+  },
+  {
+    "Enemy_Deliver",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    true,
+  },
+  {
+    "Enemy_Deliver",
+    "In_And_Out_Defender_Sounds",
+    false,
+  },
+  {
+    "Enemy_Killed_1p",
+    "dlc_xm_hata_Sounds",
+    false,
+  },
+  {
+    "Enemy_Killed_3p",
+    "dlc_xm_hata_Sounds",
+    false,
+  },
+  {
+    "Enemy_Pick_Up",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    true,
+  },
+  {
+    "Enemy_Pick_Up",
+    "In_And_Out_Defender_Sounds",
+    false,
+  },
+  {
+    "Enter_1st",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Enter_1st",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Enter_1st",
+    "GTAO_Magnate_Boss_Modes_Soundset",
+    false,
+  },
+  {
+    "Enter_Area",
+    "DLC_Lowrider_Relay_Race_Sounds",
+    false,
+  },
+  {
+    "Enter_On_Foot",
+    "GTAO_ImpExp_Enter_Exit_Garage_Sounds",
+    true,
+  },
+  {
+    "Enter_Zone",
+    "DLC_Biker_SYG_Sounds",
+    true,
+  },
+  {
+    "ERROR",
+    "DLC_Biker_Mission_Wall_Sounds",
+    true,
+  },
+  {
+    "ERROR",
+    "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds",
+    true,
+  },
+  {
+    "Error",
+    "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds",
+    true,
+  },
+  {
+    "ERROR",
+    "HUD_AMMO_SHOP_SOUNDSET",
+    true,
+  },
+  {
+    "ERROR",
+    "HUD_FREEMODE_SOUNDSET",
+    true,
+  },
+  {
+    "ERROR",
+    "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET",
+    true,
+  },
+  {
+    "ERROR",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "ERROR",
+    "HUD_LIQUOR_STORE_SOUNDSET",
+    true,
+  },
+  {
+    "Event_Message_Purple",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Event_Start_Text",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "EXILE_3_TRAIN_BRAKE_PULL_MASTER",
+    0,
+    true,
+  },
+  {
+    "EXILE_3_TRAIN_BRAKE_RELEASE_MASTER",
+    0,
+    true,
+  },
+  {
+    "Exit",
+    "DLC_Biker_Computer_Sounds",
+    true,
+  },
+  {
+    "Exit",
+    "DLC_GR_Disruption_Logistics_Sounds",
+    true,
+  },
+  {
+    "Exit",
+    "DLC_H3_Arcade_Laptop_Sounds",
+    true,
+  },
+  {
+    "Exit",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "EXIT",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Faction3_Upgrade",
+    "Low2_Super_Mod_Garage_Sounds",
+    true,
+  },
+  {
+    "Fail",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Failure",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "FAKE_ARRIVE",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "Falling_Crates",
+    "EXILE_1",
+    true,
+  },
+  {
+    "FAMILY_1_CAR_BREAKDOWN",
+    "FAMILY1_BOAT",
+    true,
+  },
+  {
+    "FAMILY_1_CAR_BREAKDOWN_ADDITIONAL",
+    "FAMILY1_BOAT",
+    true,
+  },
+  {
+    "Faster_Bar_Full",
+    "RESPAWN_ONLINE_SOUNDSET",
+    true,
+  },
+  {
+    "Faster_Click",
+    "RESPAWN_ONLINE_SOUNDSET",
+    true,
+  },
+  {
+    "FestiveGift",
+    "Feed_Message_Sounds",
+    false,
+  },
+  {
+    "Finish_Default",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Finish_Win",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "FIRST_PLACE",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "Flag_Collected",
+    "DLC_SM_STPI_Enemy_Sounds",
+    true,
+  },
+  {
+    "Flag_Collected",
+    "DLC_SM_STPI_Player_Sounds",
+    true,
+  },
+  {
+    "Flag_Delivered",
+    "DLC_SM_STPI_Enemy_Sounds",
+    true,
+  },
+  {
+    "Flag_Delivered",
+    "DLC_SM_STPI_Player_Sounds",
+    true,
+  },
+  {
+    "Flag_Dropped",
+    "DLC_SM_STPI_Enemy_Sounds",
+    true,
+  },
+  {
+    "Flag_Dropped",
+    "DLC_SM_STPI_Player_Sounds",
+    true,
+  },
+  {
+    "flares_empty",
+    "DLC_SM_Countermeasures_Sounds",
+    true,
+  },
+  {
+    "Flight_Unlock",
+    "DLC_XM17_IAA_Deluxos_Sounds",
+    true,
+  },
+  {
+    "FLYING_STREAM_END_INSTANT",
+    "FAMILY_5_SOUNDS",
+    true,
+  },
+  {
+    "Focus",
+    "DLC_AW_Trap_Controller_Sounds",
+    true,
+  },
+  {
+    "FocusIn",
+    "HintCamSounds",
+    true,
+  },
+  {
+    "FocusOut",
+    "HintCamSounds",
+    true,
+  },
+  {
+    "formation_active",
+    "formation_flying_blips_soundset",
+    false,
+  },
+  {
+    "formation_inactive",
+    "formation_flying_blips_soundset",
+    false,
+  },
+  {
+    "Friend_Deliver",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    true,
+  },
+  {
+    "Friend_Pick_Up",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    false,
+  },
+  {
+    "Friend_Pick_Up",
+    "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS",
+    true,
+  },
+  {
+    "Friend_Pick_Up",
+    "In_And_Out_Attacker_Sounds",
+    false,
+  },
+  {
+    "Frontend_Beast_Fade_Screen",
+    "FM_Events_Sasquatch_Sounds",
+    false,
+  },
+  {
+    "Frontend_Beast_Freeze_Screen",
+    "FM_Events_Sasquatch_Sounds",
+    false,
+  },
+  {
+    "Frontend_Beast_Text_Hit",
+    "FM_Events_Sasquatch_Sounds",
+    false,
+  },
+  {
+    "Frontend_Beast_Transform_Back",
+    "FM_Events_Sasquatch_Sounds",
+    false,
+  },
+  {
+    "gadget_pistol_shard",
+    "dlc_hei4_hidden_collectibles_sounds",
+    true,
+  },
+  {
+    "Gain_Point",
+    "dlc_xm_aqo_sounds",
+    false,
+  },
+  {
+    "Garage_Door_Close",
+    "GTAO_Script_Doors_Faded_Screen_Sounds",
+    true,
+  },
+  {
+    "Garage_Door_Open",
+    "GTAO_Script_Doors_Faded_Screen_Sounds",
+    true,
+  },
+  {
+    "Generic_Door_Closed",
+    "GTAO_Script_Doors_Sounds",
+    true,
+  },
+  {
+    "Generic_Negative_Event",
+    "GTAO_Biker_Modes_Soundset",
+    true,
+  },
+  {
+    "Generic_Positive_Event",
+    "GTAO_Biker_Modes_Soundset",
+    true,
+  },
+  {
+    "Go",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "GO",
+    "HUD_MINI_GAME_SOUNDSET",
+    false,
+  },
+  {
+    "GO",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "GO_NON_RACE",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "Go_To_Target",
+    "DLC_AW_Trap_Controller_Sounds",
+    true,
+  },
+  {
+    "Goal",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Goal_Reached",
+    "dlc_xm_aqo_sounds",
+    false,
+  },
+  {
+    "Goggles_Update",
+    "DLC_XM17_Silo_Pred_Sounds",
+    true,
+  },
+  {
+    "GOLF_NEW_RECORD",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Goon_Paid_Small",
+    "GTAO_Boss_Goons_FM_Soundset",
+    false,
+  },
+  {
+    "Gun_Collect",
+    "DLC_SR_TR_Gun_Player_Sounds",
+    true,
+  },
+  {
+    "Hack_Complete",
+    "DLC_IE_SVM_Voltic2_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Complete",
+    "dlc_xm_deluxos_hacking_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Fail",
+    "DLC_sum20_Business_Battle_AC_Sounds",
+    true,
+  },
+  {
+    "Hack_Failed",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    false,
+  },
+  {
+    "Hack_Start",
+    "DLC_IE_SVM_Voltic2_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Start",
+    "dlc_xm_deluxos_hacking_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Stop",
+    "DLC_IE_SVM_Voltic2_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Stop",
+    "dlc_xm_deluxos_hacking_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Success",
+    "DLC_GR_Steal_Railguns_Sounds",
+    true,
+  },
+  {
+    "Hack_Success",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Hack_Success",
+    "DLC_sum20_Business_Battle_AC_Sounds",
+    true,
+  },
+  {
+    "HACKING_CLICK",
+    0,
+    true,
+  },
+  {
+    "HACKING_CLICK_BAD",
+    0,
+    true,
+  },
+  {
+    "HACKING_CLICK_GOOD",
+    0,
+    true,
+  },
+  {
+    "HACKING_FAILURE",
+    0,
+    true,
+  },
+  {
+    "HACKING_MOVE_CURSOR",
+    0,
+    true,
+  },
+  {
+    "HACKING_SUCCESS",
+    0,
+    true,
+  },
+  {
+    "Hang_Up",
+    "Phone_SoundSet_Michael",
+    true,
+  },
+  {
+    "hangar_doors_close",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "hangar_doors_limit",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "hangar_doors_open",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "health_lost",
+    "DLC_sum20_Open_Wheel_Racing_Sounds",
+    true,
+  },
+  {
+    "Highlight_Accept",
+    "DLC_AW_Arena_Office_Planning_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Accept",
+    "DLC_Biker_Mission_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Accept",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Highlight_Back",
+    "DLC_AW_Arena_Office_Planning_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Back",
+    "DLC_Biker_Mission_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Cancel",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Highlight_Error",
+    "DLC_Biker_Mission_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Error",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Highlight_Move",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Highlight_Move_Left_Right",
+    "DLC_Biker_Mission_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Move_Up_Down",
+    "DLC_AW_Arena_Office_Planning_Wall_Sounds",
+    true,
+  },
+  {
+    "Highlight_Move_Up_Down",
+    "DLC_Biker_Mission_Wall_Sounds",
+    true,
+  },
+  {
+    "Hit",
+    "RESPAWN_ONLINE_SOUNDSET",
+    true,
+  },
+  {
+    "Hit",
+    "RESPAWN_SOUNDSET",
+    false,
+  },
+  {
+    "Hit",
+    "RESPAWN_SOUNDSET",
+    true,
+  },
+  {
+    "Hit_1",
+    "LONG_PLAYER_SWITCH_SOUNDS",
+    false,
+  },
+  {
+    "Hit_1",
+    "LONG_PLAYER_SWITCH_SOUNDS",
+    true,
+  },
+  {
+    "Hit_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Hit_Mirror",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Hit_out",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Hit_Out",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "HOORAY",
+    "BARRY_02_SOUNDSET",
+    true,
+  },
+  {
+    "HORDE_COOL_DOWN_TIMER",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Hover_Unlock",
+    "DLC_XM17_IAA_Deluxos_Sounds",
+    true,
+  },
+  {
+    "HUD_FREEMODE_CANCEL_MASTER",
+    0,
+    true,
+  },
+  {
+    "Idcnput_Code_Enter_Correct_Final",
+    "Safe_Minigame_Sounds",
+    true,
+  },
+  {
+    "In_Range",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "inactive_fire_fail",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "INFO",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Input_Code_Down",
+    "Safe_Minigame_Sounds",
+    true,
+  },
+  {
+    "Input_Code_Enter_Correct",
+    "Safe_Minigame_Sounds",
+    true,
+  },
+  {
+    "Input_Code_Enter_Wrong",
+    "Safe_Minigame_Sounds",
+    true,
+  },
+  {
+    "Input_Code_Up",
+    "Safe_Minigame_Sounds",
+    true,
+  },
+  {
+    "item_found",
+    "dlc_btl_fm_th_sounds",
+    false,
+  },
+  {
+    "item_found",
+    "dlc_xm_fm_th_sounds",
+    false,
+  },
+  {
+    "Kill_List_Counter",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "killer_down",
+    "dlc_ch_hidden_collectibles_sk_sounds",
+    false,
+  },
+  {
+    "laser_pin_break",
+    "dlc_ch_heist_finale_laser_drill_sounds",
+    true,
+  },
+  {
+    "Launch",
+    "DLC_H3_Tracker_App_Sounds",
+    true,
+  },
+  {
+    "LEADER_BOARD",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Leave_Zone",
+    "DLC_Biker_SYG_Sounds",
+    true,
+  },
+  {
+    "Lester_Laugh_Phone",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "lights_on",
+    "dlc_xm_stealavg_sounds",
+    true,
+  },
+  {
+    "LIMIT",
+    "DLC_APT_YACHT_DOOR_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_ROOF_METAL_SOUNDS",
+    true,
+  },
+  {
+    "Load_Scene",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "LOCAL_PLYR_CASH_COUNTER_COMPLETE",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    false,
+  },
+  {
+    "LOCAL_PLYR_CASH_COUNTER_INCREASE",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    false,
+  },
+  {
+    "Log_In",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Login",
+    "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds",
+    true,
+  },
+  {
+    "Logout",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Logout",
+    "GTAO_Exec_SecuroServ_Computer_Sounds",
+    true,
+  },
+  {
+    "LOOSE_MATCH",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "Lose_1st",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Lose_1st",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Lose_1st",
+    "GTAO_Magnate_Boss_Modes_Soundset",
+    false,
+  },
+  {
+    "Lose_First",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "Lose_Powerup",
+    "DLC_IE_VV_General_Sounds",
+    true,
+  },
+  {
+    "LOSER",
+    "CELEBRATION_SOUNDSET",
+    true,
+  },
+  {
+    "LOSER",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Losing_Team_Shard",
+    "DLC_Exec_TP_SoundSet",
+    false,
+  },
+  {
+    "Lowrider_Upgrade",
+    "Lowrider_Super_Mod_Garage_Sounds",
+    true,
+  },
+  {
+    "Map_Roll_Down",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Map_Roll_Up",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Match_End",
+    "DLC_Low2_Ibi_Sounds",
+    false,
+  },
+  {
+    "Match_Start",
+    "DLC_Low2_Ibi_Sounds",
+    false,
+  },
+  {
+    "MEDAL_UP",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "Menu_Accept",
+    "Phone_SoundSet_Default",
+    true,
+  },
+  {
+    "menu_back",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "menu_reset",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "menu_select",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "menu_up_down",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "MICHAEL_LONG_SCREAM",
+    "FAMILY_5_SOUNDS",
+    true,
+  },
+  {
+    "Mission_Pass_Notify",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    false,
+  },
+  {
+    "Mission_Pass_Notify",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    true,
+  },
+  {
+    "Mouse_Click",
+    "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds",
+    true,
+  },
+  {
+    "movie_prop",
+    "DLC_SUM20_HIDDEN_COLLECTIBLES",
+    false,
+  },
+  {
+    "movie_prop_reward_cut_roar",
+    "DLC_sum20_hidden_collectible_sounds",
+    true,
+  },
+  {
+    "MP_5_SECOND_TIMER",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "MP_AWARD",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "MP_AWARD",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "MP_Flash",
+    "WastedSounds",
+    true,
+  },
+  {
+    "MP_IDLE_KICK",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "MP_IDLE_TIMER",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "MP_Impact",
+    "WastedSounds",
+    true,
+  },
+  {
+    "MP_RANK_UP",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "MP_WAVE_COMPLETE",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Music_Game_Over",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Music_Win",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "NAV",
+    "HUD_AMMO_SHOP_SOUNDSET",
+    true,
+  },
+  {
+    "Nav_Arrow_Ahead",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    true,
+  },
+  {
+    "Nav_Arrow_Behind",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    true,
+  },
+  {
+    "Nav_Arrow_Left",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    true,
+  },
+  {
+    "Nav_Arrow_Right",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    true,
+  },
+  {
+    "NAV_LEFT_RIGHT",
+    "HUD_FREEMODE_SOUNDSET",
+    true,
+  },
+  {
+    "NAV_LEFT_RIGHT",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "NAV_LEFT_RIGHT",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "NAV_UP_DOWN",
+    "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds",
+    true,
+  },
+  {
+    "NAV_UP_DOWN",
+    "HUD_FREEMODE_SOUNDSET",
+    true,
+  },
+  {
+    "NAV_UP_DOWN",
+    "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET",
+    true,
+  },
+  {
+    "NAV_UP_DOWN",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "NAV_UP_DOWN",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "NAV_UP_DOWN",
+    "HUD_LIQUOR_STORE_SOUNDSET",
+    true,
+  },
+  {
+    "Navigate",
+    "GTAO_Exec_SecuroServ_Computer_Sounds",
+    true,
+  },
+  {
+    "Near_Miss_Counter_Reset",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "NET_RACE_START_EVENT_MASTER",
+    0,
+    true,
+  },
+  {
+    "Next_Level_Explosive",
+    "DLC_Biker_KQ_Sounds",
+    true,
+  },
+  {
+    "Next_Level_Generic",
+    "DLC_Biker_KQ_Sounds",
+    true,
+  },
+  {
+    "Next_Level_Gun",
+    "DLC_Biker_KQ_Sounds",
+    true,
+  },
+  {
+    "Next_Level_Melee",
+    "DLC_Biker_KQ_Sounds",
+    true,
+  },
+  {
+    "Next_Trap",
+    "DLC_AW_Trap_Controller_Sounds",
+    true,
+  },
+  {
+    "NightFall_Stinger",
+    "DLC_Biker_LostAndDamned_Sounds",
+    true,
+  },
+  {
+    "NO",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "No_Longer_Target",
+    "dlc_xm_hata_Sounds",
+    false,
+  },
+  {
+    "Node_Release",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Node_Select",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Object_Collect_Player",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Object_Collect_Remote",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Object_Dropped_Remote",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Off_High",
+    "MP_RADIO_SFX",
+    true,
+  },
+  {
+    "Off_Low",
+    "MP_RADIO_SFX",
+    true,
+  },
+  {
+    "OK",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "On_Call_Player_Join",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    true,
+  },
+  {
+    "Oneshot_Final",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "OOB_Cancel",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "OOB_Start",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "OPENED",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "OPENING",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "Orientation_Fail",
+    "DLC_Air_Race_Sounds_Player",
+    false,
+  },
+  {
+    "Orientation_Fail",
+    "DLC_Air_Race_Sounds_Player",
+    false,
+  },
+  {
+    "Orientation_Success",
+    "DLC_Air_Race_Sounds_Player",
+    false,
+  },
+  {
+    "Orientation_Success",
+    "DLC_Air_Race_Sounds_Player",
+    false,
+  },
+  {
+    "Out_Of_Ammo",
+    "DLC_AW_Machine_Gun_Ammo_Counter_Sounds",
+    true,
+  },
+  {
+    "Out_Of_Area",
+    "DLC_Lowrider_Relay_Race_Sounds",
+    false,
+  },
+  {
+    "Out_Of_Range",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "package_delivered_success",
+    "DLC_GR_Generic_Mission_Sounds",
+    true,
+  },
+  {
+    "package_delivered_success_remote",
+    "DLC_GR_Generic_Mission_Sounds",
+    true,
+  },
+  {
+    "Paper_Shuffle",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Paper_Stick",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Parcel_Vehicle_Lost",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Pass",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Payment_Non_Player",
+    "DLC_HEISTS_GENERIC_SOUNDS",
+    false,
+  },
+  {
+    "Payment_Player",
+    "DLC_HEISTS_GENERIC_SOUNDS",
+    false,
+  },
+  {
+    "Pen_Tick",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Period_Start",
+    "DLC_AW_BB_Sounds",
+    true,
+  },
+  {
+    "Phone_Text_Arrive",
+    "DLC_H4_MM_Sounds",
+    true,
+  },
+  {
+    "PICK_UP",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Pickup_Keyring",
+    "dlc_h4_heist_finale_sounds_soundset",
+    true,
+  },
+  {
+    "Pickup_Standard",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Pilot_Perspective_Fire",
+    "DLC_H3_Drone_Tranq_Weapon_Sounds",
+    true,
+  },
+  {
+    "Pin_Bad",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "PIN_BUTTON",
+    "ATM_SOUNDS",
+    true,
+  },
+  {
+    "Pin_Centred",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Pin_Good",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Place_Gain",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "Place_Lose",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "Place_Prop_Fail",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Place_Prop_Success",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Player_Collect",
+    "DLC_PILOT_MP_HUD_SOUNDS",
+    false,
+  },
+  {
+    "Player_Enter_Line",
+    "GTAO_FM_Cross_The_Line_Soundset",
+    false,
+  },
+  {
+    "Player_Exit_Line",
+    "GTAO_FM_Cross_The_Line_Soundset",
+    false,
+  },
+  {
+    "Player_Pick_Up",
+    "In_And_Out_Attacker_Sounds",
+    false,
+  },
+  {
+    "playing_card",
+    "dlc_vw_hidden_collectible_sounds",
+    false,
+  },
+  {
+    "police_notification",
+    "DLC_AS_VNT_Sounds",
+    true,
+  },
+  {
+    "Popup_Cancel",
+    "GTAO_Exec_SecuroServ_Computer_Sounds",
+    true,
+  },
+  {
+    "Popup_Confirm_Fail",
+    "GTAO_Exec_SecuroServ_Computer_Sounds",
+    true,
+  },
+  {
+    "Popup_Confirm_Success",
+    "GTAO_Exec_SecuroServ_Computer_Sounds",
+    true,
+  },
+  {
+    "Power_Down",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "power_on",
+    "dlc_ch_heist_finale_sounds",
+    false,
+  },
+  {
+    "Pre_Screen_Stinger",
+    "DLC_HEISTS_FAILED_SCREEN_SOUNDS",
+    false,
+  },
+  {
+    "Pre_Screen_Stinger",
+    "DLC_HEISTS_FINALE_SCREEN_SOUNDS",
+    false,
+  },
+  {
+    "Pre_Screen_Stinger",
+    "DLC_HEISTS_FINALE_SCREEN_SOUNDS",
+    true,
+  },
+  {
+    "Pre_Screen_Stinger",
+    "DLC_HEISTS_PREP_SCREEN_SOUNDS",
+    false,
+  },
+  {
+    "Pre_Screen_Stinger",
+    "DLC_HEISTS_PREP_SCREEN_SOUNDS",
+    true,
+  },
+  {
+    "Previous_Trap",
+    "DLC_AW_Trap_Controller_Sounds",
+    true,
+  },
+  {
+    "PROPERTY_PURCHASE",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "PURCHASE",
+    "HUD_LIQUOR_STORE_SOUNDSET",
+    true,
+  },
+  {
+    "Purchase_Upgrade",
+    "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds",
+    true,
+  },
+  {
+    "PUSH",
+    "DLC_APT_YACHT_DOOR_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS",
+    true,
+  },
+  {
+    "Push",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_ROOF_METAL_SOUNDS",
+    true,
+  },
+  {
+    "Put_Away",
+    "Phone_SoundSet_Michael",
+    true,
+  },
+  {
+    "R2_Boost",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "RACE_PLACED",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Radar_Beast_Blip",
+    "FM_Events_Sasquatch_Sounds",
+    false,
+  },
+  {
+    "RANK_UP",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Rappel_Land",
+    "GTAO_Rappel_Sounds",
+    true,
+  },
+  {
+    "Rappel_Stop",
+    "GTAO_Rappel_Sounds",
+    true,
+  },
+  {
+    "rc_mines_empty",
+    "DLC_AW_RCBandito_Mine_Sounds",
+    true,
+  },
+  {
+    "Ready",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Recharged",
+    "DLC_AW_Machine_Gun_Ammo_Counter_Sounds",
+    true,
+  },
+  {
+    "Red_Target_Explode",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "REMOTE_PLYR_CASH_COUNTER_COMPLETE",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    false,
+  },
+  {
+    "REMOTE_PLYR_CASH_COUNTER_INCREASE",
+    "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS",
+    false,
+  },
+  {
+    "Remote_Sniper_Rifle_Fire",
+    0,
+    true,
+  },
+  {
+    "Remove_Tracker",
+    "DLC_IO_Warehouse_Mod_Garage_Sounds",
+    true,
+  },
+  {
+    "Reset_Prop_Position",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Reset_Win",
+    "DLC_SR_RS_Enemy_Sounds",
+    true,
+  },
+  {
+    "Reset_Win",
+    "DLC_SR_RS_Team_Sounds",
+    true,
+  },
+  {
+    "Resurrected",
+    "DLC_SR_RS_Enemy_Sounds",
+    true,
+  },
+  {
+    "Resurrected",
+    "DLC_SR_RS_Player_Sounds",
+    true,
+  },
+  {
+    "Resurrected",
+    "DLC_SR_RS_Team_Sounds",
+    true,
+  },
+  {
+    "Retune_High",
+    "MP_RADIO_SFX",
+    true,
+  },
+  {
+    "Retune_Low",
+    "MP_RADIO_SFX",
+    true,
+  },
+  {
+    "ROBBERY_MONEY_TOTAL",
+    "HUD_FRONTEND_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Rocket_Collect",
+    "DLC_SR_TR_Rocket_Player_Sounds",
+    true,
+  },
+  {
+    "Round_End",
+    "DLC_BTL_SM_Remix_Soundset",
+    false,
+  },
+  {
+    "Round_End",
+    "DLC_LOW2_Sumo_Soundset",
+    false,
+  },
+  {
+    "ROUND_ENDING_STINGER_CUSTOM",
+    "CELEBRATION_SOUNDSET",
+    false,
+  },
+  {
+    "Round_Start",
+    "DLC_BTL_SM_Remix_Soundset",
+    false,
+  },
+  {
+    "Round_Start",
+    "DLC_LOW2_Sumo_Soundset",
+    false,
+  },
+  {
+    "Round_Start_Blade",
+    "POWER_PLAY_General_Soundset",
+    true,
+  },
+  {
+    "Save_Scene",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Scope_Spot_POI",
+    "GTAO_Heists_HUD_Sounds",
+    false,
+  },
+  {
+    "Score",
+    "DLC_Low2_Ibi_Sounds",
+    false,
+  },
+  {
+    "Score_Down",
+    "DLC_IE_PL_Enemy_Sounds",
+    false,
+  },
+  {
+    "Score_Down",
+    "DLC_IE_PL_Player_Sounds",
+    false,
+  },
+  {
+    "Score_Down",
+    "DLC_IE_PL_Team_Sounds",
+    false,
+  },
+  {
+    "Score_Opponent",
+    "DLC_Biker_KQ_Sounds",
+    true,
+  },
+  {
+    "Score_Team",
+    "DLC_Biker_KQ_Sounds",
+    true,
+  },
+  {
+    "Score_Up",
+    "DLC_IE_PL_Enemy_Sounds",
+    false,
+  },
+  {
+    "Score_Up",
+    "DLC_IE_PL_Player_Sounds",
+    false,
+  },
+  {
+    "Score_Up",
+    "DLC_IE_PL_Team_Sounds",
+    false,
+  },
+  {
+    "SCREEN_FLASH",
+    "CELEBRATION_SOUNDSET",
+    true,
+  },
+  {
+    "ScreenFlash",
+    "MissionFailedSounds",
+    true,
+  },
+  {
+    "ScreenFlash",
+    "WastedSounds",
+    true,
+  },
+  {
+    "SELECT",
+    "DLC_EXEC_Warehouse_Upgrade_Bench_Sounds",
+    true,
+  },
+  {
+    "SELECT",
+    "HUD_FREEMODE_SOUNDSET",
+    true,
+  },
+  {
+    "SELECT",
+    "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET",
+    true,
+  },
+  {
+    "SELECT",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "SELECT",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "SELECT",
+    "HUD_FRONTEND_MP_SOUNDSET",
+    false,
+  },
+  {
+    "SELECT",
+    "HUD_FRONTEND_MP_SOUNDSET",
+    true,
+  },
+  {
+    "SELECT",
+    "HUD_LIQUOR_STORE_SOUNDSET",
+    true,
+  },
+  {
+    "Select_Mission_Are_You_Sure",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Select_Mission_Cancel",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Select_Mission_Launch",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Select_Mission_Unavailable",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Select_Mission_Unavailable_OK",
+    "DLC_GR_MOC_Computer_Sounds",
+    true,
+  },
+  {
+    "Select_Placed_Prop",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Sell",
+    "GTAO_Exec_SecuroServ_Computer_Sounds",
+    true,
+  },
+  {
+    "Sell",
+    "GTAO_Exec_SecuroServ_Warehouse_PC_Sounds",
+    true,
+  },
+  {
+    "shard",
+    "dlc_ch_hidden_collectibles_sj_sounds",
+    false,
+  },
+  {
+    "shard",
+    "dlc_vw_hidden_collectible_sounds",
+    false,
+  },
+  {
+    "Shard_Disappear",
+    "GTAO_Biker_FM_Shard_Sounds",
+    false,
+  },
+  {
+    "Shard_Disappear",
+    "GTAO_Boss_Goons_FM_Shard_Sounds",
+    false,
+  },
+  {
+    "Shard_Disappear",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Short_Transition_Out",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "shotgun_shard",
+    "dlc_hei4_hidden_collectibles_sounds",
+    true,
+  },
+  {
+    "Show_Overview_Menu",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "Show_Sell_Menu",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "Show_Source_Menu",
+    "GTAO_SMG_Hangar_Computer_Sounds",
+    true,
+  },
+  {
+    "Speech_Floor_1",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Speech_Floor_2",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Speech_Floor_3",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Start",
+    "DLC_AW_Frontend_Sounds",
+    false,
+  },
+  {
+    "Start",
+    "DLC_AW_Frontend_Sounds",
+    true,
+  },
+  {
+    "Start",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Start_Squelch",
+    "CB_RADIO_SFX",
+    true,
+  },
+  {
+    "Steal_Powerup",
+    "DLC_IE_VV_General_Sounds",
+    true,
+  },
+  {
+    "Success",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "SultanRS_Upgrade",
+    "JA16_Super_Mod_Garage_Sounds",
+    true,
+  },
+  {
+    "Super_Mod_Garage_Upgrade_Car_Default",
+    0,
+    true,
+  },
+  {
+    "supermod_consumer",
+    "Arena_Vehicle_Mod_Shop_Sounds",
+    true,
+  },
+  {
+    "supermod_scifi",
+    "Arena_Vehicle_Mod_Shop_Sounds",
+    true,
+  },
+  {
+    "supermod_wasteland",
+    "Arena_Vehicle_Mod_Shop_Sounds",
+    true,
+  },
+  {
+    "Survival_Failed",
+    "DLC_VW_AS_Sounds",
+    true,
+  },
+  {
+    "Swap_Sides",
+    "DLC_HALLOWEEN_FVJ_Sounds",
+    false,
+  },
+  {
+    "SWING_SHUT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS",
+    true,
+  },
+  {
+    "SWING_SHUT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "SWING_SHUT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS",
+    true,
+  },
+  {
+    "SWING_SHUT",
+    "GTAO_APT_DOOR_ROOF_METAL_SOUNDS",
+    true,
+  },
+  {
+    "tag_entity",
+    "dlc_xm_heists_iaa_morgue_sounds",
+    false,
+  },
+  {
+    "Take_First",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "Target_Counter_Tick",
+    "DLC_SM_Generic_Mission_Sounds",
+    true,
+  },
+  {
+    "Team_Killed_1p",
+    "dlc_xm_hata_Sounds",
+    false,
+  },
+  {
+    "Team_Killed_3p",
+    "dlc_xm_hata_Sounds",
+    false,
+  },
+  {
+    "Teammate_Checkpoint",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "TENNIS_POINT_WON",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "TextHit",
+    "WastedSounds",
+    true,
+  },
+  {
+    "Thermal_Off",
+    "CAR_STEAL_2_SOUNDSET",
+    true,
+  },
+  {
+    "Thermal_On",
+    "CAR_STEAL_2_SOUNDSET",
+    true,
+  },
+  {
+    "TIME_LAPSE_MASTER",
+    0,
+    true,
+  },
+  {
+    "TIMER_RADIAL_Pulse",
+    "DLC_AS_TRP_Sounds",
+    false,
+  },
+  {
+    "TIMER_RADIAL_Pulse",
+    "DLC_BTL_SM_Remix_Soundset",
+    false,
+  },
+  {
+    "TIMER_RADIAL_Reset",
+    "DLC_AS_TRP_Sounds",
+    false,
+  },
+  {
+    "TIMER_RADIAL_Reset",
+    "DLC_BTL_SM_Remix_Soundset",
+    false,
+  },
+  {
+    "TIMER_STOP",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "TOGGLE_ON",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "TOGGLE_ON",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Traffic_Control_Fail",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "Traffic_Control_Fail_Blank",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "Traffic_Control_Light_Switch_Back",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "TRAFFIC_CONTROL_MOVE_CROSSHAIR",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "Transform_Local_Player",
+    "DLC_Exec_TP_SoundSet",
+    false,
+  },
+  {
+    "Transform_Loser_Local_Player",
+    "DLC_Exec_TP_SoundSet",
+    false,
+  },
+  {
+    "transform_oneshot",
+    "dlc_xm_stromberg_sounds",
+    true,
+  },
+  {
+    "Turn",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "tyre_health_warning",
+    "DLC_sum20_Open_Wheel_Racing_Sounds",
+    true,
+  },
+  {
+    "Uncondemned",
+    "DLC_SM_CND_Player_Sounds",
+    true,
+  },
+  {
+    "UNDER_THE_BRIDGE",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Use_Boost",
+    "DLC_Biker_DL_Sounds",
+    true,
+  },
+  {
+    "Use_Bunnyhop",
+    "DLC_Biker_DL_Sounds",
+    true,
+  },
+  {
+    "Use_Zoned",
+    "DLC_Biker_DL_Sounds",
+    true,
+  },
+  {
+    "Wasted",
+    "DLC_IE_VV_General_Sounds",
+    true,
+  },
+  {
+    "Wasted",
+    "POWER_PLAY_General_Soundset",
+    true,
+  },
+  {
+    "WAYPOINT_SET",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    false,
+  },
+  {
+    "Weapon_Disabled",
+    "DLC_SR_LG_Player_Sounds",
+    true,
+  },
+  {
+    "Weapon_Enabled",
+    "DLC_SR_LG_Player_Sounds",
+    true,
+  },
+  {
+    "WEAPON_PURCHASE",
+    "HUD_AMMO_SHOP_SOUNDSET",
+    true,
+  },
+  {
+    "WEAPON_SELECT_ARMOR",
+    "HUD_AMMO_SHOP_SOUNDSET",
+    true,
+  },
+  {
+    "Weapon_Upgrade",
+    "DLC_GR_Weapon_Upgrade_Soundset",
+    true,
+  },
+  {
+    "Wheel_Spin_Start",
+    "DLC_AW_Arena_Spin_Wheel_Game_Frontend_Sounds",
+    true,
+  },
+  {
+    "Whistle",
+    "DLC_TG_Running_Back_Sounds",
+    false,
+  },
+  {
+    "Whoosh_1s_L_to_R",
+    "MP_LOBBY_SOUNDS",
+    true,
+  },
+  {
+    "Whoosh_1s_R_to_L",
+    "MP_LOBBY_SOUNDS",
+    true,
+  },
+  {
+    "WIN",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "WINNER",
+    "CELEBRATION_SOUNDSET",
+    true,
+  },
+  {
+    "Winning_Team_Shard",
+    "DLC_Exec_TP_SoundSet",
+    false,
+  },
+  {
+    "WOODEN_DOOR_CLOSED_AT",
+    0,
+    false,
+  },
+  {
+    "WOODEN_DOOR_CLOSED_AT",
+    0,
+    true,
+  },
+  {
+    "WOODEN_DOOR_CLOSING_AT",
+    0,
+    false,
+  },
+  {
+    "WOODEN_DOOR_CLOSING_AT",
+    0,
+    true,
+  },
+  {
+    "WOODEN_DOOR_OPEN_HANDLE_AT",
+    0,
+    false,
+  },
+  {
+    "WOODEN_DOOR_OPEN_HANDLE_AT",
+    0,
+    true,
+  },
+  {
+    "WOODEN_DOOR_OPEN_NO_HANDLE_AT",
+    0,
+    true,
+  },
+  {
+    "YES",
+    "HUD_FRONTEND_DEFAULT_SOUNDSET",
+    true,
+  },
+  {
+    "Zone_Captured",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Captured_Remote",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Contested",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Contested",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Enemy_Capture",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Enter",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Held",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zone_Lost",
+    "dlc_vw_koth_Sounds",
+    false,
+  },
+  {
+    "Zoom_In",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Zoom_Left",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Zoom_Out",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Zoom_Right",
+    "DLC_HEIST_PLANNING_BOARD_SOUNDS",
+    true,
+  },
+  {
+    "Off",
+    "GTAO_Vision_Modes_SoundSet",
+    false,
+  },
+  {
+    "Off",
+    "GTAO_Vision_Modes_SoundSet",
+    true,
+  },
+  {
+    "On",
+    "GTAO_Vision_Modes_SoundSet",
+    false,
+  },
+  {
+    "On",
+    "GTAO_Vision_Modes_SoundSet",
+    true,
+  },
+  {
+    "Switch",
+    "GTAO_Vision_Modes_SoundSet",
+    false,
+  },
+  {
+    "Switch",
+    "GTAO_Vision_Modes_SoundSet",
+    true,
+  },
+  {
+    "hangar_doors_loop",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "elevator_descend_loop",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "launch_power_up_loop",
+    "dlc_xm_silo_finale_sounds",
+    true,
+  },
+  {
+    "10S",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Crates_Blipped",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Enemy_In_Zone",
+    "DLC_Biker_SYG_Sounds",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "Pan",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "Zoom",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "elevator_descend_loop",
+    "dlc_xm_IAA_Finale_sounds",
+    true,
+  },
+  {
+    "Elevation_Loop",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Move_Loop",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Rotate_Loop",
+    "DLC_Dmod_Prop_Editor_Sounds",
+    false,
+  },
+  {
+    "Boss_Message_Orange",
+    "GTAO_Biker_FM_Soundset",
+    false,
+  },
+  {
+    "Crates_Blipped",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Drone_View",
+    "DLC_GR_WVM_APC_Sounds",
+    true,
+  },
+  {
+    "CLOSING",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "OPENING",
+    "MP_PROPERTIES_ELEVATOR_DOORS",
+    true,
+  },
+  {
+    "laptop_download",
+    "dlc_vw_heisters_sounds",
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_IP_FIND",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_CRACK_PASS",
+    0,
+    true,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_IP_FIND",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_CRACK_PASS",
+    0,
+    true,
+  },
+  {
+    "1st_Person_Transition",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Hit_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "HIT_OUT",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "TIME_LAPSE_MASTER",
+    0,
+    true,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_IP_FIND",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_CRACK_PASS",
+    0,
+    true,
+  },
+  {
+    "OPENED",
+    "DOOR_GARAGE",
+    false,
+  },
+  {
+    "OPENING",
+    "DOOR_GARAGE",
+    false,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Rappel_Loop",
+    "GTAO_Rappel_Sounds",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "DOOR_BUZZ",
+    "MP_PLAYER_APARTMENT",
+    true,
+  },
+  {
+    "Pan",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Zoom",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "uw_ambience",
+    0,
+    true,
+  },
+  {
+    "OOB_Timer_Dynamic",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Signal_Loop",
+    "DLC_H3_Tracker_App_Sounds",
+    true,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "Fly_Loop",
+    "dlc_xm_avngr_sounds",
+    true,
+  },
+  {
+    "Hack_Loop",
+    "dlc_xm_deluxos_hacking_Hacking_Sounds",
+    true,
+  },
+  {
+    "Background_Hum",
+    "DLC_XM_Vehicle_Interior_Security_Camera_Sounds",
+    true,
+  },
+  {
+    "laptop_download_loop",
+    "dlc_xm_heists_iaa_morgue_sounds",
+    true,
+  },
+  {
+    "Out_of_Bounds",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Hack_Loop",
+    "DLC_IE_SVM_Voltic2_Hacking_Sounds",
+    true,
+  },
+  {
+    "Change_Station_Loud",
+    "Radio_Soundset",
+    true,
+  },
+  {
+    "OOB_Timer_Dynamic",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "EMP",
+    "DLC_HALLOWEEN_FVJ_Sounds",
+    false,
+  },
+  {
+    "EMP_Blast",
+    "DLC_HEISTS_BIOLAB_FINALE_SOUNDS",
+    false,
+  },
+  {
+    "10S",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "5S",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Timer_10s",
+    "DLC_TG_Dinner_Sounds",
+    false,
+  },
+  {
+    "Timer_5s",
+    "DLC_TG_Dinner_Sounds",
+    false,
+  },
+  {
+    "Timer_To_Day",
+    "DLC_Biker_LostAndDamned_Sounds",
+    false,
+  },
+  {
+    "Timer_To_Night",
+    "DLC_Biker_LostAndDamned_Sounds",
+    false,
+  },
+  {
+    "Arming_Countdown",
+    "GTAO_Speed_Convoy_Soundset",
+    false,
+  },
+  {
+    "Slipstream_Follower",
+    "DLC_Biker_SL_Sounds",
+    false,
+  },
+  {
+    "SLIPSTREAM_MASTER",
+    0,
+    false,
+  },
+  {
+    "Slipstream_Leader",
+    "DLC_Biker_SL_Sounds",
+    false,
+  },
+  {
+    "SLIPSTREAM_MASTER",
+    0,
+    true,
+  },
+  {
+    "Get_Back_In_Vehicle",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "UW_Ambience",
+    0,
+    true,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Altitude_Warning",
+    "EXILE_1",
+    true,
+  },
+  {
+    "Near_Miss_Counter",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "FBI_04_HEAT_C4_DOORS",
+    0,
+    true,
+  },
+  {
+    "Out_of_Bounds",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Camera_Hum",
+    "BIG_SCORE_SETUP_SOUNDS",
+    true,
+  },
+  {
+    "Camera_Zoom",
+    "BIG_SCORE_SETUP_SOUNDS",
+    true,
+  },
+  {
+    "10S",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "5S",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Carrying",
+    "DLC_Low2_Ibi_Sounds",
+    false,
+  },
+  {
+    "All",
+    "SHORT_PLAYER_SWITCH_SOUND_SET",
+    true,
+  },
+  {
+    "Heli_Crash",
+    "FBI_HEIST_FINALE_CHOPPER",
+    true,
+  },
+  {
+    "Found_Target",
+    "POLICE_CHOPPER_CAM_SOUNDS",
+    true,
+  },
+  {
+    "Lost_Target",
+    "POLICE_CHOPPER_CAM_SOUNDS",
+    true,
+  },
+  {
+    "Microphone",
+    "POLICE_CHOPPER_CAM_SOUNDS",
+    true,
+  },
+  {
+    "Carrying",
+    "DLC_Low2_Ibi_Sounds",
+    false,
+  },
+  {
+    "Out_of_Bounds",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Drone_View",
+    "DLC_GR_WVM_APC_Sounds",
+    true,
+  },
+  {
+    "OOB_Timer_Dynamic",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "DOOR_BUZZ",
+    "MP_PLAYER_APARTMENT",
+    true,
+  },
+  {
+    "DOOR_Intercom_MASTER",
+    0,
+    true,
+  },
+  {
+    "10s",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Pickup_Briefcase",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Pickup_Briefcase",
+    "GTAO_Magnate_Boss_Modes_Soundset",
+    false,
+  },
+  {
+    "PICKUP_WEAPON_BALL",
+    "HUD_FRONTEND_WEAPONS_PICKUPS_SOUNDSET",
+    true,
+  },
+  {
+    "Countdown_To_Win",
+    "DLC_IE_PL_Player_Sounds",
+    false,
+  },
+  {
+    "Countdown_To_Win",
+    "DLC_IE_PL_Team_Sounds",
+    false,
+  },
+  {
+    "laptop_download_loop",
+    "dlc_xm_heists_iaa_morgue_sounds",
+    true,
+  },
+  {
+    "Hack_Loop",
+    "DLC_IE_SVM_Voltic2_Hacking_Sounds",
+    true,
+  },
+  {
+    "Hack_Loop",
+    "dlc_xm_deluxos_hacking_Hacking_Sounds",
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_IP_FIND",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_CRACK_PASS",
+    0,
+    true,
+  },
+  {
+    "Last_Alive",
+    "DLC_SR_RS_Player_Sounds",
+    true,
+  },
+  {
+    "Condemned_Heartbeat",
+    "DLC_SM_CND_Player_Sounds",
+    true,
+  },
+  {
+    "Pin_Movement",
+    "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS",
+    true,
+  },
+  {
+    "10s",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Elevator_Doors_Closing_Loop",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Elevator_Doors_Opening_Loop",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Garage_Door_Close_Loop",
+    "GTAO_Script_Doors_Sounds",
+    true,
+  },
+  {
+    "Garage_Door_Open_Loop",
+    "GTAO_Script_Doors_Sounds",
+    true,
+  },
+  {
+    "Speech_Going_Up",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Background_Loop",
+    "CB_RADIO_SFX",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Generic_Alarm_Electronic_01",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_IP_FIND",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_CRACK_PASS",
+    0,
+    true,
+  },
+  {
+    "UW_Ambience",
+    0,
+    true,
+  },
+  {
+    "UW_Rebreather",
+    0,
+    true,
+  },
+  {
+    "FBI_05_RAID_BREATH",
+    0,
+    true,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "FBI_02_SNATCH_AND_GRAB_AMB_HELI",
+    0,
+    true,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "Pan",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "Zoom",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    false,
+  },
+  {
+    "elevator_descend_loop",
+    "dlc_xm_IAA_Finale_sounds",
+    true,
+  },
+  {
+    "Out_of_Bounds",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Out_of_Bounds_Explode",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Hit_Out",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Short_Transition_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_IP_FIND",
+    0,
+    true,
+  },
+  {
+    "HACKING_COUNTDOWN_CRACK_PASS",
+    0,
+    true,
+  },
+  {
+    "Altitude_Warning",
+    "EXILE_1",
+    true,
+  },
+  {
+    "Generic_Alarm_Fire_Electronic",
+    0,
+    true,
+  },
+  {
+    "Background",
+    "DLC_XM17_Facility_Strike_PC_Sounds",
+    true,
+  },
+  {
+    "CHOP_CAM_A",
+    0,
+    true,
+  },
+  {
+    "CHOP_CAM_B",
+    0,
+    true,
+  },
+  {
+    "CHOP_CAM_C",
+    0,
+    true,
+  },
+  {
+    "Pan",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "HACKING_MOVE_CURSOR",
+    0,
+    true,
+  },
+  {
+    "Zoom",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "SAFE_DOOR_CLOSE",
+    "SAFE_CRACK_SOUNDSET",
+    true,
+  },
+  {
+    "SAFE_DOOR_OPEN",
+    "SAFE_CRACK_SOUNDSET",
+    true,
+  },
+  {
+    "TUMBLER_PIN_FALL",
+    "SAFE_CRACK_SOUNDSET",
+    true,
+  },
+  {
+    "TUMBLER_PIN_FALL_FINAL",
+    "SAFE_CRACK_SOUNDSET",
+    true,
+  },
+  {
+    "TUMBLER_RESET",
+    "SAFE_CRACK_SOUNDSET",
+    true,
+  },
+  {
+    "TUMBLER_TURN",
+    "SAFE_CRACK_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "elevator_ascend_loop",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "hangar_doors_loop",
+    "dlc_xm_facility_entry_exit_sounds",
+    true,
+  },
+  {
+    "CHECKPOINT_UNDER_THE_BRIDGE",
+    "HUD_MINI_GAME_SOUNDSET",
+    true,
+  },
+  {
+    "COLLECTED",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Exit_In_Vehicle",
+    "GTAO_ImpExp_Enter_Exit_Garage_Sounds",
+    true,
+  },
+  {
+    "Garage_Door_Close",
+    "GTAO_Script_Doors_Faded_Screen_Sounds",
+    true,
+  },
+  {
+    "GARAGE_DOOR_SCRIPTED_CLOSE",
+    0,
+    true,
+  },
+  {
+    "GARAGE_DOOR_SCRIPTED_OPEN",
+    0,
+    true,
+  },
+  {
+    "PEYOTE_COMPLETED",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "SIGN_DESTROYED",
+    "HUD_AWARDS",
+    true,
+  },
+  {
+    "Lose_1st",
+    "GTAO_Magnate_Boss_Modes_Soundset",
+    false,
+  },
+  {
+    "Goon_Paid_Large",
+    "GTAO_Boss_Goons_FM_Soundset",
+    false,
+  },
+  {
+    "Enter_1st",
+    "GTAO_Magnate_Boss_Modes_Soundset",
+    false,
+  },
+  {
+    "COP_HELI_CAM_ZOOM",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_TURN",
+    0,
+    true,
+  },
+  {
+    "Remote_Enemy_Enter_Line",
+    "GTAO_FM_Cross_The_Line_Soundset",
+    false,
+  },
+  {
+    "Remote_Friendly_Enter_Line",
+    "GTAO_FM_Cross_The_Line_Soundset",
+    false,
+  },
+  {
+    "COP_HELI_CAM_ZOOM",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_TURN",
+    0,
+    true,
+  },
+  {
+    "Background",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Cursor_Move",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Blue_Target_Charge",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Red_Target_Charge",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Rotate_Mirror",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "VULKAN_LOCK_ON_AMBER",
+    0,
+    true,
+  },
+  {
+    "VULKAN_LOCK_ON_RED",
+    0,
+    true,
+  },
+  {
+    "Turret_Camera_Hum_Loop",
+    "DLC_BTL_Terrobyte_Turret_Sounds",
+    true,
+  },
+  {
+    "Background",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Cursor_Move",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Blue_Target_Charge",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Red_Target_Charge",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Rotate_Mirror",
+    "dlc_xm_silo_laser_hack_sounds",
+    true,
+  },
+  {
+    "Pan",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Zoom",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_ROOF_METAL_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GENERIC_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_ROOF_METAL_SOUNDS",
+    true,
+  },
+  {
+    "WOODEN_DOOR_OPEN_NO_HANDLE_AT",
+    0,
+    true,
+  },
+  {
+    "Altitude_Warning_Loop",
+    "DLC_Exec_Fly_Low_Sounds",
+    true,
+  },
+  {
+    "LIMIT",
+    "DLC_APT_YACHT_DOOR_SOUNDS",
+    true,
+  },
+  {
+    "LIMIT",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "DLC_APT_YACHT_DOOR_SOUNDS",
+    true,
+  },
+  {
+    "PUSH",
+    "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS",
+    true,
+  },
+  {
+    "WOODEN_DOOR_OPEN_NO_HANDLE_AT",
+    0,
+    true,
+  },
+  {
+    "Scanner_Loop",
+    "DLC_BTL_Target_Pursuit_Sounds",
+    true,
+  },
+  {
+    "Delivery_Screen_Fade",
+    "DLC_Exec1_Buy_Sell_Sounds",
+    false,
+  },
+  {
+    "Delivery_Screen_Fade_On_Foot",
+    "DLC_Exec1_Buy_Sell_Sounds",
+    false,
+  },
+  {
+    "TRAFFIC_CONTROL_BG_NOISE",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "TRAFFIC_CONTROL_CHANGE_CAM",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "TRAFFIC_CONTROL_TOGGLE_LIGHT",
+    "BIG_SCORE_3A_SOUNDS",
+    true,
+  },
+  {
+    "DISTANT_DOG_BARK",
+    "CAR_STEAL_2_SOUNDSET",
+    true,
+  },
+  {
+    "Elevator_Start",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Elevator_Stop",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Elevator_Ascending_Loop",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Elevator_Descending_Loop",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Speech_Floor_1",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Speech_Floor_2",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "Speech_Floor_3",
+    "DLC_IE_Garage_Elevator_Sounds",
+    true,
+  },
+  {
+    "movie_prop_reward_cut_music",
+    "DLC_sum20_hidden_collectible_sounds",
+    true,
+  },
+  {
+    "VULKAN_LOCK_ON_AMBER",
+    0,
+    true,
+  },
+  {
+    "VULKAN_LOCK_ON_RED",
+    0,
+    true,
+  },
+  {
+    "Pan",
+    "DLC_Arena_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Pan",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Blip_Pickup",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Enemy_Pickup_Briefcase",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "pan_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Pickup_Briefcase",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Hit_In",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Camera_Move_Loop",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Hit_Out",
+    "PLAYER_SWITCH_CUSTOM_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "cannon_activating_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "cannon_charge_fire_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Change_Cam",
+    "DLC_Arena_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Deliver_Item",
+    "GTAO_Biker_Modes_Soundset",
+    false,
+  },
+  {
+    "Background",
+    "DLC_Arena_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "Background",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "background_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Change_Cam",
+    "MP_CCTV_SOUNDSET",
+    true,
+  },
+  {
+    "zoom_out_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "zoom_out_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Trail_Custom",
+    "DLC_HEIST_HACKING_SNAKE_SOUNDS",
+    true,
+  },
+  {
+    "Scanner_Loop",
+    "DLC_BTL_Target_Pursuit_Sounds",
+    true,
+  },
+  {
+    "pan_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "cannon_activating_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "background_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Background",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "zoom_out_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "zoom_out_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Creaking_Loop",
+    "DLC_H4_Submarine_Crush_Depth_Sounds",
+    true,
+  },
+  {
+    "Warning_Alarm_Loop",
+    "DLC_H4_Submarine_Crush_Depth_Sounds",
+    true,
+  },
+  {
+    "Knuckle_Crack_Hard_Cel",
+    "MP_SNACKS_SOUNDSET",
+    true,
+  },
+  {
+    "Knuckle_Crack_Slap_Cel",
+    "MP_SNACKS_SOUNDSET",
+    true,
+  },
+  {
+    "Slow_Clap_Cel",
+    "MP_SNACKS_SOUNDSET",
+    true,
+  },
+  {
+    "COP_HELI_CAM_ZOOM",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_TURN",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_BLEEP",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_BACKGROUND",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_SCAN_PED_LOOP",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_SCAN_PED_SUCCESS",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_SCAN_PED_FAILURE",
+    0,
+    true,
+  },
+  {
+    "COP_HELI_CAM_BLEEP_TOO_FAR",
+    0,
+    true,
+  },
+  {
+    "Cancel",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "cannon_charge_fire_loop",
+    "dlc_xm_orbital_cannon_sounds",
+    true,
+  },
+  {
+    "Insert_Coin",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Out_of_Bounds_Explode",
+    "MP_MISSION_COUNTDOWN_SOUNDSET",
+    false,
+  },
+  {
+    "Game_Over_Blink",
+    "DLC_EXEC_ARC_MAC_SOUNDS",
+    true,
+  },
+  {
+    "Nightvision_Loop",
+    "GTAO_Vision_Modes_SoundSet",
+    false,
+  },
+  {
+    "player_riding",
+    "biker_formation_sounds",
+    true,
+  },
+  {
+    "Thermal_Loop",
+    "GTAO_Vision_Modes_SoundSet",
+    false,
+  },
+  {
+    "Sink",
+    "DLC_H4_Submarine_Sinking_Sounds",
+    true,
+  },
+  {
+    "Return_To_Vehicle_Timer",
+    "GTAO_FM_Events_Soundset",
+    false,
+  },
+  {
+    "Slipstream",
+    "DLC_Stunt_Race_Frontend_Sounds",
+    true,
+  },
+  {
+    "Slipstream_Follower",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "SLIPSTREAM_MASTER",
+    0,
+    true,
+  },
+  {
+    "Slipstream_Leader",
+    "DLC_Biker_SL_Sounds",
+    true,
+  },
+  {
+    "Bomb_Countdown",
+    "DLC_AW_PTB_Sounds",
+    true,
+  },
+  {
+    "TIME_LAPSE_MASTER",
+    0,
+    true,
+  },
+}
+
+local musicEvents = {
+  "AC_DELIVERED",
+  "AC_DONE",
+  "AC_EN_ROUTE_CULT",
+  "AC_END",
+  "AC_LEFT_AREA",
+  "AC_START",
+  "AC_STOP",
+  "AH1_BACK_IN_CAR",
+  "AH1_FAIL",
+  "AH1_HOLE_RESTART",
+  "AH1_RESTART",
+  "AH1_START",
+  "AH1_STOP",
+  "AH2A_EXIT_SITE",
+  "AH2A_FIRST_FLOOR_RESTART",
+  "AH2A_FLEE_SITE",
+  "AH2A_MISSION_FAIL",
+  "AH2A_MISSION_START",
+  "AH3A_2ND_STAIRWELL",
+  "AH3A_ABSEIL_DONE",
+  "AH3A_ABSEIL_RT",
+  "AH3A_ABSEILING",
+  "AH3A_BLOW_BACK",
+  "AH3A_C4_PLANTED",
+  "AH3A_DETONATE",
+  "AH3A_DOOR_OPEN",
+  "AH3A_DOORS_EXPLODE",
+  "AH3A_DOWN_ONE",
+  "AH3A_ELEV_CS",
+  "AH3A_EXIT",
+  "AH3A_EXIT_LIFT",
+  "AH3A_EXIT_TRUCK",
+  "AH3A_FIB_DOCS_RT",
+  "AH3A_FIRE_FLOOR_RT",
+  "AH3A_FIRST_BOMB",
+  "AH3A_FLOOR_CRACK",
+  "AH3A_GET_DOCS",
+  "AH3A_GET_TO_ELEV",
+  "AH3A_HEAD_TO_LOO",
+  "AH3A_INTO_FLAMES",
+  "AH3A_LAST_BOMB",
+  "AH3A_LEAVING",
+  "AH3A_LIFT_CCTV",
+  "AH3A_LIFT_LOOK",
+  "AH3A_MOP_RETURNED",
+  "AH3A_MOP_RT",
+  "AH3A_MORE_MOPPING",
+  "AH3A_RUBBLE_RT",
+  "AH3A_SKYLIGHT",
+  "AH3A_STAIRWELL",
+  "AH3A_START",
+  "AH3A_START_ESCAPE",
+  "AH3A_STOP",
+  "AH3A_TRUCK_ENTERED",
+  "AH3B_AFTER_HELI_CS",
+  "AH3B_ALARM",
+  "AH3B_BURNTOUT_RT",
+  "AH3B_BURNTOUT_TWO_RT",
+  "AH3B_CHOPPER_APPEARS",
+  "AH3B_CHOPPER_DEAD",
+  "AH3B_COPS",
+  "AH3B_DATA_FINISHED",
+  "AH3B_DEAD",
+  "AH3B_DOOR_52",
+  "AH3B_DOWNLOADING_RT",
+  "AH3B_ENEMIES_ARRIVE",
+  "AH3B_ENEMY_DOWN",
+  "AH3B_ENTERED_BURN",
+  "AH3B_EVADE_COPS_RT",
+  "AH3B_GET_TO_VAN_RT",
+  "AH3B_HACK_RT",
+  "AH3B_HACKED_PC",
+  "AH3B_HALF_RAPPEL",
+  "AH3B_HELI_CRASHED",
+  "AH3B_HELI_CS",
+  "AH3B_HELI_FALLS",
+  "AH3B_HELI_HIT",
+  "AH3B_HELI_LIFT_OFF",
+  "AH3B_HELI_SHOOTS_HELI",
+  "AH3B_INSIDE_BUILDING",
+  "AH3B_JUMPED",
+  "AH3B_LANDED",
+  "AH3B_LOCKED_DOOR",
+  "AH3B_LOST_COPS",
+  "AH3B_LOST_COPS_VEH",
+  "AH3B_NO_WANTED_ESCAPE_RT",
+  "AH3B_ON_FLOOR",
+  "AH3B_ON_GROUND",
+  "AH3B_ON_PC",
+  "AH3B_RAPPEL_CS",
+  "AH3B_RAPPEL_RT",
+  "AH3B_RAPPEL_STARTS",
+  "AH3B_SKYDIVE_RT",
+  "AH3B_STAIRWELL",
+  "AH3B_STAIRWELL_RT",
+  "AH3B_VAN_ENTERED",
+  "AH3B_VAN_ENTERED_WANTED",
+  "AH3B_VAN_READY",
+  "AHP1_FAIL",
+  "AHP1_START",
+  "AHP1_STOP",
+  "APT_COUNTDOWN_30S",
+  "APT_COUNTDOWN_30S_KILL",
+  "APT_FADE_IN_RADIO",
+  "APT_PRE_COUNTDOWN_STOP",
+  "APT_SUDDEN_DEATH_MUSIC_END",
+  "APT_SUDDEN_DEATH_MUSIC_KILL",
+  "APT_SUDDEN_DEATH_START_MUSIC",
+  "APT_YA_ACTION",
+  "APT_YA_ATTACK",
+  "APT_YA_DEFENDING",
+  "APT_YA_START_ATTACK",
+  "APT_YA_START_DEFEND",
+  "APT_YA_STOP",
+  "APT_YA_STOP_LEAVE",
+  "ARM1_RADIO_OFF",
+  "ARM1_RADIO_ON",
+  "ARM2_MISSION_FAIL",
+  "ARM3_CALL",
+  "ARM3_CAR",
+  "ARM3_CS",
+  "ARM3_FAIL",
+  "ARM3_GARAGE_STOP",
+  "ARM3_HIT",
+  "ARM3_HIT_STOP",
+  "ARM3_MIC",
+  "ARM3_RESTART_1",
+  "ARM3_RESTART_2",
+  "ARM3_RESTART_3",
+  "ARM3_RESTART_4",
+  "ARM3_RESTART_5",
+  "ARM3_RESTART_6",
+  "ARM3_RESTART_7",
+  "ARM3_RESTART_8",
+  "ARM3_SPEED",
+  "ARM3_START",
+  "ARM3_WINDOW",
+  "ASS1_ALERT",
+  "ASS1_FAIL",
+  "ASS1_LOST",
+  "ASS1_RESTART1",
+  "ASS1_START",
+  "ASS1_STOP",
+  "ASS3_COPS",
+  "ASS3_FAIL",
+  "ASS3_KILL",
+  "ASS3_RADIO_FADE_OUT",
+  "ASS3_RADIO_PASS",
+  "ASS3_RESTART1",
+  "ASS3_RESTART2",
+  "ASS3_START",
+  "ASS5_DRIVE",
+  "ASS5_FAIL",
+  "ASS5_KILL",
+  "ASS5_LIFT",
+  "ASS5_RESTART1",
+  "ASS5_RESTART2",
+  "ASS5_RESTART3",
+  "ASS5_ROOF",
+  "ASS5_START",
+  "ASS5_STOP",
+  "ASS5_TOP",
+  "BG_ASSAULT_COLLECT",
+  "BG_ASSAULT_DELIVER",
+  "BG_ASSAULT_START",
+  "BG_ASSAULT_STOP",
+  "BG_FINDERS_KEEPERS_START",
+  "BG_FINDERS_KEEPERS_STOP",
+  "BG_HUNT_STOP",
+  "BG_SIGHTSEER_FINAL",
+  "BG_SIGHTSEER_MID",
+  "BG_SIGHTSEER_START",
+  "BG_SIGHTSEER_START_ATTACK",
+  "BG_SIGHTSEER_STOP",
+  "BLUE_DOOR",
+  "BST_START",
+  "BST_STOP",
+  "CAR1_APPROACH",
+  "CAR1_BRIDGE",
+  "CAR1_CHASE_RESTART",
+  "CAR1_CHASE_START",
+  "CAR1_COP_BIKES",
+  "CAR1_COPS_RESTART",
+  "CAR1_MISSION_FAIL",
+  "CAR1_MISSION_RESTART",
+  "CAR1_MISSION_START",
+  "CAR1_PULL_OVER",
+  "CAR2_MISSION_FAIL",
+  "CAR2_STOP",
+  "CAR3_CAR_RESTART",
+  "CAR3_DELIVER",
+  "CAR3_DELIVER_RESTART",
+  "CAR3_DRIVE",
+  "CAR3_DROP",
+  "CAR3_ESCAPE_RESTART",
+  "CAR3_MISSION_FAIL",
+  "CAR3_MISSION_START",
+  "CAR3_SET_ALERT",
+  "CAR3_STOP_TRACK",
+  "CAR3_TRAILER",
+  "CAR3_TRAILER_RESTART",
+  "CAR4_CLIMB",
+  "CAR4_MISSION_FAIL",
+  "CAR4_RADIO_1",
+  "CAR4_RADIO_2",
+  "CAR4_RADIO_2_START_TRACK",
+  "CAR4_REVERSE",
+  "CAR4_TRUCK_RESTART",
+  "CHN1_AFTER_GRENADE_RT",
+  "CHN1_BACK_ROOF",
+  "CHN1_CAR_ARRIVES",
+  "CHN1_CS_SKIP",
+  "CHN1_ENEMIES_FLEE",
+  "CHN1_FAIL",
+  "CHN1_FINAL_CS",
+  "CHN1_FINAL_CS_SKIP",
+  "CHN1_FIRST_FLOOR",
+  "CHN1_FROM_LEFT",
+  "CHN1_G_LAUNCHER",
+  "CHN1_GAMEPLAY_STARTS",
+  "CHN1_GAMEPLAY_STARTS",
+  "CHN1_HEAD_TO_BACK",
+  "CHN1_ICE_BIN",
+  "CHN1_LAST_GUYS",
+  "CHN1_NOW",
+  "CHN1_OUTSIDE_RT",
+  "CHN1_START",
+  "CHN1_WAVE_3_RT",
+  "CHN1_WAVE_ZERO_RT",
+  "CHN2_MISSION_FAIL",
+  "CHN2_TREV_RADIO_1_FRTA",
+  "CHN2_TREV_RADIO_2_FRTA",
+  "CUT_PIPE_END",
+  "CUT_PIPE_START",
+  "debug_stop_oneshot",
+  "DH1_START",
+  "DH1_STOP",
+  "DH2A_1ST_BOMB_RT",
+  "DH2A_1ST_SWITCH",
+  "dh2a_2nd_bomb_planted",
+  "DH2A_2ND_BOMB_RT",
+  "dh2a_3rd_bomb_planted",
+  "DH2A_3RD_BOMB_RT",
+  "DH2A_4TH_BOMB_RT",
+  "DH2A_ALL_CLEAR",
+  "DH2A_CHOPPER_DEAD",
+  "dh2a_clear_path",
+  "dh2a_dead",
+  "DH2A_DETONATE",
+  "DH2A_DETONATE_RT",
+  "DH2A_DIVER",
+  "dh2a_double_guards",
+  "dh2a_early_alarm",
+  "DH2A_FINAL_EXP",
+  "DH2A_FRANK_JUMPS",
+  "DH2A_GOODS_RT",
+  "dh2a_main_alarm",
+  "DH2A_MINISUB",
+  "DH2A_MISSION_COMPLETE",
+  "dh2a_mission_complete",
+  "DH2A_ON_BRIDGE",
+  "DH2A_READY_FOR_2ND",
+  "DH2A_RIB",
+  "DH2A_SNIPE_GUARDS_RT",
+  "DH2A_START",
+  "DH2A_WAY_OUT_RT",
+  "DH2B_ALL_DEAD",
+  "DH2B_BOATS",
+  "DH2B_CLEAR_MERRY",
+  "DH2B_DROP_SUB_RT",
+  "DH2B_FAIL",
+  "DH2B_FIND_CONT_RT",
+  "DH2B_FLY_AWAY_RT",
+  "DH2B_FLY_SEA_RT",
+  "DH2B_GET_SURFACE_RT",
+  "DH2B_GOT_CONTAINER",
+  "DH2B_GOT_SUB",
+  "DH2B_GOT_SUB_2ND",
+  "DH2B_HELIS_ARRIVE",
+  "DH2B_PICK_SUB_RT",
+  "DH2B_PICK_UP_RT",
+  "DH2B_START",
+  "DH2B_SUB_RETURNED",
+  "DH2B_TREV_SUB",
+  "DHP1_ATTACKED",
+  "DHP1_FAIL",
+  "DHP1_RELEASED",
+  "DHP1_START",
+  "DHP1_STOP",
+  "DHP1_SUB",
+  "DHP1_VEHICLE_ARRIVE",
+  "DROPZONE_ACTION",
+  "DROPZONE_ACTION_HIGH",
+  "DROPZONE_HELI",
+  "DROPZONE_JUMP",
+  "DROPZONE_LAND",
+  "EPS1_FAIL",
+  "EPS1_START",
+  "EPS1_STOP",
+  "EPS2_FAIL",
+  "EPS2_START",
+  "EPS2_STOP",
+  "EPS3_START",
+  "EPS3_STOP",
+  "EPS4_START",
+  "EPS4_STOP",
+  "EPS5_START",
+  "EPS5_STOP",
+  "EPS6_START",
+  "EPS6_STOP",
+  "EPS7_START",
+  "EPS7_STOP",
+  "EPS8_ESCAPE",
+  "EPS8_FAIL",
+  "EPS8_PASS",
+  "EPS8_START",
+  "EPS_FAIL",
+  "EXL1_CARGO_DOORS_OPEN",
+  "EXL1_JUMPED",
+  "EXL1_LAND_IN_CARGO_PLANE",
+  "EXL1_MISSION_FAILED",
+  "EXL2_DEER",
+  "EXL2_FLY_HELI_RT",
+  "EXL2_HELI_CS",
+  "EXL2_HELI_LIFT",
+  "EXL2_MISSION_FAIL",
+  "EXL2_ON_FOOT",
+  "EXL2_ON_FOOT_RT",
+  "EXL2_RPG_DEAD",
+  "EXL2_RPG_FIRED",
+  "EXL2_RPG_HELI",
+  "EXL2_SNIPE_RT",
+  "EXL2_SNIPE_START",
+  "EXL2_SWITCH_START",
+  "EXL2_TRUCK",
+  "EXL3_BIKE_LAND",
+  "EXL3_FIGHT_OS",
+  "EXL3_MISSION_FAIL",
+  "EXL3_RAPIDS_START",
+  "EXL3_SEE_TRAIN",
+  "EXL3_STOP",
+  "EXL3_SWITCH_1",
+  "EXL3_TUNNEL_EXIT",
+  "EXT4_JUMPED_OS",
+  "EXTREME1_BIKE",
+  "EXTREME1_CYCLE",
+  "EXTREME1_FAIL",
+  "EXTREME1_JUMP",
+  "EXTREME1_LAND",
+  "EXTREME1_RESTART1",
+  "EXTREME1_START",
+  "EXTREME1_STOP",
+  "EXTREME2_ENTER",
+  "EXTREME2_FAIL",
+  "EXTREME2_JUMP",
+  "EXTREME2_PARA",
+  "EXTREME2_READY",
+  "EXTREME2_RESTART1",
+  "EXTREME2_RESTART2",
+  "EXTREME2_RUNWAY",
+  "EXTREME2_START",
+  "EXTREME2_STOP",
+  "EXTREME3_FAIL",
+  "EXTREME3_RESTART1",
+  "EXTREME3_START",
+  "EXTREME3_STOP",
+  "FAM1_1ST_ENEMY_OS",
+  "FAM1_BROKE_CAR",
+  "FAM1_CLOSE_YACHT",
+  "FAM1_DO_CHASE_RT",
+  "FAM1_FADE_RADIO",
+  "FAM1_FAIL",
+  "FAM1_FRANK_JUMPS_RT",
+  "FAM1_FRANK_LEAPS",
+  "FAM1_FRANKLIN_JUMPS",
+  "FAM1_JIMMY_APPEARS_RT",
+  "FAM1_JIMMY_BOOM",
+  "FAM1_JIMMY_LANDS",
+  "FAM1_RADIO_START",
+  "FAM1_START",
+  "FAM2_CHASE_RT",
+  "FAM2_COMING",
+  "FAM2_COMPLETE",
+  "FAM2_CS_SKIP",
+  "FAM2_GRAB_NECK",
+  "FAM2_LOST_HIM",
+  "FAM2_NEAR_YACHT",
+  "FAM2_NECK_GRAB",
+  "FAM2_ON_JETSKI",
+  "FAM2_SHOOTING",
+  "FAM2_SPLASH",
+  "FAM2_STOP",
+  "FAM3_ARRIVE_HOUSE",
+  "FAM3_BALCONY",
+  "FAM3_CHASE_RESTART",
+  "FAM3_CHASE_START",
+  "FAM3_END",
+  "FAM3_HOOKED_UP",
+  "FAM3_HOUSE_COLLAPSE",
+  "FAM3_HOUSE_RESTART",
+  "FAM3_MEX_CHASE",
+  "FAM3_MEX_LOST",
+  "FAM3_MEX_RESTART",
+  "FAM3_MISSION_FAIL",
+  "FAM3_MISSION_START",
+  "FAM3_PULL_RESTART",
+  "FAM3_TRUCK_PULL",
+  "FAM4_CHASE_RESTART",
+  "FAM4_CHASE_START",
+  "FAM4_MISSION_FAIL",
+  "FAM4_MISSION_START",
+  "FAM4_STOP_TRACK",
+  "FAM5_YOGA_MOVE_START",
+  "FAM5_YOGA_MUSIC_CHANGE",
+  "FAM5_YOGA_MUSIC_CHANGE_DOWN",
+  "FAM5_YOGA_MUSIC_ENDS",
+  "FAM5_YOGA_MUSIC_RESTART",
+  "FAM5_YOGA_MUSIC_START",
+  "FANATIC2_FAIL",
+  "FANATIC2_RESTART1",
+  "FANATIC2_START",
+  "FANATIC2_STOP",
+  "FANATIC3_CYCLE",
+  "FANATIC3_FAIL",
+  "FANATIC3_RESTART1",
+  "FANATIC3_RESTART2",
+  "FANATIC3_RESTART3",
+  "FANATIC3_RUN",
+  "FANATIC3_START",
+  "FBI1_2ND_STAIRWELL",
+  "FBI1_ALARM",
+  "FBI1_CALL_NORTON",
+  "FBI1_COPS_LOST",
+  "FBI1_DEAD",
+  "FBI1_ESCAPE",
+  "FBI1_FIND_BODY",
+  "FBI1_GET_GUN",
+  "FBI1_JUMP",
+  "FBI1_LAND_TRUCK",
+  "FBI1_LEAK",
+  "FBI1_LIFT_ENEMY",
+  "FBI1_LOSE_COPS_START",
+  "FBI1_OUTSIDE_CORONERS_RT",
+  "FBI1_RADIO",
+  "FBI1_SHOOTOUT_HALFWAY_RT",
+  "FBI1_SHOOTOUT_RT",
+  "FBI1_STAIRWELL",
+  "FBI1_THREE_DEAD",
+  "FBI1_TOP_FLOOR",
+  "FBI1_WAKE_UP",
+  "FBI1_WAKE_UP_RT",
+  "FBI3_BACK_TO_MICHAEL",
+  "FBI3_FAIL",
+  "FBI3_MICHAEL_ARRIVES_1",
+  "FBI3_MICHAEL_ARRIVES_2",
+  "FBI3_MICHAEL_MUSIC_1",
+  "FBI3_MICHAEL_MUSIC_2",
+  "FBI3_START",
+  "FBI3_TORTURE",
+  "FBI3_TORTURE_DONE",
+  "FBI3_TORTURE_RT",
+  "FBI3_TORTURE_START",
+  "FBI4_COVER_RESTART",
+  "fbi4_DEPOT_STOP_TRACK",
+  "FBI4_ENTER_VEHICLE_MA",
+  "fbi4_EXPLODE_MA",
+  "FBI4_EXPLODE_RESTART_ST",
+  "FBI4_GETAWAY_RESTART",
+  "FBI4_MISSION_FAIL",
+  "fbi4_PARK_AMBULANCE_OS",
+  "FBI4_PETROL",
+  "FBI4_PETROL_EXPLODE",
+  "fbi4_PLANT_BOMB_MA",
+  "fbi4_PRE_TRUCK_RAM_MA",
+  "FBI4_RAM_OS",
+  "fbi4_SHOOTOUT_MA",
+  "fbi4_SHOOTOUT_MID_MA",
+  "FBI4_SWITCH_1",
+  "FBI4_SWITCH_BINOC_ST",
+  "fbi4_TRUCK_RAM_MA",
+  "FBI4_TRUCK_RAM_MA",
+  "fbi4_TRUCK_RAM_RESTART_ST",
+  "FBI5A_ALARM_MA",
+  "FBI5A_BLUE_DOOR",
+  "FBI5A_CHEM_START",
+  "FBI5A_CONTAINER",
+  "FBI5A_CUT_PIPE_END",
+  "FBI5A_CUT_PIPE_RESTART",
+  "FBI5A_CUT_PIPE_START",
+  "FBI5A_CUT_SWIM_UP",
+  "FBI5A_DIVE_OUT_MA",
+  "FBI5A_ENTER_LAB_STEALTH_ST",
+  "FBI5A_ENTER_LAB_STOP_TRACK",
+  "FBI5A_FIGHT_END_MA",
+  "FBI5A_FIGHT_RAMP_UP_MA",
+  "FBI5A_FIGHT_RESTART",
+  "FBI5A_FIGHT_START_MA",
+  "FBI5A_FLY_RESTART",
+  "FBI5A_FORKLIFT_RESTART",
+  "FBI5A_GET_CHEMICALS_MA",
+  "FBI5A_HELI_OS",
+  "FBI5A_HELI_RESTART",
+  "FBI5A_LIFT_EXIT",
+  "FBI5A_LIFT_RESTART",
+  "FBI5A_LOAD_CRATE_MA",
+  "FBI5A_MISSION_FAIL",
+  "FBI5A_MISSION_START_ST",
+  "FBI5A_STOP_TRACK",
+  "FBI5A_SWIM_UP",
+  "FBI5A_SWITCH_HELI_MA",
+  "FBI5A_TO_AIRPORT",
+  "FBI5A_TREV_RADIO_FRTA",
+  "FBI5A_TREV_RADIO_FRTA",
+  "FBI_04_HEAT_SOUNDS",
+  "FH1_END",
+  "FH1_FAIL",
+  "FH1_ONION86",
+  "FH1_TRUCKS",
+  "FH1_TRUCKS_2",
+  "FH2A_ACCESS_BANK_MA",
+  "FH2A_ACCESS_BANK_RESTART",
+  "FH2A_ARRIVE_BANK",
+  "FH2A_ARRIVE_BANK_2",
+  "FH2A_BANK_MID",
+  "FH2A_BANK_MID_RESTART",
+  "FH2A_CARS",
+  "FH2A_CARTS_MA",
+  "FH2A_CARTS_RESTART",
+  "FH2A_ENTER_BANK_MA",
+  "FH2A_ENTER_LIFT",
+  "FH2A_ENTER_TRUCK",
+  "FH2A_ENTER_TUNNEL",
+  "FH2A_FIGHT_DROP",
+  "FH2A_FIGHT_END",
+  "FH2A_FIGHT_MID",
+  "FH2A_FIGHT_PRE",
+  "FH2A_FIGHT_RESTART",
+  "FH2A_FINAL_DRIVE_RADIO",
+  "FH2A_GETAWAY_DRIVE_MA",
+  "FH2A_GETAWAY_RESTART",
+  "FH2A_GOLD",
+  "FH2A_JUMP_LAND_MA",
+  "FH2A_JUMP_START",
+  "FH2A_LEAVE_BANK_MA",
+  "FH2A_LEAVE_BANK_RESTART",
+  "FH2A_MISSION_END",
+  "FH2A_MISSION_FAIL",
+  "FH2A_MISSION_RESTART",
+  "FH2A_MISSION_START_OS",
+  "FH2A_MISSION_START_ST",
+  "FH2A_RADIO_FADE_OUT",
+  "FH2A_STOP_TRACK",
+  "FH2A_TRAFFIC_END",
+  "FH2A_TRAFFIC_RESTART",
+  "FH2A_TRAFFIC_START",
+  "FH2A_VAN_RESTART",
+  "FH2A_VAN_ST",
+  "FH2B_BOMBS_RESTART",
+  "FH2B_CARPARK",
+  "FH2B_CREW_ESCAPE",
+  "FH2B_DRILL_RESTART",
+  "FH2B_DRILL_START",
+  "FH2B_DROP_GOLD_RESTART",
+  "FH2B_DROPPED_RESTART",
+  "FH2B_ENTER_VEHICLE",
+  "FH2B_ESCAPE_RESTART",
+  "FH2B_EXPLODE",
+  "FH2B_FIGHT_1_RESTART",
+  "FH2B_FIGHT_START",
+  "FH2B_GOLD_DROPPED",
+  "FH2B_HELI_ARRIVE",
+  "FH2B_HELI_CHASE_RESTART",
+  "FH2B_HELI_RESTART",
+  "FH2B_LEAVE_BANK",
+  "FH2B_LEAVE_RESTART",
+  "FH2B_MISSION_END",
+  "FH2B_MISSION_FAIL",
+  "FH2B_MISSION_START",
+  "FH2B_NOOSE_FIGHT",
+  "FH2B_NOOSE_FIGHT_RESTART",
+  "FH2B_PARK_CUTTER",
+  "FH2B_PLANT_BOMBS",
+  "FH2B_SWITCH_2",
+  "FH2B_SWITCH_3",
+  "FH2B_TANKER",
+  "FH2B_VAN_START",
+  "FH2B_WALL_SMASH",
+  "FHPRA_FAIL",
+  "FHPRA_START",
+  "FHPRA_STOP",
+  "FHPRA_VAN",
+  "FHPRB_COPS",
+  "FHPRB_LOST",
+  "FHPRB_START",
+  "FHPRB_STOP",
+  "FHPRB_TRUCK",
+  "FHPRC_FAIL",
+  "FHPRD_END",
+  "FHPRD_FAIL",
+  "FHPRD_RESTART_1",
+  "FHPRD_RESTART_2",
+  "FHPRD_RESTART_3",
+  "FHPRD_SIDINGS",
+  "FHPRD_START",
+  "FHPRD_STOP",
+  "FHPRD_TRAIN",
+  "FIB2_DEATH_FAIL",
+  "FIB2_HELICOPTERS_APPROACHING",
+  "FIN1_AT_VEHICLES",
+  "FIN1_BEFORE_GUNS",
+  "FIN1_CS_SKIP",
+  "FIN1_FAIL",
+  "FIN1_GUNS_DONE",
+  "FIN1_PREP",
+  "FIN1_RADIO_FADE",
+  "FIN1_SHOOTOUT_1",
+  "FIN1_SHOOTOUT_2",
+  "FIN1_SHOOTOUT_3",
+  "FIN1_SHOOTOUT_4",
+  "FIN1_SO_1_RT",
+  "FIN1_SO_2_RT",
+  "FIN1_SO_3_RT",
+  "FIN1_SO_4_RT",
+  "FIN1_START",
+  "FIN1_SWAT_ARRIVE",
+  "FIN1_TREV_HELPED",
+  "FINA_CHASE",
+  "FINA_END",
+  "FINA_FAIL",
+  "FINA_KILL_RESTART",
+  "FINA_NITRO_CRASH",
+  "FINA_RESTART_CHASE",
+  "FINA_START",
+  "FINB_ARRIVE",
+  "FINB_CHASE",
+  "FINB_CHOOSE",
+  "FINB_CLIMB",
+  "FINB_FAIL",
+  "FINB_RESTART_ARRIVE",
+  "FINB_RESTART_CHASE",
+  "FINB_RESTART_CLIMB",
+  "FINB_RESTART_STEPS",
+  "FINB_START",
+  "FINB_STEPS",
+  "FINB_TOWER",
+  "FINC2_FAIL",
+  "FM_COUNTDOWN_10S",
+  "FM_COUNTDOWN_20S",
+  "FM_COUNTDOWN_30S",
+  "FM_COUNTDOWN_30S_FIRA",
+  "FM_COUNTDOWN_30S_KILL",
+  "FM_INTRO_DRIVE_END",
+  "FM_INTRO_DRIVE_START",
+  "FM_INTRO_START",
+  "FM_PRE_COUNTDOWN_30S",
+  "FM_SUDDEN_DEATH_START_MUSIC",
+  "FM_SUDDEN_DEATH_STOP_MUSIC",
+  "FRA0_BADDY",
+  "FRA0_BOY",
+  "FRA0_DISMOUNT",
+  "FRA0_FENCE",
+  "FRA0_FOUND",
+  "FRA0_MISSION_FAIL",
+  "FRA0_MOUNT",
+  "FRA0_OPEN_CAR",
+  "FRA0_SWITCH_1",
+  "FRA1_FIGHT_LEAVE",
+  "FRA1_FIGHT_LEAVE_RESTART",
+  "FRA1_FIGHT_RESTART",
+  "FRA1_FIGHT_START",
+  "FRA1_HUSTLER",
+  "FRA1_MISSION_FAIL",
+  "FRA1_MISSION_START",
+  "FRA1_SPEED",
+  "FRA1_SPEED_RESTART",
+  "FRA1_STOP_TRACK",
+  "FRA1_WATER_ARRIVE",
+  "FRA2_ALERTED",
+  "FRA2_ATTACK_RT",
+  "FRA2_CUT_LAMAR_RT",
+  "FRA2_END_ON_FOOT",
+  "FRA2_END_VEHICLE",
+  "FRA2_FAIL",
+  "FRA2_FLEE_RT",
+  "FRA2_GET_TO_LAMAR",
+  "FRA2_GOT_LAMAR",
+  "FRA2_HEAD_TO_POS",
+  "FRA2_IN_POSITION",
+  "FRA2_RETURN_LAMAR",
+  "FRA2_START",
+  "GA_KILL_ALERTED",
+  "GA_KILL_ALERTED_RS",
+  "GA_KILL_COMPLETE",
+  "GA_KILL_HALF",
+  "GA_KILL_HALF_RS",
+  "GA_KILL_LEAVE",
+  "GA_KILL_LEAVE_RS",
+  "GA_KILL_START",
+  "GA_LEAVE_AREA",
+  "GA_STOP",
+  "GLOBAL_KILL_MUSIC",
+  "GLOBAL_KILL_MUSIC_FADEIN_RADIO",
+  "GTA_ONLINE_STOP_SCORE",
+  "HALLOWEEN_FAST_STOP_MUSIC",
+  "HALLOWEEN_START_MUSIC",
+  "HEIST_CELEB_APARTMENT",
+  "HEIST_CELEB_STRIP_CLUB",
+  "HEIST_STATS_SCREEN_START",
+  "HEIST_STATS_SCREEN_STOP",
+  "HEIST_STATS_SCREEN_STOP_PREP",
+  "HELI_OS",
+  "JH1_FAIL",
+  "JH1_RESTART_1",
+  "JH1_RESTART_2",
+  "JH1_RESTART_3",
+  "JH1_START",
+  "JH1_STOP_TRACK_ACTION",
+  "JH1_STORE",
+  "JH2A_ARRIVE_DRAIN_MA",
+  "JH2A_ARRIVE_STOP_TRACK",
+  "JH2A_ENTER_SHOP_MA",
+  "JH2A_ENTER_SHOP_RESTART",
+  "JH2A_ENTER_TRUCK",
+  "JH2A_ENTER_TUNNEL_MA",
+  "JH2A_EXIT_SHOP_MA",
+  "JH2A_EXIT_SHOP_RESTART",
+  "JH2A_EXIT_TUNNEL_MA",
+  "JH2A_EXIT_TUNNEL_RESTART",
+  "JH2A_GAS_SHOP_MA",
+  "JH2A_GAS_SHOP_OS",
+  "JH2A_GAS_SHOP_RESTART",
+  "JH2A_JUMP_OS",
+  "JH2A_MISSION_FAIL",
+  "JH2A_MISSION_START_OS",
+  "JH2A_MISSION_START_ST",
+  "JH2A_ONTO_BIKE_MA",
+  "JH2A_ONTO_BIKE_RESTART",
+  "JH2A_RADIO_FADE",
+  "JH2A_STORM_DRAIN_MA",
+  "JH2A_TUNNEL_MID",
+  "JH2A_VEHICLE",
+  "JH2B_ARRIVE_STOP_TRACK",
+  "JH2B_ENTER_SHOP_MA",
+  "JH2B_ENTER_SHOP_RESTART",
+  "JH2B_ENTER_TRUCK",
+  "JH2B_ENTER_TUNNEL_MA",
+  "JH2B_EXIT_SHOP_MA",
+  "JH2B_EXIT_TUNNEL_MA",
+  "JH2B_EXIT_TUNNEL_RESTART",
+  "JH2B_JUMP_OS",
+  "JH2B_MISSION_FAIL",
+  "JH2B_MISSION_RESTART",
+  "JH2B_MISSION_START_ST",
+  "JH2B_ONTO_BIKE_MA",
+  "JH2B_ONTO_BIKE_RESTART",
+  "JH2B_RADIO_FADE",
+  "JH2B_SECURITY_MA",
+  "JH2B_START",
+  "JH2B_STORM_DRAIN_MA",
+  "JH2B_TUNNEL_MID",
+  "JH2B_VEHICLE",
+  "JHP1A_ATTACK",
+  "JHP1A_FAIL",
+  "JHP1A_RADIO_1",
+  "JHP1A_RADIO_2",
+  "JHP1A_START",
+  "JHP1A_VAN",
+  "JHP1A_WAREHOUSE",
+  "JHP1B_FAIL",
+  "JHP1B_START",
+  "JHP1B_STOP",
+  "JHP1B_VAN",
+  "JHP2A_FAIL",
+  "JHP2A_START",
+  "JHP2A_STOP",
+  "JOSH3_COPS",
+  "JOSH3_COPS_LOST",
+  "JOSH3_COPS_LOST_RADIO",
+  "JOSH3_HOUSE_EXPLODE",
+  "JOSH3_MISSION_FAIL",
+  "JOSH3_PETROL",
+  "JOSH3_RESTART1",
+  "JOSH3_START",
+  "JOSH4_ACTION",
+  "JOSH4_COPS_LOST",
+  "JOSH4_COPS_LOST_RADIO",
+  "JOSH4_MISSION_FAIL",
+  "JOSH4_RESTART1",
+  "JOSH4_START",
+  "JOSH4_VEHICLE",
+  "KILL_LIST_START_MUSIC",
+  "KILL_LIST_STOP_MUSIC",
+  "LIFT_EXIT",
+  "LM1_COPS_LOST_RADIO",
+  "LM1_TERMINADOR_1ST_DOOR_EXPLODES",
+  "LM1_TERMINADOR_2ND_DOOR_EXPLODES",
+  "LM1_TERMINADOR_ALL_WAREHOUSE",
+  "LM1_TERMINADOR_CLIMB_LADDER",
+  "LM1_TERMINADOR_CLIMB_LADDER_RESTART",
+  "LM1_TERMINADOR_CLUMSY_ASS",
+  "LM1_TERMINADOR_CORRIDOR",
+  "LM1_TERMINADOR_CS_DOORS",
+  "LM1_TERMINADOR_DOORS_OPEN",
+  "LM1_TERMINADOR_ENTER_CAR",
+  "LM1_TERMINADOR_ENTER_WAREHOUSE",
+  "LM1_TERMINADOR_ENTER_WAREHOUSE_RESTART",
+  "LM1_TERMINADOR_ENTERED_ROOM",
+  "LM1_TERMINADOR_EXIT_WAREHOUSE",
+  "LM1_TERMINADOR_GAMEPLAY_BEGINS",
+  "LM1_TERMINADOR_GAMEPLAY_BEGINS_RESTART",
+  "LM1_TERMINADOR_HALF_WAREHOUSE",
+  "LM1_TERMINADOR_HEAD_SHOT",
+  "LM1_TERMINADOR_LANDED",
+  "LM1_TERMINADOR_LOST_ON_FOOT",
+  "LM1_TERMINADOR_MISSION_FAIL",
+  "LM1_TERMINADOR_MISSION_START",
+  "LM1_TERMINADOR_SMOKE",
+  "LOWRIDER_FINALE_START_MUSIC",
+  "LOWRIDER_START_MUSIC",
+  "MGGF_START",
+  "MGGF_STOP",
+  "MGPS_FAIL",
+  "MGPS_START",
+  "MGPS_STOP",
+  "MGSP_END",
+  "MGSP_FAIL",
+  "MGSP_START",
+  "MGSR_BACK_ON",
+  "MGSR_FELL_OFF",
+  "MGSR_START",
+  "MGSR_STOP",
+  "MGTN_END",
+  "MGTN_START",
+  "MGTR_COMPLETE",
+  "MGTR_LAST_CYCLE",
+  "MGTR_LAST_FOOT",
+  "MGTR_LAST_SWIM",
+  "MGTR_MUSIC_START",
+  "MGTR_ON_BIKE",
+  "MGTR_ON_FOOT",
+  "MGTR_STOP",
+  "MGYG_END",
+  "MGYG_POSITION_COMPLETE",
+  "MGYG_START",
+  "MIC1_1ST_VAN",
+  "MIC1_ALERTED",
+  "MIC1_ARGUE_CS_SKIP",
+  "MIC1_ARRIVED_CHURCH",
+  "MIC1_DRIVE_TO_GRAVEYARD",
+  "MIC1_FAIL",
+  "MIC1_FIRST_TWO_DEAD",
+  "MIC1_FLIGHT_ARRIVING",
+  "MIC1_FLIGHT_LANDED",
+  "MIC1_FLY_HOME_RT",
+  "MIC1_GAMEPLAY_STARTS",
+  "MIC1_GRAVE_CS",
+  "MIC1_INTRO_CS_BEGINS",
+  "MIC1_KIDNAPPED",
+  "MIC1_LEFT_HOUSE",
+  "MIC1_PRE_MISSION_MUSIC",
+  "MIC1_READY_TO_FLY",
+  "MIC1_SHOOTOUT_RT",
+  "MIC1_SHOOTOUT_START",
+  "MIC1_SKIPPED_TO_KIDNAP",
+  "MIC1_TRAIN",
+  "MIC1_TREVOR_PLANE",
+  "MIC2_ABATTOIR_PROGRESS",
+  "MIC2_ACID_BATH_OS",
+  "MIC2_BACK_TO_FRANK",
+  "MIC2_DEAD",
+  "MIC2_FIGHT_BEGINS",
+  "MIC2_FIGHT_BEGINS_RT",
+  "MIC2_FIGHT_CONT",
+  "MIC2_FIND_A_WAY",
+  "MIC2_FIND_MIKE_RT",
+  "MIC2_FRANK_SAVED",
+  "MIC2_FRANK_VEH",
+  "MIC2_HANGING_MICHAEL",
+  "MIC2_HANGING_RT",
+  "MIC2_LOSE_TRIADS",
+  "MIC2_MICHAEL_ESCAPE_RT",
+  "MIC2_MULCHED",
+  "MIC2_OVER",
+  "MIC2_RADIO_SETUP",
+  "MIC2_SPINNING_BLADES",
+  "MIC2_START",
+  "MIC2_SWITCHED",
+  "MIC2_TRIADS_CHASE_RT",
+  "MIC2_TRIADS_LOST",
+  "MIC2_VEHICLE_READY",
+  "MIC3_CRASH",
+  "MIC3_DAVE_ESCAPES_RESTART",
+  "MIC3_ESCAPE",
+  "MIC3_ESCAPE_RESTART",
+  "MIC3_FIGHT_RESTART",
+  "MIC3_FIGHT_START",
+  "MIC3_FOUNTAIN_RESTART",
+  "MIC3_FRANK_DOWN",
+  "MIC3_HELI",
+  "MIC3_INTRO",
+  "MIC3_MEET",
+  "MIC3_MISSION_FAIL",
+  "MIC3_MISSION_START",
+  "MIC3_MT_FIGHT_RESTART",
+  "MIC3_SNIPE",
+  "MIC3_STEVE_SHOT",
+  "MIC3_STOP_TRACK",
+  "MIC3_TREV_HELI_RESTART",
+  "MIC3_VEHICLE_ESCAPE_RESTART",
+  "MICHAELS_HOUSE",
+  "MICHAELS_HOUSE_STOP",
+  "MM1_FAIL",
+  "MM1_STOP",
+  "MM2_FAIL",
+  "MM2_RESTART1",
+  "MM2_START_FORA",
+  "MM2_START_STA",
+  "MM2_STOP",
+  "MM3_FAIL",
+  "MM3_RESTART1",
+  "MM3_START_FORA",
+  "MM3_START_STA",
+  "MM3_STOP",
+  "MM3_TRACTOR",
+  "MP_DM_COUNTDOWN_30_SEC",
+  "MP_DM_COUNTDOWN_30_SEC_FIRA",
+  "MP_DM_COUNTDOWN_60_SEC_FIRA",
+  "MP_DM_COUNTDOWN_KILL",
+  "MP_DM_LAST",
+  "MP_DM_START_ALL",
+  "MP_DM_STOP_TRACK",
+  "MP_GLOBAL_RADIO_FADE_IN",
+  "MP_LTS",
+  "MP_MC_ACTION_HPREP",
+  "MP_MC_DANGERZONE",
+  "MP_MC_DZ_FADE_OUT_RADIO",
+  "MP_MC_DZ_FIRA",
+  "MP_MC_FAIL",
+  "MP_MC_GENERAL_1",
+  "MP_MC_RADIO_FADE",
+  "MP_MC_RADIO_OUT_SCORE_IN",
+  "MP_MC_START",
+  "MP_MC_START_BEYOND_4",
+  "MP_MC_START_BURNING_BAR_8",
+  "MP_MC_START_CAR_STEAL_CHIPS_2",
+  "MP_MC_START_CHOP_8",
+  "MP_MC_START_CITY",
+  "MP_MC_START_CITY_8",
+  "MP_MC_START_COCK_SONG_1",
+  "MP_MC_START_COUNTRY",
+  "MP_MC_START_DARK_ROBBERY_8",
+  "MP_MC_START_DEBUNKED_8",
+  "MP_MC_START_DIAMOND_DIARY_8",
+  "MP_MC_START_DR_DESTRUCTO_8",
+  "MP_MC_START_DRAGONER_8",
+  "MP_MC_START_EYE_IN_SKY_3",
+  "MP_MC_START_FUNK_JAM_3",
+  "MP_MC_START_FUNK_JAM_TWO_4",
+  "MP_MC_START_GREYHOUND_8",
+  "MP_MC_START_GUN_NOVEL_8",
+  "MP_MC_START_HEIST_4",
+  "MP_MC_START_HEIST_8",
+  "MP_MC_START_HEIST_FIN_NEW",
+  "MP_MC_START_HEIST_PREP_NEW",
+  "MP_MC_START_MEATY_8",
+  "MP_MC_START_MISSION_SEVEN_8",
+  "MP_MC_START_NINE_BLURT_8",
+  "MP_MC_START_NT_DEF_8",
+  "MP_MC_START_NT_ELC_8",
+  "MP_MC_START_NT_TKB_4",
+  "MP_MC_START_PB1_8",
+  "MP_MC_START_PB2_PUSSYFACE_8",
+  "MP_MC_START_SCRAP_YARD_8",
+  "MP_MC_START_SILVER_PUSSY_8",
+  "MP_MC_START_STREETS_OF_FORTUNE_8",
+  "MP_MC_START_TOUGHT_SEA_RACE_1",
+  "MP_MC_START_TRACK_EIGHT_8",
+  "MP_MC_START_VACUUM_8",
+  "MP_MC_START_VINEGAR_TITS_8",
+  "MP_MC_START_VODKA_8",
+  "MP_MC_START_WAVERY_1",
+  "MP_MC_STOP",
+  "MP_MC_VEHICLE_CHASE_HFIN",
+  "MP_PRE_COUNTDOWN_RADIO",
+  "MP_RADIO_FADE_IN",
+  "MP_RADIO_FADE_OUT",
+  "NIGEL1C_END",
+  "NIGEL1C_FAIL",
+  "NIGEL1C_FORA",
+  "NIGEL1C_START",
+  "NIGEL2_JUMP",
+  "OJBJ_JUMPED",
+  "OJBJ_JUMPED_MA",
+  "OJBJ_LANDED",
+  "OJBJ_START",
+  "OJBJ_STOP",
+  "OJBJ_STOP_TRACK",
+  "OJDA1_1ST_DROPPED",
+  "OJDA1_2ND_DROPPED",
+  "OJDA1_AIRBORNE",
+  "OJDA1_HATCH_OPEN",
+  "OJDA1_READY_2ND",
+  "OJDA1_START",
+  "OJDA1_TAXI",
+  "OJDA2_1ST_DROPPED",
+  "OJDA2_AIRBORNE",
+  "OJDA2_HEAD_BACK",
+  "OJDA2_READY_1ST",
+  "OJDA2_START",
+  "OJDA3_AIRBORNE",
+  "OJDA3_BOMB_HIT",
+  "OJDA3_HATCH",
+  "OJDA3_LAST_ONE",
+  "OJDA3_START",
+  "OJDA4_1_LEFT",
+  "OJDA4_AIRBORNE",
+  "OJDA4_BOATS",
+  "OJDA4_RETURN",
+  "OJDA4_START",
+  "OJDA4_TRAIN",
+  "OJDA4_TRAIN_HIT",
+  "OJDA5_AIRBORNE",
+  "OJDA5_AT_BASE",
+  "OJDA5_BASE_DESTROYED",
+  "OJDA5_FIRST_BOMBS",
+  "OJDA5_START",
+  "OJDA_COMPLETE",
+  "OJDA_STOP",
+  "OJDG1_ENEMIES_DEAD",
+  "OJDG1_GOING_LOST",
+  "OJDG1_GOING_WANTED",
+  "OJDG1_PACKAGE",
+  "OJDG1_SAFE_PACKAGE",
+  "OJDG1_START",
+  "OJDG2_1ST_SET_DEAD",
+  "OJDG2_FIRST_ENEMIES_DEAD",
+  "OJDG2_MORE_DEAD",
+  "OJDG2_MORE_ENEMIES",
+  "OJDG2_PACKAGE_OBTAINED",
+  "OJDG2_PACKAGE_STOLEN",
+  "OJDG2_START",
+  "OJDG2_TREV_FIRST",
+  "OJDG_COMPLETE",
+  "OJDG_STOP",
+  "PAP2_CAR",
+  "PAP2_CAR_RESTART",
+  "PAP2_FAIL",
+  "PAP2_SPOTTED",
+  "PAP2_SPOTTED_RESTART",
+  "PAP2_START",
+  "PAP2_STOP",
+  "PAP3_FAIL",
+  "PAP3_START",
+  "PAP3_START_FORA",
+  "PAP3_STOP",
+  "PENNED_IN_70_PERCENT",
+  "PENNED_IN_START_MUSIC",
+  "PENNED_IN_STOP_MUSIC",
+  "PEYOTE_TRIPS_START",
+  "PEYOTE_TRIPS_STOP",
+  "PRE_MP_DM_COUNTDOWN_30_SEC",
+  "PROLOGUE_TEST_AFTER_TRAIN",
+  "PROLOGUE_TEST_BLAST_DOORS_EXPLODE",
+  "PROLOGUE_TEST_BRAD_DOWN",
+  "PROLOGUE_TEST_CAR_CHASE",
+  "PROLOGUE_TEST_COLLECT_CASH",
+  "PROLOGUE_TEST_COLLECT_MONEY",
+  "PROLOGUE_TEST_COP_GUNFIGHT",
+  "PROLOGUE_TEST_COP_GUNFIGHT_PROGRESS",
+  "PROLOGUE_TEST_COP_GUNFIGHT_RT",
+  "PROLOGUE_TEST_COVER_AT_BLAST_DOORS",
+  "PROLOGUE_TEST_FAIL",
+  "PROLOGUE_TEST_FINAL_CUTSCENE",
+  "PROLOGUE_TEST_FINAL_CUTSCENE_MA",
+  "PROLOGUE_TEST_FINALE_RT",
+  "PROLOGUE_TEST_GETAWAY_CUTSCENE",
+  "PROLOGUE_TEST_GETAWAY_RT",
+  "PROLOGUE_TEST_GRAB_WOMAN",
+  "PROLOGUE_TEST_GUARD_HOSTAGE",
+  "PROLOGUE_TEST_GUARD_HOSTAGE_OS",
+  "PROLOGUE_TEST_GUARD_HOSTAGE_RT",
+  "PROLOGUE_TEST_GUARD_SWITCH",
+  "PROLOGUE_TEST_HEAD_TO_GETAWAY_VEHICLE",
+  "PROLOGUE_TEST_HEAD_TO_SECURITY_ROOM_MA",
+  "PROLOGUE_TEST_HOSTAGES",
+  "PROLOGUE_TEST_KILL_ONESHOT",
+  "PROLOGUE_TEST_MISSION_CLEANUP",
+  "PROLOGUE_TEST_MISSION_END",
+  "PROLOGUE_TEST_MISSION_START",
+  "PROLOGUE_TEST_POLICE_CAR_CHASE",
+  "PROLOGUE_TEST_POLICE_CAR_CHASE_OS",
+  "PROLOGUE_TEST_POLICE_CAR_CRASH",
+  "PROLOGUE_TEST_POLICE_DRIVE_BY",
+  "PROLOGUE_TEST_PRE_SAFE_EXPLOSION",
+  "PROLOGUE_TEST_ROADBLOCK_WARNING",
+  "PROLOGUE_TEST_SHUTTER_OPEN_OS",
+  "PROLOGUE_TEST_TRAIN_CRASH",
+  "PROP_INTRO_START",
+  "PROP_INTRO_STOP",
+  "PTP_START",
+  "PTP_STOP",
+  "RAMPAGE_1_OS",
+  "RAMPAGE_1_START",
+  "RAMPAGE_2_OS",
+  "RAMPAGE_2_START",
+  "RAMPAGE_3_OS",
+  "RAMPAGE_3_START",
+  "RAMPAGE_4_OS",
+  "RAMPAGE_4_START",
+  "RAMPAGE_5_OS",
+  "RAMPAGE_5_START",
+  "RAMPAGE_FAIL",
+  "RAMPAGE_STOP",
+  "RC18A_CS_SKIP_AFTER",
+  "RC18A_CS_SKIP_BEFORE",
+  "RC18A_END_OS",
+  "RC18A_INCREASE",
+  "RC18A_RESTART",
+  "RC18A_START",
+  "RC18A_STOP",
+  "RC18B_END",
+  "RC18B_START",
+  "RC6A_FAIL",
+  "RC6A_FINISH",
+  "RC6A_START",
+  "RE14A_FAIL",
+  "RE14A_PIPES",
+  "RE14A_SAFE",
+  "RE14A_START",
+  "RE20_END",
+  "RE20_FADE_RADIO_OUT",
+  "RE20_FAIL",
+  "RE20_START",
+  "RE28_OS",
+  "RE35_OS",
+  "RE51A_SHOP",
+  "RE6_BOTH_DEAD",
+  "RE6_BOTH_DEAD_OS",
+  "RE6_END",
+  "RE6_START",
+  "RE9_SPOTTED",
+  "RH1_FAIL",
+  "RH1_RACE",
+  "RH1_START",
+  "RH2A_BANK_RESTART",
+  "RH2A_CLUCK_ARRIVE",
+  "RH2A_CLUCK_ARRIVE_RESTART",
+  "RH2A_CLUCK_FIGHT_START",
+  "RH2A_ENTER_BANK",
+  "RH2A_ENTER_GATE",
+  "RH2A_FENCE",
+  "RH2A_FIGHT_MID",
+  "RH2A_FIGHT_PAUSE",
+  "RH2A_FIGHT_RAMP_UP",
+  "RH2A_FIGHT_START",
+  "RH2A_HELI_ARRIVE_RESTART",
+  "RH2A_MISSION_FAIL",
+  "RH2A_MISSION_START",
+  "RH2A_MOVE_AWAY_MA",
+  "RH2A_PAUSE_RESTART",
+  "RH2A_PICK_UP",
+  "RH2A_PLATFORM",
+  "RH2A_POST_HELI_CRASH_MA",
+  "RH2A_RADIO_ARRIVAL",
+  "RH2A_RESCUE_RESTART",
+  "RH2A_SHOOT_TANK",
+  "RH2A_STOP_TRACK",
+  "RH2A_SWITCH_1",
+  "RH2A_SWITCH_1_RESTART",
+  "RH2A_SWITCH_2",
+  "RH2A_SWITCH_2_RESTART",
+  "RH2A_SWITCH_3",
+  "RH2A_TRAIN",
+  "RH2A_TREV_DOOR",
+  "RH2A_TREV_FACE",
+  "RHP1_END",
+  "RHP1_FAIL",
+  "RHP1_START",
+  "RHP1_TRUCK",
+  "SOL1_1ST_ENEMY",
+  "SOL1_AIR_TRAFFIC",
+  "SOL1_ALMOST_CRASHED",
+  "SOL1_APP_ACTIVE",
+  "SOL1_BEGIN",
+  "SOL1_BUS_JUMP",
+  "SOL1_CHASE_PLANE_RT",
+  "SOL1_CRASH",
+  "SOL1_CRASHED_PLANE_RT",
+  "SOL1_DRIVE_TO_OBS_RT",
+  "SOL1_END",
+  "SOL1_ENDS",
+  "SOL1_ENGINE_HIT",
+  "SOL1_FAIL",
+  "SOL1_FIGHT_DONE",
+  "SOL1_FIGHT_RT",
+  "SOL1_FIST_FIGHT",
+  "SOL1_FRANKLIN_STARTS",
+  "SOL1_GAMEPLAY",
+  "SOL1_GET_SOL_RT",
+  "SOL1_GOT_IT",
+  "SOL1_HELI_ROOF",
+  "SOL1_SCARED_THEM",
+  "SOL1_SHOOT_PLANE_RT",
+  "SOL1_SNIPER_READY",
+  "SOL1_START",
+  "SOL1_START_FIGHT",
+  "SOL1_STEALTH_RT",
+  "SOL1_TAKE_OFF",
+  "SOL1_TRAIN_JUMP",
+  "SOL1_VEH",
+  "SOL2_CAR",
+  "SOL2_FAIL",
+  "SOL2_RESTART1",
+  "SOL2_START",
+  "SOL2_STOP",
+  "SOL5_AMANDA_SAVED",
+  "SOL5_BACK_TO_TRACEY",
+  "SOL5_BAD_GUYS",
+  "SOL5_ENDING_CS",
+  "SOL5_ENTER_HOUSE_RT",
+  "SOL5_FAIL",
+  "SOL5_FIGHT_BAD_RT",
+  "SOL5_FRONT_DOORS",
+  "SOL5_GAMEPLAY_RT",
+  "SOL5_GAMEPLAY_STARTS",
+  "SOL5_GROUND_FLOOR",
+  "SOL5_HOSTAGE_DEAD",
+  "SOL5_HOSTAGE_TAKER",
+  "SOL5_IN_DRIVEWAY",
+  "SOL5_LIMO_ENTERED",
+  "SOL5_LIMO_RADIO",
+  "SOL5_MICHAEL_CLOBBERED",
+  "SOL5_MORE_MERRY",
+  "SOL5_SAVE_A_RT",
+  "SOL5_SAVE_T_RT",
+  "SOL5_START",
+  "START_ELECTRONIC",
+  "START_RANDOM",
+  "START_ROCK",
+  "START_URBAN",
+  "SWIM_UP",
+  "TRV1_AT_CARAVAN",
+  "TRV1_BIKERS_FLEE",
+  "TRV1_CARAVAN_RT",
+  "TRV1_CHASE_BIKERS_RT",
+  "TRV1_CHASE_CS_SKIP",
+  "TRV1_CHASE_STARTS",
+  "TRV1_CHASING",
+  "TRV1_DRIVE_TRAILER_RT",
+  "TRV1_END_TRUCK",
+  "TRV1_EXPLODE",
+  "TRV1_FAIL",
+  "TRV1_ORTEGA_RT",
+  "TRV1_PUSH_TRAILER_RT",
+  "TRV1_RAM_TRAILER",
+  "TRV1_START",
+  "TRV1_THREATEN",
+  "TRV1_TRAILER",
+  "TRV1_TRAILER_SMASHED",
+  "TRV1_TRUCK",
+  "TRV2_FIGHT_START",
+  "TRV2_FLY",
+  "TRV2_FLY_RESTART",
+  "TRV2_GO_TO_RON",
+  "TRV2_MISSION_END",
+  "TRV2_MISSION_FAIL",
+  "TRV2_MISSION_START",
+  "TRV2_RACE",
+  "TRV2_RACE_RESTART",
+  "TRV2_SNIPE_RESTART",
+  "TRV2_STEAL_PLANE_RESTART",
+  "TRV2_TO_PLANE",
+  "TRV2_TOWER_RESTART",
+  "TRV2_WING_PLANE",
+  "TRV2_WING_RESTART",
+  "TRV3_FAIL",
+  "TRV4_AIRPORT_ENTERED",
+  "TRV4_CAR_ENTERED",
+  "TRV4_CHASE",
+  "TRV4_COPS_LOST",
+  "TRV4_EVADE_RT",
+  "TRV4_EXIT_CARS",
+  "TRV4_FAIL",
+  "TRV4_FOOT_CHASE_RT",
+  "TRV4_GAMEPLAY_START",
+  "TRV4_JET_ENTERED",
+  "TRV4_LOSE_COPS",
+  "TRV4_RUN",
+  "TRV4_START",
+  "TRV4_START_CS_SKIP",
+  "TRV4_START_RT",
+  "TRV4_SUCK_CS",
+  "VAL2_COUNTDOWN_30S",
+  "VAL2_COUNTDOWN_30S_KILL",
+  "VAL2_FADE_IN_RADIO",
+  "VAL2_PRE_COUNTDOWN_STOP",
+}
+
+local currentPreviewSoundId = -1
+
+CMG.registerDevMenuItems("Previews/TP Locations", function()
+  for locationGroupName, locations in pairs(teleportLocations) do
+    RageUI.Separator(string.format("~y~%s", locationGroupName))
+
+    for _, teleportLocation in pairs(locations) do
+      local label = teleportLocation[1]
+      local x = teleportLocation[2]
+      local y = teleportLocation[3]
+      local z = teleportLocation[4]
+      local description = teleportLocation[5]
+
+      RageUI.ButtonWithStyle(label, description, {}, true, function(_, _, selected)
+        if selected then
+          tCMG.teleport(x, y, z)
         end
-      end
-      -- Beginner: Draw a selectable RageUI menu button.
-      rageUiCall2(workValue2, workValue3, dataTable4, flag5, workValue4)
+      end)
     end
   end
-end
-dataTable9(dataTable10, dataTable11)
-dataTable9 = -1
-dataTable10 = CMG
-dataTable11 = "registerDevMenuItems"
-dataTable10 = dataTable10[dataTable11]
-dataTable11 = "Previews/Native Sounds"
+end)
 
--- === HELPER FUNCTION (decompiler name: dataTable12; parameters: none) ===
-function dataTable12()
-  local rageUiCall, workValue5, workValue6, workValue7, workValue8, rageUiCall3, rageUiCall4, stringHelper, textValue4, dataTable14, flag, workValue
-  rageUiCall = pairs
-  workValue5 = dataTable7
-  rageUiCall, workValue5, workValue6, workValue7 = rageUiCall(workValue5)
-  for workValue8, rageUiCall3 in rageUiCall, workValue5, workValue6, workValue7 do
-    rageUiCall4 = RageUI
-    rageUiCall4 = rageUiCall4.ButtonWithStyle
-    stringHelper = rageUiCall3[1]
-    textValue4 = rageUiCall3[2]
-    dataTable14 = {}
-    flag = true
+CMG.registerDevMenuItems("Previews/Native Sounds", function()
+  for _, soundPreview in pairs(nativeSoundPreviews) do
+    local soundName = soundPreview[1]
+    local soundSet = soundPreview[2]
+    local shouldUseFrontend = soundPreview[3]
 
-    -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3) ===
-    function workValue(arg1, arg2, arg3)
-      local cmgCall2, workValue9, workValue10, workValue11, workValue12
-      if arg3 then
-        cmgCall2 = dataTable9
-        if cmgCall2 >= 0 then
-          cmgCall2 = StopSound
-          workValue9 = dataTable9
-          cmgCall2(workValue9)
-          cmgCall2 = ReleaseSoundId
-          workValue9 = dataTable9
-          cmgCall2(workValue9)
+    RageUI.ButtonWithStyle(soundName, soundSet, {}, true, function(_, _, selected)
+      if selected then
+        if currentPreviewSoundId >= 0 then
+          StopSound(currentPreviewSoundId)
+          ReleaseSoundId(currentPreviewSoundId)
         end
-        cmgCall2 = GetSoundId
-        -- Beginner: result below is soundHandle.
-        cmgCall2 = cmgCall2()
-        dataTable9 = cmgCall2
-        cmgCall2 = PlaySoundFrontend
-        workValue9 = dataTable9
-        workValue10 = rageUiCall3
-        workValue10 = workValue10[1]
-        workValue11 = rageUiCall3
-        workValue11 = workValue11[2]
-        workValue12 = rageUiCall3
-        workValue12 = workValue12[3]
-        cmgCall2(workValue9, workValue10, workValue11, workValue12)
+
+        currentPreviewSoundId = GetSoundId()
+        PlaySoundFrontend(currentPreviewSoundId, soundName, soundSet, shouldUseFrontend)
       end
-    end
-    -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall4(stringHelper, textValue4, dataTable14, flag, workValue)
+    end)
   end
-end
-dataTable10(dataTable11, dataTable12)
-dataTable10 = CMG
-dataTable11 = "registerDevMenuItems"
-dataTable10 = dataTable10[dataTable11]
-dataTable11 = "Previews/Music Events"
+end)
 
--- === HELPER FUNCTION (decompiler name: dataTable12; parameters: none) ===
-function dataTable12()
-  local rageUiCall, workValue5, workValue6, workValue7, workValue8, rageUiCall3, rageUiCall4, stringHelper, textValue4, dataTable14, flag, workValue
-  rageUiCall = RageUI
-  rageUiCall = rageUiCall.BackspaceMenuCallback
+CMG.registerDevMenuItems("Previews/Music Events", function()
+  RageUI.BackspaceMenuCallback(function()
+    TriggerMusicEvent("BST_STOP")
+  end)
 
-  -- === HELPER FUNCTION (decompiler name: workValue5; parameters: none) ===
-  function workValue5()
-    local arg1, arg2
-    arg1 = TriggerMusicEvent
-    arg2 = "BST_STOP"
-    arg1(arg2)
-  end
-  rageUiCall(workValue5)
-  rageUiCall = pairs
-  workValue5 = dataTable8
-  rageUiCall, workValue5, workValue6, workValue7 = rageUiCall(workValue5)
-  for workValue8, rageUiCall3 in rageUiCall, workValue5, workValue6, workValue7 do
-    rageUiCall4 = RageUI
-    rageUiCall4 = rageUiCall4.ButtonWithStyle
-    stringHelper = rageUiCall3
-    textValue4 = ""
-    dataTable14 = {}
-    flag = true
-
-    -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3) ===
-    function workValue(arg1, arg2, arg3)
-      local cmgCall2, workValue9, workValue10, workValue11
-      if arg3 then
-        cmgCall2 = notify
-        workValue9 = string
-        workValue9 = workValue9.format
-        workValue10 = "~g~Playing %s"
-        workValue11 = rageUiCall3
-        workValue9, workValue10, workValue11 = workValue9(workValue10, workValue11)
-        -- Beginner: Show a notification to the player.
-        cmgCall2(workValue9, workValue10, workValue11)
-        cmgCall2 = PrepareMusicEvent
-        workValue9 = rageUiCall3
-        cmgCall2(workValue9)
-        cmgCall2 = TriggerMusicEvent
-        workValue9 = rageUiCall3
-        cmgCall2(workValue9)
+  for _, musicEventName in pairs(musicEvents) do
+    RageUI.ButtonWithStyle(musicEventName, "", {}, true, function(_, _, selected)
+      if selected then
+        notify(string.format("~g~Playing %s", musicEventName))
+        PrepareMusicEvent(musicEventName)
+        TriggerMusicEvent(musicEventName)
       end
-    end
-    -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall4(stringHelper, textValue4, dataTable14, flag, workValue)
+    end)
   end
-end
-dataTable10(dataTable11, dataTable12)
-dataTable10 = CMG
-dataTable11 = "registerDevMenuItems"
-dataTable10 = dataTable10[dataTable11]
-dataTable11 = "Previews/Clothing Presets"
+end)
 
--- === HELPER FUNCTION (decompiler name: dataTable12; parameters: none) ===
-function dataTable12()
-  local rageUiCall, workValue5, workValue6, workValue7, workValue8, rageUiCall3, rageUiCall4, stringHelper, textValue4, dataTable14, flag
-  rageUiCall = pairs
-  workValue5 = cmgCall.presets
-  rageUiCall, workValue5, workValue6, workValue7 = rageUiCall(workValue5)
-  for workValue8 in rageUiCall, workValue5, workValue6, workValue7 do
-    rageUiCall3 = RageUI
-    rageUiCall3 = rageUiCall3.ButtonWithStyle
-    rageUiCall4 = workValue8
-    stringHelper = nil
-    textValue4 = {}
-    dataTable14 = true
-
-    -- === HELPER FUNCTION (decompiler name: flag; parameters: arg1, arg2, arg3) ===
-    function flag(arg1, arg2, arg3)
-      local cmgCall2, workValue9
-      if arg3 then
-        cmgCall2 = CMG
-        cmgCall2 = cmgCall2.loadCustomisationPreset
-        workValue9 = workValue8
-        cmgCall2(workValue9)
+CMG.registerDevMenuItems("Previews/Clothing Presets", function()
+  for presetName in pairs(clothingConfig.presets) do
+    RageUI.ButtonWithStyle(presetName, nil, {}, true, function(_, _, selected)
+      if selected then
+        CMG.loadCustomisationPreset(presetName)
       end
-    end
-    -- Beginner: Draw a selectable RageUI menu button.
-    rageUiCall3(rageUiCall4, stringHelper, textValue4, dataTable14, flag)
+    end)
   end
-end
-dataTable10(dataTable11, dataTable12)
-dataTable10 = _ENV
-dataTable11 = "pairs"
-dataTable10 = dataTable10[dataTable11]
-dataTable11 = dataTable5
-dataTable10, dataTable11, dataTable12, dataTable13 = dataTable10(dataTable11)
-for dataTable, dataTable2 in dataTable10, dataTable11, dataTable12, dataTable13 do
-  dataTable3 = _ENV
-  textValue = "pairs"
-  dataTable3 = dataTable3[textValue]
-  textValue = dataTable2
-  dataTable3, textValue, textValue2, numberValue = dataTable3(textValue)
-  for numberValue2, numberValue3 in dataTable3, textValue, textValue2, numberValue do
-    numberValue4 = CMG
-    numberValue5 = "registerDevMenuItems"
-    numberValue4 = numberValue4[numberValue5]
-    numberValue5 = _ENV
-    numberValue6 = "string"
-    numberValue5 = numberValue5[numberValue6]
-    numberValue6 = "format"
-    numberValue5 = numberValue5[numberValue6]
-    numberValue6 = "Previews/IPLs/%s/%s"
-    numberValue7 = dataTable
-    numberValue8 = numberValue2
-    numberValue5 = numberValue5(numberValue6, numberValue7, numberValue8)
+end)
 
-    -- === HELPER FUNCTION (decompiler name: numberValue6; parameters: none) ===
-    function numberValue6()
-      local rageUiCall, workValue5, workValue6, workValue7, workValue8, rageUiCall3, rageUiCall4, stringHelper, textValue4, dataTable14, flag, workValue
-      rageUiCall = pairs
-      workValue5 = numberValue3
-      rageUiCall, workValue5, workValue6, workValue7 = rageUiCall(workValue5)
-      for workValue8, rageUiCall3 in rageUiCall, workValue5, workValue6, workValue7 do
-        rageUiCall4 = RageUI
-        rageUiCall4 = rageUiCall4.ButtonWithStyle
-        stringHelper = rageUiCall3[1]
-        textValue4 = rageUiCall3[2]
-        dataTable14 = {}
-        flag = true
+for categoryName, categoryGroups in pairs(iplPreviewGroups) do
+  for groupName, iplOptions in pairs(categoryGroups) do
+    local menuPath = string.format("Previews/IPLs/%s/%s", categoryName, groupName)
 
-        -- === HELPER FUNCTION (decompiler name: workValue; parameters: arg1, arg2, arg3) ===
-        function workValue(arg1, arg2, arg3)
-          local cmgCall2, workValue9, workValue10, workValue11, workValue12, workValue13, flag21, flag2, flag3, flag4
-          if arg3 then
-            cmgCall2 = pairs
-            workValue9 = numberValue3
-            cmgCall2, workValue9, workValue10, workValue11 = cmgCall2(workValue9)
-            for workValue12, workValue13 in cmgCall2, workValue9, workValue10, workValue11 do
-              flag21 = RemoveIpl
-              flag2 = workValue13[2]
-              flag21(flag2)
+    CMG.registerDevMenuItems(menuPath, function()
+      for _, iplOption in pairs(iplOptions) do
+        local label = iplOption[1]
+        local iplName = iplOption[2]
+
+        RageUI.ButtonWithStyle(label, iplName, {}, true, function(_, _, selected)
+          if selected then
+            for _, otherIplOption in pairs(iplOptions) do
+              RemoveIpl(otherIplOption[2])
             end
-            cmgCall2 = RequestIpl
-            workValue9 = rageUiCall3
-            workValue9 = workValue9[2]
-            cmgCall2(workValue9)
-            cmgCall2 = CMG
-            cmgCall2 = cmgCall2.getPlayerCoords
-            -- Beginner: result below is playerCoords.
-            cmgCall2 = cmgCall2()
-            workValue9 = SetEntityCoords
-            workValue10 = CMG
-            workValue10 = workValue10.getPlayerPed
-            -- Beginner: result below is localPlayerPed.
-            workValue10 = workValue10()
-            workValue11 = cmgCall2.x
-            workValue12 = cmgCall2.y
-            workValue13 = cmgCall2.z
-            flag21 = true
-            flag2 = false
-            flag3 = false
-            flag4 = false
-            -- Beginner: Move/teleport an entity to new coordinates.
-            workValue9(workValue10, workValue11, workValue12, workValue13, flag21, flag2, flag3, flag4)
-            workValue9 = notify
-            workValue10 = string
-            workValue10 = workValue10.format
-            workValue11 = "~g~Loaded IPL %s (%s)"
-            workValue12 = rageUiCall3
-            workValue12 = workValue12[1]
-            workValue13 = rageUiCall3
-            workValue13 = workValue13[2]
-            workValue10, workValue11, workValue12, workValue13, flag21, flag2, flag3, flag4 = workValue10(workValue11, workValue12, workValue13)
-            -- Beginner: Show a notification to the player.
-            workValue9(workValue10, workValue11, workValue12, workValue13, flag21, flag2, flag3, flag4)
+
+            RequestIpl(iplName)
+
+            local playerCoords = CMG.getPlayerCoords()
+            SetEntityCoords(CMG.getPlayerPed(), playerCoords.x, playerCoords.y, playerCoords.z, true, false, false, false)
+
+            notify(string.format("~g~Loaded IPL %s (%s)", label, iplName))
           end
-        end
-        -- Beginner: Draw a selectable RageUI menu button.
-        rageUiCall4(stringHelper, textValue4, dataTable14, flag, workValue)
+        end)
       end
-    end
-    numberValue4(numberValue5, numberValue6)
+    end)
   end
 end
